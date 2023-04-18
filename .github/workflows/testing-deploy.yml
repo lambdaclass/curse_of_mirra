@@ -1,0 +1,63 @@
+name: Deploy to testing
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-deploy:
+    name: Build and deploy to testing
+    runs-on: ubuntu-latest
+    environment:
+      name: testing
+      url: https://testing.dark-worlds.lambdaclass.com/
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3.5.0
+
+    - name: Create ssh private key file from env var
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      run: |
+        set -ex
+        sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519_testing
+        chmod 400 id_ed25519_testing
+
+    - name: Copy deploy script to server
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+        SCRIPT_SRC: "deploy.sh"
+        SCRIPT_DEST: "/root/deploy-script/"
+      run: |
+        set -ex
+        scp -o StrictHostKeyChecking=no \
+            -i id_ed25519_testing \
+            -P ${SSH_PORT} \
+            ${SCRIPT_SRC} \
+            ${SSH_USERNAME}@${SSH_HOST}:${SCRIPT_DEST}
+
+    - name: Execute deploy script
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+        MIX_ENV: ${{ vars.MIX_ENV }}
+        PHX_SERVER: ${{ vars.PHX_SERVER }}
+        PHX_HOST: ${{ vars.PHX_HOST }}
+        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      run: |
+        set -ex
+        ssh -o StrictHostKeyChecking=no \
+            -i id_ed25519_testing \
+            -p ${SSH_PORT} \
+            ${SSH_USERNAME}@${SSH_HOST} \
+              MIX_ENV=${MIX_ENV} \
+              PHX_SERVER=${PHX_SERVER} \
+              PHX_HOST=${PHX_HOST} \
+              SECRET_KEY_BASE=${SECRET_KEY_BASE} \
+              /root/deploy-script/deploy.sh

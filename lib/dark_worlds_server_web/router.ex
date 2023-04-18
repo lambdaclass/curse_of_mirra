@@ -32,6 +32,7 @@ defmodule DarkWorldsServerWeb.Router do
     pipe_through [:browser, :game]
 
     live "/board", BoardLive.Index
+    live "/board/:game_id", BoardLive.Index
   end
 
   # Enable Swoosh mailbox preview in development

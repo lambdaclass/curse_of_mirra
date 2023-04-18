@@ -10,7 +10,7 @@ import Config
 # Configures the endpoint
 dispatch = [
   _: [
-    {"/play", DarkWorldsServerWeb.PlayWebSocket, []},
+    {"/play/[:game_id]", DarkWorldsServerWeb.PlayWebSocket, []},
     {:_, Plug.Cowboy.Handler, {DarkWorldsServerWeb.Endpoint, []}}
   ]
 ]

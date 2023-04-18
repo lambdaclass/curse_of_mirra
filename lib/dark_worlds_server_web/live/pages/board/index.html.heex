@@ -1,4 +1,5 @@
 <div class="container">
+  <p>Game session: <%= :erlang.term_to_binary(@runner_pid) |> Base.encode64() %></p>
   <div class="board">
     <%= for row <- @grid do %>
       <div class="row">

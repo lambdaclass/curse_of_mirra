@@ -1,35 +1,35 @@
 defmodule DarkWorldsServer.Engine.Runner do
-  use GenServer
+  use GenServer, restart: :transient
 
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.{ActionOk}
 
   @players 2
   @board {10, 10}
+  # 5 minutes in milliseconds
+  @session_timeout_ms 5 * 60 * 1000
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: __MODULE__)
+    GenServer.start_link(__MODULE__, args)
   end
 
   def init(_opts) do
     state = Game.new(number_of_players: @players, board: @board)
     IO.inspect(state)
-    {:ok, state}
+    IO.inspect("To join: #{self() |> :erlang.term_to_binary() |> Base.encode64()}")
+    {:ok, state, @session_timeout_ms}
   end
 
-  def play(%ActionOk{} = action) do
-    __MODULE__
-    |> GenServer.cast({:play, action})
+  def play(runner_pid, %ActionOk{} = action) do
+    GenServer.cast(runner_pid, {:play, action})
   end
 
-  def get_board do
-    __MODULE__
-    |> GenServer.call(:get_board)
+  def get_board(runner_pid) do
+    GenServer.call(runner_pid, :get_board)
   end
 
-  def get_players do
-    __MODULE__
-    |> GenServer.call(:get_players)
+  def get_players(runner_pid) do
+    GenServer.call(runner_pid, :get_players)
   end
 
   def handle_cast({:play, %ActionOk{action: :move, player: player, value: value}}, state) do
@@ -40,7 +40,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast("game_play", {:move, state.board})
 
-    {:noreply, state}
+    {:noreply, state, @session_timeout_ms}
   end
 
   def handle_cast({:play, %ActionOk{action: :attack, player: player, value: value}}, state) do
@@ -55,10 +55,15 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_call(:get_board, _from, %Game{board: board} = state) do
-    {:reply, board, state}
+    {:reply, board, state, @session_timeout_ms}
   end
 
   def handle_call(:get_players, _from, %Game{players: players} = state) do
-    {:reply, players, state}
+    {:reply, players, state, @session_timeout_ms}
+  end
+
+  def handle_info(:timeout, state) do
+    IO.inspect(self(), label: "session timeout")
+    {:stop, :normal, state}
   end
 end
