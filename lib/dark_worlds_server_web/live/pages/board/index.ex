@@ -62,4 +62,8 @@ defmodule DarkWorldsServerWeb.BoardLive.Index do
       |> assign(:players, game.players)
     }
   end
+
+  def handle_event("update_ping", %{"ping" => ping}, socket) do
+    {:noreply, assign(socket, :ping, ping)}
+  end
 end

@@ -1,6 +1,7 @@
 <div class="container">
   <%= if assigns[:runner_pid] do %>
     <p>Game session: <%= :erlang.term_to_binary(@runner_pid) |> Base58.encode() %></p>
+    <p>Ping: <%= if assigns[:ping] do @ping else "N/A" end %> </p>
     <%= if Runner.game_has_finished?(@runner_pid) do %>
     <% players_positions = Enum.with_index(Enum.sort_by(@players, fn player -> player.health end, :desc)) %>
       <h2>Congrats to all players!</h2>

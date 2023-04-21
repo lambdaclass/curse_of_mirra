@@ -30,3 +30,5 @@ dark_worlds_server-*.tar
 
 # assets
 priv/static/assets
+
+/assets/node_modules/*
