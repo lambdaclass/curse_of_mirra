@@ -32,6 +32,7 @@ export const Play = function () {
         last_updated_plus_one_second.setTime(this.last_updated)
         last_updated_plus_one_second.setSeconds(last_updated_plus_one_second.getSeconds() + 1)
 
+        // Only push a ping update if more than one second has passed between the last update.
         if (now > last_updated_plus_one_second) {
             this.last_updated = now
             update_ping(this)
