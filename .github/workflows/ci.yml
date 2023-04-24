@@ -38,8 +38,6 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 14
-    - name: test
-      run: npm --version
     - name: Set up Elixir
       uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
       with:
@@ -57,6 +55,8 @@ jobs:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
+    - name: Install npm dependencies
+      run: npm install --prefix assets
     - name: Install dependencies
       run: make setup
     - name: Check Elixir Formatting
