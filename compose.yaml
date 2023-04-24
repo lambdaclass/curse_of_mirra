@@ -6,5 +6,4 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: dark_worlds_server_dev

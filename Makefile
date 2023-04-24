@@ -1,6 +1,7 @@
 .PHONY: setup run elixir-tests rust-tests
 
 setup:
+	docker-compose up -d
 	mix deps.get
 	mix deps.compile
 	mix setup
