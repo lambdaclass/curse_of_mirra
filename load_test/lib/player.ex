@@ -67,9 +67,6 @@ defmodule LoadTest.Player do
         attack(state.player_number, direction)
 
       :attack_aoe ->
-        random_x = Enum.random(0..9)
-        random_y = Enum.random(0..9)
-        random_position = %{x: random_x, y: random_y}
         attack_aoe(state.player_number, random_position)
     end
 

@@ -1,3 +1,4 @@
+use crate::game::Direction;
 use crate::time_utils::time_now;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
@@ -14,9 +15,19 @@ pub struct Player {
     pub id: u64,
     pub health: i64,
     pub position: Position,
+    pub projectile: Option<Projectile>,
     /// Time of the last melee attack done by the player, measured in seconds.
     pub last_melee_attack: u64,
     pub status: Status,
+}
+
+#[derive(Debug, Clone, NifStruct)]
+#[module = "DarkWorldsServer.Engine.Projectile"]
+pub struct Projectile {
+    pub position: Position,
+    pub direction: Direction,
+    /// Time of the last movement performed by the projectile, measured in seconds.
+    pub movement_cooldown: u64,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -38,8 +49,19 @@ impl Player {
             id,
             health,
             position,
+            projectile: None,
             last_melee_attack: time_now(),
             status: Status::ALIVE,
+        }
+    }
+}
+
+impl Projectile {
+    pub fn new(position: Position, direction: Direction) -> Projectile {
+        Projectile {
+            position,
+            direction,
+            movement_cooldown: 0,
         }
     }
 }

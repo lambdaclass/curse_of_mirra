@@ -3,10 +3,10 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::collections::HashSet;
 
 use crate::board::Board;
-use crate::player::{Player, Position, Status};
+use crate::player::{Player, Position, Projectile, Status};
 use crate::time_utils::time_now;
 
-const MELEE_ATTACK_COOLDOWN: u64 = 1;
+const ATTACK_COOLDOWN: u64 = 1;
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
@@ -15,7 +15,7 @@ pub struct GameState {
     pub board: Board,
 }
 
-#[derive(Debug, NifUnitEnum)]
+#[derive(Clone, Debug, NifUnitEnum)]
 pub enum Direction {
     UP,
     DOWN,
@@ -43,12 +43,16 @@ impl GameState {
         Self { players, board }
     }
 
-    pub fn move_player(self: &mut Self, player_id: u64, direction: Direction) {
+    pub fn move_player(&mut self, player_id: u64, direction: Direction) {
         let player = self
             .players
             .iter_mut()
             .find(|player| player.id == player_id)
             .unwrap();
+
+        if player.projectile.is_some() {
+            return;
+        }
 
         if matches!(player.status, Status::DEAD) {
             return;
@@ -67,7 +71,7 @@ impl GameState {
             .set_cell(player.position.x, player.position.y, player.id);
     }
 
-    pub fn attack_player(self: &mut Self, attacking_player_id: u64, attack_direction: Direction) {
+    pub fn attack_player(&mut self, attacking_player_id: u64, attack_direction: Direction) {
         let attacking_player = self
             .players
             .iter_mut()
@@ -80,7 +84,7 @@ impl GameState {
 
         let now = time_now();
 
-        if (now - attacking_player.last_melee_attack) < MELEE_ATTACK_COOLDOWN {
+        if (now - attacking_player.last_melee_attack) < ATTACK_COOLDOWN {
             return;
         }
         attacking_player.last_melee_attack = now;
@@ -104,23 +108,50 @@ impl GameState {
         }
     }
 
-    // Go over each player, check if they are inside the circle. If they are, damage them according
-    // to their distance to the center.
-    pub fn attack_aoe(self: &mut Self, attacking_player_id: u64, center_of_attack: &Position) {
+    // Go over each player, check if they are inside the area. If they are, damage them
+    pub fn explode_projectile(&mut self, projectile: &Projectile) {
         for player in self.players.iter_mut() {
-            if player.id == attacking_player_id {
-                continue;
-            }
-
-            let distance = distance_to_center(player, center_of_attack);
-            if distance < 3.0 {
-                let damage = (((3.0 - distance) / 3.0) * 10.0) as i64;
-                modify_health(player, -damage);
+            let distance = distance_to_center_squared(player, &projectile.position);
+            if distance <= 2.0 {
+                modify_health(player, -15);
+                // let player = player.clone();
+                // self.modify_cell_if_player_died(&player);
             }
         }
     }
 
-    fn remove_dead_players(self: &mut Self) {
+    pub fn advance_or_create_projectile(
+        &mut self,
+        attacking_player_id: u64,
+        direction: Direction,
+    ) {
+        let player = self
+            .players
+            .iter_mut()
+            .find(|x| x.id == attacking_player_id)
+            .unwrap();
+
+        let now = time_now();
+
+        if let Some(projectile) = &mut player.projectile {
+            // projectile moves 1 unit per ATTACK_COOLDOWN secs, for convenience
+            if now - projectile.movement_cooldown < ATTACK_COOLDOWN {
+                return;
+            }
+
+            projectile.position =
+                compute_adjacent_position(&projectile.direction, &projectile.position);
+            projectile.movement_cooldown = now;
+        } else {
+            // only create projectile if attack cooldown has passed
+            if (now - player.last_melee_attack) > ATTACK_COOLDOWN {
+                player.projectile = Some(Projectile::new(player.position.clone(), direction));
+                player.last_melee_attack = now;
+            }
+        }
+    }
+
+    fn remove_dead_players(&mut self) {
         self.players.iter_mut().for_each(|player| {
             if matches!(player.status, Status::DEAD) {
                 self.board.set_cell(player.position.x, player.position.y, 0);
@@ -128,7 +159,7 @@ impl GameState {
         })
     }
 
-    fn modify_cell_if_player_died(self: &mut Self, player: &Player) {
+    fn modify_cell_if_player_died(&mut self, player: &Player) {
         if matches!(player.status, Status::DEAD) {
             self.board.set_cell(player.position.x, player.position.y, 0);
         }
@@ -172,10 +203,10 @@ fn is_valid_movement(board: &Board, new_position: &Position) -> bool {
     true
 }
 
-fn distance_to_center(player: &Player, center: &Position) -> f64 {
+fn distance_to_center_squared(player: &Player, center: &Position) -> f64 {
     let distance_squared =
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
-    (distance_squared as f64).sqrt()
+    distance_squared as f64
 }
 
 fn generate_new_position(
@@ -198,7 +229,7 @@ fn generate_new_position(
 
 #[cfg(test)]
 mod tests {
-    use crate::game::MELEE_ATTACK_COOLDOWN;
+    use crate::game::ATTACK_COOLDOWN;
     use crate::player::Player;
     use crate::player::Position;
     use crate::time_utils;
@@ -295,7 +326,7 @@ mod tests {
         state.board.set_cell(0, 0, player_1_id);
         state.board.set_cell(0, 1, player_2_id);
 
-        time_utils::sleep(MELEE_ATTACK_COOLDOWN);
+        time_utils::sleep(ATTACK_COOLDOWN);
 
         // Attack lands and damages player
         state.attack_player(player_1_id, Direction::RIGHT);
@@ -307,14 +338,14 @@ mod tests {
         assert_eq!(100, state.players[0].health);
         assert_eq!(90, state.players[1].health);
 
-        time_utils::sleep(MELEE_ATTACK_COOLDOWN);
+        time_utils::sleep(ATTACK_COOLDOWN);
 
         // Attack misses and does nothing
         state.attack_player(player_1_id, Direction::DOWN);
         assert_eq!(100, state.players[0].health);
         assert_eq!(90, state.players[1].health);
 
-        time_utils::sleep(MELEE_ATTACK_COOLDOWN);
+        time_utils::sleep(ATTACK_COOLDOWN);
 
         state.move_player(player_1_id, Direction::DOWN);
 
@@ -323,7 +354,7 @@ mod tests {
         assert_eq!(100, state.players[0].health);
         assert_eq!(90, state.players[1].health);
 
-        time_utils::sleep(MELEE_ATTACK_COOLDOWN);
+        time_utils::sleep(ATTACK_COOLDOWN);
 
         // Attacking to a non-existent position on the board does nothing.
         state.attack_player(player_1_id, Direction::LEFT);

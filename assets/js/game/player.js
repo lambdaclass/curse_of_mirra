@@ -24,7 +24,16 @@ export class Player{
         this.socket.send(this.createAttackMessage())
     }
 
-    createAttackMessage(direction){
+
+    createAoeAttack() {
+        this.socket.send(this.createAoeAttackMessage(this.aimingDirection))
+    }
+
+    activateAoeAttack() {
+        this.socket.send(this.createAoeAttackMessage("activate"))
+    }
+
+    createAttackMessage(){
         let msg = {
             action: "attack",
             value: this.aimingDirection
@@ -32,6 +41,25 @@ export class Player{
 
         return JSON.stringify(msg)
     }
+
+    /*
+    fn attack_aoe(
+        game: GameState,
+        attacking_player_id: u64,
+        direction: Direction,
+        keypressed: bool,
+    )
+    */
+    createAoeAttackMessage(direction){
+        let msg = {
+            action: "attack_aoe",
+            value: direction,
+        }
+
+        return JSON.stringify(msg)
+    }
+
+    
 
     createMoveMessage(direction) {
         let msg = {

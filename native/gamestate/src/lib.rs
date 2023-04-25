@@ -5,7 +5,7 @@ mod time_utils;
 
 use game::GameState;
 
-use crate::{game::Direction, player::Position};
+use crate::game::Direction;
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(number_of_players: u64, board_width: usize, board_height: usize) -> GameState {
@@ -30,10 +30,42 @@ fn attack_player(
     game_2
 }
 
+/// `key_pressed` determines whether the input is a press event as opposed to a keyup event
 #[rustler::nif(schedule = "DirtyCpu")]
-fn attack_aoe(game: GameState, attacking_player_id: u64, center_of_attack: Position) -> GameState {
+fn attack_aoe(
+    game: GameState,
+    attacking_player_id: u64,
+    direction: Direction,
+    keypressed: bool,
+) -> GameState {
     let mut game_2 = game;
-    game_2.attack_aoe(attacking_player_id, &center_of_attack);
+
+    if keypressed {
+        // create/advance projectile
+        game_2.advance_or_create_projectile(attacking_player_id, direction);
+    } else {
+        // explode projectile
+        let projectile = {
+            let player = game_2
+                .players
+                .iter()
+                .find(|x| x.id == attacking_player_id)
+                .unwrap();
+
+            &player.projectile.clone()
+        };
+
+        if let Some(proj) = projectile {
+            game_2.explode_projectile(proj);
+
+            game_2
+                .players
+                .iter_mut()
+                .find(|x| x.id == attacking_player_id)
+                .unwrap()
+                .projectile = None;
+        }
+    }
     game_2
 }
 

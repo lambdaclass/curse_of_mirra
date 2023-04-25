@@ -70,12 +70,28 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
+      {:play, player, %ActionOk{action: :attack_aoe, value: :activate_aoe_projectile}},
+      %{game: game} = state
+    ) do
+  game =
+    game
+    |> Game.attack_aoe(player, :down, false) #:down is a placeholder here, we don't care what the direction is because it's a call for exploding the projectile
+
+  has_a_player_won? = has_a_player_won?(game.players)
+  maybe_broadcast_game_finished_message(has_a_player_won?, game)
+
+  state = state |> Map.put(:game, game) |> Map.put(:has_finished?, has_a_player_won?)
+
+  {:noreply, state}
+  end
+
+  def handle_cast(
         {:play, player, %ActionOk{action: :attack_aoe, value: value}},
         %{game: game} = state
       ) do
     game =
       game
-      |> Game.attack_aoe(player, value)
+      |> Game.attack_aoe(player, value, true)
 
     has_a_player_won? = has_a_player_won?(game.players)
     maybe_broadcast_game_finished_message(has_a_player_won?, game)
@@ -84,6 +100,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     {:noreply, state}
   end
+
+
 
   def handle_cast(
         {:play, player, %ActionOk{action: :update_ping, value: value}},

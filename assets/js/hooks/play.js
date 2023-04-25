@@ -27,7 +27,20 @@ export const Play = function () {
             if (event.key === " "){
                 player.attack()
             }
-        });
+            if (event.key === "k"){
+                player.createAoeAttack()
+            }
+        }
+        );
+
+        document.addEventListener("keyup", function onPress(event) {
+            console.log(event.key);
+            if (event.key === "k"){
+                console.log("depressed K")
+                player.activateAoeAttack()
+            }
+        }
+        );
     }
 
     this.updated = function () {
