@@ -16,6 +16,11 @@ message Position {
     uint32 y = 2;
 }
 
+message UpdatePing {
+    uint32 player_id = 1;
+    uint32 latency = 2;
+}
+
 message ClientAction {
     Action action = 1;
     Direction direction = 2;
