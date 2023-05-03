@@ -145,6 +145,30 @@ defmodule DarkWorldsServer.PlayerTest do
     end
   end
 
+  describe "Perform attacks" do
+    @tag :attack_aoe
+    test "Attack AOE", %{conn: conn} do
+      session_id = create_session(conn)
+      {:ok, _ws_pid} = ws_connect(session_id)
+      board = WsClient.get_board(session_id)
+
+      victim_health_before_attack = WsClient.get_players(session_id) |> List.first()
+      WsClient.move(2, :attack_aoe)
+      :timer.sleep(1_000)
+      victim_health_after_attack = WsClient.get_players(session_id) |> List.first()
+
+
+  defp create_session(conn) do
+    conn = Conn.put_req_header(conn, "content-type", "application/json")
+    new_session = get(conn, ~p"/new_session", %{})
+    new_session = json_response(new_session, 200)
+    Map.get(new_session, "session_id")
+  end
+
+  defp ws_connect(session_id) do
+    WsClient.start_link("ws://localhost:4002/play/#{session_id}")
+  end
+
   # Gets the position of anything that would impede a player from moving into a cell in the grid,
   # be it a wall or another player
   def get_wall_coordinates(board_matrix) do
@@ -156,16 +180,5 @@ defmodule DarkWorldsServer.PlayerTest do
       |> Enum.filter(fn {cell, _} -> cell == :wall end)
       |> Enum.map(fn {_, y} -> {x, y} end)
     end)
-  end
-
-  defp create_session(conn) do
-    conn = Conn.put_req_header(conn, "content-type", "application/json")
-    new_session = get(conn, ~p"/new_session", %{})
-    new_session = json_response(new_session, 200)
-    Map.get(new_session, "session_id")
-  end
-
-  defp ws_connect(session_id) do
-    WsClient.start_link("ws://localhost:4002/play/#{session_id}")
   end
 end

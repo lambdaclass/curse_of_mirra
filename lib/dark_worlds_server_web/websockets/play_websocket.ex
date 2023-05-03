@@ -5,6 +5,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   alias DarkWorldsServer.Engine.{ActionRaw, ActionOk, Runner}
   alias DarkWorldsServer.Engine.Runner
   alias DarkWorldsServer.Engine
+  alias DarkWorldsServer.Communication
 
   @behaviour :cowboy_websocket
 
