@@ -53,7 +53,8 @@ defmodule DarkWorldsServer.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:nx, "~> 0.5"},
       {:rustler, "~> 0.27.0"},
-      {:exbase58, "~> 1.0.2"}
+      {:exbase58, "~> 1.0.2"},
+      {:protobuf, "~> 0.10.0"},
     ]
   end
 
