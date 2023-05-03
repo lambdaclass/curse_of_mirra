@@ -1,14 +1,27 @@
 defmodule DarkWorldsServer.Communication do
+  alias DarkWorldsServer.Communication.Proto.UpdatePing
+  alias DarkWorldsServer.Communication.Proto.GameStateUpdate
+  alias DarkWorldsServer.Communication.Proto.ClientAction
   @doc """
   The Communication context
   """
 
-  def encode!(value) do
-    Jason.encode!(value)
+  def encode!(%{players: players}) do
+    %GameStateUpdate{players: players}
+    |> GameStateUpdate.encode()
+  end
+
+  def encode!({player_id, latency}) do
+    %UpdatePing{player_id: player_id, latency: latency}
+    |> UpdatePing.encode()
   end
 
   def decode(value) do
-    Jason.decode(value)
+    try do
+      {:ok, ClientAction.decode(value)}
+    rescue
+      Protobuf.DecodeError -> {:error, :error_decoding}
+    end
   end
 
   def pid_to_external_id(pid) when is_pid(pid) do
