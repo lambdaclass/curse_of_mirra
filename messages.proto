@@ -15,3 +15,25 @@ message Position {
     uint32 x = 1;
     uint32 y = 2;
 }
+
+message ClientAction {
+    Action action = 1;
+    Direction direction = 2;
+    uint32 latency = 3;
+}
+
+enum Action {
+    ACTION_UNSPECIFIED = 0;
+    MOVE = 1;
+    ATTACK = 2;
+    PING = 3;
+    UPDATE_PING = 4;
+}
+
+enum Direction {
+    DIRECTION_UNSPECIFIED = 0;
+    UP = 1;
+    DOWN = 2;
+    LEFT = 3;
+    RIGHT = 4;
+}
