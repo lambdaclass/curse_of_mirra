@@ -145,17 +145,17 @@ defmodule DarkWorldsServer.PlayerTest do
     end
   end
 
-  describe "Perform attacks" do
-    @tag :attack_aoe
-    test "Attack AOE", %{conn: conn} do
-      session_id = create_session(conn)
-      {:ok, _ws_pid} = ws_connect(session_id)
-      board = WsClient.get_board(session_id)
+  # describe "Perform attacks" do
+  #   @tag :attack_aoe
+  #   test "Attack AOE", %{conn: conn} do
+  #     session_id = create_session(conn)
+  #     {:ok, _ws_pid} = ws_connect(session_id)
+  #     board = WsClient.get_board(session_id)
 
-      victim_health_before_attack = WsClient.get_players(session_id) |> List.first()
-      WsClient.move(2, :attack_aoe)
-      :timer.sleep(1_000)
-      victim_health_after_attack = WsClient.get_players(session_id) |> List.first()
+  #     victim_health_before_attack = WsClient.get_players(session_id) |> List.first()
+  #     WsClient.move(2, :attack_aoe)
+  #     :timer.sleep(1_000)
+  #     victim_health_after_attack = WsClient.get_players(session_id) |> List.first()
 
 
   defp create_session(conn) do

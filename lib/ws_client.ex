@@ -1,19 +1,19 @@
 defmodule DarkWorldsServer.WsClient do
   use WebSockex
   require Logger
-  alias DarkWorldsServer.Engine.Runner
+  alias DarkWorldsServer.Communication
 
   def start_link(url) do
     WebSockex.start_link(url, __MODULE__, %{}, name: __MODULE__)
   end
 
   def get_board(session_id) do
-    runner_pid = Runner.game_id_to_pid(session_id)
+    runner_pid = Communication.external_id_to_pid(session_id)
     GenServer.call(runner_pid, :get_board)
   end
 
   def get_players(session_id) do
-    runner_pid = Runner.game_id_to_pid(session_id)
+    runner_pid = Communication.external_id_to_pid(session_id)
     GenServer.call(runner_pid, :get_players)
   end
 
