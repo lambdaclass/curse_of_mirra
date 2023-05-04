@@ -31,7 +31,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     end
   end
 
-  def websocket_handle({:text, message}, state) do
+  def websocket_handle({:binary, message}, state) do
     case Communication.decode(message) do
       {:ok, %{action: :ping}} ->
         {:reply, {:text, "pong"}, state}
@@ -43,6 +43,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       {:error, msg} ->
         {:reply, {:text, "ERROR: #{msg}"}, state}
     end
+  end
+
+  def websocket_handle(_, state) do
+    {:reply, {:text, "ERROR unsupported message"}, state}
   end
 
   def websocket_info({:game_update, game_state}, state) do
