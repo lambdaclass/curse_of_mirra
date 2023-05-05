@@ -10799,7 +10799,7 @@ PrefabInstance:
     - target: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: InputForcedMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114719219195535070, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
