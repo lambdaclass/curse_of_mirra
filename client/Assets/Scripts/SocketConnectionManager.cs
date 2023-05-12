@@ -31,7 +31,8 @@ public class SocketConnectionManager : MonoBehaviour
     private int totalPlayers;
     private int playerCount = 0;
     private int playerId;
-
+    public static SocketConnectionManager Instance;
+    public uint currentPing;
     public class GameResponse
     {
         public List<Player> players { get; set; }
@@ -66,6 +67,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         this.session_id = LobbyConnection.Instance.GameSession;
         this.totalPlayers = LobbyConnection.Instance.playerCount;
+        Instance = this;
     }
     public void GeneratePlayer()
     {
@@ -128,6 +130,8 @@ public class SocketConnectionManager : MonoBehaviour
             ClientAction action = new ClientAction { Action = Action.Move, Direction = Direction.Down };
             SendAction(action);
         }
+        ClientAction ping_action = new ClientAction { Action = Action.UpdatePing};
+        SendAction(ping_action);
     }
 
     private void setCameraToPlayer(int playerID)
@@ -195,7 +199,6 @@ public class SocketConnectionManager : MonoBehaviour
     private void OnWebSocketMessage(object sender, MessageEventArgs e)
     {
         // Debug.Log("Message received from: " + ((WebSocket)sender).Url + ", Data: " + e.Data);
-
         if (e.Data == "OK" || e.Data.Contains("CONNECTED_TO"))
         {
             //Debug.Log("Nothing to do");
@@ -210,13 +213,21 @@ public class SocketConnectionManager : MonoBehaviour
         }
         else
         {
-            GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>((ReadOnlySpan<byte>)e.RawData);
-            for (int i = 0; i < game_update.Players.Count; i++)
+            try
             {
+                UpdatePing ping_update = Serializer.Deserialize<UpdatePing>((ReadOnlySpan<byte>)e.RawData);
+                currentPing = ping_update.Latency;
+            }
+            catch (System.Exception)
+            {
+                GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>((ReadOnlySpan<byte>)e.RawData);
+                for (int i = 0; i < game_update.Players.Count; i++)
+                {
                 var player = this.players[i];
 
                 var new_position = game_update.Players[i].Position;
                 positionUpdates.Enqueue(new PositionUpdate { x = new_position.Y, y = -new_position.X, player_id = i });
+                }
             }
         }
     }
