@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// Add this class to a gameObject with a Text component and it'll feed it the PING number in real time.
 /// </summary>
-public class MMPINGCounter : MonoBehaviour
+public class PingCounter : MonoBehaviour
 {
     /// the frequency at which the PING counter should update
 	public float UpdateInterval = 5f;
