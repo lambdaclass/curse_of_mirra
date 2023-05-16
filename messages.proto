@@ -13,21 +13,34 @@ message GameStateUpdate {
     - health: Current health of the player
     - position: Position of the player in the server game grid (see Position for more info)
     - power: [Amin 2023-05-05:  not sure what this is, was copied from struct like this]
+    - last_melee_attack: Time of the last melee attack done by the player in
+      seconds since unix epoch.
+    - status: currently if alive or dead
  */
 message Player {
-    uint32 id = 1;
-    uint32 health = 2;
+    uint64 id = 1;
+    sint64 health = 2;
     Position position = 3;
-    uint32 power = 4;
+    // uint32 power = 4;
+    uint64 last_melee_attack  = 4;
+    Status status = 5;
 }
 
+/*
+Status of a player
+*/
+
+enum Status {
+    ALIVE = 0;
+    DEAD = 1;
+}
 /* A position in the server game grid, the grid is a NxN square with (0,0) in the top left corner
     - x: X coordinate in the grid
     - y: Y coordinate in the grid
  */
 message Position {
-    uint32 x = 1;
-    uint32 y = 2;
+    uint64 x = 1;
+    uint64 y = 2;
 }
 
 /* Message to update a player's ping latency information
@@ -62,6 +75,7 @@ enum Action {
     ATTACK = 2;
     PING = 3;
     UPDATE_PING = 4;
+    ATTACK_AOE = 5;
 }
 
 /* Directions an action can happen in

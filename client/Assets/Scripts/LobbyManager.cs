@@ -12,7 +12,7 @@ public class LobbyManager : LevelSelector
         base.GoToLevel();
         if (SceneManager.GetActiveScene().name == "Lobbies")
         {
-            LobbyConnection.Instance.Init();
+            LobbyConnection.Instance.CreateLobby();
         }
         else
         {
@@ -22,7 +22,6 @@ public class LobbyManager : LevelSelector
 
     void update()
     {
-        print(LobbyConnection.Instance.GameSession);
         if (!String.IsNullOrEmpty(LobbyConnection.Instance.GameSession))
         {
             GoToLevel();

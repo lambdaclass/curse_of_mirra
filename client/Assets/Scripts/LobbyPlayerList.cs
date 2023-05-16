@@ -4,42 +4,46 @@ using UnityEngine;
 
 public class LobbyPlayerList : MonoBehaviour
 {
-    [SerializeField] GameObject playerItemPrefab;
-    [SerializeField] GameObject playButton;
-    int totalPlayersBefore = 1;
+    [SerializeField]
+    GameObject playerItemPrefab;
 
-
-    // Start is called before the first frame update
-
-    private void CreatePlayerItem()
-    {
-        GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
-        PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
-        if (LobbyConnection.Instance.playerId == 1)
-        {
-            playerI.playerText.text += " " + (LobbyConnection.Instance.playerId).ToString() + " " + "HOST";
-        }
-        else
-        {
-            playerI.playerText.text += " " + (LobbyConnection.Instance.playerId).ToString();
-        }
-    }
-    void Start()
-    {
-        CreatePlayerItem();
-        if (LobbyConnection.Instance.playerId == 1)
-        {
-            playButton.SetActive(true);
-        }
-    }
+    [SerializeField]
+    GameObject playButton;
+    int totalPlayersBefore = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (totalPlayersBefore != LobbyConnection.Instance.playerCount)
+        for (int i = 0; i < LobbyConnection.Instance.playerCount; i++)
         {
-            CreatePlayerItem();
-            totalPlayersBefore++;
+            if (totalPlayersBefore != LobbyConnection.Instance.playerCount)
+            {
+                totalPlayersBefore++;
+                CreatePlayerItem(totalPlayersBefore);
+            }
+        }
+    }
+
+    private void CreatePlayerItem(int id)
+    {
+        GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
+        PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
+
+        if (id == 1)
+        {
+            playerI.playerText.text += " " + (id.ToString() + " " + "HOST");
+            playButton.SetActive(true);
+        }
+        else
+        {
+            if (LobbyConnection.Instance.playerId == id)
+            {
+                playerI.playerText.text += " " + id.ToString() + " " + "YOU";
+            }
+            else
+            {
+                playerI.playerText.text += " " + id.ToString();
+            }
         }
     }
 }

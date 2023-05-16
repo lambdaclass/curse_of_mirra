@@ -4,7 +4,7 @@ defmodule DarkWorldsServerWeb.SessionController do
   alias DarkWorldsServer.Engine
 
   def new(conn, _params) do
-    {:ok, runner_pid} = Engine.start_child()
+    {:ok, runner_pid} = Engine.start_child(%{players: []})
 
     headers = Enum.into(conn.req_headers, %{})
     session_id = Communication.pid_to_external_id(runner_pid)

@@ -97,7 +97,7 @@ defmodule DarkWorldsServer.AccountsTest do
   describe "change_user_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
-      assert changeset.required == [:password, :email]
+      assert changeset.required == [:password, :email, :username]
     end
 
     test "allows fields to be set" do
@@ -151,7 +151,7 @@ defmodule DarkWorldsServer.AccountsTest do
     end
 
     test "validates email uniqueness", %{user: user} do
-      %{email: email} = user_fixture()
+      %{email: email} = user_fixture(%{username: "another username"})
       password = valid_user_password()
 
       {:error, changeset} = Accounts.apply_user_email(user, password, %{email: email})
@@ -324,7 +324,7 @@ defmodule DarkWorldsServer.AccountsTest do
       assert_raise Ecto.ConstraintError, fn ->
         Repo.insert!(%UserToken{
           token: user_token.token,
-          user_id: user_fixture().id,
+          user_id: user.id,
           context: "session"
         })
       end

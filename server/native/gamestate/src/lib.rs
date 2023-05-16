@@ -1,12 +1,11 @@
-mod board;
-mod game;
-mod player;
-mod time_utils;
-
-use std::collections::HashMap;
+pub mod board;
+pub mod game;
+pub mod player;
+pub mod time_utils;
 
 use game::GameState;
 use rustler::{Env, Term};
+use std::collections::HashMap;
 
 use crate::{board::GridResource, board::Tile, game::Direction, player::Position};
 
@@ -21,9 +20,9 @@ fn new_game(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameState {
+fn move_player(game: GameState, player_id: u64, direction: Direction, speed: usize) -> GameState {
     let mut game_2 = game;
-    game_2.move_player(player_id, direction);
+    game_2.move_player(player_id, direction, speed);
     game_2
 }
 
@@ -66,11 +65,19 @@ fn attack_aoe(game: GameState, attacking_player_id: u64, center_of_attack: Posit
     game_2
 }
 
-fn load(env: Env, _: Term) -> bool {
+#[rustler::nif(schedule = "DirtyCpu")]
+fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.disconnect(player_id)?;
+    Ok(game_2)
+}
+
+pub fn load(env: Env, _: Term) -> bool {
     rustler::resource!(GridResource, env);
     true
 }
 
+#[cfg(feature = "init_engine")]
 rustler::init!(
     "Elixir.DarkWorldsServer.Engine.Game",
     [
@@ -79,7 +86,8 @@ rustler::init!(
         get_grid,
         get_non_empty,
         attack_player,
-        attack_aoe
+        attack_aoe,
+        disconnect
     ],
     load = load
 );

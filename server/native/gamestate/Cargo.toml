@@ -7,8 +7,13 @@ edition = "2021"
 [lib]
 name = "gamestate"
 path = "src/lib.rs"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "lib"]
 
 [dependencies]
 rand = "0.8.5"
 rustler = "0.28.0"
+
+[features]
+default = ["init_engine"]
+init_engine = []
+init_testing = []

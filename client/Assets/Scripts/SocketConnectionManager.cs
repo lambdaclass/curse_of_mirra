@@ -33,6 +33,7 @@ public class SocketConnectionManager : MonoBehaviour
     private int playerId;
     public static SocketConnectionManager Instance;
     public uint currentPing;
+
     public class GameResponse
     {
         public List<Player> players { get; set; }
@@ -74,16 +75,13 @@ public class SocketConnectionManager : MonoBehaviour
         for (int i = 0; i < totalPlayers; i++)
         {
             Character newPlayer = Instantiate(prefab, levelManager.InitialSpawnPoint.transform.position, Quaternion.identity);
-            newPlayer.name = "Player" + " " + i;
+            newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
             players.Add(newPlayer.gameObject);
-            levelManager.Players.Add(players[i].GetComponent<Character>());
-            levelManager.PlayerPrefabs = (levelManager.Players).ToArray();
-
-            camera.SetTarget(players[i].GetComponent<Character>());
-            camera.StartFollowing();
+            levelManager.Players.Add(newPlayer);
         }
+        levelManager.PlayerPrefabs = (levelManager.Players).ToArray();
     }
 
     // Start is called before the first frame update
@@ -91,6 +89,8 @@ public class SocketConnectionManager : MonoBehaviour
     {
         // Send the player's action every 30 ms approximately.
         GeneratePlayer();
+        playerId = LobbyConnection.Instance.playerId;
+        setCameraToPlayer(LobbyConnection.Instance.playerId);
         float tickRate = 1f / 30f;
         InvokeRepeating("sendAction", tickRate, tickRate);
 
@@ -130,14 +130,19 @@ public class SocketConnectionManager : MonoBehaviour
             ClientAction action = new ClientAction { Action = Action.Move, Direction = Direction.Down };
             SendAction(action);
         }
-        ClientAction ping_action = new ClientAction { Action = Action.UpdatePing};
+        if (Input.GetKey(KeyCode.E))
+        {
+            ClientAction action = new ClientAction { Action = Action.AttackAoe };
+            SendAction(action);
+        }
+
+        ClientAction ping_action = new ClientAction { Action = Action.UpdatePing };
         SendAction(ping_action);
     }
 
     private void setCameraToPlayer(int playerID)
     {
         //print(levelManager.PlayerPrefabs.Length);
-        //print(players.Count);
         foreach (Character player in levelManager.PlayerPrefabs)
         {
             if (Int32.Parse(player.PlayerID) == playerID)
@@ -187,7 +192,8 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string session_id)
     {
-        ws = new WebSocket("ws://" + server_ip + ":4000/play/" + session_id);
+        print("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
+        ws = new WebSocket("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (sender, e) =>
         {
@@ -207,10 +213,6 @@ public class SocketConnectionManager : MonoBehaviour
         {
             Debug.Log("Error message: " + e.Data);
         }
-        else if (e.Data.Contains("PLAYER_JOINED"))
-        {
-            playerId = Int32.Parse(((e.Data).Split(": ")[1]));
-        }
         else
         {
             try
@@ -223,10 +225,10 @@ public class SocketConnectionManager : MonoBehaviour
                 GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>((ReadOnlySpan<byte>)e.RawData);
                 for (int i = 0; i < game_update.Players.Count; i++)
                 {
-                var player = this.players[i];
-
-                var new_position = game_update.Players[i].Position;
-                positionUpdates.Enqueue(new PositionUpdate { x = new_position.Y, y = -new_position.X, player_id = i });
+                    var player = this.players[i];
+                    var new_position = game_update.Players[i].Position;
+                    print(game_update.Players[i]);
+                    positionUpdates.Enqueue(new PositionUpdate { x = new_position.Y, y = -new_position.X, player_id = i });
                 }
             }
         }

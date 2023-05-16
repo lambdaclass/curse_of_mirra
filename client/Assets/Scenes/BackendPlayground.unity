@@ -3518,8 +3518,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   server_ip: localhost
   lobbyItemPrefab: {fileID: 0}
+  gameItemPrefab: {fileID: 0}
   lobbyListContainer: {fileID: 0}
   lobbiesList: []
+  gameListContainer: {fileID: 0}
+  gamesList: []
   GameSession: 
   LobbySession: 
   playerId: 0

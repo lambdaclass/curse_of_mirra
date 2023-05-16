@@ -4,6 +4,12 @@
     <% :pending -> %>
       <p>Loading game...</p>
     <% :ongoing -> %>
+      <p>Players: 
+      <%= for _player <- @logged_players  do %>
+        <div>
+        </div>
+      <% end %>
+      </p>
       <p>Pings:
         <%= for {player, ping} <- @pings do %>
           <div>
@@ -26,6 +32,7 @@
           </div>
         <% end %>
       </div>
+
     <% :finished -> %>
       <% players_positions = Enum.with_index(Enum.sort_by(@players, fn player -> player.health end, :desc)) %>
       <h2>Congrats to all players!</h2>

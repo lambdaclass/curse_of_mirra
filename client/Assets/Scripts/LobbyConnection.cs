@@ -20,8 +20,15 @@ public class LobbyConnection : MonoBehaviour
     GameObject lobbyItemPrefab;
 
     [SerializeField]
+    GameObject gameItemPrefab;
+
+    [SerializeField]
     Transform lobbyListContainer;
     public List<GameObject> lobbiesList;
+
+    [SerializeField]
+    Transform gameListContainer;
+    public List<GameObject> gamesList;
 
     public static LobbyConnection Instance;
     public string GameSession;
@@ -42,6 +49,11 @@ public class LobbyConnection : MonoBehaviour
         public List<string> lobbies { get; set; }
     }
 
+    public class GamesResponse
+    {
+        public List<string> current_games { get; set; }
+    }
+
     public void CreateLobby()
     {
         StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
@@ -55,18 +67,25 @@ public class LobbyConnection : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        this.Init();
     }
 
     public void Init()
     {
-        CreateLobby();
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        this.playerId = -1;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
         StartCoroutine(GetLobbies("http://" + server_ip + ":4000/current_lobbies"));
+        StartCoroutine(GetGames("http://" + server_ip + ":4000/current_games"));
     }
 
     IEnumerator GetRequest(string uri)
@@ -135,6 +154,37 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
+    IEnumerator GetGames(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    GamesResponse response = JsonConvert.DeserializeObject<GamesResponse>(
+                        webRequest.downloadHandler.text
+                    );
+                    gamesList = response.current_games
+                        .Select(l =>
+                        {
+                            GameObject gameItem = Instantiate(gameItemPrefab, gameListContainer);
+                            gameItem.GetComponent<GameItem>().setId(l);
+                            return gameItem;
+                        })
+                        .ToList();
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void ConnectToSession(string session_id)
     {
         ws = new WebSocket("ws://" + server_ip + ":4000/matchmaking/" + session_id);
@@ -158,7 +208,10 @@ public class LobbyConnection : MonoBehaviour
         }
         else if (e.Data.Contains("JOINED PLAYER"))
         {
-            playerId = Int32.Parse(((e.Data).Split(": ")[1]));
+            if (playerId == -1)
+            {
+                playerId = Int32.Parse(((e.Data).Split(": ")[1]));
+            }
         }
         else if (e.Data.Contains("AMOUNT_OF_PLAYERS"))
         {

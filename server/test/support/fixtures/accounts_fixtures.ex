@@ -3,14 +3,17 @@ defmodule DarkWorldsServer.AccountsFixtures do
   This module defines test helpers for creating
   entities via the `DarkWorldsServer.Accounts` context.
   """
+  alias DarkWorldsServer.Repo
+  alias DarkWorldsServer.Accounts.User
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "hello world!"
 
-  def valid_user_attributes(attrs \\ %{}) do
+  def valid_user_attributes(attrs) do
     Enum.into(attrs, %{
       email: unique_user_email(),
-      password: valid_user_password()
+      password: valid_user_password(),
+      username: get_new_username()
     })
   end
 
@@ -27,5 +30,10 @@ defmodule DarkWorldsServer.AccountsFixtures do
     {:ok, captured_email} = fun.(&"[TOKEN]#{&1}[TOKEN]")
     [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")
     token
+  end
+
+  defp get_new_username do
+    amount_of_users = Repo.aggregate(User, :count)
+    "user_no_#{amount_of_users}"
   end
 end

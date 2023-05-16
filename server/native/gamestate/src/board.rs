@@ -20,7 +20,6 @@ pub struct Board {
     pub height: usize,
     pub grid: ResourceArc<GridResource>,
 }
-
 impl Board {
     pub fn new(width: usize, height: usize) -> Self {
         let resource = GridResource {
@@ -43,6 +42,7 @@ impl Board {
         }
     }
 
+    // If you want to move players around, use game::GameState::move_player instead.
     pub fn set_cell(self: &mut Self, row_idx: usize, col_idx: usize, value: Tile) {
         self.grid.resource.lock().unwrap()[row_idx][col_idx] = value;
     }
