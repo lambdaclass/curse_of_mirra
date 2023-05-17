@@ -27,7 +27,7 @@ defmodule LoadTest.PlayerSupervisor do
     {:ok, response} = get(server_url())
     %{"session_id" => session_id} = response.body
 
-    for i <- 1..6 do
+    for i <- 1..12 do
       {:ok, pid} = spawn_player(i, session_id)
       Process.send(pid, :play, [])
     end
