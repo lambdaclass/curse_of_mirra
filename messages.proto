@@ -7,7 +7,6 @@ message GameStateUpdate {
   repeated Player players = 1;
 }
 
-
 /* Information about a player
     - id: ID of the player, this ID is the identifier in the game session, the game object tied to it
     - health: Current health of the player
@@ -86,4 +85,35 @@ enum Direction {
     DOWN = 2;
     LEFT = 3;
     RIGHT = 4;
+}
+
+/* Represents the events happening in the matchmaking lobby, either from client or server
+    - type: type of the event
+    - lobby_id: ID of the matchmaking lobby, used on CONNECTED
+    - player_id: ID assigned to the player (client) in the matchmaking lobby, used on CONNECTED
+    - added_player_id: ID of any new player joining the lobby, used on PLAYER_ADDED
+    - game_id: ID of the game session to join, used on GAME_STARTED
+    - player_count: Number of players in the matchmaking lobby, used on PLAYER_COUNT
+ */
+message LobbyEvent {
+    LobbyEventType type = 1;
+    string lobby_id = 2;
+    uint64 player_id = 3;
+    uint64 added_player_id = 4;
+    string game_id = 5;
+    uint64 player_count = 6;
+}
+
+/* Type of lobby events
+    - CONNECTED: Websocket connection is established
+    - PLAYER_ADDED: A player has joined the matchmaking lobby
+    - GAME_STARTED: A game session has started from this lobby
+    - PLAYER_COUNT: Current player count in the lobby
+ */
+enum LobbyEventType {
+    TYPE_UNSPECIFIED = 0;
+    CONNECTED = 1;
+    PLAYER_ADDED = 2;
+    GAME_STARTED = 3;
+    PLAYER_COUNT = 4;
 }

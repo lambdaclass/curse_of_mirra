@@ -36,7 +36,7 @@ defmodule LoadTest.Player do
   end
 
   def start_link({player_number, session_id}) do
-    ws_url = ws_url(session_id)
+    ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
       player_number: player_number,
@@ -76,15 +76,15 @@ defmodule LoadTest.Player do
     WebSockex.cast(self(), {:send, {:binary, ClientAction.encode(command)}})
   end
 
-  defp ws_url(session_id) do
+  defp ws_url(session_id, player_id) do
     host = PlayerSupervisor.server_host()
 
     case System.get_env("SSL_ENABLED") do
       "true" ->
-        "wss://#{host}/play/#{session_id}"
+        "wss://#{host}/play/#{session_id}/#{player_id}"
 
       _ ->
-        "ws://#{host}/play/#{session_id}"
+        "ws://#{host}/play/#{session_id}/#{player_id}"
     end
   end
 end

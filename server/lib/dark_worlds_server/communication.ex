@@ -2,10 +2,33 @@ defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.UpdatePing
   alias DarkWorldsServer.Communication.Proto.GameStateUpdate
   alias DarkWorldsServer.Communication.Proto.ClientAction
+  alias DarkWorldsServer.Communication.Proto.LobbyEvent
 
-  @doc """
+  @moduledoc """
   The Communication context
   """
+
+  def lobby_connected!(lobby_id, player_id) do
+    %LobbyEvent{type: :CONNECTED, lobby_id: lobby_id, player_id: player_id}
+    |> LobbyEvent.encode()
+  end
+
+  def lobby_player_added!(player_id) do
+    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id}
+    |> LobbyEvent.encode()
+  end
+
+  def lobby_player_count!(count) do
+    %LobbyEvent{type: :PLAYER_COUNT, player_count: count}
+    |> LobbyEvent.encode()
+  end
+
+  def lobby_game_started!(game_pid) do
+    game_id = pid_to_external_id(game_pid)
+
+    %LobbyEvent{type: :GAME_STARTED, game_id: game_id}
+    |> LobbyEvent.encode()
+  end
 
   def encode!(%{players: players}) do
     %GameStateUpdate{players: players}

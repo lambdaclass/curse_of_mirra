@@ -16,7 +16,10 @@ defmodule DarkWorldsServerWeb.BoardLive.Show do
   defp mount_connected(%{"game_id" => game_id, "player_id" => player_id}, socket) do
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
     runner_pid = Communication.external_id_to_pid(game_id)
-    {{board_width, board_height}, players} = Runner.get_game_state(runner_pid)
+
+    state = Runner.get_game_state(runner_pid)
+    players = state.game.players
+    {board_width, board_height} = {state.game.board.height, state.game.board.width}
 
     {mode, player_id} =
       case Runner.join(runner_pid, player_id) do

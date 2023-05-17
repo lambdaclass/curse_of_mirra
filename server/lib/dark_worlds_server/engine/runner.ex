@@ -4,7 +4,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.{ActionOk, Game, Player}
 
-  @build_walls true
+  @build_walls false
   @amount_of_players 3
   @board {1000, 1000}
   # The game will be closed twenty minute after it starts
@@ -116,7 +116,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Game.attack_player(player, value)
 
     has_a_player_won? = has_a_player_won?(game.players)
-    IO.inspect("Player moving is: #{player}")
     next_state = next_state |> Map.put(:game, game) |> Map.put(:has_finished?, has_a_player_won?)
     state = Map.put(state, :next_state, next_state)
 
@@ -188,7 +187,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_call(:get_state, _from, %{current_state: game_state} = state) do
-    {:reply, game_state.game, state}
+    {:reply, game_state, state}
   end
 
   def handle_call(:get_character_speed, _from, state) do

@@ -4,6 +4,7 @@ defmodule LoadTest.PlayerSupervisor do
   """
   use DynamicSupervisor
   use Tesla
+  plug Tesla.Middleware.JSON
   plug(Tesla.Middleware.Headers, [{"content-type", "application/json"}])
 
   alias LoadTest.Player
@@ -24,7 +25,7 @@ defmodule LoadTest.PlayerSupervisor do
   # Spawns a game lobby, populates it with players and starts moving them randomly
   def spawn_session() do
     {:ok, response} = get(server_url())
-    %{"session_id" => session_id} = Jason.decode!(response.body)
+    %{"session_id" => session_id} = response.body
 
     for i <- 1..3 do
       {:ok, pid} = spawn_player(i, session_id)

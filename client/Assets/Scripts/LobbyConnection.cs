@@ -200,28 +200,33 @@ public class LobbyConnection : MonoBehaviour
 
     private void OnWebSocketMessage(object sender, MessageEventArgs e)
     {
-        if (e.Data.Contains("GAME_ID"))
-        {
-            string game_id = e.Data.Split(": ")[1];
-            print("The game id is: " + game_id);
-            GameSession = game_id;
-        }
-        else if (e.Data.Contains("JOINED PLAYER"))
-        {
-            if (playerId == -1)
-            {
-                playerId = Int32.Parse(((e.Data).Split(": ")[1]));
-            }
-        }
-        else if (e.Data.Contains("AMOUNT_OF_PLAYERS"))
-        {
-            playerCount = Int32.Parse(((e.Data).Split(": ")[1]));
-        }
-        else
-        {
-            Debug.Log("Message received is: " + e.Data);
-        }
+        LobbyEvent lobby_event = Serializer.Deserialize<LobbyEvent>((ReadOnlySpan<byte>)e.RawData);
+
+        switch (lobby_event.Type) {
+            case LobbyEventType.Connected:
+                Debug.Log("Connected to lobby " + lobby_event.LobbyId + " as player_id " + lobby_event.PlayerId);
+                break;
+
+            case LobbyEventType.PlayerAdded:
+                if (playerId == -1) {
+                    playerId = (int) lobby_event.AddedPlayerId;
+                }
+                break;
+
+            case LobbyEventType.PlayerCount:
+                playerCount = (int) lobby_event.PlayerCount;
+                break;
+
+            case LobbyEventType.GameStarted:
+                GameSession = lobby_event.GameId;
+                break;
+
+            default:
+                Debug.Log("Message received is: " + lobby_event.Type);
+                break;
+        };
     }
+
     public void StartGame()
     {
         ws.Send("START_GAME");

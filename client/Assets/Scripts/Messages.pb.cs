@@ -26,16 +26,19 @@ public partial class Player : global::ProtoBuf.IExtensible
         => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
 
     [global::ProtoBuf.ProtoMember(1, Name = @"id")]
-    public uint Id { get; set; }
+    public ulong Id { get; set; }
 
-    [global::ProtoBuf.ProtoMember(2, Name = @"health")]
-    public uint Health { get; set; }
+    [global::ProtoBuf.ProtoMember(2, Name = @"health", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public long Health { get; set; }
 
     [global::ProtoBuf.ProtoMember(3, Name = @"position")]
     public Position Position { get; set; }
 
-    [global::ProtoBuf.ProtoMember(4, Name = @"power")]
-    public uint Power { get; set; }
+    [global::ProtoBuf.ProtoMember(4, Name = @"last_melee_attack")]
+    public ulong LastMeleeAttack { get; set; }
+
+    [global::ProtoBuf.ProtoMember(5, Name = @"status")]
+    public Status Status { get; set; }
 
 }
 
@@ -47,10 +50,10 @@ public partial class Position : global::ProtoBuf.IExtensible
         => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
 
     [global::ProtoBuf.ProtoMember(1, Name = @"x")]
-    public uint X { get; set; }
+    public ulong X { get; set; }
 
     [global::ProtoBuf.ProtoMember(2, Name = @"y")]
-    public uint Y { get; set; }
+    public ulong Y { get; set; }
 
 }
 
@@ -88,6 +91,44 @@ public partial class ClientAction : global::ProtoBuf.IExtensible
 }
 
 [global::ProtoBuf.ProtoContract()]
+public partial class LobbyEvent : global::ProtoBuf.IExtensible
+{
+    private global::ProtoBuf.IExtension __pbn__extensionData;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+    [global::ProtoBuf.ProtoMember(1, Name = @"type")]
+    public LobbyEventType Type { get; set; }
+
+    [global::ProtoBuf.ProtoMember(2, Name = @"lobby_id")]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string LobbyId { get; set; } = "";
+
+    [global::ProtoBuf.ProtoMember(3, Name = @"player_id")]
+    public ulong PlayerId { get; set; }
+
+    [global::ProtoBuf.ProtoMember(4, Name = @"added_player_id")]
+    public ulong AddedPlayerId { get; set; }
+
+    [global::ProtoBuf.ProtoMember(5, Name = @"game_id")]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string GameId { get; set; } = "";
+
+    [global::ProtoBuf.ProtoMember(6, Name = @"player_count")]
+    public ulong PlayerCount { get; set; }
+
+}
+
+[global::ProtoBuf.ProtoContract()]
+public enum Status
+{
+    [global::ProtoBuf.ProtoEnum(Name = @"ALIVE")]
+    Alive = 0,
+    [global::ProtoBuf.ProtoEnum(Name = @"DEAD")]
+    Dead = 1,
+}
+
+[global::ProtoBuf.ProtoContract()]
 public enum Action
 {
     [global::ProtoBuf.ProtoEnum(Name = @"ACTION_UNSPECIFIED")]
@@ -117,6 +158,21 @@ public enum Direction
     Left = 3,
     [global::ProtoBuf.ProtoEnum(Name = @"RIGHT")]
     Right = 4,
+}
+
+[global::ProtoBuf.ProtoContract()]
+public enum LobbyEventType
+{
+    [global::ProtoBuf.ProtoEnum(Name = @"TYPE_UNSPECIFIED")]
+    TypeUnspecified = 0,
+    [global::ProtoBuf.ProtoEnum(Name = @"CONNECTED")]
+    Connected = 1,
+    [global::ProtoBuf.ProtoEnum(Name = @"PLAYER_ADDED")]
+    PlayerAdded = 2,
+    [global::ProtoBuf.ProtoEnum(Name = @"GAME_STARTED")]
+    GameStarted = 3,
+    [global::ProtoBuf.ProtoEnum(Name = @"PLAYER_COUNT")]
+    PlayerCount = 4,
 }
 
 #pragma warning restore CS0612, CS0618, CS1591, CS3021, IDE0079, IDE1006, RCS1036, RCS1057, RCS1085, RCS1192

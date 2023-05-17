@@ -34,8 +34,6 @@ public class SocketConnectionManager : MonoBehaviour
     private int playerId;
     public static SocketConnectionManager Instance;
     public uint currentPing;
-
-
     public class GameResponse
     {
         public List<Player> players { get; set; }
@@ -76,6 +74,15 @@ public class SocketConnectionManager : MonoBehaviour
     {
         for (int i = 0; i < totalPlayers; i++)
         {
+            if (LobbyConnection.Instance.playerId == i + 1)
+            {
+                // Player1 is the ID to match with the client InputManager
+                prefab.PlayerID = "Player1";
+            }
+            else
+            {
+                prefab.PlayerID = "";
+            }
             Character newPlayer = Instantiate(prefab, levelManager.InitialSpawnPoint.transform.position, Quaternion.identity);
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
@@ -230,21 +237,13 @@ public class SocketConnectionManager : MonoBehaviour
         }
         else
         {
-            try
+            GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>((ReadOnlySpan<byte>)e.RawData);
+            for (int i = 0; i < game_update.Players.Count; i++)
             {
-                UpdatePing ping_update = Serializer.Deserialize<UpdatePing>((ReadOnlySpan<byte>)e.RawData);
-                currentPing = ping_update.Latency;
-            }
-            catch (System.Exception)
-            {
-                GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>((ReadOnlySpan<byte>)e.RawData);
-                for (int i = 0; i < game_update.Players.Count; i++)
-                {
-                    var player = this.players[i];
-                    var new_position = game_update.Players[i].Position;
-                    print(game_update.Players[i]);
-                    positionUpdates.Enqueue(new PositionUpdate { x = new_position.Y, y = -new_position.X, player_id = i });
-                }
+                var player = this.players[i];
+                var new_position = game_update.Players[i].Position;
+                print(game_update.Players[i]);
+                positionUpdates.Enqueue(new PositionUpdate { x = (long)new_position.Y, y = -((long)new_position.X), player_id = i });
             }
         }
     }

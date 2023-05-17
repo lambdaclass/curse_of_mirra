@@ -1,7 +1,9 @@
-.PHONY: docs gen-server-protobuf gen-client-protobuf
+.PHONY: docs gen-server-protobuf gen-client-protobuf gen-load-test-protobuf
 
 docs:
 	cd docs && mdbook serve --open
+
+gen-protobuf: gen-server-protobuf gen-client-protobuf gen-load-test-protobuf
 
 gen-server-protobuf:
 	protoc \
