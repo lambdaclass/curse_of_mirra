@@ -9748,7 +9748,7 @@ MonoBehaviour:
   prefab: {fileID: 1787465996332106811, guid: 94e572dc010a245f8a7fac3c1c846b1a, type: 3}
   players: []
   session_id: 
-  server_ip: 10.150.20.186
+  server_ip: localhost
   currentPing: 0
 --- !u!1001 &1865725793
 PrefabInstance:

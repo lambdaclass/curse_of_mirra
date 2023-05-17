@@ -11,6 +11,7 @@ using System;
 using System.Xml.Linq;
 using ProtoBuf;
 using MoreMountains.TopDownEngine;
+using System.Diagnostics;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class SocketConnectionManager : MonoBehaviour
     private int playerId;
     public static SocketConnectionManager Instance;
     public uint currentPing;
+
 
     public class GameResponse
     {
@@ -93,6 +95,7 @@ public class SocketConnectionManager : MonoBehaviour
         setCameraToPlayer(LobbyConnection.Instance.playerId);
         float tickRate = 1f / 30f;
         InvokeRepeating("sendAction", tickRate, tickRate);
+        InvokeRepeating("updatePing", 0.5f, 0.5f);
 
         if (this.session_id.IsNullOrEmpty())
         {
@@ -102,6 +105,18 @@ public class SocketConnectionManager : MonoBehaviour
         {
             ConnectToSession(this.session_id);
         }
+    }
+
+    void updatePing()
+    {
+        var timer = new Stopwatch();
+        timer.Start();
+        if (ws.Ping())
+        {
+            timer.Stop();
+            TimeSpan timetaken = timer.Elapsed;
+            currentPing = (uint) timetaken.Milliseconds;
+        };
     }
 
     void sendAction()
@@ -136,8 +151,8 @@ public class SocketConnectionManager : MonoBehaviour
             SendAction(action);
         }
 
-        ClientAction ping_action = new ClientAction { Action = Action.UpdatePing };
-        SendAction(ping_action);
+        //ClientAction ping_action = new ClientAction { Action = Action.UpdatePing };
+        //SendAction(ping_action);
     }
 
     private void setCameraToPlayer(int playerID)
@@ -182,7 +197,7 @@ public class SocketConnectionManager : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.Success:
                     Session session = JsonConvert.DeserializeObject<Session>(webRequest.downloadHandler.text);
-                    Debug.Log("Creating and joining Session ID: " + session.session_id);
+                    print("Creating and joining Session ID: " + session.session_id);
                     ConnectToSession(session.session_id);
                     break;
 
@@ -197,7 +212,7 @@ public class SocketConnectionManager : MonoBehaviour
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (sender, e) =>
         {
-            Debug.Log("Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message);
+            print("Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message);
         };
         ws.Connect();
     }
@@ -211,7 +226,7 @@ public class SocketConnectionManager : MonoBehaviour
         }
         else if (e.Data.Contains("ERROR"))
         {
-            Debug.Log("Error message: " + e.Data);
+            print("Error message: " + e.Data);
         }
         else
         {

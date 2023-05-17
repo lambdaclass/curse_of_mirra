@@ -176,7 +176,7 @@ PrefabInstance:
     - target: {fileID: -8041225176264388735, guid: 77aebae5d60de4384a6923f228de8979,
         type: 3}
       propertyPath: server_ip
-      value: 10.150.20.186
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: -8041225176264388735, guid: 77aebae5d60de4384a6923f228de8979,
         type: 3}
