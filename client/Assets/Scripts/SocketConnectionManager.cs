@@ -11,9 +11,11 @@ using System;
 using System.Xml.Linq;
 using ProtoBuf;
 using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
+    [SerializeField] MMTouchJoystick joystick;
     public LevelManager levelManager;
     public CinemachineCameraController camera;
     public Character prefab;
@@ -138,6 +140,25 @@ public class SocketConnectionManager : MonoBehaviour
 
     void sendAction()
     {
+        // Si es null
+        // joystick.RawValue replace its values with positive o negative 1 according to the direction of each letter
+
+        // si no se usa el joystick
+        /* if (joystick.RawValue == null)
+        {
+            // new Vector2 JOYSTICK (0,0)
+            if (Input.GetKey(KeyCode.W))
+            {
+                // (0,1)
+            }
+        }
+        else
+        { */
+        print("joystick: " + joystick.RawValue);
+        //ClientAction action = new ClientAction { Action = Action.Move, Direction = Direction.Up };
+        //SendAction(action);
+        //}
+
         if (ws == null)
         {
             return;
