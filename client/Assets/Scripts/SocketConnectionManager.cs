@@ -140,24 +140,26 @@ public class SocketConnectionManager : MonoBehaviour
 
     void sendAction()
     {
-        // Si es null
-        // joystick.RawValue replace its values with positive o negative 1 according to the direction of each letter
+        Vector2 position = new Vector2(0, 0);
 
-        // si no se usa el joystick
-        /* if (joystick.RawValue == null)
+        if (joystick.isActiveAndEnabled)
         {
-            // new Vector2 JOYSTICK (0,0)
-            if (Input.GetKey(KeyCode.W))
-            {
-                // (0,1)
-            }
+            position = new Vector2(joystick.RawValue.x, joystick.RawValue.y);
+            print("joystick: " + joystick.RawValue);
+            print("position: " + position);
+            //ClientAction action = new ClientAction { Action = Action.Move, Direction = Vector2 {x:0, y:1} };
+            //SendAction(action);
         }
         else
-        { */
-        print("joystick: " + joystick.RawValue);
-        //ClientAction action = new ClientAction { Action = Action.Move, Direction = Direction.Up };
-        //SendAction(action);
-        //}
+        {
+            // new Vector2 JOYSTICK (0,0)
+            /* if (Input.GetKey(KeyCode.W))
+            {
+                // joystick.RawValue replace its values with positive o negative 1 according to the direction of each letter
+                //ClientAction action = new ClientAction { Action = Action.Move, Direction = Vector2 {x:0, y:1} };
+                //SendAction(action);
+            } */
+        }
 
         if (ws == null)
         {
@@ -210,6 +212,11 @@ public class SocketConnectionManager : MonoBehaviour
             ClientAction action = new ClientAction { Action = Action.Attack, Direction = Direction.Left };
             SendAction(action);
         }
+    }
+
+    public void sendAttackAoe(Vector2 buttonValues)
+    {
+        print(buttonValues);
     }
 
     private void setCameraToPlayer(int playerID)
