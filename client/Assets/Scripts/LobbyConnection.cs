@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using NativeWebSocket;
+
 // using WebSocketSharp;
 
 public class LobbyConnection : MonoBehaviour
@@ -171,14 +172,14 @@ public class LobbyConnection : MonoBehaviour
         ws.Connect();
     }
 
-    
     void Update()
     {
-      #if !UNITY_WEBGL || UNITY_EDITOR
-      if (ws != null) {
-        ws.DispatchMessageQueue();
-      }
-      #endif
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (ws != null)
+        {
+            ws.DispatchMessageQueue();
+        }
+#endif
     }
 
     private void OnWebSocketMessage(byte[] data)
@@ -227,5 +228,10 @@ public class LobbyConnection : MonoBehaviour
             ws.Send(msg);
         }
         gameStarted = true;
+    }
+
+    private async void OnApplicationQuit()
+    {
+        await ws.Close();
     }
 }
