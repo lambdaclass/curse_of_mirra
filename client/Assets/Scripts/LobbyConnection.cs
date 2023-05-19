@@ -8,7 +8,8 @@ using ProtoBuf;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
-using WebSocketSharp;
+using NativeWebSocket;
+// using WebSocketSharp;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -160,18 +161,29 @@ public class LobbyConnection : MonoBehaviour
     {
         ws = new WebSocket("ws://" + server_ip + ":4000/matchmaking/" + session_id);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnError += (sender, e) =>
+        ws.OnError += (e) =>
         {
-            Debug.Log(
-                "Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message
-            );
+            // Debug.Log(
+            //     "Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message
+            // );
+            Debug.Log("Received Error");
         };
         ws.Connect();
     }
 
-    private void OnWebSocketMessage(object sender, MessageEventArgs e)
+    
+    void Update()
     {
-        LobbyEvent lobby_event = Serializer.Deserialize<LobbyEvent>((ReadOnlySpan<byte>)e.RawData);
+      #if !UNITY_WEBGL || UNITY_EDITOR
+      if (ws != null) {
+        ws.DispatchMessageQueue();
+      }
+      #endif
+    }
+
+    private void OnWebSocketMessage(byte[] data)
+    {
+        LobbyEvent lobby_event = Serializer.Deserialize<LobbyEvent>((ReadOnlySpan<byte>)data);
         switch (lobby_event.Type)
         {
             case LobbyEventType.Connected:
