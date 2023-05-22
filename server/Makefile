@@ -1,4 +1,4 @@
-.PHONY: setup run tests elixir-tests rust-tests db shell
+.PHONY: setup run tests elixir-tests rust-tests db shell credo
 
 setup:
 	mix deps.get
@@ -22,3 +22,6 @@ rust-tests:
 
 shell:
 	iex -S mix run --no-start --no-halt
+
+credo:
+	mix credo --strict

@@ -1,10 +1,11 @@
 defmodule DarkWorldsServerWeb.UserAuthTest do
   use DarkWorldsServerWeb.ConnCase, async: true
 
-  alias Phoenix.LiveView
+  import DarkWorldsServer.AccountsFixtures
+
   alias DarkWorldsServer.Accounts
   alias DarkWorldsServerWeb.UserAuth
-  import DarkWorldsServer.AccountsFixtures
+  alias Phoenix.LiveView
 
   @remember_me_cookie "_dark_worlds_server_web_user_remember_me"
 
@@ -91,8 +92,7 @@ defmodule DarkWorldsServerWeb.UserAuthTest do
     end
 
     test "authenticates user from cookies", %{conn: conn, user: user} do
-      logged_in_conn =
-        conn |> fetch_cookies() |> UserAuth.log_in_user(user, %{"remember_me" => "true"})
+      logged_in_conn = conn |> fetch_cookies() |> UserAuth.log_in_user(user, %{"remember_me" => "true"})
 
       user_token = logged_in_conn.cookies[@remember_me_cookie]
       %{value: signed_token} = logged_in_conn.resp_cookies[@remember_me_cookie]
@@ -122,8 +122,7 @@ defmodule DarkWorldsServerWeb.UserAuthTest do
       user_token = Accounts.generate_user_session_token(user)
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
-      {:cont, updated_socket} =
-        UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+      {:cont, updated_socket} = UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
 
       assert updated_socket.assigns.current_user.id == user.id
     end
@@ -132,8 +131,7 @@ defmodule DarkWorldsServerWeb.UserAuthTest do
       user_token = "invalid_token"
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
-      {:cont, updated_socket} =
-        UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+      {:cont, updated_socket} = UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
 
       assert updated_socket.assigns.current_user == nil
     end
@@ -141,8 +139,7 @@ defmodule DarkWorldsServerWeb.UserAuthTest do
     test "assigns nil to current_user assign if there isn't a user_token", %{conn: conn} do
       session = conn |> get_session()
 
-      {:cont, updated_socket} =
-        UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
+      {:cont, updated_socket} = UserAuth.on_mount(:mount_current_user, %{}, session, %LiveView.Socket{})
 
       assert updated_socket.assigns.current_user == nil
     end
@@ -153,8 +150,7 @@ defmodule DarkWorldsServerWeb.UserAuthTest do
       user_token = Accounts.generate_user_session_token(user)
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
-      {:cont, updated_socket} =
-        UserAuth.on_mount(:ensure_authenticated, %{}, session, %LiveView.Socket{})
+      {:cont, updated_socket} = UserAuth.on_mount(:ensure_authenticated, %{}, session, %LiveView.Socket{})
 
       assert updated_socket.assigns.current_user.id == user.id
     end

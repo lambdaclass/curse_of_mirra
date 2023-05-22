@@ -1,9 +1,9 @@
 defmodule DarkWorldsServerWeb.LobbyController do
   use DarkWorldsServerWeb, :controller
 
+  alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Matchmaking
   alias DarkWorldsServer.Matchmaking.MatchingSupervisor
-  alias DarkWorldsServer.Communication
 
   def new(conn, _params) do
     matchmaking_session_pid = Matchmaking.create_session()

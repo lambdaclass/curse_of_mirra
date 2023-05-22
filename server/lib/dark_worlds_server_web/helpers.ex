@@ -1,7 +1,7 @@
 defmodule DarkWorldsServerWeb.Helpers do
-  alias DarkWorldsServer.Matchmaking
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
+  alias DarkWorldsServer.Matchmaking
 
   def order_players_by_health(players) do
     players

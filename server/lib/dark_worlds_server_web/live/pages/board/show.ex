@@ -1,8 +1,9 @@
 defmodule DarkWorldsServerWeb.BoardLive.Show do
   use DarkWorldsServerWeb, :live_view
 
-  alias DarkWorldsServer.Engine.{RequestTracker, ActionOk}
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.Runner
 
   def mount(%{"game_id" => game_id} = params, _session, socket) do

@@ -57,7 +57,7 @@ impl Player {
     pub fn modify_health(self: &mut Self, hp_points: i64) {
         if matches!(self.status, Status::ALIVE) {
             self.health = self.health.saturating_add(hp_points);
-            if self.health.is_negative() {
+            if self.health <= 0 {
                 self.status = Status::DEAD;
             }
         }

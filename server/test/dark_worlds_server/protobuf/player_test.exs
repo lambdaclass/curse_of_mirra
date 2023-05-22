@@ -1,11 +1,13 @@
 defmodule DarkWorldsServer.ProtoBufTest.Player do
   use DarkWorldsServer.DataCase
   use ExUnit.Case, async: true
-  alias DarkWorldsServer.Accounts
 
   import DarkWorldsServer.AccountsFixtures
+
+  alias DarkWorldsServer.Accounts
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
-  alias DarkWorldsServer.Engine.{Player, Position}
+  alias DarkWorldsServer.Engine.Player
+  alias DarkWorldsServer.Engine.Position
 
   describe "Player encoding and decoding" do
     test "Health below 0 is encodable" do

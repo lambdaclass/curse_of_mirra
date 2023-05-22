@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using ProtoBuf;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using NativeWebSocket;
@@ -42,20 +40,10 @@ public class LobbyConnection : MonoBehaviour
         public List<string> current_games { get; set; }
     }
 
-    public void CreateLobby()
-    {
-        StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
-    }
-
-    public void ConnectToLobby(string matchmaking_id)
-    {
-        ConnectToSession(matchmaking_id);
-        LobbySession = matchmaking_id;
-    }
-
     private void Awake()
     {
         this.Init();
+        PopulateLists();
     }
 
     public void Init()
@@ -71,10 +59,41 @@ public class LobbyConnection : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    private void PopulateLists()
     {
+        this.lobbiesList = new List<string>();
+        this.gamesList = new List<string>();
         StartCoroutine(GetLobbies("http://" + server_ip + ":4000/current_lobbies"));
         StartCoroutine(GetGames("http://" + server_ip + ":4000/current_games"));
+    }
+
+    public void CreateLobby()
+    {
+        StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
+    }
+
+    public void ConnectToLobby(string matchmaking_id)
+    {
+        ConnectToSession(matchmaking_id);
+        LobbySession = matchmaking_id;
+    }
+
+    public void Refresh()
+    {
+        this.server_ip = SelectServerIP.GetServerIp();
+        PopulateLists();
+    }
+
+    public void StartGame()
+    {
+        LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
+        using (var stream = new MemoryStream())
+        {
+            Serializer.Serialize(stream, lobbyEvent);
+            var msg = stream.ToArray();
+            ws.Send(msg);
+        }
+        gameStarted = true;
     }
 
     IEnumerator GetRequest(string uri)
@@ -216,22 +235,5 @@ public class LobbyConnection : MonoBehaviour
                 break;
         }
         ;
-    }
-
-    public void StartGame()
-    {
-        LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
-        using (var stream = new MemoryStream())
-        {
-            Serializer.Serialize(stream, lobbyEvent);
-            var msg = stream.ToArray();
-            ws.Send(msg);
-        }
-        gameStarted = true;
-    }
-
-    private async void OnApplicationQuit()
-    {
-        await ws.Close();
     }
 }

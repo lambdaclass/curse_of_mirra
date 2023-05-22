@@ -55,6 +55,8 @@ jobs:
     - name: Install dependencies
       run: cd server && make setup
     - name: Check Elixir Formatting
+      run: cd server && make credo
+    - name: Check Elixir Formatting
       run: cd server && mix format --check-formatted
     - name: Check Rust Formatting
       run: cd server && cd native/gamestate && cargo fmt --check

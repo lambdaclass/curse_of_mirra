@@ -26,7 +26,7 @@ defmodule DarkWorldsServer.Engine.RequestTracker do
   end
 
   def report() do
-    report(:player)
+    report(:base)
   end
 
   def report(detail_level) do
@@ -38,23 +38,30 @@ defmodule DarkWorldsServer.Engine.RequestTracker do
     IO.puts("total games: #{length(Map.keys(aggregate.msgs_per_game))}")
 
     if detail_level in [:game, :player] do
-      IO.puts("\nDetails per game")
-      IO.puts("------------------")
-
-      Enum.each(aggregate.msgs_per_game, fn {game_pid,
-                                             %{total: total, msgs_per_player: msgs_per_player}} ->
-        IO.puts("#{:erlang.pid_to_list(game_pid)} =>")
-        IO.puts("   total msgs: #{total}")
-        IO.puts("   total players: #{length(Map.keys(msgs_per_player))}")
-
-        if detail_level == :player do
-          IO.puts("   msgs per player =>")
-
-          Enum.each(msgs_per_player, fn {player_id, value} ->
-            IO.puts("       player #{player_id}, total msg: #{value}")
-          end)
-        end
-      end)
+      maybe_report_game(detail_level, aggregate)
     end
+  end
+
+  defp maybe_report_game(detail_level, aggregate) do
+    IO.puts("\nDetails per game")
+    IO.puts("------------------")
+
+    Enum.each(aggregate.msgs_per_game, fn {game_pid, %{total: total, msgs_per_player: msgs_per_player}} ->
+      IO.puts("#{:erlang.pid_to_list(game_pid)} =>")
+      IO.puts("   total msgs: #{total}")
+      IO.puts("   total players: #{length(Map.keys(msgs_per_player))}")
+
+      if detail_level == :player do
+        maybe_report_player(msgs_per_player)
+      end
+    end)
+  end
+
+  defp maybe_report_player(msgs_per_player) do
+    IO.puts("   msgs per player =>")
+
+    Enum.each(msgs_per_player, fn {player_id, value} ->
+      IO.puts("       player #{player_id}, total msg: #{value}")
+    end)
   end
 end

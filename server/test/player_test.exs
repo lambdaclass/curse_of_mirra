@@ -18,8 +18,7 @@ defmodule DarkWorldsServer.PlayerTest do
       :timer.sleep(1_000)
       first_player_after_moving = WsClient.get_players(session_id) |> List.first()
 
-      x_before_eq_after =
-        first_player_before_moving.position.x == first_player_after_moving.position.x
+      x_before_eq_after = first_player_before_moving.position.x == first_player_after_moving.position.x
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.x - character_speed)
@@ -30,7 +29,9 @@ defmodule DarkWorldsServer.PlayerTest do
         first_player_after_moving.position.x ==
           first_player_before_moving.position.x - character_speed
 
-      # If the player hasn't moved (x position is the same before and after the move command), we check for valid cases where this is the expected outcome: when the target position is already occupied by a wall or another player, or when the limit of the board is reached.
+      # If the player hasn't moved (x position is the same before and after the move command),
+      # we check for valid cases where this is the expected outcome: when the target position is already occupied by
+      # a wall or another player, or when the limit of the board is reached.
       # In the third case, we make the test fail if player hasn't moved and none of these valid cases are true
       # In the fourth case, we check if the player has moved as expected
       success =
@@ -58,8 +59,7 @@ defmodule DarkWorldsServer.PlayerTest do
       :timer.sleep(1_000)
       first_player_after_moving = WsClient.get_players(session_id) |> List.first()
 
-      x_before_eq_after =
-        first_player_before_moving.position.x == first_player_after_moving.position.x
+      x_before_eq_after = first_player_before_moving.position.x == first_player_after_moving.position.x
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.x + character_speed)
@@ -70,7 +70,9 @@ defmodule DarkWorldsServer.PlayerTest do
         first_player_after_moving.position.x ==
           first_player_before_moving.position.x + character_speed
 
-      # If the player hasn't moved (x position is the same before and after the move command), we check for valid cases where this is the expected outcome: when the target position is already occupied by a wall or another player, or when the limit of the board is reached.
+      # If the player hasn't moved (x position is the same before and after the move command),
+      # we check for valid cases where this is the expected outcome: when the target position is already occupied by
+      # a wall or another player, or when the limit of the board is reached.
       # In the third case, we make the test fail if player hasn't moved and none of these valid cases are true
       # In the fourth case, we check if the player has moved as expected
       success =
@@ -97,8 +99,7 @@ defmodule DarkWorldsServer.PlayerTest do
       :timer.sleep(1_000)
       first_player_after_moving = WsClient.get_players(session_id) |> List.first()
 
-      y_before_eq_after =
-        first_player_before_moving.position.y == first_player_after_moving.position.y
+      y_before_eq_after = first_player_before_moving.position.y == first_player_after_moving.position.y
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.y - character_speed)
@@ -109,7 +110,9 @@ defmodule DarkWorldsServer.PlayerTest do
         first_player_after_moving.position.y ==
           first_player_before_moving.position.y - character_speed
 
-      # If the player hasn't moved (x position is the same before and after the move command), we check for valid cases where this is the expected outcome: when the target position is already occupied by a wall or another player, or when the limit of the board is reached.
+      # If the player hasn't moved (x position is the same before and after the move command),
+      # we check for valid cases where this is the expected outcome: when the target position is already occupied by
+      # a wall or another player, or when the limit of the board is reached.
       # In the third case, we make the test fail if player hasn't moved and none of these valid cases are true
       # In the fourth case, we check if the player has moved as expected
       success =
@@ -137,8 +140,7 @@ defmodule DarkWorldsServer.PlayerTest do
       :timer.sleep(1_000)
       first_player_after_moving = WsClient.get_players(session_id) |> List.first()
 
-      y_before_eq_after =
-        first_player_before_moving.position.y == first_player_after_moving.position.y
+      y_before_eq_after = first_player_before_moving.position.y == first_player_after_moving.position.y
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.y + character_speed)
@@ -149,7 +151,9 @@ defmodule DarkWorldsServer.PlayerTest do
         first_player_after_moving.position.y ==
           first_player_before_moving.position.y + character_speed
 
-      # If the player hasn't moved (x position is the same before and after the move command), we check for valid cases where this is the expected outcome: when the target position is already occupied by a wall or another player, or when the limit of the board is reached.
+      # If the player hasn't moved (x position is the same before and after the move command),
+      # we check for valid cases where this is the expected outcome: when the target position is already occupied by
+      # a wall or another player, or when the limit of the board is reached.
       # In the third case, we make the test fail if player hasn't moved and none of these valid cases are true
       # In the fourth case, we check if the player has moved as expected
       success =

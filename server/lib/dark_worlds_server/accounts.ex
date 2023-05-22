@@ -4,9 +4,11 @@ defmodule DarkWorldsServer.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias DarkWorldsServer.Repo
 
-  alias DarkWorldsServer.Accounts.{User, UserToken, UserNotifier}
+  alias DarkWorldsServer.Accounts.User
+  alias DarkWorldsServer.Accounts.UserNotifier
+  alias DarkWorldsServer.Accounts.UserToken
+  alias DarkWorldsServer.Repo
 
   ## Database getters
 

@@ -25,22 +25,6 @@ public class PlayerControls : MonoBehaviour
             ClientAction action = new ClientAction { Action = Action.AttackAoe };
             SocketConnectionManager.Instance.SendAction(action);
         }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SendAction(Action.Attack, Direction.Down);
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            SendAction(Action.Attack, Direction.Up);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SendAction(Action.Attack, Direction.Right);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SendAction(Action.Attack, Direction.Left);
-        }
     }
 
     private static void SendAction(Action action, Direction direction)

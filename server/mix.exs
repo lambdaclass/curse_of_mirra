@@ -63,7 +63,8 @@ defmodule DarkWorldsServer.MixProject do
       {:etop, "~> 0.7"},
       {:rexbug, ">= 1.0.0"},
       {:eep, github: "virtan/eep"},
-      {:rust_tests, path: "rust_tests_app", runtime: Mix.env() == :rust_test}
+      {:rust_tests, path: "rust_tests_app", runtime: Mix.env() == :rust_test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 
