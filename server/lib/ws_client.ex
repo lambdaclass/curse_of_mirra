@@ -41,6 +41,16 @@ defmodule DarkWorldsServer.WsClient do
   def attack(player, :left), do: _attack(player, :LEFT)
   def attack(player, :right), do: _attack(player, :RIGHT)
 
+  defp _move(_player, direction) do
+    %ClientAction{action: :MOVE, direction: direction}
+    |> send_command()
+  end
+
+  defp _attack(_player, direction) do
+    %ClientAction{action: :MOVE, direction: direction}
+    |> send_command()
+  end
+
   def attack_aoe(player, position) do
     %{
       "player" => player,
@@ -50,13 +60,12 @@ defmodule DarkWorldsServer.WsClient do
     |> send_command()
   end
 
-  defp _move(_player, direction) do
-    %ClientAction{action: :MOVE, direction: direction}
-    |> send_command()
-  end
-
-  defp _attack(_player, direction) do
-    %ClientAction{action: :MOVE, direction: direction}
+  def move_to_coordinates(player, coordinates) do
+    %{
+      "player" => player,
+      "action" => "move_to_coordinates",
+      "value" => %{"x" => position.x, "y" => position.y}
+    }
     |> send_command()
   end
 

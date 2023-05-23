@@ -168,6 +168,19 @@ defmodule DarkWorldsServer.PlayerTest do
     end
   end
 
+  @tag :move_to_coordinates
+  test "Move to position 0,0", %{conn: Conn} do
+    session_id = create_session(conn)
+    player_id = 1
+    {:ok, _ws_pid} = ws_connect(session_id, player_id)
+    grid = WsClient.get_grid(session_id)
+
+    first_player_before_moving = WsClient.get_players(session_id) |> List.first()
+    WsClient.move(1, :right)
+    :timer.sleep(1_000)
+    first_player_after_moving = WsClient.get_players(session_id) |> List.first()
+
+
   # Gets the position of anything that would impede a player from moving into a cell in the grid,
   # be it a wall or another player
   def get_wall_coordinates(board_matrix) do
