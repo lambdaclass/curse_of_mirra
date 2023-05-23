@@ -60,11 +60,11 @@ defmodule DarkWorldsServer.WsClient do
     |> send_command()
   end
 
-  def move_to_coordinates(player, coordinates) do
+  def move_to_coordinates(player, new_position) do
     %{
       "player" => player,
       "action" => "move_to_coordinates",
-      "value" => %{"x" => position.x, "y" => position.y}
+      "value" => %{"x" => new_position.x, "y" => new_position.y}
     }
     |> send_command()
   end
