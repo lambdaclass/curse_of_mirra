@@ -1,16 +1,12 @@
-using WebSocketSharp;
-using UnityEngine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine.Networking;
-using System.Net;
-using System;
-using System.Xml.Linq;
+using NativeWebSocket;
+using Newtonsoft.Json;
 using ProtoBuf;
-using System.Diagnostics;
+using UnityEngine;
+using UnityEngine.Networking;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -67,7 +63,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         playerId = LobbyConnection.Instance.playerId;
 
-        if (this.session_id.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(this.session_id))
         {
             StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_session"));
         }
@@ -75,6 +71,16 @@ public class SocketConnectionManager : MonoBehaviour
         {
             ConnectToSession(this.session_id);
         }
+    }
+
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (ws != null)
+        {
+            ws.DispatchMessageQueue();
+        }
+#endif
     }
 
     IEnumerator GetRequest(string uri)
@@ -111,37 +117,37 @@ public class SocketConnectionManager : MonoBehaviour
         print("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
         ws = new WebSocket("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnError += (sender, e) =>
+        ws.OnError += (e) =>
         {
-            print(
-                "Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message
-            );
+            // print(
+            //     "Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message
+            // );
+            Debug.Log("Received error");
         };
         ws.Connect();
     }
 
-    private void OnWebSocketMessage(object sender, MessageEventArgs e)
+    private void OnWebSocketMessage(byte[] data)
     {
-        // Debug.Log("Message received from: " + ((WebSocket)sender).Url + ", Data: " + e.Data);
+        var data_str = System.Text.Encoding.Default.GetString(data);
 
-        if (e.Data == "OK" || e.Data.Contains("CONNECTED_TO"))
+        if (data_str == "OK" || data_str.Contains("CONNECTED_TO"))
         {
             //Debug.Log("Nothing to do");
         }
-        else if (e.Data.Contains("PING:"))
+        else if (data_str.Contains("PING:"))
         {
-            String ping = e.Data[5..];
+            String ping = data_str[5..];
             currentPing = UInt32.Parse(ping);
         }
-        else if (e.Data.Contains("ERROR"))
+        else if (data_str.Contains("ERROR"))
         {
             //Debug.Log("Error message: " + e.Data);
         }
         else
         {
-            // Se mueve
             GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>(
-                (ReadOnlySpan<byte>)e.RawData
+                (ReadOnlySpan<byte>)data
             );
             this.gameUpdate = game_update;
         }
