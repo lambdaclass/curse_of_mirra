@@ -10,7 +10,7 @@ public class CustomLevelManager : LevelManager
     private int totalPlayers;
     private int playerCount = 0;
     private int playerId;
-    public Character prefab;
+    private Character prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
 
@@ -18,6 +18,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = LobbyConnection.Instance.playerCount;
+        prefab = SelectPlayerCharacter.prefab;
     }
 
     protected override void Start()

@@ -19,14 +19,13 @@ public class LobbiesManager : LevelSelector
 
     public void CreateLobby()
     {
-        StartCoroutine(WaitForLobbyCreation());
+        StartCoroutine(WaitForLobbyCreation("Lobby"));
     }
-    public IEnumerator WaitForLobbyCreation()
+    public IEnumerator WaitForLobbyCreation(string sceneName)
     {
         LobbyConnection.Instance.CreateLobby();
         yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
-        SceneManager.LoadScene("Lobby");
-        // GoToLevel();
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ConnectToLobby()
@@ -47,9 +46,15 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public IEnumerator WaitForGameCreation()
+    {
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession));
+        SceneManager.LoadScene("BackendPlayground");
+    }
+
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
-        GoToLevel();
+        StartCoroutine(WaitForGameCreation());
     }
 }
