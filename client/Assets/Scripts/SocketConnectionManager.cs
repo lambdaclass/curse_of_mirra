@@ -72,6 +72,7 @@ public class SocketConnectionManager : MonoBehaviour
             ConnectToSession(this.session_id);
         }
     }
+
     Vector2 position = new Vector2(0, 0);
     Vector2 lastPosition = new Vector2(0, 0);
 
@@ -118,6 +119,14 @@ public class SocketConnectionManager : MonoBehaviour
     {
         print("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
         ws = new WebSocket("ws://" + server_ip + ":4000/play/" + session_id + "/" + playerId);
+        ws.OnOpen += () =>
+        {
+            Debug.Log("Connection open!");
+        };
+        ws.OnClose += (e) =>
+        {
+            Debug.Log("Connection closed!");
+        };
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {
@@ -163,10 +172,5 @@ public class SocketConnectionManager : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
-    }
-
-    private async void OnApplicationQuit()
-    {
-        await ws.Close();
     }
 }

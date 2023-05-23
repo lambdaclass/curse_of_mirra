@@ -81,7 +81,7 @@ defmodule LoadTest.Player do
 
     case System.get_env("SSL_ENABLED") do
       "true" ->
-        "wss://#{host}/play/#{session_id}/#{player_id}"
+        "ws://#{host}/play/#{session_id}/#{player_id}"
 
       _ ->
         "ws://#{host}/play/#{session_id}/#{player_id}"

@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using NativeWebSocket;
 using Newtonsoft.Json;
 using ProtoBuf;
 using UnityEngine;
 using UnityEngine.Networking;
-using NativeWebSocket;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -190,6 +190,15 @@ public class LobbyConnection : MonoBehaviour
     private void ConnectToSession(string session_id)
     {
         ws = new WebSocket("ws://" + server_ip + ":4000/matchmaking/" + session_id);
+        ws.OnOpen += () =>
+        {
+            Debug.Log("Connection open!");
+        };
+        ws.OnClose += (e) =>
+        {
+            Debug.Log("Connection closed!");
+        };
+
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {
@@ -245,10 +254,5 @@ public class LobbyConnection : MonoBehaviour
                 break;
         }
         ;
-    }
-
-    private async void OnApplicationQuit()
-    {
-        await ws.Close();
     }
 }
