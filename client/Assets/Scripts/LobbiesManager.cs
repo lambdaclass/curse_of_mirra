@@ -9,6 +9,7 @@ public class LobbiesManager : LevelSelector
     [SerializeField]
     Text sessionId;
 
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -37,5 +38,11 @@ public class LobbiesManager : LevelSelector
     {
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuickGame()
+    {
+        LobbyConnection.Instance.QuickGame();
+        GoToLevel();
     }
 }

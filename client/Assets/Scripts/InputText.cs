@@ -5,8 +5,15 @@ using UnityEngine.UI;
 
 public class InputText : MonoBehaviour
 {
+    public static string text;
+    [SerializeField] InputField inputField;
+
     void Start()
     {
-        gameObject.GetComponent<InputField>().text = LobbyConnection.Instance.server_ip;
+        inputField.text = text;
+    }
+    public void Init()
+    {
+        text = LobbyConnection.Instance.server_ip;
     }
 }

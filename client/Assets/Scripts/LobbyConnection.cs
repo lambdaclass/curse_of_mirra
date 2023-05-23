@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ProtoBuf;
 using UnityEngine;
@@ -82,6 +83,18 @@ public class LobbyConnection : MonoBehaviour
     {
         this.server_ip = SelectServerIP.GetServerIp();
         PopulateLists();
+    }
+
+    public void QuickGame()
+    {
+        StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
+        StartCoroutine(WaitLobbyCreated());
+    }
+
+    private IEnumerator WaitLobbyCreated()
+    {
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
+        StartGame();
     }
 
     public void StartGame()
