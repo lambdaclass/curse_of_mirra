@@ -176,22 +176,22 @@ defmodule DarkWorldsServer.PlayerTest do
     grid = WsClient.get_grid(session_id)
 
     first_player_before_moving = WsClient.get_players(session_id) |> List.first()
-    WsClient.move(1, :right)
+    WsClient.move_to_coordinates(1, :right)
     :timer.sleep(1_000)
     first_player_after_moving = WsClient.get_players(session_id) |> List.first()
 
-
-  # Gets the position of anything that would impede a player from moving into a cell in the grid,
-  # be it a wall or another player
-  def get_wall_coordinates(board_matrix) do
-    board_matrix
-    |> Enum.with_index()
-    |> Enum.flat_map(fn {row, x} ->
-      row
+    # Gets the position of anything that would impede a player from moving into a cell in the grid,
+    # be it a wall or another player
+    def get_wall_coordinates(board_matrix) do
+      board_matrix
       |> Enum.with_index()
-      |> Enum.filter(fn {cell, _} -> cell == :wall end)
-      |> Enum.map(fn {_, y} -> {x, y} end)
-    end)
+      |> Enum.flat_map(fn {row, x} ->
+        row
+        |> Enum.with_index()
+        |> Enum.filter(fn {cell, _} -> cell == :wall end)
+        |> Enum.map(fn {_, y} -> {x, y} end)
+      end)
+    end
   end
 
   defp is_wall_or_player?({:player, _}), do: true
