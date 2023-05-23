@@ -8,8 +8,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using NativeWebSocket;
 
-// using WebSocketSharp;
-
 public class LobbyConnection : MonoBehaviour
 {
     [Tooltip("IP to connect to. If empty, localhost will be used")]
@@ -247,5 +245,10 @@ public class LobbyConnection : MonoBehaviour
                 break;
         }
         ;
+    }
+
+    private async void OnApplicationQuit()
+    {
+        await ws.Close();
     }
 }

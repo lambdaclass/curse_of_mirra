@@ -162,4 +162,9 @@ public class SocketConnectionManager : MonoBehaviour
             ws.Send(msg);
         }
     }
+
+    private async void OnApplicationQuit()
+    {
+        await ws.Close();
+    }
 }
