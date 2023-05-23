@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] MMTouchJoystick joystickL;
     public Queue<PlayerUpdate> playerUpdates = new Queue<PlayerUpdate>();
     public Direction nextAttackDirection;
     public bool isAttacking = false;
@@ -44,9 +46,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void SendAction()
+    public void SendAction()
     {
-        PlayerControls.SendAction();
+        GetComponent<PlayerControls>().SendAction();
         sendAttack();
     }
 
@@ -110,10 +112,6 @@ public class PlayerMovement : MonoBehaviour
             SocketConnectionManager.Instance.players[playerUpdate.player_id]
                 .GetComponent<AttackController>()
                 .SwordAttack(isAttacking);
-            if (isAttacking)
-            {
-                print("attack");
-            }
         }
     }
 
@@ -133,6 +131,11 @@ public class PlayerMovement : MonoBehaviour
                     action = (PlayerAction)game_update.Players[i].Action,
                 }
             );
+            if (game_update.Players[i].Health == 0)
+            {
+                print(SocketConnectionManager.instance.players[i + 1].name);
+                SocketConnectionManager.instance.players[i + 1].SetActive(false);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CustomLevelManager : LevelManager
 {
@@ -10,6 +11,7 @@ public class CustomLevelManager : LevelManager
     private int playerCount = 0;
     private int playerId;
     public Character prefab;
+    public Camera UiCamera;
     public CinemachineCameraController camera;
 
     protected override void Awake()
@@ -24,6 +26,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayer();
         playerId = LobbyConnection.Instance.playerId;
         setCameraToPlayer(playerId);
+        SetInputsAbilities(playerId);
     }
 
     public void GeneratePlayer()
@@ -61,6 +64,18 @@ public class CustomLevelManager : LevelManager
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
+            }
+        }
+    }
+    private void SetInputsAbilities(int playerID)
+    {
+        foreach (Character player in this.PlayerPrefabs)
+        {
+            if (Int32.Parse(player.PlayerID) == playerID)
+            {
+                UnityEvent<Vector2> aoeAttackEvent = new UnityEvent<Vector2>();
+                aoeAttackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbility("y", "button", aoeAttackEvent);
             }
         }
     }

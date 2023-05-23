@@ -105,7 +105,7 @@ defmodule DarkWorldsServerWeb.BoardLive.Show do
   def get_action("s", _), do: %ActionOk{action: :move, value: :down}
   def get_action("a", _), do: %ActionOk{action: :move, value: :left}
   def get_action("d", _), do: %ActionOk{action: :move, value: :right}
-  def get_action("e", _), do: %ActionOk{action: :attack_aoe, value: :aoe}
+  def get_action("e", position), do: %ActionOk{action: :attack_aoe, value: position}
   def get_action(" ", direction), do: %ActionOk{action: :attack, value: direction}
   def get_action(_, _), do: :no_action
 end

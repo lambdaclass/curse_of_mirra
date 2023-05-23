@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine // you might want to use your own namespace here
 {

@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
@@ -29,13 +31,13 @@ public class LobbyManager : LevelSelector
     public void GameStart()
     {
         LobbyConnection.Instance.StartGame();
-        GoToLevel();
+        SceneManager.LoadScene("BackendPlayground");
     }
 
     public void Back()
     {
         LobbyConnection.Instance.Init();
-        GoToLevel();
+        SceneManager.LoadScene("Lobbies");
     }
 
     private void Update()
@@ -46,7 +48,7 @@ public class LobbyManager : LevelSelector
         )
         {
             LobbyConnection.Instance.StartGame();
-            MMSceneLoadingManager.LoadScene("BackendPlayground");
+            SceneManager.LoadScene("BackendPlayground");
         }
     }
 }

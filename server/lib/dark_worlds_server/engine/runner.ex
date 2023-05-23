@@ -131,11 +131,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :attack_aoe}},
+        {:play, player_id, %ActionOk{action: :attack_aoe, value: value}},
         %{next_state: %{game: game} = next_state} = state
       ) do
-    %Player{position: position} = get_player(game.players, player_id)
-    game = Game.attack_aoe(game, player_id, position)
+    %Player{position: _position} = get_player(game.players, player_id)
+    game = Game.attack_aoe(game, player_id, value)
 
     has_a_player_won? = has_a_player_won?(game.players)
 

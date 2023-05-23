@@ -1,3 +1,4 @@
+using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -18,20 +19,26 @@ public class LobbiesManager : LevelSelector
 
     public void CreateLobby()
     {
+        StartCoroutine(WaitForLobbyCreation());
+    }
+    public IEnumerator WaitForLobbyCreation()
+    {
         LobbyConnection.Instance.CreateLobby();
-        GoToLevel();
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
+        SceneManager.LoadScene("Lobby");
+        // GoToLevel();
     }
 
     public void ConnectToLobby()
     {
         LobbyConnection.Instance.ConnectToLobby(sessionId.text);
-        GoToLevel();
+        SceneManager.LoadScene("Lobby");
     }
 
     public void Back()
     {
         LobbyConnection.Instance.Init();
-        GoToLevel();
+        SceneManager.LoadScene("Lobbies");
     }
 
     public void Refresh()

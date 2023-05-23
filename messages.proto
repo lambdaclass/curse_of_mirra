@@ -57,11 +57,13 @@ message UpdatePing {
     - action: the action taken by the player
     - direction: direction of the action (see Direction), used on actions MOVE, ATTACK
     - latency: ping latency value to send on UPDATE_PING action
+    - position: to decide aoe attack center
  */
 message ClientAction {
     Action action = 1;
     Direction direction = 2;
     uint32 latency = 3;
+    Position position = 4;
 }
 
 /* Actions a client/player performs

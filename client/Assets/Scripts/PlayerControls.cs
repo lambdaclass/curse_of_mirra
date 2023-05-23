@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public static void SendAction()
+    public void SendAction()
     {
         if (Input.GetKey(KeyCode.W))
         {

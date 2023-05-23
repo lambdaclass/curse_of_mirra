@@ -109,6 +109,7 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   field(:action, 1, type: DarkWorldsServer.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: DarkWorldsServer.Communication.Proto.Direction, enum: true)
   field(:latency, 3, type: :uint32)
+  field(:position, 4, type: DarkWorldsServer.Communication.Proto.Position)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

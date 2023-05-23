@@ -72,6 +72,8 @@ public class SocketConnectionManager : MonoBehaviour
             ConnectToSession(this.session_id);
         }
     }
+    Vector2 position = new Vector2(0, 0);
+    Vector2 lastPosition = new Vector2(0, 0);
 
     void Update()
     {
