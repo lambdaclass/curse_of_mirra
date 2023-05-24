@@ -9,6 +9,7 @@ public class LobbyManager : LevelSelector
 {
     [SerializeField]
     GameObject playButton;
+    public bool characterSelected = false;
 
     public override void GoToLevel()
     {

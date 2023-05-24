@@ -993,7 +993,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 871897513}
+      - m_Target: {fileID: 1908594171}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: CreateLobby
         m_Mode: 1
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000241922}
+      - m_Target: {fileID: 1908594171}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: QuickGame
         m_Mode: 1
@@ -1680,7 +1680,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 951165154}
+      objectReference: {fileID: 1908594171}
     - target: {fileID: 2432087869682588338, guid: 6804ba0bd0f4d4d67a0b719f56e9f5bd,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -3495,6 +3495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1908594169}
   - component: {fileID: 1908594170}
+  - component: {fileID: 1908594171}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -3552,6 +3553,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1908594171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908594168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610e661a176e54d3793b92ad9640aa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelName: 
+  DoNotUseLevelManager: 0
+  DestroyPersistentCharacter: 0
+  sessionId: {fileID: 0}
 --- !u!95 &2432087869642666568
 Animator:
   serializedVersion: 5
@@ -3822,7 +3839,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2432087871287418735}
+      - m_Target: {fileID: 1908594171}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -3940,7 +3957,6 @@ GameObject:
   - component: {fileID: 2432087871287418730}
   - component: {fileID: 2432087871287418729}
   - component: {fileID: 2432087871287418728}
-  - component: {fileID: 2432087871287418735}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -3968,22 +3984,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2432087871287418735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2432087871287418733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610e661a176e54d3793b92ad9640aa97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: Lobbies
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
-  sessionId: {fileID: 0}
 --- !u!1001 &4454394056822012468
 PrefabInstance:
   m_ObjectHideFlags: 0
