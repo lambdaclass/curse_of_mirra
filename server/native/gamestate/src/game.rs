@@ -206,7 +206,7 @@ impl GameState {
             .get_mut((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
-    fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
+    pub fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
         self.players
             .get((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))

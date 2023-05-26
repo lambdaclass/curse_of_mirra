@@ -149,35 +149,32 @@ fn move_player_to_coordinates() -> TestResult {
 
 #[rustler::nif]
 fn attacking() -> TestResult {
-    // FIXME: A 0 in new game is wrong!
-    let mut state = GameState::new(0, 20, 20, false);
+    let mut state = GameState::new(2, 20, 20, false);
     let player_1_id = 1;
     let player_2_id = 2;
-    let char: Character = speed1_character();
-    let player1 = Player::new(player_1_id, 100, Position::new(0, 0), char.clone());
-    let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
-    state.players = vec![player1.clone(), player2];
-    state.board.set_cell(0, 0, Tile::Player(player_1_id));
-    state.board.set_cell(0, 1, Tile::Player(player_2_id));
-    let cooldown = player1.character.cooldown();
+    state.move_player_to_coordinates(player_1_id, Position::new(0,0));
+    state.move_player_to_coordinates(player_2_id, Position::new(0,1));
+
+    let cooldown = state.get_player(player_1_id)?.character.cooldown();
+
     time_utils::sleep(cooldown);
 
     // Attack lands and damages player
     state.attack_player(player_1_id, Direction::RIGHT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(60, state.players[1].health)?;
 
     // Attack does nothing because of cooldown
     state.attack_player(player_1_id, Direction::RIGHT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(60, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attack misses and does nothing
     state.attack_player(player_1_id, Direction::DOWN);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(60, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
@@ -186,12 +183,13 @@ fn attacking() -> TestResult {
     // Attacking to the right now does nothing since the player moved down.
     state.attack_player(player_1_id, Direction::RIGHT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)?;
+    assert_result!(60, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attacking to a non-existent position on the board does nothing.
     state.attack_player(player_1_id, Direction::LEFT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)
+    assert_result!(60, state.players[1].health)
+
 }
