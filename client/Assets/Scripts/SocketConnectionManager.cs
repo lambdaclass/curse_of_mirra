@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using NativeWebSocket;
 using Newtonsoft.Json;
-using ProtoBuf;
+using Google.Protobuf;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -157,9 +157,7 @@ public class SocketConnectionManager : MonoBehaviour
         }
         else
         {
-            GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>(
-                (ReadOnlySpan<byte>)data
-            );
+            GameStateUpdate game_update = GameStateUpdate.Parser.ParseFrom(data);
             this.gameUpdate = game_update;
         }
     }
@@ -168,7 +166,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         using (var stream = new MemoryStream())
         {
-            Serializer.Serialize(stream, action);
+            action.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
         }

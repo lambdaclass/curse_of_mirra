@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using NativeWebSocket;
 using Newtonsoft.Json;
-using ProtoBuf;
+using Google.Protobuf;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -99,7 +99,7 @@ public class LobbyConnection : MonoBehaviour
         LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
         using (var stream = new MemoryStream())
         {
-            Serializer.Serialize(stream, lobbyEvent);
+            lobbyEvent.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
         }
@@ -222,7 +222,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void OnWebSocketMessage(byte[] data)
     {
-        LobbyEvent lobby_event = Serializer.Deserialize<LobbyEvent>((ReadOnlySpan<byte>)data);
+        LobbyEvent lobby_event = LobbyEvent.Parser.ParseFrom(data);
         switch (lobby_event.Type)
         {
             case LobbyEventType.Connected:

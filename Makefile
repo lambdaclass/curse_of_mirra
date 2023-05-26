@@ -12,8 +12,8 @@ gen-server-protobuf:
 		messages.proto
 
 gen-client-protobuf:
-	protogen --csharp_out=./  messages.proto
-	mv messages.cs client/Assets/Scripts/Messages.pb.cs
+	protoc --csharp_out=./  messages.proto
+	mv Messages.cs client/Assets/Scripts/Messages.pb.cs
 
 gen-load-test-protobuf:
 	protoc \
