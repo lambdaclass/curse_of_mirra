@@ -180,16 +180,16 @@ fn attacking() -> TestResult {
 
     state.move_player(player_1_id, Direction::DOWN);
 
-    // Attacking to the right now does nothing since the player moved down.
+    // Attacking to the right causes damage even if the player moved down, because the attack affects a small area.
     state.attack_player(player_1_id, Direction::RIGHT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(60, state.players[1].health)?;
+    assert_result!(20, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attacking to a non-existent position on the board does nothing.
     state.attack_player(player_1_id, Direction::LEFT);
     assert_result!(100, state.players[0].health)?;
-    assert_result!(60, state.players[1].health)
+    assert_result!(20, state.players[1].health)
 
 }
