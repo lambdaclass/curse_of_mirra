@@ -118,6 +118,7 @@ impl GameState {
         );
     }
 
+    // If input position is out of range, player will move to the closest edge.
     pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, mut new_position: Position) {
         let player = self
             .players
@@ -129,10 +130,6 @@ impl GameState {
             return;
         }
 
-        // These changes are done so that if the player is moving into one of the map's borders
-        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
-        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
-        // something invalid like (0, -1).
         new_position.x = min(new_position.x, self.board.height - 1);
         new_position.x = max(new_position.x, 0);
         new_position.y = min(new_position.y, self.board.width - 1);
@@ -219,7 +216,7 @@ impl GameState {
             .iter_mut()
             .find(|player| player.id == attacking_player_id)
             .unwrap();
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+        let attack_dmg: i64 = attacking_player.character.attack_dmg() as i64;
 
         let cooldown = attacking_player.character.cooldown();
 
@@ -237,7 +234,7 @@ impl GameState {
         attacking_player.last_melee_attack = now;
 
         let (top_left, bottom_right) =
-            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
+        compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
 
         let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
 
@@ -257,30 +254,6 @@ impl GameState {
                 _ => continue,
             }
         }
-    }
-
-    // Return all player_id inside an area
-    pub fn players_in_range(
-        self: &mut Self,
-        top_left: Position,
-        bottom_right: Position,
-    ) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-        for fil in top_left.x..=bottom_right.x {
-            for col in top_left.y..=bottom_right.y {
-                let cell = self.board.get_cell(fil, col);
-                if cell.is_none() {
-                    continue;
-                }
-                match cell.unwrap() {
-                    Tile::Player(player_id) => {
-                        players.push(player_id);
-                    }
-                    _ => continue,
-                }
-            }
-        }
-        players
     }
 
     pub fn attack_aoe(
@@ -330,6 +303,30 @@ impl GameState {
                 _ => continue,
             }
         }
+    }
+
+    // Return all player_id inside an area
+    pub fn players_in_range(
+        self: &mut Self,
+        top_left: Position,
+        bottom_right: Position,
+    ) -> Vec<u64> {
+        let mut players: Vec<u64> = vec![];
+        for fil in top_left.x..=bottom_right.x {
+            for col in top_left.y..=bottom_right.y {
+                let cell = self.board.get_cell(fil, col);
+                if cell.is_none() {
+                    continue;
+                }
+                match cell.unwrap() {
+                    Tile::Player(player_id) => {
+                        players.push(player_id);
+                    }
+                    _ => continue,
+                }
+            }
+        }
+        players
     }
 
     pub fn disconnect(self: &mut Self, player_id: u64) -> Result<(), String> {
@@ -383,6 +380,7 @@ fn compute_adjacent_position_n_tiles(
     }
 }
 
+// Returns two Position points that define the top right and bottom left corners of a 19 x 40 rectangle on the grid
 fn compute_attack_initial_positions(
     direction: &Direction,
     position: &Position,
