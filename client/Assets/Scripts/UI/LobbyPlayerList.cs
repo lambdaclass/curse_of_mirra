@@ -11,6 +11,8 @@ public class LobbyPlayerList : MonoBehaviour
     GameObject playButton;
     int totalPlayersBefore = 0;
 
+    List<PlayerItem> playerItems = new List<PlayerItem>();
+
     // Update is called once per frame
     void Update()
     {
@@ -45,5 +47,17 @@ public class LobbyPlayerList : MonoBehaviour
                 playerI.playerText.text += " " + id.ToString();
             }
         }
+        playerI.id = id;
+        playerItems.Add(playerI);
+    }
+
+    public PlayerItem GetPlayerCharacter(int id){
+        PlayerItem item = new PlayerItem();
+        for(int i = 0;i<playerItems.Count;i++){
+            if(id == playerItems[i].GetId()){
+                item = playerItems[i];
+            }
+        }
+        return item;
     }
 }

@@ -2400,6 +2400,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8949405993370375915, guid: 47dfd1359d1334109b07f7bc2d9ac02e,
         type: 3}
+      propertyPath: playersList
+      value: 
+      objectReference: {fileID: 2065301269}
+    - target: {fileID: 8949405993370375915, guid: 47dfd1359d1334109b07f7bc2d9ac02e,
+        type: 3}
       propertyPath: lobbyManager
       value: 
       objectReference: {fileID: 1083681582}
@@ -3404,6 +3409,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1787465996332106811, guid: 49406c4f46c194b7fbd51f1b07cbb9b9,
         type: 3}
+    - target: {fileID: 8949405993370375915, guid: 47dfd1359d1334109b07f7bc2d9ac02e,
+        type: 3}
+      propertyPath: playersList
+      value: 
+      objectReference: {fileID: 2065301269}
     - target: {fileID: 8949405993370375915, guid: 47dfd1359d1334109b07f7bc2d9ac02e,
         type: 3}
       propertyPath: lobbyManager

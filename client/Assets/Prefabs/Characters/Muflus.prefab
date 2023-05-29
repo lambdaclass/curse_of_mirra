@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 2506641952342998690}
   m_Layer: 10
-  m_Name: Player
+  m_Name: Muflus
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

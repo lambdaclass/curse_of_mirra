@@ -7,17 +7,16 @@ using UnityEngine;
 public class SelectPlayerCharacter : CharacterSelector
 {
     public static Character prefab;
-    [SerializeField] LobbyManager lobbyManager;
 
     public bool selected = false;
+    [SerializeField] LobbyPlayerList playersList;
 
     public void SelectPrefab()
     {
         print("PLAYER " + LobbyConnection.Instance.playerId + "Selected " + this.CharacterPrefab.name);
         // CustomLevelManager.prefab = this.CharacterPrefab;
-        print("click");
         prefab = this.CharacterPrefab;
-        lobbyManager.characterSelected = !lobbyManager.characterSelected;
         selected = true;
+        playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId).SetCharacterText(this.CharacterPrefab.name);
     }
 }
