@@ -42,6 +42,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
   end
 
+  def encode(%EngineAction{action: :teleport, value: direction}, ProtoAction) do
+    %ProtoAction{action: :TELEPORT, direction: direction_encode(direction)}
+  end
+
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
     %ProtoAction{action: :ATTACK, direction: direction_encode(direction)}
   end

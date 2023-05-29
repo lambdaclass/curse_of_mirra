@@ -30,6 +30,15 @@ defmodule LoadTest.Player do
     |> send_command()
   end
 
+  def teleport(player, position) do
+    %{
+      "player" => player,
+      "action" => "teleport",
+      "value" => %{"x" => position.x, "y" => position.y}
+    }
+    |> send_command()
+  end
+
   defp _attack(player, direction) do
     %ClientAction{action: :ATTACK, direction: direction}
     |> send_command()

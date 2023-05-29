@@ -19,6 +19,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field :UPDATE_PING, 4
   field :ATTACK_AOE, 5
   field :MOVE_WITH_JOYSTICK, 6
+  field :TELEPORT, 7
 end
 
 defmodule LoadTest.Communication.Proto.Direction do

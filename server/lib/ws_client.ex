@@ -55,6 +55,15 @@ defmodule DarkWorldsServer.WsClient do
     |> send_command()
   end
 
+  def teleport(player, position) do
+    %{
+      "player" => player,
+      "action" => "teleport",
+      "value" => %{"x" => position.x, "y" => position.y}
+    }
+    |> send_command()
+  end
+
   defp _attack(_player, direction) do
     %ClientAction{action: :MOVE, direction: direction}
     |> send_command()
