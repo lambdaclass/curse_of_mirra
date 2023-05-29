@@ -16,6 +16,7 @@ message GameStateUpdate {
     - last_melee_attack: Time of the last melee attack done by the player in
       seconds since unix epoch.
     - status: currently if alive or dead
+    - aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
  */
 message Player {
     uint64 id = 1;
@@ -25,6 +26,7 @@ message Player {
     uint64 last_melee_attack  = 4;
     Status status = 5;
     PlayerAction action = 6;
+    Position aoe_position = 7;
 }
 
 /*
@@ -42,6 +44,15 @@ enum Status {
 message Position {
     uint64 x = 1;
     uint64 y = 2;
+}
+
+/* A relative positioncorner
+    - x: X coordinate
+    - y: Y coordinate
+ */
+message RelativePosition {
+    int64 x = 1;
+    int64 y = 2;
 }
 
 /* Message to update a player's ping latency information
@@ -63,7 +74,7 @@ message ClientAction {
     Action action = 1;
     Direction direction = 2;
     uint32 latency = 3;
-    Position position = 4;
+    RelativePosition position = 4;
     JoystickValues move_delta = 5;
 }
 
@@ -105,6 +116,7 @@ message JoystickValues {
 enum PlayerAction {
     NOTHING = 0;
     ATTACKING = 1;
+    ATTACKING_AOE = 2;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

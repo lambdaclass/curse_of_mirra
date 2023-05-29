@@ -8,7 +8,7 @@ use game::GameState;
 use rustler::{Env, Term};
 use std::collections::HashMap;
 
-use crate::{board::GridResource, board::Tile, game::Direction, player::Position};
+use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
@@ -67,7 +67,11 @@ fn attack_player(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn attack_aoe(game: GameState, attacking_player_id: u64, attack_position: Position) -> GameState {
+fn attack_aoe(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> GameState {
     let mut game_2 = game;
     game_2.attack_aoe(attacking_player_id, &attack_position);
     game_2

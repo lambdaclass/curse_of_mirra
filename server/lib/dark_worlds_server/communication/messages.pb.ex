@@ -40,6 +40,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
 
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
+  field(:ATTACKING_AOE, 2)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -77,6 +78,11 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   field(:status, 5, type: DarkWorldsServer.Communication.Proto.Status, enum: true)
   field(:action, 6, type: DarkWorldsServer.Communication.Proto.PlayerAction, enum: true)
 
+  field(:aoe_position, 7,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "aoePosition"
+  )
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
@@ -87,6 +93,17 @@ defmodule DarkWorldsServer.Communication.Proto.Position do
 
   field(:x, 1, type: :uint64)
   field(:y, 2, type: :uint64)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.RelativePosition do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:x, 1, type: :int64)
+  field(:y, 2, type: :int64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -110,7 +127,7 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   field(:action, 1, type: DarkWorldsServer.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: DarkWorldsServer.Communication.Proto.Direction, enum: true)
   field(:latency, 3, type: :uint32)
-  field(:position, 4, type: DarkWorldsServer.Communication.Proto.Position)
+  field(:position, 4, type: DarkWorldsServer.Communication.Proto.RelativePosition)
 
   field(:move_delta, 5,
     type: DarkWorldsServer.Communication.Proto.JoystickValues,

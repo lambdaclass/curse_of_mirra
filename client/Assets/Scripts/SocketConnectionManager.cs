@@ -53,6 +53,7 @@ public class SocketConnectionManager : MonoBehaviour
         public int health { get; set; }
         public Position position { get; set; }
         public PlayerMovement.PlayerAction action { get; set; }
+        public Position aoe_position { get; set; }
     }
 
     public void Awake()

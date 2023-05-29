@@ -20,6 +20,7 @@ pub struct Player {
     pub status: Status,
     pub character: Character,
     pub action: PlayerAction,
+    pub aoe_position: Position,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -33,6 +34,7 @@ pub enum Status {
 pub enum PlayerAction {
     NOTHING,
     ATTACKING,
+    ATTACKINGAOE,
 }
 
 #[derive(Debug, Clone, NifStruct, PartialEq)]
@@ -52,6 +54,7 @@ impl Player {
             status: Status::ALIVE,
             character,
             action: PlayerAction::NOTHING,
+            aoe_position: Position::new(0, 0),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -66,6 +69,19 @@ impl Player {
 
 impl Position {
     pub fn new(x: usize, y: usize) -> Self {
+        Self { x, y }
+    }
+}
+
+#[derive(Debug, Clone, NifStruct, PartialEq)]
+#[module = "DarkWorldsServer.Engine.RelativePosition"]
+pub struct RelativePosition {
+    pub x: i64,
+    pub y: i64,
+}
+
+impl RelativePosition {
+    pub fn new(x: i64, y: i64) -> Self {
         Self { x, y }
     }
 }
