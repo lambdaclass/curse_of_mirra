@@ -177,24 +177,24 @@ fn attacking() -> TestResult {
     assert_result!(60, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
-
-    state.move_player(player_1_id, Direction::DOWN);
-
-    // Attacking to the right causes damage even if the player moved down, because the attack action affects a small area.
-    state.attack_player(player_1_id, Direction::RIGHT);
-    assert_result!(100, state.players[0].health)?;
-    assert_result!(20, state.players[1].health)?;
-
-    println!("19,19");
-
-    state.move_player_to_coordinates(player_1_id, Position::new(19,19));
-    time_utils::sleep(cooldown);
+    // Player moves so that opponent is standing in the edge of the area where the attack causes damage, attack succeeds
+    state.move_player_to_coordinates(player_1_id, Position::new(20,0));
 
     state.attack_player(player_1_id, Direction::RIGHT);
     assert_result!(100, state.players[0].health)?;
     assert_result!(20, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
+
+    // Player moves so that opponent is standing outside of the area where the attack causes damage, does no damage
+    state.move_player_to_coordinates(player_1_id, Position::new(20,1));
+    time_utils::sleep(cooldown);
+
+    state.attack_player(player_1_id, Direction::RIGHT);
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(20, state.players[1].health)?;
+
+    time_utils::sleep(cooldown);   
 
     // Attacking to a non-existent position on the board does nothing.
     state.attack_player(player_1_id, Direction::LEFT);
