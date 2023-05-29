@@ -234,7 +234,7 @@ impl GameState {
         attacking_player.last_melee_attack = now;
 
         let (top_left, bottom_right) =
-        compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
+            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
 
         let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
 
