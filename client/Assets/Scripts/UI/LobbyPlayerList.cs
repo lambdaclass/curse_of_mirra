@@ -56,7 +56,7 @@ public class LobbyPlayerList : MonoBehaviour
         for(int i = 0;i<playerItems.Count;i++){
             if(id == playerItems[i].GetId()){
                 item = playerItems[i];
-            }
+            }   
         }
         return item;
     }

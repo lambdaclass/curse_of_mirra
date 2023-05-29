@@ -19,13 +19,7 @@ public class LobbiesManager : LevelSelector
 
     public void CreateLobby()
     {
-        StartCoroutine(WaitForLobbyCreation("Lobby"));
-    }
-    public IEnumerator WaitForLobbyCreation(string sceneName)
-    {
-        LobbyConnection.Instance.CreateLobby();
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(WaitForLobbyCreation());
     }
 
     public void ConnectToLobby()
@@ -46,15 +40,23 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public IEnumerator WaitForGameCreation()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession));
-        SceneManager.LoadScene("BackendPlayground");
-    }
-
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
         StartCoroutine(WaitForGameCreation());
+    }
+
+    public IEnumerator WaitForGameCreation()
+    {
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession));
+        LobbyConnection.Instance.playerCount = 1;
+        SceneManager.LoadScene("BackendPlayground");
+    }
+
+    public IEnumerator WaitForLobbyCreation()
+    {
+        LobbyConnection.Instance.CreateLobby();
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
+        SceneManager.LoadScene("Lobby");
     }
 }

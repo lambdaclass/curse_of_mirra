@@ -1,10 +1,8 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
-  alias DarkWorldsServer.Communication.Proto.GameStateUpdate
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
-  alias DarkWorldsServer.Communication.Proto.UpdatePing
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
@@ -30,28 +28,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(%{players: players}, GameStateUpdate) do
-    %GameStateUpdate{players: players}
-  end
-
-  def encode({player_id, latency}, UpdatePing) do
-    %UpdatePing{player_id: player_id, latency: latency}
-  end
-
   def encode(%EngineAction{action: :move, value: direction}, ProtoAction) do
     %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
   end
 
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
     %ProtoAction{action: :ATTACK, direction: direction_encode(direction)}
-  end
-
-  def encode(%EngineAction{action: :ping}, ProtoAction) do
-    %ProtoAction{action: :PING}
-  end
-
-  def encode(%EngineAction{action: :update_ping, value: latency}, ProtoAction) do
-    %ProtoAction{action: :UPDATE_PING, latency: latency}
   end
 
   def encode(%EngineAction{action: :attack_aoe, value: position}, ProtoAction) do
@@ -92,14 +74,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(%GameStateUpdate{players: players}, GameStateUpdate) do
-    %{players: players}
-  end
-
-  def decode(%UpdatePing{player_id: player_id, latency: latency}, UpdatePing) do
-    {player_id, latency}
-  end
-
   def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}, ProtoAction) do
     %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}}
   end
@@ -110,14 +84,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(%ProtoAction{action: :ATTACK, direction: direction}, ProtoAction) do
     %EngineAction{action: :attack, value: direction_decode(direction)}
-  end
-
-  def decode(%ProtoAction{action: :PING}, ProtoAction) do
-    %EngineAction{action: :ping, value: :ping}
-  end
-
-  def decode(%ProtoAction{action: :UPDATE_PING, latency: latency}, ProtoAction) do
-    %EngineAction{action: :update_ping, value: latency}
   end
 
   def decode(%ProtoAction{action: :ATTACK_AOE, position: position}, ProtoAction) do

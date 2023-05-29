@@ -1,3 +1,12 @@
+defmodule LoadTest.Communication.Proto.GameEventType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field :STATE_UPDATE, 0
+  field :PING_UPDATE, 1
+end
+
 defmodule LoadTest.Communication.Proto.Status do
   @moduledoc false
 
@@ -15,8 +24,6 @@ defmodule LoadTest.Communication.Proto.Action do
   field :ACTION_UNSPECIFIED, 0
   field :MOVE, 1
   field :ATTACK, 2
-  field :PING, 3
-  field :UPDATE_PING, 4
   field :ATTACK_AOE, 5
   field :MOVE_WITH_JOYSTICK, 6
 end
@@ -40,6 +47,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
 
   field :NOTHING, 0
   field :ATTACKING, 1
+  field :ATTACKING_AOE, 2
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -55,12 +63,14 @@ defmodule LoadTest.Communication.Proto.LobbyEventType do
   field :START_GAME, 5
 end
 
-defmodule LoadTest.Communication.Proto.GameStateUpdate do
+defmodule LoadTest.Communication.Proto.GameEvent do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :players, 1, repeated: true, type: LoadTest.Communication.Proto.Player
+  field :type, 1, type: LoadTest.Communication.Proto.GameEventType, enum: true
+  field :players, 2, repeated: true, type: LoadTest.Communication.Proto.Player
+  field :latency, 3, type: :uint64
 end
 
 defmodule LoadTest.Communication.Proto.Player do
@@ -74,6 +84,7 @@ defmodule LoadTest.Communication.Proto.Player do
   field :last_melee_attack, 4, type: :uint64, json_name: "lastMeleeAttack"
   field :status, 5, type: LoadTest.Communication.Proto.Status, enum: true
   field :action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true
+  field :aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition"
 end
 
 defmodule LoadTest.Communication.Proto.Position do
@@ -85,13 +96,13 @@ defmodule LoadTest.Communication.Proto.Position do
   field :y, 2, type: :uint64
 end
 
-defmodule LoadTest.Communication.Proto.UpdatePing do
+defmodule LoadTest.Communication.Proto.RelativePosition do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :player_id, 1, type: :uint32, json_name: "playerId"
-  field :latency, 2, type: :uint32
+  field :x, 1, type: :int64
+  field :y, 2, type: :int64
 end
 
 defmodule LoadTest.Communication.Proto.ClientAction do
@@ -101,9 +112,8 @@ defmodule LoadTest.Communication.Proto.ClientAction do
 
   field :action, 1, type: LoadTest.Communication.Proto.Action, enum: true
   field :direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true
-  field :latency, 3, type: :uint32
-  field :position, 4, type: LoadTest.Communication.Proto.Position
-  field :move_delta, 5, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta"
+  field :position, 3, type: LoadTest.Communication.Proto.RelativePosition
+  field :move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta"
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do

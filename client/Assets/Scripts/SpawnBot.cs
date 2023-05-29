@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class SpawnBot : MonoBehaviour
 
     public void Init()
     {
+        if (manager.players.Count == 9) GetComponent<MMTouchButton>().DisableButton();
         GenerateBotPlayer();
     }
 

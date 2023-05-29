@@ -7,6 +7,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.Runner
 
+  require Logger
+
   @behaviour :cowboy_websocket
   @ping_interval_ms 500
 
@@ -52,9 +54,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   @impl true
   def websocket_handle({:binary, message}, state) do
     case Communication.decode(message) do
-      {:ok, %{action: :ping}} ->
-        {:reply, {:text, "pong"}, state}
-
       {:ok, action} ->
         RequestTracker.add_counter(state[:runner_pid], state[:player_id])
         Runner.play(state[:runner_pid], state[:player_id], action)
@@ -70,7 +69,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     time_now = Time.utc_now()
     latency = Time.diff(time_now, last_ping_time, :millisecond)
     # Send back the player's ping
-    {:reply, {:text, "PING: #{latency}"}, state}
+    {:reply, {:binary, Communication.encode!(%{latency: latency})}, state}
   end
 
   def websocket_handle(_, state) do
@@ -102,11 +101,21 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       players: game_state.current_state.game.players
     }
 
+    Logger.info("THE GAME HAS FINISHED")
+
     {:reply, {:binary, Communication.encode!(reply_map)}, state}
   end
 
-  def websocket_info({:update_ping, player, ping}, state) do
-    {:reply, {:binary, Communication.encode!({player, ping})}, state}
+  # TODO: Use protobuf
+  def websocket_info({:next_round, _game_state}, state) do
+    Logger.info("A NEW ROUND STARTED")
+    {:reply, {:text, "NEXT_ROUND"}, state}
+  end
+
+  # TODO: Use protobuf
+  def websocket_info({:last_round, _game_state}, state) do
+    Logger.info("THE LAST ROUND STARTED")
+    {:reply, {:text, "LAST_ROUND"}, state}
   end
 
   def websocket_info(info, state), do: {:reply, {:text, info}, state}

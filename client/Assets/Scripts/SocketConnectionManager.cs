@@ -23,7 +23,7 @@ public class SocketConnectionManager : MonoBehaviour
     [Tooltip("IP to connect to. If empty, localhost will be used")]
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
-    public GameStateUpdate gameUpdate;
+    public List<Player> gamePlayers;
     private int playerId;
 
     public static SocketConnectionManager instance;
@@ -31,29 +31,9 @@ public class SocketConnectionManager : MonoBehaviour
 
     WebSocket ws;
 
-    public class GameResponse
-    {
-        public List<Player> players { get; set; }
-    }
-
     public class Session
     {
         public string session_id { get; set; }
-    }
-
-    public class Position
-    {
-        public long x { get; set; }
-        public long y { get; set; }
-    }
-
-    public class Player
-    {
-        public int id { get; set; }
-        public int health { get; set; }
-        public Position position { get; set; }
-        public PlayerMovement.PlayerAction action { get; set; }
-        public Position aoe_position { get; set; }
     }
 
     public void Awake()
@@ -125,29 +105,22 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void OnWebSocketMessage(object sender, MessageEventArgs e)
     {
-        // Debug.Log("Message received from: " + ((WebSocket)sender).Url + ", Data: " + e.Data);
+        GameEvent game_event = Serializer.Deserialize<GameEvent>((ReadOnlySpan<byte>)e.RawData);
+        switch (game_event.Type)
+        {
+            case GameEventType.StateUpdate:
+                this.gamePlayers = game_event.Players;
+                break;
 
-        if (e.Data == "OK" || e.Data.Contains("CONNECTED_TO"))
-        {
-            //Debug.Log("Nothing to do");
+            case GameEventType.PingUpdate:
+                UInt64 currentPing = game_event.Latency;
+                break;
+
+            default:
+                print("Message received is: " + game_event.Type);
+                break;
         }
-        else if (e.Data.Contains("PING:"))
-        {
-            String ping = e.Data[5..];
-            currentPing = UInt32.Parse(ping);
-        }
-        else if (e.Data.Contains("ERROR"))
-        {
-            //Debug.Log("Error message: " + e.Data);
-        }
-        else
-        {
-            // Se mueve
-            GameStateUpdate game_update = Serializer.Deserialize<GameStateUpdate>(
-                (ReadOnlySpan<byte>)e.RawData
-            );
-            this.gameUpdate = game_update;
-        }
+        ;
     }
 
     public void SendAction(ClientAction action)

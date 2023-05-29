@@ -1,3 +1,12 @@
+defmodule DarkWorldsServer.Communication.Proto.GameEventType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:STATE_UPDATE, 0)
+  field(:PING_UPDATE, 1)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.Status do
   @moduledoc false
 
@@ -15,8 +24,6 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:ACTION_UNSPECIFIED, 0)
   field(:MOVE, 1)
   field(:ATTACK, 2)
-  field(:PING, 3)
-  field(:UPDATE_PING, 4)
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
 end
@@ -56,12 +63,14 @@ defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
   field(:START_GAME, 5)
 end
 
-defmodule DarkWorldsServer.Communication.Proto.GameStateUpdate do
+defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:players, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.Player)
+  field(:type, 1, type: DarkWorldsServer.Communication.Proto.GameEventType, enum: true)
+  field(:players, 2, repeated: true, type: DarkWorldsServer.Communication.Proto.Player)
+  field(:latency, 3, type: :uint64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -108,17 +117,6 @@ defmodule DarkWorldsServer.Communication.Proto.RelativePosition do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.UpdatePing do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:player_id, 1, type: :uint32, json_name: "playerId")
-  field(:latency, 2, type: :uint32)
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
 defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   @moduledoc false
 
@@ -126,10 +124,9 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
 
   field(:action, 1, type: DarkWorldsServer.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: DarkWorldsServer.Communication.Proto.Direction, enum: true)
-  field(:latency, 3, type: :uint32)
-  field(:position, 4, type: DarkWorldsServer.Communication.Proto.RelativePosition)
+  field(:position, 3, type: DarkWorldsServer.Communication.Proto.RelativePosition)
 
-  field(:move_delta, 5,
+  field(:move_delta, 4,
     type: DarkWorldsServer.Communication.Proto.JoystickValues,
     json_name: "moveDelta"
   )
