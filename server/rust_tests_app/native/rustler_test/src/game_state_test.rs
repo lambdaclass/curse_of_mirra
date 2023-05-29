@@ -4,8 +4,7 @@ use gamestate::board::GridResource;
 use gamestate::board::Tile;
 use gamestate::character::Character;
 use gamestate::game::{Direction, GameState};
-use gamestate::player::Player;
-use gamestate::player::Position;
+use gamestate::player::{Player, Position, RelativePosition};
 use gamestate::time_utils;
 fn get_grid(game: &GameState) -> Vec<Vec<Tile>> {
     let grid = game.board.grid.resource.lock().unwrap();
@@ -200,5 +199,45 @@ fn attacking() -> TestResult {
     state.attack_player(player_1_id, Direction::LEFT);
     assert_result!(100, state.players[0].health)?;
     assert_result!(20, state.players[1].health)
+
+}
+
+#[rustler::nif]
+fn attacking_aoe() -> TestResult {
+    let mut state = GameState::new(2, 40, 40, false);
+    let player_1_id = 1;
+    let player_2_id = 2;
+    state.move_player_to_coordinates(player_1_id, Position::new(0,0));
+    state.move_player_to_coordinates(player_2_id, Position::new(20,20));
+
+    let cooldown = state.get_player(player_1_id)?.character.cooldown();
+
+    time_utils::sleep(cooldown);
+
+    // Attack lands and damages player
+    state.attack_aoe(player_1_id, &RelativePosition::new(20,20));
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(60, state.players[1].health)?;
+
+    // Attack does nothing because of cooldown
+    state.attack_aoe(player_1_id, &RelativePosition::new(20,20));
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(60, state.players[1].health)?;
+
+    time_utils::sleep(cooldown);
+
+    // Attack misses and does nothing
+    state.attack_aoe(player_1_id, &RelativePosition::new(39,39));
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(60, state.players[1].health)?;
+
+    time_utils::sleep(cooldown);
+
+    state.move_player_to_coordinates(player_2_id, Position::new(39,39));
+
+    // Attack aims at a position that is outside the board, impacts on the nearest spot inside the board
+    state.attack_aoe(player_1_id, &RelativePosition::new(45,45));
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(-20, state.players[1].health)
 
 }
