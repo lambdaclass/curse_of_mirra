@@ -52,7 +52,7 @@ public class LobbyPlayerList : MonoBehaviour
     }
 
     public PlayerItem GetPlayerCharacter(int id){
-        PlayerItem item = new PlayerItem();
+        PlayerItem item = null;
         for(int i = 0;i<playerItems.Count;i++){
             if(id == playerItems[i].GetId()){
                 item = playerItems[i];
