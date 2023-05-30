@@ -2384,6 +2384,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 299088398}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &300587977 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5082067212610491591, guid: c2607203b179b4f508743c9dfa24edff,
+    type: 3}
+  m_PrefabInstance: {fileID: 620904634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &364321140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3748,6 +3754,16 @@ PrefabInstance:
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
+    - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1967243809}
+    - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMovement
+      objectReference: {fileID: 0}
     - target: {fileID: 2935097580456651424, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
@@ -6483,6 +6499,12 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!225 &1010784808 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7707799678853569956, guid: c2607203b179b4f508743c9dfa24edff,
+    type: 3}
+  m_PrefabInstance: {fileID: 620904634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1015704714
 GameObject:
   m_ObjectHideFlags: 0
@@ -10757,18 +10779,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924345670}
   m_Mesh: {fileID: 4300002, guid: ec1581e914f6c3142969d3852274afbc, type: 3}
---- !u!114 &1926233875 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114270737596463260, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1967243807}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6a0577d46b80a4f929e57370c60650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1940791664
 GameObject:
   m_ObjectHideFlags: 0
@@ -11266,12 +11276,12 @@ PrefabInstance:
         type: 3}
       propertyPath: Buttons
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1010784808}
     - target: {fileID: 114905645026365078, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: Joystick
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 300587977}
     - target: {fileID: 224429692818469760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11295,6 +11305,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1967243807}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1967243809 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1967243807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053005121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281595ba54132634bbe48b336e62e2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2012034874
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -89,12 +89,6 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(WaitLobbyCreated());
     }
 
-    private IEnumerator WaitLobbyCreated()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        StartGame();
-    }
-
     public void StartGame()
     {
         LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
@@ -105,6 +99,11 @@ public class LobbyConnection : MonoBehaviour
             ws.Send(msg);
         }
         gameStarted = true;
+    }
+    private IEnumerator WaitLobbyCreated()
+    {
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
+        StartGame();
     }
 
     IEnumerator GetRequest(string uri)
