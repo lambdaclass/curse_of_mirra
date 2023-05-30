@@ -5,7 +5,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
 
   # 2 minutes
   @timeout_ms 2 * 60 * 1000
-  @players_amount_update_ms 30
+
   #######
   # API #
   #######
@@ -38,7 +38,6 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   #######################
   @impl GenServer
   def init(_args) do
-    Process.send_after(self(), :amount_of_players, @players_amount_update_ms)
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
@@ -54,7 +53,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
         {:reply, :ok, state}
 
       false ->
-        send(self(), :player_added)
+        send(self(), {:player_added, player})
         {:reply, :ok, %{state | :players => [player | players]}}
     end
   end
@@ -67,7 +66,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
         {:reply, :ok, state}
 
       remaining_players ->
-        send(self(), :player_removed)
+        send(self(), {:player_removed, player})
         {:reply, :ok, %{state | :players => remaining_players}}
     end
   end
@@ -88,34 +87,23 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   @impl GenServer
-  def handle_info(:player_added, state) do
+  def handle_info({:player_added, player}, state) do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_added, length(state[:players])}
+      {:player_added, player, state[:players]}
     )
 
     {:noreply, state}
   end
 
-  def handle_info(:player_removed, state) do
+  def handle_info({:player_removed, player}, state) do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_removed, length(state[:players])}
+      {:player_removed, player, state[:players]}
     )
 
-    {:noreply, state}
-  end
-
-  def handle_info(:amount_of_players, state) do
-    Phoenix.PubSub.broadcast!(
-      DarkWorldsServer.PubSub,
-      state[:topic],
-      {:amount_of_players, length(state[:players])}
-    )
-
-    Process.send_after(self(), :amount_of_players, @players_amount_update_ms)
     {:noreply, state}
   end
 

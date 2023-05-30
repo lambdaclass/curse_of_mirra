@@ -130,6 +130,24 @@ fn movement() -> TestResult {
 }
 
 #[rustler::nif]
+fn move_player_to_coordinates() -> TestResult {
+    let mut state = GameState::new(0, 2, 2, false); // creates a 2x2 grid with no players
+    let player_id = 1;
+    let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
+    state.players = vec![player1];
+    state.board.set_cell(0, 0, Tile::Player(player_id)); // adds player 1 to the cell at (0,0)
+
+    state.move_player_to_coordinates(player_id, Position::new(1, 1));
+    assert_result!(
+        vec![
+            vec![Tile::Empty, Tile::Empty],
+            vec![Tile::Empty, Tile::Player(player_id)]
+        ],
+        get_grid(&state)
+    )
+}
+
+#[rustler::nif]
 fn attacking() -> TestResult {
     // FIXME: A 0 in new game is wrong!
     let mut state = GameState::new(0, 20, 20, false);

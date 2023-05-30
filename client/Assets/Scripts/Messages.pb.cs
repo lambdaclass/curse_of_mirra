@@ -147,6 +147,12 @@ public partial class LobbyEvent : global::ProtoBuf.IExtensible
     [global::ProtoBuf.ProtoMember(6, Name = @"player_count")]
     public ulong PlayerCount { get; set; }
 
+    [global::ProtoBuf.ProtoMember(7, Name = @"players", IsPacked = true)]
+    public ulong[] Players { get; set; }
+
+    [global::ProtoBuf.ProtoMember(8, Name = @"removed_player_id")]
+    public ulong RemovedPlayerId { get; set; }
+
 }
 
 [global::ProtoBuf.ProtoContract()]
@@ -223,6 +229,8 @@ public enum LobbyEventType
     PlayerCount = 4,
     [global::ProtoBuf.ProtoEnum(Name = @"START_GAME")]
     StartGame = 5,
+    [global::ProtoBuf.ProtoEnum(Name = @"PLAYER_REMOVED")]
+    PlayerRemoved = 6,
 }
 
 #pragma warning restore CS0612, CS0618, CS1591, CS3021, IDE0079, IDE1006, RCS1036, RCS1057, RCS1085, RCS1192

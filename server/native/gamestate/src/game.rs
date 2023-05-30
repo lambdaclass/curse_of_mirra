@@ -142,6 +142,38 @@ impl GameState {
         );
     }
 
+    pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, mut new_position: Position) {
+        let player = self
+            .players
+            .iter_mut()
+            .find(|player| player.id == player_id)
+            .unwrap();
+
+        if matches!(player.status, Status::DEAD) {
+            return;
+        }
+
+        // These changes are done so that if the player is moving into one of the map's borders
+        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
+        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
+        // something invalid like (0, -1).
+        new_position.x = min(new_position.x, self.board.height - 1);
+        new_position.x = max(new_position.x, 0);
+        new_position.y = min(new_position.y, self.board.width - 1);
+        new_position.y = max(new_position.y, 0);
+
+        // Remove the player from their previous position on the board
+        self.board
+            .set_cell(player.position.x, player.position.y, Tile::Empty);
+
+        player.position = new_position;
+        self.board.set_cell(
+            player.position.x,
+            player.position.y,
+            Tile::Player(player.id),
+        );
+    }
+
     // Takes the raw value from Unity's joystick
     // and calculates the resulting position on the grid.
     // The joystick values are 2 floating point numbers,
@@ -204,6 +236,7 @@ impl GameState {
             .ok_or(format!("Given id ({player_id}) is not valid"))
             .cloned()
     }
+
     pub fn attack_player(self: &mut Self, attacking_player_id: u64, attack_direction: Direction) {
         let attacking_player = self
             .players

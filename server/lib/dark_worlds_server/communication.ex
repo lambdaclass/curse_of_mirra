@@ -12,8 +12,13 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_player_added!(player_id) do
-    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id}
+  def lobby_player_added!(player_id, players) do
+    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id, players: players}
+    |> LobbyEvent.encode()
+  end
+
+  def lobby_player_removed!(player_id, players) do
+    %LobbyEvent{type: :PLAYER_REMOVED, removed_player_id: player_id, players: players}
     |> LobbyEvent.encode()
   end
 

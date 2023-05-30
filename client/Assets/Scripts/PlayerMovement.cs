@@ -51,9 +51,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void SendAction()
     {
-        if (joystickL is not null && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0))
+        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
+        var inputFromVirtualJoystick = joystickL is not null;
+        if (inputFromPhysicalJoystick)
         {
-            GetComponent<PlayerControls>().SendJoystickRawValues(joystickL.RawValue.x, joystickL.RawValue.y);
+            var hInput = Input.GetAxis("Horizontal");
+            var vInput = Input.GetAxis("Vertical");
+            GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
+        }
+        else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+        {
+            GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
         }
         else
         {
@@ -97,6 +105,12 @@ public class PlayerMovement : MonoBehaviour
             nextAttackDirection = Direction.Left;
             isAttacking = true;
 
+        }
+        // Hardcoded dual sense square button
+        if (Input.GetKeyDown("joystick 1 button 0"))
+        {
+            nextAttackDirection = Direction.Up;
+            isAttacking = true;
         }
     }
 

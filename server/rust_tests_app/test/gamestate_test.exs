@@ -20,4 +20,8 @@ defmodule GameStateTesting do
   test "Movement" do
     assert {:ok, ""} = TestNIFs.movement()
   end
+
+  test "Move player to coordinates" do
+    assert {:ok, ""} = TestNIFs.move_player_to_coordinates()
+  end
 end
