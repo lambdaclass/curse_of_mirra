@@ -38,7 +38,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
-      {:reply, {:text, "PLAYER_ID: #{player_id} CONNECTED_TO: #{Communication.pid_to_external_id(runner_pid)}"}, state}
+      # {:reply,
+      #  {:text,
+      #   "PLAYER_ID: #{player_id} CONNECTED_TO: #{Communication.pid_to_external_id(runner_pid)}"},
+      #  state}
+      {:ok, state}
     else
       false -> {:stop, %{}}
       {:error, _reason} -> {:stop, %{}}

@@ -4,7 +4,8 @@
     <% :pending -> %>
       <p>Loading game...</p>
     <% :ongoing -> %>
-      <p>Players: 
+      <p>Mode: <%= @mode %></p>
+      <p>Players:
       <%= for _player <- @logged_players  do %>
         <div>
         </div>
@@ -18,7 +19,7 @@
           </div>
         <% end %>
       </p>
-      <div id="board_game" class="board" phx-window-keydown="action">
+      <div id="board_game" class="board" phx-window-keydown={if @mode == :player, do: "action", else: false}>
         <%= for x <- 0..(@board_width-1) do %>
           <div class="row">
             <%= for y <- 0..(@board_height-1) do %>

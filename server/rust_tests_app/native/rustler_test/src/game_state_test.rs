@@ -2,18 +2,28 @@ use crate::assert_result;
 use crate::utils::TestResult;
 use gamestate::board::GridResource;
 use gamestate::board::Tile;
-use gamestate::character::Character;
+use gamestate::character::{Character, Effect, TicksLeft};
 use gamestate::game::{Direction, GameState};
 use gamestate::player::Player;
 use gamestate::player::Position;
 use gamestate::time_utils;
+use std::time::{Duration, Instant};
 fn get_grid(game: &GameState) -> Vec<Vec<Tile>> {
     let grid = game.board.grid.resource.lock().unwrap();
     grid.clone()
 }
 fn speed1_character() -> Character {
     Character {
-        speed: 1,
+        base_speed: 1,
+        ..Default::default()
+    }
+}
+fn petrified_character() -> Character {
+    Character {
+        status_effects: std::collections::HashMap::from(
+            // This will last 10 ticks.
+            [(Effect::Petrified, 10)],
+        ),
         ..Default::default()
     }
 }
@@ -24,7 +34,7 @@ pub fn no_move_if_beyond_boundaries() -> TestResult {
     let mut state = GameState::new(1, grid_height, grid_width, false);
     let mut player = state.players.get_mut(0).unwrap();
     player.character = Character {
-        speed: 1,
+        base_speed: 1,
         ..speed1_character()
     };
     let player_id = player.id;
@@ -194,4 +204,43 @@ fn attacking() -> TestResult {
     state.attack_player(player_1_id, Direction::LEFT);
     assert_result!(100, state.players[0].health)?;
     assert_result!(80, state.players[1].health)
+}
+
+#[rustler::nif]
+pub fn cant_move_if_petrified() -> TestResult {
+    let mut expected_grid: Vec<Vec<Tile>>;
+    let (grid_height, grid_width) = (100, 100);
+    let mut state = GameState::new(1, grid_height, grid_width, false);
+    let spawn_point = Position { x: 50, y: 50 };
+    let base_speed = 1;
+    state.players[0].position = spawn_point.clone();
+    (state.players[0]).character = Character {
+        base_speed,
+        ..petrified_character()
+    };
+    let player_id = 1;
+    let mut player = state.get_player(player_id)?;
+
+    // Update 5 ticks, the character should not be able to move.
+    for _ in 1..=5 {
+        state.world_tick();
+    }
+    // Try to move 10 times, the player/character should not move.
+    for i in 0..10 {
+        state.move_player(player_id, Direction::DOWN);
+        state.move_player(player_id, Direction::LEFT);
+        state.move_player(player_id, Direction::UP);
+        state.move_player(player_id, Direction::RIGHT);
+        assert_result!(spawn_point.x, player.position.x)?;
+    }
+
+    // "Update" 5 ticks, now the character should be able to move.
+    for _ in 1..=5 {
+        state.world_tick();
+    }
+    state.move_player(player_id, Direction::DOWN);
+    player = state.get_player(player_id)?;
+    assert_result!(player.character.speed(), base_speed)?;
+    assert_result!(spawn_point.x + 1, player.position.x)?;
+    assert_result!(spawn_point.y, player.position.y)
 }

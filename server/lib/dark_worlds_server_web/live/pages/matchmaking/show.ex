@@ -15,14 +15,13 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
         current_player_count = Matchmaking.fetch_amount_of_players(session_pid)
         player_id = current_player_count + 1
 
-        player_info = socket.assigns.current_user
-        Matchmaking.add_player(player_info, session_pid)
+        Matchmaking.add_player(player_id, session_pid)
 
         {:ok,
          assign(socket,
            session_id: session_id,
            player_id: player_id,
-           player_count: Matchmaking.fetch_amount_of_players(session_pid),
+           player_count: current_player_count,
            session_pid: session_pid
          )}
     end
@@ -33,19 +32,21 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
     {:noreply, socket}
   end
 
-  def handle_info({:player_added, player_count}, socket) do
-    {:noreply, assign(socket, :player_count, player_count)}
+  def handle_info({:player_added, _player_id, players}, socket) do
+    {:noreply, assign(socket, :player_count, length(players))}
   end
 
-  def handle_info({:player_removed, player_count}, socket) do
-    {:noreply, assign(socket, :player_count, player_count)}
+  def handle_info({:player_removed, _player_id, players}, socket) do
+    {:noreply, assign(socket, :player_count, length(players))}
   end
 
   def handle_info({:game_started, game_pid}, socket) do
-    {:noreply,
-     redirect(socket,
-       to: ~p"/board/#{Communication.pid_to_external_id(game_pid)}/#{socket.assigns.player_id}"
-     )}
+    socket =
+      socket
+      |> assign(:game_started, true)
+      |> redirect(to: ~p"/board/#{Communication.pid_to_external_id(game_pid)}/#{socket.assigns.player_id}")
+
+    {:noreply, socket}
   end
 
   def handle_info({:ping, pid}, socket) do
@@ -53,12 +54,11 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
     {:noreply, socket}
   end
 
-  def handle_info({:amount_of_players, _players}, socket) do
-    {:noreply, socket}
-  end
-
   def terminate(_reason, socket) do
-    Matchmaking.remove_player(socket.assigns[:player_id], socket.assigns[:session_pid])
+    unless socket.assigns[:game_started] do
+      Matchmaking.remove_player(socket.assigns[:player_id], socket.assigns[:session_pid])
+    end
+
     :ignored
   end
 end

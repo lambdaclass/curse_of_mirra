@@ -15,8 +15,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   # This is the amount of time between updates (30ms)
   @update_time 30
   # This is the number of tiles characters move per :move command
-  @character_speed 3
-
   case Mix.env() do
     :test ->
       # Check player count every 3 seconds in testing
@@ -239,10 +237,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply, game_state, state}
   end
 
-  def handle_call(:get_character_speed, _from, state) do
-    {:reply, @character_speed, state}
-  end
-
   def handle_info(
         :check_player_amount,
         state = %{current_players: current}
@@ -279,7 +273,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     game =
       next_state.game
-      |> Game.clean_players_actions()
+      |> Game.world_tick()
 
     next_state = next_state |> Map.put(:game, game)
     state = Map.put(state, :next_state, next_state)

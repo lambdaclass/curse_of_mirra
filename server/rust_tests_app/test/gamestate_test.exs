@@ -21,6 +21,10 @@ defmodule GameStateTesting do
     assert {:ok, ""} = TestNIFs.movement()
   end
 
+  test "Cant move if petrified" do
+    assert {:ok, ""} = TestNIFs.cant_move_if_petrified()
+  end
+
   test "Move player to coordinates" do
     assert {:ok, ""} = TestNIFs.move_player_to_coordinates()
   end

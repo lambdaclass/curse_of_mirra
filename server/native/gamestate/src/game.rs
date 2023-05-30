@@ -37,8 +37,9 @@ impl GameState {
             Character {
                 class: Class::Guardian,
                 basic_skill: BasicSkill::Bash,
-                speed: 3,
+                base_speed: 3,
                 name: "Guardian".to_string(),
+                ..Default::default()
             },
         ];
         let players: Vec<Player> = (1..number_of_players + 1)
@@ -116,7 +117,7 @@ impl GameState {
         let mut new_position = compute_adjacent_position_n_tiles(
             &direction,
             &player.position,
-            player.character.speed as usize,
+            player.character.speed() as usize,
         );
 
         // These changes are done so that if the player is moving into one of the map's borders
@@ -195,7 +196,7 @@ impl GameState {
             return Ok(());
         }
         let Position { x: old_x, y: old_y } = player.position;
-        let speed = player.character.speed as i64;
+        let speed = player.character.speed() as i64;
         let (x_grid_delta, y_grid_delta) = Self::joystick_axis_to_grid_coords(x, y);
         let mut new_position = Position {
             x: (old_x as i64 + (x_grid_delta * speed)) as usize,
@@ -210,7 +211,6 @@ impl GameState {
             .set_cell(player.position.x, player.position.y, Tile::Empty);
 
         player.position = new_position;
-
         self.board.set_cell(
             player.position.x,
             player.position.y,
@@ -225,12 +225,16 @@ impl GameState {
         let grid_y = joystick_x.round() as i64;
         return (grid_x, grid_y);
     }
-    fn get_player_mut(players: &mut Vec<Player>, player_id: u64) -> Result<&mut Player, String> {
+    pub fn get_player_mut(
+        players: &mut Vec<Player>,
+        player_id: u64,
+    ) -> Result<&mut Player, String> {
         players
             .get_mut((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
-    fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
+
+    pub fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
         self.players
             .get((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
@@ -374,9 +378,16 @@ impl GameState {
         })
     }
 
-    pub fn clean_players_actions(self: &mut Self) {
+    pub fn world_tick(self: &mut Self) {
         self.players.iter_mut().for_each(|player| {
+            // Clean each player actions
             player.action = PlayerAction::NOTHING;
+            // Keep only (de)buffs that have
+            // a non-zero amount of ticks left.
+            player.character.status_effects.retain(|_, ticks_left| {
+                *ticks_left = ticks_left.saturating_sub(1);
+                *ticks_left != 0
+            });
         })
     }
 

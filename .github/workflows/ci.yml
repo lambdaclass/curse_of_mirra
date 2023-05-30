@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   MIX_ENV: test
@@ -34,33 +34,35 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Elixir
-      uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
-      with:
-        elixir-version: ${{ matrix.elixir }} # Define the elixir version [required]
-        otp-version: ${{ matrix.otp }} # Define the OTP version [required]
-      env:
-        ImageOS: ubuntu20
-    - name: Setup Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-    - name: Restore dependencies cache
-      uses: actions/cache@v3
-      with:
-        path: server/deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: cd server && make setup
-    - name: Check Elixir Formatting
-      run: cd server && make credo
-    - name: Check Elixir Formatting
-      run: cd server && mix format --check-formatted
-    - name: Check Rust Formatting
-      run: cd server && cd native/gamestate && cargo fmt --check
-    - name: Compiles without warnings
-      run: cd server && mix compile --all-warnings --warnings-as-errors
-    - name: Run tests
-      run: cd server && make tests
+      - uses: actions/checkout@v3
+      - name: Set up Elixir
+        uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+        with:
+          elixir-version: ${{ matrix.elixir }} # Define the elixir version [required]
+          otp-version: ${{ matrix.otp }} # Define the OTP version [required]
+        env:
+          ImageOS: ubuntu20
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Restore dependencies cache
+        uses: actions/cache@v3
+        with:
+          path: server/deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+      - name: Install dependencies
+        run: cd server && make setup
+      - name: Credo Elixir Check
+        run: cd server && make credo
+      - name: (Server) Check Elixir Formatting
+        run: cd server && mix format --check-formatted
+      - name: (Load Test) Check Elixir Formatting
+        run: cd server && mix format --check-formatted
+      - name: Check Rust Formatting
+        run: cd server && cd native/gamestate && cargo fmt --check
+      - name: Compiles without warnings
+        run: cd server && mix compile --all-warnings --warnings-as-errors
+      - name: Run tests
+        run: cd server && make tests
