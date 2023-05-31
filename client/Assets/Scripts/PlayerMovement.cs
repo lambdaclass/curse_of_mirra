@@ -137,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
             if (isAttacking)
             {
                 print("attack");
+                player.GetComponent<AttackController>().AttackToNearestPlayer();
             }
             //if dead remove the player from the scene
             if (healthComponent.CurrentHealth <= 0)
@@ -153,8 +154,6 @@ public class PlayerMovement : MonoBehaviour
             SocketConnectionManager.Instance.players[playerUpdate.player_id]
                 .GetComponent<AttackController>()
                 .SwordAttack(isAttacking);
-
-            print(player.GetComponent<DetectNearPlayer>().GetNearestPlayer());
         }
     }
 

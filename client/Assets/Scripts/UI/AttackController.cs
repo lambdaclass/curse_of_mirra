@@ -58,5 +58,11 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
 
             //MMDebug.DebugLogTime("animator " + animator);
         }
+
+        public void AttackToNearestPlayer()
+        {
+            GameObject go = gameObject.GetComponent<DetectNearPlayer>().GetNearestPlayer();
+            print("trying to attack " + go?.name);
+        }
     }
 }

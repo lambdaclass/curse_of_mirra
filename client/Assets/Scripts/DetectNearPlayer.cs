@@ -7,9 +7,6 @@ using UnityEngine;
 public class DetectNearPlayer : MonoBehaviour
 {
     public float radius = 3.14f;
-
-
-
     public GameObject GetNearestPlayer()
     {
         float distanceToClosestTarget = Mathf.Infinity;
