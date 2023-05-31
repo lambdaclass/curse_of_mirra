@@ -129,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
                         .y,
                     playerUpdate.y / 10f + 50.0f
                 );
-            // ScanForTargets(player.transform.position);
             Health healthComponent = player.GetComponent<Health>();
             healthComponent.SetHealth(playerUpdate.health);
 
@@ -154,6 +153,8 @@ public class PlayerMovement : MonoBehaviour
             SocketConnectionManager.Instance.players[playerUpdate.player_id]
                 .GetComponent<AttackController>()
                 .SwordAttack(isAttacking);
+
+            print(player.GetComponent<DetectNearPlayer>().GetNearestPlayer());
         }
     }
 
@@ -183,33 +184,4 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    // protected virtual void ScanForTargets(Vector3 pos)
-    // {
-    //     Collider[] nearby = Physics.OverlapSphere(pos, 3.14f);
-    //     foreach (var hitCollider in nearby)
-    //     {
-    //         if (hitCollider.GetComponent<Character>() != null && hitCollider.GetComponent<Character>().PlayerID != LobbyConnection.Instance.playerId.ToString())
-    //         {
-    //             float dis = Vector3.Distance(pos, hitCollider.transform.position);
-    //             if (dis < 3.14)
-    //             {
-    //                 hitCollider.gameObject.SetActive(false);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // private Collider[] GetOnlyPlayersColliders(Vector3 pos, float radius)
-    // {
-    //     return (Physics.OverlapSphere(pos, radius)).Where(c => c.GetComponent<Character>() != null && c.GetComponent<Character>().PlayerID != LobbyConnection.Instance.playerId.ToString()).ToArray();
-    // }
-
-
-    // void OnDrawGizmosSelected()
-    // {
-    //     print("drawing");
-    //     Gizmos.color = Color.white;
-    //     Gizmos.DrawWireSphere(transform.position, 3.14f);
-    // }
 }

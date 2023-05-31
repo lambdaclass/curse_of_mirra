@@ -8,12 +8,9 @@ public class DetectNearPlayer : MonoBehaviour
 {
     public float radius = 3.14f;
 
-    void Update()
-    {
-        ScanForTargets();
-    }
 
-    protected virtual void ScanForTargets()
+
+    public GameObject GetNearestPlayer()
     {
         float distanceToClosestTarget = Mathf.Infinity;
         GameObject nearestTarget = null;
@@ -32,6 +29,7 @@ public class DetectNearPlayer : MonoBehaviour
         {
             Debug.DrawLine(transform.position, nearestTarget.transform.position);
         }
+        return nearestTarget;
     }
 
     private Collider[] GetOnlyPlayersColliders()
