@@ -73,9 +73,17 @@ public class CustomLevelManager : LevelManager
         {
             if (Int32.Parse(player.PlayerID) == playerID)
             {
-                UnityEvent<Vector2> aoeAttackEvent = new UnityEvent<Vector2>();
-                aoeAttackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbility("y", "button", aoeAttackEvent);
+                UnityEvent aoeEvent = new UnityEvent();
+                aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("y", "joystick", aoeEvent);
+
+                UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
+                aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("y", "joystick", aimEvent);
+
+                UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
+                attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("y", "joystick", attackEvent);
             }
         }
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CustomInputManager : MonoBehaviour
 {
@@ -7,8 +8,38 @@ public class CustomInputManager : MonoBehaviour
     [SerializeField] GameObject specialAttack;
     [SerializeField] GameObject dash;
     [SerializeField] GameObject ultimate;
-    public void AssignInputToAbility(string trigger, string triggerType, UnityEvent<Vector2> ability)
+    public Camera UiCamera;
+    public void AssignInputToAbilityPosition(string trigger, string triggerType, UnityEvent abilityEvent)
     {
-        specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerEvent = ability;
+        if (triggerType == "joystick")
+        {
+            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
+            abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystick);
+        }
+    }
+    public void AssignInputToAimPosition(string trigger, string triggerType, UnityEvent<Vector2> aim)
+    {
+        if (triggerType == "joystick")
+        {
+            specialAttack.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
+        }
+    }
+    public void AssignInputToAbilityExecution(string trigger, string triggerType, UnityEvent<Vector2> abilityPosition)
+    {
+        if (triggerType == "joystick")
+        {
+            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
+            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
+        }
+    }
+    public void SetJoystick()
+    {
+        Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
+        joystickBg.enabled = true;
+    }
+    public void UnSetJoystick(Vector2 position)
+    {
+        Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
+        joystickBg.enabled = false;
     }
 }

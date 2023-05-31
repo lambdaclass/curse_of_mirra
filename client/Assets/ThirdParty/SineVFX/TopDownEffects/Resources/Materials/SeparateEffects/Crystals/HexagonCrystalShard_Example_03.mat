@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HexagonCrystalShard_Example_03
+  m_Shader: {fileID: 4800000, guid: a15b3fd0ee7c496a803e885a28591e3a, type: 3}
+  m_ShaderKeywords: _INNERRIMENABLED_ON _INNERRIMMASKFLIP_ON _PARALLAXENABLED_ON _PARALLAXNOISEENABLED_ON
+    _RAMPENABLED_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoDecalMask:
+        m_Texture: {fileID: 2800000, guid: e1b37be991ac56949bdf5441547af212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlbedoTransparency:
+        m_Texture: {fileID: 2800000, guid: e1b37be991ac56949bdf5441547af212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InnerRimMask:
+        m_Texture: {fileID: 2800000, guid: 670a9bcc644181e4b88f6d805330b163, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InnerRimProfile:
+        m_Texture: {fileID: 2800000, guid: 292d8d6caaae4617a95264dbe2139886, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 319c2ba05b6ae794b8bcd852b4dd9c14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 18945ae81231e3944afe53ccc7e636e4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 440a7c8e225b1e940835c363326fec58, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Parallax:
+        m_Texture: {fileID: 2800000, guid: 7a9be9e0e7c4fcd4696d2486d10fea1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxNoise:
+        m_Texture: {fileID: 2800000, guid: 9c3b5c5df0654a7296c18c4c30cc9777, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: ac4bacbb3b974e2b83a2c76cbbdc4fb0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Test:
+        m_Texture: {fileID: 2800000, guid: 7a9be9e0e7c4fcd4696d2486d10fea1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: b5a57847926df5d40a17fe0708045a6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AppearGradientAbsSwitch: 1
+    - _AppearGradientEnabled: 0
+    - _AppearGradientExp: 4
+    - _AppearGradientFlipSwitch: 1
+    - _AppearGradientOffset: 1.25
+    - _AppearGradientPower: 1
+    - _AppearGradientRemapMax: 4
+    - _AppearVertexYOffset: 0
+    - _EmissionVSSwitch: 0
+    - _FinalPower: 32
+    - _Float0: 0.175
+    - _Float1: 4
+    - _Float2: 0.49
+    - _Float3: 1
+    - _InnedRimExp: 4
+    - _InnedRimHackedExp: 4
+    - _InnerRimEnabled: 1
+    - _InnerRimExp: 6
+    - _InnerRimHackNormals: 1
+    - _InnerRimMaskExp: 0.5
+    - _InnerRimMaskFlip: 1
+    - _InnerRimMaskNegate: 0.5
+    - _InnerRimPower: 24
+    - _InnerRimProfileEnabled: 0
+    - _MaskExp: 4
+    - _MaskNegate: 0.75
+    - _Metallic: 1
+    - _ParallaxEnabled: 1
+    - _ParallaxNegate: 0
+    - _ParallaxNoiseDepth: 0.175
+    - _ParallaxNoiseEnabled: 1
+    - _ParallaxNoiseNegate: 0.05
+    - _ParallaxNoisePower: 0.175
+    - _ParallaxNoiseScaleU: 1
+    - _ParallaxNoiseScaleV: 1
+    - _ParallaxPower: 0.175
+    - _RampEnabled: 1
+    - _RampOffsetExp: 1
+    - _RampRemapMax: 0.2
+    - _RimEmissionNormal: 1
+    - _Smoothness: 1
+    - _VerticalGradientEnabled: 0
+    - _VerticalGradientExp: 4
+    - _VerticalGradientFlipSwitch: 0
+    - _VerticalGradientOffset: 0.1515
+    - _VerticalGradientRemapMax: 0.32
+    - _VerticalGradientWorldPosition: 0
+    - __dirty: 0
+    m_Colors:
+    - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _InnerRimColor: {r: 1, g: 0, b: 0, a: 1}
+    - _RampColorTint: {r: 1, g: 0.38207546, b: 0.38207546, a: 1}
+    - _Vector0: {r: 1, g: 1, b: 1, a: 0}
