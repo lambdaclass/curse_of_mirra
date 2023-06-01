@@ -95,7 +95,8 @@ defmodule DarkWorldsServer.Engine.Runner do
        game_state: :playing,
        winners: [],
        is_single_player?: length(opts.players) == 1,
-       tick_rate: tick_rate
+       tick_rate: tick_rate,
+       movements: %{}
      }}
   end
 
@@ -109,29 +110,19 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_cast(
         {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}}},
-        %{next_state: %{game: game} = next_state} = state
+        %{movements: movements} = state
       ) do
-    {:ok, game} = Game.move_with_joystick(game, player, x, y)
-
-    next_state = Map.put(next_state, :game, game)
-
-    state = Map.put(state, :next_state, next_state)
-
+    movements = Map.put(movements, player, {x, y})
+    state = Map.put(state, :movements, movements)
     {:noreply, state}
   end
 
   def handle_cast(
         {:play, player, %ActionOk{action: :move, value: value}},
-        %{next_state: %{game: game} = next_state} = state
+        %{movements: movements} = state
       ) do
-    game =
-      game
-      |> Game.move_player(player, value)
-
-    next_state = Map.put(next_state, :game, game)
-
-    state = Map.put(state, :next_state, next_state)
-
+    movements = Map.put(movements, player, value)
+    state = Map.put(state, :movements, movements)
     {:noreply, state}
   end
 
@@ -255,15 +246,19 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:stop, :normal, state}
   end
 
-  def handle_info(:update_state, %{next_state: next_state} = state) do
+  def handle_info(:update_state, state) do
+    %{next_state: next_state, movements: movements} = state
     state = Map.put(state, :current_state, next_state)
 
     game =
-      next_state.game
+      Enum.reduce(movements, next_state.game, &reduce_player_movement/2)
       |> Game.world_tick()
 
     next_state = next_state |> Map.put(:game, game)
-    state = Map.put(state, :next_state, next_state)
+
+    state =
+      Map.put(state, :next_state, next_state)
+      |> Map.put(:movements, %{})
 
     decide_next_game_update(state)
     |> broadcast_game_update()
@@ -405,5 +400,14 @@ defmodule DarkWorldsServer.Engine.Runner do
     }
 
     Game.new(config)
+  end
+
+  defp reduce_player_movement({player_id, {x, y}}, game_state) do
+    {:ok, new_game_state} = Game.move_with_joystick(game_state, player_id, x, y)
+    new_game_state
+  end
+
+  defp reduce_player_movement({player_id, direction}, game_state) when is_atom(direction) do
+    Game.move_player(game_state, player_id, direction)
   end
 end
