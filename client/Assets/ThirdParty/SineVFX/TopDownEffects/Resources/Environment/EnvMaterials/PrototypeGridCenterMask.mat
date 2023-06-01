@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PrototypeGridCenterMask
+  m_Shader: {fileID: 4800000, guid: 96f9bc0cab4dc3f429d5de8516a2ccc5, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 2800000, guid: 6cb1956cb31b7a343bf75fd3da2dd824, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: f4c1ae80b9a5a344a83b9615c5eed375, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CenterDistance: 400
+    - _CenterPower: 1.5
+    - _ColorMaskDistance: 1000
+    - _ColorMaskPower: 0.5
+    - _Float0: 1.85
+    - _Float1: 2.42
+    - _GradientExp: 0.75
+    - _GradientLength: 2
+    - _Metallic: 0
+    - _OpacityMaskDistance: 1000
+    - _OpacityMaskPower: 1
+    - _Smoothness: 0
+    - _TexturePower: 0.075
+    - _TextureTiling: 2
+    - _Tiling: 1
+    - __dirty: 0
+    m_Colors:
+    - _Color0: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorMaskOuterColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
+    - _ColorTint: {r: 0.14705884, g: 0.14705884, b: 0.14705884, a: 1}
+    - _GradientColorOne: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorTwo: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
+    - _OuterColor: {r: 0.5514706, g: 0.5514706, b: 0.5514706, a: 1}
+    - _TextureColorTint: {r: 0.1960783, g: 0.1960783, b: 0.1960783, a: 1}

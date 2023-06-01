@@ -145,6 +145,18 @@ message LobbyEvent {
     uint64 player_count = 6;
     repeated uint64 players = 7;
     uint64 removed_player_id = 8;
+    GameConfig game_config = 9;
+}
+
+message BoardSize {
+    uint64 width = 1;
+    uint64 height = 2;
+}
+
+message GameConfig {
+    BoardSize board_size = 1;
+    uint64 server_tickrate_ms = 2; 
+    uint64 game_timeout_ms = 3;
 }
 
 /* Type of lobby events
