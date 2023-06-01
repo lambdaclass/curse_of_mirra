@@ -38,7 +38,7 @@ public class SocketConnectionManager : MonoBehaviour
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-        
+
         playersStatic = this.players;
     }
 
@@ -113,12 +113,12 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
-                    if (this.gamePlayers != null && this.gamePlayers.Count < game_event.Players.Count)
-                    {
-                        game_event.Players.ToList()
-                        .FindAll((player) => !this.gamePlayers.Contains(player))
-                        .ForEach((player) => SpawnBot.Instance.Spawn(player.Id.ToString()));
-                    }
+                    // if (this.gamePlayers != null && this.gamePlayers.Count < game_event.Players.Count)
+                    // {
+                    //     game_event.Players.ToList()
+                    //     .FindAll((player) => !this.gamePlayers.Contains(player))
+                    //     .ForEach((player) => SpawnBot.Instance.Spawn(player.Id.ToString()));
+                    // }
                     this.gamePlayers = game_event.Players.ToList();
                     break;
 

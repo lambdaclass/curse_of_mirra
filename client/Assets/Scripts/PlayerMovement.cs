@@ -203,22 +203,25 @@ public class PlayerMovement : MonoBehaviour
     void UpdatePlayerActions()
     {
         List<Player> gamePlayers = SocketConnectionManager.Instance.gamePlayers;
-        for (int i = 0; i < SocketConnectionManager.Instance.players.Count; i++)
+        if (SocketConnectionManager.Instance.players.Count == gamePlayers.Count)
         {
-            var new_position = gamePlayers[i].Position;
-            var aoe_position = gamePlayers[i].AoePosition;
-            playerUpdates.Enqueue(
-                new PlayerUpdate
-                {
-                    x = (long)new_position.Y,
-                    y = -((long)new_position.X),
-                    player_id = i,
-                    health = gamePlayers[i].Health,
-                    action = (PlayerAction)gamePlayers[i].Action,
-                    aoe_x = (long)aoe_position.Y,
-                    aoe_y = -((long)aoe_position.X),
-                }
-            );
+            for (int i = 0; i < SocketConnectionManager.Instance.players.Count; i++)
+            {
+                var new_position = gamePlayers[i].Position;
+                var aoe_position = gamePlayers[i].AoePosition;
+                playerUpdates.Enqueue(
+                    new PlayerUpdate
+                    {
+                        x = (long)new_position.Y,
+                        y = -((long)new_position.X),
+                        player_id = i,
+                        health = gamePlayers[i].Health,
+                        action = (PlayerAction)gamePlayers[i].Action,
+                        aoe_x = (long)aoe_position.Y,
+                        aoe_y = -((long)aoe_position.X),
+                    }
+                );
+            }
             // if (gamePlayers[i].Health == 0)
             // {
             //     print(SocketConnectionManager.Instance.players[i].name);

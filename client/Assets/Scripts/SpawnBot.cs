@@ -24,26 +24,23 @@ public class SpawnBot : MonoBehaviour
     public void GenerateBotPlayer()
     {
         manager.CallSpawnBot();
-        pendingSpawn = true;
+        Spawn();
     }
 
-    public void Spawn(string botId)
+    public void Spawn()
     {
-        if (pendingSpawn)
-        {
-            playerPrefab.GetComponent<Character>().PlayerID = "";
+        string botId = manager.players.Count.ToString();
+        playerPrefab.GetComponent<Character>().PlayerID = "";
 
-            Character newPlayer = Instantiate(
-                playerPrefab.GetComponent<Character>(),
-                new Vector3(0, 0, 0),
-                Quaternion.identity
-            );
-            newPlayer.PlayerID = "BOT" + " " + botId;
-            newPlayer.name = "BOT" + botId;
-            manager.players.Add(newPlayer.gameObject);
-            print("SPAWNED");
+        Character newPlayer = Instantiate(
+            playerPrefab.GetComponent<Character>(),
+            new Vector3(0, 0, 0),
+            Quaternion.identity
+        );
+        newPlayer.PlayerID = "BOT" + " " + botId;
+        newPlayer.name = "BOT" + botId;
+        manager.players.Add(newPlayer.gameObject);
+        print("SPAWNED");
 
-            pendingSpawn = false;
-        }
     }
 }
