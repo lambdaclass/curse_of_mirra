@@ -1,0 +1,22 @@
+First of all, you need to unpack the right packages for your specific setup of Unity. This Asset contains three packages, for Standard, HDRP, and URP pipelines. Start with Step_1_CoreResources package, it will add all core resources (textures, scripts, and animations) needed for this Asset. After that, pick the right SRP package and unpack it too. It will add all other components like prefabs of complete effects, scenes, materials, and shaders. If you using Standard pipeline and already have PostProcessing Stack V2 in your project, you can uncheck it when unpacking the Standard package.
+
+IMPORTANT NOTES:
+
+- (URP) Make sure, you enable HDR, Depth, and Opaque textures in URP Asset settings.
+- (Standard) Turn on “HDR” on your Camera, Shaders requires it.
+- (All) This VFX Asset looks much better in “Linear” Color Space, but if you using “Gamma” Color Space, you need to slightly decrease the Final Power (Emission Power) material parameter of each effect. You can check it in the “Edit > Project Settings > Player” TAB.
+- (All) Image Effects are necessary in order to make a great-looking game, as well as our asset. Be sure to use “ACES Tone Mapping” and “Bloom”.
+- (All) Your camera must render Depth texture in order for some effects to appear correctly.
+
+
+
+HOW TO USE:
+
+- First of all, check two scenes “DemoScene_MainEffects”, and “DemoScene_SeparateEffects” in the Scenes folder. The First one contains complete effects, you can spawn it with right-click. The second one contains additional effects, some environment design meshes, and example particle systems.
+- Drag and Drop prefabs from the “CompleteEffects” folder into your scene and they will automatically play on awake. You can just instantiate these prefabs in your scripts, or create an object pool system, enabling and disabling an array of effects.
+- Most of the effects are driven by Particle Systems utilizing (Custom Vertex Streams). You can freely scale the whole effect, it will preserve the proportions. Only one single parameter needed to be adjusted, it is “Soft Particles Distance” in materials with a “DissolveParticleAdvances” shader.
+- Some prefabs are driven by a standard animation system in Unity, you can freely customize these animations.
+
+
+
+Support email: sinevfx@gmail.com

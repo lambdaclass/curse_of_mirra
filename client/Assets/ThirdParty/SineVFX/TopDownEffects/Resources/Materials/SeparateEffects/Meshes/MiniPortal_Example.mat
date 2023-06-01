@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MiniPortal_Example
+  m_Shader: {fileID: 4800000, guid: 362fbad5fd7549c698cc964f2cb7699b, type: 3}
+  m_ShaderKeywords: _DISSOLVEMANUALCONTROL_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoDecalMask:
+        m_Texture: {fileID: 2800000, guid: 94a0a39a013c13c40926131fb991606f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveDirectionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: ac3c4698f38a2d5488fef2359e1ad9bf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 809fe2823470c894bb3a9cf0944a0d2c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 0350993711eeb834ea7c319c1b835f20, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlbedoDecalNegate: 0
+    - _Cutoff: 0.5
+    - _DissolveDirectionMaskFlip: 0
+    - _DissolveDirectionScale: 1
+    - _DissolveEmissionExp: 1
+    - _DissolveEmissionOffset: 0
+    - _DissolveEmissionPower: 1
+    - _DissolveEmissionRemapMax: 0.25
+    - _DissolveManualControl: 1
+    - _DissolveManualProgress: 0
+    - _DissolveTextureFlip: 0
+    - _DissolveTextureScaleU: 1
+    - _DissolveTextureScaleV: 1
+    - _EmissionPower: 20
+    - _EmissionVSControlEnabled: 0
+    - _Float0: 1
+    - _Metallic: 1
+    - _RimEmissionAffectsMask: 0
+    - _RimEmissionEnabled: 0
+    - _RimEmissionExp: 3
+    - _RimEmissionNormal: 1
+    - _RimEmissionPower: 6
+    - _Smoothness: 1
+    - __dirty: 0
+    m_Colors:
+    - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoDecalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveEmissionColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 0.12413781, b: 0, a: 0}
+    - _RimEmissionColor: {r: 1, g: 0, b: 0, a: 1}

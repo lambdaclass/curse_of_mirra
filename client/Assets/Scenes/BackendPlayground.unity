@@ -3894,11 +3894,36 @@ PrefabInstance:
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
+    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2053005121}
+    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6593141469248357937, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
+    - target: {fileID: 7208144881324718816, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7968366450724143388, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
@@ -11648,6 +11673,7 @@ MonoBehaviour:
   specialAttack: {fileID: 620904638}
   dash: {fileID: 620904637}
   ultimate: {fileID: 620904636}
+  UiCamera: {fileID: 637808576}
 --- !u!1001 &2061781725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11892,6 +11918,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0421f36065fef684aa62e74148c138de,
     type: 3}
   m_PrefabInstance: {fileID: 2064838009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2064859430 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5082067212610491591, guid: c2607203b179b4f508743c9dfa24edff,
+    type: 3}
+  m_PrefabInstance: {fileID: 620904634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2064859431 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7707799678853569956, guid: c2607203b179b4f508743c9dfa24edff,
+    type: 3}
+  m_PrefabInstance: {fileID: 620904634}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2077004931
 PrefabInstance:

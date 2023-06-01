@@ -30,9 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Send the player's action every 30 ms approximately.
-        // float tickRate = 1f / 30f;
-        float clientActionRate = 0.02f;
+        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendAction", clientActionRate, clientActionRate);
     }
 
@@ -144,7 +142,8 @@ public class PlayerMovement : MonoBehaviour
 
             // This is tick_rate * character_speed. Once we decouple tick_rate from speed on the backend
             // it'll be changed.
-            float velocity = 50.0f * character_speed;
+            float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+            float velocity = tickRate * character_speed;
 
             float xChange = (playerUpdate.x / 10f - 50.0f) - player.transform.position.x;
             float yChange = (playerUpdate.y / 10f + 50.0f) - player.transform.position.z;

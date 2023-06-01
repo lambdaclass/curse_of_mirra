@@ -5,7 +5,7 @@ defmodule DarkWorldsServer.Engine.Game do
   @enforce_keys [:players, :board]
   defstruct [:players, :board]
 
-  def new(number_of_players: number_of_players, board: {width, height}, build_walls: build_walls) do
+  def new(%{number_of_players: number_of_players, board: {width, height}, build_walls: build_walls}) do
     new_game(number_of_players, width, height, build_walls)
   end
 

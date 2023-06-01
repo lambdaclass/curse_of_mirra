@@ -25,6 +25,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public static SocketConnectionManager instance;
     public uint currentPing;
+    public uint serverTickRate_ms;
 
     WebSocket ws;
 
@@ -38,6 +39,8 @@ public class SocketConnectionManager : MonoBehaviour
         Instance = this;
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;
+        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+        
         playersStatic = this.players;
     }
 

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class LobbyConnection : MonoBehaviour
 {
     [Tooltip("IP to connect to. If empty, localhost will be used")]
@@ -21,9 +22,10 @@ public class LobbyConnection : MonoBehaviour
     public int playerId;
     public int playerCount;
     public bool gameStarted = false;
+    public uint serverTickRate_ms;
 
     WebSocket ws;
-
+    
     public class Session
     {
         public string lobby_id { get; set; }
@@ -108,8 +110,20 @@ public class LobbyConnection : MonoBehaviour
     }
 
     public void StartGame()
-    {
-        LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
+    {   
+        #if !UNITY_WEBGL
+            GameConfig gameSettings = new GameSettings{ path = @"./game_settings.json" }.parseSettings();
+        #else
+            GameConfig gameSettings = GameSettings.defaultSettings();
+        #endif
+    
+        LobbyEvent lobbyEvent = new LobbyEvent { 
+            Type = LobbyEventType.StartGame,  
+            GameConfig = gameSettings
+        };
+
+        serverTickRate_ms = (uint) gameSettings.ServerTickrateMs;
+
         using (var stream = new MemoryStream())
         {
             lobbyEvent.WriteTo(stream);

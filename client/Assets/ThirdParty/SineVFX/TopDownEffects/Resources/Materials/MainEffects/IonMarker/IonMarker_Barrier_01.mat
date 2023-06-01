@@ -1,0 +1,208 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IonMarker_Barrier_01
+  m_Shader: {fileID: 4800000, guid: d2891d0657494920bb2b9457a9964d4e, type: 3}
+  m_ShaderKeywords: _VERTICALGRADIENTENABLED_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AppearGradientProfile:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BackRamp:
+        m_Texture: {fileID: 2800000, guid: 2f126060a46d4a018caad99e69d3cc69, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Distortion:
+        m_Texture: {fileID: 2800000, guid: 57535fb8629b4c6eb8530d7d3664d59f, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNoise:
+        m_Texture: {fileID: 2800000, guid: cee6e691b28a48b4a7c3bd7a495539e3, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _EdgeRamp:
+        m_Texture: {fileID: 2800000, guid: 2f126060a46d4a018caad99e69d3cc69, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainMask:
+        m_Texture: {fileID: 2800000, guid: b985eea8bf9649c2b2e63fcc608f9a31, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: b10b8cab590345198e411896deb2b277, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise01:
+        m_Texture: {fileID: 2800000, guid: a267fbe4ca8247ac90953df9cce3ca33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise02:
+        m_Texture: {fileID: 2800000, guid: 57535fb8629b4c6eb8530d7d3664d59f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise03:
+        m_Texture: {fileID: 2800000, guid: a267fbe4ca8247ac90953df9cce3ca33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise4:
+        m_Texture: {fileID: 2800000, guid: a267fbe4ca8247ac90953df9cce3ca33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OffsetMask:
+        m_Texture: {fileID: 2800000, guid: fe450836a3624d46b27ae57c19107fe8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OffsetTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: f936c5b180b646ecb1f4ce835da8ab72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: 57535fb8629b4c6eb8530d7d3664d59f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TrisGlareTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VerticalGradientProfile:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AppearGradientAbsSwitch: 1
+    - _AppearGradientClampSwitch: 0
+    - _AppearGradientDistortionAmount: 0
+    - _AppearGradientDynamicsNegate: 0
+    - _AppearGradientFlipSwitch: 0
+    - _AppearGradientOffset: 0
+    - _AppearGradientRemapMax: 1
+    - _AppearProgress: -0.125
+    - _BackRampOffsetExp: 2
+    - _Cutoff: 0.1
+    - _DepthMaskDistance: 1
+    - _DepthMaskEnabled: 0
+    - _DepthMaskExp: 2
+    - _DepthMaskMultiply: 0.25
+    - _DepthMaskRemapMax: 1
+    - _DistortionAmount: 0.125
+    - _DistortionScrollSpeedU: 0
+    - _DistortionScrollSpeedV: -0.05
+    - _EdgeGlowExp: 1
+    - _EdgeGlowPower: 17.5
+    - _EdgeGlowSubtract: 0.85
+    - _EdgeRampOffsetMultiply: 0.46
+    - _FinalOpacityPower: 1
+    - _FinalPower: 4
+    - _Float0: 20
+    - _Float1: -2.5
+    - _Float2: 2
+    - _Float3: -0.15
+    - _Float4: 1.25
+    - _FromSmokeExp: 2
+    - _FrontSmokeExp: 2
+    - _FrontSmokeFlip: 0
+    - _InnerRimEnabled: 0
+    - _InnerRimExp: 4
+    - _InnerRimFlipSwitch: 1
+    - _MainMaskAdd: -0.15
+    - _MainTexScrollSpeed: 0
+    - _Noise01BackNegate: 0
+    - _Noise01FrontAmount: -1
+    - _Noise01FrontNegate: -0.916
+    - _Noise01Negate: 0.5
+    - _Noise01Rotation: 0
+    - _Noise01ScaleU: 2
+    - _Noise01ScaleV: 1.5
+    - _Noise01ScrollSpeedU: 0
+    - _Noise01ScrollSpeedV: -0.125
+    - _Noise01Twist: 1.5
+    - _Noise02Amount: -0.075
+    - _Noise02Negate: 0.25
+    - _Noise02Power: 0.393
+    - _Noise02TilingU: 1
+    - _Noise02TilingV: 2
+    - _Noise03Bias: 0.0225
+    - _Noise04Amount: 1
+    - _Noise04ScaleU: 2
+    - _Noise04ScaleV: 2
+    - _OffsetAdjust: 0.075
+    - _OffsetExp: 16
+    - _OffsetGChannelMasking: 0
+    - _OffsetPower: 0
+    - _OffsetStyle: 0
+    - _OffsetTextureScaleU: 1
+    - _OffsetTextureScaleV: 1
+    - _OffsetTextureScrollSpeedU: 0
+    - _OffsetTextureScrollSpeedV: 0
+    - _OffsetToOpacityExp: 1
+    - _OffsetToOpacityNegate: 1
+    - _OffsetVerticalAdjust: 0.075
+    - _Progress: -0.15
+    - _RampAffectedByDynamics: 1
+    - _RampBlend: 0
+    - _RampEnabled: 0
+    - _RampOffsetExp: 8
+    - _RampOffsetMultiply: 1
+    - _RampRemapMaxNew: 1.125
+    - _RampRemapMinOld: 0.5
+    - _TransitionExp: 2
+    - _TransitionFixAmount: 10
+    - _TransitionMultiply: 1
+    - _TrisGlareEnabled: 0
+    - _TrisGlareNegate: 1
+    - _TrisGlareTextureScaleU: 1
+    - _TrisGlareTextureScaleV: 1
+    - _VerticalGradientAbsSwitch: 1
+    - _VerticalGradientClampSwitch: 0
+    - _VerticalGradientEnabled: 1
+    - _VerticalGradientFlipSwitch: 0
+    - _VerticalGradientOffset: 0
+    - _VerticalGradientRemapMax: 1
+    - _VerticalMaskAdd: -0.1
+    - _VerticalMaskAdjust: -0.25
+    - _WavesEnabled: 0
+    - _WavesScale: 8
+    - _WavesSpeed: 4
+    - __dirty: 0
+    m_Colors:
+    - _BackColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EdgeGlowColor: {r: 1, g: 0, b: 0, a: 1}
+    - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontColor: {r: 0.13333315, g: 0.13333315, b: 0.13333315, a: 1}
+    - _FrontSmokeColor1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _FrontSmokeColor2: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+    - _FrontSmokeColorOne: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+    - _FrontSmokeColorTwo: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
+    - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
+    - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
