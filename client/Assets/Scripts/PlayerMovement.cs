@@ -184,6 +184,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 healthComponent.Model.gameObject.SetActive(false);
             }
+            if (healthComponent.CurrentHealth == 100)
+            {
+                healthComponent.Model.gameObject.SetActive(true);
+            }
             bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
             if (isAttackingAOE)
             {
