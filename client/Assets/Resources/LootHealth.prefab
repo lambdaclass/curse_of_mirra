@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2ce51367856bd49b72678cc4263225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Active: 1
+  Active: 0
   Label: Sound
   Chance: 100
   Timing:
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 4747850122683906890}
   - component: {fileID: 4775428342403229094}
   m_Layer: 0
-  m_Name: Koala_Pickups_Shadow1
+  m_Name: Pickups_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 4885022275510219096}
   - component: {fileID: 5235018393297636785}
   m_Layer: 0
-  m_Name: LootHeath
+  m_Name: LootHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4833585593647257712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34, y: -19.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 4747809863921307168}
   - component: {fileID: 4774584819075332204}
   m_Layer: 0
-  m_Name: Koala_Health
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +558,7 @@ Animator:
   m_GameObject: {fileID: 4833959880563055024}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aff073d757d1ab74f957b88efee609d5, type: 2}
+  m_Controller: {fileID: 9100000, guid: d9b3221dd41de490f83035f2cc15d9de, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

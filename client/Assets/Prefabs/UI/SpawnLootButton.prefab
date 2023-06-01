@@ -179,8 +179,8 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SpawnBot, Assembly-CSharp
+      - m_Target: {fileID: 4095775676691702628}
+        m_TargetAssemblyTypeName: SpawnLoot, Assembly-CSharp
         m_MethodName: Init
         m_Mode: 1
         m_Arguments:
@@ -270,8 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7030aa45e64cb4aa18d1965905fe2480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPrefab: {fileID: 4833585593647257712, guid: 8442e313c8a6e410c98da3019b074cc8,
-    type: 3}
 --- !u!1 &5677755146777625766
 GameObject:
   m_ObjectHideFlags: 0
