@@ -24,15 +24,10 @@ public class SpawnBot : MonoBehaviour
     public void GenerateBotPlayer()
     {
         manager.CallSpawnBot();
+        pendingSpawn = true;
     }
 
     public void Spawn(string botId)
-    {
-        pendingSpawn = true;
-        botId = botId;
-    }
-
-    public void Update()
     {
         if (pendingSpawn)
         {

@@ -134,10 +134,13 @@ public class PlayerMovement : MonoBehaviour
             */
             float character_speed = 0;
 
-            if (playerUpdate.player_id % 2 == 0) {
+            if (playerUpdate.player_id % 2 == 0)
+            {
                 // Muflus
                 character_speed = 0.3f;
-            } else {
+            }
+            else
+            {
                 // Hack
                 character_speed = 0.5f;
             }
@@ -154,7 +157,8 @@ public class PlayerMovement : MonoBehaviour
             characterOrientation.ForcedRotation = true;
 
             bool walking = false;
-            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f) {
+            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+            {
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
@@ -181,9 +185,10 @@ public class PlayerMovement : MonoBehaviour
                 healthComponent.Model.gameObject.SetActive(false);
             }
             bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (isAttackingAOE){
-                print(playerUpdate.aoe_x  / 10f - 50.0f);
-                print(playerUpdate.aoe_y  / 10f + 50.0f);
+            if (isAttackingAOE)
+            {
+                print(playerUpdate.aoe_x / 10f - 50.0f);
+                print(playerUpdate.aoe_y / 10f + 50.0f);
             }
 
             SocketConnectionManager.Instance.players[playerUpdate.player_id]
@@ -211,11 +216,11 @@ public class PlayerMovement : MonoBehaviour
                     aoe_y = -((long)aoe_position.X),
                 }
             );
-            if (gamePlayers[i].Health == 0)
-            {
-                print(SocketConnectionManager.instance.players[i].name);
-                SocketConnectionManager.instance.players[i].SetActive(false);
-            }
+            // if (gamePlayers[i].Health == 0)
+            // {
+            //     print(SocketConnectionManager.Instance.players[i].name);
+            //     SocketConnectionManager.Instance.players[i].SetActive(false);
+            // }
         }
     }
 }

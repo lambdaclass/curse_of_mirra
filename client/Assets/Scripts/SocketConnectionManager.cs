@@ -22,8 +22,6 @@ public class SocketConnectionManager : MonoBehaviour
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
     private int playerId;
-
-    public static SocketConnectionManager instance;
     public uint currentPing;
 
     WebSocket ws;
