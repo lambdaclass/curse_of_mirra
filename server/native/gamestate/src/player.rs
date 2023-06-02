@@ -1,4 +1,4 @@
-use crate::character::Character;
+use crate::character::{Character, Effect};
 use crate::time_utils::time_now;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
@@ -63,6 +63,23 @@ impl Player {
             if self.health <= 0 {
                 self.status = Status::DEAD;
             }
+        }
+    }
+    pub fn can_attack(self: &mut Self) -> bool {
+        let cooldown = self.character.cooldown();
+
+        if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        let now = time_now();
+        if (now - self.last_melee_attack) < cooldown {
+            return false;
+        }
+
+        match self.character.status_effects.get(&Effect::Disarmed) {
+            Some((1_u64..=u64::MAX)) => false,
+            None | Some(0) => true,
         }
     }
 }

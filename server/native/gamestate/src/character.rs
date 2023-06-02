@@ -77,13 +77,6 @@ impl Character {
         }
     }
     #[inline]
-    pub fn can_attack(&self) -> bool {
-        match self.status_effects.get(&Effect::Disarmed) {
-            Some((1_u64..=u64::MAX)) => false,
-            None | Some(0) => true,
-        }
-    }
-    #[inline]
     pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
         self.status_effects.insert(e.clone(), tl);
     }
