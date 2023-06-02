@@ -65,6 +65,14 @@ impl Player {
             }
         }
     }
+
+    ///
+    /// returns whether the player can do an attack, based on:
+    ///
+    /// - the player's status
+    /// - the character's cooldown
+    /// - the character's effects
+    ///
     pub fn can_attack(self: &mut Self) -> bool {
         let cooldown = self.character.cooldown();
 
