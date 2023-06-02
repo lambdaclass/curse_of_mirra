@@ -284,6 +284,10 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         state.world_tick();
     }
 
+    // make sure both abilities are off cooldown
+    time_utils::sleep(player1_cooldown);
+    time_utils::sleep(player2_cooldown);
+
     // Now Player 1 should be able to attack
     state.attack_player(player_1_id, Direction::RIGHT);
     state.attack_player(player_2_id, Direction::LEFT);
