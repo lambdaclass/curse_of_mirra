@@ -115,11 +115,15 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.StateUpdate:
                     // if (this.gamePlayers != null && this.gamePlayers.Count < game_event.Players.Count)
                     // {
+                    //     print(game_event.Players.Count);
+                    //     print("antes " + gamePlayers.Count);
                     //     game_event.Players.ToList()
                     //     .FindAll((player) => !this.gamePlayers.Contains(player))
                     //     .ForEach((player) => SpawnBot.Instance.Spawn(player.Id.ToString()));
                     // }
                     this.gamePlayers = game_event.Players.ToList();
+                    print("Despues " + gamePlayers.Count);
+
                     break;
 
                 case GameEventType.PingUpdate:

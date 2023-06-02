@@ -11,6 +11,7 @@ public class SpawnBot : MonoBehaviour
 
     private bool pendingSpawn = false;
     private bool botId;
+    private int countBefore;
 
     public static SpawnBot Instance;
 
@@ -19,17 +20,25 @@ public class SpawnBot : MonoBehaviour
         if (manager.players.Count == 9) GetComponent<MMTouchButton>().DisableButton();
         Instance = this;
         GenerateBotPlayer();
+        StartCoroutine(WaitForSpawn());
     }
 
     public void GenerateBotPlayer()
     {
         manager.CallSpawnBot();
+        countBefore = manager.gamePlayers.Count;
+    }
+
+    IEnumerator WaitForSpawn()
+    {
+        yield return new WaitUntil(() => manager.gamePlayers.Count != countBefore);
         Spawn();
     }
 
     public void Spawn()
     {
         string botId = manager.players.Count.ToString();
+        print(manager.gamePlayers.Count);
         playerPrefab.GetComponent<Character>().PlayerID = "";
 
         Character newPlayer = Instantiate(
@@ -41,6 +50,5 @@ public class SpawnBot : MonoBehaviour
         newPlayer.name = "BOT" + botId;
         manager.players.Add(newPlayer.gameObject);
         print("SPAWNED");
-
     }
 }
