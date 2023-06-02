@@ -4,6 +4,7 @@ pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
+    Disarmed,
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum)]
 pub enum Name {
@@ -73,6 +74,13 @@ impl Character {
         match self.status_effects.get(&Effect::Petrified) {
             Some((1_u64..=u64::MAX)) => 0,
             None | Some(0) => self.base_speed,
+        }
+    }
+    #[inline]
+    pub fn can_attack(&self) -> bool {
+        match self.status_effects.get(&Effect::Disarmed) {
+            Some((1_u64..=u64::MAX)) => false,
+            None | Some(0) => true,
         }
     }
     #[inline]
