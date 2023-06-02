@@ -308,7 +308,7 @@ impl GameState {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack() {
-            return Ok(())
+            return Ok(());
         }
 
         attacking_player.action = PlayerAction::ATTACKINGAOE;
