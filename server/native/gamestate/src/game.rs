@@ -255,6 +255,11 @@ impl GameState {
         if (now - attacking_player.last_melee_attack) < cooldown {
             return;
         }
+
+        if !attacking_player.can_attack() {
+            return Ok(())
+        }
+
         attacking_player.action = PlayerAction::ATTACKING;
 
         attacking_player.last_melee_attack = now;
@@ -312,7 +317,6 @@ impl GameState {
         attack_position: &RelativePosition,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
-        attacking_player.action = PlayerAction::ATTACKINGAOE;
 
         let cooldown = attacking_player.character.cooldown();
 
@@ -325,6 +329,12 @@ impl GameState {
         if (now - attacking_player.last_melee_attack) < cooldown {
             return Ok(());
         }
+
+        if !attacking_player.can_attack() {
+            return Ok(())
+        }
+
+        attacking_player.action = PlayerAction::ATTACKINGAOE;
 
         let (center, top_left, bottom_right) =
             compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
