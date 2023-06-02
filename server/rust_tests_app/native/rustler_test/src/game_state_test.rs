@@ -27,6 +27,15 @@ fn petrified_character() -> Character {
         ..Default::default()
     }
 }
+fn disarmed_character() -> Character {
+    Character {
+        status_effects: std::collections::HashMap::from(
+            // This will last 10 ticks.
+            [(Effect::Disarmed, 10)],
+        ),
+        ..Default::default()
+    }
+}
 #[rustler::nif]
 pub fn no_move_if_beyond_boundaries() -> TestResult {
     let mut expected_grid: Vec<Vec<Tile>>;
@@ -243,4 +252,41 @@ pub fn cant_move_if_petrified() -> TestResult {
     assert_result!(player.character.speed(), base_speed)?;
     assert_result!(spawn_point.x + 1, player.position.x)?;
     assert_result!(spawn_point.y, player.position.y)
+}
+
+#[rustler::nif]
+pub fn cant_attack_if_disarmed() -> TestResult {
+    let mut state = GameState::new(1, 20, 20, false);
+    let player_1_id = 1;
+    let player_2_id = 2;
+    let disarmed_char: Character = disarmed_character();
+    let char: Character = speed1_character();
+    let player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
+    let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
+    state.players = vec![player1.clone(), player2];
+    state.board.set_cell(0, 0, Tile::Player(player_1_id));
+    state.board.set_cell(0, 1, Tile::Player(player_2_id));
+    let player1_cooldown = player1.character.cooldown();
+    let player2_cooldown = player1.character.cooldown();
+    // make sure both abilities are off cooldown
+    time_utils::sleep(player1_cooldown);
+    time_utils::sleep(player2_cooldown);
+
+    // Player 1 can't attack since it is in a Disarmed state
+    // Player 2 can attack
+    state.attack_player(player_1_id, Direction::RIGHT);
+    state.attack_player(player_2_id, Direction::LEFT);
+    assert_result!(90, state.players[0].health)?;
+    assert_result!(100, state.players[1].health)?;
+
+    // Wait for the Disarmed state to finish
+    for _ in 0..10 {
+        state.world_tick();
+    }
+
+    // Now Player 1 should be able to attack
+    state.attack_player(player_1_id, Direction::RIGHT);
+    state.attack_player(player_2_id, Direction::LEFT);
+    assert_result!(80, state.players[0].health)?;
+    assert_result!(90, state.players[1].health)
 }
