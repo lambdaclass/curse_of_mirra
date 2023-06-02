@@ -242,26 +242,15 @@ impl GameState {
             .iter_mut()
             .find(|player| player.id == attacking_player_id)
             .unwrap();
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
-
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
-            return;
-        }
-
-        let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return;
-        }
 
         if !attacking_player.can_attack() {
-            return Ok(())
+            return;
         }
 
         attacking_player.action = PlayerAction::ATTACKING;
+        let attack_dmg = attacking_player.character.attack_dmg() as i64;
 
+        let now = time_now();
         attacking_player.last_melee_attack = now;
 
         let (top_left, bottom_right) =
@@ -318,18 +307,6 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
-            return Ok(());
-        }
-
-        let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
-
         if !attacking_player.can_attack() {
             return Ok(())
         }
@@ -339,6 +316,7 @@ impl GameState {
         let (center, top_left, bottom_right) =
             compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
 
+        let now = time_now();
         attacking_player.last_melee_attack = now;
         attacking_player.aoe_position = center;
 
