@@ -31,14 +31,14 @@ public class SpawnBot : MonoBehaviour
 
     IEnumerator WaitForSpawn()
     {
-        yield return new WaitUntil(() => manager.gamePlayers.Count != countBefore);
+        yield return new WaitUntil(() => manager.gamePlayers.Count > countBefore);
         Spawn();
     }
 
     public void Spawn()
     {
         string botId = manager.players.Count.ToString();
-        print(manager.gamePlayers.Count);
+        countBefore = manager.gamePlayers.Count;
         playerPrefab.GetComponent<Character>().PlayerID = "";
 
         Character newPlayer = Instantiate(
