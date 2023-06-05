@@ -225,11 +225,13 @@ impl GameState {
         let grid_y = joystick_x.round() as i64;
         return (grid_x, grid_y);
     }
+
     fn get_player_mut(players: &mut Vec<Player>, player_id: u64) -> Result<&mut Player, String> {
         players
             .get_mut((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
+
     fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
         self.players
             .get((player_id - 1) as usize)
@@ -385,6 +387,23 @@ impl GameState {
             self.board
                 .set_cell(player.position.x, player.position.y, Tile::Empty);
         }
+    }
+
+    pub fn auto_attack(
+        self: &mut Self,
+        attacking_player_id: u64,
+        target_player_id: u64,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+        let target_player = GameState::get_player(&self, attacking_player_id)?;
+        // TODO:
+        // Set a proper, balanced distance for this.
+        if distance_to_center(&target_player, &attacking_player.position) < 5.0 {
+            let attack_dmg = attacking_player.character.attack_dmg() as i64;
+            let target_player = GameState::get_player_mut(&mut self.players, target_player_id)?;
+            target_player.modify_health(attack_dmg);
+        }
+        Ok(())
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles

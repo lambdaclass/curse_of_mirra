@@ -74,6 +74,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
+  def decode(%ProtoAction{action: :AUTO_ATTACK, target: target}, ProtoAction) do
+    %EngineAction{action: :auto_attack, value: target}
+  end
+
   def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}, ProtoAction) do
     %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}}
   end

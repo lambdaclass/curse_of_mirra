@@ -116,6 +116,16 @@ fn move_with_joystick(
     Ok(game_2)
 }
 
+#[rustler::nif(schedule = "DirtyCpu")]
+pub fn auto_attack(
+    game: GameState,
+    player_id: u64,
+    target_player_id: u64,
+) -> Result<GameState, String> {
+    let mut game = game;
+    game.auto_attack(player_id, target_player_id)?;
+    Ok(game)
+}
 pub fn load(env: Env, _: Term) -> bool {
     rustler::resource!(GridResource, env);
     true

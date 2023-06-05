@@ -12,6 +12,7 @@ defmodule DarkWorldsServer.Engine.Game do
   def new_game(_a, _b, _c, _d), do: :erlang.nif_error(:nif_not_loaded)
   def move_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def move_with_joystick(_game_state, _player_id, _x, _y), do: :erlang.nif_error(:nif_not_loaded)
+  def auto_attack(_game_state, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def attack_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def attack_aoe(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def get_grid(_a), do: :erlang.nif_error(:nif_not_loaded)
