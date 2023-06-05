@@ -1,1 +1,8 @@
-﻿[{"Name":"mirror_image","Id":"0","Life":"50","Damage":"0"}]
+﻿[
+  {
+    "Name": "mirror_image",
+    "Id": "0",
+    "Life": "50",
+    "Damage": "0"
+  }
+]

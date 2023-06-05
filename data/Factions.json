@@ -1,1 +1,18 @@
-﻿[{"Name":"Otobi","Code":"oto"},{"Name":"Merliot","Code":"mer"},{"Name":"Araban","Code":"ara"},{"Name":"Kaline","Code":"kal"}]
+﻿[
+  {
+    "Name": "Otobi",
+    "Code": "oto"
+  },
+  {
+    "Name": "Merliot",
+    "Code": "mer"
+  },
+  {
+    "Name": "Araban",
+    "Code": "ara"
+  },
+  {
+    "Name": "Kaline",
+    "Code": "kal"
+  }
+]
