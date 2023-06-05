@@ -61,15 +61,19 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         public void AttackToNearestPlayer()
         {
             GameObject go = gameObject.GetComponent<DetectNearPlayer>().GetNearestPlayer();
+            print("Is go null?");
             if (go != null)
             {
+                print("Go is not null!");
                 var character = go.GetComponent<Character>();
                 if (character != null)
                 {
+                    print("Character is not null!");
                     var targetPlayerId = go.GetComponent<Character>().PlayerID;
                     print("trying to attack " + go);
                     print("trying to attack " + targetPlayerId);
-                    gameObject.GetComponent<PlayerControls>().AttackIfInRange(targetPlayerId);
+                    PlayerControls.AttackIfInRange("");
+                    // gameObject.GetComponent<PlayerControls>().AttackIfInRange("");
                 }
             }
         }

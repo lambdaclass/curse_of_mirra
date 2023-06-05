@@ -2,7 +2,7 @@ using UnityEngine;
 using MoreMountains.Tools;
 public class PlayerControls : MonoBehaviour
 {
-    public void AttackIfInRange(string PlayerId)
+    public static void AttackIfInRange(string PlayerId)
     {
         var clientAction = new ClientAction { Action = Action.AutoAttack, Target = PlayerId };
         SocketConnectionManager.Instance.SendAction(clientAction);
@@ -34,11 +34,6 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             SendAction(Action.Move, Direction.Down);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            ClientAction action = new ClientAction { Action = Action.AttackAoe };
-            SocketConnectionManager.Instance.SendAction(action);
         }
     }
 

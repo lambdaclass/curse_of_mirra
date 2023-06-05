@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MagicMissileBarrage_MissileCurve_01
+  m_Shader: {fileID: 4800000, guid: 09a48c3e92464c2289e53652a9098cc7, type: 3}
+  m_ShaderKeywords: _CAMERADEPTHFADEENABLED_ON _FRESNELMASKENABLED_ON _MAINMASKCHANNELSADDORMULTIPLY_ON
+    _RAMPENABLED1_ON _SOFTPARTICLESENABLED_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissolveTexture:
+        m_Texture: {fileID: 2800000, guid: 7946756a0d414f759c470943148ed64a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainMask:
+        m_Texture: {fileID: 2800000, guid: 7f224f8be0b34951b521c5e3b684ba1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: b0683776dbc5dd943a0985ce49914859, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask01:
+        m_Texture: {fileID: 2800000, guid: b0683776dbc5dd943a0985ce49914859, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask02:
+        m_Texture: {fileID: 2800000, guid: 9c1d7c74d0c1d8d419d524dea61f5a9a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask02Distortion:
+        m_Texture: {fileID: 2800000, guid: 36fb71d46b354a9aa19192111857ff83, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskLifetime:
+        m_Texture: {fileID: 2800000, guid: a68bbabd27964f4a98abff36df8c4923, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskLifetimeDistortion:
+        m_Texture: {fileID: 2800000, guid: 441d8bb42833455b8b10dd26ce59fffd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskRG:
+        m_Texture: {fileID: 2800000, guid: 7f224f8be0b34951b521c5e3b684ba1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise01:
+        m_Texture: {fileID: 2800000, guid: 381971b998464a3b89560a23153e6212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise01Distortion:
+        m_Texture: {fileID: 2800000, guid: 8a64792244984b3f9279166768bee611, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: a30c7f192d1749a1b03ab3f221a73a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondMask:
+        m_Texture: {fileID: 2800000, guid: 4e88001931cf4633a23cb915b84c7fdb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondMaskDistortion:
+        m_Texture: {fileID: 2800000, guid: 441d8bb42833455b8b10dd26ce59fffd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: 8a3443714a5e4981b178a25bf72d8a98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CameraDepthFadeEnabled: 1
+    - _CameraDepthFadeLength: 1
+    - _CameraDepthFadeOffset: 0
+    - _DissolveTextureRemapMax: 0.75
+    - _DissolveTextureScaleU: 1
+    - _DissolveTextureScaleV: 1
+    - _FinalOpacityExp: 1
+    - _FinalOpacityPower: 2
+    - _FinalPower: 10
+    - _FlipAnimation: 0
+    - _FlipUV: 0
+    - _Float0: 0.57
+    - _Float1: 0.88
+    - _Float2: 0.2
+    - _FresnelMaskEnabled: 1
+    - _FresnelMaskPower: 1
+    - _FresnelMaskScale: 1
+    - _MainMaskChannelsAddorMultiply: 1
+    - _Mask02DistortionPower: 0
+    - _Mask02Stretch: 1
+    - _MaskLifetimeCustomProgress: 0
+    - _MaskLifetimeCustomProgressEnabled: 0
+    - _MaskLifetimeDistortionPower: 0.125
+    - _MaskLifetimeDistortionRemapMax: 0.75
+    - _MaskLifetimeDistortionRemapMin: -0.25
+    - _MaskLifetimeStretch: 1
+    - _Noise01DistortionPower: 0.2
+    - _Noise01DistortionScaleU: 1
+    - _Noise01DistortionScaleV: 1
+    - _Noise01Negate: 1
+    - _Noise01ScaleU: 1
+    - _Noise01ScaleV: 1
+    - _Noise01ScrollSpeed: 0
+    - _OpacityPower: 2
+    - _RampAffectedByVertexColor1: 0
+    - _RampEnabled1: 1
+    - _RampOffsetExp1: 1
+    - _RampOffsetMultiply: 4
+    - _RampTilingPower: 4
+    - _SecondMaskDirectionSwitch: 0
+    - _SecondMaskDirectionU: 0
+    - _SecondMaskDirectionV: 1
+    - _SecondMaskDistortionAmount: 0.125
+    - _SecondMaskDistortionRemapMax: 0.75
+    - _SecondMaskDistortionRemapMin: -0.25
+    - _SecondMaskDistortionScaleU: 1
+    - _SecondMaskDistortionScaleV: 1
+    - _SecondMaskFlipAnimation: 0
+    - _SecondMaskFlipUV: 0
+    - _SecondMaskLifetimeStretch: 2
+    - _SecondMaskRotation: 0
+    - _SoftParticleDistance: 1
+    - _SoftParticleExp: 2
+    - _SoftParticlesDistance: 1
+    - _SoftParticlesEnabled: 1
+    - _SoftParticlesExp: 2
+    - __dirty: 0
+    m_Colors:
+    - _FinalColor: {r: 1, g: 0, b: 0, a: 1}
+    - _MainMaskChannelsAdd: {r: 0, g: 0, b: 1, a: 1}
+    - _MainMaskChannelsMultiply: {r: 1, g: 1, b: 0, a: 0}
+    - _RampColorTint: {r: 0.7620503, g: 0.5801887, b: 1, a: 1}

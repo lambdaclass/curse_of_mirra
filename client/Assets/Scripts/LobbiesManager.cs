@@ -43,14 +43,7 @@ public class LobbiesManager : LevelSelector
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
-        StartCoroutine(WaitForGameCreation());
-    }
-
-    public IEnumerator WaitForGameCreation()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession));
-        LobbyConnection.Instance.playerCount = 1;
-        SceneManager.LoadScene("BackendPlayground");
+        StartCoroutine(ConnectionUtils.WaitForGameCreation());
     }
 
     public IEnumerator WaitForLobbyCreation()

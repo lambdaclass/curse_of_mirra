@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 362fbad5fd7549c698cc964f2cb7699b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Normal: {fileID: 2800000, guid: a687007e1e43afe499e3fea697d19f7f, type: 3}
+  - _AlbedoDecalMask: {fileID: 2800000, guid: eeee2f2b873f0ef48bfee601a9db2d49, type: 3}
+  - _Emission: {fileID: 2800000, guid: 4a0283a562862ec4a83d7f636c6ca353, type: 3}
+  - _MetallicSmoothness: {fileID: 2800000, guid: a5768a63f6d0d7e48b5f52e1db919297,
+      type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

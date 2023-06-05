@@ -41,12 +41,11 @@ fn move_player_to_coordinates(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn clean_players_actions(game: GameState) -> GameState {
+fn world_tick(game: GameState) -> GameState {
     let mut game_2 = game;
-    game_2.clean_players_actions();
+    game_2.world_tick();
     game_2
 }
-
 #[rustler::nif(schedule = "DirtyCpu")]
 fn get_grid(game: GameState) -> Vec<Vec<Tile>> {
     let grid = game.board.grid.resource.lock().unwrap();
@@ -126,6 +125,13 @@ pub fn auto_attack(
     game.auto_attack(player_id, target_player_id)?;
     Ok(game)
 }
+#[rustler::nif(schedule = "DirtyCpu")]
+fn spawn_player(game: GameState, player_id: u64) -> GameState {
+    let mut game_2 = game;
+    game_2.spawn_player(player_id);
+    game_2
+}
+
 pub fn load(env: Env, _: Term) -> bool {
     rustler::resource!(GridResource, env);
     true
@@ -141,10 +147,12 @@ rustler::init!(
         get_non_empty,
         attack_player,
         attack_aoe,
-        clean_players_actions,
+        world_tick,
         disconnect,
         move_with_joystick,
-        new_round
+        new_round,
+        spawn_player,
+        auto_attack
     ],
     load = load
 );

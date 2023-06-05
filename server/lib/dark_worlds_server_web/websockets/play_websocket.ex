@@ -38,7 +38,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
-      {:reply, {:text, "PLAYER_ID: #{player_id} CONNECTED_TO: #{Communication.pid_to_external_id(runner_pid)}"}, state}
+      # {:reply,
+      #  {:text,
+      #   "PLAYER_ID: #{player_id} CONNECTED_TO: #{Communication.pid_to_external_id(runner_pid)}"},
+      #  state}
+      {:ok, state}
     else
       false -> {:stop, %{}}
       {:error, _reason} -> {:stop, %{}}
@@ -57,7 +61,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       {:ok, action} ->
         RequestTracker.add_counter(state[:runner_pid], state[:player_id])
         Runner.play(state[:runner_pid], state[:player_id], action)
-        {:reply, {:text, "OK"}, state}
+        {:ok, state}
 
       {:error, msg} ->
         {:reply, {:text, "ERROR: #{msg}"}, state}
@@ -77,8 +81,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   @impl true
-  def websocket_info({:player_joined, player_id, _game_state}, state) do
-    {:reply, {:text, "PLAYER_JOINED: #{player_id}"}, state}
+  def websocket_info({:player_joined, player_id}, state) do
+    {:reply, {:binary, Communication.game_player_joined(player_id)}, state}
   end
 
   # Send a ping frame every once in a while

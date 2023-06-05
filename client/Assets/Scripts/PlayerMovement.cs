@@ -31,9 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Send the player's action every 30 ms approximately.
-        float tickRate = 1f / 30f;
-        InvokeRepeating("SendAction", tickRate, tickRate);
+        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+        InvokeRepeating("SendAction", clientActionRate, clientActionRate);
     }
 
     void Update()
@@ -120,15 +119,53 @@ public class PlayerMovement : MonoBehaviour
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
             GameObject player = SocketConnectionManager.Instance.players[playerUpdate.player_id];
-            player.transform.position =
-                new Vector3(
-                    playerUpdate.x / 10f - 50.0f,
-                    player
-                        .transform
-                        .position
-                        .y,
-                    playerUpdate.y / 10f + 50.0f
-                );
+
+            /*
+                Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
+                There are 50 ticks per second. A player's velocity is 50 * 0.3f
+
+                In general, if a player's velocity is n tiles per tick, their unity velocity
+                is 50 * (n / 10f)
+
+                The above is the player's velocity's magnitude. Their velocity's direction
+                is the direction of deltaX, which we can calculate (assumming we haven't lost socket
+                frames, but that's fine).
+            */
+            float character_speed = 0;
+
+            if (playerUpdate.player_id % 2 == 0) {
+                // Muflus
+                character_speed = 0.3f;
+            } else {
+                // Hack
+                character_speed = 0.5f;
+            }
+
+            // This is tick_rate * character_speed. Once we decouple tick_rate from speed on the backend
+            // it'll be changed.
+            float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+            float velocity = tickRate * character_speed;
+
+            float xChange = (playerUpdate.x / 10f - 50.0f) - player.transform.position.x;
+            float yChange = (playerUpdate.y / 10f + 50.0f) - player.transform.position.z;
+
+            Animator m_Animator = player.GetComponent<Character>().CharacterModel.GetComponent<Animator>();
+            CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+            characterOrientation.ForcedRotation = true;
+
+            bool walking = false;
+            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f) {
+                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+                movementDirection.Normalize();
+
+                Vector3 newPosition = player.transform.position + movementDirection * velocity * Time.deltaTime;
+                player.transform.position = newPosition;
+                characterOrientation.ForcedRotationDirection = movementDirection;
+
+                walking = true;
+            }
+            m_Animator.SetBool("Walking", walking);
+
             Health healthComponent = player.GetComponent<Health>();
             healthComponent.SetHealth(playerUpdate.health);
 
@@ -178,8 +215,8 @@ public class PlayerMovement : MonoBehaviour
             );
             if (gamePlayers[i].Health == 0)
             {
-                print(SocketConnectionManager.instance.players[i + 1].name);
-                SocketConnectionManager.instance.players[i + 1].SetActive(false);
+                print(SocketConnectionManager.instance.players[i].name);
+                SocketConnectionManager.instance.players[i].SetActive(false);
             }
         }
     }
