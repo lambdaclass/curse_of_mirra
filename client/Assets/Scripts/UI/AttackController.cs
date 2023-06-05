@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace MoreMountains.TopDownEngine // you might want to use your own namespace here
 {
     /// <summary>
@@ -62,7 +61,17 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         public void AttackToNearestPlayer()
         {
             GameObject go = gameObject.GetComponent<DetectNearPlayer>().GetNearestPlayer();
-            print("trying to attack " + go?.name);
+            if (go != null)
+            {
+                var character = go.GetComponent<Character>();
+                if (character != null)
+                {
+                    var targetPlayerId = go.GetComponent<Character>().PlayerID;
+                    print("trying to attack " + go);
+                    print("trying to attack " + targetPlayerId);
+                    gameObject.GetComponent<PlayerControls>().AttackIfInRange(targetPlayerId);
+                }
+            }
         }
     }
 }

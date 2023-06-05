@@ -103,6 +103,10 @@ public partial class ClientAction : global::ProtoBuf.IExtensible
     [global::ProtoBuf.ProtoMember(4, Name = @"move_delta")]
     public JoystickValues MoveDelta { get; set; }
 
+    [global::ProtoBuf.ProtoMember(5, Name = @"target")]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string Target { get; set; } = "";
+
 }
 
 [global::ProtoBuf.ProtoContract()]
@@ -186,6 +190,8 @@ public enum Action
     AttackAoe = 5,
     [global::ProtoBuf.ProtoEnum(Name = @"MOVE_WITH_JOYSTICK")]
     MoveWithJoystick = 6,
+    [global::ProtoBuf.ProtoEnum(Name = @"AUTO_ATTACK")]
+    AutoAttack = 7,
 }
 
 [global::ProtoBuf.ProtoContract()]

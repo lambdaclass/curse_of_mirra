@@ -2,6 +2,12 @@ using UnityEngine;
 using MoreMountains.Tools;
 public class PlayerControls : MonoBehaviour
 {
+    public void AttackIfInRange(string PlayerId)
+    {
+        var clientAction = new ClientAction { Action = Action.AutoAttack, Target = PlayerId };
+        SocketConnectionManager.Instance.SendAction(clientAction);
+    }
+
     public void SendJoystickValues(float x, float y)
     {
         if (x != 0 || y != 0)

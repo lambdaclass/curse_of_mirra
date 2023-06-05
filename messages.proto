@@ -78,6 +78,7 @@ message ClientAction {
     Direction direction = 2;
     RelativePosition position = 3;
     JoystickValues move_delta = 4;
+    string target = 5;
 }
 
 /* Actions a client/player performs
@@ -90,6 +91,7 @@ enum Action {
     ATTACK = 2;
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
+    AUTO_ATTACK = 7;
 }
 
 /* Directions an action can happen in
