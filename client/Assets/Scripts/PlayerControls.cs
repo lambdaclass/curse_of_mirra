@@ -31,7 +31,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.E))
         {
-            ClientAction action = new ClientAction { Action = Action.AttackAoe };
+            ClientAction action = new ClientAction { Action = Action.Teleportation };
             SocketConnectionManager.Instance.SendAction(action);
         }
     }

@@ -91,6 +91,7 @@ public enum Action {
   [pbr::OriginalName("ATTACK")] Attack = 2,
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
+  [pbr::OriginalName("TELEPORT")] Teleportation = 7,
 }
 
 /// <summary>

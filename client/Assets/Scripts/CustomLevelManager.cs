@@ -84,6 +84,18 @@ public class CustomLevelManager : LevelManager
                 UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
                 attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
                 UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("y", "joystick", attackEvent);
+
+                UnityEvent ultimateEvent = new UnityEvent();
+                ultimateEvent.AddListener(player.GetComponent<GenericUltimate>().ShowAimUltimate);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("ultimate", "joystick", ultimateEvent);
+
+                UnityEvent<Vector2> aimUltimateEvent = new UnityEvent<Vector2>();
+                aimUltimateEvent.AddListener(player.GetComponent<GenericUltimate>().AimUltimate);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("ultimate", "joystick", aimUltimateEvent);
+
+                UnityEvent<Vector2> executeUltimateEvent = new UnityEvent<Vector2>();
+                executeUltimateEvent.AddListener(player.GetComponent<GenericTeleport>().ExecuteUltimate);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("ultimate", "joystick", executeUltimateEvent);
             }
         }
     }
