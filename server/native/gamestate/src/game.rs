@@ -3,7 +3,11 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::collections::HashSet;
 
 use crate::board::{Board, Tile};
-use crate::character::Character;
+use crate::character::{self, TicksLeft};
+use crate::character::{
+    Character, Name,
+    {Effect, Effect::Petrified},
+};
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::skills::{BasicSkill, Class};
 use crate::time_utils::time_now;
@@ -32,16 +36,7 @@ impl GameState {
         build_walls: bool,
     ) -> Self {
         let mut positions = HashSet::new();
-        let characters = [
-            Default::default(),
-            Character {
-                class: Class::Guardian,
-                basic_skill: BasicSkill::Bash,
-                base_speed: 3,
-                name: "Guardian".to_string(),
-                ..Default::default()
-            },
-        ];
+        let characters = [Default::default(), Character::muflus(), Character::uma()];
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -49,7 +44,7 @@ impl GameState {
                     player_id,
                     100,
                     new_position,
-                    characters[(player_id % 2) as usize].clone(),
+                    characters[(player_id as usize % characters.len())].clone(),
                 )
             })
             .collect();
@@ -273,7 +268,11 @@ impl GameState {
         let (top_left, bottom_right) =
             compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
 
-        let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(&self.board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
 
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
@@ -294,15 +293,11 @@ impl GameState {
     }
 
     // Return all player_id inside an area
-    pub fn players_in_range(
-        self: &mut Self,
-        top_left: Position,
-        bottom_right: Position,
-    ) -> Vec<u64> {
+    pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
         let mut players: Vec<u64> = vec![];
         for fil in top_left.x..=bottom_right.x {
             for col in top_left.y..=bottom_right.y {
-                let cell = self.board.get_cell(fil, col);
+                let cell = board.get_cell(fil, col);
                 if cell.is_none() {
                     continue;
                 }
@@ -317,53 +312,54 @@ impl GameState {
         players
     }
 
-    pub fn attack_aoe(
+    pub fn aoe_attack(
         self: &mut Self,
         attacking_player_id: u64,
         attack_position: &RelativePosition,
-    ) {
-        let attacking_player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == attacking_player_id)
-            .unwrap();
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
         attacking_player.action = PlayerAction::ATTACKINGAOE;
 
         let cooldown = attacking_player.character.cooldown();
 
         if matches!(attacking_player.status, Status::DEAD) {
-            return;
+            return Ok(());
         }
 
         let now = time_now();
 
         if (now - attacking_player.last_melee_attack) < cooldown {
-            return;
+            return Ok(());
         }
 
         let (center, top_left, bottom_right) =
             compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
+
         attacking_player.last_melee_attack = now;
         attacking_player.aoe_position = center;
 
-        let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
+        let affected_players: Vec<u64> =
+            GameState::players_in_range(&self.board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
 
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = self
-                .players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+        let special_effect = attacking_player.character.select_aoe_effect();
 
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-10);
-                    let player = ap.clone();
-                    self.modify_cell_if_player_died(&player);
-                }
-                _ => continue,
+        for target_player_id in affected_players {
+            let attacked_player = GameState::get_player_mut(&mut self.players, target_player_id)?;
+            if let Some((effect, duration)) = &special_effect {
+                attacked_player
+                    .character
+                    .add_effect(effect.clone(), *duration)
+            } else {
+                // Maybe health should be linked to
+                // the character instead?
+                attacked_player.modify_health(-10);
             }
         }
+
+        Ok(())
     }
 
     pub fn disconnect(self: &mut Self, player_id: u64) -> Result<(), String> {

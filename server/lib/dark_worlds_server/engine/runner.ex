@@ -156,7 +156,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{next_state: %{game: game} = next_state} = state
       ) do
     %Player{position: _position} = get_player(game.players, player_id)
-    game = Game.attack_aoe(game, player_id, value)
+    {:ok, game} = Game.attack_aoe(game, player_id, value)
 
     game_state = has_a_player_won?(game.players, state.is_single_player?)
 
@@ -297,6 +297,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, state})
 
     [winner] = Enum.filter(state.next_state.game.players, fn player -> player.status == :alive end)
+
     winners = [winner | winners]
     amount_of_winners = winners |> Enum.uniq_by(fn winner -> winner.id end) |> Enum.count()
 

@@ -132,12 +132,15 @@ public class PlayerMovement : MonoBehaviour
             */
             float character_speed = 0;
 
-            if (playerUpdate.player_id % 2 == 0) {
+            if (playerUpdate.player_id % 3 == 0) {
                 // Muflus
                 character_speed = 0.3f;
-            } else {
+            } else if (playerUpdate.player_id % 3 == 1) {
                 // Hack
                 character_speed = 0.5f;
+            } else {
+                // Uma
+                character_speed = 0.4f;
             }
 
             // This is tick_rate * character_speed. Once we decouple tick_rate from speed on the backend
@@ -153,7 +156,8 @@ public class PlayerMovement : MonoBehaviour
             characterOrientation.ForcedRotation = true;
 
             bool walking = false;
-            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f) {
+            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+            {
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
@@ -174,15 +178,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 print("attack");
             }
+
             //if dead remove the player from the scene
             if (healthComponent.CurrentHealth <= 0)
             {
                 healthComponent.Model.gameObject.SetActive(false);
             }
+            if (healthComponent.CurrentHealth == 100)
+            {
+                healthComponent.Model.gameObject.SetActive(true);
+            }
             bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (isAttackingAOE){
-                print(playerUpdate.aoe_x  / 10f - 50.0f);
-                print(playerUpdate.aoe_y  / 10f + 50.0f);
+            if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.player_id + 1)))
+            {
+                player.GetComponent<GenericAoeAttack>().ShowAoeAttack(new Vector2(playerUpdate.aoe_x / 10f - 50.0f, playerUpdate.aoe_y / 10f + 50.0f));
             }
 
             SocketConnectionManager.Instance.players[playerUpdate.player_id]

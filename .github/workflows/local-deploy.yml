@@ -20,7 +20,6 @@ jobs:
     - name: Checkout deploy script
       uses: Bhacaz/checkout-files@v2
       with:
-        branch: ${{ github.event.workflow_run.head_branch }}
         files: server/deploy.sh
 
     - name: Create ssh private key file from env var
