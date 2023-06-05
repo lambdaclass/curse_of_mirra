@@ -73,7 +73,7 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &mut Self) -> bool {
+    pub fn can_attack(self: &Self) -> bool {
         let cooldown = self.character.cooldown();
 
         if matches!(self.status, Status::DEAD) {
