@@ -25,6 +25,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public static SocketConnectionManager instance;
     public uint currentPing;
+    public uint serverTickRate_ms;
 
     WebSocket ws;
 
@@ -38,13 +39,14 @@ public class SocketConnectionManager : MonoBehaviour
         Instance = this;
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;
+        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+        
         playersStatic = this.players;
     }
 
     void Start()
     {
         playerId = LobbyConnection.Instance.playerId;
-
         if (string.IsNullOrEmpty(this.session_id))
         {
             StartCoroutine(GetRequest());
@@ -113,6 +115,12 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    if (this.gamePlayers != null && this.gamePlayers.Count < game_event.Players.Count)
+                    {
+                        game_event.Players.ToList()
+                        .FindAll((player) => !this.gamePlayers.Contains(player))
+                        .ForEach((player) => SpawnBot.Instance.Spawn(player.Id.ToString()));
+                    }
                     this.gamePlayers = game_event.Players.ToList();
                     break;
 
@@ -141,12 +149,23 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
+    public void CallSpawnBot()
+    {
+        ClientAction clientAction = new ClientAction { Action = Action.AddBot };
+        SendAction(clientAction);
+    }
+
     private string makeUrl(string path)
     {
         if (server_ip.Contains("localhost"))
         {
             return "http://" + server_ip + ":4000" + path;
-        } else
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "http://" + server_ip + ":4000" + path;
+        }
+        else
         {
             return "https://" + server_ip + path;
         }
@@ -157,7 +176,12 @@ public class SocketConnectionManager : MonoBehaviour
         if (server_ip.Contains("localhost"))
         {
             return "ws://" + server_ip + ":4000" + path;
-        } else
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "ws://" + server_ip + ":4000" + path;
+        }
+        else
         {
             return "wss://" + server_ip + path;
         }

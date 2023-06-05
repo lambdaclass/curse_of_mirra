@@ -94,6 +94,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :attack_aoe, value: position}
   end
 
+  def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do
+    %EngineAction{action: :add_bot, value: nil}
+  end
+
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end

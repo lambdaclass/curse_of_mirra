@@ -115,6 +115,13 @@ fn move_with_joystick(
     Ok(game_2)
 }
 
+#[rustler::nif(schedule = "DirtyCpu")]
+fn spawn_player(game: GameState, player_id: u64) -> GameState {
+    let mut game_2 = game;
+    game_2.spawn_player(player_id);
+    game_2
+}
+
 pub fn load(env: Env, _: Term) -> bool {
     rustler::resource!(GridResource, env);
     true
@@ -133,7 +140,8 @@ rustler::init!(
         world_tick,
         disconnect,
         move_with_joystick,
-        new_round
+        new_round,
+        spawn_player,
     ],
     load = load
 );

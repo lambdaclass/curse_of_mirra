@@ -12,9 +12,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   @game_timeout 20 * 60 * 1000
   # The session will be closed one minute after the game has finished
   @session_timeout 60 * 1000
-  # This is the amount of time between updates (30ms)
-  @update_time 30
-  # This is the number of tiles characters move per :move command
+  # This is the amount of time between state updates in milliseconds
+  @tick_rate_ms 20
+
   case Mix.env() do
     :test ->
       # Check player count every 3 seconds in testing
@@ -70,17 +70,19 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    state = Game.new(number_of_players: length(opts.players), board: @board, build_walls: @build_walls)
+    state = create_new_game(opts)
 
-    # Finish game after @game_timeout seconds
-    Process.send_after(self(), :game_timeout, @game_timeout)
+    tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
+
+    # Finish game after @game_timeout seconds or the specified in the game_settings file
+    Process.send_after(self(), :game_timeout, Map.get(opts.game_config, :game_timeout, @game_timeout))
     Process.send_after(self(), :check_player_amount, @player_check)
 
     initial_state = %{
       game: state
     }
 
-    Process.send_after(self(), :update_state, @update_time)
+    Process.send_after(self(), :update_state, tick_rate)
 
     {:ok,
      %{
@@ -92,7 +94,8 @@ defmodule DarkWorldsServer.Engine.Runner do
        current_round: 1,
        game_state: :playing,
        winners: [],
-       is_single_player?: length(opts.players) == 1
+       is_single_player?: length(opts.players) == 1,
+       tick_rate: tick_rate
      }}
   end
 
@@ -193,6 +196,20 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
+  def handle_cast({:play, _, %ActionOk{action: :add_bot}}, state) do
+    %{next_state: %{game: game} = game_state, current_players: current} = state
+    player_id = current + 1
+    new_game = Game.spawn_player(game, player_id)
+
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      Communication.pubsub_game_topic(self()),
+      {:player_joined, player_id}
+    )
+
+    {:noreply, %{state | next_state: %{game_state | game: new_game}, current_players: current + 1}}
+  end
+
   def handle_cast(
         {:disconnect, player_id},
         %{current_state: %{game: game} = game_state, current_players: current} = state
@@ -211,7 +228,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
-      {:player_joined, player_id, state}
+      {:player_joined, player_id}
     )
 
     {:reply, {:ok, player_id}, %{state | current_players: current + 1}}
@@ -347,12 +364,12 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:current_round, current_round + 1)
       |> Map.put(:game_state, :playing)
 
-    Process.send_after(self(), :update_state, @update_time)
+    Process.send_after(self(), :update_state, state.tick_rate)
 
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:last_round, state})
 
-    Process.send_after(self(), :update_state, @update_time)
+    Process.send_after(self(), :update_state, state.tick_rate)
 
     {:noreply, state}
   end
@@ -371,7 +388,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:next_round, state})
 
-    Process.send_after(self(), :update_state, @update_time)
+    Process.send_after(self(), :update_state, state.tick_rate)
 
     {:noreply, state}
   end
@@ -380,7 +397,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, state})
 
-    Process.send_after(self(), :update_state, @update_time)
+    Process.send_after(self(), :update_state, state.tick_rate)
 
     {:noreply, state}
   end
@@ -396,5 +413,27 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp get_player(players, player_id) do
     Enum.find(players, fn p -> p.id == player_id end)
+  end
+
+  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
+    board = {board.width, board.height}
+
+    config = %{
+      number_of_players: length(players),
+      board: board,
+      build_walls: @build_walls
+    }
+
+    Game.new(config)
+  end
+
+  defp create_new_game(%{players: players}) do
+    config = %{
+      number_of_players: length(players),
+      board: @board,
+      build_walls: @build_walls
+    }
+
+    Game.new(config)
   end
 end

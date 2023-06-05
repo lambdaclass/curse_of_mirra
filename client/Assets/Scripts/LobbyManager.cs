@@ -18,20 +18,23 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (LobbyConnection.Instance.playerId == 1)
+        if (playButton != null)
         {
-            playButton.SetActive(true);
-        }
-        else
-        {
-            playButton.SetActive(false);
+            if (LobbyConnection.Instance.playerId == 1)
+            {
+                playButton.SetActive(true);
+            }
+            else
+            {
+                playButton.SetActive(false);
+            }
         }
     }
 
     public void GameStart()
     {
         LobbyConnection.Instance.StartGame();
-        SceneManager.LoadScene("BackendPlayground");
+        StartCoroutine(ConnectionUtils.WaitForGameCreation());
     }
 
     public void Back()
@@ -51,4 +54,5 @@ public class LobbyManager : LevelSelector
             SceneManager.LoadScene("BackendPlayground");
         }
     }
+
 }

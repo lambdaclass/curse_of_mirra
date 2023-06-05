@@ -5,6 +5,7 @@ defmodule LoadTest.Communication.Proto.GameEventType do
 
   field(:STATE_UPDATE, 0)
   field(:PING_UPDATE, 1)
+  field(:PLAYER_JOINED, 2)
 end
 
 defmodule LoadTest.Communication.Proto.Status do
@@ -26,7 +27,14 @@ defmodule LoadTest.Communication.Proto.Action do
   field :ATTACK, 2
   field :ATTACK_AOE, 5
   field :MOVE_WITH_JOYSTICK, 6
-  field :TELEPORT, 7
+
+  field(:ACTION_UNSPECIFIED, 0)
+  field(:MOVE, 1)
+  field(:ATTACK, 2)
+  field(:ATTACK_AOE, 5)
+  field(:MOVE_WITH_JOYSTICK, 6)
+  field(:ADD_BOT, 7)
+  field(:TELEPORT, 8)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -73,6 +81,7 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:type, 1, type: LoadTest.Communication.Proto.GameEventType, enum: true)
   field(:players, 2, repeated: true, type: LoadTest.Communication.Proto.Player)
   field(:latency, 3, type: :uint64)
+  field(:player_joined_id, 4, type: :uint64, json_name: "playerJoinedId")
 end
 
 defmodule LoadTest.Communication.Proto.Player do
@@ -140,4 +149,24 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
   field(:player_count, 6, type: :uint64, json_name: "playerCount")
   field(:players, 7, repeated: true, type: :uint64)
   field(:removed_player_id, 8, type: :uint64, json_name: "removedPlayerId")
+  field(:game_config, 9, type: LoadTest.Communication.Proto.GameConfig, json_name: "gameConfig")
+end
+
+defmodule LoadTest.Communication.Proto.BoardSize do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:width, 1, type: :uint64)
+  field(:height, 2, type: :uint64)
+end
+
+defmodule LoadTest.Communication.Proto.GameConfig do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:board_size, 1, type: LoadTest.Communication.Proto.BoardSize, json_name: "boardSize")
+  field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
+  field(:game_timeout_ms, 3, type: :uint64, json_name: "gameTimeoutMs")
 end

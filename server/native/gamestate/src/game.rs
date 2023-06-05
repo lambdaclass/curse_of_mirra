@@ -197,16 +197,28 @@ impl GameState {
         }
         let Position { x: old_x, y: old_y } = player.position;
         let speed = player.character.speed() as i64;
-        let (x_grid_delta, y_grid_delta) = Self::joystick_axis_to_grid_coords(x, y);
-        let mut new_position = Position {
-            x: (old_x as i64 + (x_grid_delta * speed)) as usize,
-            y: (old_y as i64 + (y_grid_delta * speed)) as usize,
+
+        /*
+            We take the joystick coordinates, normalize the vector, then multiply by speed,
+            then round the values.
+        */
+        let (movement_direction_x, movement_direction_y) = normalize_vector(-y, x);
+        let movement_vector_x = movement_direction_x * (speed as f64);
+        let movement_vector_y = movement_direction_y * (speed as f64);
+
+        let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
+        let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);
+
+        new_position_x = min(new_position_x, (self.board.height - 1) as i64);
+        new_position_x = max(new_position_x, 0);
+        new_position_y = min(new_position_y, (self.board.width - 1) as i64);
+        new_position_y = max(new_position_y, 0);
+
+        let new_position = Position {
+            x: new_position_x as usize,
+            y: new_position_y as usize,
         };
 
-        new_position.x = min(new_position.x, self.board.height - 1);
-        new_position.x = max(new_position.x, 0);
-        new_position.y = min(new_position.y, self.board.width - 1);
-        new_position.y = max(new_position.y, 0);
         self.board
             .set_cell(player.position.x, player.position.y, Tile::Empty);
 
@@ -218,13 +230,7 @@ impl GameState {
         );
         Ok(())
     }
-    // Maps joystick axis (which is like a common x-y axis) to
-    // matrix coords.
-    fn joystick_axis_to_grid_coords(joystick_x: f64, joystick_y: f64) -> (i64, i64) {
-        let grid_x = -(joystick_y.round() as i64);
-        let grid_y = joystick_x.round() as i64;
-        return (grid_x, grid_y);
-    }
+
     pub fn get_player_mut(
         players: &mut Vec<Player>,
         player_id: u64,
@@ -396,6 +402,24 @@ impl GameState {
             self.board
                 .set_cell(player.position.x, player.position.y, Tile::Empty);
         }
+    }
+
+    pub fn spawn_player(self: &mut Self, player_id: u64) {
+        let mut tried_positions = HashSet::new();
+        let mut position: Position;
+
+        loop {
+            position =
+                generate_new_position(&mut tried_positions, self.board.width, self.board.height);
+            if let Some(Tile::Empty) = self.board.get_cell(position.x, position.y) {
+                break;
+            }
+        }
+
+        self.board
+            .set_cell(position.x, position.y, Tile::Player(player_id));
+        self.players
+            .push(Player::new(player_id, 100, position, Default::default()));
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles
@@ -577,6 +601,12 @@ fn distance_to_center(player: &Player, center: &Position) -> f64 {
     let distance_squared =
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
     (distance_squared as f64).sqrt()
+}
+
+// We might want to abstract this into a Vector2 type or something, whatever.
+fn normalize_vector(x: f64, y: f64) -> (f64, f64) {
+    let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
+    (x / norm, y / norm)
 }
 
 fn generate_new_position(

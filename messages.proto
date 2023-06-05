@@ -4,20 +4,24 @@ syntax = "proto3";
     - type: type of the event
     - players: player list, used on STATE_UPDATE
     - ping_update: updated player's ping, used on PING_UPDATE
+    - player_joined_id: ID of the player that joined the game
  */
 message GameEvent {
     GameEventType type = 1;
     repeated Player players = 2;
     uint64 latency = 3;
+    uint64 player_joined_id = 4;
 }
 
 /* Type of game events
     - STATE_UPDATE: The game's state has been updated
     - PING_UPDATE: The player's current ping updated
+    - PLAYER_JOINED: A player has joined the game
  */
 enum GameEventType {
     STATE_UPDATE = 0;
     PING_UPDATE = 1;
+    PLAYER_JOINED = 2;
 }
 
 /* Information about a player
@@ -50,6 +54,7 @@ enum Status {
     ALIVE = 0;
     DEAD = 1;
 }
+
 /* A position in the server game grid, the grid is a NxN square with (0,0) in the top left corner
     - x: X coordinate in the grid
     - y: Y coordinate in the grid
@@ -83,6 +88,9 @@ message ClientAction {
 /* Actions a client/player performs
     - MOVE: the player moves
     - ATTACK: player attacks
+    - ATTACK_AOE:
+    - MOVE_WITH_JOYSTICK:
+    - ADD_BOT: Ask the server to add a bot player to the game
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -90,6 +98,7 @@ enum Action {
     ATTACK = 2;
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
+    ADD_BOT = 7;
 }
 
 /* Directions an action can happen in
@@ -136,6 +145,18 @@ message LobbyEvent {
     uint64 player_count = 6;
     repeated uint64 players = 7;
     uint64 removed_player_id = 8;
+    GameConfig game_config = 9;
+}
+
+message BoardSize {
+    uint64 width = 1;
+    uint64 height = 2;
+}
+
+message GameConfig {
+    BoardSize board_size = 1;
+    uint64 server_tickrate_ms = 2; 
+    uint64 game_timeout_ms = 3;
 }
 
 /* Type of lobby events

@@ -29,8 +29,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     GenServer.call(session_pid, :fetch_amount_of_players)
   end
 
-  def start_game(session_pid) do
-    GenServer.cast(session_pid, :start_game)
+  def start_game(game_config, session_pid) do
+    GenServer.cast(session_pid, {:start_game, game_config})
   end
 
   #######################
@@ -80,8 +80,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   @impl GenServer
-  def handle_cast(:start_game, state) do
-    {:ok, game_pid} = Engine.start_child(%{players: state.players})
+  def handle_cast({:start_game, game_config}, state) do
+    {:ok, game_pid} = Engine.start_child(%{players: state.players, game_config: game_config})
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid})
     {:stop, :normal, state}
   end

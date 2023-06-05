@@ -59,7 +59,7 @@ jobs:
       - name: (Server) Check Elixir Formatting
         run: cd server && mix format --check-formatted
       - name: (Load Test) Check Elixir Formatting
-        run: cd server && mix format --check-formatted
+        run: cd server/load_test && mix format --check-formatted
       - name: Check Rust Formatting
         run: cd server && cd native/gamestate && cargo fmt --check
       - name: Compiles without warnings
