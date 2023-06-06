@@ -21,7 +21,6 @@ jobs:
       uses: Bhacaz/checkout-files@v2
       with:
        files: server/deploy.sh
-       branch: ${{ github.head_ref || github.ref_name }}
 
     - name: Create ssh private key file from env var
       env:
@@ -61,7 +60,7 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         NEWRELIC_APP_NAME: ${{ vars.NEWRELIC_APP_NAME_AWS }}
         NEWRELIC_KEY: ${{ secrets.NEWRELIC_KEY }}
-        BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
       run: |
         set -ex
         ssh -o StrictHostKeyChecking=no \
