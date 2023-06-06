@@ -405,6 +405,9 @@ impl GameState {
         attacking_player_id: u64,
         target_player_id: u64,
     ) -> Result<(), String> {
+        if attacking_player_id == target_player_id {
+            return Ok(());
+        }
         let attacking_player = GameState::get_player(&self, attacking_player_id)?;
         let target_player = GameState::get_player(&self, target_player_id)?;
         // TODO:
