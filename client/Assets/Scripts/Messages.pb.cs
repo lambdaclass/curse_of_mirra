@@ -34,27 +34,27 @@ public static partial class MessagesReflection {
           "EhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rpb24YAiABKA4y",
           "Ci5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0",
           "aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lzdGlja1ZhbHVlcyImCg5K",
-          "b3lzdGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiABKAIi3gEKCkxvYmJ5",
+          "b3lzdGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiABKAIi5gEKCkxvYmJ5",
           "RXZlbnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRUeXBlEhAKCGxvYmJ5",
           "X2lkGAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9hZGRlZF9wbGF5ZXJf",
           "aWQYBCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5ZXJfY291bnQYBiAB",
           "KAQSDwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3BsYXllcl9pZBgIIAEo",
-          "BBIgCgtnYW1lX2NvbmZpZxgJIAEoCzILLkdhbWVDb25maWciKgoJQm9hcmRT",
-          "aXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCJhCgpHYW1lQ29u",
-          "ZmlnEh4KCmJvYXJkX3NpemUYASABKAsyCi5Cb2FyZFNpemUSGgoSc2VydmVy",
-          "X3RpY2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgDIAEoBCpF",
-          "Cg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBE",
-          "QVRFEAESEQoNUExBWUVSX0pPSU5FRBACKh0KBlN0YXR1cxIJCgVBTElWRRAA",
-          "EggKBERFQUQQASprCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAAS",
-          "CAoETU9WRRABEgoKBkFUVEFDSxACEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZF",
-          "X1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcqTQoJRGlyZWN0aW9uEhkK",
-          "FURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggK",
-          "BExFRlQQAxIJCgVSSUdIVBAEKj0KDFBsYXllckFjdGlvbhILCgdOT1RISU5H",
-          "EAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACKo8BCg5Mb2Ji",
-          "eUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVE",
-          "EAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExB",
-          "WUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVE",
-          "EAZiBnByb3RvMw=="));
+          "BBIoCgtnYW1lX2NvbmZpZxgJIAEoCzITLlNlcnZlckdhbWVTZXR0aW5ncyI1",
+          "ChZTZXJ2ZXJHYW1lU2V0dGluZ3NJdGVtEgwKBG5hbWUYASABKAkSDQoFdmFs",
+          "dWUYAiABKAkiSAoSU2VydmVyR2FtZVNldHRpbmdzEjIKEWdhbWVfY29uZmln",
+          "X2l0ZW1zGAEgAygLMhcuU2VydmVyR2FtZVNldHRpbmdzSXRlbSpFCg1HYW1l",
+          "RXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAES",
+          "EQoNUExBWUVSX0pPSU5FRBACKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERF",
+          "QUQQASprCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCAoETU9W",
+          "RRABEgoKBkFUVEFDSxACEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhf",
+          "Sk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcqTQoJRGlyZWN0aW9uEhkKFURJUkVD",
+          "VElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExFRlQQ",
+          "AxIJCgVSSUdIVBAEKj0KDFBsYXllckFjdGlvbhILCgdOT1RISU5HEAASDQoJ",
+          "QVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACKo8BCg5Mb2JieUV2ZW50",
+          "VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoM",
+          "UExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NP",
+          "VU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAZiBnBy",
+          "b3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -65,8 +65,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::JoystickValues), global::JoystickValues.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettingsItem), global::ServerGameSettingsItem.Parser, new[]{ "Name", "Value" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "GameConfigItems" }, null, null, null, null)
         }));
   }
   #endregion
@@ -2062,10 +2062,10 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
 
   /// <summary>Field number for the "game_config" field.</summary>
   public const int GameConfigFieldNumber = 9;
-  private global::GameConfig gameConfig_;
+  private global::ServerGameSettings gameConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::GameConfig GameConfig {
+  public global::ServerGameSettings GameConfig {
     get { return gameConfig_; }
     set {
       gameConfig_ = value;
@@ -2277,7 +2277,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
     if (other.gameConfig_ != null) {
       if (gameConfig_ == null) {
-        GameConfig = new global::GameConfig();
+        GameConfig = new global::ServerGameSettings();
       }
       GameConfig.MergeFrom(other.GameConfig);
     }
@@ -2331,7 +2331,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
         }
         case 74: {
           if (gameConfig_ == null) {
-            GameConfig = new global::GameConfig();
+            GameConfig = new global::ServerGameSettings();
           }
           input.ReadMessage(GameConfig);
           break;
@@ -2386,7 +2386,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
         }
         case 74: {
           if (gameConfig_ == null) {
-            GameConfig = new global::GameConfig();
+            GameConfig = new global::ServerGameSettings();
           }
           input.ReadMessage(GameConfig);
           break;
@@ -2398,16 +2398,16 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
 
 }
 
-public sealed partial class BoardSize : pb::IMessage<BoardSize>
+public sealed partial class ServerGameSettingsItem : pb::IMessage<ServerGameSettingsItem>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<BoardSize> _parser = new pb::MessageParser<BoardSize>(() => new BoardSize());
+  private static readonly pb::MessageParser<ServerGameSettingsItem> _parser = new pb::MessageParser<ServerGameSettingsItem>(() => new ServerGameSettingsItem());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<BoardSize> Parser { get { return _parser; } }
+  public static pb::MessageParser<ServerGameSettingsItem> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2423,7 +2423,7 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public BoardSize() {
+  public ServerGameSettingsItem() {
     OnConstruction();
   }
 
@@ -2431,59 +2431,59 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public BoardSize(BoardSize other) : this() {
-    width_ = other.width_;
-    height_ = other.height_;
+  public ServerGameSettingsItem(ServerGameSettingsItem other) : this() {
+    name_ = other.name_;
+    value_ = other.value_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public BoardSize Clone() {
-    return new BoardSize(this);
+  public ServerGameSettingsItem Clone() {
+    return new ServerGameSettingsItem(this);
   }
 
-  /// <summary>Field number for the "width" field.</summary>
-  public const int WidthFieldNumber = 1;
-  private ulong width_;
+  /// <summary>Field number for the "name" field.</summary>
+  public const int NameFieldNumber = 1;
+  private string name_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Width {
-    get { return width_; }
+  public string Name {
+    get { return name_; }
     set {
-      width_ = value;
+      name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
-  /// <summary>Field number for the "height" field.</summary>
-  public const int HeightFieldNumber = 2;
-  private ulong height_;
+  /// <summary>Field number for the "value" field.</summary>
+  public const int ValueFieldNumber = 2;
+  private string value_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Height {
-    get { return height_; }
+  public string Value {
+    get { return value_; }
     set {
-      height_ = value;
+      value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as BoardSize);
+    return Equals(other as ServerGameSettingsItem);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(BoardSize other) {
+  public bool Equals(ServerGameSettingsItem other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Width != other.Width) return false;
-    if (Height != other.Height) return false;
+    if (Name != other.Name) return false;
+    if (Value != other.Value) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2491,8 +2491,8 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Width != 0UL) hash ^= Width.GetHashCode();
-    if (Height != 0UL) hash ^= Height.GetHashCode();
+    if (Name.Length != 0) hash ^= Name.GetHashCode();
+    if (Value.Length != 0) hash ^= Value.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2511,13 +2511,13 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Name.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Name);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Value.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(Value);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -2529,13 +2529,13 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Name.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Name);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Value.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(Value);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -2547,11 +2547,11 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Width != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Width);
+    if (Name.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (Height != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
+    if (Value.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2561,15 +2561,15 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(BoardSize other) {
+  public void MergeFrom(ServerGameSettingsItem other) {
     if (other == null) {
       return;
     }
-    if (other.Width != 0UL) {
-      Width = other.Width;
+    if (other.Name.Length != 0) {
+      Name = other.Name;
     }
-    if (other.Height != 0UL) {
-      Height = other.Height;
+    if (other.Value.Length != 0) {
+      Value = other.Value;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2586,12 +2586,12 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 10: {
+          Name = input.ReadString();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 18: {
+          Value = input.ReadString();
           break;
         }
       }
@@ -2609,12 +2609,12 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 10: {
+          Name = input.ReadString();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 18: {
+          Value = input.ReadString();
           break;
         }
       }
@@ -2624,16 +2624,16 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
 }
 
-public sealed partial class GameConfig : pb::IMessage<GameConfig>
+public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<GameConfig> _parser = new pb::MessageParser<GameConfig>(() => new GameConfig());
+  private static readonly pb::MessageParser<ServerGameSettings> _parser = new pb::MessageParser<ServerGameSettings>(() => new ServerGameSettings());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<GameConfig> Parser { get { return _parser; } }
+  public static pb::MessageParser<ServerGameSettings> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2649,7 +2649,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public GameConfig() {
+  public ServerGameSettings() {
     OnConstruction();
   }
 
@@ -2657,73 +2657,44 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public GameConfig(GameConfig other) : this() {
-    boardSize_ = other.boardSize_ != null ? other.boardSize_.Clone() : null;
-    serverTickrateMs_ = other.serverTickrateMs_;
-    gameTimeoutMs_ = other.gameTimeoutMs_;
+  public ServerGameSettings(ServerGameSettings other) : this() {
+    gameConfigItems_ = other.gameConfigItems_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public GameConfig Clone() {
-    return new GameConfig(this);
+  public ServerGameSettings Clone() {
+    return new ServerGameSettings(this);
   }
 
-  /// <summary>Field number for the "board_size" field.</summary>
-  public const int BoardSizeFieldNumber = 1;
-  private global::BoardSize boardSize_;
+  /// <summary>Field number for the "game_config_items" field.</summary>
+  public const int GameConfigItemsFieldNumber = 1;
+  private static readonly pb::FieldCodec<global::ServerGameSettingsItem> _repeated_gameConfigItems_codec
+      = pb::FieldCodec.ForMessage(10, global::ServerGameSettingsItem.Parser);
+  private readonly pbc::RepeatedField<global::ServerGameSettingsItem> gameConfigItems_ = new pbc::RepeatedField<global::ServerGameSettingsItem>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::BoardSize BoardSize {
-    get { return boardSize_; }
-    set {
-      boardSize_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "server_tickrate_ms" field.</summary>
-  public const int ServerTickrateMsFieldNumber = 2;
-  private ulong serverTickrateMs_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong ServerTickrateMs {
-    get { return serverTickrateMs_; }
-    set {
-      serverTickrateMs_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "game_timeout_ms" field.</summary>
-  public const int GameTimeoutMsFieldNumber = 3;
-  private ulong gameTimeoutMs_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong GameTimeoutMs {
-    get { return gameTimeoutMs_; }
-    set {
-      gameTimeoutMs_ = value;
-    }
+  public pbc::RepeatedField<global::ServerGameSettingsItem> GameConfigItems {
+    get { return gameConfigItems_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as GameConfig);
+    return Equals(other as ServerGameSettings);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(GameConfig other) {
+  public bool Equals(ServerGameSettings other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(BoardSize, other.BoardSize)) return false;
-    if (ServerTickrateMs != other.ServerTickrateMs) return false;
-    if (GameTimeoutMs != other.GameTimeoutMs) return false;
+    if(!gameConfigItems_.Equals(other.gameConfigItems_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2731,9 +2702,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (boardSize_ != null) hash ^= BoardSize.GetHashCode();
-    if (ServerTickrateMs != 0UL) hash ^= ServerTickrateMs.GetHashCode();
-    if (GameTimeoutMs != 0UL) hash ^= GameTimeoutMs.GetHashCode();
+    hash ^= gameConfigItems_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2752,18 +2721,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (boardSize_ != null) {
-      output.WriteRawTag(10);
-      output.WriteMessage(BoardSize);
-    }
-    if (ServerTickrateMs != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(ServerTickrateMs);
-    }
-    if (GameTimeoutMs != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(GameTimeoutMs);
-    }
+    gameConfigItems_.WriteTo(output, _repeated_gameConfigItems_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2774,18 +2732,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (boardSize_ != null) {
-      output.WriteRawTag(10);
-      output.WriteMessage(BoardSize);
-    }
-    if (ServerTickrateMs != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(ServerTickrateMs);
-    }
-    if (GameTimeoutMs != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(GameTimeoutMs);
-    }
+    gameConfigItems_.WriteTo(ref output, _repeated_gameConfigItems_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2796,15 +2743,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (boardSize_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(BoardSize);
-    }
-    if (ServerTickrateMs != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ServerTickrateMs);
-    }
-    if (GameTimeoutMs != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(GameTimeoutMs);
-    }
+    size += gameConfigItems_.CalculateSize(_repeated_gameConfigItems_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -2813,22 +2752,11 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(GameConfig other) {
+  public void MergeFrom(ServerGameSettings other) {
     if (other == null) {
       return;
     }
-    if (other.boardSize_ != null) {
-      if (boardSize_ == null) {
-        BoardSize = new global::BoardSize();
-      }
-      BoardSize.MergeFrom(other.BoardSize);
-    }
-    if (other.ServerTickrateMs != 0UL) {
-      ServerTickrateMs = other.ServerTickrateMs;
-    }
-    if (other.GameTimeoutMs != 0UL) {
-      GameTimeoutMs = other.GameTimeoutMs;
-    }
+    gameConfigItems_.Add(other.gameConfigItems_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -2845,18 +2773,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (boardSize_ == null) {
-            BoardSize = new global::BoardSize();
-          }
-          input.ReadMessage(BoardSize);
-          break;
-        }
-        case 16: {
-          ServerTickrateMs = input.ReadUInt64();
-          break;
-        }
-        case 24: {
-          GameTimeoutMs = input.ReadUInt64();
+          gameConfigItems_.AddEntriesFrom(input, _repeated_gameConfigItems_codec);
           break;
         }
       }
@@ -2875,18 +2792,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          if (boardSize_ == null) {
-            BoardSize = new global::BoardSize();
-          }
-          input.ReadMessage(BoardSize);
-          break;
-        }
-        case 16: {
-          ServerTickrateMs = input.ReadUInt64();
-          break;
-        }
-        case 24: {
-          GameTimeoutMs = input.ReadUInt64();
+          gameConfigItems_.AddEntriesFrom(ref input, _repeated_gameConfigItems_codec);
           break;
         }
       }

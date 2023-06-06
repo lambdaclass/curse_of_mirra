@@ -142,24 +142,30 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
   field(:player_count, 6, type: :uint64, json_name: "playerCount")
   field(:players, 7, repeated: true, type: :uint64)
   field(:removed_player_id, 8, type: :uint64, json_name: "removedPlayerId")
-  field(:game_config, 9, type: LoadTest.Communication.Proto.GameConfig, json_name: "gameConfig")
+
+  field(:game_config, 9,
+    type: LoadTest.Communication.Proto.ServerGameSettings,
+    json_name: "gameConfig"
+  )
 end
 
-defmodule LoadTest.Communication.Proto.BoardSize do
+defmodule LoadTest.Communication.Proto.ServerGameSettingsItem do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:width, 1, type: :uint64)
-  field(:height, 2, type: :uint64)
+  field(:name, 1, type: :string)
+  field(:value, 2, type: :string)
 end
 
-defmodule LoadTest.Communication.Proto.GameConfig do
+defmodule LoadTest.Communication.Proto.ServerGameSettings do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:board_size, 1, type: LoadTest.Communication.Proto.BoardSize, json_name: "boardSize")
-  field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
-  field(:game_timeout_ms, 3, type: :uint64, json_name: "gameTimeoutMs")
+  field(:game_config_items, 1,
+    repeated: true,
+    type: LoadTest.Communication.Proto.ServerGameSettingsItem,
+    json_name: "gameConfigItems"
+  )
 end

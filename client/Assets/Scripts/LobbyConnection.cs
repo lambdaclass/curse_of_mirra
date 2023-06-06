@@ -6,6 +6,7 @@ using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -111,18 +112,19 @@ public class LobbyConnection : MonoBehaviour
 
     public void StartGame()
     {   
-        #if !UNITY_WEBGL
-            GameConfig gameSettings = new GameSettings{ path = @"./game_settings.json" }.parseSettings();
-        #else
-            GameConfig gameSettings = GameSettings.defaultSettings();
-        #endif
+        // #if !UNITY_WEBGL
+            ServerGameSettings gameSettings = new GameSettings{ path = @"../data/GameSettings.json" }.parseSettings();
+        // #else
+        //     ServerGameSettings gameSettings = GameSettings.defaultSettings();
+        // #endif
     
         LobbyEvent lobbyEvent = new LobbyEvent { 
             Type = LobbyEventType.StartGame,  
             GameConfig = gameSettings
         };
-
-        serverTickRate_ms = (uint) gameSettings.ServerTickrateMs;
+        
+        var tickRateItem = gameSettings.GameConfigItems.ToList().Find(item => item.Name == "server_tickrate_ms");
+        serverTickRate_ms = UInt32.Parse(tickRateItem.Value);
 
         using (var stream = new MemoryStream())
         {
