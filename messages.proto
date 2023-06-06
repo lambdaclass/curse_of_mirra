@@ -91,6 +91,7 @@ message ClientAction {
     - ATTACK_AOE:
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
+    - TELEPORT: the player instantly moves to a non-contiguous position 
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -99,6 +100,7 @@ enum Action {
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
     ADD_BOT = 7;
+    TEELEPORT = 8;
 }
 
 /* Directions an action can happen in
@@ -124,6 +126,7 @@ enum PlayerAction {
     NOTHING = 0;
     ATTACKING = 1;
     ATTACKING_AOE = 2;
+    TELEPORTING = 3;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

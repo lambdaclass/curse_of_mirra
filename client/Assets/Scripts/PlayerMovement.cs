@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
         public PlayerAction action;
         public long aoe_x;
         public long aoe_y;
+        public long teleport_x;
+        public long teleport_y;
     }
 
     public enum PlayerAction
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Nothing = 0,
         Attacking = 1,
         AttackingAOE = 2,
+        Teleporting = 3,
     }
 
     void Start()
@@ -192,6 +195,12 @@ public class PlayerMovement : MonoBehaviour
             if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.player_id + 1)))
             {
                 player.GetComponent<GenericAoeAttack>().ShowAoeAttack(new Vector2(playerUpdate.aoe_x / 10f - 50.0f, playerUpdate.aoe_y / 10f + 50.0f));
+            }
+
+            bool isTeleporting = playerUpdate.action == PlayerAction.Teleporting;
+            if (isTeleporting)
+            {
+                print("teleport");
             }
 
             SocketConnectionManager.Instance.players[playerUpdate.player_id]

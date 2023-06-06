@@ -15,7 +15,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         }
 
         /// <summary>
-        /// Every frame, we check if we're crouched and if we still should be
+        /// Area of effect attack
         /// </summary>
         public override void ProcessAbility()
         {
@@ -23,10 +23,9 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         }
         public void ShowAimAoeAttack()
         {
-            //print("down");
             //Load the prefab
             areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
-            //Set the prefav as a player child
+            //Set the prefab as a player child
             areaWithAim.transform.parent = transform;
             //Set its position to the player position
             areaWithAim.transform.position = transform.position;
@@ -39,13 +38,11 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         }
         public void AimAoeAttack(Vector2 aoePosition)
         {
-            //print("drag: " + aoePosition);
             //Multiply vector values according to the scale of the animation (in this case 12)
             indicator.transform.position = transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         }
         public void ExecuteAoeAttack(Vector2 aoePosition)
         {
-            //print("ability at: " + aoePosition);
             //Destroy attack animation after showing it
             Destroy(areaWithAim, 2.1f);
 

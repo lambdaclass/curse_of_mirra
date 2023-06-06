@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace MoreMountains.TopDownEngine // you might want to use your own namespace here
 {
-    public class GenericUltimateAttack : CharacterAbility
+    public class GenericUltimate : CharacterAbility
     {
+        GameObject areaWithAim;
         GameObject ultimate;
         GameObject area;
         GameObject indicator;
@@ -19,33 +20,30 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         public void ShowAimUltimate()
         {
             //Load the prefab
-            ultimate = Instantiate(Resources.Load("ultimate", typeof(GameObject))) as GameObject;
+            areaWithAim = Instantiate(Resources.Load("areaWithAim", typeof(GameObject))) as GameObject;
             //Set the prefab as a player child
-            ultimate.transform.parent = transform;
+            areaWithAim.transform.parent = transform;
             //Set its position to the player position
-            ultimate.transform.position = transform.position;
+            areaWithAim.transform.position = transform.position;
 
             //Set scales
-            area = ultimate.GetComponent<UltimateHandler>().area;
+            area = areaWithAim.GetComponent<AimHandler>().area;
             area.transform.localScale = area.transform.localScale * 30;
-            indicator = ultimate.GetComponent<UltimateHandler>().indicator;
+            indicator = areaWithAim.GetComponent<AimHandler>().indicator;
             indicator.transform.localScale = indicator.transform.localScale * 5;
         }
         public void AimUltimate(Vector2 ultimatePosition)
         {
+            //Multiply vector values according to the scale of the animation (in this case 12)
             indicator.transform.position = transform.position + new Vector3(ultimatePosition.x * 12, 0f, ultimatePosition.y * 12);
         }
         public void ExecuteUltimate(Vector2 ultimatePosition)
         {
             //Destroy ultimate animation after showing it
-            Destroy(ultimate, 2.1f);
+            Destroy(areaWithAim, 2.1f);
 
             indicator.transform.position = transform.position + new Vector3(ultimatePosition.x * 12, 0f, ultimatePosition.y * 12);
             Destroy(indicator, 0.01f);
-
-            attack = ultimate.GetComponent<UltimateHandler>().ultimate;
-            ultimate.transform.position = transform.position + new Vector3(ultimatePosition.x * 12, 0f, ultimatePosition.y * 12);
-            attack.SetActive(true);
 
             RelativePosition relative_position = new RelativePosition
             {

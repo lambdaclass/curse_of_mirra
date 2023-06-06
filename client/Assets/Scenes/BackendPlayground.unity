@@ -10188,7 +10188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: []
   session_id: 
-  server_ip: 5.75.237.197
+  server_ip: localhost
   currentPing: 0
   serverTickRate_ms: 0
 --- !u!1001 &1865725793
