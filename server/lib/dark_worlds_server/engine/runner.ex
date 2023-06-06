@@ -1,6 +1,6 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
-
+  require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
@@ -111,7 +111,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, player, %ActionOk{action: :auto_attack, value: target}},
         %{next_state: %{game: game} = next_state} = state
       ) do
-    IO.inspect("Received target: #{inspect(target)}")
+    Logger.info("[#{inspect(DateTime.utc_now())}] Received target: #{inspect(target)}")
     {:ok, game} = Game.auto_attack(game, player, player)
 
     next_state = Map.put(next_state, :game, game)
