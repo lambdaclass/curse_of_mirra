@@ -415,7 +415,11 @@ impl GameState {
         // This distance is completely arbitrary.
         // I think this should be range for a skill.
         let distance_threshold = 10.0;
-        if distance_to_center(&target_player, &attacking_player.position) < distance_threshold {
+        let cooldown = attacking_player.character.cooldown();
+        let can_attack = (time_now() - attacking_player.last_melee_attack) < cooldown;
+        if distance_to_center(&target_player, &attacking_player.position) < distance_threshold
+            && can_attack
+        {
             let attack_dmg = attacking_player.character.attack_dmg() as i64;
             let target_player = GameState::get_player_mut(&mut self.players, target_player_id)?;
             target_player.modify_health(-attack_dmg);
