@@ -34,7 +34,7 @@ public static partial class MessagesReflection {
           "EhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rpb24YAiABKA4y",
           "Ci5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0",
           "aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lzdGlja1ZhbHVlcxIOCgZ0",
-          "YXJnZXQYBSABKAkiJgoOSm95c3RpY2tWYWx1ZXMSCQoBeBgBIAEoAhIJCgF5",
+          "YXJnZXQYBSABKBIiJgoOSm95c3RpY2tWYWx1ZXMSCQoBeBgBIAEoAhIJCgF5",
           "GAIgASgCIt4BCgpMb2JieUV2ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2",
           "ZW50VHlwZRIQCghsb2JieV9pZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQS",
           "FwoPYWRkZWRfcGxheWVyX2lkGAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoM",
@@ -1458,13 +1458,13 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
 
   /// <summary>Field number for the "target" field.</summary>
   public const int TargetFieldNumber = 5;
-  private string target_ = "";
+  private long target_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Target {
+  public long Target {
     get { return target_; }
     set {
-      target_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      target_ = value;
     }
   }
 
@@ -1499,7 +1499,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (Direction != global::Direction.Unspecified) hash ^= Direction.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (moveDelta_ != null) hash ^= MoveDelta.GetHashCode();
-    if (Target.Length != 0) hash ^= Target.GetHashCode();
+    if (Target != 0L) hash ^= Target.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1534,9 +1534,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
-    if (Target.Length != 0) {
-      output.WriteRawTag(42);
-      output.WriteString(Target);
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1564,9 +1564,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
-    if (Target.Length != 0) {
-      output.WriteRawTag(42);
-      output.WriteString(Target);
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1590,8 +1590,8 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (moveDelta_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveDelta);
     }
-    if (Target.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Target);
+    if (Target != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Target);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1623,7 +1623,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       }
       MoveDelta.MergeFrom(other.MoveDelta);
     }
-    if (other.Target.Length != 0) {
+    if (other.Target != 0L) {
       Target = other.Target;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1663,8 +1663,8 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
           input.ReadMessage(MoveDelta);
           break;
         }
-        case 42: {
-          Target = input.ReadString();
+        case 40: {
+          Target = input.ReadSInt64();
           break;
         }
       }
@@ -1704,8 +1704,8 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
           input.ReadMessage(MoveDelta);
           break;
         }
-        case 42: {
-          Target = input.ReadString();
+        case 40: {
+          Target = input.ReadSInt64();
           break;
         }
       }

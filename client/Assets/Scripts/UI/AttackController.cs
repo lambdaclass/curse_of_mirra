@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 namespace MoreMountains.TopDownEngine // you might want to use your own namespace here
 {
     /// <summary>
@@ -69,10 +70,15 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
                 if (character != null)
                 {
                     print("Character is not null!");
-                    var targetPlayerId = go.GetComponent<Character>().PlayerID;
+                    var PlayerId = go.GetComponent<Character>().PlayerID;
                     print("trying to attack " + go);
-                    print("trying to attack " + targetPlayerId);
-                    PlayerControls.AttackIfInRange("");
+                    print("trying to attack " + PlayerId);
+                    var playerIdString = new string(PlayerId.SkipWhile(c => !char.IsDigit(c))
+                                            .TakeWhile(c => char.IsDigit(c))
+                                            .ToArray());
+                    int playerId = int.Parse(playerIdString);
+                    print("player id as num: " + playerId);
+                    PlayerControls.AttackIfInRange(playerId);
                     // gameObject.GetComponent<PlayerControls>().AttackIfInRange("");
                 }
             }

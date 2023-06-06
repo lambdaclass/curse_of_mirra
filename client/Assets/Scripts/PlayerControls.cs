@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public static void AttackIfInRange(string PlayerId)
+    public static void AttackIfInRange(int PlayerId)
     {
         var clientAction = new ClientAction { Action = Action.AutoAttack, Target = PlayerId };
         SocketConnectionManager.Instance.SendAction(clientAction);

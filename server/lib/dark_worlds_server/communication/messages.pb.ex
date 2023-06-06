@@ -136,7 +136,7 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     json_name: "moveDelta"
   )
 
-  field(:target, 5, type: :string)
+  field(:target, 5, type: :sint64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -83,7 +83,7 @@ message ClientAction {
     Direction direction = 2;
     RelativePosition position = 3;
     JoystickValues move_delta = 4;
-    string target = 5;
+    sint64 target = 5;
 }
 
 /* Actions a client/player performs
