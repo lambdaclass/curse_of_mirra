@@ -64,14 +64,14 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
             GameObject go = gameObject.GetComponent<DetectNearPlayer>().GetNearestPlayer();
             if (go != null)
             {
-                print("Go is not null!");
                 var character = go.GetComponent<Character>();
                 if (character != null)
                 {
-                    print("Character is not null!");
-                    var PlayerId = go.GetComponent<Character>().PlayerID;
-                    PlayerControls.AttackIfInRange(int.Parse((go.GetComponent<Character>().PlayerID)));
-                    // gameObject.GetComponent<PlayerControls>().AttackIfInRange("");
+                    // This supposed to be an int, but Unity tells me this
+                    // a string.
+                    string Id = go.GetComponent<Character>().PlayerID;
+                    int PlayerId = int.Parse(Id);
+                    PlayerControls.AttackIfInRange(PlayerId);
                 }
             }
         }

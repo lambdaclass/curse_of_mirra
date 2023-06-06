@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    // I think this should be an instance method
+    // instead of void.
     public static void AttackIfInRange(int PlayerId)
     {
         var clientAction = new ClientAction { Action = Action.AutoAttack, Target = PlayerId };
