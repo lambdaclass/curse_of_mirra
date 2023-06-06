@@ -112,11 +112,11 @@ public class LobbyConnection : MonoBehaviour
 
     public void StartGame()
     {   
-        // #if !UNITY_WEBGL
+        #if !UNITY_WEBGL
             ServerGameSettings gameSettings = new GameSettings{ path = @"../data/GameSettings.json" }.parseSettings();
-        // #else
-        //     ServerGameSettings gameSettings = GameSettings.defaultSettings();
-        // #endif
+        #else
+            ServerGameSettings gameSettings = GameSettings.defaultSettings();
+        #endif
     
         LobbyEvent lobbyEvent = new LobbyEvent { 
             Type = LobbyEventType.StartGame,  

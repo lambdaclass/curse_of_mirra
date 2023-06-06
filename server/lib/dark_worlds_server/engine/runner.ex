@@ -70,7 +70,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    state = create_new_game(opts)
+    state = create_new_game(opts.game_config.game_config_items, length(opts.players))
 
     tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
 
@@ -386,25 +386,19 @@ defmodule DarkWorldsServer.Engine.Runner do
     Enum.find(players, fn p -> p.id == player_id end)
   end
 
-  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
-    board = {board.width, board.height}
+  defp create_new_game(game_config, players) do
+    game_config =
+      game_config
+      |> Map.new(fn config -> parse_option(config.name, config.value) end)
 
     config = %{
-      number_of_players: length(players),
-      board: board,
+      number_of_players: players,
+      board: {game_config.board_width, game_config.board_height},
       build_walls: @build_walls
     }
 
     Game.new(config)
   end
 
-  defp create_new_game(%{players: players}) do
-    config = %{
-      number_of_players: length(players),
-      board: @board,
-      build_walls: @build_walls
-    }
-
-    Game.new(config)
-  end
+  defp parse_option(name, value), do: {String.to_atom(name), String.to_integer(value)}
 end
