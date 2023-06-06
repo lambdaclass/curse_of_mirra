@@ -62,7 +62,6 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         public void AttackToNearestPlayer()
         {
             GameObject go = gameObject.GetComponent<DetectNearPlayer>().GetNearestPlayer();
-            print("Is go null?");
             if (go != null)
             {
                 print("Go is not null!");
@@ -71,8 +70,6 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
                 {
                     print("Character is not null!");
                     var PlayerId = go.GetComponent<Character>().PlayerID;
-                    print("trying to attack " + go);
-                    print("trying to attack " + PlayerId);
                     var playerIdString = new string(PlayerId.SkipWhile(c => !char.IsDigit(c))
                                             .TakeWhile(c => char.IsDigit(c))
                                             .ToArray());
