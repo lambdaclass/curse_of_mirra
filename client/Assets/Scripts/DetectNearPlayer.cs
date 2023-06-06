@@ -20,6 +20,7 @@ public class DetectNearPlayer : MonoBehaviour
                 distanceToClosestTarget = distance;
                 nearestTarget = hitCollide.gameObject;
                 print("Closes enemy from " + gameObject.name + " is " + nearestTarget.name + " at " + distanceToClosestTarget);
+                print("the player id IS : " + nearestTarget.GetComponent<Character>().PlayerID);
             }
         }
         if (nearestTarget != null)

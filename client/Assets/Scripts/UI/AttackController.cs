@@ -70,12 +70,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
                 {
                     print("Character is not null!");
                     var PlayerId = go.GetComponent<Character>().PlayerID;
-                    var playerIdString = new string(PlayerId.SkipWhile(c => !char.IsDigit(c))
-                                            .TakeWhile(c => char.IsDigit(c))
-                                            .ToArray());
-                    int playerId = int.Parse(playerIdString);
-                    print("player id as num: " + playerId);
-                    PlayerControls.AttackIfInRange(playerId);
+                    PlayerControls.AttackIfInRange(int.Parse((go.GetComponent<Character>().PlayerID)));
                     // gameObject.GetComponent<PlayerControls>().AttackIfInRange("");
                 }
             }
