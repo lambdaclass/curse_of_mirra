@@ -31,7 +31,7 @@ fn petrified_character() -> Character {
 pub fn no_move_if_beyond_boundaries() -> TestResult {
     let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
-    let mut state = GameState::new(1, grid_height, grid_width, false);
+    let mut state = GameState::new(1, grid_height, grid_width, false, vec![]);
     let mut player = state.players.get_mut(0).unwrap();
     player.character = Character {
         base_speed: 1,
@@ -65,7 +65,7 @@ pub fn no_move_if_beyond_boundaries() -> TestResult {
 
 #[rustler::nif]
 fn no_move_if_occupied() -> TestResult {
-    let mut state = GameState::new(2, 2, 2, false);
+    let mut state = GameState::new(2, 2, 2, false, vec![]);
     let player1_id = 1;
     let player2_id = 2;
     let player1 = Player::new(player1_id, 100, Position::new(0, 0), speed1_character());
@@ -82,7 +82,7 @@ fn no_move_if_occupied() -> TestResult {
 
 // #[rustler::nif]
 // fn no_move_if_wall() -> TestResult {
-//     let mut state = GameState::new(1, 2, 2, false);
+//     let mut state = GameState::new(1, 2, 2, false, vec![]);
 //     let player1_id = 1;
 //     let player1 = Player::new(player1_id, 100, Position::new(0, 0), speed1_character());
 //     state.players = vec![player1];
@@ -96,7 +96,7 @@ fn no_move_if_occupied() -> TestResult {
 
 #[rustler::nif]
 fn movement() -> TestResult {
-    let mut state = GameState::new(0, 2, 2, false);
+    let mut state = GameState::new(0, 2, 2, false, vec![]);
     let player_id = 1;
     let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
     state.players = vec![player1];
@@ -141,7 +141,7 @@ fn movement() -> TestResult {
 
 #[rustler::nif]
 fn move_player_to_coordinates() -> TestResult {
-    let mut state = GameState::new(0, 2, 2, false); // creates a 2x2 grid with no players
+    let mut state = GameState::new(0, 2, 2, false, vec![]); // creates a 2x2 grid with no players
     let player_id = 1;
     let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
     state.players = vec![player1];
@@ -160,7 +160,7 @@ fn move_player_to_coordinates() -> TestResult {
 #[rustler::nif]
 fn attacking() -> TestResult {
     // FIXME: A 0 in new game is wrong!
-    let mut state = GameState::new(0, 20, 20, false);
+    let mut state = GameState::new(0, 20, 20, false, vec![]);
     let player_1_id = 1;
     let player_2_id = 2;
     let char: Character = speed1_character();
@@ -210,7 +210,7 @@ fn attacking() -> TestResult {
 pub fn cant_move_if_petrified() -> TestResult {
     let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
-    let mut state = GameState::new(1, grid_height, grid_width, false);
+    let mut state = GameState::new(1, grid_height, grid_width, false, vec![]);
     let spawn_point = Position { x: 50, y: 50 };
     let base_speed = 1;
     state.players[0].position = spawn_point.clone();

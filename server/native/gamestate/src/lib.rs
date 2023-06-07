@@ -18,8 +18,15 @@ fn new_game(
     board_width: usize,
     board_height: usize,
     build_walls: bool,
+    characters_config: Vec<HashMap<String, String>>,
 ) -> GameState {
-    GameState::new(number_of_players, board_width, board_height, build_walls)
+    GameState::new(
+        number_of_players,
+        board_width,
+        board_height,
+        build_walls,
+        characters_config,
+    )
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]

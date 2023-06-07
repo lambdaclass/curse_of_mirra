@@ -11,6 +11,7 @@ pub enum Name {
     H4ck,
     Muflus,
 }
+
 #[derive(Debug, Clone, rustler::NifStruct)]
 #[module = "DarkWorldsServer.Engine.Character"]
 pub struct Character {

@@ -27,15 +27,22 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
-
 impl GameState {
+    fn build_characters_with_config(
+        character_config: &[std::collections::HashMap<String, String>],
+    ) -> Result<Vec<Character>, String> {
+        println!("{character_config:?}");
+        Ok(vec![])
+    }
     pub fn new(
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
         build_walls: bool,
+        characters_config: Vec<std::collections::HashMap<String, String>>,
     ) -> Self {
         let mut positions = HashSet::new();
+        Self::build_characters_with_config(&characters_config).unwrap();
         let characters = [Default::default(), Character::muflus(), Character::uma()];
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
