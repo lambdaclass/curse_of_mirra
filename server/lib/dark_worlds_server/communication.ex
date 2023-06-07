@@ -34,8 +34,8 @@ defmodule DarkWorldsServer.Communication do
     IO.inspect(label: :configuracion_dos)
 
     %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config}
-    |> LobbyEvent.encode()
     |> IO.inspect(label: :wat?)
+    |> LobbyEvent.encode()
   end
 
   def encode!(%{players: players}) do

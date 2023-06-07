@@ -6,12 +6,26 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
+  alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
+
+
+  def encode(a, RunnerConfig) do
+    IO.inspect(a)
+  end
+
+  def encode(a, CharacterConfig) do
+    IO.inspect(a)
+  end
+
+  def encode(a, CharacterConfigItem) do
+    IO.inspect(a)
+  end
 
   @impl Protobuf.TransformModule
   def encode(
@@ -33,6 +47,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       game_timeout_ms: game_timeout_ms,
       server_tickrate_ms: server_tickrate_ms
     }
+
     character_config = %CharacterConfig{
       Items: character_config[:Items]
     }
@@ -41,7 +56,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       runner_config: runner_config,
       character_config: character_config
     }
-    |> IO.inspect(label: :llega?)
   end
 
   def encode(%EnginePosition{} = position, ProtoPosition) do
