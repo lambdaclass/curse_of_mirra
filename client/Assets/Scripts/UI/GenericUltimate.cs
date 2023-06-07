@@ -52,6 +52,11 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
             };
             ClientAction action = new ClientAction { Action = Action.Teleportation, Position = relative_position };
             SocketConnectionManager.Instance.SendAction(action);
+            
+            print(transform.position);
+
+            transform.localPosition = new Vector3(ultimatePosition.x, 0, ultimatePosition.y);
+            // alternatively, use transform.localPosition
         }
     }
 }

@@ -97,6 +97,7 @@ public class CustomLevelManager : LevelManager
                 UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("y", "joystick", attackEvent);
 
                 UnityEvent ultimateEvent = new UnityEvent();
+                print(ultimateEvent);
                 ultimateEvent.AddListener(player.GetComponent<GenericUltimate>().ShowAimUltimate);
                 UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("ultimate", "joystick", ultimateEvent);
 

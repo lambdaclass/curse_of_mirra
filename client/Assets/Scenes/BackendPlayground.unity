@@ -3944,12 +3944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6a0577d46b80a4f929e57370c60650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &620904636 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 627176288757121179, guid: c2607203b179b4f508743c9dfa24edff,
-    type: 3}
-  m_PrefabInstance: {fileID: 620904634}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &620904637 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1035504164137750736, guid: c2607203b179b4f508743c9dfa24edff,
@@ -11780,7 +11774,7 @@ MonoBehaviour:
   mainAttack: {fileID: 620904639}
   specialAttack: {fileID: 620904638}
   dash: {fileID: 620904637}
-  ultimate: {fileID: 620904636}
+  ultimate: {fileID: 620904637}
   UiCamera: {fileID: 637808576}
 --- !u!1001 &2061781725
 PrefabInstance:
