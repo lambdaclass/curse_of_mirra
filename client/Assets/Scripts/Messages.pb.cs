@@ -94,9 +94,10 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
-///- ATTACK_AOE:
+///- ATTACK_AOE: player attacks causing damage in an area
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
+///- TELEPORT: the player instantly moves to a non-contiguous position 
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
@@ -128,6 +129,7 @@ public enum PlayerAction {
   [pbr::OriginalName("NOTHING")] Nothing = 0,
   [pbr::OriginalName("ATTACKING")] Attacking = 1,
   [pbr::OriginalName("ATTACKING_AOE")] AttackingAoe = 2,
+  [pbr::OriginalName("TELEPORTING")] Teleporting = 3,
 }
 
 /// <summary>
@@ -288,7 +290,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     return hash;
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override string ToString() {
     return pb::JsonFormatter.ToDiagnosticString(this);

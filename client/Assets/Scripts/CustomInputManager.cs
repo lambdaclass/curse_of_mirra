@@ -11,42 +11,41 @@ public class CustomInputManager : MonoBehaviour
     public Camera UiCamera;
     public void AssignInputToAbilityPosition(string trigger, string triggerType, UnityEvent abilityEvent)
     {
-        if (triggerType == "joystick") & (trigger == "y")
+        if (triggerType == "joystick" & trigger == "y")
         {
             specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
             abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystickAOE);
         }
-
-        else if (triggerType == "joystick") & (trigger == "ultimate")
+        else if (triggerType == "joystick" & trigger == "ultimate")
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
-            ultimate.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystickAOE);
+            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
+            abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystickUltimate);
         }
     }
     public void AssignInputToAimPosition(string trigger, string triggerType, UnityEvent<Vector2> aim)
     {
-        if (triggerType == "joystick") & (trigger == "y")
+        if (triggerType == "joystick" & trigger == "y")
         {
             specialAttack.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
         }
 
-        else if (triggerType == "joystick") & (trigger == "ultimate")
+        else if (triggerType == "joystick" & trigger == "ultimate")
         {
             ultimate.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
         }
     }
     public void AssignInputToAbilityExecution(string trigger, string triggerType, UnityEvent<Vector2> abilityPosition)
     {
-        if (triggerType == "joystick") & (trigger == "y")
+        if (triggerType == "joystick" & trigger == "y")
         {
             specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
-            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
+            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystickAOE);
         }
 
-        else if (triggerType == "joystick") & (trigger == "ultimate")
+        else if (triggerType == "joystick" & trigger == "ultimate")
         {
             ultimate.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
-            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
+            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystickUltimate);
         }
     }
     public void SetJoystickAOE()

@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
         public PlayerAction action;
         public long aoe_x;
         public long aoe_y;
-        public long teleport_x;
-        public long teleport_y;
     }
 
     public enum PlayerAction

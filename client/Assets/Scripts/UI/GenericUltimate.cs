@@ -5,7 +5,6 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
     public class GenericUltimate : CharacterAbility
     {
         GameObject areaWithAim;
-        GameObject ultimate;
         GameObject area;
         GameObject indicator;
         protected override void Initialization()
@@ -20,7 +19,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         public void ShowAimUltimate()
         {
             //Load the prefab
-            areaWithAim = Instantiate(Resources.Load("areaWithAim", typeof(GameObject))) as GameObject;
+            areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
             //Set the prefab as a player child
             areaWithAim.transform.parent = transform;
             //Set its position to the player position
@@ -44,6 +43,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
 
             indicator.transform.position = transform.position + new Vector3(ultimatePosition.x * 12, 0f, ultimatePosition.y * 12);
             Destroy(indicator, 0.01f);
+            Destroy(area, 0.01f);
 
             RelativePosition relative_position = new RelativePosition
             {

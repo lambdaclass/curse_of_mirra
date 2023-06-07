@@ -44,6 +44,7 @@ message Player {
     Status status = 5;
     PlayerAction action = 6;
     Position aoe_position = 7;
+    Position teleport_position = 8;
 }
 
 /*

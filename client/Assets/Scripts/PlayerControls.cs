@@ -29,11 +29,6 @@ public class PlayerControls : MonoBehaviour
         {
             SendAction(Action.Move, Direction.Down);
         }
-        if (Input.GetKey(KeyCode.E))
-        {
-            ClientAction action = new ClientAction { Action = Action.Teleportation };
-            SocketConnectionManager.Instance.SendAction(action);
-        }
     }
 
     private static void SendAction(Action action, Direction direction)
