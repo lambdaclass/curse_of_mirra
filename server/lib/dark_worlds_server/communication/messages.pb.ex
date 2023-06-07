@@ -104,6 +104,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   )
 
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
+  field(:timestamp, 8, type: :int64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
