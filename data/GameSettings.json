@@ -1,1 +1,1 @@
-﻿[{"Name":"board_width","Value":"1000"},{"Name":"board_height","Value":"1000"},{"Name":"server_tickrate_ms","Value":"30"},{"Name":"game_timeout_ms","Value":"1200000"}]
+﻿[{"Name":"dev","board_width":"1000","board_height":"1000","server_tickrate_ms":"30","game_timeout_ms":"1200000"}]
