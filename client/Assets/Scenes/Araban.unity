@@ -4573,7 +4573,7 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  prefab: {fileID: 1787465996332106811, guid: 94e572dc010a245f8a7fac3c1c846b1a, type: 3}
+  prefab: {fileID: 1787465996332106811, guid: 7bf5e7183a6b3444b8111ea4d639b854, type: 3}
   UiCamera: {fileID: 637808576}
   camera: {fileID: 1666771299}
 --- !u!1 &1400874597
