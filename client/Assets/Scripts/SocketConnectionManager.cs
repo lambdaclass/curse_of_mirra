@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -84,7 +83,7 @@ public class SocketConnectionManager : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonConvert.DeserializeObject<Session>(
+                    Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     print("Creating and joining Session ID: " + session.session_id);

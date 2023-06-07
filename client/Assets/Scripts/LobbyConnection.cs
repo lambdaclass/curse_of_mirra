@@ -5,11 +5,8 @@ using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -26,29 +23,32 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
 
     WebSocket ws;
-    
+
+    [Serializable]
     public class Session
     {
-        public string lobby_id { get; set; }
+        public string lobby_id;
     }
 
+    [Serializable]
     public class LobbiesResponse
     {
-        public List<string> lobbies { get; set; }
+        public List<string> lobbies;
     }
 
+    [Serializable]
     public class GamesResponse
     {
-        public List<string> current_games { get; set; }
+        public List<string> current_games;
     }
 
     class AcceptAllCertificates : CertificateHandler
-{
-    protected override bool ValidateCertificate(byte[] certificateData)
     {
-        return true;
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
     }
-}
 
     private void Awake()
     {
@@ -111,20 +111,15 @@ public class LobbyConnection : MonoBehaviour
     }
 
     public void StartGame()
-    {   
-        #if !UNITY_WEBGL
-            ServerGameSettings gameSettings = new GameSettings{ path = @"../data/GameSettings.json" }.parseSettings();
-        #else
-            ServerGameSettings gameSettings = GameSettings.defaultSettings();
-        #endif
-    
+    {
+        ServerGameSettings gameSettings = GameSettings.parseSettings();
+        print(gameSettings);
         LobbyEvent lobbyEvent = new LobbyEvent { 
             Type = LobbyEventType.StartGame,  
             GameConfig = gameSettings
         };
-        
-        var tickRateItem = gameSettings.GameConfigItems.ToList().Find(item => item.Name == "server_tickrate_ms");
-        serverTickRate_ms = UInt32.Parse(tickRateItem.Value);
+
+        serverTickRate_ms = (uint)gameSettings.RunnerConfig.ServerTickrateMs;
 
         using (var stream = new MemoryStream())
         {
@@ -156,7 +151,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonConvert.DeserializeObject<Session>(
+                    Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
@@ -182,7 +177,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    LobbiesResponse response = JsonConvert.DeserializeObject<LobbiesResponse>(
+                    var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
@@ -204,7 +199,7 @@ public class LobbyConnection : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    GamesResponse response = JsonConvert.DeserializeObject<GamesResponse>(
+                    GamesResponse response = JsonUtility.FromJson<GamesResponse>(
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
