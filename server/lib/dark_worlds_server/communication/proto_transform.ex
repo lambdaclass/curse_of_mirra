@@ -3,6 +3,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
+  alias DarkWorldsServer.Communication.Proto.ServerGameSettings
+  alias DarkWorldsServer.Communication.Proto.RunnerConfig
+  alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
@@ -11,13 +14,44 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   @behaviour Protobuf.TransformModule
 
   @impl Protobuf.TransformModule
+  def encode(
+        %{character_config: character_config, runner_config: runner_config},
+        ServerGameSettings
+      ) do
+    %{
+      Name: name,
+      board_height: board_height,
+      board_width: board_width,
+      game_timeout_ms: game_timeout_ms,
+      server_tickrate_ms: server_tickrate_ms
+    } = runner_config
+
+    runner_config = %RunnerConfig{
+      Name: name,
+      board_height: board_height,
+      board_width: board_width,
+      game_timeout_ms: game_timeout_ms,
+      server_tickrate_ms: server_tickrate_ms
+    }
+    character_config = %CharacterConfig{
+      Items: character_config[:Items]
+    }
+
+    %ServerGameSettings{
+      runner_config: runner_config,
+      character_config: character_config
+    }
+    |> IO.inspect(label: :llega?)
+  end
+
   def encode(%EnginePosition{} = position, ProtoPosition) do
     %{x: x, y: y} = position
     %ProtoPosition{x: x, y: y}
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{id: id, health: health, position: position, action: action, aoe_position: aoe_position} = player
+    %{id: id, health: health, position: position, action: action, aoe_position: aoe_position} =
+      player
 
     %ProtoPlayer{
       id: id,

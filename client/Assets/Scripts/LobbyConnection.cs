@@ -114,7 +114,6 @@ public class LobbyConnection : MonoBehaviour
     public void StartGame()
     {
         serverSettings = GameSettings.parseSettings();
-        print(serverSettings);
         LobbyEvent lobbyEvent = new LobbyEvent { 
             Type = LobbyEventType.StartGame,  
             GameConfig = serverSettings
@@ -257,6 +256,7 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobby_event.GameId;
+                    print(lobby_event.GameConfig);
                     break;
 
                 default:
