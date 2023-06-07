@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EntityUpdates {
     public struct PlayerState
@@ -10,13 +11,11 @@ public class EntityUpdates {
             AttackingAOE = 2,
         }
 
-        public long x;
-        public long y;
-        public int player_id;
+        public Vector3 playerPosition;
+        public int playerId;
         public long health;
         public PlayerAction action;
-        public long aoe_x;
-        public long aoe_y;
+        public Vector3 aoeCenterPosition;
         public long timestamp;
     }
 
@@ -44,8 +43,8 @@ public class EntityUpdates {
 
     public PlayerState simulatePlayerState() {
         pendingPlayerInputs.ForEach(input => {
-            lastServerUpdate.x += input.grid_delta_x;
-            lastServerUpdate.y += input.grid_delta_y;
+            lastServerUpdate.playerPosition.x += input.grid_delta_x;
+            lastServerUpdate.playerPosition.z += input.grid_delta_y;
         });
 
         return lastServerUpdate;

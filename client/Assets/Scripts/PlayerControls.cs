@@ -11,7 +11,7 @@ public class PlayerControls : MonoBehaviour
             var valuesToSend = new JoystickValues { X = x, Y = y };
             var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend };
             SocketConnectionManager.Instance.SendAction(clientAction);
-            Player p = SocketConnectionManager.Instance.gamePlayers[0];
+            // Player p = SocketConnectionManager.Instance.gamePlayers[0];
             // let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
     // (x / norm, y / norm)
             var norm = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
@@ -26,16 +26,25 @@ public class PlayerControls : MonoBehaviour
             // new_position_y = max(new_position_y, 0);
 
 
-            Position pos = new Position();
-            pos.X = (ulong) x;
-            pos.Y = (ulong) y;
-            p.Id = 1;
-            p.Health = 100;
-            p.Position.X = (ulong) ((long) p.Position.X - y_norm);
-            p.Position.Y = (ulong) ((long) p.Position.Y + x_norm);;
-            p.AoePosition = pos;
-            print("CLIENT pos X: " + p.Position.X + "  Y: " + p.Position.Y);
-            SocketConnectionManager.Instance.gamePlayers = new List<Player> { p };
+            // Position pos = new Position();
+            // pos.X = (ulong) x;
+            // pos.Y = (ulong) y;
+            // p.Id = 1;
+            // p.Health = 100;
+            // p.Position.X = (ulong) ((long) p.Position.X - y_norm);
+            // p.Position.Y = (ulong) ((long) p.Position.Y + x_norm);;
+            // p.AoePosition = pos;
+            // print("CLIENT pos X: " + p.Position.X + "  Y: " + p.Position.Y);
+
+            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
+            {
+                grid_delta_x = x_norm,
+                grid_delta_y = y_norm,
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
+
+            // SocketConnectionManager.Instance.gamePlayers = new List<Player> { p };
         }
     }
     public void SendAction()

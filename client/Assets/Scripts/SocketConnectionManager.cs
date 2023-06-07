@@ -22,13 +22,16 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
+    public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
-    private int playerId;
+    public int playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
 
     public List<Player> winners = new List<Player>();
+
+    public EntityUpdates entityUpdates = new EntityUpdates();
 
     WebSocket ws;
 
@@ -124,9 +127,9 @@ public class SocketConnectionManager : MonoBehaviour
                             .FindAll((player) => !this.gamePlayers.Contains(player))
                             .ForEach((player) => SpawnBot.Instance.Spawn(player));
                     }
-                    game_event.Players.ToList()
-                    .ForEach((player) => print("pos X: " + player.Position.X + "  Y: " + player.Position.Y));
+
                     this.gamePlayers = game_event.Players.ToList();
+                    this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:

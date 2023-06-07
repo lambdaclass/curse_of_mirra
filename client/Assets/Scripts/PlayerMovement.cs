@@ -9,25 +9,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
-    public Queue<PlayerUpdate> playerUpdates = new Queue<PlayerUpdate>();
+
+    public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
     public Direction nextAttackDirection;
     public bool isAttacking = false;
-
-    public struct PlayerUpdate
-    {
-        public Vector3 playerPosition;
-        public int playerId;
-        public long health;
-        public PlayerAction action;
-        public Vector3 aoeCenterPosition;
-    }
-
-    public enum PlayerAction
-    {
-        Nothing = 0,
-        Attacking = 1,
-        AttackingAOE = 2,
-    }
 
     public enum ProyectileStatus
     {
@@ -68,8 +53,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
         {
-            GetComponent<PlayerControls>()
-                .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+            GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+            playerUpdates.Enqueue(SocketConnectionManager.Instance.entityUpdates.simulatePlayerState());
         }
         else
         {
@@ -137,10 +122,10 @@ public class PlayerMovement : MonoBehaviour
             /*
                 Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
                 There are 50 ticks per second. A player's velocity is 50 * 0.3f
-      
+
           In general, if a player's velocity is n tiles per tick, their unity velocity
           is 50 * (n / 10f)
-      
+
           The above is the player's velocity's magnitude. Their velocity's direction
           is the direction of deltaX, which we can calculate (assumming we haven't lost socket
           frames, but that's fine).
@@ -196,9 +181,9 @@ public class PlayerMovement : MonoBehaviour
             Health healthComponent = player.GetComponent<Health>();
             healthComponent.SetHealth(playerUpdate.health);
 
-            bool isAttackingAttack = playerUpdate.action == PlayerAction.Attacking;
-            player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-            if (isAttackingAttack)
+            bool isAttacking = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
+            player.GetComponent<AttackController>().SwordAttack(isAttacking);
+            if (isAttacking)
             {
                 print(player.name + "attack");
             }
@@ -212,10 +197,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 healthComponent.Model.gameObject.SetActive(true);
             }
-            bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (
-                isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
-            )
+            bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
+            if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
             {
                 player
                     .GetComponent<GenericAoeAttack>()
@@ -234,22 +217,32 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
+        GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            playerUpdates.Enqueue(
-                new PlayerUpdate
-                {
-                    playerPosition = Utils.transformBackendPositionToFrontendPosition(
-                        SocketConnectionManager.Instance.gamePlayers[i].Position
-                    ),
-                    playerId = (int)SocketConnectionManager.Instance.gamePlayers[i].Id,
-                    health = SocketConnectionManager.Instance.gamePlayers[i].Health,
-                    action = (PlayerAction)SocketConnectionManager.Instance.gamePlayers[i].Action,
-                    aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(
-                        SocketConnectionManager.Instance.gamePlayers[i].AoePosition
-                    ),
-                }
-            );
+            Player player = gameEvent.Players[i];
+
+            EntityUpdates.PlayerState playerState = new EntityUpdates.PlayerState
+            {
+                playerPosition = Utils.transformBackendPositionToFrontendPosition(player.Position),
+                playerId = (int) player.Id,
+                health = player.Health,
+                action = (EntityUpdates.PlayerState.PlayerAction) player.Action,
+                aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+
+            if (player.Id == (ulong) SocketConnectionManager.Instance.playerId) {
+                SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
+                playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
+            }
+
+            playerUpdates.Enqueue(playerState);
+
+            if (playerState.health == 0)
+            {
+                SocketConnectionManager.Instance.players[playerState.playerId].SetActive(false);
+            }
         }
     }
 
