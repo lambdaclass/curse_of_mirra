@@ -49,4 +49,8 @@ public class EntityUpdates {
 
         return lastServerUpdate;
     }
+
+    public bool inputsIsEmpty() {
+        return pendingPlayerInputs.Count > 0;
+    }
 }
