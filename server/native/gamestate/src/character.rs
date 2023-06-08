@@ -88,6 +88,7 @@ impl Character {
     pub fn select_aoe_effect(&self) -> Option<(Effect, TicksLeft)> {
         match self.name {
             Name::Uma => Some((Effect::Petrified, 300)),
+            Name::H4ck => Some((Effect::Disarmed, 300)),
             _ => None,
         }
     }

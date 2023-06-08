@@ -427,6 +427,10 @@ impl GameState {
                         .filter(|&id| id != projectile.player_id)
                         .collect();
 
+                // TODO: remove unwrap
+                let attacking_player = GameState::get_player_mut(&mut self.players, projectile.player_id).unwrap();
+                let special_effect = attacking_player.character.select_aoe_effect();
+
                 if affected_players.len() > 0 {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
@@ -436,8 +440,13 @@ impl GameState {
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
                         Ok(ap) => {
-                            ap.modify_health(-(projectile.damage as i64));
-                            GameState::modify_cell_if_player_died(&mut self.board, ap);
+                            if let Some((effect, duration)) = &special_effect {
+                                ap
+                                    .character
+                                    .add_effect(effect.clone(), *duration);
+                                ap.modify_health(-5);
+                                GameState::modify_cell_if_player_died(&mut self.board, ap);
+                            }
                         }
                         _ => continue,
                     }
