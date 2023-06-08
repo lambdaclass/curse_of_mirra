@@ -14,17 +14,16 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @behaviour Protobuf.TransformModule
 
-
-  def encode(a, RunnerConfig) do
-    IO.inspect(a)
+  def encode(runner_config, RunnerConfig) do
+    runner_config
   end
 
-  def encode(a, CharacterConfig) do
-    IO.inspect(a)
+  def encode(character_config, CharacterConfig) do
+    character_config
   end
 
-  def encode(a, CharacterConfigItem) do
-    IO.inspect(a)
+  def encode(character_config_item, CharacterConfigItem) do
+    character_config_item
   end
 
   @impl Protobuf.TransformModule
@@ -64,8 +63,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{id: id, health: health, position: position, action: action, aoe_position: aoe_position} =
-      player
+    %{id: id, health: health, position: position, action: action, aoe_position: aoe_position} = player
 
     %ProtoPlayer{
       id: id,

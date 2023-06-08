@@ -57,8 +57,6 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
 
-    IO.inspect(game_config, label: :configuracion)
-
     reply_map = %{
       game_pid: game_pid,
       game_config: game_config
