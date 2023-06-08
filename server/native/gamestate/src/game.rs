@@ -304,7 +304,6 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-
         if !attacking_player.can_attack() {
             return Ok(());
         }
@@ -428,7 +427,8 @@ impl GameState {
                         .collect();
 
                 // TODO: remove unwrap
-                let attacking_player = GameState::get_player_mut(&mut self.players, projectile.player_id).unwrap();
+                let attacking_player =
+                    GameState::get_player_mut(&mut self.players, projectile.player_id).unwrap();
                 let special_effect = attacking_player.character.select_aoe_effect();
 
                 if affected_players.len() > 0 {
@@ -441,9 +441,7 @@ impl GameState {
                     match attacked_player {
                         Ok(ap) => {
                             if let Some((effect, duration)) = &special_effect {
-                                ap
-                                    .character
-                                    .add_effect(effect.clone(), *duration);
+                                ap.character.add_effect(effect.clone(), *duration);
                                 ap.modify_health(-5);
                                 GameState::modify_cell_if_player_died(&mut self.board, ap);
                             }
