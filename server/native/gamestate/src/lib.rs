@@ -2,6 +2,7 @@ pub mod board;
 pub mod character;
 pub mod game;
 pub mod player;
+pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 use crate::player::Position;
@@ -9,6 +10,7 @@ use game::GameState;
 use rustler::{Env, Term};
 use std::collections::HashMap;
 
+use crate::player::Player;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -40,12 +42,11 @@ fn move_player_to_coordinates(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn clean_players_actions(game: GameState) -> GameState {
+fn world_tick(game: GameState) -> GameState {
     let mut game_2 = game;
-    game_2.clean_players_actions();
+    game_2.world_tick().expect("Failed to tick world");
     game_2
 }
-
 #[rustler::nif(schedule = "DirtyCpu")]
 fn get_grid(game: GameState) -> Vec<Vec<Tile>> {
     let grid = game.board.grid.resource.lock().unwrap();
@@ -83,10 +84,10 @@ fn attack_aoe(
     game: GameState,
     attacking_player_id: u64,
     attack_position: RelativePosition,
-) -> GameState {
+) -> Result<GameState, String> {
     let mut game_2 = game;
-    game_2.attack_aoe(attacking_player_id, &attack_position);
-    game_2
+    game_2.aoe_attack(attacking_player_id, &attack_position)?;
+    Ok(game_2)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -94,6 +95,13 @@ fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.disconnect(player_id)?;
     Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+fn new_round(game: GameState, players: Vec<Player>) -> GameState {
+    let mut game_2 = game;
+    game_2.new_round(players);
+    game_2
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -106,6 +114,13 @@ fn move_with_joystick(
     let mut game_2 = game;
     game_2.move_with_joystick(player_id, x, y)?;
     Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+fn spawn_player(game: GameState, player_id: u64) -> GameState {
+    let mut game_2 = game;
+    game_2.spawn_player(player_id);
+    game_2
 }
 
 pub fn load(env: Env, _: Term) -> bool {
@@ -123,9 +138,11 @@ rustler::init!(
         get_non_empty,
         attack_player,
         attack_aoe,
-        clean_players_actions,
+        world_tick,
         disconnect,
-        move_with_joystick
+        move_with_joystick,
+        new_round,
+        spawn_player,
     ],
     load = load
 );

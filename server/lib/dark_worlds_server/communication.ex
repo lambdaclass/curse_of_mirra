@@ -1,8 +1,7 @@
 defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.ClientAction
-  alias DarkWorldsServer.Communication.Proto.GameStateUpdate
+  alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
-  alias DarkWorldsServer.Communication.Proto.UpdatePing
 
   @moduledoc """
   The Communication context
@@ -13,8 +12,13 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_player_added!(player_id) do
-    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id}
+  def lobby_player_added!(player_id, players) do
+    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id, players: players}
+    |> LobbyEvent.encode()
+  end
+
+  def lobby_player_removed!(player_id, players) do
+    %LobbyEvent{type: :PLAYER_REMOVED, removed_player_id: player_id, players: players}
     |> LobbyEvent.encode()
   end
 
@@ -30,14 +34,19 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def encode!(%{players: players}) do
-    %GameStateUpdate{players: players}
-    |> GameStateUpdate.encode()
+  def encode!(%{players: players, projectiles: projectiles}) do
+    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles}
+    |> GameEvent.encode()
   end
 
-  def encode!({player_id, latency}) do
-    %UpdatePing{player_id: player_id, latency: latency}
-    |> UpdatePing.encode()
+  def encode!(%{latency: latency}) do
+    %GameEvent{type: :PING_UPDATE, latency: latency}
+    |> GameEvent.encode()
+  end
+
+  def game_player_joined(player_id) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
+    |> GameEvent.encode()
   end
 
   def decode(value) do

@@ -35,7 +35,7 @@ defmodule DarkWorldsServer.Matchmaking do
     "matching_session_#{session_id}"
   end
 
-  def start_game(session_pid) do
-    MatchingSession.start_game(session_pid)
+  def start_game(game_config, session_pid) do
+    MatchingSession.start_game(game_config, session_pid)
   end
 end

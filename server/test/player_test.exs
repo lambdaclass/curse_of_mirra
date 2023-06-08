@@ -11,7 +11,7 @@ defmodule DarkWorldsServer.PlayerTest do
       player_id = 1
       {:ok, _ws_pid} = ws_connect(session_id, player_id)
       grid = WsClient.get_grid(session_id)
-      character_speed = WsClient.get_character_speed(session_id)
+      character_speed = 3
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :up)
@@ -52,7 +52,7 @@ defmodule DarkWorldsServer.PlayerTest do
       {:ok, _ws_pid} = ws_connect(session_id, player_id)
       grid = WsClient.get_grid(session_id)
       grid_height = length(grid)
-      character_speed = WsClient.get_character_speed(session_id)
+      character_speed = 3
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :down)
@@ -92,7 +92,7 @@ defmodule DarkWorldsServer.PlayerTest do
       player_id = 1
       {:ok, _ws_pid} = ws_connect(session_id, player_id)
       grid = WsClient.get_grid(session_id)
-      character_speed = WsClient.get_character_speed(session_id)
+      character_speed = 3
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :left)
@@ -133,7 +133,7 @@ defmodule DarkWorldsServer.PlayerTest do
       {:ok, _ws_pid} = ws_connect(session_id, player_id)
       grid = WsClient.get_grid(session_id)
       grid_width = length(hd(grid))
-      character_speed = WsClient.get_character_speed(session_id)
+      character_speed = 3
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :right)

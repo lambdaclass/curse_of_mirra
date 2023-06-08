@@ -1,13 +1,15 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
-  alias DarkWorldsServer.Communication.Proto.GameStateUpdate
+  alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
+  alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
-  alias DarkWorldsServer.Communication.Proto.UpdatePing
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
+  alias DarkWorldsServer.Engine.JoystickValues, as: EngineJoystickValues
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
+  alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
@@ -16,6 +18,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   def encode(%EnginePosition{} = position, ProtoPosition) do
     %{x: x, y: y} = position
     %ProtoPosition{x: x, y: y}
+  end
+
+  def encode(%EngineJoystickValues{} = position, ProtoJoystickValues) do
+    %{x: x, y: y} = position
+    %ProtoJoystickValues{x: x, y: y}
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
@@ -30,12 +37,32 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(%{players: players}, GameStateUpdate) do
-    %GameStateUpdate{players: players}
-  end
+  def encode(%EngineProjectile{} = projectile, ProtoProjectile) do
+    %{
+      id: id,
+      position: position,
+      direction: direction,
+      speed: speed,
+      range: range,
+      player_id: player_id,
+      damage: damage,
+      remaining_ticks: remaining_ticks,
+      projectile_type: projectile_type,
+      status: status
+    } = projectile
 
-  def encode({player_id, latency}, UpdatePing) do
-    %UpdatePing{player_id: player_id, latency: latency}
+    %ProtoProjectile{
+      id: id,
+      position: position,
+      direction: direction,
+      speed: speed,
+      range: range,
+      player_id: player_id,
+      damage: damage,
+      remaining_ticks: remaining_ticks,
+      projectile_type: projectile_encode(projectile_type),
+      status: projectile_status_encode(status)
+    }
   end
 
   def encode(%EngineAction{action: :move, value: direction}, ProtoAction) do
@@ -44,14 +71,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
     %ProtoAction{action: :ATTACK, direction: direction_encode(direction)}
-  end
-
-  def encode(%EngineAction{action: :ping}, ProtoAction) do
-    %ProtoAction{action: :PING}
-  end
-
-  def encode(%EngineAction{action: :update_ping, value: latency}, ProtoAction) do
-    %ProtoAction{action: :UPDATE_PING, latency: latency}
   end
 
   def encode(%EngineAction{action: :attack_aoe, value: position}, ProtoAction) do
@@ -68,6 +87,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   def decode(%ProtoRelativePosition{} = position, ProtoRelativePosition) do
     %{x: x, y: y} = position
     %EngineRelativePosition{x: x, y: y}
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(%ProtoJoystickValues{} = position, ProtoJoystickValues) do
+    %{x: x, y: y} = position
+    %EngineJoystickValues{x: x, y: y}
   end
 
   def decode(%ProtoPlayer{} = player, ProtoPlayer) do
@@ -92,12 +117,32 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(%GameStateUpdate{players: players}, GameStateUpdate) do
-    %{players: players}
-  end
+  def decode(%ProtoProjectile{} = projectile, ProtoProjectile) do
+    %{
+      id: id,
+      position: position,
+      direction: direction,
+      speed: speed,
+      range: range,
+      player_id: player_id,
+      damage: damage,
+      remaining_ticks: remaining_ticks,
+      projectile_type: projectile_type,
+      status: status
+    } = projectile
 
-  def decode(%UpdatePing{player_id: player_id, latency: latency}, UpdatePing) do
-    {player_id, latency}
+    %EngineProjectile{
+      id: id,
+      position: position,
+      direction: direction,
+      speed: speed,
+      range: range,
+      player_id: player_id,
+      damage: damage,
+      remaining_ticks: remaining_ticks,
+      projectile_type: projectile_decode(projectile_type),
+      status: projectile_status_decode(status)
+    }
   end
 
   def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}, ProtoAction) do
@@ -112,16 +157,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :attack, value: direction_decode(direction)}
   end
 
-  def decode(%ProtoAction{action: :PING}, ProtoAction) do
-    %EngineAction{action: :ping, value: :ping}
-  end
-
-  def decode(%ProtoAction{action: :UPDATE_PING, latency: latency}, ProtoAction) do
-    %EngineAction{action: :update_ping, value: latency}
-  end
-
   def decode(%ProtoAction{action: :ATTACK_AOE, position: position}, ProtoAction) do
     %EngineAction{action: :attack_aoe, value: position}
+  end
+
+  def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do
+    %EngineAction{action: :add_bot, value: nil}
   end
 
   def decode(%struct{} = msg, struct) do
@@ -148,4 +189,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
+
+  defp projectile_encode(:bullet), do: :BULLET
+  defp projectile_decode(:BULLET), do: :bullet
+
+  defp projectile_status_encode(:active), do: :ACTIVE
+  defp projectile_status_encode(:exploded), do: :EXPLODED
+
+  defp projectile_status_decode(:ACTIVE), do: :active
+  defp projectile_status_decode(:EXPLODED), do: :exploded
 end

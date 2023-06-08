@@ -16,17 +16,11 @@ public class LobbyInfo : MonoBehaviour
     void Start()
     {
         lobbyID.text = LobbyConnection.Instance.LobbySession;
-        playersAmount.text += " " + (LobbyConnection.Instance.playerCount).ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var aux = ((playersAmount.text).Trim().Split(": "));
-        if (LobbyConnection.Instance.playerCount > int.Parse((aux[1]).Trim()))
-        {
-            playersAmount.text =
-                "Amount of Players: " + (LobbyConnection.Instance.playerCount).ToString();
-        }
+        playersAmount.text = "Amount of Players: " + LobbyConnection.Instance.playerCount;
     }
 }

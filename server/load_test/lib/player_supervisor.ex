@@ -4,7 +4,7 @@ defmodule LoadTest.PlayerSupervisor do
   """
   use DynamicSupervisor
   use Tesla
-  plug Tesla.Middleware.JSON
+  plug(Tesla.Middleware.JSON)
   plug(Tesla.Middleware.Headers, [{"content-type", "application/json"}])
 
   alias LoadTest.Player

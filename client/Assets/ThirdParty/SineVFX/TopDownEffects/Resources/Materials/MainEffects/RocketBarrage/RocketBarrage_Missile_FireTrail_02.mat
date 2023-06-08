@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RocketBarrage_Missile_FireTrail_02
+  m_Shader: {fileID: 4800000, guid: e42596c1885b4088b1933335fba60762, type: 3}
+  m_ShaderKeywords: _DISSOLVETEXTUREFLIP_ON _ISFAKETRAIL_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissolveTexture:
+        m_Texture: {fileID: 2800000, guid: 78f7e1b2207371144b858a829e260431, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Distortion:
+        m_Texture: {fileID: 2800000, guid: cee6e691b28a48b4a7c3bd7a495539e3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainMask:
+        m_Texture: {fileID: 2800000, guid: 043ce226d3c94833b3cce44baf905725, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise01:
+        m_Texture: {fileID: 2800000, guid: 043ce226d3c94833b3cce44baf905725, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RadialDistortionNoise:
+        m_Texture: {fileID: 2800000, guid: a9fcba2b3c04c484081fd31c7a5b9101, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 3516a806c0cb4de3a8f3c2eea6f031e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondaryMask:
+        m_Texture: {fileID: 2800000, guid: 7201221bb2484375891942d3cbe8cbec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _DissolveExp: 8
+    - _DissolveExpReversed: 8
+    - _DissolveTextureFlip: 1
+    - _DissolveTextureRadial: 0
+    - _DissolveTextureRadialScaleU: 1
+    - _DissolveTextureRadialScaleV: 1
+    - _DissolveTextureScale: 0.5
+    - _DistortionPower: 0.125
+    - _DistortionPowerU: 0.125
+    - _DistortionPowerV: 0
+    - _DistortionScaleU: 0.5
+    - _DistortionScaleV: 1
+    - _DistortionScrollSpeed: 0
+    - _DistortionScrollSpeedU: 0
+    - _DistortionScrollSpeedV: 0
+    - _EmissionVertexStreamEnabled: 0
+    - _EndMaskAdd: 0
+    - _EndMaskExp: 2
+    - _EndPointMaskExp: 3
+    - _FakeTrailOffset: -1.5
+    - _FakeTrailScrollMultiplier: 0.175
+    - _FakeTrailScrollRandomMax: 1.1
+    - _FakeTrailScrollRandomMin: 0.8
+    - _FinalOpacityExp: 4
+    - _FinalOpacityPower: 2.2
+    - _FinalPower: 20
+    - _Float0: 0.15
+    - _Float1: 1
+    - _Float2: 8
+    - _Float3: -1.5
+    - _Float4: 4
+    - _IsFakeTrail: 1
+    - _MainMaskExp: 2
+    - _MainMaskScaleU: 1
+    - _MainMaskScaleV: 1
+    - _MainMaskScrollSpeed: 0
+    - _Noise01Exp: 1
+    - _Noise01Negate: 0
+    - _Noise01Radial: 0
+    - _Noise01RadialScaleU: 1
+    - _Noise01RadialScaleV: 1
+    - _Noise01ScaleU: 0.5
+    - _Noise01ScaleV: 1
+    - _Noise01ScrollSpeed: 0
+    - _RadialDistortionNoisePower: 0
+    - _RampAffectedByDynamics: 1
+    - _RampEnabled: 0
+    - _RampNoiseAmount: 1
+    - _RampOffsetExp: 1
+    - _RampOffsetMultiply: 1
+    - _RimMaskEnabled: 0
+    - _RimMaskExp: 1
+    - _RimMaskExpReversed: 1
+    - _RimMaskScale: 1
+    - _RimStartPointBoostExp: 1
+    - _RimStartPointBoostPower: 0
+    - _SqueezeUVAmount: 1.5
+    - _SqueezeUVExp: 2
+    - _StartPointBoostExp: 1
+    - _StartPointBoostPower: 0
+    - _StartPointMaskAdd: 0
+    - _StartPointMaskExp: 1
+    - __dirty: 0
+    m_Colors:
+    - _FinalColor: {r: 1, g: 0.11183071, b: 0, a: 1}
+    - _MainMaskChannelsMultiply: {r: 1, g: 1, b: 1, a: 0}
