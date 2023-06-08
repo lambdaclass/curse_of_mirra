@@ -18,13 +18,16 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (LobbyConnection.Instance.playerId == 1)
+        if (playButton != null)
         {
-            playButton.SetActive(true);
-        }
-        else
-        {
-            playButton.SetActive(false);
+            if (LobbyConnection.Instance.playerId == 1)
+            {
+                playButton.SetActive(true);
+            }
+            else
+            {
+                playButton.SetActive(false);
+            }
         }
     }
 

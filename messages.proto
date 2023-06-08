@@ -4,13 +4,15 @@ syntax = "proto3";
     - type: type of the event
     - players: player list, used on STATE_UPDATE
     - ping_update: updated player's ping, used on PING_UPDATE
+    - projectiles: projectile list, used on STATE_UPDATE
     - player_joined_id: ID of the player that joined the game
  */
 message GameEvent {
     GameEventType type = 1;
     repeated Player players = 2;
     uint64 latency = 3;
-    uint64 player_joined_id = 4;
+    repeated Projectile projectiles = 4;
+    uint64 player_joined_id = 5;
 }
 
 /* Type of game events
@@ -174,4 +176,44 @@ enum LobbyEventType {
     PLAYER_COUNT = 4;
     START_GAME = 5;
     PLAYER_REMOVED = 6;
+}
+
+
+/* Type of projectiles
+    - BULLET: Single little bullet
+ */
+enum ProjectileType {
+    BULLET = 0;
+}
+
+/* Status of projectiles
+    - ACTIVE: Active projectile
+    - EXPLODED: Exploded projectile
+ */
+enum ProjectileStatus {
+    ACTIVE = 0;
+    EXPLODED = 1;
+}
+
+/*
+    - position: Current projectile prosition
+    - direction: Projectile direction
+    - speed: Projectile speed
+    - range: Attack range, with center in position
+    - player_id: Player id who attacked
+    - damage: Damage dealt on opponents when hit
+    - remaining_ticks: Projectile remaining lifetime
+    - type: Projectile type depending on the attack
+ */
+message Projectile {
+    uint64 id = 1;
+    Position position = 2;
+    JoystickValues direction = 3;
+    uint32 speed = 4;
+    uint32 range = 5;
+    uint64 player_id = 6;
+    uint32 damage = 7;
+    sint64 remaining_ticks = 8;
+    ProjectileType projectile_type = 9;
+    ProjectileStatus status = 10;
 }

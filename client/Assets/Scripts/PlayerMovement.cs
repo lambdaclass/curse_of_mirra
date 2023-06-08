@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.TopDownEngine;
@@ -12,13 +13,11 @@ public class PlayerMovement : MonoBehaviour
 
     public struct PlayerUpdate
     {
-        public long x;
-        public long y;
-        public int player_id;
+        public Vector3 playerPosition;
+        public int playerId;
         public long health;
         public PlayerAction action;
-        public long aoe_x;
-        public long aoe_y;
+        public Vector3 aoeCenterPosition;
     }
 
     public enum PlayerAction
@@ -26,6 +25,18 @@ public class PlayerMovement : MonoBehaviour
         Nothing = 0,
         Attacking = 1,
         AttackingAOE = 2,
+    }
+
+    public enum ProyectileStatus
+    {
+        Active = 0,
+        Exploded = 1,
+    }
+
+    Vector3 backPositionToFrontPosition(Position position){
+        var x = (long)position.Y / 10f - 50.0f;
+        var y = (-((long)position.X)) / 10f + 50.0f;
+        return new Vector3(x, 1f, y);
     }
 
     void Start()
@@ -45,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
             UpdatePlayerActions();
             checkForAttacks();
             ExecutePlayerAction();
+            UpdateProyectileActions();
         }
     }
 
@@ -117,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
     {
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
-            GameObject player = SocketConnectionManager.Instance.players[playerUpdate.player_id];
+            GameObject player = SocketConnectionManager.Instance.players[playerUpdate.playerId];
 
             /*
                 Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -130,30 +142,34 @@ public class PlayerMovement : MonoBehaviour
                 is the direction of deltaX, which we can calculate (assumming we haven't lost socket
                 frames, but that's fine).
             */
-            float character_speed = 0;
+            float characterSpeed = 0;
 
-            if (playerUpdate.player_id % 2 == 0) {
+            if (playerUpdate.playerId % 3 == 0) {
                 // Muflus
-                character_speed = 0.3f;
-            } else {
+                characterSpeed = 0.3f;
+            } else if (playerUpdate.playerId % 3 == 1) {
                 // Hack
-                character_speed = 0.5f;
+                characterSpeed = 0.5f;
+            } else {
+                // Uma
+                characterSpeed = 0.4f;
             }
 
-            // This is tick_rate * character_speed. Once we decouple tick_rate from speed on the backend
+            // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
             // it'll be changed.
             float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-            float velocity = tickRate * character_speed;
+            float velocity = tickRate * characterSpeed;
 
-            float xChange = (playerUpdate.x / 10f - 50.0f) - player.transform.position.x;
-            float yChange = (playerUpdate.y / 10f + 50.0f) - player.transform.position.z;
+            float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
+            float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
 
-            Animator m_Animator = player.GetComponent<Character>().CharacterModel.GetComponent<Animator>();
+            Animator mAnimator = player.GetComponent<Character>().CharacterModel.GetComponent<Animator>();
             CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
             characterOrientation.ForcedRotation = true;
 
             bool walking = false;
-            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f) {
+            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+            {
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
@@ -163,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
                 walking = true;
             }
-            m_Animator.SetBool("Walking", walking);
+            mAnimator.SetBool("Walking", walking);
 
             Health healthComponent = player.GetComponent<Health>();
             healthComponent.SetHealth(playerUpdate.health);
@@ -174,18 +190,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 print("attack");
             }
+
             //if dead remove the player from the scene
             if (healthComponent.CurrentHealth <= 0)
             {
                 healthComponent.Model.gameObject.SetActive(false);
             }
+            if (healthComponent.CurrentHealth == 100)
+            {
+                healthComponent.Model.gameObject.SetActive(true);
+            }
             bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (isAttackingAOE){
-                print(playerUpdate.aoe_x  / 10f - 50.0f);
-                print(playerUpdate.aoe_y  / 10f + 50.0f);
+            if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
+            {
+                player.GetComponent<GenericAoeAttack>().ShowAoeAttack(new Vector2(playerUpdate.aoeCenterPosition.x, playerUpdate.aoeCenterPosition.z));
             }
 
-            SocketConnectionManager.Instance.players[playerUpdate.player_id]
+            SocketConnectionManager.Instance.players[playerUpdate.playerId]
                 .GetComponent<AttackController>()
                 .SwordAttack(isAttacking);
         }
@@ -196,24 +217,81 @@ public class PlayerMovement : MonoBehaviour
         List<Player> gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         for (int i = 0; i < SocketConnectionManager.Instance.players.Count; i++)
         {
-            var new_position = gamePlayers[i].Position;
-            var aoe_position = gamePlayers[i].AoePosition;
             playerUpdates.Enqueue(
                 new PlayerUpdate
                 {
-                    x = (long)new_position.Y,
-                    y = -((long)new_position.X),
-                    player_id = i,
+                    playerPosition = backPositionToFrontPosition(gamePlayers[i].Position),
+                    playerId = i,
                     health = gamePlayers[i].Health,
                     action = (PlayerAction)gamePlayers[i].Action,
-                    aoe_x = (long)aoe_position.Y,
-                    aoe_y = -((long)aoe_position.X),
+                    aoeCenterPosition = backPositionToFrontPosition(gamePlayers[i].AoePosition),
                 }
             );
-            if (gamePlayers[i].Health == 0)
+            // if (gamePlayers[i].Health == 0)
+            // {
+            //     SocketConnectionManager.instance.players[i].SetActive(false);
+            // }
+        }
+    }
+
+    void UpdateProyectileActions()
+    {
+        Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
+        List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
+        GameObject projectile;
+
+        var toDelete = new List<int>();
+        foreach (var pr in projectiles) {
+            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
-                print(SocketConnectionManager.instance.players[i].name);
-                SocketConnectionManager.instance.players[i].SetActive(false);
+                toDelete.Add(pr.Key);
+            }
+        }
+
+        foreach (var key in toDelete) {
+            Destroy(projectiles[key]);
+            projectiles.Remove(key);
+        }
+
+        var toExplode = new List<int>();
+        foreach (var pr in projectiles) {
+            if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+            {
+                toExplode.Add(pr.Key);
+            }
+        }
+
+        foreach (var key in toExplode) {
+            Destroy(projectiles[key]);
+            projectiles.Remove(key);
+        }
+
+        for (int i = 0; i < gameProjectiles.Count; i++)
+        {
+            if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
+            {
+                float projectileSpeed = gameProjectiles[i].Speed / 10f;
+
+                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+                float velocity = tickRate * projectileSpeed;
+
+                Vector3 backToFrontPosition = backPositionToFrontPosition(gameProjectiles[i].Position);
+                float xChange = backToFrontPosition.x - projectile.transform.position.x;
+                float yChange = backToFrontPosition.z - projectile.transform.position.z;
+
+                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+                movementDirection.Normalize();
+
+                Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                projectile.transform.position = new Vector3(newPosition[0], 1f, newPosition[2]);
+            }
+            else if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            {
+                projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                Destroy(projectile.GetComponent<BoxCollider>());
+                projectile.transform.localScale = new Vector3(.5f, .5f, .5f);
+                projectile.transform.position = backPositionToFrontPosition(gameProjectiles[i].Position);
+                projectiles.Add((int)gameProjectiles[i].Id, projectile);
             }
         }
     }
