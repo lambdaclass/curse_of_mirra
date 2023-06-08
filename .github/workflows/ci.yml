@@ -8,6 +8,7 @@ on:
 
 env:
   MIX_ENV: test
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 permissions:
   contents: read

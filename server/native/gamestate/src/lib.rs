@@ -2,6 +2,7 @@ pub mod board;
 pub mod character;
 pub mod game;
 pub mod player;
+pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 use crate::player::Position;
@@ -43,7 +44,7 @@ fn move_player_to_coordinates(
 #[rustler::nif(schedule = "DirtyCpu")]
 fn world_tick(game: GameState) -> GameState {
     let mut game_2 = game;
-    game_2.world_tick();
+    game_2.world_tick().expect("Failed to tick world");
     game_2
 }
 #[rustler::nif(schedule = "DirtyCpu")]

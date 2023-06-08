@@ -60,7 +60,9 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   @impl true
-  def terminate(_reason, _partialreq, %{lobby_pid: lobby_pid, player_id: player_id} = state) do
+  def terminate(reason, _partialreq, %{lobby_pid: lobby_pid, player_id: player_id} = state) do
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
+
     unless state[:game_started] do
       Matchmaking.remove_player(player_id, lobby_pid)
     end
