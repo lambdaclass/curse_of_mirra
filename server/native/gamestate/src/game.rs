@@ -279,30 +279,6 @@ impl GameState {
         }
     }
 
-    // Return all player_id inside an area
-    pub fn players_in_range(
-        self: &mut Self,
-        top_left: Position,
-        bottom_right: Position,
-    ) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-        for fil in top_left.x..=bottom_right.x {
-            for col in top_left.y..=bottom_right.y {
-                let cell = self.board.get_cell(fil, col);
-                if cell.is_none() {
-                    continue;
-                }
-                match cell.unwrap() {
-                    Tile::Player(player_id) => {
-                        players.push(player_id);
-                    }
-                    _ => continue,
-                }
-            }
-        }
-        players
-    }
-
     pub fn attack_aoe(
         self: &mut Self,
         attacking_player_id: u64,
