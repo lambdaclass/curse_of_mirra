@@ -31,10 +31,7 @@ defmodule DarkWorldsServer.Communication do
     game_id = pid_to_external_id(game_pid)
     # game_config = remove_unknown_fields(game_config)
 
-    IO.inspect(label: :configuracion_dos)
-
     %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config}
-    |> IO.inspect(label: :wat?)
     |> LobbyEvent.encode()
   end
 
@@ -84,12 +81,13 @@ defmodule DarkWorldsServer.Communication do
   def remove_unknown_fields(map) when is_map(map) do
     map
     |> Enum.reduce(%{}, fn {key, value}, acc ->
-        case key do
-          :__unknown_fields__ ->
-            acc
-          key ->
-            Map.put(acc, key, remove_unknown_fields(value))
-        end
+      case key do
+        :__unknown_fields__ ->
+          acc
+
+        key ->
+          Map.put(acc, key, remove_unknown_fields(value))
+      end
     end)
   end
 
@@ -99,5 +97,6 @@ defmodule DarkWorldsServer.Communication do
       [remove_unknown_fields(element) | acc]
     end)
   end
+
   def remove_unknown_fields(value), do: value
 end
