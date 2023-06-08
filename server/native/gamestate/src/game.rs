@@ -312,8 +312,6 @@ impl GameState {
         if attacking_player_id % 2 == 0 {
             attacking_player.action = PlayerAction::ATTACKINGAOE;
 
-            let cooldown = attacking_player.character.cooldown();
-
             if matches!(attacking_player.status, Status::DEAD) {
                 return Ok(());
             }

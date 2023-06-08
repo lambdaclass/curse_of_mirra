@@ -281,7 +281,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
 
     // Wait for the Disarmed state to finish
     for _ in 0..10 {
-        state.world_tick();
+        state.world_tick().unwrap();
     }
 
     // make sure both abilities are off cooldown
