@@ -75,7 +75,12 @@ defmodule DarkWorldsServer.Engine.Runner do
     tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
-    Process.send_after(self(), :game_timeout, Map.get(opts.game_config, :game_timeout, @game_timeout))
+    Process.send_after(
+      self(),
+      :game_timeout,
+      Map.get(opts.game_config, :game_timeout, @game_timeout)
+    )
+
     Process.send_after(self(), :check_player_amount, @player_check)
 
     initial_state = %{
@@ -180,6 +185,21 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
+  def handle_cast(
+        {:play, player_id, %ActionOk{action: :basic_attack, value: value}},
+        %{next_state: %{game: game} = next_state} = state
+      ) do
+    %Player{position: _position} = get_player(game.players, player_id)
+    {:ok, game} = Game.basic_attack(game, player_id, value)
+
+    game_state = has_a_player_won?(game.players, state.is_single_player?)
+
+    next_state = next_state |> Map.put(:game, game)
+    state = Map.put(state, :next_state, next_state) |> Map.put(:game_state, game_state)
+
+    {:noreply, state}
+  end
+
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, state) do
     %{next_state: %{game: game} = game_state, current_players: current} = state
     player_id = current + 1
@@ -213,6 +233,12 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
       {:player_joined, player_id}
+    )
+
+    DarkWorldsServer.PubSub
+    |> Phoenix.PubSub.broadcast(
+      Communication.pubsub_game_topic(self()),
+      {:initial_positions, state.current_state.game.players}
     )
 
     {:reply, {:ok, player_id}, %{state | current_players: current + 1}}

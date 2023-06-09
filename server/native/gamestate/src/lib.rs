@@ -117,6 +117,17 @@ fn move_with_joystick(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
+fn basic_attack(
+    game: GameState,
+    player_id: u64,
+    direction: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.basic_attack(player_id, &direction)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
 pub fn auto_attack(
     game: GameState,
     player_id: u64,
@@ -153,7 +164,8 @@ rustler::init!(
         move_with_joystick,
         new_round,
         spawn_player,
-        auto_attack
+        auto_attack,
+        basic_attack,
     ],
     load = load
 );

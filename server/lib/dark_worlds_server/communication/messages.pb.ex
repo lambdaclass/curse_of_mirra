@@ -6,6 +6,10 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:STATE_UPDATE, 0)
   field(:PING_UPDATE, 1)
   field(:PLAYER_JOINED, 2)
+  field(:NEXT_ROUND, 3)
+  field(:LAST_ROUND, 4)
+  field(:GAME_FINISHED, 5)
+  field(:INITIAL_POSITIONS, 6)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do
@@ -29,6 +33,7 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -94,6 +99,13 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   field(:latency, 3, type: :uint64)
   field(:projectiles, 4, repeated: true, type: DarkWorldsServer.Communication.Proto.Projectile)
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
+
+  field(:winner_player, 6,
+    type: DarkWorldsServer.Communication.Proto.Player,
+    json_name: "winnerPlayer"
+  )
+
+  field(:current_round, 7, type: :uint64, json_name: "currentRound")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

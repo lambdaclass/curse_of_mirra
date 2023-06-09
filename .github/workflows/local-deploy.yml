@@ -1,10 +1,9 @@
 name: Deploy to LambdaClass local machine
 on:
-  workflow_run:
-    workflows:
-      - Deploy to testing
-    types:
-      - requested
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build-deploy:
@@ -54,7 +53,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEWRELIC_APP_NAME: ${{ vars.NEWRELIC_APP_NAME_LOCAL }}
           NEWRELIC_KEY: ${{ secrets.NEWRELIC_KEY }}
-          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           set -ex
           ssh -o StrictHostKeyChecking=no \

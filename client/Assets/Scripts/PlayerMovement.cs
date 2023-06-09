@@ -7,7 +7,8 @@ using System.Linq;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] MMTouchJoystick joystickL;
+    [SerializeField]
+    MMTouchJoystick joystickL;
     public Queue<PlayerUpdate> playerUpdates = new Queue<PlayerUpdate>();
     public Direction nextAttackDirection;
     public bool isAttacking = false;
@@ -75,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
         {
-            GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+            GetComponent<PlayerControls>()
+                .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
         }
         else
         {
@@ -88,7 +90,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAttacking)
         {
-            ClientAction clientAction = new ClientAction { Action = Action.Attack, Direction = nextAttackDirection };
+            ClientAction clientAction = new ClientAction
+            {
+                Action = Action.Attack,
+                Direction = nextAttackDirection
+            };
             SocketConnectionManager.Instance.SendAction(clientAction);
             isAttacking = false;
         }
@@ -100,25 +106,21 @@ public class PlayerMovement : MonoBehaviour
         {
             nextAttackDirection = Direction.Down;
             isAttacking = true;
-
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
             nextAttackDirection = Direction.Up;
             isAttacking = true;
-
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
             nextAttackDirection = Direction.Right;
             isAttacking = true;
-
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
             nextAttackDirection = Direction.Left;
             isAttacking = true;
-
         }
         // Hardcoded dual sense square button
         if (Input.GetKeyDown("joystick 1 button 0"))
@@ -128,23 +130,29 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    GameObject GetPlayer(int id)
+    {
+        return SocketConnectionManager.Instance.players.Find(
+            el => el.GetComponent<Character>().PlayerID == id.ToString()
+        );
+    }
+
     void ExecutePlayerAction()
     {
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
-            GameObject player = SocketConnectionManager.Instance.players[playerUpdate.playerId];
-
+            GameObject player = GetPlayer(playerUpdate.playerId);
             /*
                 Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
                 There are 50 ticks per second. A player's velocity is 50 * 0.3f
-
-                In general, if a player's velocity is n tiles per tick, their unity velocity
-                is 50 * (n / 10f)
-
-                The above is the player's velocity's magnitude. Their velocity's direction
-                is the direction of deltaX, which we can calculate (assumming we haven't lost socket
-                frames, but that's fine).
-            */
+      
+          In general, if a player's velocity is n tiles per tick, their unity velocity
+          is 50 * (n / 10f)
+      
+          The above is the player's velocity's magnitude. Their velocity's direction
+          is the direction of deltaX, which we can calculate (assumming we haven't lost socket
+          frames, but that's fine).
+      */
             float characterSpeed = 0;
 
             if (playerUpdate.playerId % 3 == 0)
@@ -171,8 +179,11 @@ public class PlayerMovement : MonoBehaviour
             float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
             float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
 
-            Animator mAnimator = player.GetComponent<Character>().CharacterModel.GetComponent<Animator>();
-            CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+            Animator mAnimator = player
+                .GetComponent<Character>()
+                .CharacterModel.GetComponent<Animator>();
+            CharacterOrientation3D characterOrientation =
+                player.GetComponent<CharacterOrientation3D>();
             characterOrientation.ForcedRotation = true;
 
             bool walking = false;
@@ -181,7 +192,8 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                Vector3 newPosition = player.transform.position + movementDirection * velocity * Time.deltaTime;
+                Vector3 newPosition =
+                    player.transform.position + movementDirection * velocity * Time.deltaTime;
                 player.transform.position = newPosition;
                 characterOrientation.ForcedRotationDirection = movementDirection;
 
@@ -192,11 +204,11 @@ public class PlayerMovement : MonoBehaviour
             Health healthComponent = player.GetComponent<Health>();
             healthComponent.SetHealth(playerUpdate.health);
 
-            bool isAttacking = playerUpdate.action == PlayerAction.Attacking;
-            player.GetComponent<AttackController>().SwordAttack(isAttacking);
-            if (isAttacking)
+            bool isAttackingAttack = playerUpdate.action == PlayerAction.Attacking;
+            player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
+            if (isAttackingAttack)
             {
-                print("attack");
+                print(player.name + "attack");
             }
 
             //if dead remove the player from the scene
@@ -209,42 +221,40 @@ public class PlayerMovement : MonoBehaviour
                 healthComponent.Model.gameObject.SetActive(true);
             }
             bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
+            if (
+                isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
+            )
             {
-                player.GetComponent<GenericAoeAttack>().ShowAoeAttack(new Vector2(playerUpdate.aoeCenterPosition.x, playerUpdate.aoeCenterPosition.z));
+                player
+                    .GetComponent<GenericAoeAttack>()
+                    .ShowAoeAttack(
+                        new Vector2(
+                            playerUpdate.aoeCenterPosition.x,
+                            playerUpdate.aoeCenterPosition.z
+                        )
+                    );
             }
-
-            // bool isAttackingMain = playerUpdate.action == PlayerAction.MainAttack;
-            // if (isAttackingMain && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
-            // {
-            //     player.GetComponent<DetectNearPlayer>().GetNearestPlayer();
-            // }
-
-            SocketConnectionManager.Instance.players[playerUpdate.playerId]
-                .GetComponent<AttackController>()
-                .SwordAttack(isAttacking);
         }
     }
 
     void UpdatePlayerActions()
     {
-        List<Player> gamePlayers = SocketConnectionManager.Instance.gamePlayers;
-        for (int i = 0; i < SocketConnectionManager.Instance.players.Count; i++)
+        for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
             playerUpdates.Enqueue(
                 new PlayerUpdate
                 {
-                    playerPosition = backPositionToFrontPosition(gamePlayers[i].Position),
-                    playerId = i,
-                    health = gamePlayers[i].Health,
-                    action = (PlayerAction)gamePlayers[i].Action,
-                    aoeCenterPosition = backPositionToFrontPosition(gamePlayers[i].AoePosition),
+                    playerPosition = Utils.transformBackendPositionToFrontendPosition(
+                        SocketConnectionManager.Instance.gamePlayers[i].Position
+                    ),
+                    playerId = (int)SocketConnectionManager.Instance.gamePlayers[i].Id,
+                    health = SocketConnectionManager.Instance.gamePlayers[i].Health,
+                    action = (PlayerAction)SocketConnectionManager.Instance.gamePlayers[i].Action,
+                    aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(
+                        SocketConnectionManager.Instance.gamePlayers[i].AoePosition
+                    ),
                 }
             );
-            // if (gamePlayers[i].Health == 0)
-            // {
-            //     SocketConnectionManager.instance.players[i].SetActive(false);
-            // }
         }
     }
 
@@ -293,14 +303,17 @@ public class PlayerMovement : MonoBehaviour
                 float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
                 float velocity = tickRate * projectileSpeed;
 
-                Vector3 backToFrontPosition = backPositionToFrontPosition(gameProjectiles[i].Position);
+                Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+                    gameProjectiles[i].Position
+                );
                 float xChange = backToFrontPosition.x - projectile.transform.position.x;
                 float yChange = backToFrontPosition.z - projectile.transform.position.z;
 
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                Vector3 newPosition =
+                    projectile.transform.position + movementDirection * velocity * Time.deltaTime;
                 projectile.transform.position = new Vector3(newPosition[0], 1f, newPosition[2]);
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
@@ -308,7 +321,9 @@ public class PlayerMovement : MonoBehaviour
                 projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Destroy(projectile.GetComponent<BoxCollider>());
                 projectile.transform.localScale = new Vector3(.5f, .5f, .5f);
-                projectile.transform.position = backPositionToFrontPosition(gameProjectiles[i].Position);
+                projectile.transform.position = Utils.transformBackendPositionToFrontendPosition(
+                    gameProjectiles[i].Position
+                );
                 projectiles.Add((int)gameProjectiles[i].Id, projectile);
             }
         }

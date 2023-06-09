@@ -13,17 +13,24 @@ message GameEvent {
     uint64 latency = 3;
     repeated Projectile projectiles = 4;
     uint64 player_joined_id = 5;
+    Player winner_player = 6;
+    uint64 current_round = 7;
 }
 
 /* Type of game events
     - STATE_UPDATE: The game's state has been updated
     - PING_UPDATE: The player's current ping updated
     - PLAYER_JOINED: A player has joined the game
+    - INITIAL_POSITIONS: The initial positions of each player
  */
 enum GameEventType {
     STATE_UPDATE = 0;
     PING_UPDATE = 1;
     PLAYER_JOINED = 2;
+    NEXT_ROUND = 3;
+    LAST_ROUND = 4;
+    GAME_FINISHED = 5;
+    INITIAL_POSITIONS = 6;
 }
 
 /* Information about a player

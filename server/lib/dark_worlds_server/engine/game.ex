@@ -15,6 +15,7 @@ defmodule DarkWorldsServer.Engine.Game do
   def auto_attack(_game_state, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def attack_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def attack_aoe(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
+  def basic_attack(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def get_grid(_a), do: :erlang.nif_error(:nif_not_loaded)
   def get_non_empty(_a), do: :erlang.nif_error(:nif_not_loaded)
   def world_tick(_game_state), do: :erlang.nif_error(:nif_not_loaded)

@@ -3,7 +3,7 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::collections::HashSet;
 
 use crate::board::{Board, Tile};
-use crate::character::Character;
+use crate::character::{Character, Name};
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
@@ -222,7 +222,8 @@ impl GameState {
         player_id: u64,
     ) -> Result<&mut Player, String> {
         players
-            .get_mut((player_id - 1) as usize)
+            .iter_mut()
+            .find(|player| player.id == player_id)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
@@ -303,6 +304,132 @@ impl GameState {
         players
     }
 
+    pub fn basic_attack(
+        self: &mut Self,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        let cooldown = attacking_player.character.cooldown();
+
+        if matches!(attacking_player.status, Status::DEAD) {
+            return Ok(());
+        }
+
+        let now = time_now();
+
+        if (now - attacking_player.last_melee_attack) < cooldown {
+            return Ok(());
+        }
+        attacking_player.last_melee_attack = now;
+        attacking_player.action = PlayerAction::ATTACKING;
+
+        println!("Attacking player: {:?}", attacking_player.character.name);
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_basic_attack(&attacking_player, direction, &mut self.projectiles, &mut self.next_projectile_id),
+            Name::Muflus => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_basic_attack(&mut self.board,  players, &attacking_player, direction)},
+            Name::Uma => Self::h4ck_basic_attack(&attacking_player, direction, &mut self.projectiles, &mut self.next_projectile_id),
+        }
+    }
+
+    pub fn h4ck_basic_attack(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0 || direction.y != 0 {
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                7,
+                10,
+                attacking_player.id,
+                20,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+        }
+        Ok(())
+    }
+
+    pub fn position_to_direction(position: &RelativePosition) -> Direction{
+        if position.x > 0 && position.y > 0 {
+            if position.x > position.y {
+                return Direction::RIGHT;
+            }
+            else {
+                return Direction::UP;
+            }
+        } else if position.x > 0 && position.y <= 0 {
+            if position.x > -position.y {
+                return Direction::RIGHT;
+            } else {
+                return Direction::DOWN;
+            }
+        } else if position.x <= 0 && position.y > 0{
+            if -position.x > position.y {
+                return Direction::LEFT;
+            }
+            else {
+                return Direction::UP;
+            }
+        } else if position.x <= 0 && position.y <= 0 {
+            if -position.x > -position.y {
+                return Direction::LEFT;
+            } else {
+                return Direction::DOWN;
+            }
+        } else {
+            return Direction::UP;
+        }
+    }
+    
+    pub fn muflus_basic_attack(
+        board: &mut Board,
+        players: &mut Vec<Player>,
+        attacking_player: &Player,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+        let attack_direction = Self::position_to_direction(direction);
+
+        let (top_left, bottom_right) =
+            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player.id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg);
+                    let player = ap.clone();
+                    GameState::modify_cell_if_player_died(board, &player);
+                }
+                _ => continue,
+            }
+        }
+        Ok(())
+    }
+
     pub fn aoe_attack(
         self: &mut Self,
         attacking_player_id: u64,
@@ -351,24 +478,6 @@ impl GameState {
                     attacked_player.modify_health(-10);
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
-            }
-        } else {
-            let attacking_player = self.get_player(attacking_player_id).unwrap();
-            if attack_position.x != 0 || attack_position.y != 0 {
-                let projectile = Projectile::new(
-                    self.next_projectile_id,
-                    attacking_player.position,
-                    JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
-                    5,
-                    10,
-                    attacking_player.id,
-                    20,
-                    30,
-                    ProjectileType::BULLET,
-                    ProjectileStatus::ACTIVE,
-                );
-                self.projectiles.push(projectile);
-                self.next_projectile_id += 1;
             }
         }
 
