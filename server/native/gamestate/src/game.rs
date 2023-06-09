@@ -9,7 +9,7 @@ use crate::character::{
     {Effect, Effect::Petrified},
 };
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
-use crate::skills::{BasicSkill, Class};
+use crate::skills::{Basic, Class};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
 

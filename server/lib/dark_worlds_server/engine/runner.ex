@@ -70,7 +70,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    state = create_new_game(opts.game_config, length(opts.players))
+    {:ok, state} = create_new_game(opts.game_config, length(opts.players))
 
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
@@ -386,13 +386,20 @@ defmodule DarkWorldsServer.Engine.Runner do
     Enum.find(players, fn p -> p.id == player_id end)
   end
 
-  defp create_new_game(config = %{runner_config: rg, character_config: %{Items: character_info}}, players) do
-    character_info =
+  defp create_new_game(_config = %{runner_config: rg, character_config: %{Items: character_info}}, players) do
+    implemented_characters =
       character_info
-      |> Map.new(fn
-        {key, val} when is_atom(key) -> {Atom.to_string(key) |> String.downcase(), val}
-        {key, val} when is_binary(key) -> {key |> String.downcase(), val}
+      |> Enum.filter(fn %{Name: name} ->
+        name in ["Muflus", "Uma", "H4ck"]
       end)
+
+    character_info =
+      for character <- implemented_characters do
+        Enum.reduce(character, %{}, fn
+          {:__unknown_fields__, _}, map -> map
+          {key, val}, map -> Map.put(map, key |> Atom.to_string(), val)
+        end)
+      end
 
     config = %{
       number_of_players: players,

@@ -11,7 +11,7 @@ defmodule DarkWorldsServer.Engine.Game do
         build_walls: build_walls,
         characters: character_info
       })
-      when is_list(chars) do
+      when is_list(character_info) do
     new_game(number_of_players, width, height, build_walls, character_info)
   end
 
