@@ -27,14 +27,14 @@ defmodule LoadTest.PlayerSupervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  # Creates a lobby, joins a bunch of players to it, then starts the game
-  def spawn_session() do
+  # Creates a lobby, joins a `num_players` to it, then starts the game
+  def spawn_game(num_players) do
     {:ok, response} = get(server_url())
     %{"lobby_id" => lobby_id} = response.body
 
     {:ok, player_one_pid} = spawn_lobby_player(1, lobby_id)
 
-    for i <- 2..3 do
+    for i <- 2..num_players do
       {:ok, _pid} = spawn_lobby_player(i, lobby_id)
     end
 
@@ -42,8 +42,12 @@ defmodule LoadTest.PlayerSupervisor do
   end
 
   def spawn_50_sessions() do
-    for _ <- 1..50 do
-      spawn_session()
+    spawn_games(50, 3)
+  end
+
+  def spawn_games(num_games, num_players) do
+    for _ <- 1..num_games do
+      spawn_game(num_players)
     end
   end
 
