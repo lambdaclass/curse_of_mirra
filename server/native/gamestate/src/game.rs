@@ -278,7 +278,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    if matches!(player.status, Status::DEAD){
+                    if matches!(player.status, Status::DEAD) {
                         kill_count += 1;
                     }
                     GameState::modify_cell_if_player_died(&mut self.board, &player);
@@ -357,7 +357,7 @@ impl GameState {
                     // Maybe health should be linked to
                     // the character instead?
                     attacked_player.modify_health(-10);
-                    if matches!(attacked_player.status, Status::DEAD){
+                    if matches!(attacked_player.status, Status::DEAD) {
                         kill_count += 1;
                     }
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
@@ -459,7 +459,7 @@ impl GameState {
                     match attacked_player {
                         Ok(ap) => {
                             ap.modify_health(-(projectile.damage as i64));
-                            if matches!(ap.status, Status::DEAD){
+                            if matches!(ap.status, Status::DEAD) {
                                 kill_count += 1;
                             }
                             GameState::modify_cell_if_player_died(&mut self.board, ap);
@@ -740,11 +740,11 @@ pub fn new_entity_position(
     new_position
 }
 
-fn add_kills(players: &mut Vec<Player>, attacking_player_id: u64,kills: u64) {
+fn add_kills(players: &mut Vec<Player>, attacking_player_id: u64, kills: u64) {
     let attacking_player = players
-            .iter_mut()
-            .find(|player| player.id == attacking_player_id)
-            .unwrap();
+        .iter_mut()
+        .find(|player| player.id == attacking_player_id)
+        .unwrap();
 
     attacking_player.add_kills(kills);
 }

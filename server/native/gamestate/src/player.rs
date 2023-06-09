@@ -70,7 +70,7 @@ impl Player {
             }
         }
     }
-    pub fn add_kills(self: &mut Self, kills: u64){
+    pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
 }
