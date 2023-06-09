@@ -381,8 +381,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
-  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
-    board = {board.width, board.height}
+  defp create_new_game(game_config, players) do
     config = %{
       number_of_players: players,
       board: {game_config.board_width, game_config.board_height},
