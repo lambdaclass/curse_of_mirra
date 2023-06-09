@@ -11,7 +11,6 @@ using UnityEngine.Networking;
 public class SocketConnectionManager : MonoBehaviour
 {
     public List<GameObject> players;
-    public static List<GameObject> playersStatic;
 
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
     public static Dictionary<int, GameObject> projectilesStatic;
@@ -25,8 +24,6 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> gamePlayers;
     public List<Projectile> gameProjectiles;
     private int playerId;
-
-    public static SocketConnectionManager instance;
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
@@ -46,8 +43,6 @@ public class SocketConnectionManager : MonoBehaviour
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-
-        playersStatic = this.players;
         projectilesStatic = this.projectiles;
     }
 
@@ -73,9 +68,6 @@ public class SocketConnectionManager : MonoBehaviour
         }
 #endif
     }
-
-    Vector2 position = new Vector2(0, 0);
-    Vector2 lastPosition = new Vector2(0, 0);
 
     IEnumerator GetRequest()
     {
@@ -130,18 +122,16 @@ public class SocketConnectionManager : MonoBehaviour
                         game_event.Players
                             .ToList()
                             .FindAll((player) => !this.gamePlayers.Contains(player))
-                            .ForEach((player) => SpawnBot.Instance.Spawn(player.Id.ToString()));
+                            .ForEach((player) => SpawnBot.Instance.Spawn(player));
                     }
                     // This should be deleted when the match end is fixed
                     game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
-
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
                     break;
-
                 case GameEventType.NextRound:
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     winners.Add(game_event.WinnerPlayer);
@@ -149,11 +139,15 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
                     print("The winner of the round is " + game_event.WinnerPlayer);
-                    ; break;
+                    ;
+                    break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
                     // This should be uncommented when the match end is finished
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+                    break;
+                case GameEventType.InitialPositions:
+                    this.gamePlayers = game_event.Players.ToList();
                     break;
                 default:
                     print("Message received is: " + game_event.Type);

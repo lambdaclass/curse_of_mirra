@@ -9,6 +9,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:NEXT_ROUND, 3)
   field(:LAST_ROUND, 4)
   field(:GAME_FINISHED, 5)
+  field(:INITIAL_POSITIONS, 6)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do

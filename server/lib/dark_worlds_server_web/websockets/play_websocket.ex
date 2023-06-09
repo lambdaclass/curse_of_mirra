@@ -86,6 +86,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.game_player_joined(player_id)}, state}
   end
 
+  def websocket_info({:initial_positions, players}, state) do
+    {:reply, {:binary, Communication.initial_positions(players)}, state}
+  end
+
   # Send a ping frame every once in a while
   def websocket_info(:send_ping, state) do
     Process.send_after(self(), :send_ping, @ping_interval_ms)

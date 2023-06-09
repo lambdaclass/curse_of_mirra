@@ -8,9 +8,15 @@ using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
-    [SerializeField] GameObject roundSplash;
-    [SerializeField] Text roundText;
-    [SerializeField] GameObject backToLobbyButton;
+    [SerializeField]
+    GameObject roundSplash;
+
+    [SerializeField]
+    Text roundText;
+
+    [SerializeField]
+    GameObject backToLobbyButton;
+    private List<Player> gamePlayers;
     private int totalPlayers;
     private int playerId;
     public Character prefab;
@@ -30,6 +36,13 @@ public class CustomLevelManager : LevelManager
     protected override void Start()
     {
         base.Start();
+        StartCoroutine(InitializeLevel());
+    }
+
+    private IEnumerator InitializeLevel()
+    {
+        yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
+        this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         GeneratePlayer();
         playerId = LobbyConnection.Instance.playerId;
         setCameraToPlayer(playerId);
@@ -38,7 +51,13 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if ((SocketConnectionManager.Instance.winners.Count >= 1 && winnersCount != SocketConnectionManager.Instance.winners.Count) || SocketConnectionManager.Instance.winnerPlayer != null)
+        if (
+            (
+                SocketConnectionManager.Instance.winners.Count >= 1
+                && winnersCount != SocketConnectionManager.Instance.winners.Count
+            )
+            || SocketConnectionManager.Instance.winnerPlayer != null
+        )
         {
             ShowRoundTransition(SocketConnectionManager.Instance.winners.Count);
         }
@@ -59,13 +78,13 @@ public class CustomLevelManager : LevelManager
             }
             Character newPlayer = Instantiate(
                 prefab,
-                this.InitialSpawnPoint.transform.position,
+                Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
-            SocketConnectionManager.playersStatic.Add(newPlayer.gameObject);
+            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
@@ -119,7 +138,8 @@ public class CustomLevelManager : LevelManager
         }
         if (SocketConnectionManager.Instance.winnerPlayer != null)
         {
-            roundText.text = "Player " + SocketConnectionManager.Instance.winnerPlayer.Id + " Wins!";
+            roundText.text =
+                "Player " + SocketConnectionManager.Instance.winnerPlayer.Id + " Wins!";
             backToLobbyButton.SetActive(true);
             animate = false;
         }

@@ -90,6 +90,7 @@ public static partial class MessagesReflection {
 ///- STATE_UPDATE: The game's state has been updated
 ///- PING_UPDATE: The player's current ping updated
 ///- PLAYER_JOINED: A player has joined the game
+///- INITIAL_POSITIONS: The initial positions of each player
 /// </summary>
 public enum GameEventType {
   [pbr::OriginalName("STATE_UPDATE")] StateUpdate = 0,
@@ -98,6 +99,7 @@ public enum GameEventType {
   [pbr::OriginalName("NEXT_ROUND")] NextRound = 3,
   [pbr::OriginalName("LAST_ROUND")] LastRound = 4,
   [pbr::OriginalName("GAME_FINISHED")] GameFinished = 5,
+  [pbr::OriginalName("INITIAL_POSITIONS")] InitialPositions = 6,
 }
 
 public enum Status {
