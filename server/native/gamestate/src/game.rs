@@ -351,7 +351,7 @@ impl GameState {
                 7,
                 10,
                 attacking_player.id,
-                20,
+                10,
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
