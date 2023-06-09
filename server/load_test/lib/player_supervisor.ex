@@ -14,12 +14,12 @@ defmodule LoadTest.PlayerSupervisor do
     DynamicSupervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def spawn_lobby_player(player_number, lobby_id) do
-    DynamicSupervisor.start_child(__MODULE__, {LobbyPlayer, {player_number, lobby_id}})
+  def spawn_lobby_player(player_number, lobby_id, max_duration) do
+    DynamicSupervisor.start_child(__MODULE__, {LobbyPlayer, {player_number, lobby_id, max_duration}})
   end
 
-  def spawn_game_player(player_number, game_id) do
-    DynamicSupervisor.start_child(__MODULE__, {GamePlayer, {player_number, game_id}})
+  def spawn_game_player(player_number, game_id, max_duration) do
+    DynamicSupervisor.start_child(__MODULE__, {GamePlayer, {player_number, game_id, max_duration}})
   end
 
   @impl true
@@ -27,27 +27,27 @@ defmodule LoadTest.PlayerSupervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  # Creates a lobby, joins a `num_players` to it, then starts the game
-  def spawn_game(num_players) do
+  # Creates a lobby, joins a `num_players` to it, then starts the game that lasts `duration` seconds
+  def spawn_game(num_players, duration \\ nil) do
     {:ok, response} = get(server_url())
     %{"lobby_id" => lobby_id} = response.body
 
-    {:ok, player_one_pid} = spawn_lobby_player(1, lobby_id)
+    {:ok, player_one_pid} = spawn_lobby_player(1, lobby_id, duration)
 
     for i <- 2..num_players do
-      {:ok, _pid} = spawn_lobby_player(i, lobby_id)
+      {:ok, _pid} = spawn_lobby_player(i, lobby_id, duration)
     end
 
     LobbyPlayer.start_game(player_one_pid)
   end
 
-  def spawn_50_sessions() do
-    spawn_games(50, 3)
+  def spawn_50_sessions(duration \\ nil) do
+    spawn_games(50, 3, duration)
   end
 
-  def spawn_games(num_games, num_players) do
+  def spawn_games(num_games, num_players, duration \\ nil) do
     for _ <- 1..num_games do
-      spawn_game(num_players)
+      spawn_game(num_players, duration)
     end
   end
 
