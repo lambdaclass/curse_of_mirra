@@ -99,8 +99,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:game_update, game_state}, gen_server_state) do
     reply_map = %{
-      players: game_state.client_state.game.players,
-      projectiles: game_state.client_state.game.projectiles
+      players: game_state.client_game_state.game.players,
+      projectiles: game_state.client_game_state.game.projectiles
     }
 
     {:reply, {:binary, Communication.encode!(reply_map)}, gen_server_state}
@@ -108,7 +108,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:game_finished, winner, game_state}, gen_server_state) do
     reply_map = %{
-      players: game_state.client_state.game.players,
+      players: game_state.client_game_state.game.players,
       winner: winner
     }
 
