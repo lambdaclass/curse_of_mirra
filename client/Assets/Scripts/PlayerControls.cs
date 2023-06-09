@@ -10,6 +10,12 @@ public class PlayerControls : MonoBehaviour
         SocketConnectionManager.Instance.SendAction(clientAction);
     }
 
+    public static void AttackToDirection(Vector3 direction)
+    {
+        // var clientAction = new ClientAction { Action = Action.AutoAttack, Direction = direction };
+        // SocketConnectionManager.Instance.SendAction(clientAction);
+    }
+
     public void SendJoystickValues(float x, float y)
     {
         if (x != 0 || y != 0)

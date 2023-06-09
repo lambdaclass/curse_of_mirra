@@ -25,17 +25,14 @@ public class DetectNearPlayer : MonoBehaviour
         }
         if (nearestTarget != null)
         {
-            Debug.DrawLine(transform.position, nearestTarget.transform.position);
             Character character = nearestTarget.GetComponent<Character>();
             if (character != null)
             {
-                // This supposed to be an int, but Unity tells me this
-                // a string.
-                string Id = character.PlayerID;
-                int PlayerId = int.Parse(Id);
-                PlayerControls.AttackIfInRange(PlayerId);
+                Vector3 myCharacterDirection = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+                PlayerControls.AttackToDirection(myCharacterDirection);
             }
         }
+        Debug.DrawLine(transform.position, nearestTarget.transform.position);
     }
 
     private Collider[] GetOnlyPlayersColliders()
