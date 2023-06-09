@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HammerStrike_HammerAnimated_01
+  m_Shader: {fileID: 4800000, guid: 362fbad5fd7549c698cc964f2cb7699b, type: 3}
+  m_ShaderKeywords: _DISSOLVEMANUALCONTROL_ON _RIMEMISSIONAFFECTSMASK_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoDecalMask:
+        m_Texture: {fileID: 2800000, guid: b49c0ae032b86974db40f4ca5eed3a5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveDirectionMask:
+        m_Texture: {fileID: 2800000, guid: 9500d2b3a5d5b26479ef73d9de70add0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTexture:
+        m_Texture: {fileID: 2800000, guid: a267fbe4ca8247ac90953df9cce3ca33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: f0096fe14b4d51040b46a3a6ee27d4cd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 56e30112fb2af0a49ae732edbcc0a484, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: aac1342582c5daa43be50adeba8fe204, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlbedoDecalNegate: 1
+    - _Cutoff: 0.5
+    - _DissolveDirectionMaskFlip: 0
+    - _DissolveDirectionScale: 0.5
+    - _DissolveEmissionExp: 4
+    - _DissolveEmissionOffset: -0.4
+    - _DissolveEmissionPower: 6
+    - _DissolveEmissionRemapMax: 0.1
+    - _DissolveManualControl: 1
+    - _DissolveManualProgress: -0
+    - _DissolveTextureFlip: 0
+    - _DissolveTextureScaleU: 1
+    - _DissolveTextureScaleV: 1
+    - _EmissionPower: 0
+    - _Float0: 1
+    - _Metallic: 0.9
+    - _RimEmissionAffectsMask: 1
+    - _RimEmissionEnabled: 0
+    - _RimEmissionExp: 3
+    - _RimEmissionNormal: 1
+    - _RimEmissionPower: 6
+    - _Smoothness: 0.9
+    - __dirty: 0
+    m_Colors:
+    - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoDecalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveEmissionColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0, a: 0}
+    - _RimEmissionColor: {r: 1, g: 0, b: 0, a: 1}

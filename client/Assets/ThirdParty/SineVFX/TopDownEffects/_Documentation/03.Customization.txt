@@ -1,0 +1,53 @@
+Most of the adjustments come from Material parameters and Custom Vertex Streams. Such particle animations like dissolve, emission power,
+and appear progress are driven with Vertex Streams. Some effects using control particles to spawn other particles as SubEmitters.
+Control Particles are invisible, they have their “Renderer” module turned off completely. But you can control the emitter component
+as you like. For example, you can increase emitter frequency, to make more rockets/missiles spawn during the effect lifetime.
+
+Materials have a lot of settings, just play with them and create your own unique look. Be aware, that in a play mode, some materials
+will be converted into instances because their values are changing by the Animator component. So if you change material settings in
+a play mode, the original material won’t be affected. This is a great way to just test all the settings. Most of the parameters are
+described in a “02.MaterialParameters.txt” file.
+
+
+SCALING
+
+You can scale, rotate and transform the prefab like you normally do.
+
+When you scale one of these effects (StormBeacon, SummonStorm, IonMarker, FusionCore), you might also need to adjust the
+“Soft Particles Distance” parameter of smoke and clouds-like materials. For example, if you scale your model by 0.01, you
+need to multiply this parameter by the same amount. By default it is set to 0.2f and the result value should be 0.002f, but
+this depends on camera depth, sometimes you need to adjust it by eye.
+
+
+BASIC ADJUSTMENTS
+
+(Color) Color is set in the material settings, but it is affected by particle color too. You can use a single color or a ramp texture.
+When using ramp gradient texture to color your particles, check the “Ramp Ignore Vertex(Particle) Color” parameter if you want to
+multiply the result by particle color. There is a “RampGeneratorTDE” script, you can attach it to the effects and generate ramp
+in runtime, or you can bake it as a texture (keep all ramp textures in Clamp mode).
+
+(Timing and Duration) These parameters can be adjusted manually. Select particle system and check parameters like “Start Delay”,
+delay in “Emission” module, Sub Emitters parameters, and animation (when effect using animation component, like HammerStrike or
+HoloShield).
+
+(Noise) Effects have many Noise textures, try to change their scroll speed and scale parameters. There are plenty of additional
+noise textures included in this Asset.
+
+(Texture Animation) Some effects using flipbooks, you can control the animation speed in the material settings. You also can
+control the animation manually via vertex stream, enable “MV Particle Frame Control Enabled” parameter to do so.
+
+(Control Particles) These particles used only to spawn other particles via SubEmitters. For example, every missile spawned like
+an invisible control particle, and this particle spawns other particles/parts of the missile, like fire trails, fire, and the
+mesh itself. So, by adjusting the Emission frequency of the control particle, you can easily increase the missile number.
+
+
+ADVANCED ADJUSTMENTS
+
+(Vertex Stream) You can adjust any vertex stream to make particles disappear faster or slower, being more bright at the start,
+or being more distorted. Check the “Custom Vertex Streams” documentation page for more information.
+
+(Shader Editing) Shaders for Standard pipeline made with Amplify Shader Editor. And shader for HDRP/URP are made with
+native Shader Graph. You can freely edit and add parameters to shader graphs.
+
+
+Support email: sinevfx@gmail.com

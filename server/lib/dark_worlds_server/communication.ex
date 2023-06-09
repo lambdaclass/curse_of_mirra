@@ -34,13 +34,18 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def encode!(%{players: players}) do
-    %GameEvent{type: :STATE_UPDATE, players: players}
+  def encode!(%{players: players, projectiles: projectiles}) do
+    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles}
     |> GameEvent.encode()
   end
 
   def encode!(%{latency: latency}) do
     %GameEvent{type: :PING_UPDATE, latency: latency}
+    |> GameEvent.encode()
+  end
+
+  def game_player_joined(player_id) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
     |> GameEvent.encode()
   end
 

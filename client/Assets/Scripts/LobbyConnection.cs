@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using ProtoBuf;
+using System.Linq;
+using Google.Protobuf;
+using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
-using WebSocketSharp;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -21,22 +20,34 @@ public class LobbyConnection : MonoBehaviour
     public int playerId;
     public int playerCount;
     public bool gameStarted = false;
+    public uint serverTickRate_ms;
 
     WebSocket ws;
 
+    [Serializable]
     public class Session
     {
-        public string lobby_id { get; set; }
+        public string lobby_id;
     }
 
+    [Serializable]
     public class LobbiesResponse
     {
-        public List<string> lobbies { get; set; }
+        public List<string> lobbies;
     }
 
+    [Serializable]
     public class GamesResponse
     {
-        public List<string> current_games { get; set; }
+        public List<string> current_games;
+    }
+
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
     }
 
     private void Awake()
@@ -58,17 +69,27 @@ public class LobbyConnection : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (ws != null)
+        {
+            ws.DispatchMessageQueue();
+        }
+#endif
+    }
+
     private void PopulateLists()
     {
         this.lobbiesList = new List<string>();
         this.gamesList = new List<string>();
-        StartCoroutine(GetLobbies("http://" + server_ip + ":4000/current_lobbies"));
-        StartCoroutine(GetGames("http://" + server_ip + ":4000/current_games"));
+        StartCoroutine(GetLobbies());
+        StartCoroutine(GetGames());
     }
 
     public void CreateLobby()
     {
-        StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
+        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -85,21 +106,37 @@ public class LobbyConnection : MonoBehaviour
 
     public void QuickGame()
     {
-        StartCoroutine(GetRequest("http://" + server_ip + ":4000/new_lobby"));
+        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
         StartCoroutine(WaitLobbyCreated());
     }
 
     public void StartGame()
     {
-        LobbyEvent lobbyEvent = new LobbyEvent { Type = LobbyEventType.StartGame };
+#if !UNITY_WEBGL
+        GameConfig gameSettings = new GameSettings
+        {
+            path = @"./game_settings.json"
+        }.parseSettings();
+#else
+        GameConfig gameSettings = GameSettings.defaultSettings();
+#endif
+        LobbyEvent lobbyEvent = new LobbyEvent
+        {
+            Type = LobbyEventType.StartGame,
+            GameConfig = gameSettings
+        };
+
+        serverTickRate_ms = (uint)gameSettings.ServerTickrateMs;
+
         using (var stream = new MemoryStream())
         {
-            Serializer.Serialize(stream, lobbyEvent);
+            lobbyEvent.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
         }
         gameStarted = true;
     }
+
     private IEnumerator WaitLobbyCreated()
     {
         yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
@@ -110,52 +147,44 @@ public class LobbyConnection : MonoBehaviour
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
+            webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
             yield return webRequest.SendWebRequest();
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
                 case UnityWebRequest.Result.DataProcessingError:
-                    //Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
                 case UnityWebRequest.Result.ProtocolError:
-                    //Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonConvert.DeserializeObject<Session>(
+                    Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
-                    LobbySession = session.lobby_id;
                     ConnectToSession(session.lobby_id);
                     break;
             }
         }
     }
 
-    IEnumerator GetLobbies(string uri)
+    IEnumerator GetLobbies()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        string url = makeUrl("/current_lobbies");
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
+            webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
             yield return webRequest.SendWebRequest();
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
                 case UnityWebRequest.Result.DataProcessingError:
-                    //Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
                 case UnityWebRequest.Result.ProtocolError:
-                    //Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
-                    LobbiesResponse response = JsonConvert.DeserializeObject<LobbiesResponse>(
+                    var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
@@ -164,19 +193,20 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    IEnumerator GetGames(string uri)
+    IEnumerator GetGames()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        string url = makeUrl("/current_games");
+        Debug.Log(url);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
+            webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
             yield return webRequest.SendWebRequest();
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    GamesResponse response = JsonConvert.DeserializeObject<GamesResponse>(
+                    GamesResponse response = JsonUtility.FromJson<GamesResponse>(
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
@@ -189,51 +219,93 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string session_id)
     {
-        ws = new WebSocket("ws://" + server_ip + ":4000/matchmaking/" + session_id);
+        string url = makeWebsocketUrl("/matchmaking/" + session_id);
+        ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnError += (sender, e) =>
+        ws.OnError += (e) =>
         {
-            Debug.Log(
-                "Error received from: " + ((WebSocket)sender).Url + ", Data: " + e.Exception.Message
-            );
+            Debug.Log("Error received: " + e);
+        };
+        ws.OnOpen += () =>
+        {
+            LobbySession = session_id;
         };
         ws.Connect();
     }
 
-    private void OnWebSocketMessage(object sender, MessageEventArgs e)
+    private void OnWebSocketMessage(byte[] data)
     {
-        LobbyEvent lobby_event = Serializer.Deserialize<LobbyEvent>((ReadOnlySpan<byte>)e.RawData);
-        switch (lobby_event.Type)
+        try
         {
-            case LobbyEventType.Connected:
-                Debug.Log(
-                    "Connected to lobby "
-                        + lobby_event.LobbyId
-                        + " as player_id "
-                        + lobby_event.PlayerId
-                );
-                break;
+            LobbyEvent lobby_event = LobbyEvent.Parser.ParseFrom(data);
+            switch (lobby_event.Type)
+            {
+                case LobbyEventType.Connected:
+                    Debug.Log(
+                        "Connected to lobby "
+                            + lobby_event.LobbyId
+                            + " as player_id "
+                            + lobby_event.PlayerId
+                    );
+                    break;
 
-            case LobbyEventType.PlayerAdded:
-                if (playerId == -1)
-                {
-                    playerId = (int)lobby_event.AddedPlayerId;
-                }
-                playerCount = lobby_event.Players.Length;
-                break;
+                case LobbyEventType.PlayerAdded:
+                    if (playerId == -1)
+                    {
+                        playerId = (int)lobby_event.AddedPlayerId;
+                    }
+                    playerCount = lobby_event.Players.Count();
+                    break;
 
-            case LobbyEventType.PlayerRemoved:
-                playerCount = lobby_event.Players.Length;
-                break;
+                case LobbyEventType.PlayerRemoved:
+                    playerCount = lobby_event.Players.Count();
+                    break;
 
-            case LobbyEventType.GameStarted:
-                GameSession = lobby_event.GameId;
-                break;
+                case LobbyEventType.GameStarted:
+                    GameSession = lobby_event.GameId;
+                    break;
 
-            default:
-                Debug.Log("Message received is: " + lobby_event.Type);
-                break;
+                default:
+                    Debug.Log("Message received is: " + lobby_event.Type);
+                    break;
+            }
+            ;
         }
-        ;
+        catch (Exception e)
+        {
+            Debug.Log("InvalidProtocolBufferException: " + e);
+        }
+    }
+
+    private string makeUrl(string path)
+    {
+        if (server_ip.Contains("localhost"))
+        {
+            return "http://" + server_ip + ":4000" + path;
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "http://" + server_ip + ":4000" + path;
+        }
+        else
+        {
+            return "https://" + server_ip + path;
+        }
+    }
+
+    private string makeWebsocketUrl(string path)
+    {
+        if (server_ip.Contains("localhost"))
+        {
+            return "ws://" + server_ip + ":4000" + path;
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "ws://" + server_ip + ":4000" + path;
+        }
+        else
+        {
+            return "wss://" + server_ip + path;
+        }
     }
 }

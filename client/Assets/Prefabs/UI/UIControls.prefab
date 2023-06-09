@@ -178,7 +178,13 @@ MonoBehaviour:
   NormalizedValue: {x: 0, y: 0}
   Magnitude: 0
   DrawGizmos: 1
-  newPointerEvent:
+  newPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newDragEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1035504164137750736
@@ -359,7 +365,13 @@ MonoBehaviour:
   NormalizedValue: {x: 0, y: 0}
   Magnitude: 0
   DrawGizmos: 1
-  newPointerEvent:
+  newPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newDragEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1589158110181243685
@@ -698,7 +710,7 @@ GameObject:
   - component: {fileID: 9064383642676580842}
   - component: {fileID: 4818902772538863183}
   - component: {fileID: 1799862189402583508}
-  - component: {fileID: 5199575506430928259}
+  - component: {fileID: 914792814985013351}
   - component: {fileID: 5999323559792466335}
   m_Layer: 0
   m_Name: AttackKnob
@@ -777,7 +789,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5199575506430928259
+--- !u!114 &914792814985013351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -835,7 +847,7 @@ MonoBehaviour:
   HorizontalAxisEnabled: 1
   VerticalAxisEnabled: 1
   MaxRangeMode: 0
-  MaxRange: 1.5
+  MaxRange: 1
   MaxRangeTransform: {fileID: 0}
   JoystickValue:
     m_PersistentCalls:
@@ -864,7 +876,13 @@ MonoBehaviour:
   NormalizedValue: {x: 0, y: 0}
   Magnitude: 0
   DrawGizmos: 1
-  newPointerEvent:
+  newPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newDragEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7165471737723322715

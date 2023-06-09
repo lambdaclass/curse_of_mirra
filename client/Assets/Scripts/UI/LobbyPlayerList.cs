@@ -9,7 +9,6 @@ public class LobbyPlayerList : MonoBehaviour
 
     [SerializeField]
     GameObject playButton;
-    int totalPlayersBefore = 0;
     List<GameObject> playerItems = new List<GameObject>();
     List<PlayerItem> playerItemsUI = new List<PlayerItem>();
 
@@ -26,18 +25,20 @@ public class LobbyPlayerList : MonoBehaviour
         }
     }
 
-    private void createPlayerItems() {
+    private void createPlayerItems()
+    {
         for (int i = playerItems.Count; i < LobbyConnection.Instance.playerCount; i++)
         {
-            playerItems.Add(CreatePlayerItem(i+1));
+            playerItems.Add(CreatePlayerItem(i + 1));
         }
     }
 
-    private void removePlayerItems() {
+    private void removePlayerItems()
+    {
         for (int i = playerItems.Count; i > LobbyConnection.Instance.playerCount; i--)
         {
-            GameObject player = playerItems[i-1];
-            playerItems.RemoveAt(i-1);
+            GameObject player = playerItems[i - 1];
+            playerItems.RemoveAt(i - 1);
             Destroy(player);
         }
     }

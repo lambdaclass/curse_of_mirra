@@ -8,12 +8,13 @@ using UnityEngine.Events;
 public class CustomLevelManager : LevelManager
 {
     private int totalPlayers;
-    private int playerCount = 0;
     private int playerId;
     public Character prefab;
     private Character selectedPrefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
+
+    bool paused = false;
 
     protected override void Awake()
     {
@@ -29,6 +30,15 @@ public class CustomLevelManager : LevelManager
         playerId = LobbyConnection.Instance.playerId;
         setCameraToPlayer(playerId);
         SetInputsAbilities(playerId);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
+            paused = !paused;
+        }
     }
 
     public void GeneratePlayer()
@@ -70,15 +80,30 @@ public class CustomLevelManager : LevelManager
             }
         }
     }
+
     private void SetInputsAbilities(int playerID)
     {
         foreach (Character player in this.PlayerPrefabs)
         {
             if (Int32.Parse(player.PlayerID) == playerID)
             {
-                UnityEvent<Vector2> aoeAttackEvent = new UnityEvent<Vector2>();
-                aoeAttackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbility("y", "button", aoeAttackEvent);
+                UnityEvent aoeEvent = new UnityEvent();
+                aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAbilityPosition("y", "joystick", aoeEvent);
+
+                UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
+                aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAimPosition("y", "joystick", aimEvent);
+
+                UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
+                attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAbilityExecution("y", "joystick", attackEvent);
             }
         }
     }
