@@ -18,7 +18,6 @@ public class PlayerControls : MonoBehaviour
             Y = (long)(direction.z * 100)
         };
 
-        print("X: " + relativePosition.X + ", Y" + relativePosition.Y);
         var clientAction = new ClientAction { Action = Action.BasicAttack, Position = relativePosition };
         SocketConnectionManager.Instance.SendAction(clientAction);
     }
