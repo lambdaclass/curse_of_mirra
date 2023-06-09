@@ -5,7 +5,7 @@ use std::collections::HashSet;
 use crate::board::{Board, Tile};
 use crate::character::Character;
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
-use crate::skills::{BasicSkill, Class};
+use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
 
@@ -14,6 +14,8 @@ use std::cmp::{max, min};
 pub struct GameState {
     pub players: Vec<Player>,
     pub board: Board,
+    pub projectiles: Vec<Projectile>,
+    pub next_projectile_id: u64,
 }
 
 #[derive(Debug, NifUnitEnum)]
@@ -32,16 +34,7 @@ impl GameState {
         build_walls: bool,
     ) -> Self {
         let mut positions = HashSet::new();
-        let characters = [
-            Default::default(),
-            Character {
-                class: Class::Guardian,
-                basic_skill: BasicSkill::Bash,
-                base_speed: 3,
-                name: "Guardian".to_string(),
-                ..Default::default()
-            },
-        ];
+        let characters = [Default::default(), Character::muflus(), Character::uma()];
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -49,7 +42,7 @@ impl GameState {
                     player_id,
                     100,
                     new_position,
-                    characters[(player_id % 2) as usize].clone(),
+                    characters[player_id as usize % characters.len()].clone(),
                 )
             })
             .collect();
@@ -76,7 +69,14 @@ impl GameState {
             }
         }
 
-        Self { players, board }
+        let projectiles = Vec::new();
+
+        Self {
+            players,
+            board,
+            projectiles,
+            next_projectile_id: 0,
+        }
     }
 
     pub fn new_round(self: &mut Self, players: Vec<Player>) {
@@ -195,29 +195,15 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             return Ok(());
         }
-        let Position { x: old_x, y: old_y } = player.position;
-        let speed = player.character.speed() as i64;
 
-        /*
-            We take the joystick coordinates, normalize the vector, then multiply by speed,
-            then round the values.
-        */
-        let (movement_direction_x, movement_direction_y) = normalize_vector(-y, x);
-        let movement_vector_x = movement_direction_x * (speed as f64);
-        let movement_vector_y = movement_direction_y * (speed as f64);
-
-        let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
-        let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);
-
-        new_position_x = min(new_position_x, (self.board.height - 1) as i64);
-        new_position_x = max(new_position_x, 0);
-        new_position_y = min(new_position_y, (self.board.width - 1) as i64);
-        new_position_y = max(new_position_y, 0);
-
-        let new_position = Position {
-            x: new_position_x as usize,
-            y: new_position_y as usize,
-        };
+        let new_position = new_entity_position(
+            self.board.height,
+            self.board.width,
+            x,
+            y,
+            player.position,
+            player.character.speed() as i64,
+        );
 
         self.board
             .set_cell(player.position.x, player.position.y, Tile::Empty);
@@ -236,7 +222,8 @@ impl GameState {
         player_id: u64,
     ) -> Result<&mut Player, String> {
         players
-            .get_mut((player_id - 1) as usize)
+            .iter_mut()
+            .find(|player| player.id == player_id)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
@@ -273,7 +260,11 @@ impl GameState {
         let (top_left, bottom_right) =
             compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
 
-        let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(&self.board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
 
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
@@ -286,7 +277,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    self.modify_cell_if_player_died(&player);
+                    GameState::modify_cell_if_player_died(&mut self.board, &player);
                 }
                 _ => continue,
             }
@@ -294,15 +285,11 @@ impl GameState {
     }
 
     // Return all player_id inside an area
-    pub fn players_in_range(
-        self: &mut Self,
-        top_left: Position,
-        bottom_right: Position,
-    ) -> Vec<u64> {
+    pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
         let mut players: Vec<u64> = vec![];
         for fil in top_left.x..=bottom_right.x {
             for col in top_left.y..=bottom_right.y {
-                let cell = self.board.get_cell(fil, col);
+                let cell = board.get_cell(fil, col);
                 if cell.is_none() {
                     continue;
                 }
@@ -317,53 +304,77 @@ impl GameState {
         players
     }
 
-    pub fn attack_aoe(
+    pub fn aoe_attack(
         self: &mut Self,
         attacking_player_id: u64,
         attack_position: &RelativePosition,
-    ) {
-        let attacking_player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == attacking_player_id)
-            .unwrap();
-        attacking_player.action = PlayerAction::ATTACKINGAOE;
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
+        if attacking_player_id % 2 == 0 {
+            attacking_player.action = PlayerAction::ATTACKINGAOE;
 
-        if matches!(attacking_player.status, Status::DEAD) {
-            return;
-        }
+            let cooldown = attacking_player.character.cooldown();
 
-        let now = time_now();
+            if matches!(attacking_player.status, Status::DEAD) {
+                return Ok(());
+            }
 
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return;
-        }
+            let now = time_now();
 
-        let (center, top_left, bottom_right) =
-            compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
-        attacking_player.last_melee_attack = now;
-        attacking_player.aoe_position = center;
+            if (now - attacking_player.last_melee_attack) < cooldown {
+                return Ok(());
+            }
 
-        let mut affected_players: Vec<u64> = self.players_in_range(top_left, bottom_right);
+            let (center, top_left, bottom_right) =
+                compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
+            attacking_player.last_melee_attack = now;
+            attacking_player.aoe_position = center;
 
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = self
-                .players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+            let affected_players: Vec<u64> =
+                GameState::players_in_range(&self.board, top_left, bottom_right)
+                    .into_iter()
+                    .filter(|&id| id != attacking_player_id)
+                    .collect();
 
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-10);
-                    let player = ap.clone();
-                    self.modify_cell_if_player_died(&player);
+            let special_effect = attacking_player.character.select_aoe_effect();
+
+            for target_player_id in affected_players {
+                let attacked_player =
+                    GameState::get_player_mut(&mut self.players, target_player_id)?;
+                if let Some((effect, duration)) = &special_effect {
+                    attacked_player
+                        .character
+                        .add_effect(effect.clone(), *duration)
+                } else {
+                    // Maybe health should be linked to
+                    // the character instead?
+                    attacked_player.modify_health(-10);
+                    GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
-                _ => continue,
+            }
+        } else {
+            let attacking_player =
+                GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+            if attack_position.x != 0 || attack_position.y != 0 {
+                let projectile = Projectile::new(
+                    self.next_projectile_id,
+                    attacking_player.position,
+                    JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
+                    5,
+                    10,
+                    attacking_player.id,
+                    20,
+                    30,
+                    ProjectileType::BULLET,
+                    ProjectileStatus::ACTIVE,
+                );
+                self.projectiles.push(projectile);
+                self.next_projectile_id += 1;
             }
         }
+
+        Ok(())
     }
 
     pub fn disconnect(self: &mut Self, player_id: u64) -> Result<(), String> {
@@ -375,16 +386,7 @@ impl GameState {
         }
     }
 
-    fn remove_dead_players(self: &mut Self) {
-        self.players.iter_mut().for_each(|player| {
-            if matches!(player.status, Status::DEAD) {
-                self.board
-                    .set_cell(player.position.x, player.position.y, Tile::Empty);
-            }
-        })
-    }
-
-    pub fn world_tick(self: &mut Self) {
+    pub fn world_tick(self: &mut Self) -> Result<(), String> {
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
@@ -394,13 +396,70 @@ impl GameState {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
-        })
+        });
+
+        self.projectiles.iter_mut().for_each(|projectile| {
+            projectile.position = new_entity_position(
+                self.board.height,
+                self.board.width,
+                projectile.direction.x,
+                projectile.direction.y,
+                projectile.position,
+                projectile.speed as i64,
+            );
+            projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
+        });
+
+        self.projectiles
+            .retain(|projectile| projectile.remaining_ticks > 0);
+
+        self.projectiles.iter_mut().for_each(|projectile| {
+            if projectile.status == ProjectileStatus::ACTIVE {
+                let top_left = Position::new(
+                    projectile
+                        .position
+                        .x
+                        .saturating_sub(projectile.range as usize),
+                    projectile
+                        .position
+                        .y
+                        .saturating_sub(projectile.range as usize),
+                );
+                let bottom_right = Position::new(
+                    projectile.position.x + projectile.range as usize,
+                    projectile.position.y + projectile.range as usize,
+                );
+
+                let affected_players: Vec<u64> =
+                    GameState::players_in_range(&self.board, top_left, bottom_right)
+                        .into_iter()
+                        .filter(|&id| id != projectile.player_id)
+                        .collect();
+
+                if affected_players.len() > 0 {
+                    projectile.status = ProjectileStatus::EXPLODED;
+                }
+
+                for target_player_id in affected_players {
+                    let attacked_player =
+                        GameState::get_player_mut(&mut self.players, target_player_id);
+                    match attacked_player {
+                        Ok(ap) => {
+                            ap.modify_health(-(projectile.damage as i64));
+                            GameState::modify_cell_if_player_died(&mut self.board, ap);
+                        }
+                        _ => continue,
+                    }
+                }
+            }
+        });
+
+        Ok(())
     }
 
-    fn modify_cell_if_player_died(self: &mut Self, player: &Player) {
+    fn modify_cell_if_player_died(board: &mut Board, player: &Player) {
         if matches!(player.status, Status::DEAD) {
-            self.board
-                .set_cell(player.position.x, player.position.y, Tile::Empty);
+            board.set_cell(player.position.x, player.position.y, Tile::Empty);
         }
     }
 
@@ -475,8 +534,9 @@ fn compute_attack_aoe_initial_positions(
 ) -> (Position, Position, Position) {
     let modifier = 120_f64;
 
-    let x = (player_position.x as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
-    let y = (player_position.y as f64 + modifier * (attack_position.y as f64) / 100_f64) as usize;
+    let x =
+        (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
+    let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
 
     (
         Position::new(x, y),
@@ -597,6 +657,7 @@ fn compute_attack_aoe_initial_positions(
 //     }
 // }
 
+#[allow(dead_code)]
 fn distance_to_center(player: &Player, center: &Position) -> f64 {
     let distance_squared =
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
@@ -625,4 +686,38 @@ fn generate_new_position(
 
     positions.insert((x_coordinate, y_coordinate));
     Position::new(x_coordinate, y_coordinate)
+}
+
+pub fn new_entity_position(
+    height: usize,
+    width: usize,
+    direction_x: f64,
+    direction_y: f64,
+    entity_position: Position,
+    entity_speed: i64,
+) -> Position {
+    let Position { x: old_x, y: old_y } = entity_position;
+    let speed = entity_speed as i64;
+
+    /*
+        We take the joystick coordinates, normalize the vector, then multiply by speed,
+        then round the values.
+    */
+    let (movement_direction_x, movement_direction_y) = normalize_vector(-direction_y, direction_x);
+    let movement_vector_x = movement_direction_x * (speed as f64);
+    let movement_vector_y = movement_direction_y * (speed as f64);
+
+    let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
+    let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);
+
+    new_position_x = min(new_position_x, (height - 1) as i64);
+    new_position_x = max(new_position_x, 0);
+    new_position_y = min(new_position_y, (width - 1) as i64);
+    new_position_y = max(new_position_y, 0);
+
+    let new_position = Position {
+        x: new_position_x as usize,
+        y: new_position_y as usize,
+    };
+    new_position
 }

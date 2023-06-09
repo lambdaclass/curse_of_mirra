@@ -37,7 +37,7 @@ pub enum PlayerAction {
     ATTACKINGAOE,
 }
 
-#[derive(Debug, Clone, NifStruct, PartialEq)]
+#[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
 #[module = "DarkWorldsServer.Engine.Position"]
 pub struct Position {
     pub x: usize,

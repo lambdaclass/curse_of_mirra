@@ -22,9 +22,11 @@ public static partial class MessagesReflection {
   static MessagesReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg5tZXNzYWdlcy5wcm90byJuCglHYW1lRXZlbnQSHAoEdHlwZRgBIAEoDjIO",
-          "LkdhbWVFdmVudFR5cGUSGAoHcGxheWVycxgCIAMoCzIHLlBsYXllchIPCgds",
-          "YXRlbmN5GAMgASgEEhgKEHBsYXllcl9qb2luZWRfaWQYBCABKAQitQEKBlBs",
+          "Cg5tZXNzYWdlcy5wcm90byLHAQoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
+          "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
+          "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
+          "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
+          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQitQEKBlBs",
           "YXllchIKCgJpZBgBIAEoBBIOCgZoZWFsdGgYAiABKBISGwoIcG9zaXRpb24Y",
           "AyABKAsyCS5Qb3NpdGlvbhIZChFsYXN0X21lbGVlX2F0dGFjaxgEIAEoBBIX",
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
@@ -42,23 +44,32 @@ public static partial class MessagesReflection {
           "BBIgCgtnYW1lX2NvbmZpZxgJIAEoCzILLkdhbWVDb25maWciKgoJQm9hcmRT",
           "aXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCJhCgpHYW1lQ29u",
           "ZmlnEh4KCmJvYXJkX3NpemUYASABKAsyCi5Cb2FyZFNpemUSGgoSc2VydmVy",
-          "X3RpY2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgDIAEoBCpF",
-          "Cg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBE",
-          "QVRFEAESEQoNUExBWUVSX0pPSU5FRBACKh0KBlN0YXR1cxIJCgVBTElWRRAA",
-          "EggKBERFQUQQASprCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAAS",
-          "CAoETU9WRRABEgoKBkFUVEFDSxACEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZF",
-          "X1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcqTQoJRGlyZWN0aW9uEhkK",
-          "FURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggK",
-          "BExFRlQQAxIJCgVSSUdIVBAEKj0KDFBsYXllckFjdGlvbhILCgdOT1RISU5H",
-          "EAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACKo8BCg5Mb2Ji",
-          "eUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVE",
-          "EAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExB",
-          "WUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVE",
-          "EAZiBnByb3RvMw=="));
+          "X3RpY2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgDIAEoBCKA",
+          "AgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgCIAEoCzIJ",
+          "LlBvc2l0aW9uEiIKCWRpcmVjdGlvbhgDIAEoCzIPLkpveXN0aWNrVmFsdWVz",
+          "Eg0KBXNwZWVkGAQgASgNEg0KBXJhbmdlGAUgASgNEhEKCXBsYXllcl9pZBgG",
+          "IAEoBBIOCgZkYW1hZ2UYByABKA0SFwoPcmVtYWluaW5nX3RpY2tzGAggASgS",
+          "EigKD3Byb2plY3RpbGVfdHlwZRgJIAEoDjIPLlByb2plY3RpbGVUeXBlEiEK",
+          "BnN0YXR1cxgKIAEoDjIRLlByb2plY3RpbGVTdGF0dXMqjwEKDUdhbWVFdmVu",
+          "dFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1Q",
+          "TEFZRVJfSk9JTkVEEAISDgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQ",
+          "BBIRCg1HQU1FX0ZJTklTSEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBiod",
+          "CgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEqawoGQWN0aW9uEhYKEkFD",
+          "VElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIOCgpB",
+          "VFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAYSCwoHQUREX0JP",
+          "VBAHKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIG",
+          "CgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCo9CgxQbGF5",
+          "ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFD",
+          "S0lOR19BT0UQAiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJ",
+          "RklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdB",
+          "TUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQ",
+          "BRISCg5QTEFZRVJfUkVNT1ZFRBAGKhwKDlByb2plY3RpbGVUeXBlEgoKBkJV",
+          "TExFVBAAKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
+          "TE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), }, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "PlayerJoinedId" }, null, null, null, null),
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
@@ -66,7 +77,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::JoystickValues), global::JoystickValues.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status" }, null, null, null, null)
         }));
   }
   #endregion
@@ -78,11 +90,16 @@ public static partial class MessagesReflection {
 ///- STATE_UPDATE: The game's state has been updated
 ///- PING_UPDATE: The player's current ping updated
 ///- PLAYER_JOINED: A player has joined the game
+///- INITIAL_POSITIONS: The initial positions of each player
 /// </summary>
 public enum GameEventType {
   [pbr::OriginalName("STATE_UPDATE")] StateUpdate = 0,
   [pbr::OriginalName("PING_UPDATE")] PingUpdate = 1,
   [pbr::OriginalName("PLAYER_JOINED")] PlayerJoined = 2,
+  [pbr::OriginalName("NEXT_ROUND")] NextRound = 3,
+  [pbr::OriginalName("LAST_ROUND")] LastRound = 4,
+  [pbr::OriginalName("GAME_FINISHED")] GameFinished = 5,
+  [pbr::OriginalName("INITIAL_POSITIONS")] InitialPositions = 6,
 }
 
 public enum Status {
@@ -150,6 +167,24 @@ public enum LobbyEventType {
   [pbr::OriginalName("PLAYER_REMOVED")] PlayerRemoved = 6,
 }
 
+/// <summary>
+/// Type of projectiles
+///- BULLET: Single little bullet
+/// </summary>
+public enum ProjectileType {
+  [pbr::OriginalName("BULLET")] Bullet = 0,
+}
+
+/// <summary>
+/// Status of projectiles
+///- ACTIVE: Active projectile
+///- EXPLODED: Exploded projectile
+/// </summary>
+public enum ProjectileStatus {
+  [pbr::OriginalName("ACTIVE")] Active = 0,
+  [pbr::OriginalName("EXPLODED")] Exploded = 1,
+}
+
 #endregion
 
 #region Messages
@@ -158,6 +193,7 @@ public enum LobbyEventType {
 ///- type: type of the event
 ///- players: player list, used on STATE_UPDATE
 ///- ping_update: updated player's ping, used on PING_UPDATE
+///- projectiles: projectile list, used on STATE_UPDATE
 ///- player_joined_id: ID of the player that joined the game
 /// </summary>
 public sealed partial class GameEvent : pb::IMessage<GameEvent>
@@ -197,7 +233,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     type_ = other.type_;
     players_ = other.players_.Clone();
     latency_ = other.latency_;
+    projectiles_ = other.projectiles_.Clone();
     playerJoinedId_ = other.playerJoinedId_;
+    winnerPlayer_ = other.winnerPlayer_ != null ? other.winnerPlayer_.Clone() : null;
+    currentRound_ = other.currentRound_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -242,8 +281,19 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
   }
 
+  /// <summary>Field number for the "projectiles" field.</summary>
+  public const int ProjectilesFieldNumber = 4;
+  private static readonly pb::FieldCodec<global::Projectile> _repeated_projectiles_codec
+      = pb::FieldCodec.ForMessage(34, global::Projectile.Parser);
+  private readonly pbc::RepeatedField<global::Projectile> projectiles_ = new pbc::RepeatedField<global::Projectile>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::Projectile> Projectiles {
+    get { return projectiles_; }
+  }
+
   /// <summary>Field number for the "player_joined_id" field.</summary>
-  public const int PlayerJoinedIdFieldNumber = 4;
+  public const int PlayerJoinedIdFieldNumber = 5;
   private ulong playerJoinedId_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -251,6 +301,30 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     get { return playerJoinedId_; }
     set {
       playerJoinedId_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "winner_player" field.</summary>
+  public const int WinnerPlayerFieldNumber = 6;
+  private global::Player winnerPlayer_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Player WinnerPlayer {
+    get { return winnerPlayer_; }
+    set {
+      winnerPlayer_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "current_round" field.</summary>
+  public const int CurrentRoundFieldNumber = 7;
+  private ulong currentRound_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong CurrentRound {
+    get { return currentRound_; }
+    set {
+      currentRound_ = value;
     }
   }
 
@@ -272,7 +346,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (Type != other.Type) return false;
     if(!players_.Equals(other.players_)) return false;
     if (Latency != other.Latency) return false;
+    if(!projectiles_.Equals(other.projectiles_)) return false;
     if (PlayerJoinedId != other.PlayerJoinedId) return false;
+    if (!object.Equals(WinnerPlayer, other.WinnerPlayer)) return false;
+    if (CurrentRound != other.CurrentRound) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -283,7 +360,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (Type != global::GameEventType.StateUpdate) hash ^= Type.GetHashCode();
     hash ^= players_.GetHashCode();
     if (Latency != 0UL) hash ^= Latency.GetHashCode();
+    hash ^= projectiles_.GetHashCode();
     if (PlayerJoinedId != 0UL) hash ^= PlayerJoinedId.GetHashCode();
+    if (winnerPlayer_ != null) hash ^= WinnerPlayer.GetHashCode();
+    if (CurrentRound != 0UL) hash ^= CurrentRound.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -310,9 +390,18 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(24);
       output.WriteUInt64(Latency);
     }
+    projectiles_.WriteTo(output, _repeated_projectiles_codec);
     if (PlayerJoinedId != 0UL) {
-      output.WriteRawTag(32);
+      output.WriteRawTag(40);
       output.WriteUInt64(PlayerJoinedId);
+    }
+    if (winnerPlayer_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(WinnerPlayer);
+    }
+    if (CurrentRound != 0UL) {
+      output.WriteRawTag(56);
+      output.WriteUInt64(CurrentRound);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -333,9 +422,18 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(24);
       output.WriteUInt64(Latency);
     }
+    projectiles_.WriteTo(ref output, _repeated_projectiles_codec);
     if (PlayerJoinedId != 0UL) {
-      output.WriteRawTag(32);
+      output.WriteRawTag(40);
       output.WriteUInt64(PlayerJoinedId);
+    }
+    if (winnerPlayer_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(WinnerPlayer);
+    }
+    if (CurrentRound != 0UL) {
+      output.WriteRawTag(56);
+      output.WriteUInt64(CurrentRound);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -354,8 +452,15 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (Latency != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Latency);
     }
+    size += projectiles_.CalculateSize(_repeated_projectiles_codec);
     if (PlayerJoinedId != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerJoinedId);
+    }
+    if (winnerPlayer_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(WinnerPlayer);
+    }
+    if (CurrentRound != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(CurrentRound);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -376,8 +481,18 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.Latency != 0UL) {
       Latency = other.Latency;
     }
+    projectiles_.Add(other.projectiles_);
     if (other.PlayerJoinedId != 0UL) {
       PlayerJoinedId = other.PlayerJoinedId;
+    }
+    if (other.winnerPlayer_ != null) {
+      if (winnerPlayer_ == null) {
+        WinnerPlayer = new global::Player();
+      }
+      WinnerPlayer.MergeFrom(other.WinnerPlayer);
+    }
+    if (other.CurrentRound != 0UL) {
+      CurrentRound = other.CurrentRound;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -406,8 +521,23 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           Latency = input.ReadUInt64();
           break;
         }
-        case 32: {
+        case 34: {
+          projectiles_.AddEntriesFrom(input, _repeated_projectiles_codec);
+          break;
+        }
+        case 40: {
           PlayerJoinedId = input.ReadUInt64();
+          break;
+        }
+        case 50: {
+          if (winnerPlayer_ == null) {
+            WinnerPlayer = new global::Player();
+          }
+          input.ReadMessage(WinnerPlayer);
+          break;
+        }
+        case 56: {
+          CurrentRound = input.ReadUInt64();
           break;
         }
       }
@@ -437,8 +567,23 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           Latency = input.ReadUInt64();
           break;
         }
-        case 32: {
+        case 34: {
+          projectiles_.AddEntriesFrom(ref input, _repeated_projectiles_codec);
+          break;
+        }
+        case 40: {
           PlayerJoinedId = input.ReadUInt64();
+          break;
+        }
+        case 50: {
+          if (winnerPlayer_ == null) {
+            WinnerPlayer = new global::Player();
+          }
+          input.ReadMessage(WinnerPlayer);
+          break;
+        }
+        case 56: {
+          CurrentRound = input.ReadUInt64();
           break;
         }
       }
@@ -2889,6 +3034,557 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
         }
         case 24: {
           GameTimeoutMs = input.ReadUInt64();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+/// <summary>
+///
+///- position: Current projectile prosition
+///- direction: Projectile direction
+///- speed: Projectile speed
+///- range: Attack range, with center in position
+///- player_id: Player id who attacked
+///- damage: Damage dealt on opponents when hit
+///- remaining_ticks: Projectile remaining lifetime
+///- type: Projectile type depending on the attack
+/// </summary>
+public sealed partial class Projectile : pb::IMessage<Projectile>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<Projectile> _parser = new pb::MessageParser<Projectile>(() => new Projectile());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<Projectile> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[9]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Projectile() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Projectile(Projectile other) : this() {
+    id_ = other.id_;
+    position_ = other.position_ != null ? other.position_.Clone() : null;
+    direction_ = other.direction_ != null ? other.direction_.Clone() : null;
+    speed_ = other.speed_;
+    range_ = other.range_;
+    playerId_ = other.playerId_;
+    damage_ = other.damage_;
+    remainingTicks_ = other.remainingTicks_;
+    projectileType_ = other.projectileType_;
+    status_ = other.status_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Projectile Clone() {
+    return new Projectile(this);
+  }
+
+  /// <summary>Field number for the "id" field.</summary>
+  public const int IdFieldNumber = 1;
+  private ulong id_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong Id {
+    get { return id_; }
+    set {
+      id_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "position" field.</summary>
+  public const int PositionFieldNumber = 2;
+  private global::Position position_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Position Position {
+    get { return position_; }
+    set {
+      position_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "direction" field.</summary>
+  public const int DirectionFieldNumber = 3;
+  private global::JoystickValues direction_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::JoystickValues Direction {
+    get { return direction_; }
+    set {
+      direction_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "speed" field.</summary>
+  public const int SpeedFieldNumber = 4;
+  private uint speed_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint Speed {
+    get { return speed_; }
+    set {
+      speed_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "range" field.</summary>
+  public const int RangeFieldNumber = 5;
+  private uint range_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint Range {
+    get { return range_; }
+    set {
+      range_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "player_id" field.</summary>
+  public const int PlayerIdFieldNumber = 6;
+  private ulong playerId_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong PlayerId {
+    get { return playerId_; }
+    set {
+      playerId_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "damage" field.</summary>
+  public const int DamageFieldNumber = 7;
+  private uint damage_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint Damage {
+    get { return damage_; }
+    set {
+      damage_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "remaining_ticks" field.</summary>
+  public const int RemainingTicksFieldNumber = 8;
+  private long remainingTicks_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long RemainingTicks {
+    get { return remainingTicks_; }
+    set {
+      remainingTicks_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "projectile_type" field.</summary>
+  public const int ProjectileTypeFieldNumber = 9;
+  private global::ProjectileType projectileType_ = global::ProjectileType.Bullet;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ProjectileType ProjectileType {
+    get { return projectileType_; }
+    set {
+      projectileType_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "status" field.</summary>
+  public const int StatusFieldNumber = 10;
+  private global::ProjectileStatus status_ = global::ProjectileStatus.Active;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ProjectileStatus Status {
+    get { return status_; }
+    set {
+      status_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as Projectile);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(Projectile other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Id != other.Id) return false;
+    if (!object.Equals(Position, other.Position)) return false;
+    if (!object.Equals(Direction, other.Direction)) return false;
+    if (Speed != other.Speed) return false;
+    if (Range != other.Range) return false;
+    if (PlayerId != other.PlayerId) return false;
+    if (Damage != other.Damage) return false;
+    if (RemainingTicks != other.RemainingTicks) return false;
+    if (ProjectileType != other.ProjectileType) return false;
+    if (Status != other.Status) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Id != 0UL) hash ^= Id.GetHashCode();
+    if (position_ != null) hash ^= Position.GetHashCode();
+    if (direction_ != null) hash ^= Direction.GetHashCode();
+    if (Speed != 0) hash ^= Speed.GetHashCode();
+    if (Range != 0) hash ^= Range.GetHashCode();
+    if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
+    if (Damage != 0) hash ^= Damage.GetHashCode();
+    if (RemainingTicks != 0L) hash ^= RemainingTicks.GetHashCode();
+    if (ProjectileType != global::ProjectileType.Bullet) hash ^= ProjectileType.GetHashCode();
+    if (Status != global::ProjectileStatus.Active) hash ^= Status.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Id != 0UL) {
+      output.WriteRawTag(8);
+      output.WriteUInt64(Id);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Position);
+    }
+    if (direction_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(Direction);
+    }
+    if (Speed != 0) {
+      output.WriteRawTag(32);
+      output.WriteUInt32(Speed);
+    }
+    if (Range != 0) {
+      output.WriteRawTag(40);
+      output.WriteUInt32(Range);
+    }
+    if (PlayerId != 0UL) {
+      output.WriteRawTag(48);
+      output.WriteUInt64(PlayerId);
+    }
+    if (Damage != 0) {
+      output.WriteRawTag(56);
+      output.WriteUInt32(Damage);
+    }
+    if (RemainingTicks != 0L) {
+      output.WriteRawTag(64);
+      output.WriteSInt64(RemainingTicks);
+    }
+    if (ProjectileType != global::ProjectileType.Bullet) {
+      output.WriteRawTag(72);
+      output.WriteEnum((int) ProjectileType);
+    }
+    if (Status != global::ProjectileStatus.Active) {
+      output.WriteRawTag(80);
+      output.WriteEnum((int) Status);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Id != 0UL) {
+      output.WriteRawTag(8);
+      output.WriteUInt64(Id);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Position);
+    }
+    if (direction_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(Direction);
+    }
+    if (Speed != 0) {
+      output.WriteRawTag(32);
+      output.WriteUInt32(Speed);
+    }
+    if (Range != 0) {
+      output.WriteRawTag(40);
+      output.WriteUInt32(Range);
+    }
+    if (PlayerId != 0UL) {
+      output.WriteRawTag(48);
+      output.WriteUInt64(PlayerId);
+    }
+    if (Damage != 0) {
+      output.WriteRawTag(56);
+      output.WriteUInt32(Damage);
+    }
+    if (RemainingTicks != 0L) {
+      output.WriteRawTag(64);
+      output.WriteSInt64(RemainingTicks);
+    }
+    if (ProjectileType != global::ProjectileType.Bullet) {
+      output.WriteRawTag(72);
+      output.WriteEnum((int) ProjectileType);
+    }
+    if (Status != global::ProjectileStatus.Active) {
+      output.WriteRawTag(80);
+      output.WriteEnum((int) Status);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Id != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
+    }
+    if (position_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    }
+    if (direction_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Direction);
+    }
+    if (Speed != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Speed);
+    }
+    if (Range != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Range);
+    }
+    if (PlayerId != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
+    }
+    if (Damage != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Damage);
+    }
+    if (RemainingTicks != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeSInt64Size(RemainingTicks);
+    }
+    if (ProjectileType != global::ProjectileType.Bullet) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ProjectileType);
+    }
+    if (Status != global::ProjectileStatus.Active) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(Projectile other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Id != 0UL) {
+      Id = other.Id;
+    }
+    if (other.position_ != null) {
+      if (position_ == null) {
+        Position = new global::Position();
+      }
+      Position.MergeFrom(other.Position);
+    }
+    if (other.direction_ != null) {
+      if (direction_ == null) {
+        Direction = new global::JoystickValues();
+      }
+      Direction.MergeFrom(other.Direction);
+    }
+    if (other.Speed != 0) {
+      Speed = other.Speed;
+    }
+    if (other.Range != 0) {
+      Range = other.Range;
+    }
+    if (other.PlayerId != 0UL) {
+      PlayerId = other.PlayerId;
+    }
+    if (other.Damage != 0) {
+      Damage = other.Damage;
+    }
+    if (other.RemainingTicks != 0L) {
+      RemainingTicks = other.RemainingTicks;
+    }
+    if (other.ProjectileType != global::ProjectileType.Bullet) {
+      ProjectileType = other.ProjectileType;
+    }
+    if (other.Status != global::ProjectileStatus.Active) {
+      Status = other.Status;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Id = input.ReadUInt64();
+          break;
+        }
+        case 18: {
+          if (position_ == null) {
+            Position = new global::Position();
+          }
+          input.ReadMessage(Position);
+          break;
+        }
+        case 26: {
+          if (direction_ == null) {
+            Direction = new global::JoystickValues();
+          }
+          input.ReadMessage(Direction);
+          break;
+        }
+        case 32: {
+          Speed = input.ReadUInt32();
+          break;
+        }
+        case 40: {
+          Range = input.ReadUInt32();
+          break;
+        }
+        case 48: {
+          PlayerId = input.ReadUInt64();
+          break;
+        }
+        case 56: {
+          Damage = input.ReadUInt32();
+          break;
+        }
+        case 64: {
+          RemainingTicks = input.ReadSInt64();
+          break;
+        }
+        case 72: {
+          ProjectileType = (global::ProjectileType) input.ReadEnum();
+          break;
+        }
+        case 80: {
+          Status = (global::ProjectileStatus) input.ReadEnum();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 8: {
+          Id = input.ReadUInt64();
+          break;
+        }
+        case 18: {
+          if (position_ == null) {
+            Position = new global::Position();
+          }
+          input.ReadMessage(Position);
+          break;
+        }
+        case 26: {
+          if (direction_ == null) {
+            Direction = new global::JoystickValues();
+          }
+          input.ReadMessage(Direction);
+          break;
+        }
+        case 32: {
+          Speed = input.ReadUInt32();
+          break;
+        }
+        case 40: {
+          Range = input.ReadUInt32();
+          break;
+        }
+        case 48: {
+          PlayerId = input.ReadUInt64();
+          break;
+        }
+        case 56: {
+          Damage = input.ReadUInt32();
+          break;
+        }
+        case 64: {
+          RemainingTicks = input.ReadSInt64();
+          break;
+        }
+        case 72: {
+          ProjectileType = (global::ProjectileType) input.ReadEnum();
+          break;
+        }
+        case 80: {
+          Status = (global::ProjectileStatus) input.ReadEnum();
           break;
         }
       }

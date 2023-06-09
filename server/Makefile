@@ -1,12 +1,19 @@
 .PHONY: setup run tests elixir-tests rust-tests db shell credo
 
-setup:
-	mix deps.get
+setup: dependencies
 	mix deps.compile
 	mix setup
 
+dependencies:
+	mix deps.get
+
 db:
 	docker compose up -d
+
+stop:
+	docker compose down
+
+start: db dependencies run
 
 run:
 	mix assets.build
