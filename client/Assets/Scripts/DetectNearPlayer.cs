@@ -7,7 +7,7 @@ using UnityEngine;
 public class DetectNearPlayer : MonoBehaviour
 {
     public float radius = 3.14f;
-    public GameObject GetNearestPlayer()
+    public void GetNearestPlayer()
     {
         float distanceToClosestTarget = Mathf.Infinity;
         GameObject nearestTarget = null;
@@ -26,8 +26,16 @@ public class DetectNearPlayer : MonoBehaviour
         if (nearestTarget != null)
         {
             Debug.DrawLine(transform.position, nearestTarget.transform.position);
+            Character character = nearestTarget.GetComponent<Character>();
+            if (character != null)
+            {
+                // This supposed to be an int, but Unity tells me this
+                // a string.
+                string Id = character.PlayerID;
+                int PlayerId = int.Parse(Id);
+                PlayerControls.AttackIfInRange(PlayerId);
+            }
         }
-        return nearestTarget;
     }
 
     private Collider[] GetOnlyPlayersColliders()

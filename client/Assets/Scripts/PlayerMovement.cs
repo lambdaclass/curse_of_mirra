@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         Nothing = 0,
         Attacking = 1,
         AttackingAOE = 2,
+        MainAttack = 3,
     }
 
     public enum ProyectileStatus
@@ -34,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
         Exploded = 1,
     }
 
-    Vector3 backPositionToFrontPosition(Position position){
+    Vector3 backPositionToFrontPosition(Position position)
+    {
         var x = (long)position.Y / 10f - 50.0f;
         var y = (-((long)position.X)) / 10f + 50.0f;
         return new Vector3(x, 1f, y);
@@ -145,13 +147,18 @@ public class PlayerMovement : MonoBehaviour
             */
             float characterSpeed = 0;
 
-            if (playerUpdate.playerId % 3 == 0) {
+            if (playerUpdate.playerId % 3 == 0)
+            {
                 // Muflus
                 characterSpeed = 0.3f;
-            } else if (playerUpdate.playerId % 3 == 1) {
+            }
+            else if (playerUpdate.playerId % 3 == 1)
+            {
                 // Hack
                 characterSpeed = 0.5f;
-            } else {
+            }
+            else
+            {
                 // Uma
                 characterSpeed = 0.4f;
             }
@@ -190,7 +197,6 @@ public class PlayerMovement : MonoBehaviour
             if (isAttacking)
             {
                 print("attack");
-                player.GetComponent<AttackController>().AttackToNearestPlayer();
             }
 
             //if dead remove the player from the scene
@@ -207,6 +213,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 player.GetComponent<GenericAoeAttack>().ShowAoeAttack(new Vector2(playerUpdate.aoeCenterPosition.x, playerUpdate.aoeCenterPosition.z));
             }
+
+            // bool isAttackingMain = playerUpdate.action == PlayerAction.MainAttack;
+            // if (isAttackingMain && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
+            // {
+            //     player.GetComponent<DetectNearPlayer>().GetNearestPlayer();
+            // }
 
             SocketConnectionManager.Instance.players[playerUpdate.playerId]
                 .GetComponent<AttackController>()
@@ -243,27 +255,31 @@ public class PlayerMovement : MonoBehaviour
         GameObject projectile;
 
         var toDelete = new List<int>();
-        foreach (var pr in projectiles) {
+        foreach (var pr in projectiles)
+        {
             if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
                 toDelete.Add(pr.Key);
             }
         }
 
-        foreach (var key in toDelete) {
+        foreach (var key in toDelete)
+        {
             Destroy(projectiles[key]);
             projectiles.Remove(key);
         }
 
         var toExplode = new List<int>();
-        foreach (var pr in projectiles) {
+        foreach (var pr in projectiles)
+        {
             if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
             {
                 toExplode.Add(pr.Key);
             }
         }
 
-        foreach (var key in toExplode) {
+        foreach (var key in toExplode)
+        {
             Destroy(projectiles[key]);
             projectiles.Remove(key);
         }

@@ -3750,6 +3750,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1967243808}
     m_Modifications:
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
