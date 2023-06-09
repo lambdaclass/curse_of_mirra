@@ -111,6 +111,7 @@ enum Action {
     MOVE_WITH_JOYSTICK = 6;
     ADD_BOT = 7;
     AUTO_ATTACK = 8;
+    BASIC_ATTACK = 9;
 }
 
 /* Directions an action can happen in

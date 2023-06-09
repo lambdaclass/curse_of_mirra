@@ -4064,6 +4064,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
+      propertyPath: MouseMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -12618,7 +12623,7 @@ PrefabInstance:
     - target: {fileID: 224429692818469760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -28
+      value: -28.000122
       objectReference: {fileID: 0}
     - target: {fileID: 224550550681808830, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}

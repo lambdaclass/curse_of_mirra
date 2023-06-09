@@ -38,7 +38,6 @@ public class SpawnBot : MonoBehaviour
 
     public void Update()
     {
-        print(botId);
         if (pendingSpawn)
         {
             playerPrefab.GetComponent<Character>().PlayerID = "";

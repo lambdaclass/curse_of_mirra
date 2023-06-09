@@ -10,6 +10,19 @@ public class PlayerControls : MonoBehaviour
         SocketConnectionManager.Instance.SendAction(clientAction);
     }
 
+    public static void BasicAttack(Vector3 direction)
+    {
+        RelativePosition relativePosition = new RelativePosition
+        {
+            X = (long)(direction.x * 100),
+            Y = (long)(direction.z * 100)
+        };
+
+        print("X: " + relativePosition.X + ", Y" + relativePosition.Y);
+        var clientAction = new ClientAction { Action = Action.BasicAttack, Position = relativePosition };
+        SocketConnectionManager.Instance.SendAction(clientAction);
+    }
+
     public void SendJoystickValues(float x, float y)
     {
         if (x != 0 || y != 0)
