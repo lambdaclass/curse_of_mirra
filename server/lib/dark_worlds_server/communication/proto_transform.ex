@@ -26,13 +26,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{id: id,
-    health: health,
-    position: position,
-    action: action,
-    aoe_position: aoe_position,
-    kill_count: kill_count,
-    death_count: death_count
+    %{
+      id: id,
+      health: health,
+      position: position,
+      action: action,
+      aoe_position: aoe_position,
+      kill_count: kill_count,
+      death_count: death_count
     } = player
 
     %ProtoPlayer{
