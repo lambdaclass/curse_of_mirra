@@ -266,6 +266,7 @@ impl GameState {
                 .filter(|&id| id != attacking_player_id)
                 .collect();
 
+        let mut kill_count = 0;
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = self
@@ -277,11 +278,16 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
+                    if matches!(player.status, Status::DEAD){
+                        kill_count += 1;
+                    }
                     GameState::modify_cell_if_player_died(&mut self.board, &player);
                 }
                 _ => continue,
             }
         }
+
+        add_kills(&mut self.players, attacking_player_id, kill_count);
     }
 
     // Return all player_id inside an area
@@ -339,6 +345,7 @@ impl GameState {
 
             let special_effect = attacking_player.character.select_aoe_effect();
 
+            let mut kill_count = 0;
             for target_player_id in affected_players {
                 let attacked_player =
                     GameState::get_player_mut(&mut self.players, target_player_id)?;
@@ -350,9 +357,14 @@ impl GameState {
                     // Maybe health should be linked to
                     // the character instead?
                     attacked_player.modify_health(-10);
+                    if matches!(attacked_player.status, Status::DEAD){
+                        kill_count += 1;
+                    }
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
             }
+
+            add_kills(&mut self.players, attacking_player_id, kill_count);
         } else {
             let attacking_player =
                 GameState::get_player_mut(&mut self.players, attacking_player_id)?;
@@ -440,17 +452,23 @@ impl GameState {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
 
+                let mut kill_count = 0;
                 for target_player_id in affected_players {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
                         Ok(ap) => {
                             ap.modify_health(-(projectile.damage as i64));
+                            if matches!(ap.status, Status::DEAD){
+                                kill_count += 1;
+                            }
                             GameState::modify_cell_if_player_died(&mut self.board, ap);
                         }
                         _ => continue,
                     }
                 }
+
+                add_kills(&mut self.players, projectile.player_id, kill_count);
             }
         });
 
@@ -720,4 +738,13 @@ pub fn new_entity_position(
         y: new_position_y as usize,
     };
     new_position
+}
+
+fn add_kills(players: &mut Vec<Player>, attacking_player_id: u64,kills: u64) {
+    let attacking_player = players
+            .iter_mut()
+            .find(|player| player.id == attacking_player_id)
+            .unwrap();
+
+    attacking_player.add_kills(kills);
 }
