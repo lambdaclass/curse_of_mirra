@@ -1,8 +1,7 @@
 use rustler::NifTaggedEnum;
-use std::str::FromStr;
-use strum_macros::{EnumString, ToString};
+use strum_macros::{Display, EnumString};
 // TODO: Add misssing classes
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum Class {
     #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
     Hunter,
@@ -12,7 +11,7 @@ pub enum Class {
     Assassin,
 }
 // TODO: Add misssing skills
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum Basic {
     Slingshot,
     #[strum(serialize = "Bash")]
@@ -21,7 +20,7 @@ pub enum Basic {
     Backstab,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum FirstActive {
     #[strum(
         serialize = "Barrel Roll",
@@ -35,7 +34,7 @@ pub enum FirstActive {
     MultiShot,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum SecondActive {
     #[strum(ascii_case_insensitive)]
     Rage,
@@ -44,7 +43,7 @@ pub enum SecondActive {
     MirrorImage,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum Dash {
     Leap,
     #[strum(ascii_case_insensitive)]
@@ -53,7 +52,7 @@ pub enum Dash {
     Blink,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum Ultimate {
     #[strum(serialize = "Fiery Rampage", ascii_case_insensitive)]
     FieryRampage,

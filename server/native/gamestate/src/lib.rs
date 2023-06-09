@@ -5,7 +5,6 @@ pub mod player;
 pub mod projectile;
 pub mod skills;
 pub mod time_utils;
-use crate::character::Character;
 use crate::player::Player;
 use crate::player::Position;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
@@ -24,6 +23,8 @@ fn new_game(
     for map in characters_config {
         let mut char: HashMap<String, String> = HashMap::new();
         for (key, val) in map {
+            // A rustler binary derefs into [u8], see:
+            // https://docs.rs/rustler/latest/rustler/types/binary/struct.Binary.html
             let key = String::from_utf8((*key).to_vec())
                 .expect("Could not parse {key} into a Rust string!");
             let val = String::from_utf8((*val).to_vec())
