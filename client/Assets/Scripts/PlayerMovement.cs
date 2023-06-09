@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
 
-            if (!SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
+            if (SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
                 playerUpdates.Enqueue(SocketConnectionManager.Instance.entityUpdates.simulatePlayerState());
             }
         }
