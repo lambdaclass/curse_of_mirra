@@ -21,8 +21,8 @@ public class EntityUpdates {
 
     public struct PlayerInput
     {
-        public long grid_delta_x;
-        public long grid_delta_y;
+        public float grid_delta_x;
+        public float grid_delta_y;
         public long timestamp;
     }
 
@@ -51,6 +51,6 @@ public class EntityUpdates {
     }
 
     public bool inputsIsEmpty() {
-        return pendingPlayerInputs.Count > 0;
+        return pendingPlayerInputs.Count == 0;
     }
 }

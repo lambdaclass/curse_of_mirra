@@ -13,10 +13,14 @@ public class PlayerControls : MonoBehaviour
             SocketConnectionManager.Instance.SendAction(clientAction);
             // Player p = SocketConnectionManager.Instance.gamePlayers[0];
             // let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
-    // (x / norm, y / norm)
             var norm = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
-            var x_norm = (long) Math.Round(x / norm) * 3;
-            var y_norm = (long) Math.Round(y / norm) * 3;
+
+            var x_norm = (float) Math.Round(x / norm * 5f);
+            var y_norm = (float) Math.Round(y / norm * 5f);
+
+            x_norm = x_norm / 10f;
+            y_norm = y_norm / 10f;
+
             // let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
             // let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);
 
