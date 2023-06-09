@@ -254,7 +254,9 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = has_a_player_won?(game.players, gen_server_state.is_single_player?)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state) |> Map.put(:game_state, game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> Map.put(:game_state, game_state)
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
@@ -319,7 +321,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update(
-         {:last_round, %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
+         {:last_round,
+          %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
+          winner}
        ) do
     game = Game.new_round(server_game_state.game, winners)
 
@@ -341,7 +345,9 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp broadcast_game_update({:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}) do
+  defp broadcast_game_update(
+         {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
+       ) do
     game = Game.new_round(server_game_state.game, server_game_state.game.players)
 
     server_game_state = Map.put(server_game_state, :game, game)
