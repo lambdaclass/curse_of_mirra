@@ -381,17 +381,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
-<<<<<<< HEAD
-  defp get_player(players, player_id) do
-    Enum.find(players, fn p -> p.id == player_id end)
-  end
-
-  defp create_new_game(game_config, players) do
-=======
   defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
     board = {board.width, board.height}
-
->>>>>>> main
     config = %{
       number_of_players: players,
       board: {game_config.board_width, game_config.board_height},
