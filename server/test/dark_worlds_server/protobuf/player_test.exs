@@ -21,7 +21,9 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         last_melee_attack: now,
         status: status,
         action: :NOTHING,
-        aoe_position: %Position{x: 1, y: 1}
+        aoe_position: %Position{x: 1, y: 1},
+        kill_count: 0,
+        death_count: 0
       }
 
       expected = %Player{
@@ -31,7 +33,9 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         last_melee_attack: now,
         status: status,
         action: :nothing,
-        aoe_position: %Position{x: 1, y: 1}
+        aoe_position: %Position{x: 1, y: 1},
+        kill_count: 0,
+        death_count: 0
       }
 
       decoded =
