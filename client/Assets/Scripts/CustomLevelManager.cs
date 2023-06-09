@@ -25,8 +25,6 @@ public class CustomLevelManager : LevelManager
 
     int winnersCount = 0;
 
-    bool paused = false;
-
     protected override void Awake()
     {
         base.Awake();
