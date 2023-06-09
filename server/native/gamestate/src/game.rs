@@ -1,6 +1,6 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 use crate::board::{Board, Tile};
 use crate::character::{self, TicksLeft};
@@ -29,21 +29,22 @@ pub enum Direction {
 }
 impl GameState {
     fn build_characters_with_config(
-        character_config: &[std::collections::HashMap<String, String>],
+        character_config: &[HashMap<String, String>],
     ) -> Result<Vec<Character>, String> {
-        println!("{character_config:?}");
-        Ok(vec![])
+        character_config
+            .into_iter()
+            .map(Character::from_config_map)
+            .collect()
     }
     pub fn new(
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
         build_walls: bool,
-        characters_config: Vec<std::collections::HashMap<String, String>>,
-    ) -> Self {
+        characters_config: Vec<HashMap<String, String>>,
+    ) -> Result<Self, String> {
         let mut positions = HashSet::new();
-        Self::build_characters_with_config(&characters_config).unwrap();
-        let characters = [Default::default(), Character::muflus(), Character::uma()];
+        let characters = GameState::build_characters_with_config(&characters_config)?;
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -78,7 +79,7 @@ impl GameState {
             }
         }
 
-        Self { players, board }
+        Ok(Self { players, board })
     }
 
     pub fn new_round(self: &mut Self, players: Vec<Player>) {

@@ -8,7 +8,6 @@ edition = "2021"
 name = "gamestate"
 path = "src/lib.rs"
 crate-type = ["cdylib", "lib"]
-proc-macro = true
 
 [dependencies]
 rand = "0.8.5"

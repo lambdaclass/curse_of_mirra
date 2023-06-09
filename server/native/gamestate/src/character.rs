@@ -1,4 +1,5 @@
 use crate::skills::*;
+use crate::skills::{Basic, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::EnumString;
@@ -27,6 +28,7 @@ pub enum Faction {
     #[strum(serialize = "mer", serialize = "Merliot", ascii_case_insensitive)]
     Merliot,
 }
+
 #[derive(Debug, Clone, rustler::NifStruct)]
 #[module = "DarkWorldsServer.Engine.Character"]
 pub struct Character {
@@ -36,11 +38,11 @@ pub struct Character {
     pub faction: Faction,
     pub name: Name,
     pub base_speed: u64,
-    pub basic_skill: Basic,
-    pub skill_active_first: Basic,
-    pub skill_active_second: Basic,
-    pub skill_dash: Basic,
-    pub skill_ultimate: Basic,
+    pub skill_basic: Basic,
+    pub skill_active_first: FirstActive,
+    pub skill_active_second: SecondActive,
+    pub skill_dash: Dash,
+    pub skill_ultimate: Ultimate,
     pub status_effects: HashMap<Effect, TicksLeft>,
 }
 
@@ -60,19 +62,49 @@ impl Character {
             active,
             id,
             faction,
-            basic_skill,
+            skill_basic: basic_skill,
             base_speed: speed,
             status_effects: HashMap::new(),
-            skill_active_first: Basic::BackStab,
-            skill_active_second: Basic::Bash,
-            skill_dash: Basic::BackStab,
-            skill_ultimate: Basic::BackStab,
+            skill_active_first: FirstActive::BarrelRoll,
+            skill_active_second: SecondActive::Disarm,
+            skill_dash: Dash::Blink,
+            skill_ultimate: Ultimate::DenialOfService,
         }
+    }
+    // NOTE:
+    // A possible improvement here is that elixir sends a Json and
+    // we deserialize it here with Serde
+    pub fn from_config_map(config: &HashMap<String, String>) -> Result<Character, String> {
+        let name = get_key(config, "Name")?;
+        let id = get_key(config, "Id")?;
+        let active = get_key(config, "Active")?;
+        let class = get_key(config, "Class")?;
+        let faction = get_key(config, "Faction")?;
+        let base_speed = get_key(config, "BaseSpeed")?;
+        let skill_basic = get_key(config, "SkillBasic")?;
+        let skill_active_first = get_key(config, "SkillActive1")?;
+        let skill_active_second = get_key(config, "SkillActive2")?;
+        let skill_dash = get_key(config, "SkillDash")?;
+        let skill_ultimate = get_key(config, "SkillUltimate")?;
+        Ok(Self {
+            active: parse_character_attribute::<u64>(&active)? != 0,
+            base_speed: parse_character_attribute(&base_speed)?,
+            class: parse_character_attribute(&class)?,
+            faction: parse_character_attribute(&faction)?,
+            id: parse_character_attribute(&id)?,
+            name: parse_character_attribute(&name)?,
+            skill_active_first: parse_character_attribute(&skill_active_first)?,
+            skill_active_second: parse_character_attribute(&skill_active_second)?,
+            skill_basic: parse_character_attribute(&skill_basic)?,
+            skill_dash: parse_character_attribute(&skill_dash)?,
+            skill_ultimate: parse_character_attribute(&skill_ultimate)?,
+            status_effects: HashMap::new(),
+        })
     }
     pub fn muflus() -> Self {
         Character {
             class: Class::Guardian,
-            basic_skill: Basic::Bash,
+            skill_basic: Basic::Bash,
             base_speed: 3,
             name: Name::Muflus,
             ..Default::default()
@@ -83,7 +115,7 @@ impl Character {
             class: Class::Assassin,
             name: Name::Uma,
             base_speed: 4,
-            basic_skill: Basic::BackStab,
+            skill_basic: Basic::Backstab,
             ..Default::default()
         }
     }
@@ -91,19 +123,19 @@ impl Character {
     pub fn attack_dmg(&self) -> u64 {
         // TODO have a trait for this
         // instead of matching enums.
-        match self.basic_skill {
+        match self.skill_basic {
             Basic::Slingshot => 10_u64,
             Basic::Bash => 40_u64,
-            Basic::BackStab => 10_u64,
+            Basic::Backstab => 10_u64,
         }
     }
     // Cooldown in seconds
     #[inline]
     pub fn cooldown(&self) -> u64 {
-        match self.basic_skill {
+        match self.skill_basic {
             Basic::Slingshot => 1,
             Basic::Bash => 5,
-            Basic::BackStab => 1,
+            Basic::Backstab => 1,
         }
     }
     #[inline]
@@ -140,5 +172,22 @@ impl Default for Character {
             1,
             Faction::Araban,
         )
+    }
+}
+fn get_key(config: &HashMap<String, String>, key: &str) -> Result<String, String> {
+    config
+        .get(key)
+        .ok_or(format!("Missing key: {:?}", key))
+        .map(|s| s.to_string())
+}
+fn parse_character_attribute<T: FromStr + std::fmt::Debug>(to_parse: &str) -> Result<T, String> {
+    let parsed = T::from_str(&to_parse);
+    match parsed {
+        Ok(parsed) => Ok(parsed),
+        Err(_parsing_error) => Err(format!(
+            "Could not parse value: {:?} for Character Type: {}",
+            to_parse,
+            std::any::type_name::<T>()
+        )),
     }
 }

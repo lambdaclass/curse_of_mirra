@@ -1,8 +1,8 @@
 use rustler::NifTaggedEnum;
 use std::str::FromStr;
-use strum_macros::EnumString;
+use strum_macros::{EnumString, ToString};
 // TODO: Add misssing classes
-#[derive(NifTaggedEnum, Debug, Clone, EnumString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum Class {
     #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
     Hunter,
@@ -12,51 +12,56 @@ pub enum Class {
     Assassin,
 }
 // TODO: Add misssing skills
-#[derive(NifTaggedEnum, Debug, Clone, EnumString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum Basic {
     Slingshot,
-    #[strum(serialize = "Bash", ascii_case_insensitive)]
+    #[strum(serialize = "Bash")]
     Bash,
-    BackStab,
+    #[strum(ascii_case_insensitive)]
+    Backstab,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum FirstActive {
     #[strum(
-        serialize = "Barrell Roll",
-        serialize = "BarrellRoll",
+        serialize = "Barrel Roll",
+        serialize = "BarrelRoll",
         ascii_case_insensitive
     )]
     BarrelRoll,
-    #[strum(
-        serialize = "Serpent Strike",
-        serialize = "SerpentStrike",
-        ascii_case_insensitive
-    )]
+    #[strum(serialize = "Serpent Strike", serialize = "SerpentStrike")]
     SerpentStrike,
+    #[strum(ascii_case_insensitive)]
     MultiShot,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum SecondActive {
+    #[strum(ascii_case_insensitive)]
     Rage,
     Petrify,
     Disarm,
     MirrorImage,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString)]
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum Dash {
     Leap,
+    #[strum(ascii_case_insensitive)]
     ShadowStep,
     Hacktivate,
     Blink,
 }
 
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, ToString)]
 pub enum Ultimate {
+    #[strum(serialize = "Fiery Rampage", ascii_case_insensitive)]
     FieryRampage,
+    #[strum(serialize = "Toxic Tempest", ascii_case_insensitive)]
     ToxicTempest,
+    #[strum(serialize = "Denial Of Service", ascii_case_insensitive)]
     DenialOfService,
+    #[strum(serialize = "The Trickster", ascii_case_insensitive)]
     TheTrickster,
 }
 // TODO have a trait for this
