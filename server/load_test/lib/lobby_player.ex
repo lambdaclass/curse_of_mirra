@@ -24,7 +24,9 @@ defmodule LoadTest.LobbyPlayer do
   def handle_frame({_type, msg}, state) do
     case LobbyEvent.decode(msg) do
       %LobbyEvent{type: :GAME_STARTED, game_id: game_id} ->
-        {:ok, pid} = PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration)
+        {:ok, pid} =
+          PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration)
+
         Process.send(pid, :play, [])
         {:close, {1000, ""}, state}
 

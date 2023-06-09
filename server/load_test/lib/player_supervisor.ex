@@ -15,11 +15,17 @@ defmodule LoadTest.PlayerSupervisor do
   end
 
   def spawn_lobby_player(player_number, lobby_id, max_duration) do
-    DynamicSupervisor.start_child(__MODULE__, {LobbyPlayer, {player_number, lobby_id, max_duration}})
+    DynamicSupervisor.start_child(
+      __MODULE__,
+      {LobbyPlayer, {player_number, lobby_id, max_duration}}
+    )
   end
 
   def spawn_game_player(player_number, game_id, max_duration) do
-    DynamicSupervisor.start_child(__MODULE__, {GamePlayer, {player_number, game_id, max_duration}})
+    DynamicSupervisor.start_child(
+      __MODULE__,
+      {GamePlayer, {player_number, game_id, max_duration}}
+    )
   end
 
   @impl true
