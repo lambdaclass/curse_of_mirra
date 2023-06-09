@@ -54,13 +54,21 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     {:reply, {:binary, Communication.lobby_player_removed!(player_id, players)}, state}
   end
 
-  def websocket_info({:game_started, game_pid}, state) do
+  def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
-    {:reply, {:binary, Communication.lobby_game_started!(game_pid)}, new_state}
+
+    reply_map = %{
+      game_pid: game_pid,
+      game_config: game_config
+    }
+
+    {:reply, {:binary, Communication.lobby_game_started!(reply_map)}, new_state}
   end
 
   @impl true
-  def terminate(_reason, _partialreq, %{lobby_pid: lobby_pid, player_id: player_id} = state) do
+  def terminate(reason, _partialreq, %{lobby_pid: lobby_pid, player_id: player_id} = state) do
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
+
     unless state[:game_started] do
       Matchmaking.remove_player(player_id, lobby_pid)
     end

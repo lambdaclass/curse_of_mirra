@@ -4,15 +4,26 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
+    [SerializeField]
+    GameObject roundSplash;
+
+    [SerializeField]
+    Text roundText;
+
+    [SerializeField]
+    GameObject backToLobbyButton;
+    private List<Player> gamePlayers;
     private int totalPlayers;
-    private int playerCount = 0;
     private int playerId;
     public Character prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
+
+    int winnersCount = 0;
 
     bool paused = false;
 
@@ -25,6 +36,13 @@ public class CustomLevelManager : LevelManager
     protected override void Start()
     {
         base.Start();
+        StartCoroutine(InitializeLevel());
+    }
+
+    private IEnumerator InitializeLevel()
+    {
+        yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
+        this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         GeneratePlayer();
         playerId = LobbyConnection.Instance.playerId;
         setCameraToPlayer(playerId);
@@ -33,10 +51,15 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (
+            (
+                SocketConnectionManager.Instance.winners.Count >= 1
+                && winnersCount != SocketConnectionManager.Instance.winners.Count
+            )
+            || SocketConnectionManager.Instance.winnerPlayer != null
+        )
         {
-            GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
-            paused = !paused;
+            ShowRoundTransition(SocketConnectionManager.Instance.winners.Count);
         }
     }
 
@@ -55,13 +78,13 @@ public class CustomLevelManager : LevelManager
             }
             Character newPlayer = Instantiate(
                 prefab,
-                this.InitialSpawnPoint.transform.position,
+                Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
-            SocketConnectionManager.playersStatic.Add(newPlayer.gameObject);
+            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
@@ -78,6 +101,7 @@ public class CustomLevelManager : LevelManager
             }
         }
     }
+
     private void SetInputsAbilities(int playerID)
     {
         foreach (Character player in this.PlayerPrefabs)
@@ -86,16 +110,42 @@ public class CustomLevelManager : LevelManager
             {
                 UnityEvent aoeEvent = new UnityEvent();
                 aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("y", "joystick", aoeEvent);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAbilityPosition("y", "joystick", aoeEvent);
 
                 UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
                 aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("y", "joystick", aimEvent);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAimPosition("y", "joystick", aimEvent);
 
                 UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
                 attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("y", "joystick", attackEvent);
+                UiCamera
+                    .GetComponent<CustomInputManager>()
+                    .AssignInputToAbilityExecution("y", "joystick", attackEvent);
             }
         }
+    }
+
+    private void ShowRoundTransition(int roundNumber)
+    {
+        bool animate = true;
+        if (SocketConnectionManager.Instance.winners.Count == 2)
+        {
+            roundText.text = "Last Round!";
+        }
+        if (SocketConnectionManager.Instance.winnerPlayer != null)
+        {
+            roundText.text =
+                "Player " + SocketConnectionManager.Instance.winnerPlayer.Id + " Wins!";
+            backToLobbyButton.SetActive(true);
+            animate = false;
+        }
+
+        roundSplash.SetActive(true);
+        roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
+        winnersCount = roundNumber;
     }
 }

@@ -1,4 +1,4 @@
-﻿[
+﻿{ "Items":[
   {
     "Name": "Otobi",
     "Code": "oto"
@@ -16,3 +16,4 @@
     "Code": "kal"
   }
 ]
+}

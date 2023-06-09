@@ -75,6 +75,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
+
     Process.send_after(self(), :game_timeout, Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout))
     Process.send_after(self(), :check_player_amount, @player_check)
 
@@ -199,6 +200,12 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
       {:player_joined, player_id}
+    )
+
+    DarkWorldsServer.PubSub
+    |> Phoenix.PubSub.broadcast(
+      Communication.pubsub_game_topic(self()),
+      {:initial_positions, state.current_state.game.players}
     )
 
     {:reply, {:ok, player_id}, %{state | current_players: current + 1}}
