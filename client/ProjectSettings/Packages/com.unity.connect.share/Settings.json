@@ -6,7 +6,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"/Users/ncontinanza/Desktop/build;;;;;;;;;\"}"
+                "value": "{\"m_Value\":\"/Users/ncontinanza/Projects/Lambdaclass/dark_worlds_server/client/build;/Users/ncontinanza/Desktop/build;;;;;;;;\"}"
             }
         ]
     }

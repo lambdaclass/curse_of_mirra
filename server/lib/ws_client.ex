@@ -36,6 +36,11 @@ defmodule DarkWorldsServer.WsClient do
   def move(player, :left), do: _move(player, :LEFT)
   def move(player, :right), do: _move(player, :RIGHT)
 
+  def move_with_joystick(player, :up), do: _move_with_joystick(player, %{x: -1, y: 0})
+  def move_with_joystick(player, :down), do: _move_with_joystick(player, %{x: 1, y: 0})
+  def move_with_joystick(player, :left), do: _move_with_joystick(player, %{x: 0, y: -1})
+  def move_with_joystick(player, :right), do: _move_with_joystick(player, %{x: 0, y: 1})
+
   def attack(player, :up), do: _attack(player, :UP)
   def attack(player, :down), do: _attack(player, :DOWN)
   def attack(player, :left), do: _attack(player, :LEFT)
@@ -52,6 +57,11 @@ defmodule DarkWorldsServer.WsClient do
 
   defp _move(_player, direction) do
     %ClientAction{action: :MOVE, direction: direction}
+    |> send_command()
+  end
+
+  defp _move_with_joystick(_player, %{x: x, y: y}) do
+    %ClientAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}
     |> send_command()
   end
 

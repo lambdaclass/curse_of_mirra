@@ -2,7 +2,7 @@ using System.IO;
 using Google.Protobuf;
 
 /*
-These clases are used to parse the game_settings.json data 
+These clases are used to parse the game_settings.json data
 */
 
 public class GameSettings

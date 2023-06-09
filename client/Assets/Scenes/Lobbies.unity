@@ -14,8 +14,8 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 0}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,30 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &88203662 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4276914180947046944, guid: f9233336a14f14185abdb012364ffd92,
+    type: 3}
+  m_PrefabInstance: {fileID: 4276914181274294756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &88203665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88203662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a906a3ed6f6416fbb0d5bd4e2bd1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbiesContainer: {fileID: 5613304981418273111}
+  lobbyItemPrefab: {fileID: 6431237631302165411, guid: 13e64695dc3a44037a7a7568727079c6,
+    type: 3}
+  gameItemPrefab: {fileID: 6291501560866832240, guid: 2f3aa629e9ebe4328a3e05d7de5b649c,
+    type: 3}
+  gamesContainer: {fileID: 970197043}
 --- !u!114 &113341324 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6431237631616119771, guid: 17deb64f08d234f0883dee4acc401f84,
@@ -470,7 +494,7 @@ PrefabInstance:
     - target: {fileID: -8041225176264388735, guid: 77aebae5d60de4384a6923f228de8979,
         type: 3}
       propertyPath: server_ip
-      value: 5.75.237.197
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: -8041225176264388735, guid: 77aebae5d60de4384a6923f228de8979,
         type: 3}
@@ -2669,7 +2693,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4276914180947046945, guid: f9233336a14f14185abdb012364ffd92, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f9233336a14f14185abdb012364ffd92, type: 3}
 --- !u!1001 &4454394056822012468
 PrefabInstance:

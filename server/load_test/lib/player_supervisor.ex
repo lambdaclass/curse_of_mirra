@@ -7,14 +7,19 @@ defmodule LoadTest.PlayerSupervisor do
   plug(Tesla.Middleware.JSON)
   plug(Tesla.Middleware.Headers, [{"content-type", "application/json"}])
 
-  alias LoadTest.Player
+  alias LoadTest.GamePlayer
+  alias LoadTest.LobbyPlayer
 
   def start_link(args) do
     DynamicSupervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def spawn_player(player_number, session_id) do
-    DynamicSupervisor.start_child(__MODULE__, {Player, {player_number, session_id}})
+  def spawn_lobby_player(player_number, lobby_id) do
+    DynamicSupervisor.start_child(__MODULE__, {LobbyPlayer, {player_number, lobby_id}})
+  end
+
+  def spawn_game_player(player_number, game_id) do
+    DynamicSupervisor.start_child(__MODULE__, {GamePlayer, {player_number, game_id}})
   end
 
   @impl true
@@ -22,15 +27,18 @@ defmodule LoadTest.PlayerSupervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  # Spawns a game lobby, populates it with players and starts moving them randomly
+  # Creates a lobby, joins a bunch of players to it, then starts the game
   def spawn_session() do
     {:ok, response} = get(server_url())
-    %{"session_id" => session_id} = response.body
+    %{"lobby_id" => lobby_id} = response.body
 
-    for i <- 1..3 do
-      {:ok, pid} = spawn_player(i, session_id)
-      Process.send(pid, :play, [])
+    {:ok, player_one_pid} = spawn_lobby_player(1, lobby_id)
+
+    for i <- 2..3 do
+      {:ok, _pid} = spawn_lobby_player(i, lobby_id)
     end
+
+    LobbyPlayer.start_game(player_one_pid)
   end
 
   def spawn_50_sessions() do
@@ -53,10 +61,10 @@ defmodule LoadTest.PlayerSupervisor do
 
     case System.get_env("SSL_ENABLED") do
       "true" ->
-        "https://#{host}/new_session"
+        "https://#{host}/new_lobby"
 
       _ ->
-        "http://#{host}/new_session"
+        "http://#{host}/new_lobby"
     end
   end
 end
