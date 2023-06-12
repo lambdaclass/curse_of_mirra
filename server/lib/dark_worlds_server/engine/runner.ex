@@ -385,8 +385,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}} = config, players) do
-    Logger.info("[#{DateTime.utc_now()}] Config: #{inspect(config)}")
-
     implemented_characters =
       character_info
       |> Enum.filter(fn %{Name: name} ->

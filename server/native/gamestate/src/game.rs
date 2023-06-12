@@ -43,7 +43,6 @@ impl GameState {
     ) -> Result<Self, String> {
         let mut positions = HashSet::new();
         let characters = GameState::build_characters_with_config(&characters_config)?;
-        dbg!(&characters);
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
