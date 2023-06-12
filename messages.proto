@@ -86,6 +86,8 @@ message RelativePosition {
     - action: the action taken by the player
     - direction: direction of the action (see Direction), used on actions MOVE, ATTACK
     - position: to decide aoe attack center
+    - move_delta: movement direction
+    - target: player id to autoattack
  */
 message ClientAction {
     Action action = 1;
