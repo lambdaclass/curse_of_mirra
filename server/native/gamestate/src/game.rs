@@ -1,6 +1,7 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
 use std::collections::HashSet;
+use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
@@ -332,11 +333,12 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            }
+            Name::Muflus => Self::h4ck_basic_attack(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -440,54 +442,141 @@ impl GameState {
     pub fn aoe_attack(
         self: &mut Self,
         attacking_player_id: u64,
-        attack_position: &RelativePosition,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if attacking_player_id % 2 == 0 {
-            attacking_player.action = PlayerAction::ATTACKINGAOE;
+        let cooldown = attacking_player.character.cooldown();
 
-            let cooldown = attacking_player.character.cooldown();
-
-            if matches!(attacking_player.status, Status::DEAD) {
-                return Ok(());
-            }
-
-            let now = time_now();
-
-            if (now - attacking_player.last_melee_attack) < cooldown {
-                return Ok(());
-            }
-
-            let (center, top_left, bottom_right) =
-                compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
-            attacking_player.last_melee_attack = now;
-            attacking_player.aoe_position = center;
-
-            let affected_players: Vec<u64> =
-                GameState::players_in_range(&self.board, top_left, bottom_right)
-                    .into_iter()
-                    .filter(|&id| id != attacking_player_id)
-                    .collect();
-
-            let special_effect = attacking_player.character.select_aoe_effect();
-
-            for target_player_id in affected_players {
-                let attacked_player =
-                    GameState::get_player_mut(&mut self.players, target_player_id)?;
-                if let Some((effect, duration)) = &special_effect {
-                    attacked_player
-                        .character
-                        .add_effect(effect.clone(), *duration)
-                } else {
-                    // Maybe health should be linked to
-                    // the character instead?
-                    attacked_player.modify_health(-10);
-                    GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
-                }
-            }
+        if matches!(attacking_player.status, Status::DEAD) {
+            return Ok(());
         }
 
+        let now = time_now();
+
+        if (now - attacking_player.last_melee_attack) < cooldown {
+            return Ok(());
+        }
+        attacking_player.last_melee_attack = now;
+        attacking_player.action = PlayerAction::ATTACKINGAOE;
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            _ => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+        }
+    }
+
+    pub fn h4ck_skill_1(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0 || direction.y != 0 {
+            
+            let angle = (direction.y as f64).atan2(direction.x as f64); // Calcula el ángulo en radianes
+            let angle_positive = if angle < 0.0 {
+                (angle + 2.0 * PI).to_degrees() // Ajusta el ángulo si es negativo
+            } else {
+                angle.to_degrees()
+            };
+            
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new((angle_positive + 20f64).to_radians().cos(), (angle_positive + 20f64).to_radians().sin()),
+                7,
+                10,
+                attacking_player.id,
+                10,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new((angle_positive - 10f64).to_radians().cos(), (angle_positive - 10f64).to_radians().sin()),
+                7,
+                10,
+                attacking_player.id,
+                10,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+
+            
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new((angle_positive - 20f64).to_radians().cos(), (angle_positive - 20f64).to_radians().sin()),
+                7,
+                10,
+                attacking_player.id,
+                10,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new((angle_positive + 10f64).to_radians().cos(), (angle_positive + 5f64).to_radians().sin()),
+                7,
+                10,
+                attacking_player.id,
+                10,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                7,
+                10,
+                attacking_player.id,
+                10,
+                30,
+                ProjectileType::BULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+
+        }
+        Ok(())
+    }
+
+
+    pub fn aoe_attack_deprecated(
+        self: &mut Self,
+        attacking_player_id: u64,
+        attack_position: &RelativePosition,
+    ) -> Result<(), String> {
         Ok(())
     }
 
