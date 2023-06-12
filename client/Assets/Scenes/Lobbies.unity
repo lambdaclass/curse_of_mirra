@@ -226,6 +226,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3873477837519583237, guid: 548547dd275564525b0f1f16f4ecc94b,
+        type: 3}
+      propertyPath: LevelName
+      value: BackendPlayground
+      objectReference: {fileID: 0}
     - target: {fileID: 3873477837519583238, guid: 548547dd275564525b0f1f16f4ecc94b,
         type: 3}
       propertyPath: m_Name

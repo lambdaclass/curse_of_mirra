@@ -34,6 +34,7 @@ public class LobbyManager : LevelSelector
     public void GameStart()
     {
         LobbyConnection.Instance.StartGame();
+        print(this.LevelName);
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 

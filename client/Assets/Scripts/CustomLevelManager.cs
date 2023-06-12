@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
+    public GameObject mapPrefab;
+
     [SerializeField]
     GameObject roundSplash;
 
@@ -29,6 +32,8 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = LobbyConnection.Instance.playerCount;
+        GameObject map = Instantiate(mapPrefab);
+        map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
     }
 
     protected override void Start()
