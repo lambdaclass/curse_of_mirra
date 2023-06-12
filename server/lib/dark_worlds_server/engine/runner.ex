@@ -1,6 +1,6 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
-
+  require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
@@ -393,7 +393,9 @@ defmodule DarkWorldsServer.Engine.Runner do
     Enum.find(players, fn p -> p.id == player_id end)
   end
 
-  defp create_new_game(_config = %{runner_config: rg, character_config: %{Items: character_info}}, players) do
+  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}} = config, players) do
+    Logger.info("[#{DateTime.utc_now()}] Config: #{inspect(config)}")
+
     implemented_characters =
       character_info
       |> Enum.filter(fn %{Name: name} ->
