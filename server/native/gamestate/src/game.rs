@@ -324,14 +324,25 @@ impl GameState {
         }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-        
+
         match attacking_player.character.name {
-            Name::H4ck => Self::h4ck_basic_attack(&attacking_player, direction, &mut self.projectiles, &mut self.next_projectile_id),
+            Name::H4ck => Self::h4ck_basic_attack(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(&self, attacking_player_id)?;
                 let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board,  players, &attacking_player, direction)},
-            Name::Uma => Self::h4ck_basic_attack(&attacking_player, direction, &mut self.projectiles, &mut self.next_projectile_id),
+                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            }
+            Name::Uma => Self::h4ck_basic_attack(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
         }
     }
 
@@ -360,12 +371,11 @@ impl GameState {
         Ok(())
     }
 
-    pub fn position_to_direction(position: &RelativePosition) -> Direction{
+    pub fn position_to_direction(position: &RelativePosition) -> Direction {
         if position.x > 0 && position.y > 0 {
             if position.x > position.y {
                 return Direction::RIGHT;
-            }
-            else {
+            } else {
                 return Direction::UP;
             }
         } else if position.x > 0 && position.y <= 0 {
@@ -374,11 +384,10 @@ impl GameState {
             } else {
                 return Direction::DOWN;
             }
-        } else if position.x <= 0 && position.y > 0{
+        } else if position.x <= 0 && position.y > 0 {
             if -position.x > position.y {
                 return Direction::LEFT;
-            }
-            else {
+            } else {
                 return Direction::UP;
             }
         } else if position.x <= 0 && position.y <= 0 {
@@ -391,7 +400,7 @@ impl GameState {
             return Direction::UP;
         }
     }
-    
+
     pub fn muflus_basic_attack(
         board: &mut Board,
         players: &mut Vec<Player>,
