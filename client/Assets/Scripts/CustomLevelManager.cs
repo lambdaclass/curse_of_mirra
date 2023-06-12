@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
+
+    bool paused = false;
     public GameObject mapPrefab;
 
     [SerializeField]
@@ -63,6 +65,12 @@ public class CustomLevelManager : LevelManager
         )
         {
             ShowRoundTransition(SocketConnectionManager.Instance.winners.Count);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
+            paused = !paused;
         }
     }
 
