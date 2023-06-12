@@ -380,10 +380,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
-  defp get_player(players, player_id) do
-    Enum.find(players, fn p -> p.id == player_id end)
-  end
-
   defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}} = config, players) do
     implemented_characters =
       character_info
