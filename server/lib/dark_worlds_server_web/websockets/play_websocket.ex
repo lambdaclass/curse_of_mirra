@@ -51,9 +51,17 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   @impl true
   def terminate(reason, _partialreq, %{runner_pid: pid, player_id: id}) do
-    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
+    log_termination(reason)
     Runner.disconnect(pid, id)
     :ok
+  end
+
+  defp log_termination({_, 1000, _} = reason) do
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
+  end
+
+  defp log_termination(reason) do
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 
   @impl true
