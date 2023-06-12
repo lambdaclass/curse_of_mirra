@@ -364,7 +364,8 @@ impl GameState {
                 }
             }
 
-            add_kills(&mut self.players, attacking_player_id, kill_count).expect("Player not found");
+            add_kills(&mut self.players, attacking_player_id, kill_count)
+                .expect("Player not found");
         } else {
             let attacking_player =
                 GameState::get_player_mut(&mut self.players, attacking_player_id)?;
@@ -468,7 +469,8 @@ impl GameState {
                     }
                 }
 
-                add_kills(&mut self.players, projectile.player_id, kill_count).expect("Player not found");
+                add_kills(&mut self.players, projectile.player_id, kill_count)
+                    .expect("Player not found");
             }
         });
 
@@ -740,7 +742,11 @@ pub fn new_entity_position(
     new_position
 }
 
-fn add_kills(players: &mut Vec<Player>, attacking_player_id: u64, kills: u64) -> Result<(), String> {
+fn add_kills(
+    players: &mut Vec<Player>,
+    attacking_player_id: u64,
+    kills: u64,
+) -> Result<(), String> {
     let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
     attacking_player.add_kills(kills);
     Ok(())
