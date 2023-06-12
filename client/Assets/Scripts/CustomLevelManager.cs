@@ -11,7 +11,7 @@ public class CustomLevelManager : LevelManager
 {
 
     bool paused = false;
-    public GameObject mapPrefab;
+    private GameObject mapPrefab;
 
     [SerializeField]
     GameObject roundSplash;
@@ -34,6 +34,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = LobbyConnection.Instance.playerCount;
+        mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
         GameObject map = Instantiate(mapPrefab);
         map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
     }

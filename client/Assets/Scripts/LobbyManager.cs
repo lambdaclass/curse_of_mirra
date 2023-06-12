@@ -10,6 +10,8 @@ public class LobbyManager : LevelSelector
     [SerializeField]
     GameObject playButton;
 
+    public static string LevelSelected;
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -42,6 +44,12 @@ public class LobbyManager : LevelSelector
     {
         LobbyConnection.Instance.Init();
         SceneManager.LoadScene("Lobbies");
+    }
+
+    public void SelectMap(string mapName)
+    {
+        this.LevelName = mapName;
+        LevelSelected = mapName;
     }
 
     private void Update()
