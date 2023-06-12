@@ -11,19 +11,22 @@ defmodule LoadTest.LobbyPlayer do
   alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.PlayerSupervisor
 
-  def start_link({player_number, lobby_id}) do
+  def start_link({player_number, lobby_id, max_duration}) do
     ws_url = ws_url(lobby_id)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
       player_number: player_number,
-      lobby_id: lobby_id
+      lobby_id: lobby_id,
+      max_duration: max_duration
     })
   end
 
   def handle_frame({_type, msg}, state) do
     case LobbyEvent.decode(msg) do
       %LobbyEvent{type: :GAME_STARTED, game_id: game_id} ->
-        {:ok, pid} = PlayerSupervisor.spawn_game_player(state.player_number, game_id)
+        {:ok, pid} =
+          PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration)
+
         Process.send(pid, :play, [])
         {:close, {1000, ""}, state}
 
