@@ -53,6 +53,9 @@ message Player {
     Status status = 5;
     PlayerAction action = 6;
     Position aoe_position = 7;
+    uint64 kill_count = 8;
+    uint64 death_count = 9;
+
 }
 
 /*

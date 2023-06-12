@@ -266,6 +266,7 @@ impl GameState {
                 .filter(|&id| id != attacking_player_id)
                 .collect();
 
+        let mut kill_count = 0;
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = self
@@ -277,11 +278,16 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
+                    if matches!(player.status, Status::DEAD) {
+                        kill_count += 1;
+                    }
                     GameState::modify_cell_if_player_died(&mut self.board, &player);
                 }
                 _ => continue,
             }
         }
+
+        add_kills(&mut self.players, attacking_player_id, kill_count).expect("Player not found");
     }
 
     // Return all player_id inside an area
@@ -472,6 +478,7 @@ impl GameState {
 
             let special_effect = attacking_player.character.select_aoe_effect();
 
+            let mut kill_count = 0;
             for target_player_id in affected_players {
                 let attacked_player =
                     GameState::get_player_mut(&mut self.players, target_player_id)?;
@@ -483,8 +490,32 @@ impl GameState {
                     // Maybe health should be linked to
                     // the character instead?
                     attacked_player.modify_health(-10);
+                    if matches!(attacked_player.status, Status::DEAD) {
+                        kill_count += 1;
+                    }
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
+            }
+            add_kills(&mut self.players, attacking_player_id, kill_count)
+                .expect("Player not found");
+        } else {
+            let attacking_player =
+                GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+            if attack_position.x != 0 || attack_position.y != 0 {
+                let projectile = Projectile::new(
+                    self.next_projectile_id,
+                    attacking_player.position,
+                    JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
+                    5,
+                    10,
+                    attacking_player.id,
+                    20,
+                    30,
+                    ProjectileType::BULLET,
+                    ProjectileStatus::ACTIVE,
+                );
+                self.projectiles.push(projectile);
+                self.next_projectile_id += 1;
             }
         }
 
@@ -554,17 +585,24 @@ impl GameState {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
 
+                let mut kill_count = 0;
                 for target_player_id in affected_players {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
                         Ok(ap) => {
                             ap.modify_health(-(projectile.damage as i64));
+                            if matches!(ap.status, Status::DEAD) {
+                                kill_count += 1;
+                            }
                             GameState::modify_cell_if_player_died(&mut self.board, ap);
                         }
                         _ => continue,
                     }
                 }
+
+                add_kills(&mut self.players, projectile.player_id, kill_count)
+                    .expect("Player not found");
             }
         });
 
@@ -860,4 +898,14 @@ pub fn new_entity_position(
         y: new_position_y as usize,
     };
     new_position
+}
+
+fn add_kills(
+    players: &mut Vec<Player>,
+    attacking_player_id: u64,
+    kills: u64,
+) -> Result<(), String> {
+    let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+    attacking_player.add_kills(kills);
+    Ok(())
 }
