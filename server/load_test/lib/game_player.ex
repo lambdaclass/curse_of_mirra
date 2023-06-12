@@ -1,9 +1,13 @@
-defmodule LoadTest.Player do
-  use WebSockex
+defmodule LoadTest.GamePlayer do
+  use WebSockex, restart: :transient
   require Logger
   use Tesla
 
+  alias LoadTest.Communication.Proto.LobbyEvent
+  alias LoadTest.Communication.Proto.GameConfig
+  alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.Communication.Proto.ClientAction
+  alias LoadTest.Communication.Proto.RelativePosition
   alias LoadTest.PlayerSupervisor
 
   def move(player, :up), do: _move(player, :UP)
@@ -35,13 +39,33 @@ defmodule LoadTest.Player do
     |> send_command()
   end
 
-  def start_link({player_number, session_id}) do
+  defp attack_aoe(%{x: x, y: y}) do
+    %ClientAction{
+      action: :ATTACK_AOE,
+      position: %RelativePosition{
+        x: x,
+        y: y
+      }
+    }
+    |> send_command()
+  end
+
+  def start_link({player_number, session_id, max_duration}) do
     ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
       player_number: player_number,
-      session_id: session_id
+      session_id: session_id,
+      max_duration: max_duration
     })
+  end
+
+  def handle_connect(_conn, state) do
+    unless is_nil(state.max_duration) do
+      Process.send_after(self(), :disconnect, state.max_duration, [])
+    end
+
+    {:ok, state}
   end
 
   def handle_frame({type, msg}, state) do
@@ -54,9 +78,14 @@ defmodule LoadTest.Player do
     {:reply, frame, state}
   end
 
+  def handle_info(:disconnect, state) do
+    {:close, {1000, ""}, state}
+    # WebSockex.cast(self(), {:close, {1000, ""}, state})
+  end
+
   def handle_info(:play, state) do
     direction = Enum.random([:up, :down, :left, :right])
-    action = Enum.random([:move, :attack])
+    action = Enum.random([:move, :attack, :attack_aoe])
 
     # Melee attacks pretty much never ever land, but in general we have to rework how
     # both melee and aoe attacks work in general, so w/e
@@ -66,6 +95,11 @@ defmodule LoadTest.Player do
 
       :attack ->
         attack(state.player_number, direction)
+
+      :attack_aoe ->
+        random_x = Enum.random(0..100)
+        random_y = Enum.random(0..100)
+        attack_aoe(%{x: random_x, y: random_y})
     end
 
     Process.send_after(self(), :play, 30, [])

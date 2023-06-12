@@ -50,9 +50,18 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   @impl true
-  def terminate(_reason, _partialreq, %{runner_pid: pid, player_id: id}) do
+  def terminate(reason, _partialreq, %{runner_pid: pid, player_id: id}) do
+    log_termination(reason)
     Runner.disconnect(pid, id)
     :ok
+  end
+
+  defp log_termination({_, 1000, _} = reason) do
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
+  end
+
+  defp log_termination(reason) do
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 
   @impl true
@@ -85,6 +94,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.game_player_joined(player_id)}, state}
   end
 
+  def websocket_info({:initial_positions, players}, state) do
+    {:reply, {:binary, Communication.initial_positions(players)}, state}
+  end
+
   # Send a ping frame every once in a while
   def websocket_info(:send_ping, state) do
     Process.send_after(self(), :send_ping, @ping_interval_ms)
@@ -101,26 +114,33 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.encode!(reply_map)}, state}
   end
 
-  def websocket_info({:game_finished, game_state}, state) do
+  def websocket_info({:game_finished, winner, game_state}, state) do
     reply_map = %{
-      players: game_state.current_state.game.players
+      players: game_state.current_state.game.players,
+      winner: winner
     }
 
     Logger.info("THE GAME HAS FINISHED")
 
-    {:reply, {:binary, Communication.encode!(reply_map)}, state}
+    {:reply, {:binary, Communication.game_finished!(reply_map)}, state}
   end
 
-  # TODO: Use protobuf
-  def websocket_info({:next_round, _game_state}, state) do
-    Logger.info("A NEW ROUND STARTED")
-    {:reply, {:text, "NEXT_ROUND"}, state}
+  def websocket_info({:next_round, winner, game_state}, state) do
+    reply_map = %{
+      winner: winner,
+      current_round: game_state.current_round
+    }
+
+    {:reply, {:binary, Communication.next_round!(reply_map)}, state}
   end
 
-  # TODO: Use protobuf
-  def websocket_info({:last_round, _game_state}, state) do
-    Logger.info("THE LAST ROUND STARTED")
-    {:reply, {:text, "LAST_ROUND"}, state}
+  def websocket_info({:last_round, winner, game_state}, state) do
+    reply_map = %{
+      winner: winner,
+      current_round: game_state.current_round
+    }
+
+    {:reply, {:binary, Communication.last_round!(reply_map)}, state}
   end
 
   def websocket_info(info, state), do: {:reply, {:text, info}, state}

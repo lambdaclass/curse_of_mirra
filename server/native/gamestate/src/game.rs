@@ -222,7 +222,8 @@ impl GameState {
         player_id: u64,
     ) -> Result<&mut Player, String> {
         players
-            .get_mut((player_id - 1) as usize)
+            .iter_mut()
+            .find(|player| player.id == player_id)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
@@ -353,7 +354,8 @@ impl GameState {
                 }
             }
         } else {
-            let attacking_player = self.get_player(attacking_player_id).unwrap();
+            let attacking_player =
+                GameState::get_player_mut(&mut self.players, attacking_player_id)?;
             if attack_position.x != 0 || attack_position.y != 0 {
                 let projectile = Projectile::new(
                     self.next_projectile_id,
