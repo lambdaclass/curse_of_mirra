@@ -317,8 +317,6 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0), new Vector3(yChange, 0f, -xChange), Vector3.up);
-
                 Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
 
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
@@ -328,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
             {
                 float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0),
-                new Vector3((long)gameProjectiles[i].Direction.Y, 0f, -(long)gameProjectiles[i].Direction.X),
+                new Vector3((long)(gameProjectiles[i].Direction.Y * 100), 0f, -(long)(gameProjectiles[i].Direction.X * 100)),
                 Vector3.up);
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
                 GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);

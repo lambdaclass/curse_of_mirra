@@ -324,9 +324,7 @@ impl GameState {
         }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-
-        println!("Attacking player: {:?}", attacking_player.character.name);
-
+        
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(&attacking_player, direction, &mut self.projectiles, &mut self.next_projectile_id),
             Name::Muflus => {
