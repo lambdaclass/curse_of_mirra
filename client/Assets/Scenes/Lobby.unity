@@ -418,6 +418,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 627144958}
+  mapList: {fileID: 0}
 --- !u!1 &387764653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,6 +1483,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 627144958}
+  mapList: {fileID: 2126768561}
 --- !u!4 &1083681583
 Transform:
   m_ObjectHideFlags: 0

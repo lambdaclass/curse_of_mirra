@@ -10,6 +10,8 @@ public class LobbyManager : LevelSelector
     [SerializeField]
     GameObject playButton;
 
+    [SerializeField] GameObject mapList;
+
     public static string LevelSelected;
 
     public override void GoToLevel()
@@ -20,7 +22,7 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (playButton != null)
+        if (playButton != null && mapList != null)
         {
             if (LobbyConnection.Instance.playerId == 1)
             {
@@ -29,6 +31,7 @@ public class LobbyManager : LevelSelector
             else
             {
                 playButton.SetActive(false);
+                mapList.SetActive(false);
             }
         }
     }
