@@ -1,6 +1,6 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
-
+  require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
@@ -107,6 +107,20 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
+        {:play, player, %ActionOk{action: :auto_attack, value: target}},
+        %{next_state: %{game: game} = next_state} = state
+      ) do
+    Logger.info("[#{inspect(DateTime.utc_now())}] Received target: #{inspect(target)}")
+    {:ok, game} = Game.auto_attack(game, player, player)
+
+    next_state = Map.put(next_state, :game, game)
+
+    state = Map.put(state, :next_state, next_state)
+
+    {:noreply, state}
+  end
+
+  def handle_cast(
         {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}}},
         %{next_state: %{game: game} = next_state} = state
       ) do
@@ -152,6 +166,18 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{next_state: %{game: game} = next_state} = state
       ) do
     {:ok, game} = Game.attack_aoe(game, player_id, value)
+
+    next_state = next_state |> Map.put(:game, game)
+    state = Map.put(state, :next_state, next_state)
+
+    {:noreply, state}
+  end
+
+  def handle_cast(
+        {:play, player_id, %ActionOk{action: :basic_attack, value: value}},
+        %{next_state: %{game: game} = next_state} = state
+      ) do
+    {:ok, game} = Game.basic_attack(game, player_id, value)
 
     next_state = next_state |> Map.put(:game, game)
     state = Map.put(state, :next_state, next_state)

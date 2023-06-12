@@ -50,13 +50,22 @@ defmodule LoadTest.GamePlayer do
     |> send_command()
   end
 
-  def start_link({player_number, session_id}) do
+  def start_link({player_number, session_id, max_duration}) do
     ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
       player_number: player_number,
-      session_id: session_id
+      session_id: session_id,
+      max_duration: max_duration
     })
+  end
+
+  def handle_connect(_conn, state) do
+    unless is_nil(state.max_duration) do
+      Process.send_after(self(), :disconnect, state.max_duration, [])
+    end
+
+    {:ok, state}
   end
 
   def handle_frame({type, msg}, state) do
@@ -67,6 +76,11 @@ defmodule LoadTest.GamePlayer do
   def handle_cast({:send, {type, msg} = frame}, state) do
     # Logger.info("Sending frame with payload: #{msg}")
     {:reply, frame, state}
+  end
+
+  def handle_info(:disconnect, state) do
+    {:close, {1000, ""}, state}
+    # WebSockex.cast(self(), {:close, {1000, ""}, state})
   end
 
   def handle_info(:play, state) do

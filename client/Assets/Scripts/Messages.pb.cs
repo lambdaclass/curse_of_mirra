@@ -32,40 +32,41 @@ public static partial class MessagesReflection {
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
           "eWVyQWN0aW9uEh8KDGFvZV9wb3NpdGlvbhgHIAEoCzIJLlBvc2l0aW9uIiAK",
           "CFBvc2l0aW9uEgkKAXgYASABKAQSCQoBeRgCIAEoBCIoChBSZWxhdGl2ZVBv",
-          "c2l0aW9uEgkKAXgYASABKAMSCQoBeRgCIAEoAyKQAQoMQ2xpZW50QWN0aW9u",
+          "c2l0aW9uEgkKAXgYASABKAMSCQoBeRgCIAEoAyKgAQoMQ2xpZW50QWN0aW9u",
           "EhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rpb24YAiABKA4y",
           "Ci5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0",
-          "aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lzdGlja1ZhbHVlcyImCg5K",
-          "b3lzdGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiABKAIi3gEKCkxvYmJ5",
-          "RXZlbnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRUeXBlEhAKCGxvYmJ5",
-          "X2lkGAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9hZGRlZF9wbGF5ZXJf",
-          "aWQYBCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5ZXJfY291bnQYBiAB",
-          "KAQSDwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3BsYXllcl9pZBgIIAEo",
-          "BBIgCgtnYW1lX2NvbmZpZxgJIAEoCzILLkdhbWVDb25maWciKgoJQm9hcmRT",
-          "aXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCJhCgpHYW1lQ29u",
-          "ZmlnEh4KCmJvYXJkX3NpemUYASABKAsyCi5Cb2FyZFNpemUSGgoSc2VydmVy",
-          "X3RpY2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgDIAEoBCKA",
-          "AgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgCIAEoCzIJ",
-          "LlBvc2l0aW9uEiIKCWRpcmVjdGlvbhgDIAEoCzIPLkpveXN0aWNrVmFsdWVz",
-          "Eg0KBXNwZWVkGAQgASgNEg0KBXJhbmdlGAUgASgNEhEKCXBsYXllcl9pZBgG",
-          "IAEoBBIOCgZkYW1hZ2UYByABKA0SFwoPcmVtYWluaW5nX3RpY2tzGAggASgS",
-          "EigKD3Byb2plY3RpbGVfdHlwZRgJIAEoDjIPLlByb2plY3RpbGVUeXBlEiEK",
-          "BnN0YXR1cxgKIAEoDjIRLlByb2plY3RpbGVTdGF0dXMqjwEKDUdhbWVFdmVu",
-          "dFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1Q",
-          "TEFZRVJfSk9JTkVEEAISDgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQ",
-          "BBIRCg1HQU1FX0ZJTklTSEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBiod",
-          "CgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEqawoGQWN0aW9uEhYKEkFD",
-          "VElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIOCgpB",
-          "VFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAYSCwoHQUREX0JP",
-          "VBAHKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIG",
-          "CgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCo9CgxQbGF5",
-          "ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFD",
-          "S0lOR19BT0UQAiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJ",
-          "RklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdB",
-          "TUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQ",
-          "BRISCg5QTEFZRVJfUkVNT1ZFRBAGKhwKDlByb2plY3RpbGVUeXBlEgoKBkJV",
-          "TExFVBAAKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
-          "TE9ERUQQAWIGcHJvdG8z"));
+          "aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lzdGlja1ZhbHVlcxIOCgZ0",
+          "YXJnZXQYBSABKBIiJgoOSm95c3RpY2tWYWx1ZXMSCQoBeBgBIAEoAhIJCgF5",
+          "GAIgASgCIt4BCgpMb2JieUV2ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2",
+          "ZW50VHlwZRIQCghsb2JieV9pZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQS",
+          "FwoPYWRkZWRfcGxheWVyX2lkGAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoM",
+          "cGxheWVyX2NvdW50GAYgASgEEg8KB3BsYXllcnMYByADKAQSGQoRcmVtb3Zl",
+          "ZF9wbGF5ZXJfaWQYCCABKAQSIAoLZ2FtZV9jb25maWcYCSABKAsyCy5HYW1l",
+          "Q29uZmlnIioKCUJvYXJkU2l6ZRINCgV3aWR0aBgBIAEoBBIOCgZoZWlnaHQY",
+          "AiABKAQiYQoKR2FtZUNvbmZpZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9h",
+          "cmRTaXplEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3Rp",
+          "bWVvdXRfbXMYAyABKAQigAIKClByb2plY3RpbGUSCgoCaWQYASABKAQSGwoI",
+          "cG9zaXRpb24YAiABKAsyCS5Qb3NpdGlvbhIiCglkaXJlY3Rpb24YAyABKAsy",
+          "Dy5Kb3lzdGlja1ZhbHVlcxINCgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEo",
+          "DRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFp",
+          "bmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Q",
+          "cm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3Rh",
+          "dHVzKo8BCg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJ",
+          "TkdfVVBEQVRFEAESEQoNUExBWUVSX0pPSU5FRBACEg4KCk5FWFRfUk9VTkQQ",
+          "AxIOCgpMQVNUX1JPVU5EEAQSEQoNR0FNRV9GSU5JU0hFRBAFEhUKEUlOSVRJ",
+          "QUxfUE9TSVRJT05TEAYqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBAB",
+          "Ko4BCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCAoETU9WRRAB",
+          "EgoKBkFUVEFDSxACEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9Z",
+          "U1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJ",
+          "Q19BVFRBQ0sQCSpNCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lG",
+          "SUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQq",
+          "PQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIR",
+          "Cg1BVFRBQ0tJTkdfQU9FEAIqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVf",
+          "VU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQ",
+          "AhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFS",
+          "VF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBiocCg5Qcm9qZWN0aWxlVHlw",
+          "ZRIKCgZCVUxMRVQQACosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAA",
+          "EgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -73,7 +74,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::JoystickValues), global::JoystickValues.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
@@ -114,6 +115,7 @@ public enum Status {
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
+///- AUTO_ATTACK: Player attacks nearest oponent, if in range.
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
@@ -122,6 +124,8 @@ public enum Action {
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
   [pbr::OriginalName("ADD_BOT")] AddBot = 7,
+  [pbr::OriginalName("AUTO_ATTACK")] AutoAttack = 8,
+  [pbr::OriginalName("BASIC_ATTACK")] BasicAttack = 9,
 }
 
 /// <summary>
@@ -1541,6 +1545,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     direction_ = other.direction_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     moveDelta_ = other.moveDelta_ != null ? other.moveDelta_.Clone() : null;
+    target_ = other.target_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1598,6 +1603,18 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     }
   }
 
+  /// <summary>Field number for the "target" field.</summary>
+  public const int TargetFieldNumber = 5;
+  private long target_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Target {
+    get { return target_; }
+    set {
+      target_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1617,6 +1634,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (Direction != other.Direction) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (!object.Equals(MoveDelta, other.MoveDelta)) return false;
+    if (Target != other.Target) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1628,6 +1646,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (Direction != global::Direction.Unspecified) hash ^= Direction.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (moveDelta_ != null) hash ^= MoveDelta.GetHashCode();
+    if (Target != 0L) hash ^= Target.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1662,6 +1681,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1688,6 +1711,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1709,6 +1736,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     }
     if (moveDelta_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveDelta);
+    }
+    if (Target != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Target);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1739,6 +1769,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
         MoveDelta = new global::JoystickValues();
       }
       MoveDelta.MergeFrom(other.MoveDelta);
+    }
+    if (other.Target != 0L) {
+      Target = other.Target;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1777,6 +1810,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
           input.ReadMessage(MoveDelta);
           break;
         }
+        case 40: {
+          Target = input.ReadSInt64();
+          break;
+        }
       }
     }
   #endif
@@ -1812,6 +1849,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
             MoveDelta = new global::JoystickValues();
           }
           input.ReadMessage(MoveDelta);
+          break;
+        }
+        case 40: {
+          Target = input.ReadSInt64();
           break;
         }
       }
