@@ -125,6 +125,9 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     json_name: "aoePosition"
   )
 
+  field(:kill_count, 8, type: :uint64, json_name: "killCount")
+  field(:death_count, 9, type: :uint64, json_name: "deathCount")
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
