@@ -10,7 +10,6 @@ public class LobbiesManager : LevelSelector
     [SerializeField]
     Text sessionId;
 
-
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -43,13 +42,17 @@ public class LobbiesManager : LevelSelector
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
-        StartCoroutine(ConnectionUtils.WaitForGameCreation());
+        StartCoroutine(Utils.WaitForGameCreation());
     }
 
     public IEnumerator WaitForLobbyCreation()
     {
         LobbyConnection.Instance.CreateLobby();
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
+        yield return new WaitUntil(
+            () =>
+                !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
+                && LobbyConnection.Instance.playerId != -1
+        );
         SceneManager.LoadScene("Lobby");
     }
 }

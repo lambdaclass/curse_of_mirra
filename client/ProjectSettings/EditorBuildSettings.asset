@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: a1e874fb97e2f4273a5c06e47683bb16
+  - enabled: 0
+    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreen.unity
+    guid: d89b77a7a68c1844280c6ff2e49f95b8
+  - enabled: 0
+    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenBigText.unity
+    guid: dedb2bed56a01c241be42c5c5b5748ca
+  - enabled: 0
+    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenSimple.unity
+    guid: 945e5b97212e8e74ebcd35bddde3970c
+  - enabled: 0
+    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenFastFade.unity
+    guid: 8101c376367d6e44f84e602722e5ac10
   - enabled: 1
     path: Assets/Scenes/BackendPlayground.unity
     guid: 05fef88649e8f4e679906112b77aba2f
@@ -128,18 +140,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ThirdParty/TopDownEngine/Demos/Deadline/Scenes/DeadlineLevel5.unity
     guid: 419f3c530af0c354b8471ae280305a4a
-  - enabled: 0
-    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreen.unity
-    guid: d89b77a7a68c1844280c6ff2e49f95b8
-  - enabled: 0
-    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenBigText.unity
-    guid: dedb2bed56a01c241be42c5c5b5748ca
-  - enabled: 0
-    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenSimple.unity
-    guid: 945e5b97212e8e74ebcd35bddde3970c
-  - enabled: 0
-    path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreenFastFade.unity
-    guid: 8101c376367d6e44f84e602722e5ac10
   - enabled: 0
     path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Demos/MMSceneLoading/MMSceneLoadingDemoSceneA.unity
     guid: 49d909d12efd2714f9b79de2eea67561

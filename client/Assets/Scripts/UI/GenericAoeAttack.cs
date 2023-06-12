@@ -62,8 +62,8 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
 
             RelativePosition relative_position = new RelativePosition
             {
-                X = (long)(-aoePosition.y * 100),
-                Y = (long)(aoePosition.x * 100)
+                X = (long)(aoePosition.x * 100),
+                Y = (long)(aoePosition.y * 100)
             };
             ClientAction action = new ClientAction { Action = Action.AttackAoe, Position = relative_position };
             SocketConnectionManager.Instance.SendAction(action);
