@@ -149,4 +149,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 96c8e7426cc33467f84ad9ab532a5c29
+  - enabled: 1
+    path: Assets/Scenes/Araban.unity
+    guid: f7257da6c15c24d0fa08ed1ebc2b5a24
   m_configObjects: {}
