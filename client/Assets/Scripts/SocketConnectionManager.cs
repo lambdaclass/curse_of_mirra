@@ -124,6 +124,8 @@ public class SocketConnectionManager : MonoBehaviour
                             .FindAll((player) => !this.gamePlayers.Contains(player))
                             .ForEach((player) => SpawnBot.Instance.Spawn(player));
                     }
+                    // This should be deleted when the match end is fixed
+                    game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
@@ -141,6 +143,8 @@ public class SocketConnectionManager : MonoBehaviour
                     break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
+                    // This should be uncommented when the match end is finished
+                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = game_event.Players.ToList();

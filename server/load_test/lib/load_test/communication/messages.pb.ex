@@ -113,6 +113,8 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:status, 5, type: LoadTest.Communication.Proto.Status, enum: true)
   field(:action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
+  field(:kill_count, 8, type: :uint64, json_name: "killCount")
+  field(:death_count, 9, type: :uint64, json_name: "deathCount")
 end
 
 defmodule LoadTest.Communication.Proto.Position do
