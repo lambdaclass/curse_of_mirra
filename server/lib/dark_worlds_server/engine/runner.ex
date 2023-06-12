@@ -58,7 +58,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   # GenServer callbacks #
   #######################
   @doc """
-  Starts a new game state, triggers the first
+  Starts a new game, triggers the first
   update and the final game timeout.
   """
   def init(opts) do
@@ -68,7 +68,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    {:ok, state} = create_new_game(opts.game_config, length(opts.players))
+    {:ok, game} = create_new_game(opts.game_config, length(opts.players))
 
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
@@ -77,16 +77,12 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :game_timeout, Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout))
     Process.send_after(self(), :check_player_amount, @player_check)
 
-    initial_state = %{
-      game: state
-    }
-
     Process.send_after(self(), :update_state, tick_rate)
 
     {:ok,
      %{
-       current_state: initial_state,
-       next_state: initial_state,
+       client_game_state: %{game: game},
+       server_game_state: %{game: game},
        max_players: length(opts.players),
        players: opts.players,
        current_players: 0,
@@ -98,69 +94,69 @@ defmodule DarkWorldsServer.Engine.Runner do
      }}
   end
 
-  def handle_cast(_actions, %{game_state: :game_finished} = state) do
-    {:noreply, state}
+  def handle_cast(_actions, %{game_state: :game_finished} = gen_server_state) do
+    {:noreply, gen_server_state}
   end
 
-  def handle_cast(_actions, %{game_state: :round_finished} = state) do
-    {:noreply, state}
+  def handle_cast(_actions, %{game_state: :round_finished} = gen_server_state) do
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
         {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}}},
-        %{next_state: %{game: game} = next_state} = state
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.move_with_joystick(game, player, x, y)
 
-    next_state = Map.put(next_state, :game, game)
+    server_game_state = Map.put(server_game_state, :game, game)
 
-    state = Map.put(state, :next_state, next_state)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
         {:play, player, %ActionOk{action: :move, value: value}},
-        %{next_state: %{game: game} = next_state} = state
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     game =
       game
       |> Game.move_player(player, value)
 
-    next_state = Map.put(next_state, :game, game)
+    server_game_state = Map.put(server_game_state, :game, game)
 
-    state = Map.put(state, :next_state, next_state)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
         {:play, player, %ActionOk{action: :attack, value: value}},
-        %{next_state: %{game: game} = next_state} = state
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     game =
       game
       |> Game.attack_player(player, value)
 
-    next_state = next_state |> Map.put(:game, game)
-    state = Map.put(state, :next_state, next_state)
-    {:noreply, state}
+    server_game_state = server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
         {:play, player_id, %ActionOk{action: :attack_aoe, value: value}},
-        %{next_state: %{game: game} = next_state} = state
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.attack_aoe(game, player_id, value)
 
-    next_state = next_state |> Map.put(:game, game)
-    state = Map.put(state, :next_state, next_state)
+    server_game_state = server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
-  def handle_cast({:play, _, %ActionOk{action: :add_bot}}, state) do
-    %{next_state: %{game: game} = game_state, current_players: current} = state
+  def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
+    %{server_game_state: %{game: game} = game_state, current_players: current} = gen_server_state
     player_id = current + 1
     new_game = Game.spawn_player(game, player_id)
 
@@ -170,22 +166,22 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:player_joined, player_id}
     )
 
-    {:noreply, %{state | next_state: %{game_state | game: new_game}, current_players: current + 1}}
+    {:noreply, %{gen_server_state | server_game_state: %{game_state | game: new_game}, current_players: current + 1}}
   end
 
   def handle_cast(
         {:disconnect, player_id},
-        %{current_state: %{game: game} = game_state, current_players: current} = state
+        %{client_game_state: %{game: game} = game_state, current_players: current} = gen_server_state
       ) do
     current = current - 1
     {:ok, game} = Game.disconnect(game, player_id)
-    {:noreply, %{state | current_state: %{game_state | game: game}, current_players: current}}
+    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_call(
         {:join, player_id},
         _,
-        %{max_players: max, current_players: current} = state
+        %{max_players: max, current_players: current} = gen_server_state
       )
       when current < max do
     DarkWorldsServer.PubSub
@@ -194,80 +190,82 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:player_joined, player_id}
     )
 
-    {:reply, {:ok, player_id}, %{state | current_players: current + 1}}
+    {:reply, {:ok, player_id}, %{gen_server_state | current_players: current + 1}}
   end
 
-  def handle_call(:join, _, %{max_players: max, current_players: max} = state) do
-    {:reply, {:error, :game_full}, state}
+  def handle_call(:join, _, %{max_players: max, current_players: max} = gen_server_state) do
+    {:reply, {:error, :game_full}, gen_server_state}
   end
 
-  def handle_call(:get_board, _from, %{current_state: %{game: %Game{board: board}}} = state) do
-    {:reply, board, state}
+  def handle_call(:get_board, _from, %{client_game_state: %{game: %Game{board: board}}} = gen_server_state) do
+    {:reply, board, gen_server_state}
   end
 
-  def handle_call(:get_players, _from, %{current_state: %{game: %Game{players: players}}} = state) do
-    {:reply, players, state}
+  def handle_call(:get_players, _from, %{client_game_state: %{game: %Game{players: players}}} = gen_server_state) do
+    {:reply, players, gen_server_state}
   end
 
-  def handle_call(:get_logged_players, _from, %{players: players} = state) do
-    {:reply, players, state}
+  def handle_call(:get_logged_players, _from, %{players: players} = gen_server_state) do
+    {:reply, players, gen_server_state}
   end
 
-  def handle_call(:get_state, _from, %{current_state: game_state} = state) do
-    {:reply, game_state, state}
+  def handle_call(:get_state, _from, %{client_game_state: game_state} = gen_server_state) do
+    {:reply, game_state, gen_server_state}
   end
 
   def handle_info(
         :check_player_amount,
-        state = %{current_players: current}
+        gen_server_state = %{current_players: current}
       )
       when current > 0 do
     Process.send_after(self(), :check_player_amount, @player_check)
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
-  def handle_info(:check_player_amount, state = %{current_players: current})
+  def handle_info(:check_player_amount, gen_server_state = %{current_players: current})
       when current == 0 do
     Process.send_after(self(), :session_timeout, 500)
-    {:noreply, Map.put(state, :has_finished?, true)}
+    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
   end
 
-  def handle_info(:game_timeout, state) do
+  def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
 
-    {:noreply, Map.put(state, :has_finished?, true)}
+    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
   end
 
-  def handle_info(:session_timeout, state) do
+  def handle_info(:session_timeout, gen_server_state) do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
-      {:game_finished, state}
+      {:game_finished, gen_server_state}
     )
 
-    {:stop, :normal, state}
+    {:stop, :normal, gen_server_state}
   end
 
-  def handle_info(:update_state, %{next_state: next_state} = state) do
-    state = Map.put(state, :current_state, next_state)
+  def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
+    gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
     game =
-      next_state.game
+      server_game_state.game
       |> Game.world_tick()
 
-    game_state = has_a_player_won?(game.players, state.is_single_player?)
+    game_state = has_a_player_won?(game.players, gen_server_state.is_single_player?)
 
-    next_state = next_state |> Map.put(:game, game)
-    state = Map.put(state, :next_state, next_state) |> Map.put(:game_state, game_state)
+    server_game_state = server_game_state |> Map.put(:game, game)
 
-    decide_next_game_update(state)
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> Map.put(:game_state, game_state)
+
+    decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
   end
 
-  def handle_info(:next_round, %{next_state: next_state} = state) do
-    state = Map.put(state, :current_state, next_state)
+  def handle_info(:next_round, %{server_game_state: server_game_state} = gen_server_state) do
+    gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    decide_next_game_update(state)
+    decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
   end
 
@@ -289,17 +287,19 @@ defmodule DarkWorldsServer.Engine.Runner do
     end
   end
 
-  defp decide_next_game_update(%{game_state: :round_finished, winners: winners, current_round: current_round} = state) do
+  defp decide_next_game_update(
+         %{game_state: :round_finished, winners: winners, current_round: current_round} = gen_server_state
+       ) do
     # This has to be done in order to apply the last attack
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, state})
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, gen_server_state})
 
-    [winner] = Enum.filter(state.next_state.game.players, fn player -> player.status == :alive end)
+    [winner] = Enum.filter(gen_server_state.server_game_state.game.players, fn player -> player.status == :alive end)
 
     winners = [winner | winners]
     amount_of_winners = winners |> Enum.uniq_by(fn winner -> winner.id end) |> Enum.count()
 
-    state = Map.put(state, :winners, winners)
+    gen_server_state = Map.put(gen_server_state, :winners, winners)
 
     next_game_update =
       cond do
@@ -313,71 +313,75 @@ defmodule DarkWorldsServer.Engine.Runner do
           :next_round
       end
 
-    {next_game_update, state, winner}
+    {next_game_update, gen_server_state, winner}
   end
 
-  defp decide_next_game_update(%{game_state: :playing} = state) do
-    {:game_update, state}
+  defp decide_next_game_update(%{game_state: :playing} = gen_server_state) do
+    {:game_update, gen_server_state}
   end
 
   defp broadcast_game_update(
-         {:last_round, %{winners: winners, current_round: current_round, next_state: next_state} = state, winner}
+         {:last_round,
+          %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
+          winner}
        ) do
-    game = Game.new_round(next_state.game, winners)
+    game = Game.new_round(server_game_state.game, winners)
 
-    next_state = Map.put(next_state, :game, game)
+    server_game_state = Map.put(server_game_state, :game, game)
 
-    state =
-      state
-      |> Map.put(:next_state, next_state)
+    gen_server_state =
+      gen_server_state
+      |> Map.put(:server_game_state, server_game_state)
       |> Map.put(:current_round, current_round + 1)
       |> Map.put(:game_state, :playing)
 
-    Process.send_after(self(), :update_state, state.tick_rate)
+    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:last_round, winner, state})
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:last_round, winner, gen_server_state})
 
-    Process.send_after(self(), :update_state, state.tick_rate)
+    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
-  defp broadcast_game_update({:next_round, %{current_round: current_round, next_state: next_state} = state, winner}) do
-    game = Game.new_round(next_state.game, next_state.game.players)
+  defp broadcast_game_update(
+         {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
+       ) do
+    game = Game.new_round(server_game_state.game, server_game_state.game.players)
 
-    next_state = Map.put(next_state, :game, game)
+    server_game_state = Map.put(server_game_state, :game, game)
 
-    state =
-      state
-      |> Map.put(:next_state, next_state)
+    gen_server_state =
+      gen_server_state
+      |> Map.put(:server_game_state, server_game_state)
       |> Map.put(:current_round, current_round + 1)
       |> Map.put(:game_state, :playing)
 
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:next_round, winner, state})
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:next_round, winner, gen_server_state})
 
-    Process.send_after(self(), :update_state, state.tick_rate)
+    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
-  defp broadcast_game_update({:game_update, state}) do
+  defp broadcast_game_update({:game_update, gen_server_state}) do
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, state})
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, gen_server_state})
 
-    Process.send_after(self(), :update_state, state.tick_rate)
+    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
-  defp broadcast_game_update({:game_finished, state, winner}) do
+  defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, state})
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
   defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}} = config, players) do
