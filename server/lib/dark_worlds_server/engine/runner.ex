@@ -413,7 +413,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}} = config, players) do
+  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players) do
     implemented_characters =
       character_info
       |> Enum.filter(fn %{Name: name} ->
