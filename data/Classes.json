@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Name": "Guardian",
+      "Code": "gua"
+    },
+    {
+      "Name": "Hunter",
+      "Code": "hun"
+    },
+    {
+      "Name": "Assassin",
+      "Code": "ass"
+    },
+    {
+      "Name": "Wizard",
+      "Code": "wiz"
+    }
+  ]
+}

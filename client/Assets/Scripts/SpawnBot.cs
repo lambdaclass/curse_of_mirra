@@ -51,6 +51,7 @@ public class SpawnBot : MonoBehaviour
             newPlayer.name = "BOT" + botId;
             manager.players.Add(newPlayer.gameObject);
             print("SPAWNED");
+            print(newPlayer.PlayerID);
 
             pendingSpawn = false;
         }

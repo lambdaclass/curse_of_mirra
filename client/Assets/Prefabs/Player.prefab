@@ -27,7 +27,8 @@ GameObject:
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 2506641952342998690}
-  - component: {fileID: 1492185930110260765}
+  - component: {fileID: 5560137653294536829}
+  - component: {fileID: 1119379649783133599}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -42,8 +43,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787465996332106805}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -41.2, y: 0, z: -8.599998}
+  m_LocalRotation: {x: -0.08717229, y: 0.8995905, z: -0.21045253, w: -0.37262273}
+  m_LocalPosition: {x: -17.993776, y: 2.041937, z: -5.889952}
   m_LocalScale: {x: 1.16, y: 1.16, z: 1.16}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -827,7 +828,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
---- !u!114 &1492185930110260765
+--- !u!114 &5560137653294536829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -848,6 +849,18 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+--- !u!114 &1119379649783133599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94f98a94a8bc47ed956bcd851a1731d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4559471607071226958
 PrefabInstance:
   m_ObjectHideFlags: 0
