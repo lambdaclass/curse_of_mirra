@@ -19,7 +19,6 @@ public class LobbyConnection : MonoBehaviour
     public string LobbySession;
     public int playerId;
     public int playerCount;
-    public bool gameStarted = false;
     public uint serverTickRate_ms;
     public ServerGameSettings serverSettings;
 
@@ -114,8 +113,9 @@ public class LobbyConnection : MonoBehaviour
     public void StartGame()
     {
         serverSettings = GameSettings.parseSettings();
-        LobbyEvent lobbyEvent = new LobbyEvent { 
-            Type = LobbyEventType.StartGame,  
+        LobbyEvent lobbyEvent = new LobbyEvent
+        {
+            Type = LobbyEventType.StartGame,
             GameConfig = serverSettings
         };
 
@@ -127,7 +127,6 @@ public class LobbyConnection : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
-        gameStarted = true;
     }
 
     private IEnumerator WaitLobbyCreated()

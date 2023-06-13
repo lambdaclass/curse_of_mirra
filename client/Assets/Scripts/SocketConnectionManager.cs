@@ -44,6 +44,7 @@ public class SocketConnectionManager : MonoBehaviour
         this.server_ip = LobbyConnection.Instance.server_ip;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
         projectilesStatic = this.projectiles;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

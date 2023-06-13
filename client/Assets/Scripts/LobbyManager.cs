@@ -13,7 +13,7 @@ public class LobbyManager : LevelSelector
     [SerializeField] GameObject mapList;
 
     public static string LevelSelected;
-
+    public bool gameStarted = false;
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -39,7 +39,6 @@ public class LobbyManager : LevelSelector
     public void GameStart()
     {
         LobbyConnection.Instance.StartGame();
-        print(this.LevelName);
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
@@ -59,7 +58,7 @@ public class LobbyManager : LevelSelector
     {
         if (
             !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && !LobbyConnection.Instance.gameStarted
+            && gameStarted
         )
         {
             LobbyConnection.Instance.StartGame();

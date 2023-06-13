@@ -651,7 +651,6 @@ MonoBehaviour:
   LobbySession: 
   playerId: 0
   playerCount: 0
-  gameStarted: 0
   serverTickRate_ms: 0
 --- !u!1 &598334956
 GameObject:
@@ -1253,6 +1252,7 @@ MonoBehaviour:
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
   mapList: {fileID: 0}
+  gameStarted: 0
 --- !u!114 &1079423895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2417,7 +2417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1836016680
 Transform:
   m_ObjectHideFlags: 0
@@ -3113,6 +3113,7 @@ MonoBehaviour:
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
   mapList: {fileID: 0}
+  gameStarted: 0
 --- !u!1 &1999209348
 GameObject:
   m_ObjectHideFlags: 0
