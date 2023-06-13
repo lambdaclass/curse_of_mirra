@@ -283,7 +283,7 @@ public class LobbyConnection : MonoBehaviour
         {
             return "http://" + server_ip + ":4000" + path;
         }
-        else if (server_ip.Contains("95.216.191.8"))
+        else if (server_ip.Contains("10.150.20.186"))
         {
             return "http://" + server_ip + ":4000" + path;
         }
@@ -299,7 +299,7 @@ public class LobbyConnection : MonoBehaviour
         {
             return "ws://" + server_ip + ":4000" + path;
         }
-        else if (server_ip.Contains("95.216.191.8"))
+        else if (server_ip.Contains("10.150.20.186"))
         {
             return "ws://" + server_ip + ":4000" + path;
         }
