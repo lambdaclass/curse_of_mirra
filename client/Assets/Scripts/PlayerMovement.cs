@@ -231,7 +231,10 @@ public class PlayerMovement : MonoBehaviour
                 timestamp = gameEvent.Timestamp,
             };
 
-            SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
+            if (player.Id == (ulong) SocketConnectionManager.Instance.playerId) {
+                SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
+            }
+
             if (player.Id == (ulong) SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
                 playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
             }

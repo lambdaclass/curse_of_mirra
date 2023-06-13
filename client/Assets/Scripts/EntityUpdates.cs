@@ -50,9 +50,9 @@ public class EntityUpdates {
 
         ret.playerPosition = lastServerUpdate.playerPosition;
         // ret.playerId = lastServerUpdate.playerId;
-        ret.playerId = 1;
+        ret.playerId = lastServerUpdate.playerId;
         // ret.health = lastServerUpdate.health;
-        ret.health = 100;
+        ret.health = lastServerUpdate.health;
         ret.action = lastServerUpdate.action;
         ret.aoeCenterPosition = lastServerUpdate.aoeCenterPosition;
         ret.timestamp = lastServerUpdate.timestamp;
