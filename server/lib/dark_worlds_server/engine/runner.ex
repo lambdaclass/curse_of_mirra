@@ -68,8 +68,9 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    Logger.info("#{DateTime.utc_now()} Starting runner")
+    Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
     Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts.game_config)}")
+
     {:ok, game} = create_new_game(opts.game_config, length(opts.players))
 
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
