@@ -27,10 +27,10 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_game_started!(game_pid) do
+  def lobby_game_started!(%{game_pid: game_pid, game_config: game_config}) do
     game_id = pid_to_external_id(game_pid)
 
-    %LobbyEvent{type: :GAME_STARTED, game_id: game_id}
+    %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config}
     |> LobbyEvent.encode()
   end
 

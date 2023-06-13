@@ -51,7 +51,7 @@ public class LobbyManager : LevelSelector
         )
         {
             LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene("BackendPlayground");
+            SceneManager.LoadScene("Araban");
         }
     }
 
