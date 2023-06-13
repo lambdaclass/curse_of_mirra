@@ -84,17 +84,32 @@ public class CustomLevelManager : LevelManager
         {
             if (Int32.Parse(player.PlayerID) == playerID)
             {
+                // SPECIAL BUTTON
                 UnityEvent aoeEvent = new UnityEvent();
                 aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("y", "joystick", aoeEvent);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("special", "joystick", aoeEvent, null);
 
                 UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
                 aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("y", "joystick", aimEvent);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("special", "joystick", aimEvent);
 
-                UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
+                UnityEvent<Vector2,Weapon> attackEvent = new UnityEvent<Vector2,Weapon>();
                 attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("y", "joystick", attackEvent);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("special", "joystick", attackEvent);
+
+                // UTLIMATE BUTTON
+                Weapon ultimateWeapon = player.GetComponent<CharacterHandleWeapon>().InitialWeapon;
+                UnityEvent ultimateDown = new UnityEvent();
+                ultimateDown.AddListener(player.GetComponent<InputAoe>().ShowAimAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("ultimate", "joystick", ultimateDown, ultimateWeapon);
+
+                UnityEvent<Vector2> ultimateDrag = new UnityEvent<Vector2>();
+                ultimateDrag.AddListener(player.GetComponent<InputAoe>().AimAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("ultimate", "joystick", ultimateDrag);
+
+                UnityEvent<Vector2,Weapon> ultimateRelease = new UnityEvent<Vector2,Weapon>();
+                ultimateRelease.AddListener(player.GetComponent<InputAoe>().ExecuteAoeAttack);
+                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("ultimate", "joystick", ultimateRelease);
             }
         }
     }

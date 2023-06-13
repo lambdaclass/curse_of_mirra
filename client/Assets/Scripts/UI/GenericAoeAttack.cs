@@ -43,7 +43,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
             //Multiply vector values according to the scale of the animation (in this case 12)
             indicator.transform.position = transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         }
-        public void ExecuteAoeAttack(Vector2 aoePosition)
+        public void ExecuteAoeAttack(Vector2 aoePosition, Weapon _)
         {
             //print("ability at: " + aoePosition);
             //Destroy attack animation after showing it

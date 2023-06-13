@@ -1,19 +1,29 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using MoreMountains.TopDownEngine;
 
-public class CustomInputManager : MonoBehaviour
+public class CustomInputManager : InputManager
 {
     [SerializeField] GameObject mainAttack;
     [SerializeField] GameObject specialAttack;
     [SerializeField] GameObject dash;
     [SerializeField] GameObject ultimate;
     public Camera UiCamera;
-    public void AssignInputToAbilityPosition(string trigger, string triggerType, UnityEvent abilityEvent)
+
+    public Vector2 customInputPosition;
+
+    public void AssignInputToAbilityPosition(string trigger, string triggerType, UnityEvent abilityEvent, Weapon action)
     {
         if (triggerType == "joystick")
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
+            if (trigger == "special"){
+                specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
+            }
+            if (trigger == "ultimate"){
+                ultimate.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
+                ultimate.GetComponent<CustomMMTouchJoystick>().action = action;
+            }
             abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystick);
         }
     }
@@ -21,14 +31,24 @@ public class CustomInputManager : MonoBehaviour
     {
         if (triggerType == "joystick")
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
+            if (trigger == "special"){
+                specialAttack.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
+            }
+            if (trigger == "ultimate"){
+                ultimate.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
+            }
         }
     }
-    public void AssignInputToAbilityExecution(string trigger, string triggerType, UnityEvent<Vector2> abilityPosition)
+    public void AssignInputToAbilityExecution(string trigger, string triggerType, UnityEvent<Vector2, Weapon> abilityPosition)
     {
         if (triggerType == "joystick")
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
+            if (trigger == "special"){
+                specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
+            }
+            if (trigger == "ultimate"){
+                ultimate.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
+            }
             abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
         }
     }
@@ -37,7 +57,7 @@ public class CustomInputManager : MonoBehaviour
         Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
         joystickBg.enabled = true;
     }
-    public void UnSetJoystick(Vector2 position)
+    public void UnSetJoystick(Vector2 position, Weapon _)
     {
         Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
         joystickBg.enabled = false;

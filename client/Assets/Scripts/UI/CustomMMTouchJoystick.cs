@@ -8,9 +8,10 @@ using UnityEngine.UI;
 
 public class CustomMMTouchJoystick : MoreMountains.Tools.MMTouchJoystick
 {
-    public UnityEvent<Vector2> newPointerUpEvent;
+    public UnityEvent<Vector2, Weapon> newPointerUpEvent;
     public UnityEvent<Vector2> newDragEvent;
     public UnityEvent newPointerDownEvent;
+    public Weapon action;
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
@@ -23,7 +24,7 @@ public class CustomMMTouchJoystick : MoreMountains.Tools.MMTouchJoystick
     }
     public override void OnPointerUp(PointerEventData data)
     {
-        newPointerUpEvent.Invoke(RawValue);
+        newPointerUpEvent.Invoke(RawValue, action);
         ResetJoystick();
     }
 }
