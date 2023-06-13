@@ -54,10 +54,6 @@ public class PlayerMovement : MonoBehaviour
         else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
         {
             GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
-
-            if (SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
-                playerUpdates.Enqueue(SocketConnectionManager.Instance.entityUpdates.simulatePlayerState());
-            }
         }
         else
         {
@@ -235,8 +231,8 @@ public class PlayerMovement : MonoBehaviour
                 timestamp = gameEvent.Timestamp,
             };
 
+            SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
             if (player.Id == (ulong) SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
-                SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
                 playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
             }
 
@@ -244,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (playerState.health == 0)
             {
-                SocketConnectionManager.Instance.players[playerState.playerId].SetActive(false);
+                SocketConnectionManager.Instance.players[i].SetActive(false);
             }
         }
     }

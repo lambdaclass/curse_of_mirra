@@ -26,9 +26,9 @@ public class EntityUpdates {
         public long timestamp;
     }
 
-    private List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
+    public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    private PlayerState lastServerUpdate;
+    public PlayerState lastServerUpdate = new PlayerState();
 
     public void putPlayerInput(PlayerInput PlayerInput)
     {
@@ -37,17 +37,32 @@ public class EntityUpdates {
 
     public void putServerUpdate(PlayerState serverPlayerUpdate)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp < serverPlayerUpdate.timestamp);
-        lastServerUpdate = serverPlayerUpdate;
-    }
-
-    public PlayerState simulatePlayerState() {
-        pendingPlayerInputs.ForEach(input => {
+        var acknowledgedInputs = pendingPlayerInputs.FindAll((input) => input.timestamp + 260 <= serverPlayerUpdate.timestamp);
+        acknowledgedInputs.ForEach(input => {
             lastServerUpdate.playerPosition.x += input.grid_delta_x;
             lastServerUpdate.playerPosition.z += input.grid_delta_y;
         });
+        pendingPlayerInputs.RemoveAll((input) => input.timestamp + 260 <= serverPlayerUpdate.timestamp);
+    }
 
-        return lastServerUpdate;
+    public PlayerState simulatePlayerState() {
+        var ret = new PlayerState();
+
+        ret.playerPosition = lastServerUpdate.playerPosition;
+        // ret.playerId = lastServerUpdate.playerId;
+        ret.playerId = 1;
+        // ret.health = lastServerUpdate.health;
+        ret.health = 100;
+        ret.action = lastServerUpdate.action;
+        ret.aoeCenterPosition = lastServerUpdate.aoeCenterPosition;
+        ret.timestamp = lastServerUpdate.timestamp;
+
+        pendingPlayerInputs.ForEach(input => {
+            ret.playerPosition.x += input.grid_delta_x;
+            ret.playerPosition.z += input.grid_delta_y;
+        });
+
+        return ret;
     }
 
     public bool inputsIsEmpty() {

@@ -11,35 +11,41 @@ public class PlayerControls : MonoBehaviour
             var valuesToSend = new JoystickValues { X = x, Y = y };
             var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend };
             SocketConnectionManager.Instance.SendAction(clientAction);
-            // Player p = SocketConnectionManager.Instance.gamePlayers[0];
-            // let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
             var norm = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
 
-            var x_norm = (float) Math.Round(x / norm * 5f);
-            var y_norm = (float) Math.Round(y / norm * 5f);
+            // var x_norm = (float) Math.Round(x / norm * 5f);
+            // var y_norm = (float) Math.Round(y / norm * 5f);
 
+            float characterSpeed = 0;
+            int playerId = SocketConnectionManager.Instance.playerId;
+
+
+            if (playerId % 3 == 0)
+            {
+                // Uma
+                characterSpeed = 5f;
+            }
+            else if (playerId % 3 == 1)
+            {
+                // Muflus
+                characterSpeed = 3f;
+            }
+            else
+            {
+                // Uma
+                characterSpeed = 4f;
+            }
+
+            // var x_norm = (float) Math.Round(x / norm * 3f);
+            // var y_norm = (float) Math.Round(y / norm * 3f);
+
+            var x_norm = (float) Math.Round(x / norm * characterSpeed);
+            var y_norm = (float) Math.Round(y / norm * characterSpeed);
+
+            var backendPosition = new Position();
             x_norm = x_norm / 10f;
             y_norm = y_norm / 10f;
-
-            // let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
-            // let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);
-
-            // new_position_x = min(new_position_x, (self.board.height - 1) as i64);
-            // new_position_x = max(new_position_x, 0);
-            // new_position_y = min(new_position_y, (self.board.width - 1) as i64);
-            // new_position_y = max(new_position_y, 0);
-
-
-            // Position pos = new Position();
-            // pos.X = (ulong) x;
-            // pos.Y = (ulong) y;
-            // p.Id = 1;
-            // p.Health = 100;
-            // p.Position.X = (ulong) ((long) p.Position.X - y_norm);
-            // p.Position.Y = (ulong) ((long) p.Position.Y + x_norm);;
-            // p.AoePosition = pos;
-            // print("CLIENT pos X: " + p.Position.X + "  Y: " + p.Position.Y);
-
+            
             EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
             {
                 grid_delta_x = x_norm,
@@ -47,8 +53,6 @@ public class PlayerControls : MonoBehaviour
                 timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
             };
             SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
-
-            // SocketConnectionManager.Instance.gamePlayers = new List<Player> { p };
         }
     }
     public void SendAction()
