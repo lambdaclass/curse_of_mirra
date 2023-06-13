@@ -74,12 +74,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
 
-    Process.send_after(
-      self(),
-      :game_timeout,
-      Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout)
-    )
-
+    Process.send_after(self(), :game_timeout, Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout))
     Process.send_after(self(), :check_player_amount, @player_check)
 
     Process.send_after(self(), :update_state, tick_rate)
@@ -119,33 +114,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     state = Map.put(state, :next_state, next_state)
 
     {:noreply, state}
-  end
-
-  def handle_cast(
-        {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.move_with_joystick(game, player, x, y)
-
-    server_game_state = Map.put(server_game_state, :game, game)
-
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player, %ActionOk{action: :move, value: value}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    Logger.info("[#{inspect(DateTime.utc_now())}] Received target: #{inspect(target)}")
-    {:ok, game} = Game.auto_attack(game, player, player)
-
-    server_game_state = Map.put(server_game_state, :game, game)
-
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
-
-    {:noreply, gen_server_state}
   end
 
   def handle_cast(
@@ -224,24 +192,16 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:player_joined, player_id}
     )
 
-    {:noreply,
-     %{
-       gen_server_state
-       | server_game_state: %{game_state | game: new_game},
-         current_players: current + 1
-     }}
+    {:noreply, %{gen_server_state | server_game_state: %{game_state | game: new_game}, current_players: current + 1}}
   end
 
   def handle_cast(
         {:disconnect, player_id},
-        %{client_game_state: %{game: game} = game_state, current_players: current} =
-          gen_server_state
+        %{client_game_state: %{game: game} = game_state, current_players: current} = gen_server_state
       ) do
     current = current - 1
     {:ok, game} = Game.disconnect(game, player_id)
-
-    {:noreply,
-     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_call(
@@ -263,19 +223,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply, {:error, :game_full}, gen_server_state}
   end
 
-  def handle_call(
-        :get_board,
-        _from,
-        %{client_game_state: %{game: %Game{board: board}}} = gen_server_state
-      ) do
+  def handle_call(:get_board, _from, %{client_game_state: %{game: %Game{board: board}}} = gen_server_state) do
     {:reply, board, gen_server_state}
   end
 
-  def handle_call(
-        :get_players,
-        _from,
-        %{client_game_state: %{game: %Game{players: players}}} = gen_server_state
-      ) do
+  def handle_call(:get_players, _from, %{client_game_state: %{game: %Game{players: players}}} = gen_server_state) do
     {:reply, players, gen_server_state}
   end
 
@@ -330,8 +282,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     server_game_state = server_game_state |> Map.put(:game, game)
 
     gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state)
-      |> Map.put(:game_state, game_state)
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> Map.put(:game_state, game_state)
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
@@ -363,20 +314,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp decide_next_game_update(
-         %{game_state: :round_finished, winners: winners, current_round: current_round} =
-           gen_server_state
+         %{game_state: :round_finished, winners: winners, current_round: current_round} = gen_server_state
        ) do
     # This has to be done in order to apply the last attack
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_update, gen_server_state}
-    )
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, gen_server_state})
 
-    [winner] =
-      Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
-        player.status == :alive
-      end)
+    [winner] = Enum.filter(gen_server_state.server_game_state.game.players, fn player -> player.status == :alive end)
 
     winners = [winner | winners]
     amount_of_winners = winners |> Enum.uniq_by(fn winner -> winner.id end) |> Enum.count()
@@ -404,8 +348,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp broadcast_game_update(
          {:last_round,
-          %{winners: winners, current_round: current_round, server_game_state: server_game_state} =
-            gen_server_state, winner}
+          %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
+          winner}
        ) do
     game = Game.new_round(server_game_state.game, winners)
 
@@ -420,10 +364,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:last_round, winner, gen_server_state}
-    )
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:last_round, winner, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -431,9 +372,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update(
-         {:next_round,
-          %{current_round: current_round, server_game_state: server_game_state} =
-            gen_server_state, winner}
+         {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
        ) do
     game = Game.new_round(server_game_state.game, server_game_state.game.players)
 
@@ -446,10 +385,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_state, :playing)
 
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:next_round, winner, gen_server_state}
-    )
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:next_round, winner, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -458,10 +394,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp broadcast_game_update({:game_update, gen_server_state}) do
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_update, gen_server_state}
-    )
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_update, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -470,10 +403,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
     DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_finished, winner, gen_server_state}
-    )
+    |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
 
