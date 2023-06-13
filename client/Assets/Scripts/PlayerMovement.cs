@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     MMTouchJoystick joystickL;
 
     public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
+    public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
+    public bool showServerGhost = false;
+    public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
 
@@ -118,99 +121,20 @@ public class PlayerMovement : MonoBehaviour
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
             GameObject player = GetPlayer(playerUpdate.playerId);
-            /*
-                Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
-                There are 50 ticks per second. A player's velocity is 50 * 0.3f
+            movePlayer(player, playerUpdate);
+        }
 
-          In general, if a player's velocity is n tiles per tick, their unity velocity
-          is 50 * (n / 10f)
+        while (serverUpdates.TryDequeue(out var playerUpdate))
+        {
+            if (showServerGhost && serverGhost == null) {
+                GameObject player = GetPlayer(SocketConnectionManager.Instance.playerId);
+                serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+                serverGhost.GetComponent<Character>().name = "Server Ghost";
+                serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
 
-          The above is the player's velocity's magnitude. Their velocity's direction
-          is the direction of deltaX, which we can calculate (assumming we haven't lost socket
-          frames, but that's fine).
-      */
-            float characterSpeed = 0;
-
-            if (playerUpdate.playerId % 3 == 0)
-            {
-                // Uma
-                characterSpeed = 0.5f;
-            }
-            else if (playerUpdate.playerId % 3 == 1)
-            {
-                // Muflus
-                characterSpeed = 0.3f;
-            }
-            else
-            {
-                // Uma
-                characterSpeed = 0.4f;
             }
 
-            // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
-            // it'll be changed.
-            float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-            float velocity = tickRate * characterSpeed;
-
-            float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
-            float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
-
-            Animator mAnimator = player
-                .GetComponent<Character>()
-                .CharacterModel.GetComponent<Animator>();
-            CharacterOrientation3D characterOrientation =
-                player.GetComponent<CharacterOrientation3D>();
-            characterOrientation.ForcedRotation = true;
-
-            bool walking = false;
-            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
-            {
-                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                movementDirection.Normalize();
-
-                Vector3 newPosition =
-                    player.transform.position + movementDirection * velocity * Time.deltaTime;
-                player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
-
-                walking = true;
-            }
-            mAnimator.SetBool("Walking", walking);
-
-            Health healthComponent = player.GetComponent<Health>();
-            healthComponent.SetHealth(playerUpdate.health);
-
-            bool isAttacking = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
-            player.GetComponent<AttackController>().SwordAttack(isAttacking);
-            if (isAttacking)
-            {
-                print(player.name + "attack");
-            }
-
-            //if dead remove the player from the scene
-            if (healthComponent.CurrentHealth <= 0)
-            {
-                healthComponent.Model.gameObject.SetActive(false);
-            }
-            if (healthComponent.CurrentHealth == 100)
-            {
-                healthComponent.Model.gameObject.SetActive(true);
-            }
-            bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
-            if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
-            {
-                player
-                    .GetComponent<GenericAoeAttack>()
-                    .ShowAoeAttack(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
-            }
-            // player
-            // .GetComponent<AttackController>()
-            // .SwordAttack(isAttacking);
+            movePlayer(serverGhost, playerUpdate);
         }
     }
 
@@ -232,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
             };
 
             if (player.Id == (ulong) SocketConnectionManager.Instance.playerId) {
+                serverUpdates.Enqueue(playerState);
                 SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
             }
 
@@ -325,6 +250,104 @@ public class PlayerMovement : MonoBehaviour
 
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
+        }
+    }
+
+    private void movePlayer(GameObject player, EntityUpdates.PlayerState playerUpdate)
+    {
+        /*
+        Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
+        There are 50 ticks per second. A player's velocity is 50 * 0.3f
+
+        In general, if a player's velocity is n tiles per tick, their unity velocity
+        is 50 * (n / 10f)
+
+        The above is the player's velocity's magnitude. Their velocity's direction
+        is the direction of deltaX, which we can calculate (assumming we haven't lost socket
+        frames, but that's fine).
+        */
+        float characterSpeed = 0;
+
+        if (playerUpdate.playerId % 3 == 0)
+        {
+            // Uma
+            characterSpeed = 0.5f;
+        }
+        else if (playerUpdate.playerId % 3 == 1)
+        {
+            // Muflus
+            characterSpeed = 0.3f;
+        }
+        else
+        {
+            // Uma
+            characterSpeed = 0.4f;
+        }
+
+        // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
+        // it'll be changed.
+        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+        float velocity = tickRate * characterSpeed;
+
+        float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
+        float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
+
+        Animator mAnimator = player
+            .GetComponent<Character>()
+            .CharacterModel.GetComponent<Animator>();
+        CharacterOrientation3D characterOrientation =
+            player.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+
+        bool walking = false;
+        if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+        {
+            Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+            movementDirection.Normalize();
+
+            Vector3 newPosition =
+                player.transform.position + movementDirection * velocity * Time.deltaTime;
+            player.transform.position = newPosition;
+            characterOrientation.ForcedRotationDirection = movementDirection;
+
+            walking = true;
+        }
+        mAnimator.SetBool("Walking", walking);
+
+        if (player.GetComponent<Character>().name == "Server Ghost") {
+            return;
+        }
+
+        Health healthComponent = player.GetComponent<Health>();
+        healthComponent.SetHealth(playerUpdate.health);
+
+        bool isAttacking = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
+        player.GetComponent<AttackController>().SwordAttack(isAttacking);
+        if (isAttacking)
+        {
+            print(player.name + "attack");
+        }
+
+        //if dead remove the player from the scene
+        if (healthComponent.CurrentHealth <= 0)
+        {
+            healthComponent.Model.gameObject.SetActive(false);
+        }
+        if (healthComponent.CurrentHealth == 100)
+        {
+            healthComponent.Model.gameObject.SetActive(true);
+        }
+        bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
+        if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
+        {
+            player
+                .GetComponent<GenericAoeAttack>()
+                .ShowAoeAttack(
+                    new Vector2(
+                        playerUpdate.aoeCenterPosition.x,
+                        playerUpdate.aoeCenterPosition.z
+                    )
+                );
         }
     }
 }
