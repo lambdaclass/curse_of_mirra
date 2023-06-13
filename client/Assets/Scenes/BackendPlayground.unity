@@ -1387,6 +1387,12 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1836016681}
+    - target: {fileID: 6265185516999118662, guid: 19229c6b3de9144aea6bd7ae03f513dc,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 1787465996332106805, guid: 94e572dc010a245f8a7fac3c1c846b1a,
+        type: 3}
     - target: {fileID: 8589184729169344720, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Pivot.x
