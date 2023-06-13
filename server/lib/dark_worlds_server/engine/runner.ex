@@ -4,7 +4,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
-
+  require Logger
   @build_walls false
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
@@ -68,6 +68,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
+    Logger.info("#{DateTime.utc_now()} Starting runner")
+    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts.game_config)}")
     {:ok, game} = create_new_game(opts.game_config, length(opts.players))
 
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
