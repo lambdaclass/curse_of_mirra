@@ -21,6 +21,8 @@ pub struct Player {
     pub character: Character,
     pub action: PlayerAction,
     pub aoe_position: Position,
+    pub kill_count: u64,
+    pub death_count: u64,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -37,7 +39,7 @@ pub enum PlayerAction {
     ATTACKINGAOE,
 }
 
-#[derive(Debug, Clone, NifStruct, PartialEq)]
+#[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
 #[module = "DarkWorldsServer.Engine.Position"]
 pub struct Position {
     pub x: usize,
@@ -55,6 +57,8 @@ impl Player {
             character,
             action: PlayerAction::NOTHING,
             aoe_position: Position::new(0, 0),
+            kill_count: 0,
+            death_count: 0,
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -62,8 +66,12 @@ impl Player {
             self.health = self.health.saturating_add(hp_points);
             if self.health <= 0 {
                 self.status = Status::DEAD;
+                self.death_count += 1;
             }
         }
+    }
+    pub fn add_kills(self: &mut Self, kills: u64) {
+        self.kill_count += kills;
     }
 }
 

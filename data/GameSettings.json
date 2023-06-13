@@ -1,0 +1,7 @@
+﻿{
+    "Name": "dev",
+    "board_width": "1000",
+    "board_height": "1000",
+    "server_tickrate_ms": "30",
+    "game_timeout_ms": "1200000"
+}

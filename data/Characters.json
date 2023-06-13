@@ -1,0 +1,108 @@
+﻿{
+  "Items": [
+    {
+      "Name": "Muflus",
+      "Id": "0",
+      "Active": "1",
+      "Class": "gua",
+      "Faction": "ara",
+      "BaseSpeed": "75",
+      "SkillBasic": "Bash",
+      "SkillActive1": "Barrel Roll",
+      "SkillActive2": "Rage",
+      "SkillDash": "Leap",
+      "SkillUltimate": "Fiery Rampage"
+    },
+    {
+      "Name": "Uma",
+      "Id": "1",
+      "Active": "1",
+      "Class": "ass",
+      "Faction": "kal",
+      "BaseSpeed": "85",
+      "SkillBasic": "Backstab",
+      "SkillActive1": "Serpent Strike",
+      "SkillActive2": "Petrify",
+      "SkillDash": "Shadowstep",
+      "SkillUltimate": "Toxic Tempest"
+    },
+    {
+      "Name": "H4ck",
+      "Id": "2",
+      "Active": "1",
+      "Class": "hun",
+      "Faction": "oto",
+      "BaseSpeed": "90",
+      "SkillBasic": "Slingshot",
+      "SkillActive1": "Multishot",
+      "SkillActive2": "Disarm",
+      "SkillDash": "Hacktivate",
+      "SkillUltimate": "Denial of Service"
+    },
+    {
+      "Name": "Valtimer",
+      "Id": "3",
+      "Active": "1",
+      "Class": "wiz",
+      "Faction": "mer",
+      "BaseSpeed": "80",
+      "SkillBasic": "Void Blast",
+      "SkillActive1": "Shadow Pulse",
+      "SkillActive2": "Mirror Image",
+      "SkillDash": "Blink",
+      "SkillUltimate": "The Trickster"
+    },
+    {
+      "Name": "Otix",
+      "Id": "4",
+      "Active": "0",
+      "Class": "ass",
+      "Faction": "ara",
+      "BaseSpeed": "",
+      "SkillBasic": "",
+      "SkillActive1": "",
+      "SkillActive2": "",
+      "SkillDash": "",
+      "SkillUltimate": ""
+    },
+    {
+      "Name": "Uren",
+      "Id": "5",
+      "Active": "0",
+      "Class": "wiz",
+      "Faction": "kal",
+      "BaseSpeed": "",
+      "SkillBasic": "",
+      "SkillActive1": "",
+      "SkillActive2": "",
+      "SkillDash": "",
+      "SkillUltimate": ""
+    },
+    {
+      "Name": "Kenzu",
+      "Id": "6",
+      "Active": "0",
+      "Class": "gua",
+      "Faction": "oto",
+      "BaseSpeed": "",
+      "SkillBasic": "",
+      "SkillActive1": "",
+      "SkillActive2": "",
+      "SkillDash": "",
+      "SkillUltimate": ""
+    },
+    {
+      "Name": "Dagna",
+      "Id": "7",
+      "Active": "0",
+      "Class": "hun",
+      "Faction": "mer",
+      "BaseSpeed": "",
+      "SkillBasic": "",
+      "SkillActive1": "",
+      "SkillActive2": "",
+      "SkillDash": "",
+      "SkillUltimate": ""
+    }
+  ]
+}

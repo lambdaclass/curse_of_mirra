@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   build-deploy:
     name: Build and deploy to testing
     runs-on: ubuntu-latest
@@ -15,60 +14,108 @@ jobs:
       url: https://testing.dark-worlds.lambdaclass.com/board
 
     steps:
+      - name: Checkout deploy script
+        uses: Bhacaz/checkout-files@v2
+        with:
+          files: server/deploy.sh
 
-    - name: Checkout deploy script
-      uses: Bhacaz/checkout-files@v2
-      with:
-       files: server/deploy.sh
+      - name: Create ssh private key file from env var
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          set -ex
+          sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519_testing
+          chmod 400 id_ed25519_testing
 
-    - name: Create ssh private key file from env var
-      env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-      run: |
-        set -ex
-        sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519_testing
-        chmod 400 id_ed25519_testing
+      - name: Copy deploy script to server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SCRIPT_SRC: "server/deploy.sh"
+          SCRIPT_DEST: "/root/deploy-script/"
+        run: |
+          set -ex
+          scp -o StrictHostKeyChecking=no \
+              -i id_ed25519_testing \
+              -P ${SSH_PORT} \
+              ${SCRIPT_SRC} \
+              ${SSH_USERNAME}@${SSH_HOST}:${SCRIPT_DEST}
 
-    - name: Copy deploy script to server
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-        SSH_PORT: ${{ secrets.SSH_PORT }}
-        SCRIPT_SRC: "server/deploy.sh"
-        SCRIPT_DEST: "/root/deploy-script/"
-      run: |
-        set -ex
-        scp -o StrictHostKeyChecking=no \
-            -i id_ed25519_testing \
-            -P ${SSH_PORT} \
-            ${SCRIPT_SRC} \
-            ${SSH_USERNAME}@${SSH_HOST}:${SCRIPT_DEST}
-
-    - name: Execute deploy script
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-        SSH_PORT: ${{ secrets.SSH_PORT }}
-        MIX_ENV: ${{ vars.MIX_ENV }}
-        PHX_SERVER: ${{ vars.PHX_SERVER }}
-        PHX_HOST: ${{ vars.PHX_HOST }}
-        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        NEWRELIC_APP_NAME: ${{ vars.NEWRELIC_APP_NAME }}
-        NEWRELIC_KEY: ${{ secrets.NEWRELIC_KEY }}
-        BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-      run: |
-        set -ex
-        ssh -o StrictHostKeyChecking=no \
-            -i id_ed25519_testing \
-            -p ${SSH_PORT} \
-            ${SSH_USERNAME}@${SSH_HOST} \
-              BRANCH_NAME=${BRANCH_NAME} \
-              MIX_ENV=${MIX_ENV} \
-              PHX_SERVER=${PHX_SERVER} \
-              PHX_HOST=${PHX_HOST} \
-              SECRET_KEY_BASE=${SECRET_KEY_BASE} \
-              DATABASE_URL=${DATABASE_URL} \
-              NEWRELIC_APP_NAME=${NEWRELIC_APP_NAME} \
-              NEWRELIC_KEY=${NEWRELIC_KEY} \
-              /root/deploy-script/deploy.sh
+      - name: Execute deploy script
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          MIX_ENV: ${{ vars.MIX_ENV }}
+          PHX_SERVER: ${{ vars.PHX_SERVER }}
+          PHX_HOST: ${{ vars.PHX_HOST }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEWRELIC_APP_NAME: ${{ vars.NEWRELIC_APP_NAME }}
+          NEWRELIC_KEY: ${{ secrets.NEWRELIC_KEY }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          set -ex
+          ssh -o StrictHostKeyChecking=no \
+              -i id_ed25519_testing \
+              -p ${SSH_PORT} \
+              ${SSH_USERNAME}@${SSH_HOST} \
+                BRANCH_NAME=${BRANCH_NAME} \
+                MIX_ENV=${MIX_ENV} \
+                PHX_SERVER=${PHX_SERVER} \
+                PHX_HOST=${PHX_HOST} \
+                SECRET_KEY_BASE=${SECRET_KEY_BASE} \
+                DATABASE_URL=${DATABASE_URL} \
+                NEWRELIC_APP_NAME=${NEWRELIC_APP_NAME} \
+                NEWRELIC_KEY=${NEWRELIC_KEY} \
+                /root/deploy-script/deploy.sh
+  buildWebGL:
+    name: Build for WebGL
+    environment:
+      name: testing
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+      - name: Cache Library
+        uses: actions/cache@v3
+        with:
+          path: client/Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: client
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ vars.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: client
+          targetPlatform: WebGL
+          unityVersion: 2021.3.26f1
+          allowDirtyBuild: true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
+      - name: Upload to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: build/
+          target: /root/dark_worlds_server/server/_build/prod/rel/dark_worlds_server/lib/dark_worlds_server-0.1.0/priv/static/game/
