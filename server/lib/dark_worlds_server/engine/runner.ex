@@ -69,7 +69,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.flag(:priority, priority)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
-    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts.game_config)}")
+    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts.game_config, pretty: true)}")
 
     {:ok, game} = create_new_game(opts.game_config, length(opts.players))
 
