@@ -6,7 +6,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   alias DarkWorldsServer.Engine.Game
 
   @build_walls false
-  @board {1000, 1000}
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
   # The session will be closed one minute after the game has finished
@@ -69,15 +68,16 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    game = create_new_game(opts)
+    game = create_new_game(opts.game_config.runner_config, length(opts.players))
 
-    tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
+    tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
+
     Process.send_after(
       self(),
       :game_timeout,
-      Map.get(opts.game_config, :game_timeout, @game_timeout)
+      Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout)
     )
 
     Process.send_after(self(), :check_player_amount, @player_check)
@@ -480,22 +480,10 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
-    board = {board.width, board.height}
-
+  defp create_new_game(game_config, players) do
     config = %{
-      number_of_players: length(players),
-      board: board,
-      build_walls: @build_walls
-    }
-
-    Game.new(config)
-  end
-
-  defp create_new_game(%{players: players}) do
-    config = %{
-      number_of_players: length(players),
-      board: @board,
+      number_of_players: players,
+      board: {game_config.board_width, game_config.board_height},
       build_walls: @build_walls
     }
 

@@ -163,19 +163,40 @@ message LobbyEvent {
     uint64 player_count = 6;
     repeated uint64 players = 7;
     uint64 removed_player_id = 8;
-    GameConfig game_config = 9;
+    ServerGameSettings game_config = 9;
 }
 
-message BoardSize {
-    uint64 width = 1;
-    uint64 height = 2;
+message RunnerConfig {
+    string Name = 1;
+    uint64 board_width = 2;
+    uint64 board_height = 3;
+    uint64 server_tickrate_ms = 4;
+    uint64 game_timeout_ms = 5;
 }
 
-message GameConfig {
-    BoardSize board_size = 1;
-    uint64 server_tickrate_ms = 2; 
-    uint64 game_timeout_ms = 3;
+message CharacterConfigItem {
+    string Name = 1;
+    string Id = 2;
+    string Active = 3;
+    string Class = 4;
+    string Faction = 5;
+    string BaseSpeed = 6;
+    string SkillBasic = 7;
+    string SkillActive1 = 8;
+    string SkillActive2 = 9;
+    string SkillDash = 10;
+    string SkillUltimate = 11;
 }
+
+message CharacterConfig {
+    repeated CharacterConfigItem Items = 1;
+}
+
+message ServerGameSettings {
+    RunnerConfig runner_config = 1;
+    CharacterConfig character_config = 2;
+}
+    
 
 /* Type of lobby events
     - CONNECTED: Websocket connection is established

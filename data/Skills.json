@@ -1,0 +1,214 @@
+﻿{
+  "Items": [
+    {
+      "Name": "Attack",
+      "DoFunc": "1",
+      "Cooldown": "",
+      "Damage": "100",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Bash",
+      "DoFunc": "",
+      "Cooldown": "",
+      "Damage": "100",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Barrel Roll",
+      "DoFunc": "",
+      "Cooldown": "4000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Rage",
+      "DoFunc": "",
+      "Cooldown": "12000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Leap",
+      "DoFunc": "",
+      "Cooldown": "8000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Fiery Rampage",
+      "DoFunc": "",
+      "Cooldown": "60000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Backstab",
+      "DoFunc": "",
+      "Cooldown": "",
+      "Damage": "100",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Serpent Strike",
+      "DoFunc": "",
+      "Cooldown": "4000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Petrify",
+      "DoFunc": "",
+      "Cooldown": "12000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Shadowstep",
+      "DoFunc": "",
+      "Cooldown": "8000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Toxic Tempest",
+      "DoFunc": "",
+      "Cooldown": "60000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Slingshot",
+      "DoFunc": "",
+      "Cooldown": "",
+      "Damage": "60",
+      "State": "",
+      "Duration": "",
+      "Projectile": "slingshot",
+      "Minion": ""
+    },
+    {
+      "Name": "Multishot",
+      "DoFunc": "",
+      "Cooldown": "4000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Disarm",
+      "DoFunc": "",
+      "Cooldown": "12000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Hacktivate",
+      "DoFunc": "",
+      "Cooldown": "8000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Denial of Service",
+      "DoFunc": "",
+      "Cooldown": "60000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Void Blast",
+      "DoFunc": "",
+      "Cooldown": "",
+      "Damage": "100",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Shadow Pulse",
+      "DoFunc": "",
+      "Cooldown": "4000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Mirror Image",
+      "DoFunc": "",
+      "Cooldown": "12000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": "mirror_image"
+    },
+    {
+      "Name": "Blink",
+      "DoFunc": "",
+      "Cooldown": "8000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "The Trickster",
+      "DoFunc": "",
+      "Cooldown": "60000",
+      "Damage": "",
+      "State": "",
+      "Duration": "",
+      "Projectile": "",
+      "Minion": ""
+    }
+  ]
+}
