@@ -33,6 +33,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -114,6 +115,8 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:status, 5, type: LoadTest.Communication.Proto.Status, enum: true)
   field(:action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
+  field(:kill_count, 8, type: :uint64, json_name: "killCount")
+  field(:death_count, 9, type: :uint64, json_name: "deathCount")
 end
 
 defmodule LoadTest.Communication.Proto.Position do

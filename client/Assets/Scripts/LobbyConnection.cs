@@ -115,7 +115,7 @@ public class LobbyConnection : MonoBehaviour
 #if !UNITY_WEBGL
         GameConfig gameSettings = new GameSettings
         {
-            path = @"./game_settings.json"
+            path = Application.streamingAssetsPath + "/game_settings.json"
         }.parseSettings();
 #else
         GameConfig gameSettings = GameSettings.defaultSettings();

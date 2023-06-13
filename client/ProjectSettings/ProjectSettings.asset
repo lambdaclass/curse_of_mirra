@@ -168,7 +168,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 2020082703
-  AndroidMinSdkVersion: 23
+  AndroidMinSdkVersion: 30
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
   aotOptions: 
@@ -244,7 +244,7 @@ PlayerSettings:
   clonedFromGUID: b26cbc2f17c4a3f418631f1e9dbbcb50
   templatePackageId: 
   templateDefaultScene: 
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -272,7 +272,7 @@ PlayerSettings:
   chromeosInputEmulation: 1
   AndroidMinifyWithR8: 0
   AndroidMinifyRelease: 0
-  AndroidMinifyDebug: 0
+  AndroidMinifyDebug: 1
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
   m_BuildTargetIcons:
