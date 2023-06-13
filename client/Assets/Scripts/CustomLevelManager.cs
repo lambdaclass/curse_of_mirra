@@ -24,7 +24,7 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
     private int totalPlayers;
     private int playerId;
-    public Character prefab;
+    public static GameObject prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
 
@@ -88,14 +88,14 @@ public class CustomLevelManager : LevelManager
             if (LobbyConnection.Instance.playerId == i + 1)
             {
                 // Player1 is the ID to match with the client InputManager
-                prefab.PlayerID = "Player1";
+                prefab.GetComponent<Character>().PlayerID = "Player1";
             }
             else
             {
-                prefab.PlayerID = "";
+                prefab.GetComponent<Character>().PlayerID = "";
             }
             Character newPlayer = Instantiate(
-                prefab,
+                prefab.GetComponent<Character>(),
                 Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
                 Quaternion.identity
             );
