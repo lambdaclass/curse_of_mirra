@@ -131,10 +131,11 @@ public class PlayerMovement : MonoBehaviour
                 serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
                 serverGhost.GetComponent<Character>().name = "Server Ghost";
                 serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
-
             }
 
-            movePlayer(serverGhost, playerUpdate);
+            if (serverGhost != null) {
+                movePlayer(serverGhost, playerUpdate);
+            }
         }
     }
 
