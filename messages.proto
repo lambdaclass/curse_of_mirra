@@ -89,12 +89,15 @@ message RelativePosition {
     - action: the action taken by the player
     - direction: direction of the action (see Direction), used on actions MOVE, ATTACK
     - position: to decide aoe attack center
+    - move_delta: movement direction
+    - target: player id to autoattack
  */
 message ClientAction {
     Action action = 1;
     Direction direction = 2;
     RelativePosition position = 3;
     JoystickValues move_delta = 4;
+    sint64 target = 5;
 }
 
 /* Actions a client/player performs
@@ -103,6 +106,7 @@ message ClientAction {
     - ATTACK_AOE:
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
+    - AUTO_ATTACK: Player attacks nearest oponent, if in range.
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -111,6 +115,8 @@ enum Action {
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
     ADD_BOT = 7;
+    AUTO_ATTACK = 8;
+    BASIC_ATTACK = 9;
 }
 
 /* Directions an action can happen in

@@ -82,7 +82,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::JoystickValues), global::JoystickValues.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RunnerConfig), global::RunnerConfig.Parser, new[]{ "Name", "BoardWidth", "BoardHeight", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
@@ -125,6 +125,7 @@ public enum Status {
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
+///- AUTO_ATTACK: Player attacks nearest oponent, if in range.
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
@@ -133,6 +134,8 @@ public enum Action {
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
   [pbr::OriginalName("ADD_BOT")] AddBot = 7,
+  [pbr::OriginalName("AUTO_ATTACK")] AutoAttack = 8,
+  [pbr::OriginalName("BASIC_ATTACK")] BasicAttack = 9,
 }
 
 /// <summary>
@@ -1626,6 +1629,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     direction_ = other.direction_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     moveDelta_ = other.moveDelta_ != null ? other.moveDelta_.Clone() : null;
+    target_ = other.target_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1683,6 +1687,18 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     }
   }
 
+  /// <summary>Field number for the "target" field.</summary>
+  public const int TargetFieldNumber = 5;
+  private long target_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Target {
+    get { return target_; }
+    set {
+      target_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1702,6 +1718,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (Direction != other.Direction) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (!object.Equals(MoveDelta, other.MoveDelta)) return false;
+    if (Target != other.Target) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1713,6 +1730,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     if (Direction != global::Direction.Unspecified) hash ^= Direction.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (moveDelta_ != null) hash ^= MoveDelta.GetHashCode();
+    if (Target != 0L) hash ^= Target.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1747,6 +1765,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1773,6 +1795,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
       output.WriteRawTag(34);
       output.WriteMessage(MoveDelta);
     }
+    if (Target != 0L) {
+      output.WriteRawTag(40);
+      output.WriteSInt64(Target);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1794,6 +1820,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     }
     if (moveDelta_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveDelta);
+    }
+    if (Target != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Target);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1824,6 +1853,9 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
         MoveDelta = new global::JoystickValues();
       }
       MoveDelta.MergeFrom(other.MoveDelta);
+    }
+    if (other.Target != 0L) {
+      Target = other.Target;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1862,6 +1894,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
           input.ReadMessage(MoveDelta);
           break;
         }
+        case 40: {
+          Target = input.ReadSInt64();
+          break;
+        }
       }
     }
   #endif
@@ -1897,6 +1933,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
             MoveDelta = new global::JoystickValues();
           }
           input.ReadMessage(MoveDelta);
+          break;
+        }
+        case 40: {
+          Target = input.ReadSInt64();
           break;
         }
       }

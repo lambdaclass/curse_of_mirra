@@ -1,5 +1,5 @@
 use crate::skills::*;
-use crate::skills::{Basic, Class, FirstActive, SecondActive};
+use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::EnumString;
@@ -101,41 +101,23 @@ impl Character {
             status_effects: HashMap::new(),
         })
     }
-    pub fn muflus() -> Self {
-        Character {
-            class: Class::Guardian,
-            skill_basic: Basic::Bash,
-            base_speed: 3,
-            name: Name::Muflus,
-            ..Default::default()
-        }
-    }
-    pub fn uma() -> Self {
-        Character {
-            class: Class::Assassin,
-            name: Name::Uma,
-            base_speed: 4,
-            skill_basic: Basic::Backstab,
-            ..Default::default()
-        }
-    }
     #[inline]
     pub fn attack_dmg(&self) -> u64 {
         // TODO have a trait for this
         // instead of matching enums.
         match self.skill_basic {
-            Basic::Slingshot => 10_u64,
-            Basic::Bash => 40_u64,
-            Basic::Backstab => 10_u64,
+            BasicSkill::Slingshot => 10_u64,
+            BasicSkill::Bash => 30_u64,
+            BasicSkill::Backstab => 10_u64,
         }
     }
     // Cooldown in seconds
     #[inline]
     pub fn cooldown(&self) -> u64 {
         match self.skill_basic {
-            Basic::Slingshot => 1,
-            Basic::Bash => 5,
-            Basic::Backstab => 1,
+            BasicSkill::Slingshot => 5,
+            BasicSkill::Bash => 3,
+            BasicSkill::Backstab => 1,
         }
     }
     #[inline]

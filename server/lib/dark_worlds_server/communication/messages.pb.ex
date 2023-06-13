@@ -32,6 +32,8 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
+  field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -166,6 +168,8 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     type: DarkWorldsServer.Communication.Proto.JoystickValues,
     json_name: "moveDelta"
   )
+
+  field(:target, 5, type: :sint64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -32,6 +32,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
+  field(:AUTO_ATTACK, 8)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -144,6 +145,7 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true)
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
+  field(:target, 5, type: :sint64)
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do
