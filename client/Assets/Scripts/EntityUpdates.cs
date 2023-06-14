@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EntityUpdates {
     public struct PlayerState
@@ -41,6 +42,12 @@ public class EntityUpdates {
         acknowledgedInputs.ForEach(input => {
             lastServerUpdate.playerPosition.x += input.grid_delta_x;
             lastServerUpdate.playerPosition.z += input.grid_delta_y;
+
+            lastServerUpdate.playerPosition.x = Math.Max(lastServerUpdate.playerPosition.x, -50f);
+            lastServerUpdate.playerPosition.x = Math.Min(lastServerUpdate.playerPosition.x, 50f);
+
+            lastServerUpdate.playerPosition.z = Math.Max(lastServerUpdate.playerPosition.z, -50f);
+            lastServerUpdate.playerPosition.z = Math.Min(lastServerUpdate.playerPosition.z, 50f);
         });
         pendingPlayerInputs.RemoveAll((input) => input.timestamp + 260 <= serverPlayerUpdate.timestamp);
     }
@@ -60,6 +67,12 @@ public class EntityUpdates {
         pendingPlayerInputs.ForEach(input => {
             ret.playerPosition.x += input.grid_delta_x;
             ret.playerPosition.z += input.grid_delta_y;
+
+            ret.playerPosition.x = Math.Max(ret.playerPosition.x, -50f);
+            ret.playerPosition.x = Math.Min(ret.playerPosition.x, 50f);
+
+            ret.playerPosition.z = Math.Max(ret.playerPosition.z, -50f);
+            ret.playerPosition.z = Math.Min(ret.playerPosition.z, 50f);
         });
 
         return ret;
