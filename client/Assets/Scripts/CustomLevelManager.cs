@@ -12,7 +12,7 @@ public class CustomLevelManager : LevelManager
 
     bool paused = false;
     private GameObject mapPrefab;
-
+    public GameObject quickMapPrefab;
     [SerializeField]
     GameObject roundSplash;
 
@@ -45,10 +45,17 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeMap()
     {
-        mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
-        GameObject map = Instantiate(mapPrefab);
-        //Add gameobject to the scene root
-        map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+        if (LobbyManager.LevelSelected == null)
+        {
+            quickMapPrefab.SetActive(true);
+        }
+        else
+        {
+            mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
+            GameObject map = Instantiate(mapPrefab);
+            //Add gameobject to the scene root
+            map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+        }
     }
 
     private IEnumerator InitializeLevel()

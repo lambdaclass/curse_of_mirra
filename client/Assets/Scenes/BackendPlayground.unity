@@ -1232,6 +1232,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
+  mapList: {fileID: 0}
 --- !u!114 &1079423895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1763,8 +1764,7 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  mapPrefab: {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad,
-    type: 3}
+  quickMapPrefab: {fileID: 1943778542}
   roundSplash: {fileID: 540652120}
   roundText: {fileID: 1956155438}
   backToLobbyButton: {fileID: 368487284}
@@ -2403,6 +2403,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
+--- !u!1 &1943778542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 1943778541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1956155435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,6 +2953,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
+  mapList: {fileID: 0}
 --- !u!1 &1999209348
 GameObject:
   m_ObjectHideFlags: 0
