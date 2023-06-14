@@ -33,7 +33,15 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
-        LobbyConnection.Instance.StartGame();
+        Debug.Log("GameStart");
+        StartCoroutine(xxx());
+    }
+
+    public IEnumerator xxx()
+    {
+        Debug.Log("first call to StartGame()");
+        yield return LobbyConnection.Instance.StartGame();
+        Debug.Log("StartGame() returned");
         StartCoroutine(Utils.WaitForGameCreation());
     }
 
@@ -50,9 +58,13 @@ public class LobbyManager : LevelSelector
             && !LobbyConnection.Instance.gameStarted
         )
         {
-            LobbyConnection.Instance.StartGame();
+            StartCoroutine(yyy());
             SceneManager.LoadScene("Araban");
         }
     }
 
+    private IEnumerator yyy()
+    {
+        yield return LobbyConnection.Instance.StartGame();
+    }
 }
