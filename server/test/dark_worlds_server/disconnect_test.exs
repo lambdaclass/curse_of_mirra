@@ -3,7 +3,19 @@ defmodule DarkWorldsServer.Test.Disconnect do
   alias DarkWorldsServer.Engine.Runner
 
   setup do
-    {:ok, pid} = Runner.start_link(%{players: [1, 2, 3], game_config: %{}})
+    {:ok, pid} =
+      Runner.start_link(%{
+        players: [1, 2, 3],
+        game_config: %{
+          runner_config: %{
+            board_width: 1000,
+            board_height: 100,
+            server_tickrate_ms: 30,
+            game_timeout_ms: 1_200_000
+          }
+        }
+      })
+
     for i <- 1..3, do: Runner.join(pid, i)
     %{pid: pid}
   end

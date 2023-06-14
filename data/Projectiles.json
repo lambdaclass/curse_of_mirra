@@ -1,0 +1,13 @@
+﻿{ "Items" : [
+  {
+    "Name": "slingshot",
+    "Id": "0",
+    "DoFunc": "1",
+    "HitFunc": "1",
+    "Duration": "3000",
+    "Speed": "30",
+    "CollideType": "1",
+    "CollideKill": "1"
+  }
+]
+}
