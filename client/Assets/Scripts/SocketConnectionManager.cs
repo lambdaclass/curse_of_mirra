@@ -7,6 +7,8 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -137,6 +139,11 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.NextRound:
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     winners.Add(game_event.WinnerPlayer);
+                    var newPlayerState = game_event.Players[SocketConnectionManager.Instance.playerId - 1];
+
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(newPlayerState.Position);
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
                     break;
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
@@ -160,6 +167,13 @@ public class SocketConnectionManager : MonoBehaviour
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
+    }
+
+    GameObject GetPlayer(int id)
+    {
+        return SocketConnectionManager.Instance.players.Find(
+            el => el.GetComponent<Character>().PlayerID == id.ToString()
+        );
     }
 
     public void SendAction(ClientAction action)
