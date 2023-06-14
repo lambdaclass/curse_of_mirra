@@ -24,7 +24,7 @@ config :dark_worlds_server, DarkWorldsServerWeb.Endpoint,
   server: true
 
 config :dark_worlds_server,
-  config_folder: "../data/"
+  config_folder: "../client/Assets/StreamingAssets/"
 
 # In test we don't send emails.
 config :dark_worlds_server, DarkWorldsServer.Mailer, adapter: Swoosh.Adapters.Test

@@ -2,8 +2,9 @@ use std::collections::HashMap;
 use tinyjson::JsonValue;
 pub type TestResult = Result<String, String>;
 pub fn read_character_config() -> Vec<HashMap<String, String>> {
-    let path = "../data/Characters.json";
-    let file = std::fs::read_to_string(path).expect("Missing config file!");
+    let path = "../client/Assets/StreamingAssets/Characters.json";
+    let file = std::fs::read_to_string(path)
+        .expect("Missing config file! Make sure you're running this from the server folder");
     let parsed = file
         .parse::<JsonValue>()
         .expect("Could not parse config json!");
