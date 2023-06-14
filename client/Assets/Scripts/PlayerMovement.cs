@@ -133,14 +133,18 @@ public class PlayerMovement : MonoBehaviour
 
         while (serverUpdates.TryDequeue(out var playerUpdate))
         {
-            if (showServerGhost && serverGhost == null) {
+            if (showServerGhost && serverGhost == null)
+            {
                 GameObject player = GetPlayer(SocketConnectionManager.Instance.playerId);
                 serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
                 serverGhost.GetComponent<Character>().name = "Server Ghost";
                 serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
+                Color ghostColor = new Color(255, 255, 255);
+                serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ghostColor);
             }
 
-            if (serverGhost != null) {
+            if (serverGhost != null)
+            {
                 movePlayer(serverGhost, playerUpdate);
             }
         }
@@ -156,19 +160,21 @@ public class PlayerMovement : MonoBehaviour
             EntityUpdates.PlayerState playerState = new EntityUpdates.PlayerState
             {
                 playerPosition = Utils.transformBackendPositionToFrontendPosition(player.Position),
-                playerId = (int) player.Id,
+                playerId = (int)player.Id,
                 health = player.Health,
-                action = (EntityUpdates.PlayerState.PlayerAction) player.Action,
+                action = (EntityUpdates.PlayerState.PlayerAction)player.Action,
                 aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
                 timestamp = gameEvent.Timestamp,
             };
 
-            if (player.Id == (ulong) SocketConnectionManager.Instance.playerId) {
+            if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
+            {
                 serverUpdates.Enqueue(playerState);
                 SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
             }
 
-            if (player.Id == (ulong) SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty()) {
+            if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
+            {
                 playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
             }
 
@@ -320,7 +326,8 @@ public class PlayerMovement : MonoBehaviour
         }
         mAnimator.SetBool("Walking", walking);
 
-        if (player.GetComponent<Character>().name == "Server Ghost") {
+        if (player.GetComponent<Character>().name == "Server Ghost")
+        {
             return;
         }
 
