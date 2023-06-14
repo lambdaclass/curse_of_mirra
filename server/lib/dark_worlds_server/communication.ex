@@ -44,8 +44,8 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def last_round!(%{winner: winner, current_round: current_round}) do
-    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round}
+  def last_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round, players: players}
     |> GameEvent.encode()
   end
 
