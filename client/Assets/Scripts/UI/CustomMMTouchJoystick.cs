@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CustomMMTouchJoystick : MoreMountains.Tools.MMTouchJoystick
+public class CustomMMTouchJoystick : MMTouchJoystick
 {
     public UnityEvent<Vector2, Ability> newPointerUpEvent;
     public UnityEvent<Vector2> newDragEvent;
-    public UnityEvent newPointerDownEvent;
-    public UnityEvent<Ability> newPointerTapEvent;
+    public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Ability ability;
 
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
         SetJoystick();
-        newPointerDownEvent.Invoke();
+        newPointerDownEvent.Invoke(this);
     }
     public override void OnDrag(PointerEventData eventData)
     {
@@ -30,10 +27,6 @@ public class CustomMMTouchJoystick : MoreMountains.Tools.MMTouchJoystick
         newPointerUpEvent.Invoke(RawValue, ability);
         UnSetJoystick();
         ResetJoystick();
-    }
-    public void OnTap(PointerEventData data)
-    {
-        newPointerTapEvent.Invoke(ability);
     }
 
     public void SetJoystick()
