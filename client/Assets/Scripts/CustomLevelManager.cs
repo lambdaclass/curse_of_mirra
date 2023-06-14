@@ -104,36 +104,29 @@ public class CustomLevelManager : LevelManager
 
     private void SetInputsAbilities(int playerID)
     {
+        CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
+
         foreach (Character player in this.PlayerPrefabs)
         {
             if (Int32.Parse(player.PlayerID) == playerID)
             {
-                // SPECIAL BUTTON
-                UnityEvent aoeEvent = new UnityEvent();
-                aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("special", "joystick", aoeEvent, null);
+                AttackBasic attackBasic = player.gameObject.AddComponent<AttackBasic>();
+                attackBasic.SetAbility(Action.BasicAttack);
+                _cim.AssignAbilityToInput(UIControls.AttackBasic, UIType.Tap, attackBasic);
 
-                UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
-                aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("special", "joystick", aimEvent);
+                Attack1 attack1 = player.gameObject.AddComponent<Attack1>();
+                attack1.SetAbility(Action.AttackAoe);
 
-                UnityEvent<Vector2,Weapon> attackEvent = new UnityEvent<Vector2,Weapon>();
-                attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("special", "joystick", attackEvent);
+                Attack2 attack2 = player.gameObject.AddComponent<Attack2>();
+                attack2.SetAbility(Action.AttackAoe);
+                _cim.AssignAbilityToInput(UIControls.Attack2, UIType.Direction, attack2);
 
-                // UTLIMATE BUTTON
-                Weapon ultimateWeapon = player.GetComponent<CharacterHandleWeapon>().InitialWeapon;
-                UnityEvent ultimateDown = new UnityEvent();
-                ultimateDown.AddListener(player.GetComponent<InputAoe>().ShowAimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityPosition("ultimate", "joystick", ultimateDown, ultimateWeapon);
+                Attack3 attack3 = player.gameObject.AddComponent<Attack3>();
+                attack3.SetAbility(Action.AttackAoe);
+                _cim.AssignAbilityToInput(UIControls.Attack3, UIType.Area, attack3);
 
-                UnityEvent<Vector2> ultimateDrag = new UnityEvent<Vector2>();
-                ultimateDrag.AddListener(player.GetComponent<InputAoe>().AimAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAimPosition("ultimate", "joystick", ultimateDrag);
-
-                UnityEvent<Vector2,Weapon> ultimateRelease = new UnityEvent<Vector2,Weapon>();
-                ultimateRelease.AddListener(player.GetComponent<InputAoe>().ExecuteAoeAttack);
-                UiCamera.GetComponent<CustomInputManager>().AssignInputToAbilityExecution("ultimate", "joystick", ultimateRelease);
+                Attack4 attack4 = player.gameObject.AddComponent<Attack4>();
+                attack4.SetAbility(Action.AttackAoe);
             }
         }
     }
