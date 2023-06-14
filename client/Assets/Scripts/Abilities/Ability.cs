@@ -14,7 +14,14 @@ public class Ability : CharacterAbility
     public void ExecuteAbility(){
         Debug.Log("Tap Ability executed!");
 
-        ClientAction action = new ClientAction { Action = serverAbility };
+        // FIXME: Position should be removed
+        RelativePosition testingPosition = new RelativePosition
+        {
+            X = (long)(-30 * 100),
+            Y = (long)(0)
+        };
+
+        ClientAction action = new ClientAction { Action = serverAbility, Position = testingPosition };
         SocketConnectionManager.Instance.SendAction(action);
     }
 

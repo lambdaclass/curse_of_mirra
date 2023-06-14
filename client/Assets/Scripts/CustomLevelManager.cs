@@ -111,22 +111,23 @@ public class CustomLevelManager : LevelManager
             if (Int32.Parse(player.PlayerID) == playerID)
             {
                 AttackBasic attackBasic = player.gameObject.AddComponent<AttackBasic>();
-                attackBasic.SetAbility(Action.BasicAttack);
+                attackBasic.SetAbility(Action.AttackAoe);
                 _cim.AssignAbilityToInput(UIControls.AttackBasic, UIType.Tap, attackBasic);
 
                 Attack1 attack1 = player.gameObject.AddComponent<Attack1>();
                 attack1.SetAbility(Action.AttackAoe);
+                _cim.AssignAbilityToInput(UIControls.Attack1, UIType.Area, attack1);
 
                 Attack2 attack2 = player.gameObject.AddComponent<Attack2>();
                 attack2.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.Attack2, UIType.Direction, attack2);
+                _cim.AssignAbilityToInput(UIControls.Attack2, UIType.Tap, attack2);
 
                 Attack3 attack3 = player.gameObject.AddComponent<Attack3>();
                 attack3.SetAbility(Action.AttackAoe);
                 _cim.AssignAbilityToInput(UIControls.Attack3, UIType.Area, attack3);
 
-                Attack4 attack4 = player.gameObject.AddComponent<Attack4>();
-                attack4.SetAbility(Action.AttackAoe);
+                // Attack4 attack4 = player.gameObject.AddComponent<Attack4>();
+                // attack4.SetAbility(Action.AttackAoe);
             }
         }
     }

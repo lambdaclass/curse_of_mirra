@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using MoreMountains.TopDownEngine;
 using System;
+using System.Collections.Generic;
 
 public enum UIControls
 {
@@ -23,72 +24,77 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] GameObject mainAttack;
-    [SerializeField] GameObject specialAttack;
-    [SerializeField] GameObject dash;
-    [SerializeField] GameObject ultimate;
-    GameObject areaWithAim;
-    GameObject area;
-    GameObject indicator;
+    [SerializeField] GameObject AttackBasic;
+    [SerializeField] GameObject Attack1;
+    [SerializeField] GameObject Attack2;
+    [SerializeField] GameObject Attack3;
+    [SerializeField] GameObject Attack4;
+    Dictionary<UIControls, GameObject> mobileButtons;
+    private GameObject areaWithAim;
+    private GameObject area;
+    private GameObject indicator;
+
+    protected override void Start(){
+        base.Start();
+
+        mobileButtons = new Dictionary<UIControls, GameObject>();
+        mobileButtons.Add(UIControls.Attack1, Attack1);
+        mobileButtons.Add(UIControls.Attack2, Attack2);
+        mobileButtons.Add(UIControls.Attack3, Attack3);
+        mobileButtons.Add(UIControls.Attack4, Attack4);
+        mobileButtons.Add(UIControls.AttackBasic, AttackBasic);
+    }
 
     public void AssignAbilityToInput(UIControls trigger, UIType triggerType, Ability ability)
     {
-        // TODO: REFACTOR! The input type is hardcoded for each specific attack and shouw be configurable.
+        CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
 
-        if (trigger == UIControls.AttackBasic){
-            UnityEvent<Ability> tapEvent = new UnityEvent<Ability>();
-            tapEvent.AddListener(TapAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerTapEvent = tapEvent;
-            ultimate.GetComponent<CustomMMTouchJoystick>().ability = ability;
-        }
+        switch (triggerType)
+        {
+            case UIType.Tap:
+                MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
-        if (trigger == UIControls.Attack2){
-            UnityEvent aoeEvent = new UnityEvent();
-            aoeEvent.AddListener(ShowAimDirectionAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = aoeEvent;
+                button.ButtonReleased.AddListener(ability.ExecuteAbility);
+                if (joystick){
+                    mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
+                }
+                break;
 
-            UnityEvent<Vector2> aoeDragEvent = new UnityEvent<Vector2>();
-            aoeDragEvent.AddListener(AimDirectionAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().newDragEvent = aoeDragEvent;
+            case UIType.Area:
+                if (joystick){
+                    joystick.enabled = true;
+                }
+                MapAreaInputEvents(joystick, ability);
+                break;
 
-            UnityEvent<Vector2,Ability> aoeRelease = new UnityEvent<Vector2,Ability>();
-            aoeRelease.AddListener(ExecuteAoeAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().ability = ability;
-            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = aoeRelease;
-        }
-
-        if (trigger == UIControls.Attack3){
-            UnityEvent aoeEvent = new UnityEvent();
-            aoeEvent.AddListener(ShowAimAoeAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = aoeEvent;
-
-            UnityEvent<Vector2> aoeDragEvent = new UnityEvent<Vector2>();
-            aoeDragEvent.AddListener(AimAoeAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().newDragEvent = aoeDragEvent;
-
-            UnityEvent<Vector2,Ability> aoeRelease = new UnityEvent<Vector2,Ability>();
-            aoeRelease.AddListener(ExecuteAoeAttack);
-            ultimate.GetComponent<CustomMMTouchJoystick>().ability = ability;
-            ultimate.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = aoeRelease;
+            case UIType.Direction:
+                if (joystick){
+                    joystick.enabled = true;
+                }
+                MapDirectionInputEvents(joystick, ability);
+                break;
         }
     }
 
-  private void AimDirectionAttack(Vector2 arg0)
-  {
-    throw new NotImplementedException();
-  }
+    private void MapAreaInputEvents(CustomMMTouchJoystick joystick, Ability ability)
+    {
+        UnityEvent aoeEvent = new UnityEvent();
+        aoeEvent.AddListener(ShowAimAoeAttack);
+        joystick.newPointerDownEvent = aoeEvent;
 
-  private void ShowAimDirectionAttack()
-  {
-    throw new NotImplementedException();
-  }
+        UnityEvent<Vector2> aoeDragEvent = new UnityEvent<Vector2>();
+        aoeDragEvent.AddListener(AimAoeAttack);
+        joystick.newDragEvent = aoeDragEvent;
 
-  public void TapAttack(Ability ability){
-        ability.ExecuteAbility();
+        UnityEvent<Vector2,Ability> aoeRelease = new UnityEvent<Vector2,Ability>();
+        aoeRelease.AddListener(ExecuteAoeAttack);
+        joystick.ability = ability;
+        joystick.newPointerUpEvent = aoeRelease;
     }
 
     public void ShowAimAoeAttack()
     {
+        // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
 
         //Load the prefab
@@ -103,20 +109,20 @@ public class CustomInputManager : InputManager
         area.transform.localScale = area.transform.localScale * 30;
         indicator = areaWithAim.GetComponent<AimHandler>().indicator;
         indicator.transform.localScale = indicator.transform.localScale * 5;
-
-        // FIXME: remove hardcoded attr
-        SetJoystick(ultimate);
     }
 
     public void AimAoeAttack(Vector2 aoePosition)
     {
+        // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
 
         //Multiply vector values according to the scale of the animation (in this case 12)
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
     }
+
     public void ExecuteAoeAttack(Vector2 aoePosition, Ability ability)
     {
+        // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
 
         //Destroy attack animation after showing it
@@ -125,21 +131,38 @@ public class CustomInputManager : InputManager
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         Destroy(indicator, 0.01f);
         Destroy(area, 0.01f);
-        // FIXME: remove hardcoded attr
-        UnSetJoystick(ultimate);
 
         ability.ExecuteAbility(aoePosition);
     }
 
+    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Ability ability)
+    {
+        UnityEvent directionEvent = new UnityEvent();
+        directionEvent.AddListener(ShowAimDirectionAttack);
+        joystick.newPointerDownEvent = directionEvent;
 
-    public void SetJoystick(GameObject button)
-    {
-        Image joystickBg = button.transform.parent.gameObject.GetComponent<Image>();
-        joystickBg.enabled = true;
+        UnityEvent<Vector2> directionDragEvent = new UnityEvent<Vector2>();
+        directionDragEvent.AddListener(AimDirectionAttack);
+        joystick.newDragEvent = directionDragEvent;
+
+        UnityEvent<Vector2,Ability> directionRelease = new UnityEvent<Vector2,Ability>();
+        directionRelease.AddListener(ExecuteDirectionAttack);
+        joystick.ability = ability;
+        joystick.newPointerUpEvent = directionRelease;
     }
-    public void UnSetJoystick(GameObject button)
+
+    private void ShowAimDirectionAttack()
     {
-        Image joystickBg = button.transform.parent.gameObject.GetComponent<Image>();
-        joystickBg.enabled = false;
+        throw new NotImplementedException();
+    }
+
+    private void AimDirectionAttack(Vector2 direction)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ExecuteDirectionAttack(Vector2 direction, Ability ability)
+    {
+        throw new NotImplementedException();
     }
 }
