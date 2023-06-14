@@ -134,33 +134,13 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, state}
   end
 
-    def handle_cast(
-        {:play, player, %ActionOk{action: :move, value: value}},
-        %{next_state: %{game: game} = next_state} = state
-      ) do
-    game =
-      game
-      |> Game.move_player(player, value)
-
-    next_state = Map.put(next_state, :game, game)
-
-    state = Map.put(state, :next_state, next_state)
-
-    {:noreply, state}
-  end
-
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :teleport, value: value}},
+        {:play, player_id, %ActionOk{action: :teleport, value: position_transform}},
         %{next_state: %{game: game} = next_state} = state
       ) do
-      {x, y} = value
-      IO.inspect("Runner - Player ID")
-      IO.inspect(player_id)
-      IO.inspect("Runner - Value")
-      IO.inspect(value)
     game =
       game
-      |> Game.move_player_to_coordinates(player_id, x, y)
+      |> Game.move_player_to_coordinates(player_id, position_transform)
 
     next_state = Map.put(next_state, :game, game)
 
@@ -187,8 +167,6 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{next_state: %{game: game} = next_state} = state
       ) do
     {:ok, game} = Game.attack_aoe(game, player_id, value)
-    IO.inspect("AOE Value")
-    IO.inspect(value)
 
     next_state = next_state |> Map.put(:game, game)
     state = Map.put(state, :next_state, next_state)
@@ -238,11 +216,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply, {:error, :game_full}, state}
   end
 
-  def handle_call(:get_board, _from, %{current_state: %{game: %{board: board}}} = state) do
+  def handle_call(:get_board, _from, %{current_state: %{game: %Game{board: board}}} = state) do
     {:reply, board, state}
   end
 
-  def handle_call(:get_players, _from, %{current_state: %{game: %{players: players}}} = state) do
+  def handle_call(:get_players, _from, %{current_state: %{game: %Game{players: players}}} = state) do
     {:reply, players, state}
   end
 

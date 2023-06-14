@@ -235,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
                 isDoingUltimate && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
             )
             {
-                print("isDoingUltimate");
+                print(player.name + "Ultimate");
                 player
                     .GetComponent<GenericUltimate>()
                     .ExecuteUltimate(

@@ -33,10 +33,10 @@ fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameSta
 fn move_player_to_coordinates(
     game: GameState,
     player_id: u64,
-    target_position: RelativePosition,
+    position_transform: RelativePosition,
 ) -> GameState {
     let mut game_2 = game;
-    game_2.move_player_to_coordinates(player_id, &target_position);
+    game_2.move_player_to_coordinates(player_id, &position_transform);
     game_2
 }
 

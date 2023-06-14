@@ -169,9 +169,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :add_bot, value: nil}
   end
 
-  def decode(teleport_debug = %ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
-    IO.inspect(teleport_debug, label: "debug_teleport_message")
-    %EngineAction{action: :teleport, value: {position.x, position.y}}
+  def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
+    %EngineAction{action: :teleport, value: position}
   end
 
   def decode(%struct{} = msg, struct) do
