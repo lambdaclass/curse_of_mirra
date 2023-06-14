@@ -33,9 +33,6 @@ public class PlayerControls : MonoBehaviour
             SocketConnectionManager.Instance.SendAction(clientAction);
             var norm = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
 
-            // var x_norm = (float) Math.Round(x / norm * 5f);
-            // var y_norm = (float) Math.Round(y / norm * 5f);
-
             float characterSpeed = 0;
             int playerId = SocketConnectionManager.Instance.playerId;
 
@@ -43,12 +40,12 @@ public class PlayerControls : MonoBehaviour
             if (playerId % 3 == 0)
             {
                 // Uma
-                characterSpeed = 5f;
+                characterSpeed = 3f;
             }
             else if (playerId % 3 == 1)
             {
                 // Muflus
-                characterSpeed = 3f;
+                characterSpeed = 5f;
             }
             else
             {
@@ -56,16 +53,12 @@ public class PlayerControls : MonoBehaviour
                 characterSpeed = 4f;
             }
 
-            // var x_norm = (float) Math.Round(x / norm * 3f);
-            // var y_norm = (float) Math.Round(y / norm * 3f);
-
             var x_norm = (float) Math.Round(x / norm * characterSpeed);
             var y_norm = (float) Math.Round(y / norm * characterSpeed);
 
-            var backendPosition = new Position();
             x_norm = x_norm / 10f;
             y_norm = y_norm / 10f;
-            
+
             EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
             {
                 grid_delta_x = x_norm,
