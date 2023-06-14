@@ -2,9 +2,6 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
   use DarkWorldsServer.DataCase
   use ExUnit.Case, async: true
 
-  import DarkWorldsServer.AccountsFixtures
-
-  alias DarkWorldsServer.Accounts
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Engine.Player
   alias DarkWorldsServer.Engine.Position
