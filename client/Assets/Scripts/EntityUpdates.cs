@@ -56,9 +56,7 @@ public class EntityUpdates {
         var ret = new PlayerState();
 
         ret.playerPosition = lastServerUpdate.playerPosition;
-        // ret.playerId = lastServerUpdate.playerId;
         ret.playerId = lastServerUpdate.playerId;
-        // ret.health = lastServerUpdate.health;
         ret.health = lastServerUpdate.health;
         ret.action = lastServerUpdate.action;
         ret.aoeCenterPosition = lastServerUpdate.aoeCenterPosition;
