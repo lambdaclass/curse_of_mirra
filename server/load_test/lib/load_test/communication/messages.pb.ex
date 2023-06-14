@@ -26,12 +26,6 @@ defmodule LoadTest.Communication.Proto.Action do
 
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :ACTION_UNSPECIFIED, 0
-  field :MOVE, 1
-  field :ATTACK, 2
-  field :ATTACK_AOE, 5
-  field :MOVE_WITH_JOYSTICK, 6
-
   field(:ACTION_UNSPECIFIED, 0)
   field(:MOVE, 1)
   field(:ATTACK, 2)
@@ -61,6 +55,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:TELEPORTING, 3)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -120,6 +115,11 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:status, 5, type: LoadTest.Communication.Proto.Status, enum: true)
   field(:action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
+
+  field(:teleport_position, 8,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "teleportPosition"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.Position do

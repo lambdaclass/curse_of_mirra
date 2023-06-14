@@ -69,8 +69,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
   end
 
-  def encode(%EngineAction{action: :teleport, value: direction}, ProtoAction) do
-    %ProtoAction{action: :TELEPORT, direction: direction_encode(direction)}
+  def encode(%EngineAction{action: :teleport, value: position}, ProtoAction) do
+    %ProtoAction{action: :TELEPORT, position: position}
   end
 
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
@@ -167,6 +167,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do
     %EngineAction{action: :add_bot, value: nil}
+  end
+
+  def decode(teleport_debug = %ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
+    IO.inspect(teleport_debug, label: "debug_teleport_message")
+    %EngineAction{action: :teleport, value: {position.x, position.y}}
   end
 
   def decode(%struct{} = msg, struct) do

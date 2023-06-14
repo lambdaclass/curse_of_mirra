@@ -218,6 +218,8 @@ public class PlayerMovement : MonoBehaviour
                 isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
             )
             {
+                print(player.name + "AttackingAOE");
+
                 player
                     .GetComponent<GenericAoeAttack>()
                     .ShowAoeAttack(
@@ -227,22 +229,25 @@ public class PlayerMovement : MonoBehaviour
                         )
                     );
             }
-<<<<<<< HEAD
 
-            bool isTeleporting = playerUpdate.action == PlayerAction.Teleporting;
-            if (isTeleporting)
+            bool isDoingUltimate = playerUpdate.action == PlayerAction.Teleporting;
+            if (
+                isDoingUltimate && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
+            )
             {
-                print("teleport");
+                print("isDoingUltimate");
+                player
+                    .GetComponent<GenericUltimate>()
+                    .ExecuteUltimate(
+                        new Vector2(
+                            playerUpdate.aoeCenterPosition.x,
+                            playerUpdate.aoeCenterPosition.z
+                        )
+                    );
             }
-
-            SocketConnectionManager.Instance.players[playerUpdate.player_id]
-                .GetComponent<AttackController>()
-                .SwordAttack(isAttacking);
-=======
             // player
             // .GetComponent<AttackController>()
             // .SwordAttack(isAttacking);
->>>>>>> origin
         }
     }
 

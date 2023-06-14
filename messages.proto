@@ -110,7 +110,7 @@ enum Action {
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
     ADD_BOT = 7;
-    TEELEPORT = 8;
+    TELEPORT = 8;
 }
 
 /* Directions an action can happen in

@@ -55,6 +55,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:TELEPORTING, 3)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -124,6 +125,11 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   field(:aoe_position, 7,
     type: DarkWorldsServer.Communication.Proto.Position,
     json_name: "aoePosition"
+  )
+
+  field(:teleport_position, 8,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "teleportPosition"
   )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform

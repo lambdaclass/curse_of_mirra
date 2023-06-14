@@ -61,6 +61,9 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     case Communication.decode(message) do
       {:ok, action} ->
         RequestTracker.add_counter(state[:runner_pid], state[:player_id])
+        IO.inspect(state[:runner_pid])
+        IO.inspect(state[:player_id])
+        IO.inspect(action)
         Runner.play(state[:runner_pid], state[:player_id], action)
         {:ok, state}
 

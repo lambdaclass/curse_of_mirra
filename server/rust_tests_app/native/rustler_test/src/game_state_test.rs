@@ -4,8 +4,7 @@ use gamestate::board::GridResource;
 use gamestate::board::Tile;
 use gamestate::character::{Character, Effect, TicksLeft};
 use gamestate::game::{Direction, GameState};
-use gamestate::player::Player;
-use gamestate::player::Position;
+use gamestate::player::{Player, Position, RelativePosition};
 use gamestate::time_utils;
 use std::time::{Duration, Instant};
 fn get_grid(game: &GameState) -> Vec<Vec<Tile>> {
@@ -147,7 +146,7 @@ fn move_player_to_coordinates() -> TestResult {
     state.players = vec![player1];
     state.board.set_cell(0, 0, Tile::Player(player_id)); // adds player 1 to the cell at (0,0)
 
-    state.move_player_to_coordinates(player_id, Position::new(1, 1));
+    state.move_player_to_coordinates(player_id, &RelativePosition::new(1, 1));
     assert_result!(
         vec![
             vec![Tile::Empty, Tile::Empty],

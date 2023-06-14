@@ -143,7 +143,7 @@ impl GameState {
         );
     }
 
-    pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, mut new_position: Position) {
+    pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, position_transform: &RelativePosition) {
         let player = self
             .players
             .iter_mut()
@@ -154,20 +154,28 @@ impl GameState {
             return;
         }
 
+        let new_position_x = player.position.x as i64 + position_transform.x;
+
+        let new_position_y = player.position.y as i64 + position_transform.y;
+
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
         // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
         // something invalid like (0, -1).
-        new_position.x = min(new_position.x, self.board.height - 1);
-        new_position.x = max(new_position.x, 0);
-        new_position.y = min(new_position.y, self.board.width - 1);
-        new_position.y = max(new_position.y, 0);
+        
+        let new_position_x = min(new_position_x, (self.board.height - 1).try_into().unwrap());
+        let new_position_x = max(new_position_x, 0);
+        let new_position_y = min(new_position_y, (self.board.height - 1).try_into().unwrap());
+        let new_position_y = max(new_position_y, 0);
+
+        let new_position_coordinates = Position{x: new_position_x as usize, y: new_position_y as usize};
+
+        player.position = new_position_coordinates;
 
         // Remove the player from their previous position on the board
         self.board
             .set_cell(player.position.x, player.position.y, Tile::Empty);
 
-        player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,

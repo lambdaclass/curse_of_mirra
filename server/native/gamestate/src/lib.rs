@@ -5,7 +5,6 @@ pub mod player;
 pub mod projectile;
 pub mod skills;
 pub mod time_utils;
-use crate::player::Position;
 use game::GameState;
 use rustler::{Env, Term};
 use std::collections::HashMap;
@@ -34,10 +33,10 @@ fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameSta
 fn move_player_to_coordinates(
     game: GameState,
     player_id: u64,
-    new_position: Position,
+    target_position: RelativePosition,
 ) -> GameState {
     let mut game_2 = game;
-    game_2.move_player_to_coordinates(player_id, new_position);
+    game_2.move_player_to_coordinates(player_id, &target_position);
     game_2
 }
 
@@ -143,6 +142,7 @@ rustler::init!(
         move_with_joystick,
         new_round,
         spawn_player,
+        move_player_to_coordinates
     ],
     load = load
 );
