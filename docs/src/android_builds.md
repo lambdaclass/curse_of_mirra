@@ -1,4 +1,4 @@
-### Steps to generate a build for Android and open it in an Android device:
+# Steps to generate a build for Android and open it in an Android device:
 
 1. Activate developer mode in your Android device. In most devices, you should go to *Settings* > *About phone* and tap *Build number* seven times. Then, go to *Settings* > *Developer options* and enable *USB debugging*. You'll also need to enable *Install via USB*. If that's not the way to activate developer mode in your device, you can find help in [the official docs](https://developer.android.com/studio/debug/dev-options).
 
