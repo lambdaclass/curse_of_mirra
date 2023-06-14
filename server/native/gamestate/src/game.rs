@@ -494,21 +494,23 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0 || direction.y != 0 {
-            
             let angle = (direction.y as f64).atan2(direction.x as f64); // Calcula el ángulo en radianes
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Ajusta el ángulo si es negativo
             } else {
                 angle.to_degrees()
             };
-        
+
             let angle_modifiers = [-20f64, -10f64, 0f64, 10f64, 20f64];
 
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
                     *next_projectile_id,
                     attacking_player.position,
-                    JoystickValues::new((angle_positive + modifier).to_radians().cos(), (angle_positive + modifier).to_radians().sin()),
+                    JoystickValues::new(
+                        (angle_positive + modifier).to_radians().cos(),
+                        (angle_positive + modifier).to_radians().sin(),
+                    ),
                     10,
                     10,
                     attacking_player.id,
