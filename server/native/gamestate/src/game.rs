@@ -339,11 +339,17 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            }
+            // Name::Muflus => {
+            //     let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+            //     let players = &mut self.players;
+            //     Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            // }
+            Name::Muflus => Self::h4ck_basic_attack(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -364,10 +370,10 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
-                7,
+                14,
                 10,
                 attacking_player.id,
-                10,
+                15,
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
@@ -444,7 +450,7 @@ impl GameState {
         Ok(())
     }
 
-    pub fn aoe_attack(
+    pub fn skill_1(
         self: &mut Self,
         attacking_player_id: u64,
         direction: &RelativePosition,
@@ -463,7 +469,7 @@ impl GameState {
             return Ok(());
         }
         attacking_player.last_melee_attack = now;
-        attacking_player.action = PlayerAction::ATTACKINGAOE;
+        attacking_player.action = PlayerAction::EXECUTINGSKILL1;
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -495,87 +501,28 @@ impl GameState {
             } else {
                 angle.to_degrees()
             };
-            
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new((angle_positive + 20f64).to_radians().cos(), (angle_positive + 20f64).to_radians().sin()),
-                7,
-                10,
-                attacking_player.id,
-                10,
-                30,
-                ProjectileType::BULLET,
-                ProjectileStatus::ACTIVE,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
+        
+            let angle_modifiers = [-20f64, -10f64, 0f64, 10f64, 20f64];
 
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new((angle_positive - 10f64).to_radians().cos(), (angle_positive - 10f64).to_radians().sin()),
-                7,
-                10,
-                attacking_player.id,
-                10,
-                30,
-                ProjectileType::BULLET,
-                ProjectileStatus::ACTIVE,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
-
-            
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new((angle_positive - 20f64).to_radians().cos(), (angle_positive - 20f64).to_radians().sin()),
-                7,
-                10,
-                attacking_player.id,
-                10,
-                30,
-                ProjectileType::BULLET,
-                ProjectileStatus::ACTIVE,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
-
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new((angle_positive + 10f64).to_radians().cos(), (angle_positive + 5f64).to_radians().sin()),
-                7,
-                10,
-                attacking_player.id,
-                10,
-                30,
-                ProjectileType::BULLET,
-                ProjectileStatus::ACTIVE,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
-
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
-                7,
-                10,
-                attacking_player.id,
-                10,
-                30,
-                ProjectileType::BULLET,
-                ProjectileStatus::ACTIVE,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
-
+            for modifier in angle_modifiers {
+                let projectile = Projectile::new(
+                    *next_projectile_id,
+                    attacking_player.position,
+                    JoystickValues::new((angle_positive + modifier).to_radians().cos(), (angle_positive + modifier).to_radians().sin()),
+                    10,
+                    10,
+                    attacking_player.id,
+                    10,
+                    10,
+                    ProjectileType::BULLET,
+                    ProjectileStatus::ACTIVE,
+                );
+                projectiles.push(projectile);
+                (*next_projectile_id) += 1;
+            }
         }
         Ok(())
     }
-
 
     pub fn aoe_attack_deprecated(
         self: &mut Self,
@@ -640,10 +587,10 @@ impl GameState {
                     self.next_projectile_id,
                     attacking_player.position,
                     JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
-                    5,
+                    14,
                     10,
                     attacking_player.id,
-                    20,
+                    10,
                     30,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
