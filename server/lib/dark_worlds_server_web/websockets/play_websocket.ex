@@ -34,15 +34,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
          {:ok, player_id} <- Runner.join(runner_pid, String.to_integer(player_id)) do
-      state = %{runner_pid: runner_pid, player_id: player_id}
+      web_socket_state = %{runner_pid: runner_pid, player_id: player_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
-      # {:reply,
-      #  {:text,
-      #   "PLAYER_ID: #{player_id} CONNECTED_TO: #{Communication.pid_to_external_id(runner_pid)}"},
-      #  state}
-      {:ok, state}
+      {:ok, web_socket_state}
     else
       false -> {:stop, %{}}
       {:error, _reason} -> {:stop, %{}}
@@ -65,83 +61,83 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   @impl true
-  def websocket_handle({:binary, message}, state) do
+  def websocket_handle({:binary, message}, web_socket_state) do
     case Communication.decode(message) do
       {:ok, action} ->
-        RequestTracker.add_counter(state[:runner_pid], state[:player_id])
-        Runner.play(state[:runner_pid], state[:player_id], action)
-        {:ok, state}
+        RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
+        Runner.play(web_socket_state[:runner_pid], web_socket_state[:player_id], action)
+        {:ok, web_socket_state}
 
       {:error, msg} ->
-        {:reply, {:text, "ERROR: #{msg}"}, state}
+        {:reply, {:text, "ERROR: #{msg}"}, web_socket_state}
     end
   end
 
-  def websocket_handle(:pong, state) do
-    last_ping_time = state.last_ping_time
+  def websocket_handle(:pong, web_socket_state) do
+    last_ping_time = web_socket_state.last_ping_time
     time_now = Time.utc_now()
     latency = Time.diff(time_now, last_ping_time, :millisecond)
     # Send back the player's ping
-    {:reply, {:binary, Communication.encode!(%{latency: latency})}, state}
+    {:reply, {:binary, Communication.encode!(%{latency: latency})}, web_socket_state}
   end
 
-  def websocket_handle(_, state) do
-    {:reply, {:text, "ERROR unsupported message"}, state}
+  def websocket_handle(_, web_socket_state) do
+    {:reply, {:text, "ERROR unsupported message"}, web_socket_state}
   end
 
   @impl true
-  def websocket_info({:player_joined, player_id}, state) do
-    {:reply, {:binary, Communication.game_player_joined(player_id)}, state}
+  def websocket_info({:player_joined, player_id}, web_socket_state) do
+    {:reply, {:binary, Communication.game_player_joined(player_id)}, web_socket_state}
   end
 
-  def websocket_info({:initial_positions, players}, state) do
-    {:reply, {:binary, Communication.initial_positions(players)}, state}
+  def websocket_info({:initial_positions, players}, web_socket_state) do
+    {:reply, {:binary, Communication.initial_positions(players)}, web_socket_state}
   end
 
   # Send a ping frame every once in a while
-  def websocket_info(:send_ping, state) do
+  def websocket_info(:send_ping, web_socket_state) do
     Process.send_after(self(), :send_ping, @ping_interval_ms)
     time_now = Time.utc_now()
-    {:reply, :ping, Map.put(state, :last_ping_time, time_now)}
+    {:reply, :ping, Map.put(web_socket_state, :last_ping_time, time_now)}
   end
 
-  def websocket_info({:game_update, game_state}, state) do
+  def websocket_info({:game_update, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.current_state.game.players,
-      projectiles: game_state.current_state.game.projectiles
+      players: game_state.client_game_state.game.players,
+      projectiles: game_state.client_game_state.game.projectiles
     }
 
-    {:reply, {:binary, Communication.encode!(reply_map)}, state}
+    {:reply, {:binary, Communication.encode!(reply_map)}, web_socket_state}
   end
 
-  def websocket_info({:game_finished, winner, game_state}, state) do
+  def websocket_info({:game_finished, winner, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.current_state.game.players,
+      players: game_state.client_game_state.game.players,
       winner: winner
     }
 
     Logger.info("THE GAME HAS FINISHED")
 
-    {:reply, {:binary, Communication.game_finished!(reply_map)}, state}
+    {:reply, {:binary, Communication.game_finished!(reply_map)}, web_socket_state}
   end
 
-  def websocket_info({:next_round, winner, game_state}, state) do
+  def websocket_info({:next_round, winner, game_state}, web_socket_state) do
     reply_map = %{
       winner: winner,
       current_round: game_state.current_round
     }
 
-    {:reply, {:binary, Communication.next_round!(reply_map)}, state}
+    {:reply, {:binary, Communication.next_round!(reply_map)}, web_socket_state}
   end
 
-  def websocket_info({:last_round, winner, game_state}, state) do
+  def websocket_info({:last_round, winner, game_state}, web_socket_state) do
     reply_map = %{
       winner: winner,
       current_round: game_state.current_round
     }
 
-    {:reply, {:binary, Communication.last_round!(reply_map)}, state}
+    {:reply, {:binary, Communication.last_round!(reply_map)}, web_socket_state}
   end
 
-  def websocket_info(info, state), do: {:reply, {:text, info}, state}
+  def websocket_info(info, web_socket_state), do: {:reply, {:text, info}, web_socket_state}
 end
