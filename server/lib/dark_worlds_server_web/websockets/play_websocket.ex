@@ -44,7 +44,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       false ->
         {:stop, %{}}
 
-      {:error, reason} ->
+      {:error, _reason} ->
         {:stop, %{}}
     end
   end
