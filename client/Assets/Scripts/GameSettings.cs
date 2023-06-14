@@ -69,7 +69,12 @@ public class GameSettings
 
     static void GetRequest(string uri, Action<string> callback)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(uri);
+        UnityWebRequest webRequest;
+#if UNITY_EDITOR
+        webRequest = UnityWebRequest.Get("file://" + uri);
+#else
+        webRequest = UnityWebRequest.Get(uri);
+#endif
         webRequest.SetRequestHeader("Content-Type", "application/json");
 
         webRequest.SendWebRequest().completed += operation =>
