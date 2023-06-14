@@ -223,7 +223,7 @@ pub fn cant_move_if_petrified() -> TestResult {
 
     // Update 5 ticks, the character should not be able to move.
     for _ in 1..=5 {
-        state.world_tick();
+        state.world_tick()?;
     }
     // Try to move 10 times, the player/character should not move.
     for i in 0..10 {
@@ -236,7 +236,7 @@ pub fn cant_move_if_petrified() -> TestResult {
 
     // "Update" 5 ticks, now the character should be able to move.
     for _ in 1..=5 {
-        state.world_tick();
+        state.world_tick()?;
     }
     state.move_player(player_id, Direction::DOWN);
     player = state.get_player(player_id)?;

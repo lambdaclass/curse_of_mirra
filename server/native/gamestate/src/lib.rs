@@ -2,6 +2,7 @@ pub mod board;
 pub mod character;
 pub mod game;
 pub mod player;
+pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 use crate::player::Position;
@@ -43,7 +44,7 @@ fn move_player_to_coordinates(
 #[rustler::nif(schedule = "DirtyCpu")]
 fn world_tick(game: GameState) -> GameState {
     let mut game_2 = game;
-    game_2.world_tick();
+    game_2.world_tick().expect("Failed to tick world");
     game_2
 }
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -116,6 +117,27 @@ fn move_with_joystick(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
+fn basic_attack(
+    game: GameState,
+    player_id: u64,
+    direction: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.basic_attack(player_id, &direction)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+pub fn auto_attack(
+    game: GameState,
+    player_id: u64,
+    target_player_id: u64,
+) -> Result<GameState, String> {
+    let mut game = game;
+    game.auto_attack(player_id, target_player_id)?;
+    Ok(game)
+}
+#[rustler::nif(schedule = "DirtyCpu")]
 fn spawn_player(game: GameState, player_id: u64) -> GameState {
     let mut game_2 = game;
     game_2.spawn_player(player_id);
@@ -142,6 +164,8 @@ rustler::init!(
         move_with_joystick,
         new_round,
         spawn_player,
+        auto_attack,
+        basic_attack,
     ],
     load = load
 );

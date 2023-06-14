@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,6 +17,10 @@ public class CustomInputManager : MonoBehaviour
             specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
             abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystick);
         }
+        if (triggerType == "button")
+        {
+            mainAttack.GetComponent<MMTouchButton>().ButtonPressedFirstTime = abilityEvent;
+        }
     }
     public void AssignInputToAimPosition(string trigger, string triggerType, UnityEvent<Vector2> aim)
     {
@@ -30,6 +35,14 @@ public class CustomInputManager : MonoBehaviour
         {
             specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
             abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
+        }
+    }
+
+    public void AssingMainAttack(string triggerType, UnityEvent ability)
+    {
+        if (triggerType == "joystick")
+        {
+            mainAttack.GetComponent<MMTouchButton>().ButtonPressedFirstTime = ability;
         }
     }
     public void SetJoystick()

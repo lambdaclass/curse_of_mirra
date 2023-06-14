@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
-
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -23,31 +21,35 @@ public class LobbyConnection : MonoBehaviour
     public int playerCount;
     public bool gameStarted = false;
     public uint serverTickRate_ms;
+    public ServerGameSettings serverSettings;
 
     WebSocket ws;
-    
+
+    [Serializable]
     public class Session
     {
-        public string lobby_id { get; set; }
+        public string lobby_id;
     }
 
+    [Serializable]
     public class LobbiesResponse
     {
-        public List<string> lobbies { get; set; }
+        public List<string> lobbies;
     }
 
+    [Serializable]
     public class GamesResponse
     {
-        public List<string> current_games { get; set; }
+        public List<string> current_games;
     }
 
     class AcceptAllCertificates : CertificateHandler
-{
-    protected override bool ValidateCertificate(byte[] certificateData)
     {
-        return true;
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
     }
-}
 
     private void Awake()
     {
@@ -110,19 +112,14 @@ public class LobbyConnection : MonoBehaviour
     }
 
     public void StartGame()
-    {   
-        #if !UNITY_WEBGL
-            GameConfig gameSettings = new GameSettings{ path = @"./game_settings.json" }.parseSettings();
-        #else
-            GameConfig gameSettings = GameSettings.defaultSettings();
-        #endif
-    
+    {
+        serverSettings = GameSettings.parseSettings();
         LobbyEvent lobbyEvent = new LobbyEvent { 
             Type = LobbyEventType.StartGame,  
-            GameConfig = gameSettings
+            GameConfig = serverSettings
         };
 
-        serverTickRate_ms = (uint) gameSettings.ServerTickrateMs;
+        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
         using (var stream = new MemoryStream())
         {
@@ -154,7 +151,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonConvert.DeserializeObject<Session>(
+                    Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
@@ -180,7 +177,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    LobbiesResponse response = JsonConvert.DeserializeObject<LobbiesResponse>(
+                    var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
@@ -202,7 +199,7 @@ public class LobbyConnection : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    GamesResponse response = JsonConvert.DeserializeObject<GamesResponse>(
+                    GamesResponse response = JsonUtility.FromJson<GamesResponse>(
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
@@ -259,6 +256,7 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobby_event.GameId;
+                    print(lobby_event.GameConfig);
                     break;
 
                 default:
