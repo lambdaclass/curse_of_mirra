@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
@@ -124,7 +123,7 @@ public class CustomLevelManager : LevelManager
 
                 Attack3 attack3 = player.gameObject.AddComponent<Attack3>();
                 attack3.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.Attack3, UIType.Area, attack3);
+                _cim.AssignAbilityToInput(UIControls.Attack3, UIType.Direction, attack3);
 
                 // Attack4 attack4 = player.gameObject.AddComponent<Attack4>();
                 // attack4.SetAbility(Action.AttackAoe);

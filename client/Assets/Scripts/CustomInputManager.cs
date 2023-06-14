@@ -1,7 +1,6 @@
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using MoreMountains.TopDownEngine;
 using System;
 using System.Collections.Generic;
@@ -33,8 +32,10 @@ public class CustomInputManager : InputManager
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
+    private GameObject directionIndicator;
 
-    protected override void Start(){
+    protected override void Start()
+    {
         base.Start();
 
         mobileButtons = new Dictionary<UIControls, GameObject>();
@@ -55,20 +56,23 @@ public class CustomInputManager : InputManager
                 MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
                 button.ButtonReleased.AddListener(ability.ExecuteAbility);
-                if (joystick){
+                if (joystick)
+                {
                     mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
                 }
                 break;
 
             case UIType.Area:
-                if (joystick){
+                if (joystick)
+                {
                     joystick.enabled = true;
                 }
                 MapAreaInputEvents(joystick, ability);
                 break;
 
             case UIType.Direction:
-                if (joystick){
+                if (joystick)
+                {
                     joystick.enabled = true;
                 }
                 MapDirectionInputEvents(joystick, ability);
@@ -86,7 +90,7 @@ public class CustomInputManager : InputManager
         aoeDragEvent.AddListener(AimAoeAttack);
         joystick.newDragEvent = aoeDragEvent;
 
-        UnityEvent<Vector2,Ability> aoeRelease = new UnityEvent<Vector2,Ability>();
+        UnityEvent<Vector2, Ability> aoeRelease = new UnityEvent<Vector2, Ability>();
         aoeRelease.AddListener(ExecuteAoeAttack);
         joystick.ability = ability;
         joystick.newPointerUpEvent = aoeRelease;
@@ -145,7 +149,7 @@ public class CustomInputManager : InputManager
         directionDragEvent.AddListener(AimDirectionAttack);
         joystick.newDragEvent = directionDragEvent;
 
-        UnityEvent<Vector2,Ability> directionRelease = new UnityEvent<Vector2,Ability>();
+        UnityEvent<Vector2, Ability> directionRelease = new UnityEvent<Vector2, Ability>();
         directionRelease.AddListener(ExecuteDirectionAttack);
         joystick.ability = ability;
         joystick.newPointerUpEvent = directionRelease;
@@ -153,7 +157,15 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionAttack()
     {
-        throw new NotImplementedException();
+        // FIXME: Remove harcoded reference
+        GameObject _player = GameObject.Find("Player 1");
+
+        //Load the prefab
+        directionIndicator = Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        directionIndicator.transform.parent = _player.transform;
+        //Set its position to the player position
+        directionIndicator.transform.position = new Vector3(_player.transform.position.x, 0.4f, _player.transform.position.z);
     }
 
     private void AimDirectionAttack(Vector2 direction)
