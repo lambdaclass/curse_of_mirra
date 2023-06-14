@@ -170,11 +170,16 @@ public class CustomInputManager : InputManager
 
     private void AimDirectionAttack(Vector2 direction)
     {
-        throw new NotImplementedException();
+        var result = Mathf.Atan(direction.x / direction.y) * Mathf.Rad2Deg;
+        if (direction.y > 0)
+        {
+            result += 180f;
+        }
+        directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
     }
 
     private void ExecuteDirectionAttack(Vector2 direction, Ability ability)
     {
-        throw new NotImplementedException();
+        Destroy(directionIndicator);
     }
 }
