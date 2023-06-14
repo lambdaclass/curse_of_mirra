@@ -125,7 +125,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   def websocket_info({:next_round, winner, game_state}, web_socket_state) do
     reply_map = %{
       winner: winner,
-      current_round: game_state.current_round
+      current_round: game_state.current_round,
     }
 
     {:reply, {:binary, Communication.next_round!(reply_map)}, web_socket_state}
