@@ -113,12 +113,10 @@ public class LobbyConnection : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        Debug.Log("Starting game");
         yield return GameSettings.ParseSettingsCoroutine(settings =>
         {
             serverSettings = settings;
         });
-        Debug.Log("Starting game with settings: " + serverSettings);
         LobbyEvent lobbyEvent = new LobbyEvent
         {
             Type = LobbyEventType.StartGame,

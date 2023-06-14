@@ -33,15 +33,12 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
-        Debug.Log("GameStart");
         StartCoroutine(xxx());
     }
 
     public IEnumerator xxx()
     {
-        Debug.Log("first call to StartGame()");
         yield return LobbyConnection.Instance.StartGame();
-        Debug.Log("StartGame() returned");
         StartCoroutine(Utils.WaitForGameCreation());
     }
 
