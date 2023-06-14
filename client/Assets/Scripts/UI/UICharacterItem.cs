@@ -15,8 +15,9 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         artWork.sprite = comCharacter.artWork;
     }
 
-    void Update()
+    public void OnPointerDown(PointerEventData eventData)
     {
+        selected = !selected;
         if (selected)
         {
             name.text = comCharacter.name;
@@ -27,11 +28,5 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         {
             artWork.sprite = comCharacter.artWork;
         }
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        selected = !selected;
-        print(selected);
     }
 }
