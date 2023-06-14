@@ -33,6 +33,7 @@ public class CustomInputManager : InputManager
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
+    private CustomMMTouchJoystick activeJoystick;
 
     protected override void Start(){
         base.Start();
@@ -41,7 +42,7 @@ public class CustomInputManager : InputManager
         mobileButtons.Add(UIControls.Attack1, Attack1);
         mobileButtons.Add(UIControls.Attack2, Attack2);
         mobileButtons.Add(UIControls.Attack3, Attack3);
-        mobileButtons.Add(UIControls.Attack4, Attack4);
+        // mobileButtons.Add(UIControls.Attack4, Attack4);
         mobileButtons.Add(UIControls.AttackBasic, AttackBasic);
     }
 
@@ -78,7 +79,7 @@ public class CustomInputManager : InputManager
 
     private void MapAreaInputEvents(CustomMMTouchJoystick joystick, Ability ability)
     {
-        UnityEvent aoeEvent = new UnityEvent();
+        UnityEvent<CustomMMTouchJoystick> aoeEvent = new UnityEvent<CustomMMTouchJoystick>();
         aoeEvent.AddListener(ShowAimAoeAttack);
         joystick.newPointerDownEvent = aoeEvent;
 
@@ -92,23 +93,27 @@ public class CustomInputManager : InputManager
         joystick.newPointerUpEvent = aoeRelease;
     }
 
-    public void ShowAimAoeAttack()
+    public void ShowAimAoeAttack(CustomMMTouchJoystick joystick)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        if (activeJoystick == null){
+            // FIXME: Remove harcoded reference
+            GameObject _player = GameObject.Find("Player 1");
+            //Load the prefab
+            areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
+            //Set the prefav as a player child
+            areaWithAim.transform.parent = _player.transform;
+            //Set its position to the player position
+            areaWithAim.transform.position = _player.transform.position;
 
-        //Load the prefab
-        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
-        //Set the prefav as a player child
-        areaWithAim.transform.parent = _player.transform;
-        //Set its position to the player position
-        areaWithAim.transform.position = _player.transform.position;
+            //Set scales
+            area = areaWithAim.GetComponent<AimHandler>().area;
+            area.transform.localScale = area.transform.localScale * 30;
+            indicator = areaWithAim.GetComponent<AimHandler>().indicator;
+            indicator.transform.localScale = indicator.transform.localScale * 5;
 
-        //Set scales
-        area = areaWithAim.GetComponent<AimHandler>().area;
-        area.transform.localScale = area.transform.localScale * 30;
-        indicator = areaWithAim.GetComponent<AimHandler>().indicator;
-        indicator.transform.localScale = indicator.transform.localScale * 5;
+            activeJoystick = joystick;
+            DisableButtons();
+        }
     }
 
     public void AimAoeAttack(Vector2 aoePosition)
@@ -131,13 +136,15 @@ public class CustomInputManager : InputManager
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         Destroy(indicator, 0.01f);
         Destroy(area, 0.01f);
+        activeJoystick = null;
+        EnableButton();
 
         ability.ExecuteAbility(aoePosition);
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Ability ability)
     {
-        UnityEvent directionEvent = new UnityEvent();
+        UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
         directionEvent.AddListener(ShowAimDirectionAttack);
         joystick.newPointerDownEvent = directionEvent;
 
@@ -151,7 +158,7 @@ public class CustomInputManager : InputManager
         joystick.newPointerUpEvent = directionRelease;
     }
 
-    private void ShowAimDirectionAttack()
+    private void ShowAimDirectionAttack(CustomMMTouchJoystick joystick)
     {
         throw new NotImplementedException();
     }
@@ -164,5 +171,23 @@ public class CustomInputManager : InputManager
     private void ExecuteDirectionAttack(Vector2 direction, Ability ability)
     {
         throw new NotImplementedException();
+    }
+
+    private void DisableButtons()
+    {
+        foreach (var (key,button) in mobileButtons)
+        {
+            if (button != activeJoystick){
+                button.GetComponent<MMTouchButton>().Interactable = false;
+            }
+        }
+    }
+
+    private void EnableButton()
+    {
+        foreach (var (key,button) in mobileButtons)
+        {
+            button.GetComponent<MMTouchButton>().Interactable = true;
+        }
     }
 }

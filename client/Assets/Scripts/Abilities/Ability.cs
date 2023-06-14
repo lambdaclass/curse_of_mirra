@@ -12,8 +12,6 @@ public class Ability : CharacterAbility
     }
 
     public void ExecuteAbility(){
-        Debug.Log("Tap Ability executed!");
-
         // FIXME: Position should be removed
         RelativePosition testingPosition = new RelativePosition
         {
@@ -26,8 +24,6 @@ public class Ability : CharacterAbility
     }
 
     public void ExecuteAbility(Vector2 position){
-        Debug.Log("Ability executed!");
-
         RelativePosition relativePosition = new RelativePosition
         {
             X = (long)(position.x * 100),
