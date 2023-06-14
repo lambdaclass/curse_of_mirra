@@ -62,8 +62,10 @@ public class LobbyManager : LevelSelector
             && !LobbyConnection.Instance.gameStarted
         )
         {
+            print(this.LevelName);
+            print(LevelSelected);
             LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene(this.LevelName);
+            SceneManager.LoadScene("BackendPlayground");
         }
     }
 }
