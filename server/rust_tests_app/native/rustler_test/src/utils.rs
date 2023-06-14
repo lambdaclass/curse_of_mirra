@@ -16,15 +16,15 @@ pub fn read_character_config() -> Vec<HashMap<String, String>> {
         .into_iter()
         .map(|character_info| {
             let mut map: HashMap<String, String> = HashMap::new();
-            if let JsonValue::Object(character_info) = character_info {
-                for (key, value) in character_info {
-                    let JsonValue::String(string) = value else {
-                        panic!("Character json keys must be strings!")
-                    };
-                    map.insert(key, string);
-                }
-            } else {
-                panic!("Expected object, got: {:?}", character_info);
+            let character_info: HashMap<_, _> = character_info
+                .clone()
+                .try_into()
+                .expect(&format!("Expected object, got: {:?}", character_info));
+            for (key, value) in character_info {
+                let string: String = value
+                    .try_into()
+                    .expect("Character json values must be strings!");
+                map.insert(key, string);
             }
             return map;
         })
