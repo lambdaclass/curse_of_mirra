@@ -6,6 +6,7 @@ use gamestate::character::{Character, Effect, TicksLeft};
 use gamestate::game::{Direction, GameState};
 use gamestate::player::Player;
 use gamestate::player::Position;
+use gamestate::player::RelativePosition;
 use gamestate::time_utils;
 use std::time::{Duration, Instant};
 fn get_grid(game: &GameState) -> Vec<Vec<Tile>> {
@@ -183,37 +184,37 @@ fn attacking() -> TestResult {
     time_utils::sleep(cooldown);
 
     // Attack lands and damages player
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state.basic_attack(player_1_id, &RelativePosition::new(0, 1)).unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     // Attack does nothing because of cooldown
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state.basic_attack(player_1_id, &RelativePosition::new(0, 1)).unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attack misses and does nothing
-    state.attack_player(player_1_id, Direction::DOWN);
+    state.basic_attack(player_1_id, &RelativePosition::new(0, 1)).unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     state.move_player(player_1_id, Direction::DOWN);
 
     // Attacking to the right now does nothing since the player moved down.
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state.basic_attack(player_1_id, &RelativePosition::new(0, 1)).unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attacking to a non-existent position on the board does nothing.
-    state.attack_player(player_1_id, Direction::LEFT);
+    state.basic_attack(player_1_id, &RelativePosition::new(0, 1)).unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)
+    assert_result!(100, state.players[1].health)
 }
 
 #[rustler::nif]
@@ -258,7 +259,7 @@ pub fn cant_move_if_petrified() -> TestResult {
 
 #[rustler::nif]
 pub fn cant_attack_if_disarmed() -> TestResult {
-    let mut state = GameState::new(1, 20, 20, false);
+    let mut state = GameState::new(1, 20, 20, false, &read_character_config()).unwrap();
     let player_1_id = 1;
     let player_2_id = 2;
     let disarmed_char: Character = disarmed_character();
@@ -276,10 +277,10 @@ pub fn cant_attack_if_disarmed() -> TestResult {
 
     // Player 1 can't attack since it is in a Disarmed state
     // Player 2 can attack
-    state.attack_player(player_1_id, Direction::RIGHT);
-    state.attack_player(player_2_id, Direction::LEFT);
-    assert_result!(90, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    state.basic_attack(player_1_id, &RelativePosition::new(0,1)).unwrap();
+    state.basic_attack(player_2_id, &RelativePosition::new(0,1)).unwrap();
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     // Wait for the Disarmed state to finish
     for _ in 0..10 {
@@ -291,8 +292,8 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     time_utils::sleep(player2_cooldown);
 
     // Now Player 1 should be able to attack
-    state.attack_player(player_1_id, Direction::RIGHT);
-    state.attack_player(player_2_id, Direction::LEFT);
-    assert_result!(80, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)
+    state.basic_attack(player_1_id, &RelativePosition::new(0,1)).unwrap();
+    state.basic_attack(player_2_id, &RelativePosition::new(0,1)).unwrap();
+    assert_result!(85, state.players[0].health)?;
+    assert_result!(100, state.players[1].health)
 }

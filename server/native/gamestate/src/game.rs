@@ -634,22 +634,22 @@ fn compute_attack_initial_positions(
     }
 }
 
-fn compute_attack_aoe_initial_positions(
-    player_position: &Position,
-    attack_position: &RelativePosition,
-) -> (Position, Position, Position) {
-    let modifier = 120_f64;
+// fn compute_attack_aoe_initial_positions(
+//     player_position: &Position,
+//     attack_position: &RelativePosition,
+// ) -> (Position, Position, Position) {
+//     let modifier = 120_f64;
 
-    let x =
-        (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
-    let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
+//     let x =
+//         (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
+//     let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
 
-    (
-        Position::new(x, y),
-        Position::new(x.saturating_sub(25), y.saturating_sub(25)),
-        Position::new(x + 25, y + 25),
-    )
-}
+//     (
+//         Position::new(x, y),
+//         Position::new(x.saturating_sub(25), y.saturating_sub(25)),
+//         Position::new(x + 25, y + 25),
+//     )
+// }
 
 /// TODO: update documentation
 /// Checks if the given movement from `old_position` to `new_position` is valid.
