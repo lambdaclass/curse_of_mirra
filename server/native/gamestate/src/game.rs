@@ -57,7 +57,12 @@ impl GameState {
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
-                Player::new(player_id, 100, new_position, characters[2].clone())
+                Player::new(
+                    player_id,
+                    100,
+                    new_position,
+                    characters[player_id as usize % characters.len()].clone(),
+                )
             })
             .collect();
 
