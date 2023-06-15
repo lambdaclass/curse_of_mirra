@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 2506641952342998690}
-  - component: {fileID: 8656026848652337833}
-  - component: {fileID: 7744849913928865833}
+  - component: {fileID: 7873102551915249125}
+  - component: {fileID: 4221220233964836970}
   m_Layer: 10
   m_Name: Hack
   m_TagString: Player
@@ -666,7 +666,19 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
---- !u!114 &8656026848652337833
+--- !u!114 &7873102551915249125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94f98a94a8bc47ed956bcd851a1731d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4221220233964836970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,18 +699,6 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
---- !u!114 &7744849913928865833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e94f98a94a8bc47ed956bcd851a1731d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4905720573577272490
 PrefabInstance:
   m_ObjectHideFlags: 0
