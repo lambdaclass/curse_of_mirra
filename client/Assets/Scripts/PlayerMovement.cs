@@ -226,16 +226,7 @@ public class PlayerMovement : MonoBehaviour
                 isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
             )
             {
-                print(player.name + "AttackingAOE");
-
-                player
-                    .GetComponent<GenericAoeAttack>()
-                    .ShowAoeAttack(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
+                // FIXME: add logic
             }
 
             bool isDoingUltimate = playerUpdate.action == PlayerAction.Teleporting;
