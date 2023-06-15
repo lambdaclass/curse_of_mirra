@@ -401,12 +401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a13332193cbcb43ef809979d3205936d, type: 3}
---- !u!1 &467557524 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1137753103009242572, guid: a13332193cbcb43ef809979d3205936d,
-    type: 3}
-  m_PrefabInstance: {fileID: 467557523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &536246996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,13 +1271,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880932667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ac5f3aa7e96480a93b3142a30c847e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b0819983f4ed467aacc7af656940050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerItemPrefab: {fileID: 6311838805071223672, guid: 1153edb2509554a79a5793f534f2bcfa,
     type: 3}
-  playButton: {fileID: 467557524}
-  playerItems: []
 --- !u!1 &2077431642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1308,7 @@ MonoBehaviour:
   players: []
   session_id: 
   server_ip: localhost
+  playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
 --- !u!4 &2077431644
@@ -1349,7 +1342,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playersList
       value: 
-      objectReference: {fileID: 1880932668}
+      objectReference: {fileID: 0}
     - target: {fileID: 1170184755969315759, guid: 1b31c7cd2a8b34ab5b4bc26e0cfba7f1,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1394,7 +1387,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playersList
       value: 
-      objectReference: {fileID: 1880932668}
+      objectReference: {fileID: 0}
     - target: {fileID: 5143223964335775095, guid: 1b31c7cd2a8b34ab5b4bc26e0cfba7f1,
         type: 3}
       propertyPath: name
@@ -1404,7 +1397,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playersList
       value: 
-      objectReference: {fileID: 1880932668}
+      objectReference: {fileID: 0}
     - target: {fileID: 5635224738928777978, guid: 1b31c7cd2a8b34ab5b4bc26e0cfba7f1,
         type: 3}
       propertyPath: m_AnchorMax.y

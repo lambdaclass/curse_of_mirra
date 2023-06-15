@@ -154,7 +154,7 @@ public class SocketConnectionManager : MonoBehaviour
           this.gamePlayers = game_event.Players.ToList();
           break;
         case GameEventType.SelectedCharacterUpdate:
-            game_event.SelectedCharacters.ToList().ForEach((sc) => print(sc.CharacterName));
+          this.selectedCharacters = game_event.SelectedCharacters.ToList();
           break;
 
         default:
