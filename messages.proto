@@ -15,6 +15,7 @@ message GameEvent {
     uint64 player_joined_id = 5;
     Player winner_player = 6;
     uint64 current_round = 7;
+    repeated PlayerCharacter selected_characters = 8;
 }
 
 /* Type of game events
@@ -31,6 +32,12 @@ enum GameEventType {
     LAST_ROUND = 4;
     GAME_FINISHED = 5;
     INITIAL_POSITIONS = 6;
+    SELECTED_CHARACTER_UPDATE = 7;
+}
+
+message PlayerCharacter{
+    uint64 player_id = 1;
+    string character_name = 2;
 }
 
 /* Information about a player
@@ -55,7 +62,6 @@ message Player {
     Position aoe_position = 7;
     uint64 kill_count = 8;
     uint64 death_count = 9;
-
 }
 
 /*
@@ -98,6 +104,7 @@ message ClientAction {
     RelativePosition position = 3;
     JoystickValues move_delta = 4;
     sint64 target = 5;
+    PlayerCharacter player_character = 6;
 }
 
 /* Actions a client/player performs
@@ -117,6 +124,7 @@ enum Action {
     ADD_BOT = 7;
     AUTO_ATTACK = 8;
     BASIC_ATTACK = 9;
+    SELECT_CHARACTER = 10;
 }
 
 /* Directions an action can happen in
