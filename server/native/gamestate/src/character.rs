@@ -28,7 +28,6 @@ pub enum Faction {
     #[strum(serialize = "mer", serialize = "Merliot", ascii_case_insensitive)]
     Merliot,
 }
-
 #[derive(Debug, Clone, rustler::NifStruct)]
 #[module = "DarkWorldsServer.Engine.Character"]
 pub struct Character {
@@ -101,14 +100,56 @@ impl Character {
             status_effects: HashMap::new(),
         })
     }
-    #[inline]
-    pub fn attack_dmg(&self) -> u64 {
-        // TODO have a trait for this
-        // instead of matching enums.
+    pub fn attack_dmg_basic_skill(&self) -> u64 {
         match self.skill_basic {
             BasicSkill::Slingshot => 10_u64,
             BasicSkill::Bash => 30_u64,
             BasicSkill::Backstab => 10_u64,
+        }
+    }
+    pub fn attack_dmg_first_active(&self) -> u64 {
+        match self.skill_active_first {
+            FirstActive::BarrelRoll => 10_u64,
+            FirstActive::SerpentStrike => 30_u64,
+            FirstActive::MultiShot => 10_u64,
+        }
+    }
+    pub fn attack_dmg_second_active(&self) -> u64 {
+        match self.skill_active_second {
+            SecondActive::Rage => 10_u64,
+            SecondActive::Petrify => 30_u64,
+            SecondActive::MirrorImage => 10_u64,
+            SecondActive::Disarm => 5_u64,
+        }
+    }
+    #[inline]
+    pub fn attack_dmg(&self) -> u64 {
+        match self.skill_basic {
+            BasicSkill::Slingshot => 10_u64,
+            BasicSkill::Bash => 30_u64,
+            BasicSkill::Backstab => 10_u64,
+        }
+    }
+    pub fn cooldown_basic_skill(&self) -> u64 {
+        match self.skill_basic {
+            BasicSkill::Slingshot => 5,
+            BasicSkill::Bash => 3,
+            BasicSkill::Backstab => 1,
+        }
+    }
+    pub fn cooldown_first_skill(&self) -> u64 {
+        match self.skill_active_first {
+            FirstActive::BarrelRoll => 5_u64,
+            FirstActive::SerpentStrike => 5_u64,
+            FirstActive::MultiShot => 5_u64,
+        }
+    }
+    pub fn cooldown_second_skill(&self) -> u64 {
+        match self.skill_active_second {
+            SecondActive::Disarm => 5_u64,
+            SecondActive::MirrorImage => 5_u64,
+            SecondActive::Petrify => 5_u64,
+            SecondActive::Rage => 5_u64,
         }
     }
     // Cooldown in seconds
