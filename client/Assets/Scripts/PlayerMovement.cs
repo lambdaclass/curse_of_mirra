@@ -273,12 +273,12 @@ public class PlayerMovement : MonoBehaviour
         if (playerUpdate.playerId % 3 == 0)
         {
             // Uma
-            characterSpeed = 0.3f;
+            characterSpeed = 0.5f;
         }
         else if (playerUpdate.playerId % 3 == 1)
         {
             // Muflus
-            characterSpeed = 0.5f;
+            characterSpeed = 0.4f;
         }
         else
         {

@@ -13,3 +13,4 @@ crate-type = ["cdylib"]
 rustler = "0.28.0"
 lazy_static = "1.4"
 gamestate = {path = "../../../native/gamestate", default-features = false}
+tinyjson = "2.5.1"

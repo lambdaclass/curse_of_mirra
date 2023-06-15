@@ -45,7 +45,7 @@ public class PlayerControls : MonoBehaviour
             else if (playerId % 3 == 1)
             {
                 // Muflus
-                characterSpeed = 5f;
+                characterSpeed = 4f;
             }
             else
             {

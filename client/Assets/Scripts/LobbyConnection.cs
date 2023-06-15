@@ -260,7 +260,8 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobby_event.GameId;
-                    print(lobby_event.GameConfig);
+                    serverSettings = lobby_event.GameConfig;
+                    serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
                     break;
 
                 default:

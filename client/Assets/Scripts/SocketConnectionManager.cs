@@ -129,6 +129,8 @@ public class SocketConnectionManager : MonoBehaviour
                             .FindAll((player) => !this.gamePlayers.Contains(player))
                             .ForEach((player) => SpawnBot.Instance.Spawn(player));
                     }
+                    // This should be deleted when the match end is fixed
+                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
