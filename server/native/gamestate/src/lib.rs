@@ -5,22 +5,41 @@ pub mod player;
 pub mod projectile;
 pub mod skills;
 pub mod time_utils;
-use crate::player::Position;
-use game::GameState;
-use rustler::{Env, Term};
-use std::collections::HashMap;
-
 use crate::player::Player;
+use crate::player::Position;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
-
+use game::GameState;
+use rustler::{Binary, Env, Term};
+use std::collections::HashMap;
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
     number_of_players: u64,
     board_width: usize,
     board_height: usize,
     build_walls: bool,
-) -> GameState {
-    GameState::new(number_of_players, board_width, board_height, build_walls)
+    characters_config: Vec<HashMap<Binary, Binary>>,
+) -> Result<GameState, String> {
+    let mut config: Vec<HashMap<String, String>> = vec![];
+    for map in characters_config {
+        let mut char: HashMap<String, String> = HashMap::new();
+        for (key, val) in map {
+            // A rustler binary derefs into [u8], see:
+            // https://docs.rs/rustler/latest/rustler/types/binary/struct.Binary.html
+            let key = String::from_utf8((*key).to_vec())
+                .expect("Could not parse {key} into a Rust string!");
+            let val = String::from_utf8((*val).to_vec())
+                .expect("Could not parse {val} into a Rust string!");
+            char.insert(key, val);
+        }
+        config.push(char);
+    }
+    GameState::new(
+        number_of_players,
+        board_width,
+        board_height,
+        build_walls,
+        &config,
+    )
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
