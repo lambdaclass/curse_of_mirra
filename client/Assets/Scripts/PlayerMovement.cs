@@ -268,23 +268,7 @@ public class PlayerMovement : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        float characterSpeed = 0;
-
-        if (playerUpdate.playerId % 3 == 0)
-        {
-            // Uma
-            characterSpeed = 0.5f;
-        }
-        else if (playerUpdate.playerId % 3 == 1)
-        {
-            // Muflus
-            characterSpeed = 0.4f;
-        }
-        else
-        {
-            // Uma
-            characterSpeed = 0.4f;
-        }
+        var characterSpeed = PlayerControls.getCharacterSpeed(playerUpdate.playerId) / 10f;
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.

@@ -33,25 +33,8 @@ public class PlayerControls : MonoBehaviour
             SocketConnectionManager.Instance.SendAction(clientAction);
             var norm = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
 
-            float characterSpeed = 0;
             int playerId = SocketConnectionManager.Instance.playerId;
-
-
-            if (playerId % 3 == 0)
-            {
-                // Uma
-                characterSpeed = 3f;
-            }
-            else if (playerId % 3 == 1)
-            {
-                // Muflus
-                characterSpeed = 4f;
-            }
-            else
-            {
-                // Uma
-                characterSpeed = 4f;
-            }
+            float characterSpeed = getCharacterSpeed(playerId);
 
             var x_norm = (float) Math.Round(x / norm * characterSpeed);
             var y_norm = (float) Math.Round(y / norm * characterSpeed);
@@ -73,19 +56,102 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             SendAction(Action.Move, Direction.Up);
+            int playerId = SocketConnectionManager.Instance.playerId;
+            float characterSpeed = getCharacterSpeed(playerId);
+            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Up);
+
+
+            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
+            {
+                grid_delta_x = delta_x,
+                grid_delta_y = delta_y,
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.A))
         {
             SendAction(Action.Move, Direction.Left);
+            int playerId = SocketConnectionManager.Instance.playerId;
+            float characterSpeed = getCharacterSpeed(playerId);
+            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Left);
+
+            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
+            {
+                grid_delta_x = delta_x,
+                grid_delta_y = delta_y,
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.D))
         {
             SendAction(Action.Move, Direction.Right);
+            int playerId = SocketConnectionManager.Instance.playerId;
+            float characterSpeed = getCharacterSpeed(playerId);
+            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Right);
+
+            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
+            {
+                grid_delta_x = delta_x,
+                grid_delta_y = delta_y,
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.S))
         {
             SendAction(Action.Move, Direction.Down);
+            int playerId = SocketConnectionManager.Instance.playerId;
+            float characterSpeed = getCharacterSpeed(playerId);
+            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Down);
+
+            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
+            {
+                grid_delta_x = delta_x,
+                grid_delta_y = delta_y,
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            };
+            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
         }
+    }
+
+    private (float, float) keyboardMovementDelta(float characterSpeed, Direction direction) {
+        var delta = (0f, 0f);
+        float speed = characterSpeed / 10f;
+
+        if (direction == Direction.Up) {
+            delta = (0f, speed);
+        } else if (direction == Direction.Left) {
+            delta = (-speed, 0f);
+        } else if (direction == Direction.Right) {
+            delta = (speed, 0f);
+        } else if (direction == Direction.Down) {
+            delta = (0f, -speed);
+        }
+
+        return delta;
+    }
+ 
+    public static float getCharacterSpeed(int playerId) {
+        var characterSpeed = 0f;
+        if (playerId % 3 == 0)
+        {
+            // Uma
+            characterSpeed = 3f;
+        }
+        else if (playerId % 3 == 1)
+        {
+            // Muflus
+            characterSpeed = 4f;
+        }
+        else
+        {
+            // Uma
+            characterSpeed = 4f;
+        }
+
+        return characterSpeed;
     }
 
     private static void SendAction(Action action, Direction direction)
