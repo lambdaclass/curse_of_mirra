@@ -22,7 +22,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(player_character, PlayerCharacter) do
     player_character
-    |> IO.inspect(label: :player)
   end
 
   def encode(runner_config, RunnerConfig) do

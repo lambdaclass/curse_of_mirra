@@ -62,7 +62,6 @@ defmodule DarkWorldsServer.Communication do
   def game_player_joined(player_id) do
     %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
     |> GameEvent.encode()
-    |> IO.inspect(label: :wat?)
   end
 
   def initial_positions(players) do
@@ -73,7 +72,6 @@ defmodule DarkWorldsServer.Communication do
   def selected_characters!(selected_characters) do
     %GameEvent{type: :SELECTED_CHARACTER_UPDATE, selected_characters: selected_characters}
     |> GameEvent.encode()
-    |> IO.inspect(label: :que_encodeaste?)
   end
 
   def decode(value) do
