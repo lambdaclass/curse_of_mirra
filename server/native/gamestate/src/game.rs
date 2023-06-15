@@ -31,6 +31,16 @@ impl GameState {
     ) -> Result<Vec<Character>, String> {
         character_config
             .into_iter()
+            // Keep only characters
+            // for which active is 1.
+            .filter(|map| {
+                let active = map
+                    .get("Active")
+                    .expect("Missing Active key for character")
+                    .parse::<u64>()
+                    .expect("Expected 1 or 0 for Active key");
+                active == 1
+            })
             .map(Character::from_config_map)
             .collect()
     }

@@ -32,14 +32,6 @@ pub fn read_character_config() -> Vec<HashMap<String, String>> {
         .collect::<Vec<_>>();
     return info;
 }
-pub fn read_character_config_skip_not_implemented() -> Vec<HashMap<String, String>> {
-    let config = read_character_config();
-    let implemented = ["Muflus", "Uma", "H4ck"];
-    config
-        .into_iter()
-        .filter(|map| implemented.contains(&map.get("Name").unwrap().as_str()))
-        .collect()
-}
 #[macro_export]
 macro_rules! assert_result {
     ($expected:expr, $actual:expr) => {

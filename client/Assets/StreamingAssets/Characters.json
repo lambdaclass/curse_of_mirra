@@ -42,7 +42,7 @@
     {
       "Name": "Valtimer",
       "Id": "3",
-      "Active": "1",
+      "Active": "0",
       "Class": "wiz",
       "Faction": "mer",
       "BaseSpeed": "80",

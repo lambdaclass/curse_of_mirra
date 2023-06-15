@@ -414,14 +414,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players) do
-    implemented_characters =
-      character_info
-      |> Enum.filter(fn %{Name: name} ->
-        name in ["Muflus", "Uma", "H4ck"]
-      end)
-
     character_info =
-      for character <- implemented_characters do
+      for character <- character_info do
         Enum.reduce(character, %{}, fn
           {:__unknown_fields__, _}, map -> map
           {key, val}, map -> Map.put(map, key |> Atom.to_string(), val)
