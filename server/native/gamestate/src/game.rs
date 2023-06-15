@@ -422,8 +422,13 @@ impl GameState {
         let attack_dmg = attacking_player.character.attack_dmg() as i64;
         let attack_direction = Self::position_to_direction(direction);
 
-        let (top_left, bottom_right) =
-            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
+        // TODO: This should be a config of the attack
+        let attack_range = 20;
+        let (top_left, bottom_right) = compute_attack_initial_positions(
+            &(attack_direction),
+            &(attacking_player.position),
+            attack_range,
+        );
 
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(board, top_left, bottom_right)
