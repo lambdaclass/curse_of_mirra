@@ -28,6 +28,7 @@ pub enum Faction {
     #[strum(serialize = "mer", serialize = "Merliot", ascii_case_insensitive)]
     Merliot,
 }
+
 #[derive(Debug, Clone, rustler::NifStruct)]
 #[module = "DarkWorldsServer.Engine.Character"]
 pub struct Character {
@@ -124,6 +125,8 @@ impl Character {
     }
     #[inline]
     pub fn attack_dmg(&self) -> u64 {
+        // TODO have a trait for this
+        // instead of matching enums.
         match self.skill_basic {
             BasicSkill::Slingshot => 10_u64,
             BasicSkill::Bash => 30_u64,

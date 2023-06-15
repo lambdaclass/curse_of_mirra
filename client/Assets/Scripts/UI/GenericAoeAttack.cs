@@ -53,31 +53,31 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
             Destroy(indicator, 0.01f);
             Destroy(area, 0.01f);
 
-            sword = Instantiate(Resources.Load("Sword", typeof(GameObject))) as GameObject;
-            sword.transform.position = transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+            // sword = Instantiate(Resources.Load("Sword", typeof(GameObject))) as GameObject;
+            // sword.transform.position = transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
 
-            swordArea = sword.GetComponent<SwordHandler>().area;
-            Destroy(swordArea, 2.1f);
-            swordArea.transform.localScale = swordArea.transform.localScale * 5;
+            // swordArea = sword.GetComponent<SwordHandler>().area;
+            // Destroy(swordArea, 2.1f);
+            // swordArea.transform.localScale = swordArea.transform.localScale * 5;
 
             RelativePosition relative_position = new RelativePosition
             {
                 X = (long)(aoePosition.x * 100),
                 Y = (long)(aoePosition.y * 100)
             };
-            ClientAction action = new ClientAction { Action = Action.AttackAoe, Position = relative_position };
+            ClientAction action = new ClientAction { Action = Action.Skill1, Position = relative_position };
             SocketConnectionManager.Instance.SendAction(action);
             Destroy(sword, 2.2f);
         }
 
         public void ShowAoeAttack(Vector2 aoePosition)
         {
-            sword = Instantiate(Resources.Load("Sword", typeof(GameObject))) as GameObject;
-            sword.transform.position = new Vector3(aoePosition.x, 0.8f, aoePosition.y);
+            // sword = Instantiate(Resources.Load("Sword", typeof(GameObject))) as GameObject;
+            // sword.transform.position = new Vector3(aoePosition.x, 0.8f, aoePosition.y);
 
-            swordArea = sword.GetComponent<SwordHandler>().area;
-            Destroy(swordArea, 2.1f);
-            swordArea.transform.localScale = swordArea.transform.localScale * 5;
+            // swordArea = sword.GetComponent<SwordHandler>().area;
+            // Destroy(swordArea, 2.1f);
+            // swordArea.transform.localScale = swordArea.transform.localScale * 5;
         }
     }
 }

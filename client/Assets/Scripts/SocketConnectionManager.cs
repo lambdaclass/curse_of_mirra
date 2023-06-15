@@ -125,7 +125,7 @@ public class SocketConnectionManager : MonoBehaviour
                             .ForEach((player) => SpawnBot.Instance.Spawn(player));
                     }
                     // This should be deleted when the match end is fixed
-                    game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
