@@ -163,12 +163,9 @@ rustler::init!(
         move_with_joystick,
         new_round,
         spawn_player,
-<<<<<<< HEAD
-        move_player_to_coordinates
-=======
         auto_attack,
         basic_attack,
->>>>>>> main
+        move_player_to_coordinates
     ],
     load = load
 );
