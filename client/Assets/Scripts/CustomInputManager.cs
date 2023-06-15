@@ -15,7 +15,7 @@ public class CustomInputManager : MonoBehaviour
         if (triggerType == "joystick" & trigger == "y")
         {
             specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
-            abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystickAOE);
+            abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().AssignMainAttack("joystick", abilityEvent));
         }
         else if (triggerType == "joystick" & trigger == "ultimate")
         {
