@@ -139,5 +139,9 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.last_round!(reply_map)}, web_socket_state}
   end
 
+  def websocket_info({:selected_characters, selected_characters}, web_socket_state) do
+    {:reply, {:binary, Communication.selected_characters!(selected_characters), web_socket_state}}
+  end
+
   def websocket_info(info, web_socket_state), do: {:reply, {:text, info}, web_socket_state}
 end

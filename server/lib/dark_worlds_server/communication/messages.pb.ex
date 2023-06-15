@@ -10,6 +10,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:LAST_ROUND, 4)
   field(:GAME_FINISHED, 5)
   field(:INITIAL_POSITIONS, 6)
+  field(:SELECTED_CHARACTER_UPDATE, 7)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do
@@ -34,6 +35,7 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
+  field(:SELECT_CHARACTER, 10)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -107,6 +109,23 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
 
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
 
+  field(:selected_characters, 8,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
+    json_name: "selectedCharacters"
+  )
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.PlayerCharacter do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:character_name, 2, type: :string, json_name: "characterName")
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
@@ -170,6 +189,11 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   )
 
   field(:target, 5, type: :sint64)
+
+  field(:player_character, 6,
+    type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
+    json_name: "playerCharacter"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -10,6 +10,7 @@ defmodule LoadTest.Communication.Proto.GameEventType do
   field(:LAST_ROUND, 4)
   field(:GAME_FINISHED, 5)
   field(:INITIAL_POSITIONS, 6)
+  field(:SELECTED_CHARACTER_UPDATE, 7)
 end
 
 defmodule LoadTest.Communication.Proto.Status do
@@ -33,6 +34,8 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
+  field(:SELECT_CHARACTER, 10)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -100,6 +103,21 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
+
+  field(:selected_characters, 8,
+    repeated: true,
+    type: LoadTest.Communication.Proto.PlayerCharacter,
+    json_name: "selectedCharacters"
+  )
+end
+
+defmodule LoadTest.Communication.Proto.PlayerCharacter do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:character_name, 2, type: :string, json_name: "characterName")
 end
 
 defmodule LoadTest.Communication.Proto.Player do
@@ -146,6 +164,11 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
   field(:target, 5, type: :sint64)
+
+  field(:player_character, 6,
+    type: LoadTest.Communication.Proto.PlayerCharacter,
+    json_name: "playerCharacter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do
