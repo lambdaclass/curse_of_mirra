@@ -57,12 +57,7 @@ impl GameState {
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
-                Player::new(
-                    player_id,
-                    100,
-                    new_position,
-                    characters[player_id as usize % characters.len()].clone(),
-                )
+                Player::new(player_id, 100, new_position, characters[2].clone())
             })
             .collect();
 
@@ -162,36 +157,46 @@ impl GameState {
         );
     }
 
-    pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, mut new_position: Position) {
-        let player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == player_id)
-            .unwrap();
-
-        if matches!(player.status, Status::DEAD) {
-            return;
-        }
+    pub fn move_player_to_coordinates(
+        board: &mut Board,
+        attacking_player: &mut Player,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let new_position_x = attacking_player.position.x as i64 - direction.y;
+        let new_position_y = attacking_player.position.y as i64 + direction.x;
 
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
         // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
         // something invalid like (0, -1).
-        new_position.x = min(new_position.x, self.board.height - 1);
-        new_position.x = max(new_position.x, 0);
-        new_position.y = min(new_position.y, self.board.width - 1);
-        new_position.y = max(new_position.y, 0);
+
+        let new_position_x = min(new_position_x, (board.height - 1).try_into().unwrap());
+        let new_position_x = max(new_position_x, 0);
+        let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
+        let new_position_y = max(new_position_y, 0);
+
+        let new_position_coordinates = Position {
+            x: new_position_x as usize,
+            y: new_position_y as usize,
+        };
+
+        attacking_player.position = new_position_coordinates;
+        attacking_player.action = PlayerAction::TELEPORTING;
 
         // Remove the player from their previous position on the board
-        self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
-
-        player.position = new_position;
-        self.board.set_cell(
-            player.position.x,
-            player.position.y,
-            Tile::Player(player.id),
+        board.set_cell(
+            attacking_player.position.x,
+            attacking_player.position.y,
+            Tile::Empty,
         );
+
+        board.set_cell(
+            attacking_player.position.x,
+            attacking_player.position.y,
+            Tile::Player(attacking_player.id),
+        );
+
+        Ok(())
     }
 
     // Takes the raw value from Unity's joystick
@@ -505,12 +510,7 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(&mut self.board, players, &attacking_player)
             }
-            _ => Self::h4ck_skill_1(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Self::move_player_to_coordinates(&mut self.board, attacking_player, direction),
         }
     }
 
