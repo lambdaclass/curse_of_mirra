@@ -12,18 +12,20 @@ public class Skill : CharacterAbility
     }
 
     public void ExecuteSkill(){
-        // FIXME: Position should be removed
-        RelativePosition testingPosition = new RelativePosition
+        Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+
+        RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(-30 * 100),
-            Y = (long)(0)
+            X = (long)(direction.x * 100),
+            Y = (long)(direction.z * 100)
         };
 
-        ClientAction action = new ClientAction { Action = serverSkill, Position = testingPosition };
+        ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
         SocketConnectionManager.Instance.SendAction(action);
     }
 
     public void ExecuteSkill(Vector2 position){
+
         RelativePosition relativePosition = new RelativePosition
         {
             X = (long)(position.x * 100),
