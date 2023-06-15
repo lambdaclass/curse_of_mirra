@@ -42,7 +42,7 @@ public class LobbiesManager : LevelSelector
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
-        StartCoroutine(Utils.WaitForGameCreation());
+        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
     public IEnumerator WaitForLobbyCreation()

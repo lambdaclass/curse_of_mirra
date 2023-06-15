@@ -4,7 +4,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
-
+  require Logger
   @build_walls false
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
@@ -68,7 +68,10 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    game = create_new_game(opts.game_config.runner_config, length(opts.players))
+    Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
+    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts.game_config, pretty: true)}")
+
+    {:ok, game} = create_new_game(opts.game_config, length(opts.players))
 
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
@@ -410,11 +413,20 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(game_config, players) do
+  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players) do
+    character_info =
+      for character <- character_info do
+        Enum.reduce(character, %{}, fn
+          {:__unknown_fields__, _}, map -> map
+          {key, val}, map -> Map.put(map, key |> Atom.to_string(), val)
+        end)
+      end
+
     config = %{
       number_of_players: players,
-      board: {game_config.board_width, game_config.board_height},
-      build_walls: @build_walls
+      board: {rg.board_width, rg.board_height},
+      build_walls: @build_walls,
+      characters: character_info
     }
 
     Game.new(config)

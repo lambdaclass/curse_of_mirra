@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Utils
 {
-    public static IEnumerator WaitForGameCreation()
+    public static IEnumerator WaitForGameCreation(string levelName)
     {
         yield return new WaitUntil(
             () => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
         );
-        SceneManager.LoadScene("BackendPlayground");
+        SceneManager.LoadScene(levelName);
     }
 
     public static Vector3 transformBackendPositionToFrontendPosition(Position position)
