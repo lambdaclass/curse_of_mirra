@@ -33,6 +33,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
