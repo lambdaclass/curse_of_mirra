@@ -187,7 +187,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
-  ability: {fileID: 0}
+  skill: {fileID: 0}
 --- !u!1 &1035504164137750736
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
-  ability: {fileID: 0}
+  skill: {fileID: 0}
 --- !u!1 &1589158110181243685
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +887,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
-  ability: {fileID: 0}
+  skill: {fileID: 0}
 --- !u!1 &7165471737723322715
 GameObject:
   m_ObjectHideFlags: 0

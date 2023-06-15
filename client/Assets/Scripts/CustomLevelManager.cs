@@ -109,24 +109,24 @@ public class CustomLevelManager : LevelManager
         {
             if (Int32.Parse(player.PlayerID) == playerID)
             {
-                AttackBasic attackBasic = player.gameObject.AddComponent<AttackBasic>();
-                attackBasic.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.AttackBasic, UIType.Tap, attackBasic);
+                SkillBasic attackBasic = player.gameObject.AddComponent<SkillBasic>();
+                attackBasic.SetSkill(Action.AttackAoe);
+                _cim.AssignSkillToInput(UIControls.SkillBasic, UIType.Tap, attackBasic);
 
-                Attack1 attack1 = player.gameObject.AddComponent<Attack1>();
-                attack1.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.Attack1, UIType.Area, attack1);
+                Skill1 attack1 = player.gameObject.AddComponent<Skill1>();
+                attack1.SetSkill(Action.AttackAoe);
+                _cim.AssignSkillToInput(UIControls.Skill1, UIType.Area, attack1);
 
-                Attack2 attack2 = player.gameObject.AddComponent<Attack2>();
-                attack2.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.Attack2, UIType.Tap, attack2);
+                Skill2 attack2 = player.gameObject.AddComponent<Skill2>();
+                attack2.SetSkill(Action.AttackAoe);
+                _cim.AssignSkillToInput(UIControls.Skill2, UIType.Tap, attack2);
 
-                Attack3 attack3 = player.gameObject.AddComponent<Attack3>();
-                attack3.SetAbility(Action.AttackAoe);
-                _cim.AssignAbilityToInput(UIControls.Attack3, UIType.Direction, attack3);
+                Skill3 attack3 = player.gameObject.AddComponent<Skill3>();
+                attack3.SetSkill(Action.AttackAoe);
+                _cim.AssignSkillToInput(UIControls.Skill3, UIType.Direction, attack3);
 
-                // Attack4 attack4 = player.gameObject.AddComponent<Attack4>();
-                // attack4.SetAbility(Action.AttackAoe);
+                // Skill4 attack4 = player.gameObject.AddComponent<Skill4>();
+                // attack4.SetSkill(Action.AttackAoe);
             }
         }
     }

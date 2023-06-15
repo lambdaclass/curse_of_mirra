@@ -1,10 +1,10 @@
 using MoreMountains.TopDownEngine;
 
-public class Attack2 : Ability
+public class SkillBasic : Skill
 {
     protected override void Initialization(){
         base.Initialization();
         // FIXME: remove this
-        abilityId = "2";
+        skillId = "5";
     }
 }

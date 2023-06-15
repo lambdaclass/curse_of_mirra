@@ -6382,7 +6382,8 @@ MonoBehaviour:
   SmoothMovement: 1
   Threshold: {x: 0.1, y: 0.4}
   RotateInputBasedOnCameraDirection: 0
-  AttackBasic: {fileID: 620904639}
-  Attack1: {fileID: 620904638}
-  Attack2: {fileID: 620904637}
-  Attack3: {fileID: 620904636}
+  SkillBasic: {fileID: 620904639}
+  Skill1: {fileID: 620904638}
+  Skill2: {fileID: 620904637}
+  Skill3: {fileID: 620904636}
+  Skill4: {fileID: 0}

@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 public enum UIControls
 {
-    Attack1,
-    Attack2,
-    Attack3,
-    Attack4,
-    AttackBasic
+    Skill1,
+    Skill2,
+    Skill3,
+    Skill4,
+    SkillBasic
 }
 public enum UIType
 {
@@ -23,11 +23,11 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] GameObject AttackBasic;
-    [SerializeField] GameObject Attack1;
-    [SerializeField] GameObject Attack2;
-    [SerializeField] GameObject Attack3;
-    [SerializeField] GameObject Attack4;
+    [SerializeField] GameObject SkillBasic;
+    [SerializeField] GameObject Skill1;
+    [SerializeField] GameObject Skill2;
+    [SerializeField] GameObject Skill3;
+    [SerializeField] GameObject Skill4;
     Dictionary<UIControls, GameObject> mobileButtons;
     private GameObject areaWithAim;
     private GameObject area;
@@ -40,14 +40,14 @@ public class CustomInputManager : InputManager
         base.Start();
 
         mobileButtons = new Dictionary<UIControls, GameObject>();
-        mobileButtons.Add(UIControls.Attack1, Attack1);
-        mobileButtons.Add(UIControls.Attack2, Attack2);
-        mobileButtons.Add(UIControls.Attack3, Attack3);
-        // mobileButtons.Add(UIControls.Attack4, Attack4);
-        mobileButtons.Add(UIControls.AttackBasic, AttackBasic);
+        mobileButtons.Add(UIControls.Skill1, Skill1);
+        mobileButtons.Add(UIControls.Skill2, Skill2);
+        mobileButtons.Add(UIControls.Skill3, Skill3);
+        // mobileButtons.Add(UIControls.Skill4, Skill4);
+        mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
     }
 
-    public void AssignAbilityToInput(UIControls trigger, UIType triggerType, Ability ability)
+    public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
         CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
 
@@ -56,7 +56,7 @@ public class CustomInputManager : InputManager
             case UIType.Tap:
                 MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
-                button.ButtonReleased.AddListener(ability.ExecuteAbility);
+                button.ButtonReleased.AddListener(skill.ExecuteSkill);
                 if (joystick)
                 {
                     mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
@@ -68,7 +68,7 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapAreaInputEvents(joystick, ability);
+                MapAreaInputEvents(joystick, skill);
                 break;
 
             case UIType.Direction:
@@ -76,52 +76,49 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapDirectionInputEvents(joystick, ability);
+                MapDirectionInputEvents(joystick, skill);
                 break;
         }
     }
 
-    private void MapAreaInputEvents(CustomMMTouchJoystick joystick, Ability ability)
+    private void MapAreaInputEvents(CustomMMTouchJoystick joystick, Skill skill)
     {
         UnityEvent<CustomMMTouchJoystick> aoeEvent = new UnityEvent<CustomMMTouchJoystick>();
-        aoeEvent.AddListener(ShowAimAoeAttack);
+        aoeEvent.AddListener(ShowAimAoeSkill);
         joystick.newPointerDownEvent = aoeEvent;
 
         UnityEvent<Vector2> aoeDragEvent = new UnityEvent<Vector2>();
-        aoeDragEvent.AddListener(AimAoeAttack);
+        aoeDragEvent.AddListener(AimAoeSkill);
         joystick.newDragEvent = aoeDragEvent;
 
-        UnityEvent<Vector2, Ability> aoeRelease = new UnityEvent<Vector2, Ability>();
-        aoeRelease.AddListener(ExecuteAoeAttack);
-        joystick.ability = ability;
+        UnityEvent<Vector2, Skill> aoeRelease = new UnityEvent<Vector2, Skill>();
+        aoeRelease.AddListener(ExecuteAoeSkill);
+        joystick.skill = skill;
         joystick.newPointerUpEvent = aoeRelease;
     }
 
-    public void ShowAimAoeAttack(CustomMMTouchJoystick joystick)
+    public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        if (activeJoystick == null)
-        {
-            // FIXME: Remove harcoded reference
-            GameObject _player = GameObject.Find("Player 1");
-            //Load the prefab
-            areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
-            //Set the prefav as a player child
-            areaWithAim.transform.parent = _player.transform;
-            //Set its position to the player position
-            areaWithAim.transform.position = _player.transform.position;
+        // FIXME: Remove harcoded reference
+        GameObject _player = GameObject.Find("Player 1");
+        //Load the prefab
+        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        areaWithAim.transform.parent = _player.transform;
+        //Set its position to the player position
+        areaWithAim.transform.position = _player.transform.position;
 
-            //Set scales
-            area = areaWithAim.GetComponent<AimHandler>().area;
-            area.transform.localScale = area.transform.localScale * 30;
-            indicator = areaWithAim.GetComponent<AimHandler>().indicator;
-            indicator.transform.localScale = indicator.transform.localScale * 5;
+        //Set scales
+        area = areaWithAim.GetComponent<AimHandler>().area;
+        area.transform.localScale = area.transform.localScale * 30;
+        indicator = areaWithAim.GetComponent<AimHandler>().indicator;
+        indicator.transform.localScale = indicator.transform.localScale * 5;
 
-            activeJoystick = joystick;
-            DisableButtons();
-        }
+        activeJoystick = joystick;
+        DisableButtons();
     }
 
-    public void AimAoeAttack(Vector2 aoePosition)
+    public void AimAoeSkill(Vector2 aoePosition)
     {
         // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
@@ -130,7 +127,7 @@ public class CustomInputManager : InputManager
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
     }
 
-    public void ExecuteAoeAttack(Vector2 aoePosition, Ability ability)
+    public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
         // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
@@ -141,32 +138,43 @@ public class CustomInputManager : InputManager
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         Destroy(indicator, 0.01f);
         Destroy(area, 0.01f);
+
         activeJoystick = null;
         EnableButton();
 
-        ability.ExecuteAbility(aoePosition);
+        skill.ExecuteSkill(aoePosition);
     }
 
-    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Ability ability)
+    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
     {
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
-        directionEvent.AddListener(ShowAimDirectionAttack);
+        directionEvent.AddListener(ShowAimDirectionSkill);
         joystick.newPointerDownEvent = directionEvent;
 
         UnityEvent<Vector2> directionDragEvent = new UnityEvent<Vector2>();
-        directionDragEvent.AddListener(AimDirectionAttack);
+        directionDragEvent.AddListener(AimDirectionSkill);
         joystick.newDragEvent = directionDragEvent;
 
-        UnityEvent<Vector2, Ability> directionRelease = new UnityEvent<Vector2, Ability>();
-        directionRelease.AddListener(ExecuteDirectionAttack);
-        joystick.ability = ability;
+        UnityEvent<Vector2, Skill> directionRelease = new UnityEvent<Vector2, Skill>();
+        directionRelease.AddListener(ExecuteDirectionSkill);
+        joystick.skill = skill;
         joystick.newPointerUpEvent = directionRelease;
     }
 
-    private void ShowAimDirectionAttack(CustomMMTouchJoystick joystick)
+    private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
         // FIXME: Remove harcoded reference
         GameObject _player = GameObject.Find("Player 1");
+
+        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        areaWithAim.transform.parent = _player.transform;
+        //Set its position to the player position
+        areaWithAim.transform.position = _player.transform.position;
+
+        //Set scales
+        area = areaWithAim.GetComponent<AimHandler>().area;
+        area.transform.localScale = area.transform.localScale * 30;
 
         //Load the prefab
         directionIndicator = Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
@@ -174,9 +182,16 @@ public class CustomInputManager : InputManager
         directionIndicator.transform.parent = _player.transform;
         //Set its position to the player position
         directionIndicator.transform.position = new Vector3(_player.transform.position.x, 0.4f, _player.transform.position.z);
+
+        // FIXME: Using harcoded value for testing, Value should be set dinamically
+        directionIndicator.transform.localScale = new Vector3(directionIndicator.transform.localScale.x, area.transform.localScale.y * 2.45f, directionIndicator.transform.localScale.z);
+        directionIndicator.SetActive(false);
+
+        activeJoystick = joystick;
+        DisableButtons();
     }
 
-    private void AimDirectionAttack(Vector2 direction)
+    private void AimDirectionSkill(Vector2 direction)
     {
         var result = Mathf.Atan(direction.x / direction.y) * Mathf.Rad2Deg;
         if (direction.y > 0)
@@ -184,11 +199,18 @@ public class CustomInputManager : InputManager
             result += 180f;
         }
         directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
+        directionIndicator.SetActive(true);
     }
 
-    private void ExecuteDirectionAttack(Vector2 direction, Ability ability)
+    private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
+        Destroy(areaWithAim);
         Destroy(directionIndicator);
+
+        activeJoystick = null;
+        EnableButton();
+
+        skill.ExecuteSkill(direction);
     }
 
     private void DisableButtons()
