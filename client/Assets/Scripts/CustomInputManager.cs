@@ -56,7 +56,7 @@ public class CustomInputManager : InputManager
             case UIType.Tap:
                 MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
-                button.ButtonPressed.AddListener(skill.ExecuteSkill);
+                button.ButtonPressedFirstTime.AddListener(skill.ExecuteSkill);
                 if (joystick)
                 {
                     mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;

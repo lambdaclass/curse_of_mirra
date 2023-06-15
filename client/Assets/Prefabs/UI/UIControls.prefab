@@ -117,8 +117,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -305,8 +305,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -684,8 +684,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -817,8 +817,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}

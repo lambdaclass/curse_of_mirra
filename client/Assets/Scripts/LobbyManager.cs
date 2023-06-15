@@ -10,6 +10,10 @@ public class LobbyManager : LevelSelector
     [SerializeField]
     GameObject playButton;
 
+    [SerializeField] GameObject mapList;
+
+    public static string LevelSelected;
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -18,7 +22,7 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (playButton != null)
+        if (playButton != null && mapList != null)
         {
             if (LobbyConnection.Instance.playerId == 1)
             {
@@ -27,6 +31,7 @@ public class LobbyManager : LevelSelector
             else
             {
                 playButton.SetActive(false);
+                mapList.SetActive(false);
             }
         }
     }
@@ -34,7 +39,7 @@ public class LobbyManager : LevelSelector
     public void GameStart()
     {
         StartCoroutine(CreateGame());
-        StartCoroutine(Utils.WaitForGameCreation());
+        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
     public IEnumerator CreateGame()
@@ -48,6 +53,12 @@ public class LobbyManager : LevelSelector
         SceneManager.LoadScene("Lobbies");
     }
 
+    public void SelectMap(string mapName)
+    {
+        this.LevelName = mapName;
+        LevelSelected = mapName;
+    }
+
     private void Update()
     {
         if (
@@ -56,7 +67,7 @@ public class LobbyManager : LevelSelector
         )
         {
             StartCoroutine(CreateGame());
-            SceneManager.LoadScene("Araban");
+            SceneManager.LoadScene("BackendPlayground");
         }
     }
 }

@@ -23,6 +23,9 @@ config :dark_worlds_server, DarkWorldsServerWeb.Endpoint,
   secret_key_base: "Qu1oU8AKEU4oxh5vqy6daXy8evjMwFiwr52p1MBv2I56bjeyFtCWKyJ3L/9u6NDK",
   server: true
 
+config :dark_worlds_server,
+  config_folder: "../client/Assets/StreamingAssets/"
+
 # In test we don't send emails.
 config :dark_worlds_server, DarkWorldsServer.Mailer, adapter: Swoosh.Adapters.Test
 

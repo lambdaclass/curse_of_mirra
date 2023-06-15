@@ -1,6 +1,5 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::collections::HashSet;
 use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
@@ -9,7 +8,8 @@ use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
-
+use std::collections::HashMap;
+use std::collections::HashSet;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -26,16 +26,34 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
-
 impl GameState {
+    fn build_characters_with_config(
+        character_config: &[HashMap<String, String>],
+    ) -> Result<Vec<Character>, String> {
+        character_config
+            .into_iter()
+            // Keep only characters
+            // for which active is 1.
+            .filter(|map| {
+                let active = map
+                    .get("Active")
+                    .expect("Missing Active key for character")
+                    .parse::<u64>()
+                    .expect("Expected 1 or 0 for Active key");
+                active == 1
+            })
+            .map(Character::from_config_map)
+            .collect()
+    }
     pub fn new(
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
         build_walls: bool,
-    ) -> Self {
+        characters_config: &[HashMap<String, String>],
+    ) -> Result<Self, String> {
         let mut positions = HashSet::new();
-        let characters = [Default::default(), Character::muflus(), Character::uma()];
+        let characters = GameState::build_characters_with_config(&characters_config)?;
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -72,12 +90,12 @@ impl GameState {
 
         let projectiles = Vec::new();
 
-        Self {
+        Ok(Self {
             players,
             board,
             projectiles,
             next_projectile_id: 0,
-        }
+        })
     }
 
     pub fn new_round(self: &mut Self, players: Vec<Player>) {
@@ -579,6 +597,7 @@ impl GameState {
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
             }
+
             add_kills(&mut self.players, attacking_player_id, kill_count)
                 .expect("Player not found");
         } else {
