@@ -107,6 +107,7 @@ message ClientAction {
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
     - AUTO_ATTACK: Player attacks nearest oponent, if in range.
+    - SKILL_1: Player skill 1.
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -117,6 +118,7 @@ enum Action {
     ADD_BOT = 7;
     AUTO_ATTACK = 8;
     BASIC_ATTACK = 9;
+    SKILL_1 = 10;
 }
 
 /* Directions an action can happen in
@@ -142,6 +144,7 @@ enum PlayerAction {
     NOTHING = 0;
     ATTACKING = 1;
     ATTACKING_AOE = 2;
+    EXECUTING_SKILL_1 = 3;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

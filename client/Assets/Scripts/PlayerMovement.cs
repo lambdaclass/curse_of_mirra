@@ -220,20 +220,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 healthComponent.Model.gameObject.SetActive(true);
             }
-            bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (
-                isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
-            )
-            {
-                player
-                    .GetComponent<GenericAoeAttack>()
-                    .ShowAoeAttack(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
-            }
         }
     }
 
