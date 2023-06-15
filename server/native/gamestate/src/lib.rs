@@ -80,13 +80,13 @@ fn attack_player(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn attack_aoe(
+fn skill_1(
     game: GameState,
     attacking_player_id: u64,
     attack_position: RelativePosition,
 ) -> Result<GameState, String> {
     let mut game_2 = game;
-    game_2.aoe_attack(attacking_player_id, &attack_position)?;
+    game_2.skill_1(attacking_player_id, &attack_position)?;
     Ok(game_2)
 }
 
@@ -158,7 +158,6 @@ rustler::init!(
         get_grid,
         get_non_empty,
         attack_player,
-        attack_aoe,
         world_tick,
         disconnect,
         move_with_joystick,
@@ -166,6 +165,7 @@ rustler::init!(
         spawn_player,
         auto_attack,
         basic_attack,
+        skill_1,
     ],
     load = load
 );

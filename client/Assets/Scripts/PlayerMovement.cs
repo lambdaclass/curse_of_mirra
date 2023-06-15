@@ -220,13 +220,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 healthComponent.Model.gameObject.SetActive(true);
             }
-            bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (
-                isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
-            )
-            {
-                
-            }
         }
     }
 

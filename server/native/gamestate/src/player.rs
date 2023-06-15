@@ -37,6 +37,7 @@ pub enum PlayerAction {
     NOTHING,
     ATTACKING,
     ATTACKINGAOE,
+    EXECUTINGSKILL1,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
