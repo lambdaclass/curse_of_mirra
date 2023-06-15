@@ -21,6 +21,7 @@ public class LobbyConnection : MonoBehaviour
     public int playerCount;
     public bool gameStarted = false;
     public uint serverTickRate_ms;
+    public ServerGameSettings serverSettings;
 
     WebSocket ws;
 
@@ -112,21 +113,13 @@ public class LobbyConnection : MonoBehaviour
 
     public void StartGame()
     {
-#if !UNITY_WEBGL
-        GameConfig gameSettings = new GameSettings
-        {
-            path = @"./game_settings.json"
-        }.parseSettings();
-#else
-        GameConfig gameSettings = GameSettings.defaultSettings();
-#endif
-        LobbyEvent lobbyEvent = new LobbyEvent
-        {
-            Type = LobbyEventType.StartGame,
-            GameConfig = gameSettings
+        serverSettings = GameSettings.parseSettings();
+        LobbyEvent lobbyEvent = new LobbyEvent { 
+            Type = LobbyEventType.StartGame,  
+            GameConfig = serverSettings
         };
 
-        serverTickRate_ms = (uint)gameSettings.ServerTickrateMs;
+        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
         using (var stream = new MemoryStream())
         {
@@ -263,6 +256,7 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobby_event.GameId;
+                    print(lobby_event.GameConfig);
                     break;
 
                 default:

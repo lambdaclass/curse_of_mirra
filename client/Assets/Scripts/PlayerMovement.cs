@@ -27,13 +27,21 @@ public class PlayerMovement : MonoBehaviour
         Nothing = 0,
         Attacking = 1,
         AttackingAOE = 2,
-        Teleporting = 3,
+        MainAttack = 3,
+        Teleporting = 4,
     }
 
     public enum ProyectileStatus
     {
         Active = 0,
         Exploded = 1,
+    }
+
+    Vector3 backPositionToFrontPosition(Position position)
+    {
+        var x = (long)position.Y / 10f - 50.0f;
+        var y = (-((long)position.X)) / 10f + 50.0f;
+        return new Vector3(x, 1f, y);
     }
 
     void Start()
@@ -150,13 +158,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (playerUpdate.playerId % 3 == 0)
             {
-                // Uma
-                characterSpeed = 0.5f;
+                // Hack
+                characterSpeed = 0.3f;
             }
             else if (playerUpdate.playerId % 3 == 1)
             {
                 // Muflus
-                characterSpeed = 0.3f;
+                characterSpeed = 0.5f;
             }
             else
             {
@@ -331,8 +339,6 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0), new Vector3(yChange, 0f, -xChange), Vector3.up);
-
                 Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
 
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
@@ -342,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
             {
                 float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0),
-                new Vector3((long)gameProjectiles[i].Direction.Y, 0f, -(long)gameProjectiles[i].Direction.X),
+                new Vector3((long)(gameProjectiles[i].Direction.Y * 100), 0f, -(long)(gameProjectiles[i].Direction.X * 100)),
                 Vector3.up);
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
                 GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);

@@ -1,0 +1,28 @@
+﻿{
+  "Items": [
+    {
+      "Name": "none"
+    },
+    {
+      "Name": "freeze"
+    },
+    {
+      "Name": "poison"
+    },
+    {
+      "Name": "petrify"
+    },
+    {
+      "Name": "disarm"
+    },
+    {
+      "Name": "burn"
+    },
+    {
+      "Name": "denialofservice"
+    },
+    {
+      "Name": "fieryramp"
+    }
+  ]
+}

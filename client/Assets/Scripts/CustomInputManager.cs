@@ -53,7 +53,15 @@ public class CustomInputManager : MonoBehaviour
             abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystickUltimate);
         }
     }
-    public void SetJoystickAOE()
+
+    public void AssignMainAttack(string triggerType, UnityEvent ability)
+    {
+        if (triggerType == "joystick")
+        {
+            mainAttack.GetComponent<MMTouchButton>().ButtonPressedFirstTime = ability;
+        }
+    }
+    public void SetJoystick()
     {
         Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
         joystickBg.enabled = true;

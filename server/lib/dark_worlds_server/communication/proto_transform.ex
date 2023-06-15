@@ -1,10 +1,14 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
+  alias DarkWorldsServer.Communication.Proto.CharacterConfig
+  alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
+  alias DarkWorldsServer.Communication.Proto.RunnerConfig
+  alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.JoystickValues, as: EngineJoystickValues
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
@@ -14,7 +18,49 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @behaviour Protobuf.TransformModule
 
+  def encode(runner_config, RunnerConfig) do
+    runner_config
+  end
+
+  def encode(character_config, CharacterConfig) do
+    character_config
+  end
+
+  def encode(character_config_item, CharacterConfigItem) do
+    character_config_item
+  end
+
   @impl Protobuf.TransformModule
+  def encode(
+        %{character_config: character_config, runner_config: runner_config},
+        ServerGameSettings
+      ) do
+    %{
+      Name: name,
+      board_height: board_height,
+      board_width: board_width,
+      game_timeout_ms: game_timeout_ms,
+      server_tickrate_ms: server_tickrate_ms
+    } = runner_config
+
+    runner_config = %RunnerConfig{
+      Name: name,
+      board_height: board_height,
+      board_width: board_width,
+      game_timeout_ms: game_timeout_ms,
+      server_tickrate_ms: server_tickrate_ms
+    }
+
+    character_config = %CharacterConfig{
+      Items: character_config[:Items]
+    }
+
+    %ServerGameSettings{
+      runner_config: runner_config,
+      character_config: character_config
+    }
+  end
+
   def encode(%EnginePosition{} = position, ProtoPosition) do
     %{x: x, y: y} = position
     %ProtoPosition{x: x, y: y}
@@ -26,14 +72,24 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{id: id, health: health, position: position, action: action, aoe_position: aoe_position} = player
+    %{
+      id: id,
+      health: health,
+      position: position,
+      action: action,
+      aoe_position: aoe_position,
+      kill_count: kill_count,
+      death_count: death_count
+    } = player
 
     %ProtoPlayer{
       id: id,
       health: health,
       position: position,
       action: player_action_encode(action),
-      aoe_position: aoe_position
+      aoe_position: aoe_position,
+      kill_count: kill_count,
+      death_count: death_count
     }
   end
 
@@ -81,6 +137,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :ATTACK_AOE, position: position}
   end
 
+  def encode(%EngineAction{action: :basic_attack, value: position}, ProtoAction) do
+    %ProtoAction{action: :BASIC_ATTACK, position: position}
+  end
+
   @impl Protobuf.TransformModule
   def decode(%ProtoPosition{} = position, ProtoPosition) do
     %{x: x, y: y} = position
@@ -107,7 +167,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       last_melee_attack: attack,
       status: status,
       action: action,
-      aoe_position: aoe_position
+      aoe_position: aoe_position,
+      kill_count: kill_count,
+      death_count: death_count
     } = player
 
     %EnginePlayer{
@@ -117,8 +179,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       last_melee_attack: attack,
       status: status,
       action: player_action_decode(action),
-      aoe_position: aoe_position
+      aoe_position: aoe_position,
+      kill_count: kill_count,
+      death_count: death_count
     }
+  end
+
+  def decode(%ProtoAction{action: :AUTO_ATTACK, target: target}, ProtoAction) do
+    %EngineAction{action: :auto_attack, value: target}
   end
 
   def decode(%ProtoProjectile{} = projectile, ProtoProjectile) do
@@ -163,6 +231,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(%ProtoAction{action: :ATTACK_AOE, position: position}, ProtoAction) do
     %EngineAction{action: :attack_aoe, value: position}
+  end
+
+  def decode(%ProtoAction{action: :BASIC_ATTACK, position: position}, ProtoAction) do
+    %EngineAction{action: :basic_attack, value: position}
   end
 
   def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do

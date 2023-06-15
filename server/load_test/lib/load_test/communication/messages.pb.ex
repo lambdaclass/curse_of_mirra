@@ -32,7 +32,9 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
-  field(:TELEPORT, 8)
+  field(:AUTO_ATTACK, 8)
+  field(:BASIC_ATTACK, 9)
+  field(:TELEPORT, 10)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -55,7 +57,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
-  field(:TELEPORTING, 3)
+  field(:TELEPORTING, 4)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -115,8 +117,10 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:status, 5, type: LoadTest.Communication.Proto.Status, enum: true)
   field(:action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
+  field(:kill_count, 8, type: :uint64, json_name: "killCount")
+  field(:death_count, 9, type: :uint64, json_name: "deathCount")
 
-  field(:teleport_position, 8,
+  field(:teleport_position, 10,
     type: LoadTest.Communication.Proto.Position,
     json_name: "teleportPosition"
   )
@@ -149,6 +153,7 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true)
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
+  field(:target, 5, type: :sint64)
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do
@@ -173,26 +178,65 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
   field(:player_count, 6, type: :uint64, json_name: "playerCount")
   field(:players, 7, repeated: true, type: :uint64)
   field(:removed_player_id, 8, type: :uint64, json_name: "removedPlayerId")
-  field(:game_config, 9, type: LoadTest.Communication.Proto.GameConfig, json_name: "gameConfig")
+
+  field(:game_config, 9,
+    type: LoadTest.Communication.Proto.ServerGameSettings,
+    json_name: "gameConfig"
+  )
 end
 
-defmodule LoadTest.Communication.Proto.BoardSize do
+defmodule LoadTest.Communication.Proto.RunnerConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:width, 1, type: :uint64)
-  field(:height, 2, type: :uint64)
+  field(:Name, 1, type: :string)
+  field(:board_width, 2, type: :uint64, json_name: "boardWidth")
+  field(:board_height, 3, type: :uint64, json_name: "boardHeight")
+  field(:server_tickrate_ms, 4, type: :uint64, json_name: "serverTickrateMs")
+  field(:game_timeout_ms, 5, type: :uint64, json_name: "gameTimeoutMs")
 end
 
-defmodule LoadTest.Communication.Proto.GameConfig do
+defmodule LoadTest.Communication.Proto.CharacterConfigItem do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:board_size, 1, type: LoadTest.Communication.Proto.BoardSize, json_name: "boardSize")
-  field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
-  field(:game_timeout_ms, 3, type: :uint64, json_name: "gameTimeoutMs")
+  field(:Name, 1, type: :string)
+  field(:Id, 2, type: :string)
+  field(:Active, 3, type: :string)
+  field(:Class, 4, type: :string)
+  field(:Faction, 5, type: :string)
+  field(:BaseSpeed, 6, type: :string)
+  field(:SkillBasic, 7, type: :string)
+  field(:SkillActive1, 8, type: :string)
+  field(:SkillActive2, 9, type: :string)
+  field(:SkillDash, 10, type: :string)
+  field(:SkillUltimate, 11, type: :string)
+end
+
+defmodule LoadTest.Communication.Proto.CharacterConfig do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.CharacterConfigItem)
+end
+
+defmodule LoadTest.Communication.Proto.ServerGameSettings do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:runner_config, 1,
+    type: LoadTest.Communication.Proto.RunnerConfig,
+    json_name: "runnerConfig"
+  )
+
+  field(:character_config, 2,
+    type: LoadTest.Communication.Proto.CharacterConfig,
+    json_name: "characterConfig"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.Projectile do
