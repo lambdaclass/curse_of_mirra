@@ -35,7 +35,7 @@ impl Character {
         Character {
             class: Class::Guardian,
             basic_skill: BasicSkill::Bash,
-            base_speed: 3,
+            base_speed: 5,
             name: Name::Muflus,
             ..Default::default()
         }
@@ -55,7 +55,7 @@ impl Character {
         // instead of matching enums.
         match self.basic_skill {
             BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 40_u64,
+            BasicSkill::Bash => 30_u64,
             BasicSkill::BackStab => 10_u64,
         }
     }
@@ -63,8 +63,8 @@ impl Character {
     #[inline]
     pub fn cooldown(&self) -> u64 {
         match self.basic_skill {
-            BasicSkill::Slingshot => 1,
-            BasicSkill::Bash => 5,
+            BasicSkill::Slingshot => 5,
+            BasicSkill::Bash => 3,
             BasicSkill::BackStab => 1,
         }
     }
@@ -93,6 +93,6 @@ impl Character {
 }
 impl Default for Character {
     fn default() -> Self {
-        Character::new(Class::Hunter, 5, &Name::H4ck, BasicSkill::Slingshot)
+        Character::new(Class::Hunter, 3, &Name::H4ck, BasicSkill::Slingshot)
     }
 }

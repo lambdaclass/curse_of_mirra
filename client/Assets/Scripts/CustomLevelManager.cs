@@ -125,6 +125,10 @@ public class CustomLevelManager : LevelManager
                 UiCamera
                     .GetComponent<CustomInputManager>()
                     .AssignInputToAbilityExecution("y", "joystick", attackEvent);
+
+                UnityEvent mainAttackEvent = new UnityEvent();
+                mainAttackEvent.AddListener(player.GetComponent<DetectNearPlayer>().GetPlayerFaceDirection);
+                UiCamera.GetComponent<CustomInputManager>().AssingMainAttack("joystick", mainAttackEvent);
             }
         }
     }

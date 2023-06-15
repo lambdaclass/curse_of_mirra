@@ -1,61 +1,100 @@
-using System.IO;
-using UnityEngine;
 using System;
+using System.Collections;
+using System.IO;
+using Google.Protobuf;
+using UnityEngine;
+using UnityEngine.Networking;
 
 /*
-These clases are used to parse the game_settings.json data
+These classes are used to parse the game_settings.json data
 */
 
 public class GameSettings
 {
+    private const string GameSettingsFileName = "GameSettings.json";
+    private const string CharactersFileName = "Characters.json";
+    private const string ContentTypeHeader = "application/json";
+
     public string path { get; set; }
 
-    [Serializable]
-    private class boardSize
+    public static IEnumerator ParseSettingsCoroutine(Action<ServerGameSettings> callback)
     {
-        public uint width;
-        public uint height;
+        JsonParser parser = new JsonParser(new JsonParser.Settings(100000)); //GameSettings
+
+        string gameSettingsPath = Path.Combine(
+            Application.streamingAssetsPath,
+            GameSettingsFileName
+        );
+
+        string charactersSettingsPath = Path.Combine(
+            Application.streamingAssetsPath,
+            CharactersFileName
+        );
+
+        string jsonGameSettingsText = string.Empty;
+        string jsonCharacterSettingsText = string.Empty;
+        GetRequest(
+            gameSettingsPath,
+            result =>
+            {
+                jsonGameSettingsText = result;
+
+                GetRequest(
+                    charactersSettingsPath,
+                    charactersResult =>
+                    {
+                        jsonCharacterSettingsText = charactersResult;
+
+                        RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
+                            jsonGameSettingsText.TrimStart('\uFEFF')
+                        );
+                        CharacterConfig characters = parser.Parse<CharacterConfig>(
+                            jsonCharacterSettingsText.TrimStart('\uFEFF')
+                        );
+
+                        ServerGameSettings settings = new ServerGameSettings
+                        {
+                            RunnerConfig = parsedRunner,
+                            CharacterConfig = characters
+                        };
+
+                        callback?.Invoke(settings);
+                    }
+                );
+            }
+        );
+
+        while (
+            string.IsNullOrEmpty(jsonGameSettingsText)
+            || string.IsNullOrEmpty(jsonCharacterSettingsText)
+        )
+        {
+            yield return null;
+        }
     }
 
-    [Serializable]
-    private class Settings
+    static void GetRequest(string uri, Action<string> callback)
     {
-        public boardSize board_size;
-        public uint server_tickrate_ms;
-        public uint game_timeout_ms;
-    }
+        UnityWebRequest webRequest;
+#if UNITY_EDITOR || UNITY_IOS
+        webRequest = UnityWebRequest.Get("file://" + uri);
+#else
+        webRequest = UnityWebRequest.Get(uri);
+#endif
+        webRequest.SetRequestHeader("Content-Type", ContentTypeHeader);
 
-    public GameConfig parseSettings()
-    {
-        string jsonText = File.ReadAllText(this.path);
-        Settings settings = JsonUtility.FromJson<Settings>(jsonText);
-        BoardSize bSize = new BoardSize
+        webRequest.SendWebRequest().completed += operation =>
         {
-            Width = settings.board_size.width,
-            Height = settings.board_size.height
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                callback?.Invoke(webRequest.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogError($"Error: {webRequest.responseCode} - {webRequest.error}");
+                callback?.Invoke(string.Empty);
+            }
+            webRequest.Dispose();
         };
-
-        GameConfig gameConfig = new GameConfig
-        {
-            BoardSize = bSize,
-            ServerTickrateMs = settings.server_tickrate_ms,
-            GameTimeoutMs = settings.game_timeout_ms
-        };
-
-        return gameConfig;
-    }
-
-    public static GameConfig defaultSettings()
-    {
-        BoardSize bSize = new BoardSize { Width = 1000, Height = 1000 };
-
-        GameConfig gameConfig = new GameConfig
-        {
-            BoardSize = bSize,
-            ServerTickrateMs = 30,
-            GameTimeoutMs = 1_200_000
-        };
-
-        return gameConfig;
     }
 }

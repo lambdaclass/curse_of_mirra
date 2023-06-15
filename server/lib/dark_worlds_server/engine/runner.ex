@@ -1,12 +1,11 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
-
+  require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
 
   @build_walls false
-  @board {1000, 1000}
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
   # The session will be closed one minute after the game has finished
@@ -69,12 +68,13 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    game = create_new_game(opts)
+    game = create_new_game(opts.game_config.runner_config, length(opts.players))
 
-    tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
+    tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
-    Process.send_after(self(), :game_timeout, Map.get(opts.game_config, :game_timeout, @game_timeout))
+
+    Process.send_after(self(), :game_timeout, Map.get(opts.game_config.runner_config, :game_timeout, @game_timeout))
     Process.send_after(self(), :check_player_amount, @player_check)
 
     Process.send_after(self(), :update_state, tick_rate)
@@ -100,6 +100,20 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_cast(_actions, %{game_state: :round_finished} = gen_server_state) do
     {:noreply, gen_server_state}
+  end
+
+  def handle_cast(
+        {:play, player, %ActionOk{action: :auto_attack, value: target}},
+        %{next_state: %{game: game} = next_state} = state
+      ) do
+    Logger.info("[#{inspect(DateTime.utc_now())}] Received target: #{inspect(target)}")
+    {:ok, game} = Game.auto_attack(game, player, player)
+
+    next_state = Map.put(next_state, :game, game)
+
+    state = Map.put(state, :next_state, next_state)
+
+    {:noreply, state}
   end
 
   def handle_cast(
@@ -148,6 +162,18 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.attack_aoe(game, player_id, value)
+
+    server_game_state = server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast(
+        {:play, player_id, %ActionOk{action: :basic_attack, value: value}},
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
+      ) do
+    {:ok, game} = Game.basic_attack(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
     gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
@@ -225,13 +251,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:check_player_amount, gen_server_state = %{current_players: current})
       when current == 0 do
     Process.send_after(self(), :session_timeout, 500)
-    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+    {:noreply, Map.put(gen_server_state, :game_state, :game_finished)}
   end
 
   def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
 
-    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+    {:noreply, Map.put(gen_server_state, :game_state, :game_finished)}
   end
 
   def handle_info(:session_timeout, gen_server_state) do
@@ -384,22 +410,10 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
-    board = {board.width, board.height}
-
+  defp create_new_game(game_config, players) do
     config = %{
-      number_of_players: length(players),
-      board: board,
-      build_walls: @build_walls
-    }
-
-    Game.new(config)
-  end
-
-  defp create_new_game(%{players: players}) do
-    config = %{
-      number_of_players: length(players),
-      board: @board,
+      number_of_players: players,
+      board: {game_config.board_width, game_config.board_height},
       build_walls: @build_walls
     }
 
