@@ -34,10 +34,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
-<<<<<<< HEAD
   field(:TELEPORT, 10)
-=======
->>>>>>> origin
 end
 
 defmodule LoadTest.Communication.Proto.Direction do

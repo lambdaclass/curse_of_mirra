@@ -274,11 +274,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
+  defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
+  defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_decode(:BULLET), do: :bullet

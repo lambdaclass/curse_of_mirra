@@ -37,13 +37,6 @@ public class PlayerMovement : MonoBehaviour
         Exploded = 1,
     }
 
-    Vector3 backPositionToFrontPosition(Position position)
-    {
-        var x = (long)position.Y / 10f - 50.0f;
-        var y = (-((long)position.X)) / 10f + 50.0f;
-        return new Vector3(x, 1f, y);
-    }
-
     void Start()
     {
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
@@ -193,12 +186,21 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                Vector3 newPosition =
+                if (playerUpdate.action == PlayerAction.Teleporting)
+                {
+                    player.transform.position = playerUpdate.playerPosition;
+                }
+                else
+                {
+                    Vector3 newPosition =
                     player.transform.position + movementDirection * velocity * Time.deltaTime;
-                player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
+                    player.transform.position = newPosition;
+                    characterOrientation.ForcedRotationDirection = movementDirection;
 
-                walking = true;
+                    walking = true;
+                }
+
+                
             }
             mAnimator.SetBool("Walking", walking);
 
@@ -228,25 +230,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 // FIXME: add logic
             }
-
-            bool isDoingUltimate = playerUpdate.action == PlayerAction.Teleporting;
-            if (
-                isDoingUltimate && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
-            )
-            {
-                print(player.name + "Ultimate");
-                player
-                    .GetComponent<GenericUltimate>()
-                    .ExecuteUltimate(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
-            }
-            // player
-            // .GetComponent<AttackController>()
-            // .SwordAttack(isAttacking);
         }
     }
 
