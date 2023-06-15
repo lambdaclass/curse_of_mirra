@@ -141,7 +141,7 @@ public class CustomLevelManager : LevelManager
 
                 Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
                 skill1.SetSkill(Action.Skill1);
-                _cim.AssignSkillToInput(UIControls.Skill1, UIType.Area, skill1);
+                _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
 
                 Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
                 skill2.SetSkill(Action.BasicAttack);
