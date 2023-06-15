@@ -4,7 +4,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
-
+  require Logger
   @build_walls false
   @board {1000, 1000}
   # The game will be closed twenty minute after it starts
@@ -70,7 +70,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.flag(:priority, priority)
 
     Process.send_after(self(), :selected_characters, 30)
-
     {:ok,
      %{
        selected_characters: [],
@@ -79,7 +78,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        players: opts.players,
        is_single_player?: length(opts.players) == 1,
        game_state: :character_selection,
-       game_config: opts
+       opts: opts
      }}
   end
 
@@ -174,10 +173,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :attack_aoe, value: value}},
+        {:play, player_id, %ActionOk{action: :skill_1, value: value}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
-    {:ok, game} = Game.attack_aoe(game, player_id, value)
+    {:ok, game} = Game.skill_1(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
     gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
@@ -234,6 +233,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{max_players: max, current_players: current} = gen_server_state
       )
       when current < max do
+
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
@@ -285,8 +285,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:start_game, gen_server_state) do
-    opts = gen_server_state.game_config
-    game = create_new_game(opts)
+    opts = gen_server_state.opts
+    game = create_new_game(opts, gen_server_state.players)
+
+    Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
+    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
 
     tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
 
@@ -505,23 +508,20 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{game_config: %{board_size: board}, players: players}) do
-    board = {board.width, board.height}
+  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players) do
+    character_info =
+      for character <- character_info do
+        Enum.reduce(character, %{}, fn
+          {:__unknown_fields__, _}, map -> map
+          {key, val}, map -> Map.put(map, key |> Atom.to_string(), val)
+        end)
+      end
 
     config = %{
-      number_of_players: length(players),
-      board: board,
-      build_walls: @build_walls
-    }
-
-    Game.new(config)
-  end
-
-  defp create_new_game(%{players: players}) do
-    config = %{
-      number_of_players: length(players),
-      board: @board,
-      build_walls: @build_walls
+      number_of_players: players,
+      board: {rg.board_width, rg.board_height},
+      build_walls: @build_walls,
+      characters: character_info
     }
 
     Game.new(config)

@@ -12,6 +12,8 @@ crate-type = ["cdylib", "lib"]
 [dependencies]
 rand = "0.8.5"
 rustler = "0.28.0"
+strum = "0.24.1"
+strum_macros = "0.24.3"
 
 [features]
 default = ["init_engine"]

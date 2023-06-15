@@ -52,14 +52,7 @@ public class SocketConnectionManager : MonoBehaviour
   void Start()
   {
     playerId = LobbyConnection.Instance.playerId;
-    if (string.IsNullOrEmpty(this.session_id))
-    {
-      StartCoroutine(GetRequest());
-    }
-    else
-    {
-      ConnectToSession(this.session_id);
-    }
+    ConnectToSession(this.session_id);
   }
 
   void Update()
@@ -114,7 +107,6 @@ public class SocketConnectionManager : MonoBehaviour
     try
     {
       GameEvent game_event = GameEvent.Parser.ParseFrom(data);
-      print(game_event.Type);
       switch (game_event.Type)
       {
         case GameEventType.StateUpdate:
@@ -129,7 +121,7 @@ public class SocketConnectionManager : MonoBehaviour
                 .ForEach((player) => SpawnBot.Instance.Spawn(player));
           }
           // This should be deleted when the match end is fixed
-          game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+          // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
           this.gamePlayers = game_event.Players.ToList();
           this.gameProjectiles = game_event.Projectiles.ToList();
           break;
@@ -156,7 +148,6 @@ public class SocketConnectionManager : MonoBehaviour
         case GameEventType.SelectedCharacterUpdate:
           this.selectedCharacters = game_event.SelectedCharacters.ToList();
           break;
-
         default:
           print("Message received is: " + game_event.Type);
           break;

@@ -7,62 +7,64 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
-    [SerializeField]
-    GameObject playButton;
+  [SerializeField]
+  GameObject playButton;
+  [SerializeField] GameObject mapList;
 
-    [SerializeField] GameObject mapList;
+  public static string LevelSelected;
+  public override void GoToLevel()
+  {
+    base.GoToLevel();
+    gameObject.GetComponent<MMTouchButton>().DisableButton();
+  }
 
-    public static string LevelSelected;
-    public bool gameStarted = false;
-    public override void GoToLevel()
+  void Start()
+  {
+    if (playButton != null && mapList != null)
     {
-        base.GoToLevel();
-        gameObject.GetComponent<MMTouchButton>().DisableButton();
+      if (LobbyConnection.Instance.playerId == 1)
+      {
+        playButton.SetActive(true);
+      }
+      else
+      {
+        playButton.SetActive(false);
+        mapList.SetActive(false);
+      }
     }
+  }
 
-    void Start()
-    {
-        if (playButton != null && mapList != null)
-        {
-            if (LobbyConnection.Instance.playerId == 1)
-            {
-                playButton.SetActive(true);
-            }
-            else
-            {
-                playButton.SetActive(false);
-                mapList.SetActive(false);
-            }
-        }
-    }
+  public void GameStart()
+  {
+    StartCoroutine(CreateGame());
+    StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
+  }
 
-    public void GameStart()
-    {
-        LobbyConnection.Instance.StartGame();
-        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
-    }
+  public IEnumerator CreateGame()
+  {
+    yield return LobbyConnection.Instance.StartGame();
+  }
 
-    public void Back()
-    {
-        LobbyConnection.Instance.Init();
-        SceneManager.LoadScene("Lobbies");
-    }
+  public void Back()
+  {
+    LobbyConnection.Instance.Init();
+    SceneManager.LoadScene("Lobbies");
+  }
 
-    public void SelectMap(string mapName)
-    {
-        this.LevelName = mapName;
-        LevelSelected = mapName;
-    }
+  public void SelectMap(string mapName)
+  {
+    this.LevelName = mapName;
+    LevelSelected = mapName;
+  }
 
-    private void Update()
+  private void Update()
+  {
+    if (
+        !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
+    )
     {
-        if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && gameStarted
-        )
-        {
-            LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene(this.LevelName);
-        }
+      LobbyConnection.Instance.StartGame();
+      SceneManager.LoadScene(this.LevelName);
     }
+  }
 }

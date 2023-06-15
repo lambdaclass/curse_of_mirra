@@ -1,4 +1,4 @@
-﻿{
+{
   "Items": [
     {
       "Name": "Muflus",
@@ -6,7 +6,7 @@
       "Active": "1",
       "Class": "gua",
       "Faction": "ara",
-      "BaseSpeed": "75",
+      "BaseSpeed": "3",
       "SkillBasic": "Bash",
       "SkillActive1": "Barrel Roll",
       "SkillActive2": "Rage",
@@ -19,7 +19,7 @@
       "Active": "1",
       "Class": "ass",
       "Faction": "kal",
-      "BaseSpeed": "85",
+      "BaseSpeed": "4",
       "SkillBasic": "Backstab",
       "SkillActive1": "Serpent Strike",
       "SkillActive2": "Petrify",
@@ -32,7 +32,7 @@
       "Active": "1",
       "Class": "hun",
       "Faction": "oto",
-      "BaseSpeed": "90",
+      "BaseSpeed": "5",
       "SkillBasic": "Slingshot",
       "SkillActive1": "Multishot",
       "SkillActive2": "Disarm",
@@ -42,7 +42,7 @@
     {
       "Name": "Valtimer",
       "Id": "3",
-      "Active": "1",
+      "Active": "0",
       "Class": "wiz",
       "Faction": "mer",
       "BaseSpeed": "80",
