@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
+
+    bool paused = false;
+    private GameObject mapPrefab;
+    public GameObject quickMapPrefab;
     [SerializeField]
     GameObject roundSplash;
 
@@ -25,18 +30,32 @@ public class CustomLevelManager : LevelManager
 
     int winnersCount = 0;
 
-    bool paused = false;
-
     protected override void Awake()
     {
         base.Awake();
         this.totalPlayers = LobbyConnection.Instance.playerCount;
+        InitializeMap();
     }
 
     protected override void Start()
     {
         base.Start();
         StartCoroutine(InitializeLevel());
+    }
+
+    private void InitializeMap()
+    {
+        if (LobbyManager.LevelSelected == null)
+        {
+            quickMapPrefab.SetActive(true);
+        }
+        else
+        {
+            mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
+            GameObject map = Instantiate(mapPrefab);
+            //Add gameobject to the scene root
+            map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+        }
     }
 
     private IEnumerator InitializeLevel()
@@ -60,6 +79,12 @@ public class CustomLevelManager : LevelManager
         )
         {
             ShowRoundTransition(SocketConnectionManager.Instance.winners.Count);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
+            paused = !paused;
         }
     }
 

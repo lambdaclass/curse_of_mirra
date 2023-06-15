@@ -77,7 +77,53 @@ public static partial class MessagesReflection {
           "VEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIK",
           "DlBMQVlFUl9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVU",
           "EAAqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RF",
-          "RBABYgZwcm90bzM="));
+          "RBABYgZwcm90bzM=",
+          "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQiIAoIUG9z",
+          "aXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRp",
+          "b24SCQoBeBgBIAEoAxIJCgF5GAIgASgDIqABCgxDbGllbnRBY3Rpb24SFwoG",
+          "YWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRp",
+          "cmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24S",
+          "IwoKbW92ZV9kZWx0YRgEIAEoCzIPLkpveXN0aWNrVmFsdWVzEg4KBnRhcmdl",
+          "dBgFIAEoEiImCg5Kb3lzdGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiAB",
+          "KAIi5gEKCkxvYmJ5RXZlbnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRU",
+          "eXBlEhAKCGxvYmJ5X2lkGAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9h",
+          "ZGRlZF9wbGF5ZXJfaWQYBCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5",
+          "ZXJfY291bnQYBiABKAQSDwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3Bs",
+          "YXllcl9pZBgIIAEoBBIoCgtnYW1lX2NvbmZpZxgJIAEoCzITLlNlcnZlckdh",
+          "bWVTZXR0aW5ncyJ8CgxSdW5uZXJDb25maWcSDAoETmFtZRgBIAEoCRITCgti",
+          "b2FyZF93aWR0aBgCIAEoBBIUCgxib2FyZF9oZWlnaHQYAyABKAQSGgoSc2Vy",
+          "dmVyX3RpY2tyYXRlX21zGAQgASgEEhcKD2dhbWVfdGltZW91dF9tcxgFIAEo",
+          "BCLcAQoTQ2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklk",
+          "GAIgASgJEg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0",
+          "aW9uGAUgASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcg",
+          "ASgJEhQKDFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSAB",
+          "KAkSEQoJU2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAki",
+          "NgoPQ2hhcmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVy",
+          "Q29uZmlnSXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2Nv",
+          "bmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmln",
+          "GAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnIoACCgpQcm9qZWN0aWxlEgoKAmlk",
+          "GAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0",
+          "aW9uGAMgASgLMg8uSm95c3RpY2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoF",
+          "cmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEo",
+          "DRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBl",
+          "GAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJv",
+          "amVjdGlsZVN0YXR1cyqPAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERB",
+          "VEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpO",
+          "RVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQ",
+          "BRIVChFJTklUSUFMX1BPU0lUSU9OUxAGKh0KBlN0YXR1cxIJCgVBTElWRRAA",
+          "EggKBERFQUQQASqbAQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAA",
+          "EggKBE1PVkUQARIKCgZBVFRBQ0sQAhIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9W",
+          "RV9XSVRIX0pPWVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNL",
+          "EAgSEAoMQkFTSUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKKk0KCURpcmVjdGlv",
+          "bhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04Q",
+          "AhIICgRMRUZUEAMSCQoFUklHSFQQBCpUCgxQbGF5ZXJBY3Rpb24SCwoHTk9U",
+          "SElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFF",
+          "WEVDVVRJTkdfU0tJTExfMRADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBF",
+          "X1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVE",
+          "EAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RB",
+          "UlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5",
+          "cGUSCgoGQlVMTEVUEAAqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQ",
+          "ABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -125,22 +171,24 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
+///- TELEPORT: the player instantly moves to a non-contiguous position 
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
 ///- AUTO_ATTACK: Player attacks nearest oponent, if in range.
-///- TELEPORT: the player instantly moves to a non-contiguous position 
+///- SKILL_1: Player skill 1.
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
   [pbr::OriginalName("MOVE")] Move = 1,
   [pbr::OriginalName("ATTACK")] Attack = 2,
+  [pbr::OriginalName("TELEPORT")] Teleport = 4,
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
   [pbr::OriginalName("ADD_BOT")] AddBot = 7,
   [pbr::OriginalName("AUTO_ATTACK")] AutoAttack = 8,
   [pbr::OriginalName("BASIC_ATTACK")] BasicAttack = 9,
-  [pbr::OriginalName("TELEPORT")] Teleport = 10,
+  [pbr::OriginalName("SKILL_1")] Skill1 = 10
 }
 
 /// <summary>
@@ -163,6 +211,7 @@ public enum PlayerAction {
   [pbr::OriginalName("NOTHING")] Nothing = 0,
   [pbr::OriginalName("ATTACKING")] Attacking = 1,
   [pbr::OriginalName("ATTACKING_AOE")] AttackingAoe = 2,
+  [pbr::OriginalName("EXECUTING_SKILL_1")] ExecutingSkill1 = 3,
   [pbr::OriginalName("TELEPORTING")] Teleporting = 4,
 }
 

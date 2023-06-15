@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 1787465996332106806}
   - component: {fileID: 665966516443245430}
   - component: {fileID: 2784822964762187919}
-  - component: {fileID: 1640044616636073531}
+  - component: {fileID: 422279601644613764}
   m_Layer: 10
   m_Name: PlayerBot
   m_TagString: Player
@@ -783,7 +783,7 @@ MonoBehaviour:
   DisplayDurationOnHit: 1
   HideBarAtZero: 1
   HideBarAtZeroDelay: 0
---- !u!114 &1640044616636073531
+--- !u!114 &422279601644613764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
