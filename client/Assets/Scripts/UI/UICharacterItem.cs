@@ -23,10 +23,24 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
             name.text = comCharacter.name;
             artWork.sprite = comCharacter.selectedArtwork;
             CustomLevelManager.prefab = comCharacter.prefab;
+            SendCharacterSelection();
         }
         else
         {
             artWork.sprite = comCharacter.artWork;
         }
+    }
+
+    public void SendCharacterSelection(){
+        PlayerCharacter characterSelected = new PlayerCharacter{
+            PlayerId = (ulong) SocketConnectionManager.Instance.playerId,
+            CharacterName = name.text
+        };
+        ClientAction clientAction = new ClientAction{
+            Action = Action.SelectCharacter,
+            PlayerCharacter = characterSelected
+        };
+
+        SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }
