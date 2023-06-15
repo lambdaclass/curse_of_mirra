@@ -117,6 +117,10 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
   field(:kill_count, 8, type: :uint64, json_name: "killCount")
   field(:death_count, 9, type: :uint64, json_name: "deathCount")
+  field(:basic_cooldown_left, 10, type: :uint64, json_name: "basicCooldownLeft")
+  field(:first_cooldown_left, 11, type: :uint64, json_name: "firstCooldownLeft")
+  field(:second_cooldown_left, 12, type: :uint64, json_name: "secondCooldownLeft")
+  field(:ultimate_cooldown_left, 13, type: :uint64, json_name: "ultimateCooldownLeft")
 end
 
 defmodule LoadTest.Communication.Proto.Position do

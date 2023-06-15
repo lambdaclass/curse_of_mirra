@@ -23,10 +23,13 @@ pub struct Player {
     pub aoe_position: Position,
     pub kill_count: u64,
     pub death_count: u64,
+    // How many seconds are left until the
+    // cooldown is over.
     pub basic_cooldown_left: u64,
     pub first_cooldown_left: u64,
     pub second_cooldown_left: u64,
     pub ultimate_cooldown_left: u64,
+    // Timestamp when the cooldown started.
     pub basic_cooldown_start: u64,
     pub first_cooldown_start: u64,
     pub second_cooldown_start: u64,
@@ -89,6 +92,10 @@ impl Player {
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
+    // TODO:
+    // I think cooldown duration should be measured
+    // in ticks instead of seconds to ensure
+    // some kind of consistency.
     pub fn update_cooldowns(&mut self) {
         let now = time_now();
         // Time left of a cooldown = (start + left) - now
