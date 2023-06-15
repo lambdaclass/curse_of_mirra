@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 2506641952342998690}
+  - component: {fileID: 7873102551915249125}
+  - component: {fileID: 4221220233964836970}
   m_Layer: 10
   m_Name: Hack
   m_TagString: Player
@@ -826,6 +828,39 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+--- !u!114 &7873102551915249125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94f98a94a8bc47ed956bcd851a1731d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4221220233964836970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f642f40564f9404a8e066e25a3e16a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
 --- !u!1001 &4905720573577272490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -942,3 +977,4 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
