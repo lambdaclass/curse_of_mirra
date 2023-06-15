@@ -34,6 +34,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
+  field(:SKILL_1, 10)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -56,6 +57,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:EXECUTING_SKILL_1, 3)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

@@ -26,62 +26,65 @@ public static partial class MessagesReflection {
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
-          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQi3gEKBlBs",
+          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQi1gIKBlBs",
           "YXllchIKCgJpZBgBIAEoBBIOCgZoZWFsdGgYAiABKBISGwoIcG9zaXRpb24Y",
           "AyABKAsyCS5Qb3NpdGlvbhIZChFsYXN0X21lbGVlX2F0dGFjaxgEIAEoBBIX",
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
           "eWVyQWN0aW9uEh8KDGFvZV9wb3NpdGlvbhgHIAEoCzIJLlBvc2l0aW9uEhIK",
-          "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQiIAoIUG9z",
-          "aXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRp",
-          "b24SCQoBeBgBIAEoAxIJCgF5GAIgASgDIqABCgxDbGllbnRBY3Rpb24SFwoG",
-          "YWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRp",
-          "cmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24S",
-          "IwoKbW92ZV9kZWx0YRgEIAEoCzIPLkpveXN0aWNrVmFsdWVzEg4KBnRhcmdl",
-          "dBgFIAEoEiImCg5Kb3lzdGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiAB",
-          "KAIi5gEKCkxvYmJ5RXZlbnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRU",
-          "eXBlEhAKCGxvYmJ5X2lkGAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9h",
-          "ZGRlZF9wbGF5ZXJfaWQYBCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5",
-          "ZXJfY291bnQYBiABKAQSDwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3Bs",
-          "YXllcl9pZBgIIAEoBBIoCgtnYW1lX2NvbmZpZxgJIAEoCzITLlNlcnZlckdh",
-          "bWVTZXR0aW5ncyJ8CgxSdW5uZXJDb25maWcSDAoETmFtZRgBIAEoCRITCgti",
-          "b2FyZF93aWR0aBgCIAEoBBIUCgxib2FyZF9oZWlnaHQYAyABKAQSGgoSc2Vy",
-          "dmVyX3RpY2tyYXRlX21zGAQgASgEEhcKD2dhbWVfdGltZW91dF9tcxgFIAEo",
-          "BCLcAQoTQ2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklk",
-          "GAIgASgJEg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0",
-          "aW9uGAUgASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcg",
-          "ASgJEhQKDFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSAB",
-          "KAkSEQoJU2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAki",
-          "NgoPQ2hhcmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVy",
-          "Q29uZmlnSXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2Nv",
-          "bmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmln",
-          "GAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnIoACCgpQcm9qZWN0aWxlEgoKAmlk",
-          "GAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0",
-          "aW9uGAMgASgLMg8uSm95c3RpY2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoF",
-          "cmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEo",
-          "DRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBl",
-          "GAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJv",
-          "amVjdGlsZVN0YXR1cyqPAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERB",
-          "VEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpO",
-          "RVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQ",
-          "BRIVChFJTklUSUFMX1BPU0lUSU9OUxAGKh0KBlN0YXR1cxIJCgVBTElWRRAA",
-          "EggKBERFQUQQASqbAQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAA",
-          "EggKBE1PVkUQARIKCgZBVFRBQ0sQAhIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9W",
-          "RV9XSVRIX0pPWVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNL",
-          "EAgSEAoMQkFTSUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKKk0KCURpcmVjdGlv",
-          "bhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04Q",
-          "AhIICgRMRUZUEAMSCQoFUklHSFQQBCpUCgxQbGF5ZXJBY3Rpb24SCwoHTk9U",
-          "SElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFF",
-          "WEVDVVRJTkdfU0tJTExfMRADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBF",
-          "X1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVE",
-          "EAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RB",
-          "UlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5",
-          "cGUSCgoGQlVMTEVUEAAqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQ",
-          "ABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
+          "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQSGwoTYmFz",
+          "aWNfY29vbGRvd25fbGVmdBgKIAEoBBIbChNmaXJzdF9jb29sZG93bl9sZWZ0",
+          "GAsgASgEEhwKFHNlY29uZF9jb29sZG93bl9sZWZ0GAwgASgEEh4KFnVsdGlt",
+          "YXRlX2Nvb2xkb3duX2xlZnQYDSABKAQiIAoIUG9zaXRpb24SCQoBeBgBIAEo",
+          "BBIJCgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRpb24SCQoBeBgBIAEoAxIJ",
+          "CgF5GAIgASgDIqABCgxDbGllbnRBY3Rpb24SFwoGYWN0aW9uGAEgASgOMgcu",
+          "QWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRpcmVjdGlvbhIjCghwb3Np",
+          "dGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SIwoKbW92ZV9kZWx0YRgE",
+          "IAEoCzIPLkpveXN0aWNrVmFsdWVzEg4KBnRhcmdldBgFIAEoEiImCg5Kb3lz",
+          "dGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiABKAIi5gEKCkxvYmJ5RXZl",
+          "bnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRUeXBlEhAKCGxvYmJ5X2lk",
+          "GAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9hZGRlZF9wbGF5ZXJfaWQY",
+          "BCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5ZXJfY291bnQYBiABKAQS",
+          "DwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3BsYXllcl9pZBgIIAEoBBIo",
+          "CgtnYW1lX2NvbmZpZxgJIAEoCzITLlNlcnZlckdhbWVTZXR0aW5ncyJ8CgxS",
+          "dW5uZXJDb25maWcSDAoETmFtZRgBIAEoCRITCgtib2FyZF93aWR0aBgCIAEo",
+          "BBIUCgxib2FyZF9oZWlnaHQYAyABKAQSGgoSc2VydmVyX3RpY2tyYXRlX21z",
+          "GAQgASgEEhcKD2dhbWVfdGltZW91dF9tcxgFIAEoBCLcAQoTQ2hhcmFjdGVy",
+          "Q29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJEg4KBkFjdGl2",
+          "ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUgASgJEhEKCUJh",
+          "c2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQKDFNraWxsQWN0",
+          "aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJU2tpbGxEYXNo",
+          "GAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hhcmFjdGVyQ29u",
+          "ZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJT",
+          "ZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1",
+          "bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFj",
+          "dGVyQ29uZmlnIoACCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0",
+          "aW9uGAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0aW9uGAMgASgLMg8uSm95",
+          "c3RpY2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJ",
+          "cGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdf",
+          "dGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVj",
+          "dGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1cyqP",
+          "AQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQ",
+          "REFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoK",
+          "TEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BP",
+          "U0lUSU9OUxAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqbAQoG",
+          "QWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZB",
+          "VFRBQ0sQAhIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNL",
+          "EAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFTSUNfQVRU",
+          "QUNLEAkSCwoHU0tJTExfMRAKKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05f",
+          "VU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoF",
+          "UklHSFQQBCpUCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFD",
+          "S0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MRADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAAS",
+          "DQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFS",
+          "VEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBM",
+          "QVlFUl9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAAq",
+          "LAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBAB",
+          "YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "BasicCooldownLeft", "FirstCooldownLeft", "SecondCooldownLeft", "UltimateCooldownLeft" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
@@ -621,6 +624,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
 ///seconds since unix epoch.
 ///- status: currently if alive or dead
 ///- aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
+///- {basic, first, second, ultimate}_cooldown_left: Time remaining in seconds until the cooldown is over.
 /// </summary>
 public sealed partial class Player : pb::IMessage<Player>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -665,6 +669,10 @@ public sealed partial class Player : pb::IMessage<Player>
     aoePosition_ = other.aoePosition_ != null ? other.aoePosition_.Clone() : null;
     killCount_ = other.killCount_;
     deathCount_ = other.deathCount_;
+    basicCooldownLeft_ = other.basicCooldownLeft_;
+    firstCooldownLeft_ = other.firstCooldownLeft_;
+    secondCooldownLeft_ = other.secondCooldownLeft_;
+    ultimateCooldownLeft_ = other.ultimateCooldownLeft_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -785,6 +793,54 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
+  /// <summary>Field number for the "basic_cooldown_left" field.</summary>
+  public const int BasicCooldownLeftFieldNumber = 10;
+  private ulong basicCooldownLeft_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong BasicCooldownLeft {
+    get { return basicCooldownLeft_; }
+    set {
+      basicCooldownLeft_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "first_cooldown_left" field.</summary>
+  public const int FirstCooldownLeftFieldNumber = 11;
+  private ulong firstCooldownLeft_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong FirstCooldownLeft {
+    get { return firstCooldownLeft_; }
+    set {
+      firstCooldownLeft_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "second_cooldown_left" field.</summary>
+  public const int SecondCooldownLeftFieldNumber = 12;
+  private ulong secondCooldownLeft_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong SecondCooldownLeft {
+    get { return secondCooldownLeft_; }
+    set {
+      secondCooldownLeft_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "ultimate_cooldown_left" field.</summary>
+  public const int UltimateCooldownLeftFieldNumber = 13;
+  private ulong ultimateCooldownLeft_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong UltimateCooldownLeft {
+    get { return ultimateCooldownLeft_; }
+    set {
+      ultimateCooldownLeft_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -809,6 +865,10 @@ public sealed partial class Player : pb::IMessage<Player>
     if (!object.Equals(AoePosition, other.AoePosition)) return false;
     if (KillCount != other.KillCount) return false;
     if (DeathCount != other.DeathCount) return false;
+    if (BasicCooldownLeft != other.BasicCooldownLeft) return false;
+    if (FirstCooldownLeft != other.FirstCooldownLeft) return false;
+    if (SecondCooldownLeft != other.SecondCooldownLeft) return false;
+    if (UltimateCooldownLeft != other.UltimateCooldownLeft) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -825,6 +885,10 @@ public sealed partial class Player : pb::IMessage<Player>
     if (aoePosition_ != null) hash ^= AoePosition.GetHashCode();
     if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
+    if (BasicCooldownLeft != 0UL) hash ^= BasicCooldownLeft.GetHashCode();
+    if (FirstCooldownLeft != 0UL) hash ^= FirstCooldownLeft.GetHashCode();
+    if (SecondCooldownLeft != 0UL) hash ^= SecondCooldownLeft.GetHashCode();
+    if (UltimateCooldownLeft != 0UL) hash ^= UltimateCooldownLeft.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -879,6 +943,22 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (BasicCooldownLeft != 0UL) {
+      output.WriteRawTag(80);
+      output.WriteUInt64(BasicCooldownLeft);
+    }
+    if (FirstCooldownLeft != 0UL) {
+      output.WriteRawTag(88);
+      output.WriteUInt64(FirstCooldownLeft);
+    }
+    if (SecondCooldownLeft != 0UL) {
+      output.WriteRawTag(96);
+      output.WriteUInt64(SecondCooldownLeft);
+    }
+    if (UltimateCooldownLeft != 0UL) {
+      output.WriteRawTag(104);
+      output.WriteUInt64(UltimateCooldownLeft);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -925,6 +1005,22 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (BasicCooldownLeft != 0UL) {
+      output.WriteRawTag(80);
+      output.WriteUInt64(BasicCooldownLeft);
+    }
+    if (FirstCooldownLeft != 0UL) {
+      output.WriteRawTag(88);
+      output.WriteUInt64(FirstCooldownLeft);
+    }
+    if (SecondCooldownLeft != 0UL) {
+      output.WriteRawTag(96);
+      output.WriteUInt64(SecondCooldownLeft);
+    }
+    if (UltimateCooldownLeft != 0UL) {
+      output.WriteRawTag(104);
+      output.WriteUInt64(UltimateCooldownLeft);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -961,6 +1057,18 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (DeathCount != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DeathCount);
+    }
+    if (BasicCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicCooldownLeft);
+    }
+    if (FirstCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FirstCooldownLeft);
+    }
+    if (SecondCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SecondCooldownLeft);
+    }
+    if (UltimateCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(UltimateCooldownLeft);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1006,6 +1114,18 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.DeathCount != 0UL) {
       DeathCount = other.DeathCount;
+    }
+    if (other.BasicCooldownLeft != 0UL) {
+      BasicCooldownLeft = other.BasicCooldownLeft;
+    }
+    if (other.FirstCooldownLeft != 0UL) {
+      FirstCooldownLeft = other.FirstCooldownLeft;
+    }
+    if (other.SecondCooldownLeft != 0UL) {
+      SecondCooldownLeft = other.SecondCooldownLeft;
+    }
+    if (other.UltimateCooldownLeft != 0UL) {
+      UltimateCooldownLeft = other.UltimateCooldownLeft;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1064,6 +1184,22 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
+        case 80: {
+          BasicCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 88: {
+          FirstCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 96: {
+          SecondCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 104: {
+          UltimateCooldownLeft = input.ReadUInt64();
+          break;
+        }
       }
     }
   #endif
@@ -1119,6 +1255,22 @@ public sealed partial class Player : pb::IMessage<Player>
         }
         case 72: {
           DeathCount = input.ReadUInt64();
+          break;
+        }
+        case 80: {
+          BasicCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 88: {
+          FirstCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 96: {
+          SecondCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 104: {
+          UltimateCooldownLeft = input.ReadUInt64();
           break;
         }
       }
