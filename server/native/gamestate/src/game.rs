@@ -339,17 +339,11 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            // Name::Muflus => {
-            //     let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-            //     let players = &mut self.players;
-            //     Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            // }
-            Name::Muflus => Self::h4ck_basic_attack(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::Muflus => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            },
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -478,6 +472,11 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
+            Name::Muflus => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_skill_1(&mut self.board, players, &attacking_player)
+            },
             _ => Self::h4ck_skill_1(
                 &attacking_player,
                 direction,
@@ -521,6 +520,39 @@ impl GameState {
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
+            }
+        }
+        Ok(())
+    }
+
+    pub fn muflus_skill_1(
+        board: &mut Board,
+        players: &mut Vec<Player>,
+        attacking_player: &Player,
+    ) -> Result<(), String> {
+        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+
+        let (top_left, bottom_right) = compute_barrel_roll_initial_positions(&(attacking_player.position));
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player.id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg);
+                    let player = ap.clone();
+                    GameState::modify_cell_if_player_died(board, &player);
+                }
+                _ => continue,
             }
         }
         Ok(())
@@ -786,6 +818,14 @@ fn compute_attack_initial_positions(
             Position::new(x + 20, y + 20),
         ),
     }
+}
+
+fn compute_barrel_roll_initial_positions(
+    position: &Position,
+) -> (Position, Position) {
+    let x = position.x;
+    let y = position.y;
+    (Position::new(x.saturating_sub(20), y.saturating_sub(20)), Position::new(x + 20, y + 20))
 }
 
 fn compute_attack_aoe_initial_positions(
