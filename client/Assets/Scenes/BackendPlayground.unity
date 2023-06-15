@@ -870,7 +870,7 @@ PrefabInstance:
         type: 3}
       propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1967243809}
+      objectReference: {fileID: 0}
     - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -3080,7 +3080,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
 --- !u!224 &1967243808 stripped
 RectTransform:
@@ -3088,18 +3089,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1967243807}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1967243809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1967243807}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053005121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281595ba54132634bbe48b336e62e2c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1967243810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1706165118094336, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -3405,11 +3394,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bee497d0fd1474e87f3c8722ada53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainAttack: {fileID: 620904639}
-  specialAttack: {fileID: 620904638}
-  dash: {fileID: 620904637}
-  ultimate: {fileID: 620904636}
-  UiCamera: {fileID: 637808576}
+  InputDetectionActive: 1
+  ResetButtonStatesOnFocusLoss: 1
+  PlayerID: Player1
+  AutoMobileDetection: 1
+  InputForcedMode: 1
+  ForceWeaponMode: 0
+  WeaponForcedMode: 0
+  HideMobileControlsInEditor: 0
+  MovementControl: 0
+  SmoothMovement: 1
+  Threshold: {x: 0.1, y: 0.4}
+  RotateInputBasedOnCameraDirection: 0
+  SkillBasic: {fileID: 620904639}
+  Skill1: {fileID: 620904638}
+  Skill2: {fileID: 620904637}
+  Skill3: {fileID: 620904636}
+  Skill4: {fileID: 0}
 --- !u!1 &2099158875
 GameObject:
   m_ObjectHideFlags: 0

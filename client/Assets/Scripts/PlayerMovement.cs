@@ -343,14 +343,7 @@ public class PlayerMovement : MonoBehaviour
         bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
         if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
         {
-            player
-                .GetComponent<GenericAoeAttack>()
-                .ShowAoeAttack(
-                    new Vector2(
-                        playerUpdate.aoeCenterPosition.x,
-                        playerUpdate.aoeCenterPosition.z
-                    )
-                );
+            // FIXME: add logic
         }
     }
 
