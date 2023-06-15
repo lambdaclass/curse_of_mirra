@@ -235,62 +235,6 @@ impl GameState {
             .cloned()
     }
 
-    pub fn attack_player(self: &mut Self, attacking_player_id: u64, attack_direction: Direction) {
-        let attacking_player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == attacking_player_id)
-            .unwrap();
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
-
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
-            return;
-        }
-
-        let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return;
-        }
-        attacking_player.action = PlayerAction::ATTACKING;
-
-        attacking_player.last_melee_attack = now;
-
-        let (top_left, bottom_right) =
-            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
-
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(&self.board, top_left, bottom_right)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-
-        let mut kill_count = 0;
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = self
-                .players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    let player = ap.clone();
-                    if matches!(player.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    GameState::modify_cell_if_player_died(&mut self.board, &player);
-                }
-                _ => continue,
-            }
-        }
-
-        add_kills(&mut self.players, attacking_player_id, kill_count).expect("Player not found");
-    }
-
     // Return all player_id inside an area
     pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
         let mut players: Vec<u64> = vec![];
@@ -318,17 +262,11 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
+        if !attacking_player.can_attack() {
             return Ok(());
         }
 
         let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
 
@@ -339,17 +277,11 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            // Name::Muflus => {
-            //     let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-            //     let players = &mut self.players;
-            //     Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            // }
-            Name::Muflus => Self::h4ck_basic_attack(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::Muflus => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            }
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -432,6 +364,7 @@ impl GameState {
                 .filter(|&id| id != attacking_player.id)
                 .collect();
 
+        let mut kill_count = 0;
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = players
@@ -441,12 +374,17 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
+                    if matches!(ap.status, Status::DEAD) {
+                        kill_count += 1;
+                    }
                     let player = ap.clone();
                     GameState::modify_cell_if_player_died(board, &player);
                 }
                 _ => continue,
             }
         }
+        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
+
         Ok(())
     }
 
@@ -457,17 +395,11 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
+        if !attacking_player.can_attack() {
             return Ok(());
         }
 
         let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
 
@@ -521,84 +453,6 @@ impl GameState {
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
-            }
-        }
-        Ok(())
-    }
-
-    pub fn aoe_attack_deprecated(
-        self: &mut Self,
-        attacking_player_id: u64,
-        attack_position: &RelativePosition,
-    ) -> Result<(), String> {
-        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
-
-        if attacking_player_id % 2 == 0 {
-            attacking_player.action = PlayerAction::ATTACKINGAOE;
-
-            let cooldown = attacking_player.character.cooldown();
-
-            if matches!(attacking_player.status, Status::DEAD) {
-                return Ok(());
-            }
-
-            let now = time_now();
-
-            if (now - attacking_player.last_melee_attack) < cooldown {
-                return Ok(());
-            }
-
-            let (center, top_left, bottom_right) =
-                compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
-            attacking_player.last_melee_attack = now;
-            attacking_player.aoe_position = center;
-
-            let affected_players: Vec<u64> =
-                GameState::players_in_range(&self.board, top_left, bottom_right)
-                    .into_iter()
-                    .filter(|&id| id != attacking_player_id)
-                    .collect();
-
-            let special_effect = attacking_player.character.select_aoe_effect();
-
-            let mut kill_count = 0;
-            for target_player_id in affected_players {
-                let attacked_player =
-                    GameState::get_player_mut(&mut self.players, target_player_id)?;
-                if let Some((effect, duration)) = &special_effect {
-                    attacked_player
-                        .character
-                        .add_effect(effect.clone(), *duration)
-                } else {
-                    // Maybe health should be linked to
-                    // the character instead?
-                    attacked_player.modify_health(-10);
-                    if matches!(attacked_player.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
-                }
-            }
-            add_kills(&mut self.players, attacking_player_id, kill_count)
-                .expect("Player not found");
-        } else {
-            let attacking_player =
-                GameState::get_player_mut(&mut self.players, attacking_player_id)?;
-            if attack_position.x != 0 || attack_position.y != 0 {
-                let projectile = Projectile::new(
-                    self.next_projectile_id,
-                    attacking_player.position,
-                    JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
-                    14,
-                    10,
-                    attacking_player.id,
-                    10,
-                    30,
-                    ProjectileType::BULLET,
-                    ProjectileStatus::ACTIVE,
-                );
-                self.projectiles.push(projectile);
-                self.next_projectile_id += 1;
             }
         }
         Ok(())
@@ -695,32 +549,6 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             board.set_cell(player.position.x, player.position.y, Tile::Empty);
         }
-    }
-
-    pub fn auto_attack(
-        self: &mut Self,
-        attacking_player_id: u64,
-        target_player_id: u64,
-    ) -> Result<(), String> {
-        if attacking_player_id == target_player_id {
-            return Ok(());
-        }
-        let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-        let target_player = GameState::get_player(&self, target_player_id)?;
-        // TODO:
-        // This distance is completely arbitrary.
-        // I think this should be range for a skill.
-        let distance_threshold = 10.0;
-        let cooldown = attacking_player.character.cooldown();
-        let can_attack = (time_now() - attacking_player.last_melee_attack) < cooldown;
-        if distance_to_center(&target_player, &attacking_player.position) < distance_threshold
-            && can_attack
-        {
-            let attack_dmg = attacking_player.character.attack_dmg() as i64;
-            let target_player = GameState::get_player_mut(&mut self.players, target_player_id)?;
-            target_player.modify_health(-attack_dmg);
-        }
-        Ok(())
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {

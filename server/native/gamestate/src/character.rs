@@ -4,6 +4,7 @@ pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
+    Disarmed,
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum)]
 pub enum Name {
@@ -84,9 +85,10 @@ impl Character {
     // There should be an extra logic to choose the aoe effect
     // An aoe effect can come from a skill 1, 2, etc.
     #[inline]
-    pub fn select_aoe_effect(&self) -> Option<(Effect, TicksLeft)> {
+    pub fn select_basic_skill_effect(&self) -> Option<(Effect, TicksLeft)> {
         match self.name {
             Name::Uma => Some((Effect::Petrified, 300)),
+            Name::H4ck => Some((Effect::Disarmed, 300)),
             _ => None,
         }
     }
