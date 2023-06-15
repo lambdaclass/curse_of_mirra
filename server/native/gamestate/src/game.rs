@@ -496,7 +496,7 @@ impl GameState {
         if direction.x != 0 || direction.y != 0 {
             let angle = (direction.y as f64).atan2(direction.x as f64); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
-                (angle + 2.0 * PI).to_degrees() // Ajusta el ángulo si es negativo
+                (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
             } else {
                 angle.to_degrees()
             };
