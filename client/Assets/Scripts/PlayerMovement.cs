@@ -157,13 +157,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (playerUpdate.playerId % 3 == 0)
             {
-                // Hack
-                characterSpeed = 0.3f;
+                // Muflus
+                characterSpeed = 0.5f;
             }
             else if (playerUpdate.playerId % 3 == 1)
             {
-                // Muflus
-                characterSpeed = 0.5f;
+                // Hack
+                characterSpeed = 0.3f;
             }
             else
             {

@@ -1,6 +1,6 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::collections::HashSet;
+use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
@@ -8,7 +8,8 @@ use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
-
+use std::collections::HashMap;
+use std::collections::HashSet;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -25,16 +26,34 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
-
 impl GameState {
+    fn build_characters_with_config(
+        character_config: &[HashMap<String, String>],
+    ) -> Result<Vec<Character>, String> {
+        character_config
+            .into_iter()
+            // Keep only characters
+            // for which active is 1.
+            .filter(|map| {
+                let active = map
+                    .get("Active")
+                    .expect("Missing Active key for character")
+                    .parse::<u64>()
+                    .expect("Expected 1 or 0 for Active key");
+                active == 1
+            })
+            .map(Character::from_config_map)
+            .collect()
+    }
     pub fn new(
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
         build_walls: bool,
-    ) -> Self {
+        characters_config: &[HashMap<String, String>],
+    ) -> Result<Self, String> {
         let mut positions = HashSet::new();
-        let characters = [Default::default(), Character::muflus(), Character::uma()];
+        let characters = GameState::build_characters_with_config(&characters_config)?;
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -71,12 +90,12 @@ impl GameState {
 
         let projectiles = Vec::new();
 
-        Self {
+        Ok(Self {
             players,
             board,
             projectiles,
             next_projectile_id: 0,
-        }
+        })
     }
 
     pub fn new_round(self: &mut Self, players: Vec<Player>) {
@@ -338,11 +357,17 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            }
+            // Name::Muflus => {
+            //     let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+            //     let players = &mut self.players;
+            //     Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            // }
+            Name::Muflus => Self::h4ck_basic_attack(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -363,10 +388,10 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
-                7,
+                14,
                 10,
                 attacking_player.id,
-                10,
+                15,
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
@@ -443,7 +468,83 @@ impl GameState {
         Ok(())
     }
 
-    pub fn aoe_attack(
+    pub fn skill_1(
+        self: &mut Self,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        let cooldown = attacking_player.character.cooldown();
+
+        if matches!(attacking_player.status, Status::DEAD) {
+            return Ok(());
+        }
+
+        let now = time_now();
+
+        if (now - attacking_player.last_melee_attack) < cooldown {
+            return Ok(());
+        }
+        attacking_player.last_melee_attack = now;
+        attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            _ => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+        }
+    }
+
+    pub fn h4ck_skill_1(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0 || direction.y != 0 {
+            let angle = (direction.y as f64).atan2(direction.x as f64); // Calculates the angle in radians.
+            let angle_positive = if angle < 0.0 {
+                (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
+            } else {
+                angle.to_degrees()
+            };
+
+            let angle_modifiers = [-20f64, -10f64, 0f64, 10f64, 20f64];
+
+            for modifier in angle_modifiers {
+                let projectile = Projectile::new(
+                    *next_projectile_id,
+                    attacking_player.position,
+                    JoystickValues::new(
+                        (angle_positive + modifier).to_radians().cos(),
+                        (angle_positive + modifier).to_radians().sin(),
+                    ),
+                    10,
+                    10,
+                    attacking_player.id,
+                    10,
+                    10,
+                    ProjectileType::BULLET,
+                    ProjectileStatus::ACTIVE,
+                );
+                projectiles.push(projectile);
+                (*next_projectile_id) += 1;
+            }
+        }
+        Ok(())
+    }
+
+    pub fn aoe_attack_deprecated(
         self: &mut Self,
         attacking_player_id: u64,
         attack_position: &RelativePosition,
@@ -496,6 +597,7 @@ impl GameState {
                     GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
                 }
             }
+
             add_kills(&mut self.players, attacking_player_id, kill_count)
                 .expect("Player not found");
         } else {
@@ -506,10 +608,10 @@ impl GameState {
                     self.next_projectile_id,
                     attacking_player.position,
                     JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
-                    5,
+                    14,
                     10,
                     attacking_player.id,
-                    20,
+                    10,
                     30,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
@@ -518,7 +620,6 @@ impl GameState {
                 self.next_projectile_id += 1;
             }
         }
-
         Ok(())
     }
 
