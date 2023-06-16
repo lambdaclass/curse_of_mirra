@@ -462,6 +462,8 @@ defmodule DarkWorldsServer.Engine.Runner do
         lobby_id:  Communication.pid_to_external_id(self()),
         user_id: player.id
       }
+      
+      IO.inspect(player, label: "actualizando player: ")
 
       Leaderboard.changeset(%Leaderboard{}, params)
       |> DarkWorldsServer.Repo.insert!()

@@ -6,14 +6,13 @@ defmodule DarkWorldsServer.Leaderboard do
         field(:kills, :integer)
         field(:deaths, :integer)
         field(:lobby_id, :string)
-
-        # belongs_to :user,  DarkWorldsServer.Accounts.User
+        field(:user_id, :integer)
 
         timestamps()
     end
 
     @required []
-    @permitted [:kills, :deaths, :lobby_id] ++ @required
+    @permitted [:kills, :deaths, :lobby_id, :user_id] ++ @required
 
     def changeset(leaderboard, params) do
         leaderboard

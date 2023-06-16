@@ -6,7 +6,7 @@ defmodule DarkWorldsServer.Repo.Migrations.CreateLeaderboardTable do
       add :kills, :integer
       add :deaths, :integer
       add :lobby_id, :string
-      add :user_id, :string
+      add :user_id, :integer
       
       timestamps()
     end
