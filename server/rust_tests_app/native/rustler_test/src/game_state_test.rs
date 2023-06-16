@@ -152,11 +152,12 @@ fn movement() -> TestResult {
 // fn move_player_to_coordinates() -> TestResult {
 //     let mut state = GameState::new(0, 2, 2, false, &read_character_config()).unwrap(); // creates a 2x2 grid with no players
 //     let player_id = 1;
-//     let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
+//     let mut player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
 //     state.players = vec![player1];
 //     state.board.set_cell(0, 0, Tile::Player(player_id)); // adds player 1 to the cell at (0,0)
-
-//     state.move_player_to_coordinates(player_id, &RelativePosition::new(1, 1));
+//     let player = GameState::get_player_mut(&mut state.players, 1).unwrap();
+//     GameState::move_player_to_coordinates(&mut state.board, player, &RelativePosition::new(1, 1))
+//         .unwrap();
 //     assert_result!(
 //         vec![
 //             vec![Tile::Empty, Tile::Empty],
