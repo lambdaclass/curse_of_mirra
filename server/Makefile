@@ -32,3 +32,7 @@ shell:
 
 credo:
 	mix credo --strict
+
+format:
+	mix format
+	cargo fmt --manifest-path native/gamestate/Cargo.toml

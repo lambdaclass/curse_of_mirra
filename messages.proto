@@ -62,6 +62,7 @@ message Player {
     Position aoe_position = 7;
     uint64 kill_count = 8;
     uint64 death_count = 9;
+    Position teleport_position = 10;
 }
 
 /*
@@ -110,6 +111,7 @@ message ClientAction {
 /* Actions a client/player performs
     - MOVE: the player moves
     - ATTACK: player attacks
+    - TELEPORT: the player instantly moves to a non-contiguous position 
     - ATTACK_AOE:
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
@@ -120,6 +122,7 @@ enum Action {
     ACTION_UNSPECIFIED = 0;
     MOVE = 1;
     ATTACK = 2;
+    TELEPORT = 4;
     ATTACK_AOE = 5;
     MOVE_WITH_JOYSTICK = 6;
     ADD_BOT = 7;
@@ -153,6 +156,7 @@ enum PlayerAction {
     ATTACKING = 1;
     ATTACKING_AOE = 2;
     EXECUTING_SKILL_1 = 3;
+    TELEPORTING = 4;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
