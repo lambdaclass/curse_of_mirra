@@ -453,7 +453,12 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(&mut self.board, players, &attacking_player)
             }
-            _ => Self::move_player_to_coordinates(&mut self.board, attacking_player, direction),
+            _ => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
         }
     }
 
@@ -564,7 +569,12 @@ impl GameState {
             Name::Muflus => {
                 Self::move_player_to_coordinates(&mut self.board, attacking_player, direction)
             }
-            _ => Self::move_player_to_coordinates(&mut self.board, attacking_player, direction),
+            _ => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
         }
     }
 
@@ -665,7 +675,7 @@ impl GameState {
                         Ok(ap) => {
                             match projectile.projectile_type {
                                 ProjectileType::DISARMINGBULLET => {
-                                    ap.character.add_effect(Effect::Petrified.clone(), 300);
+                                    ap.character.add_effect(Effect::Disarmed.clone(), 300);
                                 }
                                 _ => {
                                     ap.modify_health(-(projectile.damage as i64));
