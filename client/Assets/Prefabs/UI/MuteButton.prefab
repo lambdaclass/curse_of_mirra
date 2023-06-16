@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 2432087869682588337}
   - component: {fileID: 2432087869682588338}
   - component: {fileID: 2432087869682588339}
-  - component: {fileID: 2432087869682588340}
+  - component: {fileID: 2399519380436040309}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -200,9 +200,9 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2399519380436040309}
+        m_TargetAssemblyTypeName: ToggleAudio, Assembly-CSharp
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2432087869682588336}
---- !u!114 &2432087869682588340
+--- !u!114 &2399519380436040309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,12 +312,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2432087869682588342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316ab92be1a09414daadf97f5d5d2a77, type: 3}
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: MainScene
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
+  muteButtonImage: {fileID: 0}
 --- !u!1 &2432087870171175023
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,9 +390,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161, y: -248}
-  m_SizeDelta: {x: 200, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -7, y: 1}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 1, y: 0}
 --- !u!95 &2432087871260112787
 Animator:
   serializedVersion: 5

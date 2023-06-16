@@ -1,42 +1,51 @@
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToggleAudio : MonoBehaviour
 {
+    public Image muteButtonImage;
     AudioSource[] sources;
-    UnityEngine.UI.Button muteButton;
+    private bool isMuted;
 
     void Start()
     {
-        // Get every single audio sources in the scene.
-        sources =
-            GameObject.FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None)
-            as AudioSource[];
-        muteButton = GameObject.Find("MuteButton").GetComponent<UnityEngine.UI.Button>();
+        sources = GameObject.FindObjectsOfType<AudioSource>();
+        isMuted = false;
     }
 
     public void Toggle()
     {
+        Debug.Log("Toggle");
+        isMuted = !isMuted;
+
         foreach (AudioSource audioSource in sources)
         {
-            if (audioSource.isPlaying)
+            if (isMuted)
             {
                 audioSource.Pause();
-                // Change button's image
-                Debug.Log("Mute");
-                muteButton.image.sprite = Resources.Load<Sprite>(
-                    "Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMInterface/Styles/Mini/Sprites/Icons/MMiconSoundOff.png"
-                );
             }
             else
             {
                 audioSource.UnPause();
-                // Change button's image
-                Debug.Log("Unmute");
-                muteButton.image.sprite = Resources.Load<Sprite>(
-                    "Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMInterface/Styles/Mini/Sprites/Icons/MMIconSoundOn.png"
-                );
             }
+        }
+        // UpdateButtonImage();
+    }
+
+    void UpdateButtonImage()
+    {
+        if (isMuted)
+        {
+            muteButtonImage.sprite = Resources.Load<Sprite>(
+                "Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMInterface/Styles/Mini/Sprites/Icons/MMiconSoundOff"
+            );
+        }
+        else
+        {
+            muteButtonImage.sprite = Resources.Load<Sprite>(
+                "Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMInterface/Styles/Mini/Sprites/Icons/MMIconSoundOn"
+            );
         }
     }
 }
