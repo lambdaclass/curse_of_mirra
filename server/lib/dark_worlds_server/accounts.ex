@@ -356,4 +356,21 @@ defmodule DarkWorldsServer.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Creates user using google oauth.
+
+  ## Examples
+
+      iex> get_or_create_user(user, %{email: "new@mail.com", google_token: "a_google_token"})
+      {:ok, %User{}}
+
+      iex> get_or_create_user(user, %{})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def get_or_create_user(params) do
+    User.google_changeset(%DarkWorldsServer.Accounts.User{}, params)
+    |> Repo.insert(on_conflict: :nothing)
+  end
 end
