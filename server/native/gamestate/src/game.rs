@@ -61,7 +61,7 @@ impl GameState {
                     player_id,
                     100,
                     new_position,
-                    characters[player_id as usize % characters.len()].clone(),
+                    characters[0].clone(),
                 )
             })
             .collect();
