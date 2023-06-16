@@ -33,6 +33,7 @@ enum GameEventType {
     GAME_FINISHED = 5;
     INITIAL_POSITIONS = 6;
     SELECTED_CHARACTER_UPDATE = 7;
+    FINISH_CHARACTER_SELECTION = 8;
 }
 
 message PlayerCharacter{

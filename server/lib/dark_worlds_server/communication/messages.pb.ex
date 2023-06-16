@@ -11,6 +11,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:GAME_FINISHED, 5)
   field(:INITIAL_POSITIONS, 6)
   field(:SELECTED_CHARACTER_UPDATE, 7)
+  field(:FINISH_CHARACTER_SELECTION, 8)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do
