@@ -490,7 +490,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
+        let cooldown = attacking_player.character.cooldown_first_skill();
 
         if matches!(attacking_player.status, Status::DEAD) {
             return Ok(());
