@@ -458,8 +458,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       %{
         kills: player.kill_count,
         deaths: player.death_count,
-        lobby_id:  "algo",
-        user_id: player.id
+        lobby_id:  "algo"
       }
 
       Leaderboard.changeset(%Leaderboard{}, params)
