@@ -301,7 +301,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:start_game, gen_server_state) do
     opts = gen_server_state.opts
-    game = create_new_game(opts, gen_server_state.players)
+    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
     Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
