@@ -43,6 +43,8 @@ enum GameEventType {
       seconds since unix epoch.
     - status: currently if alive or dead
     - aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
+    - {basic, first, second, ultimate}_cooldown_left: Time remaining in seconds until the cooldown is over.
+    - character_name: Name of the player's character
  */
 message Player {
     uint64 id = 1;
@@ -56,6 +58,11 @@ message Player {
     uint64 kill_count = 8;
     uint64 death_count = 9;
     Position teleport_position = 10;
+    uint64 basic_skill_cooldown_left = 11;
+    uint64 first_skill_cooldown_left = 12;
+    uint64 second_skill_cooldown_left = 13;
+    uint64 third_skill_cooldown_left = 14;
+    string character_name = 15;
 }
 
 /*

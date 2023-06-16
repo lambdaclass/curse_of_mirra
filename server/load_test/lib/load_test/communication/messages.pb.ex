@@ -29,12 +29,13 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ACTION_UNSPECIFIED, 0)
   field(:MOVE, 1)
   field(:ATTACK, 2)
+  field(:TELEPORT, 4)
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
-  field(:TELEPORT, 10)
+  field(:SKILL_1, 10)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -57,6 +58,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:EXECUTING_SKILL_1, 3)
   field(:TELEPORTING, 4)
 end
 
@@ -124,6 +126,12 @@ defmodule LoadTest.Communication.Proto.Player do
     type: LoadTest.Communication.Proto.Position,
     json_name: "teleportPosition"
   )
+
+  field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
+  field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
+  field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
+  field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
+  field(:character_name, 15, type: :string, json_name: "characterName")
 end
 
 defmodule LoadTest.Communication.Proto.Position do

@@ -4,7 +4,7 @@ use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
+use crate::player::{Player, PlayerAction, Position, RelativePosition, Status, self};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
@@ -290,14 +290,15 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack() {
+        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-
+        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_cooldown_left = attacking_player.character.cooldown_basic_skill();
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
                 &attacking_player,
@@ -333,7 +334,7 @@ impl GameState {
                 14,
                 10,
                 attacking_player.id,
-                15,
+                attacking_player.character.attack_dmg_basic_skill(),
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
@@ -380,7 +381,7 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+        let attack_dmg = attacking_player.character.attack_dmg_basic_skill() as i64;
         let attack_direction = Self::position_to_direction(direction);
 
         // TODO: This should be a config of the attack
@@ -428,13 +429,15 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack() {
+        if !attacking_player.can_attack(attacking_player.first_skill_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+        attacking_player.first_skill_start = now;
+        attacking_player.first_skill_cooldown_left = attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -479,7 +482,7 @@ impl GameState {
                     10,
                     10,
                     attacking_player.id,
-                    10,
+                    attacking_player.character.attack_dmg_first_active(),
                     10,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
@@ -497,7 +500,7 @@ impl GameState {
         attacking_player: &Player,
     ) -> Result<(), String> {
         // TODO: This should be a config of the attack
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+        let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
         // TODO: This should be a config of the attack
         let attack_range = 20;
 
@@ -541,6 +544,7 @@ impl GameState {
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
+            player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.character.status_effects.retain(|_, ticks_left| {

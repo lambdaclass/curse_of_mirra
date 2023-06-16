@@ -139,6 +139,12 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     json_name: "teleportPosition"
   )
 
+  field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
+  field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
+  field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
+  field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
+  field(:character_name, 15, type: :string, json_name: "characterName")
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
