@@ -20,7 +20,12 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         action: :NOTHING,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
-        death_count: 0
+        death_count: 0,
+        basic_skill_cooldown_left: 0,
+        first_skill_cooldown_left: 0,
+        second_skill_cooldown_left: 0,
+        third_skill_cooldown_left: 0,
+        character_name: "Name"
       }
 
       expected = %Player{
@@ -32,7 +37,12 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         action: :nothing,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
-        death_count: 0
+        death_count: 0,
+        basic_skill_cooldown_left: 0,
+        first_skill_cooldown_left: 0,
+        second_skill_cooldown_left: 0,
+        third_skill_cooldown_left: 0,
+        character_name: "Name"
       }
 
       decoded =
