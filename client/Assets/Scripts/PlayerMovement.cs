@@ -4,6 +4,7 @@ using UnityEngine;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
     public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
     public bool showServerGhost = false;
-    public bool useClientPrediction = true;
+    public bool useClientPrediction;
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendAction", clientActionRate, clientActionRate);
+        useClientPrediction = false;
     }
 
     void Update()
@@ -161,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
                 aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
                 timestamp = gameEvent.Timestamp,
             };
-
             if (useClientPrediction) {
                 if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
                 {
@@ -370,10 +371,16 @@ public class PlayerMovement : MonoBehaviour
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
+        Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
         if (!useClientPrediction) {
+            toggleGhostButton.text = "Client Prediction Off";
             showServerGhost = false;
-            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-            Destroy(serverGhost);
+            if (serverGhost != null) {
+                serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+                Destroy(serverGhost);
+            }
+        } else {
+            toggleGhostButton.text = "Client Prediction On";
         }
     }
 }
