@@ -25,15 +25,20 @@ pub struct Player {
     pub death_count: u64,
     // How many seconds are left until the
     // cooldown is over.
-    pub basic_cooldown_left: u64,
-    pub first_cooldown_left: u64,
-    pub second_cooldown_left: u64,
-    pub ultimate_cooldown_left: u64,
+    pub basic_skill_cooldown_left: u64,
+    pub first_skill_cooldown_left: u64,
+    pub second_skill_cooldown_left: u64,
+    pub third_skill_cooldown_left: u64,
     // Timestamp when the cooldown started.
-    pub basic_cooldown_start: u64,
-    pub first_cooldown_start: u64,
-    pub second_cooldown_start: u64,
-    pub ultimate_cooldown_start: u64,
+    pub basic_skill_cooldown_start: u64,
+    pub first_skill_start: u64,
+    pub second_skill_cooldown_start: u64,
+    pub third_skill_start: u64,
+    // This field is redundant given that
+    // we have the Character filed, this his
+    // hopefully temporary and to tell
+    // the client which character is being used.
+    pub character_name: String,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -67,19 +72,20 @@ impl Player {
             position,
             last_melee_attack: time_now(),
             status: Status::ALIVE,
+            character_name: character.name.to_string(),
             character,
             action: PlayerAction::NOTHING,
             aoe_position: Position::new(0, 0),
             kill_count: 0,
             death_count: 0,
-            basic_cooldown_left: 0,
-            first_cooldown_left: 0,
-            second_cooldown_left: 0,
-            ultimate_cooldown_left: 0,
-            basic_cooldown_start: 0,
-            first_cooldown_start: 0,
-            second_cooldown_start: 0,
-            ultimate_cooldown_start: 0,
+            basic_skill_cooldown_left: 0,
+            first_skill_cooldown_left: 0,
+            second_skill_cooldown_left: 0,
+            third_skill_cooldown_left: 0,
+            basic_skill_cooldown_start: 0,
+            first_skill_start: 0,
+            second_skill_cooldown_start: 0,
+            third_skill_start: 0,
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -103,13 +109,15 @@ impl Player {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_cooldown_left = (self.basic_cooldown_start + self.basic_cooldown_left)
+        self.basic_skill_cooldown_left = (self.basic_skill_cooldown_start
+            + self.basic_skill_cooldown_left)
             .checked_sub(now)
             .unwrap_or(0);
-        self.first_cooldown_left = (self.first_cooldown_start + self.first_cooldown_left)
+        self.first_skill_cooldown_left = (self.first_skill_start + self.first_skill_cooldown_left)
             .checked_sub(now)
             .unwrap_or(0);
-        self.second_cooldown_left = (self.second_cooldown_start + self.second_cooldown_left)
+        self.second_skill_cooldown_left = (self.second_skill_cooldown_start
+            + self.second_skill_cooldown_left)
             .checked_sub(now)
             .unwrap_or(0);
     }

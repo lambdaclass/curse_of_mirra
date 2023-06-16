@@ -364,8 +364,8 @@ impl GameState {
         }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-        attacking_player.basic_cooldown_start = now;
-        attacking_player.basic_cooldown_left = cooldown;
+        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_cooldown_left = cooldown;
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
                 &attacking_player,

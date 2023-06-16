@@ -2,13 +2,13 @@ use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
-use strum_macros::EnumString;
+use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,

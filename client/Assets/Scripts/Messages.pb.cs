@@ -26,16 +26,17 @@ public static partial class MessagesReflection {
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
-          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQi/AIKBlBs",
+          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQiqQMKBlBs",
           "YXllchIKCgJpZBgBIAEoBBIOCgZoZWFsdGgYAiABKBISGwoIcG9zaXRpb24Y",
           "AyABKAsyCS5Qb3NpdGlvbhIZChFsYXN0X21lbGVlX2F0dGFjaxgEIAEoBBIX",
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
           "eWVyQWN0aW9uEh8KDGFvZV9wb3NpdGlvbhgHIAEoCzIJLlBvc2l0aW9uEhIK",
           "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQSJAoRdGVs",
-          "ZXBvcnRfcG9zaXRpb24YCiABKAsyCS5Qb3NpdGlvbhIbChNiYXNpY19jb29s",
-          "ZG93bl9sZWZ0GAsgASgEEhsKE2ZpcnN0X2Nvb2xkb3duX2xlZnQYDCABKAQS",
-          "HAoUc2Vjb25kX2Nvb2xkb3duX2xlZnQYDSABKAQSHgoWdWx0aW1hdGVfY29v",
-          "bGRvd25fbGVmdBgOIAEoBCIgCghQb3NpdGlvbhIJCgF4GAEgASgEEgkKAXkY",
+          "ZXBvcnRfcG9zaXRpb24YCiABKAsyCS5Qb3NpdGlvbhIhChliYXNpY19za2ls",
+          "bF9jb29sZG93bl9sZWZ0GAsgASgEEiEKGWZpcnN0X3NraWxsX2Nvb2xkb3du",
+          "X2xlZnQYDCABKAQSIgoac2Vjb25kX3NraWxsX2Nvb2xkb3duX2xlZnQYDSAB",
+          "KAQSIQoZdGhpcmRfc2tpbGxfY29vbGRvd25fbGVmdBgOIAEoBBIWCg5jaGFy",
+          "YWN0ZXJfbmFtZRgPIAEoCSIgCghQb3NpdGlvbhIJCgF4GAEgASgEEgkKAXkY",
           "AiABKAQiKAoQUmVsYXRpdmVQb3NpdGlvbhIJCgF4GAEgASgDEgkKAXkYAiAB",
           "KAMioAEKDENsaWVudEFjdGlvbhIXCgZhY3Rpb24YASABKA4yBy5BY3Rpb24S",
           "HQoJZGlyZWN0aW9uGAIgASgOMgouRGlyZWN0aW9uEiMKCHBvc2l0aW9uGAMg",
@@ -85,7 +86,7 @@ public static partial class MessagesReflection {
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicCooldownLeft", "FirstCooldownLeft", "SecondCooldownLeft", "UltimateCooldownLeft" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "FirstSkillCooldownLeft", "SecondSkillCooldownLeft", "ThirdSkillCooldownLeft", "CharacterName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
@@ -674,10 +675,11 @@ public sealed partial class Player : pb::IMessage<Player>
     killCount_ = other.killCount_;
     deathCount_ = other.deathCount_;
     teleportPosition_ = other.teleportPosition_ != null ? other.teleportPosition_.Clone() : null;
-    basicCooldownLeft_ = other.basicCooldownLeft_;
-    firstCooldownLeft_ = other.firstCooldownLeft_;
-    secondCooldownLeft_ = other.secondCooldownLeft_;
-    ultimateCooldownLeft_ = other.ultimateCooldownLeft_;
+    basicSkillCooldownLeft_ = other.basicSkillCooldownLeft_;
+    firstSkillCooldownLeft_ = other.firstSkillCooldownLeft_;
+    secondSkillCooldownLeft_ = other.secondSkillCooldownLeft_;
+    thirdSkillCooldownLeft_ = other.thirdSkillCooldownLeft_;
+    characterName_ = other.characterName_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -810,51 +812,63 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
-  /// <summary>Field number for the "basic_cooldown_left" field.</summary>
-  public const int BasicCooldownLeftFieldNumber = 11;
-  private ulong basicCooldownLeft_;
+  /// <summary>Field number for the "basic_skill_cooldown_left" field.</summary>
+  public const int BasicSkillCooldownLeftFieldNumber = 11;
+  private ulong basicSkillCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong BasicCooldownLeft {
-    get { return basicCooldownLeft_; }
+  public ulong BasicSkillCooldownLeft {
+    get { return basicSkillCooldownLeft_; }
     set {
-      basicCooldownLeft_ = value;
+      basicSkillCooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "first_cooldown_left" field.</summary>
-  public const int FirstCooldownLeftFieldNumber = 12;
-  private ulong firstCooldownLeft_;
+  /// <summary>Field number for the "first_skill_cooldown_left" field.</summary>
+  public const int FirstSkillCooldownLeftFieldNumber = 12;
+  private ulong firstSkillCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong FirstCooldownLeft {
-    get { return firstCooldownLeft_; }
+  public ulong FirstSkillCooldownLeft {
+    get { return firstSkillCooldownLeft_; }
     set {
-      firstCooldownLeft_ = value;
+      firstSkillCooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "second_cooldown_left" field.</summary>
-  public const int SecondCooldownLeftFieldNumber = 13;
-  private ulong secondCooldownLeft_;
+  /// <summary>Field number for the "second_skill_cooldown_left" field.</summary>
+  public const int SecondSkillCooldownLeftFieldNumber = 13;
+  private ulong secondSkillCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong SecondCooldownLeft {
-    get { return secondCooldownLeft_; }
+  public ulong SecondSkillCooldownLeft {
+    get { return secondSkillCooldownLeft_; }
     set {
-      secondCooldownLeft_ = value;
+      secondSkillCooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "ultimate_cooldown_left" field.</summary>
-  public const int UltimateCooldownLeftFieldNumber = 14;
-  private ulong ultimateCooldownLeft_;
+  /// <summary>Field number for the "third_skill_cooldown_left" field.</summary>
+  public const int ThirdSkillCooldownLeftFieldNumber = 14;
+  private ulong thirdSkillCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong UltimateCooldownLeft {
-    get { return ultimateCooldownLeft_; }
+  public ulong ThirdSkillCooldownLeft {
+    get { return thirdSkillCooldownLeft_; }
     set {
-      ultimateCooldownLeft_ = value;
+      thirdSkillCooldownLeft_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "character_name" field.</summary>
+  public const int CharacterNameFieldNumber = 15;
+  private string characterName_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string CharacterName {
+    get { return characterName_; }
+    set {
+      characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -883,10 +897,11 @@ public sealed partial class Player : pb::IMessage<Player>
     if (KillCount != other.KillCount) return false;
     if (DeathCount != other.DeathCount) return false;
     if (!object.Equals(TeleportPosition, other.TeleportPosition)) return false;
-    if (BasicCooldownLeft != other.BasicCooldownLeft) return false;
-    if (FirstCooldownLeft != other.FirstCooldownLeft) return false;
-    if (SecondCooldownLeft != other.SecondCooldownLeft) return false;
-    if (UltimateCooldownLeft != other.UltimateCooldownLeft) return false;
+    if (BasicSkillCooldownLeft != other.BasicSkillCooldownLeft) return false;
+    if (FirstSkillCooldownLeft != other.FirstSkillCooldownLeft) return false;
+    if (SecondSkillCooldownLeft != other.SecondSkillCooldownLeft) return false;
+    if (ThirdSkillCooldownLeft != other.ThirdSkillCooldownLeft) return false;
+    if (CharacterName != other.CharacterName) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -904,10 +919,11 @@ public sealed partial class Player : pb::IMessage<Player>
     if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
     if (teleportPosition_ != null) hash ^= TeleportPosition.GetHashCode();
-    if (BasicCooldownLeft != 0UL) hash ^= BasicCooldownLeft.GetHashCode();
-    if (FirstCooldownLeft != 0UL) hash ^= FirstCooldownLeft.GetHashCode();
-    if (SecondCooldownLeft != 0UL) hash ^= SecondCooldownLeft.GetHashCode();
-    if (UltimateCooldownLeft != 0UL) hash ^= UltimateCooldownLeft.GetHashCode();
+    if (BasicSkillCooldownLeft != 0UL) hash ^= BasicSkillCooldownLeft.GetHashCode();
+    if (FirstSkillCooldownLeft != 0UL) hash ^= FirstSkillCooldownLeft.GetHashCode();
+    if (SecondSkillCooldownLeft != 0UL) hash ^= SecondSkillCooldownLeft.GetHashCode();
+    if (ThirdSkillCooldownLeft != 0UL) hash ^= ThirdSkillCooldownLeft.GetHashCode();
+    if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -966,21 +982,25 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(82);
       output.WriteMessage(TeleportPosition);
     }
-    if (BasicCooldownLeft != 0UL) {
+    if (BasicSkillCooldownLeft != 0UL) {
       output.WriteRawTag(88);
-      output.WriteUInt64(BasicCooldownLeft);
+      output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstCooldownLeft != 0UL) {
+    if (FirstSkillCooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstCooldownLeft);
+      output.WriteUInt64(FirstSkillCooldownLeft);
     }
-    if (SecondCooldownLeft != 0UL) {
+    if (SecondSkillCooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondCooldownLeft);
+      output.WriteUInt64(SecondSkillCooldownLeft);
     }
-    if (UltimateCooldownLeft != 0UL) {
+    if (ThirdSkillCooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(UltimateCooldownLeft);
+      output.WriteUInt64(ThirdSkillCooldownLeft);
+    }
+    if (CharacterName.Length != 0) {
+      output.WriteRawTag(122);
+      output.WriteString(CharacterName);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1032,21 +1052,25 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(82);
       output.WriteMessage(TeleportPosition);
     }
-    if (BasicCooldownLeft != 0UL) {
+    if (BasicSkillCooldownLeft != 0UL) {
       output.WriteRawTag(88);
-      output.WriteUInt64(BasicCooldownLeft);
+      output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstCooldownLeft != 0UL) {
+    if (FirstSkillCooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstCooldownLeft);
+      output.WriteUInt64(FirstSkillCooldownLeft);
     }
-    if (SecondCooldownLeft != 0UL) {
+    if (SecondSkillCooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondCooldownLeft);
+      output.WriteUInt64(SecondSkillCooldownLeft);
     }
-    if (UltimateCooldownLeft != 0UL) {
+    if (ThirdSkillCooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(UltimateCooldownLeft);
+      output.WriteUInt64(ThirdSkillCooldownLeft);
+    }
+    if (CharacterName.Length != 0) {
+      output.WriteRawTag(122);
+      output.WriteString(CharacterName);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1088,17 +1112,20 @@ public sealed partial class Player : pb::IMessage<Player>
     if (teleportPosition_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(TeleportPosition);
     }
-    if (BasicCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicCooldownLeft);
+    if (BasicSkillCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicSkillCooldownLeft);
     }
-    if (FirstCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FirstCooldownLeft);
+    if (FirstSkillCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FirstSkillCooldownLeft);
     }
-    if (SecondCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SecondCooldownLeft);
+    if (SecondSkillCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SecondSkillCooldownLeft);
     }
-    if (UltimateCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(UltimateCooldownLeft);
+    if (ThirdSkillCooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ThirdSkillCooldownLeft);
+    }
+    if (CharacterName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1151,17 +1178,20 @@ public sealed partial class Player : pb::IMessage<Player>
       }
       TeleportPosition.MergeFrom(other.TeleportPosition);
     }
-    if (other.BasicCooldownLeft != 0UL) {
-      BasicCooldownLeft = other.BasicCooldownLeft;
+    if (other.BasicSkillCooldownLeft != 0UL) {
+      BasicSkillCooldownLeft = other.BasicSkillCooldownLeft;
     }
-    if (other.FirstCooldownLeft != 0UL) {
-      FirstCooldownLeft = other.FirstCooldownLeft;
+    if (other.FirstSkillCooldownLeft != 0UL) {
+      FirstSkillCooldownLeft = other.FirstSkillCooldownLeft;
     }
-    if (other.SecondCooldownLeft != 0UL) {
-      SecondCooldownLeft = other.SecondCooldownLeft;
+    if (other.SecondSkillCooldownLeft != 0UL) {
+      SecondSkillCooldownLeft = other.SecondSkillCooldownLeft;
     }
-    if (other.UltimateCooldownLeft != 0UL) {
-      UltimateCooldownLeft = other.UltimateCooldownLeft;
+    if (other.ThirdSkillCooldownLeft != 0UL) {
+      ThirdSkillCooldownLeft = other.ThirdSkillCooldownLeft;
+    }
+    if (other.CharacterName.Length != 0) {
+      CharacterName = other.CharacterName;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1228,19 +1258,23 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 88: {
-          BasicCooldownLeft = input.ReadUInt64();
+          BasicSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 96: {
-          FirstCooldownLeft = input.ReadUInt64();
+          FirstSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondCooldownLeft = input.ReadUInt64();
+          SecondSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          UltimateCooldownLeft = input.ReadUInt64();
+          ThirdSkillCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 122: {
+          CharacterName = input.ReadString();
           break;
         }
       }
@@ -1308,19 +1342,23 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 88: {
-          BasicCooldownLeft = input.ReadUInt64();
+          BasicSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 96: {
-          FirstCooldownLeft = input.ReadUInt64();
+          FirstSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondCooldownLeft = input.ReadUInt64();
+          SecondSkillCooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          UltimateCooldownLeft = input.ReadUInt64();
+          ThirdSkillCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 122: {
+          CharacterName = input.ReadString();
           break;
         }
       }
