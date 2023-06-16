@@ -4,6 +4,7 @@ using UnityEngine;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
 using System.Linq;
+using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public Queue<PlayerUpdate> playerUpdates = new Queue<PlayerUpdate>();
     public Direction nextAttackDirection;
     public bool isAttacking = false;
+
+    public bool isDeath = false;
+
 
     public struct PlayerUpdate
     {
@@ -142,6 +146,10 @@ public class PlayerMovement : MonoBehaviour
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
             GameObject player = GetPlayer(playerUpdate.playerId);
+            if (player.name.Contains("BOT"))
+            {
+                playerUpdate.action = PlayerAction.Attacking;
+            }
             /*
                 Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
                 There are 50 ticks per second. A player's velocity is 50 * 0.3f
@@ -202,7 +210,17 @@ public class PlayerMovement : MonoBehaviour
             mAnimator.SetBool("Walking", walking);
 
             Health healthComponent = player.GetComponent<Health>();
+            float auxHealth = healthComponent.CurrentHealth;
+            print(auxHealth + "AUXHEALTH");
+            print(playerUpdate.health + "HEALTH");
+            if (auxHealth != playerUpdate.health && player.GetComponent<Character>().PlayerID == playerUpdate.playerId.ToString())
+            {
+                healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
+            }
             healthComponent.SetHealth(playerUpdate.health);
+
+
+
 
             bool isAttackingAttack = playerUpdate.action == PlayerAction.Attacking;
             player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
