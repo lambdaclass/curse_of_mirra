@@ -595,6 +595,66 @@ impl GameState {
         Ok(())
     }
 
+    pub fn skill_2(
+        self: &mut Self,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        let cooldown = attacking_player.character.cooldown();
+
+        if matches!(attacking_player.status, Status::DEAD) {
+            return Ok(());
+        }
+
+        let now = time_now();
+
+        if (now - attacking_player.last_melee_attack) < cooldown {
+            return Ok(());
+        }
+        attacking_player.last_melee_attack = now;
+        attacking_player.action = PlayerAction::EXECUTINGSKILL2;
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            Name::Muflus => {
+                Self::move_player_to_coordinates(&mut self.board, attacking_player, direction)
+            }
+            _ => Self::move_player_to_coordinates(&mut self.board, attacking_player, direction),
+        }
+    }
+
+    pub fn h4ck_skill_2(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0 || direction.y != 0 {
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                14,
+                10,
+                attacking_player.id,
+                0,
+                30,
+                ProjectileType::DISARMINGBULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+        }
+        Ok(())
+    }
+
     pub fn aoe_attack_deprecated(
         self: &mut Self,
         attacking_player_id: u64,

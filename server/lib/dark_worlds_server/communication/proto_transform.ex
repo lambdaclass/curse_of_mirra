@@ -141,6 +141,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :SKILL_1, position: position}
   end
 
+  def encode(%EngineAction{action: :skill_2, value: position}, ProtoAction) do
+    %ProtoAction{action: :SKILL_2, position: position}
+  end
+
   def encode(%EngineAction{action: :basic_attack, value: position}, ProtoAction) do
     %ProtoAction{action: :BASIC_ATTACK, position: position}
   end
@@ -241,6 +245,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :skill_1, value: position}
   end
 
+  def decode(%ProtoAction{action: :SKILL_2, position: position}, ProtoAction) do
+    %EngineAction{action: :skill_2, value: position}
+  end
+
   def decode(%ProtoAction{action: :BASIC_ATTACK, position: position}, ProtoAction) do
     %EngineAction{action: :basic_attack, value: position}
   end
@@ -274,12 +282,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
+  defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
   defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
+  defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
   defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET
