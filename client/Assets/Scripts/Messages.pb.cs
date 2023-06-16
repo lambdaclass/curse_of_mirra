@@ -32,10 +32,10 @@ public static partial class MessagesReflection {
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
           "eWVyQWN0aW9uEh8KDGFvZV9wb3NpdGlvbhgHIAEoCzIJLlBvc2l0aW9uEhIK",
           "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQSJAoRdGVs",
-          "ZXBvcnRfcG9zaXRpb24YCyABKAsyCS5Qb3NpdGlvbhIbChNiYXNpY19jb29s",
-          "ZG93bl9sZWZ0GAwgASgEEhsKE2ZpcnN0X2Nvb2xkb3duX2xlZnQYDSABKAQS",
-          "HAoUc2Vjb25kX2Nvb2xkb3duX2xlZnQYDiABKAQSHgoWdWx0aW1hdGVfY29v",
-          "bGRvd25fbGVmdBgPIAEoBCIgCghQb3NpdGlvbhIJCgF4GAEgASgEEgkKAXkY",
+          "ZXBvcnRfcG9zaXRpb24YCiABKAsyCS5Qb3NpdGlvbhIbChNiYXNpY19jb29s",
+          "ZG93bl9sZWZ0GAsgASgEEhsKE2ZpcnN0X2Nvb2xkb3duX2xlZnQYDCABKAQS",
+          "HAoUc2Vjb25kX2Nvb2xkb3duX2xlZnQYDSABKAQSHgoWdWx0aW1hdGVfY29v",
+          "bGRvd25fbGVmdBgOIAEoBCIgCghQb3NpdGlvbhIJCgF4GAEgASgEEgkKAXkY",
           "AiABKAQiKAoQUmVsYXRpdmVQb3NpdGlvbhIJCgF4GAEgASgDEgkKAXkYAiAB",
           "KAMioAEKDENsaWVudEFjdGlvbhIXCgZhY3Rpb24YASABKA4yBy5BY3Rpb24S",
           "HQoJZGlyZWN0aW9uGAIgASgOMgouRGlyZWN0aW9uEiMKCHBvc2l0aW9uGAMg",
@@ -799,7 +799,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "teleport_position" field.</summary>
-  public const int TeleportPositionFieldNumber = 11;
+  public const int TeleportPositionFieldNumber = 10;
   private global::Position teleportPosition_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -811,7 +811,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "basic_cooldown_left" field.</summary>
-  public const int BasicCooldownLeftFieldNumber = 12;
+  public const int BasicCooldownLeftFieldNumber = 11;
   private ulong basicCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -823,7 +823,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "first_cooldown_left" field.</summary>
-  public const int FirstCooldownLeftFieldNumber = 13;
+  public const int FirstCooldownLeftFieldNumber = 12;
   private ulong firstCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -835,7 +835,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "second_cooldown_left" field.</summary>
-  public const int SecondCooldownLeftFieldNumber = 14;
+  public const int SecondCooldownLeftFieldNumber = 13;
   private ulong secondCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -847,7 +847,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "ultimate_cooldown_left" field.</summary>
-  public const int UltimateCooldownLeftFieldNumber = 15;
+  public const int UltimateCooldownLeftFieldNumber = 14;
   private ulong ultimateCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -963,23 +963,23 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteUInt64(DeathCount);
     }
     if (teleportPosition_ != null) {
-      output.WriteRawTag(90);
+      output.WriteRawTag(82);
       output.WriteMessage(TeleportPosition);
     }
     if (BasicCooldownLeft != 0UL) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(88);
       output.WriteUInt64(BasicCooldownLeft);
     }
     if (FirstCooldownLeft != 0UL) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(96);
       output.WriteUInt64(FirstCooldownLeft);
     }
     if (SecondCooldownLeft != 0UL) {
-      output.WriteRawTag(112);
+      output.WriteRawTag(104);
       output.WriteUInt64(SecondCooldownLeft);
     }
     if (UltimateCooldownLeft != 0UL) {
-      output.WriteRawTag(120);
+      output.WriteRawTag(112);
       output.WriteUInt64(UltimateCooldownLeft);
     }
     if (_unknownFields != null) {
@@ -1029,23 +1029,23 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteUInt64(DeathCount);
     }
     if (teleportPosition_ != null) {
-      output.WriteRawTag(90);
+      output.WriteRawTag(82);
       output.WriteMessage(TeleportPosition);
     }
     if (BasicCooldownLeft != 0UL) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(88);
       output.WriteUInt64(BasicCooldownLeft);
     }
     if (FirstCooldownLeft != 0UL) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(96);
       output.WriteUInt64(FirstCooldownLeft);
     }
     if (SecondCooldownLeft != 0UL) {
-      output.WriteRawTag(112);
+      output.WriteRawTag(104);
       output.WriteUInt64(SecondCooldownLeft);
     }
     if (UltimateCooldownLeft != 0UL) {
-      output.WriteRawTag(120);
+      output.WriteRawTag(112);
       output.WriteUInt64(UltimateCooldownLeft);
     }
     if (_unknownFields != null) {
@@ -1220,26 +1220,26 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
-        case 90: {
+        case 82: {
           if (teleportPosition_ == null) {
             TeleportPosition = new global::Position();
           }
           input.ReadMessage(TeleportPosition);
           break;
         }
-        case 96: {
+        case 88: {
           BasicCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 104: {
+        case 96: {
           FirstCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 112: {
+        case 104: {
           SecondCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 120: {
+        case 112: {
           UltimateCooldownLeft = input.ReadUInt64();
           break;
         }
@@ -1300,26 +1300,26 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
-        case 90: {
+        case 82: {
           if (teleportPosition_ == null) {
             TeleportPosition = new global::Position();
           }
           input.ReadMessage(TeleportPosition);
           break;
         }
-        case 96: {
+        case 88: {
           BasicCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 104: {
+        case 96: {
           FirstCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 112: {
+        case 104: {
           SecondCooldownLeft = input.ReadUInt64();
           break;
         }
-        case 120: {
+        case 112: {
           UltimateCooldownLeft = input.ReadUInt64();
           break;
         }
