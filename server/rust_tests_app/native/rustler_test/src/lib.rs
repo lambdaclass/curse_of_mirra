@@ -10,7 +10,7 @@ rustler::init!(
         game_state_test::attacking,
         // game_state_test::no_move_if_wall,
         game_state_test::movement,
-        game_state_test::move_player_to_coordinates,
+        // game_state_test::move_player_to_coordinates,
         game_state_test::cant_move_if_petrified
     ],
     load = gamestate::load

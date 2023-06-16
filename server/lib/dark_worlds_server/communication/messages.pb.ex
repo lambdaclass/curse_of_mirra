@@ -29,11 +29,13 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:ACTION_UNSPECIFIED, 0)
   field(:MOVE, 1)
   field(:ATTACK, 2)
+  field(:TELEPORT, 4)
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
+  field(:SKILL_1, 10)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -56,6 +58,8 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:EXECUTING_SKILL_1, 3)
+  field(:TELEPORTING, 4)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -129,6 +133,11 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
 
   field(:kill_count, 8, type: :uint64, json_name: "killCount")
   field(:death_count, 9, type: :uint64, json_name: "deathCount")
+
+  field(:teleport_position, 10,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "teleportPosition"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

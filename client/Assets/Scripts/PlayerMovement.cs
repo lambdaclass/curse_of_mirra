@@ -28,19 +28,13 @@ public class PlayerMovement : MonoBehaviour
         Attacking = 1,
         AttackingAOE = 2,
         MainAttack = 3,
+        Teleporting = 4,
     }
 
     public enum ProyectileStatus
     {
         Active = 0,
         Exploded = 1,
-    }
-
-    Vector3 backPositionToFrontPosition(Position position)
-    {
-        var x = (long)position.Y / 10f - 50.0f;
-        var y = (-((long)position.X)) / 10f + 50.0f;
-        return new Vector3(x, 1f, y);
     }
 
     void Start()
@@ -157,13 +151,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (playerUpdate.playerId % 3 == 0)
             {
-                // Hack
-                characterSpeed = 0.3f;
+                // Muflus
+                characterSpeed = 0.5f;
             }
             else if (playerUpdate.playerId % 3 == 1)
             {
-                // Muflus
-                characterSpeed = 0.5f;
+                // Hack
+                characterSpeed = 0.3f;
             }
             else
             {
@@ -192,12 +186,21 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                Vector3 newPosition =
+                if (playerUpdate.action == PlayerAction.Teleporting)
+                {
+                    player.transform.position = playerUpdate.playerPosition;
+                }
+                else
+                {
+                    Vector3 newPosition =
                     player.transform.position + movementDirection * velocity * Time.deltaTime;
-                player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
+                    player.transform.position = newPosition;
+                    characterOrientation.ForcedRotationDirection = movementDirection;
 
-                walking = true;
+                    walking = true;
+                }
+
+                
             }
             mAnimator.SetBool("Walking", walking);
 
@@ -225,14 +228,7 @@ public class PlayerMovement : MonoBehaviour
                 isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
             )
             {
-                player
-                    .GetComponent<GenericAoeAttack>()
-                    .ShowAoeAttack(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
+                // FIXME: add logic
             }
         }
     }
