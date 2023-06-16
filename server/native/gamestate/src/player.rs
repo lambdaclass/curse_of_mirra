@@ -110,16 +110,17 @@ impl Player {
         // if (start) - left < now simply reset
         // the value as 0.
         self.basic_skill_cooldown_left = (self.basic_skill_cooldown_start
-            + self.basic_skill_cooldown_left)
-            .checked_sub(now)
-            .unwrap_or(0);
-        self.first_skill_cooldown_left = (self.first_skill_start + self.first_skill_cooldown_left)
-            .checked_sub(now)
-            .unwrap_or(0);
+            + self.character.cooldown_basic_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
+        self.first_skill_cooldown_left = (self.first_skill_start
+            + self.character.cooldown_first_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
         self.second_skill_cooldown_left = (self.second_skill_cooldown_start
-            + self.second_skill_cooldown_left)
-            .checked_sub(now)
-            .unwrap_or(0);
+            + self.character.cooldown_second_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
     }
 }
 
