@@ -173,6 +173,10 @@ public class PlayerMovement : MonoBehaviour
                 if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
                 {
                     playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
+                    playerState.health = player.Health;
+                    playerState.action = (EntityUpdates.PlayerState.PlayerAction)player.Action;
+                    playerState.aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition);
+                    playerState.timestamp = gameEvent.Timestamp;
                 }
             }            
 
