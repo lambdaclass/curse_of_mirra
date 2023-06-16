@@ -69,7 +69,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    Process.send_after(self(), :selected_characters, 30)
+    Process.send_after(self(), :all_characters_set?, 30)
+
     {:ok,
      %{
        selected_characters: %{},
@@ -91,10 +92,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, _player, %ActionOk{action: :select_character, value: %{player_id: player_id, character_name: character_name}}},
+        {:play, _player,
+         %ActionOk{
+           action: :select_character,
+           value: %{player_id: player_id, character_name: character_name}
+         }},
         %{selected_characters: selected_characters} = gen_server_state
       ) do
-
     selected_characters = Map.put(selected_characters, player_id, character_name)
 
     DarkWorldsServer.PubSub
@@ -103,8 +107,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:selected_characters, selected_characters}
     )
 
-    {:noreply,
-     Map.put(gen_server_state, :selected_characters, selected_characters)}
+    {:noreply, Map.put(gen_server_state, :selected_characters, selected_characters)}
   end
 
   ## This will handle the case where players could send player movement actions or attacks
@@ -247,7 +250,6 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{max_players: max, current_players: current} = gen_server_state
       )
       when current < max do
-
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
       Communication.pubsub_game_topic(self()),
@@ -286,13 +288,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(
-        :selected_characters,
+        :all_characters_set?,
         %{selected_characters: selected_characters, max_players: max_players} = gen_server_state
       ) do
     if Enum.count(selected_characters) == max_players do
       Process.send_after(self(), :start_game, 30)
     else
-      Process.send_after(self(), :selected_characters, 30)
+      Process.send_after(self(), :all_characters_set?, 30)
     end
 
     {:noreply, gen_server_state}
@@ -300,10 +302,10 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:start_game, gen_server_state) do
     opts = gen_server_state.opts
-    selected_players =
-      gen_server_state.selected_characters
+    selected_players = gen_server_state.selected_characters
 
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} =
+      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
     Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
@@ -328,6 +330,12 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_state, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
+
+    DarkWorldsServer.PubSub
+    |> Phoenix.PubSub.broadcast(
+      Communication.pubsub_game_topic(self()),
+      {:finish_character_selection, gen_server_state.client_game_state.game.players}
+    )
 
     {:noreply, gen_server_state}
   end
@@ -525,7 +533,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players, selected_players) do
+  defp create_new_game(
+         %{runner_config: rg, character_config: %{Items: character_info}},
+         players,
+         selected_players
+       ) do
     character_info =
       for character <- character_info do
         Enum.reduce(character, %{}, fn
