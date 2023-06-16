@@ -100,4 +100,11 @@ defmodule DarkWorldsServerWeb.Router do
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
   end
+
+  scope "/auth", DarkWorldsServerWeb do
+    pipe_through :browser
+
+    get "/:provider", OauthController, :request
+    get "/:provider/callback", OauthController, :callback
+  end
 end
