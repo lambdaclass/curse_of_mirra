@@ -184,7 +184,7 @@ impl GameState {
             x: new_position_x as usize,
             y: new_position_y as usize,
         };
-// Remove the player from their previous position on the board
+        // Remove the player from their previous position on the board
         board.set_cell(
             attacking_player.position.x,
             attacking_player.position.y,
@@ -192,8 +192,6 @@ impl GameState {
         );
         attacking_player.position = new_position_coordinates;
         attacking_player.action = PlayerAction::TELEPORTING;
-
-        
 
         board.set_cell(
             attacking_player.position.x,
@@ -515,10 +513,10 @@ impl GameState {
                 Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
             }
             _ => {
-                    let id = attacking_player.id;
+                let id = attacking_player.id;
 
-                    //let mut attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
-                    Self::leap(&mut self.board, id, direction, &mut self.players)
+                //let mut attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+                Self::leap(&mut self.board, id, direction, &mut self.players)
             }
         }
     }
