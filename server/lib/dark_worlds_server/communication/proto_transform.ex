@@ -72,14 +72,19 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{
+    %EnginePlayer{
       id: id,
       health: health,
       position: position,
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     } = player
 
     %ProtoPlayer{
@@ -89,7 +94,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: player_action_encode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     }
   end
 
@@ -164,7 +174,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(%ProtoPlayer{} = player, ProtoPlayer) do
-    %{
+    %ProtoPlayer{
       id: id,
       health: health,
       position: position,
@@ -173,7 +183,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     } = player
 
     %EnginePlayer{
@@ -185,7 +200,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     }
   end
 

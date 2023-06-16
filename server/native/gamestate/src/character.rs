@@ -2,13 +2,13 @@ use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
-use strum_macros::EnumString;
+use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,
@@ -101,6 +101,28 @@ impl Character {
             status_effects: HashMap::new(),
         })
     }
+    pub fn attack_dmg_basic_skill(&self) -> u64 {
+        match self.skill_basic {
+            BasicSkill::Slingshot => 10_u64,
+            BasicSkill::Bash => 30_u64,
+            BasicSkill::Backstab => 10_u64,
+        }
+    }
+    pub fn attack_dmg_first_active(&self) -> u64 {
+        match self.skill_active_first {
+            FirstActive::BarrelRoll => 10_u64,
+            FirstActive::SerpentStrike => 30_u64,
+            FirstActive::MultiShot => 10_u64,
+        }
+    }
+    pub fn attack_dmg_second_active(&self) -> u64 {
+        match self.skill_active_second {
+            SecondActive::Rage => 10_u64,
+            SecondActive::Petrify => 30_u64,
+            SecondActive::MirrorImage => 10_u64,
+            SecondActive::Disarm => 5_u64,
+        }
+    }
     #[inline]
     pub fn attack_dmg(&self) -> u64 {
         // TODO have a trait for this
@@ -109,6 +131,28 @@ impl Character {
             BasicSkill::Slingshot => 10_u64,
             BasicSkill::Bash => 30_u64,
             BasicSkill::Backstab => 10_u64,
+        }
+    }
+    pub fn cooldown_basic_skill(&self) -> u64 {
+        match self.skill_basic {
+            BasicSkill::Slingshot => 10,
+            BasicSkill::Bash => 10,
+            BasicSkill::Backstab => 10,
+        }
+    }
+    pub fn cooldown_first_skill(&self) -> u64 {
+        match self.skill_active_first {
+            FirstActive::BarrelRoll => 5_u64,
+            FirstActive::SerpentStrike => 5_u64,
+            FirstActive::MultiShot => 5_u64,
+        }
+    }
+    pub fn cooldown_second_skill(&self) -> u64 {
+        match self.skill_active_second {
+            SecondActive::Disarm => 5_u64,
+            SecondActive::MirrorImage => 5_u64,
+            SecondActive::Petrify => 5_u64,
+            SecondActive::Rage => 5_u64,
         }
     }
     // Cooldown in seconds

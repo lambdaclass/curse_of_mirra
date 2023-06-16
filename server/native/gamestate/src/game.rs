@@ -351,7 +351,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
+        let cooldown = attacking_player.character.cooldown_basic_skill();
 
         if matches!(attacking_player.status, Status::DEAD) {
             return Ok(());
@@ -364,7 +364,8 @@ impl GameState {
         }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-
+        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_cooldown_left = cooldown;
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
                 &attacking_player,
@@ -489,7 +490,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
+        let cooldown = attacking_player.character.cooldown_first_skill();
 
         if matches!(attacking_player.status, Status::DEAD) {
             return Ok(());
@@ -687,6 +688,7 @@ impl GameState {
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
+            player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.character.status_effects.retain(|_, ticks_left| {
