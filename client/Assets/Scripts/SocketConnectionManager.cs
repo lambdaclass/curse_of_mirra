@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
+using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -24,7 +25,7 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> gamePlayers;
     public List<Projectile> gameProjectiles;
 
-    public List<PlayerCharacter> selectedCharacters;
+    public Dictionary<ulong, string> selectedCharacters;
     public int playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
@@ -45,7 +46,6 @@ public class SocketConnectionManager : MonoBehaviour
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-        print(serverTickRate_ms);
         projectilesStatic = this.projectiles;
         DontDestroyOnLoad(gameObject);
     }
@@ -147,7 +147,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     break;
                 case GameEventType.SelectedCharacterUpdate:
-                    this.selectedCharacters = game_event.SelectedCharacters.ToList();
+                    this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
                     break;
                 default:
                     print("Message received is: " + game_event.Type);
@@ -158,6 +158,16 @@ public class SocketConnectionManager : MonoBehaviour
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
+    }
+
+    public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict){
+        Dictionary<ulong, string> result = new Dictionary<ulong, string>();
+
+        foreach(KeyValuePair<ulong, string> element in dict){
+            result.Add(element.Key, element.Value);
+        }
+        
+        return result;
     }
 
     public void SendAction(ClientAction action)
