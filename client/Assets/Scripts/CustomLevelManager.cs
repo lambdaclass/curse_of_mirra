@@ -135,9 +135,11 @@ public class CustomLevelManager : LevelManager
     private void SetInputsAbilities(int playerID)
     {
         CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
+        Player pl = SocketConnectionManager.GetPlayer(playerID, SocketConnectionManager.Instance.gamePlayers);
 
         foreach (Character player in this.PlayerPrefabs)
         {
+
             if (Int32.Parse(player.PlayerID) == playerID)
             {
                 SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
@@ -146,11 +148,16 @@ public class CustomLevelManager : LevelManager
 
                 Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
                 skill1.SetSkill(Action.Skill1);
-                _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
 
                 Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
                 skill2.SetSkill(Action.BasicAttack);
-                _cim.AssignSkillToInput(UIControls.Skill2, UIType.Tap, skill2);
+                if (pl.CharacterName == "Muflus"){
+                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Tap, skill1);
+                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Area, skill2);
+                } else {
+                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
+                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Direction, skill2);
+                }
 
                 Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
                 skill3.SetSkill(Action.BasicAttack);

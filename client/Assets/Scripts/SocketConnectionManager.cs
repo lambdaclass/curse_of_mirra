@@ -175,7 +175,7 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    Player GetPlayer(int id, List<Player> player_list)
+    public static Player GetPlayer(int id, List<Player> player_list)
     {
         return player_list.Find(
             el => el.Id == (ulong)id
