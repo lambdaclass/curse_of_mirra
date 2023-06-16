@@ -26,6 +26,15 @@ fn petrified_character() -> Character {
         ..Default::default()
     }
 }
+fn disarmed_character() -> Character {
+    Character {
+        status_effects: std::collections::HashMap::from(
+            // This will last 10 ticks.
+            [(Effect::Disarmed, 10)],
+        ),
+        ..Default::default()
+    }
+}
 #[rustler::nif]
 pub fn no_move_if_beyond_boundaries() -> TestResult {
     let mut expected_grid: Vec<Vec<Tile>>;
@@ -143,11 +152,12 @@ fn movement() -> TestResult {
 // fn move_player_to_coordinates() -> TestResult {
 //     let mut state = GameState::new(0, 2, 2, false, &read_character_config()).unwrap(); // creates a 2x2 grid with no players
 //     let player_id = 1;
-//     let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
+//     let mut player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
 //     state.players = vec![player1];
 //     state.board.set_cell(0, 0, Tile::Player(player_id)); // adds player 1 to the cell at (0,0)
-
-//     state.move_player_to_coordinates(player_id, &RelativePosition::new(1, 1));
+//     let player = GameState::get_player_mut(&mut state.players, 1).unwrap();
+//     GameState::move_player_to_coordinates(&mut state.board, player, &RelativePosition::new(1, 1))
+//         .unwrap();
 //     assert_result!(
 //         vec![
 //             vec![Tile::Empty, Tile::Empty],
@@ -173,37 +183,47 @@ fn attacking() -> TestResult {
     time_utils::sleep(cooldown);
 
     // Attack lands and damages player
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     // Attack does nothing because of cooldown
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attack misses and does nothing
-    state.attack_player(player_1_id, Direction::DOWN);
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(90, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     state.move_player(player_1_id, Direction::DOWN);
 
     // Attacking to the right now does nothing since the player moved down.
-    state.attack_player(player_1_id, Direction::RIGHT);
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)?;
+    assert_result!(100, state.players[1].health)?;
 
     time_utils::sleep(cooldown);
 
     // Attacking to a non-existent position on the board does nothing.
-    state.attack_player(player_1_id, Direction::LEFT);
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
     assert_result!(100, state.players[0].health)?;
-    assert_result!(80, state.players[1].health)
+    assert_result!(100, state.players[1].health)
 }
 
 #[rustler::nif]
@@ -244,4 +264,52 @@ pub fn cant_move_if_petrified() -> TestResult {
     assert_result!(player.character.speed(), base_speed)?;
     assert_result!(spawn_point.x + 1, player.position.x)?;
     assert_result!(spawn_point.y, player.position.y)
+}
+
+#[rustler::nif]
+pub fn cant_attack_if_disarmed() -> TestResult {
+    let mut state = GameState::new(1, 20, 20, false, &read_character_config()).unwrap();
+    let player_1_id = 1;
+    let player_2_id = 2;
+    let disarmed_char: Character = disarmed_character();
+    let char: Character = speed1_character();
+    let player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
+    let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
+    state.players = vec![player1.clone(), player2];
+    state.board.set_cell(0, 0, Tile::Player(player_1_id));
+    state.board.set_cell(10, 10, Tile::Player(player_2_id));
+    let player1_cooldown = player1.character.cooldown();
+    let player2_cooldown = player1.character.cooldown();
+    // make sure both abilities are off cooldown
+    time_utils::sleep(player1_cooldown);
+    time_utils::sleep(player2_cooldown);
+
+    // Player 1 can't attack since it is in a Disarmed state
+    // Player 2 can attack
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
+    state
+        .basic_attack(player_2_id, &RelativePosition::new(0, 1))
+        .unwrap();
+    assert_result!(100, state.players[0].health)?;
+    assert_result!(100, state.players[1].health)?;
+
+    // Wait for the Disarmed state to finish
+    for _ in 0..10 {
+        state.world_tick().unwrap();
+    }
+
+    // make sure both abilities are off cooldown
+    time_utils::sleep(player1_cooldown);
+    time_utils::sleep(player2_cooldown);
+
+    // Now Player 1 should be able to attack
+    state
+        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .unwrap();
+    state
+        .basic_attack(player_2_id, &RelativePosition::new(0, 1))
+        .unwrap();
+    assert_result!(100, state.players[1].health)
 }

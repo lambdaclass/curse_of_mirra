@@ -6,5 +6,6 @@ defmodule TestNIFs do
   def attacking(), do: err()
   def movement(), do: err()
   def cant_move_if_petrified(), do: :erlang.nif_err(:nif_not_loaded)
-  #def move_player_to_coordinates(), do: err()
+  def cant_attack_if_disarmed(), do: err()
+  # def move_player_to_coordinates(), do: err()
 end

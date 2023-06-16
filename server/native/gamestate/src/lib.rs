@@ -78,17 +78,6 @@ fn get_non_empty(game: GameState) -> HashMap<(usize, usize), Tile> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn attack_player(
-    game: GameState,
-    attacking_player_id: u64,
-    attack_direction: Direction,
-) -> GameState {
-    let mut game_2 = game;
-    game_2.attack_player(attacking_player_id, attack_direction);
-    game_2
-}
-
-#[rustler::nif(schedule = "DirtyCpu")]
 fn skill_1(
     game: GameState,
     attacking_player_id: u64,
@@ -96,6 +85,17 @@ fn skill_1(
 ) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.skill_1(attacking_player_id, &attack_position)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+fn skill_2(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.skill_2(attacking_player_id, &attack_position)?;
     Ok(game_2)
 }
 
@@ -137,16 +137,6 @@ fn basic_attack(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-pub fn auto_attack(
-    game: GameState,
-    player_id: u64,
-    target_player_id: u64,
-) -> Result<GameState, String> {
-    let mut game = game;
-    game.auto_attack(player_id, target_player_id)?;
-    Ok(game)
-}
-#[rustler::nif(schedule = "DirtyCpu")]
 fn spawn_player(game: GameState, player_id: u64) -> GameState {
     let mut game_2 = game;
     game_2.spawn_player(player_id);
@@ -166,15 +156,14 @@ rustler::init!(
         move_player,
         get_grid,
         get_non_empty,
-        attack_player,
         world_tick,
         disconnect,
         move_with_joystick,
         new_round,
         spawn_player,
-        auto_attack,
         basic_attack,
         skill_1,
+        skill_2,
     ],
     load = load
 );
