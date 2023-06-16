@@ -72,14 +72,19 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{
+    %EnginePlayer{
       id: id,
       health: health,
       position: position,
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     } = player
 
     %ProtoPlayer{
@@ -89,7 +94,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: player_action_encode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     }
   end
 
@@ -123,6 +133,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :move, value: direction}, ProtoAction) do
     %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
+  end
+
+  def encode(%EngineAction{action: :teleport, value: position}, ProtoAction) do
+    %ProtoAction{action: :TELEPORT, position: position}
   end
 
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
@@ -160,7 +174,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(%ProtoPlayer{} = player, ProtoPlayer) do
-    %{
+    %ProtoPlayer{
       id: id,
       health: health,
       position: position,
@@ -169,7 +183,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     } = player
 
     %EnginePlayer{
@@ -181,7 +200,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_skill_cooldown_left: b_cooldown,
+      first_skill_cooldown_left: f_cooldown,
+      second_skill_cooldown_left: s_cooldown,
+      third_skill_cooldown_left: t_cooldown,
+      character_name: name
     }
   end
 
@@ -245,6 +269,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :add_bot, value: nil}
   end
 
+  def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
+    %EngineAction{action: :teleport, value: position}
+  end
+
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end
@@ -266,11 +294,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
+  defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
+  defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_decode(:BULLET), do: :bullet
