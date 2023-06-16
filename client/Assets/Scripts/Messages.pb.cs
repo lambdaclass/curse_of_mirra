@@ -26,65 +26,66 @@ public static partial class MessagesReflection {
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
-          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQi1gIKBlBs",
+          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQi/AIKBlBs",
           "YXllchIKCgJpZBgBIAEoBBIOCgZoZWFsdGgYAiABKBISGwoIcG9zaXRpb24Y",
           "AyABKAsyCS5Qb3NpdGlvbhIZChFsYXN0X21lbGVlX2F0dGFjaxgEIAEoBBIX",
           "CgZzdGF0dXMYBSABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAYgASgOMg0uUGxh",
           "eWVyQWN0aW9uEh8KDGFvZV9wb3NpdGlvbhgHIAEoCzIJLlBvc2l0aW9uEhIK",
-          "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQSGwoTYmFz",
-          "aWNfY29vbGRvd25fbGVmdBgKIAEoBBIbChNmaXJzdF9jb29sZG93bl9sZWZ0",
-          "GAsgASgEEhwKFHNlY29uZF9jb29sZG93bl9sZWZ0GAwgASgEEh4KFnVsdGlt",
-          "YXRlX2Nvb2xkb3duX2xlZnQYDSABKAQiIAoIUG9zaXRpb24SCQoBeBgBIAEo",
-          "BBIJCgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRpb24SCQoBeBgBIAEoAxIJ",
-          "CgF5GAIgASgDIqABCgxDbGllbnRBY3Rpb24SFwoGYWN0aW9uGAEgASgOMgcu",
-          "QWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRpcmVjdGlvbhIjCghwb3Np",
-          "dGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SIwoKbW92ZV9kZWx0YRgE",
-          "IAEoCzIPLkpveXN0aWNrVmFsdWVzEg4KBnRhcmdldBgFIAEoEiImCg5Kb3lz",
-          "dGlja1ZhbHVlcxIJCgF4GAEgASgCEgkKAXkYAiABKAIi5gEKCkxvYmJ5RXZl",
-          "bnQSHQoEdHlwZRgBIAEoDjIPLkxvYmJ5RXZlbnRUeXBlEhAKCGxvYmJ5X2lk",
-          "GAIgASgJEhEKCXBsYXllcl9pZBgDIAEoBBIXCg9hZGRlZF9wbGF5ZXJfaWQY",
-          "BCABKAQSDwoHZ2FtZV9pZBgFIAEoCRIUCgxwbGF5ZXJfY291bnQYBiABKAQS",
-          "DwoHcGxheWVycxgHIAMoBBIZChFyZW1vdmVkX3BsYXllcl9pZBgIIAEoBBIo",
-          "CgtnYW1lX2NvbmZpZxgJIAEoCzITLlNlcnZlckdhbWVTZXR0aW5ncyJ8CgxS",
-          "dW5uZXJDb25maWcSDAoETmFtZRgBIAEoCRITCgtib2FyZF93aWR0aBgCIAEo",
-          "BBIUCgxib2FyZF9oZWlnaHQYAyABKAQSGgoSc2VydmVyX3RpY2tyYXRlX21z",
-          "GAQgASgEEhcKD2dhbWVfdGltZW91dF9tcxgFIAEoBCLcAQoTQ2hhcmFjdGVy",
-          "Q29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJEg4KBkFjdGl2",
-          "ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUgASgJEhEKCUJh",
-          "c2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQKDFNraWxsQWN0",
-          "aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJU2tpbGxEYXNo",
-          "GAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hhcmFjdGVyQ29u",
-          "ZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJT",
-          "ZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1",
-          "bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFj",
-          "dGVyQ29uZmlnIoACCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0",
-          "aW9uGAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0aW9uGAMgASgLMg8uSm95",
-          "c3RpY2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJ",
-          "cGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdf",
-          "dGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVj",
-          "dGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1cyqP",
-          "AQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQ",
-          "REFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoK",
-          "TEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BP",
-          "U0lUSU9OUxAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqbAQoG",
-          "QWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZB",
-          "VFRBQ0sQAhIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNL",
-          "EAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFTSUNfQVRU",
-          "QUNLEAkSCwoHU0tJTExfMRAKKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05f",
-          "VU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoF",
-          "UklHSFQQBCpUCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFD",
-          "S0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExf",
-          "MRADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAAS",
-          "DQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFS",
-          "VEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBM",
-          "QVlFUl9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAAq",
-          "LAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBAB",
-          "YgZwcm90bzM="));
+          "CmtpbGxfY291bnQYCCABKAQSEwoLZGVhdGhfY291bnQYCSABKAQSJAoRdGVs",
+          "ZXBvcnRfcG9zaXRpb24YCyABKAsyCS5Qb3NpdGlvbhIbChNiYXNpY19jb29s",
+          "ZG93bl9sZWZ0GAwgASgEEhsKE2ZpcnN0X2Nvb2xkb3duX2xlZnQYDSABKAQS",
+          "HAoUc2Vjb25kX2Nvb2xkb3duX2xlZnQYDiABKAQSHgoWdWx0aW1hdGVfY29v",
+          "bGRvd25fbGVmdBgPIAEoBCIgCghQb3NpdGlvbhIJCgF4GAEgASgEEgkKAXkY",
+          "AiABKAQiKAoQUmVsYXRpdmVQb3NpdGlvbhIJCgF4GAEgASgDEgkKAXkYAiAB",
+          "KAMioAEKDENsaWVudEFjdGlvbhIXCgZhY3Rpb24YASABKA4yBy5BY3Rpb24S",
+          "HQoJZGlyZWN0aW9uGAIgASgOMgouRGlyZWN0aW9uEiMKCHBvc2l0aW9uGAMg",
+          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhIjCgptb3ZlX2RlbHRhGAQgASgLMg8u",
+          "Sm95c3RpY2tWYWx1ZXMSDgoGdGFyZ2V0GAUgASgSIiYKDkpveXN0aWNrVmFs",
+          "dWVzEgkKAXgYASABKAISCQoBeRgCIAEoAiLmAQoKTG9iYnlFdmVudBIdCgR0",
+          "eXBlGAEgASgOMg8uTG9iYnlFdmVudFR5cGUSEAoIbG9iYnlfaWQYAiABKAkS",
+          "EQoJcGxheWVyX2lkGAMgASgEEhcKD2FkZGVkX3BsYXllcl9pZBgEIAEoBBIP",
+          "CgdnYW1lX2lkGAUgASgJEhQKDHBsYXllcl9jb3VudBgGIAEoBBIPCgdwbGF5",
+          "ZXJzGAcgAygEEhkKEXJlbW92ZWRfcGxheWVyX2lkGAggASgEEigKC2dhbWVf",
+          "Y29uZmlnGAkgASgLMhMuU2VydmVyR2FtZVNldHRpbmdzInwKDFJ1bm5lckNv",
+          "bmZpZxIMCgROYW1lGAEgASgJEhMKC2JvYXJkX3dpZHRoGAIgASgEEhQKDGJv",
+          "YXJkX2hlaWdodBgDIAEoBBIaChJzZXJ2ZXJfdGlja3JhdGVfbXMYBCABKAQS",
+          "FwoPZ2FtZV90aW1lb3V0X21zGAUgASgEItwBChNDaGFyYWN0ZXJDb25maWdJ",
+          "dGVtEgwKBE5hbWUYASABKAkSCgoCSWQYAiABKAkSDgoGQWN0aXZlGAMgASgJ",
+          "Eg0KBUNsYXNzGAQgASgJEg8KB0ZhY3Rpb24YBSABKAkSEQoJQmFzZVNwZWVk",
+          "GAYgASgJEhIKClNraWxsQmFzaWMYByABKAkSFAoMU2tpbGxBY3RpdmUxGAgg",
+          "ASgJEhQKDFNraWxsQWN0aXZlMhgJIAEoCRIRCglTa2lsbERhc2gYCiABKAkS",
+          "FQoNU2tpbGxVbHRpbWF0ZRgLIAEoCSI2Cg9DaGFyYWN0ZXJDb25maWcSIwoF",
+          "SXRlbXMYASADKAsyFC5DaGFyYWN0ZXJDb25maWdJdGVtImYKElNlcnZlckdh",
+          "bWVTZXR0aW5ncxIkCg1ydW5uZXJfY29uZmlnGAEgASgLMg0uUnVubmVyQ29u",
+          "ZmlnEioKEGNoYXJhY3Rlcl9jb25maWcYAiABKAsyEC5DaGFyYWN0ZXJDb25m",
+          "aWcigAIKClByb2plY3RpbGUSCgoCaWQYASABKAQSGwoIcG9zaXRpb24YAiAB",
+          "KAsyCS5Qb3NpdGlvbhIiCglkaXJlY3Rpb24YAyABKAsyDy5Kb3lzdGlja1Zh",
+          "bHVlcxINCgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglwbGF5ZXJf",
+          "aWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190aWNrcxgI",
+          "IAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxlVHlw",
+          "ZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzKo8BCg1HYW1l",
+          "RXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAES",
+          "EQoNUExBWUVSX0pPSU5FRBACEg4KCk5FWFRfUk9VTkQQAxIOCgpMQVNUX1JP",
+          "VU5EEAQSEQoNR0FNRV9GSU5JU0hFRBAFEhUKEUlOSVRJQUxfUE9TSVRJT05T",
+          "EAYqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBABKqkBCgZBY3Rpb24S",
+          "FgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCAoETU9WRRABEgoKBkFUVEFDSxAC",
+          "EgwKCFRFTEVQT1JUEAQSDgoKQVRUQUNLX0FPRRAFEhYKEk1PVkVfV0lUSF9K",
+          "T1lTVElDSxAGEgsKB0FERF9CT1QQBxIPCgtBVVRPX0FUVEFDSxAIEhAKDEJB",
+          "U0lDX0FUVEFDSxAJEgsKB1NLSUxMXzEQCipNCglEaXJlY3Rpb24SGQoVRElS",
+          "RUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVG",
+          "VBADEgkKBVJJR0hUEAQqZQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABIN",
+          "CglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5H",
+          "X1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAEKo8BCg5Mb2JieUV2ZW50VHlw",
+          "ZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExB",
+          "WUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5U",
+          "EAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqHAoOUHJv",
+          "amVjdGlsZVR5cGUSCgoGQlVMTEVUEAAqLAoQUHJvamVjdGlsZVN0YXR1cxIK",
+          "CgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "BasicCooldownLeft", "FirstCooldownLeft", "SecondCooldownLeft", "UltimateCooldownLeft" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicCooldownLeft", "FirstCooldownLeft", "SecondCooldownLeft", "UltimateCooldownLeft" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
@@ -127,6 +128,7 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
+///- TELEPORT: the player instantly moves to a non-contiguous position 
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
@@ -137,6 +139,7 @@ public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
   [pbr::OriginalName("MOVE")] Move = 1,
   [pbr::OriginalName("ATTACK")] Attack = 2,
+  [pbr::OriginalName("TELEPORT")] Teleport = 4,
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
   [pbr::OriginalName("ADD_BOT")] AddBot = 7,
@@ -166,6 +169,7 @@ public enum PlayerAction {
   [pbr::OriginalName("ATTACKING")] Attacking = 1,
   [pbr::OriginalName("ATTACKING_AOE")] AttackingAoe = 2,
   [pbr::OriginalName("EXECUTING_SKILL_1")] ExecutingSkill1 = 3,
+  [pbr::OriginalName("TELEPORTING")] Teleporting = 4,
 }
 
 /// <summary>
@@ -669,6 +673,7 @@ public sealed partial class Player : pb::IMessage<Player>
     aoePosition_ = other.aoePosition_ != null ? other.aoePosition_.Clone() : null;
     killCount_ = other.killCount_;
     deathCount_ = other.deathCount_;
+    teleportPosition_ = other.teleportPosition_ != null ? other.teleportPosition_.Clone() : null;
     basicCooldownLeft_ = other.basicCooldownLeft_;
     firstCooldownLeft_ = other.firstCooldownLeft_;
     secondCooldownLeft_ = other.secondCooldownLeft_;
@@ -793,8 +798,20 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
+  /// <summary>Field number for the "teleport_position" field.</summary>
+  public const int TeleportPositionFieldNumber = 11;
+  private global::Position teleportPosition_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Position TeleportPosition {
+    get { return teleportPosition_; }
+    set {
+      teleportPosition_ = value;
+    }
+  }
+
   /// <summary>Field number for the "basic_cooldown_left" field.</summary>
-  public const int BasicCooldownLeftFieldNumber = 10;
+  public const int BasicCooldownLeftFieldNumber = 12;
   private ulong basicCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -806,7 +823,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "first_cooldown_left" field.</summary>
-  public const int FirstCooldownLeftFieldNumber = 11;
+  public const int FirstCooldownLeftFieldNumber = 13;
   private ulong firstCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -818,7 +835,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "second_cooldown_left" field.</summary>
-  public const int SecondCooldownLeftFieldNumber = 12;
+  public const int SecondCooldownLeftFieldNumber = 14;
   private ulong secondCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -830,7 +847,7 @@ public sealed partial class Player : pb::IMessage<Player>
   }
 
   /// <summary>Field number for the "ultimate_cooldown_left" field.</summary>
-  public const int UltimateCooldownLeftFieldNumber = 13;
+  public const int UltimateCooldownLeftFieldNumber = 15;
   private ulong ultimateCooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -865,6 +882,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (!object.Equals(AoePosition, other.AoePosition)) return false;
     if (KillCount != other.KillCount) return false;
     if (DeathCount != other.DeathCount) return false;
+    if (!object.Equals(TeleportPosition, other.TeleportPosition)) return false;
     if (BasicCooldownLeft != other.BasicCooldownLeft) return false;
     if (FirstCooldownLeft != other.FirstCooldownLeft) return false;
     if (SecondCooldownLeft != other.SecondCooldownLeft) return false;
@@ -885,6 +903,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (aoePosition_ != null) hash ^= AoePosition.GetHashCode();
     if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
+    if (teleportPosition_ != null) hash ^= TeleportPosition.GetHashCode();
     if (BasicCooldownLeft != 0UL) hash ^= BasicCooldownLeft.GetHashCode();
     if (FirstCooldownLeft != 0UL) hash ^= FirstCooldownLeft.GetHashCode();
     if (SecondCooldownLeft != 0UL) hash ^= SecondCooldownLeft.GetHashCode();
@@ -943,20 +962,24 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (teleportPosition_ != null) {
+      output.WriteRawTag(90);
+      output.WriteMessage(TeleportPosition);
+    }
     if (BasicCooldownLeft != 0UL) {
-      output.WriteRawTag(80);
+      output.WriteRawTag(96);
       output.WriteUInt64(BasicCooldownLeft);
     }
     if (FirstCooldownLeft != 0UL) {
-      output.WriteRawTag(88);
+      output.WriteRawTag(104);
       output.WriteUInt64(FirstCooldownLeft);
     }
     if (SecondCooldownLeft != 0UL) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(112);
       output.WriteUInt64(SecondCooldownLeft);
     }
     if (UltimateCooldownLeft != 0UL) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(120);
       output.WriteUInt64(UltimateCooldownLeft);
     }
     if (_unknownFields != null) {
@@ -1005,20 +1028,24 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (teleportPosition_ != null) {
+      output.WriteRawTag(90);
+      output.WriteMessage(TeleportPosition);
+    }
     if (BasicCooldownLeft != 0UL) {
-      output.WriteRawTag(80);
+      output.WriteRawTag(96);
       output.WriteUInt64(BasicCooldownLeft);
     }
     if (FirstCooldownLeft != 0UL) {
-      output.WriteRawTag(88);
+      output.WriteRawTag(104);
       output.WriteUInt64(FirstCooldownLeft);
     }
     if (SecondCooldownLeft != 0UL) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(112);
       output.WriteUInt64(SecondCooldownLeft);
     }
     if (UltimateCooldownLeft != 0UL) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(120);
       output.WriteUInt64(UltimateCooldownLeft);
     }
     if (_unknownFields != null) {
@@ -1057,6 +1084,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (DeathCount != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DeathCount);
+    }
+    if (teleportPosition_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(TeleportPosition);
     }
     if (BasicCooldownLeft != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicCooldownLeft);
@@ -1114,6 +1144,12 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.DeathCount != 0UL) {
       DeathCount = other.DeathCount;
+    }
+    if (other.teleportPosition_ != null) {
+      if (teleportPosition_ == null) {
+        TeleportPosition = new global::Position();
+      }
+      TeleportPosition.MergeFrom(other.TeleportPosition);
     }
     if (other.BasicCooldownLeft != 0UL) {
       BasicCooldownLeft = other.BasicCooldownLeft;
@@ -1184,19 +1220,26 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
-        case 80: {
-          BasicCooldownLeft = input.ReadUInt64();
-          break;
-        }
-        case 88: {
-          FirstCooldownLeft = input.ReadUInt64();
+        case 90: {
+          if (teleportPosition_ == null) {
+            TeleportPosition = new global::Position();
+          }
+          input.ReadMessage(TeleportPosition);
           break;
         }
         case 96: {
-          SecondCooldownLeft = input.ReadUInt64();
+          BasicCooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
+          FirstCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 112: {
+          SecondCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 120: {
           UltimateCooldownLeft = input.ReadUInt64();
           break;
         }
@@ -1257,19 +1300,26 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
-        case 80: {
-          BasicCooldownLeft = input.ReadUInt64();
-          break;
-        }
-        case 88: {
-          FirstCooldownLeft = input.ReadUInt64();
+        case 90: {
+          if (teleportPosition_ == null) {
+            TeleportPosition = new global::Position();
+          }
+          input.ReadMessage(TeleportPosition);
           break;
         }
         case 96: {
-          SecondCooldownLeft = input.ReadUInt64();
+          BasicCooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
+          FirstCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 112: {
+          SecondCooldownLeft = input.ReadUInt64();
+          break;
+        }
+        case 120: {
           UltimateCooldownLeft = input.ReadUInt64();
           break;
         }

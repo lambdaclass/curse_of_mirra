@@ -49,6 +49,7 @@ pub enum PlayerAction {
     ATTACKING,
     ATTACKINGAOE,
     EXECUTINGSKILL1,
+    TELEPORTING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]

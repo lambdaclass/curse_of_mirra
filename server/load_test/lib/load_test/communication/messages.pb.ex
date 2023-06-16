@@ -29,6 +29,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ACTION_UNSPECIFIED, 0)
   field(:MOVE, 1)
   field(:ATTACK, 2)
+  field(:TELEPORT, 4)
   field(:ATTACK_AOE, 5)
   field(:MOVE_WITH_JOYSTICK, 6)
   field(:ADD_BOT, 7)
@@ -58,6 +59,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
   field(:EXECUTING_SKILL_1, 3)
+  field(:TELEPORTING, 4)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -119,10 +121,16 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
   field(:kill_count, 8, type: :uint64, json_name: "killCount")
   field(:death_count, 9, type: :uint64, json_name: "deathCount")
-  field(:basic_cooldown_left, 10, type: :uint64, json_name: "basicCooldownLeft")
-  field(:first_cooldown_left, 11, type: :uint64, json_name: "firstCooldownLeft")
-  field(:second_cooldown_left, 12, type: :uint64, json_name: "secondCooldownLeft")
-  field(:ultimate_cooldown_left, 13, type: :uint64, json_name: "ultimateCooldownLeft")
+
+  field(:teleport_position, 11,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "teleportPosition"
+  )
+
+  field(:basic_cooldown_left, 12, type: :uint64, json_name: "basicCooldownLeft")
+  field(:first_cooldown_left, 13, type: :uint64, json_name: "firstCooldownLeft")
+  field(:second_cooldown_left, 14, type: :uint64, json_name: "secondCooldownLeft")
+  field(:ultimate_cooldown_left, 15, type: :uint64, json_name: "ultimateCooldownLeft")
 end
 
 defmodule LoadTest.Communication.Proto.Position do

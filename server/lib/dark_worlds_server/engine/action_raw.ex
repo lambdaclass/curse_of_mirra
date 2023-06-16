@@ -22,6 +22,7 @@ defmodule DarkWorldsServer.Engine.ActionRaw do
   end
 
   def encode_action("move"), do: {:ok, :move}
+  def encode_action("teleport"), do: {:ok, :teleport}
   def encode_action("attack"), do: {:ok, :attack}
   def encode_action("attack_aoe"), do: {:ok, :attack_aoe}
   def encode_action("basic_attack"), do: {:ok, :basic_attack}

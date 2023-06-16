@@ -148,6 +148,21 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
+        {:play, player_id, %ActionOk{action: :teleport, value: position_transform}},
+        %{next_state: %{game: game} = next_state} = state
+      ) do
+    game =
+      game
+      |> Game.move_player_to_coordinates(player_id, position_transform)
+
+    next_state = Map.put(next_state, :game, game)
+
+    state = Map.put(state, :next_state, next_state)
+
+    {:noreply, state}
+  end
+
+  def handle_cast(
         {:play, player, %ActionOk{action: :attack, value: value}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
