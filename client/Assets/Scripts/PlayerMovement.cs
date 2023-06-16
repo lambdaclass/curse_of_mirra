@@ -127,18 +127,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    GameObject GetPlayer(int id)
-    {
-        return SocketConnectionManager.Instance.players.Find(
-            el => el.GetComponent<Character>().PlayerID == id.ToString()
-        );
-    }
-
     void ExecutePlayerAction()
     {
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
-            GameObject player = GetPlayer(playerUpdate.playerId);
+            GameObject player = Utils.GetPlayer(playerUpdate.playerId);
             movePlayer(player, playerUpdate);
         }
 
@@ -305,7 +298,9 @@ public class PlayerMovement : MonoBehaviour
             if (playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Teleporting)
             {
                 player.transform.position = playerUpdate.playerPosition;
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = playerUpdate.playerPosition;
+                if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId) {
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = playerUpdate.playerPosition;
+                }
             }
             else
             {
@@ -352,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
         showServerGhost = !showServerGhost;
         if (serverGhost == null && showServerGhost)
         {
-            GameObject player = GetPlayer(SocketConnectionManager.Instance.playerId);
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
             serverGhost.GetComponent<Character>().name = "Server Ghost";
             serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;

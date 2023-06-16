@@ -148,7 +148,7 @@ public class PlayerControls : MonoBehaviour
         else
         {
             // Uma
-            characterSpeed = 4f;
+            characterSpeed = 5f;
         }
 
         return characterSpeed;
