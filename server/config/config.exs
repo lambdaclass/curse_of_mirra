@@ -80,3 +80,12 @@ case Mix.env() do
   env when env in [:dev, :prod, :test] ->
     import_config "#{config_env()}.exs"
 end
+
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
