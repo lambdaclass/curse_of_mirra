@@ -102,36 +102,36 @@ impl Character {
             status_effects: HashMap::new(),
         })
     }
-    pub fn attack_dmg_basic_skill(&self) -> u64 {
+    pub fn attack_dmg_basic_skill(&self) -> u32 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 30_u64,
-            BasicSkill::Backstab => 10_u64,
+            BasicSkill::Slingshot => 10_u32,
+            BasicSkill::Bash => 30_u32,
+            BasicSkill::Backstab => 10_u32,
         }
     }
-    pub fn attack_dmg_first_active(&self) -> u64 {
+    pub fn attack_dmg_first_active(&self) -> u32 {
         match self.skill_active_first {
-            FirstActive::BarrelRoll => 10_u64,
-            FirstActive::SerpentStrike => 30_u64,
-            FirstActive::MultiShot => 10_u64,
+            FirstActive::BarrelRoll => 10_u32,
+            FirstActive::SerpentStrike => 30_u32,
+            FirstActive::MultiShot => 10_u32,
         }
     }
-    pub fn attack_dmg_second_active(&self) -> u64 {
+    pub fn attack_dmg_second_active(&self) -> u32 {
         match self.skill_active_second {
-            SecondActive::Rage => 10_u64,
-            SecondActive::Petrify => 30_u64,
-            SecondActive::MirrorImage => 10_u64,
-            SecondActive::Disarm => 5_u64,
+            SecondActive::Rage => 10_u32,
+            SecondActive::Petrify => 30_u32,
+            SecondActive::MirrorImage => 10_u32,
+            SecondActive::Disarm => 5_u32,
         }
     }
     #[inline]
-    pub fn attack_dmg(&self) -> u64 {
+    pub fn attack_dmg(&self) -> u32 {
         // TODO have a trait for this
         // instead of matching enums.
         match self.skill_basic {
-            BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 30_u64,
-            BasicSkill::Backstab => 10_u64,
+            BasicSkill::Slingshot => 10_u32,
+            BasicSkill::Bash => 30_u32,
+            BasicSkill::Backstab => 10_u32,
         }
     }
     pub fn cooldown_basic_skill(&self) -> u64 {

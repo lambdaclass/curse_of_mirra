@@ -108,15 +108,13 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &Self) -> bool {
-        let cooldown = self.character.cooldown();
-
+    pub fn can_attack(self: &Self, cooldown_left: u64) -> bool {
+        
         if matches!(self.status, Status::DEAD) {
             return false;
         }
 
-        let now = time_now();
-        if (now - self.last_melee_attack) < cooldown {
+        if cooldown_left > 0 {
             return false;
         }
 
