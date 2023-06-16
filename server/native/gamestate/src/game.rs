@@ -515,7 +515,11 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(&mut self.board, players, &attacking_player)
             }
-            _ => Self::move_player_to_coordinates(&mut self.board, attacking_player, direction),
+            _ => {
+                let mut attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::leap(&mut self.board, &mut attacking_player, direction, players)
+            }
         }
     }
 
@@ -592,6 +596,17 @@ impl GameState {
                 _ => continue,
             }
         }
+        Ok(())
+    }
+
+    pub fn leap(
+        board: &mut Board,
+        attacking_player: &mut Player,
+        direction: &RelativePosition,
+        players: &mut Vec<Player>,
+    ) -> Result<(), String> {
+        Self::move_player_to_coordinates(board, attacking_player, direction);
+        Self::muflus_skill_1(board,players, attacking_player);
         Ok(())
     }
 
