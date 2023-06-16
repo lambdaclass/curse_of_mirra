@@ -10,7 +10,11 @@ defmodule DarkWorldsServer.Engine.Player do
     :action,
     :aoe_position,
     :kill_count,
-    :death_count
+    :death_count,
+    :basic_cooldown_left,
+    :first_cooldown_left,
+    :second_cooldown_left,
+    :ultimate_cooldown_left
   ]
   defstruct [
     :id,
@@ -24,7 +28,7 @@ defmodule DarkWorldsServer.Engine.Player do
     :death_count,
     :basic_cooldown_left,
     :first_cooldown_left,
-    :second_cooldown_lef,
+    :second_cooldown_left,
     :ultimate_cooldown_left
   ]
 end

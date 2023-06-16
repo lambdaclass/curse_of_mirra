@@ -72,7 +72,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
-    %{
+    %EnginePlayer{
       id: id,
       health: health,
       position: position,
@@ -181,7 +181,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_cooldown_left: b_cooldown,
+      first_cooldown_left: f_cooldown,
+      second_cooldown_left: s_cooldown,
+      ultimate_cooldown_left: u_cooldown
     } = player
 
     %EnginePlayer{
@@ -193,7 +197,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
-      death_count: death_count
+      death_count: death_count,
+      basic_cooldown_left: b_cooldown,
+      first_cooldown_left: f_cooldown,
+      second_cooldown_left: s_cooldown,
+      ultimate_cooldown_left: u_cooldown
     }
   end
 
