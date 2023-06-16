@@ -8,6 +8,7 @@ using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -148,6 +149,10 @@ public class SocketConnectionManager : MonoBehaviour
                     break;
                 case GameEventType.SelectedCharacterUpdate:
                     this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
+                    break;
+                case GameEventType.FinishCharacterSelection:
+                    this.gamePlayers = game_event.Players.ToList();
+                    SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
                     print("Message received is: " + game_event.Type);

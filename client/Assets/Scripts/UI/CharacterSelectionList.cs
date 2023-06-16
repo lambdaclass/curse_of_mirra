@@ -43,32 +43,30 @@ public class CharacterSelectionList : MonoBehaviour
   {
     GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
     PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
-    PlayerCharacter playerCharacter = GetPlayerCharacter(id);
+    string character = GetPlayerCharacter(id);
     
     if (id == 1)
     {
-      playerI.playerText.text += $"{id.ToString()} {playerCharacter.CharacterName} HOST";
+      playerI.playerText.text += $"{id.ToString()} {character} HOST";
     }
     else
     {
       if (SocketConnectionManager.Instance.playerId == id)
       {
-      playerI.playerText.text += $"{id.ToString()} {playerCharacter.CharacterName} YOU";
+      playerI.playerText.text += $"{id.ToString()} {character} YOU";
       }
       else
       {
-      playerI.playerText.text += $"{id.ToString()} {playerCharacter.CharacterName}";
+      playerI.playerText.text += $"{id.ToString()} {character}";
       }
     }
 
     return newPlayer;
   }
 
-  PlayerCharacter GetPlayerCharacter(int id)
+  string GetPlayerCharacter(int id)
   {
-    return SocketConnectionManager.Instance.selectedCharacters.Find(
-        el => (int) el.PlayerId == id
-    );
+    return SocketConnectionManager.Instance.selectedCharacters[(ulong)id];
   }
 
 }
