@@ -211,8 +211,6 @@ public class PlayerMovement : MonoBehaviour
 
             Health healthComponent = player.GetComponent<Health>();
             float auxHealth = healthComponent.CurrentHealth;
-            print(auxHealth + "AUXHEALTH");
-            print(playerUpdate.health + "HEALTH");
             if (auxHealth != playerUpdate.health && SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
             {
                 healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
@@ -232,6 +230,10 @@ public class PlayerMovement : MonoBehaviour
             //if dead remove the player from the scene
             if (healthComponent.CurrentHealth <= 0)
             {
+                if (SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
+                {
+                    healthComponent.Kill();
+                }
                 healthComponent.Model.gameObject.SetActive(false);
             }
             if (healthComponent.CurrentHealth == 100)
