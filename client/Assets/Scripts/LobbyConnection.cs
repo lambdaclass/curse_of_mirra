@@ -22,6 +22,8 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public ServerGameSettings serverSettings;
 
+    public bool gameStarted = false;
+
     WebSocket ws;
 
     [Serializable]
@@ -260,6 +262,7 @@ public class LobbyConnection : MonoBehaviour
                     GameSession = lobby_event.GameId;
                     serverSettings = lobby_event.GameConfig;
                     serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    gameStarted = true;
                     break;
 
                 default:
