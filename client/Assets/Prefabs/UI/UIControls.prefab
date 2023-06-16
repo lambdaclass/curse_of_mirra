@@ -117,8 +117,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -187,6 +187,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &1035504164137750736
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,8 +305,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -374,6 +375,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &1589158110181243685
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +582,7 @@ GameObject:
   - component: {fileID: 2864256522706112903}
   - component: {fileID: 867670502396954879}
   m_Layer: 0
-  m_Name: MainAttack
+  m_Name: AttackBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,8 +684,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -815,8 +817,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -885,6 +887,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &7165471737723322715
 GameObject:
   m_ObjectHideFlags: 0

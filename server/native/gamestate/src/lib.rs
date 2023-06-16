@@ -5,12 +5,13 @@ pub mod player;
 pub mod projectile;
 pub mod skills;
 pub mod time_utils;
-use crate::player::Player;
-use crate::player::Position;
-use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
+
+use crate::player::Player;
+use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
+
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
     number_of_players: u64,
@@ -46,17 +47,6 @@ fn new_game(
 fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameState {
     let mut game_2 = game;
     game_2.move_player(player_id, direction);
-    game_2
-}
-
-#[rustler::nif(schedule = "DirtyCpu")]
-fn move_player_to_coordinates(
-    game: GameState,
-    player_id: u64,
-    new_position: Position,
-) -> GameState {
-    let mut game_2 = game;
-    game_2.move_player_to_coordinates(player_id, new_position);
     game_2
 }
 

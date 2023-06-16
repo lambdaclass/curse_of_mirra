@@ -34,6 +34,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:ADD_BOT, 7)
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
+  field(:TELEPORT, 10)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -56,6 +57,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
+  field(:TELEPORTING, 4)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -117,6 +119,11 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
   field(:kill_count, 8, type: :uint64, json_name: "killCount")
   field(:death_count, 9, type: :uint64, json_name: "deathCount")
+
+  field(:teleport_position, 10,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "teleportPosition"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.Position do
