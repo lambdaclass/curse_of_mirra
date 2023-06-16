@@ -275,7 +275,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
-   
+
     insert_leaderboard_stats(gen_server_state)
 
     {:noreply, Map.put(gen_server_state, :game_state, :game_finished)}
@@ -454,11 +454,11 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp insert_leaderboard_stats(gen_server_state) do
     for player <- gen_server_state.server_game_state.game.players do
-      params = 
+      params =
       %{
-        kills: player.kill_count
-        deaths: player.death_count
-        lobby_id:  "algo"
+        kills: player.kill_count,
+        deaths: player.death_count,
+        lobby_id:  "algo",
         user_id: player.id
       }
 
