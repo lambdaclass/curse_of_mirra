@@ -453,16 +453,19 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp insert_leaderboard_stats(gen_server_state) do
+  IO.inspect("Actualizar stats")
     for player <- gen_server_state.server_game_state.game.players do
       params =
       %{
         kills: player.kill_count,
         deaths: player.death_count,
-        lobby_id:  "algo"
+        lobby_id:  Communication.pid_to_external_id(self()),
+        user_id: player.id
       }
 
       Leaderboard.changeset(%Leaderboard{}, params)
       |> DarkWorldsServer.Repo.insert!()
+      |> IO.inspect(label: "Insertar stats")
     end
   end
 end
