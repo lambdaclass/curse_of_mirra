@@ -8,8 +8,15 @@ defmodule DarkWorldsServer.Accounts.User do
     field(:hashed_password, :string, redact: true)
     field(:confirmed_at, :naive_datetime)
     field(:username, :string)
+    field(:google_token, :string)
 
     timestamps()
+  end
+
+  def google_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:email, :google_token])
+    |> validate_required([:email, :google_token])
   end
 
   @doc """
