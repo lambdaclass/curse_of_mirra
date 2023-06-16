@@ -1079,6 +1079,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
+      propertyPath: DisabledColor.b
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledChangeColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867670502396954879, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1091,6 +1111,26 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 914792814985013351, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.b
+      value: 0.2924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 914792814985013351, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.g
+      value: 0.2924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 914792814985013351, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.r
+      value: 0.2924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 914792814985013351, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledChangeColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
@@ -1106,6 +1146,26 @@ PrefabInstance:
         type: 3}
       propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMovement
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730262192872632724, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.b
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730262192872632724, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730262192872632724, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730262192872632724, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledChangeColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2935097580456651424, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
@@ -1232,6 +1292,26 @@ PrefabInstance:
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
+    - target: {fileID: 5616359018244511380, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.b
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616359018244511380, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616359018244511380, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledColor.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616359018244511380, guid: c2607203b179b4f508743c9dfa24edff,
+        type: 3}
+      propertyPath: DisabledChangeColor
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
@@ -1984,6 +2064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystickL: {fileID: 620904635}
+  InputManager: {fileID: 2053005125}
   showServerGhost: 0
   useClientPrediction: 0
   serverGhost: {fileID: 0}
@@ -3757,6 +3838,7 @@ MonoBehaviour:
   Skill2: {fileID: 620904637}
   Skill3: {fileID: 620904636}
   Skill4: {fileID: 0}
+  TestFont: {fileID: 12800000, guid: 6fe5fd70f311c428a9d0e3090df1a857, type: 3}
 --- !u!1 &2099158875
 GameObject:
   m_ObjectHideFlags: 0
