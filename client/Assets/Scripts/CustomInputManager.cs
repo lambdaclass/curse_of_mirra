@@ -99,8 +99,7 @@ public class CustomInputManager : InputManager
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         //Load the prefab
         areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
         //Set the prefav as a player child
@@ -120,8 +119,7 @@ public class CustomInputManager : InputManager
 
     public void AimAoeSkill(Vector2 aoePosition)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         //Multiply vector values according to the scale of the animation (in this case 12)
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
@@ -129,8 +127,7 @@ public class CustomInputManager : InputManager
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         //Destroy attack animation after showing it
         Destroy(areaWithAim, 2.1f);
@@ -163,8 +160,7 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
         //Set the prefav as a player child

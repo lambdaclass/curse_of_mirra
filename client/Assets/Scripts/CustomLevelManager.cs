@@ -106,6 +106,11 @@ public class CustomLevelManager : LevelManager
                 Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
                 Quaternion.identity
             );
+            if (SocketConnectionManager.Instance.playerId == i + 1) {
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position);
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
+            }
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
