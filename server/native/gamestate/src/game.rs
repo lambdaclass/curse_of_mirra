@@ -298,6 +298,7 @@ impl GameState {
         attacking_player.basic_skill_cooldown_start = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
+
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
                 &attacking_player,
@@ -557,19 +558,16 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
+         if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
+        attacking_player.second_skill_cooldown_start = now;
+        attacking_player.second_skill_cooldown_left =
+            attacking_player.character.cooldown_basic_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
