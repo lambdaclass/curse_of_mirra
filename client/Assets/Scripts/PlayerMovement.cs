@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
                     walking = true;
                 }
 
-                
+
             }
             mAnimator.SetBool("Walking", walking);
 
