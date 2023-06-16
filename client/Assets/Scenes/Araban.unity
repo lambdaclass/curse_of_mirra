@@ -498,7 +498,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4129,6 +4129,7 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
+  quickMapPrefab: {fileID: 0}
   roundSplash: {fileID: 0}
   roundText: {fileID: 0}
   backToLobbyButton: {fileID: 0}
@@ -6416,6 +6417,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
+  mapList: {fileID: 0}
 --- !u!1001 &2031021706
 PrefabInstance:
   m_ObjectHideFlags: 0
