@@ -17,17 +17,28 @@ public class PlayerMovement : MonoBehaviour
     public Direction nextAttackDirection;
     public bool isAttacking = false;
 
+    public struct PlayerUpdate
+    {
+        public Vector3 playerPosition;
+        public int playerId;
+        public long health;
+        public PlayerAction action;
+        public Vector3 aoeCenterPosition;
+    }
+
+    public enum PlayerAction
+    {
+        Nothing = 0,
+        Attacking = 1,
+        AttackingAOE = 2,
+        MainAttack = 3,
+        Teleporting = 4,
+    }
+
     public enum ProyectileStatus
     {
         Active = 0,
         Exploded = 1,
-    }
-
-    Vector3 backPositionToFrontPosition(Position position)
-    {
-        var x = (long)position.Y / 10f - 50.0f;
-        var y = (-((long)position.X)) / 10f + 50.0f;
-        return new Vector3(x, 1f, y);
     }
 
     void Start()
@@ -270,10 +281,10 @@ public class PlayerMovement : MonoBehaviour
         */
         var characterSpeed = PlayerControls.getCharacterSpeed(playerUpdate.playerId) / 10f;
 
-        // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
-        // it'll be changed.
-        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-        float velocity = tickRate * characterSpeed;
+         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
+         // it'll be changed.
+         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+         float velocity = tickRate * characterSpeed;
 
         float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
         float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
@@ -286,31 +297,34 @@ public class PlayerMovement : MonoBehaviour
         characterOrientation.ForcedRotation = true;
 
         bool walking = false;
+
         if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-
-            Vector3 newPosition =
+            if (playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Teleporting)
+            {
+                player.transform.position = playerUpdate.playerPosition;
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = playerUpdate.playerPosition;
+            }
+            else
+            {
+                Vector3 newPosition =
                 player.transform.position + movementDirection * velocity * Time.deltaTime;
-            player.transform.position = newPosition;
-            characterOrientation.ForcedRotationDirection = movementDirection;
-
-            walking = true;
+                player.transform.position = newPosition;
+                characterOrientation.ForcedRotationDirection = movementDirection;
+                walking = true;
+            }
+            
         }
         mAnimator.SetBool("Walking", walking);
-
-        if (player.GetComponent<Character>().name == "Server Ghost")
-        {
-            return;
-        }
 
         Health healthComponent = player.GetComponent<Health>();
         healthComponent.SetHealth(playerUpdate.health);
 
-        bool isAttacking = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
-        player.GetComponent<AttackController>().SwordAttack(isAttacking);
-        if (isAttacking)
+        bool isAttackingAttack = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
+        player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
+        if (isAttackingAttack)
         {
             print(player.name + "attack");
         }
@@ -325,7 +339,9 @@ public class PlayerMovement : MonoBehaviour
             healthComponent.Model.gameObject.SetActive(true);
         }
         bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
-        if (isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1)))
+        if (
+            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
+        )
         {
             // FIXME: add logic
         }

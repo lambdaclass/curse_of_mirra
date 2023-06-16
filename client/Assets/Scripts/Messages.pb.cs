@@ -27,65 +27,66 @@ public static partial class MessagesReflection {
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
           "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQSEQoJdGlt",
-          "ZXN0YW1wGAggASgDIt4BCgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRo",
+          "ZXN0YW1wGAggASgDIoQCCgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRo",
           "GAIgASgSEhsKCHBvc2l0aW9uGAMgASgLMgkuUG9zaXRpb24SGQoRbGFzdF9t",
           "ZWxlZV9hdHRhY2sYBCABKAQSFwoGc3RhdHVzGAUgASgOMgcuU3RhdHVzEh0K",
           "BmFjdGlvbhgGIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9zaXRpb24Y",
           "ByABKAsyCS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAggASgEEhMKC2RlYXRo",
-          "X2NvdW50GAkgASgEIiAKCFBvc2l0aW9uEgkKAXgYASABKAQSCQoBeRgCIAEo",
-          "BCIoChBSZWxhdGl2ZVBvc2l0aW9uEgkKAXgYASABKAMSCQoBeRgCIAEoAyKg",
-          "AQoMQ2xpZW50QWN0aW9uEhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglk",
-          "aXJlY3Rpb24YAiABKA4yCi5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsy",
-          "ES5SZWxhdGl2ZVBvc2l0aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lz",
-          "dGlja1ZhbHVlcxIOCgZ0YXJnZXQYBSABKBIiJgoOSm95c3RpY2tWYWx1ZXMS",
-          "CQoBeBgBIAEoAhIJCgF5GAIgASgCIuYBCgpMb2JieUV2ZW50Eh0KBHR5cGUY",
-          "ASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9pZBgCIAEoCRIRCglw",
-          "bGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lkGAQgASgEEg8KB2dh",
-          "bWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgEEg8KB3BsYXllcnMY",
-          "ByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQSKAoLZ2FtZV9jb25m",
-          "aWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoMUnVubmVyQ29uZmln",
-          "EgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiABKAQSFAoMYm9hcmRf",
-          "aGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgEIAEoBBIXCg9n",
-          "YW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZpZxIeCgpib2FyZF9z",
-          "aXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgC",
-          "IAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJQm9hcmRTaXplEg0K",
-          "BXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoTQ2hhcmFjdGVyQ29u",
-          "ZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJEg4KBkFjdGl2ZRgD",
-          "IAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUgASgJEhEKCUJhc2VT",
-          "cGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQKDFNraWxsQWN0aXZl",
-          "MRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJU2tpbGxEYXNoGAog",
-          "ASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hhcmFjdGVyQ29uZmln",
-          "EiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJTZXJ2",
-          "ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5l",
-          "ckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVy",
-          "Q29uZmlnIoACCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9u",
-          "GAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0aW9uGAMgASgLMg8uSm95c3Rp",
-          "Y2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJcGxh",
-          "eWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdfdGlj",
-          "a3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVjdGls",
-          "ZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1cyqPAQoN",
-          "R2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFU",
-          "RRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoKTEFT",
-          "VF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lU",
-          "SU9OUxAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqbAQoGQWN0",
-          "aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRB",
-          "Q0sQAhIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAYS",
-          "CwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFTSUNfQVRUQUNL",
-          "EAkSCwoHU0tJTExfMRAKKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5T",
-          "UEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklH",
-          "SFQQBCpUCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lO",
-          "RxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRAD",
-          "Ko8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJ",
-          "Q09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVE",
-          "EAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlF",
-          "Ul9SRU1PVkVEEAYqHAoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAAqLAoQ",
-          "UHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZw",
-          "cm90bzM="));
+          "X2NvdW50GAkgASgEEiQKEXRlbGVwb3J0X3Bvc2l0aW9uGAogASgLMgkuUG9z",
+          "aXRpb24iIAoIUG9zaXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJl",
+          "bGF0aXZlUG9zaXRpb24SCQoBeBgBIAEoAxIJCgF5GAIgASgDIqABCgxDbGll",
+          "bnRBY3Rpb24SFwoGYWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlv",
+          "bhgCIAEoDjIKLkRpcmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0",
+          "aXZlUG9zaXRpb24SIwoKbW92ZV9kZWx0YRgEIAEoCzIPLkpveXN0aWNrVmFs",
+          "dWVzEg4KBnRhcmdldBgFIAEoEiImCg5Kb3lzdGlja1ZhbHVlcxIJCgF4GAEg",
+          "ASgCEgkKAXkYAiABKAIi5gEKCkxvYmJ5RXZlbnQSHQoEdHlwZRgBIAEoDjIP",
+          "LkxvYmJ5RXZlbnRUeXBlEhAKCGxvYmJ5X2lkGAIgASgJEhEKCXBsYXllcl9p",
+          "ZBgDIAEoBBIXCg9hZGRlZF9wbGF5ZXJfaWQYBCABKAQSDwoHZ2FtZV9pZBgF",
+          "IAEoCRIUCgxwbGF5ZXJfY291bnQYBiABKAQSDwoHcGxheWVycxgHIAMoBBIZ",
+          "ChFyZW1vdmVkX3BsYXllcl9pZBgIIAEoBBIoCgtnYW1lX2NvbmZpZxgJIAEo",
+          "CzITLlNlcnZlckdhbWVTZXR0aW5ncyJ8CgxSdW5uZXJDb25maWcSDAoETmFt",
+          "ZRgBIAEoCRITCgtib2FyZF93aWR0aBgCIAEoBBIUCgxib2FyZF9oZWlnaHQY",
+          "AyABKAQSGgoSc2VydmVyX3RpY2tyYXRlX21zGAQgASgEEhcKD2dhbWVfdGlt",
+          "ZW91dF9tcxgFIAEoBCJhCgpHYW1lQ29uZmlnEh4KCmJvYXJkX3NpemUYASAB",
+          "KAsyCi5Cb2FyZFNpemUSGgoSc2VydmVyX3RpY2tyYXRlX21zGAIgASgEEhcK",
+          "D2dhbWVfdGltZW91dF9tcxgDIAEoBCIqCglCb2FyZFNpemUSDQoFd2lkdGgY",
+          "ASABKAQSDgoGaGVpZ2h0GAIgASgEItwBChNDaGFyYWN0ZXJDb25maWdJdGVt",
+          "EgwKBE5hbWUYASABKAkSCgoCSWQYAiABKAkSDgoGQWN0aXZlGAMgASgJEg0K",
+          "BUNsYXNzGAQgASgJEg8KB0ZhY3Rpb24YBSABKAkSEQoJQmFzZVNwZWVkGAYg",
+          "ASgJEhIKClNraWxsQmFzaWMYByABKAkSFAoMU2tpbGxBY3RpdmUxGAggASgJ",
+          "EhQKDFNraWxsQWN0aXZlMhgJIAEoCRIRCglTa2lsbERhc2gYCiABKAkSFQoN",
+          "U2tpbGxVbHRpbWF0ZRgLIAEoCSI2Cg9DaGFyYWN0ZXJDb25maWcSIwoFSXRl",
+          "bXMYASADKAsyFC5DaGFyYWN0ZXJDb25maWdJdGVtImYKElNlcnZlckdhbWVT",
+          "ZXR0aW5ncxIkCg1ydW5uZXJfY29uZmlnGAEgASgLMg0uUnVubmVyQ29uZmln",
+          "EioKEGNoYXJhY3Rlcl9jb25maWcYAiABKAsyEC5DaGFyYWN0ZXJDb25maWci",
+          "gAIKClByb2plY3RpbGUSCgoCaWQYASABKAQSGwoIcG9zaXRpb24YAiABKAsy",
+          "CS5Qb3NpdGlvbhIiCglkaXJlY3Rpb24YAyABKAsyDy5Kb3lzdGlja1ZhbHVl",
+          "cxINCgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglwbGF5ZXJfaWQY",
+          "BiABKAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190aWNrcxgIIAEo",
+          "EhIoCg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxlVHlwZRIh",
+          "CgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzKo8BCg1HYW1lRXZl",
+          "bnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoN",
+          "UExBWUVSX0pPSU5FRBACEg4KCk5FWFRfUk9VTkQQAxIOCgpMQVNUX1JPVU5E",
+          "EAQSEQoNR0FNRV9GSU5JU0hFRBAFEhUKEUlOSVRJQUxfUE9TSVRJT05TEAYq",
+          "HQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBABKqkBCgZBY3Rpb24SFgoS",
+          "QUNUSU9OX1VOU1BFQ0lGSUVEEAASCAoETU9WRRABEgoKBkFUVEFDSxACEgwK",
+          "CFRFTEVQT1JUEAQSDgoKQVRUQUNLX0FPRRAFEhYKEk1PVkVfV0lUSF9KT1lT",
+          "VElDSxAGEgsKB0FERF9CT1QQBxIPCgtBVVRPX0FUVEFDSxAIEhAKDEJBU0lD",
+          "X0FUVEFDSxAJEgsKB1NLSUxMXzEQCipNCglEaXJlY3Rpb24SGQoVRElSRUNU",
+          "SU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVGVBAD",
+          "EgkKBVJJR0hUEAQqZQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglB",
+          "VFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzEQAxIPCgtURUxFUE9SVElORxAEKo8BCg5Mb2JieUV2ZW50VHlwZRIU",
+          "ChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVS",
+          "X0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQS",
+          "DgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqHAoOUHJvamVj",
+          "dGlsZVR5cGUSCgoGQlVMTEVUEAAqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZB",
+          "Q1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "Timestamp" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target" }, null, null, null, null),
@@ -130,6 +131,7 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
+///- TELEPORT: the player instantly moves to a non-contiguous position 
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
@@ -140,6 +142,7 @@ public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
   [pbr::OriginalName("MOVE")] Move = 1,
   [pbr::OriginalName("ATTACK")] Attack = 2,
+  [pbr::OriginalName("TELEPORT")] Teleport = 4,
   [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
   [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
   [pbr::OriginalName("ADD_BOT")] AddBot = 7,
@@ -169,6 +172,7 @@ public enum PlayerAction {
   [pbr::OriginalName("ATTACKING")] Attacking = 1,
   [pbr::OriginalName("ATTACKING_AOE")] AttackingAoe = 2,
   [pbr::OriginalName("EXECUTING_SKILL_1")] ExecutingSkill1 = 3,
+  [pbr::OriginalName("TELEPORTING")] Teleporting = 4,
 }
 
 /// <summary>
@@ -708,6 +712,7 @@ public sealed partial class Player : pb::IMessage<Player>
     aoePosition_ = other.aoePosition_ != null ? other.aoePosition_.Clone() : null;
     killCount_ = other.killCount_;
     deathCount_ = other.deathCount_;
+    teleportPosition_ = other.teleportPosition_ != null ? other.teleportPosition_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -828,6 +833,18 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
+  /// <summary>Field number for the "teleport_position" field.</summary>
+  public const int TeleportPositionFieldNumber = 10;
+  private global::Position teleportPosition_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Position TeleportPosition {
+    get { return teleportPosition_; }
+    set {
+      teleportPosition_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -852,6 +869,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (!object.Equals(AoePosition, other.AoePosition)) return false;
     if (KillCount != other.KillCount) return false;
     if (DeathCount != other.DeathCount) return false;
+    if (!object.Equals(TeleportPosition, other.TeleportPosition)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -868,6 +886,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (aoePosition_ != null) hash ^= AoePosition.GetHashCode();
     if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
+    if (teleportPosition_ != null) hash ^= TeleportPosition.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -922,6 +941,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (teleportPosition_ != null) {
+      output.WriteRawTag(82);
+      output.WriteMessage(TeleportPosition);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -968,6 +991,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(72);
       output.WriteUInt64(DeathCount);
     }
+    if (teleportPosition_ != null) {
+      output.WriteRawTag(82);
+      output.WriteMessage(TeleportPosition);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1004,6 +1031,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (DeathCount != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DeathCount);
+    }
+    if (teleportPosition_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(TeleportPosition);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1049,6 +1079,12 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.DeathCount != 0UL) {
       DeathCount = other.DeathCount;
+    }
+    if (other.teleportPosition_ != null) {
+      if (teleportPosition_ == null) {
+        TeleportPosition = new global::Position();
+      }
+      TeleportPosition.MergeFrom(other.TeleportPosition);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1107,6 +1143,13 @@ public sealed partial class Player : pb::IMessage<Player>
           DeathCount = input.ReadUInt64();
           break;
         }
+        case 82: {
+          if (teleportPosition_ == null) {
+            TeleportPosition = new global::Position();
+          }
+          input.ReadMessage(TeleportPosition);
+          break;
+        }
       }
     }
   #endif
@@ -1162,6 +1205,13 @@ public sealed partial class Player : pb::IMessage<Player>
         }
         case 72: {
           DeathCount = input.ReadUInt64();
+          break;
+        }
+        case 82: {
+          if (teleportPosition_ == null) {
+            TeleportPosition = new global::Position();
+          }
+          input.ReadMessage(TeleportPosition);
           break;
         }
       }

@@ -125,6 +125,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
   end
 
+  def encode(%EngineAction{action: :teleport, value: position}, ProtoAction) do
+    %ProtoAction{action: :TELEPORT, position: position}
+  end
+
   def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
     %ProtoAction{action: :ATTACK, direction: direction_encode(direction)}
   end
@@ -245,6 +249,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :add_bot, value: nil}
   end
 
+  def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
+    %EngineAction{action: :teleport, value: position}
+  end
+
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end
@@ -266,11 +274,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
+  defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
+  defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_decode(:BULLET), do: :bullet

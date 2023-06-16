@@ -10,6 +10,8 @@ public class EntityUpdates {
             Nothing = 0,
             Attacking = 1,
             AttackingAOE = 2,
+            EXECUTING_SKILL_1 = 3,
+            Teleporting = 4,
         }
 
         public Vector3 playerPosition;
