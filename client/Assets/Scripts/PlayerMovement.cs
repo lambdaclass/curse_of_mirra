@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
     public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
     public bool showServerGhost = false;
+    public bool useClientPrediction = true;
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
@@ -161,16 +162,18 @@ public class PlayerMovement : MonoBehaviour
                 timestamp = gameEvent.Timestamp,
             };
 
-            if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
-            {
-                serverUpdates.Enqueue(playerState);
-                SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
-            }
+            if (useClientPrediction) {
+                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
+                {
+                    serverUpdates.Enqueue(playerState);
+                    SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
+                }
 
-            if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
-            {
-                playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
-            }
+                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
+                {
+                    playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
+                }
+            }            
 
             playerUpdates.Enqueue(playerState);
 
@@ -344,8 +347,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void ToggleGhost()
     {
+        if (!useClientPrediction) {
+            return;
+        }
         showServerGhost = !showServerGhost;
-        if (serverGhost == null && showServerGhost)
+        if (showServerGhost)
         {
             GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
@@ -355,6 +361,17 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            Destroy(serverGhost);
+            serverGhost = null;
+        }
+    }
+
+    public void ToggleClientPrediction()
+    {
+        useClientPrediction = !useClientPrediction;
+        if (!useClientPrediction) {
+            showServerGhost = false;
             serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
             Destroy(serverGhost);
         }
