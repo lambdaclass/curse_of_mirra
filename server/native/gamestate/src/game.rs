@@ -184,16 +184,14 @@ impl GameState {
             x: new_position_x as usize,
             y: new_position_y as usize,
         };
-
-        attacking_player.position = new_position_coordinates;
-        attacking_player.action = PlayerAction::TELEPORTING;
-
         // Remove the player from their previous position on the board
         board.set_cell(
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Empty,
         );
+        attacking_player.position = new_position_coordinates;
+        attacking_player.action = PlayerAction::TELEPORTING;
 
         board.set_cell(
             attacking_player.position.x,
@@ -449,9 +447,8 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
                 let players = &mut self.players;
-                Self::muflus_skill_1(&mut self.board, players, &attacking_player)
+                Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
             }
             _ => Self::h4ck_skill_1(
                 &attacking_player,
@@ -504,10 +501,12 @@ impl GameState {
     pub fn muflus_skill_1(
         board: &mut Board,
         players: &mut Vec<Player>,
-        attacking_player: &Player,
+        attacking_player_id: u64,
     ) -> Result<(), String> {
         // TODO: This should be a config of the attack
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
+
         // TODO: This should be a config of the attack
         let attack_range = 20;
 
@@ -517,14 +516,14 @@ impl GameState {
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(board, top_left, bottom_right)
                 .into_iter()
-                .filter(|&id| id != attacking_player.id)
+                .filter(|&id| id != attacking_player_id)
                 .collect();
 
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = players
                 .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
 
             match attacked_player {
                 Some(ap) => {
@@ -535,6 +534,19 @@ impl GameState {
                 _ => continue,
             }
         }
+        Ok(())
+    }
+
+
+    pub fn leap(
+        board: &mut Board,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+        players: &mut Vec<Player>,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        Self::move_player_to_coordinates(board, attacking_player, direction)?;
+        Self::muflus_skill_1(board, players, attacking_player_id)?;
         Ok(())
     }
 
@@ -567,7 +579,8 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                Self::move_player_to_coordinates(&mut self.board, attacking_player, direction)
+                let id = attacking_player.id;
+                Self::leap(&mut self.board, id, direction, &mut self.players)
             }
             _ => Self::h4ck_skill_2(
                 &attacking_player,
