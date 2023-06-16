@@ -72,7 +72,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :selected_characters, 30)
     {:ok,
      %{
-       selected_characters: [],
+       selected_characters: %{},
        max_players: length(opts.players),
        current_players: 0,
        players: opts.players,
@@ -91,12 +91,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, _player, %ActionOk{action: :select_character, value: selected_character}},
+        {:play, _player, %ActionOk{action: :select_character, value: %{player_id: player_id, character_name: character_name}}},
         %{selected_characters: selected_characters} = gen_server_state
       ) do
 
-    {_, selected_character} = Map.pop(selected_character, :__unknown_fields__)
-    selected_characters = [selected_character | selected_characters]
+    selected_characters = Map.put(selected_characters, player_id, character_name)
 
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
@@ -290,7 +289,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         :selected_characters,
         %{selected_characters: selected_characters, max_players: max_players} = gen_server_state
       ) do
-    if length(selected_characters) == max_players do
+    if Enum.count(selected_characters) == max_players do
       Process.send_after(self(), :start_game, 30)
     else
       Process.send_after(self(), :selected_characters, 30)
@@ -301,7 +300,10 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:start_game, gen_server_state) do
     opts = gen_server_state.opts
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players)
+    selected_players =
+      gen_server_state.selected_characters
+
+    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
     Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
@@ -523,7 +525,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players) do
+  defp create_new_game(%{runner_config: rg, character_config: %{Items: character_info}}, players, selected_players) do
     character_info =
       for character <- character_info do
         Enum.reduce(character, %{}, fn
@@ -533,6 +535,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       end
 
     config = %{
+      selected_players: selected_players,
       number_of_players: players,
       board: {rg.board_width, rg.board_height},
       build_walls: @build_walls,

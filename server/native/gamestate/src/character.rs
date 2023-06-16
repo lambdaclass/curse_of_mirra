@@ -8,7 +8,7 @@ pub type TicksLeft = u64;
 pub enum Effect {
     Petrified,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,

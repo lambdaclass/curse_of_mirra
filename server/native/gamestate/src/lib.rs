@@ -8,12 +8,14 @@ pub mod time_utils;
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
+use std::str::FromStr;
 
 use crate::player::Player;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
+    selected_players: HashMap<u64, String>,
     number_of_players: u64,
     board_width: usize,
     board_height: usize,
@@ -34,7 +36,18 @@ fn new_game(
         }
         config.push(char);
     }
+
+    let mut selected_characters: HashMap<u64, character::Name> =
+        HashMap::<u64, character::Name>::new();
+
+    for (player_id, name) in selected_players {
+        let val = character::Name::from_str(&name)
+            .map_err(|_| format!("Can't parse the character name {name}"))?;
+        selected_characters.insert(player_id, val);
+    }
+
     GameState::new(
+        selected_characters,
         number_of_players,
         board_width,
         board_height,
