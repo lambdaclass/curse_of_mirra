@@ -2,6 +2,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Leaderboard
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
   require Logger
@@ -274,6 +275,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
+   
+    insert_leaderboard_stats(gen_server_state)
 
     {:noreply, Map.put(gen_server_state, :game_state, :game_finished)}
   end
@@ -423,6 +426,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, gen_server_state})
 
+    insert_leaderboard_stats(gen_server_state)
+
     Process.send_after(self(), :session_timeout, @session_timeout)
 
     {:noreply, gen_server_state}
@@ -445,5 +450,20 @@ defmodule DarkWorldsServer.Engine.Runner do
     }
 
     Game.new(config)
+  end
+
+  defp insert_leaderboard_stats(gen_server_state) do
+    for player <- gen_server_state.server_game_state.game.players do
+      params = 
+      %{
+        kills: player.kill_count
+        deaths: player.death_count
+        lobby_id:  "algo"
+        user_id: player.id
+      }
+
+      Leaderboard.changeset(%Leaderboard{}, params)
+      |> DarkWorldsServer.Repo.insert!()
+    end
   end
 end
