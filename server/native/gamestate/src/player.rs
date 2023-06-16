@@ -109,7 +109,6 @@ impl Player {
     /// - the character's effects
     ///
     pub fn can_attack(self: &Self, cooldown_left: u64) -> bool {
-        
         if matches!(self.status, Status::DEAD) {
             return false;
         }

@@ -4,7 +4,7 @@ use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status, self};
+use crate::player::{self, Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
@@ -298,7 +298,8 @@ impl GameState {
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
         attacking_player.basic_skill_cooldown_start = now;
-        attacking_player.basic_skill_cooldown_left = attacking_player.character.cooldown_basic_skill();
+        attacking_player.basic_skill_cooldown_left =
+            attacking_player.character.cooldown_basic_skill();
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
                 &attacking_player,
@@ -437,7 +438,8 @@ impl GameState {
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
         attacking_player.first_skill_start = now;
-        attacking_player.first_skill_cooldown_left = attacking_player.character.cooldown_first_skill();
+        attacking_player.first_skill_cooldown_left =
+            attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
