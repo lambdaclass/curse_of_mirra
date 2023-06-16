@@ -23,7 +23,7 @@ public class SocketConnectionManager : MonoBehaviour
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
     public List<Projectile> gameProjectiles;
-    private int playerId;
+    public int playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;

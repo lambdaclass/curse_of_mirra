@@ -213,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
             float auxHealth = healthComponent.CurrentHealth;
             print(auxHealth + "AUXHEALTH");
             print(playerUpdate.health + "HEALTH");
-            if (auxHealth != playerUpdate.health && player.GetComponent<Character>().PlayerID == playerUpdate.playerId.ToString())
+            if (auxHealth != playerUpdate.health && SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
             {
                 healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
             }
