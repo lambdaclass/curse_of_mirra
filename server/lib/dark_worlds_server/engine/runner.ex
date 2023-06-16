@@ -99,8 +99,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(_actions, %{game_state: :game_finished} = gen_server_state) do
-    insert_leaderboard_stats(gen_server_state)
-
     {:noreply, gen_server_state}
   end
 
@@ -423,6 +421,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
+    insert_leaderboard_stats(gen_server_state)
+
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, gen_server_state})
 
