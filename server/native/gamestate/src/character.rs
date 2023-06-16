@@ -7,6 +7,7 @@ pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
+    Disarmed,
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
@@ -101,50 +102,41 @@ impl Character {
             status_effects: HashMap::new(),
         })
     }
-    pub fn attack_dmg_basic_skill(&self) -> u64 {
+    pub fn attack_dmg_basic_skill(&self) -> u32 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 30_u64,
-            BasicSkill::Backstab => 10_u64,
+            BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
+            BasicSkill::Bash => 30_u32,      // Muflus basic attack damage
+            BasicSkill::Backstab => 10_u32,
         }
     }
-    pub fn attack_dmg_first_active(&self) -> u64 {
+    pub fn attack_dmg_first_active(&self) -> u32 {
         match self.skill_active_first {
-            FirstActive::BarrelRoll => 10_u64,
-            FirstActive::SerpentStrike => 30_u64,
-            FirstActive::MultiShot => 10_u64,
+            FirstActive::BarrelRoll => 50_u32,    // Muflus skill 1 damage
+            FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
+            FirstActive::MultiShot => 10_u32,
         }
     }
-    pub fn attack_dmg_second_active(&self) -> u64 {
+    pub fn attack_dmg_second_active(&self) -> u32 {
         match self.skill_active_second {
-            SecondActive::Rage => 10_u64,
-            SecondActive::Petrify => 30_u64,
-            SecondActive::MirrorImage => 10_u64,
-            SecondActive::Disarm => 5_u64,
+            SecondActive::Rage => 10_u32,
+            SecondActive::Petrify => 30_u32,
+            SecondActive::MirrorImage => 10_u32,
+            SecondActive::Disarm => 5_u32,
         }
     }
     #[inline]
-    pub fn attack_dmg(&self) -> u64 {
-        // TODO have a trait for this
-        // instead of matching enums.
-        match self.skill_basic {
-            BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 30_u64,
-            BasicSkill::Backstab => 10_u64,
-        }
-    }
     pub fn cooldown_basic_skill(&self) -> u64 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 10,
-            BasicSkill::Bash => 10,
+            BasicSkill::Slingshot => 10, // H4ck basic attack cooldown
+            BasicSkill::Bash => 10,      // Muflus basic attack cooldown
             BasicSkill::Backstab => 10,
         }
     }
     pub fn cooldown_first_skill(&self) -> u64 {
         match self.skill_active_first {
-            FirstActive::BarrelRoll => 5_u64,
+            FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
             FirstActive::SerpentStrike => 5_u64,
-            FirstActive::MultiShot => 5_u64,
+            FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
         }
     }
     pub fn cooldown_second_skill(&self) -> u64 {
@@ -180,9 +172,10 @@ impl Character {
     // There should be an extra logic to choose the aoe effect
     // An aoe effect can come from a skill 1, 2, etc.
     #[inline]
-    pub fn select_aoe_effect(&self) -> Option<(Effect, TicksLeft)> {
+    pub fn select_basic_skill_effect(&self) -> Option<(Effect, TicksLeft)> {
         match self.name {
             Name::Uma => Some((Effect::Petrified, 300)),
+            Name::H4ck => Some((Effect::Disarmed, 300)),
             _ => None,
         }
     }

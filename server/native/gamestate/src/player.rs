@@ -1,4 +1,4 @@
-use crate::character::Character;
+use crate::character::{Character, Effect};
 use crate::time_utils::time_now;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
@@ -100,6 +100,29 @@ impl Player {
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
+
+    ///
+    /// returns whether the player can do an attack, based on:
+    ///
+    /// - the player's status
+    /// - the character's cooldown
+    /// - the character's effects
+    ///
+    pub fn can_attack(self: &Self, cooldown_left: u64) -> bool {
+        if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        if cooldown_left > 0 {
+            return false;
+        }
+
+        match self.character.status_effects.get(&Effect::Disarmed) {
+            Some((1_u64..=u64::MAX)) => false,
+            None | Some(0) => true,
+        }
+    }
+
     // TODO:
     // I think cooldown duration should be measured
     // in ticks instead of seconds to ensure
