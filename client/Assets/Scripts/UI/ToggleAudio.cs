@@ -5,19 +5,20 @@ using UnityEngine.UI;
 public class ToggleAudio : MonoBehaviour
 {
     [SerializeField]
-    private Sprite mutedSprite;
+    public Sprite mutedSprite;
 
     [SerializeField]
-    private Sprite unmutedSprite;
+    public Sprite unmutedSprite;
+
     private Image muteButtonImage;
     AudioSource[] sources;
-    private bool isMuted;
+    private bool isMuted = false;
 
     void Awake()
     {
         sources = GameObject.FindObjectsOfType<AudioSource>();
         isMuted = false;
-        muteButtonImage = GetComponentInChildren<Image>();
+        muteButtonImage = GetComponent<Image>();
     }
 
     public void Toggle()
@@ -29,12 +30,12 @@ public class ToggleAudio : MonoBehaviour
             if (isMuted)
             {
                 audioSource.Pause();
-                muteButtonImage.sprite = mutedSprite;
+                muteButtonImage.overrideSprite = mutedSprite;
             }
             else
             {
                 audioSource.UnPause();
-                muteButtonImage.sprite = unmutedSprite;
+                muteButtonImage.overrideSprite = unmutedSprite;
             }
         }
     }
