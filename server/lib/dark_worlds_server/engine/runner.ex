@@ -276,8 +276,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
 
-    insert_leaderboard_stats(gen_server_state)
-
     {:noreply, Map.put(gen_server_state, :game_state, :game_finished)}
   end
 
@@ -354,6 +352,7 @@ defmodule DarkWorldsServer.Engine.Runner do
           :last_round
 
         (current_round == 2 && amount_of_winners == 1) || current_round == 3 ->
+          insert_leaderboard_stats(gen_server_state)
           :game_finished
 
         true ->
@@ -425,8 +424,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(Communication.pubsub_game_topic(self()), {:game_finished, winner, gen_server_state})
-
-    insert_leaderboard_stats(gen_server_state)
 
     Process.send_after(self(), :session_timeout, @session_timeout)
 
