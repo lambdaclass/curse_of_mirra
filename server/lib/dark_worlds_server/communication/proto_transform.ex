@@ -4,13 +4,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
-  alias DarkWorldsServer.Communication.Proto.PlayerCharacter
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
+  alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
-  alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.JoystickValues, as: EngineJoystickValues
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
@@ -20,8 +19,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @behaviour Protobuf.TransformModule
 
-  def encode(player_character, PlayerCharacter) do
-    player_character
+  def encode(entry, SelectedCharactersEntry) do
+    entry
   end
 
   def encode(runner_config, RunnerConfig) do

@@ -15,7 +15,7 @@ message GameEvent {
     uint64 player_joined_id = 5;
     Player winner_player = 6;
     uint64 current_round = 7;
-    repeated PlayerCharacter selected_characters = 8;
+    map<uint64, string> selected_characters = 8;
 }
 
 /* Type of game events

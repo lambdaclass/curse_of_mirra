@@ -95,6 +95,15 @@ defmodule LoadTest.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :string)
+end
+
 defmodule LoadTest.Communication.Proto.GameEvent do
   @moduledoc false
 
@@ -110,8 +119,9 @@ defmodule LoadTest.Communication.Proto.GameEvent do
 
   field(:selected_characters, 8,
     repeated: true,
-    type: LoadTest.Communication.Proto.PlayerCharacter,
-    json_name: "selectedCharacters"
+    type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
+    json_name: "selectedCharacters",
+    map: true
   )
 end
 
