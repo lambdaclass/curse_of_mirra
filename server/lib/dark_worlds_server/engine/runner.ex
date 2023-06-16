@@ -99,6 +99,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(_actions, %{game_state: :game_finished} = gen_server_state) do
+    insert_leaderboard_stats(gen_server_state)
+
     {:noreply, gen_server_state}
   end
 
@@ -352,7 +354,6 @@ defmodule DarkWorldsServer.Engine.Runner do
           :last_round
 
         (current_round == 2 && amount_of_winners == 1) || current_round == 3 ->
-          insert_leaderboard_stats(gen_server_state)
           :game_finished
 
         true ->
