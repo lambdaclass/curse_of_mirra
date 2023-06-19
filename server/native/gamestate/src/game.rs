@@ -3,7 +3,7 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
-use crate::character::{Character, Name, Effect};
+use crate::character::{Character, Effect, Name};
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
@@ -538,7 +538,6 @@ impl GameState {
         Ok(())
     }
 
-
     pub fn leap(
         board: &mut Board,
         attacking_player_id: u64,
@@ -558,7 +557,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-         if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
             return Ok(());
         }
 
@@ -683,21 +682,18 @@ impl GameState {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
-                        Ok(ap) => {
-                            match projectile.projectile_type {
-                                ProjectileType::DISARMINGBULLET => {
-                                    ap.character.add_effect(Effect::Disarmed.clone(), 300);
-                                }
-                                _ => {
-                                    ap.modify_health(-(projectile.damage as i64));
-                                    if matches!(ap.status, Status::DEAD) {
-                                        kill_count += 1;
-                                    }
-                                    GameState::modify_cell_if_player_died(&mut self.board, ap);
-                                }
-                                
+                        Ok(ap) => match projectile.projectile_type {
+                            ProjectileType::DISARMINGBULLET => {
+                                ap.character.add_effect(Effect::Disarmed.clone(), 300);
                             }
-                        }
+                            _ => {
+                                ap.modify_health(-(projectile.damage as i64));
+                                if matches!(ap.status, Status::DEAD) {
+                                    kill_count += 1;
+                                }
+                                GameState::modify_cell_if_player_died(&mut self.board, ap);
+                            }
+                        },
                         _ => continue,
                     }
                 }
