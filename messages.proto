@@ -44,7 +44,7 @@ enum GameEventType {
       seconds since unix epoch.
     - status: currently if alive or dead
     - aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
-    - {basic, first, second, ultimate}_cooldown_left: Time remaining in seconds until the cooldown is over.
+    - {basic, first, second, third, fourth}_cooldown_left: Time remaining in seconds until the cooldown is over.
     - character_name: Name of the player's character
  */
 message Player {
@@ -63,7 +63,8 @@ message Player {
     uint64 first_skill_cooldown_left = 12;
     uint64 second_skill_cooldown_left = 13;
     uint64 third_skill_cooldown_left = 14;
-    string character_name = 15;
+    uint64 fourth_skill_cooldown_left = 15;
+    string character_name = 16;
 }
 
 /*
@@ -116,7 +117,7 @@ message ClientAction {
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
     - AUTO_ATTACK: Player attacks nearest oponent, if in range.
-    - SKILL_1: Player skill 1.
+    - BASIC_ATTACK, SKILL_{1, 2, 3, 4}: Player skills.
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -130,6 +131,8 @@ enum Action {
     BASIC_ATTACK = 9;
     SKILL_1 = 10;
     SKILL_2 = 11;
+    SKILL_3 = 12;
+    SKILL_4 = 13;
 }
 
 /* Directions an action can happen in
@@ -158,6 +161,8 @@ enum PlayerAction {
     EXECUTING_SKILL_1 = 3;
     TELEPORTING = 4;
     EXECUTING_SKILL_2 = 5;
+    EXECUTING_SKILL_3 = 6;
+    EXECUTING_SKILL_4 = 7;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
@@ -281,4 +286,6 @@ message Projectile {
     sint64 remaining_ticks = 8;
     ProjectileType projectile_type = 9;
     ProjectileStatus status = 10;
+    uint64 last_attacked_player_id = 11;
+    bool pierce = 12;
 }

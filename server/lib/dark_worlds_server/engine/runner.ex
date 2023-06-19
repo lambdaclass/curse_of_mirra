@@ -186,6 +186,30 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
+        {:play, player_id, %ActionOk{action: :skill_3, value: value}},
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
+      ) do
+    {:ok, game} = Game.skill_3(game, player_id, value)
+
+    server_game_state = server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast(
+        {:play, player_id, %ActionOk{action: :skill_4, value: value}},
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
+      ) do
+    {:ok, game} = Game.skill_4(game, player_id, value)
+
+    server_game_state = server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast(
         {:play, player_id, %ActionOk{action: :basic_attack, value: value}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do

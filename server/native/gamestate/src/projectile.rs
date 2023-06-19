@@ -16,6 +16,8 @@ pub struct Projectile {
     pub remaining_ticks: TicksLeft,
     pub projectile_type: ProjectileType,
     pub status: ProjectileStatus,
+    pub last_attacked_player_id: u64,
+    pub pierce: bool,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -55,6 +57,8 @@ impl Projectile {
         remaining_ticks: TicksLeft,
         projectile_type: ProjectileType,
         status: ProjectileStatus,
+        last_attacked_player_id: u64,
+        pierce: bool,
     ) -> Self {
         Self {
             id,
@@ -67,6 +71,8 @@ impl Projectile {
             remaining_ticks,
             projectile_type,
             status,
+            last_attacked_player_id,
+            pierce,
         }
     }
 }

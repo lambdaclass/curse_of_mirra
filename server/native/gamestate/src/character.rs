@@ -8,6 +8,7 @@ pub type TicksLeft = u64;
 pub enum Effect {
     Petrified,
     Disarmed,
+    Piercing,
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
@@ -127,8 +128,8 @@ impl Character {
     #[inline]
     pub fn cooldown_basic_skill(&self) -> u64 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 1_u64,     // H4ck basic attack cooldown
-            BasicSkill::Bash => 1_u64,          // Muflus basic attack cooldown
+            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
+            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
             BasicSkill::Backstab => 1_u64,
         }
     }
@@ -146,6 +147,22 @@ impl Character {
             SecondActive::Petrify => 5_u64,
             SecondActive::Rage => 5_u64,
         }
+    }
+    pub fn cooldown_third_skill(&self) -> u64 {
+        // match self.skill_active_third {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
+    }
+    pub fn cooldown_fourth_skill(&self) -> u64 {
+        // match self.skill_active_fourth {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
     }
     // Cooldown in seconds
     #[inline]

@@ -37,6 +37,8 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
   field(:SKILL_2, 11)
+  field(:SKILL_3, 12)
+  field(:SKILL_4, 13)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -62,6 +64,8 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_1, 3)
   field(:TELEPORTING, 4)
   field(:EXECUTING_SKILL_2, 5)
+  field(:EXECUTING_SKILL_3, 6)
+  field(:EXECUTING_SKILL_4, 7)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -147,7 +151,8 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
   field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
   field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
-  field(:character_name, 15, type: :string, json_name: "characterName")
+  field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
+  field(:character_name, 16, type: :string, json_name: "characterName")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -336,6 +341,8 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
   )
 
   field(:status, 10, type: DarkWorldsServer.Communication.Proto.ProjectileStatus, enum: true)
+  field(:last_attacked_player_id, 11, type: :uint64, json_name: "lastAttackedPlayerId")
+  field(:pierce, 12, type: :bool)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
