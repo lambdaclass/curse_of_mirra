@@ -57,15 +57,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   defp log_termination({_, 1000, _} = reason) do
-    Logger.info(
-      "#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}"
-    )
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
   end
 
   defp log_termination(reason) do
-    Logger.error(
-      "#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}"
-    )
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 
   @impl true

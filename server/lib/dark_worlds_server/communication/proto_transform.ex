@@ -283,10 +283,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(
-    %ProtoAction{action: :SELECT_CHARACTER, player_character: player_character},
-    ProtoAction
-  ) do
-%EngineAction{action: :select_character, value: player_character}
+        %ProtoAction{action: :SELECT_CHARACTER, player_character: player_character},
+        ProtoAction
+      ) do
+    %EngineAction{action: :select_character, value: player_character}
   end
 
   def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do

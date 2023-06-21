@@ -1,7 +1,7 @@
 defmodule DarkWorldsServer.Test.Disconnect do
   use ExUnit.Case, async: true
-  alias DarkWorldsServer.Engine.Runner
   alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Engine.Runner
 
   setup do
     {:ok, pid} =
@@ -24,7 +24,6 @@ defmodule DarkWorldsServer.Test.Disconnect do
 
     ## Needed for the character selection
     Process.sleep(1_000)
-
 
     for i <- 1..3, do: Runner.join(pid, i)
     %{pid: pid}

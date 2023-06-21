@@ -246,14 +246,12 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_cast(
         {:disconnect, player_id},
-        %{client_game_state: %{game: game} = game_state, current_players: current} =
-          gen_server_state
+        %{client_game_state: %{game: game} = game_state, current_players: current} = gen_server_state
       ) do
     current = current - 1
     {:ok, game} = Game.disconnect(game, player_id)
 
-    {:noreply,
-     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_call(
@@ -316,8 +314,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} =
-      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
     Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
@@ -428,8 +425,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp decide_next_game_update(
-         %{game_state: :round_finished, winners: winners, current_round: current_round} =
-           gen_server_state
+         %{game_state: :round_finished, winners: winners, current_round: current_round} = gen_server_state
        ) do
     # This has to be done in order to apply the last attack
     DarkWorldsServer.PubSub
@@ -469,8 +465,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp broadcast_game_update(
          {:last_round,
-          %{winners: winners, current_round: current_round, server_game_state: server_game_state} =
-            gen_server_state, winner}
+          %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
+          winner}
        ) do
     game = Game.new_round(server_game_state.game, winners)
 
@@ -496,9 +492,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update(
-         {:next_round,
-          %{current_round: current_round, server_game_state: server_game_state} =
-            gen_server_state, winner}
+         {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
        ) do
     game = Game.new_round(server_game_state.game, server_game_state.game.players)
 
