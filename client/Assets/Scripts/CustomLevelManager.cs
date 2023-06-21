@@ -22,8 +22,8 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
-    private int totalPlayers;
-    private int playerId;
+    private ulong totalPlayers;
+    private ulong playerId;
     public Character prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
@@ -33,7 +33,7 @@ public class CustomLevelManager : LevelManager
     protected override void Awake()
     {
         base.Awake();
-        this.totalPlayers = LobbyConnection.Instance.playerCount;
+        this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         InitializeMap();
     }
 
@@ -90,7 +90,7 @@ public class CustomLevelManager : LevelManager
 
     public void GeneratePlayer()
     {
-        for (int i = 0; i < totalPlayers; i++)
+        for (ulong i = 0; i < totalPlayers; i++)
         {
             if (LobbyConnection.Instance.playerId == i + 1)
             {
@@ -103,14 +103,9 @@ public class CustomLevelManager : LevelManager
             }
             Character newPlayer = Instantiate(
                 prefab,
-                Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
+                Utils.transformBackendPositionToFrontendPosition(gamePlayers[(int)i].Position),
                 Quaternion.identity
             );
-            if (SocketConnectionManager.Instance.playerId == i + 1) {
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position);
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
-            }
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
@@ -120,11 +115,11 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    private void setCameraToPlayer(int playerID)
+    private void setCameraToPlayer(ulong playerID)
     {
         foreach (Character player in this.PlayerPrefabs)
         {
-            if (Int32.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -132,7 +127,7 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetInputsAbilities(int playerID)
+    private void SetInputsAbilities(ulong playerID)
     {
         CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
         Player pl = SocketConnectionManager.GetPlayer(playerID, SocketConnectionManager.Instance.gamePlayers);
@@ -140,7 +135,7 @@ public class CustomLevelManager : LevelManager
         foreach (Character player in this.PlayerPrefabs)
         {
 
-            if (Int32.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
                 skillBasic.SetSkill(Action.BasicAttack);

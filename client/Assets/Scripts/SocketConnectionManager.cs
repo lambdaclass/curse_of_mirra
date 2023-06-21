@@ -26,14 +26,14 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> gamePlayers;
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
-    public int playerId;
+    public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
 
     public List<Player> winners = new List<Player>();
 
-    public EntityUpdates entityUpdates = new EntityUpdates();
+    public ClientPrediction clientPrediction = new ClientPrediction();
 
     WebSocket ws;
 
@@ -143,18 +143,12 @@ public class SocketConnectionManager : MonoBehaviour
                     winners.Add(game_event.WinnerPlayer);
                     var newPlayer1 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
 
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(newPlayer1.Position);
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
                     break;
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     var newPlayer2 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
 
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(newPlayer2.Position);
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
                     break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
@@ -175,10 +169,10 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    public static Player GetPlayer(int id, List<Player> player_list)
+    public static Player GetPlayer(ulong id, List<Player> player_list)
     {
         return player_list.Find(
-            el => el.Id == (ulong)id
+            el => el.Id == id
         );
     }
 

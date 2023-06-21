@@ -99,6 +99,7 @@ message RelativePosition {
     - position: to decide aoe attack center
     - move_delta: movement direction
     - target: player id to autoattack
+    - timestamp: client's time at the moment they send the action
  */
 message ClientAction {
     Action action = 1;
@@ -106,6 +107,7 @@ message ClientAction {
     RelativePosition position = 3;
     JoystickValues move_delta = 4;
     sint64 target = 5;
+    int64 timestamp = 6;
 }
 
 /* Actions a client/player performs

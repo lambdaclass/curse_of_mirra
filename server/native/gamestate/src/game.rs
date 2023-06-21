@@ -1,9 +1,9 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::f64::consts::PI;
+use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
-use crate::character::{Character, Name, Effect};
+use crate::character::{Character, Effect, Name};
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
@@ -215,8 +215,8 @@ impl GameState {
     pub fn move_with_joystick(
         self: &mut Self,
         player_id: u64,
-        x: f64,
-        y: f64,
+        x: f32,
+        y: f32,
     ) -> Result<(), String> {
         let player = Self::get_player_mut(&mut self.players, player_id)?;
         if matches!(player.status, Status::DEAD) {
@@ -330,7 +330,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
                 14,
                 10,
                 attacking_player.id,
@@ -467,14 +467,14 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0 || direction.y != 0 {
-            let angle = (direction.y as f64).atan2(direction.x as f64); // Calculates the angle in radians.
+            let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
             } else {
                 angle.to_degrees()
             };
 
-            let angle_modifiers = [-20f64, -10f64, 0f64, 10f64, 20f64];
+            let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
@@ -538,7 +538,6 @@ impl GameState {
         Ok(())
     }
 
-
     pub fn leap(
         board: &mut Board,
         attacking_player_id: u64,
@@ -558,7 +557,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-         if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
             return Ok(());
         }
 
@@ -599,7 +598,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
                 14,
                 10,
                 attacking_player.id,
@@ -683,21 +682,18 @@ impl GameState {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
-                        Ok(ap) => {
-                            match projectile.projectile_type {
-                                ProjectileType::DISARMINGBULLET => {
-                                    ap.character.add_effect(Effect::Disarmed.clone(), 300);
-                                }
-                                _ => {
-                                    ap.modify_health(-(projectile.damage as i64));
-                                    if matches!(ap.status, Status::DEAD) {
-                                        kill_count += 1;
-                                    }
-                                    GameState::modify_cell_if_player_died(&mut self.board, ap);
-                                }
-                                
+                        Ok(ap) => match projectile.projectile_type {
+                            ProjectileType::DISARMINGBULLET => {
+                                ap.character.add_effect(Effect::Disarmed.clone(), 300);
                             }
-                        }
+                            _ => {
+                                ap.modify_health(-(projectile.damage as i64));
+                                if matches!(ap.status, Status::DEAD) {
+                                    kill_count += 1;
+                                }
+                                GameState::modify_cell_if_player_died(&mut self.board, ap);
+                            }
+                        },
                         _ => continue,
                     }
                 }
@@ -930,8 +926,8 @@ fn distance_to_center(player: &Player, center: &Position) -> f64 {
 }
 
 // We might want to abstract this into a Vector2 type or something, whatever.
-fn normalize_vector(x: f64, y: f64) -> (f64, f64) {
-    let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
+fn normalize_vector(x: f32, y: f32) -> (f32, f32) {
+    let norm = f32::sqrt(x.powf(2.) + y.powf(2.));
     (x / norm, y / norm)
 }
 
@@ -956,8 +952,8 @@ fn generate_new_position(
 pub fn new_entity_position(
     height: usize,
     width: usize,
-    direction_x: f64,
-    direction_y: f64,
+    direction_x: f32,
+    direction_y: f32,
     entity_position: Position,
     entity_speed: i64,
 ) -> Position {
@@ -969,8 +965,8 @@ pub fn new_entity_position(
         then round the values.
     */
     let (movement_direction_x, movement_direction_y) = normalize_vector(-direction_y, direction_x);
-    let movement_vector_x = movement_direction_x * (speed as f64);
-    let movement_vector_y = movement_direction_y * (speed as f64);
+    let movement_vector_x = movement_direction_x * (speed as f32);
+    let movement_vector_y = movement_direction_y * (speed as f32);
 
     let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
     let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);

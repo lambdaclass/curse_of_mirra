@@ -28,7 +28,7 @@ public class LobbyPlayerList : MonoBehaviour
     {
         for (int i = playerItems.Count; i < LobbyConnection.Instance.playerCount; i++)
         {
-            playerItems.Add(CreatePlayerItem(i + 1));
+            playerItems.Add(CreatePlayerItem((ulong)i + 1));
         }
     }
 
@@ -42,7 +42,7 @@ public class LobbyPlayerList : MonoBehaviour
         }
     }
 
-    private GameObject CreatePlayerItem(int id)
+    private GameObject CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();

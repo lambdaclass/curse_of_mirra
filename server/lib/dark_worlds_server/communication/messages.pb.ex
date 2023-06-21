@@ -189,6 +189,7 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   )
 
   field(:target, 5, type: :sint64)
+  field(:timestamp, 6, type: :int64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

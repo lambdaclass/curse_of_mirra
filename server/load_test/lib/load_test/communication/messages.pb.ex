@@ -36,6 +36,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
+  field(:SKILL_2, 11)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -60,6 +61,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:ATTACKING_AOE, 2)
   field(:EXECUTING_SKILL_1, 3)
   field(:TELEPORTING, 4)
+  field(:EXECUTING_SKILL_2, 5)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -82,6 +84,7 @@ defmodule LoadTest.Communication.Proto.ProjectileType do
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:BULLET, 0)
+  field(:DISARMING_BULLET, 1)
 end
 
 defmodule LoadTest.Communication.Proto.ProjectileStatus do
@@ -163,6 +166,7 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
   field(:target, 5, type: :sint64)
+  field(:timestamp, 6, type: :int64)
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do

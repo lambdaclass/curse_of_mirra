@@ -131,32 +131,32 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(%EngineAction{action: :move, value: direction}, ProtoAction) do
-    %ProtoAction{action: :MOVE, direction: direction_encode(direction)}
+  def encode(%EngineAction{action: :move, value: direction, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :MOVE, direction: direction_encode(direction), timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :teleport, value: position}, ProtoAction) do
-    %ProtoAction{action: :TELEPORT, position: position}
+  def encode(%EngineAction{action: :teleport, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :attack, value: direction}, ProtoAction) do
-    %ProtoAction{action: :ATTACK, direction: direction_encode(direction)}
+  def encode(%EngineAction{action: :attack, value: direction, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :ATTACK, direction: direction_encode(direction), timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :attack_aoe, value: position}, ProtoAction) do
-    %ProtoAction{action: :ATTACK_AOE, position: position}
+  def encode(%EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :skill_1, value: position}, ProtoAction) do
-    %ProtoAction{action: :SKILL_1, position: position}
+  def encode(%EngineAction{action: :skill_1, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :skill_2, value: position}, ProtoAction) do
-    %ProtoAction{action: :SKILL_2, position: position}
+  def encode(%EngineAction{action: :skill_2, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :basic_attack, value: position}, ProtoAction) do
-    %ProtoAction{action: :BASIC_ATTACK, position: position}
+  def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
   end
 
   @impl Protobuf.TransformModule
@@ -213,8 +213,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(%ProtoAction{action: :AUTO_ATTACK, target: target}, ProtoAction) do
-    %EngineAction{action: :auto_attack, value: target}
+  def decode(%ProtoAction{action: :AUTO_ATTACK, target: target, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :auto_attack, value: target, timestamp: timestamp}
   end
 
   def decode(%ProtoProjectile{} = projectile, ProtoProjectile) do
@@ -245,40 +245,40 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}, ProtoAction) do
-    %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}}
+  def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :MOVE, direction: direction}, ProtoAction) do
-    %EngineAction{action: :move, value: direction_decode(direction)}
+  def decode(%ProtoAction{action: :MOVE, direction: direction, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :move, value: direction_decode(direction), timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ATTACK, direction: direction}, ProtoAction) do
-    %EngineAction{action: :attack, value: direction_decode(direction)}
+  def decode(%ProtoAction{action: :ATTACK, direction: direction, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :attack, value: direction_decode(direction), timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ATTACK_AOE, position: position}, ProtoAction) do
-    %EngineAction{action: :attack_aoe, value: position}
+  def decode(%ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_1, position: position}, ProtoAction) do
-    %EngineAction{action: :skill_1, value: position}
+  def decode(%ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :skill_1, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_2, position: position}, ProtoAction) do
-    %EngineAction{action: :skill_2, value: position}
+  def decode(%ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :BASIC_ATTACK, position: position}, ProtoAction) do
-    %EngineAction{action: :basic_attack, value: position}
+  def decode(%ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do
-    %EngineAction{action: :add_bot, value: nil}
+  def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction, timestamp: timestamp) do
+    %EngineAction{action: :add_bot, value: nil, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do
-    %EngineAction{action: :teleport, value: position}
+  def decode(%ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :teleport, value: position, timestamp: timestamp}
   end
 
   def decode(%struct{} = msg, struct) do
