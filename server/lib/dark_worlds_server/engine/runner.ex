@@ -338,6 +338,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_state, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
+      |> Map.put(:current_round, 0)
 
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
