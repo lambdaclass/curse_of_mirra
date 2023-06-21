@@ -127,9 +127,9 @@ impl Character {
     #[inline]
     pub fn cooldown_basic_skill(&self) -> u64 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 10, // H4ck basic attack cooldown
-            BasicSkill::Bash => 10,      // Muflus basic attack cooldown
-            BasicSkill::Backstab => 10,
+            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
+            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
+            BasicSkill::Backstab => 1_u64,
         }
     }
     pub fn cooldown_first_skill(&self) -> u64 {

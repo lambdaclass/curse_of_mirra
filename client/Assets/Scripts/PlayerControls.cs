@@ -135,19 +135,14 @@ public class PlayerControls : MonoBehaviour
  
     public static float getCharacterSpeed(int playerId) {
         var characterSpeed = 0f;
-        if (playerId % 3 == 0)
-        {
-            // Uma
-            characterSpeed = 3f;
-        }
-        else if (playerId % 3 == 1)
+        if (playerId % 2 == 0)
         {
             // Muflus
             characterSpeed = 4f;
         }
         else
         {
-            // Uma
+            // H4ck
             characterSpeed = 5f;
         }
 

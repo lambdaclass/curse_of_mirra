@@ -20,6 +20,10 @@ public class EntityUpdates {
         public PlayerAction action;
         public Vector3 aoeCenterPosition;
         public long timestamp;
+        public ulong basicSkillCooldownLeft;
+        public ulong firstSkillCooldownLeft;
+        public ulong secondSkillCooldownLeft;
+        public ulong thirdSkillCooldownLeft;
     }
 
     public struct PlayerInput

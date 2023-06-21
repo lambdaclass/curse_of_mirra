@@ -38,7 +38,8 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
-  field(:SELECT_CHARACTER, 11)
+  field(:SKILL_2, 11)
+  field(:SELECT_CHARACTER, 12)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -63,6 +64,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:ATTACKING_AOE, 2)
   field(:EXECUTING_SKILL_1, 3)
   field(:TELEPORTING, 4)
+  field(:EXECUTING_SKILL_2, 5)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -85,6 +87,7 @@ defmodule DarkWorldsServer.Communication.Proto.ProjectileType do
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:BULLET, 0)
+  field(:DISARMING_BULLET, 1)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.ProjectileStatus do

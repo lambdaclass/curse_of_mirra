@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
+    [SerializeField] CustomInputManager InputManager;
 
     public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
     public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
@@ -162,6 +163,10 @@ public class PlayerMovement : MonoBehaviour
                 action = (EntityUpdates.PlayerState.PlayerAction)player.Action,
                 aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
                 timestamp = gameEvent.Timestamp,
+                basicSkillCooldownLeft = player.BasicSkillCooldownLeft,
+                firstSkillCooldownLeft = player.FirstSkillCooldownLeft,
+                secondSkillCooldownLeft = player.SecondSkillCooldownLeft,
+                thirdSkillCooldownLeft = player.ThirdSkillCooldownLeft,
             };
             if (useClientPrediction) {
                 if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
@@ -347,6 +352,13 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             // FIXME: add logic
+        }
+
+        if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId) {
+            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.basicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.firstSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.secondSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.thirdSkillCooldownLeft);
         }
     }
 
