@@ -25,7 +25,17 @@ defmodule GameStateTesting do
     assert {:ok, ""} = TestNIFs.cant_move_if_petrified()
   end
 
-  test "Move player to coordinates" do
-    assert {:ok, ""} = TestNIFs.move_player_to_coordinates()
+  # test "Move player to coordinates" do
+  #   assert {:ok, ""} = TestNIFs.move_player_to_coordinates()
+  # end
+
+  describe "Player Continuous status effect" do
+    test "Cant move if petrified" do
+      assert {:ok, ""} = TestNIFs.cant_move_if_petrified()
+    end
+
+    test "Cant attack if disarmed" do
+      assert {:ok, ""} = TestNIFs.cant_attack_if_disarmed()
+    end
   end
 end

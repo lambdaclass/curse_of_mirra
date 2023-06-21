@@ -117,8 +117,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -187,6 +187,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &1035504164137750736
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,8 +305,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -374,6 +375,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &1589158110181243685
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +582,7 @@ GameObject:
   - component: {fileID: 2864256522706112903}
   - component: {fileID: 867670502396954879}
   m_Layer: 0
-  m_Name: MainAttack
+  m_Name: AttackBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,12 +600,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5436030241536893424}
-  m_RootOrder: 3
+  m_Father: {fileID: 2938020214915604996}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 752, y: -361}
+  m_AnchoredPosition: {x: 0.018127441, y: -0.002380371}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8826288392225533013
@@ -682,8 +684,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -698,6 +700,43 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 0
+--- !u!1 &5802007321719598854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2938020214915604996}
+  m_Layer: 0
+  m_Name: AttackBasicWrapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2938020214915604996
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802007321719598854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3931917761170187414}
+  m_Father: {fileID: 5436030241536893424}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 752, y: -361}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5855432307878866998
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,8 +854,8 @@ MonoBehaviour:
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 0
-  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedChangeColor: 1
+  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -885,6 +924,7 @@ MonoBehaviour:
   newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
+  skill: {fileID: 0}
 --- !u!1 &7165471737723322715
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +957,7 @@ RectTransform:
   - {fileID: 6755426449749820705}
   - {fileID: 7890720816462008587}
   - {fileID: 6956431994431315898}
-  - {fileID: 3931917761170187414}
+  - {fileID: 2938020214915604996}
   m_Father: {fileID: 3541088299561332320}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

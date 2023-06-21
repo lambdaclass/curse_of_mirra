@@ -4,13 +4,20 @@ using UnityEngine;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
 using System.Linq;
+using UnityEngine.UI;
 using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
-    public Queue<PlayerUpdate> playerUpdates = new Queue<PlayerUpdate>();
+    [SerializeField] CustomInputManager InputManager;
+
+    public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
+    public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
+    public bool showServerGhost = false;
+    public bool useClientPrediction;
+    public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
 
@@ -32,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         Attacking = 1,
         AttackingAOE = 2,
         MainAttack = 3,
+        Teleporting = 4,
     }
 
     public enum ProyectileStatus
@@ -40,17 +48,11 @@ public class PlayerMovement : MonoBehaviour
         Exploded = 1,
     }
 
-    Vector3 backPositionToFrontPosition(Position position)
-    {
-        var x = (long)position.Y / 10f - 50.0f;
-        var y = (-((long)position.X)) / 10f + 50.0f;
-        return new Vector3(x, 1f, y);
-    }
-
     void Start()
     {
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendAction", clientActionRate, clientActionRate);
+        useClientPrediction = false;
     }
 
     void Update()
@@ -80,8 +82,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
         {
-            GetComponent<PlayerControls>()
-                .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+            GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
         }
         else
         {
@@ -134,147 +135,67 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    GameObject GetPlayer(int id)
-    {
-        return SocketConnectionManager.Instance.players.Find(
-            el => el.GetComponent<Character>().PlayerID == id.ToString()
-        );
-    }
-
     void ExecutePlayerAction()
     {
         while (playerUpdates.TryDequeue(out var playerUpdate))
         {
-            GameObject player = GetPlayer(playerUpdate.playerId);
-            if (player.name.Contains("BOT"))
+            GameObject player = Utils.GetPlayer(playerUpdate.playerId);
+            movePlayer(player, playerUpdate);
+        }
+
+        while (serverUpdates.TryDequeue(out var playerUpdate))
+        {
+            if (serverGhost != null)
             {
-                playerUpdate.action = PlayerAction.Attacking;
-            }
-            /*
-                Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
-                There are 50 ticks per second. A player's velocity is 50 * 0.3f
-      
-          In general, if a player's velocity is n tiles per tick, their unity velocity
-          is 50 * (n / 10f)
-      
-          The above is the player's velocity's magnitude. Their velocity's direction
-          is the direction of deltaX, which we can calculate (assumming we haven't lost socket
-          frames, but that's fine).
-      */
-            float characterSpeed = 0;
-
-            if (playerUpdate.playerId % 3 == 0)
-            {
-                // Muflus
-                characterSpeed = 0.5f;
-            }
-            else if (playerUpdate.playerId % 3 == 1)
-            {
-                // Hack
-                characterSpeed = 0.3f;
-            }
-            else
-            {
-                // Uma
-                characterSpeed = 0.4f;
-            }
-
-            // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
-            // it'll be changed.
-            float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-            float velocity = tickRate * characterSpeed;
-
-            float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
-            float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
-
-            Animator mAnimator = player
-                .GetComponent<Character>()
-                .CharacterModel.GetComponent<Animator>();
-            CharacterOrientation3D characterOrientation =
-                player.GetComponent<CharacterOrientation3D>();
-            characterOrientation.ForcedRotation = true;
-
-            bool walking = false;
-            if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
-            {
-                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                movementDirection.Normalize();
-
-                Vector3 newPosition =
-                    player.transform.position + movementDirection * velocity * Time.deltaTime;
-                player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
-
-                walking = true;
-            }
-            mAnimator.SetBool("Walking", walking);
-
-            Health healthComponent = player.GetComponent<Health>();
-            float auxHealth = healthComponent.CurrentHealth;
-            if (auxHealth != playerUpdate.health && SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
-            {
-                healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
-            }
-            healthComponent.SetHealth(playerUpdate.health);
-
-
-
-
-            bool isAttackingAttack = playerUpdate.action == PlayerAction.Attacking;
-            player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-            if (isAttackingAttack)
-            {
-                print(player.name + "attack");
-            }
-
-            //if dead remove the player from the scene
-            if (healthComponent.CurrentHealth <= 0)
-            {
-                if (SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
-                {
-                    healthComponent.Kill();
-                }
-                healthComponent.Model.gameObject.SetActive(false);
-            }
-            if (healthComponent.CurrentHealth == 100)
-            {
-                healthComponent.Model.gameObject.SetActive(true);
-            }
-            bool isAttackingAOE = playerUpdate.action == PlayerAction.AttackingAOE;
-            if (
-                isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
-            )
-            {
-                player
-                    .GetComponent<GenericAoeAttack>()
-                    .ShowAoeAttack(
-                        new Vector2(
-                            playerUpdate.aoeCenterPosition.x,
-                            playerUpdate.aoeCenterPosition.z
-                        )
-                    );
+                movePlayer(serverGhost, playerUpdate);
             }
         }
     }
 
     void UpdatePlayerActions()
     {
+        GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            playerUpdates.Enqueue(
-                new PlayerUpdate
+            Player player = gameEvent.Players[i];
+
+            EntityUpdates.PlayerState playerState = new EntityUpdates.PlayerState
+            {
+                playerPosition = Utils.transformBackendPositionToFrontendPosition(player.Position),
+                playerId = (int)player.Id,
+                health = player.Health,
+                action = (EntityUpdates.PlayerState.PlayerAction)player.Action,
+                aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
+                timestamp = gameEvent.Timestamp,
+                basicSkillCooldownLeft = player.BasicSkillCooldownLeft,
+                firstSkillCooldownLeft = player.FirstSkillCooldownLeft,
+                secondSkillCooldownLeft = player.SecondSkillCooldownLeft,
+                thirdSkillCooldownLeft = player.ThirdSkillCooldownLeft,
+            };
+            if (useClientPrediction)
+            {
+                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
                 {
-                    playerPosition = Utils.transformBackendPositionToFrontendPosition(
-                        SocketConnectionManager.Instance.gamePlayers[i].Position
-                    ),
-                    playerId = (int)SocketConnectionManager.Instance.gamePlayers[i].Id,
-                    health = SocketConnectionManager.Instance.gamePlayers[i].Health,
-                    action = (PlayerAction)SocketConnectionManager.Instance.gamePlayers[i].Action,
-                    aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(
-                        SocketConnectionManager.Instance.gamePlayers[i].AoePosition
-                    ),
+                    serverUpdates.Enqueue(playerState);
+                    SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
                 }
-            );
+
+                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
+                {
+                    playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
+                    playerState.health = player.Health;
+                    playerState.action = (EntityUpdates.PlayerState.PlayerAction)player.Action;
+                    playerState.aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition);
+                    playerState.timestamp = gameEvent.Timestamp;
+                }
+            }
+
+            playerUpdates.Enqueue(playerState);
+
+            if (playerState.health == 0)
+            {
+                SocketConnectionManager.Instance.players[i].SetActive(false);
+            }
         }
     }
 
@@ -353,6 +274,146 @@ public class PlayerMovement : MonoBehaviour
 
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
+        }
+    }
+
+    private void movePlayer(GameObject player, EntityUpdates.PlayerState playerUpdate)
+    {
+        /*
+        Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
+        There are 50 ticks per second. A player's velocity is 50 * 0.3f
+
+        In general, if a player's velocity is n tiles per tick, their unity velocity
+        is 50 * (n / 10f)
+
+        The above is the player's velocity's magnitude. Their velocity's direction
+        is the direction of deltaX, which we can calculate (assumming we haven't lost socket
+        frames, but that's fine).
+        */
+        var characterSpeed = PlayerControls.getCharacterSpeed(playerUpdate.playerId) / 10f;
+
+        // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
+        // it'll be changed.
+        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+        float velocity = tickRate * characterSpeed;
+
+        float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
+        float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
+
+        Animator mAnimator = player
+            .GetComponent<Character>()
+            .CharacterModel.GetComponent<Animator>();
+        CharacterOrientation3D characterOrientation =
+            player.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+
+        bool walking = false;
+
+        if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+        {
+            Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+            movementDirection.Normalize();
+            if (playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Teleporting)
+            {
+                player.transform.position = playerUpdate.playerPosition;
+                if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId)
+                {
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = playerUpdate.playerPosition;
+                }
+            }
+            else
+            {
+                Vector3 newPosition =
+                player.transform.position + movementDirection * velocity * Time.deltaTime;
+                player.transform.position = newPosition;
+                characterOrientation.ForcedRotationDirection = movementDirection;
+                walking = true;
+            }
+
+        }
+        mAnimator.SetBool("Walking", walking);
+
+        Health healthComponent = player.GetComponent<Health>();
+        healthComponent.SetHealth(playerUpdate.health);
+
+        bool isAttackingAttack = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
+        player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
+        if (isAttackingAttack)
+        {
+            print(player.name + "attack");
+        }
+
+        //if dead remove the player from the scene
+        if (healthComponent.CurrentHealth <= 0)
+        {
+            healthComponent.Model.gameObject.SetActive(false);
+        }
+        if (healthComponent.CurrentHealth == 100)
+        {
+            healthComponent.Model.gameObject.SetActive(true);
+        }
+        float auxHealth = healthComponent.CurrentHealth;
+        if (auxHealth != playerUpdate.health && SocketConnectionManager.Instance.playerId == playerUpdate.playerId)
+        {
+            healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
+        }
+        bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
+        if (
+            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
+        )
+        {
+            // FIXME: add logic
+        }
+
+        if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId)
+        {
+            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.basicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.firstSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.secondSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.thirdSkillCooldownLeft);
+        }
+    }
+
+    public void ToggleGhost()
+    {
+        if (!useClientPrediction)
+        {
+            return;
+        }
+        showServerGhost = !showServerGhost;
+        if (showServerGhost)
+        {
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+            serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+            serverGhost.GetComponent<Character>().name = "Server Ghost";
+            serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
+            serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
+        }
+        else
+        {
+            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            Destroy(serverGhost);
+            serverGhost = null;
+        }
+    }
+
+    public void ToggleClientPrediction()
+    {
+        useClientPrediction = !useClientPrediction;
+        Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
+        if (!useClientPrediction)
+        {
+            toggleGhostButton.text = "Client Prediction Off";
+            showServerGhost = false;
+            if (serverGhost != null)
+            {
+                serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+                Destroy(serverGhost);
+            }
+        }
+        else
+        {
+            toggleGhostButton.text = "Client Prediction On";
         }
     }
 }

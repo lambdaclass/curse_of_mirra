@@ -3,7 +3,7 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::f64::consts::PI;
 
 use crate::board::{Board, Tile};
-use crate::character::{Character, Name};
+use crate::character::{Character, Effect, Name};
 use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
@@ -162,36 +162,44 @@ impl GameState {
         );
     }
 
-    pub fn move_player_to_coordinates(self: &mut Self, player_id: u64, mut new_position: Position) {
-        let player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == player_id)
-            .unwrap();
-
-        if matches!(player.status, Status::DEAD) {
-            return;
-        }
+    pub fn move_player_to_coordinates(
+        board: &mut Board,
+        attacking_player: &mut Player,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let new_position_x = attacking_player.position.x as i64 - direction.y;
+        let new_position_y = attacking_player.position.y as i64 + direction.x;
 
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
         // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
         // something invalid like (0, -1).
-        new_position.x = min(new_position.x, self.board.height - 1);
-        new_position.x = max(new_position.x, 0);
-        new_position.y = min(new_position.y, self.board.width - 1);
-        new_position.y = max(new_position.y, 0);
 
+        let new_position_x = min(new_position_x, (board.height - 1).try_into().unwrap());
+        let new_position_x = max(new_position_x, 0);
+        let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
+        let new_position_y = max(new_position_y, 0);
+
+        let new_position_coordinates = Position {
+            x: new_position_x as usize,
+            y: new_position_y as usize,
+        };
         // Remove the player from their previous position on the board
-        self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
-
-        player.position = new_position;
-        self.board.set_cell(
-            player.position.x,
-            player.position.y,
-            Tile::Player(player.id),
+        board.set_cell(
+            attacking_player.position.x,
+            attacking_player.position.y,
+            Tile::Empty,
         );
+        attacking_player.position = new_position_coordinates;
+        attacking_player.action = PlayerAction::TELEPORTING;
+
+        board.set_cell(
+            attacking_player.position.x,
+            attacking_player.position.y,
+            Tile::Player(attacking_player.id),
+        );
+
+        Ok(())
     }
 
     // Takes the raw value from Unity's joystick
@@ -253,62 +261,6 @@ impl GameState {
             .cloned()
     }
 
-    pub fn attack_player(self: &mut Self, attacking_player_id: u64, attack_direction: Direction) {
-        let attacking_player = self
-            .players
-            .iter_mut()
-            .find(|player| player.id == attacking_player_id)
-            .unwrap();
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
-
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
-            return;
-        }
-
-        let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return;
-        }
-        attacking_player.action = PlayerAction::ATTACKING;
-
-        attacking_player.last_melee_attack = now;
-
-        let (top_left, bottom_right) =
-            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
-
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(&self.board, top_left, bottom_right)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-
-        let mut kill_count = 0;
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = self
-                .players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    let player = ap.clone();
-                    if matches!(player.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    GameState::modify_cell_if_player_died(&mut self.board, &player);
-                }
-                _ => continue,
-            }
-        }
-
-        add_kills(&mut self.players, attacking_player_id, kill_count).expect("Player not found");
-    }
-
     // Return all player_id inside an area
     pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
         let mut players: Vec<u64> = vec![];
@@ -336,19 +288,16 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
+        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
+        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_cooldown_left =
+            attacking_player.character.cooldown_basic_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
@@ -357,17 +306,11 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            // Name::Muflus => {
-            //     let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-            //     let players = &mut self.players;
-            //     Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
-            // }
-            Name::Muflus => Self::h4ck_basic_attack(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::Muflus => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            }
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
                 direction,
@@ -391,7 +334,7 @@ impl GameState {
                 14,
                 10,
                 attacking_player.id,
-                15,
+                attacking_player.character.attack_dmg_basic_skill(),
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
@@ -438,11 +381,16 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let attack_dmg = attacking_player.character.attack_dmg() as i64;
+        let attack_dmg = attacking_player.character.attack_dmg_basic_skill() as i64;
         let attack_direction = Self::position_to_direction(direction);
 
-        let (top_left, bottom_right) =
-            compute_attack_initial_positions(&(attack_direction), &(attacking_player.position));
+        // TODO: This should be a config of the attack
+        let attack_range = 20;
+        let (top_left, bottom_right) = compute_attack_initial_positions(
+            &(attack_direction),
+            &(attacking_player.position),
+            attack_range,
+        );
 
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(board, top_left, bottom_right)
@@ -450,6 +398,7 @@ impl GameState {
                 .filter(|&id| id != attacking_player.id)
                 .collect();
 
+        let mut kill_count = 0;
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = players
@@ -459,12 +408,17 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
+                    if matches!(ap.status, Status::DEAD) {
+                        kill_count += 1;
+                    }
                     let player = ap.clone();
                     GameState::modify_cell_if_player_died(board, &player);
                 }
                 _ => continue,
             }
         }
+        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
+
         Ok(())
     }
 
@@ -475,19 +429,16 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        let cooldown = attacking_player.character.cooldown();
-
-        if matches!(attacking_player.status, Status::DEAD) {
+        if !attacking_player.can_attack(attacking_player.first_skill_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-
-        if (now - attacking_player.last_melee_attack) < cooldown {
-            return Ok(());
-        }
         attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+        attacking_player.first_skill_start = now;
+        attacking_player.first_skill_cooldown_left =
+            attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -496,6 +447,10 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
+            Name::Muflus => {
+                let players = &mut self.players;
+                Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
+            }
             _ => Self::h4ck_skill_1(
                 &attacking_player,
                 direction,
@@ -532,7 +487,7 @@ impl GameState {
                     10,
                     10,
                     attacking_player.id,
-                    10,
+                    attacking_player.character.attack_dmg_first_active(),
                     10,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
@@ -544,81 +499,116 @@ impl GameState {
         Ok(())
     }
 
-    pub fn aoe_attack_deprecated(
+    pub fn muflus_skill_1(
+        board: &mut Board,
+        players: &mut Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Result<(), String> {
+        // TODO: This should be a config of the attack
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
+
+        // TODO: This should be a config of the attack
+        let attack_range = 20;
+
+        let (top_left, bottom_right) =
+            compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg);
+                    let player = ap.clone();
+                    GameState::modify_cell_if_player_died(board, &player);
+                }
+                _ => continue,
+            }
+        }
+        Ok(())
+    }
+
+    pub fn leap(
+        board: &mut Board,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+        players: &mut Vec<Player>,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        Self::move_player_to_coordinates(board, attacking_player, direction)?;
+        Self::muflus_skill_1(board, players, attacking_player_id)?;
+        Ok(())
+    }
+
+    pub fn skill_2(
         self: &mut Self,
         attacking_player_id: u64,
-        attack_position: &RelativePosition,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if attacking_player_id % 2 == 0 {
-            attacking_player.action = PlayerAction::ATTACKINGAOE;
+        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+            return Ok(());
+        }
 
-            let cooldown = attacking_player.character.cooldown();
+        let now = time_now();
+        attacking_player.last_melee_attack = now;
+        attacking_player.action = PlayerAction::EXECUTINGSKILL2;
+        attacking_player.second_skill_cooldown_start = now;
+        attacking_player.second_skill_cooldown_left =
+            attacking_player.character.cooldown_basic_skill();
 
-            if matches!(attacking_player.status, Status::DEAD) {
-                return Ok(());
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            Name::Muflus => {
+                let id = attacking_player.id;
+                Self::leap(&mut self.board, id, direction, &mut self.players)
             }
+            _ => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+        }
+    }
 
-            let now = time_now();
-
-            if (now - attacking_player.last_melee_attack) < cooldown {
-                return Ok(());
-            }
-
-            let (center, top_left, bottom_right) =
-                compute_attack_aoe_initial_positions(&(attacking_player.position), attack_position);
-            attacking_player.last_melee_attack = now;
-            attacking_player.aoe_position = center;
-
-            let affected_players: Vec<u64> =
-                GameState::players_in_range(&self.board, top_left, bottom_right)
-                    .into_iter()
-                    .filter(|&id| id != attacking_player_id)
-                    .collect();
-
-            let special_effect = attacking_player.character.select_aoe_effect();
-
-            let mut kill_count = 0;
-            for target_player_id in affected_players {
-                let attacked_player =
-                    GameState::get_player_mut(&mut self.players, target_player_id)?;
-                if let Some((effect, duration)) = &special_effect {
-                    attacked_player
-                        .character
-                        .add_effect(effect.clone(), *duration)
-                } else {
-                    // Maybe health should be linked to
-                    // the character instead?
-                    attacked_player.modify_health(-10);
-                    if matches!(attacked_player.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
-                }
-            }
-
-            add_kills(&mut self.players, attacking_player_id, kill_count)
-                .expect("Player not found");
-        } else {
-            let attacking_player =
-                GameState::get_player_mut(&mut self.players, attacking_player_id)?;
-            if attack_position.x != 0 || attack_position.y != 0 {
-                let projectile = Projectile::new(
-                    self.next_projectile_id,
-                    attacking_player.position,
-                    JoystickValues::new(attack_position.x as f64, attack_position.y as f64),
-                    14,
-                    10,
-                    attacking_player.id,
-                    10,
-                    30,
-                    ProjectileType::BULLET,
-                    ProjectileStatus::ACTIVE,
-                );
-                self.projectiles.push(projectile);
-                self.next_projectile_id += 1;
-            }
+    pub fn h4ck_skill_2(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0 || direction.y != 0 {
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                14,
+                10,
+                attacking_player.id,
+                0,
+                30,
+                ProjectileType::DISARMINGBULLET,
+                ProjectileStatus::ACTIVE,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
         }
         Ok(())
     }
@@ -636,6 +626,7 @@ impl GameState {
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
+            player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.character.status_effects.retain(|_, ticks_left| {
@@ -691,13 +682,18 @@ impl GameState {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id);
                     match attacked_player {
-                        Ok(ap) => {
-                            ap.modify_health(-(projectile.damage as i64));
-                            if matches!(ap.status, Status::DEAD) {
-                                kill_count += 1;
+                        Ok(ap) => match projectile.projectile_type {
+                            ProjectileType::DISARMINGBULLET => {
+                                ap.character.add_effect(Effect::Disarmed.clone(), 300);
                             }
-                            GameState::modify_cell_if_player_died(&mut self.board, ap);
-                        }
+                            _ => {
+                                ap.modify_health(-(projectile.damage as i64));
+                                if matches!(ap.status, Status::DEAD) {
+                                    kill_count += 1;
+                                }
+                                GameState::modify_cell_if_player_died(&mut self.board, ap);
+                            }
+                        },
                         _ => continue,
                     }
                 }
@@ -714,32 +710,6 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             board.set_cell(player.position.x, player.position.y, Tile::Empty);
         }
-    }
-
-    pub fn auto_attack(
-        self: &mut Self,
-        attacking_player_id: u64,
-        target_player_id: u64,
-    ) -> Result<(), String> {
-        if attacking_player_id == target_player_id {
-            return Ok(());
-        }
-        let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-        let target_player = GameState::get_player(&self, target_player_id)?;
-        // TODO:
-        // This distance is completely arbitrary.
-        // I think this should be range for a skill.
-        let distance_threshold = 10.0;
-        let cooldown = attacking_player.character.cooldown();
-        let can_attack = (time_now() - attacking_player.last_melee_attack) < cooldown;
-        if distance_to_center(&target_player, &attacking_player.position) < distance_threshold
-            && can_attack
-        {
-            let attack_dmg = attacking_player.character.attack_dmg() as i64;
-            let target_player = GameState::get_player_mut(&mut self.players, target_player_id)?;
-            target_player.modify_health(-attack_dmg);
-        }
-        Ok(())
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
@@ -783,46 +753,58 @@ fn compute_adjacent_position_n_tiles(
 fn compute_attack_initial_positions(
     direction: &Direction,
     position: &Position,
+    range: usize,
 ) -> (Position, Position) {
     let x = position.x;
     let y = position.y;
 
     match direction {
         Direction::UP => (
-            Position::new(x.saturating_sub(20), y.saturating_sub(20)),
-            Position::new(x.saturating_sub(1), y + 20),
+            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
+            Position::new(x.saturating_sub(1), y + range),
         ),
         Direction::DOWN => (
-            Position::new(x + 1, y.saturating_sub(20)),
-            Position::new(x + 20, y + 20),
+            Position::new(x + 1, y.saturating_sub(range)),
+            Position::new(x + range, y + range),
         ),
         Direction::LEFT => (
-            Position::new(x.saturating_sub(20), y.saturating_sub(20)),
-            Position::new(x + 20, y.saturating_sub(1)),
+            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
+            Position::new(x + range, y.saturating_sub(1)),
         ),
         Direction::RIGHT => (
-            Position::new(x.saturating_sub(20), y + 1),
-            Position::new(x + 20, y + 20),
+            Position::new(x.saturating_sub(range), y + 1),
+            Position::new(x + range, y + range),
         ),
     }
 }
 
-fn compute_attack_aoe_initial_positions(
-    player_position: &Position,
-    attack_position: &RelativePosition,
-) -> (Position, Position, Position) {
-    let modifier = 120_f64;
-
-    let x =
-        (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
-    let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
-
+fn compute_barrel_roll_initial_positions(
+    position: &Position,
+    range: usize,
+) -> (Position, Position) {
+    let x = position.x;
+    let y = position.y;
     (
-        Position::new(x, y),
-        Position::new(x.saturating_sub(25), y.saturating_sub(25)),
-        Position::new(x + 25, y + 25),
+        Position::new(x.saturating_sub(range), y.saturating_sub(range)),
+        Position::new(x + range, y + range),
     )
 }
+// fn compute_attack_aoe_initial_positions(
+//     player_position: &Position,
+//     attack_position: &RelativePosition,
+// ) -> (Position, Position, Position) {
+//     let modifier = 120_f64;
+
+//     let x =
+//         (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
+//     let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
+
+//     (
+//         Position::new(x, y),
+//         Position::new(x.saturating_sub(25), y.saturating_sub(25)),
+//         Position::new(x + 25, y + 25),
+//     )
+// }
 
 /// TODO: update documentation
 /// Checks if the given movement from `old_position` to `new_position` is valid.

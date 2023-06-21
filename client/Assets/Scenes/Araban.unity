@@ -1720,21 +1720,6 @@ PrefabInstance:
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
-    - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1967243809}
-    - target: {fileID: 1460033625921987272, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: JoystickValue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMovement
-      objectReference: {fileID: 0}
-    - target: {fileID: 2935097580456651424, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: TargetCamera
-      value: 
-      objectReference: {fileID: 637808576}
     - target: {fileID: 3541088299561332320, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1850,47 +1835,12 @@ PrefabInstance:
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
-    - target: {fileID: 4561557079833921055, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: TargetCamera
-      value: 
-      objectReference: {fileID: 637808576}
     - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
       value: 
       objectReference: {fileID: 637808576}
-    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2053005121}
-    - target: {fileID: 5999323559792466335, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: OnPointerDownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6593141469248357937, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: TargetCamera
-      value: 
-      objectReference: {fileID: 637808576}
-    - target: {fileID: 7208144881324718816, guid: c2607203b179b4f508743c9dfa24edff,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7968366450724143388, guid: c2607203b179b4f508743c9dfa24edff,
         type: 3}
       propertyPath: TargetCamera
       value: 
@@ -4001,6 +3951,10 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
+  quickMapPrefab: {fileID: 0}
+  roundSplash: {fileID: 0}
+  roundText: {fileID: 0}
+  backToLobbyButton: {fileID: 0}
   prefab: {fileID: 1787465996332106811, guid: 7bf5e7183a6b3444b8111ea4d639b854, type: 3}
   UiCamera: {fileID: 637808576}
   camera: {fileID: 1666771299}
@@ -6170,6 +6124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
       propertyPath: InputForcedMode
       value: 1
       objectReference: {fileID: 0}
@@ -6191,7 +6150,7 @@ PrefabInstance:
     - target: {fileID: 224429692818469760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -28.000015
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 224550550681808830, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -6243,7 +6202,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
 --- !u!224 &1967243808 stripped
 RectTransform:
@@ -6251,18 +6211,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1967243807}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1967243809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1967243807}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053005121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281595ba54132634bbe48b336e62e2c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1967243810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1706165118094336, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -6285,6 +6233,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
+  mapList: {fileID: 0}
 --- !u!1001 &2031021706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6423,8 +6372,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bee497d0fd1474e87f3c8722ada53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainAttack: {fileID: 620904639}
-  specialAttack: {fileID: 620904638}
-  dash: {fileID: 620904637}
-  ultimate: {fileID: 620904636}
-  UiCamera: {fileID: 637808576}
+  InputDetectionActive: 1
+  ResetButtonStatesOnFocusLoss: 1
+  PlayerID: Player1
+  AutoMobileDetection: 1
+  InputForcedMode: 1
+  ForceWeaponMode: 0
+  WeaponForcedMode: 0
+  HideMobileControlsInEditor: 0
+  MovementControl: 0
+  SmoothMovement: 1
+  Threshold: {x: 0.1, y: 0.4}
+  RotateInputBasedOnCameraDirection: 0
+  SkillBasic: {fileID: 620904639}
+  Skill1: {fileID: 620904638}
+  Skill2: {fileID: 620904637}
+  Skill3: {fileID: 620904636}
+  Skill4: {fileID: 0}

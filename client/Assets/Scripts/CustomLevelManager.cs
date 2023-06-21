@@ -106,6 +106,11 @@ public class CustomLevelManager : LevelManager
                 Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
                 Quaternion.identity
             );
+            if (SocketConnectionManager.Instance.playerId == i + 1) {
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position);
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
+                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
+            }
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
@@ -129,31 +134,38 @@ public class CustomLevelManager : LevelManager
 
     private void SetInputsAbilities(int playerID)
     {
+        CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
+        Player pl = SocketConnectionManager.GetPlayer(playerID, SocketConnectionManager.Instance.gamePlayers);
+
         foreach (Character player in this.PlayerPrefabs)
         {
+
             if (Int32.Parse(player.PlayerID) == playerID)
             {
-                UnityEvent aoeEvent = new UnityEvent();
-                aoeEvent.AddListener(player.GetComponent<GenericAoeAttack>().ShowAimAoeAttack);
-                UiCamera
-                    .GetComponent<CustomInputManager>()
-                    .AssignInputToAbilityPosition("y", "joystick", aoeEvent);
+                SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
+                skillBasic.SetSkill(Action.BasicAttack);
+                _cim.AssignSkillToInput(UIControls.SkillBasic, UIType.Tap, skillBasic);
 
-                UnityEvent<Vector2> aimEvent = new UnityEvent<Vector2>();
-                aimEvent.AddListener(player.GetComponent<GenericAoeAttack>().AimAoeAttack);
-                UiCamera
-                    .GetComponent<CustomInputManager>()
-                    .AssignInputToAimPosition("y", "joystick", aimEvent);
+                Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+                skill1.SetSkill(Action.Skill1);
 
-                UnityEvent<Vector2> attackEvent = new UnityEvent<Vector2>();
-                attackEvent.AddListener(player.GetComponent<GenericAoeAttack>().ExecuteAoeAttack);
-                UiCamera
-                    .GetComponent<CustomInputManager>()
-                    .AssignInputToAbilityExecution("y", "joystick", attackEvent);
+                Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+                skill2.SetSkill(Action.Skill2);
 
-                UnityEvent mainAttackEvent = new UnityEvent();
-                mainAttackEvent.AddListener(player.GetComponent<DetectNearPlayer>().GetPlayerFaceDirection);
-                UiCamera.GetComponent<CustomInputManager>().AssingMainAttack("joystick", mainAttackEvent);
+                if (pl.CharacterName == "Muflus"){
+                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Tap, skill1);
+                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Area, skill2);
+                } else {
+                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
+                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Direction, skill2);
+                }
+
+                // Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
+                // skill3.SetSkill(Action.BasicAttack);
+                // _cim.AssignSkillToInput(UIControls.Skill3, UIType.Direction, skill3);
+
+                // Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+                // skill4.SetSkill(Action.AttackAoe);
             }
         }
     }

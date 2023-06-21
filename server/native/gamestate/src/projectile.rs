@@ -21,6 +21,7 @@ pub struct Projectile {
 #[derive(Debug, Clone, NifUnitEnum)]
 pub enum ProjectileType {
     BULLET,
+    DISARMINGBULLET,
 }
 
 #[derive(Debug, Clone, NifUnitEnum, PartialEq)]

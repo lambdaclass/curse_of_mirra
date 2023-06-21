@@ -1,4 +1,4 @@
-name: Deploy to AWS testing
+name: Deploy to Brazil testing
 on:
   workflow_dispatch:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-deploy:
-    name: Build and deploy to AWS testing
+    name: Build and deploy to Brazil testing
     runs-on: ubuntu-latest
     environment:
       name: testing
