@@ -24,10 +24,13 @@ public class CharacterSelectionManager : MonoBehaviour
             playersList.UpdatePlayerItem(LobbyConnection.Instance.playerId, updatedCharacter.name.text);
         }
 
-        if (selected && playersList.playerItems.Count > SocketConnectionManager.Instance.selectedCharacters.Count)
+        if (selected && playersList.playerItems.Count > SocketConnectionManager.Instance.selectedCharacters?.Count)
         {
             playersList.removePlayerItems();
         }
+
+        playersList.DisplayPlayerItems();
+        playersList.DisplayUpdates();
     }
 
     public UICharacterItem GetSelectedCharacter()

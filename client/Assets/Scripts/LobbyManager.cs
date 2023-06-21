@@ -60,7 +60,7 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && SocketConnectionManager.Instance != null && LobbyConnection.Instance.gameStarted
+            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && LobbyConnection.Instance.playerId != 1
         )
         {
             LobbyConnection.Instance.StartGame();

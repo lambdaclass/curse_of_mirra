@@ -8,6 +8,31 @@ public class CharacterSelectionList : MonoBehaviour
     GameObject playerItemPrefab;
     public List<GameObject> playerItems = new List<GameObject>();
 
+
+    public void DisplayPlayerItems()
+    {
+        print(playerItems.Count);
+        print(SocketConnectionManager.Instance.selectedCharacters?.Count);
+        if (playerItems.Count < SocketConnectionManager.Instance.selectedCharacters?.Count)
+        {
+            foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
+            {
+                CreatePlayerItem((int)entry.Key);
+            }
+        }
+    }
+
+    public void DisplayUpdates()
+    {
+        if (SocketConnectionManager.Instance.selectedCharacters?.Count > 0)
+        {
+            foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
+            {
+                UpdatePlayerItem((int)entry.Key, entry.Value);
+            }
+        }
+    }
+
     public void removePlayerItems()
     {
         for (int i = playerItems.Count; i > SocketConnectionManager.Instance.selectedCharacters.Count; i--)
@@ -69,7 +94,15 @@ public class CharacterSelectionList : MonoBehaviour
 
     public string GetPlayerCharacter(int id)
     {
-        return SocketConnectionManager.Instance.selectedCharacters?[(ulong)id];
+        string character = null;
+        if (SocketConnectionManager.Instance.selectedCharacters != null)
+        {
+            foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
+            {
+                if ((int)entry.Key == id) character = entry.Value;
+            }
+        }
+        return character;
     }
 
 }
