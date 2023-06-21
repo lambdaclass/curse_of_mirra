@@ -179,13 +179,15 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict){
+    public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict)
+    {
         Dictionary<ulong, string> result = new Dictionary<ulong, string>();
 
-        foreach(KeyValuePair<ulong, string> element in dict){
+        foreach (KeyValuePair<ulong, string> element in dict)
+        {
             result.Add(element.Key, element.Value);
         }
-        
+
         return result;
     }
     public static Player GetPlayer(int id, List<Player> player_list)

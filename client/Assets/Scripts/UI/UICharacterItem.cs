@@ -17,13 +17,14 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        selected = !selected;
+        selected = true;
         if (selected)
         {
             name.text = comCharacter.name;
             artWork.sprite = comCharacter.selectedArtwork;
             CustomLevelManager.prefab = comCharacter.prefab;
             SendCharacterSelection();
+            transform.parent.GetComponent<CharacterSelectionUI>().DeselectCharacters(comCharacter.name);
         }
         else
         {
@@ -31,12 +32,15 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void SendCharacterSelection(){
-        PlayerCharacter characterSelected = new PlayerCharacter{
-            PlayerId = (ulong) SocketConnectionManager.Instance.playerId,
+    public void SendCharacterSelection()
+    {
+        PlayerCharacter characterSelected = new PlayerCharacter
+        {
+            PlayerId = (ulong)SocketConnectionManager.Instance.playerId,
             CharacterName = name.text
         };
-        ClientAction clientAction = new ClientAction{
+        ClientAction clientAction = new ClientAction
+        {
             Action = Action.SelectCharacter,
             PlayerCharacter = characterSelected
         };
