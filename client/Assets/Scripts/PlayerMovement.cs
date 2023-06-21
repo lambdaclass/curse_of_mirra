@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         Teleporting = 4,
     }
 
-    public enum ProyectileStatus
+    public enum ProjectileStatus
     {
         Active = 0,
         Exploded = 1,
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             UpdatePlayerActions();
             checkForAttacks();
             ExecutePlayerAction();
-            UpdateProyectileActions();
+            UpdateProjectileActions();
         }
     }
 
@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void UpdateProyectileActions()
+    void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
