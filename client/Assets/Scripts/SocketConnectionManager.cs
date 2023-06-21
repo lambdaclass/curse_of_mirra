@@ -9,6 +9,8 @@ using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -24,8 +26,8 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
+    public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
-
     public Dictionary<ulong, string> selectedCharacters;
     public int playerId;
     public uint currentPing;
@@ -33,6 +35,8 @@ public class SocketConnectionManager : MonoBehaviour
     public Player winnerPlayer = null;
 
     public List<Player> winners = new List<Player>();
+
+    public EntityUpdates entityUpdates = new EntityUpdates();
 
     WebSocket ws;
 
@@ -125,6 +129,7 @@ public class SocketConnectionManager : MonoBehaviour
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
+                    this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:
@@ -133,11 +138,20 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.NextRound:
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     winners.Add(game_event.WinnerPlayer);
+                    var newPlayer1 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
+
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(newPlayer1.Position);
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
                     break;
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
                     print("The winner of the round is " + game_event.WinnerPlayer);
-                    ;
+                    var newPlayer2 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
+
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(newPlayer2.Position);
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
+                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
                     break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
@@ -173,6 +187,12 @@ public class SocketConnectionManager : MonoBehaviour
         }
         
         return result;
+    }
+    public static Player GetPlayer(int id, List<Player> player_list)
+    {
+        return player_list.Find(
+            el => el.Id == (ulong)id
+        );
     }
 
     public void SendAction(ClientAction action)

@@ -34,8 +34,8 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def encode!(%{players: players, projectiles: projectiles}) do
-    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles}
+  def encode!(%{players: players, projectiles: projectiles, timestamp: timestamp}) do
+    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles, timestamp: timestamp}
     |> GameEvent.encode()
   end
 
@@ -44,13 +44,13 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def last_round!(%{winner: winner, current_round: current_round}) do
-    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round}
+  def last_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round, players: players}
     |> GameEvent.encode()
   end
 
-  def next_round!(%{winner: winner, current_round: current_round}) do
-    %GameEvent{type: :NEXT_ROUND, winner_player: winner, current_round: current_round}
+  def next_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{type: :NEXT_ROUND, winner_player: winner, current_round: current_round, players: players}
     |> GameEvent.encode()
   end
 

@@ -1,4 +1,4 @@
-name: Deploy to testing
+name: Deploy to Europe testing
 on:
   workflow_dispatch:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-deploy:
-    name: Build and deploy to testing
+    name: Build and deploy to Europe testing
     runs-on: ubuntu-latest
     environment:
       name: testing
