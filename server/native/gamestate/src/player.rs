@@ -168,7 +168,7 @@ impl Position {
     }
 }
 
-#[derive(Debug, Clone, NifStruct, PartialEq)]
+#[derive(Debug, Clone, Hash, NifStruct, Eq, PartialEq)]
 #[module = "DarkWorldsServer.Engine.RelativePosition"]
 pub struct RelativePosition {
     pub x: i64,

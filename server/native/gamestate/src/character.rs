@@ -1,3 +1,4 @@
+use crate::RelativePosition;
 use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
@@ -9,6 +10,7 @@ pub enum Effect {
     Petrified,
     Disarmed,
     Piercing,
+    NeonCrashing(RelativePosition),
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
