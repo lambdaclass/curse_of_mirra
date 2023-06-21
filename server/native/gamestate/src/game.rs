@@ -636,21 +636,14 @@ impl GameState {
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {
-            projectile.position = new_entity_position(
-                self.board.height,
-                self.board.width,
-                projectile.direction.x,
-                projectile.direction.y,
-                projectile.position,
-                projectile.speed as i64,
-            );
+            projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
         self.projectiles
             .retain(|projectile| projectile.remaining_ticks > 0);
 
-        self.projectiles.iter_mut().for_each(|projectile| {
+        for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
                 let top_left = Position::new(
                     projectile
@@ -680,29 +673,26 @@ impl GameState {
                 let mut kill_count = 0;
                 for target_player_id in affected_players {
                     let attacked_player =
-                        GameState::get_player_mut(&mut self.players, target_player_id);
-                    match attacked_player {
-                        Ok(ap) => match projectile.projectile_type {
-                            ProjectileType::DISARMINGBULLET => {
-                                ap.character.add_effect(Effect::Disarmed.clone(), 300);
+                        GameState::get_player_mut(&mut self.players, target_player_id)?;
+                    match projectile.projectile_type {
+                        ProjectileType::DISARMINGBULLET => {
+                            attacked_player
+                                .character
+                                .add_effect(Effect::Disarmed.clone(), 300);
+                        }
+                        _ => {
+                            attacked_player.modify_health(-(projectile.damage as i64));
+                            if matches!(attacked_player.status, Status::DEAD) {
+                                kill_count += 1;
                             }
-                            _ => {
-                                ap.modify_health(-(projectile.damage as i64));
-                                if matches!(ap.status, Status::DEAD) {
-                                    kill_count += 1;
-                                }
-                                GameState::modify_cell_if_player_died(&mut self.board, ap);
-                            }
-                        },
-                        _ => continue,
+                            GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
+                        }
                     }
                 }
 
-                add_kills(&mut self.players, projectile.player_id, kill_count)
-                    .expect("Player not found");
+                add_kills(&mut self.players, projectile.player_id, kill_count)?;
             }
-        });
-
+        }
         Ok(())
     }
 
