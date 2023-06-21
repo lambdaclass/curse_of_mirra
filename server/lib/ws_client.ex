@@ -3,9 +3,9 @@ defmodule DarkWorldsServer.WsClient do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.ClientAction
+  alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.Runner
-
   def start_link(url) do
     WebSockex.start_link(url, __MODULE__, %{}, name: __MODULE__)
   end
@@ -24,6 +24,11 @@ defmodule DarkWorldsServer.WsClient do
     runner_pid = Communication.external_id_to_pid(session_id)
     state = Runner.get_game_state(runner_pid)
     Game.get_grid(state.game)
+  end
+
+  def set_character_muflus(player_id, session_id) do
+    runner_pid = Communication.external_id_to_pid(session_id)
+    Runner.play(runner_pid, player_id, %ActionOk{action: :select_character, value: %{player_id: player_id, character_name: "Muflus"}})
   end
 
   def get_character_speed(session_id) do
