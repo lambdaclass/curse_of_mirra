@@ -151,6 +151,14 @@ impl Player {
             + self.character.cooldown_second_skill())
         .checked_sub(now)
         .unwrap_or(0);
+        self.third_skill_cooldown_left = (self.third_skill_start
+            + self.character.cooldown_third_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
+        self.fourth_skill_cooldown_left = (self.fourth_skill_start
+            + self.character.cooldown_fourth_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
     }
 }
 
