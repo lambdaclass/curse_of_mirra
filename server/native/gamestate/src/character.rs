@@ -165,7 +165,7 @@ impl Character {
     }
     #[inline]
     pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
-        self.status_effects.insert(e.clone(), tl);
+        self.status_effects.insert(e, tl);
     }
 
     // TODO:
