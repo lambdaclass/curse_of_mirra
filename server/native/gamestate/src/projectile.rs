@@ -80,10 +80,8 @@ impl Projectile {
             self.speed as i64,
         );
         let Position { x, y } = self.position;
-        dbg!(x, y);
-        dbg!(board_height, board_width);
         // The projectile shouldn't move beyond the board limits,
-        // but just in case, lets compare it with lesser or eq.
+        // but just in case, lets compare it with greater than or eq.
         let outside_height_range = x == 0 || x >= (board_height - 1);
         let outside_width_range = y == 0 || y >= (board_width - 1);
         let has_to_explode = outside_height_range || outside_width_range;
