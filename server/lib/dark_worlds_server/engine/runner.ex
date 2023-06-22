@@ -359,7 +359,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_state, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
-      |> Map.put(:current_round, 0)
+      |> Map.put(:current_round, 1)
 
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
@@ -462,7 +462,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         player.status == :alive
       end)
 
-    winners = [winner | winners] |> IO.inspect(label: :tienealgo)
+    winners = [winner | winners]
     amount_of_winners = winners |> Enum.uniq_by(fn winner -> winner.id end) |> Enum.count()
 
     gen_server_state = Map.put(gen_server_state, :winners, winners)
