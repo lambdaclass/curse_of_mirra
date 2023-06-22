@@ -3282,7 +3282,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243820240813678}
-  m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  m_LocalRotation: {x: 0.4894212, y: -0.0010162804, z: -0.00060336164, w: 0.87204677}
   m_LocalPosition: {x: -9.9, y: 87.2, z: -72.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3807,7 +3807,7 @@ MonoBehaviour:
     m_AmplitudeGain: 0
     m_FrequencyGain: 0
     m_Duration: 0
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
+    m_NoiseOffsets: {x: 609.4372, y: 550.19946, z: -373.9613}
 --- !u!1 &1272652996671194
 GameObject:
   m_ObjectHideFlags: 0
@@ -7419,12 +7419,16 @@ MonoBehaviour:
   SmoothMovement: 1
   Threshold: {x: 0.1, y: 0.4}
   RotateInputBasedOnCameraDirection: 0
-  SkillBasic: {fileID: 4502623651594081531}
-  Skill1: {fileID: 5855432308331737228}
-  Skill2: {fileID: 1035504164758360170}
-  Skill3: {fileID: 627176288169803809}
-  Skill4: {fileID: 294850371}
-  TestFont: {fileID: 12800000, guid: 6fe5fd70f311c428a9d0e3090df1a857, type: 3}
+  SkillBasic: {fileID: 867670502850086981}
+  Skill1: {fileID: 914792814397663453}
+  Skill2: {fileID: 5616359017623639598}
+  Skill3: {fileID: 1730262193359057198}
+  Skill4: {fileID: 294850374}
+  SkillBasicCooldown: {fileID: 3353265690883270709}
+  Skill1Cooldown: {fileID: 6708494150494417716}
+  Skill2Cooldown: {fileID: 8730552177544952447}
+  Skill3Cooldown: {fileID: 56667048998880145}
+  Skill4Cooldown: {fileID: 966231675131132017}
 --- !u!1 &1743983407519520
 GameObject:
   m_ObjectHideFlags: 0
@@ -8259,7 +8263,7 @@ MonoBehaviour:
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0.5
   m_FrequencyGain: 0.5
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
+  mNoiseOffsets: {x: 774.7473, y: -697.4199, z: 179.93677}
 --- !u!1 &1791626063453702
 GameObject:
   m_ObjectHideFlags: 0
@@ -11456,7 +11460,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dc9b5dd5f83241468d8292702ab9b51, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -11520,7 +11524,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7165471738176455137
@@ -11683,7 +11687,7 @@ MonoBehaviour:
   HorizontalAxisEnabled: 1
   VerticalAxisEnabled: 1
   MaxRangeMode: 0
-  MaxRange: 3
+  MaxRange: 175
   MaxRangeTransform: {fileID: 0}
   JoystickValue:
     m_PersistentCalls:
