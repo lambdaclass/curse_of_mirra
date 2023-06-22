@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             var vInput = Input.GetAxis("Vertical");
             GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
         }
-        else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+        else if (inputFromVirtualJoystick /*&& joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0*/)
         {
             GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
         }
@@ -167,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
                 firstSkillCooldownLeft = player.FirstSkillCooldownLeft,
                 secondSkillCooldownLeft = player.SecondSkillCooldownLeft,
                 thirdSkillCooldownLeft = player.ThirdSkillCooldownLeft,
+                moving = player.Moving,
             };
             if (useClientPrediction) {
                 if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
@@ -303,8 +304,8 @@ public class PlayerMovement : MonoBehaviour
         characterOrientation.ForcedRotation = true;
 
         bool walking = false;
-
-        if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+        print(playerUpdate.moving);
+        if (playerUpdate.moving)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();

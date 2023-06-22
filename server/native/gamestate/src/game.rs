@@ -229,6 +229,11 @@ impl GameState {
             return Ok(());
         }
 
+        if x == 0f64 && y == 0f64 {
+            player.moving = false;
+            return Ok(());
+        }
+
         let new_position = new_entity_position(
             self.board.height,
             self.board.width,
@@ -242,6 +247,7 @@ impl GameState {
             .set_cell(player.position.x, player.position.y, Tile::Empty);
 
         player.position = new_position;
+        player.moving = true;
         self.board.set_cell(
             player.position.x,
             player.position.y,

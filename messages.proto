@@ -73,6 +73,7 @@ message Player {
     uint64 third_skill_cooldown_left = 14;
     uint64 fourth_skill_cooldown_left = 15;
     string character_name = 16;
+    bool moving = 17;
 }
 
 /*

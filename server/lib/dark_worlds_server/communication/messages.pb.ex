@@ -185,6 +185,7 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
   field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
   field(:character_name, 16, type: :string, json_name: "characterName")
+  field(:moving, 17, type: :bool)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -41,6 +41,7 @@ pub struct Player {
     // hopefully temporary and to tell
     // the client which character is being used.
     pub character_name: String,
+    pub moving: bool,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -93,6 +94,7 @@ impl Player {
             second_skill_cooldown_start: 0,
             third_skill_start: 0,
             fourth_skill_start: 0,
+            moving: false,
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {

@@ -24,6 +24,7 @@ public class EntityUpdates {
         public ulong firstSkillCooldownLeft;
         public ulong secondSkillCooldownLeft;
         public ulong thirdSkillCooldownLeft;
+        public bool moving;
     }
 
     public struct PlayerInput

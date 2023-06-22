@@ -90,7 +90,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       second_skill_cooldown_left: second_skill_cooldown_left,
       third_skill_cooldown_left: third_skill_cooldown_left,
       fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      character_name: name,
+      moving: moving
     } = player
 
     %ProtoPlayer{
@@ -106,7 +107,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       second_skill_cooldown_left: second_skill_cooldown_left,
       third_skill_cooldown_left: third_skill_cooldown_left,
       fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      character_name: name,
+      moving: moving
     }
   end
 
@@ -212,7 +214,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       second_skill_cooldown_left: second_skill_cooldown_left,
       third_skill_cooldown_left: third_skill_cooldown_left,
       fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      character_name: name,
+      moving: moving
     } = player
 
     %EnginePlayer{
@@ -230,7 +233,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       second_skill_cooldown_left: second_skill_cooldown_left,
       third_skill_cooldown_left: third_skill_cooldown_left,
       fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      character_name: name,
+      moving: moving
     }
   end
 
