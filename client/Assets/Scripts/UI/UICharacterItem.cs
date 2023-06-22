@@ -22,7 +22,6 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         {
             name.text = comCharacter.name;
             artWork.sprite = comCharacter.selectedArtwork;
-            CustomLevelManager.prefab = comCharacter.prefab;
             SendCharacterSelection();
             transform.parent.GetComponent<CharacterSelectionUI>().DeselectCharacters(comCharacter.name);
         }

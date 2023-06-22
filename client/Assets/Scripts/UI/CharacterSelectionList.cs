@@ -71,7 +71,7 @@ public class CharacterSelectionList : MonoBehaviour
 
     public void UpdatePlayerItem(int id, string character)
     {
-        if (playerItems.Count > 0)
+        if (playerItems.Count > 0 && playerItems != null)
         {
             PlayerItem playerI = playerItems.Find(el => el.GetComponent<PlayerItem>().GetId() == id).GetComponent<PlayerItem>();
 

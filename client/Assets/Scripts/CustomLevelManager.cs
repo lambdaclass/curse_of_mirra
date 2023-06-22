@@ -24,7 +24,7 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
     private int totalPlayers;
     private int playerId;
-    public static GameObject prefab;
+    public GameObject prefab;
     public GameObject quickGamePrefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
@@ -91,12 +91,11 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    public GameObject GetCharacterPrefab(int playerId)
+    private GameObject GetCharacterPrefab(int playerId)
     {
         GameObject prefab = null;
         foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
         {
-            print(entry.Key);
             if (entry.Key == (ulong)playerId)
             {
                 prefab = charactersPrefabList.Find(el => el.name == entry.Value).prefab;
@@ -105,9 +104,9 @@ public class CustomLevelManager : LevelManager
         return prefab;
     }
 
-    public void GeneratePlayer()
+    private void GeneratePlayer()
     {
-        prefab = prefab == null ? quickGamePrefab : prefab;
+        // prefab = prefab == null ? quickGamePrefab : prefab;
         for (int i = 0; i < totalPlayers; i++)
         {
             prefab = GetCharacterPrefab(i + 1);
