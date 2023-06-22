@@ -12,22 +12,18 @@ public class ClientPrediction {
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public Player lastServerUpdate = new Player();
-
     public void putPlayerInput(PlayerInput PlayerInput)
     {
         pendingPlayerInputs.Add(PlayerInput);
     }
 
     public void simulatePlayerState(Player player, long timestamp) {
-        putServerUpdate(player, timestamp);
+        removeServerAcknowledgedInputs(player, timestamp);
         simulatePlayerMovement(player);
     }
 
-    void putServerUpdate(Player player, long timestamp)
+    void removeServerAcknowledgedInputs(Player player, long timestamp)
     {
-        // lastServerUpdate = player;
-        Debug.Log("PENDING PLAYER INPUTS: " + pendingPlayerInputs.Count);
         pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
     }
 
@@ -52,6 +48,6 @@ public class ClientPrediction {
             newPlayerPosition.Y = (ulong)newPositionY;
 
             player.Position = newPlayerPosition;
-        });        
+        });
     }
 }

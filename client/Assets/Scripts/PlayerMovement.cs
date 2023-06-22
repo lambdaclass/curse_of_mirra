@@ -63,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
         GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            Player serverPlayerUpdate = gameEvent.Players[i];
+            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+            // prediction will modify the player in place, which is not what we want.
+            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
             if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction) {
                 // Move the ghost BEFORE client prediction kicks in, so it only moves up until
@@ -209,8 +211,35 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                // The idea here is, when moving, we never want to go past the position the backend is telling us we are in.
+                // Let's say the movementChange vector is (1, 0), i.e., we are moving horizontally to the right.
+                // Let's also say frontendPosition is (2, y, 1)
+                // If newPosition is (2.1, y, 1), we want it to just be (2, y, 1).
+                // In this case, all we are doing is saying that the `x` coordinate should be min(2, newPosition.x)
+                // If the movement were left, we would take max(2, newPosition.x)
+                // Let's now say that the movement is in the (1, 1) normalized direction, so diagonally up and right.
+                // If frontendPosition is (2, y, 1), I can't go past it in the (1, 1) direction. What we need to do here is
+                // simply take the `x` coordinate to be min(2, newPosition.x) and the `z` coordinate to be min(1, newPosition.z)
+
+                // In general, if the movementDirection vector is (x, y, z) normalized, then if its `x` coordinate is positive, we should
+                // take newPosition.x = min(frontendPosition.x, newPosition.x)
+                // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
+                // The exact same thing applies to `z`
                 Vector3 newPosition =
                 player.transform.position + movementDirection * velocity * Time.deltaTime;
+
+                if (movementDirection.x > 0) {
+                    newPosition.x = Math.Min(frontendPosition.x, newPosition.x);
+                } else {
+                    newPosition.x = Math.Max(frontendPosition.x, newPosition.x);
+                }
+
+                if (movementDirection.z > 0) {
+                    newPosition.z = Math.Min(frontendPosition.z, newPosition.z);
+                } else {
+                    newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
+                }
+
                 player.transform.position = newPosition;
                 characterOrientation.ForcedRotationDirection = movementDirection;
                 walking = true;
