@@ -969,6 +969,7 @@ MonoBehaviour:
   playerId: 0
   playerCount: 0
   serverTickRate_ms: 0
+  gameStarted: 0
 --- !u!1 &598334956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2193,10 @@ MonoBehaviour:
     type: 3}
   UiCamera: {fileID: 637808576}
   camera: {fileID: 1666771299}
+  charactersPrefabList:
+  - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
+  - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
+  - {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677, type: 2}
 --- !u!1 &1400874597
 GameObject:
   m_ObjectHideFlags: 0
