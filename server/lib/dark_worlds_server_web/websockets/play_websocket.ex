@@ -150,8 +150,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.selected_characters!(selected_characters)}, web_socket_state}
   end
 
-  def websocket_info({:finish_character_selection, players}, web_socket_state) do
-    {:reply, {:binary, Communication.finish_character_selection!(players)}, web_socket_state}
+  def websocket_info({:finish_character_selection, selected_players, players}, web_socket_state) do
+    {:reply, {:binary, Communication.finish_character_selection!(selected_players, players)}, web_socket_state}
   end
 
   def websocket_info(info, web_socket_state), do: {:reply, {:text, info}, web_socket_state}

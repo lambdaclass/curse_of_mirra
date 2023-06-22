@@ -74,8 +74,8 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def finish_character_selection!(players) do
-    %GameEvent{type: :FINISH_CHARACTER_SELECTION, players: players}
+  def finish_character_selection!(selected_characters, players) do
+    %GameEvent{type: :FINISH_CHARACTER_SELECTION, selected_characters: selected_characters, players: players}
     |> GameEvent.encode()
   end
 
