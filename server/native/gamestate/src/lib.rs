@@ -89,6 +89,17 @@ fn skill_1(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
+fn skill_2(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.skill_2(attacking_player_id, &attack_position)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
 fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.disconnect(player_id)?;
@@ -152,6 +163,7 @@ rustler::init!(
         spawn_player,
         basic_attack,
         skill_1,
+        skill_2,
     ],
     load = load
 );

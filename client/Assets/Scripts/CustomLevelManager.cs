@@ -150,7 +150,8 @@ public class CustomLevelManager : LevelManager
                 skill1.SetSkill(Action.Skill1);
 
                 Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
-                skill2.SetSkill(Action.BasicAttack);
+                skill2.SetSkill(Action.Skill2);
+
                 if (pl.CharacterName == "Muflus"){
                     _cim.AssignSkillToInput(UIControls.Skill1, UIType.Tap, skill1);
                     _cim.AssignSkillToInput(UIControls.Skill2, UIType.Area, skill2);
@@ -159,9 +160,9 @@ public class CustomLevelManager : LevelManager
                     _cim.AssignSkillToInput(UIControls.Skill2, UIType.Direction, skill2);
                 }
 
-                Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
-                skill3.SetSkill(Action.BasicAttack);
-                _cim.AssignSkillToInput(UIControls.Skill3, UIType.Direction, skill3);
+                // Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
+                // skill3.SetSkill(Action.BasicAttack);
+                // _cim.AssignSkillToInput(UIControls.Skill3, UIType.Direction, skill3);
 
                 // Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
                 // skill4.SetSkill(Action.AttackAoe);

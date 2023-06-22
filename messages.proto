@@ -129,6 +129,7 @@ enum Action {
     AUTO_ATTACK = 8;
     BASIC_ATTACK = 9;
     SKILL_1 = 10;
+    SKILL_2 = 11;
 }
 
 /* Directions an action can happen in
@@ -156,6 +157,7 @@ enum PlayerAction {
     ATTACKING_AOE = 2;
     EXECUTING_SKILL_1 = 3;
     TELEPORTING = 4;
+    EXECUTING_SKILL_2 = 5;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
@@ -246,6 +248,7 @@ enum LobbyEventType {
  */
 enum ProjectileType {
     BULLET = 0;
+    DISARMING_BULLET = 1;
 }
 
 /* Status of projectiles

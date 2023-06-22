@@ -54,6 +54,7 @@ pub enum PlayerAction {
     ATTACKING,
     ATTACKINGAOE,
     EXECUTINGSKILL1,
+    EXECUTINGSKILL2,
     TELEPORTING,
 }
 
