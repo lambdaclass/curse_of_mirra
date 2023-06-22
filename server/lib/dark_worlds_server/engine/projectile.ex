@@ -11,7 +11,9 @@ defmodule DarkWorldsServer.Engine.Projectile do
     :damage,
     :remaining_ticks,
     :projectile_type,
-    :status
+    :status,
+    :last_attacked_player_id,
+    :pierce
   ]
   defstruct [
     :id,
@@ -23,6 +25,8 @@ defmodule DarkWorldsServer.Engine.Projectile do
     :damage,
     :remaining_ticks,
     :projectile_type,
-    :status
+    :status,
+    :last_attacked_player_id,
+    :pierce
   ]
 end

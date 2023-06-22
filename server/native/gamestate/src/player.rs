@@ -29,11 +29,13 @@ pub struct Player {
     pub first_skill_cooldown_left: u64,
     pub second_skill_cooldown_left: u64,
     pub third_skill_cooldown_left: u64,
+    pub fourth_skill_cooldown_left: u64,
     // Timestamp when the cooldown started.
     pub basic_skill_cooldown_start: u64,
     pub first_skill_start: u64,
     pub second_skill_cooldown_start: u64,
     pub third_skill_start: u64,
+    pub fourth_skill_start: u64,
     // This field is redundant given that
     // we have the Character filed, this his
     // hopefully temporary and to tell
@@ -55,6 +57,8 @@ pub enum PlayerAction {
     ATTACKINGAOE,
     EXECUTINGSKILL1,
     EXECUTINGSKILL2,
+    EXECUTINGSKILL3,
+    EXECUTINGSKILL4,
     TELEPORTING,
 }
 
@@ -83,10 +87,12 @@ impl Player {
             first_skill_cooldown_left: 0,
             second_skill_cooldown_left: 0,
             third_skill_cooldown_left: 0,
+            fourth_skill_cooldown_left: 0,
             basic_skill_cooldown_start: 0,
             first_skill_start: 0,
             second_skill_cooldown_start: 0,
             third_skill_start: 0,
+            fourth_skill_start: 0,
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -143,6 +149,14 @@ impl Player {
         .unwrap_or(0);
         self.second_skill_cooldown_left = (self.second_skill_cooldown_start
             + self.character.cooldown_second_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
+        self.third_skill_cooldown_left = (self.third_skill_start
+            + self.character.cooldown_third_skill())
+        .checked_sub(now)
+        .unwrap_or(0);
+        self.fourth_skill_cooldown_left = (self.fourth_skill_start
+            + self.character.cooldown_fourth_skill())
         .checked_sub(now)
         .unwrap_or(0);
     }
