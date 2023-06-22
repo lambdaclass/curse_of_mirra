@@ -20,7 +20,6 @@ public class DisplayPlayerName : MonoBehaviour
         }
         else
         {
-
             this.gameObject.SetActive(true);
         }
     }
