@@ -2,6 +2,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
+  alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
@@ -17,6 +18,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
+
+  def encode(entry, SelectedCharactersEntry) do
+    entry
+  end
 
   def encode(runner_config, RunnerConfig) do
     runner_config
@@ -80,10 +85,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
-      basic_skill_cooldown_left: b_cooldown,
-      first_skill_cooldown_left: f_cooldown,
-      second_skill_cooldown_left: s_cooldown,
-      third_skill_cooldown_left: t_cooldown,
+      basic_skill_cooldown_left: basic_skill_cooldown_left,
+      first_skill_cooldown_left: first_skill_cooldown_left,
+      second_skill_cooldown_left: second_skill_cooldown_left,
+      third_skill_cooldown_left: third_skill_cooldown_left,
+      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
       character_name: name
     } = player
 
@@ -95,10 +101,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
-      basic_skill_cooldown_left: b_cooldown,
-      first_skill_cooldown_left: f_cooldown,
-      second_skill_cooldown_left: s_cooldown,
-      third_skill_cooldown_left: t_cooldown,
+      basic_skill_cooldown_left: basic_skill_cooldown_left,
+      first_skill_cooldown_left: first_skill_cooldown_left,
+      second_skill_cooldown_left: second_skill_cooldown_left,
+      third_skill_cooldown_left: third_skill_cooldown_left,
+      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
       character_name: name
     }
   end
@@ -114,7 +121,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       damage: damage,
       remaining_ticks: remaining_ticks,
       projectile_type: projectile_type,
-      status: status
+      status: status,
+      last_attacked_player_id: last_attacked_player_id,
+      pierce: pierce
     } = projectile
 
     %ProtoProjectile{
@@ -127,7 +136,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       damage: damage,
       remaining_ticks: remaining_ticks,
       projectile_type: projectile_encode(projectile_type),
-      status: projectile_status_encode(status)
+      status: projectile_status_encode(status),
+      last_attacked_player_id: last_attacked_player_id,
+      pierce: pierce
     }
   end
 
@@ -153,6 +164,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :skill_2, value: position, timestamp: timestamp}, ProtoAction) do
     %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}
+  end
+
+  def encode(%EngineAction{action: :skill_3, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}
+  end
+
+  def encode(%EngineAction{action: :skill_4, value: position, timestamp: timestamp}, ProtoAction) do
+    %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}
   end
 
   def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
@@ -188,10 +207,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
-      basic_skill_cooldown_left: b_cooldown,
-      first_skill_cooldown_left: f_cooldown,
-      second_skill_cooldown_left: s_cooldown,
-      third_skill_cooldown_left: t_cooldown,
+      basic_skill_cooldown_left: basic_skill_cooldown_left,
+      first_skill_cooldown_left: first_skill_cooldown_left,
+      second_skill_cooldown_left: second_skill_cooldown_left,
+      third_skill_cooldown_left: third_skill_cooldown_left,
+      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
       character_name: name
     } = player
 
@@ -205,10 +225,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
-      basic_skill_cooldown_left: b_cooldown,
-      first_skill_cooldown_left: f_cooldown,
-      second_skill_cooldown_left: s_cooldown,
-      third_skill_cooldown_left: t_cooldown,
+      basic_skill_cooldown_left: basic_skill_cooldown_left,
+      first_skill_cooldown_left: first_skill_cooldown_left,
+      second_skill_cooldown_left: second_skill_cooldown_left,
+      third_skill_cooldown_left: third_skill_cooldown_left,
+      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
       character_name: name
     }
   end
@@ -228,7 +249,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       damage: damage,
       remaining_ticks: remaining_ticks,
       projectile_type: projectile_type,
-      status: status
+      status: status,
+      last_attacked_player_id: last_attacked_player_id,
+      pierce: pierce
     } = projectile
 
     %EngineProjectile{
@@ -241,7 +264,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       damage: damage,
       remaining_ticks: remaining_ticks,
       projectile_type: projectile_decode(projectile_type),
-      status: projectile_status_decode(status)
+      status: projectile_status_decode(status),
+      last_attacked_player_id: last_attacked_player_id,
+      pierce: pierce
     }
   end
 
@@ -269,12 +294,27 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
   end
 
+  def decode(%ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :skill_3, value: position, timestamp: timestamp}
+  end
+
+  def decode(%ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :skill_4, value: position, timestamp: timestamp}
+  end
+
   def decode(%ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}, ProtoAction) do
     %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
   end
 
   def decode(%ProtoAction{action: :ADD_BOT, timestamp: timestamp}, ProtoAction) do
     %EngineAction{action: :add_bot, value: nil, timestamp: timestamp}
+  end
+
+  def decode(
+        %ProtoAction{action: :SELECT_CHARACTER, player_character: player_character, timestamp: timestamp},
+        ProtoAction
+      ) do
+    %EngineAction{action: :select_character, value: player_character, timestamp: timestamp}
   end
 
   def decode(%ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}, ProtoAction) do
@@ -303,6 +343,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
+  defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
+  defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
   defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
@@ -310,6 +352,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
+  defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
+  defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
   defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET

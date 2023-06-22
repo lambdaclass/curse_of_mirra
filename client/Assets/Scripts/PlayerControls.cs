@@ -99,19 +99,14 @@ public class PlayerControls : MonoBehaviour
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
+        var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        
         var characterSpeed = 0f;
-        if (playerId % 3 == 0)
-        {
-            // Uma
-            characterSpeed = 4f;
-        }
-        else if (playerId % 3 == 1)
-        {
-            // H4ck
-            characterSpeed = 5f;
-        } else {
-            // Muflus
-            characterSpeed = 3f;
+        foreach (var character in chars) {
+            if(charName == character.Name){
+                characterSpeed = float.Parse(character.BaseSpeed);
+            }
         }
 
         return characterSpeed;

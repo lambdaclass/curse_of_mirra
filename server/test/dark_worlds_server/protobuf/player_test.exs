@@ -25,6 +25,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         first_skill_cooldown_left: 0,
         second_skill_cooldown_left: 0,
         third_skill_cooldown_left: 0,
+        fourth_skill_cooldown_left: 0,
         character_name: "Name"
       }
 
@@ -42,6 +43,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         first_skill_cooldown_left: 0,
         second_skill_cooldown_left: 0,
         third_skill_cooldown_left: 0,
+        fourth_skill_cooldown_left: 0,
         character_name: "Name"
       }
 

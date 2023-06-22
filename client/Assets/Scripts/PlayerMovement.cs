@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendAction", clientActionRate, clientActionRate);
-        useClientPrediction = true;
+        useClientPrediction = false;
     }
 
     void Update()
