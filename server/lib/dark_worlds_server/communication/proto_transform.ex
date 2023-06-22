@@ -296,7 +296,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   def decode(%ProtoAction{action: :SKILL_4, position: position}, ProtoAction) do
     %EngineAction{action: :skill_4, value: position}
   end
-  
+
   def decode(%ProtoAction{action: :BASIC_ATTACK, position: position}, ProtoAction) do
     %EngineAction{action: :basic_attack, value: position}
   end
