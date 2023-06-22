@@ -12,6 +12,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   @session_timeout 60 * 1000
   # This is the amount of time between state updates in milliseconds
   @tick_rate_ms 20
+  # This is the amount of time that players have to select a character
+  @character_selection_timeout_ms 60 * 1000
 
   case Mix.env() do
     :test ->
@@ -68,7 +70,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.flag(:priority, priority)
 
-    Process.send_after(self(), :all_characters_set?, 5000)
+    Process.send_after(self(), :all_characters_set?, @character_selection_timeout_ms)
 
     {:ok,
      %{
