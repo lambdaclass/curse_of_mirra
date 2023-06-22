@@ -100,15 +100,18 @@ public class PlayerControls : MonoBehaviour
  
     public static float getBackendCharacterSpeed(ulong playerId) {
         var characterSpeed = 0f;
-        if (playerId % 2 == 0)
+        if (playerId % 3 == 0)
         {
-            // Muflus
+            // Uma
             characterSpeed = 4f;
         }
-        else
+        else if (playerId % 3 == 1)
         {
             // H4ck
             characterSpeed = 5f;
+        } else {
+            // Muflus
+            characterSpeed = 3f;
         }
 
         return characterSpeed;
