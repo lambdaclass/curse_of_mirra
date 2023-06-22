@@ -10,6 +10,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:LAST_ROUND, 4)
   field(:GAME_FINISHED, 5)
   field(:INITIAL_POSITIONS, 6)
+  field(:SELECTED_CHARACTER_UPDATE, 7)
+  field(:FINISH_CHARACTER_SELECTION, 8)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do
@@ -39,6 +41,7 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:SKILL_2, 11)
   field(:SKILL_3, 12)
   field(:SKILL_4, 13)
+  field(:SELECT_CHARACTER, 14)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -100,6 +103,17 @@ defmodule DarkWorldsServer.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :string)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   @moduledoc false
 
@@ -118,6 +132,24 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
 
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
   field(:timestamp, 8, type: :int64)
+
+  field(:selected_characters, 9,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry,
+    json_name: "selectedCharacters",
+    map: true
+  )
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.PlayerCharacter do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:character_name, 2, type: :string, json_name: "characterName")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -194,6 +226,11 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   )
 
   field(:target, 5, type: :sint64)
+
+  field(:player_character, 6,
+    type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
+    json_name: "playerCharacter"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

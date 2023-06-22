@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 7873102551915249125}
   - component: {fileID: 4221220233964836970}
   m_Layer: 10
-  m_Name: Hack
+  m_Name: H4ck
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

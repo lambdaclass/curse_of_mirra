@@ -10,6 +10,8 @@ defmodule LoadTest.Communication.Proto.GameEventType do
   field(:LAST_ROUND, 4)
   field(:GAME_FINISHED, 5)
   field(:INITIAL_POSITIONS, 6)
+  field(:SELECTED_CHARACTER_UPDATE, 7)
+  field(:FINISH_CHARACTER_SELECTION, 8)
 end
 
 defmodule LoadTest.Communication.Proto.Status do
@@ -36,6 +38,10 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:AUTO_ATTACK, 8)
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
+  field(:SKILL_2, 11)
+  field(:SKILL_3, 12)
+  field(:SKILL_4, 13)
+  field(:SELECT_CHARACTER, 14)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -60,6 +66,9 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:ATTACKING_AOE, 2)
   field(:EXECUTING_SKILL_1, 3)
   field(:TELEPORTING, 4)
+  field(:EXECUTING_SKILL_2, 5)
+  field(:EXECUTING_SKILL_3, 6)
+  field(:EXECUTING_SKILL_4, 7)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -82,6 +91,7 @@ defmodule LoadTest.Communication.Proto.ProjectileType do
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:BULLET, 0)
+  field(:DISARMING_BULLET, 1)
 end
 
 defmodule LoadTest.Communication.Proto.ProjectileStatus do
@@ -91,6 +101,15 @@ defmodule LoadTest.Communication.Proto.ProjectileStatus do
 
   field(:ACTIVE, 0)
   field(:EXPLODED, 1)
+end
+
+defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :string)
 end
 
 defmodule LoadTest.Communication.Proto.GameEvent do
@@ -106,6 +125,22 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
   field(:timestamp, 8, type: :int64)
+
+  field(:selected_characters, 9,
+    repeated: true,
+    type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
+    json_name: "selectedCharacters",
+    map: true
+  )
+end
+
+defmodule LoadTest.Communication.Proto.PlayerCharacter do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:character_name, 2, type: :string, json_name: "characterName")
 end
 
 defmodule LoadTest.Communication.Proto.Player do
@@ -132,7 +167,8 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
   field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
   field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
-  field(:character_name, 15, type: :string, json_name: "characterName")
+  field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
+  field(:character_name, 16, type: :string, json_name: "characterName")
 end
 
 defmodule LoadTest.Communication.Proto.Position do
@@ -163,6 +199,11 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
   field(:target, 5, type: :sint64)
+
+  field(:player_character, 6,
+    type: LoadTest.Communication.Proto.PlayerCharacter,
+    json_name: "playerCharacter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.JoystickValues do
@@ -288,4 +329,6 @@ defmodule LoadTest.Communication.Proto.Projectile do
   )
 
   field(:status, 10, type: LoadTest.Communication.Proto.ProjectileStatus, enum: true)
+  field(:last_attacked_player_id, 11, type: :uint64, json_name: "lastAttackedPlayerId")
+  field(:pierce, 12, type: :bool)
 end
