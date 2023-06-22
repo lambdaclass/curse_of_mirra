@@ -165,6 +165,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
                     break;
                 case GameEventType.FinishCharacterSelection:
+                    this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
                     this.gamePlayers = game_event.Players.ToList();
                     SceneManager.LoadScene("BackendPlayground");
                     break;
