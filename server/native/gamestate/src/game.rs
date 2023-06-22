@@ -45,7 +45,9 @@ impl GameState {
             .map(Character::from_config_map)
             .collect()
     }
+
     pub fn new(
+        selected_characters: HashMap<u64, Name>,
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
@@ -55,16 +57,20 @@ impl GameState {
         let mut positions = HashSet::new();
         let characters = GameState::build_characters_with_config(&characters_config)?;
         let players: Vec<Player> = (1..number_of_players + 1)
-            .map(|player_id| {
+            .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
-                Player::new(
-                    player_id,
-                    100,
-                    new_position,
-                    characters[player_id as usize % characters.len()].clone(),
-                )
+
+                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+
+                let character = characters
+                    .iter()
+                    .find(|x| x.name == selected_character)
+                    .ok_or("Can't get the character")?
+                    .clone();
+
+                Ok(Player::new(player_id, 100, new_position, character))
             })
-            .collect();
+            .collect::<Result<Vec<Player>, String>>()?;
 
         let mut board = Board::new(board_width, board_height);
 

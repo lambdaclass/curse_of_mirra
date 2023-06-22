@@ -46,6 +46,7 @@ public class LobbyPlayerList : MonoBehaviour
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
+        playerI.SetId(id);
 
         if (id == 1)
         {

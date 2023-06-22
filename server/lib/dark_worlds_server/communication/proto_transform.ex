@@ -2,6 +2,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
+  alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
@@ -17,6 +18,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
+
+  def encode(entry, SelectedCharactersEntry) do
+    entry
+  end
 
   def encode(runner_config, RunnerConfig) do
     runner_config
@@ -303,6 +308,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction) do
     %EngineAction{action: :add_bot, value: nil}
+  end
+
+  def decode(
+        %ProtoAction{action: :SELECT_CHARACTER, player_character: player_character},
+        ProtoAction
+      ) do
+    %EngineAction{action: :select_character, value: player_character}
   end
 
   def decode(%ProtoAction{action: :TELEPORT, position: position}, ProtoAction) do

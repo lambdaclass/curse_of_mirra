@@ -1168,10 +1168,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1969982254}
     m_Modifications:
+    - target: {fileID: 1137753101884043887, guid: a13332193cbcb43ef809979d3205936d,
+        type: 3}
+      propertyPath: m_Text
+      value: CHARACTER SELECTION
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137753102254520001, guid: a13332193cbcb43ef809979d3205936d,
+        type: 3}
+      propertyPath: LevelName
+      value: CharacterSelection
+      objectReference: {fileID: 0}
     - target: {fileID: 1137753103009242572, guid: a13332193cbcb43ef809979d3205936d,
         type: 3}
       propertyPath: m_Name
-      value: PlayGameButton
+      value: CharactersButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137753103009242572, guid: a13332193cbcb43ef809979d3205936d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1137753103009242573, guid: a13332193cbcb43ef809979d3205936d,
         type: 3}
@@ -1479,7 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d808c9bf14a1458aadf96d5f92b3b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: BackendPlayground
+  LevelName: CharacterSelection
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 627144958}

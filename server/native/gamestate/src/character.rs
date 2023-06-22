@@ -10,7 +10,7 @@ pub enum Effect {
     Disarmed,
     Piercing,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,
