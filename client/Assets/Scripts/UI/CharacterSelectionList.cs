@@ -11,13 +11,14 @@ public class CharacterSelectionList : MonoBehaviour
 
     public void DisplayPlayerItems()
     {
-        print(playerItems.Count);
-        print(SocketConnectionManager.Instance.selectedCharacters?.Count);
         if (playerItems.Count < SocketConnectionManager.Instance.selectedCharacters?.Count)
         {
             foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
             {
-                CreatePlayerItem((int)entry.Key);
+                if (entry.Key != (ulong)LobbyConnection.Instance.playerId)
+                {
+                    CreatePlayerItem((int)entry.Key);
+                }
             }
         }
     }
