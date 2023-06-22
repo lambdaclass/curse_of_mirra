@@ -45,7 +45,7 @@ public class CustomInputManager : InputManager
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
-        // mobileButtons.Add(UIControls.Skill4, Skill4);
+        mobileButtons.Add(UIControls.Skill4, Skill4);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
     }
 
