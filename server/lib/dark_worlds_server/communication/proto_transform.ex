@@ -273,7 +273,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ADD_BOT}, ProtoAction, timestamp: timestamp) do
+  def decode(%ProtoAction{action: :ADD_BOT, timestamp: timestamp}, ProtoAction) do
     %EngineAction{action: :add_bot, value: nil, timestamp: timestamp}
   end
 
