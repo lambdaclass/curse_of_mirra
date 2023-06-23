@@ -80,11 +80,16 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-            movePlayer(actualPlayer, serverPlayerUpdate);
+            if (actualPlayer.activeSelf)
+            {
+                movePlayer(actualPlayer, serverPlayerUpdate);
+            }
 
             if (serverPlayerUpdate.Health == 0)
             {
-                SocketConnectionManager.Instance.players[i].SetActive(false);
+                SocketConnectionManager.Instance.players[i]
+                    .GetComponent<Character>().CharacterModel
+                    .SetActive(false);
             }
         }
     }
