@@ -373,7 +373,7 @@ defmodule DarkWorldsServer.Accounts do
     user = Repo.one(from(u in User, where: u.email == ^email))
     if is_nil(user) do
       User.google_changeset(%User{}, params)
-      |> Repo.insert(on_conflict: :nothing)
+      |> Repo.insert()
       else
       {:ok, user}
     end
