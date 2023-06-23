@@ -12,12 +12,10 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
     private MMSoundManager soundManager;
-    AudioSource[] sources;
     private bool isMuted = false;
 
     void Awake()
     {
-        sources = GameObject.FindObjectsOfType<AudioSource>();
         soundManager = FindObjectOfType<MMSoundManager>();
         isMuted = false;
         muteButtonImage = GetComponent<Image>();
@@ -27,18 +25,15 @@ public class ToggleAudio : MonoBehaviour
     {
         isMuted = !isMuted;
 
-        foreach (AudioSource audioSource in sources)
+        if (isMuted)
         {
-            if (isMuted)
-            {
-                audioSource.Pause();
-                muteButtonImage.overrideSprite = mutedSprite;
-            }
-            else
-            {
-                audioSource.UnPause();
-                muteButtonImage.overrideSprite = unmutedSprite;
-            }
+            soundManager.MuteMaster();
+            muteButtonImage.overrideSprite = mutedSprite;
+        }
+        else
+        {
+            soundManager.UnmuteMaster();
+            muteButtonImage.overrideSprite = unmutedSprite;
         }
     }
 }
