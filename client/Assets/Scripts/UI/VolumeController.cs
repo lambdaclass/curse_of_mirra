@@ -15,15 +15,8 @@ public class VolumeController : MonoBehaviour
     void Awake()
     {
         soundManager = FindObjectOfType<MMSoundManager>();
-        masterVolumeSlider = GameObject.Find("MasterVolumeSlider").GetComponent<Slider>();
         musicVolumeSlider = GameObject.Find("MusicVolumeSlider").GetComponent<Slider>();
         sfxVolumeSlider = GameObject.Find("SfxVolumeSlider").GetComponent<Slider>();
-    }
-
-    // Update is called once per frame
-    public void ChangeMasterVolume()
-    {
-        soundManager.SetVolumeMaster(masterVolumeSlider.value);
     }
 
     public void ChangeMusicVolume()
