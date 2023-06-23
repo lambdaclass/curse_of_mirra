@@ -297,17 +297,15 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(
         :check_player_amount,
-        gen_server_state = %{current_players: current}
-      )
-      when current > 0 do
-    Process.send_after(self(), :check_player_amount, @player_check)
-    {:noreply, gen_server_state}
-  end
-
-  def handle_info(:check_player_amount, gen_server_state = %{current_players: current})
-      when current == 0 do
-    Process.send_after(self(), :session_timeout, 500)
-    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+        gen_server_state = %{current_players: current_players}
+      ) do
+        if current_players > 0 do
+          Process.send_after(self(), :check_player_amount, @player_check)
+          {:noreply, gen_server_state}
+        else
+          Process.send_after(self(), :session_timeout, 500)
+          {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+        end
   end
 
   def handle_info(:game_timeout, gen_server_state) do
