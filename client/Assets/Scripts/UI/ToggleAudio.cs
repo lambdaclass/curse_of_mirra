@@ -11,12 +11,14 @@ public class ToggleAudio : MonoBehaviour
     public Sprite unmutedSprite;
 
     private Image muteButtonImage;
+    private MMSoundManager soundManager;
     AudioSource[] sources;
     private bool isMuted = false;
 
     void Awake()
     {
         sources = GameObject.FindObjectsOfType<AudioSource>();
+        soundManager = FindObjectOfType<MMSoundManager>();
         isMuted = false;
         muteButtonImage = GetComponent<Image>();
     }
