@@ -33,6 +33,7 @@ public class SocketConnectionManager : MonoBehaviour
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
+    public Dictionary<ulong, ulong> gameKills;
 
     public List<Player> winners = new List<Player>();
 
@@ -131,6 +132,9 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
+                    this.gameKills = fromMapFieldToDictionary(game_event.KilledPlayers);
+
+                    game_event.KilledPlayers.ToList().ForEach((item) => print("Player Killed: " + item.Key + " Player killer: " + item.Value));
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
@@ -179,6 +183,17 @@ public class SocketConnectionManager : MonoBehaviour
         Dictionary<ulong, string> result = new Dictionary<ulong, string>();
 
         foreach (KeyValuePair<ulong, string> element in dict)
+        {
+            result.Add(element.Key, element.Value);
+        }
+
+        return result;
+    }
+    public Dictionary<ulong, ulong> fromMapFieldToDictionary(MapField<ulong, ulong> dict)
+    {
+        Dictionary<ulong, ulong> result = new Dictionary<ulong, ulong>();
+
+        foreach (KeyValuePair<ulong, ulong> element in dict)
         {
             result.Add(element.Key, element.Value);
         }

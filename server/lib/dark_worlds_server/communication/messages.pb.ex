@@ -114,6 +114,17 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
+defmodule DarkWorldsServer.Communication.Proto.GameEvent.KilledPlayersEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :uint64)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   @moduledoc false
 
@@ -137,6 +148,13 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
     repeated: true,
     type: DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
+    map: true
+  )
+
+  field(:killed_players, 10,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.GameEvent.KilledPlayersEntry,
+    json_name: "killedPlayers",
     map: true
   )
 

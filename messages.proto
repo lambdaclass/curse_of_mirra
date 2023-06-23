@@ -17,6 +17,7 @@ message GameEvent {
     uint64 current_round = 7;
     int64 timestamp = 8;
     map<uint64, string> selected_characters = 9;
+    map<uint64, uint64> killed_players = 10;
 }
 
 /* Type of game events
