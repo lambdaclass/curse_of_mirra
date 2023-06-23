@@ -203,71 +203,17 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_1, value: value, timestamp: timestamp}},
+        {:play, player_id, %ActionOk{action: action, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.skill_1(game, player_id, value)
+      )
+      when action in [:basic_attack, :skill_1, :skill_2, :skill_3, :skill_4] do
+    {:ok, game} = do_action(action, game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
 
     gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_2, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.skill_2(game, player_id, value)
-
-    server_game_state = server_game_state |> Map.put(:game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_3, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.skill_3(game, player_id, value)
-
-    server_game_state = server_game_state |> Map.put(:game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_4, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.skill_4(game, player_id, value)
-
-    server_game_state = server_game_state |> Map.put(:game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player_id, %ActionOk{action: :basic_attack, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    {:ok, game} = Game.basic_attack(game, player_id, value)
-
-    server_game_state = server_game_state |> Map.put(:game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
+      Map.put(gen_server_state, :server_game_state, server_game_state)
+      |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
@@ -378,12 +324,15 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(
         :character_selection_time_out,
-        %{selected_characters: selected_characters, max_players: max_players, players: players} = gen_server_state
+        %{selected_characters: selected_characters, max_players: max_players, players: players} =
+          gen_server_state
       )
       when map_size(selected_characters) < max_players do
-    players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
+    players_with_character =
+      Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
-    players_without_character = Enum.filter(players, fn player_id -> player_id not in players_with_character end)
+    players_without_character =
+      Enum.filter(players, fn player_id -> player_id not in players_with_character end)
 
     selected_characters =
       Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
@@ -662,4 +611,10 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Game.new(config)
   end
+
+  defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
+  defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
+  defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
+  defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
+  defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
 end
