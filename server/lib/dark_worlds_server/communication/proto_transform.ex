@@ -1,4 +1,5 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
+  alias DarkWorldsServer.Communication.Proto.GameEvent.KilledPlayersEntry
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
@@ -20,6 +21,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   @behaviour Protobuf.TransformModule
 
   def encode(entry, SelectedCharactersEntry) do
+    entry
+  end
+
+  def encode(entry, KilledPlayersEntry) do
     entry
   end
 
