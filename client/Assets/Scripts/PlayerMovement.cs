@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-            if (actualPlayer.activeSelf == true)
+            if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
             }

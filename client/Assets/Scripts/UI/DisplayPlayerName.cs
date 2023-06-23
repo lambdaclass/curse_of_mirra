@@ -14,13 +14,7 @@ public class DisplayPlayerName : MonoBehaviour
 
     void Update()
     {
-        if (character.GetComponent<Health>().CurrentHealth <= 0)
-        {
-            this.gameObject.SetActive(false);
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
+        bool isActive = character.GetComponent<Health>().CurrentHealth <= 0;
+        this.gameObject.SetActive(isActive);
     }
 }
