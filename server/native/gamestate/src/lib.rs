@@ -6,10 +6,12 @@ pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 use game::GameState;
+use rand::seq::index;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
 use std::str::FromStr;
 
+use crate::board::FlatGridResource;
 use crate::player::Player;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 
@@ -70,7 +72,7 @@ fn world_tick(game: GameState) -> GameState {
     game_2
 }
 #[rustler::nif(schedule = "DirtyCpu")]
-fn get_grid(game: GameState) -> Vec<Vec<Tile>> {
+fn get_grid(game: GameState) -> Vec<Tile> {
     let grid = game.board.grid.resource.lock().unwrap();
     grid.clone()
 }
@@ -78,14 +80,17 @@ fn get_grid(game: GameState) -> Vec<Vec<Tile>> {
 #[rustler::nif(schedule = "DirtyCpu")]
 fn get_non_empty(game: GameState) -> HashMap<(usize, usize), Tile> {
     let mut result: HashMap<(usize, usize), Tile> = HashMap::new();
-    let grid = game.board.grid.resource.lock().unwrap();
-    for (x, row) in grid.iter().enumerate() {
-        for (y, e) in row.iter().enumerate() {
-            match e {
-                Tile::Empty => continue,
-                _ => result.insert((x, y), (*e).clone()),
-            };
-        }
+    let grid: Vec<Tile> = game.board.grid.resource.lock().unwrap().to_vec();
+    for (index, elem) in grid.into_iter().enumerate() {
+        match elem {
+            Tile::Empty => continue,
+            _ => {
+                let width = game.board.width;
+                let x = (index / width) as usize;
+                let y = (index % width) as usize;
+                result.insert((x, y), (elem).clone())
+            }
+        };
     }
     result
 }
@@ -180,6 +185,7 @@ fn spawn_player(game: GameState, player_id: u64) -> GameState {
 
 pub fn load(env: Env, _: Term) -> bool {
     rustler::resource!(GridResource, env);
+    rustler::resource!(FlatGridResource, env);
     true
 }
 
