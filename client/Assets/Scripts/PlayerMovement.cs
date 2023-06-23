@@ -67,7 +67,8 @@ public class PlayerMovement : MonoBehaviour
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
-            if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction) {
+            if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
+            {
                 // Move the ghost BEFORE client prediction kicks in, so it only moves up until
                 // the last server update.
                 if (serverGhost != null)
@@ -78,11 +79,16 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-            movePlayer(actualPlayer, serverPlayerUpdate);
+            if (actualPlayer.activeSelf)
+            {
+                movePlayer(actualPlayer, serverPlayerUpdate);
+            }
 
             if (serverPlayerUpdate.Health == 0)
             {
-                SocketConnectionManager.Instance.players[i].SetActive(false);
+                SocketConnectionManager.Instance.players[i]
+                    .GetComponent<Character>().CharacterModel
+                    .SetActive(false);
             }
         }
     }
@@ -180,12 +186,12 @@ public class PlayerMovement : MonoBehaviour
         */
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
 
-         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
-         // it'll be changed.
-         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-         float velocity = tickRate * characterSpeed;
+        // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
+        // it'll be changed.
+        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+        float velocity = tickRate * characterSpeed;
 
-         var frontendPosition = Utils.transformBackendPositionToFrontendPosition(playerUpdate.Position);
+        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(playerUpdate.Position);
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
@@ -228,15 +234,21 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 newPosition =
                 player.transform.position + movementDirection * velocity * Time.deltaTime;
 
-                if (movementDirection.x > 0) {
+                if (movementDirection.x > 0)
+                {
                     newPosition.x = Math.Min(frontendPosition.x, newPosition.x);
-                } else {
+                }
+                else
+                {
                     newPosition.x = Math.Max(frontendPosition.x, newPosition.x);
                 }
 
-                if (movementDirection.z > 0) {
+                if (movementDirection.z > 0)
+                {
                     newPosition.z = Math.Min(frontendPosition.z, newPosition.z);
-                } else {
+                }
+                else
+                {
                     newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
                 }
 
@@ -244,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
                 characterOrientation.ForcedRotationDirection = movementDirection;
                 walking = true;
             }
-            
+
         }
         mAnimator.SetBool("Walking", walking);
 
@@ -275,7 +287,8 @@ public class PlayerMovement : MonoBehaviour
             // FIXME: add logic
         }
 
-        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId) {
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+        {
             InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
             InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.FirstSkillCooldownLeft);
             InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.SecondSkillCooldownLeft);
@@ -285,7 +298,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void ToggleGhost()
     {
-        if (!useClientPrediction) {
+        if (!useClientPrediction)
+        {
             return;
         }
         showServerGhost = !showServerGhost;
@@ -309,14 +323,18 @@ public class PlayerMovement : MonoBehaviour
     {
         useClientPrediction = !useClientPrediction;
         Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
-        if (!useClientPrediction) {
+        if (!useClientPrediction)
+        {
             toggleGhostButton.text = "Client Prediction Off";
             showServerGhost = false;
-            if (serverGhost != null) {
+            if (serverGhost != null)
+            {
                 serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
                 Destroy(serverGhost);
             }
-        } else {
+        }
+        else
+        {
             toggleGhostButton.text = "Client Prediction On";
         }
     }
