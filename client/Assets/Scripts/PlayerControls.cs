@@ -53,66 +53,17 @@ public class PlayerControls : MonoBehaviour
     }
     public void SendAction()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            SendAction(Action.Move, Direction.Up);
-            int playerId = SocketConnectionManager.Instance.playerId;
-            float characterSpeed = getCharacterSpeed(playerId);
-            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Up);
-
-
-            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
-            {
-                grid_delta_x = delta_x,
-                grid_delta_y = delta_y,
-                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-            };
-            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
+        if(Input.GetKey(KeyCode.W)){
+            GetComponent<PlayerControls>().SendJoystickValues(0f, 1f);
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            SendAction(Action.Move, Direction.Left);
-            int playerId = SocketConnectionManager.Instance.playerId;
-            float characterSpeed = getCharacterSpeed(playerId);
-            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Left);
-
-            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
-            {
-                grid_delta_x = delta_x,
-                grid_delta_y = delta_y,
-                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-            };
-            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
+        if(Input.GetKey(KeyCode.S)){
+            GetComponent<PlayerControls>().SendJoystickValues(0f, -1f);
         }
-        if (Input.GetKey(KeyCode.D))
-        {
-            SendAction(Action.Move, Direction.Right);
-            int playerId = SocketConnectionManager.Instance.playerId;
-            float characterSpeed = getCharacterSpeed(playerId);
-            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Right);
-
-            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
-            {
-                grid_delta_x = delta_x,
-                grid_delta_y = delta_y,
-                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-            };
-            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
+        if(Input.GetKey(KeyCode.A)){
+            GetComponent<PlayerControls>().SendJoystickValues(-1f, 0f);
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            SendAction(Action.Move, Direction.Down);
-            int playerId = SocketConnectionManager.Instance.playerId;
-            float characterSpeed = getCharacterSpeed(playerId);
-            var (delta_x, delta_y) = keyboardMovementDelta(characterSpeed, Direction.Down);
-
-            EntityUpdates.PlayerInput playerInput = new EntityUpdates.PlayerInput
-            {
-                grid_delta_x = delta_x,
-                grid_delta_y = delta_y,
-                timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-            };
-            SocketConnectionManager.Instance.entityUpdates.putPlayerInput(playerInput);
+        if(Input.GetKey(KeyCode.D)){
+            GetComponent<PlayerControls>().SendJoystickValues(1f, 0f);
         }
     }
 

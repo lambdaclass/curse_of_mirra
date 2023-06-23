@@ -61,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         {
             UpdatePlayerActions();
             checkForAttacks();
-            checkForKeyboardMovements();
             ExecutePlayerAction();
             UpdateProyectileActions();
         }
@@ -101,21 +100,7 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
         }
     }
-
-    void checkForKeyboardMovements(){
-        if(Input.GetKeyDown(KeyCode.W)){
-            GetComponent<PlayerControls>().SendJoystickValues(0f, 0.5f);
-        }
-        if(Input.GetKeyDown(KeyCode.S)){
-            GetComponent<PlayerControls>().SendJoystickValues(0f, -0.5f);
-        }
-        if(Input.GetKeyDown(KeyCode.A)){
-            GetComponent<PlayerControls>().SendJoystickValues(-0.5f, 0f);
-        }
-        if(Input.GetKeyDown(KeyCode.D)){
-            GetComponent<PlayerControls>().SendJoystickValues(0.5f, 0f);
-        }
-    }
+    
     void checkForAttacks()
     {
         if (Input.GetKeyDown(KeyCode.J))
