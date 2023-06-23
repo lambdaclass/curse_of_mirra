@@ -4,6 +4,8 @@ defmodule DarkWorldsServerWeb.OauthController do
   use DarkWorldsServerWeb, :controller
   plug Ueberauth
 
+  alias DarkWorldsServerWeb.UserAuth
+
   def callback(
         %{
           assigns: %{
@@ -23,8 +25,11 @@ defmodule DarkWorldsServerWeb.OauthController do
     }
 
     case DarkWorldsServer.Accounts.get_or_create_user(params) do
-      {:ok, _user} ->
-        json(conn, %{status: :ok, email: user_mail, google_token: google_token})
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "WelcomeBack")
+        |> UserAuth.log_in_user(user)
+        # json(conn, %{status: :ok, email: user_mail, google_token: google_token})
 
       {:error, _changeset} ->
         json(conn, %{status: :error, email: user_mail, google_token: google_token})

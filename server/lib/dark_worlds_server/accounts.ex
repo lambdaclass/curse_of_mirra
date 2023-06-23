@@ -369,8 +369,13 @@ defmodule DarkWorldsServer.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def get_or_create_user(params) do
-    User.google_changeset(%DarkWorldsServer.Accounts.User{}, params)
-    |> Repo.insert(on_conflict: :nothing)
+  def get_or_create_user(%{email: email} = params) do
+    user = Repo.one(from(u in User, where: u.email == ^email))
+    if is_nil(user) do
+      User.google_changeset(%User{}, params)
+      |> Repo.insert(on_conflict: :nothing)
+      else
+      {:ok, user}
+    end
   end
 end
