@@ -553,11 +553,11 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
-                    if matches!(ap.status, Status::DEAD) {
-                        killed_players.insert(ap.id, attacking_player.id);
-                    }
                     let player = ap.clone();
                     GameState::modify_cell_if_player_died(board, &player);
+                    if matches!(player.status, Status::DEAD) {
+                        killed_players.insert(player.id, attacking_player_id);
+                    }
                 }
                 _ => continue,
             }
