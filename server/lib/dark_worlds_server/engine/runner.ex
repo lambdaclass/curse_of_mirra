@@ -363,21 +363,12 @@ defmodule DarkWorldsServer.Engine.Runner do
       end)
 
     winners = [winner | winners]
-    amount_of_winners = winners |> Enum.uniq_by(fn winner -> winner.id end) |> Enum.count()
 
     gen_server_state = Map.put(gen_server_state, :winners, winners)
 
-    next_game_update =
-      cond do
-        current_round == 2 and amount_of_winners == 2 ->
-          :last_round
-
-        (current_round == 2 && amount_of_winners == 1) || current_round == 3 ->
-          :game_finished
-
-        true ->
-          :next_round
-      end
+    next_game_update = if (current_round == 2 && amount_of_winners(winners) == 1) || current_round == 3,
+      do: :game_finished,
+      else: :next_round
 
     {next_game_update, gen_server_state, winner}
   end
@@ -386,44 +377,25 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:game_update, gen_server_state}
   end
 
-  defp broadcast_game_update(
-         {:last_round,
-          %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
-          winner}
-       ) do
-    game = Game.new_round(server_game_state.game, winners)
+  defp broadcast_game_update({:next_round, gen_server_state, winner}) do
+    server_game_state = gen_server_state.server_game_state
+    is_last_round = gen_server_state.current_round == 2 and amount_of_winners(gen_server_state.winners) == 2
+    broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
-    server_game_state = Map.put(server_game_state, :game, game)
+    round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
+    game = Game.new_round(server_game_state.game, round_players)
 
-    gen_server_state =
-      gen_server_state
-      |> Map.put(:server_game_state, server_game_state)
-      |> Map.put(:current_round, current_round + 1)
-      |> Map.put(:game_state, :playing)
-
-    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
-
-    broadcast_to_darkworlds_server({:last_round, winner, gen_server_state})
-
-    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
-
-    {:noreply, gen_server_state}
-  end
-
-  defp broadcast_game_update(
-         {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
-       ) do
-    game = Game.new_round(server_game_state.game, server_game_state.game.players)
-
-    server_game_state = Map.put(server_game_state, :game, game)
+    server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
       gen_server_state
       |> Map.put(:server_game_state, server_game_state)
-      |> Map.put(:current_round, current_round + 1)
+      |> Map.put(:current_round, gen_server_state.current_round + 1)
       |> Map.put(:game_state, :playing)
 
-    broadcast_to_darkworlds_server({:next_round, winner, gen_server_state})
+    if is_last_round, do: Process.send_after(self(), :update_state, gen_server_state.tick_rate)
+
+    broadcast_to_darkworlds_server({broadcast_message, winner, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -527,4 +499,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
   defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
   defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
+
+  defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()
 end
