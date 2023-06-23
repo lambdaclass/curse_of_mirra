@@ -9,11 +9,9 @@ public class LobbyManager : LevelSelector
 {
     [SerializeField]
     GameObject playButton;
-
     [SerializeField] GameObject mapList;
 
     public static string LevelSelected;
-
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -62,12 +60,11 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && !LobbyConnection.Instance.gameStarted
+            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && LobbyConnection.Instance.playerId != 1
         )
         {
-            StartCoroutine(CreateGame());
-            SceneManager.LoadScene("BackendPlayground");
+            LobbyConnection.Instance.StartGame();
+            SceneManager.LoadScene(this.LevelName);
         }
     }
 }

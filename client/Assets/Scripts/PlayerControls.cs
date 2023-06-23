@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -27,33 +29,92 @@ public class PlayerControls : MonoBehaviour
         if (x != 0 || y != 0)
         {
             var valuesToSend = new JoystickValues { X = x, Y = y };
-            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend };
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
             SocketConnectionManager.Instance.SendAction(clientAction);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = x,
+                joystick_y_value = y,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
     }
     public void SendAction()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            SendAction(Action.Move, Direction.Up);
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            SendAction(Action.Move, Direction.Up, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = 0f,
+                joystick_y_value = 1f,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            SendAction(Action.Move, Direction.Left);
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            SendAction(Action.Move, Direction.Left, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = -1f,
+                joystick_y_value = 0f,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            SendAction(Action.Move, Direction.Right);
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            SendAction(Action.Move, Direction.Right, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = 1f,
+                joystick_y_value = 0f,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            SendAction(Action.Move, Direction.Down);
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            SendAction(Action.Move, Direction.Down, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = 0f,
+                joystick_y_value = -1f,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
     }
+ 
+    public static float getBackendCharacterSpeed(ulong playerId) {
+        var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        
+        var characterSpeed = 0f;
+        foreach (var character in chars) {
+            if(charName == character.Name){
+                characterSpeed = float.Parse(character.BaseSpeed);
+            }
+        }
 
-    private static void SendAction(Action action, Direction direction)
+        return characterSpeed;
+    }
+
+    private static void SendAction(Action action, Direction direction, long timestamp)
     {
-        ClientAction clientAction = new ClientAction { Action = action, Direction = direction };
+        ClientAction clientAction = new ClientAction { Action = action, Direction = direction, Timestamp = timestamp };
         SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }

@@ -1,8 +1,8 @@
 defmodule DarkWorldsServer.Engine.ActionRaw do
   use DarkWorldsServer.Communication.Encoder
 
-  @enforce_keys [:action, :value]
-  defstruct [:action, :value]
+  @enforce_keys [:action, :value, :timestamp]
+  defstruct [:action, :value, :timestamp]
 
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.Position
@@ -13,7 +13,8 @@ defmodule DarkWorldsServer.Engine.ActionRaw do
         {:ok,
          %__MODULE__{
            action: data["action"] |> encode_action(),
-           value: data["value"] |> encode_value()
+           value: data["value"] |> encode_value(),
+           timestamp: data["timestamp"] |> encode_timestamp()
          }}
 
       {:error, error} ->
@@ -35,4 +36,7 @@ defmodule DarkWorldsServer.Engine.ActionRaw do
   def encode_value(%{"x" => x, "y" => y}), do: {:ok, %Position{x: x, y: y}}
   def encode_value(value) when is_integer(value), do: {:ok, value}
   def encode_value(_other), do: {:error, :invalid}
+
+  def encode_timestamp(timestamp) when is_integer(timestamp), do: {:ok, timestamp}
+  def encode_timestamp(_timestamp), do: {:error, :invalid_timestsamp}
 end
