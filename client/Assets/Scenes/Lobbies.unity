@@ -1766,6 +1766,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServerItem (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6431237632104201228, guid: 17deb64f08d234f0883dee4acc401f84,
+        type: 3}
+      propertyPath: m_Text
+      value: 10.150.20.186
+      objectReference: {fileID: 0}
     - target: {fileID: 6431237632104201230, guid: 17deb64f08d234f0883dee4acc401f84,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2280,7 +2285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1026.0001, y: -70.99997}
+  m_AnchoredPosition: {x: 1026.0001, y: -71}
   m_SizeDelta: {x: 1920, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1614923884

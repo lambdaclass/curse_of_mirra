@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class PlayerItem : MonoBehaviour
 {
     [SerializeField] public Text playerText;
-    public int id;
+    public ulong id;
 
-    public int GetId()
+    public ulong GetId()
     {
         return id;
     }
 
-    public void SetId(int id)
+    public void SetId(ulong id)
     {
         this.id = id;
     }

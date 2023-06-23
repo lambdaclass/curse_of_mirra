@@ -19,7 +19,11 @@ defmodule DarkWorldsServer.Test.Disconnect do
       })
 
     for i <- 1..3 do
-      Runner.play(pid, i, %ActionOk{action: :select_character, value: %{player_id: i, character_name: "Muflus"}})
+      Runner.play(pid, i, %ActionOk{
+        action: :select_character,
+        value: %{player_id: i, character_name: "Muflus"},
+        timestamp: nil
+      })
     end
 
     ## Needed for the character selection

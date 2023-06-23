@@ -199,8 +199,9 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
   field(:target, 5, type: :sint64)
+  field(:timestamp, 6, type: :int64)
 
-  field(:player_character, 6,
+  field(:player_character, 7,
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )

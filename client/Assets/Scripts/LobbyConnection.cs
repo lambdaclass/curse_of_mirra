@@ -17,7 +17,7 @@ public class LobbyConnection : MonoBehaviour
     public static LobbyConnection Instance;
     public string GameSession;
     public string LobbySession;
-    public int playerId;
+    public ulong playerId;
     public int playerCount;
     public uint serverTickRate_ms;
     public ServerGameSettings serverSettings;
@@ -67,7 +67,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.server_ip = SelectServerIP.GetServerIp();
-        this.playerId = -1;
+        this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -247,9 +247,9 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    if (playerId == -1)
+                    if (playerId == UInt64.MaxValue)
                     {
-                        playerId = (int)lobby_event.AddedPlayerId;
+                        playerId = lobby_event.AddedPlayerId;
                     }
                     playerCount = lobby_event.Players.Count();
                     break;

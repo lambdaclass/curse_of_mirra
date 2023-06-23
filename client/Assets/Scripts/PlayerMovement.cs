@@ -12,37 +12,11 @@ public class PlayerMovement : MonoBehaviour
     MMTouchJoystick joystickL;
     [SerializeField] CustomInputManager InputManager;
 
-    public Queue<EntityUpdates.PlayerState> playerUpdates = new Queue<EntityUpdates.PlayerState>();
-    public Queue<EntityUpdates.PlayerState> serverUpdates = new Queue<EntityUpdates.PlayerState>();
     public bool showServerGhost = false;
     public bool useClientPrediction;
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
-
-    public struct PlayerUpdate
-    {
-        public Vector3 playerPosition;
-        public int playerId;
-        public long health;
-        public PlayerAction action;
-        public Vector3 aoeCenterPosition;
-    }
-
-    public enum PlayerAction
-    {
-        Nothing = 0,
-        Attacking = 1,
-        AttackingAOE = 2,
-        MainAttack = 3,
-        Teleporting = 4,
-    }
-
-    public enum ProyectileStatus
-    {
-        Active = 0,
-        Exploded = 1,
-    }
 
     void Start()
     {
@@ -60,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             UpdatePlayerActions();
-            checkForAttacks();
-            ExecutePlayerAction();
             UpdateProyectileActions();
         }
     }
@@ -84,68 +56,6 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerControls>().SendAction();
         }
-        sendAttack();
-    }
-
-    void sendAttack()
-    {
-        if (isAttacking)
-        {
-            ClientAction clientAction = new ClientAction
-            {
-                Action = Action.Attack,
-                Direction = nextAttackDirection
-            };
-            SocketConnectionManager.Instance.SendAction(clientAction);
-            isAttacking = false;
-        }
-    }
-
-    void checkForAttacks()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            nextAttackDirection = Direction.Down;
-            isAttacking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            nextAttackDirection = Direction.Up;
-            isAttacking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            nextAttackDirection = Direction.Right;
-            isAttacking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            nextAttackDirection = Direction.Left;
-            isAttacking = true;
-        }
-        // Hardcoded dual sense square button
-        if (Input.GetKeyDown("joystick 1 button 0"))
-        {
-            nextAttackDirection = Direction.Up;
-            isAttacking = true;
-        }
-    }
-
-    void ExecutePlayerAction()
-    {
-        while (playerUpdates.TryDequeue(out var playerUpdate))
-        {
-            GameObject player = Utils.GetPlayer(playerUpdate.playerId);
-            movePlayer(player, playerUpdate);
-        }
-
-        while (serverUpdates.TryDequeue(out var playerUpdate))
-        {
-            if (serverGhost != null)
-            {
-                movePlayer(serverGhost, playerUpdate);
-            }
-        }
     }
 
     void UpdatePlayerActions()
@@ -153,41 +63,24 @@ public class PlayerMovement : MonoBehaviour
         GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            Player player = gameEvent.Players[i];
+            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+            // prediction will modify the player in place, which is not what we want.
+            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
-            EntityUpdates.PlayerState playerState = new EntityUpdates.PlayerState
-            {
-                playerPosition = Utils.transformBackendPositionToFrontendPosition(player.Position),
-                playerId = (int)player.Id,
-                health = player.Health,
-                action = (EntityUpdates.PlayerState.PlayerAction)player.Action,
-                aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition),
-                timestamp = gameEvent.Timestamp,
-                basicSkillCooldownLeft = player.BasicSkillCooldownLeft,
-                firstSkillCooldownLeft = player.FirstSkillCooldownLeft,
-                secondSkillCooldownLeft = player.SecondSkillCooldownLeft,
-                thirdSkillCooldownLeft = player.ThirdSkillCooldownLeft,
-            };
-            if (useClientPrediction) {
-                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId)
+            if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction) {
+                // Move the ghost BEFORE client prediction kicks in, so it only moves up until
+                // the last server update.
+                if (serverGhost != null)
                 {
-                    serverUpdates.Enqueue(playerState);
-                    SocketConnectionManager.Instance.entityUpdates.putServerUpdate(playerState);
+                    movePlayer(serverGhost, serverPlayerUpdate);
                 }
+                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(serverPlayerUpdate, gameEvent.Timestamp);
+            }
 
-                if (player.Id == (ulong)SocketConnectionManager.Instance.playerId && !SocketConnectionManager.Instance.entityUpdates.inputsIsEmpty())
-                {
-                    playerState = SocketConnectionManager.Instance.entityUpdates.simulatePlayerState();
-                    playerState.health = player.Health;
-                    playerState.action = (EntityUpdates.PlayerState.PlayerAction)player.Action;
-                    playerState.aoeCenterPosition = Utils.transformBackendPositionToFrontendPosition(player.AoePosition);
-                    playerState.timestamp = gameEvent.Timestamp;
-                }
-            }            
+            GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+            movePlayer(actualPlayer, serverPlayerUpdate);
 
-            playerUpdates.Enqueue(playerState);
-
-            if (playerState.health == 0)
+            if (serverPlayerUpdate.Health == 0)
             {
                 SocketConnectionManager.Instance.players[i].SetActive(false);
             }
@@ -272,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void movePlayer(GameObject player, EntityUpdates.PlayerState playerUpdate)
+    private void movePlayer(GameObject player, Player playerUpdate)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -285,15 +178,17 @@ public class PlayerMovement : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        var characterSpeed = PlayerControls.getCharacterSpeed(playerUpdate.playerId) / 10f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
 
          // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
          // it'll be changed.
          float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
          float velocity = tickRate * characterSpeed;
 
-        float xChange = playerUpdate.playerPosition.x - player.transform.position.x;
-        float yChange = playerUpdate.playerPosition.z - player.transform.position.z;
+         var frontendPosition = Utils.transformBackendPositionToFrontendPosition(playerUpdate.Position);
+
+        float xChange = frontendPosition.x - player.transform.position.x;
+        float yChange = frontendPosition.z - player.transform.position.z;
 
         Animator mAnimator = player
             .GetComponent<Character>()
@@ -304,21 +199,47 @@ public class PlayerMovement : MonoBehaviour
 
         bool walking = false;
 
-        if (Mathf.Abs(xChange) >= 0.2f || Mathf.Abs(yChange) >= 0.2f)
+        Vector2 movementChange = new Vector2(xChange, yChange);
+
+        if (movementChange.magnitude >= 0.2f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-            if (playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Teleporting)
+            if (playerUpdate.Action == PlayerAction.Teleporting)
             {
-                player.transform.position = playerUpdate.playerPosition;
-                if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId) {
-                    SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = playerUpdate.playerPosition;
-                }
+                player.transform.position = frontendPosition;
             }
             else
             {
+                // The idea here is, when moving, we never want to go past the position the backend is telling us we are in.
+                // Let's say the movementChange vector is (1, 0), i.e., we are moving horizontally to the right.
+                // Let's also say frontendPosition is (2, y, 1)
+                // If newPosition is (2.1, y, 1), we want it to just be (2, y, 1).
+                // In this case, all we are doing is saying that the `x` coordinate should be min(2, newPosition.x)
+                // If the movement were left, we would take max(2, newPosition.x)
+                // Let's now say that the movement is in the (1, 1) normalized direction, so diagonally up and right.
+                // If frontendPosition is (2, y, 1), I can't go past it in the (1, 1) direction. What we need to do here is
+                // simply take the `x` coordinate to be min(2, newPosition.x) and the `z` coordinate to be min(1, newPosition.z)
+
+                // In general, if the movementDirection vector is (x, y, z) normalized, then if its `x` coordinate is positive, we should
+                // take newPosition.x = min(frontendPosition.x, newPosition.x)
+                // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
+                // The exact same thing applies to `z`
                 Vector3 newPosition =
                 player.transform.position + movementDirection * velocity * Time.deltaTime;
+
+                if (movementDirection.x > 0) {
+                    newPosition.x = Math.Min(frontendPosition.x, newPosition.x);
+                } else {
+                    newPosition.x = Math.Max(frontendPosition.x, newPosition.x);
+                }
+
+                if (movementDirection.z > 0) {
+                    newPosition.z = Math.Min(frontendPosition.z, newPosition.z);
+                } else {
+                    newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
+                }
+
                 player.transform.position = newPosition;
                 characterOrientation.ForcedRotationDirection = movementDirection;
                 walking = true;
@@ -328,9 +249,9 @@ public class PlayerMovement : MonoBehaviour
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
-        healthComponent.SetHealth(playerUpdate.health);
+        healthComponent.SetHealth(playerUpdate.Health);
 
-        bool isAttackingAttack = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.Attacking;
+        bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
         if (isAttackingAttack)
         {
@@ -346,19 +267,19 @@ public class PlayerMovement : MonoBehaviour
         {
             healthComponent.Model.gameObject.SetActive(true);
         }
-        bool isAttackingAOE = playerUpdate.action == EntityUpdates.PlayerState.PlayerAction.AttackingAOE;
+        bool isAttackingAOE = playerUpdate.Action == PlayerAction.AttackingAoe;
         if (
-            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.playerId + 1))
+            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.Id + 1))
         )
         {
             // FIXME: add logic
         }
 
-        if (playerUpdate.playerId == SocketConnectionManager.Instance.playerId) {
-            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.basicSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.firstSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.secondSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.thirdSkillCooldownLeft);
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId) {
+            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.FirstSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.SecondSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.ThirdSkillCooldownLeft);
         }
     }
 
@@ -373,8 +294,8 @@ public class PlayerMovement : MonoBehaviour
             GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
             serverGhost.GetComponent<Character>().name = "Server Ghost";
-            serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
-            serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
+            // serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
+            // serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
         }
         else
         {
