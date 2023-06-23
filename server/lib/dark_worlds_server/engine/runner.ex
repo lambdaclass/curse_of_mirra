@@ -129,7 +129,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_cast(
         {:play, player, %ActionOk{action: action, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
+      ) when action in [:move, :move_with_joystick] do
     {:ok, game} = do_move(action, game, player, value)
 
     server_game_state = %{server_game_state | game: game}
