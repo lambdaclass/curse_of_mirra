@@ -207,19 +207,18 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:join, player_id},
         _,
         %{max_players: max, current_players: current} = gen_server_state
+      ) do
+    if current < max do
+      Phoenix.PubSub.broadcast(
+        DarkWorldsServer.PubSub,
+        Communication.pubsub_game_topic(self()),
+        {:player_joined, player_id}
       )
-      when current < max do
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:player_joined, player_id}
-    )
 
-    {:reply, {:ok, player_id}, %{gen_server_state | current_players: current + 1}}
-  end
-
-  def handle_call(:join, _, %{max_players: max, current_players: max} = gen_server_state) do
-    {:reply, {:error, :game_full}, gen_server_state}
+      {:reply, {:ok, player_id}, %{gen_server_state | current_players: current + 1}}
+    else
+      {:reply, {:error, :game_full}, gen_server_state}
+    end
   end
 
   def handle_call(
