@@ -108,13 +108,13 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     selected_characters = Map.put(selected_characters, player_id, character_name)
 
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
       Communication.pubsub_game_topic(self()),
       {:selected_characters, selected_characters}
     )
 
-    {:noreply, Map.put(gen_server_state, :selected_characters, selected_characters)}
+    {:noreply, %{gen_server_state | selected_characters: selected_characters}}
   end
 
   ## This will handle the case where players could send player movement actions or attacks
@@ -248,7 +248,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:all_characters_set?, gen_server_state) do
     all_characters_set?(gen_server_state)
   end
-
 
   def handle_info(:character_selection_time_out, gen_server_state) do
     character_selection_time_out(gen_server_state)
