@@ -173,22 +173,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :attack, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    game =
-      game
-      |> Game.attack_player(player, value)
-
-    server_game_state = server_game_state |> Map.put(:game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
         {:play, player_id, %ActionOk{action: action, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       )
