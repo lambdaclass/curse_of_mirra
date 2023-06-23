@@ -30,6 +30,7 @@ public class CustomLevelManager : LevelManager
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersPrefabList = new List<CoMCharacter>();
+    public List<GameObject> mapList = new List<GameObject>();
 
     int winnersCount = 0;
 
@@ -54,7 +55,7 @@ public class CustomLevelManager : LevelManager
         }
         else
         {
-            mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
+            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
             GameObject map = Instantiate(mapPrefab);
             //Add gameobject to the scene root
             map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
