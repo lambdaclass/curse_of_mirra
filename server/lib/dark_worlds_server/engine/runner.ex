@@ -290,29 +290,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply, game_state, gen_server_state}
   end
 
-  def handle_info(
-        :all_characters_set?,
-        %{game_state: :playing} = gen_server_state
-      ) do
-    {:noreply, gen_server_state}
-  end
-
-  def handle_info(
-        :all_characters_set?,
-        %{selected_characters: selected_characters, max_players: max_players} = gen_server_state
-      )
-      when map_size(selected_characters) == max_players do
-    Process.send_after(self(), :start_game, @game_start_timer_ms)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_info(
-        :all_characters_set?,
-        gen_server_state
-      ) do
-    Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
-    {:noreply, gen_server_state}
+  def handle_info(:all_characters_set?, gen_server_state) do
+    all_characters_set?(gen_server_state)
   end
 
   def handle_info(
@@ -610,6 +589,18 @@ defmodule DarkWorldsServer.Engine.Runner do
     }
 
     Game.new(config)
+  end
+
+  defp all_characters_set?(state) do
+    cond do
+      state[:game_state] == :playing ->
+        nil
+      Map.get(state, :selected_characters, %{}) |> map_size() == state[:max_players] ->
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
+      true ->
+        Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
+    end
+    {:noreply, state}
   end
 
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
