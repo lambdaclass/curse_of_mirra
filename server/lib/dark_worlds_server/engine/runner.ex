@@ -108,11 +108,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     selected_characters = Map.put(selected_characters, player_id, character_name)
 
-    Phoenix.PubSub.broadcast(
-      DarkWorldsServer.PubSub,
-      Communication.pubsub_game_topic(self()),
-      {:selected_characters, selected_characters}
-    )
+    broadcast_to_darkworlds_server({:selected_characters, selected_characters})
 
     {:noreply, %{gen_server_state | selected_characters: selected_characters}}
   end
@@ -179,11 +175,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     player_id = current + 1
     new_game = Game.spawn_player(game, player_id)
 
-    Phoenix.PubSub.broadcast(
-      DarkWorldsServer.PubSub,
-      Communication.pubsub_game_topic(self()),
-      {:player_joined, player_id}
-    )
+    broadcast_to_darkworlds_server({:player_joined, player_id})
 
     {:noreply,
      %{
@@ -209,11 +201,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{max_players: max, current_players: current} = gen_server_state
       ) do
     if current < max do
-      Phoenix.PubSub.broadcast(
-        DarkWorldsServer.PubSub,
-        Communication.pubsub_game_topic(self()),
-        {:player_joined, player_id}
-      )
+      broadcast_to_darkworlds_server({:player_joined, player_id})
 
       {:reply, {:ok, player_id}, %{gen_server_state | current_players: current + 1}}
     else
@@ -284,11 +272,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
       |> Map.put(:current_round, 1)
 
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
-    )
+    broadcast_to_darkworlds_server({:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players})
 
     {:noreply, gen_server_state}
   end
@@ -313,11 +297,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:session_timeout, gen_server_state) do
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_finished, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:game_finished, gen_server_state})
 
     {:stop, :normal, gen_server_state}
   end
@@ -375,11 +355,7 @@ defmodule DarkWorldsServer.Engine.Runner do
          %{game_state: :round_finished, winners: winners, current_round: current_round} = gen_server_state
        ) do
     # This has to be done in order to apply the last attack
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_update, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:game_update, gen_server_state})
 
     [winner] =
       Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
@@ -427,11 +403,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:last_round, winner, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:last_round, winner, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -451,11 +423,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:current_round, current_round + 1)
       |> Map.put(:game_state, :playing)
 
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:next_round, winner, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:next_round, winner, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -463,11 +431,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_update, gen_server_state}) do
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_update, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:game_update, gen_server_state})
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -475,16 +439,20 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
-    DarkWorldsServer.PubSub
-    |> Phoenix.PubSub.broadcast(
-      Communication.pubsub_game_topic(self()),
-      {:game_finished, winner, gen_server_state}
-    )
+    broadcast_to_darkworlds_server({:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
 
     {:noreply, gen_server_state}
   end
+
+  defp broadcast_to_darkworlds_server(message),
+    do:
+      Phoenix.PubSub.broadcast(
+        DarkWorldsServer.PubSub,
+        Communication.pubsub_game_topic(self()),
+        message
+      )
 
   defp create_new_game(
          %{runner_config: rg, character_config: %{Items: character_info}},
