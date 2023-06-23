@@ -11,7 +11,6 @@ public class VolumeController : MonoBehaviour
     private Slider musicVolumeSlider;
     private Slider sfxVolumeSlider;
 
-    // Start is called before the first frame update
     void Awake()
     {
         soundManager = FindObjectOfType<MMSoundManager>();

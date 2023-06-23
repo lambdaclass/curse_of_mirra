@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,13 +13,15 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
     private MMSoundManager soundManager;
-    private bool isMuted = false;
+    private bool isMuted;
+    private MMF_Player backgroundMusic;
 
     void Awake()
     {
         soundManager = FindObjectOfType<MMSoundManager>();
-        isMuted = false;
+        backgroundMusic = GameObject.Find("BackgroundMusic").GetComponent<MMF_Player>();
         muteButtonImage = GetComponent<Image>();
+        isMuted = true;
     }
 
     public void Toggle()
@@ -32,6 +35,7 @@ public class ToggleAudio : MonoBehaviour
         }
         else
         {
+            backgroundMusic.PlayFeedbacks();
             soundManager.UnmuteMaster();
             muteButtonImage.overrideSprite = unmutedSprite;
         }
