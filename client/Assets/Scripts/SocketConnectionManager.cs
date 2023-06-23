@@ -134,6 +134,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     this.gameKills = fromMapFieldToDictionary(game_event.KilledPlayers);
 
+                    Debug.Log("Wow the game event is" + gameEvent);
                     game_event.KilledPlayers.ToList().ForEach((item) => print("Player Killed: " + item.Key + " Player killer: " + item.Value));
                     break;
                 case GameEventType.PingUpdate:
