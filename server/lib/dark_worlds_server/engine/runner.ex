@@ -127,31 +127,17 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}},
+        {:play, player, %ActionOk{action: action, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
-    {:ok, game} = Game.move_with_joystick(game, player, x, y)
+    {:ok, game} = do_move(action, game, player, value)
 
-    server_game_state = Map.put(server_game_state, :game, game)
-
-    gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
-
-    {:noreply, gen_server_state}
-  end
-
-  def handle_cast(
-        {:play, player, %ActionOk{action: :move, value: value, timestamp: timestamp}},
-        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
-      ) do
-    game =
-      game
-      |> Game.move_player(player, value)
-
-    server_game_state = Map.put(server_game_state, :game, game)
+    server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
+      gen_server_state
+      |> Map.put(:server_game_state, server_game_state)
+      |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, gen_server_state}
   end
@@ -572,6 +558,9 @@ defmodule DarkWorldsServer.Engine.Runner do
     end
     {:noreply, state}
   end
+
+  defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)
+  defp do_move(:move, game, player, value), do: {:ok, Game.move_player(game, player, value)}
 
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
