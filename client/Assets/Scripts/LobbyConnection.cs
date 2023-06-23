@@ -17,11 +17,12 @@ public class LobbyConnection : MonoBehaviour
     public static LobbyConnection Instance;
     public string GameSession;
     public string LobbySession;
-    public int playerId;
+    public ulong playerId;
     public int playerCount;
-    public bool gameStarted = false;
     public uint serverTickRate_ms;
     public ServerGameSettings serverSettings;
+
+    public bool gameStarted = false;
 
     WebSocket ws;
 
@@ -66,7 +67,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.server_ip = SelectServerIP.GetServerIp();
-        this.playerId = -1;
+        this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -131,7 +132,6 @@ public class LobbyConnection : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
-        gameStarted = true;
     }
 
     private IEnumerator WaitLobbyCreated()
@@ -247,9 +247,9 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    if (playerId == -1)
+                    if (playerId == UInt64.MaxValue)
                     {
-                        playerId = (int)lobby_event.AddedPlayerId;
+                        playerId = lobby_event.AddedPlayerId;
                     }
                     playerCount = lobby_event.Players.Count();
                     break;
@@ -262,6 +262,7 @@ public class LobbyConnection : MonoBehaviour
                     GameSession = lobby_event.GameId;
                     serverSettings = lobby_event.GameConfig;
                     serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    gameStarted = true;
                     break;
 
                 default:

@@ -1,50 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class CharacterSelectionManager : LevelSelector
+public class CharacterSelectionManager : MonoBehaviour
 {
-    // [SerializeField] GameObject playButton;
-    // [SerializeField] CharacterSelectionUI characterList;
-    // [SerializeField] CharacterSelectionList playerCharacterList;
+    [SerializeField] CharacterSelectionList playersList;
+    [SerializeField] CharacterSelectionUI characterList;
+    public bool selected = false;
 
-    // public bool createdItem = false;
-    // public bool updated = false;
+    void Update()
+    {
+        if (selected == false && playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId) != null)
+        {
+            selected = true;
+            playersList.CreatePlayerItem(LobbyConnection.Instance.playerId);
+        }
 
-    // void Start()
-    // {
-    //     if (playButton != null)
-    //     {
-    //         if (LobbyConnection.Instance.playerId == 1)
-    //         {
-    //             playButton.SetActive(true);
-    //         }
-    //         else
-    //         {
-    //             playButton.SetActive(false);
-    //         }
-    //     }
-    // }
+        if (characterList.updated == true)
+        {
+            characterList.updated = false;
+            UICharacterItem updatedCharacter = GetSelectedCharacter();
+            playersList.UpdatePlayerItem(LobbyConnection.Instance.playerId, updatedCharacter.name.text);
+        }
 
-    // void Update()
-    // {
-    //     if (characterList.selected == true && createdItem == false)
-    //     {
-    //         createdItem = true;
-    //         playerCharacterList.createPlayerItems(LobbyConnection.Instance.playerId);
-    //     }
-    // }
+        if (selected && playersList.playerItems.Count > SocketConnectionManager.Instance.selectedCharacters?.Count)
+        {
+            playersList.removePlayerItems();
+        }
 
-    // public void GameStart()
-    // {
-    //     StartCoroutine(CreateGame());
-    //     StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
-    // }
+        playersList.DisplayPlayerItems();
+        playersList.DisplayUpdates();
+    }
 
-    // public IEnumerator CreateGame()
-    // {
-    //     yield return LobbyConnection.Instance.StartGame();
-    // }
+    public UICharacterItem GetSelectedCharacter()
+    {
+        List<GameObject> allCharacter = characterList.GetAllChilds();
+        UICharacterItem selectedCharacter = allCharacter?.Find(el => el.GetComponent<UICharacterItem>().selected == true).GetComponent<UICharacterItem>();
+        return selectedCharacter != null ? selectedCharacter : null;
+    }
 }

@@ -8,8 +8,9 @@ pub type TicksLeft = u64;
 pub enum Effect {
     Petrified,
     Disarmed,
+    Piercing,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,
@@ -147,6 +148,22 @@ impl Character {
             SecondActive::Rage => 5_u64,
         }
     }
+    pub fn cooldown_third_skill(&self) -> u64 {
+        // match self.skill_active_third {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
+    }
+    pub fn cooldown_fourth_skill(&self) -> u64 {
+        // match self.skill_active_fourth {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
+    }
     // Cooldown in seconds
     #[inline]
     pub fn cooldown(&self) -> u64 {
@@ -165,7 +182,7 @@ impl Character {
     }
     #[inline]
     pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
-        self.status_effects.insert(e.clone(), tl);
+        self.status_effects.insert(e, tl);
     }
 
     // TODO:
