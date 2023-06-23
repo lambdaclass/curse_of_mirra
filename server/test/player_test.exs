@@ -8,6 +8,9 @@ defmodule DarkWorldsServer.PlayerTest do
     session_id = create_session(config)
     {:ok, _ws_pid} = ws_connect(session_id, player_id)
 
+    WsClient.set_character_muflus(player_id, session_id)
+    Process.sleep(1_000)
+
     %{session_id: session_id}
   end
 
