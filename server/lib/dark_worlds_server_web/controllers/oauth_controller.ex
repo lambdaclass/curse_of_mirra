@@ -22,7 +22,7 @@ defmodule DarkWorldsServerWeb.OauthController do
       google_token: google_token
     }
 
-    case DarkWorldsServer.Accounts.create_user(params) do
+    case DarkWorldsServer.Accounts.get_or_create_user(params) do
       {:ok, _user} ->
         json(conn, %{status: :ok, email: user_mail, google_token: google_token})
 
