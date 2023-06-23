@@ -6,16 +6,17 @@ defmodule DarkWorldsServer.Engine.Game do
   defstruct [:players, :board]
 
   def new(%{
+        selected_players: selected_players,
         number_of_players: number_of_players,
         board: {width, height},
         build_walls: build_walls,
         characters: character_info
       })
       when is_list(character_info) do
-    new_game(number_of_players, width, height, build_walls, character_info)
+    new_game(selected_players, number_of_players, width, height, build_walls, character_info)
   end
 
-  def new_game(_num_of_players, _width, _height, _build_walls, _characters_config_list),
+  def new_game(_selected_players, _num_of_players, _width, _height, _build_walls, _characters_config_list),
     do: :erlang.nif_error(:nif_not_loaded)
 
   def move_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
@@ -24,6 +25,9 @@ defmodule DarkWorldsServer.Engine.Game do
   def auto_attack(_game_state, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def attack_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def skill_1(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
+  def skill_2(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
+  def skill_3(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
+  def skill_4(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def basic_attack(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def get_grid(_a), do: :erlang.nif_error(:nif_not_loaded)
   def get_non_empty(_a), do: :erlang.nif_error(:nif_not_loaded)

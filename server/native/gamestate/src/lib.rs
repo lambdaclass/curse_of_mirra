@@ -8,12 +8,14 @@ pub mod time_utils;
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
+use std::str::FromStr;
 
 use crate::player::Player;
 use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
+    selected_players: HashMap<u64, String>,
     number_of_players: u64,
     board_width: usize,
     board_height: usize,
@@ -34,7 +36,18 @@ fn new_game(
         }
         config.push(char);
     }
+
+    let mut selected_characters: HashMap<u64, character::Name> =
+        HashMap::<u64, character::Name>::new();
+
+    for (player_id, name) in selected_players {
+        let val = character::Name::from_str(&name)
+            .map_err(|_| format!("Can't parse the character name {name}"))?;
+        selected_characters.insert(player_id, val);
+    }
+
     GameState::new(
+        selected_characters,
         number_of_players,
         board_width,
         board_height,
@@ -89,6 +102,39 @@ fn skill_1(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
+fn skill_2(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.skill_2(attacking_player_id, &attack_position)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+fn skill_3(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.skill_3(attacking_player_id, &attack_position)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
+fn skill_4(
+    game: GameState,
+    attacking_player_id: u64,
+    attack_position: RelativePosition,
+) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.skill_4(attacking_player_id, &attack_position)?;
+    Ok(game_2)
+}
+
+#[rustler::nif(schedule = "DirtyCpu")]
 fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.disconnect(player_id)?;
@@ -106,8 +152,8 @@ fn new_round(game: GameState, players: Vec<Player>) -> GameState {
 fn move_with_joystick(
     game: GameState,
     player_id: u64,
-    x: f64,
-    y: f64,
+    x: f32,
+    y: f32,
 ) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.move_with_joystick(player_id, x, y)?;
@@ -152,6 +198,9 @@ rustler::init!(
         spawn_player,
         basic_attack,
         skill_1,
+        skill_2,
+        skill_3,
+        skill_4,
     ],
     load = load
 );
