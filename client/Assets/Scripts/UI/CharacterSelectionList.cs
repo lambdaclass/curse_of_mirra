@@ -17,7 +17,7 @@ public class CharacterSelectionList : MonoBehaviour
             {
                 if (entry.Key != (ulong)LobbyConnection.Instance.playerId)
                 {
-                    CreatePlayerItem((int)entry.Key);
+                    CreatePlayerItem(entry.Key);
                 }
             }
         }
@@ -29,7 +29,7 @@ public class CharacterSelectionList : MonoBehaviour
         {
             foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
             {
-                UpdatePlayerItem((int)entry.Key, entry.Value);
+                UpdatePlayerItem(entry.Key, entry.Value);
             }
         }
     }
@@ -44,7 +44,7 @@ public class CharacterSelectionList : MonoBehaviour
         }
     }
 
-    public void CreatePlayerItem(int id)
+    public void CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
@@ -69,7 +69,7 @@ public class CharacterSelectionList : MonoBehaviour
         playerItems.Add(newPlayer);
     }
 
-    public void UpdatePlayerItem(int id, string character)
+    public void UpdatePlayerItem(ulong id, string character)
     {
         if (playerItems.Count > 0)
         {
@@ -93,14 +93,14 @@ public class CharacterSelectionList : MonoBehaviour
         }
     }
 
-    public string GetPlayerCharacter(int id)
+    public string GetPlayerCharacter(ulong id)
     {
         string character = null;
         if (SocketConnectionManager.Instance.selectedCharacters != null)
         {
             foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
             {
-                if ((int)entry.Key == id) character = entry.Value;
+                if (entry.Key == id) character = entry.Value;
             }
         }
         return character;

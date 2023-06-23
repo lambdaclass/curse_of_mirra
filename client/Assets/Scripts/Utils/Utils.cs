@@ -20,7 +20,7 @@ public class Utils
         return new Vector3(x, 1f, y);
     }
 
-    public static GameObject GetPlayer(int id)
+    public static GameObject GetPlayer(ulong id)
     {
         return SocketConnectionManager.Instance.players.Find(
             el => el.GetComponent<Character>().PlayerID == id.ToString()

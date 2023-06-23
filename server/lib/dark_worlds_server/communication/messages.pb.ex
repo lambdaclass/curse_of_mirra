@@ -226,8 +226,9 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   )
 
   field(:target, 5, type: :sint64)
+  field(:timestamp, 6, type: :int64)
 
-  field(:player_character, 6,
+  field(:player_character, 7,
     type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )

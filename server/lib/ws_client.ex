@@ -32,7 +32,8 @@ defmodule DarkWorldsServer.WsClient do
 
     Runner.play(runner_pid, player_id, %ActionOk{
       action: :select_character,
-      value: %{player_id: player_id, character_name: "Muflus"}
+      value: %{player_id: player_id, character_name: "Muflus"},
+      timestamp: nil
     })
   end
 

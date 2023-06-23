@@ -84,6 +84,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        current_players: 0,
        players: opts.players,
        is_single_player?: length(opts.players) == 1,
+       player_timestamps: %{},
        game_state: :character_selection,
        opts: opts
      }}
@@ -126,7 +127,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :auto_attack, value: target}},
+        {:play, player, %ActionOk{action: :auto_attack, value: target, timestamp: timestamp}},
         %{next_state: %{game: game} = next_state} = state
       ) do
     Logger.info("[#{inspect(DateTime.utc_now())}] Received target: #{inspect(target)}")
@@ -134,26 +135,27 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     next_state = Map.put(next_state, :game, game)
 
-    state = Map.put(state, :next_state, next_state)
+    state = Map.put(state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, state}
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}}},
+        {:play, player, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.move_with_joystick(game, player, x, y)
 
     server_game_state = Map.put(server_game_state, :game, game)
 
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :move, value: value}},
+        {:play, player, %ActionOk{action: :move, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     game =
@@ -162,14 +164,15 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     server_game_state = Map.put(server_game_state, :game, game)
 
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :teleport, value: position_transform}},
-        %{next_state: %{game: game} = next_state} = state
+        {:play, player_id, %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
+        %{next_state: %{game: game} = next_state} = gen_server_state
       ) do
     game =
       game
@@ -177,13 +180,14 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     next_state = Map.put(next_state, :game, game)
 
-    state = Map.put(state, :next_state, next_state)
+    gen_server_state =
+      Map.put(gen_server_state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, state}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player, %ActionOk{action: :attack, value: value}},
+        {:play, player, %ActionOk{action: :attack, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     game =
@@ -191,66 +195,79 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Game.attack_player(player, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
+
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_1, value: value}},
+        {:play, player_id, %ActionOk{action: :skill_1, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.skill_1(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_2, value: value}},
+        {:play, player_id, %ActionOk{action: :skill_2, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.skill_2(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_3, value: value}},
+        {:play, player_id, %ActionOk{action: :skill_3, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.skill_3(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_4, value: value}},
+        {:play, player_id, %ActionOk{action: :skill_4, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.skill_4(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :basic_attack, value: value}},
+        {:play, player_id, %ActionOk{action: :basic_attack, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.basic_attack(game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
-    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
+
+    gen_server_state =
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
@@ -487,6 +504,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   ####################
   # Internal helpers #
   ####################
+  defp set_timestamp_for_player(gen_server_state, timestamp, player_id) do
+    player_timestamps = gen_server_state.player_timestamps |> Map.put(player_id, timestamp)
+    Map.put(gen_server_state, :player_timestamps, player_timestamps)
+  end
+
   defp has_a_player_won?(_players, true = _is_single_player?), do: :playing
 
   defp has_a_player_won?(players, _is_single_player?) do
