@@ -174,7 +174,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
     game_state = gen_server_state.server_game_state
 
-    player_id = gen_server_state.current + 1
+    player_id = gen_server_state.current_players + 1
     new_game = Game.spawn_player(game_state.game, player_id)
 
     broadcast_to_darkworlds_server({:player_joined, player_id})
@@ -183,7 +183,7 @@ defmodule DarkWorldsServer.Engine.Runner do
      %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
-         current_players: gen_server_state.current + 1
+         current_players: gen_server_state.current_players + 1
      }}
   end
 
@@ -191,17 +191,17 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:disconnect, player_id},
         %{client_game_state: game_state} = gen_server_state
       ) do
-    current = gen_server_state.current - 1
+    current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
 
     {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
-    if gen_server_state.current < gen_server_state.max do
+    if gen_server_state.current_players < gen_server_state.max do
       broadcast_to_darkworlds_server({:player_joined, player_id})
 
-      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current + 1}}
+      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
     else
       {:reply, {:error, :game_full}, gen_server_state}
     end
