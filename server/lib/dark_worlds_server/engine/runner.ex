@@ -191,16 +191,22 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
     game_state = gen_server_state.server_game_state
 
-    player_id = gen_server_state.current_players + 1
-    {:ok, new_game} = Game.spawn_player(game_state.game, player_id)
+    bot_id = gen_server_state.current_players + 1
+    {:ok, new_game} = Game.spawn_player(game_state.game, bot_id)
 
-    broadcast_to_darkworlds_server({:player_joined, player_id})
+    broadcast_to_darkworlds_server({:player_joined, bot_id})
+
+    selected_characters = Map.put(gen_server_state.selected_characters, bot_id, "Muflus")
+
+    broadcast_to_darkworlds_server({:selected_characters, selected_characters})
+    send(self(), {:bot_do, bot_id})
 
     {:noreply,
      %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
-         current_players: gen_server_state.current_players + 1
+         current_players: gen_server_state.current_players + 1,
+         selected_characters: selected_characters
      }}
   end
 
