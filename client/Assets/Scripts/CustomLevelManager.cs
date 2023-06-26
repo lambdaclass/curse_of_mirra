@@ -13,23 +13,19 @@ public class CustomLevelManager : LevelManager
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
-    [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
-    Text roundText;
-
-    [SerializeField]
-    GameObject backToLobbyButton;
+    public GameObject quickGamePrefab;
+    [SerializeField] GameObject roundSplash;
+    [SerializeField] Text roundText;
+    [SerializeField] GameObject backToLobbyButton;
     private List<Player> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
-    public GameObject prefab;
-    public GameObject quickGamePrefab;
+    private GameObject prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersPrefabList = new List<CoMCharacter>();
+    public List<GameObject> mapList = new List<GameObject>();
 
     int winnersCount = 0;
 
@@ -50,15 +46,20 @@ public class CustomLevelManager : LevelManager
     {
         if (LobbyManager.LevelSelected == null)
         {
-            quickMapPrefab.SetActive(true);
+            InitializeMapPrefab(quickMapPrefab);
         }
         else
         {
-            mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
-            GameObject map = Instantiate(mapPrefab);
-            //Add gameobject to the scene root
-            map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
+            InitializeMapPrefab(mapPrefab);
         }
+    }
+
+    private void InitializeMapPrefab(GameObject mapPrefab)
+    {
+        GameObject map = Instantiate(mapPrefab);
+        //Add gameobject to the scene root
+        map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
     }
 
     private IEnumerator InitializeLevel()
@@ -180,8 +181,9 @@ public class CustomLevelManager : LevelManager
                 skill3.SetSkill(Action.Skill4);
                 _cim.AssignSkillToInput(UIControls.Skill3, UIType.Tap, skill3);
 
-                // Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
-                // skill4.SetSkill(Action.AttackAoe);
+                Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+                skill4.SetSkill(Action.Skill1);
+                _cim.AssignSkillToInput(UIControls.Skill4, UIType.Direction, skill4);
             }
         }
     }

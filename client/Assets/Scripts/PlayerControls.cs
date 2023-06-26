@@ -99,17 +99,17 @@ public class PlayerControls : MonoBehaviour
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
-        var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
-        
-        var characterSpeed = 0f;
-        foreach (var character in chars) {
-            if(charName == character.Name){
-                characterSpeed = float.Parse(character.BaseSpeed);
+        if(SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId)){
+            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+            
+            foreach (var character in chars) {
+                if(charName == character.Name){
+                    return float.Parse(character.BaseSpeed);
+                }
             }
         }
-
-        return characterSpeed;
+        return 0f;
     }
 
     private static void SendAction(Action action, Direction direction, long timestamp)
