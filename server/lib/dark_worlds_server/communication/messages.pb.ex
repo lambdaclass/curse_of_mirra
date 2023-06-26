@@ -205,8 +205,8 @@ defmodule DarkWorldsServer.Communication.Proto.RelativePosition do
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:x, 1, type: :int64)
-  field(:y, 2, type: :int64)
+  field(:x, 1, type: :float)
+  field(:y, 2, type: :float)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -221,7 +221,7 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
   field(:position, 3, type: DarkWorldsServer.Communication.Proto.RelativePosition)
 
   field(:move_delta, 4,
-    type: DarkWorldsServer.Communication.Proto.JoystickValues,
+    type: DarkWorldsServer.Communication.Proto.RelativePosition,
     json_name: "moveDelta"
   )
 
@@ -232,17 +232,6 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
-defmodule DarkWorldsServer.Communication.Proto.JoystickValues do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:x, 1, type: :float)
-  field(:y, 2, type: :float)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -365,7 +354,7 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
 
   field(:id, 1, type: :uint64)
   field(:position, 2, type: DarkWorldsServer.Communication.Proto.Position)
-  field(:direction, 3, type: DarkWorldsServer.Communication.Proto.JoystickValues)
+  field(:direction, 3, type: DarkWorldsServer.Communication.Proto.RelativePosition)
   field(:speed, 4, type: :uint32)
   field(:range, 5, type: :uint32)
   field(:player_id, 6, type: :uint64, json_name: "playerId")
