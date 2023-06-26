@@ -63,7 +63,7 @@ impl Board {
             .lock()
             .expect("Could not get lock to resource!");
         let cell = board.get_mut(indx).ok_or(format!(
-            "Indices: x = {}, y = {}, calculated to: {} are out of bounds. Grid size is: {}x{}",
+            "Indices: x = {}, y = {} (calculated to: {}) are out of bounds. Grid size is: {}x{}",
             row_idx, col_idx, indx, self.width, self.height
         ))?;
         *cell = value;
