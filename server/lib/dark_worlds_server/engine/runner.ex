@@ -84,17 +84,17 @@ defmodule DarkWorldsServer.Engine.Runner do
        current_players: 0,
        players: opts.players,
        is_single_player?: length(opts.players) == 1,
+       game_status: :character_selection,
        player_timestamps: %{},
-       game_state: :character_selection,
        opts: opts
      }}
   end
 
-  def handle_cast(_actions, %{game_state: :game_finished} = gen_server_state) do
+  def handle_cast(_actions, %{game_status: :game_finished} = gen_server_state) do
     {:noreply, gen_server_state}
   end
 
-  def handle_cast(_actions, %{game_state: :round_finished} = gen_server_state) do
+  def handle_cast(_actions, %{game_status: :round_finished} = gen_server_state) do
     {:noreply, gen_server_state}
   end
 
@@ -121,7 +121,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   ## When game is on character selection screen
   def handle_cast(
         {:play, _, _},
-        %{game_state: :character_selection} = gen_server_state
+        %{game_status: :character_selection} = gen_server_state
       ) do
     {:noreply, gen_server_state}
   end
@@ -346,7 +346,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(
         :all_characters_set?,
-        %{game_state: :playing} = gen_server_state
+        %{game_status: :playing} = gen_server_state
       ) do
     {:noreply, gen_server_state}
   end
@@ -371,7 +371,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(
         :character_selection_time_out,
-        %{game_state: :playing} = gen_server_state
+        %{game_status: :playing} = gen_server_state
       ) do
     {:noreply, gen_server_state}
   end
@@ -430,7 +430,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       gen_server_state
       |> Map.put(:client_game_state, %{game: game})
       |> Map.put(:server_game_state, %{game: game})
-      |> Map.put(:game_state, :playing)
+      |> Map.put(:game_status, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
       |> Map.put(:current_round, 1)
@@ -488,7 +488,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     gen_server_state =
       Map.put(gen_server_state, :server_game_state, server_game_state)
-      |> Map.put(:game_state, game_state)
+      |> Map.put(:game_status, game_state)
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
@@ -525,7 +525,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp decide_next_game_update(
-         %{game_state: :round_finished, winners: winners, current_round: current_round} = gen_server_state
+         %{game_status: :round_finished, winners: winners, current_round: current_round} = gen_server_state
        ) do
     # This has to be done in order to apply the last attack
     DarkWorldsServer.PubSub
@@ -559,7 +559,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {next_game_update, gen_server_state, winner}
   end
 
-  defp decide_next_game_update(%{game_state: :playing} = gen_server_state) do
+  defp decide_next_game_update(%{game_status: :playing} = gen_server_state) do
     {:game_update, gen_server_state}
   end
 
@@ -576,7 +576,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       gen_server_state
       |> Map.put(:server_game_state, server_game_state)
       |> Map.put(:current_round, current_round + 1)
-      |> Map.put(:game_state, :playing)
+      |> Map.put(:game_status, :playing)
 
     Process.send_after(self(), :update_state, gen_server_state.tick_rate)
 
@@ -602,7 +602,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       gen_server_state
       |> Map.put(:server_game_state, server_game_state)
       |> Map.put(:current_round, current_round + 1)
-      |> Map.put(:game_state, :playing)
+      |> Map.put(:game_status, :playing)
 
     DarkWorldsServer.PubSub
     |> Phoenix.PubSub.broadcast(
