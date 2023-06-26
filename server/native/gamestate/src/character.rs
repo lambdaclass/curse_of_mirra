@@ -1,6 +1,6 @@
 use crate::RelativePosition;
 use crate::skills::*;
-use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
+use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive, ThirdActive};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
@@ -45,6 +45,7 @@ pub struct Character {
     pub skill_basic: Basic,
     pub skill_active_first: FirstActive,
     pub skill_active_second: SecondActive,
+    pub skill_active_third: ThirdActive,
     pub skill_dash: Dash,
     pub skill_ultimate: Ultimate,
     pub status_effects: HashMap<Effect, TicksLeft>,
@@ -71,6 +72,7 @@ impl Character {
             status_effects: HashMap::new(),
             skill_active_first: FirstActive::BarrelRoll,
             skill_active_second: SecondActive::Disarm,
+            skill_active_third: ThirdActive::NeonCrash,
             skill_dash: Dash::Blink,
             skill_ultimate: Ultimate::DenialOfService,
         }
@@ -88,6 +90,7 @@ impl Character {
         let skill_basic = get_key(config, "SkillBasic")?;
         let skill_active_first = get_key(config, "SkillActive1")?;
         let skill_active_second = get_key(config, "SkillActive2")?;
+        let skill_active_third = get_key(config, "SkillActive3")?;
         let skill_dash = get_key(config, "SkillDash")?;
         let skill_ultimate = get_key(config, "SkillUltimate")?;
         Ok(Self {
@@ -99,6 +102,7 @@ impl Character {
             name: parse_character_attribute(&name)?,
             skill_active_first: parse_character_attribute(&skill_active_first)?,
             skill_active_second: parse_character_attribute(&skill_active_second)?,
+            skill_active_third: parse_character_attribute(&skill_active_third)?,
             skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
@@ -125,6 +129,12 @@ impl Character {
             SecondActive::Petrify => 30_u32,
             SecondActive::MirrorImage => 10_u32,
             SecondActive::Disarm => 5_u32,
+        }
+    }
+
+    pub fn attack_dmg_third_active(&self) -> u32 {
+        match self.skill_active_third {
+            ThirdActive::NeonCrash => 5_u32,
         }
     }
     #[inline]
@@ -182,6 +192,7 @@ impl Character {
             None | Some(0) => self.base_speed,
         }
     }
+
     #[inline]
     pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
         self.status_effects.insert(e.clone(), tl);

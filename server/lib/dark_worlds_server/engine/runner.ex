@@ -178,7 +178,6 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
     {:ok, game} = Game.skill_2(game, player_id, value)
-    IO.inspect("skill 2")
 
     server_game_state = server_game_state |> Map.put(:game, game)
     gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
@@ -192,7 +191,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     {:ok, game} = Game.skill_3(game, player_id, value)
 
-    IO.inspect("dashing! - skill 3")
+    IO.inspect(value)
     server_game_state = server_game_state |> Map.put(:game, game)
     gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
 
@@ -265,11 +264,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply, {:error, :game_full}, gen_server_state}
   end
 
-  def handle_call(:get_board, _from, %{client_game_state: %{game: %Game{board: board}}} = gen_server_state) do
+  def handle_call(:get_board, _from, %{client_game_state: %{board: board}} = gen_server_state) do
     {:reply, board, gen_server_state}
   end
 
-  def handle_call(:get_players, _from, %{client_game_state: %{game: %Game{players: players}}} = gen_server_state) do
+  def handle_call(:get_players, _from, %{client_game_state: %{players: players}} = gen_server_state) do
     {:reply, players, gen_server_state}
   end
 

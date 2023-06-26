@@ -640,7 +640,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.fourth_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.third_skill_cooldown_left) {
             return Ok(());
         }
 
@@ -655,15 +655,10 @@ impl GameState {
                 attacking_player
                     .character
                     .add_effect(Effect::Dashing, 300);
-                Self::h4ck_skill_3();//TODO
                 Ok(())
             }
             _ => Ok(()),
         }
-
-    }
-
-    pub fn h4ck_skill_3 () {
 
     }
 
