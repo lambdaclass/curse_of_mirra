@@ -350,7 +350,7 @@ MonoBehaviour:
   Model: {fileID: 5450023447993378974}
   CurrentHealth: 100
   Invulnerable: 0
-  InitialHealth: 10
+  InitialHealth: 100
   MaximumHealth: 100
   ResetHealthOnEnable: 1
   ImmuneToDamage: 0

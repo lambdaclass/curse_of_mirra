@@ -262,11 +262,12 @@ public class PlayerMovement : MonoBehaviour
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
-        float auxHealth = healthComponent.CurrentHealth;
-        if (auxHealth != playerUpdate.Health && SocketConnectionManager.Instance.playerId == playerUpdate.Id)
-        {
-            healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
-        }
+        // Display damage done on you on your client
+        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+
+        // Display damage done on others players (not you)
+        GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+
         healthComponent.SetHealth(playerUpdate.Health);
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
