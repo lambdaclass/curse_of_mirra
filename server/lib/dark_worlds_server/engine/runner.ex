@@ -192,7 +192,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = gen_server_state.server_game_state
 
     player_id = gen_server_state.current_players + 1
-    new_game = Game.spawn_player(game_state.game, player_id)
+    {:ok, new_game} = Game.spawn_player(game_state.game, player_id)
 
     broadcast_to_darkworlds_server({:player_joined, player_id})
 
@@ -452,7 +452,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       characters: character_info
     }
 
-    Game.new(config)
+    {:ok, game} = Game.new(config)
   end
 
   defp all_characters_set?(state) do
@@ -503,7 +503,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)
-  defp do_move(:move, game, player, value), do: {:ok, Game.move_player(game, player, value)}
+  defp do_move(:move, game, player, value), do: Game.move_player(game, player, value)
 
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
