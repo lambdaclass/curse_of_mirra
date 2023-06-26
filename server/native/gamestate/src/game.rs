@@ -4,7 +4,7 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
+use crate::player::{self, Player, PlayerAction, Position, RelativePosition, Status};
 use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use std::cmp::{max, min};
@@ -267,6 +267,7 @@ impl GameState {
             .cloned()
     }
 
+    // Using fors
     // Return all player_id inside an area
     pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
         let mut players: Vec<u64> = vec![];
@@ -285,6 +286,62 @@ impl GameState {
             }
         }
         players
+    }
+
+    // Using substraction
+    pub fn players_in_range_using_square_block(
+        self: &mut Self,
+        top_left: Position,
+        bottom_right: Position,
+    ) -> Vec<u64> {
+        let mut players: Vec<u64> = vec![];
+
+        for player in self.players.iter() {
+            let player_position: Position = player.position;
+            if (player_position.x >= top_left.x && player_position.x <= bottom_right.x)
+                && (player_position.y <= top_left.y && player_position.y >= bottom_right.y)
+            {
+                players.push(player.id);
+            }
+        }
+        return players;
+    }
+
+    // Using manhattan distance
+    pub fn players_in_range_using_manhattan_distance(
+        self: &mut Self,
+        center: Position,
+        limit_distance: usize,
+    ) -> Vec<u64> {
+        let mut players: Vec<u64> = vec![];
+        for player in self.players.iter() {
+            let player_position = player.position;
+            let manhattan_distance =
+                center.x.abs_diff(player_position.x) + (center.y).abs_diff(player_position.y);
+            if manhattan_distance <= limit_distance {
+                players.push(player.id);
+            }
+        }
+        return players;
+    }
+
+    // Using distance to center
+    pub fn players_in_range_using_distance_to_center(
+        self: &mut Self,
+        center: Position,
+        limit_distance: f64,
+    ) -> Vec<u64> {
+        let mut players: Vec<u64> = vec![];
+        for player in self.players.iter() {
+            let player_position: Position = player.position;
+            let squared_sum =
+                (player_position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
+            let distance = (squared_sum as f64).sqrt();
+            if distance <= limit_distance {
+                players.push(player.id);
+            }
+        }
+        return players;
     }
 
     pub fn basic_attack(
@@ -968,13 +1025,6 @@ fn compute_barrel_roll_initial_positions(
 //         }
 //     }
 // }
-
-#[allow(dead_code)]
-fn distance_to_center(player: &Player, center: &Position) -> f64 {
-    let distance_squared =
-        (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
-    (distance_squared as f64).sqrt()
-}
 
 // We might want to abstract this into a Vector2 type or something, whatever.
 fn normalize_vector(x: f32, y: f32) -> (f32, f32) {
