@@ -88,6 +88,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        is_single_player?: length(opts.players) == 1,
        game_status: :character_selection,
        player_timestamps: %{},
+       bot_movements: %{},
        opts: opts
      }}
   end
@@ -200,6 +201,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
     send(self(), {:bot_do, bot_id})
+    send(self(), {:bot_movement, bot_id})
 
     {:noreply,
      %{
@@ -337,6 +339,25 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
+  end
+
+  def handle_info({:bot_do, bot_id}, %{server_game_state: _server_game_state} = gen_server_state) do
+    Process.send_after(self(), {:bot_do, bot_id}, 5_000)
+    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}], 1)
+    gen_server_state = put_in(gen_server_state, [:bot_movements, bot_id], movement)
+    {:noreply, gen_server_state}
+  end
+
+  def handle_info({:bot_movement, bot_id} = action, gen_server_state) do
+    Process.send_after(self(), action, gen_server_state.tick_rate)
+    {x, y} = get_in(gen_server_state, [:bot_movements, bot_id]) || {0.0, 0.0}
+
+    GenServer.cast(
+      self(),
+      {:play, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil}}
+    )
+
+    {:noreply, gen_server_state}
   end
 
   ####################
