@@ -388,7 +388,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
     round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
-    {:ok, game} = Game.new_round(server_game_state.game, winners)
+    {:ok, game} = Game.new_round(server_game_state.game, gen_server_state.winners)
 
     server_game_state = %{server_game_state | game: game}
 
