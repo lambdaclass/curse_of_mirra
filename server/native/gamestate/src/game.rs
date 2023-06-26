@@ -290,58 +290,57 @@ impl GameState {
 
     // Using substraction
     pub fn players_in_range_using_square_block(
-        self: &mut Self,
+        players: &Vec<Player>,
         top_left: Position,
         bottom_right: Position,
     ) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-
-        for player in self.players.iter() {
+        let mut players_found: Vec<u64> = vec![];
+        for player in players.iter() {
             let player_position: Position = player.position;
             if (player_position.x >= top_left.x && player_position.x <= bottom_right.x)
-                && (player_position.y <= top_left.y && player_position.y >= bottom_right.y)
+                && (player_position.y >= top_left.y && player_position.y <= bottom_right.y)
             {
-                players.push(player.id);
+                players_found.push(player.id);
             }
         }
-        return players;
+        return players_found;
     }
 
     // Using manhattan distance
     pub fn players_in_range_using_manhattan_distance(
-        self: &mut Self,
+        players: &Vec<Player>,
         center: Position,
         limit_distance: usize,
     ) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-        for player in self.players.iter() {
+        let mut found_players: Vec<u64> = vec![];
+        for player in players.iter() {
             let player_position = player.position;
             let manhattan_distance =
                 center.x.abs_diff(player_position.x) + (center.y).abs_diff(player_position.y);
             if manhattan_distance <= limit_distance {
-                players.push(player.id);
+                found_players.push(player.id);
             }
         }
-        return players;
+        return found_players;
     }
 
     // Using distance to center
     pub fn players_in_range_using_distance_to_center(
-        self: &mut Self,
+        players: &Vec<Player>,
         center: Position,
         limit_distance: f64,
     ) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-        for player in self.players.iter() {
+        let mut players_found: Vec<u64> = vec![];
+        for player in players.iter() {
             let player_position: Position = player.position;
             let squared_sum =
                 (player_position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
             let distance = (squared_sum as f64).sqrt();
             if distance <= limit_distance {
-                players.push(player.id);
+                players_found.push(player.id);
             }
         }
-        return players;
+        return players_found;
     }
 
     pub fn basic_attack(
@@ -467,7 +466,7 @@ impl GameState {
         );
 
         let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
+            GameState::players_in_range_using_square_block(&players, top_left, bottom_right)
                 .into_iter()
                 .filter(|&id| id != attacking_player.id)
                 .collect();
@@ -591,7 +590,7 @@ impl GameState {
             compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);
 
         let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
+            GameState::players_in_range_using_square_block(players, top_left, bottom_right)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
@@ -775,13 +774,16 @@ impl GameState {
                     projectile.position.y + projectile.range as usize,
                 );
 
-                let affected_players: Vec<u64> =
-                    GameState::players_in_range(&self.board, top_left, bottom_right)
-                        .into_iter()
-                        .filter(|&id| {
-                            id != projectile.player_id && id != projectile.last_attacked_player_id
-                        })
-                        .collect();
+                let affected_players: Vec<u64> = GameState::players_in_range_using_square_block(
+                    &self.players,
+                    top_left,
+                    bottom_right,
+                )
+                .into_iter()
+                .filter(|&id| {
+                    id != projectile.player_id && id != projectile.last_attacked_player_id
+                })
+                .collect();
 
                 if affected_players.len() > 0 && !projectile.pierce {
                     projectile.status = ProjectileStatus::EXPLODED;
