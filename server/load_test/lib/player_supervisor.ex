@@ -47,6 +47,14 @@ defmodule LoadTest.PlayerSupervisor do
     LobbyPlayer.start_game(player_one_pid)
   end
 
+  def n_games_30_players(num_games, duration \\ nil) do
+    spawn_games(num_games, 30)
+  end
+
+  def one_game_30_players(duration \\ nil) do
+    spawn_games(1, 30)
+  end
+
   def spawn_50_sessions(duration \\ nil) do
     spawn_games(50, 3, duration)
   end
