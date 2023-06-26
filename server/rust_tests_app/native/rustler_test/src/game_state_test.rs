@@ -58,25 +58,25 @@ pub fn no_move_if_beyond_boundaries() -> TestResult {
     let player_id = player.id;
     // Check UP boundary
     for i in 0..1000 {
-        state.move_player(player_id, Direction::UP);
+        state.move_player(player_id, Direction::UP)?;
     }
     assert_result!(0, state.players.first().unwrap().position.x)?;
 
     // Check DOWN boundary
     for i in 0..1000 {
-        state.move_player(player_id, Direction::DOWN);
+        state.move_player(player_id, Direction::DOWN)?;
     }
     assert_result!(99, state.players.first().unwrap().position.x)?;
 
     // Check RIGHT boundary
     for i in 0..1000 {
-        state.move_player(player_id, Direction::RIGHT);
+        state.move_player(player_id, Direction::RIGHT)?;
     }
     assert_result!(99, state.players.first().unwrap().position.y)?;
 
     // Check LEFT boundary
     for i in 0..1000 {
-        state.move_player(player_id, Direction::LEFT);
+        state.move_player(player_id, Direction::LEFT)?;
     }
     assert_result!(0, state.players.first().unwrap().position.y)
 }
@@ -106,7 +106,7 @@ fn no_move_if_occupied() -> TestResult {
     state.board.set_cell(1, 1, Tile::Empty)?;
     state.board.set_cell(1, 0, Tile::Empty)?;
     let expected_grid = get_grid(&state);
-    state.move_player(player1_id, Direction::RIGHT);
+    state.move_player(player1_id, Direction::RIGHT)?;
     assert_result!(expected_grid, get_grid(&state))
 }
 
@@ -120,7 +120,7 @@ fn no_move_if_wall() -> TestResult {
     state.board.set_cell(0, 1, Tile::Wall)?;
 
     let expected_grid = get_grid(&state);
-    state.move_player(player1_id, Direction::RIGHT);
+    state.move_player(player1_id, Direction::RIGHT)?;
     assert_result!(expected_grid, get_grid(&state))
 }
 
@@ -143,7 +143,7 @@ fn movement() -> TestResult {
     state.players = vec![player1];
     state.board.set_cell(0, 0, Tile::Player(player_id))?;
 
-    state.move_player(player_id, Direction::RIGHT);
+    state.move_player(player_id, Direction::RIGHT)?;
     assert_result!(
         vec![
             Tile::Empty,
@@ -154,7 +154,7 @@ fn movement() -> TestResult {
         get_grid(&state)
     )?;
 
-    state.move_player(player_id, Direction::DOWN);
+    state.move_player(player_id, Direction::DOWN)?;
     assert_result!(
         vec![
             Tile::Empty,
@@ -165,7 +165,7 @@ fn movement() -> TestResult {
         get_grid(&state)
     )?;
 
-    state.move_player(player_id, Direction::LEFT);
+    state.move_player(player_id, Direction::LEFT)?;
     assert_result!(
         vec![
             Tile::Empty,
@@ -176,7 +176,7 @@ fn movement() -> TestResult {
         get_grid(&state)
     )?;
 
-    state.move_player(player_id, Direction::UP);
+    state.move_player(player_id, Direction::UP)?;
     assert_result!(
         vec![
             Tile::Player(player_id),
@@ -258,7 +258,7 @@ fn attacking() -> TestResult {
 
     time_utils::sleep(cooldown);
 
-    state.move_player(player_1_id, Direction::DOWN);
+    state.move_player(player_1_id, Direction::DOWN)?;
 
     // Attacking to the right now does nothing since the player moved down.
     state
@@ -308,10 +308,10 @@ pub fn cant_move_if_petrified() -> TestResult {
     }
     // Try to move 10 times, the player/character should not move.
     for i in 0..10 {
-        state.move_player(player_id, Direction::DOWN);
-        state.move_player(player_id, Direction::LEFT);
-        state.move_player(player_id, Direction::UP);
-        state.move_player(player_id, Direction::RIGHT);
+        state.move_player(player_id, Direction::DOWN)?;
+        state.move_player(player_id, Direction::LEFT)?;
+        state.move_player(player_id, Direction::UP)?;
+        state.move_player(player_id, Direction::RIGHT)?;
         assert_result!(spawn_point.x, player.position.x)?;
     }
 
@@ -319,7 +319,7 @@ pub fn cant_move_if_petrified() -> TestResult {
     for _ in 1..=5 {
         state.world_tick()?;
     }
-    state.move_player(player_id, Direction::DOWN);
+    state.move_player(player_id, Direction::DOWN)?;
     player = state.get_player(player_id)?;
     assert_result!(player.character.speed(), base_speed)?;
     assert_result!(spawn_point.x + 1, player.position.x)?;

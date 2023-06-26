@@ -160,7 +160,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, player, %ActionOk{action: :move, value: value, timestamp: timestamp}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
-    game =
+    {:ok, game} =
       game
       |> Game.move_player(player, value)
 
@@ -569,7 +569,7 @@ defmodule DarkWorldsServer.Engine.Runner do
           %{winners: winners, current_round: current_round, server_game_state: server_game_state} = gen_server_state,
           winner}
        ) do
-    game = Game.new_round(server_game_state.game, winners)
+    {:ok, game} = Game.new_round(server_game_state.game, winners)
 
     server_game_state = Map.put(server_game_state, :game, game)
 
@@ -595,7 +595,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp broadcast_game_update(
          {:next_round, %{current_round: current_round, server_game_state: server_game_state} = gen_server_state, winner}
        ) do
-    game = Game.new_round(server_game_state.game, server_game_state.game.players)
+    {:ok, game} = Game.new_round(server_game_state.game, server_game_state.game.players)
 
     server_game_state = Map.put(server_game_state, :game, game)
 

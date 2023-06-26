@@ -6,7 +6,6 @@ pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 use game::GameState;
-use rand::seq::index;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
 use std::str::FromStr;
@@ -59,10 +58,10 @@ fn new_game(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameState {
-    let mut game_2 = game;
-    game_2.move_player(player_id, direction);
-    game_2
+fn move_player(game: GameState, player_id: u64, direction: Direction) -> Result<GameState, String> {
+    let mut game = game;
+    game.move_player(player_id, direction)?;
+    Ok(game)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -148,10 +147,10 @@ fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn new_round(game: GameState, players: Vec<Player>) -> GameState {
-    let mut game_2 = game;
-    game_2.new_round(players);
-    game_2
+fn new_round(game: GameState, players: Vec<Player>) -> Result<GameState, String> {
+    let mut game = game;
+    game.new_round(players)?;
+    Ok(game)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
