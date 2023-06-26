@@ -388,7 +388,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
     round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
-    {:ok, game} = Game.new_round(server_game_state.game, gen_server_state.winners)
+    {:ok, game} = Game.new_round(server_game_state.game, round_players)
 
     server_game_state = %{server_game_state | game: game}
 
@@ -452,7 +452,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       characters: character_info
     }
 
-    {:ok, game} = Game.new(config)
+    {:ok, _game} = Game.new(config)
   end
 
   defp all_characters_set?(state) do
