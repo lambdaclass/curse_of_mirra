@@ -73,7 +73,8 @@ fn world_tick(game: GameState) -> GameState {
 }
 #[rustler::nif(schedule = "DirtyCpu")]
 fn get_grid(game: GameState) -> Vec<Tile> {
-    let grid = game.board.grid.resource.lock().unwrap();
+    let board = game.board;
+    let grid = board.grid.resource.lock().unwrap();
     grid.clone()
 }
 

@@ -60,7 +60,10 @@ impl GameState {
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
 
-                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+                let selected_character = selected_characters
+                    .get(&player_id)
+                    .ok_or("Can't get the selected character")
+                    .cloned()?;
 
                 let character = characters
                     .iter()

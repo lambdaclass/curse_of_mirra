@@ -68,7 +68,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
-    Logger.info("Starting game with opts: #{inspect(opts)}")
+    Logger.info("[DateTime.utc_now()] Starting game with opts: #{inspect(opts)}")
 
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
