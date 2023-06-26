@@ -68,7 +68,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
-    Logger.info("[DateTime.utc_now()] Starting game with opts: #{inspect(opts)}")
+    Logger.info("[#{DateTime.utc_now()}] Starting game with opts: #{inspect(opts)}")
 
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
@@ -413,7 +413,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
-    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
 
     tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
 
