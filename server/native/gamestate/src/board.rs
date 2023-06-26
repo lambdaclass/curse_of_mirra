@@ -3,10 +3,6 @@ use std::sync::Mutex;
 pub type Grid = Vec<Tile>;
 #[derive(Debug)]
 pub struct GridResource {
-    pub resource: Mutex<Grid>,
-}
-#[derive(Debug)]
-pub struct FlatGridResource {
     pub resource: Mutex<Vec<Tile>>,
 }
 
@@ -22,11 +18,11 @@ pub enum Tile {
 pub struct Board {
     pub width: usize,
     pub height: usize,
-    pub grid: ResourceArc<FlatGridResource>,
+    pub grid: ResourceArc<GridResource>,
 }
 impl Board {
     pub fn new(width: usize, height: usize) -> Self {
-        let resource = FlatGridResource {
+        let resource = GridResource {
             resource: Mutex::new(vec![Tile::Empty; width * height]),
         };
         let grid = ResourceArc::new(resource);
