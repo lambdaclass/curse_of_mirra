@@ -10,7 +10,7 @@ pub enum Effect {
     Petrified,
     Disarmed,
     Piercing,
-    NeonCrashing(RelativePosition),
+    Dashing, // using dash ability
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
 pub enum Name {
@@ -156,7 +156,7 @@ impl Character {
         //     FirstActive::SerpentStrike => 5_u64,
         //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
         // }
-        10_u64
+        3_u64
     }
     pub fn cooldown_fourth_skill(&self) -> u64 {
         // match self.skill_active_fourth {

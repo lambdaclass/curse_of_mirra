@@ -26,7 +26,7 @@ defmodule GameStateTesting do
   end
 
   # test "Move player to coordinates" do
-  #   assert {:ok, ""} = TestNIFs.move_player_to_coordinates()
+  #   assert {:ok, ""} = TestNIFs.teleport_player_to_coordinates()
   # end
 
   describe "Player Continuous status effect" do

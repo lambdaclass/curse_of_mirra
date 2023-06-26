@@ -162,7 +162,7 @@ impl GameState {
         );
     }
 
-    pub fn move_player_to_coordinates(
+    pub fn teleport_player_to_coordinates(
         board: &mut Board,
         attacking_player: &mut Player,
         direction: &RelativePosition,
@@ -222,6 +222,11 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             return Ok(());
         }
+        let mut entity_speed = player.character.speed() as i64;
+
+        if player.character.status_effects.get(&Effect::Dashing).is_some()  {
+            let entity_speed = 200 /*dashingspeed */;
+        }
 
         let new_position = new_entity_position(
             self.board.height,
@@ -229,7 +234,7 @@ impl GameState {
             x,
             y,
             player.position,
-            player.character.speed() as i64,
+            entity_speed,
         );
 
         self.board
@@ -558,7 +563,7 @@ impl GameState {
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        Self::move_player_to_coordinates(board, attacking_player, direction)?;
+        Self::teleport_player_to_coordinates(board, attacking_player, direction)?;
         Self::muflus_skill_1(board, players, attacking_player_id)?;
         Ok(())
     }
@@ -649,11 +654,17 @@ impl GameState {
             Name::H4ck => {
                 attacking_player
                     .character
-                    .add_effect(Effect::NeonCrashing(direction.clone()), 300);
+                    .add_effect(Effect::Dashing, 300);
+                Self::h4ck_skill_3();//TODO
                 Ok(())
             }
             _ => Ok(()),
         }
+
+    }
+
+    pub fn h4ck_skill_3 () {
+
     }
 
     pub fn skill_4(
@@ -701,10 +712,6 @@ impl GameState {
             player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            match player.character.status_effects.get(&Effect::NeonCrashing(direction)) {
-                Some(RelativePosition) => GameState.move_player(player, direction),
-                None | Some(0) => Ok(()),
-            }
             player.character.status_effects.retain(|_, ticks_left| {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
