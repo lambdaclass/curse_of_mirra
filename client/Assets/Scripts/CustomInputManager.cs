@@ -1,45 +1,262 @@
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using MoreMountains.TopDownEngine;
+using System;
+using System.Collections.Generic;
+using TMPro;
 
-public class CustomInputManager : MonoBehaviour
+public enum UIControls
 {
-    [SerializeField] GameObject mainAttack;
-    [SerializeField] GameObject specialAttack;
-    [SerializeField] GameObject dash;
-    [SerializeField] GameObject ultimate;
-    public Camera UiCamera;
-    public void AssignInputToAbilityPosition(string trigger, string triggerType, UnityEvent abilityEvent)
+    Skill1,
+    Skill2,
+    Skill3,
+    Skill4,
+    SkillBasic
+}
+public enum UIType
+{
+    Tap,
+    Area,
+    Direction,
+    Select
+}
+
+public class CustomInputManager : InputManager
+{
+    [SerializeField] MMTouchButton SkillBasic;
+    [SerializeField] MMTouchButton Skill1;
+    [SerializeField] MMTouchButton Skill2;
+    [SerializeField] MMTouchButton Skill3;
+    [SerializeField] MMTouchButton Skill4;
+    [SerializeField] TMP_Text SkillBasicCooldown;
+    [SerializeField] TMP_Text Skill1Cooldown;
+    [SerializeField] TMP_Text Skill2Cooldown;
+    [SerializeField] TMP_Text Skill3Cooldown;
+    [SerializeField] TMP_Text Skill4Cooldown;
+    Dictionary<UIControls, MMTouchButton> mobileButtons;
+    Dictionary<UIControls, TMP_Text> buttonsCooldown;
+    private GameObject areaWithAim;
+    private GameObject area;
+    private GameObject indicator;
+    private GameObject directionIndicator;
+    private CustomMMTouchJoystick activeJoystick;
+
+    protected override void Start()
     {
-        if (triggerType == "joystick")
+        base.Start();
+
+        mobileButtons = new Dictionary<UIControls, MMTouchButton>();
+        mobileButtons.Add(UIControls.Skill1, Skill1);
+        mobileButtons.Add(UIControls.Skill2, Skill2);
+        mobileButtons.Add(UIControls.Skill3, Skill3);
+        mobileButtons.Add(UIControls.Skill4, Skill4);
+        mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
+
+        // TODO: this could be refactored implementing a button parent linking button and cooldown text
+        // or extending MMTouchButton and linking its cooldown text
+        buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
+        buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
+        buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
+        buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
+        buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
+        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
+    }
+
+    public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
+    {
+        CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
+
+        switch (triggerType)
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerDownEvent = abilityEvent;
-            abilityEvent.AddListener(UiCamera.GetComponent<CustomInputManager>().SetJoystick);
+            case UIType.Tap:
+                MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
+
+                button.ButtonPressedFirstTime.AddListener(skill.ExecuteSkill);
+                if (joystick)
+                {
+                    mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
+                }
+                break;
+
+            case UIType.Area:
+                if (joystick)
+                {
+                    joystick.enabled = true;
+                }
+                MapAreaInputEvents(joystick, skill);
+                break;
+
+            case UIType.Direction:
+                if (joystick)
+                {
+                    joystick.enabled = true;
+                }
+                MapDirectionInputEvents(joystick, skill);
+                break;
         }
     }
-    public void AssignInputToAimPosition(string trigger, string triggerType, UnityEvent<Vector2> aim)
+
+    private void MapAreaInputEvents(CustomMMTouchJoystick joystick, Skill skill)
     {
-        if (triggerType == "joystick")
+        UnityEvent<CustomMMTouchJoystick> aoeEvent = new UnityEvent<CustomMMTouchJoystick>();
+        aoeEvent.AddListener(ShowAimAoeSkill);
+        joystick.newPointerDownEvent = aoeEvent;
+
+        UnityEvent<Vector2> aoeDragEvent = new UnityEvent<Vector2>();
+        aoeDragEvent.AddListener(AimAoeSkill);
+        joystick.newDragEvent = aoeDragEvent;
+
+        UnityEvent<Vector2, Skill> aoeRelease = new UnityEvent<Vector2, Skill>();
+        aoeRelease.AddListener(ExecuteAoeSkill);
+        joystick.skill = skill;
+        joystick.newPointerUpEvent = aoeRelease;
+    }
+
+    public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        //Load the prefab
+        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        areaWithAim.transform.parent = _player.transform;
+        //Set its position to the player position
+        areaWithAim.transform.position = _player.transform.position;
+
+        //Set scales
+        area = areaWithAim.GetComponent<AimHandler>().area;
+        area.transform.localScale = area.transform.localScale * 30;
+        indicator = areaWithAim.GetComponent<AimHandler>().indicator;
+        indicator.transform.localScale = indicator.transform.localScale * 5;
+
+        activeJoystick = joystick;
+        DisableButtons();
+    }
+
+    public void AimAoeSkill(Vector2 aoePosition)
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        //Multiply vector values according to the scale of the animation (in this case 12)
+        indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+    }
+
+    public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        //Destroy attack animation after showing it
+        Destroy(areaWithAim, 2.1f);
+
+        indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+        Destroy(indicator, 0.01f);
+        Destroy(area, 0.01f);
+
+        activeJoystick = null;
+        EnableButtons();
+
+        skill.ExecuteSkill(aoePosition);
+    }
+
+    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
+    {
+        UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
+        directionEvent.AddListener(ShowAimDirectionSkill);
+        joystick.newPointerDownEvent = directionEvent;
+
+        UnityEvent<Vector2> directionDragEvent = new UnityEvent<Vector2>();
+        directionDragEvent.AddListener(AimDirectionSkill);
+        joystick.newDragEvent = directionDragEvent;
+
+        UnityEvent<Vector2, Skill> directionRelease = new UnityEvent<Vector2, Skill>();
+        directionRelease.AddListener(ExecuteDirectionSkill);
+        joystick.skill = skill;
+        joystick.newPointerUpEvent = directionRelease;
+    }
+
+    private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        areaWithAim.transform.parent = _player.transform;
+        //Set its position to the player position
+        areaWithAim.transform.position = _player.transform.position;
+
+        //Set scales
+        area = areaWithAim.GetComponent<AimHandler>().area;
+        area.transform.localScale = area.transform.localScale * 30;
+
+        //Load the prefab
+        directionIndicator = Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
+        //Set the prefav as a player child
+        directionIndicator.transform.parent = _player.transform;
+        //Set its position to the player position
+        directionIndicator.transform.position = new Vector3(_player.transform.position.x, 0.4f, _player.transform.position.z);
+
+        // FIXME: Using harcoded value for testing, Value should be set dinamically
+        directionIndicator.transform.localScale = new Vector3(directionIndicator.transform.localScale.x, area.transform.localScale.y * 2.45f, directionIndicator.transform.localScale.z);
+        directionIndicator.SetActive(false);
+
+        activeJoystick = joystick;
+        DisableButtons();
+    }
+
+    private void AimDirectionSkill(Vector2 direction)
+    {
+        var result = Mathf.Atan(direction.x / direction.y) * Mathf.Rad2Deg;
+        if (direction.y > 0)
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newDragEvent = aim;
+            result += 180f;
+        }
+        directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
+        directionIndicator.SetActive(true);
+    }
+
+    private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
+    {
+        Destroy(areaWithAim);
+        Destroy(directionIndicator);
+
+        activeJoystick = null;
+        EnableButtons();
+
+        skill.ExecuteSkill(direction);
+    }
+
+    public void CheckSkillCooldown(UIControls control, ulong cooldown){
+        MMTouchButton button = mobileButtons[control];
+        TMP_Text cooldownText = buttonsCooldown[control];
+
+        if (cooldown == 0){
+            button.EnableButton();
+            cooldownText.gameObject.SetActive(false);
+        } else {
+            button.DisableButton();
+            cooldownText.gameObject.SetActive(true);
+            cooldownText.text = cooldown.ToString();
         }
     }
-    public void AssignInputToAbilityExecution(string trigger, string triggerType, UnityEvent<Vector2> abilityPosition)
+
+    private void DisableButtons()
     {
-        if (triggerType == "joystick")
+        foreach (var (key, button) in mobileButtons)
         {
-            specialAttack.GetComponent<CustomMMTouchJoystick>().newPointerUpEvent = abilityPosition;
-            abilityPosition.AddListener(UiCamera.GetComponent<CustomInputManager>().UnSetJoystick);
+            if (button != activeJoystick)
+            {
+                // Try MMTouchButton.DisableButton();
+                button.GetComponent<MMTouchButton>().Interactable = false;
+            }
         }
     }
-    public void SetJoystick()
+
+    private void EnableButtons()
     {
-        Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
-        joystickBg.enabled = true;
-    }
-    public void UnSetJoystick(Vector2 position)
-    {
-        Image joystickBg = specialAttack.transform.parent.gameObject.GetComponent<Image>();
-        joystickBg.enabled = false;
+        foreach (var (key, button) in mobileButtons)
+        {
+            button.GetComponent<MMTouchButton>().Interactable = true;
+        }
     }
 }

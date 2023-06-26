@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
-
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -19,35 +17,40 @@ public class LobbyConnection : MonoBehaviour
     public static LobbyConnection Instance;
     public string GameSession;
     public string LobbySession;
-    public int playerId;
+    public ulong playerId;
     public int playerCount;
-    public bool gameStarted = false;
     public uint serverTickRate_ms;
+    public ServerGameSettings serverSettings;
+
+    public bool gameStarted = false;
 
     WebSocket ws;
-    
+
+    [Serializable]
     public class Session
     {
-        public string lobby_id { get; set; }
+        public string lobby_id;
     }
 
+    [Serializable]
     public class LobbiesResponse
     {
-        public List<string> lobbies { get; set; }
+        public List<string> lobbies;
     }
 
+    [Serializable]
     public class GamesResponse
     {
-        public List<string> current_games { get; set; }
+        public List<string> current_games;
     }
 
     class AcceptAllCertificates : CertificateHandler
-{
-    protected override bool ValidateCertificate(byte[] certificateData)
     {
-        return true;
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
     }
-}
 
     private void Awake()
     {
@@ -64,7 +67,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.server_ip = SelectServerIP.GetServerIp();
-        this.playerId = -1;
+        this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -109,20 +112,19 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(WaitLobbyCreated());
     }
 
-    public void StartGame()
-    {   
-        #if !UNITY_WEBGL
-            GameConfig gameSettings = new GameSettings{ path = @"./game_settings.json" }.parseSettings();
-        #else
-            GameConfig gameSettings = GameSettings.defaultSettings();
-        #endif
-    
-        LobbyEvent lobbyEvent = new LobbyEvent { 
-            Type = LobbyEventType.StartGame,  
-            GameConfig = gameSettings
+    public IEnumerator StartGame()
+    {
+        yield return GameSettings.ParseSettingsCoroutine(settings =>
+        {
+            serverSettings = settings;
+        });
+        LobbyEvent lobbyEvent = new LobbyEvent
+        {
+            Type = LobbyEventType.StartGame,
+            GameConfig = serverSettings
         };
 
-        serverTickRate_ms = (uint) gameSettings.ServerTickrateMs;
+        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
         using (var stream = new MemoryStream())
         {
@@ -130,13 +132,12 @@ public class LobbyConnection : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
-        gameStarted = true;
     }
 
     private IEnumerator WaitLobbyCreated()
     {
         yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        StartGame();
+        yield return StartGame();
     }
 
     IEnumerator GetRequest(string uri)
@@ -154,7 +155,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonConvert.DeserializeObject<Session>(
+                    Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
@@ -180,7 +181,7 @@ public class LobbyConnection : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     break;
                 case UnityWebRequest.Result.Success:
-                    LobbiesResponse response = JsonConvert.DeserializeObject<LobbiesResponse>(
+                    var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
@@ -202,7 +203,7 @@ public class LobbyConnection : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    GamesResponse response = JsonConvert.DeserializeObject<GamesResponse>(
+                    GamesResponse response = JsonUtility.FromJson<GamesResponse>(
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
@@ -246,9 +247,9 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    if (playerId == -1)
+                    if (playerId == UInt64.MaxValue)
                     {
-                        playerId = (int)lobby_event.AddedPlayerId;
+                        playerId = lobby_event.AddedPlayerId;
                     }
                     playerCount = lobby_event.Players.Count();
                     break;
@@ -259,6 +260,9 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobby_event.GameId;
+                    serverSettings = lobby_event.GameConfig;
+                    serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    gameStarted = true;
                     break;
 
                 default:
@@ -278,7 +282,12 @@ public class LobbyConnection : MonoBehaviour
         if (server_ip.Contains("localhost"))
         {
             return "http://" + server_ip + ":4000" + path;
-        } else
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "http://" + server_ip + ":4000" + path;
+        }
+        else
         {
             return "https://" + server_ip + path;
         }
@@ -289,7 +298,12 @@ public class LobbyConnection : MonoBehaviour
         if (server_ip.Contains("localhost"))
         {
             return "ws://" + server_ip + ":4000" + path;
-        } else
+        }
+        else if (server_ip.Contains("10.150.20.186"))
+        {
+            return "ws://" + server_ip + ":4000" + path;
+        }
+        else
         {
             return "wss://" + server_ip + path;
         }

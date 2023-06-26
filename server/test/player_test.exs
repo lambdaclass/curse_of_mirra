@@ -1,18 +1,25 @@
 defmodule DarkWorldsServer.PlayerTest do
   use DarkWorldsServerWeb.ConnCase, async: true
-
   alias DarkWorldsServer.WsClient
-  alias Plug.Conn
 
+  setup_all do
+    %{game_config: config} = DarkWorldsServer.Test.game_config()
+    player_id = 1
+    session_id = create_session(config)
+    {:ok, _ws_pid} = ws_connect(session_id, player_id)
+
+    WsClient.set_character_muflus(player_id, session_id)
+    Process.sleep(1_000)
+
+    %{session_id: session_id}
+  end
+
+  @tag :player
   describe "Move the player around" do
-    @tag :move_up
-    test "Move up", %{conn: conn} do
-      session_id = create_session(conn)
-      player_id = 1
-      {:ok, _ws_pid} = ws_connect(session_id, player_id)
+    @tag :player
+    test "Move up", %{session_id: session_id} do
       grid = WsClient.get_grid(session_id)
-      character_speed = 3
-
+      character_speed = (WsClient.get_players(session_id) |> List.first()).character.base_speed
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :up)
       :timer.sleep(1_000)
@@ -45,14 +52,11 @@ defmodule DarkWorldsServer.PlayerTest do
       assert success
     end
 
-    @tag :move_down
-    test "Move down", %{conn: conn} do
-      session_id = create_session(conn)
-      player_id = 1
-      {:ok, _ws_pid} = ws_connect(session_id, player_id)
+    @tag :player
+    test "Move down", %{session_id: session_id} do
       grid = WsClient.get_grid(session_id)
       grid_height = length(grid)
-      character_speed = 3
+      character_speed = (WsClient.get_players(session_id) |> List.first()).character.base_speed
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :down)
@@ -86,13 +90,10 @@ defmodule DarkWorldsServer.PlayerTest do
       assert success
     end
 
-    @tag :move_left
-    test "Move left", %{conn: conn} do
-      session_id = create_session(conn)
-      player_id = 1
-      {:ok, _ws_pid} = ws_connect(session_id, player_id)
+    @tag :player
+    test "Move left", %{session_id: session_id} do
       grid = WsClient.get_grid(session_id)
-      character_speed = 3
+      character_speed = (WsClient.get_players(session_id) |> List.first()).character.base_speed
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :left)
@@ -126,14 +127,11 @@ defmodule DarkWorldsServer.PlayerTest do
       assert success
     end
 
-    @tag :move_right
-    test "Move right", %{conn: conn} do
-      session_id = create_session(conn)
-      player_id = 1
-      {:ok, _ws_pid} = ws_connect(session_id, player_id)
+    @tag :player
+    test "Move right", %{session_id: session_id} do
       grid = WsClient.get_grid(session_id)
       grid_width = length(hd(grid))
-      character_speed = 3
+      character_speed = (WsClient.get_players(session_id) |> List.first()).character.base_speed
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
       WsClient.move(1, :right)
@@ -185,11 +183,9 @@ defmodule DarkWorldsServer.PlayerTest do
   defp is_wall_or_player?(:wall), do: true
   defp is_wall_or_player?(_), do: false
 
-  defp create_session(conn) do
-    conn = Conn.put_req_header(conn, "content-type", "application/json")
-    new_session = get(conn, ~p"/new_session", %{})
-    new_session = json_response(new_session, 200)
-    Map.get(new_session, "session_id")
+  defp create_session(config) do
+    {:ok, session_id} = DarkWorldsServer.Engine.start_child(%{players: [1], game_config: config})
+    DarkWorldsServer.Communication.pid_to_external_id(session_id)
   end
 
   defp ws_connect(session_id, player_id) do

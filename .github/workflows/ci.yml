@@ -8,6 +8,7 @@ on:
 
 env:
   MIX_ENV: test
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 permissions:
   contents: read
@@ -36,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Elixir
-        uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+        uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.elixir }} # Define the elixir version [required]
           otp-version: ${{ matrix.otp }} # Define the OTP version [required]
@@ -59,7 +60,7 @@ jobs:
       - name: (Server) Check Elixir Formatting
         run: cd server && mix format --check-formatted
       - name: (Load Test) Check Elixir Formatting
-        run: cd server && mix format --check-formatted
+        run: cd server/load_test && mix format --check-formatted
       - name: Check Rust Formatting
         run: cd server && cd native/gamestate && cargo fmt --check
       - name: Compiles without warnings

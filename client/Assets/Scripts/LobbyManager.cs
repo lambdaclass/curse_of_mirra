@@ -9,7 +9,9 @@ public class LobbyManager : LevelSelector
 {
     [SerializeField]
     GameObject playButton;
+    [SerializeField] GameObject mapList;
 
+    public static string LevelSelected;
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -18,20 +20,29 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (LobbyConnection.Instance.playerId == 1)
+        if (playButton != null && mapList != null)
         {
-            playButton.SetActive(true);
-        }
-        else
-        {
-            playButton.SetActive(false);
+            if (LobbyConnection.Instance.playerId == 1)
+            {
+                playButton.SetActive(true);
+            }
+            else
+            {
+                playButton.SetActive(false);
+                mapList.SetActive(false);
+            }
         }
     }
 
     public void GameStart()
     {
-        LobbyConnection.Instance.StartGame();
-        StartCoroutine(ConnectionUtils.WaitForGameCreation());
+        StartCoroutine(CreateGame());
+        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
+    }
+
+    public IEnumerator CreateGame()
+    {
+        yield return LobbyConnection.Instance.StartGame();
     }
 
     public void Back()
@@ -40,16 +51,20 @@ public class LobbyManager : LevelSelector
         SceneManager.LoadScene("Lobbies");
     }
 
+    public void SelectMap(string mapName)
+    {
+        this.LevelName = mapName;
+        LevelSelected = mapName;
+    }
+
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && !LobbyConnection.Instance.gameStarted
+            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && LobbyConnection.Instance.playerId != 1
         )
         {
             LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene("BackendPlayground");
+            SceneManager.LoadScene(this.LevelName);
         }
     }
-
 }

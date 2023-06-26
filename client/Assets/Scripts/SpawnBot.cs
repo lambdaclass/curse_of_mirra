@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class SpawnBot : MonoBehaviour
 {
-    [SerializeField] GameObject playerPrefab;
-    [SerializeField] SocketConnectionManager manager;
+    [SerializeField]
+    GameObject playerPrefab;
 
     private bool pendingSpawn = false;
-    private bool botId;
+    private Vector3 spawnPosition = new Vector3(0, 0, 0);
+    private string botId;
 
     public static SpawnBot Instance;
 
     public void Init()
     {
-        if (manager.players.Count == 9) GetComponent<MMTouchButton>().DisableButton();
+        if (SocketConnectionManager.Instance.players.Count == 9)
+            GetComponent<MMTouchButton>().DisableButton();
         Instance = this;
         GenerateBotPlayer();
     }
 
     public void GenerateBotPlayer()
     {
-        manager.CallSpawnBot();
+        SocketConnectionManager.Instance.CallSpawnBot();
     }
 
-    public void Spawn(string botId)
+    public void Spawn(Player player)
     {
         pendingSpawn = true;
-        botId = botId;
+        spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
+        botId = player.Id.ToString();
     }
 
     public void Update()
@@ -40,13 +41,14 @@ public class SpawnBot : MonoBehaviour
 
             Character newPlayer = Instantiate(
                 playerPrefab.GetComponent<Character>(),
-                new Vector3(0, 0, 0),
+                spawnPosition,
                 Quaternion.identity
             );
-            newPlayer.PlayerID = "BOT" + " " + botId;
+            newPlayer.PlayerID = botId.ToString();
             newPlayer.name = "BOT" + botId;
-            manager.players.Add(newPlayer.gameObject);
+            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             print("SPAWNED");
+            print(newPlayer.PlayerID);
 
             pendingSpawn = false;
         }

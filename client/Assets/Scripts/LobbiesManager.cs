@@ -4,12 +4,12 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class LobbiesManager : LevelSelector
 {
     [SerializeField]
     Text sessionId;
-
 
     public override void GoToLevel()
     {
@@ -43,13 +43,17 @@ public class LobbiesManager : LevelSelector
     public void QuickGame()
     {
         LobbyConnection.Instance.QuickGame();
-        StartCoroutine(ConnectionUtils.WaitForGameCreation());
+        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
     public IEnumerator WaitForLobbyCreation()
     {
         LobbyConnection.Instance.CreateLobby();
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession) && LobbyConnection.Instance.playerId != -1);
+        yield return new WaitUntil(
+            () =>
+                !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
+                && LobbyConnection.Instance.playerId != UInt64.MaxValue
+        );
         SceneManager.LoadScene("Lobby");
     }
 }

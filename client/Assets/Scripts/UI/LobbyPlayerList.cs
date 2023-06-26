@@ -9,7 +9,6 @@ public class LobbyPlayerList : MonoBehaviour
 
     [SerializeField]
     GameObject playButton;
-    int totalPlayersBefore = 0;
     List<GameObject> playerItems = new List<GameObject>();
 
     // Update is called once per frame
@@ -25,26 +24,29 @@ public class LobbyPlayerList : MonoBehaviour
         }
     }
 
-    private void createPlayerItems() {
+    private void createPlayerItems()
+    {
         for (int i = playerItems.Count; i < LobbyConnection.Instance.playerCount; i++)
         {
-            playerItems.Add(CreatePlayerItem(i+1));
+            playerItems.Add(CreatePlayerItem((ulong)i + 1));
         }
     }
 
-    private void removePlayerItems() {
+    private void removePlayerItems()
+    {
         for (int i = playerItems.Count; i > LobbyConnection.Instance.playerCount; i--)
         {
-            GameObject player = playerItems[i-1];
-            playerItems.RemoveAt(i-1);
+            GameObject player = playerItems[i - 1];
+            playerItems.RemoveAt(i - 1);
             Destroy(player);
         }
     }
 
-    private GameObject CreatePlayerItem(int id)
+    private GameObject CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
+        playerI.SetId(id);
 
         if (id == 1)
         {

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 . "$HOME/.asdf/asdf.sh"
+. "$HOME/.cargo/env"
 set -ex
 
 if [ -d "/tmp/dark_worlds_server" ]; then

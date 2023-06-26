@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.WsClient do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.ClientAction
+  alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.Runner
 
@@ -26,6 +27,16 @@ defmodule DarkWorldsServer.WsClient do
     Game.get_grid(state.game)
   end
 
+  def set_character_muflus(player_id, session_id) do
+    runner_pid = Communication.external_id_to_pid(session_id)
+
+    Runner.play(runner_pid, player_id, %ActionOk{
+      action: :select_character,
+      value: %{player_id: player_id, character_name: "Muflus"},
+      timestamp: nil
+    })
+  end
+
   def get_character_speed(session_id) do
     runner_pid = Communication.external_id_to_pid(session_id)
     GenServer.call(runner_pid, :get_character_speed)
@@ -35,6 +46,11 @@ defmodule DarkWorldsServer.WsClient do
   def move(player, :down), do: _move(player, :DOWN)
   def move(player, :left), do: _move(player, :LEFT)
   def move(player, :right), do: _move(player, :RIGHT)
+
+  def move_with_joystick(player, :up), do: _move_with_joystick(player, %{x: -1, y: 0})
+  def move_with_joystick(player, :down), do: _move_with_joystick(player, %{x: 1, y: 0})
+  def move_with_joystick(player, :left), do: _move_with_joystick(player, %{x: 0, y: -1})
+  def move_with_joystick(player, :right), do: _move_with_joystick(player, %{x: 0, y: 1})
 
   def attack(player, :up), do: _attack(player, :UP)
   def attack(player, :down), do: _attack(player, :DOWN)
@@ -50,8 +66,29 @@ defmodule DarkWorldsServer.WsClient do
     |> send_command()
   end
 
+  def basic_attack(player, position) do
+    %{
+      "player" => player,
+      "action" => "basic_attack",
+      "value" => %{"x" => position.x, "y" => position.y}
+    }
+    |> send_command()
+  end
+
   defp _move(_player, direction) do
     %ClientAction{action: :MOVE, direction: direction}
+    |> send_command()
+  end
+
+  # def teleport(player, position) do
+  #   %{
+  #     "player" => player,
+  #     "action" => "teleport",
+  #     "value" => %{"x" => position.x, "y" => position.y}
+  #   }
+
+  defp _move_with_joystick(_player, %{x: x, y: y}) do
+    %ClientAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}}
     |> send_command()
   end
 

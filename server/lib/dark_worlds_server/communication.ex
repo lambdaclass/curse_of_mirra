@@ -27,15 +27,15 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_game_started!(game_pid) do
+  def lobby_game_started!(%{game_pid: game_pid, game_config: game_config}) do
     game_id = pid_to_external_id(game_pid)
 
-    %LobbyEvent{type: :GAME_STARTED, game_id: game_id}
+    %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config}
     |> LobbyEvent.encode()
   end
 
-  def encode!(%{players: players}) do
-    %GameEvent{type: :STATE_UPDATE, players: players}
+  def encode!(%{players: players, projectiles: projectiles, timestamp: timestamp}) do
+    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles, timestamp: timestamp}
     |> GameEvent.encode()
   end
 
@@ -44,8 +44,38 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
+  def last_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round, players: players}
+    |> GameEvent.encode()
+  end
+
+  def next_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{type: :NEXT_ROUND, winner_player: winner, current_round: current_round, players: players}
+    |> GameEvent.encode()
+  end
+
+  def game_finished!(%{winner: winner, players: players}) do
+    %GameEvent{winner_player: winner, type: :GAME_FINISHED, players: players}
+    |> GameEvent.encode()
+  end
+
   def game_player_joined(player_id) do
     %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
+    |> GameEvent.encode()
+  end
+
+  def initial_positions(players) do
+    %GameEvent{type: :INITIAL_POSITIONS, players: players}
+    |> GameEvent.encode()
+  end
+
+  def selected_characters!(selected_characters) do
+    %GameEvent{type: :SELECTED_CHARACTER_UPDATE, selected_characters: selected_characters}
+    |> GameEvent.encode()
+  end
+
+  def finish_character_selection!(selected_characters, players) do
+    %GameEvent{type: :FINISH_CHARACTER_SELECTION, selected_characters: selected_characters, players: players}
     |> GameEvent.encode()
   end
 
