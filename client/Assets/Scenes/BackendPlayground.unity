@@ -1028,6 +1028,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+    - target: {fileID: 114257758189858168, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114270737596463260, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: OnDragEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
