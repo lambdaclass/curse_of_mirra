@@ -30,7 +30,7 @@ public class ToggleAudio : MonoBehaviour
 
         if (isMuted)
         {
-            soundManager.MuteMaster();
+            soundManager.StopAllSounds();
             muteButtonImage.overrideSprite = mutedSprite;
         }
         else
