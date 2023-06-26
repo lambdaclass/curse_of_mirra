@@ -458,7 +458,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp all_characters_set?(state) do
     cond do
-      state[:game_status] == :playing ->
+      Map.get(state, :game_status) == :playing ->
         nil
 
       Map.get(state, :selected_characters, %{}) |> map_size() == state[:max_players] ->
