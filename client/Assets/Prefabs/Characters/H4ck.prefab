@@ -41,7 +41,7 @@ Transform:
   m_Children:
   - {fileID: 4872375431214103361}
   - {fileID: 9071700161952155051}
-  - {fileID: 2331645393938718788}
+  - {fileID: 2254222847953419954}
   - {fileID: 6955363313147366760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
   ChangeLayersRecursivelyOnDeath: 0
   LayerOnDeath:
     _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 304758871061159288}
+  DeathMMFeedbacks: {fileID: 4699345368071214032}
   ResetColorOnRevive: 1
   ColorMaterialPropertyName: _Color
   UseMaterialPropertyBlocks: 0
@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1787465996332106811}
---- !u!1 &8337314250022608788
+--- !u!1 &7899758338181920591
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1094,8 +1094,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2331645393938718788}
-  - component: {fileID: 304758871061159288}
+  - component: {fileID: 2254222847953419954}
+  - component: {fileID: 4699345368071214032}
   m_Layer: 0
   m_Name: DeathFeedback
   m_TagString: Untagged
@@ -1103,28 +1103,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2331645393938718788
+--- !u!4 &2254222847953419954
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8337314250022608788}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.005267201, z: -0.22170956}
+  m_GameObject: {fileID: 7899758338181920591}
+  m_LocalRotation: {x: 0.000000040978193, y: -0, z: -0.000000029802322, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0052663796, z: -0.22171284}
   m_LocalScale: {x: 0.862069, y: 0.862069, z: 0.862069}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2981696043885681551}
   m_Father: {fileID: 1787465996332106948}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &304758871061159288
+--- !u!114 &4699345368071214032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8337314250022608788}
+  m_GameObject: {fileID: 7899758338181920591}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
@@ -1206,8 +1207,7 @@ MonoBehaviour:
         m_Calls: []
   DebugActive: 0
   FeedbacksList:
-  - rid: 8225094152002207746
-  - rid: 8225094152002207749
+  - rid: 8225094171286568960
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   ForceStopFeedbacksOnDisable: 1
@@ -1215,12 +1215,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8225094152002207746
-      type: {class: MMF_ParticlesInstantiation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
+    - rid: 8225094171286568960
+      type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
       data:
         Active: 1
-        UniqueID: -1040440385
-        Label: Particles Instantiation
+        UniqueID: 1270186114
+        Label: Particles Play
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -1281,105 +1281,96 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         RemapRangeFalloff: {x: 0, y: 1}
-        Owner: {fileID: 304758871061159288}
+        Owner: {fileID: 4699345368071214032}
         DebugActive: 0
         Mode: 0
+        BoundParticleSystem: {fileID: 2800269141856859911}
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
         DeclaredDuration: 0
-        ObjectPoolSize: 5
-        MutualizePools: 0
-        ParentTransform: {fileID: 0}
-        CachedRecycle: 1
-        ParticlesPrefab: {fileID: 3652902332425216517, guid: 61bdc2491b8e06241a097475c7578933,
-          type: 3}
-        RandomParticlePrefabs: []
-        ForceSetActiveOnPlay: 0
-        StopOnReset: 0
-        PositionMode: 0
-        InstantiateParticlesPosition: {fileID: 0}
-        TargetWorldPosition: {x: 0, y: 0, z: 0}
-        Offset: {x: 0, y: 0, z: 0}
-        NestParticles: 1
-        ApplyRotation: 0
-        ApplyScale: 0
-    - rid: 8225094152002207749
-      type: {class: MMF_SetActive, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
-      data:
-        Active: 1
-        UniqueID: -906419429
-        Label: Set Active
-        ChannelMode: 0
-        Channel: 0
-        MMChannelDefinition: {fileID: 0}
-        Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
-        Timing:
-          TimescaleMode: 0
-          ExcludeFromHoldingPauses: 0
-          ContributeToTotalDuration: 1
-          InitialDelay: 0.3
-          CooldownDuration: 0
-          InterruptsOnStop: 1
-          NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 0.3
-          MMFeedbacksDirectionCondition: 0
-          PlayDirection: 0
-          ConstantIntensity: 0
-          UseIntensityInterval: 0
-          IntensityIntervalMin: 0
-          IntensityIntervalMax: 0
-          Sequence: {fileID: 0}
-          TrackID: 0
-          Quantized: 0
-          TargetBPM: 120
-        AutomatedTargetAcquisition:
-          Mode: 0
-          ChildIndex: 0
-        RandomizeOutput: 0
-        RandomMultiplier: {x: 0.8, y: 1}
-        RandomizeDuration: 0
-        RandomDurationMultiplier: {x: 0.5, y: 2}
-        UseRange: 0
-        RangeDistance: 5
-        UseRangeFalloff: 0
-        RangeFalloff:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        RemapRangeFalloff: {x: 0, y: 1}
-        Owner: {fileID: 304758871061159288}
-        DebugActive: 0
-        TargetGameObject: {fileID: 8337314250022608788}
-        SetStateOnInit: 0
-        StateOnInit: 1
-        SetStateOnPlay: 1
-        StateOnPlay: 1
-        SetStateOnStop: 0
-        StateOnStop: 1
-        SetStateOnReset: 0
-        StateOnReset: 1
-        SetStateOnSkip: 0
-        StateOnSkip: 1
+--- !u!1001 &3108685336016952419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2254222847953419954}
+    m_Modifications:
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732632955081032918, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+        type: 3}
+      propertyPath: m_Name
+      value: DeathParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e26c5edf2688e4cc4aad2ceaa0358a77, type: 3}
+--- !u!198 &2800269141856859911 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1006775677470124900, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+    type: 3}
+  m_PrefabInstance: {fileID: 3108685336016952419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2981696043885681551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
+    type: 3}
+  m_PrefabInstance: {fileID: 3108685336016952419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4905720573577272490
 PrefabInstance:
   m_ObjectHideFlags: 0

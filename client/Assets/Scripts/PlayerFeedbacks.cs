@@ -12,6 +12,14 @@ public class PlayerFeedbacks : MonoBehaviour
 
     Color32 damageColor = new Color32(219, 38, 38, 1);
 
+    public void PlayDeathFeedback(GameObject player, Health healthComponent)
+    {
+        if (healthComponent.CurrentHealth <= 0 && player.GetComponent<Character>().CharacterModel.activeSelf == true)
+        {
+            healthComponent.DeathMMFeedbacks.PlayFeedbacks();
+        }
+    }
+
     public void DisplayDamageRecieved(GameObject player, Health healthComponent, float playerHealth, ulong id)
     {
         if (healthComponent.CurrentHealth != playerHealth &&

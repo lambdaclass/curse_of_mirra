@@ -270,11 +270,7 @@ public class PlayerMovement : MonoBehaviour
 
         healthComponent.SetHealth(playerUpdate.Health);
 
-        if (healthComponent.CurrentHealth <= 0)
-        {
-            print(player.name + " has no health");
-            healthComponent.DeathMMFeedbacks.PlayFeedbacks();
-        }
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
