@@ -9,6 +9,7 @@ cat /sys/devices/system/cpu/smt/active
 echo off | sudo tee /sys/devices/system/cpu/smt/control
 ```
 This step might require sudoing in first with `sudo -i`.
+
 3. Before starting the load tests, check the following:
    - Server logs, for potential errors and crashes with `journalctl -xefu dark_worlds_server`.
    - Htop, for system usage.
