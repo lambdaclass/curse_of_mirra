@@ -569,6 +569,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2447783361558595730, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
         type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447783361558595730, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeSfxVolume
       objectReference: {fileID: 0}
@@ -581,6 +586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CameraUIWithSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2856279043779026476, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2856279043779026476, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
         type: 3}
