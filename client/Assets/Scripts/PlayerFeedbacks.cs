@@ -39,7 +39,7 @@ public class PlayerFeedbacks : MonoBehaviour
             {
                 GetModelMaterial(characterModel, 0).mainTexture = Texture2D.redTexture;
             }
-            if (characterModel.name == "Hack")
+            if (characterModel.name == "H4ck")
             {
                 GetModelMaterial(characterModel, 6).color = damageColor;
             }
@@ -52,7 +52,7 @@ public class PlayerFeedbacks : MonoBehaviour
                 StartCoroutine(WaitToChangeTexture(characterModel));
             }
 
-            if (characterModel.name == "Hack" && GetModelMaterial(characterModel, 6).color == damageColor)
+            if (characterModel.name == "H4ck" && GetModelMaterial(characterModel, 6).color == damageColor)
             {
                 StartCoroutine(WaitToChangeTextureH4ck(characterModel));
             }
