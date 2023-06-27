@@ -25,6 +25,8 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
+    [SerializeField] LeftMMTouchJoystick joystickLContainer;
+    [SerializeField] GameObject joystickL;
     [SerializeField] MMTouchButton SkillBasic;
     [SerializeField] MMTouchButton Skill1;
     [SerializeField] MMTouchButton Skill2;
@@ -226,14 +228,18 @@ public class CustomInputManager : InputManager
         skill.ExecuteSkill(direction);
     }
 
-    public void CheckSkillCooldown(UIControls control, ulong cooldown){
+    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    {
         MMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
-        if (cooldown == 0){
+        if (cooldown == 0)
+        {
             button.EnableButton();
             cooldownText.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             button.DisableButton();
             cooldownText.gameObject.SetActive(true);
             cooldownText.text = cooldown.ToString();
@@ -258,5 +264,16 @@ public class CustomInputManager : InputManager
         {
             button.GetComponent<MMTouchButton>().Interactable = true;
         }
+    }
+    public void ChangeLeftJoystickPosition()
+    {
+        UnityEvent<Vector2> movementEvent = new UnityEvent<Vector2>();
+        movementEvent.AddListener(ChangeLeftKnobPosition);
+        joystickLContainer.GetComponent<LeftMMTouchJoystick>().newPointerDownEvent = movementEvent;
+    }
+    void ChangeLeftKnobPosition(Vector2 newPosition)
+    {
+        joystickL.transform.localPosition = new Vector3(newPosition.x - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), newPosition.y - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), 0);
+        joystickL.GetComponentInChildren<MMTouchJoystick>().Initialize();
     }
 }
