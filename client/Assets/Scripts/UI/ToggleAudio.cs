@@ -24,7 +24,8 @@ public class ToggleAudio : MonoBehaviour
     {
         muteButtonImage = GetComponent<Image>();
         isMuted = true;
-        soundManager.MuteMaster();
+        backgroundMusic.PlayFeedbacks();
+        SilenceSound();
     }
 
     public void Toggle()
@@ -33,15 +34,25 @@ public class ToggleAudio : MonoBehaviour
 
         if (isMuted)
         {
-            soundManager.MuteMaster();
+            SilenceSound();
             muteButtonImage.overrideSprite = mutedSprite;
         }
         else
         {
-            soundManager.StopAllSounds();
-            soundManager.UnmuteMaster();
-            backgroundMusic.PlayFeedbacks();
+            PlaySound();
             muteButtonImage.overrideSprite = unmutedSprite;
         }
+    }
+
+    private void SilenceSound()
+    {
+        soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        soundManager.MuteMaster();
+    }
+
+    private void PlaySound()
+    {
+        soundManager.UnmuteMaster();
+        soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
     }
 }
