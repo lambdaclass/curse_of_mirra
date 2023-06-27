@@ -35,7 +35,7 @@ public class PlayerFeedbacks : MonoBehaviour
 
         if (auxHealth != playerHealth)
         {
-            if (characterModel.GetChild(0).GetComponent<Renderer>() != null)
+            if (characterModel.GetChild(0).GetComponent<Renderer>())
             {
                 GetModelMaterial(characterModel, 0).mainTexture = Texture2D.redTexture;
             }
