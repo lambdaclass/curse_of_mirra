@@ -109,7 +109,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(%EngineProjectile{} = projectile, ProtoProjectile) do
-
     %{
       id: id,
       position: position,

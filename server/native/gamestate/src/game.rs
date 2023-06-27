@@ -176,7 +176,7 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<(), String> {
         // TODO: 120 should be a config. It's the realtion between front range in skills and
-        // the distance in the back. 
+        // the distance in the back.
         let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
         let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
 
