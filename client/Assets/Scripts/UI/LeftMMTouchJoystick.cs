@@ -26,7 +26,8 @@ public class LeftMMTouchJoystick : MMTouchJoystick
     }
     public override void OnPointerUp(PointerEventData data)
     {
-        newPointerUpEvent.Invoke(RawValue);
+        newPointerUpEvent.Invoke(data.position);
         joystickL.OnPointerUp(data);
+        base.OnPointerUp(data);
     }
 }

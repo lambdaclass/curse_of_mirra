@@ -44,6 +44,7 @@ public class CustomInputManager : InputManager
     private GameObject indicator;
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
+    private Vector3 initialLeftJoystickPosition;
 
     protected override void Start()
     {
@@ -267,6 +268,7 @@ public class CustomInputManager : InputManager
     }
     public void ChangeLeftJoystickPosition()
     {
+        initialLeftJoystickPosition = joystickL.transform.localPosition;
         UnityEvent<Vector2> movementEvent = new UnityEvent<Vector2>();
         movementEvent.AddListener(ChangeLeftKnobPosition);
         joystickLContainer.GetComponent<LeftMMTouchJoystick>().newPointerDownEvent = movementEvent;
@@ -274,6 +276,12 @@ public class CustomInputManager : InputManager
     void ChangeLeftKnobPosition(Vector2 newPosition)
     {
         joystickL.transform.localPosition = new Vector3(newPosition.x - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), newPosition.y - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), 0);
+        joystickL.GetComponentInChildren<MMTouchJoystick>().Initialize();
+    }
+
+    public void ResetLeftJoystickPosition()
+    {
+        joystickL.transform.localPosition = initialLeftJoystickPosition;
         joystickL.GetComponentInChildren<MMTouchJoystick>().Initialize();
     }
 }
