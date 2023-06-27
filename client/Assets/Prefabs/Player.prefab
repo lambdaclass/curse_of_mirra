@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1787465996332106808}
   - component: {fileID: 1787465996332106815}
   - component: {fileID: 1787465996332106803}
-  - component: {fileID: 1787465996332106802}
   - component: {fileID: 1787465996332106801}
   - component: {fileID: 1787465996332106800}
   - component: {fileID: 1787465996332106806}
@@ -259,30 +258,6 @@ MonoBehaviour:
   WalkParticles: []
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
---- !u!114 &1787465996332106802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d103439fc2940e347937487a70ea01e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  RunSpeed: 16
-  AutoRun: 0
-  AutoRunThreshold: 0.6
 --- !u!114 &1787465996332106801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +331,7 @@ MonoBehaviour:
   MaximumHealth: 100
   ResetHealthOnEnable: 1
   ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 0}
+  DamageMMFeedbacks: {fileID: 3398408717573358060}
   FeedbackIsProportionalToDamage: 0
   PreventTakeSelfDamage: 0
   ImmuneToKnockback: 0
@@ -1214,7 +1189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9080606034401847489}
   m_LocalRotation: {x: 0.08717231, y: -0.8995905, z: 0.21045257, w: -0.37262273}
-  m_LocalPosition: {x: 12.337178, y: 5.495279, z: 15.082147}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.86206883, y: 0.86206883, z: 0.862069}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1527,7 +1502,7 @@ PrefabInstance:
     - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 163633815669950444, guid: e26c5edf2688e4cc4aad2ceaa0358a77,
         type: 3}
