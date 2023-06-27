@@ -1,6 +1,6 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::f64::consts::PI;
+use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
@@ -45,7 +45,9 @@ impl GameState {
             .map(Character::from_config_map)
             .collect()
     }
+
     pub fn new(
+        selected_characters: HashMap<u64, Name>,
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
@@ -55,16 +57,20 @@ impl GameState {
         let mut positions = HashSet::new();
         let characters = GameState::build_characters_with_config(&characters_config)?;
         let players: Vec<Player> = (1..number_of_players + 1)
-            .map(|player_id| {
+            .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
-                Player::new(
-                    player_id,
-                    100,
-                    new_position,
-                    characters[player_id as usize % characters.len()].clone(),
-                )
+
+                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+
+                let character = characters
+                    .iter()
+                    .find(|x| x.name == selected_character)
+                    .ok_or("Can't get the character")?
+                    .clone();
+
+                Ok(Player::new(player_id, 100, new_position, character))
             })
-            .collect();
+            .collect::<Result<Vec<Player>, String>>()?;
 
         let mut board = Board::new(board_width, board_height);
 
@@ -215,8 +221,8 @@ impl GameState {
     pub fn move_with_joystick(
         self: &mut Self,
         player_id: u64,
-        x: f64,
-        y: f64,
+        x: f32,
+        y: f32,
     ) -> Result<(), String> {
         let player = Self::get_player_mut(&mut self.players, player_id)?;
         if matches!(player.status, Status::DEAD) {
@@ -340,7 +346,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
                 14,
                 10,
                 attacking_player.id,
@@ -479,14 +485,14 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0 || direction.y != 0 {
-            let angle = (direction.y as f64).atan2(direction.x as f64); // Calculates the angle in radians.
+            let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
             } else {
                 angle.to_degrees()
             };
 
-            let angle_modifiers = [-20f64, -10f64, 0f64, 10f64, 20f64];
+            let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
@@ -613,7 +619,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f64 / 100f64, direction.y as f64 / 100f64),
+                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
                 14,
                 10,
                 attacking_player.id,
@@ -714,21 +720,14 @@ impl GameState {
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {
-            projectile.position = new_entity_position(
-                self.board.height,
-                self.board.width,
-                projectile.direction.x,
-                projectile.direction.y,
-                projectile.position,
-                projectile.speed as i64,
-            );
+            projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
         self.projectiles
             .retain(|projectile| projectile.remaining_ticks > 0);
 
-        self.projectiles.iter_mut().for_each(|projectile| {
+        for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
                 let top_left = Position::new(
                     projectile
@@ -760,30 +759,27 @@ impl GameState {
                 let mut kill_count = 0;
                 for target_player_id in affected_players {
                     let attacked_player =
-                        GameState::get_player_mut(&mut self.players, target_player_id);
-                    match attacked_player {
-                        Ok(ap) => match projectile.projectile_type {
-                            ProjectileType::DISARMINGBULLET => {
-                                ap.character.add_effect(Effect::Disarmed.clone(), 300);
+                        GameState::get_player_mut(&mut self.players, target_player_id)?;
+                    match projectile.projectile_type {
+                        ProjectileType::DISARMINGBULLET => {
+                            attacked_player
+                                .character
+                                .add_effect(Effect::Disarmed.clone(), 300);
+                        }
+                        _ => {
+                            attacked_player.modify_health(-(projectile.damage as i64));
+                            if matches!(attacked_player.status, Status::DEAD) {
+                                kill_count += 1;
                             }
-                            _ => {
-                                ap.modify_health(-(projectile.damage as i64));
-                                if matches!(ap.status, Status::DEAD) {
-                                    kill_count += 1;
-                                }
-                                GameState::modify_cell_if_player_died(&mut self.board, ap);
-                                projectile.last_attacked_player_id = ap.id;
-                            }
-                        },
-                        _ => continue,
+                            GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
+                            projectile.last_attacked_player_id = attacked_player.id;
+                        }
                     }
                 }
 
-                add_kills(&mut self.players, projectile.player_id, kill_count)
-                    .expect("Player not found");
+                add_kills(&mut self.players, projectile.player_id, kill_count)?;
             }
-        });
-
+        }
         Ok(())
     }
 
@@ -1007,8 +1003,8 @@ fn distance_to_center(player: &Player, center: &Position) -> f64 {
 }
 
 // We might want to abstract this into a Vector2 type or something, whatever.
-fn normalize_vector(x: f64, y: f64) -> (f64, f64) {
-    let norm = f64::sqrt(x.powf(2.) + y.powf(2.));
+fn normalize_vector(x: f32, y: f32) -> (f32, f32) {
+    let norm = f32::sqrt(x.powf(2.) + y.powf(2.));
     (x / norm, y / norm)
 }
 
@@ -1033,8 +1029,8 @@ fn generate_new_position(
 pub fn new_entity_position(
     height: usize,
     width: usize,
-    direction_x: f64,
-    direction_y: f64,
+    direction_x: f32,
+    direction_y: f32,
     entity_position: Position,
     entity_speed: i64,
 ) -> Position {
@@ -1046,8 +1042,8 @@ pub fn new_entity_position(
         then round the values.
     */
     let (movement_direction_x, movement_direction_y) = normalize_vector(-direction_y, direction_x);
-    let movement_vector_x = movement_direction_x * (speed as f64);
-    let movement_vector_y = movement_direction_y * (speed as f64);
+    let movement_vector_x = movement_direction_x * (speed as f32);
+    let movement_vector_y = movement_direction_y * (speed as f32);
 
     let mut new_position_x = old_x as i64 + (movement_vector_x.round() as i64);
     let mut new_position_y = old_y as i64 + (movement_vector_y.round() as i64);

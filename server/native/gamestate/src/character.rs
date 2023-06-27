@@ -11,7 +11,7 @@ pub enum Effect {
     Piercing,
     Dashing, // using dash ability - This shouldn't be an Effect, we should reserve this enum for things that are imposed on the player by other players.
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display)]
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,
@@ -156,7 +156,7 @@ impl Character {
         //     FirstActive::SerpentStrike => 5_u64,
         //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
         // }
-        3_u64
+        10_u64
     }
     pub fn cooldown_fourth_skill(&self) -> u64 {
         // match self.skill_active_fourth {
@@ -192,7 +192,7 @@ impl Character {
 
     #[inline]
     pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
-        self.status_effects.insert(e.clone(), tl);
+        self.status_effects.insert(e, tl);
     }
 
     // TODO:

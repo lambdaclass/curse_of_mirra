@@ -13,27 +13,26 @@ public class CustomLevelManager : LevelManager
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
-    [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
-    Text roundText;
-
-    [SerializeField]
-    GameObject backToLobbyButton;
+    public GameObject quickGamePrefab;
+    [SerializeField] GameObject roundSplash;
+    [SerializeField] Text roundText;
+    [SerializeField] GameObject backToLobbyButton;
     private List<Player> gamePlayers;
-    private int totalPlayers;
-    private int playerId;
-    public Character prefab;
+    private ulong totalPlayers;
+    private ulong playerId;
+    private GameObject prefab;
     public Camera UiCamera;
     public CinemachineCameraController camera;
+
+    public List<CoMCharacter> charactersPrefabList = new List<CoMCharacter>();
+    public List<GameObject> mapList = new List<GameObject>();
 
     int winnersCount = 0;
 
     protected override void Awake()
     {
         base.Awake();
-        this.totalPlayers = LobbyConnection.Instance.playerCount;
+        this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         InitializeMap();
     }
 
@@ -47,15 +46,20 @@ public class CustomLevelManager : LevelManager
     {
         if (LobbyManager.LevelSelected == null)
         {
-            quickMapPrefab.SetActive(true);
+            InitializeMapPrefab(quickMapPrefab);
         }
         else
         {
-            mapPrefab = (GameObject)Resources.Load($"Maps/{LobbyManager.LevelSelected}", typeof(GameObject));
-            GameObject map = Instantiate(mapPrefab);
-            //Add gameobject to the scene root
-            map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
+            InitializeMapPrefab(mapPrefab);
         }
+    }
+
+    private void InitializeMapPrefab(GameObject mapPrefab)
+    {
+        GameObject map = Instantiate(mapPrefab);
+        //Add gameobject to the scene root
+        map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
     }
 
     private IEnumerator InitializeLevel()
@@ -88,29 +92,39 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    public void GeneratePlayer()
+    private GameObject GetCharacterPrefab(ulong playerId)
     {
-        for (int i = 0; i < totalPlayers; i++)
+        GameObject prefab = null;
+        foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
         {
+            if (entry.Key == (ulong)playerId)
+            {
+                prefab = charactersPrefabList.Find(el => el.name == entry.Value).prefab;
+            }
+        }
+        return prefab;
+    }
+
+    private void GeneratePlayer()
+    {
+        // prefab = prefab == null ? quickGamePrefab : prefab;
+        for (ulong i = 0; i < totalPlayers; i++)
+        {
+            prefab = GetCharacterPrefab(i + 1);
             if (LobbyConnection.Instance.playerId == i + 1)
             {
                 // Player1 is the ID to match with the client InputManager
-                prefab.PlayerID = "Player1";
+                prefab.GetComponent<Character>().PlayerID = "Player1";
             }
             else
             {
-                prefab.PlayerID = "";
+                prefab.GetComponent<Character>().PlayerID = "";
             }
             Character newPlayer = Instantiate(
-                prefab,
-                Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position),
+                prefab.GetComponent<Character>(),
+                Utils.transformBackendPositionToFrontendPosition(gamePlayers[(int)i].Position),
                 Quaternion.identity
             );
-            if (SocketConnectionManager.Instance.playerId == i + 1) {
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerPosition = Utils.transformBackendPositionToFrontendPosition(gamePlayers[i].Position);
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.playerId = SocketConnectionManager.Instance.playerId;
-                SocketConnectionManager.Instance.entityUpdates.lastServerUpdate.health = 100;
-            }
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = (i + 1).ToString();
 
@@ -120,11 +134,11 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    private void setCameraToPlayer(int playerID)
+    private void setCameraToPlayer(ulong playerID)
     {
         foreach (Character player in this.PlayerPrefabs)
         {
-            if (Int32.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -132,7 +146,7 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetInputsAbilities(int playerID)
+    private void SetInputsAbilities(ulong playerID)
     {
         CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
         Player pl = SocketConnectionManager.GetPlayer(playerID, SocketConnectionManager.Instance.gamePlayers);
@@ -140,7 +154,7 @@ public class CustomLevelManager : LevelManager
         foreach (Character player in this.PlayerPrefabs)
         {
 
-            if (Int32.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
                 skillBasic.SetSkill(Action.BasicAttack);
@@ -152,20 +166,24 @@ public class CustomLevelManager : LevelManager
                 Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
                 skill2.SetSkill(Action.Skill2);
 
-                if (pl.CharacterName == "Muflus"){
+                if (pl.CharacterName == "Muflus")
+                {
                     _cim.AssignSkillToInput(UIControls.Skill1, UIType.Tap, skill1);
                     _cim.AssignSkillToInput(UIControls.Skill2, UIType.Area, skill2);
-                } else {
+                }
+                else
+                {
                     _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
                     _cim.AssignSkillToInput(UIControls.Skill2, UIType.Direction, skill2);
                 }
 
                 Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
-                skill3.SetSkill(Action.Skill3);
+                skill3.SetSkill(Action.Skill4);
                 _cim.AssignSkillToInput(UIControls.Skill3, UIType.Tap, skill3);
 
-                // Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
-                // skill4.SetSkill(Action.AttackAoe);
+                Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+                skill4.SetSkill(Action.Skill1);
+                _cim.AssignSkillToInput(UIControls.Skill4, UIType.Direction, skill4);
             }
         }
     }
