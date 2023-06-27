@@ -1,4 +1,5 @@
 defmodule LoadTest.LobbyPlayer do
+  @config_folder "../../client/Assets/StreamingAssets/"
   @doc """
   A socket representing a player inside a lobby
   """
@@ -10,6 +11,13 @@ defmodule LoadTest.LobbyPlayer do
   alias LoadTest.Communication.Proto.GameConfig
   alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.PlayerSupervisor
+
+  def characters_config() do
+    @config_folder
+    |> then(fn folder -> folder <> "Characters.json" end)
+    |> then(&File.read!/1)
+    |> Jason.decode!(keys: :atoms)
+  end
 
   def start_link({player_number, lobby_id, max_duration}) do
     ws_url = ws_url(lobby_id)
@@ -41,15 +49,18 @@ defmodule LoadTest.LobbyPlayer do
   end
 
   def start_game(player_pid) do
+    runner_config = %{
+      board_width: 1000,
+      board_height: 1000,
+      server_tickrate_ms: 30,
+      game_timeout_ms: 1_200_000
+    }
+
     start_game_command = %LobbyEvent{
       type: :START_GAME,
-      game_config: %GameConfig{
-        board_size: %BoardSize{
-          width: 1_000,
-          height: 1_000
-        },
-        server_tickrate_ms: 30,
-        game_timeout_ms: 1_000 * 60 * 20
+      game_config: %{
+        runner_config: runner_config,
+        character_config: characters_config()
       }
     }
 
