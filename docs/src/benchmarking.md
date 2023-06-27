@@ -13,6 +13,7 @@ This step might require sudoing in first with `sudo -i`.
 3. Before starting the load tests, check the following:
    - Server logs, for potential errors and crashes with `journalctl -xefu dark_worlds_server`.
    - Htop, for system usage.
+
    Also, before EACH load test, restart the running instance with
    `systemctl restart dark_worlds_server`
    You can use this tmux script to have a window for each item above:
