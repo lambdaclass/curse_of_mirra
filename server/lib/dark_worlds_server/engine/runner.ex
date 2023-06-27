@@ -186,10 +186,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :skill_3, value: value}},
+        {:play, player_id, %ActionOk{action: :neon_crash, value: value}},
         %{server_game_state: %{game: game} = server_game_state} = gen_server_state
       ) do
-    {:ok, game} = Game.skill_3(game, player_id, value)
+    {:ok, game} = Game.neon_crash(game, player_id, value)
 
     IO.inspect(value)
     server_game_state = server_game_state |> Map.put(:game, game)

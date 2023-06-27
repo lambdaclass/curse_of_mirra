@@ -224,10 +224,6 @@ impl GameState {
         }
         let mut entity_speed = player.character.speed() as i64;
 
-        if player.character.status_effects.get(&Effect::Dashing).is_some()  {
-            let entity_speed = 200 /*dashingspeed */;
-        }
-
         let new_position = new_entity_position(
             self.board.height,
             self.board.width,
@@ -604,6 +600,7 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
         }
+        
     }
 
     pub fn h4ck_skill_2(
@@ -633,7 +630,8 @@ impl GameState {
         Ok(())
     }
 
-    pub fn skill_3(
+    // H4ck's dash ability
+    pub fn neon_crash(
         self: &mut Self,
         attacking_player_id: u64,
         direction: &RelativePosition,
@@ -645,7 +643,7 @@ impl GameState {
         }
 
         let now = time_now();
-        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player.action = PlayerAction::EXECUTINGNEONCRASH;
         attacking_player.third_skill_start = now;
         attacking_player.third_skill_cooldown_left =
             attacking_player.character.cooldown_third_skill();
@@ -655,11 +653,12 @@ impl GameState {
                 attacking_player
                     .character
                     .add_effect(Effect::Dashing, 300);
+
+                println!("game.rs Hack effect = Dashing");
                 Ok(())
             }
             _ => Ok(()),
         }
-
     }
 
     pub fn skill_4(
@@ -711,6 +710,7 @@ impl GameState {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
+            println!("Status effect {:?}", player.character.status_effects);
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {

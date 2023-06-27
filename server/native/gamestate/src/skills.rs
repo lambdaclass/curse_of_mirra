@@ -44,17 +44,11 @@ pub enum SecondActive {
 }
 
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum ThirdActive {
-    #[strum(ascii_case_insensitive)]
-    NeonCrash,
-}
-
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum Dash {
     Leap,
     #[strum(ascii_case_insensitive)]
     ShadowStep,
-    Hacktivate,
+    NeonCrash,
     Blink,
 }
 
