@@ -567,11 +567,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2447783361558595730, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeSfxVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447783361558595731, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1734572836}
     - target: {fileID: 2855402006430708058, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
         type: 3}
       propertyPath: m_Name
       value: CameraUIWithSound
       objectReference: {fileID: 0}
+    - target: {fileID: 2856279043779026476, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeMusicVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 2856279043779026477, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1734572836}
     - target: {fileID: 2860544529340090630, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
         type: 3}
       propertyPath: m_RootOrder
@@ -626,6 +646,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919796730422621078, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1734572836}
+    - target: {fileID: 2919796730422621078, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 2040541225}
+    - target: {fileID: 6897220672125134434, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897220672125134434, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1862746721}
+    - target: {fileID: 6897220672125134434, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897220672125134434, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897220672125134434, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f, type: 3}
@@ -950,6 +1005,18 @@ MonoBehaviour:
   playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
+--- !u!114 &1862746721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2919796730422621078, guid: ae10ab9b562ad4cbbb1d5da6330d6d8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1588964421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1918232350
 GameObject:
   m_ObjectHideFlags: 0

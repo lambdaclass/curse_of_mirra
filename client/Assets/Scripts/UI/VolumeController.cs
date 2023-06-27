@@ -4,24 +4,22 @@ using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
+    [SerializeField]
     private MMSoundManager soundManager;
-    private Slider musicVolumeSlider;
-    private Slider sfxVolumeSlider;
+    private Slider volumeSlider;
 
     void Awake()
     {
-        soundManager = FindObjectOfType<MMSoundManager>();
-        musicVolumeSlider = GameObject.Find("MusicVolumeSlider").GetComponent<Slider>();
-        sfxVolumeSlider = GameObject.Find("SfxVolumeSlider").GetComponent<Slider>();
+        volumeSlider = GetComponent<Slider>();
     }
 
     public void ChangeMusicVolume()
     {
-        soundManager.SetVolumeMusic(musicVolumeSlider.value);
+        soundManager.SetVolumeMusic(volumeSlider.value);
     }
 
     public void ChangeSfxVolume()
     {
-        soundManager.SetVolumeSfx(sfxVolumeSlider.value);
+        soundManager.SetVolumeSfx(volumeSlider.value);
     }
 }
