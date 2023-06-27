@@ -32,7 +32,7 @@ tmux send-keys -t mysession:2 'htop' C-m
 # Attach to the session to view the windows
 tmux attach-session -t mysession
 ``` 
-Switch between htop and logs wtich Ctrl-b 1 or Ctrl-b 2.
+Switch between htop and logs with Ctrl-b 1 or Ctrl-b 2.
 4. Locally, on your machine, then run the load tests 
    from the load_tests app. Run `iex -S mix` there. The function you want
    to call is `LoadTest.PlayerSupervisor.n_games_30_players/1`, which takes
