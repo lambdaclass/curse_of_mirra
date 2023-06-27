@@ -3,8 +3,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Engine.BotPlayer
   alias DarkWorldsServer.Engine.Game
-  require Logger
+
   @build_walls false
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
@@ -88,7 +89,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        is_single_player?: length(opts.players) == 1,
        game_status: :character_selection,
        player_timestamps: %{},
-       bot_movements: %{},
+       bot_handler_pid: nil,
        opts: opts
      }}
   end
@@ -200,15 +201,26 @@ defmodule DarkWorldsServer.Engine.Runner do
     selected_characters = Map.put(gen_server_state.selected_characters, bot_id, "Muflus")
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
-    send(self(), {:bot_do, bot_id})
-    send(self(), {:bot_movement, bot_id})
+
+    bot_handler_pid =
+      case gen_server_state[:bot_handler_pid] do
+        nil ->
+          {:ok, pid} = BotPlayer.start_link(self(), gen_server_state.tick_rate)
+          pid
+
+        bot_handler_pid ->
+          bot_handler_pid
+      end
+
+    BotPlayer.add_bot(bot_handler_pid, bot_id)
 
     {:noreply,
      %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
          current_players: gen_server_state.current_players + 1,
-         selected_characters: selected_characters
+         selected_characters: selected_characters,
+         bot_handler_pid: bot_handler_pid
      }}
   end
 
@@ -339,25 +351,6 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
-  end
-
-  def handle_info({:bot_do, bot_id}, %{server_game_state: _server_game_state} = gen_server_state) do
-    Process.send_after(self(), {:bot_do, bot_id}, 5_000)
-    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}], 1)
-    gen_server_state = put_in(gen_server_state, [:bot_movements, bot_id], movement)
-    {:noreply, gen_server_state}
-  end
-
-  def handle_info({:bot_movement, bot_id} = action, gen_server_state) do
-    Process.send_after(self(), action, gen_server_state.tick_rate)
-    {x, y} = get_in(gen_server_state, [:bot_movements, bot_id]) || {0.0, 0.0}
-
-    GenServer.cast(
-      self(),
-      {:play, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil}}
-    )
-
-    {:noreply, gen_server_state}
   end
 
   ####################
