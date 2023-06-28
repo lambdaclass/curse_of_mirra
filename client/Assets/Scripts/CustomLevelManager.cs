@@ -66,10 +66,10 @@ public class CustomLevelManager : LevelManager
     {
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
-        GeneratePlayer();
         playerId = LobbyConnection.Instance.playerId;
+        GeneratePlayers();
+        SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
-        SetInputsAbilities(playerId);
     }
 
     void Update()
@@ -105,7 +105,7 @@ public class CustomLevelManager : LevelManager
         return prefab;
     }
 
-    private void GeneratePlayer()
+    private void GeneratePlayers()
     {
         // prefab = prefab == null ? quickGamePrefab : prefab;
         for (ulong i = 0; i < totalPlayers; i++)
@@ -146,10 +146,9 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetInputsAbilities(ulong playerID)
+    private void SetPlayersSkills(ulong clientPlayerId)
     {
-        CustomInputManager _cim = UiCamera.GetComponent<CustomInputManager>();
-        Player pl = SocketConnectionManager.GetPlayer(playerID, SocketConnectionManager.Instance.gamePlayers);
+        CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
 
         foreach (Character player in this.PlayerPrefabs)
         {
@@ -159,7 +158,8 @@ public class CustomLevelManager : LevelManager
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
             Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
 
-            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == pl.CharacterName);
+            string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[UInt64.Parse(player.PlayerID)];
+            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == selectedCharacter);
 
             skillBasic.SetSkill(Action.BasicAttack, characterInfo.skillBasicInfo);
             skill1.SetSkill(Action.Skill1, characterInfo.skill1Info);
@@ -167,12 +167,12 @@ public class CustomLevelManager : LevelManager
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info);
             skill4.SetSkill(Action.Skill4, characterInfo.skill4Info);
 
-            if (UInt64.Parse(player.PlayerID) == playerID){
-                _cim.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
-                _cim.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
-                _cim.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
-                _cim.AssignSkillToInput(UIControls.Skill3, characterInfo.skill3Info.inputType, skill3);
-                _cim.AssignSkillToInput(UIControls.Skill4, characterInfo.skill4Info.inputType, skill4);
+            if (UInt64.Parse(player.PlayerID) == clientPlayerId){
+                inputManager.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
+                inputManager.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
+                inputManager.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
+                inputManager.AssignSkillToInput(UIControls.Skill3, characterInfo.skill3Info.inputType, skill3);
+                inputManager.AssignSkillToInput(UIControls.Skill4, characterInfo.skill4Info.inputType, skill4);
             }
         }
     }
