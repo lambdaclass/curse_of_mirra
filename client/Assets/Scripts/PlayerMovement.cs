@@ -80,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-            print(serverPlayerUpdate);
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
@@ -271,7 +270,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
-            print("CAMBIO");
             healthComponent.SetHealth(playerUpdate.Health);
         }
 
