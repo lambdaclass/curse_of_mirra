@@ -8050,8 +8050,8 @@ MonoBehaviour:
         m_CallState: 2
   RotatingIndicator: {fileID: 0}
   RotatingIndicatorThreshold: 0.1
-  PressedOpacity: 0.5
-  InterpolateOpacity: 1
+  PressedOpacity: 1
+  InterpolateOpacity: 0
   InterpolateOpacitySpeed: 1
   RawValue: {x: 0, y: 0}
   NormalizedValue: {x: 0, y: 0}
@@ -9277,14 +9277,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 049617ebb828849839401530079574dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c56848f189f634dd498505c5d017b735, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9335,18 +9335,42 @@ MonoBehaviour:
       m_Calls: []
   OnPointerDownEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2053005125}
+        m_TargetAssemblyTypeName: CustomInputManager, Assembly-CSharp
+        m_MethodName: SetOpacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDragEvent:
     m_PersistentCalls:
       m_Calls: []
   OnPointerUpEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2053005125}
+        m_TargetAssemblyTypeName: CustomInputManager, Assembly-CSharp
+        m_MethodName: UnsetOpacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   RotatingIndicator: {fileID: 0}
   RotatingIndicatorThreshold: 0.1
-  PressedOpacity: 1
+  PressedOpacity: 0.25
   InterpolateOpacity: 1
-  InterpolateOpacitySpeed: 1
+  InterpolateOpacitySpeed: 5
   RawValue: {x: 0, y: 0}
   NormalizedValue: {x: 0, y: 0}
   Magnitude: 0
@@ -9548,7 +9572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

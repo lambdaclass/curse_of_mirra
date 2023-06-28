@@ -277,11 +277,22 @@ public class CustomInputManager : InputManager
     {
         joystickL.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
         joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
+        SetOpacity();
     }
 
     public void ResetLeftJoystickPosition()
     {
         joystickL.transform.position = initialLeftJoystickPosition;
         joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
+        UnsetOpacity();
+    }
+
+    public void SetOpacity()
+    {
+        joystickL.GetComponent<Image>().color = new Color(255, 255, 255, 0.25f);
+    }
+    public void UnsetOpacity()
+    {
+        joystickL.GetComponent<Image>().color = new Color(255, 255, 255, 1);
     }
 }
