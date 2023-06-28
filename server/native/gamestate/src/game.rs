@@ -4,9 +4,10 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
-use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
+use crate::player::{Player, PlayerAction, Position, Status};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
+use crate::utils::RelativePosition;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -26,6 +27,7 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
+
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
@@ -173,8 +175,10 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let new_position_x = attacking_player.position.x as i64 - direction.y;
-        let new_position_y = attacking_player.position.y as i64 + direction.x;
+        // TODO: 120 should be a config. It's the realtion between front range in skills and
+        // the distance in the back.
+        let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
+        let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
 
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
@@ -332,7 +336,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = match attacking_player
                 .character
                 .status_effects
@@ -345,7 +349,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
+                RelativePosition::new(direction.x as f32, direction.y as f32),
                 14,
                 10,
                 attacking_player.id,
@@ -363,25 +367,25 @@ impl GameState {
     }
 
     pub fn position_to_direction(position: &RelativePosition) -> Direction {
-        if position.x > 0 && position.y > 0 {
+        if position.x > 0f32 && position.y > 0f32 {
             if position.x > position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x > 0 && position.y <= 0 {
+        } else if position.x > 0f32 && position.y <= 0f32 {
             if position.x > -position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::DOWN;
             }
-        } else if position.x <= 0 && position.y > 0 {
+        } else if position.x <= 0f32 && position.y > 0f32 {
             if -position.x > position.y {
                 return Direction::LEFT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x <= 0 && position.y <= 0 {
+        } else if position.x <= 0f32 && position.y <= 0f32 {
             if -position.x > -position.y {
                 return Direction::LEFT;
             } else {
@@ -483,7 +487,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -497,7 +501,7 @@ impl GameState {
                 let projectile = Projectile::new(
                     *next_projectile_id,
                     attacking_player.position,
-                    JoystickValues::new(
+                    RelativePosition::new(
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
@@ -613,11 +617,11 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
+                RelativePosition::new(direction.x as f32, direction.y as f32),
                 14,
                 10,
                 attacking_player.id,
