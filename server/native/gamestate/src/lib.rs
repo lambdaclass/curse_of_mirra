@@ -5,13 +5,14 @@ pub mod player;
 pub mod projectile;
 pub mod skills;
 pub mod time_utils;
+pub mod utils;
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
 use std::str::FromStr;
 
 use crate::player::Player;
-use crate::{board::GridResource, board::Tile, game::Direction, player::RelativePosition};
+use crate::{board::GridResource, board::Tile, game::Direction, utils::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
