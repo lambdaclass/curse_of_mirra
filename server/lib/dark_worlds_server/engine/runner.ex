@@ -249,34 +249,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
-    {:reply, {:ok, player_id}, %{gen_server_state | current_players: current + 1}}
-  end
-
-  def handle_call(:join, _, %{max_players: max, current_players: max} = gen_server_state) do
-    {:reply, {:error, :game_full}, gen_server_state}
-  end
-
-  def handle_call(:get_board, _from, %{client_game_state: %{board: board}} = gen_server_state) do
-    {:reply, board, gen_server_state}
-  end
-
-  def handle_call(:get_players, _from, %{client_game_state: %{players: players}} = gen_server_state) do
-    {:reply, players, gen_server_state}
-  end
-
-  def handle_call(:get_logged_players, _from, %{players: players} = gen_server_state) do
-    {:reply, players, gen_server_state}
-  end
-
-  def handle_call(:get_state, _from, %{client_game_state: game_state} = gen_server_state) do
-    {:reply, game_state, gen_server_state}
-  end
-
-  def handle_info(
-        :check_player_amount,
-        gen_server_state = %{current_players: current}
-      )
-      when current > 0 do
     Process.send_after(self(), :check_player_amount, @player_check)
 
     Process.send_after(self(), :update_state, tick_rate)
@@ -520,7 +492,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
   defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
-  defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
   defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
 
   defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()

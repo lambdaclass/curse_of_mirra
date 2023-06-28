@@ -162,22 +162,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}
   end
 
-<<<<<<< HEAD
-  def encode(%EngineAction{action: :skill_2, value: position}, ProtoAction) do
-    %ProtoAction{action: :SKILL_2, position: position}
-  end
-
-  def encode(%EngineAction{action: :neon_crash, value: position}, ProtoAction) do
-    %ProtoAction{action: :NEON_CRASH, position: position}
-  end
-
-  def encode(%EngineAction{action: :skill_4, value: position}, ProtoAction) do
-    %ProtoAction{action: :SKILL_4, position: position}
-  end
-
-  def encode(%EngineAction{action: :basic_attack, value: position}, ProtoAction) do
-    %ProtoAction{action: :BASIC_ATTACK, position: position}
-=======
   def encode(%EngineAction{action: :skill_2, value: position, timestamp: timestamp}, ProtoAction) do
     %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}
   end
@@ -192,7 +176,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
     %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
->>>>>>> main
   end
 
   @impl Protobuf.TransformModule
@@ -307,25 +290,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :skill_1, value: position, timestamp: timestamp}
   end
 
-<<<<<<< HEAD
-  def decode(%ProtoAction{action: :SKILL_2, position: position}, ProtoAction) do
-    %EngineAction{action: :skill_2, value: position}
-  end
-
-  def decode(%ProtoAction{action: :NEON_CRASH, position: position}, ProtoAction) do
-    %EngineAction{action: :neon_crash, value: position}
-  end
-
-  def decode(%ProtoAction{action: :SKILL_4, position: position}, ProtoAction) do
-    %EngineAction{action: :skill_4, value: position}
-  end
-
-  def decode(%ProtoAction{action: :BASIC_ATTACK, position: position}, ProtoAction) do
-    %EngineAction{action: :basic_attack, value: position}
-=======
   def decode(%ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}, ProtoAction) do
     %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
->>>>>>> main
   end
 
   def decode(%ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}, ProtoAction) do
@@ -377,11 +343,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
-<<<<<<< HEAD
   defp player_action_encode(:executingneoncrash), do: :EXECUTING_NEON_CRASH
-=======
-  defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
->>>>>>> main
   defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
   defp player_action_encode(:teleporting), do: :TELEPORTING
 
@@ -390,11 +352,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
-<<<<<<< HEAD
   defp player_action_decode(:EXECUTING_NEON_CRASH), do: :executingneoncrash
-=======
-  defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
->>>>>>> main
   defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
   defp player_action_decode(:TELEPORTING), do: :teleporting
 

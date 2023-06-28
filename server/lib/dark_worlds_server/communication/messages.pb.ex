@@ -39,14 +39,9 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
   field(:SKILL_2, 11)
-<<<<<<< HEAD
-  field(:NEON_CRASH, 12)
-  field(:SKILL_4, 13)
-=======
-  field(:SKILL_3, 12)
-  field(:SKILL_4, 13)
+  field(:SKILL_4, 12)
+  field(:NEON_CRASH, 13)
   field(:SELECT_CHARACTER, 14)
->>>>>>> main
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
