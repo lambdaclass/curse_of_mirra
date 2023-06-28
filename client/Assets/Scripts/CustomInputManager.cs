@@ -272,7 +272,6 @@ public class CustomInputManager : InputManager
         UnityEvent<Vector2> movementEvent = new UnityEvent<Vector2>();
         movementEvent.AddListener(ChangeLeftKnobPosition);
         joystickLContainer.GetComponent<LeftMMTouchJoystick>().newPointerDownEvent = movementEvent;
-        Debug.Log("init pos: " + joystickL.GetComponentInChildren<MMTouchJoystick>().transform.position);
     }
     void ChangeLeftKnobPosition(Vector2 newPosition)
     {
@@ -284,6 +283,5 @@ public class CustomInputManager : InputManager
     {
         joystickL.transform.position = initialLeftJoystickPosition;
         joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
-        Debug.Log("reset pos: " + joystickL.GetComponentInChildren<MMTouchJoystick>().transform.position);
     }
 }
