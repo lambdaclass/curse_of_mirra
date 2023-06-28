@@ -1,9 +1,9 @@
 defmodule DarkWorldsServer.Engine.BotPlayer do
   use GenServer, restart: :transient
   require Logger
+  alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Runner
-  alias DarkWorldsServer.Communication
 
   #######
   # API #
@@ -48,7 +48,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def handle_info(_msg, state) do
-    # IO.inspect(msg)
     {:noreply, state}
   end
 
