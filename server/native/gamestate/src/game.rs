@@ -247,6 +247,7 @@ impl GameState {
             player.position.y,
             Tile::Player(player.id),
         );
+        dbg!(&player.position);
         Ok(())
     }
 
@@ -409,30 +410,17 @@ impl GameState {
             attack_range,
         );
 
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
-                .into_iter()
-                .filter(|&id| id != attacking_player.id)
-                .collect();
-
+        let affected_players = GameState::players_in_range(board, top_left, bottom_right)
+            .into_iter()
+            .filter(|&id| id != attacking_player.id);
         let mut kill_count = 0;
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    if matches!(ap.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
-                }
-                _ => continue,
+        for target_player_id in affected_players {
+            let attacked_player = GameState::get_player_mut(players, target_player_id)?;
+            attacked_player.modify_health(-attack_dmg);
+            if matches!(attacked_player.status, Status::DEAD) {
+                kill_count += 1;
             }
+            GameState::modify_cell_if_player_died(board, &attacked_player);
         }
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
@@ -595,8 +583,11 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
+                dbg!("Muflus skill 2");
                 let id = attacking_player.id;
-                Self::leap(&mut self.board, id, direction, &mut self.players)
+                attacking_player.character.attack_dmg_second_active();
+                Ok(())
+                // Self::leap(&mut self.board, id, direction, &mut self.players)
             }
             _ => Self::h4ck_skill_2(
                 &attacking_player,

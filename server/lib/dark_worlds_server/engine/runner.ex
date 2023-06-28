@@ -41,6 +41,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def play(runner_pid, player_id, %ActionOk{} = action) do
+    Logger.info("[#{DateTime.utc_now()}] Received action: #{inspect(action)}")
     GenServer.cast(runner_pid, {:play, player_id, action})
   end
 
