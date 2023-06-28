@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+            print(serverPlayerUpdate);
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
@@ -268,7 +269,11 @@ public class PlayerMovement : MonoBehaviour
         // Display damage done on others players (not you)
         GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
 
-        healthComponent.SetHealth(playerUpdate.Health);
+        if (playerUpdate.Health != healthComponent.CurrentHealth)
+        {
+            print("CAMBIO");
+            healthComponent.SetHealth(playerUpdate.Health);
+        }
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
