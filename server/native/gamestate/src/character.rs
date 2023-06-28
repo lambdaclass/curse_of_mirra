@@ -252,12 +252,10 @@ impl Character {
             _ => None,
         }
     }
-    // Rust complains about the effect
-    // variable.
     #[allow(unused_variables)]
     pub fn has_active_effect(&self, e: &Effect) -> bool {
         let effect = self.status_effects.get(e);
-        matches!(Some(1..=u64::MAX), effect)
+        matches!(effect, Some(1..=u64::MAX))
     }
 }
 impl Default for Character {
