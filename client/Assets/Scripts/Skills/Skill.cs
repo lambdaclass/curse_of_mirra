@@ -70,7 +70,6 @@ public class Skill : CharacterAbility
         SocketConnectionManager.Instance.SendAction(action);
     }
 
-<<<<<<< HEAD
     private IEnumerator EndSkillFeedback()
     {
         if (skillInfo){
@@ -78,17 +77,5 @@ public class Skill : CharacterAbility
         }
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
-=======
-    public void ExecuteSkill(Vector2 position){
-
-        RelativePosition relativePosition = new RelativePosition
-        {
-            X = position.x,
-            Y = position.y
-        };
-
-        ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
-        SocketConnectionManager.Instance.SendAction(action);
->>>>>>> main
     }
 }
