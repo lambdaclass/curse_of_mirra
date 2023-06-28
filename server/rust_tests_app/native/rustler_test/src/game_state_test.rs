@@ -3,8 +3,9 @@ use crate::utils::{read_character_config, TestResult};
 use gamestate::board::{Grid, GridResource, Tile};
 use gamestate::character::{Character, Effect, Name, TicksLeft};
 use gamestate::game::{Direction, GameState};
-use gamestate::player::{Player, Position, RelativePosition};
+use gamestate::player::{Player, Position};
 use gamestate::time_utils;
+use gamestate::utils::RelativePosition;
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
 fn get_grid(game: &GameState) -> Grid {
@@ -235,14 +236,14 @@ fn attacking() -> TestResult {
 
     // Attack lands and damages player
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)?;
 
     // Attack does nothing because of cooldown
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)?;
@@ -251,7 +252,7 @@ fn attacking() -> TestResult {
 
     // Attack misses and does nothing
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)?;
@@ -262,7 +263,7 @@ fn attacking() -> TestResult {
 
     // Attacking to the right now does nothing since the player moved down.
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)?;
@@ -271,7 +272,7 @@ fn attacking() -> TestResult {
 
     // Attacking to a non-existent position on the board does nothing.
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)
@@ -357,10 +358,10 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     // Player 1 can't attack since it is in a Disarmed state
     // Player 2 can attack
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     state
-        .basic_attack(player_2_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_2_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[0].health)?;
     assert_result!(100, state.players[1].health)?;
@@ -376,10 +377,10 @@ pub fn cant_attack_if_disarmed() -> TestResult {
 
     // Now Player 1 should be able to attack
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     state
-        .basic_attack(player_2_id, &RelativePosition::new(0, 1))
+        .basic_attack(player_2_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     assert_result!(100, state.players[1].health)
 }

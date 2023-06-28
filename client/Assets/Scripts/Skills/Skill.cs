@@ -16,8 +16,8 @@ public class Skill : CharacterAbility
 
         RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(direction.x * 100),
-            Y = (long)(direction.z * 100)
+            X = direction.x,
+            Y = direction.z
         };
 
         ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
@@ -28,8 +28,8 @@ public class Skill : CharacterAbility
 
         RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(position.x * 100),
-            Y = (long)(position.y * 100)
+            X = position.x,
+            Y = position.y
         };
 
         ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
