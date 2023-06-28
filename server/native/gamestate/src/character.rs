@@ -277,7 +277,7 @@ fn get_key(config: &HashMap<String, String>, key: &str) -> Result<String, String
         .ok_or(format!("Missing key: {:?}", key))
         .map(|s| s.to_string())
 }
-fn parse_character_attribute<T: FromStr + std::fmt::Debug>(to_parse: &str) -> Result<T, String> {
+fn parse_character_attribute<T: FromStr>(to_parse: &str) -> Result<T, String> {
     let parsed = T::from_str(&to_parse);
     match parsed {
         Ok(parsed) => Ok(parsed),
