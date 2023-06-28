@@ -7,9 +7,6 @@ public class SpawnBot : MonoBehaviour
     [SerializeField]
     GameObject playerPrefab;
 
-    [SerializeField]
-    SocketConnectionManager manager;
-
     private bool pendingSpawn = false;
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
     private string botId;
@@ -18,7 +15,7 @@ public class SpawnBot : MonoBehaviour
 
     public void Init()
     {
-        if (manager.players.Count == 9)
+        if (SocketConnectionManager.Instance.players.Count == 9)
             GetComponent<MMTouchButton>().DisableButton();
         Instance = this;
         GenerateBotPlayer();
@@ -26,7 +23,7 @@ public class SpawnBot : MonoBehaviour
 
     public void GenerateBotPlayer()
     {
-        manager.CallSpawnBot();
+        SocketConnectionManager.Instance.CallSpawnBot();
     }
 
     public void Spawn(Player player)
@@ -49,7 +46,7 @@ public class SpawnBot : MonoBehaviour
             );
             newPlayer.PlayerID = botId.ToString();
             newPlayer.name = "BOT" + botId;
-            manager.players.Add(newPlayer.gameObject);
+            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             print("SPAWNED");
             print(newPlayer.PlayerID);
 

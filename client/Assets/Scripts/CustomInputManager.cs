@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using MoreMountains.TopDownEngine;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public enum UIControls
 {
@@ -24,13 +25,18 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] GameObject SkillBasic;
-    [SerializeField] GameObject Skill1;
-    [SerializeField] GameObject Skill2;
-    [SerializeField] GameObject Skill3;
-    [SerializeField] GameObject Skill4;
-    [SerializeField] Font TestFont;
-    Dictionary<UIControls, GameObject> mobileButtons;
+    [SerializeField] MMTouchButton SkillBasic;
+    [SerializeField] MMTouchButton Skill1;
+    [SerializeField] MMTouchButton Skill2;
+    [SerializeField] MMTouchButton Skill3;
+    [SerializeField] MMTouchButton Skill4;
+    [SerializeField] TMP_Text SkillBasicCooldown;
+    [SerializeField] TMP_Text Skill1Cooldown;
+    [SerializeField] TMP_Text Skill2Cooldown;
+    [SerializeField] TMP_Text Skill3Cooldown;
+    [SerializeField] TMP_Text Skill4Cooldown;
+    Dictionary<UIControls, MMTouchButton> mobileButtons;
+    Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
@@ -41,12 +47,21 @@ public class CustomInputManager : InputManager
     {
         base.Start();
 
-        mobileButtons = new Dictionary<UIControls, GameObject>();
+        mobileButtons = new Dictionary<UIControls, MMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
-        // mobileButtons.Add(UIControls.Skill4, Skill4);
+        mobileButtons.Add(UIControls.Skill4, Skill4);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
+
+        // TODO: this could be refactored implementing a button parent linking button and cooldown text
+        // or extending MMTouchButton and linking its cooldown text
+        buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
+        buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
+        buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
+        buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
+        buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
+        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
@@ -212,35 +227,16 @@ public class CustomInputManager : InputManager
     }
 
     public void CheckSkillCooldown(UIControls control, ulong cooldown){
-        MMTouchButton button = mobileButtons[control].GetComponent<MMTouchButton>();
-        GameObject cooldownObj = GameObject.Find(control.ToString());
+        MMTouchButton button = mobileButtons[control];
+        TMP_Text cooldownText = buttonsCooldown[control];
 
         if (cooldown == 0){
-            if (cooldownObj){
-                button.EnableButton();
-                cooldownObj.SetActive(false);
-            }
+            button.EnableButton();
+            cooldownText.gameObject.SetActive(false);
         } else {
             button.DisableButton();
-
-            // FIXME: refactor assignations
-            cooldownObj = GameObject.Find(control.ToString());
-            Text coolDownText;
-
-            if (!cooldownObj){
-                cooldownObj = new GameObject(control.ToString());
-                cooldownObj.AddComponent<Text>();
-                coolDownText = cooldownObj.GetComponent<Text>();
-                coolDownText.transform.SetParent(button.transform.parent, false);
-                coolDownText.font = TestFont;
-                coolDownText.alignment = TextAnchor.MiddleCenter;
-                coolDownText.fontSize = 76;
-            } else {
-                cooldownObj.SetActive(true);
-                coolDownText = cooldownObj.GetComponent<Text>();
-            }
-
-            coolDownText.text = cooldown.ToString();
+            cooldownText.gameObject.SetActive(true);
+            cooldownText.text = cooldown.ToString();
         }
     }
 
