@@ -60,11 +60,13 @@ impl GameState {
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
 
-                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+                let selected_character = selected_characters
+                    .get(&player_id)
+                    .ok_or(format!("Could not get player {player_id} character"))?;
 
                 let character = characters
                     .iter()
-                    .find(|x| x.name == selected_character)
+                    .find(|x| x.name == *selected_character)
                     .ok_or("Can't get the character")?
                     .clone();
 
@@ -247,7 +249,6 @@ impl GameState {
             player.position.y,
             Tile::Player(player.id),
         );
-        dbg!(&player.position);
         Ok(())
     }
 
