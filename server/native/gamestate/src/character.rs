@@ -9,6 +9,7 @@ pub enum Effect {
     Petrified,
     Disarmed,
     Piercing,
+    Dashing,
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
@@ -177,6 +178,11 @@ impl Character {
     pub fn speed(&self) -> u64 {
         match self.status_effects.get(&Effect::Petrified) {
             Some((1_u64..=u64::MAX)) => 0,
+            None | Some(0) => self.base_speed,
+        };
+
+        match self.status_effects.get(&Effect::Dashing) {
+            Some((1_u64..=u64::MAX)) => self.base_speed * 10,
             None | Some(0) => self.base_speed,
         }
     }

@@ -178,7 +178,7 @@ public class CustomLevelManager : LevelManager
                 }
 
                 Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
-                skill3.SetSkill(Action.Skill4);
+                skill3.SetSkill(Action.Skill3);
                 _cim.AssignSkillToInput(UIControls.Skill3, UIType.Tap, skill3);
 
                 Skill4 skill4 = player.gameObject.AddComponent<Skill4>();

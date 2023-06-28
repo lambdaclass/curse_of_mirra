@@ -104,7 +104,11 @@ public class PlayerControls : MonoBehaviour
             var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
             
             foreach (var character in chars) {
-                if(charName == character.Name){
+                if(charName == "H4ck"){
+                    return (float.Parse(character.BaseSpeed) * 10);
+                }
+                
+                else if(charName == character.Name){
                     return float.Parse(character.BaseSpeed);
                 }
             }

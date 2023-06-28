@@ -640,10 +640,48 @@ impl GameState {
 
     pub fn skill_3(
         self: &mut Self,
-        _attacking_player_id: u64,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+        match attacking_player.character.name {
+            Name::H4ck => Self::neon_crash(self,
+                attacking_player_id,
+                direction,
+            ),
+            _ => Ok(())
+        }
+    }
+
+    // H4ck's dash ability
+    pub fn neon_crash(
+        self: &mut Self,
+        attacking_player_id: u64,
         _direction: &RelativePosition,
     ) -> Result<(), String> {
-        return Ok(());
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        if !attacking_player.can_attack(attacking_player.third_skill_cooldown_left) {
+            return Ok(());
+        }
+
+        let now = time_now();
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player.third_skill_start = now;
+        attacking_player.third_skill_cooldown_left =
+            attacking_player.character.cooldown_third_skill();
+
+        match attacking_player.character.name {
+            Name::H4ck => {
+                attacking_player
+                    .character
+                    .add_effect(Effect::Dashing, 50);
+
+                println!("game.rs Hack effect = Dashing");
+                Ok(())
+            }
+            _ => Ok(()),
+        }
     }
 
     pub fn skill_4(
