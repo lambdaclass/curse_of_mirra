@@ -33,8 +33,8 @@ public class Skill : CharacterAbility
             Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
             RelativePosition relativePosition = new RelativePosition
             {
-                X = (long)(direction.x * 100),
-                Y = (long)(direction.z * 100)
+                X = direction.x,
+                Y = direction.z
             };
             ExecuteSkill(relativePosition);
         }
@@ -44,8 +44,8 @@ public class Skill : CharacterAbility
         if (AbilityAuthorized){
             RelativePosition relativePosition = new RelativePosition
             {
-                X = (long)(position.x * 100),
-                Y = (long)(position.y * 100)
+                X = position.x,
+                Y = position.y
             };
             ExecuteSkill(relativePosition);
         }

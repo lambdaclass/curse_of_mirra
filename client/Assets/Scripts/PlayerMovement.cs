@@ -332,15 +332,22 @@ public class PlayerMovement : MonoBehaviour
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
-        // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
-        // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+        // FIXME: Temporary solution until all models can handle the feedback
+        if (playerUpdate.CharacterName == "H4ck"){
+            // Display damage done on you on your client
+            GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+
+            // Display damage done on others players (not you)
+            GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+        }
 
         healthComponent.SetHealth(playerUpdate.Health);
 
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
+        // FIXME: Temporary solution until all models can handle the feedback
+        if (playerUpdate.CharacterName == "H4ck"){
+            GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
+        }
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
