@@ -20,7 +20,6 @@ public class LeftMMTouchJoystick : MMTouchJoystick
     }
     public override void OnDrag(PointerEventData eventData)
     {
-        base.OnDrag(eventData);
         newDragEvent.Invoke(RawValue);
         joystickL.OnDrag(eventData);
     }

@@ -268,20 +268,22 @@ public class CustomInputManager : InputManager
     }
     public void ChangeLeftJoystickPosition()
     {
-        initialLeftJoystickPosition = joystickL.transform.localPosition;
+        initialLeftJoystickPosition = joystickL.transform.position;
         UnityEvent<Vector2> movementEvent = new UnityEvent<Vector2>();
         movementEvent.AddListener(ChangeLeftKnobPosition);
         joystickLContainer.GetComponent<LeftMMTouchJoystick>().newPointerDownEvent = movementEvent;
+        Debug.Log("init pos: " + joystickL.GetComponentInChildren<MMTouchJoystick>().transform.position);
     }
     void ChangeLeftKnobPosition(Vector2 newPosition)
     {
-        joystickL.transform.localPosition = new Vector3(newPosition.x - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), newPosition.y - (joystickL.GetComponentInChildren<MMTouchJoystick>().MaxRange / 2), 0);
-        joystickL.GetComponentInChildren<MMTouchJoystick>().Initialize();
+        joystickL.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+        joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
     }
 
     public void ResetLeftJoystickPosition()
     {
-        joystickL.transform.localPosition = initialLeftJoystickPosition;
-        joystickL.GetComponentInChildren<MMTouchJoystick>().Initialize();
+        joystickL.transform.position = initialLeftJoystickPosition;
+        joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
+        Debug.Log("reset pos: " + joystickL.GetComponentInChildren<MMTouchJoystick>().transform.position);
     }
 }
