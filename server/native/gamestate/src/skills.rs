@@ -48,6 +48,7 @@ pub enum Dash {
     Leap,
     #[strum(ascii_case_insensitive)]
     ShadowStep,
+    #[strum(serialize = "Neon Crash", ascii_case_insensitive)]
     NeonCrash,
     Blink,
 }

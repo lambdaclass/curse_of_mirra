@@ -720,7 +720,6 @@ impl GameState {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
-            println!("Status effect {:?}", player.character.status_effects);
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {

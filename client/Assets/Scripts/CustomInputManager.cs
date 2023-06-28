@@ -25,13 +25,6 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] GameObject SkillBasic;
-    [SerializeField] GameObject Skill1;
-    [SerializeField] GameObject Skill2;
-    [SerializeField] GameObject Skill3;
-    [SerializeField] GameObject Skill4;
-    [SerializeField] Font TestFont;
-    Dictionary<UIControls, GameObject> mobileButtons;
     [SerializeField] MMTouchButton SkillBasic;
     [SerializeField] MMTouchButton Skill1;
     [SerializeField] MMTouchButton Skill2;
@@ -49,7 +42,7 @@ public class CustomInputManager : InputManager
     private GameObject indicator;
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
-
+    
     protected override void Start()
     {
         base.Start();
