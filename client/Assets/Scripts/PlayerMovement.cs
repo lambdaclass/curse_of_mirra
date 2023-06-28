@@ -5,6 +5,7 @@ using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
 using System.Linq;
 using UnityEngine.UI;
+using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -261,7 +262,15 @@ public class PlayerMovement : MonoBehaviour
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
+        // Display damage done on you on your client
+        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+
+        // Display damage done on others players (not you)
+        GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+
         healthComponent.SetHealth(playerUpdate.Health);
+
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
