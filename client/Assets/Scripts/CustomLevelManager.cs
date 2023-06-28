@@ -24,7 +24,7 @@ public class CustomLevelManager : LevelManager
     public Camera UiCamera;
     public CinemachineCameraController camera;
 
-    public List<CoMCharacter> charactersPrefabList = new List<CoMCharacter>();
+    public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
     int winnersCount = 0;
@@ -99,7 +99,7 @@ public class CustomLevelManager : LevelManager
         {
             if (entry.Key == (ulong)playerId)
             {
-                prefab = charactersPrefabList.Find(el => el.name == entry.Value).prefab;
+                prefab = charactersInfo.Find(el => el.name == entry.Value).prefab;
             }
         }
         return prefab;
@@ -153,37 +153,26 @@ public class CustomLevelManager : LevelManager
 
         foreach (Character player in this.PlayerPrefabs)
         {
+            SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
+            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
+            Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
 
-            if (UInt64.Parse(player.PlayerID) == playerID)
-            {
-                SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-                skillBasic.SetSkill(Action.BasicAttack);
-                _cim.AssignSkillToInput(UIControls.SkillBasic, UIType.Tap, skillBasic);
+            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == pl.CharacterName);
 
-                Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
-                skill1.SetSkill(Action.Skill1);
+            skillBasic.SetSkill(Action.BasicAttack, characterInfo.skillBasicInfo);
+            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info);
+            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info);
+            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info);
+            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info);
 
-                Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
-                skill2.SetSkill(Action.Skill2);
-
-                if (pl.CharacterName == "Muflus")
-                {
-                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Tap, skill1);
-                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Area, skill2);
-                }
-                else
-                {
-                    _cim.AssignSkillToInput(UIControls.Skill1, UIType.Direction, skill1);
-                    _cim.AssignSkillToInput(UIControls.Skill2, UIType.Direction, skill2);
-                }
-
-                Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
-                skill3.SetSkill(Action.Skill4);
-                _cim.AssignSkillToInput(UIControls.Skill3, UIType.Tap, skill3);
-
-                Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
-                skill4.SetSkill(Action.Skill1);
-                _cim.AssignSkillToInput(UIControls.Skill4, UIType.Direction, skill4);
+            if (UInt64.Parse(player.PlayerID) == playerID){
+                _cim.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
+                _cim.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
+                _cim.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
+                _cim.AssignSkillToInput(UIControls.Skill3, characterInfo.skill3Info.inputType, skill3);
+                _cim.AssignSkillToInput(UIControls.Skill4, characterInfo.skill4Info.inputType, skill4);
             }
         }
     }

@@ -73,7 +73,7 @@ public class CustomInputManager : InputManager
             case UIType.Tap:
                 MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
-                button.ButtonPressedFirstTime.AddListener(skill.ExecuteSkill);
+                button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
                     mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
@@ -156,7 +156,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.ExecuteSkill(aoePosition);
+        skill.TryExecuteSkill(aoePosition);
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -223,7 +223,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.ExecuteSkill(direction);
+        skill.TryExecuteSkill(direction);
     }
 
     public void CheckSkillCooldown(UIControls control, ulong cooldown){
