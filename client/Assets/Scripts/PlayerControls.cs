@@ -44,57 +44,29 @@ public class PlayerControls : MonoBehaviour
     }
     public void SendAction()
     {
+        var direction = new Vector2(0, 0);
         if (Input.GetKey(KeyCode.W))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Up, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = 1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            direction.y += 1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Left, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = -1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            direction.x += -1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Right, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            direction.x += 1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Down, timestamp);
+            direction.y += -1f;
+        }
 
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = -1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+        if (direction.x !=0 || direction.y != 0) {
+            var valuesToSend = new RelativePosition { X = direction.x, Y = direction.y };
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
+            SocketConnectionManager.Instance.SendAction(clientAction);
         }
     }
  
