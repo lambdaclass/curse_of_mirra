@@ -1092,6 +1092,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+    - target: {fileID: 224429692818469760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -28.000061
+      objectReference: {fileID: 0}
     - target: {fileID: 6265185517424519363, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: manager
@@ -1167,7 +1172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -124, y: -40}
+  m_AnchoredPosition: {x: -124, y: -280}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &5344408644483072315
@@ -1289,7 +1294,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5344408645054098464}
         m_TargetAssemblyTypeName: SpawnLoot, Assembly-CSharp
-        m_MethodName: Initialize
+        m_MethodName: Init
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1420,6 +1425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7030aa45e64cb4aa18d1965905fe2480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lootHealth: {fileID: 4833585593647257712, guid: 50a1147adbf4a42ec8fdefdcedb0eb21,
+    type: 3}
 --- !u!224 &5344408645265731928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1492,7 +1499,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spawn BOT
+  m_Text: Spawn LOOT
 --- !u!114 &5344408645265731931
 MonoBehaviour:
   m_ObjectHideFlags: 0
