@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 1302669237}
   - component: {fileID: 1302669239}
   - component: {fileID: 1302669240}
+  - component: {fileID: 1302669241}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -388,6 +389,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58b4c90ce3bd4b69aa3dc17e6fabc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1302669241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302669236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5709ce9db31d4ac4a77637a0e344de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultPlayerTexture: {fileID: 2800000, guid: 3c94236cfdd0fcc4b8fd91e7d12dabec,
+    type: 3}
+  defaultH4ckTexture: {fileID: 5502615202320825534, guid: 7fab949b84f4042aa9f1eeb3a9fb19c7,
+    type: 3}
 --- !u!65 &1392788253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -950,6 +967,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20515230329627212, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: field of view
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 114075803156855596, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -998,6 +1020,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+    - target: {fileID: 114129316014370704, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 114208548048572026, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1028,6 +1055,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
+    - target: {fileID: 114257758189858168, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114270737596463260, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: OnDragEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1044,6 +1076,11 @@ PrefabInstance:
       propertyPath: OnPointerUpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1302669236}
+    - target: {fileID: 114329137893650930, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 114419919085104104, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: AxisPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1092,21 +1129,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114714365709490776, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
-    - target: {fileID: 6265185517424519363, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 1836016681}
-    - target: {fileID: 6265185518739708109, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 1836016681}
-    - target: {fileID: 6265185518825485442, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 1836016681}
     - target: {fileID: 8589184728240042611, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1117,7 +1139,8 @@ PrefabInstance:
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1302669239}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114276557751269602, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
 --- !u!114 &2053005125 stripped
 MonoBehaviour:

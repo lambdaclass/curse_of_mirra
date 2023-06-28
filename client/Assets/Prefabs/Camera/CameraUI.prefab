@@ -12464,11 +12464,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6265185516999118662, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265185516999118662, guid: 19229c6b3de9144aea6bd7ae03f513dc,
-        type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1787465996332106805, guid: 8ab0d99d24cda40dcb595686d5a6bc6e,

@@ -1,6 +1,7 @@
 use crate::character::TicksLeft;
 use crate::game;
 use crate::player::Position;
+use crate::utils::RelativePosition;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
 
@@ -9,7 +10,7 @@ use rustler::NifUnitEnum;
 pub struct Projectile {
     pub id: u64,
     pub position: Position,
-    pub direction: JoystickValues,
+    pub direction: RelativePosition,
     pub speed: u32,
     pub range: u32,
     pub player_id: u64,
@@ -33,24 +34,11 @@ pub enum ProjectileStatus {
     EXPLODED,
 }
 
-#[derive(Debug, Clone, NifStruct, PartialEq)]
-#[module = "DarkWorldsServer.Engine.JoystickValues"]
-pub struct JoystickValues {
-    pub x: f32,
-    pub y: f32,
-}
-
-impl JoystickValues {
-    pub fn new(x: f32, y: f32) -> Self {
-        Self { x, y }
-    }
-}
-
 impl Projectile {
     pub fn new(
         id: u64,
         position: Position,
-        direction: JoystickValues,
+        direction: RelativePosition,
         speed: u32,
         range: u32,
         player_id: u64,
