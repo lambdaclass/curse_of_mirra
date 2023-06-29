@@ -69,6 +69,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 5)
   field(:EXECUTING_SKILL_3, 6)
   field(:EXECUTING_SKILL_4, 7)
+  field(:MOVING, 8)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -185,8 +186,8 @@ defmodule LoadTest.Communication.Proto.RelativePosition do
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:x, 1, type: :int64)
-  field(:y, 2, type: :int64)
+  field(:x, 1, type: :float)
+  field(:y, 2, type: :float)
 end
 
 defmodule LoadTest.Communication.Proto.ClientAction do
@@ -197,7 +198,12 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:action, 1, type: LoadTest.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true)
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
-  field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
+
+  field(:move_delta, 4,
+    type: LoadTest.Communication.Proto.RelativePosition,
+    json_name: "moveDelta"
+  )
+
   field(:target, 5, type: :sint64)
   field(:timestamp, 6, type: :int64)
 
@@ -205,15 +211,6 @@ defmodule LoadTest.Communication.Proto.ClientAction do
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
-end
-
-defmodule LoadTest.Communication.Proto.JoystickValues do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:x, 1, type: :float)
-  field(:y, 2, type: :float)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEvent do
@@ -316,7 +313,7 @@ defmodule LoadTest.Communication.Proto.Projectile do
 
   field(:id, 1, type: :uint64)
   field(:position, 2, type: LoadTest.Communication.Proto.Position)
-  field(:direction, 3, type: LoadTest.Communication.Proto.JoystickValues)
+  field(:direction, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:speed, 4, type: :uint32)
   field(:range, 5, type: :uint32)
   field(:player_id, 6, type: :uint64, json_name: "playerId")

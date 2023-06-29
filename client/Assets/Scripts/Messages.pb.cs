@@ -87,16 +87,16 @@ public static partial class MessagesReflection {
           "S0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80",
           "EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOKk0KCURpcmVjdGlvbhIZChVESVJF",
           "Q1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZU",
-          "EAMSCQoFUklHSFQQBCqqAQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABIN",
+          "EAMSCQoFUklHSFQQBCq2AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABIN",
           "CglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5H",
           "X1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAEEhUKEUVYRUNVVElOR19TS0lM",
           "TF8yEAUSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBhIVChFFWEVDVVRJTkdfU0tJ",
-          "TExfNBAHKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVE",
-          "EAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9T",
-          "VEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIK",
-          "DlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVU",
-          "EAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMS",
-          "CgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
+          "TExfNBAHEgoKBk1PVklORxAIKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBF",
+          "X1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVE",
+          "EAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RB",
+          "UlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5",
+          "cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2pl",
+          "Y3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -201,6 +201,7 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 5,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 6,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 7,
+  [pbr::OriginalName("MOVING")] Moving = 8,
 }
 
 /// <summary>
