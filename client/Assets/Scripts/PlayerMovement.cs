@@ -18,12 +18,16 @@ public class PlayerMovement : MonoBehaviour
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
+    public long accumulatedTime;
+    public long latestTickRemoved;
 
     void Start()
     {
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendAction", clientActionRate, clientActionRate);
         useClientPrediction = false;
+        accumulatedTime = 0;
+        latestTickRemoved = 0;
     }
 
     void Update()
@@ -34,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            float temp = (float)Math.Round(Time.deltaTime * 1000f);
+            accumulatedTime += (long)temp;
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -62,11 +68,26 @@ public class PlayerMovement : MonoBehaviour
     void UpdatePlayerActions()
     {
         GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
+        print("SERVER UPDATES COUNT: " + SocketConnectionManager.Instance.serverUpdates.Count);
+
+        if ((accumulatedTime / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved) {
+            if (SocketConnectionManager.Instance.serverUpdates.Count > 1) {
+                SocketConnectionManager.Instance.serverUpdates.RemoveAt(0);
+                latestTickRemoved += 1;
+            }
+        }
+
+        if (SocketConnectionManager.Instance.serverUpdates.Count > 10) {
+            SocketConnectionManager.Instance.serverUpdates.Clear();
+            return;
+        }
+
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-            // prediction will modify the player in place, which is not what we want.
-            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            // // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+            // // prediction will modify the player in place, which is not what we want.
+            // Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            Player serverPlayerUpdate = new Player(SocketConnectionManager.Instance.serverUpdates[0][i]);
 
             if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
             {

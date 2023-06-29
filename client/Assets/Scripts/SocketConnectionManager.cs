@@ -26,6 +26,8 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
+    // public List<List<Player>> serverUpdates;
+    public List<List<Player>> serverUpdates;
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
@@ -59,6 +61,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         playerId = LobbyConnection.Instance.playerId;
         ConnectToSession(this.session_id);
+        serverUpdates = new List<List<Player>>();
     }
 
     void Update()
@@ -132,6 +135,7 @@ public class SocketConnectionManager : MonoBehaviour
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
+                    serverUpdates.Add(game_event.Players.ToList());
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
