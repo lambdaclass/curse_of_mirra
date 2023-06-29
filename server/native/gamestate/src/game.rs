@@ -148,6 +148,8 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             return Ok(());
         }
+        
+        player.action = PlayerAction::MOVING;
 
         let mut new_position = compute_adjacent_position_n_tiles(
             &direction,
@@ -241,6 +243,8 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             return Ok(());
         }
+
+        player.action = PlayerAction::MOVING;
 
         let new_position = new_entity_position(
             self.board.height,
