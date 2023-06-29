@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
-        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
     }
 
     public bool MovementAuthorized(Character character){
@@ -333,18 +332,14 @@ public class PlayerMovement : MonoBehaviour
 
         Health healthComponent = player.GetComponent<Health>();
 
-        // FIXME: Temporary solution until all models can handle the feedback
-        if (playerUpdate.CharacterName == "H4ck"){
-            // Display damage done on you on your client
-            GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+        // Display damage done on you on your client
+        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
-            // Display damage done on others players (not you)
-            GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
-        }
+        // Display damage done on others players (not you)
+        GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
 
         healthComponent.SetHealth(playerUpdate.Health);
 
-        // FIXME: Temporary solution until all models can handle the feedback
         if (playerUpdate.CharacterName == "H4ck"){
             GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
         }
@@ -364,13 +359,6 @@ public class PlayerMovement : MonoBehaviour
         if (healthComponent.CurrentHealth == 100)
         {
             healthComponent.Model.gameObject.SetActive(true);
-        }
-        bool isAttackingAOE = playerUpdate.Action == PlayerAction.AttackingAoe;
-        if (
-            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.Id + 1))
-        )
-        {
-            // FIXME: add logic
         }
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
