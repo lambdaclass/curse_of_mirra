@@ -183,11 +183,9 @@ impl Character {
         };
         
         match self.status_effects.get(&Effect::Petrified) {
-            Some((1_u64..=u64::MAX)) => return 0,
+            Some((1_u64..=u64::MAX)) => 0,
             None | Some(0) => return self.base_speed,
         };
-
-        println!("entered the speed function for character");
     }
 
     #[inline]
