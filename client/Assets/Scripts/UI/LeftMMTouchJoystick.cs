@@ -16,7 +16,15 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        _newPosition = eventData.position;
+        Debug.Log(GetComponent<RectTransform>().position.y);
+        if (eventData.position.y < _initialPosition.y - GetComponent<RectTransform>().position.y)
+        {
+            _newPosition = new Vector3(eventData.position.x, eventData.position.y + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2, 0f);
+        }
+        else
+        {
+            _newPosition = eventData.position;
+        }
         BackgroundCanvasGroup.transform.position = _newPosition;
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_newPosition);
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerDown(eventData);
@@ -37,6 +45,5 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_initialPosition);
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerUp(eventData);
         }
-
     }
 }
