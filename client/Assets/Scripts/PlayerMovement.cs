@@ -75,24 +75,8 @@ public class PlayerMovement : MonoBehaviour
     {
       // This call to `new` here is extremely important for client prediction. If we don't make a copy,
       // prediction will modify the player in place, which is not what we want.
-      // Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-      Player serverPlayerUpdate = new Player(SocketConnectionManager.Instance.gamePlayers[i]);
-
-      // print($"the queue count of {serverPlayerUpdate.Id} is: {playerQueue.Count}");
-
-      // ulong latestTickRemoved = playerTicks[serverPlayerUpdate.Id];
-
-      
-      // if (
-      //   playerQueue.Count > 1 &&
-      //   SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id &&
-      //   ((accumulatedTime) / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved
-      //   )
-      // {
-      //   serverPlayerUpdate = new Player(playerQueue.Dequeue());
-      //   latestTickRemoved += 1;
-      //   playerTicks[serverPlayerUpdate.Id] = latestTickRemoved;
-      // }
+      Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+      // Player serverPlayerUpdate = new Player(SocketConnectionManager.Instance.gamePlayers[i]);
       
       if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
       {
