@@ -23,7 +23,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def init({game_pid, tick_rate}) do
     game_id = Communication.pid_to_external_id(game_pid)
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
-    {:ok, %{game_pid: game_pid, game_tick_rate: tick_rate, bots: %{}}}
+    {:ok, %{game_pid: game_pid, game_tick_rate: tick_rate * 2, bots: %{}}}
   end
 
   @impl GenServer
@@ -60,7 +60,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp decide_action(bot_id, bot_state) do
     Process.send_after(self(), {:decide_action, bot_id}, 5_000)
-    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}], 1)
+    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
     Map.put(bot_state, :action, {:move, movement})
   end
 
