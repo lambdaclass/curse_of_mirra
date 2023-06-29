@@ -7909,7 +7909,6 @@ GameObject:
   - component: {fileID: 4881896370159227637}
   - component: {fileID: 8885335454826327065}
   - component: {fileID: 5979621214365864404}
-  - component: {fileID: 8170051281595108554}
   m_Layer: 0
   m_Name: JoystickContainer
   m_TagString: Untagged
@@ -8036,18 +8035,6 @@ MonoBehaviour:
   BackgroundCanvasGroup: {fileID: 5082067212023141501}
   ConstrainToInitialRectangle: 1
   ResetPositionToInitialOnRelease: 1
---- !u!114 &8170051281595108554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332821730752177062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a410b213209442fb15a69799f0240a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1589158109694851999
 GameObject:
   m_ObjectHideFlags: 0

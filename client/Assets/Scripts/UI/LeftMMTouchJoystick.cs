@@ -11,6 +11,7 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
     {
         base.Start();
         _initialPosition = BackgroundCanvasGroup.transform.position;
+        Input.multiTouchEnabled = false;
     }
     public override void OnPointerDown(PointerEventData eventData)
     {
@@ -19,11 +20,13 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
         BackgroundCanvasGroup.transform.position = _newPosition;
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_newPosition);
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerDown(eventData);
+
     }
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnDrag(eventData);
+
     }
     public override void OnPointerUp(PointerEventData eventData)
     {
@@ -34,5 +37,6 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_initialPosition);
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerUp(eventData);
         }
+
     }
 }
