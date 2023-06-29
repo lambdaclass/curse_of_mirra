@@ -90,14 +90,15 @@ public class PlayerMovement : MonoBehaviour
       if (
         playerQueue.Count > 3 &&
         SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id &&
-        ((SocketConnectionManager.Instance.currentPing + accumulatedTime) / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved
+        ((accumulatedTime) / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved
         )
       {
         serverPlayerUpdate = new Player(playerQueue.Dequeue());
-        playerQueue.ToList().ForEach(player => print(player.Position));
         latestTickRemoved += 1;
-        playerTicks.Add(serverPlayerUpdate.Id, latestTickRemoved);
+        playerTicks[serverPlayerUpdate.Id] = latestTickRemoved;
       }
+      print("player id " + serverPlayerUpdate.Id + "tickrate: " + latestTickRemoved);
+      
       if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
       {
         // Move the ghost BEFORE client prediction kicks in, so it only moves up until
