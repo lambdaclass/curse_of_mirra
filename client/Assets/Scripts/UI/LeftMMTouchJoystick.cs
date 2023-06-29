@@ -16,8 +16,7 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        Debug.Log(GetComponent<RectTransform>().position.y);
-        if (eventData.position.y < _initialPosition.y - GetComponent<RectTransform>().position.y)
+        if (eventData.position.y < GetComponent<RectTransform>().position.y + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2)
         {
             _newPosition = new Vector3(eventData.position.x, eventData.position.y + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2, 0f);
         }
