@@ -26,6 +26,8 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
+    // public List<List<Player>> serverUpdates;
+    public List<List<Player>> serverUpdates;
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
@@ -60,6 +62,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         playerId = LobbyConnection.Instance.playerId;
         ConnectToSession(this.session_id);
+        serverUpdates = new List<List<Player>>();
     }
 
     void Update()
@@ -137,8 +140,6 @@ public class SocketConnectionManager : MonoBehaviour
                         if(player.Action == PlayerAction.Moving){
                             Queue<Player> playerQueue = gameUpdatesBuffer[player.Id];
                             playerQueue.Enqueue(player);
-                            gameUpdatesBuffer.Add(playerId, playerQueue);
-                            print($"the queue's length is: {playerQueue.Count}");
                         }
                     });
                     this.gameEvent = game_event;
@@ -176,7 +177,6 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers.ForEach((player) => {
                         gameUpdatesBuffer.Add(player.Id, new Queue<Player>());
                     });
-                    print("character selection: " + game_event.Players);
                     SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
