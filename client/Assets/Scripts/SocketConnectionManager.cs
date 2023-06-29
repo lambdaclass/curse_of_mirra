@@ -41,6 +41,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
+    public List<GameEvent> gameEvents = new List<GameEvent>();
     WebSocket ws;
 
     public class Session
@@ -136,13 +137,7 @@ public class SocketConnectionManager : MonoBehaviour
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
-                    this.gamePlayers.ForEach((player) => {
-                        if(player.Action == PlayerAction.Moving){
-                            Queue<Player> playerQueue = gameUpdatesBuffer[player.Id];
-                            playerQueue.Enqueue(player);
-                        }
-                    });
-                    this.gameEvent = game_event;
+                    gameEvents.Add(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:

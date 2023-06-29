@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
   public Direction nextAttackDirection;
   public bool isAttacking = false;
   public ulong accumulatedTime;
-  public Dictionary<ulong, ulong> playerTicks;
 
   void Start()
   {
@@ -27,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
     InvokeRepeating("SendAction", clientActionRate, clientActionRate);
     useClientPrediction = false;
     accumulatedTime = 0;
-    playerTicks = new Dictionary<ulong, ulong>();
-    SocketConnectionManager.Instance.gamePlayers.ForEach(player => {
-      playerTicks.Add(player.Id, 0ul);
-    });
   }
 
   void Update()
@@ -70,8 +65,11 @@ public class PlayerMovement : MonoBehaviour
 
   void UpdatePlayerActions()
   {
-    print("the count is: " + SocketConnectionManager.Instance.gamePlayers.Count);
-    GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
+    long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
+    if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
+      currentTick = SocketConnectionManager.Instance.gameEvents.Count - 1;
+    }
+    GameEvent gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
 
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
     {
@@ -79,25 +77,22 @@ public class PlayerMovement : MonoBehaviour
       // prediction will modify the player in place, which is not what we want.
       // Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
       Player serverPlayerUpdate = new Player(SocketConnectionManager.Instance.gamePlayers[i]);
-      print("the id is: " + serverPlayerUpdate.Id);
 
-      Queue<Player> playerQueue = new Queue<Player>();
-      SocketConnectionManager.Instance.gameUpdatesBuffer.TryGetValue(serverPlayerUpdate.Id, out playerQueue);
       // print($"the queue count of {serverPlayerUpdate.Id} is: {playerQueue.Count}");
 
-      ulong latestTickRemoved = playerTicks[serverPlayerUpdate.Id];
+      // ulong latestTickRemoved = playerTicks[serverPlayerUpdate.Id];
 
-      if (
-        playerQueue.Count > 3 &&
-        SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id &&
-        ((accumulatedTime) / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved
-        )
-      {
-        serverPlayerUpdate = new Player(playerQueue.Dequeue());
-        latestTickRemoved += 1;
-        playerTicks[serverPlayerUpdate.Id] = latestTickRemoved;
-      }
-      print("player id " + serverPlayerUpdate.Id + "tickrate: " + latestTickRemoved);
+      
+      // if (
+      //   playerQueue.Count > 1 &&
+      //   SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id &&
+      //   ((accumulatedTime) / SocketConnectionManager.Instance.serverTickRate_ms) > latestTickRemoved
+      //   )
+      // {
+      //   serverPlayerUpdate = new Player(playerQueue.Dequeue());
+      //   latestTickRemoved += 1;
+      //   playerTicks[serverPlayerUpdate.Id] = latestTickRemoved;
+      // }
       
       if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
       {
