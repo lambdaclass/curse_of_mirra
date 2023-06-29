@@ -210,7 +210,7 @@ impl GameState {
             Tile::Empty,
         )?;
         attacking_player.position = new_position_coordinates;
-        attacking_player.action = PlayerAction::TELEPORTING;
+        // attacking_player.action = PlayerAction::TELEPORTING;
 
         board.set_cell(
             attacking_player.position.x,
@@ -415,7 +415,7 @@ impl GameState {
         let attack_direction = Self::position_to_direction(direction);
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
         let (top_left, bottom_right) = compute_attack_initial_positions(
             &(attack_direction),
             &(attacking_player.position),
@@ -541,7 +541,7 @@ impl GameState {
         let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
 
         let (top_left, bottom_right) =
             compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);

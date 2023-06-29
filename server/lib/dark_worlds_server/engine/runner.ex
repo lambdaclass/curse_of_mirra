@@ -256,7 +256,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
-    tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
+    tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
     Process.send_after(

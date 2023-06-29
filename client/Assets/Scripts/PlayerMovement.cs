@@ -18,12 +18,22 @@ public class PlayerMovement : MonoBehaviour
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
+    public CharacterStates.MovementStates[] BlockingMovementStates;
+    public CharacterStates.CharacterConditions[] BlockingConditionStates;
 
     void Start()
     {
+        InitBlockingStates();
+
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
-        InvokeRepeating("SendAction", clientActionRate, clientActionRate);
+        InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = false;
+    }
+
+    private void InitBlockingStates()
+    {
+        BlockingMovementStates = new CharacterStates.MovementStates[1];
+        BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
     }
 
     void Update()
@@ -39,23 +49,56 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SendAction()
+    public bool MovementAuthorized(Character character){
+        if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
+        {
+            for (int i = 0; i < BlockingMovementStates.Length; i++)
+            {
+                if (BlockingMovementStates[i] == (character.MovementState.CurrentState))
+                {
+                    return false;
+                }
+            }
+        }
+
+        if ((BlockingConditionStates != null) && (BlockingConditionStates.Length > 0))
+        {
+            for (int i = 0; i < BlockingConditionStates.Length; i++)
+            {
+                if (BlockingConditionStates[i] == (character.ConditionState.CurrentState))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public void SendPlayerMovement()
     {
-        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
-        var inputFromVirtualJoystick = joystickL is not null;
-        if (inputFromPhysicalJoystick)
-        {
-            var hInput = Input.GetAxis("Horizontal");
-            var vInput = Input.GetAxis("Vertical");
-            GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
-        }
-        else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        {
-            GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
-        }
-        else
-        {
-            GetComponent<PlayerControls>().SendAction();
+        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        if (player){
+            Character character = player.GetComponent<Character>();
+            if (MovementAuthorized(character)){
+                var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
+                var inputFromVirtualJoystick = joystickL is not null;
+                if (inputFromPhysicalJoystick)
+                {
+                    var hInput = Input.GetAxis("Horizontal");
+                    var vInput = Input.GetAxis("Vertical");
+                    GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
+                }
+                else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+                {
+                    GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                }
+                else
+                {
+                    GetComponent<PlayerControls>().SendAction();
+                }
+            }
         }
     }
 
@@ -83,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
+                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
             if (serverPlayerUpdate.Health == 0)
@@ -91,6 +135,29 @@ public class PlayerMovement : MonoBehaviour
                     .GetComponent<Character>().CharacterModel
                     .SetActive(false);
             }
+        }
+    }
+
+    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
+    {
+        // TODO: Refactor
+        switch (playerAction)
+        {
+            case PlayerAction.Attacking:
+                actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill1:
+                actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill2:
+                actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill3:
+                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill4:
+                actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                break;
         }
     }
 
@@ -212,7 +279,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-            if (playerUpdate.Action == PlayerAction.Teleporting)
+            
+            // FIXME: Removed harcoded validation once is fixed on the backend.
+            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill2)
             {
                 player.transform.position = frontendPosition;
             }
@@ -262,11 +331,15 @@ public class PlayerMovement : MonoBehaviour
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
+
         // Display damage done on you on your client
         GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
-        // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+        // FIXME: Temporary solution until all models can handle the feedback
+        if (playerUpdate.CharacterName == "H4ck"){
+            // Display damage done on others players (not you)
+            GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+        }
 
         healthComponent.SetHealth(playerUpdate.Health);
 
@@ -287,13 +360,6 @@ public class PlayerMovement : MonoBehaviour
         if (healthComponent.CurrentHealth == 100)
         {
             healthComponent.Model.gameObject.SetActive(true);
-        }
-        bool isAttackingAOE = playerUpdate.Action == PlayerAction.AttackingAoe;
-        if (
-            isAttackingAOE && (LobbyConnection.Instance.playerId != (playerUpdate.Id + 1))
-        )
-        {
-            // FIXME: add logic
         }
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
