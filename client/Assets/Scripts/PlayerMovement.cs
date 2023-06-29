@@ -61,12 +61,25 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
+        print("the count is: " + SocketConnectionManager.Instance.gamePlayers.Count);
         GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
-            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            // Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            Player serverPlayerUpdate = new Player(SocketConnectionManager.Instance.gamePlayers[i]);
+            print("the id is: " +  serverPlayerUpdate.Id);
+
+            Queue<Player> playerQueue = new Queue<Player>();
+            SocketConnectionManager.Instance.gameUpdatesBuffer.TryGetValue(serverPlayerUpdate.Id, out playerQueue);
+            // print($"the queue count of {serverPlayerUpdate.Id} is: {playerQueue.Count}");
+
+            if(playerQueue.Count > 3 && SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id){
+                serverPlayerUpdate = new Player(playerQueue.Dequeue());
+                playerQueue.ToList().ForEach(player => print(player.Position));
+                print($"the queue count of {serverPlayerUpdate.Id} is: {playerQueue.Count}");
+            }
 
             if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
             {

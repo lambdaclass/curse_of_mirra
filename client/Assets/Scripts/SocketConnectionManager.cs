@@ -33,6 +33,7 @@ public class SocketConnectionManager : MonoBehaviour
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
+    public Dictionary<ulong, Queue<Player>> gameUpdatesBuffer = new Dictionary<ulong, Queue<Player>>();
 
     public List<Player> winners = new List<Player>();
 
@@ -132,6 +133,14 @@ public class SocketConnectionManager : MonoBehaviour
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
+                    this.gamePlayers.ForEach((player) => {
+                        if(player.Action == PlayerAction.Moving){
+                            Queue<Player> playerQueue = gameUpdatesBuffer[player.Id];
+                            playerQueue.Enqueue(player);
+                            gameUpdatesBuffer.Add(playerId, playerQueue);
+                            print($"the queue's length is: {playerQueue.Count}");
+                        }
+                    });
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
@@ -164,6 +173,10 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.FinishCharacterSelection:
                     this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
                     this.gamePlayers = game_event.Players.ToList();
+                    this.gamePlayers.ForEach((player) => {
+                        gameUpdatesBuffer.Add(player.Id, new Queue<Player>());
+                    });
+                    print("character selection: " + game_event.Players);
                     SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
