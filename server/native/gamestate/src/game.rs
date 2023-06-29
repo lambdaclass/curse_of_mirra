@@ -668,7 +668,7 @@ impl GameState {
     pub fn neon_crash(
         self: &mut Self,
         attacking_player_id: u64,
-        _direction: &RelativePosition,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
@@ -681,12 +681,18 @@ impl GameState {
         attacking_player.third_skill_start = now;
         attacking_player.third_skill_cooldown_left =
             attacking_player.character.cooldown_third_skill();
+        
+        // TODO: RelativePosition uses f32, but f32 doesn't implement Hash or Eq, which is needed to have Effect::Dashing(RelativePosition). So for now we multiply by 100 and cast it to i32 to have Effect::Dashing((i32, i32))
+        let target_x_coordinates = (direction.x as i32) * 100;
+        let target_y_coordinates = (direction.y as i32) * 100; 
+        println!("{:?}", target_x_coordinates);
+        println!("{:?}", target_y_coordinates);
 
         match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player
                     .character
-                    .add_effect(Effect::Dashing, 50);
+                    .add_effect(Effect::Dashing(target_x_coordinates, target_y_coordinates), 50);
 
                 println!("game.rs Hack effect = Dashing");
                 Ok(())
@@ -740,6 +746,12 @@ impl GameState {
             player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
+
+            println!("{:?}", player.character.status_effects);
+          //  if player.character.status_effects {
+          //      Effect::Dashing(x, y) => player.character.
+          //  }
+
             player.character.status_effects.retain(|_, ticks_left| {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0

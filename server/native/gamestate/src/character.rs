@@ -9,7 +9,9 @@ pub enum Effect {
     Petrified,
     Disarmed,
     Piercing,
-    Dashing, // using dash ability - This shouldn't be an Effect, we should reserve this enum for things that are imposed on the player by other players.
+    Dashing(i32,i32), // using dash ability - This shouldn't be an Effect, we should reserve this enum for things that are imposed on the player by other players. 
+    // (i32, i32) are the (x, y) target coordinates of where the character is going to land.
+    // TODO: RelativePosition uses f32, but f32 doesn't implement Hash or Eq, which is needed to have Effect::Dashing(RelativePosition). So for now we multiply by 100 and cast it to i32 to have Effect::Dashing((i32, i32))
 }
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
@@ -177,15 +179,15 @@ impl Character {
     }
     #[inline]
     pub fn speed(&self) -> u64 {
-        match self.status_effects.get(&Effect::Dashing) {
-            Some((1_u64..=u64::MAX)) => return self.base_speed * 5,
-            None | Some(0) => return self.base_speed,
-        };
+//        match self.status_effects.get(&Effect::Dashing) {
+//          Some((1_u64..=u64::MAX)) => return self.base_speed * 5,
+//          None | Some(0) => return self.base_speed,
+//      };
         
         match self.status_effects.get(&Effect::Petrified) {
             Some((1_u64..=u64::MAX)) => 0,
             None | Some(0) => return self.base_speed,
-        };
+        }
     }
 
     #[inline]

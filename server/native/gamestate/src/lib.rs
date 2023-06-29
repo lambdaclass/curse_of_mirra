@@ -117,13 +117,13 @@ fn skill_2(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn neon_crash(
+fn skill_3(
     game: GameState,
     attacking_player_id: u64,
     attack_position: RelativePosition,
 ) -> Result<GameState, String> {
     let mut game_2 = game;
-    game_2.neon_crash(attacking_player_id, &attack_position)?;
+    game_2.skill_3(attacking_player_id, &attack_position)?;
     Ok(game_2)
 }
 
@@ -203,8 +203,8 @@ rustler::init!(
         basic_attack,
         skill_1,
         skill_2,
+        skill_3,
         skill_4,
-        neon_crash
     ],
     load = load
 );

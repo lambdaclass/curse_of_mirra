@@ -39,8 +39,8 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:BASIC_ATTACK, 9)
   field(:SKILL_1, 10)
   field(:SKILL_2, 11)
-  field(:SKILL_4, 12)
-  field(:NEON_CRASH, 13)
+  field(:SKILL_3, 12)
+  field(:SKILL_4, 13)
   field(:SELECT_CHARACTER, 14)
 end
 
@@ -69,7 +69,6 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 5)
   field(:EXECUTING_SKILL_3, 6)
   field(:EXECUTING_SKILL_4, 7)
-  field(:EXECUTING_NEON_CRASH, 8)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -316,8 +315,6 @@ defmodule DarkWorldsServer.Communication.Proto.CharacterConfigItem do
   field(:SkillActive2, 9, type: :string)
   field(:SkillDash, 10, type: :string)
   field(:SkillUltimate, 11, type: :string)
-  field(:SkillActive3, 12, type: :string)
-
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

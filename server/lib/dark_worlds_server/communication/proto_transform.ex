@@ -335,7 +335,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
-  defp player_action_encode(:executingneoncrash), do: :EXECUTING_NEON_CRASH
+  defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
   defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
   defp player_action_encode(:teleporting), do: :TELEPORTING
 
@@ -344,7 +344,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
-  defp player_action_decode(:EXECUTING_NEON_CRASH), do: :executingneoncrash
+  defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
   defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
   defp player_action_decode(:TELEPORTING), do: :teleporting
 

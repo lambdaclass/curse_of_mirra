@@ -176,7 +176,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, player_id, %ActionOk{action: action, value: value, timestamp: timestamp}},
         %{server_game_state: server_game_state} = gen_server_state
       )
-      when action in [:basic_attack, :skill_1, :skill_2, :skill_3, :skill_4, :neon_crash] do
+      when action in [:basic_attack, :skill_1, :skill_2, :skill_3, :skill_4] do
     {:ok, game} = do_action(action, server_game_state.game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)
@@ -508,6 +508,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
   defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
+  defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
   defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
 
   defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()
