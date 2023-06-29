@@ -462,7 +462,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         state[:game_status] == :playing ->
           state
 
-        selected_characters and map_size(selected_characters) < state[:max_players] ->
+        not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
           players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
           players_without_character =

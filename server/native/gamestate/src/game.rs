@@ -291,6 +291,71 @@ impl GameState {
         players
     }
 
+    pub fn players_in_projectile_movement(attacking_player_id: u64, players: &mut Vec<Player>, previous_position: Position, next_position: Position) -> Vec<u64> {
+
+        let mut affected_players: Vec<u64> = vec![];
+        players
+        .iter_mut()
+        .filter(|player| matches!(player.status, Status::ALIVE) && player.id != attacking_player_id)
+        .for_each(|player| {
+            let radius = 10f64;
+            let p1;
+            let p2;
+
+            if previous_position.x < next_position.x {
+                p1 = previous_position;
+                p2 = next_position;
+            } else if previous_position.x > next_position.x {
+                p1 = next_position;
+                p2 = previous_position;
+            } else {
+                if previous_position.y < next_position.y {
+                    p1 = previous_position;
+                    p2 = next_position;
+                } else {
+                    p1 = next_position;
+                    p2 = previous_position;
+                }
+            }
+
+            let pendiente;
+            let pendiente_perp;
+            let ordenada;
+            let ordenada_perp;
+            let a;
+            let b;
+            let x;
+            let y;
+            if p2.y as f32 - p1.y as f32 == 0f32 {
+                x = player.position.x as f32;
+                y = p1.y as f32;
+                if x >= p1.x as f32 && x <= p2.x as f32 && (distance_to_center(&player, &Position::new(x as usize, y as usize)) <= radius) {
+                    affected_players.push(player.id);
+                }
+            } else if p2.x as f32 - p1.x as f32 == 0f32 {
+                x = p1.x as f32;
+                y = player.position.y as f32;
+                if y >= p1.y as f32 && y <= p2.y as f32 && (distance_to_center(&player, &Position::new(x as usize, y as usize)) <= radius) {
+                    affected_players.push(player.id);
+                }
+            } else {
+                pendiente = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
+                pendiente_perp = -1f32 / pendiente;
+                ordenada = p1.y as f32 - (pendiente as f32 * p1.x as f32);
+                ordenada_perp = player.position.y as f32 - (pendiente_perp as f32 * player.position.x as f32);
+                a = pendiente - pendiente_perp;
+                b = ordenada_perp - ordenada;
+                x = b as f32 / a as f32;
+                y = pendiente * x + ordenada;
+                if x >= p1.x as f32 && x <= p2.x as f32 && (distance_to_center(&player, &Position::new(x as usize, y as usize)) <= radius) {
+                    affected_players.push(player.id);
+                }
+            }
+        });
+
+        affected_players
+    }
+
     pub fn basic_attack(
         self: &mut Self,
         attacking_player_id: u64,
@@ -350,11 +415,11 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                14,
-                10,
+                5,
+                1,
                 attacking_player.id,
                 attacking_player.character.attack_dmg_basic_skill(),
-                30,
+                100,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
@@ -506,10 +571,10 @@ impl GameState {
                         (angle_positive + modifier).to_radians().sin(),
                     ),
                     10,
-                    10,
+                    1,
                     attacking_player.id,
                     attacking_player.character.attack_dmg_first_active(),
-                    10,
+                    100,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
@@ -626,7 +691,7 @@ impl GameState {
                 10,
                 attacking_player.id,
                 0,
-                30,
+                100,
                 ProjectileType::DISARMINGBULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
@@ -697,33 +762,19 @@ impl GameState {
             });
         });
 
+        self.projectiles
+            .retain(|projectile| projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE);
+
         self.projectiles.iter_mut().for_each(|projectile| {
             projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
-        self.projectiles
-            .retain(|projectile| projectile.remaining_ticks > 0);
-
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
-                let top_left = Position::new(
-                    projectile
-                        .position
-                        .x
-                        .saturating_sub(projectile.range as usize),
-                    projectile
-                        .position
-                        .y
-                        .saturating_sub(projectile.range as usize),
-                );
-                let bottom_right = Position::new(
-                    projectile.position.x + projectile.range as usize,
-                    projectile.position.y + projectile.range as usize,
-                );
-
+                
                 let affected_players: Vec<u64> =
-                    GameState::players_in_range(&self.board, top_left, bottom_right)
+                    GameState::players_in_projectile_movement(projectile.player_id, &mut self.players, projectile.prev_position, projectile.position)
                         .into_iter()
                         .filter(|&id| {
                             id != projectile.player_id && id != projectile.last_attacked_player_id
@@ -738,6 +789,7 @@ impl GameState {
                 for target_player_id in affected_players {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id)?;
+
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player

@@ -118,23 +118,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        var toExplode = new List<int>();
-        foreach (var pr in projectiles)
-        {
-            if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
-            {
-                toExplode.Add(pr.Key);
-            }
-        }
-
-        foreach (var key in toExplode)
-        {
-            // TODO unbind projectile destroy from player
-            GameObject player = SocketConnectionManager.Instance.players[0];
-            player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
-            projectiles.Remove(key);
-        }
-
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
@@ -154,9 +137,26 @@ public class PlayerMovement : MonoBehaviour
                 movementDirection.Normalize();
 
                 Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                if (movementDirection.x > 0)
+                {
+                    newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
+                }
+                else
+                {
+                    newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
+                }
 
+                if (movementDirection.z > 0)
+                {
+                    newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
+                }
+                else
+                {
+                    newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
+                }
+                
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(newPosition[0], 1f, newPosition[2]));
+                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2]));
 
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
@@ -170,6 +170,23 @@ public class PlayerMovement : MonoBehaviour
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
         }
+        // var toExplode = new List<int>();
+        // foreach (var pr in projectiles)
+        // {
+        //     if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+        //     {
+        //         toExplode.Add(pr.Key);
+        //     }
+        // }
+
+        // foreach (var key in toExplode)
+        // {
+        //     // TODO unbind projectile destroy from player
+        //     GameObject player = SocketConnectionManager.Instance.players[0];
+        //     player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
+        //     projectiles.Remove(key);
+        // }
+
     }
 
     private void movePlayer(GameObject player, Player playerUpdate)
