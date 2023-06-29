@@ -25,8 +25,7 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] LeftMMTouchJoystick joystickLContainer;
-    [SerializeField] GameObject joystickL;
+    [SerializeField] Image joystickL;
     [SerializeField] MMTouchButton SkillBasic;
     [SerializeField] MMTouchButton Skill1;
     [SerializeField] MMTouchButton Skill2;
@@ -266,33 +265,13 @@ public class CustomInputManager : InputManager
             button.GetComponent<MMTouchButton>().Interactable = true;
         }
     }
-    public void ChangeLeftJoystickPosition()
-    {
-        initialLeftJoystickPosition = joystickL.transform.position;
-        UnityEvent<Vector2> movementEvent = new UnityEvent<Vector2>();
-        movementEvent.AddListener(ChangeLeftKnobPosition);
-        joystickLContainer.GetComponent<LeftMMTouchJoystick>().newPointerDownEvent = movementEvent;
-    }
-    void ChangeLeftKnobPosition(Vector2 newPosition)
-    {
-        joystickL.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
-        joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
-        SetOpacity();
-    }
-
-    public void ResetLeftJoystickPosition()
-    {
-        joystickL.transform.position = initialLeftJoystickPosition;
-        joystickL.GetComponentInChildren<MMTouchJoystick>().SetNeutralPosition();
-        UnsetOpacity();
-    }
 
     public void SetOpacity()
     {
-        joystickL.GetComponent<Image>().color = new Color(255, 255, 255, 0.25f);
+        joystickL.color = new Color(255, 255, 255, 0.25f);
     }
     public void UnsetOpacity()
     {
-        joystickL.GetComponent<Image>().color = new Color(255, 255, 255, 1);
+        joystickL.color = new Color(255, 255, 255, 1);
     }
 }

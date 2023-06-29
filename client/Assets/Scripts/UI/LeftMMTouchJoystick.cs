@@ -5,29 +5,34 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class LeftMMTouchJoystick : MMTouchJoystick
+public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
 {
-    public UnityEvent<Vector2> newPointerUpEvent;
-    public UnityEvent<Vector2> newDragEvent;
-    public UnityEvent<Vector2> newPointerDownEvent;
-    [SerializeField] public MMTouchJoystick joystickL;
-
-
-    public override void OnPointerDown(PointerEventData data)
+    protected override void Start()
     {
-        base.OnPointerDown(data);
-        joystickL.OnPointerDown(data);
-        newPointerDownEvent.Invoke(data.position);
+        base.Start();
+        _initialPosition = BackgroundCanvasGroup.transform.position;
+    }
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        base.OnPointerDown(eventData);
+        _newPosition = eventData.position;
+        BackgroundCanvasGroup.transform.position = _newPosition;
+        KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_newPosition);
+        KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerDown(eventData);
     }
     public override void OnDrag(PointerEventData eventData)
     {
-        newDragEvent.Invoke(RawValue);
-        joystickL.OnDrag(eventData);
+        base.OnDrag(eventData);
+        KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnDrag(eventData);
     }
-    public override void OnPointerUp(PointerEventData data)
+    public override void OnPointerUp(PointerEventData eventData)
     {
-        newPointerUpEvent.Invoke(data.position);
-        joystickL.OnPointerUp(data);
-        base.OnPointerUp(data);
+        base.OnPointerUp(eventData);
+        if (ResetPositionToInitialOnRelease)
+        {
+            BackgroundCanvasGroup.transform.position = _initialPosition;
+            KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_initialPosition);
+            KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerUp(eventData);
+        }
     }
 }
