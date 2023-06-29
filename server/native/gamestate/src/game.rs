@@ -62,7 +62,10 @@ impl GameState {
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
 
-                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+                let selected_character = selected_characters
+                    .get(&player_id)
+                    .ok_or("Can't get the selected character")
+                    .cloned()?;
 
                 let character = characters
                     .iter()
@@ -81,7 +84,7 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         // We generate 10 random walls if walls is true
@@ -91,7 +94,7 @@ impl GameState {
                 let row_idx: usize = rng.gen_range(0..board_width);
                 let col_idx: usize = rng.gen_range(0..board_height);
                 if let Some(Tile::Empty) = board.get_cell(row_idx, col_idx) {
-                    board.set_cell(row_idx, col_idx, Tile::Wall);
+                    board.set_cell(row_idx, col_idx, Tile::Wall)?;
                 }
             }
         }
@@ -106,7 +109,7 @@ impl GameState {
         })
     }
 
-    pub fn new_round(self: &mut Self, players: Vec<Player>) {
+    pub fn new_round(self: &mut Self, players: Vec<Player>) -> Result<(), String> {
         let mut positions = HashSet::new();
         let mut players: Vec<Player> = players;
 
@@ -123,14 +126,19 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         self.players = players;
         self.board = board;
+        Ok(())
     }
 
-    pub fn move_player(self: &mut Self, player_id: u64, direction: Direction) {
+    pub fn move_player(
+        self: &mut Self,
+        player_id: u64,
+        direction: Direction,
+    ) -> Result<(), String> {
         let player = self
             .players
             .iter_mut()
@@ -138,7 +146,7 @@ impl GameState {
             .unwrap();
 
         if matches!(player.status, Status::DEAD) {
-            return;
+            return Ok(());
         }
 
         let mut new_position = compute_adjacent_position_n_tiles(
@@ -160,14 +168,15 @@ impl GameState {
 
         // Remove the player from their previous position on the board
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
+        Ok(())
     }
 
     pub fn move_player_to_coordinates(
@@ -199,7 +208,7 @@ impl GameState {
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Empty,
-        );
+        )?;
         attacking_player.position = new_position_coordinates;
         attacking_player.action = PlayerAction::TELEPORTING;
 
@@ -207,7 +216,7 @@ impl GameState {
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Player(attacking_player.id),
-        );
+        )?;
 
         Ok(())
     }
@@ -243,14 +252,14 @@ impl GameState {
         );
 
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
         Ok(())
     }
 
@@ -433,7 +442,7 @@ impl GameState {
                         kill_count += 1;
                     }
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
+                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -553,7 +562,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
+                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -749,7 +758,10 @@ impl GameState {
                             if matches!(attacked_player.status, Status::DEAD) {
                                 kill_count += 1;
                             }
-                            GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
+                            GameState::modify_cell_if_player_died(
+                                &mut self.board,
+                                attacked_player,
+                            )?;
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
@@ -761,10 +773,11 @@ impl GameState {
         Ok(())
     }
 
-    fn modify_cell_if_player_died(board: &mut Board, player: &Player) {
+    fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
         if matches!(player.status, Status::DEAD) {
-            board.set_cell(player.position.x, player.position.y, Tile::Empty);
+            board.set_cell(player.position.x, player.position.y, Tile::Empty)?
         }
+        Ok(())
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
@@ -780,7 +793,8 @@ impl GameState {
         }
 
         self.board
-            .set_cell(position.x, position.y, Tile::Player(player_id));
+            .set_cell(position.x, position.y, Tile::Player(player_id))
+            .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
     }
