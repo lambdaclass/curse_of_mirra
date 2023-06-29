@@ -4,9 +4,10 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
-use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
+use crate::player::{Player, PlayerAction, Position, Status};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
+use crate::utils::RelativePosition;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -26,6 +27,7 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
+
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
@@ -60,7 +62,10 @@ impl GameState {
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
 
-                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+                let selected_character = selected_characters
+                    .get(&player_id)
+                    .ok_or("Can't get the selected character")
+                    .cloned()?;
 
                 let character = characters
                     .iter()
@@ -79,7 +84,7 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         // We generate 10 random walls if walls is true
@@ -89,7 +94,7 @@ impl GameState {
                 let row_idx: usize = rng.gen_range(0..board_width);
                 let col_idx: usize = rng.gen_range(0..board_height);
                 if let Some(Tile::Empty) = board.get_cell(row_idx, col_idx) {
-                    board.set_cell(row_idx, col_idx, Tile::Wall);
+                    board.set_cell(row_idx, col_idx, Tile::Wall)?;
                 }
             }
         }
@@ -104,7 +109,7 @@ impl GameState {
         })
     }
 
-    pub fn new_round(self: &mut Self, players: Vec<Player>) {
+    pub fn new_round(self: &mut Self, players: Vec<Player>) -> Result<(), String> {
         let mut positions = HashSet::new();
         let mut players: Vec<Player> = players;
 
@@ -121,14 +126,19 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         self.players = players;
         self.board = board;
+        Ok(())
     }
 
-    pub fn move_player(self: &mut Self, player_id: u64, direction: Direction) {
+    pub fn move_player(
+        self: &mut Self,
+        player_id: u64,
+        direction: Direction,
+    ) -> Result<(), String> {
         let player = self
             .players
             .iter_mut()
@@ -136,7 +146,7 @@ impl GameState {
             .unwrap();
 
         if matches!(player.status, Status::DEAD) {
-            return;
+            return Ok(());
         }
 
         let mut new_position = compute_adjacent_position_n_tiles(
@@ -158,14 +168,15 @@ impl GameState {
 
         // Remove the player from their previous position on the board
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
+        Ok(())
     }
 
     pub fn move_player_to_coordinates(
@@ -173,8 +184,10 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let new_position_x = attacking_player.position.x as i64 - direction.y;
-        let new_position_y = attacking_player.position.y as i64 + direction.x;
+        // TODO: 120 should be a config. It's the realtion between front range in skills and
+        // the distance in the back.
+        let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
+        let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
 
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
@@ -195,15 +208,15 @@ impl GameState {
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Empty,
-        );
+        )?;
         attacking_player.position = new_position_coordinates;
-        attacking_player.action = PlayerAction::TELEPORTING;
+        // attacking_player.action = PlayerAction::TELEPORTING;
 
         board.set_cell(
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Player(attacking_player.id),
-        );
+        )?;
 
         Ok(())
     }
@@ -239,14 +252,14 @@ impl GameState {
         );
 
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
         Ok(())
     }
 
@@ -332,7 +345,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = match attacking_player
                 .character
                 .status_effects
@@ -345,7 +358,7 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
+                RelativePosition::new(direction.x as f32, direction.y as f32),
                 14,
                 10,
                 attacking_player.id,
@@ -363,25 +376,25 @@ impl GameState {
     }
 
     pub fn position_to_direction(position: &RelativePosition) -> Direction {
-        if position.x > 0 && position.y > 0 {
+        if position.x > 0f32 && position.y > 0f32 {
             if position.x > position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x > 0 && position.y <= 0 {
+        } else if position.x > 0f32 && position.y <= 0f32 {
             if position.x > -position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::DOWN;
             }
-        } else if position.x <= 0 && position.y > 0 {
+        } else if position.x <= 0f32 && position.y > 0f32 {
             if -position.x > position.y {
                 return Direction::LEFT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x <= 0 && position.y <= 0 {
+        } else if position.x <= 0f32 && position.y <= 0f32 {
             if -position.x > -position.y {
                 return Direction::LEFT;
             } else {
@@ -402,7 +415,7 @@ impl GameState {
         let attack_direction = Self::position_to_direction(direction);
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
         let (top_left, bottom_right) = compute_attack_initial_positions(
             &(attack_direction),
             &(attacking_player.position),
@@ -429,7 +442,7 @@ impl GameState {
                         kill_count += 1;
                     }
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
+                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -483,7 +496,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -497,7 +510,7 @@ impl GameState {
                 let projectile = Projectile::new(
                     *next_projectile_id,
                     attacking_player.position,
-                    JoystickValues::new(
+                    RelativePosition::new(
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
@@ -528,7 +541,7 @@ impl GameState {
         let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
 
         let (top_left, bottom_right) =
             compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);
@@ -549,7 +562,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
+                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -613,11 +626,11 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
+                RelativePosition::new(direction.x as f32, direction.y as f32),
                 14,
                 10,
                 attacking_player.id,
@@ -745,7 +758,10 @@ impl GameState {
                             if matches!(attacked_player.status, Status::DEAD) {
                                 kill_count += 1;
                             }
-                            GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
+                            GameState::modify_cell_if_player_died(
+                                &mut self.board,
+                                attacked_player,
+                            )?;
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
@@ -757,10 +773,11 @@ impl GameState {
         Ok(())
     }
 
-    fn modify_cell_if_player_died(board: &mut Board, player: &Player) {
+    fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
         if matches!(player.status, Status::DEAD) {
-            board.set_cell(player.position.x, player.position.y, Tile::Empty);
+            board.set_cell(player.position.x, player.position.y, Tile::Empty)?
         }
+        Ok(())
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
@@ -776,7 +793,8 @@ impl GameState {
         }
 
         self.board
-            .set_cell(position.x, position.y, Tile::Player(player_id));
+            .set_cell(position.x, position.y, Tile::Player(player_id))
+            .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
     }

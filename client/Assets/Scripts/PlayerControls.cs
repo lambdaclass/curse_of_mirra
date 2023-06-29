@@ -16,8 +16,8 @@ public class PlayerControls : MonoBehaviour
     {
         RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(direction.x * 100),
-            Y = (long)(direction.z * 100)
+            X = direction.x,
+            Y = direction.z
         };
 
         var clientAction = new ClientAction { Action = Action.BasicAttack, Position = relativePosition };
@@ -28,7 +28,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (x != 0 || y != 0)
         {
-            var valuesToSend = new JoystickValues { X = x, Y = y };
+            var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
             SocketConnectionManager.Instance.SendAction(clientAction);
@@ -99,17 +99,17 @@ public class PlayerControls : MonoBehaviour
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
-        var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
-        
-        var characterSpeed = 0f;
-        foreach (var character in chars) {
-            if(charName == character.Name){
-                characterSpeed = float.Parse(character.BaseSpeed);
+        if(SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId)){
+            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+            
+            foreach (var character in chars) {
+                if(charName == character.Name){
+                    return float.Parse(character.BaseSpeed);
+                }
             }
         }
-
-        return characterSpeed;
+        return 0f;
     }
 
     private static void SendAction(Action action, Direction direction, long timestamp)

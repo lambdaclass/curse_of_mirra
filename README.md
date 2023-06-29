@@ -1,7 +1,10 @@
-# Dark Worlds
+# Curse of Myrra
+
+We've just open sourced the repository. A lot of code reorganization needs to be done yet. We will be splitting the game from the actual backend-frontend framework we created. This process should be done before the end of July 2023.
 
 - Elixir + Rust backend
 - Unity frontend
+- Websockets and Protobuff
 
 ## Documentation
 

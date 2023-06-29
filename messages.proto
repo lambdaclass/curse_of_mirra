@@ -78,7 +78,6 @@ message Player {
 /*
 Status of a player
 */
-
 enum Status {
     ALIVE = 0;
     DEAD = 1;
@@ -93,13 +92,13 @@ message Position {
     uint64 y = 2;
 }
 
-/* A relative positioncorner
-    - x: X coordinate
-    - y: Y coordinate
+/* A relative position
+    - x: X coordinate between -1 and 1
+    - y: Y coordinate between -1 and 1
  */
 message RelativePosition {
-    int64 x = 1;
-    int64 y = 2;
+    float x = 1;
+    float y = 2;
 }
 
 /* Represents any action that a client/player can make
@@ -114,7 +113,7 @@ message ClientAction {
     Action action = 1;
     Direction direction = 2;
     RelativePosition position = 3;
-    JoystickValues move_delta = 4;
+    RelativePosition move_delta = 4;
     sint64 target = 5;
     int64 timestamp = 6;
     PlayerCharacter player_character = 7;
@@ -155,11 +154,6 @@ enum Direction {
     DOWN = 2;
     LEFT = 3;
     RIGHT = 4;
-}
-
-message JoystickValues {
-    float x = 1;
-    float y = 2;
 }
 
 /* Actions a player performs
@@ -290,7 +284,7 @@ enum ProjectileStatus {
 message Projectile {
     uint64 id = 1;
     Position position = 2;
-    JoystickValues direction = 3;
+    RelativePosition direction = 3;
     uint32 speed = 4;
     uint32 range = 5;
     uint64 player_id = 6;

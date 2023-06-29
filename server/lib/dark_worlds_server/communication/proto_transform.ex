@@ -3,7 +3,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
-  alias DarkWorldsServer.Communication.Proto.JoystickValues, as: ProtoJoystickValues
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
@@ -11,7 +10,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
-  alias DarkWorldsServer.Engine.JoystickValues, as: EngineJoystickValues
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
   alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
@@ -71,9 +69,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoPosition{x: x, y: y}
   end
 
-  def encode(%EngineJoystickValues{} = position, ProtoJoystickValues) do
+  def encode(%EngineRelativePosition{} = position, ProtoRelativePosition) do
     %{x: x, y: y} = position
-    %ProtoJoystickValues{x: x, y: y}
+    %ProtoRelativePosition{x: x, y: y}
   end
 
   def encode(%EnginePlayer{} = player, ProtoPlayer) do
@@ -188,12 +186,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   def decode(%ProtoRelativePosition{} = position, ProtoRelativePosition) do
     %{x: x, y: y} = position
     %EngineRelativePosition{x: x, y: y}
-  end
-
-  @impl Protobuf.TransformModule
-  def decode(%ProtoJoystickValues{} = position, ProtoJoystickValues) do
-    %{x: x, y: y} = position
-    %EngineJoystickValues{x: x, y: y}
   end
 
   def decode(%ProtoPlayer{} = player, ProtoPlayer) do
