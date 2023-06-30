@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.GameUpdate
+  alias DarkWorldsServer.Communication.Proto.GameUpdateType
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
@@ -17,6 +18,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
+
+  def encode(game_update_type, GameUpdateType) do
+    game_update_type
+  end
 
   def encode(game_update, GameUpdate) do
     game_update
