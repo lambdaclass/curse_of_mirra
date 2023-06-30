@@ -341,7 +341,10 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
         }
 
-        healthComponent.SetHealth(playerUpdate.Health);
+        if (playerUpdate.Health != healthComponent.CurrentHealth)
+        {
+            healthComponent.SetHealth(playerUpdate.Health);
+        }
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
