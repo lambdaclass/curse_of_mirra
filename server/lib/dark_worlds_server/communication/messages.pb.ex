@@ -103,6 +103,14 @@ defmodule DarkWorldsServer.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.GameUpdateType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:KILL_EVENT, 0)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
@@ -110,17 +118,6 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
 
   field(:key, 1, type: :uint64)
   field(:value, 2, type: :string)
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
-defmodule DarkWorldsServer.Communication.Proto.GameEvent.KilledPlayersEntry do
-  @moduledoc false
-
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:key, 1, type: :uint64)
-  field(:value, 2, type: :uint64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -151,11 +148,10 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
     map: true
   )
 
-  field(:killed_players, 10,
+  field(:game_updates, 10,
     repeated: true,
-    type: DarkWorldsServer.Communication.Proto.GameEvent.KilledPlayersEntry,
-    json_name: "killedPlayers",
-    map: true
+    type: DarkWorldsServer.Communication.Proto.GameUpdate,
+    json_name: "gameUpdates"
   )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
@@ -388,6 +384,23 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
   field(:status, 10, type: DarkWorldsServer.Communication.Proto.ProjectileStatus, enum: true)
   field(:last_attacked_player_id, 11, type: :uint64, json_name: "lastAttackedPlayerId")
   field(:pierce, 12, type: :bool)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.GameUpdate do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:game_update_type, 1,
+    type: DarkWorldsServer.Communication.Proto.GameUpdateType,
+    json_name: "gameUpdateType",
+    enum: true
+  )
+
+  field(:killed_player_id, 2, type: :uint64, json_name: "killedPlayerId")
+  field(:killer_player_id, 3, type: :uint64, json_name: "killerPlayerId")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

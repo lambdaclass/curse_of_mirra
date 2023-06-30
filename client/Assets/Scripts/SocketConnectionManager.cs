@@ -135,10 +135,11 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
-                    this.gameKills = fromMapFieldToDictionary(game_event.KilledPlayers);
+                    // this.gameKills = fromMapFieldToDictionary(game_event.KilledPlayers);
 
+                    print(gameEvent);
+                    print("Esto aparece?");
                     Debug.Log("Wow the game event is" + gameEvent);
-                    game_event.KilledPlayers.ToList().ForEach((item) => print("Player Killed: " + item.Key + " Player killer: " + item.Value));
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;

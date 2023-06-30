@@ -6,6 +6,7 @@ use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
 use crate::player::{Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::game_update::GameUpdate;
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
 use std::cmp::{max, min};
@@ -18,6 +19,7 @@ pub struct GameState {
     pub board: Board,
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
+    pub game_updates: Vec<GameUpdate>,
     pub killed_players: HashMap<u64, u64>
 }
 
@@ -107,7 +109,8 @@ impl GameState {
             board,
             projectiles,
             next_projectile_id: 0,
-            killed_players: HashMap::new()
+            killed_players: HashMap::new(),
+            game_updates: vec![],
         })
     }
 
@@ -703,6 +706,7 @@ impl GameState {
     }
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
+        self.add_game_updates();
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
@@ -807,6 +811,17 @@ impl GameState {
             .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
+    }
+
+    pub fn add_game_updates(self: &mut Self) {
+        for (killed, killer) in self.killed_players.iter() {
+            println!("killed: {killed}, killer: {killer}");
+            let game_update = GameUpdate::new_kill_update(killer.clone(), killed.clone());
+
+            self.game_updates.push(game_update);
+        }
+
+        self.killed_players.clear();
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles

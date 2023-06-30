@@ -17,7 +17,7 @@ message GameEvent {
     uint64 current_round = 7;
     int64 timestamp = 8;
     map<uint64, string> selected_characters = 9;
-    repeated GameUpdate game_update = 10;
+    repeated GameUpdate game_updates = 10;
 }
 
 /* Type of game events
@@ -304,22 +304,13 @@ enum GameUpdateType {
     KILL_EVENT = 0;
 }
 
-/* Info of the kill event
+/* Game Update 
+    - game_update_type: Type of game update
     - killed_player_id: The id of the player that was killed
     - killer_player_id: The id of the player that killed 
  */
-message PlayerKillInfo {
-    uint64 killed_player_id = 1;
-    uint64 killer_player_id = 2;
-}
-
-/* Game Update 
-    - game_update_type: Type of game update
-    - player_kill_info: Message with the kill event
-    - timestamp: Timestamp
- */
 message GameUpdate{
     GameUpdateType game_update_type = 1;
-    repeated PlayerKillInfo player_kill_info = 2;
-    int64 timestamp = 3;
+    uint64 killed_player_id = 2;
+    uint64 killer_player_id = 3;
 }
