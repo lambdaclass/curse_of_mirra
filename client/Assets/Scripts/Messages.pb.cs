@@ -247,10 +247,10 @@ public enum ProjectileStatus {
 
 /// <summary>
 /// Type of Game Update
-///- KILL_EVENT: Event informing a kill
+///- KILLEVENT: Event informing a kill
 /// </summary>
 public enum GameUpdateType {
-  [pbr::OriginalName("KILL_EVENT")] KillEvent = 0,
+  [pbr::OriginalName("KILLEVENT")] KillEvent = 0,
 }
 
 #endregion

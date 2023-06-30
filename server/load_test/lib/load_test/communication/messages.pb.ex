@@ -108,7 +108,7 @@ defmodule LoadTest.Communication.Proto.GameUpdateType do
 
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:KILL_EVENT, 0)
+  field(:KILLEVENT, 0)
 end
 
 defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do

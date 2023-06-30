@@ -298,10 +298,10 @@ message Projectile {
 }
 
 /* Type of Game Update
-    - KILL_EVENT: Event informing a kill
+    - KILLEVENT: Event informing a kill
  */
 enum GameUpdateType {
-    KILL_EVENT = 0;
+    KILLEVENT = 0;
 }
 
 /* Game Update 
