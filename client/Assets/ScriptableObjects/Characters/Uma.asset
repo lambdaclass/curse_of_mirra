@@ -17,3 +17,13 @@ MonoBehaviour:
   selectedArtwork: {fileID: 21300000, guid: 22e71ad123b5a465a84a63889a8b1369, type: 3}
   selected: 0
   prefab: {fileID: 1787465996332106805, guid: 94e572dc010a245f8a7fac3c1c846b1a, type: 3}
+  skillBasicInfo: {fileID: 0}
+  skill1Info: {fileID: 0}
+  skill2Info: {fileID: 0}
+  skill3Info: {fileID: 0}
+  skill4Info: {fileID: 0}
+  skillBasicSprite: {fileID: 21300000, guid: b8a80348f2bdf49339cd0a71dc3e4ddc, type: 3}
+  skill1Sprite: {fileID: 21300000, guid: 0a2319af521ee4615a9e67609c98bb9f, type: 3}
+  skill2Sprite: {fileID: 21300000, guid: a4b45f151370b4a1d9023c2559d145fe, type: 3}
+  skill3Sprite: {fileID: 21300000, guid: 1afdefc230f5d4d51a763ca03c72d1f4, type: 3}
+  skill4Sprite: {fileID: 21300000, guid: a4b45f151370b4a1d9023c2559d145fe, type: 3}
