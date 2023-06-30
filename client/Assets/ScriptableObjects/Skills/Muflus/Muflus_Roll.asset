@@ -17,3 +17,4 @@ MonoBehaviour:
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3
   blockMovementTime: 1
+  abilityStartSfx: {fileID: 8300000, guid: c590b419253be4535bc86a275dda97e4, type: 3}
