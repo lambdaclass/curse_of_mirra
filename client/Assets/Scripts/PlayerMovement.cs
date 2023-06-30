@@ -121,18 +121,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         useInterpolation = true;
-
         GameEvent gameEvent;
-        if(useInterpolation)
-        {
-            gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
-        }else
-        {
-            gameEvent = SocketConnectionManager.Instance.gameEvent;
-        }
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
+            // We don't need to interpolate what we're seeing, just what the see about other players
+            if(useInterpolation && 
+            SocketConnectionManager.Instance.playerId != SocketConnectionManager.Instance.gamePlayers[i].Id)
+            {
+                gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
+            }else
+            {
+                gameEvent = SocketConnectionManager.Instance.gameEvent;
+            }
+
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
