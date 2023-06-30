@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
   void UpdatePlayerActions()
   {
-    long currentTick = (long) (accumulatedTime - 1 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
+    long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
     print("the initial index is: " + currentTick);
     if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
       var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
