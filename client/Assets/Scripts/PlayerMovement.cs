@@ -15,11 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
     public bool showServerGhost = false;
     public bool useClientPrediction;
+    public bool useInterpolation;
+    public bool showInterpolationGhost;
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
+    public ulong accumulatedTime;
 
     void Start()
     {
@@ -28,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = false;
+        showServerGhost = false;
+        useInterpolation = false;
+        showInterpolationGhost = false;
+        accumulatedTime = 0;
     }
 
     private void InitBlockingStates()
@@ -44,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            float temp = (float)Math.Round(Time.deltaTime * 1000f);
+            accumulatedTime += (ulong)temp;
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -104,7 +113,24 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
-        GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
+        long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
+        print("the initial index is: " + currentTick);
+        if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
+        var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
+        currentTick = (index < 0) ? 0:index;
+        }
+
+        useInterpolation = true;
+
+        GameEvent gameEvent;
+        if(useInterpolation)
+        {
+            gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
+        }else
+        {
+            gameEvent = SocketConnectionManager.Instance.gameEvent;
+        }
+
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
