@@ -15,14 +15,15 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
   alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
+  alias DarkWorldsServer.Communication.Proto.GameUpdate
 
   @behaviour Protobuf.TransformModule
 
-  def encode(entry, SelectedCharactersEntry) do
-    entry
+  def encode(game_update, GameUpdate) do
+    game_update
   end
 
-  def encode(entry, KilledPlayersEntry) do
+  def encode(entry, SelectedCharactersEntry) do
     entry
   end
 
