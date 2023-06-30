@@ -237,22 +237,23 @@ public class PlayerMovement : MonoBehaviour
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
         }
-        // var toExplode = new List<int>();
-        // foreach (var pr in projectiles)
-        // {
-        //     if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
-        //     {
-        //         toExplode.Add(pr.Key);
-        //     }
-        // }
+        
+        var toExplode = new List<int>();
+        foreach (var pr in projectiles)
+        {
+            if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+            {
+                toExplode.Add(pr.Key);
+            }
+        }
 
-        // foreach (var key in toExplode)
-        // {
-        //     // TODO unbind projectile destroy from player
-        //     GameObject player = SocketConnectionManager.Instance.players[0];
-        //     player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
-        //     projectiles.Remove(key);
-        // }
+        foreach (var key in toExplode)
+        {
+            // TODO unbind projectile destroy from player
+            GameObject player = SocketConnectionManager.Instance.players[0];
+            player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
+            projectiles.Remove(key);
+        }
 
     }
 

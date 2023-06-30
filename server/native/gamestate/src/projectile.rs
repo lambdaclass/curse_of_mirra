@@ -53,7 +53,7 @@ impl Projectile {
         Self {
             id,
             position,
-            prev_position : position.clone(),
+            prev_position: position.clone(),
             direction,
             speed,
             range,
@@ -77,28 +77,44 @@ impl Projectile {
             self.speed as i64,
         );
 
-        if self.prev_position.x == self.position.x &&
-            self.prev_position.x == 0 &&
-            self.direction.y > 0f32 {
+        // Next the left wall and moving to the left
+        if Projectile::needs_to_explode(
+            self.prev_position.x == self.position.x,
+            self.prev_position.x == 0,
+            self.direction.y > 0f32,
+        ) {
             self.status = ProjectileStatus::EXPLODED;
         }
 
-        if self.prev_position.x == self.position.x &&
-            self.prev_position.x == board_height - 1 &&
-            self.direction.y < 0f32 {
+        // Next the right wall and moving to the right
+        if Projectile::needs_to_explode(
+            self.prev_position.x == self.position.x,
+            self.prev_position.x == board_height - 1,
+            self.direction.y < 0f32,
+        ) {
             self.status = ProjectileStatus::EXPLODED;
         }
 
-        if self.prev_position.y == self.position.y &&
-            self.prev_position.y == 0 &&
-            self.direction.x < 0f32 {
+        // Next the up wall and moving to the up
+        if Projectile::needs_to_explode(
+            self.prev_position.y == self.position.y,
+            self.prev_position.y == 0,
+            self.direction.x < 0f32,
+        ) {
             self.status = ProjectileStatus::EXPLODED;
         }
 
-        if self.prev_position.y == self.position.y &&
-            self.prev_position.y == board_height - 1 &&
-            self.direction.x > 0f32 {
+        // Next the down wall and moving to the down
+        if Projectile::needs_to_explode(
+            self.prev_position.y == self.position.y,
+            self.prev_position.y == board_height - 1,
+            self.direction.x > 0f32,
+        ) {
             self.status = ProjectileStatus::EXPLODED;
         }
+    }
+
+    pub fn needs_to_explode(eq_coordinates: bool, is_in_wall: bool, moving_to_wall: bool) -> bool {
+        return eq_coordinates && is_in_wall && moving_to_wall;
     }
 }
