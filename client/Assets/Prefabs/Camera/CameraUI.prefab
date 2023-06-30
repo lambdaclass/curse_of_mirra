@@ -3311,7 +3311,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 35
+  field of view: 40.3
   orthographic: 0
   orthographic size: 10
   m_Depth: 1
@@ -9444,7 +9444,7 @@ MonoBehaviour:
   HorizontalAxisEnabled: 1
   VerticalAxisEnabled: 1
   MaxRangeMode: 0
-  MaxRange: 75
+  MaxRange: 150
   MaxRangeTransform: {fileID: 0}
   JoystickValue:
     m_PersistentCalls:
