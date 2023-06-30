@@ -35,27 +35,29 @@ public class PlayerFeedbacks : MonoBehaviour
 
         if (auxHealth != playerHealth)
         {
-            if (characterModel.GetChild(0).GetComponent<Renderer>())
-            {
-                GetModelMaterial(characterModel, 0).mainTexture = Texture2D.redTexture;
-            }
-            if (characterModel.name == "H4ck")
-            {
-                GetModelMaterial(characterModel, 6).color = damageColor;
-            }
+            // if (characterModel.GetChild(0).GetComponent<Renderer>())
+            // {
+            //     GetModelMaterial(characterModel, 0).mainTexture = Texture2D.redTexture;
+            // }
+            // if (characterModel.name == "H4ck")
+            // {
+            //     GetModelMaterial(characterModel, 6).color = damageColor;
+            // }
+            player.GetComponentInChildren<OverlayEffect>().enabled = true;
         }
         else
         {
+            player.GetComponentInChildren<OverlayEffect>().enabled = false;
             // Set back to default
-            if (GetModelMaterial(characterModel, 0).mainTexture == Texture2D.redTexture)
-            {
-                StartCoroutine(WaitToChangeTexture(characterModel));
-            }
+            // if (GetModelMaterial(characterModel, 0).mainTexture == Texture2D.redTexture)
+            // {
+            //     StartCoroutine(WaitToChangeTexture(characterModel));
+            // }
 
-            if (characterModel.name == "H4ck" && GetModelMaterial(characterModel, 6).color == damageColor)
-            {
-                StartCoroutine(WaitToChangeTextureH4ck(characterModel));
-            }
+            // if (characterModel.name == "H4ck" && GetModelMaterial(characterModel, 6).color == damageColor)
+            // {
+            //     StartCoroutine(WaitToChangeTextureH4ck(characterModel));
+            // }
 
         }
     }

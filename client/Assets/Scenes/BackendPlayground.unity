@@ -379,6 +379,7 @@ MonoBehaviour:
   isAttacking: 0
   BlockingMovementStates: 
   BlockingConditionStates: 
+  selfDamage: 0
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,6 +1137,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -28.000244
       objectReference: {fileID: 0}
+    - target: {fileID: 6265185518825485442, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854,
+        type: 3}
     - target: {fileID: 8589184728240042611, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
