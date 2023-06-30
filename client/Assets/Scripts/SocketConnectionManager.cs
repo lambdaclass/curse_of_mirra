@@ -138,6 +138,7 @@ public class SocketConnectionManager : MonoBehaviour
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     gameEvents.Add(game_event);
+                    this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:

@@ -70,13 +70,21 @@ public class PlayerMovement : MonoBehaviour
 
   void UpdatePlayerActions()
   {
-    long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
+    long currentTick = (long) (accumulatedTime - 1 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
+    print("the initial index is: " + currentTick);
     if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
       var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
       currentTick = (index < 0) ? 0:index;
     }
 
-    GameEvent gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
+    useInterpolation = true;
+
+    GameEvent gameEvent;
+    if(useInterpolation){
+      gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
+    }else{
+      gameEvent = SocketConnectionManager.Instance.gameEvent;
+    }
 
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
     {
