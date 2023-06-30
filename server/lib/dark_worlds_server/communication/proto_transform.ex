@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.GameUpdate
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
@@ -14,7 +15,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
   alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
-  alias DarkWorldsServer.Communication.Proto.GameUpdate
 
   @behaviour Protobuf.TransformModule
 
