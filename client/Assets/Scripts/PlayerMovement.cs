@@ -72,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
   {
     long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
     if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0 || useInterpolation) {
-      currentTick = SocketConnectionManager.Instance.gameEvents.Count - 1;
+      var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
+      currentTick = (index < 0) ? 0:index;
     }
 
     GameEvent gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
