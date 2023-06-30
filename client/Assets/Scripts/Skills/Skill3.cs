@@ -4,7 +4,6 @@ public class Skill3 : Skill
 {
     protected override void Initialization(){
         base.Initialization();
-        // FIXME: remove this
-        skillId = "3";
+        skillId = "Skill3";
     }
 }

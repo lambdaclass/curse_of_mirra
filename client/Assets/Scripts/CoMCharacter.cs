@@ -10,4 +10,9 @@ public class CoMCharacter : ScriptableObject
     public Sprite selectedArtwork;
     public bool selected = false;
     public GameObject prefab;
+    public SkillInfo skillBasicInfo;
+    public SkillInfo skill1Info;
+    public SkillInfo skill2Info;
+    public SkillInfo skill3Info;
+    public SkillInfo skill4Info;
 }

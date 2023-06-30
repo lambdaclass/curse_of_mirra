@@ -167,16 +167,3 @@ impl Position {
         Self { x, y }
     }
 }
-
-#[derive(Debug, Clone, NifStruct, PartialEq)]
-#[module = "DarkWorldsServer.Engine.RelativePosition"]
-pub struct RelativePosition {
-    pub x: i64,
-    pub y: i64,
-}
-
-impl RelativePosition {
-    pub fn new(x: i64, y: i64) -> Self {
-        Self { x, y }
-    }
-}
