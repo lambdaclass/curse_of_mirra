@@ -1,9 +1,9 @@
 pub mod board;
 pub mod character;
 pub mod game;
+pub mod game_update;
 pub mod player;
 pub mod projectile;
-pub mod game_update;
 pub mod skills;
 pub mod time_utils;
 pub mod utils;

@@ -4,9 +4,9 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
+use crate::game_update::GameUpdate;
 use crate::player::{Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
-use crate::game_update::GameUpdate;
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
 use std::cmp::{max, min};
@@ -20,7 +20,7 @@ pub struct GameState {
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
     pub game_updates: Vec<GameUpdate>,
-    pub killed_players: HashMap<u64, u64>
+    pub killed_players: HashMap<u64, u64>,
 }
 
 #[derive(Debug, NifUnitEnum)]
@@ -333,7 +333,13 @@ impl GameState {
             Name::Muflus => {
                 let attacking_player = GameState::get_player(&self, attacking_player_id)?;
                 let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction, &mut self.killed_players)
+                Self::muflus_basic_attack(
+                    &mut self.board,
+                    players,
+                    &attacking_player,
+                    direction,
+                    &mut self.killed_players,
+                )
             }
             Name::Uma => Self::h4ck_basic_attack(
                 &attacking_player,
@@ -415,7 +421,7 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player: &Player,
         direction: &RelativePosition,
-        killed_players: &mut HashMap<u64, u64>
+        killed_players: &mut HashMap<u64, u64>,
     ) -> Result<(), String> {
         let attack_dmg = attacking_player.character.attack_dmg_basic_skill() as i64;
         let attack_direction = Self::position_to_direction(direction);
@@ -486,7 +492,12 @@ impl GameState {
             ),
             Name::Muflus => {
                 let players = &mut self.players;
-                Self::muflus_skill_1(&mut self.board, players, attacking_player_id, &mut self.killed_players)
+                Self::muflus_skill_1(
+                    &mut self.board,
+                    players,
+                    attacking_player_id,
+                    &mut self.killed_players,
+                )
             }
             _ => Self::h4ck_skill_1(
                 &attacking_player,
@@ -542,7 +553,7 @@ impl GameState {
         board: &mut Board,
         players: &mut Vec<Player>,
         attacking_player_id: u64,
-        killed_players: &mut HashMap<u64, u64>
+        killed_players: &mut HashMap<u64, u64>,
     ) -> Result<(), String> {
         // TODO: This should be a config of the attack
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
@@ -586,7 +597,7 @@ impl GameState {
         attacking_player_id: u64,
         direction: &RelativePosition,
         players: &mut Vec<Player>,
-        killed_players: &mut HashMap<u64, u64>
+        killed_players: &mut HashMap<u64, u64>,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         Self::move_player_to_coordinates(board, attacking_player, direction)?;
@@ -621,7 +632,13 @@ impl GameState {
             ),
             Name::Muflus => {
                 let id = attacking_player.id;
-                Self::leap(&mut self.board, id, direction, &mut self.players, &mut self.killed_players)
+                Self::leap(
+                    &mut self.board,
+                    id,
+                    direction,
+                    &mut self.players,
+                    &mut self.killed_players,
+                )
             }
             _ => Self::h4ck_skill_2(
                 &attacking_player,
@@ -770,7 +787,8 @@ impl GameState {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             if matches!(attacked_player.status, Status::DEAD) {
                                 kill_count += 1;
-                                self.killed_players.insert(attacked_player.id, projectile.player_id);
+                                self.killed_players
+                                    .insert(attacked_player.id, projectile.player_id);
                             }
                             GameState::modify_cell_if_player_died(
                                 &mut self.board,

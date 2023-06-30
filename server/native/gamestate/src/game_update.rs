@@ -16,12 +16,10 @@ pub struct GameUpdate {
 
 impl GameUpdate {
     pub fn new_kill_update(killer_id: u64, killed_id: u64) -> Self {
-
         Self {
             killer_player_id: killer_id,
             killed_player_id: killed_id,
-            game_update_type: GameUpdateType::KILLEVENT
+            game_update_type: GameUpdateType::KILLEVENT,
         }
-
     }
 }
