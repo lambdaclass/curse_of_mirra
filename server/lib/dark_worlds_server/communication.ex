@@ -35,7 +35,13 @@ defmodule DarkWorldsServer.Communication do
   end
 
   def encode!(%{players: players, killed_players: killed_players, projectiles: projectiles, timestamp: timestamp}) do
-    %GameEvent{type: :STATE_UPDATE, players: players, killed_players: killed_players, projectiles: projectiles, timestamp: timestamp}
+    %GameEvent{
+      type: :STATE_UPDATE,
+      players: players,
+      killed_players: killed_players,
+      projectiles: projectiles,
+      timestamp: timestamp
+    }
     |> GameEvent.encode()
   end
 
