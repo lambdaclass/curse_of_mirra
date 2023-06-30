@@ -169,7 +169,6 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 5;
     EXECUTING_SKILL_3 = 6;
     EXECUTING_SKILL_4 = 7;
-    MOVING = 8;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

@@ -13,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
   MMTouchJoystick joystickL;
   [SerializeField] CustomInputManager InputManager;
 
-  public bool showServerGhost = false;
+  public bool showServerGhost;
   public bool useClientPrediction;
+  public bool useInterpolation;
+  public bool showInterpolationGhost;
   public GameObject serverGhost;
   public Direction nextAttackDirection;
   public bool isAttacking = false;
@@ -25,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
     InvokeRepeating("SendAction", clientActionRate, clientActionRate);
     useClientPrediction = false;
+    showServerGhost = false;
+    showInterpolationGhost = false;
     accumulatedTime = 0;
   }
 
@@ -66,9 +70,10 @@ public class PlayerMovement : MonoBehaviour
   void UpdatePlayerActions()
   {
     long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
-    if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
+    if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0 || !useInterpolation) {
       currentTick = SocketConnectionManager.Instance.gameEvents.Count - 1;
     }
+
     GameEvent gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
 
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)

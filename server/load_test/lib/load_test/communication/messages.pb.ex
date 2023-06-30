@@ -69,7 +69,6 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 5)
   field(:EXECUTING_SKILL_3, 6)
   field(:EXECUTING_SKILL_4, 7)
-  field(:MOVING, 8)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
