@@ -1,8 +1,7 @@
 defmodule DarkWorldsServer.Engine.GameUpdate do
   use DarkWorldsServer.Communication.Encoder
 
-  @enforce_keys [
-  ]
+  @enforce_keys []
   defstruct [
     :killer_player_id,
     :killed_player_id,
