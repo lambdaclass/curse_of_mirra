@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
+  m_Name: H4ck_Aimshot
+  m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
+  name: Hack_Aimshot
+  inputType: 2
+  feedbackAnimation: {fileID: 0}
+  animationSpeedMultiplier: 1
+  blockMovementTime: 0

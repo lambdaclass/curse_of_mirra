@@ -6,13 +6,12 @@ pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 pub mod utils;
+use crate::player::Player;
+use crate::{board::GridResource, board::Tile, game::Direction, utils::RelativePosition};
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
 use std::str::FromStr;
-
-use crate::player::Player;
-use crate::{board::GridResource, board::Tile, game::Direction, utils::RelativePosition};
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn new_game(
@@ -58,10 +57,10 @@ fn new_game(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn move_player(game: GameState, player_id: u64, direction: Direction) -> GameState {
-    let mut game_2 = game;
-    game_2.move_player(player_id, direction);
-    game_2
+fn move_player(game: GameState, player_id: u64, direction: Direction) -> Result<GameState, String> {
+    let mut game = game;
+    game.move_player(player_id, direction)?;
+    Ok(game)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -71,22 +70,26 @@ fn world_tick(game: GameState) -> GameState {
     game_2
 }
 #[rustler::nif(schedule = "DirtyCpu")]
-fn get_grid(game: GameState) -> Vec<Vec<Tile>> {
-    let grid = game.board.grid.resource.lock().unwrap();
+fn get_grid(game: GameState) -> Vec<Tile> {
+    let board = game.board;
+    let grid = board.grid.resource.lock().unwrap();
     grid.clone()
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
 fn get_non_empty(game: GameState) -> HashMap<(usize, usize), Tile> {
     let mut result: HashMap<(usize, usize), Tile> = HashMap::new();
-    let grid = game.board.grid.resource.lock().unwrap();
-    for (x, row) in grid.iter().enumerate() {
-        for (y, e) in row.iter().enumerate() {
-            match e {
-                Tile::Empty => continue,
-                _ => result.insert((x, y), (*e).clone()),
-            };
-        }
+    let grid: Vec<Tile> = game.board.grid.resource.lock().unwrap().to_vec();
+    for (index, elem) in grid.into_iter().enumerate() {
+        match elem {
+            Tile::Empty => continue,
+            _ => {
+                let width = game.board.width;
+                let x = (index / width) as usize;
+                let y = (index % width) as usize;
+                result.insert((x, y), (elem).clone())
+            }
+        };
     }
     result
 }
@@ -143,10 +146,10 @@ fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn new_round(game: GameState, players: Vec<Player>) -> GameState {
-    let mut game_2 = game;
-    game_2.new_round(players);
-    game_2
+fn new_round(game: GameState, players: Vec<Player>) -> Result<GameState, String> {
+    let mut game = game;
+    game.new_round(players)?;
+    Ok(game)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
