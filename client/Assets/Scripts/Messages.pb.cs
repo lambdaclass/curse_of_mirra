@@ -99,8 +99,8 @@ public static partial class MessagesReflection {
           "EAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRf",
           "R0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUS",
           "CgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3Rp",
-          "bGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASogCg5HYW1lVXBk",
-          "YXRlVHlwZRIOCgpLSUxMX0VWRU5UEABiBnByb3RvMw=="));
+          "bGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASofCg5HYW1lVXBk",
+          "YXRlVHlwZRINCglLSUxMRVZFTlQQAGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::GameUpdateType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -250,7 +250,7 @@ public enum ProjectileStatus {
 ///- KILLEVENT: Event informing a kill
 /// </summary>
 public enum GameUpdateType {
-  [pbr::OriginalName("KILLEVENT")] KillEvent = 0,
+  [pbr::OriginalName("KILLEVENT")] Killevent = 0,
 }
 
 #endregion
@@ -626,7 +626,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.Timestamp != 0L) {
       Timestamp = other.Timestamp;
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     gameUpdates_.Add(other.gameUpdates_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -5665,7 +5665,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
 
   /// <summary>Field number for the "game_update_type" field.</summary>
   public const int GameUpdateTypeFieldNumber = 1;
-  private global::GameUpdateType gameUpdateType_ = global::GameUpdateType.KillEvent;
+  private global::GameUpdateType gameUpdateType_ = global::GameUpdateType.Killevent;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public global::GameUpdateType GameUpdateType {
@@ -5724,7 +5724,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (GameUpdateType != global::GameUpdateType.KillEvent) hash ^= GameUpdateType.GetHashCode();
+    if (GameUpdateType != global::GameUpdateType.Killevent) hash ^= GameUpdateType.GetHashCode();
     if (KilledPlayerId != 0UL) hash ^= KilledPlayerId.GetHashCode();
     if (KillerPlayerId != 0UL) hash ^= KillerPlayerId.GetHashCode();
     if (_unknownFields != null) {
@@ -5745,7 +5745,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (GameUpdateType != global::GameUpdateType.KillEvent) {
+    if (GameUpdateType != global::GameUpdateType.Killevent) {
       output.WriteRawTag(8);
       output.WriteEnum((int) GameUpdateType);
     }
@@ -5767,7 +5767,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (GameUpdateType != global::GameUpdateType.KillEvent) {
+    if (GameUpdateType != global::GameUpdateType.Killevent) {
       output.WriteRawTag(8);
       output.WriteEnum((int) GameUpdateType);
     }
@@ -5789,7 +5789,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (GameUpdateType != global::GameUpdateType.KillEvent) {
+    if (GameUpdateType != global::GameUpdateType.Killevent) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) GameUpdateType);
     }
     if (KilledPlayerId != 0UL) {
@@ -5810,7 +5810,7 @@ public sealed partial class GameUpdate : pb::IMessage<GameUpdate>
     if (other == null) {
       return;
     }
-    if (other.GameUpdateType != global::GameUpdateType.KillEvent) {
+    if (other.GameUpdateType != global::GameUpdateType.Killevent) {
       GameUpdateType = other.GameUpdateType;
     }
     if (other.KilledPlayerId != 0UL) {
