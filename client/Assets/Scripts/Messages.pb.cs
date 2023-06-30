@@ -45,61 +45,61 @@ public static partial class MessagesReflection {
           "BBIhChl0aGlyZF9za2lsbF9jb29sZG93bl9sZWZ0GA4gASgEEiIKGmZvdXJ0",
           "aF9za2lsbF9jb29sZG93bl9sZWZ0GA8gASgEEhYKDmNoYXJhY3Rlcl9uYW1l",
           "GBAgASgJIiAKCFBvc2l0aW9uEgkKAXgYASABKAQSCQoBeRgCIAEoBCIoChBS",
-          "ZWxhdGl2ZVBvc2l0aW9uEgkKAXgYASABKAMSCQoBeRgCIAEoAyLfAQoMQ2xp",
+          "ZWxhdGl2ZVBvc2l0aW9uEgkKAXgYASABKAISCQoBeRgCIAEoAiLhAQoMQ2xp",
           "ZW50QWN0aW9uEhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rp",
           "b24YAiABKA4yCi5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxh",
-          "dGl2ZVBvc2l0aW9uEiMKCm1vdmVfZGVsdGEYBCABKAsyDy5Kb3lzdGlja1Zh",
-          "bHVlcxIOCgZ0YXJnZXQYBSABKBISEQoJdGltZXN0YW1wGAYgASgDEioKEHBs",
-          "YXllcl9jaGFyYWN0ZXIYByABKAsyEC5QbGF5ZXJDaGFyYWN0ZXIiJgoOSm95",
-          "c3RpY2tWYWx1ZXMSCQoBeBgBIAEoAhIJCgF5GAIgASgCIuYBCgpMb2JieUV2",
-          "ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9p",
-          "ZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lk",
-          "GAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgE",
-          "Eg8KB3BsYXllcnMYByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQS",
-          "KAoLZ2FtZV9jb25maWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoM",
-          "UnVubmVyQ29uZmlnEgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiAB",
-          "KAQSFAoMYm9hcmRfaGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9t",
-          "cxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZp",
-          "ZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90",
-          "aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJ",
-          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoT",
-          "Q2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJ",
-          "Eg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUg",
-          "ASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQK",
-          "DFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJ",
-          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
-          "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
-          "SXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgB",
-          "IAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgL",
-          "MhAuQ2hhcmFjdGVyQ29uZmlnIrECCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgE",
-          "EhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SIgoJZGlyZWN0aW9uGAMg",
-          "ASgLMg8uSm95c3RpY2tWYWx1ZXMSDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UY",
-          "BSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9y",
-          "ZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgO",
-          "Mg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGls",
-          "ZVN0YXR1cxIfChdsYXN0X2F0dGFja2VkX3BsYXllcl9pZBgLIAEoBBIOCgZw",
-          "aWVyY2UYDCABKAgqzgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVfVVBEQVRF",
-          "EAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAISDgoKTkVY",
-          "VF9ST1VORBADEg4KCkxBU1RfUk9VTkQQBBIRCg1HQU1FX0ZJTklTSEVEEAUS",
-          "FQoRSU5JVElBTF9QT1NJVElPTlMQBhIdChlTRUxFQ1RFRF9DSEFSQUNURVJf",
-          "VVBEQVRFEAcSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJT04QCCodCgZT",
-          "dGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq5gEKBkFjdGlvbhIWChJBQ1RJ",
-          "T05fVU5TUEVDSUZJRUQQABIICgRNT1ZFEAESCgoGQVRUQUNLEAISDAoIVEVM",
-          "RVBPUlQQBBIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNL",
-          "EAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFTSUNfQVRU",
-          "QUNLEAkSCwoHU0tJTExfMRAKEgsKB1NLSUxMXzIQCxILCgdTS0lMTF8zEAwS",
-          "CwoHU0tJTExfNBANEhQKEFNFTEVDVF9DSEFSQUNURVIQDipNCglEaXJlY3Rp",
-          "b24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dO",
-          "EAISCAoETEVGVBADEgkKBVJJR0hUEAQqqgEKDFBsYXllckFjdGlvbhILCgdO",
-          "T1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACEhUK",
-          "EUVYRUNVVElOR19TS0lMTF8xEAMSDwoLVEVMRVBPUlRJTkcQBBIVChFFWEVD",
-          "VVRJTkdfU0tJTExfMhAFEhUKEUVYRUNVVElOR19TS0lMTF8zEAYSFQoRRVhF",
-          "Q1VUSU5HX1NLSUxMXzQQByqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9V",
-          "TlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBAC",
-          "EhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJU",
-          "X0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBl",
-          "EgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0",
-          "aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
+          "dGl2ZVBvc2l0aW9uEiUKCm1vdmVfZGVsdGEYBCABKAsyES5SZWxhdGl2ZVBv",
+          "c2l0aW9uEg4KBnRhcmdldBgFIAEoEhIRCgl0aW1lc3RhbXAYBiABKAMSKgoQ",
+          "cGxheWVyX2NoYXJhY3RlchgHIAEoCzIQLlBsYXllckNoYXJhY3RlciLmAQoK",
+          "TG9iYnlFdmVudBIdCgR0eXBlGAEgASgOMg8uTG9iYnlFdmVudFR5cGUSEAoI",
+          "bG9iYnlfaWQYAiABKAkSEQoJcGxheWVyX2lkGAMgASgEEhcKD2FkZGVkX3Bs",
+          "YXllcl9pZBgEIAEoBBIPCgdnYW1lX2lkGAUgASgJEhQKDHBsYXllcl9jb3Vu",
+          "dBgGIAEoBBIPCgdwbGF5ZXJzGAcgAygEEhkKEXJlbW92ZWRfcGxheWVyX2lk",
+          "GAggASgEEigKC2dhbWVfY29uZmlnGAkgASgLMhMuU2VydmVyR2FtZVNldHRp",
+          "bmdzInwKDFJ1bm5lckNvbmZpZxIMCgROYW1lGAEgASgJEhMKC2JvYXJkX3dp",
+          "ZHRoGAIgASgEEhQKDGJvYXJkX2hlaWdodBgDIAEoBBIaChJzZXJ2ZXJfdGlj",
+          "a3JhdGVfbXMYBCABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAUgASgEImEKCkdh",
+          "bWVDb25maWcSHgoKYm9hcmRfc2l6ZRgBIAEoCzIKLkJvYXJkU2l6ZRIaChJz",
+          "ZXJ2ZXJfdGlja3JhdGVfbXMYAiABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAMg",
+          "ASgEIioKCUJvYXJkU2l6ZRINCgV3aWR0aBgBIAEoBBIOCgZoZWlnaHQYAiAB",
+          "KAQi3AEKE0NoYXJhY3RlckNvbmZpZ0l0ZW0SDAoETmFtZRgBIAEoCRIKCgJJ",
+          "ZBgCIAEoCRIOCgZBY3RpdmUYAyABKAkSDQoFQ2xhc3MYBCABKAkSDwoHRmFj",
+          "dGlvbhgFIAEoCRIRCglCYXNlU3BlZWQYBiABKAkSEgoKU2tpbGxCYXNpYxgH",
+          "IAEoCRIUCgxTa2lsbEFjdGl2ZTEYCCABKAkSFAoMU2tpbGxBY3RpdmUyGAkg",
+          "ASgJEhEKCVNraWxsRGFzaBgKIAEoCRIVCg1Ta2lsbFVsdGltYXRlGAsgASgJ",
+          "IjYKD0NoYXJhY3RlckNvbmZpZxIjCgVJdGVtcxgBIAMoCzIULkNoYXJhY3Rl",
+          "ckNvbmZpZ0l0ZW0iZgoSU2VydmVyR2FtZVNldHRpbmdzEiQKDXJ1bm5lcl9j",
+          "b25maWcYASABKAsyDS5SdW5uZXJDb25maWcSKgoQY2hhcmFjdGVyX2NvbmZp",
+          "ZxgCIAEoCzIQLkNoYXJhY3RlckNvbmZpZyKzAgoKUHJvamVjdGlsZRIKCgJp",
+          "ZBgBIAEoBBIbCghwb3NpdGlvbhgCIAEoCzIJLlBvc2l0aW9uEiQKCWRpcmVj",
+          "dGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SDQoFc3BlZWQYBCABKA0S",
+          "DQoFcmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgH",
+          "IAEoDRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90",
+          "eXBlGAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEu",
+          "UHJvamVjdGlsZVN0YXR1cxIfChdsYXN0X2F0dGFja2VkX3BsYXllcl9pZBgL",
+          "IAEoBBIOCgZwaWVyY2UYDCABKAgqzgEKDUdhbWVFdmVudFR5cGUSEAoMU1RB",
+          "VEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVE",
+          "EAISDgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQBBIRCg1HQU1FX0ZJ",
+          "TklTSEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBhIdChlTRUxFQ1RFRF9D",
+          "SEFSQUNURVJfVVBEQVRFEAcSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJ",
+          "T04QCCodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq5gEKBkFjdGlv",
+          "bhIWChJBQ1RJT05fVU5TUEVDSUZJRUQQABIICgRNT1ZFEAESCgoGQVRUQUNL",
+          "EAISDAoIVEVMRVBPUlQQBBIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRI",
+          "X0pPWVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoM",
+          "QkFTSUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKEgsKB1NLSUxMXzIQCxILCgdT",
+          "S0lMTF8zEAwSCwoHU0tJTExfNBANEhQKEFNFTEVDVF9DSEFSQUNURVIQDipN",
+          "CglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQ",
+          "ARIICgRET1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQqqgEKDFBsYXllckFj",
+          "dGlvbhILCgdOT1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5H",
+          "X0FPRRACEhUKEUVYRUNVVElOR19TS0lMTF8xEAMSDwoLVEVMRVBPUlRJTkcQ",
+          "BBIVChFFWEVDVVRJTkdfU0tJTExfMhAFEhUKEUVYRUNVVElOR19TS0lMTF8z",
+          "EAYSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQByqPAQoOTG9iYnlFdmVudFR5cGUS",
+          "FAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlF",
+          "Ul9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAE",
+          "Eg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2pl",
+          "Y3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASos",
+          "ChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFi",
+          "BnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -109,7 +109,6 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target", "Timestamp", "PlayerCharacter" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::JoystickValues), global::JoystickValues.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RunnerConfig), global::RunnerConfig.Parser, new[]{ "Name", "BoardWidth", "BoardHeight", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
@@ -143,6 +142,10 @@ public enum GameEventType {
   [pbr::OriginalName("FINISH_CHARACTER_SELECTION")] FinishCharacterSelection = 8,
 }
 
+/// <summary>
+///
+///Status of a player
+/// </summary>
 public enum Status {
   [pbr::OriginalName("ALIVE")] Alive = 0,
   [pbr::OriginalName("DEAD")] Dead = 1,
@@ -1984,9 +1987,9 @@ public sealed partial class Position : pb::IMessage<Position>
 }
 
 /// <summary>
-/// A relative positioncorner
-///- x: X coordinate
-///- y: Y coordinate
+/// A relative position
+///- x: X coordinate between -1 and 1
+///- y: Y coordinate between -1 and 1
 /// </summary>
 public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2035,10 +2038,10 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
 
   /// <summary>Field number for the "x" field.</summary>
   public const int XFieldNumber = 1;
-  private long x_;
+  private float x_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public long X {
+  public float X {
     get { return x_; }
     set {
       x_ = value;
@@ -2047,10 +2050,10 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
 
   /// <summary>Field number for the "y" field.</summary>
   public const int YFieldNumber = 2;
-  private long y_;
+  private float y_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public long Y {
+  public float Y {
     get { return y_; }
     set {
       y_ = value;
@@ -2072,8 +2075,8 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (X != other.X) return false;
-    if (Y != other.Y) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2081,8 +2084,8 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (X != 0L) hash ^= X.GetHashCode();
-    if (Y != 0L) hash ^= Y.GetHashCode();
+    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+    if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2101,13 +2104,13 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (X != 0L) {
-      output.WriteRawTag(8);
-      output.WriteInt64(X);
+    if (X != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(X);
     }
-    if (Y != 0L) {
-      output.WriteRawTag(16);
-      output.WriteInt64(Y);
+    if (Y != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Y);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -2119,13 +2122,13 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (X != 0L) {
-      output.WriteRawTag(8);
-      output.WriteInt64(X);
+    if (X != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(X);
     }
-    if (Y != 0L) {
-      output.WriteRawTag(16);
-      output.WriteInt64(Y);
+    if (Y != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Y);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -2137,11 +2140,11 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (X != 0L) {
-      size += 1 + pb::CodedOutputStream.ComputeInt64Size(X);
+    if (X != 0F) {
+      size += 1 + 4;
     }
-    if (Y != 0L) {
-      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Y);
+    if (Y != 0F) {
+      size += 1 + 4;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2155,10 +2158,10 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
     if (other == null) {
       return;
     }
-    if (other.X != 0L) {
+    if (other.X != 0F) {
       X = other.X;
     }
-    if (other.Y != 0L) {
+    if (other.Y != 0F) {
       Y = other.Y;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -2176,12 +2179,12 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 8: {
-          X = input.ReadInt64();
+        case 13: {
+          X = input.ReadFloat();
           break;
         }
-        case 16: {
-          Y = input.ReadInt64();
+        case 21: {
+          Y = input.ReadFloat();
           break;
         }
       }
@@ -2199,12 +2202,12 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 8: {
-          X = input.ReadInt64();
+        case 13: {
+          X = input.ReadFloat();
           break;
         }
-        case 16: {
-          Y = input.ReadInt64();
+        case 21: {
+          Y = input.ReadFloat();
           break;
         }
       }
@@ -2311,10 +2314,10 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
 
   /// <summary>Field number for the "move_delta" field.</summary>
   public const int MoveDeltaFieldNumber = 4;
-  private global::JoystickValues moveDelta_;
+  private global::RelativePosition moveDelta_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::JoystickValues MoveDelta {
+  public global::RelativePosition MoveDelta {
     get { return moveDelta_; }
     set {
       moveDelta_ = value;
@@ -2534,7 +2537,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
     }
     if (other.moveDelta_ != null) {
       if (moveDelta_ == null) {
-        MoveDelta = new global::JoystickValues();
+        MoveDelta = new global::RelativePosition();
       }
       MoveDelta.MergeFrom(other.MoveDelta);
     }
@@ -2582,7 +2585,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
         }
         case 34: {
           if (moveDelta_ == null) {
-            MoveDelta = new global::JoystickValues();
+            MoveDelta = new global::RelativePosition();
           }
           input.ReadMessage(MoveDelta);
           break;
@@ -2634,7 +2637,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
         }
         case 34: {
           if (moveDelta_ == null) {
-            MoveDelta = new global::JoystickValues();
+            MoveDelta = new global::RelativePosition();
           }
           input.ReadMessage(MoveDelta);
           break;
@@ -2652,232 +2655,6 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
             PlayerCharacter = new global::PlayerCharacter();
           }
           input.ReadMessage(PlayerCharacter);
-          break;
-        }
-      }
-    }
-  }
-  #endif
-
-}
-
-public sealed partial class JoystickValues : pb::IMessage<JoystickValues>
-#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    , pb::IBufferMessage
-#endif
-{
-  private static readonly pb::MessageParser<JoystickValues> _parser = new pb::MessageParser<JoystickValues>(() => new JoystickValues());
-  private pb::UnknownFieldSet _unknownFields;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<JoystickValues> Parser { get { return _parser; } }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[6]; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  pbr::MessageDescriptor pb::IMessage.Descriptor {
-    get { return Descriptor; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public JoystickValues() {
-    OnConstruction();
-  }
-
-  partial void OnConstruction();
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public JoystickValues(JoystickValues other) : this() {
-    x_ = other.x_;
-    y_ = other.y_;
-    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public JoystickValues Clone() {
-    return new JoystickValues(this);
-  }
-
-  /// <summary>Field number for the "x" field.</summary>
-  public const int XFieldNumber = 1;
-  private float x_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public float X {
-    get { return x_; }
-    set {
-      x_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "y" field.</summary>
-  public const int YFieldNumber = 2;
-  private float y_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public float Y {
-    get { return y_; }
-    set {
-      y_ = value;
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override bool Equals(object other) {
-    return Equals(other as JoystickValues);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(JoystickValues other) {
-    if (ReferenceEquals(other, null)) {
-      return false;
-    }
-    if (ReferenceEquals(other, this)) {
-      return true;
-    }
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
-    return Equals(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override int GetHashCode() {
-    int hash = 1;
-    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-    if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
-    if (_unknownFields != null) {
-      hash ^= _unknownFields.GetHashCode();
-    }
-    return hash;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override string ToString() {
-    return pb::JsonFormatter.ToDiagnosticString(this);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void WriteTo(pb::CodedOutputStream output) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    output.WriteRawMessage(this);
-  #else
-    if (X != 0F) {
-      output.WriteRawTag(13);
-      output.WriteFloat(X);
-    }
-    if (Y != 0F) {
-      output.WriteRawTag(21);
-      output.WriteFloat(Y);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(output);
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (X != 0F) {
-      output.WriteRawTag(13);
-      output.WriteFloat(X);
-    }
-    if (Y != 0F) {
-      output.WriteRawTag(21);
-      output.WriteFloat(Y);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(ref output);
-    }
-  }
-  #endif
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public int CalculateSize() {
-    int size = 0;
-    if (X != 0F) {
-      size += 1 + 4;
-    }
-    if (Y != 0F) {
-      size += 1 + 4;
-    }
-    if (_unknownFields != null) {
-      size += _unknownFields.CalculateSize();
-    }
-    return size;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(JoystickValues other) {
-    if (other == null) {
-      return;
-    }
-    if (other.X != 0F) {
-      X = other.X;
-    }
-    if (other.Y != 0F) {
-      Y = other.Y;
-    }
-    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(pb::CodedInputStream input) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    input.ReadRawMessage(this);
-  #else
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-          break;
-        case 13: {
-          X = input.ReadFloat();
-          break;
-        }
-        case 21: {
-          Y = input.ReadFloat();
-          break;
-        }
-      }
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-          break;
-        case 13: {
-          X = input.ReadFloat();
-          break;
-        }
-        case 21: {
-          Y = input.ReadFloat();
           break;
         }
       }
@@ -2912,7 +2689,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[7]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[6]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3397,7 +3174,7 @@ public sealed partial class RunnerConfig : pb::IMessage<RunnerConfig>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[8]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[7]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3734,7 +3511,7 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[9]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[8]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4006,7 +3783,7 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[10]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[9]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4232,7 +4009,7 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[11]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[10]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4791,7 +4568,7 @@ public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[12]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[11]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4969,7 +4746,7 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[13]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[12]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5224,7 +5001,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[14]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[13]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5291,10 +5068,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
 
   /// <summary>Field number for the "direction" field.</summary>
   public const int DirectionFieldNumber = 3;
-  private global::JoystickValues direction_;
+  private global::RelativePosition direction_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::JoystickValues Direction {
+  public global::RelativePosition Direction {
     get { return direction_; }
     set {
       direction_ = value;
@@ -5648,7 +5425,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (other.direction_ != null) {
       if (direction_ == null) {
-        Direction = new global::JoystickValues();
+        Direction = new global::RelativePosition();
       }
       Direction.MergeFrom(other.Direction);
     }
@@ -5707,7 +5484,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 26: {
           if (direction_ == null) {
-            Direction = new global::JoystickValues();
+            Direction = new global::RelativePosition();
           }
           input.ReadMessage(Direction);
           break;
@@ -5776,7 +5553,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 26: {
           if (direction_ == null) {
-            Direction = new global::JoystickValues();
+            Direction = new global::RelativePosition();
           }
           input.ReadMessage(Direction);
           break;

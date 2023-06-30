@@ -36,3 +36,4 @@ credo:
 format:
 	mix format
 	cargo fmt --manifest-path native/gamestate/Cargo.toml
+	cd load_test && mix format

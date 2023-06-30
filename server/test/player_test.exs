@@ -29,7 +29,6 @@ defmodule DarkWorldsServer.PlayerTest do
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.x - character_speed)
-        |> Enum.at(first_player_before_moving.position.y)
         |> is_wall_or_player?()
 
       movement =
@@ -67,7 +66,6 @@ defmodule DarkWorldsServer.PlayerTest do
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.x + character_speed)
-        |> Enum.at(first_player_before_moving.position.y)
         |> is_wall_or_player?()
 
       movement =
@@ -104,7 +102,6 @@ defmodule DarkWorldsServer.PlayerTest do
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.y - character_speed)
-        |> Enum.at(first_player_before_moving.position.x)
         |> is_wall_or_player?()
 
       movement =
@@ -129,8 +126,8 @@ defmodule DarkWorldsServer.PlayerTest do
 
     @tag :player
     test "Move right", %{session_id: session_id} do
+      %{width: grid_width} = WsClient.get_board(session_id)
       grid = WsClient.get_grid(session_id)
-      grid_width = length(hd(grid))
       character_speed = (WsClient.get_players(session_id) |> List.first()).character.base_speed
 
       first_player_before_moving = WsClient.get_players(session_id) |> List.first()
@@ -142,7 +139,6 @@ defmodule DarkWorldsServer.PlayerTest do
 
       end_position_is_occupied_by_wall_or_player =
         Enum.at(grid, first_player_before_moving.position.y + character_speed)
-        |> Enum.at(first_player_before_moving.position.x)
         |> is_wall_or_player?()
 
       movement =

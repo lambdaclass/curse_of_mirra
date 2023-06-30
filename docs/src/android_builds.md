@@ -14,6 +14,6 @@
 
 9. Close the *Player Settings* window and back in the *Build Settings* window find the *Run Device* selection and select your Android device.
 
-10. Enable the *Development Build* checkbox, and click *Build and Run*. This will generate a build and install it in your Android device. A dialog will appear in your device asking you to allow the installation of the app, click on *Install*.
+10. Enable the *Development Build* checkbox, click *Build and Run* and choose a location to save the build (outside of the project directory). This will generate a build and install it in your Android device. A dialog will appear in your device asking you to allow the installation of the app, click on *Install*.
 
 11. Once the build is installed, you can open it in your device and test it.

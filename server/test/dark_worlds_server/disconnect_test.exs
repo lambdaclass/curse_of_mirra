@@ -10,7 +10,7 @@ defmodule DarkWorldsServer.Test.Disconnect do
         game_config: %{
           runner_config: %{
             board_width: 1000,
-            board_height: 100,
+            board_height: 1000,
             server_tickrate_ms: 30,
             game_timeout_ms: 1_200_000
           },
