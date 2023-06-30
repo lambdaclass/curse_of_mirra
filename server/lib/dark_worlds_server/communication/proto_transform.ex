@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Communication.Proto.GameUpdate
   alias DarkWorldsServer.Communication.Proto.GameUpdateType
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
@@ -25,6 +26,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(game_update, GameUpdate) do
     game_update
+  end
+
+  def encode(game_event, GameEvent) do
+    IO.inspect("Encodear el game_event")
+    game_event
   end
 
   def encode(entry, SelectedCharactersEntry) do

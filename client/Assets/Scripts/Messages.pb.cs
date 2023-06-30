@@ -626,7 +626,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.Timestamp != 0L) {
       Timestamp = other.Timestamp;
     }
-    selectedCharacters_.MergeFrom(other.selectedCharacters_);
+    selectedCharacters_.Add(other.selectedCharacters_);
     gameUpdates_.Add(other.gameUpdates_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
