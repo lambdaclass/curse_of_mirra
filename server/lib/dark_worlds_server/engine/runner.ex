@@ -224,6 +224,26 @@ defmodule DarkWorldsServer.Engine.Runner do
      }}
   end
 
+  def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
+    bot_pid = gen_server_state[:bot_handler_pid]
+
+    if bot_pid do
+      BotPlayer.disable_bots(bot_pid)
+    end
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast({:play, _, %ActionOk{action: :enable_bots}}, gen_server_state) do
+    bot_pid = gen_server_state[:bot_handler_pid]
+
+    if bot_pid do
+      BotPlayer.enable_bots(bot_pid)
+    end
+
+    {:noreply, gen_server_state}
+  end
+
   def handle_cast(
         {:disconnect, player_id},
         %{client_game_state: game_state} = gen_server_state
