@@ -307,6 +307,14 @@ impl GameState {
         next_position: Position,
     ) -> Vec<u64> {
         let mut affected_players: Vec<u64> = vec![];
+
+        let (p1, p2) = match previous_position.x < next_position.x {
+            true => (previous_position, next_position),
+            false if previous_position.x > next_position.x => (next_position, previous_position),
+            false if previous_position.y < next_position.y => (previous_position, next_position),
+            _ => (next_position, previous_position),
+        };
+
         players
             .iter_mut()
             .filter(|player| {
@@ -315,17 +323,6 @@ impl GameState {
             .for_each(|player| {
                 // TODO: Make the radius configurable
                 let radius = 10f64;
-
-                let (p1, p2) = match previous_position.x < next_position.x {
-                    true => (previous_position, next_position),
-                    false if previous_position.x > next_position.x => {
-                        (next_position, previous_position)
-                    }
-                    false if previous_position.y < next_position.y => {
-                        (previous_position, next_position)
-                    }
-                    _ => (next_position, previous_position),
-                };
 
                 let player_attacked = match p2.y == p1.y {
                     true => {
