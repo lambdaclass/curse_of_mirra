@@ -148,7 +148,7 @@ impl GameState {
         if matches!(player.status, Status::DEAD) {
             return Ok(());
         }
-        
+
         let mut new_position = compute_adjacent_position_n_tiles(
             &direction,
             &player.position,
