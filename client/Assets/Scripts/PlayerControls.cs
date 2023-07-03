@@ -44,30 +44,26 @@ public class PlayerControls : MonoBehaviour
     }
     public void SendAction()
     {
-        var direction = new Vector2(0, 0);
+        float x = 0;
+        float y = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            direction.y += 1f;
+            y += 1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            direction.x += -1f;
+            x += -1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            direction.x += 1f;
+            x += 1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            direction.y += -1f;
+            y += -1f;
         }
 
-        if (direction.x !=0 || direction.y != 0) {
-            var valuesToSend = new RelativePosition { X = direction.x, Y = direction.y };
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
-            SocketConnectionManager.Instance.SendAction(clientAction);
-        }
+        SendJoystickValues(x, y);
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
