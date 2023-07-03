@@ -50,8 +50,8 @@ GameObject:
   - component: {fileID: 294850377}
   - component: {fileID: 294850376}
   - component: {fileID: 294850375}
-  - component: {fileID: 294850374}
   - component: {fileID: 294850373}
+  - component: {fileID: 5181381305630276503}
   m_Layer: 0
   m_Name: AttackKnob
   m_TagString: Untagged
@@ -129,48 +129,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &294850374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294850371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactable: 1
-  ButtonPressedFirstTime:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonReleased:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 1
-  DisabledColor: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
-  PressedSprite: {fileID: 0}
-  PressedChangeColor: 1
-  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
-  HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 0
-  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-  PressedOpacity: 1
-  IdleOpacity: 1
-  DisabledOpacity: 1
-  PressedFirstTimeDelay: 0
-  ReleasedDelay: 0
-  BufferDuration: 0
-  Animator: {fileID: 0}
-  IdleAnimationParameterName: Idle
-  DisabledAnimationParameterName: Disabled
-  PressedAnimationParameterName: Pressed
-  MouseMode: 0
 --- !u!114 &294850373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +184,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
+--- !u!114 &5181381305630276503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294850371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactable: 1
+  ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  DisabledSprite: {fileID: 0}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedSprite: {fileID: 0}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightedSprite: {fileID: 0}
+  HighlightedChangeColor: 0
+  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedOpacity: 1
+  IdleOpacity: 1
+  DisabledOpacity: 1
+  PressedFirstTimeDelay: 0
+  ReleasedDelay: 0
+  BufferDuration: 0
+  Animator: {fileID: 0}
+  IdleAnimationParameterName: Idle
+  DisabledAnimationParameterName: Disabled
+  PressedAnimationParameterName: Pressed
+  MouseMode: 1
 --- !u!1 &368487284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,7 +3311,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40.3
+  field of view: 35
   orthographic: 0
   orthographic size: 10
   m_Depth: 1
@@ -5617,11 +5617,11 @@ MonoBehaviour:
   Threshold: {x: 0.1, y: 0.4}
   RotateInputBasedOnCameraDirection: 0
   joystickL: {fileID: 4205330954594474065}
-  SkillBasic: {fileID: 867670502850086981}
-  Skill1: {fileID: 914792814397663453}
-  Skill2: {fileID: 5616359017623639598}
-  Skill3: {fileID: 1730262193359057198}
-  Skill4: {fileID: 294850374}
+  SkillBasic: {fileID: 1191156216025387334}
+  Skill1: {fileID: 2821193803697498299}
+  Skill2: {fileID: 1817991950450394320}
+  Skill3: {fileID: 5467105187074569116}
+  Skill4: {fileID: 5181381305630276503}
   SkillBasicCooldown: {fileID: 3353265690883270709}
   Skill1Cooldown: {fileID: 6708494150494417716}
   Skill2Cooldown: {fileID: 8730552177544952447}
@@ -6780,8 +6780,8 @@ GameObject:
   - component: {fileID: 126795200122360273}
   - component: {fileID: 8292378424017185155}
   - component: {fileID: 6144801788006790747}
-  - component: {fileID: 1730262193359057198}
   - component: {fileID: 6593141468661040779}
+  - component: {fileID: 5467105187074569116}
   m_Layer: 0
   m_Name: AttackKnob
   m_TagString: Untagged
@@ -6859,48 +6859,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1730262193359057198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627176288169803809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactable: 1
-  ButtonPressedFirstTime:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonReleased:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 1
-  DisabledColor: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
-  PressedSprite: {fileID: 0}
-  PressedChangeColor: 1
-  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
-  HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 0
-  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-  PressedOpacity: 1
-  IdleOpacity: 1
-  DisabledOpacity: 1
-  PressedFirstTimeDelay: 0
-  ReleasedDelay: 0
-  BufferDuration: 0
-  Animator: {fileID: 0}
-  IdleAnimationParameterName: Idle
-  DisabledAnimationParameterName: Disabled
-  PressedAnimationParameterName: Pressed
-  MouseMode: 0
 --- !u!114 &6593141468661040779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6956,6 +6914,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
+--- !u!114 &5467105187074569116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627176288169803809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactable: 1
+  ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  DisabledSprite: {fileID: 0}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedSprite: {fileID: 0}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightedSprite: {fileID: 0}
+  HighlightedChangeColor: 0
+  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedOpacity: 1
+  IdleOpacity: 1
+  DisabledOpacity: 1
+  PressedFirstTimeDelay: 0
+  ReleasedDelay: 0
+  BufferDuration: 0
+  Animator: {fileID: 0}
+  IdleAnimationParameterName: Idle
+  DisabledAnimationParameterName: Disabled
+  PressedAnimationParameterName: Pressed
+  MouseMode: 0
 --- !u!1 &759855279148308545
 GameObject:
   m_ObjectHideFlags: 0
@@ -7720,8 +7720,8 @@ GameObject:
   - component: {fileID: 8483658721457521829}
   - component: {fileID: 1270487771249174533}
   - component: {fileID: 4104563683963785515}
-  - component: {fileID: 5616359017623639598}
   - component: {fileID: 4218293920061336452}
+  - component: {fileID: 1817991950450394320}
   m_Layer: 0
   m_Name: AttackKnob
   m_TagString: Untagged
@@ -7799,48 +7799,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5616359017623639598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1035504164758360170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactable: 1
-  ButtonPressedFirstTime:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonReleased:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 1
-  DisabledColor: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
-  PressedSprite: {fileID: 0}
-  PressedChangeColor: 1
-  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
-  HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 0
-  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-  PressedOpacity: 1
-  IdleOpacity: 1
-  DisabledOpacity: 1
-  PressedFirstTimeDelay: 0
-  ReleasedDelay: 0
-  BufferDuration: 0
-  Animator: {fileID: 0}
-  IdleAnimationParameterName: Idle
-  DisabledAnimationParameterName: Disabled
-  PressedAnimationParameterName: Pressed
-  MouseMode: 0
 --- !u!114 &4218293920061336452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7896,6 +7854,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
+--- !u!114 &1817991950450394320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035504164758360170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactable: 1
+  ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  DisabledSprite: {fileID: 0}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedSprite: {fileID: 0}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightedSprite: {fileID: 0}
+  HighlightedChangeColor: 0
+  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedOpacity: 1
+  IdleOpacity: 1
+  DisabledOpacity: 1
+  PressedFirstTimeDelay: 0
+  ReleasedDelay: 0
+  BufferDuration: 0
+  Animator: {fileID: 0}
+  IdleAnimationParameterName: Idle
+  DisabledAnimationParameterName: Disabled
+  PressedAnimationParameterName: Pressed
+  MouseMode: 1
 --- !u!1 &1171708569640357412
 GameObject:
   m_ObjectHideFlags: 0
@@ -8531,7 +8531,7 @@ GameObject:
   - component: {fileID: 8826288391604923631}
   - component: {fileID: 6823764808792572830}
   - component: {fileID: 2864256523158950205}
-  - component: {fileID: 867670502850086981}
+  - component: {fileID: 1191156216025387334}
   m_Layer: 0
   m_Name: AttackBasic
   m_TagString: Untagged
@@ -8609,7 +8609,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &867670502850086981
+--- !u!114 &1191156216025387334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8618,7 +8618,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4502623651594081531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
@@ -8632,11 +8632,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 1
-  DisabledColor: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
-  PressedChangeColor: 1
-  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightedSprite: {fileID: 0}
   HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -8973,8 +8973,8 @@ GameObject:
   - component: {fileID: 9064383643263897936}
   - component: {fileID: 4818902771951513333}
   - component: {fileID: 1799862189989638510}
-  - component: {fileID: 914792814397663453}
   - component: {fileID: 5999323559339333925}
+  - component: {fileID: 2821193803697498299}
   m_Layer: 0
   m_Name: AttackKnob
   m_TagString: Untagged
@@ -9052,48 +9052,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &914792814397663453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5855432308331737228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactable: 1
-  ButtonPressedFirstTime:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonReleased:
-    m_PersistentCalls:
-      m_Calls: []
-  ButtonPressed:
-    m_PersistentCalls:
-      m_Calls: []
-  DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 1
-  DisabledColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
-  PressedSprite: {fileID: 0}
-  PressedChangeColor: 1
-  PressedColor: {r: 0.90588236, g: 0.8117647, b: 0.7372549, a: 1}
-  HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 0
-  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-  PressedOpacity: 1
-  IdleOpacity: 1
-  DisabledOpacity: 1
-  PressedFirstTimeDelay: 0
-  ReleasedDelay: 0
-  BufferDuration: 0
-  Animator: {fileID: 0}
-  IdleAnimationParameterName: Idle
-  DisabledAnimationParameterName: Disabled
-  PressedAnimationParameterName: Pressed
-  MouseMode: 0
 --- !u!114 &5999323559339333925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9149,6 +9107,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
+--- !u!114 &2821193803697498299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5855432308331737228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactable: 1
+  ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  DisabledSprite: {fileID: 0}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedSprite: {fileID: 0}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightedSprite: {fileID: 0}
+  HighlightedChangeColor: 0
+  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedOpacity: 1
+  IdleOpacity: 1
+  DisabledOpacity: 1
+  PressedFirstTimeDelay: 0
+  ReleasedDelay: 0
+  BufferDuration: 0
+  Animator: {fileID: 0}
+  IdleAnimationParameterName: Idle
+  DisabledAnimationParameterName: Disabled
+  PressedAnimationParameterName: Pressed
+  MouseMode: 1
 --- !u!1 &6311364488174795168
 GameObject:
   m_ObjectHideFlags: 0
