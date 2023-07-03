@@ -157,7 +157,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.moremountains.topdownengine
+    Android: com.DefaultCompany.DarkWorlds
     Standalone: unity.MoreMountains.TopDown
     Tizen: com.Company.ProductName
     iPhone: com.moremountains.topdownengine
@@ -244,7 +244,7 @@ PlayerSettings:
   clonedFromGUID: b26cbc2f17c4a3f418631f1e9dbbcb50
   templatePackageId: 
   templateDefaultScene: 
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -255,8 +255,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: /Users/bautistaberto/lambda/user.keystore
+  AndroidKeyaliasName: bauti
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
