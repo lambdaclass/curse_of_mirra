@@ -69,10 +69,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
+    Logger.info("[#{DateTime.utc_now()}] Starting game with opts: #{inspect(opts, pretty: true)}")
+
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
       |> Keyword.fetch!(:process_priority)
 
+    Logger.info("Starting game with priority: #{priority}")
     Process.flag(:priority, priority)
 
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
@@ -133,9 +136,24 @@ defmodule DarkWorldsServer.Engine.Runner do
     server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
-      gen_server_state
-      |> Map.put(:server_game_state, server_game_state)
-      |> set_timestamp_for_player(timestamp, player)
+      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast(
+        {:play, player, %ActionOk{action: :move, value: value, timestamp: timestamp}},
+        %{server_game_state: %{game: game} = server_game_state} = gen_server_state
+      ) do
+    {:ok, game} =
+      game
+      |> Game.move_player(player, value)
+
+    server_game_state = Map.put(server_game_state, :game, game)
+
+    gen_server_state
+    |> Map.put(:server_game_state, server_game_state)
+    |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, gen_server_state}
   end
@@ -176,7 +194,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = gen_server_state.server_game_state
 
     player_id = gen_server_state.current_players + 1
-    new_game = Game.spawn_player(game_state.game, player_id)
+    {:ok, new_game} = Game.spawn_player(game_state.game, player_id)
 
     broadcast_to_darkworlds_server({:player_joined, player_id})
 
@@ -239,9 +257,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
-    Logger.info("#{DateTime.utc_now()} Received config: #{inspect(opts, pretty: true)}")
 
-    tick_rate = Map.get(opts.game_config, :server_tickrate_ms, @tick_rate_ms)
+    tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
     Process.send_after(
@@ -373,7 +390,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
     round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
-    game = Game.new_round(server_game_state.game, round_players)
+    {:ok, game} = Game.new_round(server_game_state.game, round_players)
 
     server_game_state = %{server_game_state | game: game}
 
@@ -437,12 +454,12 @@ defmodule DarkWorldsServer.Engine.Runner do
       characters: character_info
     }
 
-    Game.new(config)
+    {:ok, _game} = Game.new(config)
   end
 
   defp all_characters_set?(state) do
     cond do
-      state[:game_status] == :playing ->
+      Map.get(state, :game_status) == :playing ->
         nil
 
       Map.get(state, :selected_characters, %{}) |> map_size() == state[:max_players] ->
@@ -463,7 +480,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         state[:game_status] == :playing ->
           state
 
-        selected_characters and map_size(selected_characters) < state[:max_players] ->
+        not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
           players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
           players_without_character =
@@ -488,7 +505,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)
-  defp do_move(:move, game, player, value), do: {:ok, Game.move_player(game, player, value)}
+  defp do_move(:move, game, player, value), do: Game.move_player(game, player, value)
 
   defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
