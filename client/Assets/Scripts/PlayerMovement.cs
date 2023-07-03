@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public ulong accumulatedTime;
     public long currentTick;
+    public ulong deltaInterpolationTime = 100; // In milliseconds
 
     void Start()
     {
@@ -93,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-
         if (player){
             Character character = player.GetComponent<Character>();
             if (MovementAuthorized(character)){
@@ -161,6 +161,14 @@ public class PlayerMovement : MonoBehaviour
                     .SetActive(false);
             }
         }
+        var currentTime = (ulong) SocketConnectionManager.Instance.firstTimestamp + accumulatedTime;
+        var pastTime = currentTime - deltaInterpolationTime;
+        var lastTimestamp = SocketConnectionManager.Instance.gameEvents.Max(e => e.ServerTimestamp);
+        print("the last timestamp received is: " + lastTimestamp);
+        print("the current time is: " + currentTime);
+        print("the past time is: " + pastTime);
+        print("the accumulated time is: " + accumulatedTime);
+
         currentTick = (long) (accumulatedTime - 3 * (SocketConnectionManager.Instance.serverTickRate_ms + 1)) / (SocketConnectionManager.Instance.serverTickRate_ms + 1);
         
         if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {

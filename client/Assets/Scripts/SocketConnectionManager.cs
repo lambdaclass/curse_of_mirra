@@ -44,6 +44,8 @@ public class SocketConnectionManager : MonoBehaviour
     public List<GameEvent> gameEvents = new List<GameEvent>();
     WebSocket ws;
 
+    public long firstTimestamp = 0;    
+
     public class Session
     {
         public string session_id { get; set; }
@@ -137,7 +139,11 @@ public class SocketConnectionManager : MonoBehaviour
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
+                    
                     gameEvents.Add(game_event);
+                    if(firstTimestamp == 0){
+                        firstTimestamp = game_event.ServerTimestamp;
+                    }
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
