@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public ulong accumulatedTime;
+    public long currentTick;
 
     void Start()
     {
@@ -51,8 +52,13 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            float temp = (float)Math.Round(Time.deltaTime * 1000f);
-            accumulatedTime += (ulong)temp;
+            if(currentTick == 0){
+                currentTick = (long) SocketConnectionManager.Instance.gameEvents.Count - 1;
+                accumulatedTime = (ulong) currentTick * SocketConnectionManager.Instance.serverTickRate_ms;
+            }else{                
+                float temp = (float)Math.Round(Time.deltaTime * 1000f);
+                accumulatedTime += (ulong)temp;
+            }
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -113,21 +119,12 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
-        long currentTick = (long) (accumulatedTime - 3 * SocketConnectionManager.Instance.serverTickRate_ms) / SocketConnectionManager.Instance.serverTickRate_ms;
-        print("the initial index is: " + currentTick);
-        if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
-        var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
-        currentTick = (index < 0) ? 0:index;
-        }
-
         useInterpolation = true;
         GameEvent gameEvent;
-
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
             // We don't need to interpolate what we're seeing, just what the see about other players
-            if(useInterpolation && 
-            SocketConnectionManager.Instance.playerId != SocketConnectionManager.Instance.gamePlayers[i].Id)
+            if(useInterpolation)
             {
                 gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
             }else
@@ -163,6 +160,12 @@ public class PlayerMovement : MonoBehaviour
                     .GetComponent<Character>().CharacterModel
                     .SetActive(false);
             }
+        }
+        currentTick = (long) (accumulatedTime - 3 * (SocketConnectionManager.Instance.serverTickRate_ms + 1)) / (SocketConnectionManager.Instance.serverTickRate_ms + 1);
+        
+        if(currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0) {
+            var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
+            currentTick = (index < 0) ? 0:index;
         }
     }
 
