@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Hack_Basic
   inputType: 0
   feedbackAnimation: {fileID: 0}
-  animationSpeedMultiplier: 1
+  animationSpeedMultiplier: 3.5
   blockMovementTime: 0
