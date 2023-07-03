@@ -76,16 +76,15 @@ public class CustomInputManager : InputManager
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
         CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
+        CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
         {
             case UIType.Tap:
-                CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
-
                 button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
-                    mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
+                    joystick.enabled = false;
                 }
                 break;
 
