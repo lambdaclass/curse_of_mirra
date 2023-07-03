@@ -109,11 +109,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp decide_action(bot_id, players, %{objective: :attack_player} = bot_state) do
     Process.send_after(self(), {:decide_action, bot_id}, 5_000)
-    [player | _] =
-      Enum.reject(players, fn player -> player.id == bot_id end)
-      |> Enum.sort_by(& &1.health, :desc)
+    case Enum.reject(players, fn player -> player.id == bot_id or player.health <= 0 end) do
+      [player | _] ->
+        Map.put(bot_state, :action, {:try_attack, player.id})
 
-    Map.put(bot_state, :action, {:try_attack, player.id})
+      _ ->
+        [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
+      Map.put(bot_state, :action, {:move, movement})
+    end
   end
 
   defp do_action(_, _, _, _, %{alive: false}) do
@@ -132,15 +135,20 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     player = Enum.find(players, fn player -> player.id == player_id end)
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
-    x_distance = player.position.x - bot.position.x
-    y_distance = player.position.y - bot.position.y
+    case bot do
+      nil -> :waiting_game_update
 
-    {x, y} = calculate_circle_point(bot.position.x, bot.position.y, player.position.x, player.position.y)
+      bot ->
+        x_distance = player.position.x - bot.position.x
+        y_distance = player.position.y - bot.position.y
 
-    if abs(x_distance) >= 20 and abs(y_distance) >= 20 do
-      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
-    else
-      Runner.play(game_pid, bot_id, %ActionOk{action: :basic_attack, value: %RelativePosition{x: x, y: y}, timestamp: nil})
+        {x, y} = calculate_circle_point(bot.position.x, bot.position.y, player.position.x, player.position.y)
+
+        if abs(x_distance) >= 20 and abs(y_distance) >= 20 do
+          Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
+        else
+          Runner.play(game_pid, bot_id, %ActionOk{action: :basic_attack, value: %RelativePosition{x: x, y: y}, timestamp: nil})
+        end
     end
   end
 
