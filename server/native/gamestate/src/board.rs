@@ -1,9 +1,9 @@
 use rustler::{NifStruct, NifTaggedEnum, ResourceArc};
 use std::sync::Mutex;
-
+pub type Grid = Vec<Tile>;
 #[derive(Debug)]
 pub struct GridResource {
-    pub resource: Mutex<Vec<Vec<Tile>>>,
+    pub resource: Mutex<Vec<Tile>>,
 }
 
 #[derive(Debug, Clone, NifTaggedEnum, PartialEq)]
@@ -23,7 +23,7 @@ pub struct Board {
 impl Board {
     pub fn new(width: usize, height: usize) -> Self {
         let resource = GridResource {
-            resource: Mutex::new(vec![vec![Tile::Empty; height]; width]),
+            resource: Mutex::new(vec![Tile::Empty; width * height]),
         };
         let grid = ResourceArc::new(resource);
 
@@ -33,17 +33,36 @@ impl Board {
             height,
         }
     }
-
     pub fn get_cell(self: &Self, row_idx: usize, col_idx: usize) -> Option<Tile> {
-        if let Some(row) = self.grid.resource.lock().unwrap().get(row_idx) {
-            row.get(col_idx).cloned()
-        } else {
-            None
-        }
+        let indx = (row_idx * self.width) + col_idx;
+        self.grid
+            .resource
+            .lock()
+            // I don't really like this, but it hasn't showed
+            // up in load tests, so I guess this is ok.
+            .expect("Could not get lock to resource!")
+            .get(indx)
+            .map(|x| x.clone())
     }
 
     // If you want to move players around, use game::GameState::move_player instead.
-    pub fn set_cell(self: &mut Self, row_idx: usize, col_idx: usize, value: Tile) {
-        self.grid.resource.lock().unwrap()[row_idx][col_idx] = value;
+    pub fn set_cell(
+        self: &mut Self,
+        row_idx: usize,
+        col_idx: usize,
+        value: Tile,
+    ) -> Result<(), String> {
+        let indx = (row_idx * self.width) + col_idx;
+        let mut board = self
+            .grid
+            .resource
+            .lock()
+            .expect("Could not get lock to resource!");
+        let cell = board.get_mut(indx).ok_or(format!(
+            "Indices: x = {}, y = {} (calculated to: {}) are out of bounds. Grid size is: {}x{}",
+            row_idx, col_idx, indx, self.width, self.height
+        ))?;
+        *cell = value;
+        Ok(())
     }
 }

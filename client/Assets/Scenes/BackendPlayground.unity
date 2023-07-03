@@ -377,6 +377,8 @@ MonoBehaviour:
   serverGhost: {fileID: 0}
   nextAttackDirection: 0
   isAttacking: 0
+  BlockingMovementStates: 
+  BlockingConditionStates: 
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +519,7 @@ MonoBehaviour:
   backToLobbyButton: {fileID: 368487284}
   UiCamera: {fileID: 637808576}
   camera: {fileID: 1666771299}
-  charactersPrefabList:
+  charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
   - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
   - {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677, type: 2}
