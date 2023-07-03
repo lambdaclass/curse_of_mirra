@@ -15,8 +15,9 @@ message GameEvent {
     uint64 player_joined_id = 5;
     Player winner_player = 6;
     uint64 current_round = 7;
-    int64 timestamp = 8;
-    map<uint64, string> selected_characters = 9;
+    map<uint64, string> selected_characters = 8;
+    int64 player_timestamp = 9;
+    int64 server_timestamp = 10;
 }
 
 /* Type of game events

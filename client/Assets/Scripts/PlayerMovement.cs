@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     movePlayer(serverGhost, serverPlayerUpdate);
                 }
-                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(serverPlayerUpdate, gameEvent.Timestamp);
+                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(serverPlayerUpdate, gameEvent.PlayerTimestamp);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
