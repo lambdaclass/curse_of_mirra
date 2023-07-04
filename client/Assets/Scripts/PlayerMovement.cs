@@ -22,9 +22,9 @@ public class PlayerMovement : MonoBehaviour
   public bool isAttacking = false;
   public CharacterStates.MovementStates[] BlockingMovementStates;
   public CharacterStates.CharacterConditions[] BlockingConditionStates;
-  public ulong accumulatedTime;
-  public long currentTick;
-  public ulong deltaInterpolationTime = 500; // In milliseconds
+  public float accumulatedTime;
+  public long firstTimestamp;
+  public long deltaInterpolationTime; // In milliseconds
 
   void Start()
   {
@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     useInterpolation = false;
     showInterpolationGhost = false;
     accumulatedTime = 0;
+    deltaInterpolationTime = 100;
+    firstTimestamp = 0;
   }
 
   private void InitBlockingStates()
@@ -53,16 +55,7 @@ public class PlayerMovement : MonoBehaviour
         && SocketConnectionManager.Instance.gamePlayers.Count > 0
     )
     {
-      if (currentTick == 0)
-      {
-        currentTick = (long)SocketConnectionManager.Instance.gameEvents.Count - 1;
-        accumulatedTime = (ulong)currentTick * SocketConnectionManager.Instance.serverTickRate_ms;
-      }
-      else
-      {
-        float temp = (float)Math.Round(Time.deltaTime * 1000f);
-        accumulatedTime += (ulong)temp;
-      }
+      accumulatedTime += Time.deltaTime * 1000f;
       UpdatePlayerActions();
       UpdateProyectileActions();
     }
@@ -137,16 +130,18 @@ public class PlayerMovement : MonoBehaviour
       // {
       //     gameEvent = SocketConnectionManager.Instance.gameEvent;
       // }
-      var currentTime = (ulong)SocketConnectionManager.Instance.firstTimestamp + accumulatedTime;
+
+      if (firstTimestamp == 0) {
+        firstTimestamp = SocketConnectionManager.Instance.gameEvents[SocketConnectionManager.Instance.gameEvents.Count - 1].ServerTimestamp;
+      }
+
+      var currentTime = firstTimestamp + (long)accumulatedTime;
       var pastTime = currentTime - deltaInterpolationTime;
-      var lastTimestamp = SocketConnectionManager.Instance.gameEvents.Max(e => e.ServerTimestamp);
-      print("the last timestamp received is: " + lastTimestamp);
-      print("the current time is: " + currentTime);
-      print("the past time is: " + pastTime);
-      print("the accumulated time is: " + accumulatedTime);
-      var aux = SocketConnectionManager.Instance.gameEvents.First(e => (ulong)e.ServerTimestamp > pastTime);
+
+      // TODO: Here, if there is no first we need to return the latest event.
+      var aux = SocketConnectionManager.Instance.gameEvents.First(e => e.ServerTimestamp > pastTime);
       var index = SocketConnectionManager.Instance.gameEvents.FindIndex(e => e.ServerTimestamp == aux.ServerTimestamp);
-      gameEvent = SocketConnectionManager.Instance.gameEvents[index + 1];
+      gameEvent = SocketConnectionManager.Instance.gameEvents[index];
 
       // This call to `new` here is extremely important for client prediction. If we don't make a copy,
       // prediction will modify the player in place, which is not what we want.
@@ -176,15 +171,6 @@ public class PlayerMovement : MonoBehaviour
             .GetComponent<Character>().CharacterModel
             .SetActive(false);
       }
-    }
-
-
-    currentTick = (long)(accumulatedTime - 3 * (SocketConnectionManager.Instance.serverTickRate_ms + 1)) / (SocketConnectionManager.Instance.serverTickRate_ms + 1);
-
-    if (currentTick > SocketConnectionManager.Instance.gameEvents.Count || currentTick < 0)
-    {
-      var index = SocketConnectionManager.Instance.gameEvents.Count - 1;
-      currentTick = (index < 0) ? 0 : index;
     }
   }
 

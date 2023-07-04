@@ -26,7 +26,6 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
-    // public List<List<Player>> serverUpdates;
     public List<List<Player>> serverUpdates;
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
@@ -43,8 +42,6 @@ public class SocketConnectionManager : MonoBehaviour
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
     WebSocket ws;
-
-    public long firstTimestamp = 0;    
 
     public class Session
     {
@@ -141,9 +138,6 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     
                     gameEvents.Add(game_event);
-                    if(firstTimestamp == 0){
-                        firstTimestamp = game_event.ServerTimestamp;
-                    }
                     this.gameEvent = game_event;
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
