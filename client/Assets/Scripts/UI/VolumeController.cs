@@ -17,9 +17,4 @@ public class VolumeController : MonoBehaviour
     {
         soundManager.SetVolumeMusic(volumeSlider.value);
     }
-
-    public void ChangeSfxVolume()
-    {
-        soundManager.SetVolumeSfx(volumeSlider.value);
-    }
 }
