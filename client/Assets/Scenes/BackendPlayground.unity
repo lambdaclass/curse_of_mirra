@@ -523,6 +523,7 @@ MonoBehaviour:
   roundSplash: {fileID: 2856279044554654234}
   roundText: {fileID: 2856279044554654233}
   backToLobbyButton: {fileID: 2856279044554654232}
+  soundManager: {fileID: 1734572836}
   UiCamera: {fileID: 2856279044554654231}
   camera: {fileID: 2856279044554654230}
   charactersInfo:
