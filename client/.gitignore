@@ -107,3 +107,5 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+monocrash*.blob

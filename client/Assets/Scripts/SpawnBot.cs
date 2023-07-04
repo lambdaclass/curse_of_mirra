@@ -26,6 +26,11 @@ public class SpawnBot : MonoBehaviour
         SocketConnectionManager.Instance.CallSpawnBot();
     }
 
+    public void ToggleBots()
+    {
+        SocketConnectionManager.Instance.ToggleBots();
+    }
+
     public void Spawn(Player player)
     {
         pendingSpawn = true;

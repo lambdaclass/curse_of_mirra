@@ -25,6 +25,7 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
+    [SerializeField] Image joystickL;
     [SerializeField] MMTouchButton SkillBasic;
     [SerializeField] MMTouchButton Skill1;
     [SerializeField] MMTouchButton Skill2;
@@ -42,6 +43,7 @@ public class CustomInputManager : InputManager
     private GameObject indicator;
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
+    private Vector3 initialLeftJoystickPosition;
 
     protected override void Start()
     {
@@ -226,14 +228,18 @@ public class CustomInputManager : InputManager
         skill.TryExecuteSkill(direction);
     }
 
-    public void CheckSkillCooldown(UIControls control, ulong cooldown){
+    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    {
         MMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
-        if (cooldown == 0){
+        if (cooldown == 0)
+        {
             button.EnableButton();
             cooldownText.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             button.DisableButton();
             cooldownText.gameObject.SetActive(true);
             cooldownText.text = cooldown.ToString();
@@ -258,5 +264,14 @@ public class CustomInputManager : InputManager
         {
             button.GetComponent<MMTouchButton>().Interactable = true;
         }
+    }
+
+    public void SetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 0.25f);
+    }
+    public void UnsetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 1);
     }
 }

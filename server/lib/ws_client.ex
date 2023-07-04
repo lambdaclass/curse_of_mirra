@@ -60,7 +60,7 @@ defmodule DarkWorldsServer.WsClient do
   def attack_aoe(player, position) do
     %{
       "player" => player,
-      "action" => "attack_aoe",
+      "action" => "skill_1",
       "value" => %{"x" => position.x, "y" => position.y}
     }
     |> send_command()
