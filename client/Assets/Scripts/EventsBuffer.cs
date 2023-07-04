@@ -30,8 +30,12 @@ public class EventsBuffer
   {
     GameEvent nextGameEvent = updatesBuffer.Where(ge => ge.ServerTimestamp > (long)pastTime)
       .OrderBy(ge => ge.ServerTimestamp)
-      .First();
+      .FirstOrDefault();
 
-    return nextGameEvent;
+    if(nextGameEvent == null){
+      return this.lastEvent();
+    }else{
+      return nextGameEvent
+    }
   }
 }
