@@ -3,8 +3,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Engine.BotPlayer
   alias DarkWorldsServer.Engine.Game
-  require Logger
+
   @build_walls false
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
@@ -89,6 +90,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        is_single_player?: length(opts.players) == 1,
        game_status: :character_selection,
        player_timestamps: %{},
+       bot_handler_pid: nil,
        opts: opts
      }}
   end
@@ -192,17 +194,55 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
     game_state = gen_server_state.server_game_state
 
-    player_id = gen_server_state.current_players + 1
-    {:ok, new_game} = Game.spawn_player(game_state.game, player_id)
+    bot_id = gen_server_state.current_players + 1
+    new_game = Game.spawn_player(game_state.game, bot_id)
 
-    broadcast_to_darkworlds_server({:player_joined, player_id})
+    broadcast_to_darkworlds_server({:player_joined, bot_id})
+
+    selected_characters = Map.put(gen_server_state.selected_characters, bot_id, "Muflus")
+
+    broadcast_to_darkworlds_server({:selected_characters, selected_characters})
+
+    bot_handler_pid =
+      case gen_server_state[:bot_handler_pid] do
+        nil ->
+          {:ok, pid} = BotPlayer.start_link(self(), gen_server_state.tick_rate)
+          pid
+
+        bot_handler_pid ->
+          bot_handler_pid
+      end
+
+    BotPlayer.add_bot(bot_handler_pid, bot_id)
 
     {:noreply,
      %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
-         current_players: gen_server_state.current_players + 1
+         current_players: gen_server_state.current_players + 1,
+         selected_characters: selected_characters,
+         bot_handler_pid: bot_handler_pid
      }}
+  end
+
+  def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
+    bot_pid = gen_server_state[:bot_handler_pid]
+
+    if bot_pid do
+      BotPlayer.disable_bots(bot_pid)
+    end
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_cast({:play, _, %ActionOk{action: :enable_bots}}, gen_server_state) do
+    bot_pid = gen_server_state[:bot_handler_pid]
+
+    if bot_pid do
+      BotPlayer.enable_bots(bot_pid)
+    end
+
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
