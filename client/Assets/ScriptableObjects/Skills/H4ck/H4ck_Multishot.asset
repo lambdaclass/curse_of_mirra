@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Hack_Multishot
   inputType: 2
   feedbackAnimation: {fileID: 0}
-  animationSpeedMultiplier: 3.5
+  animationSpeedMultiplier: 4
   blockMovementTime: 0
