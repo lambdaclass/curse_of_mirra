@@ -388,4 +388,5 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:disarmed, ticks}), do: {1, ticks}
   defp effect_encode({:piercing, ticks}), do: {2, ticks}
   defp effect_encode({:raged, ticks}), do: {3, ticks}
+  defp effect_encode({{:neon_crashing, _, _}, ticks}), do: {4, ticks}
 end

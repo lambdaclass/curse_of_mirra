@@ -1,6 +1,6 @@
-use crate::character::TicksLeft;
 use crate::game;
 use crate::player::Position;
+use crate::player::TicksLeft;
 use crate::utils::RelativePosition;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;

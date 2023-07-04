@@ -1,10 +1,30 @@
-use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
+use crate::character::{Character, Name};
 use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
 use rand::Rng;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
+pub type TicksLeft = u64;
+
+pub type StatusEffects = HashMap<Effect, TicksLeft>;
+
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+pub enum Effect {
+    Petrified,
+    Disarmed,
+    Piercing,
+    Raged,
+    NeonCrashing(i32, i32),
+}
+impl Effect {
+    pub fn is_crowd_control(&self) -> bool {
+        match self {
+            Effect::Petrified | Effect::Disarmed => true,
+            _ => false,
+        }
+    }
+}
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack
@@ -159,13 +179,25 @@ impl Player {
 
     #[inline]
     pub fn speed(&self) -> u64 {
+        let base_speed = self.character.base_speed;
         if self.has_active_effect(&Effect::Petrified) {
             return 0;
         }
         if self.has_active_effect(&Effect::Raged) {
             return ((self.character.base_speed as f64) * 1.5).ceil() as u64;
         }
-        return self.character.base_speed;
+        // TODO: Refactor this
+        if self.character.name == Name::H4ck {
+            for effect in self.effects.iter() {
+                match effect {
+                    (Effect::NeonCrashing(_x, _y), _) => {
+                        return ((self.character.base_speed as f64) * 3.).ceil() as u64
+                    }
+                    _ => return base_speed,
+                }
+            }
+        }
+        return base_speed;
     }
 
     fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {

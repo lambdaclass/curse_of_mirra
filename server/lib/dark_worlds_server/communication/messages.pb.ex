@@ -82,6 +82,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:DISARMED, 1)
   field(:PIERCING, 2)
   field(:RAGED, 3)
+  field(:NEON_CRASHING, 4)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do

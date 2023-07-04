@@ -253,9 +253,14 @@ public class PlayerMovement : MonoBehaviour
         frames, but that's fine).
         */
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+        // TODO: Refactor this
         if (playerUpdate.Effects.ContainsKey((ulong) PlayerEffect.Raged))
         {
             characterSpeed *= 1.5f;
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong) PlayerEffect.NeonCrashing))
+        {
+            characterSpeed *= 3f;
         }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend

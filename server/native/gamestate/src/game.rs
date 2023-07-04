@@ -3,8 +3,8 @@ use rustler::{NifStruct, NifUnitEnum};
 use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
-use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, Status};
+use crate::character::{Character, Name};
+use crate::player::{Effect, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
@@ -178,7 +178,7 @@ impl GameState {
         Ok(())
     }
 
-    pub fn move_player_to_coordinates(
+    pub fn move_player_to_relative_position(
         board: &mut Board,
         attacking_player: &mut Player,
         direction: &RelativePosition,
@@ -241,6 +241,14 @@ impl GameState {
             return Ok(());
         }
 
+        if player.character.name == Name::H4ck {
+            for effect in player.effects.iter() {
+                match effect {
+                    (Effect::NeonCrashing(_x, _y), _) => return Ok(()),
+                    _ => (),
+                }
+            }
+        }
         let new_position = new_entity_position(
             self.board.height,
             self.board.width,
@@ -259,6 +267,7 @@ impl GameState {
             player.position.y,
             Tile::Player(player.id),
         )?;
+
         Ok(())
     }
 
@@ -546,7 +555,7 @@ impl GameState {
     ) -> Result<(), String> {
         // TODO: refactor this skill
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        Self::move_player_to_coordinates(board, attacking_player, direction)?;
+        Self::move_player_to_relative_position(board, attacking_player, direction)?;
         Self::muflus_skill_1(board, players, attacking_player_id)?;
         Ok(())
     }
@@ -628,12 +637,14 @@ impl GameState {
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
 
         match attacking_player.character.name {
-            Name::H4ck => Self::h4ck_skill_2(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::H4ck => {
+                attacking_player.add_effect(
+                    Effect::NeonCrashing((direction.x * 100.) as i32, (direction.y * 100.) as i32)
+                        .clone(),
+                    10,
+                );
+                Ok(())
+            }
             Name::Muflus => {
                 let id = attacking_player.id;
                 Self::leap(&mut self.board, id, direction, &mut self.players)
@@ -687,6 +698,39 @@ impl GameState {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
+            // TODO: Refactor this
+            if player.character.name == Name::H4ck {
+                for effect in player.effects.iter() {
+                    match effect {
+                        (Effect::NeonCrashing(x, y), _) => {
+                            //GameState::move_player_to_direction(self, player, *x as f32 / 100., *y as f32 / 100.);
+                            let new_position = new_entity_position(
+                                self.board.height,
+                                self.board.width,
+                                *x as f32 / 100.,
+                                *y as f32 / 100.,
+                                player.position,
+                                player.speed() as i64,
+                            );
+
+                            self.board
+                                .set_cell(player.position.x, player.position.y, Tile::Empty)
+                                .unwrap();
+
+                            player.position = new_position;
+                            self.board
+                                .set_cell(
+                                    player.position.x,
+                                    player.position.y,
+                                    Tile::Player(player.id),
+                                )
+                                .unwrap();
+                        }
+                        _ => {}
+                    }
+                }
+                //move hack
+            }
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {

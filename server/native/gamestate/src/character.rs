@@ -3,22 +3,7 @@ use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
-pub type TicksLeft = u64;
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
-pub enum Effect {
-    Petrified = 0,
-    Disarmed = 1,
-    Piercing = 2,
-    Raged = 3,
-}
-impl Effect {
-    pub fn is_crowd_control(&self) -> bool {
-        match self {
-            Effect::Petrified | Effect::Disarmed => true,
-            _ => false,
-        }
-    }
-}
+
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
@@ -29,7 +14,6 @@ pub enum Name {
     Muflus,
 }
 trait CharacterTrait {}
-pub type StatusEffects = HashMap<Effect, TicksLeft>;
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
 pub enum Faction {
     #[strum(serialize = "ara", serialize = "Araban", ascii_case_insensitive)]
@@ -180,18 +164,6 @@ impl Character {
             BasicSkill::Slingshot => 5,
             BasicSkill::Bash => 3,
             BasicSkill::Backstab => 1,
-        }
-    }
-
-    // TODO:
-    // There should be an extra logic to choose the aoe effect
-    // An aoe effect can come from a skill 1, 2, etc.
-    #[inline]
-    pub fn select_basic_skill_effect(&self) -> Option<(Effect, TicksLeft)> {
-        match self.name {
-            Name::Uma => Some((Effect::Petrified, 300)),
-            Name::H4ck => Some((Effect::Disarmed, 300)),
-            _ => None,
         }
     }
 }
