@@ -202,10 +202,10 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   )
 
   field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
-  field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
-  field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
-  field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
-  field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
+  field(:skill_1_cooldown_left, 12, type: :uint64, json_name: "skill1CooldownLeft")
+  field(:skill_2_cooldown_left, 13, type: :uint64, json_name: "skill2CooldownLeft")
+  field(:skill_3_cooldown_left, 14, type: :uint64, json_name: "skill3CooldownLeft")
+  field(:skill_4_cooldown_left, 15, type: :uint64, json_name: "skill4CooldownLeft")
   field(:character_name, 16, type: :string, json_name: "characterName")
 
   field(:effects, 17,

@@ -285,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
             movementDirection.Normalize();
             
             // FIXME: Removed harcoded validation once is fixed on the backend.
-            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill2)
+            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill3)
             {
                 player.transform.position = frontendPosition;
             }
@@ -372,9 +372,9 @@ public class PlayerMovement : MonoBehaviour
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
             InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.FirstSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.SecondSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.ThirdSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
         }
     }
 

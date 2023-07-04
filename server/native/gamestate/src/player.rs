@@ -1,10 +1,10 @@
-use crate::character::{Character, Effect, StatusEffects, TicksLeft, Name};
+use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
+use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
-use std::collections::HashMap;
+use rand::Rng;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
-use rand::{Rng};
-use crate::skills::{Basic as BasicSkill, FirstActive};
+use std::collections::HashMap;
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack
@@ -29,16 +29,16 @@ pub struct Player {
     // How many seconds are left until the
     // cooldown is over.
     pub basic_skill_cooldown_left: u64,
-    pub first_skill_cooldown_left: u64,
-    pub second_skill_cooldown_left: u64,
-    pub third_skill_cooldown_left: u64,
-    pub fourth_skill_cooldown_left: u64,
+    pub skill_1_cooldown_left: u64,
+    pub skill_2_cooldown_left: u64,
+    pub skill_3_cooldown_left: u64,
+    pub skill_4_cooldown_left: u64,
     // Timestamp when the cooldown started.
-    pub basic_skill_cooldown_start: u64,
-    pub first_skill_start: u64,
-    pub second_skill_cooldown_start: u64,
-    pub third_skill_start: u64,
-    pub fourth_skill_start: u64,
+    pub basic_skill_started_at: u64,
+    pub skill_1_started_at: u64,
+    pub skill_2_started_at: u64,
+    pub skill_3_started_at: u64,
+    pub skill_4_started_at: u64,
     // This field is redundant given that
     // we have the Character filed, this his
     // hopefully temporary and to tell
@@ -88,15 +88,15 @@ impl Player {
             kill_count: 0,
             death_count: 0,
             basic_skill_cooldown_left: 0,
-            first_skill_cooldown_left: 0,
-            second_skill_cooldown_left: 0,
-            third_skill_cooldown_left: 0,
-            fourth_skill_cooldown_left: 0,
-            basic_skill_cooldown_start: 0,
-            first_skill_start: 0,
-            second_skill_cooldown_start: 0,
-            third_skill_start: 0,
-            fourth_skill_start: 0,
+            skill_1_cooldown_left: 0,
+            skill_2_cooldown_left: 0,
+            skill_3_cooldown_left: 0,
+            skill_4_cooldown_left: 0,
+            basic_skill_started_at: 0,
+            skill_1_started_at: 0,
+            skill_2_started_at: 0,
+            skill_3_started_at: 0,
+            skill_4_started_at: 0,
             effects: HashMap::new(),
         }
     }
@@ -217,31 +217,30 @@ impl Player {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_skill_cooldown_left = (self.basic_skill_cooldown_start
+        self.basic_skill_cooldown_left = (self.basic_skill_started_at
             + self.character.cooldown_basic_skill())
         .checked_sub(now)
         .unwrap_or(0);
 
-        self.first_skill_cooldown_left = (self.first_skill_start
+        self.skill_1_cooldown_left = (self.skill_1_started_at
             + self.character.cooldown_first_skill())
         .checked_sub(now)
         .unwrap_or(0);
 
-        self.second_skill_cooldown_left = (self.second_skill_cooldown_start
+        self.skill_2_cooldown_left = (self.skill_2_started_at
             + self.character.cooldown_second_skill())
         .checked_sub(now)
         .unwrap_or(0);
 
-        self.third_skill_cooldown_left = (self.third_skill_start
+        self.skill_3_cooldown_left = (self.skill_3_started_at
             + self.character.cooldown_third_skill())
         .checked_sub(now)
         .unwrap_or(0);
 
-        self.fourth_skill_cooldown_left = (self.fourth_skill_start
+        self.skill_4_cooldown_left = (self.skill_4_started_at
             + self.character.cooldown_fourth_skill())
         .checked_sub(now)
         .unwrap_or(0);
-    
     }
 }
 

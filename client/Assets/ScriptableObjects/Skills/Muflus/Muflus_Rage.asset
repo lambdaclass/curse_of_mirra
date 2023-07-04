@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Muflus_Rage
   inputType: 0
   feedbackAnimation: {fileID: 0}
-  animationSpeedMultiplier: 3
-  blockMovementTime: 1
+  animationSpeedMultiplier: 1
+  blockMovementTime: 0.2

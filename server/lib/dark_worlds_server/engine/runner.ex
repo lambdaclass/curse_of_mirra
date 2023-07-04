@@ -68,12 +68,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
-
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
       |> Keyword.fetch!(:process_priority)
 
-      Process.flag(:priority, priority)
+    Process.flag(:priority, priority)
 
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     Process.send_after(self(), :character_selection_time_out, @character_selection_timeout_ms)

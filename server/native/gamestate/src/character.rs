@@ -114,7 +114,7 @@ impl Character {
     pub fn attack_dmg_basic_skill(&self) -> u32 {
         match self.skill_basic {
             BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
-            BasicSkill::Bash =>  30_u32, // Muflus basic attack damage
+            BasicSkill::Bash => 30_u32,      // Muflus basic attack damage
             _ => 10_u32,
         }
     }
@@ -182,7 +182,7 @@ impl Character {
             BasicSkill::Backstab => 1,
         }
     }
-    
+
     // TODO:
     // There should be an extra logic to choose the aoe effect
     // An aoe effect can come from a skill 1, 2, etc.

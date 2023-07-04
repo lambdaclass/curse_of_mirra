@@ -22,12 +22,12 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         kill_count: 0,
         death_count: 0,
         basic_skill_cooldown_left: 0,
-        first_skill_cooldown_left: 0,
-        second_skill_cooldown_left: 0,
-        third_skill_cooldown_left: 0,
-        fourth_skill_cooldown_left: 0,
+        skill_1_cooldown_left: 0,
+        skill_2_cooldown_left: 0,
+        skill_3_cooldown_left: 0,
+        skill_4_cooldown_left: 0,
         character_name: "Name",
-        effects: []
+        effects: %{}
       }
 
       expected = %Player{
@@ -41,12 +41,12 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         kill_count: 0,
         death_count: 0,
         basic_skill_cooldown_left: 0,
-        first_skill_cooldown_left: 0,
-        second_skill_cooldown_left: 0,
-        third_skill_cooldown_left: 0,
-        fourth_skill_cooldown_left: 0,
+        skill_1_cooldown_left: 0,
+        skill_2_cooldown_left: 0,
+        skill_3_cooldown_left: 0,
+        skill_4_cooldown_left: 0,
         character_name: "Name",
-        effects: []
+        effects: %{}
       }
 
       decoded =

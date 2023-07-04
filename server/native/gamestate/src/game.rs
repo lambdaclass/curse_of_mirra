@@ -312,7 +312,7 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::ATTACKING;
-        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
 
@@ -339,10 +339,7 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = match attacking_player
-                .effects
-                .get(&Effect::Piercing)
-            {
+            let piercing = match attacking_player.effects.get(&Effect::Piercing) {
                 Some((1_u64..=u64::MAX)) => true,
                 None | Some(0) => false,
             };
@@ -438,15 +435,14 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.first_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
-        attacking_player.first_skill_start = now;
-        attacking_player.first_skill_cooldown_left =
-            attacking_player.character.cooldown_first_skill();
+        attacking_player.skill_1_started_at = now;
+        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -560,18 +556,16 @@ impl GameState {
         attacking_player_id: u64,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        println!("Skill 2");
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
-        attacking_player.second_skill_cooldown_start = now;
-        attacking_player.second_skill_cooldown_left =
-            attacking_player.character.cooldown_second_skill();
+        attacking_player.skill_2_started_at = now;
+        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_second_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -580,8 +574,7 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                Self::muflus_skill_2(attacking_player)},
+            Name::Muflus => Self::muflus_skill_2(attacking_player),
             _ => Ok(()),
         }
     }
@@ -614,17 +607,39 @@ impl GameState {
     }
 
     pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
-        attacking_player
-            .add_effect(Effect::Raged.clone(), 500);
+        attacking_player.add_effect(Effect::Raged.clone(), 500);
         Ok(())
     }
 
     pub fn skill_3(
         self: &mut Self,
-        _attacking_player_id: u64,
-        _direction: &RelativePosition,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
-        return Ok(());
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left) {
+            return Ok(());
+        }
+
+        let now = time_now();
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player.skill_3_started_at = now;
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            Name::Muflus => {
+                let id = attacking_player.id;
+                Self::leap(&mut self.board, id, direction, &mut self.players)
+            }
+            _ => Ok(()),
+        }
     }
 
     pub fn skill_4(
@@ -634,20 +649,18 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.fourth_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player.fourth_skill_start = now;
-        attacking_player.fourth_skill_cooldown_left =
-            attacking_player.character.cooldown_fourth_skill();
+        attacking_player.skill_4_cooldown_left = now;
+        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
 
         match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player
-                    .add_effect(Effect::Piercing.clone(), 300);
+                attacking_player.add_effect(Effect::Piercing.clone(), 300);
                 Ok(())
             }
             _ => Ok(()),
@@ -719,8 +732,7 @@ impl GameState {
                         GameState::get_player_mut(&mut self.players, target_player_id)?;
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
-                            attacked_player
-                                .add_effect(Effect::Disarmed.clone(), 300);
+                            attacked_player.add_effect(Effect::Disarmed.clone(), 300);
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));

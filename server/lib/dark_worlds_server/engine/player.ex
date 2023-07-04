@@ -12,10 +12,10 @@ defmodule DarkWorldsServer.Engine.Player do
     :kill_count,
     :death_count,
     :basic_skill_cooldown_left,
-    :first_skill_cooldown_left,
-    :second_skill_cooldown_left,
-    :third_skill_cooldown_left,
-    :fourth_skill_cooldown_left,
+    :skill_1_cooldown_left,
+    :skill_2_cooldown_left,
+    :skill_3_cooldown_left,
+    :skill_4_cooldown_left,
     :character_name,
     :effects
   ]
@@ -30,10 +30,10 @@ defmodule DarkWorldsServer.Engine.Player do
     :kill_count,
     :death_count,
     :basic_skill_cooldown_left,
-    :first_skill_cooldown_left,
-    :second_skill_cooldown_left,
-    :third_skill_cooldown_left,
-    :fourth_skill_cooldown_left,
+    :skill_1_cooldown_left,
+    :skill_2_cooldown_left,
+    :skill_3_cooldown_left,
+    :skill_4_cooldown_left,
     :character_name,
     :effects
   ]
