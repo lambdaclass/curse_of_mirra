@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     GameEvent gameEvent;
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
     {
-      // We don't need to interpolate what we're seeing, just what the see about other players
+      // We don't need to interpolate what we're seeing, just what we see about other players
       // if(useInterpolation)
       // {
       //     gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
