@@ -40,6 +40,8 @@ public class SocketConnectionManager : MonoBehaviour
 
     WebSocket ws;
 
+    private Boolean botsActive = true;
+
     public class Session
     {
         public string session_id { get; set; }
@@ -209,6 +211,18 @@ public class SocketConnectionManager : MonoBehaviour
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         ClientAction clientAction = new ClientAction { Action = Action.AddBot, Timestamp = timestamp };
+        SendAction(clientAction);
+    }
+
+    public void ToggleBots() {
+        ClientAction clientAction;
+        if (this.botsActive) {
+            clientAction = new ClientAction { Action = Action.DisableBots };
+        } else {
+            clientAction = new ClientAction { Action = Action.EnableBots };
+        }
+
+        this.botsActive = !this.botsActive;
         SendAction(clientAction);
     }
 

@@ -122,12 +122,14 @@ message ClientAction {
 /* Actions a client/player performs
     - MOVE: the player moves
     - ATTACK: player attacks
-    - TELEPORT: the player instantly moves to a non-contiguous position 
+    - TELEPORT: the player instantly moves to a non-contiguous position
     - ATTACK_AOE:
     - MOVE_WITH_JOYSTICK:
     - ADD_BOT: Ask the server to add a bot player to the game
     - AUTO_ATTACK: Player attacks nearest oponent, if in range.
     - BASIC_ATTACK, SKILL_{1, 2, 3, 4}: Player skills.
+    - ENABLE_BOTS: Bots are enabled (move, attack, etc)
+    - DISABLE_BOTS: Bots are disabled (stand still)
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -144,6 +146,8 @@ enum Action {
     SKILL_3 = 12;
     SKILL_4 = 13;
     SELECT_CHARACTER = 14;
+    ENABLE_BOTS = 15;
+    DISABLE_BOTS = 16;
 }
 
 /* Directions an action can happen in
@@ -234,7 +238,7 @@ message ServerGameSettings {
     RunnerConfig runner_config = 1;
     CharacterConfig character_config = 2;
 }
-    
+
 
 /* Type of lobby events
     - CONNECTED: Websocket connection is established

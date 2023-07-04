@@ -44,58 +44,26 @@ public class PlayerControls : MonoBehaviour
     }
     public void SendAction()
     {
+        float x = 0;
+        float y = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Up, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = 1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            y += 1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Left, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = -1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            x += -1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Right, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            x += 1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Down, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = -1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            y += -1f;
         }
+
+        SendJoystickValues(x, y);
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
