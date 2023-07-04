@@ -25,7 +25,6 @@ public class ToggleAudio : MonoBehaviour
         muteButtonImage = GetComponent<Image>();
         isMuted = true;
         backgroundMusic.PlayFeedbacks();
-        soundManager.SetVolumeSfx(0.5f);
         SilenceSound();
     }
 
