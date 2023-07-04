@@ -73,6 +73,17 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_4, 7)
 end
 
+defmodule LoadTest.Communication.Proto.PlayerEffect do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:PETRIFIED, 0)
+  field(:DISARMED, 1)
+  field(:PIERCING, 2)
+  field(:RAGED, 3)
+end
+
 defmodule LoadTest.Communication.Proto.LobbyEventType do
   @moduledoc false
 
@@ -147,6 +158,15 @@ defmodule LoadTest.Communication.Proto.PlayerCharacter do
   field(:character_name, 2, type: :string, json_name: "characterName")
 end
 
+defmodule LoadTest.Communication.Proto.Player.EffectsEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :uint64)
+end
+
 defmodule LoadTest.Communication.Proto.Player do
   @moduledoc false
 
@@ -168,11 +188,17 @@ defmodule LoadTest.Communication.Proto.Player do
   )
 
   field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
-  field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
-  field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
-  field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
-  field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
+  field(:skill_1_cooldown_left, 12, type: :uint64, json_name: "skill1CooldownLeft")
+  field(:skill_2_cooldown_left, 13, type: :uint64, json_name: "skill2CooldownLeft")
+  field(:skill_3_cooldown_left, 14, type: :uint64, json_name: "skill3CooldownLeft")
+  field(:skill_4_cooldown_left, 15, type: :uint64, json_name: "skill4CooldownLeft")
   field(:character_name, 16, type: :string, json_name: "characterName")
+
+  field(:effects, 17,
+    repeated: true,
+    type: LoadTest.Communication.Proto.Player.EffectsEntry,
+    map: true
+  )
 end
 
 defmodule LoadTest.Communication.Proto.Position do
@@ -293,6 +319,29 @@ defmodule LoadTest.Communication.Proto.CharacterConfig do
   field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.CharacterConfigItem)
 end
 
+defmodule LoadTest.Communication.Proto.SkillsConfig do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.SkillConfigItem)
+end
+
+defmodule LoadTest.Communication.Proto.SkillConfigItem do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Name, 1, type: :string)
+  field(:DoFunc, 2, type: :string)
+  field(:Cooldown, 3, type: :string)
+  field(:Damage, 4, type: :string)
+  field(:State, 5, type: :string)
+  field(:Duration, 6, type: :string)
+  field(:Projectile, 7, type: :string)
+  field(:Minion, 8, type: :string)
+end
+
 defmodule LoadTest.Communication.Proto.ServerGameSettings do
   @moduledoc false
 
@@ -306,6 +355,11 @@ defmodule LoadTest.Communication.Proto.ServerGameSettings do
   field(:character_config, 2,
     type: LoadTest.Communication.Proto.CharacterConfig,
     json_name: "characterConfig"
+  )
+
+  field(:skills_config, 3,
+    type: LoadTest.Communication.Proto.SkillsConfig,
+    json_name: "skillsConfig"
   )
 end
 

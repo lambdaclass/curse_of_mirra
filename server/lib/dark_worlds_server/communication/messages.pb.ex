@@ -361,6 +361,33 @@ defmodule DarkWorldsServer.Communication.Proto.CharacterConfig do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
+defmodule DarkWorldsServer.Communication.Proto.SkillsConfig do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Items, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.SkillConfigItem)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.SkillConfigItem do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Name, 1, type: :string)
+  field(:DoFunc, 2, type: :string)
+  field(:Cooldown, 3, type: :string)
+  field(:Damage, 4, type: :string)
+  field(:State, 5, type: :string)
+  field(:Duration, 6, type: :string)
+  field(:Projectile, 7, type: :string)
+  field(:Minion, 8, type: :string)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.ServerGameSettings do
   @moduledoc false
 
@@ -374,6 +401,11 @@ defmodule DarkWorldsServer.Communication.Proto.ServerGameSettings do
   field(:character_config, 2,
     type: DarkWorldsServer.Communication.Proto.CharacterConfig,
     json_name: "characterConfig"
+  )
+
+  field(:skills_config, 3,
+    type: DarkWorldsServer.Communication.Proto.SkillsConfig,
+    json_name: "skillsConfig"
   )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
