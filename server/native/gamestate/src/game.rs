@@ -677,7 +677,7 @@ impl GameState {
         }
 
         let now = time_now();
-        attacking_player.action = PlayerAction::EXECUTINGNEONCRASH;
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.third_skill_start = now;
         attacking_player.third_skill_cooldown_left =
             attacking_player.character.cooldown_third_skill();
