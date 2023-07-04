@@ -26,7 +26,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         second_skill_cooldown_left: 0,
         third_skill_cooldown_left: 0,
         fourth_skill_cooldown_left: 0,
-        character_name: "Name"
+        character_name: "Name",
+        effects: []
       }
 
       expected = %Player{
@@ -44,7 +45,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         second_skill_cooldown_left: 0,
         third_skill_cooldown_left: 0,
         fourth_skill_cooldown_left: 0,
-        character_name: "Name"
+        character_name: "Name",
+        effects: []
       }
 
       decoded =

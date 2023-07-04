@@ -18,24 +18,6 @@ fn speed1_character() -> Character {
         ..Default::default()
     }
 }
-fn petrified_character() -> Character {
-    Character {
-        status_effects: std::collections::HashMap::from(
-            // This will last 10 ticks.
-            [(Effect::Petrified, 10)],
-        ),
-        ..Default::default()
-    }
-}
-fn disarmed_character() -> Character {
-    Character {
-        status_effects: std::collections::HashMap::from(
-            // This will last 10 ticks.
-            [(Effect::Disarmed, 10)],
-        ),
-        ..Default::default()
-    }
-}
 #[rustler::nif]
 pub fn no_move_if_beyond_boundaries() -> TestResult {
     let mut expected_grid: Vec<Vec<Tile>>;
@@ -298,8 +280,9 @@ pub fn cant_move_if_petrified() -> TestResult {
     state.players[0].position = spawn_point.clone();
     (state.players[0]).character = Character {
         base_speed,
-        ..petrified_character()
+        ..Default::default()
     };
+    state.players[0].effects.insert(Effect::Petrified,10);
     let player_id = 1;
     let mut player = state.get_player(player_id)?;
 
@@ -322,7 +305,7 @@ pub fn cant_move_if_petrified() -> TestResult {
     }
     state.move_player(player_id, Direction::DOWN)?;
     player = state.get_player(player_id)?;
-    assert_result!(player.character.speed(), base_speed)?;
+    assert_result!(player.speed(), base_speed)?;
     assert_result!(spawn_point.x + 1, player.position.x)?;
     assert_result!(spawn_point.y, player.position.y)
 }
@@ -342,9 +325,14 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     .unwrap();
     let player_1_id = 1;
     let player_2_id = 2;
-    let disarmed_char: Character = disarmed_character();
+    let base_speed = 1;
+    let disarmed_char = Character {
+        base_speed,
+        ..Default::default()
+    };
     let char: Character = speed1_character();
-    let player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
+    let mut player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
+    player1.effects.insert(Effect::Disarmed,10);
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2];
     state.board.set_cell(0, 0, Tile::Player(player_1_id))?;

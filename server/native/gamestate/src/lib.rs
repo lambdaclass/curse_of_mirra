@@ -34,7 +34,6 @@ fn new_game(
                 .expect("Could not parse {val} into a Rust string!");
             char.insert(key, val);
         }
-        println!("{:?}", config);
         config.push(char);
     }
 

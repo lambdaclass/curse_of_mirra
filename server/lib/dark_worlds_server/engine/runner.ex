@@ -41,7 +41,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def play(runner_pid, player_id, %ActionOk{} = action) do
-    Logger.info("[#{DateTime.utc_now()}] Received action: #{inspect(action)}")
     GenServer.cast(runner_pid, {:play, player_id, action})
   end
 
@@ -69,14 +68,12 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
-    Logger.info("[#{DateTime.utc_now()}] Starting game with opts: #{inspect(opts, pretty: true)}")
 
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
       |> Keyword.fetch!(:process_priority)
 
-    Logger.info("Starting game with priority: #{priority}")
-    Process.flag(:priority, priority)
+      Process.flag(:priority, priority)
 
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     Process.send_after(self(), :character_selection_time_out, @character_selection_timeout_ms)

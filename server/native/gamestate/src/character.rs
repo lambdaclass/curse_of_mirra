@@ -1,17 +1,15 @@
-use crate::character::Name::{H4ck, Muflus, Uma};
 use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
-use rand::{thread_rng, Rng};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
-    Petrified,
-    Disarmed,
-    Piercing,
-    MuflusRage,
+    Petrified = 0,
+    Disarmed = 1,
+    Piercing = 2,
+    Raged = 3,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -58,7 +56,6 @@ pub struct Character {
     pub skill_active_second: SecondActive,
     pub skill_dash: Dash,
     pub skill_ultimate: Ultimate,
-    pub status_effects: StatusEffects,
 }
 
 impl Character {
@@ -79,7 +76,6 @@ impl Character {
             faction,
             skill_basic: basic_skill,
             base_speed: speed,
-            status_effects: HashMap::new(),
             skill_active_first: FirstActive::BarrelRoll,
             skill_active_second: SecondActive::Disarm,
             skill_dash: Dash::Blink,
@@ -113,46 +109,29 @@ impl Character {
             skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
-            status_effects: HashMap::new(),
         })
     }
     pub fn attack_dmg_basic_skill(&self) -> u32 {
         match self.skill_basic {
             BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
-            // Muflus basic attack damage
-            BasicSkill::Bash => {
-                let mut base_dmg = 30_u32;
-                if self.has_active_effect(&Effect::MuflusRage) {
-                    base_dmg += 10_u32;
-                }
-                return base_dmg;
-            }
-            BasicSkill::Backstab => 10_u32,
+            BasicSkill::Bash =>  30_u32, // Muflus basic attack damage
+            _ => 10_u32,
         }
     }
     pub fn attack_dmg_first_active(&self) -> u32 {
         match self.skill_active_first {
             // Muflus attack
-            FirstActive::BarrelRoll => {
-                let mut base_dmg = 50_u32;
-                if self.has_active_effect(&Effect::MuflusRage) {
-                    base_dmg += 10_u32;
-                }
-                return base_dmg;
-            }
+            FirstActive::BarrelRoll => 50_u32,
             FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
             FirstActive::MultiShot => 10_u32,
         }
     }
     pub fn attack_dmg_second_active(&mut self) -> u32 {
         match self.skill_active_second {
-            SecondActive::Rage => {
-                self.add_effect(Effect::MuflusRage, 300);
-                return 0;
-            }
             SecondActive::Petrify => 30_u32,
             SecondActive::MirrorImage => 10_u32,
             SecondActive::Disarm => 5_u32,
+            _ => 0_u32,
         }
     }
     #[inline]
@@ -203,44 +182,7 @@ impl Character {
             BasicSkill::Backstab => 1,
         }
     }
-    #[inline]
-    pub fn speed(&self) -> u64 {
-        let speed = self.base_speed;
-        if self.has_active_effect(&Effect::Petrified) {
-            return 0;
-        }
-        if self.has_active_effect(&Effect::MuflusRage) {
-            return ((self.base_speed as f64) * 1.5).ceil() as u64;
-        }
-        return self.base_speed;
-    }
-
-    #[inline]
-    pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
-        match self.name {
-            Name::Muflus => {
-                if !(self.muflus_partial_immunity(&e)) {
-                    self.status_effects.insert(e, tl);
-                }
-            }
-            _ => {
-                self.status_effects.insert(e.clone(), tl);
-            }
-        }
-    }
-
-    fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {
-        effect_to_apply.is_crowd_control()
-            && self.has_active_effect(&Effect::MuflusRage)
-            && Self::chance_check(0.3)
-    }
-
-    fn chance_check(chance: f64) -> bool {
-        let mut rng = rand::thread_rng();
-        let random: f64 = rng.gen();
-        return random <= chance;
-    }
-
+    
     // TODO:
     // There should be an extra logic to choose the aoe effect
     // An aoe effect can come from a skill 1, 2, etc.
@@ -251,11 +193,6 @@ impl Character {
             Name::H4ck => Some((Effect::Disarmed, 300)),
             _ => None,
         }
-    }
-    #[allow(unused_variables)]
-    pub fn has_active_effect(&self, e: &Effect) -> bool {
-        let effect = self.status_effects.get(e);
-        matches!(effect, Some(1..=u64::MAX))
     }
 }
 impl Default for Character {
