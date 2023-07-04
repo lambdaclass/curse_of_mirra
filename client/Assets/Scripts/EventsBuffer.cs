@@ -1,20 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class EventsBuffer : MonoBehaviour
+public class EventsBuffer
 {
   const int bufferLimit = 30;
   public List<GameEvent> updatesBuffer = new List<GameEvent>();
 
-  public long firstTimestamp;
+  public long firstTimestamp = 0;
 
-  public float deltaInterpolationTime {get; set;}
+  public long deltaInterpolationTime { get; set; }
 
   public void AddEvent(GameEvent newEvent)
   {
     if (updatesBuffer.Count == bufferLimit)
     {
-        updatesBuffer.RemoveAt(0);
+      updatesBuffer.RemoveAt(0);
     }
     updatesBuffer.Add(newEvent);
   }
@@ -25,11 +26,12 @@ public class EventsBuffer : MonoBehaviour
     return updatesBuffer[lastIndex];
   }
 
-  public GameEvent getNextEventToRender(float pastTime){
-    List<GameEvent> nextGameEvents = updatesBuffer.FindAll(ge => ge.ServerTimestamp > pastTime);
-    if(nextGameEvents.Count == 0){
-        return this.lastEvent();
-    }
-    return nextGameEvents[0];
+  public GameEvent getNextEventToRender(float pastTime)
+  {
+    GameEvent nextGameEvent = updatesBuffer.Where(ge => ge.ServerTimestamp > (long)pastTime)
+      .OrderBy(ge => ge.ServerTimestamp)
+      .First();
+
+    return nextGameEvent;
   }
 }
