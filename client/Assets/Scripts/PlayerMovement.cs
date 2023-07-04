@@ -49,7 +49,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool MovementAuthorized(Character character){
+    public bool MovementAuthorized(Character character)
+    {
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
             for (int i = 0; i < BlockingMovementStates.Length; i++)
@@ -79,9 +80,11 @@ public class PlayerMovement : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
-        if (player){
+        if (player)
+        {
             Character character = player.GetComponent<Character>();
-            if (MovementAuthorized(character)){
+            if (MovementAuthorized(character))
+            {
                 var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (inputFromPhysicalJoystick)
@@ -223,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
 
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(newPosition[0], 1f, newPosition[2]));
+                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(newPosition[0], 2.5f, newPosition[2]));
 
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
@@ -279,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-            
+
             // FIXME: Removed harcoded validation once is fixed on the backend.
             if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill2)
             {
@@ -336,7 +339,8 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
         // FIXME: Temporary solution until all models can handle the feedback
-        if (playerUpdate.CharacterName == "H4ck"){
+        if (playerUpdate.CharacterName == "H4ck")
+        {
             // Display damage done on others players (not you)
             GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
         }
