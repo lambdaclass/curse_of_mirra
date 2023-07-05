@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
   public CharacterStates.CharacterConditions[] BlockingConditionStates;
   public float accumulatedTime;
 
+
   void Start()
   {
     InitBlockingStates();
@@ -118,18 +119,18 @@ public class PlayerMovement : MonoBehaviour
     long currentTime;
     long pastTime;
     EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
-    useInterpolation = true;
     GameEvent gameEvent;
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
     {
       // We don't need to interpolate what we're seeing, just what we see about other players
+      if (buffer.firstTimestamp == 0)
+      {
+        buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+      }
+
       if (useInterpolation)
       {
-        if (buffer.firstTimestamp == 0)
-        {
-          buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
-        }
-
+        print("entré en interpolation");
         auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
         currentTime = buffer.firstTimestamp + auxAccumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
@@ -137,7 +138,8 @@ public class PlayerMovement : MonoBehaviour
       }
       else
       {
-        gameEvent = SocketConnectionManager.Instance.gameEvent;
+        print("entre al modo normal");
+        gameEvent = buffer.lastEvent();
       }
 
       // This call to `new` here is extremely important for client prediction. If we don't make a copy,
@@ -449,5 +451,12 @@ public class PlayerMovement : MonoBehaviour
     {
       toggleGhostButton.text = "Client Prediction On";
     }
+  }
+
+  public void ToggleInterpolation()
+  {
+    useInterpolation = !useInterpolation;
+    Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
+    toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
   }
 }
