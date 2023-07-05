@@ -28,7 +28,7 @@ pub enum Name {
     #[strum(ascii_case_insensitive)]
     Muflus,
 }
-trait CharacterTrait {}
+
 pub type StatusEffects = HashMap<Effect, TicksLeft>;
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
 pub enum Faction {
