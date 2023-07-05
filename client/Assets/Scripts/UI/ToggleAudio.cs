@@ -11,28 +11,19 @@ public class ToggleAudio : MonoBehaviour
     [SerializeField]
     public Sprite unmutedSprite;
 
-    private Image muteButtonImage;
-
     [SerializeField]
     private MMSoundManager soundManager;
-    private bool isMuted;
 
-    [SerializeField]
-    private MMF_Player backgroundMusic;
+    private Image muteButtonImage;
 
     void Start()
     {
         muteButtonImage = GetComponent<Image>();
-        isMuted = true;
-        backgroundMusic.PlayFeedbacks();
-        SilenceSound();
     }
 
     public void Toggle()
     {
-        isMuted = !isMuted;
-
-        if (isMuted)
+        if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             SilenceSound();
             muteButtonImage.overrideSprite = mutedSprite;

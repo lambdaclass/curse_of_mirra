@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -29,6 +30,10 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     MMSoundManager soundManager;
+
+    [SerializeField]
+    private MMF_Player backgroundMusic;
+    private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
@@ -83,9 +88,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
-#if UNITY_EDITOR || UNITY_IOS
-        soundManager.MuteMaster();
-#endif
+        InitializeAudio();
     }
 
     void Update()
@@ -236,5 +239,12 @@ public class CustomLevelManager : LevelManager
         roundSplash.SetActive(true);
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
         winnersCount = roundNumber;
+    }
+
+    private void InitializeAudio()
+    {
+        backgroundMusic.PlayFeedbacks();
+        soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        soundManager.MuteMaster();
     }
 }

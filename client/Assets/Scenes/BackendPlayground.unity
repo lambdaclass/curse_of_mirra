@@ -208,7 +208,7 @@ PrefabInstance:
     - target: {fileID: 2432087871260112788, guid: 6804ba0bd0f4d4d67a0b719f56e9f5bd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2432087871260112788, guid: 6804ba0bd0f4d4d67a0b719f56e9f5bd,
         type: 3}
@@ -825,6 +825,7 @@ MonoBehaviour:
   roundText: {fileID: 2856279044554654233}
   backToLobbyButton: {fileID: 2856279044554654232}
   soundManager: {fileID: 1734572836}
+  backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
   camera: {fileID: 2856279044554654230}
   charactersInfo:
@@ -1707,7 +1708,7 @@ PrefabInstance:
     - target: {fileID: 3436064000156394107, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4549140611734199728, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1717,7 +1718,7 @@ PrefabInstance:
     - target: {fileID: 4549140611734199729, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4549140611734199729, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
