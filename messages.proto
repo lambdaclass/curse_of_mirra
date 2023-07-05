@@ -69,11 +69,12 @@ message Player {
     uint64 death_count = 9;
     Position teleport_position = 10;
     uint64 basic_skill_cooldown_left = 11;
-    uint64 first_skill_cooldown_left = 12;
-    uint64 second_skill_cooldown_left = 13;
-    uint64 third_skill_cooldown_left = 14;
-    uint64 fourth_skill_cooldown_left = 15;
+    uint64 skill_1_cooldown_left = 12;
+    uint64 skill_2_cooldown_left = 13;
+    uint64 skill_3_cooldown_left = 14;
+    uint64 skill_4_cooldown_left = 15;
     string character_name = 16;
+    map<uint64, uint64> effects = 17;
 }
 
 /*
@@ -174,6 +175,14 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 5;
     EXECUTING_SKILL_3 = 6;
     EXECUTING_SKILL_4 = 7;
+}
+
+/* Effects a player has */
+enum PlayerEffect {
+    PETRIFIED = 0;
+    DISARMED = 1;
+    PIERCING = 2;
+    RAGED = 3;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
