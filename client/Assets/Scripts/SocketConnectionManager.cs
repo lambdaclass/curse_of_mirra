@@ -67,7 +67,7 @@ public class SocketConnectionManager : MonoBehaviour
     ConnectToSession(this.session_id);
     eventsBuffer = new EventsBuffer
     {
-      deltaInterpolationTime = 500
+      deltaInterpolationTime = 100
     };
   }
 

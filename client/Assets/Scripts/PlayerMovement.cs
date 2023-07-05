@@ -31,9 +31,9 @@ public class PlayerMovement : MonoBehaviour
 
     float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
     InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
-    useClientPrediction = false;
+    useClientPrediction = true;
     showServerGhost = false;
-    useInterpolation = false;
+    useInterpolation = true;
     showInterpolationGhost = false;
     accumulatedTime = 0;
   }
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
       }
 
-      if (useInterpolation)
+      if (useInterpolation && SocketConnectionManager.Instance.playerId != SocketConnectionManager.Instance.gamePlayers[i].Id)
       {
         auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
         currentTime = buffer.firstTimestamp + auxAccumulatedTime;
@@ -435,19 +435,15 @@ public class PlayerMovement : MonoBehaviour
   {
     useClientPrediction = !useClientPrediction;
     Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
+    toggleGhostButton.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
     if (!useClientPrediction)
     {
-      toggleGhostButton.text = "Client Prediction Off";
       showServerGhost = false;
       if (serverGhost != null)
       {
         serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
         Destroy(serverGhost);
       }
-    }
-    else
-    {
-      toggleGhostButton.text = "Client Prediction On";
     }
   }
 
