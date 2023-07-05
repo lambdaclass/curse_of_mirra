@@ -140,6 +140,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
     {
+        if (actualPlayer.name.Contains("BOT"))
+        {
+            return;
+        }
+
         // TODO: Refactor
         switch (playerAction)
         {
@@ -279,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-            
+
             // FIXME: Removed harcoded validation once is fixed on the backend.
             if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill2)
             {
