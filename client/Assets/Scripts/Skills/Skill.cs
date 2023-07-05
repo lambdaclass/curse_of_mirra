@@ -13,6 +13,7 @@ public class Skill : CharacterAbility
     public void SetSkill(Action serverSkill, SkillInfo skillInfo){
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
+        this.AbilityStartSfx = skillInfo.abilityStartSfx;
     }
 
     protected override void Start (){
@@ -60,6 +61,7 @@ public class Skill : CharacterAbility
     public void ExecuteFeedback(){
         _movement.ChangeState(CharacterStates.MovementStates.Attacking);
         _animator.SetBool(skillId, true);
+        PlayAbilityStartSfx();
 
         StartCoroutine(EndSkillFeedback());
     }
