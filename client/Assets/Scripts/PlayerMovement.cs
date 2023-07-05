@@ -11,15 +11,20 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
-    [SerializeField] CustomInputManager InputManager;
+
+    [SerializeField]
+    CustomInputManager InputManager;
 
     public bool showServerGhost = false;
     public bool useClientPrediction;
+    public bool useInterpolation;
+    public bool showInterpolationGhost;
     public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
+    public float accumulatedTime;
 
     void Start()
     {
@@ -27,7 +32,11 @@ public class PlayerMovement : MonoBehaviour
 
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
-        useClientPrediction = false;
+        useClientPrediction = true;
+        showServerGhost = false;
+        useInterpolation = true;
+        showInterpolationGhost = false;
+        accumulatedTime = 0;
     }
 
     private void InitBlockingStates()
@@ -44,12 +53,14 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
     }
 
-    public bool MovementAuthorized(Character character){
+    public bool MovementAuthorized(Character character)
+    {
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
             for (int i = 0; i < BlockingMovementStates.Length; i++)
@@ -78,10 +89,11 @@ public class PlayerMovement : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-
-        if (player){
+        if (player)
+        {
             Character character = player.GetComponent<Character>();
-            if (MovementAuthorized(character)){
+            if (MovementAuthorized(character))
+            {
                 var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (inputFromPhysicalJoystick)
@@ -90,9 +102,13 @@ public class PlayerMovement : MonoBehaviour
                     var vInput = Input.GetAxis("Vertical");
                     GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
                 }
-                else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+                else if (
+                    inputFromVirtualJoystick && joystickL.RawValue.x != 0
+                    || joystickL.RawValue.y != 0
+                )
                 {
-                    GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    GetComponent<PlayerControls>()
+                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
                 {
@@ -104,14 +120,41 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
-        GameEvent gameEvent = SocketConnectionManager.Instance.gameEvent;
+        long auxAccumulatedTime;
+        long currentTime;
+        long pastTime;
+        EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
+        GameEvent gameEvent;
+        if (buffer.firstTimestamp == 0)
+        {
+            buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+        }
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
+            if (
+                useInterpolation
+                && SocketConnectionManager.Instance.playerId
+                    != SocketConnectionManager.Instance.gamePlayers[i].Id
+            )
+            {
+                auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
+                currentTime = buffer.firstTimestamp + auxAccumulatedTime;
+                pastTime = currentTime - buffer.deltaInterpolationTime;
+                gameEvent = buffer.getNextEventToRender(pastTime);
+            }
+            else
+            {
+                gameEvent = buffer.lastEvent();
+            }
+
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
-            if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
+            if (
+                serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                && useClientPrediction
+            )
             {
                 // Move the ghost BEFORE client prediction kicks in, so it only moves up until
                 // the last server update.
@@ -119,7 +162,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     movePlayer(serverGhost, serverPlayerUpdate);
                 }
-                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(serverPlayerUpdate, gameEvent.Timestamp);
+                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                    serverPlayerUpdate,
+                    gameEvent.PlayerTimestamp
+                );
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -132,14 +178,19 @@ public class PlayerMovement : MonoBehaviour
             if (serverPlayerUpdate.Health == 0)
             {
                 SocketConnectionManager.Instance.players[i]
-                    .GetComponent<Character>().CharacterModel
-                    .SetActive(false);
+                    .GetComponent<Character>()
+                    .CharacterModel.SetActive(false);
             }
         }
     }
 
     private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
     {
+        if (actualPlayer.name.Contains("BOT"))
+        {
+            return;
+        }
+
         // TODO: Refactor
         switch (playerAction)
         {
@@ -182,9 +233,70 @@ public class PlayerMovement : MonoBehaviour
             GameObject player = SocketConnectionManager.Instance.players[0];
             player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
-
         }
 
+        for (int i = 0; i < gameProjectiles.Count; i++)
+        {
+            if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
+            {
+                float projectileSpeed = gameProjectiles[i].Speed / 10f;
+
+                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+                float velocity = tickRate * projectileSpeed;
+
+                Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+                    gameProjectiles[i].Position
+                );
+
+                // TODO: We need to figure out how to use this. To make the movemete more fluid.
+                // float xChange = backToFrontPosition.x - projectile.transform.position.x;
+                // float yChange = backToFrontPosition.z - projectile.transform.position.z;
+
+                // Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+                // movementDirection.Normalize();
+
+                // Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                // if (movementDirection.x > 0)
+                // {
+                //     newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
+                // }
+                // else
+                // {
+                //     newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
+                // }
+
+                // if (movementDirection.z > 0)
+                // {
+                //     newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
+                // }
+                // else
+                // {
+                //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
+                // }
+                
+                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
+                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2]));
+            }
+            else if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            {
+                float angle = Vector3.SignedAngle(
+                    new Vector3(1f, 0, 0),
+                    new Vector3(
+                        (long)(gameProjectiles[i].Direction.Y * 100),
+                        0f,
+                        -(long)(gameProjectiles[i].Direction.X * 100)
+                    ),
+                    Vector3.up
+                );
+                GameObject player = SocketConnectionManager.Instance.players[
+                    (int)gameProjectiles[i].PlayerId - 1
+                ];
+                GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);
+
+                projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
+            }
+        }
+        
         var toExplode = new List<int>();
         foreach (var pr in projectiles)
         {
@@ -202,41 +314,6 @@ public class PlayerMovement : MonoBehaviour
             projectiles.Remove(key);
         }
 
-        for (int i = 0; i < gameProjectiles.Count; i++)
-        {
-            if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
-            {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
-
-                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-                float velocity = tickRate * projectileSpeed;
-
-                Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
-                    gameProjectiles[i].Position
-                );
-                float xChange = backToFrontPosition.x - projectile.transform.position.x;
-                float yChange = backToFrontPosition.z - projectile.transform.position.z;
-
-                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                movementDirection.Normalize();
-
-                Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
-
-                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(newPosition[0], 1f, newPosition[2]));
-
-            }
-            else if (gameProjectiles[i].Status == ProjectileStatus.Active)
-            {
-                float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0),
-                new Vector3((long)(gameProjectiles[i].Direction.Y * 100), 0f, -(long)(gameProjectiles[i].Direction.X * 100)),
-                Vector3.up);
-                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);
-
-                projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
-            }
-        }
     }
 
     private void movePlayer(GameObject player, Player playerUpdate)
@@ -244,10 +321,10 @@ public class PlayerMovement : MonoBehaviour
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
         There are 50 ticks per second. A player's velocity is 50 * 0.3f
-
+    
         In general, if a player's velocity is n tiles per tick, their unity velocity
         is 50 * (n / 10f)
-
+    
         The above is the player's velocity's magnitude. Their velocity's direction
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
@@ -263,7 +340,9 @@ public class PlayerMovement : MonoBehaviour
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
-        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(playerUpdate.Position);
+        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
+            playerUpdate.Position
+        );
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
@@ -271,8 +350,7 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        CharacterOrientation3D characterOrientation =
-            player.GetComponent<CharacterOrientation3D>();
+        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
         characterOrientation.ForcedRotation = true;
 
         bool walking = false;
@@ -283,7 +361,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
-            
+
             // FIXME: Removed harcoded validation once is fixed on the backend.
             if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill3)
             {
@@ -306,7 +384,7 @@ public class PlayerMovement : MonoBehaviour
                 // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
                 // The exact same thing applies to `z`
                 Vector3 newPosition =
-                player.transform.position + movementDirection * velocity * Time.deltaTime;
+                    player.transform.position + movementDirection * velocity * Time.deltaTime;
 
                 if (movementDirection.x > 0)
                 {
@@ -330,19 +408,25 @@ public class PlayerMovement : MonoBehaviour
                 characterOrientation.ForcedRotationDirection = movementDirection;
                 walking = true;
             }
-
         }
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
 
         // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+        GetComponent<PlayerFeedbacks>()
+            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
         // FIXME: Temporary solution until all models can handle the feedback
-        if (playerUpdate.CharacterName == "H4ck"){
+        if (playerUpdate.CharacterName == "H4ck")
+        {
             // Display damage done on others players (not you)
-            GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+            GetComponent<PlayerFeedbacks>()
+                .ChangePlayerTextureOnDamage(
+                    player,
+                    healthComponent.CurrentHealth,
+                    playerUpdate.Health
+                );
         }
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
@@ -405,9 +489,9 @@ public class PlayerMovement : MonoBehaviour
     {
         useClientPrediction = !useClientPrediction;
         Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
+        toggleGhostButton.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
-            toggleGhostButton.text = "Client Prediction Off";
             showServerGhost = false;
             if (serverGhost != null)
             {
@@ -415,9 +499,12 @@ public class PlayerMovement : MonoBehaviour
                 Destroy(serverGhost);
             }
         }
-        else
-        {
-            toggleGhostButton.text = "Client Prediction On";
-        }
+    }
+
+    public void ToggleInterpolation()
+    {
+        useInterpolation = !useInterpolation;
+        Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
+        toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
     }
 }
