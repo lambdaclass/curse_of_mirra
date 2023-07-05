@@ -296,6 +296,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
+
     tick_rate = Map.get(opts.game_config.runner_config, :server_tickrate_ms, @tick_rate_ms)
 
     # Finish game after @game_timeout seconds or the specified in the game_settings file
