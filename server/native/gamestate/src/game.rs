@@ -322,7 +322,7 @@ impl GameState {
             })
             .for_each(|player| {
                 // TODO: Make the radius configurable
-                let radius = 10f64;
+                let radius = player.character.body_size;
 
                 let player_attacked = match p2.y == p1.y {
                     true => {
