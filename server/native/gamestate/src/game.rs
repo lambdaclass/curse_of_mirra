@@ -55,6 +55,7 @@ impl GameState {
         board_height: usize,
         build_walls: bool,
         characters_config: &[HashMap<String, String>],
+        skills_config: &[HashMap<String, String>],
     ) -> Result<Self, String> {
         let mut positions = HashSet::new();
         let characters = GameState::build_characters_with_config(&characters_config)?;

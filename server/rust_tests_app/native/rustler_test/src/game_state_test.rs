@@ -1,5 +1,5 @@
 use crate::assert_result;
-use crate::utils::{read_character_config, TestResult};
+use crate::utils::{read_character_config, read_skills_config, TestResult};
 use gamestate::board::{Grid, GridResource, Tile};
 use gamestate::character::{Character, Effect, Name, TicksLeft};
 use gamestate::game::{Direction, GameState};
@@ -31,6 +31,7 @@ pub fn no_move_if_beyond_boundaries() -> TestResult {
         grid_width,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let mut player = state.players.get_mut(0).unwrap();
@@ -77,6 +78,7 @@ fn no_move_if_occupied() -> TestResult {
         2,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let player1_id = 1;
@@ -95,7 +97,7 @@ fn no_move_if_occupied() -> TestResult {
 
 #[rustler::nif]
 fn no_move_if_wall() -> TestResult {
-    let mut state = GameState::new(HashMap::new(), 1, 2, 2, false, &read_character_config())?;
+    let mut state = GameState::new(HashMap::new(), 1, 2, 2, false, &read_character_config(), &read_skills_config(),)?;
     let player1_id = 1;
     let player1 = Player::new(player1_id, 100, Position::new(0, 0), speed1_character());
     state.players = vec![player1];
@@ -119,6 +121,7 @@ fn movement() -> TestResult {
         2,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let player_id = 1;
@@ -203,6 +206,7 @@ fn attacking() -> TestResult {
         20,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let player_1_id = 1;
@@ -273,6 +277,7 @@ pub fn cant_move_if_petrified() -> TestResult {
         grid_width,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let spawn_point = Position { x: 50, y: 50 };
@@ -321,6 +326,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         20,
         false,
         &read_character_config(),
+        &read_skills_config(),
     )
     .unwrap();
     let player_1_id = 1;

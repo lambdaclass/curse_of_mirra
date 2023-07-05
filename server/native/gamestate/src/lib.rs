@@ -1,6 +1,7 @@
 pub mod board;
 pub mod character;
 pub mod game;
+pub mod game_configuration;
 pub mod player;
 pub mod projectile;
 pub mod skills;
@@ -20,22 +21,11 @@ fn new_game(
     board_width: usize,
     board_height: usize,
     build_walls: bool,
-    characters_config: Vec<HashMap<Binary, Binary>>,
+    raw_characters_config: Vec<HashMap<Binary, Binary>>,
+    raw_skills_config: Vec<HashMap<Binary, Binary>>,
 ) -> Result<GameState, String> {
-    let mut config: Vec<HashMap<String, String>> = vec![];
-    for map in characters_config {
-        let mut char: HashMap<String, String> = HashMap::new();
-        for (key, val) in map {
-            // A rustler binary derefs into [u8], see:
-            // https://docs.rs/rustler/latest/rustler/types/binary/struct.Binary.html
-            let key = String::from_utf8((*key).to_vec())
-                .expect("Could not parse {key} into a Rust string!");
-            let val = String::from_utf8((*val).to_vec())
-                .expect("Could not parse {val} into a Rust string!");
-            char.insert(key, val);
-        }
-        config.push(char);
-    }
+    let characters_config = game_configuration::config_binaries_to_strings(raw_characters_config);
+    let skills_config = game_configuration::config_binaries_to_strings(raw_skills_config);
 
     let mut selected_characters: HashMap<u64, character::Name> =
         HashMap::<u64, character::Name>::new();
@@ -52,7 +42,8 @@ fn new_game(
         board_width,
         board_height,
         build_walls,
-        &config,
+        &characters_config,
+        &skills_config,
     )
 }
 
