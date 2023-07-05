@@ -125,14 +125,12 @@ public class PlayerMovement : MonoBehaviour
         long pastTime;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
+        if (buffer.firstTimestamp == 0)
+        {
+            buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+        }
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            // We don't need to interpolate what we're seeing, just what we see about other players
-            if (buffer.firstTimestamp == 0)
-            {
-                buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
-            }
-
             if (
                 useInterpolation
                 && SocketConnectionManager.Instance.playerId
