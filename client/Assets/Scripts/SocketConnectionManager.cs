@@ -33,8 +33,6 @@ public class SocketConnectionManager : MonoBehaviour
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
-    public Dictionary<ulong, Queue<Player>> gameUpdatesBuffer =
-        new Dictionary<ulong, Queue<Player>>();
 
     public List<Player> winners = new List<Player>();
 
@@ -184,12 +182,6 @@ public class SocketConnectionManager : MonoBehaviour
                         game_event.SelectedCharacters
                     );
                     this.gamePlayers = game_event.Players.ToList();
-                    this.gamePlayers.ForEach(
-                        (player) =>
-                        {
-                            gameUpdatesBuffer.Add(player.Id, new Queue<Player>());
-                        }
-                    );
                     SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
