@@ -197,30 +197,32 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
                     gameProjectiles[i].Position
                 );
-                float xChange = backToFrontPosition.x - projectile.transform.position.x;
-                float yChange = backToFrontPosition.z - projectile.transform.position.z;
 
-                Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                movementDirection.Normalize();
+                // TODO: We need to figure out how to use this. To make the movemete more fluid.
+                // float xChange = backToFrontPosition.x - projectile.transform.position.x;
+                // float yChange = backToFrontPosition.z - projectile.transform.position.z;
 
-                Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
-                if (movementDirection.x > 0)
-                {
-                    newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
-                }
-                else
-                {
-                    newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
-                }
+                // Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
+                // movementDirection.Normalize();
 
-                if (movementDirection.z > 0)
-                {
-                    newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
-                }
-                else
-                {
-                    newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
-                }
+                // Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                // if (movementDirection.x > 0)
+                // {
+                //     newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
+                // }
+                // else
+                // {
+                //     newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
+                // }
+
+                // if (movementDirection.z > 0)
+                // {
+                //     newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
+                // }
+                // else
+                // {
+                //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
+                // }
                 
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
                 player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2]));

@@ -195,7 +195,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = gen_server_state.server_game_state
 
     bot_id = gen_server_state.current_players + 1
-    new_game = Game.spawn_player(game_state.game, bot_id)
+    {:ok, new_game} = Game.spawn_player(game_state.game, bot_id)
 
     broadcast_to_darkworlds_server({:player_joined, bot_id})
 
