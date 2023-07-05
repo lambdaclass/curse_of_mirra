@@ -72,12 +72,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       |> Enum.map(&Map.take(&1, [:id, :health, :position]))
       |> Enum.sort_by(& &1.health, :desc)
 
-    bots = Enum.reduce(players, state.bots, fn (player, acc_bots) ->
-      case {player.health <= 0, acc_bots[player.id]} do
-        {true, bot} when not is_nil(bot) -> put_in(acc_bots, [player.id, :alive], false)
-        _ -> acc_bots
-      end
-    end)
+    bots =
+      Enum.reduce(players, state.bots, fn player, acc_bots ->
+        case {player.health <= 0, acc_bots[player.id]} do
+          {true, bot} when not is_nil(bot) -> put_in(acc_bots, [player.id, :alive], false)
+          _ -> acc_bots
+        end
+      end)
 
     Enum.each(bots, fn {bot_id, _} -> send(self(), {:think_and_do, bot_id}) end)
 
@@ -109,13 +110,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp decide_action(bot_id, players, %{objective: :attack_player} = bot_state) do
     Process.send_after(self(), {:decide_action, bot_id}, 5_000)
+
     case Enum.reject(players, fn player -> player.id == bot_id or player.health <= 0 end) do
       [player | _] ->
         Map.put(bot_state, :action, {:try_attack, player.id})
 
       _ ->
         [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
-      Map.put(bot_state, :action, {:move, movement})
+        Map.put(bot_state, :action, {:move, movement})
     end
   end
 
@@ -136,7 +138,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
     case bot do
-      nil -> :waiting_game_update
+      nil ->
+        :waiting_game_update
 
       bot ->
         x_distance = player.position.x - bot.position.x
@@ -147,7 +150,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         if abs(x_distance) >= 20 and abs(y_distance) >= 20 do
           Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
         else
-          Runner.play(game_pid, bot_id, %ActionOk{action: :basic_attack, value: %RelativePosition{x: x, y: y}, timestamp: nil})
+          Runner.play(game_pid, bot_id, %ActionOk{
+            action: :basic_attack,
+            value: %RelativePosition{x: x, y: y},
+            timestamp: nil
+          })
         end
     end
   end
@@ -158,8 +165,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def calculate_circle_point(cx, cy, x, y) do
     radius = 1
     angle = Nx.atan2(x - cx, y - cy)
-    x  = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
-    y  = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
+    x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
+    y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
     {x, -y}
   end
 end
