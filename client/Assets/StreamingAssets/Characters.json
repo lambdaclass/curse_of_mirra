@@ -11,7 +11,8 @@
       "SkillActive1": "Barrel Roll",
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
-      "SkillUltimate": "Fiery Rampage"
+      "SkillUltimate": "Fiery Rampage",
+      "BodySize": "10.0"
     },
     {
       "Name": "Uma",
@@ -24,7 +25,9 @@
       "SkillActive1": "Serpent Strike",
       "SkillActive2": "Petrify",
       "SkillDash": "Shadowstep",
-      "SkillUltimate": "Toxic Tempest"
+      "SkillUltimate": "Toxic Tempest",
+      "BodySize": "10.0"
+
     },
     {
       "Name": "H4ck",
@@ -37,7 +40,8 @@
       "SkillActive1": "Multishot",
       "SkillActive2": "Disarm",
       "SkillDash": "Hacktivate",
-      "SkillUltimate": "Denial of Service"
+      "SkillUltimate": "Denial of Service",
+      "BodySize": "10.0"
     },
     {
       "Name": "Valtimer",
@@ -50,7 +54,8 @@
       "SkillActive1": "Shadow Pulse",
       "SkillActive2": "Mirror Image",
       "SkillDash": "Blink",
-      "SkillUltimate": "The Trickster"
+      "SkillUltimate": "The Trickster",
+      "BodySize": "10.0"
     },
     {
       "Name": "Otix",
@@ -63,7 +68,8 @@
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
-      "SkillUltimate": ""
+      "SkillUltimate": "",
+      "BodySize": "10.0"
     },
     {
       "Name": "Uren",
@@ -76,7 +82,8 @@
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
-      "SkillUltimate": ""
+      "SkillUltimate": "",
+      "BodySize": "10.0"
     },
     {
       "Name": "Kenzu",
@@ -89,7 +96,8 @@
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
-      "SkillUltimate": ""
+      "SkillUltimate": "",
+      "BodySize": "10.0"
     },
     {
       "Name": "Dagna",
@@ -102,7 +110,8 @@
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
-      "SkillUltimate": ""
+      "SkillUltimate": "",
+      "BodySize": "10.0"
     }
   ]
 }
