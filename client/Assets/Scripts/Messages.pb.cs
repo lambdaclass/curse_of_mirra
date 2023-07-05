@@ -81,23 +81,24 @@ public static partial class MessagesReflection {
           "RBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAG",
           "Eh0KGVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hB",
           "UkFDVEVSX1NFTEVDVElPThAIKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERF",
-          "QUQQASrmAQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1P",
+          "QUQQASqJAgoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1P",
           "VkUQARIKCgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQ",
           "BRIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVU",
           "T19BVFRBQ0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoH",
           "U0tJTExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNU",
-          "X0NIQVJBQ1RFUhAOKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVD",
-          "SUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQ",
-          "BCqqAQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQ",
-          "ARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIP",
-          "CgtURUxFUE9SVElORxAEEhUKEUVYRUNVVElOR19TS0lMTF8yEAUSFQoRRVhF",
-          "Q1VUSU5HX1NLSUxMXzMQBhIVChFFWEVDVVRJTkdfU0tJTExfNBAHKo8BCg5M",
-          "b2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVD",
-          "VEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoM",
-          "UExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1P",
-          "VkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJN",
-          "SU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAAS",
-          "DAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
+          "X0NIQVJBQ1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RT",
+          "EBAqTQoJRGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYK",
+          "AlVQEAESCAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5",
+          "ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFD",
+          "S0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JU",
+          "SU5HEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJ",
+          "TExfMxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqjwEKDkxvYmJ5RXZlbnRU",
+          "eXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQ",
+          "TEFZRVJfQURERUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09V",
+          "TlQQBBIOCgpTVEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Q",
+          "cm9qZWN0aWxlVHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVU",
+          "EAEqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RF",
+          "RBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -153,12 +154,14 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
-///- TELEPORT: the player instantly moves to a non-contiguous position 
+///- TELEPORT: the player instantly moves to a non-contiguous position
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
 ///- AUTO_ATTACK: Player attacks nearest oponent, if in range.
 ///- BASIC_ATTACK, SKILL_{1, 2, 3, 4}: Player skills.
+///- ENABLE_BOTS: Bots are enabled (move, attack, etc)
+///- DISABLE_BOTS: Bots are disabled (stand still)
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
@@ -175,6 +178,8 @@ public enum Action {
   [pbr::OriginalName("SKILL_3")] Skill3 = 12,
   [pbr::OriginalName("SKILL_4")] Skill4 = 13,
   [pbr::OriginalName("SELECT_CHARACTER")] SelectCharacter = 14,
+  [pbr::OriginalName("ENABLE_BOTS")] EnableBots = 15,
+  [pbr::OriginalName("DISABLE_BOTS")] DisableBots = 16,
 }
 
 /// <summary>

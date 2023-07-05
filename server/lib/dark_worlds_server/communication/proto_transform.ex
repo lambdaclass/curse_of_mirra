@@ -313,6 +313,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :teleport, value: position, timestamp: timestamp}
   end
 
+  def decode(%ProtoAction{action: :ENABLE_BOTS, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :enable_bots, value: :enable_bots, timestamp: timestamp}
+  end
+
+  def decode(%ProtoAction{action: :DISABLE_BOTS, timestamp: timestamp}, ProtoAction) do
+    %EngineAction{action: :disable_bots, value: :disable_bots, timestamp: timestamp}
+  end
+
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end

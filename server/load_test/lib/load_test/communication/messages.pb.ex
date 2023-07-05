@@ -42,6 +42,8 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:SKILL_3, 12)
   field(:SKILL_4, 13)
   field(:SELECT_CHARACTER, 14)
+  field(:ENABLE_BOTS, 15)
+  field(:DISABLE_BOTS, 16)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do

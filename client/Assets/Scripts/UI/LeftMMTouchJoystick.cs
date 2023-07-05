@@ -13,7 +13,6 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
     {
         base.Start();
         _initialPosition = BackgroundCanvasGroup.transform.position;
-        Input.multiTouchEnabled = false;
     }
     private Vector3 clampJoystickPositionToScreen(PointerEventData eventData)
     {

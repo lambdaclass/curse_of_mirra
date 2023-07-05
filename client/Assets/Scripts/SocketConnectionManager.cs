@@ -40,6 +40,7 @@ public class SocketConnectionManager : MonoBehaviour
   public ClientPrediction clientPrediction = new ClientPrediction();
 
   public List<GameEvent> gameEvents = new List<GameEvent>();
+  private Boolean botsActive = true;
 
   public EventsBuffer eventsBuffer;
 
@@ -224,6 +225,21 @@ public class SocketConnectionManager : MonoBehaviour
     ClientAction clientAction = new ClientAction { Action = Action.AddBot, Timestamp = timestamp };
     SendAction(clientAction);
   }
+  public void ToggleBots()
+  {
+    ClientAction clientAction;
+    if (this.botsActive)
+    {
+      clientAction = new ClientAction { Action = Action.DisableBots };
+    }
+    else
+    {
+      clientAction = new ClientAction { Action = Action.EnableBots };
+    }
+
+    this.botsActive = !this.botsActive;
+    SendAction(clientAction);
+  }
 
   private string makeUrl(string path)
   {
@@ -240,7 +256,6 @@ public class SocketConnectionManager : MonoBehaviour
       return "https://" + server_ip + path;
     }
   }
-
   private string makeWebsocketUrl(string path)
   {
     if (server_ip.Contains("localhost"))
