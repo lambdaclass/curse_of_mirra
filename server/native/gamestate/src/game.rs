@@ -607,7 +607,7 @@ impl GameState {
     }
 
     pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
-        attacking_player.add_effect(Effect::Raged.clone(), 500);
+        attacking_player.add_effect(Effect::Raged.clone(), 50);
         Ok(())
     }
 
