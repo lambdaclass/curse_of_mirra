@@ -83,7 +83,9 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+#if UNITY_EDITOR || UNITY_IOS
         soundManager.MuteMaster();
+#endif
     }
 
     void Update()
