@@ -26,16 +26,16 @@ public class EventsBuffer
     return updatesBuffer[lastIndex];
   }
 
-  public GameEvent getNextEventToRender(float pastTime)
+  public GameEvent getNextEventToRender(long pastTime)
   {
-    GameEvent nextGameEvent = updatesBuffer.Where(ge => ge.ServerTimestamp > (long)pastTime)
+    GameEvent nextGameEvent = updatesBuffer.Where(ge => ge.ServerTimestamp > pastTime)
       .OrderBy(ge => ge.ServerTimestamp)
       .FirstOrDefault();
 
     if(nextGameEvent == null){
       return this.lastEvent();
     }else{
-      return nextGameEvent
+      return nextGameEvent;
     }
   }
 }

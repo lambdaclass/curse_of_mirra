@@ -113,41 +113,32 @@ public class PlayerMovement : MonoBehaviour
   }
 
   void UpdatePlayerActions()
-  {;
+  {
+    long auxAccumulatedTime;
+    long currentTime;
+    long pastTime;
     EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
     useInterpolation = true;
     GameEvent gameEvent;
     for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
     {
       // We don't need to interpolate what we're seeing, just what we see about other players
-      // if(useInterpolation)
-      // {
-      //     gameEvent = SocketConnectionManager.Instance.gameEvents[(int)currentTick];
-      // }else
-      // {
-      //     gameEvent = SocketConnectionManager.Instance.gameEvent;
-      // }
+      if (useInterpolation)
+      {
+        if (buffer.firstTimestamp == 0)
+        {
+          buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+        }
 
-      if (buffer.firstTimestamp == 0) {
-        buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
+        auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
+        currentTime = buffer.firstTimestamp + auxAccumulatedTime;
+        pastTime = currentTime - buffer.deltaInterpolationTime;
+        gameEvent = buffer.getNextEventToRender(pastTime);
       }
-
-      long auxAccumulatedTime = (long)accumulatedTime; // Needed to cast to avoid calcuting numbers with floating point
-      long currentTime = buffer.firstTimestamp + auxAccumulatedTime;
-      long pastTime = currentTime - buffer.deltaInterpolationTime;
-      print("the accumulated time is: " + auxAccumulatedTime);
-      print("the first timestamp is:" + buffer.firstTimestamp);
-      print("the delta interpolation time is: " + buffer.deltaInterpolationTime);
-      print("the current time is: " + currentTime);
-      print("the past time to render is: " + pastTime);
-
-      // TODO: Here, if there is no first we need to return the latest event.
-      // var aux = SocketConnectionManager.Instance.gameEvents.First(e => e.ServerTimestamp > pastTime);
-      // var index = SocketConnectionManager.Instance.gameEvents.FindIndex(e => e.ServerTimestamp == aux.ServerTimestamp);
-      // gameEvent = SocketConnectionManager.Instance.gameEvents[index];
-      gameEvent = buffer.getNextEventToRender(pastTime);
-      print("and the game event lasttimestamp is: " + gameEvent.ServerTimestamp);
-      print("and the last fkn event is: " + buffer.lastEvent().ServerTimestamp);
+      else
+      {
+        gameEvent = SocketConnectionManager.Instance.gameEvent;
+      }
 
       // This call to `new` here is extremely important for client prediction. If we don't make a copy,
       // prediction will modify the player in place, which is not what we want.
