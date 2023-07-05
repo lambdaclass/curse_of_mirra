@@ -130,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
 
       if (useInterpolation)
       {
-        print("entré en interpolation");
         auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
         currentTime = buffer.firstTimestamp + auxAccumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
@@ -138,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
       }
       else
       {
-        print("entre al modo normal");
         gameEvent = buffer.lastEvent();
       }
 
