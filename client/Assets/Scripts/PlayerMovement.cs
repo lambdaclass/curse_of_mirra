@@ -461,10 +461,6 @@ public class PlayerMovement : MonoBehaviour
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-        if (isAttackingAttack)
-        {
-            print(player.name + "attack");
-        }
 
         //if dead remove the player from the scene
         if (healthComponent.CurrentHealth <= 0)
