@@ -1,10 +1,21 @@
 use crate::skills::*;
-use crate::skills::Class;
 use std::collections::HashMap;
 use std::ops::Div;
 use std::str::FromStr;
+use rustler::NifTaggedEnum;
 use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
+
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
+pub enum Class {
+    #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
+    Hunter,
+    #[strum(serialize = "gua", serialize = "Guardian", ascii_case_insensitive)]
+    Guardian,
+    #[strum(serialize = "ass", serialize = "Assassin", ascii_case_insensitive)]
+    Assassin,
+}
+
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
     Petrified = 0,
