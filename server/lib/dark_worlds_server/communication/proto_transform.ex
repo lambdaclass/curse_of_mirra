@@ -384,9 +384,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp projectile_status_decode(:ACTIVE), do: :active
   defp projectile_status_decode(:EXPLODED), do: :exploded
 
-  defp effect_encode({:petrified, ticks}), do: {0, ticks}
-  defp effect_encode({:disarmed, ticks}), do: {1, ticks}
-  defp effect_encode({:piercing, ticks}), do: {2, ticks}
-  defp effect_encode({:raged, ticks}), do: {3, ticks}
-  defp effect_encode({{:neon_crashing, _, _}, ticks}), do: {4, ticks}
+  defp effect_encode({:petrified, %{ends_at: ends_at}}), do: {0, ends_at}
+  defp effect_encode({:disarmed, %{ends_at: ends_at}}), do: {1, ends_at}
+  defp effect_encode({:piercing, %{ends_at: ends_at}}), do: {2, ends_at}
+  defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
+  defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
 end

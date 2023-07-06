@@ -1,13 +1,21 @@
 use crate::character::{Character, Name};
 use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
+use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
-pub type TicksLeft = u64;
 
-pub type StatusEffects = HashMap<Effect, TicksLeft>;
+#[derive(Debug, Clone, NifStruct)]
+#[module = "DarkWorldsServer.Engine.Player"]
+pub struct EffectData {
+    pub time_left: u64, // in seconds FOR NOW
+    pub ends_at: u64,   // in seconds FOR NOW
+    pub direction: Option<RelativePosition>,
+}
+
+pub type StatusEffects = HashMap<Effect, EffectData>;
 
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
@@ -15,7 +23,7 @@ pub enum Effect {
     Disarmed,
     Piercing,
     Raged,
-    NeonCrashing(i32, i32),
+    NeonCrashing,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -162,16 +170,16 @@ impl Player {
     }
 
     #[inline]
-    pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
+    pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
         if !self.effects.contains_key(&e) {
             match self.character.name {
                 Name::Muflus => {
                     if !(self.muflus_partial_immunity(&e)) {
-                        self.effects.insert(e, tl);
+                        self.effects.insert(e, ed);
                     }
                 }
                 _ => {
-                    self.effects.insert(e.clone(), tl);
+                    self.effects.insert(e.clone(), ed);
                 }
             }
         }
@@ -187,16 +195,8 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
-        // TODO: Refactor this
-        if self.character.name == Name::H4ck {
-            for effect in self.effects.iter() {
-                match effect {
-                    (Effect::NeonCrashing(_x, _y), _) => {
-                        return ((self.character.base_speed as f64) * 3.).ceil() as u64
-                    }
-                    _ => return base_speed,
-                }
-            }
+        if self.has_active_effect(&Effect::NeonCrashing) {
+            return ((base_speed as f64) * 3.).ceil() as u64;
         }
         return base_speed;
     }
@@ -204,7 +204,7 @@ impl Player {
     fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {
         effect_to_apply.is_crowd_control()
             && self.has_active_effect(&Effect::Raged)
-            && Self::chance_check(0.3)
+            && Self::chance_check(0.5)
     }
 
     fn chance_check(chance: f64) -> bool {
@@ -216,7 +216,13 @@ impl Player {
     #[allow(unused_variables)]
     pub fn has_active_effect(&self, e: &Effect) -> bool {
         let effect = self.effects.get(e);
-        matches!(effect, Some(1..=u64::MAX))
+        matches!(
+            effect,
+            Some(EffectData {
+                time_left: 1_u64..=u64::MAX,
+                ..
+            })
+        )
     }
 
     ///
@@ -235,10 +241,7 @@ impl Player {
             return false;
         }
 
-        match self.effects.get(&Effect::Disarmed) {
-            Some((1_u64..=u64::MAX)) => false,
-            None | Some(0) => true,
-        }
+        return !self.has_active_effect(&Effect::Disarmed);
     }
 
     // TODO:

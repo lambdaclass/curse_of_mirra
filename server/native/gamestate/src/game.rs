@@ -4,7 +4,7 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
-use crate::player::{Effect, Player, PlayerAction, Position, Status};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
@@ -241,14 +241,10 @@ impl GameState {
             return Ok(());
         }
 
-        if player.character.name == Name::H4ck {
-            for effect in player.effects.iter() {
-                match effect {
-                    (Effect::NeonCrashing(_x, _y), _) => return Ok(()),
-                    _ => (),
-                }
-            }
+        if player.character.name == Name::H4ck && player.has_active_effect(&Effect::NeonCrashing) {
+            return Ok(());
         }
+
         let new_position = new_entity_position(
             self.board.height,
             self.board.width,
@@ -412,16 +408,13 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = match attacking_player.effects.get(&Effect::Piercing) {
-                Some((1_u64..=u64::MAX)) => true,
-                None | Some(0) => false,
-            };
+            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
 
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                5,
+                10,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -437,6 +430,7 @@ impl GameState {
         Ok(())
     }
 
+    // TODO: Refactor this
     pub fn position_to_direction(position: &RelativePosition) -> Direction {
         if position.x > 0f32 && position.y > 0f32 {
             if position.x > position.y {
@@ -680,7 +674,15 @@ impl GameState {
     }
 
     pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
-        attacking_player.add_effect(Effect::Raged.clone(), 100);
+        let now = time_now();
+        attacking_player.add_effect(
+            Effect::Raged.clone(),
+            EffectData {
+                time_left: 5,
+                ends_at: now + 5,
+                direction: None,
+            },
+        );
         Ok(())
     }
 
@@ -703,10 +705,14 @@ impl GameState {
         match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
-                    Effect::NeonCrashing((direction.x * 100.) as i32, (direction.y * 100.) as i32)
-                        .clone(),
-                    10,
+                    Effect::NeonCrashing.clone(),
+                    EffectData {
+                        time_left: 1,
+                        ends_at: now + 1,
+                        direction: Some(*direction),
+                    },
                 );
+
                 Ok(())
             }
             Name::Muflus => {
@@ -735,7 +741,14 @@ impl GameState {
 
         match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player.add_effect(Effect::Piercing.clone(), 300);
+                attacking_player.add_effect(
+                    Effect::Piercing.clone(),
+                    EffectData {
+                        time_left: 5,
+                        ends_at: now + 5,
+                        direction: None,
+                    },
+                );
                 Ok(())
             }
             _ => Ok(()),
@@ -752,48 +765,54 @@ impl GameState {
     }
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
+        let now = time_now();
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            player.effects.retain(|_, ticks_left| {
-                *ticks_left = ticks_left.saturating_sub(1);
-                *ticks_left != 0
-            });
+            player.effects.retain(
+                |_,
+                 EffectData {
+                     time_left, ends_at, ..
+                 }| {
+                    *time_left = ends_at.saturating_sub(now);
+                    *time_left > 0
+                },
+            );
             // TODO: Refactor this
             if player.character.name == Name::H4ck {
-                for effect in player.effects.iter() {
-                    match effect {
-                        (Effect::NeonCrashing(x, y), _) => {
-                            //GameState::move_player_to_direction(self, player, *x as f32 / 100., *y as f32 / 100.);
-                            let new_position = new_entity_position(
-                                self.board.height,
-                                self.board.width,
-                                *x as f32 / 100.,
-                                *y as f32 / 100.,
-                                player.position,
-                                player.speed() as i64,
-                            );
+                match player.effects.get(&Effect::NeonCrashing) {
+                    Some(EffectData {
+                        direction: Some(direction),
+                        ..
+                    }) => {
+                        //GameState::move_player_to_direction(self, player, *x as f32 / 100., *y as f32 / 100.);
+                        let new_position = new_entity_position(
+                            self.board.height,
+                            self.board.width,
+                            direction.x,
+                            direction.y,
+                            player.position,
+                            player.speed() as i64,
+                        );
 
-                            self.board
-                                .set_cell(player.position.x, player.position.y, Tile::Empty)
-                                .unwrap();
+                        self.board
+                            .set_cell(player.position.x, player.position.y, Tile::Empty)
+                            .unwrap();
 
-                            player.position = new_position;
-                            self.board
-                                .set_cell(
-                                    player.position.x,
-                                    player.position.y,
-                                    Tile::Player(player.id),
-                                )
-                                .unwrap();
-                        }
-                        _ => {}
+                        player.position = new_position;
+                        self.board
+                            .set_cell(
+                                player.position.x,
+                                player.position.y,
+                                Tile::Player(player.id),
+                            )
+                            .unwrap();
                     }
+                    _ => {}
                 }
-                //move hack
             }
         });
 
@@ -831,7 +850,14 @@ impl GameState {
 
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
-                            attacked_player.add_effect(Effect::Disarmed.clone(), 300);
+                            attacked_player.add_effect(
+                                Effect::Disarmed.clone(),
+                                EffectData {
+                                    time_left: 5,
+                                    ends_at: now + 5,
+                                    direction: None,
+                                },
+                            );
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
