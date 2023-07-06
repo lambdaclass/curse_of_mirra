@@ -67,11 +67,11 @@ public class CustomInputManager : InputManager
     }
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite);
-        Skill1.SetInitialSprite(characterInfo.skill1Sprite);
-        Skill2.SetInitialSprite(characterInfo.skill2Sprite);
-        Skill3.SetInitialSprite(characterInfo.skill3Sprite);
-        Skill4.SetInitialSprite(characterInfo.skill4Sprite);
+        SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite, null);
+        Skill1.SetInitialSprite(characterInfo.skill1Sprite, characterInfo.skillBackground);
+        Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
+        Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
+        Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
     }
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {

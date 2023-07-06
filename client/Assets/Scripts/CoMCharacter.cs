@@ -20,4 +20,5 @@ public class CoMCharacter : ScriptableObject
     public Sprite skill2Sprite;
     public Sprite skill3Sprite;
     public Sprite skill4Sprite;
+    public Sprite skillBackground;
 }
