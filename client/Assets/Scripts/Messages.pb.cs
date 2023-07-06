@@ -32,79 +32,82 @@ public static partial class MessagesReflection {
           "cnZlcl90aW1lc3RhbXAYCiABKAMaOQoXU2VsZWN0ZWRDaGFyYWN0ZXJzRW50",
           "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgJOgI4ASI8Cg9QbGF5ZXJD",
           "aGFyYWN0ZXISEQoJcGxheWVyX2lkGAEgASgEEhYKDmNoYXJhY3Rlcl9uYW1l",
-          "GAIgASgJIs0DCgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRoGAIgASgS",
+          "GAIgASgJIpIECgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRoGAIgASgS",
           "EhsKCHBvc2l0aW9uGAMgASgLMgkuUG9zaXRpb24SGQoRbGFzdF9tZWxlZV9h",
           "dHRhY2sYBCABKAQSFwoGc3RhdHVzGAUgASgOMgcuU3RhdHVzEh0KBmFjdGlv",
           "bhgGIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9zaXRpb24YByABKAsy",
           "CS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAggASgEEhMKC2RlYXRoX2NvdW50",
           "GAkgASgEEiQKEXRlbGVwb3J0X3Bvc2l0aW9uGAogASgLMgkuUG9zaXRpb24S",
-          "IQoZYmFzaWNfc2tpbGxfY29vbGRvd25fbGVmdBgLIAEoBBIhChlmaXJzdF9z",
-          "a2lsbF9jb29sZG93bl9sZWZ0GAwgASgEEiIKGnNlY29uZF9za2lsbF9jb29s",
-          "ZG93bl9sZWZ0GA0gASgEEiEKGXRoaXJkX3NraWxsX2Nvb2xkb3duX2xlZnQY",
-          "DiABKAQSIgoaZm91cnRoX3NraWxsX2Nvb2xkb3duX2xlZnQYDyABKAQSFgoO",
-          "Y2hhcmFjdGVyX25hbWUYECABKAkiIAoIUG9zaXRpb24SCQoBeBgBIAEoBBIJ",
-          "CgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRpb24SCQoBeBgBIAEoAhIJCgF5",
-          "GAIgASgCIuEBCgxDbGllbnRBY3Rpb24SFwoGYWN0aW9uGAEgASgOMgcuQWN0",
-          "aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRpcmVjdGlvbhIjCghwb3NpdGlv",
-          "bhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SJQoKbW92ZV9kZWx0YRgEIAEo",
-          "CzIRLlJlbGF0aXZlUG9zaXRpb24SDgoGdGFyZ2V0GAUgASgSEhEKCXRpbWVz",
-          "dGFtcBgGIAEoAxIqChBwbGF5ZXJfY2hhcmFjdGVyGAcgASgLMhAuUGxheWVy",
-          "Q2hhcmFjdGVyIuYBCgpMb2JieUV2ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2Ji",
-          "eUV2ZW50VHlwZRIQCghsb2JieV9pZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyAB",
-          "KAQSFwoPYWRkZWRfcGxheWVyX2lkGAQgASgEEg8KB2dhbWVfaWQYBSABKAkS",
-          "FAoMcGxheWVyX2NvdW50GAYgASgEEg8KB3BsYXllcnMYByADKAQSGQoRcmVt",
-          "b3ZlZF9wbGF5ZXJfaWQYCCABKAQSKAoLZ2FtZV9jb25maWcYCSABKAsyEy5T",
-          "ZXJ2ZXJHYW1lU2V0dGluZ3MifAoMUnVubmVyQ29uZmlnEgwKBE5hbWUYASAB",
-          "KAkSEwoLYm9hcmRfd2lkdGgYAiABKAQSFAoMYm9hcmRfaGVpZ2h0GAMgASgE",
-          "EhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRf",
-          "bXMYBSABKAQiYQoKR2FtZUNvbmZpZxIeCgpib2FyZF9zaXplGAEgASgLMgou",
-          "Qm9hcmRTaXplEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1l",
-          "X3RpbWVvdXRfbXMYAyABKAQiKgoJQm9hcmRTaXplEg0KBXdpZHRoGAEgASgE",
-          "Eg4KBmhlaWdodBgCIAEoBCLcAQoTQ2hhcmFjdGVyQ29uZmlnSXRlbRIMCgRO",
-          "YW1lGAEgASgJEgoKAklkGAIgASgJEg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFz",
-          "cxgEIAEoCRIPCgdGYWN0aW9uGAUgASgJEhEKCUJhc2VTcGVlZBgGIAEoCRIS",
-          "CgpTa2lsbEJhc2ljGAcgASgJEhQKDFNraWxsQWN0aXZlMRgIIAEoCRIUCgxT",
-          "a2lsbEFjdGl2ZTIYCSABKAkSEQoJU2tpbGxEYXNoGAogASgJEhUKDVNraWxs",
-          "VWx0aW1hdGUYCyABKAkiNgoPQ2hhcmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEg",
-          "AygLMhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGlu",
-          "Z3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBj",
-          "aGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQ",
-          "cm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9z",
-          "aXRpb24SJAoJZGlyZWN0aW9uGAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhIN",
-          "CgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiAB",
-          "KAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190aWNrcxgIIAEoEhIo",
-          "Cg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZz",
-          "dGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNr",
-          "ZWRfcGxheWVyX2lkGAsgASgEEg4KBnBpZXJjZRgMIAEoCCrOAQoNR2FtZUV2",
-          "ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEK",
-          "DVBMQVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VO",
-          "RBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAG",
-          "Eh0KGVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hB",
-          "UkFDVEVSX1NFTEVDVElPThAIKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERF",
-          "QUQQASqJAgoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1P",
-          "VkUQARIKCgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQ",
-          "BRIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVU",
-          "T19BVFRBQ0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoH",
-          "U0tJTExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNU",
-          "X0NIQVJBQ1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RT",
-          "EBAqTQoJRGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYK",
-          "AlVQEAESCAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5",
-          "ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFD",
-          "S0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JU",
-          "SU5HEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJ",
-          "TExfMxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqjwEKDkxvYmJ5RXZlbnRU",
-          "eXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQ",
-          "TEFZRVJfQURERUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09V",
-          "TlQQBBIOCgpTVEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Q",
-          "cm9qZWN0aWxlVHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVU",
-          "EAEqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RF",
-          "RBABYgZwcm90bzM="));
+          "IQoZYmFzaWNfc2tpbGxfY29vbGRvd25fbGVmdBgLIAEoBBIdChVza2lsbF8x",
+          "X2Nvb2xkb3duX2xlZnQYDCABKAQSHQoVc2tpbGxfMl9jb29sZG93bl9sZWZ0",
+          "GA0gASgEEh0KFXNraWxsXzNfY29vbGRvd25fbGVmdBgOIAEoBBIdChVza2ls",
+          "bF80X2Nvb2xkb3duX2xlZnQYDyABKAQSFgoOY2hhcmFjdGVyX25hbWUYECAB",
+          "KAkSJQoHZWZmZWN0cxgRIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaLgoM",
+          "RWZmZWN0c0VudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEi",
+          "IAoIUG9zaXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZl",
+          "UG9zaXRpb24SCQoBeBgBIAEoAhIJCgF5GAIgASgCIuEBCgxDbGllbnRBY3Rp",
+          "b24SFwoGYWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEo",
+          "DjIKLkRpcmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9z",
+          "aXRpb24SJQoKbW92ZV9kZWx0YRgEIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24S",
+          "DgoGdGFyZ2V0GAUgASgSEhEKCXRpbWVzdGFtcBgGIAEoAxIqChBwbGF5ZXJf",
+          "Y2hhcmFjdGVyGAcgASgLMhAuUGxheWVyQ2hhcmFjdGVyIuYBCgpMb2JieUV2",
+          "ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9p",
+          "ZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lk",
+          "GAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgE",
+          "Eg8KB3BsYXllcnMYByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQS",
+          "KAoLZ2FtZV9jb25maWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoM",
+          "UnVubmVyQ29uZmlnEgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiAB",
+          "KAQSFAoMYm9hcmRfaGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9t",
+          "cxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZp",
+          "ZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90",
+          "aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJ",
+          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoT",
+          "Q2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJ",
+          "Eg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUg",
+          "ASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQK",
+          "DFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJ",
+          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
+          "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
+          "SXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgB",
+          "IAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgL",
+          "MhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgE",
+          "EhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMg",
+          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5n",
+          "ZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcK",
+          "D3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSAB",
+          "KA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0",
+          "aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4K",
+          "BnBpZXJjZRgMIAEoCCrOAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERB",
+          "VEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpO",
+          "RVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQ",
+          "BRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNFTEVDVEVEX0NIQVJBQ1RF",
+          "Ul9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAIKh0K",
+          "BlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJAgoGQWN0aW9uEhYKEkFD",
+          "VElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIMCghU",
+          "RUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9ZU1RJ",
+          "Q0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJQ19B",
+          "VFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxMXzMQ",
+          "DBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOEg8KC0VOQUJM",
+          "RV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJRGlyZWN0aW9uEhkKFURJ",
+          "UkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExF",
+          "RlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAA",
+          "Eg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJ",
+          "TkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUKEUVYRUNVVElOR19T",
+          "S0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJ",
+          "U0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBADKo8BCg5Mb2JieUV2",
+          "ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAES",
+          "EAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVS",
+          "X0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYq",
+          "MgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JV",
+          "TExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
+          "TE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerCharacter), global::PlayerCharacter.Parser, new[]{ "PlayerId", "CharacterName" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "FirstSkillCooldownLeft", "SecondSkillCooldownLeft", "ThirdSkillCooldownLeft", "FourthSkillCooldownLeft", "CharacterName" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target", "Timestamp", "PlayerCharacter" }, null, null, null, null),
@@ -207,6 +210,16 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 5,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 6,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 7,
+}
+
+/// <summary>
+/// Effects a player has 
+/// </summary>
+public enum PlayerEffect {
+  [pbr::OriginalName("PETRIFIED")] Petrified = 0,
+  [pbr::OriginalName("DISARMED")] Disarmed = 1,
+  [pbr::OriginalName("PIERCING")] Piercing = 2,
+  [pbr::OriginalName("RAGED")] Raged = 3,
 }
 
 /// <summary>
@@ -1040,11 +1053,12 @@ public sealed partial class Player : pb::IMessage<Player>
     deathCount_ = other.deathCount_;
     teleportPosition_ = other.teleportPosition_ != null ? other.teleportPosition_.Clone() : null;
     basicSkillCooldownLeft_ = other.basicSkillCooldownLeft_;
-    firstSkillCooldownLeft_ = other.firstSkillCooldownLeft_;
-    secondSkillCooldownLeft_ = other.secondSkillCooldownLeft_;
-    thirdSkillCooldownLeft_ = other.thirdSkillCooldownLeft_;
-    fourthSkillCooldownLeft_ = other.fourthSkillCooldownLeft_;
+    skill1CooldownLeft_ = other.skill1CooldownLeft_;
+    skill2CooldownLeft_ = other.skill2CooldownLeft_;
+    skill3CooldownLeft_ = other.skill3CooldownLeft_;
+    skill4CooldownLeft_ = other.skill4CooldownLeft_;
     characterName_ = other.characterName_;
+    effects_ = other.effects_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1189,51 +1203,51 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
-  /// <summary>Field number for the "first_skill_cooldown_left" field.</summary>
-  public const int FirstSkillCooldownLeftFieldNumber = 12;
-  private ulong firstSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_1_cooldown_left" field.</summary>
+  public const int Skill1CooldownLeftFieldNumber = 12;
+  private ulong skill1CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong FirstSkillCooldownLeft {
-    get { return firstSkillCooldownLeft_; }
+  public ulong Skill1CooldownLeft {
+    get { return skill1CooldownLeft_; }
     set {
-      firstSkillCooldownLeft_ = value;
+      skill1CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "second_skill_cooldown_left" field.</summary>
-  public const int SecondSkillCooldownLeftFieldNumber = 13;
-  private ulong secondSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_2_cooldown_left" field.</summary>
+  public const int Skill2CooldownLeftFieldNumber = 13;
+  private ulong skill2CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong SecondSkillCooldownLeft {
-    get { return secondSkillCooldownLeft_; }
+  public ulong Skill2CooldownLeft {
+    get { return skill2CooldownLeft_; }
     set {
-      secondSkillCooldownLeft_ = value;
+      skill2CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "third_skill_cooldown_left" field.</summary>
-  public const int ThirdSkillCooldownLeftFieldNumber = 14;
-  private ulong thirdSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_3_cooldown_left" field.</summary>
+  public const int Skill3CooldownLeftFieldNumber = 14;
+  private ulong skill3CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong ThirdSkillCooldownLeft {
-    get { return thirdSkillCooldownLeft_; }
+  public ulong Skill3CooldownLeft {
+    get { return skill3CooldownLeft_; }
     set {
-      thirdSkillCooldownLeft_ = value;
+      skill3CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "fourth_skill_cooldown_left" field.</summary>
-  public const int FourthSkillCooldownLeftFieldNumber = 15;
-  private ulong fourthSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_4_cooldown_left" field.</summary>
+  public const int Skill4CooldownLeftFieldNumber = 15;
+  private ulong skill4CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong FourthSkillCooldownLeft {
-    get { return fourthSkillCooldownLeft_; }
+  public ulong Skill4CooldownLeft {
+    get { return skill4CooldownLeft_; }
     set {
-      fourthSkillCooldownLeft_ = value;
+      skill4CooldownLeft_ = value;
     }
   }
 
@@ -1247,6 +1261,17 @@ public sealed partial class Player : pb::IMessage<Player>
     set {
       characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
+  }
+
+  /// <summary>Field number for the "effects" field.</summary>
+  public const int EffectsFieldNumber = 17;
+  private static readonly pbc::MapField<ulong, ulong>.Codec _map_effects_codec
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 138);
+  private readonly pbc::MapField<ulong, ulong> effects_ = new pbc::MapField<ulong, ulong>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<ulong, ulong> Effects {
+    get { return effects_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1275,11 +1300,12 @@ public sealed partial class Player : pb::IMessage<Player>
     if (DeathCount != other.DeathCount) return false;
     if (!object.Equals(TeleportPosition, other.TeleportPosition)) return false;
     if (BasicSkillCooldownLeft != other.BasicSkillCooldownLeft) return false;
-    if (FirstSkillCooldownLeft != other.FirstSkillCooldownLeft) return false;
-    if (SecondSkillCooldownLeft != other.SecondSkillCooldownLeft) return false;
-    if (ThirdSkillCooldownLeft != other.ThirdSkillCooldownLeft) return false;
-    if (FourthSkillCooldownLeft != other.FourthSkillCooldownLeft) return false;
+    if (Skill1CooldownLeft != other.Skill1CooldownLeft) return false;
+    if (Skill2CooldownLeft != other.Skill2CooldownLeft) return false;
+    if (Skill3CooldownLeft != other.Skill3CooldownLeft) return false;
+    if (Skill4CooldownLeft != other.Skill4CooldownLeft) return false;
     if (CharacterName != other.CharacterName) return false;
+    if (!Effects.Equals(other.Effects)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1298,11 +1324,12 @@ public sealed partial class Player : pb::IMessage<Player>
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
     if (teleportPosition_ != null) hash ^= TeleportPosition.GetHashCode();
     if (BasicSkillCooldownLeft != 0UL) hash ^= BasicSkillCooldownLeft.GetHashCode();
-    if (FirstSkillCooldownLeft != 0UL) hash ^= FirstSkillCooldownLeft.GetHashCode();
-    if (SecondSkillCooldownLeft != 0UL) hash ^= SecondSkillCooldownLeft.GetHashCode();
-    if (ThirdSkillCooldownLeft != 0UL) hash ^= ThirdSkillCooldownLeft.GetHashCode();
-    if (FourthSkillCooldownLeft != 0UL) hash ^= FourthSkillCooldownLeft.GetHashCode();
+    if (Skill1CooldownLeft != 0UL) hash ^= Skill1CooldownLeft.GetHashCode();
+    if (Skill2CooldownLeft != 0UL) hash ^= Skill2CooldownLeft.GetHashCode();
+    if (Skill3CooldownLeft != 0UL) hash ^= Skill3CooldownLeft.GetHashCode();
+    if (Skill4CooldownLeft != 0UL) hash ^= Skill4CooldownLeft.GetHashCode();
     if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+    hash ^= Effects.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1365,26 +1392,27 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(88);
       output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
+    if (Skill1CooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstSkillCooldownLeft);
+      output.WriteUInt64(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
+    if (Skill2CooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondSkillCooldownLeft);
+      output.WriteUInt64(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
+    if (Skill3CooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(ThirdSkillCooldownLeft);
+      output.WriteUInt64(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
+    if (Skill4CooldownLeft != 0UL) {
       output.WriteRawTag(120);
-      output.WriteUInt64(FourthSkillCooldownLeft);
+      output.WriteUInt64(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       output.WriteRawTag(130, 1);
       output.WriteString(CharacterName);
     }
+    effects_.WriteTo(output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1439,26 +1467,27 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(88);
       output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
+    if (Skill1CooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstSkillCooldownLeft);
+      output.WriteUInt64(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
+    if (Skill2CooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondSkillCooldownLeft);
+      output.WriteUInt64(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
+    if (Skill3CooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(ThirdSkillCooldownLeft);
+      output.WriteUInt64(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
+    if (Skill4CooldownLeft != 0UL) {
       output.WriteRawTag(120);
-      output.WriteUInt64(FourthSkillCooldownLeft);
+      output.WriteUInt64(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       output.WriteRawTag(130, 1);
       output.WriteString(CharacterName);
     }
+    effects_.WriteTo(ref output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1502,21 +1531,22 @@ public sealed partial class Player : pb::IMessage<Player>
     if (BasicSkillCooldownLeft != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FirstSkillCooldownLeft);
+    if (Skill1CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SecondSkillCooldownLeft);
+    if (Skill2CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ThirdSkillCooldownLeft);
+    if (Skill3CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FourthSkillCooldownLeft);
+    if (Skill4CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       size += 2 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
     }
+    size += effects_.CalculateSize(_map_effects_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1571,21 +1601,22 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.BasicSkillCooldownLeft != 0UL) {
       BasicSkillCooldownLeft = other.BasicSkillCooldownLeft;
     }
-    if (other.FirstSkillCooldownLeft != 0UL) {
-      FirstSkillCooldownLeft = other.FirstSkillCooldownLeft;
+    if (other.Skill1CooldownLeft != 0UL) {
+      Skill1CooldownLeft = other.Skill1CooldownLeft;
     }
-    if (other.SecondSkillCooldownLeft != 0UL) {
-      SecondSkillCooldownLeft = other.SecondSkillCooldownLeft;
+    if (other.Skill2CooldownLeft != 0UL) {
+      Skill2CooldownLeft = other.Skill2CooldownLeft;
     }
-    if (other.ThirdSkillCooldownLeft != 0UL) {
-      ThirdSkillCooldownLeft = other.ThirdSkillCooldownLeft;
+    if (other.Skill3CooldownLeft != 0UL) {
+      Skill3CooldownLeft = other.Skill3CooldownLeft;
     }
-    if (other.FourthSkillCooldownLeft != 0UL) {
-      FourthSkillCooldownLeft = other.FourthSkillCooldownLeft;
+    if (other.Skill4CooldownLeft != 0UL) {
+      Skill4CooldownLeft = other.Skill4CooldownLeft;
     }
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
+    effects_.Add(other.effects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1655,23 +1686,27 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 96: {
-          FirstSkillCooldownLeft = input.ReadUInt64();
+          Skill1CooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondSkillCooldownLeft = input.ReadUInt64();
+          Skill2CooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          ThirdSkillCooldownLeft = input.ReadUInt64();
+          Skill3CooldownLeft = input.ReadUInt64();
           break;
         }
         case 120: {
-          FourthSkillCooldownLeft = input.ReadUInt64();
+          Skill4CooldownLeft = input.ReadUInt64();
           break;
         }
         case 130: {
           CharacterName = input.ReadString();
+          break;
+        }
+        case 138: {
+          effects_.AddEntriesFrom(input, _map_effects_codec);
           break;
         }
       }
@@ -1743,23 +1778,27 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 96: {
-          FirstSkillCooldownLeft = input.ReadUInt64();
+          Skill1CooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondSkillCooldownLeft = input.ReadUInt64();
+          Skill2CooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          ThirdSkillCooldownLeft = input.ReadUInt64();
+          Skill3CooldownLeft = input.ReadUInt64();
           break;
         }
         case 120: {
-          FourthSkillCooldownLeft = input.ReadUInt64();
+          Skill4CooldownLeft = input.ReadUInt64();
           break;
         }
         case 130: {
           CharacterName = input.ReadString();
+          break;
+        }
+        case 138: {
+          effects_.AddEntriesFrom(ref input, _map_effects_codec);
           break;
         }
       }
