@@ -27,3 +27,4 @@ MonoBehaviour:
   skill2Sprite: {fileID: 21300000, guid: 04067e31981624fa1adf2cfaa4ddaf86, type: 3}
   skill3Sprite: {fileID: 21300000, guid: f2ca93608b36b427cae7555dba7ee47b, type: 3}
   skill4Sprite: {fileID: 21300000, guid: 11497421eb93a43f6bc5dfd16df83d2e, type: 3}
+  skillBackground: {fileID: 21300000, guid: f250f50d2462c498d9fd214bb4e96654, type: 3}

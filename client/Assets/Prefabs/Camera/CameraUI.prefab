@@ -3311,7 +3311,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40.3
+  field of view: 35
   orthographic: 0
   orthographic size: 10
   m_Depth: 1
@@ -3587,7 +3587,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40.3
+    FieldOfView: 35
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -3644,7 +3644,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272036331211942}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d66462bf720d28469c8db4b2e52720c, type: 3}
   m_Name: 
@@ -6025,7 +6025,6 @@ GameObject:
   - component: {fileID: 4290419465729776}
   - component: {fileID: 114794669332985446}
   - component: {fileID: 114329137893650930}
-  - component: {fileID: 114276557751269602}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -6084,7 +6083,7 @@ MonoBehaviour:
   m_ScreenY: 0.5
   m_CameraDistance: 29.19
   m_DeadZoneWidth: 0.03
-  m_DeadZoneHeight: 0.21
+  m_DeadZoneHeight: 0.03
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 1
   m_SoftZoneWidth: 0.8
@@ -6103,23 +6102,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 100
---- !u!114 &114276557751269602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784286289901120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0.5
-  m_FrequencyGain: 0.5
-  mNoiseOffsets: {x: 774.7473, y: -697.4199, z: 179.93677}
 --- !u!1 &1879089594584572
 GameObject:
   m_ObjectHideFlags: 0
