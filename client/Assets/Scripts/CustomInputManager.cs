@@ -1,9 +1,11 @@
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using MoreMountains.TopDownEngine;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public enum UIControls
 {
@@ -23,28 +25,45 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] GameObject SkillBasic;
-    [SerializeField] GameObject Skill1;
-    [SerializeField] GameObject Skill2;
-    [SerializeField] GameObject Skill3;
-    [SerializeField] GameObject Skill4;
-    Dictionary<UIControls, GameObject> mobileButtons;
+    [SerializeField] Image joystickL;
+    [SerializeField] MMTouchButton SkillBasic;
+    [SerializeField] MMTouchButton Skill1;
+    [SerializeField] MMTouchButton Skill2;
+    [SerializeField] MMTouchButton Skill3;
+    [SerializeField] MMTouchButton Skill4;
+    [SerializeField] TMP_Text SkillBasicCooldown;
+    [SerializeField] TMP_Text Skill1Cooldown;
+    [SerializeField] TMP_Text Skill2Cooldown;
+    [SerializeField] TMP_Text Skill3Cooldown;
+    [SerializeField] TMP_Text Skill4Cooldown;
+    Dictionary<UIControls, MMTouchButton> mobileButtons;
+    Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
+    private Vector3 initialLeftJoystickPosition;
 
     protected override void Start()
     {
         base.Start();
 
-        mobileButtons = new Dictionary<UIControls, GameObject>();
+        mobileButtons = new Dictionary<UIControls, MMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
-        // mobileButtons.Add(UIControls.Skill4, Skill4);
+        mobileButtons.Add(UIControls.Skill4, Skill4);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
+
+        // TODO: this could be refactored implementing a button parent linking button and cooldown text
+        // or extending MMTouchButton and linking its cooldown text
+        buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
+        buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
+        buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
+        buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
+        buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
+        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
@@ -56,7 +75,7 @@ public class CustomInputManager : InputManager
             case UIType.Tap:
                 MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
 
-                button.ButtonPressedFirstTime.AddListener(skill.ExecuteSkill);
+                button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
                     mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
@@ -99,8 +118,7 @@ public class CustomInputManager : InputManager
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         //Load the prefab
         areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
         //Set the prefav as a player child
@@ -120,8 +138,7 @@ public class CustomInputManager : InputManager
 
     public void AimAoeSkill(Vector2 aoePosition)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         //Multiply vector values according to the scale of the animation (in this case 12)
         indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
@@ -129,8 +146,7 @@ public class CustomInputManager : InputManager
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         //Destroy attack animation after showing it
         Destroy(areaWithAim, 2.1f);
@@ -140,9 +156,9 @@ public class CustomInputManager : InputManager
         Destroy(area, 0.01f);
 
         activeJoystick = null;
-        EnableButton();
+        EnableButtons();
 
-        skill.ExecuteSkill(aoePosition);
+        skill.TryExecuteSkill(aoePosition);
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -163,8 +179,7 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        // FIXME: Remove harcoded reference
-        GameObject _player = GameObject.Find("Player 1");
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
         //Set the prefav as a player child
@@ -208,9 +223,27 @@ public class CustomInputManager : InputManager
         Destroy(directionIndicator);
 
         activeJoystick = null;
-        EnableButton();
+        EnableButtons();
 
-        skill.ExecuteSkill(direction);
+        skill.TryExecuteSkill(direction);
+    }
+
+    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    {
+        MMTouchButton button = mobileButtons[control];
+        TMP_Text cooldownText = buttonsCooldown[control];
+
+        if (cooldown == 0)
+        {
+            button.EnableButton();
+            cooldownText.gameObject.SetActive(false);
+        }
+        else
+        {
+            button.DisableButton();
+            cooldownText.gameObject.SetActive(true);
+            cooldownText.text = cooldown.ToString();
+        }
     }
 
     private void DisableButtons()
@@ -219,16 +252,26 @@ public class CustomInputManager : InputManager
         {
             if (button != activeJoystick)
             {
+                // Try MMTouchButton.DisableButton();
                 button.GetComponent<MMTouchButton>().Interactable = false;
             }
         }
     }
 
-    private void EnableButton()
+    private void EnableButtons()
     {
         foreach (var (key, button) in mobileButtons)
         {
             button.GetComponent<MMTouchButton>().Interactable = true;
         }
+    }
+
+    public void SetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 0.25f);
+    }
+    public void UnsetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 1);
     }
 }

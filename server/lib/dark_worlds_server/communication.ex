@@ -34,8 +34,19 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def encode!(%{players: players, projectiles: projectiles}) do
-    %GameEvent{type: :STATE_UPDATE, players: players, projectiles: projectiles}
+  def game_update!(%{
+        players: players,
+        projectiles: projectiles,
+        player_timestamp: player_timestamp,
+        server_timestamp: server_timestamp
+      }) do
+    %GameEvent{
+      type: :STATE_UPDATE,
+      players: players,
+      projectiles: projectiles,
+      player_timestamp: player_timestamp,
+      server_timestamp: server_timestamp
+    }
     |> GameEvent.encode()
   end
 
@@ -44,13 +55,23 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def last_round!(%{winner: winner, current_round: current_round}) do
-    %GameEvent{type: :LAST_ROUND, winner_player: winner, current_round: current_round}
+  def last_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{
+      type: :LAST_ROUND,
+      winner_player: winner,
+      current_round: current_round,
+      players: players
+    }
     |> GameEvent.encode()
   end
 
-  def next_round!(%{winner: winner, current_round: current_round}) do
-    %GameEvent{type: :NEXT_ROUND, winner_player: winner, current_round: current_round}
+  def next_round!(%{winner: winner, current_round: current_round, players: players}) do
+    %GameEvent{
+      type: :NEXT_ROUND,
+      winner_player: winner,
+      current_round: current_round,
+      players: players
+    }
     |> GameEvent.encode()
   end
 
@@ -66,6 +87,20 @@ defmodule DarkWorldsServer.Communication do
 
   def initial_positions(players) do
     %GameEvent{type: :INITIAL_POSITIONS, players: players}
+    |> GameEvent.encode()
+  end
+
+  def selected_characters!(selected_characters) do
+    %GameEvent{type: :SELECTED_CHARACTER_UPDATE, selected_characters: selected_characters}
+    |> GameEvent.encode()
+  end
+
+  def finish_character_selection!(selected_characters, players) do
+    %GameEvent{
+      type: :FINISH_CHARACTER_SELECTION,
+      selected_characters: selected_characters,
+      players: players
+    }
     |> GameEvent.encode()
   end
 

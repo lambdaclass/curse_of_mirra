@@ -2,13 +2,24 @@ use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use std::collections::HashMap;
 use std::str::FromStr;
-use strum_macros::EnumString;
+use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
 #[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum Effect {
-    Petrified,
+    Petrified = 0,
+    Disarmed = 1,
+    Piercing = 2,
+    Raged = 3,
 }
-#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
+impl Effect {
+    pub fn is_crowd_control(&self) -> bool {
+        match self {
+            Effect::Petrified | Effect::Disarmed => true,
+            _ => false,
+        }
+    }
+}
+#[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
     Uma,
@@ -17,6 +28,8 @@ pub enum Name {
     #[strum(ascii_case_insensitive)]
     Muflus,
 }
+
+pub type StatusEffects = HashMap<Effect, TicksLeft>;
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
 pub enum Faction {
     #[strum(serialize = "ara", serialize = "Araban", ascii_case_insensitive)]
@@ -43,7 +56,6 @@ pub struct Character {
     pub skill_active_second: SecondActive,
     pub skill_dash: Dash,
     pub skill_ultimate: Ultimate,
-    pub status_effects: HashMap<Effect, TicksLeft>,
 }
 
 impl Character {
@@ -64,7 +76,6 @@ impl Character {
             faction,
             skill_basic: basic_skill,
             base_speed: speed,
-            status_effects: HashMap::new(),
             skill_active_first: FirstActive::BarrelRoll,
             skill_active_second: SecondActive::Disarm,
             skill_dash: Dash::Blink,
@@ -98,18 +109,69 @@ impl Character {
             skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
-            status_effects: HashMap::new(),
         })
     }
-    #[inline]
-    pub fn attack_dmg(&self) -> u64 {
-        // TODO have a trait for this
-        // instead of matching enums.
+    pub fn attack_dmg_basic_skill(&self) -> u32 {
         match self.skill_basic {
-            BasicSkill::Slingshot => 10_u64,
-            BasicSkill::Bash => 30_u64,
-            BasicSkill::Backstab => 10_u64,
+            BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
+            BasicSkill::Bash => 30_u32,      // Muflus basic attack damage
+            _ => 10_u32,
         }
+    }
+    pub fn attack_dmg_first_active(&self) -> u32 {
+        match self.skill_active_first {
+            // Muflus attack
+            FirstActive::BarrelRoll => 50_u32,
+            FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
+            FirstActive::MultiShot => 10_u32,
+        }
+    }
+    pub fn attack_dmg_second_active(&mut self) -> u32 {
+        match self.skill_active_second {
+            SecondActive::Petrify => 30_u32,
+            SecondActive::MirrorImage => 10_u32,
+            SecondActive::Disarm => 5_u32,
+            _ => 0_u32,
+        }
+    }
+    #[inline]
+    pub fn cooldown_basic_skill(&self) -> u64 {
+        match self.skill_basic {
+            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
+            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
+            BasicSkill::Backstab => 1_u64,
+        }
+    }
+    pub fn cooldown_first_skill(&self) -> u64 {
+        match self.skill_active_first {
+            FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+            FirstActive::SerpentStrike => 5_u64,
+            FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        }
+    }
+    pub fn cooldown_second_skill(&self) -> u64 {
+        match self.skill_active_second {
+            SecondActive::Disarm => 5_u64,
+            SecondActive::MirrorImage => 5_u64,
+            SecondActive::Petrify => 5_u64,
+            SecondActive::Rage => 5_u64,
+        }
+    }
+    pub fn cooldown_third_skill(&self) -> u64 {
+        // match self.skill_active_third {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
+    }
+    pub fn cooldown_fourth_skill(&self) -> u64 {
+        // match self.skill_active_fourth {
+        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => 5_u64,
+        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        // }
+        10_u64
     }
     // Cooldown in seconds
     #[inline]
@@ -120,25 +182,15 @@ impl Character {
             BasicSkill::Backstab => 1,
         }
     }
-    #[inline]
-    pub fn speed(&self) -> u64 {
-        match self.status_effects.get(&Effect::Petrified) {
-            Some((1_u64..=u64::MAX)) => 0,
-            None | Some(0) => self.base_speed,
-        }
-    }
-    #[inline]
-    pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
-        self.status_effects.insert(e.clone(), tl);
-    }
 
     // TODO:
     // There should be an extra logic to choose the aoe effect
     // An aoe effect can come from a skill 1, 2, etc.
     #[inline]
-    pub fn select_aoe_effect(&self) -> Option<(Effect, TicksLeft)> {
+    pub fn select_basic_skill_effect(&self) -> Option<(Effect, TicksLeft)> {
         match self.name {
             Name::Uma => Some((Effect::Petrified, 300)),
+            Name::H4ck => Some((Effect::Disarmed, 300)),
             _ => None,
         }
     }
@@ -162,7 +214,7 @@ fn get_key(config: &HashMap<String, String>, key: &str) -> Result<String, String
         .ok_or(format!("Missing key: {:?}", key))
         .map(|s| s.to_string())
 }
-fn parse_character_attribute<T: FromStr + std::fmt::Debug>(to_parse: &str) -> Result<T, String> {
+fn parse_character_attribute<T: FromStr>(to_parse: &str) -> Result<T, String> {
     let parsed = T::from_str(&to_parse);
     match parsed {
         Ok(parsed) => Ok(parsed),

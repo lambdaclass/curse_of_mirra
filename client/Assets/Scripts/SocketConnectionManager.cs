@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
+using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -22,13 +26,22 @@ public class SocketConnectionManager : MonoBehaviour
     public string server_ip = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
+    public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
-    private int playerId;
+    public Dictionary<ulong, string> selectedCharacters;
+    public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public Player winnerPlayer = null;
 
     public List<Player> winners = new List<Player>();
+
+    public ClientPrediction clientPrediction = new ClientPrediction();
+
+    public List<GameEvent> gameEvents = new List<GameEvent>();
+    private Boolean botsActive = true;
+
+    public EventsBuffer eventsBuffer;
 
     WebSocket ws;
 
@@ -44,19 +57,14 @@ public class SocketConnectionManager : MonoBehaviour
         this.server_ip = LobbyConnection.Instance.server_ip;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
         projectilesStatic = this.projectiles;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
         playerId = LobbyConnection.Instance.playerId;
-        if (string.IsNullOrEmpty(this.session_id))
-        {
-            StartCoroutine(GetRequest());
-        }
-        else
-        {
-            ConnectToSession(this.session_id);
-        }
+        ConnectToSession(this.session_id);
+        eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     }
 
     void Update()
@@ -122,11 +130,17 @@ public class SocketConnectionManager : MonoBehaviour
                         game_event.Players
                             .ToList()
                             .FindAll((player) => !this.gamePlayers.Contains(player))
-                            .ForEach((player) => SpawnBot.Instance.Spawn(player));
+                            .ForEach(
+                                (player) =>
+                                {
+                                    SpawnBot.Instance.Spawn(player);
+                                }
+                            );
                     }
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
+                    eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:
@@ -135,11 +149,20 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.NextRound:
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     winners.Add(game_event.WinnerPlayer);
+                    var newPlayer1 = GetPlayer(
+                        SocketConnectionManager.Instance.playerId,
+                        game_event.Players.ToList()
+                    );
+
                     break;
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
                     print("The winner of the round is " + game_event.WinnerPlayer);
-                    ;
+                    var newPlayer2 = GetPlayer(
+                        SocketConnectionManager.Instance.playerId,
+                        game_event.Players.ToList()
+                    );
+
                     break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
@@ -148,6 +171,18 @@ public class SocketConnectionManager : MonoBehaviour
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = game_event.Players.ToList();
+                    break;
+                case GameEventType.SelectedCharacterUpdate:
+                    this.selectedCharacters = fromMapFieldToDictionary(
+                        game_event.SelectedCharacters
+                    );
+                    break;
+                case GameEventType.FinishCharacterSelection:
+                    this.selectedCharacters = fromMapFieldToDictionary(
+                        game_event.SelectedCharacters
+                    );
+                    this.gamePlayers = game_event.Players.ToList();
+                    SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
                     print("Message received is: " + game_event.Type);
@@ -158,6 +193,23 @@ public class SocketConnectionManager : MonoBehaviour
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
+    }
+
+    public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict)
+    {
+        Dictionary<ulong, string> result = new Dictionary<ulong, string>();
+
+        foreach (KeyValuePair<ulong, string> element in dict)
+        {
+            result.Add(element.Key, element.Value);
+        }
+
+        return result;
+    }
+
+    public static Player GetPlayer(ulong id, List<Player> player_list)
+    {
+        return player_list.Find(el => el.Id == id);
     }
 
     public void SendAction(ClientAction action)
@@ -172,7 +224,28 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void CallSpawnBot()
     {
-        ClientAction clientAction = new ClientAction { Action = Action.AddBot };
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        ClientAction clientAction = new ClientAction
+        {
+            Action = Action.AddBot,
+            Timestamp = timestamp
+        };
+        SendAction(clientAction);
+    }
+
+    public void ToggleBots()
+    {
+        ClientAction clientAction;
+        if (this.botsActive)
+        {
+            clientAction = new ClientAction { Action = Action.DisableBots };
+        }
+        else
+        {
+            clientAction = new ClientAction { Action = Action.EnableBots };
+        }
+
+        this.botsActive = !this.botsActive;
         SendAction(clientAction);
     }
 

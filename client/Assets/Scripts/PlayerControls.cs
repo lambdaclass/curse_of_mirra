@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -14,8 +16,8 @@ public class PlayerControls : MonoBehaviour
     {
         RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(direction.x * 100),
-            Y = (long)(direction.z * 100)
+            X = direction.x,
+            Y = direction.z
         };
 
         var clientAction = new ClientAction { Action = Action.BasicAttack, Position = relativePosition };
@@ -26,34 +28,61 @@ public class PlayerControls : MonoBehaviour
     {
         if (x != 0 || y != 0)
         {
-            var valuesToSend = new JoystickValues { X = x, Y = y };
-            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend };
+            var valuesToSend = new RelativePosition { X = x, Y = y };
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
             SocketConnectionManager.Instance.SendAction(clientAction);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = x,
+                joystick_y_value = y,
+                timestamp = timestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
     }
     public void SendAction()
     {
+        float x = 0;
+        float y = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            SendAction(Action.Move, Direction.Up);
+            y += 1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            SendAction(Action.Move, Direction.Left);
+            x += -1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            SendAction(Action.Move, Direction.Right);
+            x += 1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            SendAction(Action.Move, Direction.Down);
+            y += -1f;
         }
+
+        SendJoystickValues(x, y);
+    }
+ 
+    public static float getBackendCharacterSpeed(ulong playerId) {
+        if(SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId)){
+            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+            
+            foreach (var character in chars) {
+                if(charName == character.Name){
+                    return float.Parse(character.BaseSpeed);
+                }
+            }
+        }
+        return 0f;
     }
 
-    private static void SendAction(Action action, Direction direction)
+    private static void SendAction(Action action, Direction direction, long timestamp)
     {
-        ClientAction clientAction = new ClientAction { Action = action, Direction = direction };
+        ClientAction clientAction = new ClientAction { Action = action, Direction = direction, Timestamp = timestamp };
         SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }

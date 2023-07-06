@@ -4,6 +4,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class LobbiesManager : LevelSelector
 {
@@ -51,7 +52,7 @@ public class LobbiesManager : LevelSelector
         yield return new WaitUntil(
             () =>
                 !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
-                && LobbyConnection.Instance.playerId != -1
+                && LobbyConnection.Instance.playerId != UInt64.MaxValue
         );
         SceneManager.LoadScene("Lobby");
     }
