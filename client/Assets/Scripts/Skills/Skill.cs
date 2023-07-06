@@ -1,15 +1,22 @@
-using UnityEngine;
 using System.Collections;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class Skill : CharacterAbility
 {
-    [SerializeField] protected string skillId;
-    [SerializeField] protected Action serverSkill;
-    [SerializeField] protected bool blocksMovementOnExecute = true;
-    [SerializeField] protected SkillInfo skillInfo;
+    [SerializeField]
+    protected string skillId;
+
+    [SerializeField]
+    protected Action serverSkill;
+
+    [SerializeField]
+    protected bool blocksMovementOnExecute = true;
+
+    [SerializeField]
+    protected SkillInfo skillInfo;
 
     public void SetSkill(Action serverSkill, SkillInfo skillInfo)
     {
@@ -45,7 +52,9 @@ public class Skill : CharacterAbility
     {
         if (AbilityAuthorized)
         {
-            Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+            Vector3 direction = this.GetComponent<Character>()
+                .GetComponent<CharacterOrientation3D>()
+                .ForcedRotationDirection;
             RelativePosition relativePosition = new RelativePosition
             {
                 X = direction.x,
@@ -87,16 +96,23 @@ public class Skill : CharacterAbility
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
+        ClientAction action = new ClientAction
+        {
+            Action = serverSkill,
+            Position = relativePosition
+        };
+        Debug.Log("Sending action to backend");
         SocketConnectionManager.Instance.SendAction(action);
     }
 
     private IEnumerator EndSkillFeedback()
     {
+        Debug.Log("Ending skill feedback");
         if (skillInfo)
         {
             yield return new WaitForSeconds(skillInfo.blockMovementTime);
         }
+        Debug.Log("Ending skill feedback - changing state");
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
     }
