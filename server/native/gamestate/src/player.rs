@@ -1,5 +1,4 @@
 use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
-use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
 use rand::Rng;
 use rustler::NifStruct;
@@ -115,27 +114,19 @@ impl Player {
 
     pub fn basic_skill_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_basic_skill();
-        match self.character.skill_basic {
-            BasicSkill::Bash => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_1_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_first_active();
-        match self.character.skill_active_first {
-            FirstActive::BarrelRoll => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_2_damage(&mut self) -> u32 {
         return self.character.attack_dmg_second_active();

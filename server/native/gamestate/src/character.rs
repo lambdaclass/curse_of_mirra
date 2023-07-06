@@ -1,5 +1,5 @@
 use crate::skills::*;
-use crate::skills::{Class, FirstActive, SecondActive};
+use crate::skills::Class;
 use std::collections::HashMap;
 use std::ops::Div;
 use std::str::FromStr;
@@ -53,18 +53,22 @@ pub struct Character {
     pub name: Name,
     pub base_speed: u64,
     pub skill_basic: Skill,
-    pub skill_active_first: FirstActive,
-    pub skill_active_second: SecondActive,
-    pub skill_dash: Dash,
-    pub skill_ultimate: Ultimate,
+    pub skill_1: Skill,
+    pub skill_2: Skill,
+    pub skill_3: Skill,
+    pub skill_4: Skill,
 }
 
 impl Character {
     pub fn new(
         class: Class,
-        speed: u64,
+        base_speed: u64,
         name: &Name,
-        basic_skill: Skill,
+        skill_basic: Skill,
+        skill_1: Skill,
+        skill_2: Skill,
+        skill_3: Skill,
+        skill_4: Skill,
         active: bool,
         id: u64,
         faction: Faction,
@@ -75,12 +79,12 @@ impl Character {
             active,
             id,
             faction,
-            base_speed: speed,
-            skill_basic: basic_skill,
-            skill_active_first: FirstActive::BarrelRoll,
-            skill_active_second: SecondActive::Disarm,
-            skill_dash: Dash::Blink,
-            skill_ultimate: Ultimate::DenialOfService,
+            base_speed,
+            skill_basic,
+            skill_1,
+            skill_2,
+            skill_3,
+            skill_4,
         }
     }
     // NOTE:
@@ -94,10 +98,10 @@ impl Character {
         let faction = get_key(config, "Faction")?;
         let base_speed = get_key(config, "BaseSpeed")?;
         let skill_basic = get_key(config, "SkillBasic")?;
-        let skill_active_first = get_key(config, "SkillActive1")?;
-        let skill_active_second = get_key(config, "SkillActive2")?;
-        let skill_dash = get_key(config, "SkillDash")?;
-        let skill_ultimate = get_key(config, "SkillUltimate")?;
+        let skill_1 = get_key(config, "SkillActive1")?;
+        let skill_2 = get_key(config, "SkillActive2")?;
+        let skill_3 = get_key(config, "SkillDash")?;
+        let skill_4 = get_key(config, "SkillUltimate")?;
         Ok(Self {
             active: parse_character_attribute::<u64>(&active)? != 0,
             base_speed: parse_character_attribute(&base_speed)?,
@@ -106,10 +110,10 @@ impl Character {
             id: parse_character_attribute(&id)?,
             name: parse_character_attribute(&name)?,
             skill_basic: get_skill(&skills, &skill_basic)?,
-            skill_active_first: parse_character_attribute(&skill_active_first)?,
-            skill_active_second: parse_character_attribute(&skill_active_second)?,
-            skill_dash: parse_character_attribute(&skill_dash)?,
-            skill_ultimate: parse_character_attribute(&skill_ultimate)?,
+            skill_1: get_skill(&skills, &skill_1)?,
+            skill_2: get_skill(&skills, &skill_2)?,
+            skill_3: get_skill(&skills, &skill_3)?,
+            skill_4: get_skill(&skills, &skill_4)?,
         })
     }
 
@@ -117,20 +121,10 @@ impl Character {
         self.skill_basic.damage
     }
     pub fn attack_dmg_first_active(&self) -> u32 {
-        match self.skill_active_first {
-            // Muflus attack
-            FirstActive::BarrelRoll => 50_u32,
-            FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
-            FirstActive::MultiShot => 10_u32,
-        }
+        self.skill_1.damage
     }
     pub fn attack_dmg_second_active(&mut self) -> u32 {
-        match self.skill_active_second {
-            SecondActive::Petrify => 30_u32,
-            SecondActive::MirrorImage => 10_u32,
-            SecondActive::Disarm => 5_u32,
-            _ => 0_u32,
-        }
+        self.skill_2.damage
     }
 
     pub fn cooldown_basic_skill(&self) -> u64 {
@@ -138,35 +132,19 @@ impl Character {
     }
 
     pub fn cooldown_first_skill(&self) -> u64 {
-        match self.skill_active_first {
-            FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-            FirstActive::SerpentStrike => 5_u64,
-            FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
-        }
+        self.skill_1.cooldown_ms.div(1000)
     }
+
     pub fn cooldown_second_skill(&self) -> u64 {
-        match self.skill_active_second {
-            SecondActive::Disarm => 5_u64,
-            SecondActive::MirrorImage => 5_u64,
-            SecondActive::Petrify => 5_u64,
-            SecondActive::Rage => 5_u64,
-        }
+        self.skill_2.cooldown_ms.div(1000)
     }
+
     pub fn cooldown_third_skill(&self) -> u64 {
-        // match self.skill_active_third {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
-        // }
-        10_u64
+        self.skill_3.cooldown_ms.div(1000)
     }
+
     pub fn cooldown_fourth_skill(&self) -> u64 {
-        // match self.skill_active_fourth {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
-        // }
-        10_u64
+        self.skill_4.cooldown_ms.div(1000)
     }
 
     // TODO:
@@ -181,12 +159,18 @@ impl Character {
         }
     }
 }
+
+//TODO: This character is broken, it has basic skill as all skills
 impl Default for Character {
     fn default() -> Self {
         Character::new(
             Class::Hunter,
             5,
             &Name::H4ck,
+            Skill::default(),
+            Skill::default(),
+            Skill::default(),
+            Skill::default(),
             Skill::default(),
             true,
             1,
