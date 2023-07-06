@@ -26,7 +26,7 @@
       "SkillActive2": "Petrify",
       "SkillDash": "Shadowstep",
       "SkillUltimate": "Toxic Tempest",
-      "BodySize": "10.0"
+      "BodySize": "9.0"
 
     },
     {
@@ -41,7 +41,7 @@
       "SkillActive2": "Disarm",
       "SkillDash": "Hacktivate",
       "SkillUltimate": "Denial of Service",
-      "BodySize": "10.0"
+      "BodySize": "8.0"
     },
     {
       "Name": "Valtimer",
@@ -55,7 +55,7 @@
       "SkillActive2": "Mirror Image",
       "SkillDash": "Blink",
       "SkillUltimate": "The Trickster",
-      "BodySize": "10.0"
+      "BodySize": "8.0"
     },
     {
       "Name": "Otix",
@@ -69,7 +69,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "10.0"
+      "BodySize": "6.0"
     },
     {
       "Name": "Uren",
@@ -83,7 +83,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "10.0"
+      "BodySize": "9.0"
     },
     {
       "Name": "Kenzu",
@@ -97,7 +97,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "10.0"
+      "BodySize": "9.0"
     },
     {
       "Name": "Dagna",
@@ -111,7 +111,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "10.0"
+      "BodySize": "8.0"
     }
   ]
 }
