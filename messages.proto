@@ -309,3 +309,7 @@ message Projectile {
     uint64 last_attacked_player_id = 11;
     bool pierce = 12;
 }
+
+message LootPackage {
+    
+}

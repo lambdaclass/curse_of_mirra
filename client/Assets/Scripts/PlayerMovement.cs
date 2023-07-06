@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
-using UnityEngine.UI;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
+            UpdateLootPackages();
         }
     }
 
@@ -275,8 +276,15 @@ public class PlayerMovement : MonoBehaviour
                 //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
                 // }
 
-                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2]));
+                GameObject player = SocketConnectionManager.Instance.players[
+                    (int)gameProjectiles[i].PlayerId - 1
+                ];
+                player
+                    .GetComponent<MainAttack>()
+                    .ShootLaser(
+                        projectile,
+                        new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2])
+                    );
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
             {
@@ -314,7 +322,21 @@ public class PlayerMovement : MonoBehaviour
             player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
             projectiles.Remove(key);
         }
+    }
 
+    void UpdateLootPackages()
+    {
+        Dictionary<LootPackage, Vector3> lootPackages = SocketConnectionManager
+            .Instance
+            .lootPackages;
+        // For each loot package in the dictionary, call SpawnLoot.Init(lootPackage, position)
+        foreach (KeyValuePair<LootPackage, Vector3> entry in lootPackages)
+        {
+            LootPackage lootPackage = entry.Key;
+            Vector3 position = entry.Value;
+            // SpawnLoot.Init(lootPackage, position);
+            SpawnLoot.Init();
+        }
     }
 
     private void movePlayer(GameObject player, Player playerUpdate)
@@ -335,13 +357,17 @@ public class PlayerMovement : MonoBehaviour
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
         {
             // TODO: Change to VFX effect in next URP PR
-            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+            character.CharacterModel.transform
+                .GetChild(1)
+                .GetComponent<Renderer>()
+                .material.color = Color.red;
             character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
             characterSpeed *= 1.5f;
         }
         else
         {
-            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
+            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color =
+                Color.white;
             character.GetComponent<Skill2>().StopStartFeedbacks();
         }
 
@@ -373,7 +399,10 @@ public class PlayerMovement : MonoBehaviour
             movementDirection.Normalize();
 
             // FIXME: Removed harcoded validation once is fixed on the backend.
-            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill3)
+            if (
+                playerUpdate.CharacterName == "Muflus"
+                && playerUpdate.Action == PlayerAction.ExecutingSkill3
+            )
             {
                 player.transform.position = frontendPosition;
             }
@@ -465,7 +494,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.SkillBasic,
+                playerUpdate.BasicSkillCooldownLeft
+            );
             InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
             InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
             InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);

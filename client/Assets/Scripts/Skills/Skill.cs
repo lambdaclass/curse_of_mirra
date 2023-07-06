@@ -1,5 +1,4 @@
 using System.Collections;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using MoreMountains.Feedbacks;
@@ -17,13 +16,11 @@ public abstract class Skill : CharacterAbility
 
     [SerializeField]
     protected SkillInfo skillInfo;
-    protected int skillLevel;
 
     public void SetSkill(Action serverSkill, SkillInfo skillInfo)
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
-        this.skillLevel = 0;
     }
 
     protected override void Start()

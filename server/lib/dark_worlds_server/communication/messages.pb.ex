@@ -405,3 +405,11 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
+
+defmodule DarkWorldsServer.Communication.Proto.LootPackage do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
