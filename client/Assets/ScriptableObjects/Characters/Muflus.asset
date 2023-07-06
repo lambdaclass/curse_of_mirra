@@ -19,6 +19,6 @@ MonoBehaviour:
   prefab: {fileID: 1787465996332106805, guid: 6751985a991154bbbbe6c7071528f3d3, type: 3}
   skillBasicInfo: {fileID: 11400000, guid: b85740503d2ad400bb28c59054d8d089, type: 2}
   skill1Info: {fileID: 11400000, guid: ed5f9bcdfd56a484ab25ece7481cf63a, type: 2}
-  skill2Info: {fileID: 11400000, guid: 542e844de648b45dd8b52a23be8a3877, type: 2}
-  skill3Info: {fileID: 11400000, guid: 0038c4c9c899e4be8bfed87f2c5317f0, type: 2}
+  skill2Info: {fileID: 11400000, guid: 0038c4c9c899e4be8bfed87f2c5317f0, type: 2}
+  skill3Info: {fileID: 11400000, guid: 542e844de648b45dd8b52a23be8a3877, type: 2}
   skill4Info: {fileID: 11400000, guid: 0ca7b1f6438664a78a478615b9e38db2, type: 2}

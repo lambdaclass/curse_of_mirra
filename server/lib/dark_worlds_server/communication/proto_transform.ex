@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
+  alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
@@ -16,6 +17,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
+
+  ###########
+  # ENCODES #
+  ###########
+
+  def encode(effect, EffectsEntry) do
+    effect_encode(effect)
+  end
 
   def encode(entry, SelectedCharactersEntry) do
     entry
@@ -84,11 +93,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       kill_count: kill_count,
       death_count: death_count,
       basic_skill_cooldown_left: basic_skill_cooldown_left,
-      first_skill_cooldown_left: first_skill_cooldown_left,
-      second_skill_cooldown_left: second_skill_cooldown_left,
-      third_skill_cooldown_left: third_skill_cooldown_left,
-      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      skill_1_cooldown_left: skill_1_cooldown_left,
+      skill_2_cooldown_left: skill_2_cooldown_left,
+      skill_3_cooldown_left: skill_3_cooldown_left,
+      skill_4_cooldown_left: skill_4_cooldown_left,
+      character_name: name,
+      effects: effects
     } = player
 
     %ProtoPlayer{
@@ -100,11 +110,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       kill_count: kill_count,
       death_count: death_count,
       basic_skill_cooldown_left: basic_skill_cooldown_left,
-      first_skill_cooldown_left: first_skill_cooldown_left,
-      second_skill_cooldown_left: second_skill_cooldown_left,
-      third_skill_cooldown_left: third_skill_cooldown_left,
-      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      skill_1_cooldown_left: skill_1_cooldown_left,
+      skill_2_cooldown_left: skill_2_cooldown_left,
+      skill_3_cooldown_left: skill_3_cooldown_left,
+      skill_4_cooldown_left: skill_4_cooldown_left,
+      character_name: name,
+      effects: effects
     }
   end
 
@@ -176,6 +187,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
   end
 
+  ###########
+  # DECODES #
+  ###########
+
   @impl Protobuf.TransformModule
   def decode(%ProtoPosition{} = position, ProtoPosition) do
     %{x: x, y: y} = position
@@ -200,11 +215,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       kill_count: kill_count,
       death_count: death_count,
       basic_skill_cooldown_left: basic_skill_cooldown_left,
-      first_skill_cooldown_left: first_skill_cooldown_left,
-      second_skill_cooldown_left: second_skill_cooldown_left,
-      third_skill_cooldown_left: third_skill_cooldown_left,
-      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      skill_1_cooldown_left: skill_1_cooldown_left,
+      skill_2_cooldown_left: skill_2_cooldown_left,
+      skill_3_cooldown_left: skill_3_cooldown_left,
+      skill_4_cooldown_left: skill_4_cooldown_left,
+      character_name: name,
+      effects: effects
     } = player
 
     %EnginePlayer{
@@ -218,11 +234,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       kill_count: kill_count,
       death_count: death_count,
       basic_skill_cooldown_left: basic_skill_cooldown_left,
-      first_skill_cooldown_left: first_skill_cooldown_left,
-      second_skill_cooldown_left: second_skill_cooldown_left,
-      third_skill_cooldown_left: third_skill_cooldown_left,
-      fourth_skill_cooldown_left: fourth_skill_cooldown_left,
-      character_name: name
+      skill_1_cooldown_left: skill_1_cooldown_left,
+      skill_2_cooldown_left: skill_2_cooldown_left,
+      skill_3_cooldown_left: skill_3_cooldown_left,
+      skill_4_cooldown_left: skill_4_cooldown_left,
+      character_name: name,
+      effects: effects
     }
   end
 
@@ -366,4 +383,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp projectile_status_decode(:ACTIVE), do: :active
   defp projectile_status_decode(:EXPLODED), do: :exploded
+
+  defp effect_encode({:petrified, ticks}), do: {0, ticks}
+  defp effect_encode({:disarmed, ticks}), do: {1, ticks}
+  defp effect_encode({:piercing, ticks}), do: {2, ticks}
+  defp effect_encode({:raged, ticks}), do: {3, ticks}
 end

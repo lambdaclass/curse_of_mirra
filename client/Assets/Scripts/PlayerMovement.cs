@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
         if (player)
         {
             Character character = player.GetComponent<Character>();
@@ -273,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
                 // {
                 //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
                 // }
-                
+
                 GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
                 player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2]));
             }
@@ -296,7 +297,7 @@ public class PlayerMovement : MonoBehaviour
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
         }
-        
+
         var toExplode = new List<int>();
         foreach (var pr in projectiles)
         {
@@ -329,7 +330,20 @@ public class PlayerMovement : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
+        Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
+        {
+            // TODO: Change to VFX effect in next URP PR
+            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+            character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
+            characterSpeed *= 1.5f;
+        }
+        else
+        {
+            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
+            character.GetComponent<Skill2>().StopStartFeedbacks();
+        }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
@@ -359,10 +373,7 @@ public class PlayerMovement : MonoBehaviour
             movementDirection.Normalize();
 
             // FIXME: Removed harcoded validation once is fixed on the backend.
-            if (
-                playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Action == PlayerAction.ExecutingSkill2
-            )
+            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill3)
             {
                 player.transform.position = frontendPosition;
             }
@@ -454,16 +465,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            InputManager.CheckSkillCooldown(
-                UIControls.SkillBasic,
-                playerUpdate.BasicSkillCooldownLeft
-            );
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.FirstSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill2,
-                playerUpdate.SecondSkillCooldownLeft
-            );
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.ThirdSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
+            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
         }
     }
 

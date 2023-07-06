@@ -33,7 +33,6 @@ pub enum FirstActive {
     #[strum(ascii_case_insensitive)]
     MultiShot,
 }
-
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum SecondActive {
     #[strum(ascii_case_insensitive)]

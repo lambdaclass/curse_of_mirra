@@ -1,7 +1,10 @@
-use crate::character::{Character, Effect};
+use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
+use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
+use rand::Rng;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
+use std::collections::HashMap;
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack
@@ -26,21 +29,22 @@ pub struct Player {
     // How many seconds are left until the
     // cooldown is over.
     pub basic_skill_cooldown_left: u64,
-    pub first_skill_cooldown_left: u64,
-    pub second_skill_cooldown_left: u64,
-    pub third_skill_cooldown_left: u64,
-    pub fourth_skill_cooldown_left: u64,
+    pub skill_1_cooldown_left: u64,
+    pub skill_2_cooldown_left: u64,
+    pub skill_3_cooldown_left: u64,
+    pub skill_4_cooldown_left: u64,
     // Timestamp when the cooldown started.
-    pub basic_skill_cooldown_start: u64,
-    pub first_skill_start: u64,
-    pub second_skill_cooldown_start: u64,
-    pub third_skill_start: u64,
-    pub fourth_skill_start: u64,
+    pub basic_skill_started_at: u64,
+    pub skill_1_started_at: u64,
+    pub skill_2_started_at: u64,
+    pub skill_3_started_at: u64,
+    pub skill_4_started_at: u64,
     // This field is redundant given that
     // we have the Character filed, this his
     // hopefully temporary and to tell
     // the client which character is being used.
     pub character_name: String,
+    pub effects: StatusEffects,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -84,15 +88,16 @@ impl Player {
             kill_count: 0,
             death_count: 0,
             basic_skill_cooldown_left: 0,
-            first_skill_cooldown_left: 0,
-            second_skill_cooldown_left: 0,
-            third_skill_cooldown_left: 0,
-            fourth_skill_cooldown_left: 0,
-            basic_skill_cooldown_start: 0,
-            first_skill_start: 0,
-            second_skill_cooldown_start: 0,
-            third_skill_start: 0,
-            fourth_skill_start: 0,
+            skill_1_cooldown_left: 0,
+            skill_2_cooldown_left: 0,
+            skill_3_cooldown_left: 0,
+            skill_4_cooldown_left: 0,
+            basic_skill_started_at: 0,
+            skill_1_started_at: 0,
+            skill_2_started_at: 0,
+            skill_3_started_at: 0,
+            skill_4_started_at: 0,
+            effects: HashMap::new(),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -106,6 +111,79 @@ impl Player {
     }
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
+    }
+
+    pub fn basic_skill_damage(&self) -> u32 {
+        let mut damage = self.character.attack_dmg_basic_skill();
+        match self.character.skill_basic {
+            BasicSkill::Bash => {
+                if self.has_active_effect(&Effect::Raged) {
+                    damage += 10_u32;
+                }
+                return damage;
+            }
+            _ => damage,
+        }
+    }
+    pub fn skill_1_damage(&self) -> u32 {
+        let mut damage = self.character.attack_dmg_first_active();
+        match self.character.skill_active_first {
+            FirstActive::BarrelRoll => {
+                if self.has_active_effect(&Effect::Raged) {
+                    damage += 10_u32;
+                }
+                return damage;
+            }
+            _ => damage,
+        }
+    }
+    pub fn skill_2_damage(&mut self) -> u32 {
+        return self.character.attack_dmg_second_active();
+    }
+
+    #[inline]
+    pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
+        if !self.effects.contains_key(&e) {
+            match self.character.name {
+                Name::Muflus => {
+                    if !(self.muflus_partial_immunity(&e)) {
+                        self.effects.insert(e, tl);
+                    }
+                }
+                _ => {
+                    self.effects.insert(e.clone(), tl);
+                }
+            }
+        }
+    }
+
+    #[inline]
+    pub fn speed(&self) -> u64 {
+        if self.has_active_effect(&Effect::Petrified) {
+            return 0;
+        }
+        if self.has_active_effect(&Effect::Raged) {
+            return ((self.character.base_speed as f64) * 1.5).ceil() as u64;
+        }
+        return self.character.base_speed;
+    }
+
+    fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {
+        effect_to_apply.is_crowd_control()
+            && self.has_active_effect(&Effect::Raged)
+            && Self::chance_check(0.3)
+    }
+
+    fn chance_check(chance: f64) -> bool {
+        let mut rng = rand::thread_rng();
+        let random: f64 = rng.gen();
+        return random <= chance;
+    }
+
+    #[allow(unused_variables)]
+    pub fn has_active_effect(&self, e: &Effect) -> bool {
+        let effect = self.effects.get(e);
+        matches!(effect, Some(1..=u64::MAX))
     }
 
     ///
@@ -124,7 +202,7 @@ impl Player {
             return false;
         }
 
-        match self.character.status_effects.get(&Effect::Disarmed) {
+        match self.effects.get(&Effect::Disarmed) {
             Some((1_u64..=u64::MAX)) => false,
             None | Some(0) => true,
         }
@@ -139,23 +217,27 @@ impl Player {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_skill_cooldown_left = (self.basic_skill_cooldown_start
+        self.basic_skill_cooldown_left = (self.basic_skill_started_at
             + self.character.cooldown_basic_skill())
         .checked_sub(now)
         .unwrap_or(0);
-        self.first_skill_cooldown_left = (self.first_skill_start
+
+        self.skill_1_cooldown_left = (self.skill_1_started_at
             + self.character.cooldown_first_skill())
         .checked_sub(now)
         .unwrap_or(0);
-        self.second_skill_cooldown_left = (self.second_skill_cooldown_start
+
+        self.skill_2_cooldown_left = (self.skill_2_started_at
             + self.character.cooldown_second_skill())
         .checked_sub(now)
         .unwrap_or(0);
-        self.third_skill_cooldown_left = (self.third_skill_start
+
+        self.skill_3_cooldown_left = (self.skill_3_started_at
             + self.character.cooldown_third_skill())
         .checked_sub(now)
         .unwrap_or(0);
-        self.fourth_skill_cooldown_left = (self.fourth_skill_start
+
+        self.skill_4_cooldown_left = (self.skill_4_started_at
             + self.character.cooldown_fourth_skill())
         .checked_sub(now)
         .unwrap_or(0);

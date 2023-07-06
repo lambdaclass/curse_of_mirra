@@ -73,6 +73,17 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_4, 7)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:PETRIFIED, 0)
+  field(:DISARMED, 1)
+  field(:PIERCING, 2)
+  field(:RAGED, 3)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
   @moduledoc false
 
@@ -158,6 +169,17 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerCharacter do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
+defmodule DarkWorldsServer.Communication.Proto.Player.EffectsEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :uint64)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.Player do
   @moduledoc false
 
@@ -184,11 +206,17 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   )
 
   field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
-  field(:first_skill_cooldown_left, 12, type: :uint64, json_name: "firstSkillCooldownLeft")
-  field(:second_skill_cooldown_left, 13, type: :uint64, json_name: "secondSkillCooldownLeft")
-  field(:third_skill_cooldown_left, 14, type: :uint64, json_name: "thirdSkillCooldownLeft")
-  field(:fourth_skill_cooldown_left, 15, type: :uint64, json_name: "fourthSkillCooldownLeft")
+  field(:skill_1_cooldown_left, 12, type: :uint64, json_name: "skill1CooldownLeft")
+  field(:skill_2_cooldown_left, 13, type: :uint64, json_name: "skill2CooldownLeft")
+  field(:skill_3_cooldown_left, 14, type: :uint64, json_name: "skill3CooldownLeft")
+  field(:skill_4_cooldown_left, 15, type: :uint64, json_name: "skill4CooldownLeft")
   field(:character_name, 16, type: :string, json_name: "characterName")
+
+  field(:effects, 17,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.Player.EffectsEntry,
+    map: true
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

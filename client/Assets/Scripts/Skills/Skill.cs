@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
+using MoreMountains.Feedbacks;
 
 public class Skill : CharacterAbility
 {
@@ -10,26 +11,39 @@ public class Skill : CharacterAbility
     [SerializeField] protected bool blocksMovementOnExecute = true;
     [SerializeField] protected SkillInfo skillInfo;
 
-    public void SetSkill(Action serverSkill, SkillInfo skillInfo){
+    public void SetSkill(Action serverSkill, SkillInfo skillInfo)
+    {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
     }
 
-    protected override void Start (){
+    protected override void Start()
+    {
         base.Start();
 
-        if (blocksMovementOnExecute){
+        if (blocksMovementOnExecute)
+        {
             BlockingMovementStates = new CharacterStates.MovementStates[1];
             BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
         }
 
-        if (skillInfo){
+        if (skillInfo.feedbackAnimation)
+        {
+            GameObject feedback = Instantiate(skillInfo.feedbackAnimation, _model.transform.parent);
+
+            this.AbilityStartFeedbacks = feedback.GetComponent<MMF_Player>();
+        }
+
+        if (skillInfo)
+        {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
     }
 
-    public void TryExecuteSkill(){
-        if (AbilityAuthorized){
+    public void TryExecuteSkill()
+    {
+        if (AbilityAuthorized)
+        {
             Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
             RelativePosition relativePosition = new RelativePosition
             {
@@ -40,8 +54,10 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void TryExecuteSkill(Vector2 position){
-        if (AbilityAuthorized){
+    public void TryExecuteSkill(Vector2 position)
+    {
+        if (AbilityAuthorized)
+        {
             RelativePosition relativePosition = new RelativePosition
             {
                 X = position.x,
@@ -51,13 +67,16 @@ public class Skill : CharacterAbility
         }
     }
 
-    private void ExecuteSkill(RelativePosition relativePosition){
-        if (AbilityAuthorized){
+    private void ExecuteSkill(RelativePosition relativePosition)
+    {
+        if (AbilityAuthorized)
+        {
             SendActionToBackend(relativePosition);
         }
     }
 
-    public void ExecuteFeedback(){
+    public void ExecuteFeedback()
+    {
         _movement.ChangeState(CharacterStates.MovementStates.Attacking);
         _animator.SetBool(skillId, true);
 
@@ -72,7 +91,8 @@ public class Skill : CharacterAbility
 
     private IEnumerator EndSkillFeedback()
     {
-        if (skillInfo){
+        if (skillInfo)
+        {
             yield return new WaitForSeconds(skillInfo.blockMovementTime);
         }
         _movement.ChangeState(CharacterStates.MovementStates.Idle);

@@ -167,7 +167,8 @@ public class CustomLevelManager : LevelManager
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info);
             skill4.SetSkill(Action.Skill4, characterInfo.skill4Info);
 
-            if (UInt64.Parse(player.PlayerID) == clientPlayerId){
+            if (UInt64.Parse(player.PlayerID) == clientPlayerId)
+            {
                 inputManager.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
                 inputManager.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
                 inputManager.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
