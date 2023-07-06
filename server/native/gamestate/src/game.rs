@@ -64,12 +64,11 @@ impl GameState {
 
                 let selected_character = selected_characters
                     .get(&player_id)
-                    .ok_or("Can't get the selected character")
-                    .cloned()?;
+                    .ok_or(format!("Could not get player {player_id} character"))?;
 
                 let character = characters
                     .iter()
-                    .find(|x| x.name == selected_character)
+                    .find(|x| x.name == *selected_character)
                     .ok_or("Can't get the character")?
                     .clone();
 
@@ -152,7 +151,7 @@ impl GameState {
         let mut new_position = compute_adjacent_position_n_tiles(
             &direction,
             &player.position,
-            player.character.speed() as usize,
+            player.speed() as usize,
         );
 
         // These changes are done so that if the player is moving into one of the map's borders
@@ -248,7 +247,7 @@ impl GameState {
             x,
             y,
             player.position,
-            player.character.speed() as i64,
+            player.speed() as i64,
         );
 
         self.board
@@ -376,9 +375,8 @@ impl GameState {
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
 
@@ -394,12 +392,7 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
             }
-            Name::Uma => Self::h4ck_basic_attack(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Ok(()),
         }
     }
 
@@ -410,11 +403,7 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = match attacking_player
-                .character
-                .status_effects
-                .get(&Effect::Piercing)
-            {
+            let piercing = match attacking_player.effects.get(&Effect::Piercing) {
                 Some((1_u64..=u64::MAX)) => true,
                 None | Some(0) => false,
             };
@@ -426,8 +415,8 @@ impl GameState {
                 5,
                 1,
                 attacking_player.id,
-                attacking_player.character.attack_dmg_basic_skill(),
-                100,
+                attacking_player.basic_skill_damage(),
+                30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
@@ -475,7 +464,7 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let attack_dmg = attacking_player.character.attack_dmg_basic_skill() as i64;
+        let attack_dmg = attacking_player.basic_skill_damage() as i64;
         let attack_direction = Self::position_to_direction(direction);
 
         // TODO: This should be a config of the attack
@@ -486,30 +475,17 @@ impl GameState {
             attack_range,
         );
 
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
-                .into_iter()
-                .filter(|&id| id != attacking_player.id)
-                .collect();
-
+        let affected_players = GameState::players_in_range(board, top_left, bottom_right)
+            .into_iter()
+            .filter(|&id| id != attacking_player.id);
         let mut kill_count = 0;
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    if matches!(ap.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player)?;
-                }
-                _ => continue,
+        for target_player_id in affected_players {
+            let attacked_player = GameState::get_player_mut(players, target_player_id)?;
+            attacked_player.modify_health(-attack_dmg);
+            if matches!(attacked_player.status, Status::DEAD) {
+                kill_count += 1;
             }
+            GameState::modify_cell_if_player_died(board, &attacked_player)?;
         }
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
@@ -523,16 +499,14 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.first_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
-        attacking_player.first_skill_start = now;
-        attacking_player.first_skill_cooldown_left =
-            attacking_player.character.cooldown_first_skill();
+        attacking_player.skill_1_started_at = now;
+        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -545,12 +519,7 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
             }
-            _ => Self::h4ck_skill_1(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Ok(()),
         }
     }
 
@@ -581,8 +550,8 @@ impl GameState {
                     10,
                     1,
                     attacking_player.id,
-                    attacking_player.character.attack_dmg_first_active(),
-                    100,
+                    attacking_player.skill_1_damage(),
+                    10,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
@@ -600,9 +569,8 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<(), String> {
-        // TODO: This should be a config of the attack
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
+        let attack_dmg = attacking_player.skill_1_damage() as i64;
 
         // TODO: This should be a config of the attack
         let attack_range = 40;
@@ -640,6 +608,7 @@ impl GameState {
         direction: &RelativePosition,
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
+        // TODO: refactor this skill
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         Self::move_player_to_coordinates(board, attacking_player, direction)?;
         Self::muflus_skill_1(board, players, attacking_player_id)?;
@@ -653,16 +622,14 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
-        attacking_player.second_skill_cooldown_start = now;
-        attacking_player.second_skill_cooldown_left =
-            attacking_player.character.cooldown_basic_skill();
+        attacking_player.skill_2_started_at = now;
+        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_second_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -671,16 +638,8 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                let id = attacking_player.id;
-                Self::leap(&mut self.board, id, direction, &mut self.players)
-            }
-            _ => Self::h4ck_skill_2(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::Muflus => Self::muflus_skill_2(attacking_player),
+            _ => Ok(()),
         }
     }
 
@@ -711,12 +670,40 @@ impl GameState {
         Ok(())
     }
 
+    pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
+        attacking_player.add_effect(Effect::Raged.clone(), 100);
+        Ok(())
+    }
+
     pub fn skill_3(
         self: &mut Self,
-        _attacking_player_id: u64,
-        _direction: &RelativePosition,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
-        return Ok(());
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left) {
+            return Ok(());
+        }
+
+        let now = time_now();
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player.skill_3_started_at = now;
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            Name::Muflus => {
+                let id = attacking_player.id;
+                Self::leap(&mut self.board, id, direction, &mut self.players)
+            }
+            _ => Ok(()),
+        }
     }
 
     pub fn skill_4(
@@ -726,22 +713,18 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.fourth_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player.fourth_skill_start = now;
-        attacking_player.fourth_skill_cooldown_left =
-            attacking_player.character.cooldown_fourth_skill();
+        attacking_player.skill_4_cooldown_left = now;
+        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
 
         match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player
-                    .character
-                    .add_effect(Effect::Piercing.clone(), 300);
+                attacking_player.add_effect(Effect::Piercing.clone(), 300);
                 Ok(())
             }
             _ => Ok(()),
@@ -764,7 +747,7 @@ impl GameState {
             player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            player.character.status_effects.retain(|_, ticks_left| {
+            player.effects.retain(|_, ticks_left| {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
@@ -804,9 +787,7 @@ impl GameState {
 
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
-                            attacked_player
-                                .character
-                                .add_effect(Effect::Disarmed.clone(), 300);
+                            attacked_player.add_effect(Effect::Disarmed.clone(), 300);
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
