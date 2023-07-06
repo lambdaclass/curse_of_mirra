@@ -1,6 +1,7 @@
 use crate::skills::*;
-use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
+use crate::skills::{Class, FirstActive, SecondActive};
 use std::collections::HashMap;
+use std::ops::Div;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
@@ -51,7 +52,7 @@ pub struct Character {
     pub faction: Faction,
     pub name: Name,
     pub base_speed: u64,
-    pub skill_basic: Basic,
+    pub skill_basic: Skill,
     pub skill_active_first: FirstActive,
     pub skill_active_second: SecondActive,
     pub skill_dash: Dash,
@@ -63,7 +64,7 @@ impl Character {
         class: Class,
         speed: u64,
         name: &Name,
-        basic_skill: Basic,
+        basic_skill: Skill,
         active: bool,
         id: u64,
         faction: Faction,
@@ -74,8 +75,8 @@ impl Character {
             active,
             id,
             faction,
-            skill_basic: basic_skill,
             base_speed: speed,
+            skill_basic: basic_skill,
             skill_active_first: FirstActive::BarrelRoll,
             skill_active_second: SecondActive::Disarm,
             skill_dash: Dash::Blink,
@@ -85,7 +86,7 @@ impl Character {
     // NOTE:
     // A possible improvement here is that elixir sends a Json and
     // we deserialize it here with Serde
-    pub fn from_config_map(config: &HashMap<String, String>) -> Result<Character, String> {
+    pub fn from_config_map(config: &HashMap<String, String>, skills: &[Skill]) -> Result<Character, String> {
         let name = get_key(config, "Name")?;
         let id = get_key(config, "Id")?;
         let active = get_key(config, "Active")?;
@@ -104,19 +105,16 @@ impl Character {
             faction: parse_character_attribute(&faction)?,
             id: parse_character_attribute(&id)?,
             name: parse_character_attribute(&name)?,
+            skill_basic: get_skill(&skills, &skill_basic)?,
             skill_active_first: parse_character_attribute(&skill_active_first)?,
             skill_active_second: parse_character_attribute(&skill_active_second)?,
-            skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
         })
     }
+
     pub fn attack_dmg_basic_skill(&self) -> u32 {
-        match self.skill_basic {
-            BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
-            BasicSkill::Bash => 30_u32,      // Muflus basic attack damage
-            _ => 10_u32,
-        }
+        self.skill_basic.damage
     }
     pub fn attack_dmg_first_active(&self) -> u32 {
         match self.skill_active_first {
@@ -134,14 +132,11 @@ impl Character {
             _ => 0_u32,
         }
     }
-    #[inline]
+
     pub fn cooldown_basic_skill(&self) -> u64 {
-        match self.skill_basic {
-            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
-            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
-            BasicSkill::Backstab => 1_u64,
-        }
+        self.skill_basic.cooldown_ms.div(1000)
     }
+
     pub fn cooldown_first_skill(&self) -> u64 {
         match self.skill_active_first {
             FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
@@ -173,15 +168,6 @@ impl Character {
         // }
         10_u64
     }
-    // Cooldown in seconds
-    #[inline]
-    pub fn cooldown(&self) -> u64 {
-        match self.skill_basic {
-            BasicSkill::Slingshot => 5,
-            BasicSkill::Bash => 3,
-            BasicSkill::Backstab => 1,
-        }
-    }
 
     // TODO:
     // There should be an extra logic to choose the aoe effect
@@ -201,7 +187,7 @@ impl Default for Character {
             Class::Hunter,
             5,
             &Name::H4ck,
-            Basic::Slingshot,
+            Skill::default(),
             true,
             1,
             Faction::Araban,
@@ -224,4 +210,12 @@ fn parse_character_attribute<T: FromStr>(to_parse: &str) -> Result<T, String> {
             std::any::type_name::<T>()
         )),
     }
+}
+
+fn get_skill(skills: &[Skill], skill_name: &str) -> Result<Skill, String> {
+    skills
+        .iter()
+        .find(|skill| skill.name == skill_name)
+        .ok_or(format!("Skill '{}' does not exist", skill_name))
+        .map(|skill| skill.clone())
 }

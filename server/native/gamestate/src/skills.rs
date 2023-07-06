@@ -1,6 +1,6 @@
 use std::{str::FromStr, collections::HashMap};
 
-use rustler::NifTaggedEnum;
+use rustler::{NifTaggedEnum, NifStruct};
 use strum_macros::{Display, EnumString};
 // TODO: Add misssing classes
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
@@ -69,11 +69,13 @@ pub enum Ultimate {
 // Something like:
 // impl Attack for BasicSkill
 
+#[derive(Debug, Clone, NifStruct)]
+#[module = "DarkWorldsServer.Engine.Skill"]
 pub struct Skill {
     pub name: String,
     pub do_func: u64,
     pub cooldown_ms: u64,
-    pub damage: u64,
+    pub damage: u32,
     pub duration: u64,
     pub projectile: String,
     pub minion: String
@@ -92,6 +94,27 @@ impl Skill {
     }
 }
 
+impl Default for Skill {
+    fn default() -> Self {
+        Skill {
+            name: "Slingshot".to_string(),
+            do_func: 0,
+            cooldown_ms: 1000,
+            damage: 10,
+            duration: 0,
+            projectile: "".to_string(),
+            minion: "".to_string(),
+        }
+    }
+}
+
+pub fn build_from_config(skills_config: &[HashMap<String, String>]) -> Result<Vec<Skill>, String> {
+    skills_config
+        .iter()
+        .map(Skill::from_config_map)
+        .collect()
+}
+
 fn get_skill_field<T: FromStr + std::fmt::Debug>(config: &HashMap<String, String>, key: &str) -> Result<T, String> {
     let value_result = config
         .get(key)
@@ -100,7 +123,7 @@ fn get_skill_field<T: FromStr + std::fmt::Debug>(config: &HashMap<String, String
 
     match value_result {
         Ok(value) => parse_attribute(&value),
-        Err(error) => Err(error)
+        Err(error) => Err(format!("Error parsing '{}'\n{}", key, error))
     }
 }
 
@@ -109,7 +132,7 @@ fn parse_attribute<T: FromStr + std::fmt::Debug>(to_parse: &str) -> Result<T, St
     match parsed {
         Ok(parsed) => Ok(parsed),
         Err(_parsing_error) => Err(format!(
-            "Could not parse value: {:?} for Character Type: {}",
+            "Could not parse value: '{}' for Skill Type: {}",
             to_parse,
             std::any::type_name::<T>()
         )),

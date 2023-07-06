@@ -6,6 +6,7 @@ use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
 use crate::player::{Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::skills::{self, Skill};
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
 use std::cmp::{max, min};
@@ -31,6 +32,7 @@ pub enum Direction {
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
+        skills: &[Skill],
     ) -> Result<Vec<Character>, String> {
         character_config
             .into_iter()
@@ -44,7 +46,7 @@ impl GameState {
                     .expect("Expected 1 or 0 for Active key");
                 active == 1
             })
-            .map(Character::from_config_map)
+            .map(|config| Character::from_config_map(config, skills))
             .collect()
     }
 
@@ -58,7 +60,8 @@ impl GameState {
         skills_config: &[HashMap<String, String>],
     ) -> Result<Self, String> {
         let mut positions = HashSet::new();
-        let characters = GameState::build_characters_with_config(&characters_config)?;
+        let skills = skills::build_from_config(skills_config)?;
+        let characters = GameState::build_characters_with_config(&characters_config, &skills)?;
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
