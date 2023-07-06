@@ -338,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
-        if (character.name == "Muflus")
+        if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
             {
