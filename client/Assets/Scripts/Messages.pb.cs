@@ -22,87 +22,92 @@ public static partial class MessagesReflection {
   static MessagesReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg5tZXNzYWdlcy5wcm90byLWAgoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
+          "Cg5tZXNzYWdlcy5wcm90byL3AgoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
-          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQSEQoJdGlt",
-          "ZXN0YW1wGAggASgDEj8KE3NlbGVjdGVkX2NoYXJhY3RlcnMYCSADKAsyIi5H",
-          "YW1lRXZlbnQuU2VsZWN0ZWRDaGFyYWN0ZXJzRW50cnkaOQoXU2VsZWN0ZWRD",
-          "aGFyYWN0ZXJzRW50cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgJOgI4",
-          "ASI8Cg9QbGF5ZXJDaGFyYWN0ZXISEQoJcGxheWVyX2lkGAEgASgEEhYKDmNo",
-          "YXJhY3Rlcl9uYW1lGAIgASgJIs0DCgZQbGF5ZXISCgoCaWQYASABKAQSDgoG",
-          "aGVhbHRoGAIgASgSEhsKCHBvc2l0aW9uGAMgASgLMgkuUG9zaXRpb24SGQoR",
-          "bGFzdF9tZWxlZV9hdHRhY2sYBCABKAQSFwoGc3RhdHVzGAUgASgOMgcuU3Rh",
-          "dHVzEh0KBmFjdGlvbhgGIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9z",
-          "aXRpb24YByABKAsyCS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAggASgEEhMK",
-          "C2RlYXRoX2NvdW50GAkgASgEEiQKEXRlbGVwb3J0X3Bvc2l0aW9uGAogASgL",
-          "MgkuUG9zaXRpb24SIQoZYmFzaWNfc2tpbGxfY29vbGRvd25fbGVmdBgLIAEo",
-          "BBIhChlmaXJzdF9za2lsbF9jb29sZG93bl9sZWZ0GAwgASgEEiIKGnNlY29u",
-          "ZF9za2lsbF9jb29sZG93bl9sZWZ0GA0gASgEEiEKGXRoaXJkX3NraWxsX2Nv",
-          "b2xkb3duX2xlZnQYDiABKAQSIgoaZm91cnRoX3NraWxsX2Nvb2xkb3duX2xl",
-          "ZnQYDyABKAQSFgoOY2hhcmFjdGVyX25hbWUYECABKAkiIAoIUG9zaXRpb24S",
-          "CQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZlUG9zaXRpb24SCQoB",
-          "eBgBIAEoAhIJCgF5GAIgASgCIuEBCgxDbGllbnRBY3Rpb24SFwoGYWN0aW9u",
-          "GAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEoDjIKLkRpcmVjdGlv",
-          "bhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SJQoKbW92",
-          "ZV9kZWx0YRgEIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SDgoGdGFyZ2V0GAUg",
-          "ASgSEhEKCXRpbWVzdGFtcBgGIAEoAxIqChBwbGF5ZXJfY2hhcmFjdGVyGAcg",
-          "ASgLMhAuUGxheWVyQ2hhcmFjdGVyIuYBCgpMb2JieUV2ZW50Eh0KBHR5cGUY",
-          "ASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9pZBgCIAEoCRIRCglw",
-          "bGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lkGAQgASgEEg8KB2dh",
-          "bWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgEEg8KB3BsYXllcnMY",
-          "ByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQSKAoLZ2FtZV9jb25m",
-          "aWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoMUnVubmVyQ29uZmln",
-          "EgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiABKAQSFAoMYm9hcmRf",
-          "aGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgEIAEoBBIXCg9n",
-          "YW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZpZxIeCgpib2FyZF9z",
-          "aXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90aWNrcmF0ZV9tcxgC",
-          "IAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJQm9hcmRTaXplEg0K",
-          "BXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoTQ2hhcmFjdGVyQ29u",
-          "ZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJEg4KBkFjdGl2ZRgD",
-          "IAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUgASgJEhEKCUJhc2VT",
-          "cGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQKDFNraWxsQWN0aXZl",
-          "MRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJU2tpbGxEYXNoGAog",
-          "ASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hhcmFjdGVyQ29uZmln",
-          "EiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJTZXJ2",
-          "ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5l",
-          "ckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVy",
-          "Q29uZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9u",
-          "GAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMgASgLMhEuUmVsYXRp",
-          "dmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglw",
-          "bGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190",
-          "aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0",
-          "aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzEh8K",
-          "F2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4KBnBpZXJjZRgMIAEo",
-          "CCrOAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5H",
-          "X1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMS",
-          "DgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFM",
-          "X1BPU0lUSU9OUxAGEh0KGVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIe",
-          "ChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAIKh0KBlN0YXR1cxIJCgVB",
-          "TElWRRAAEggKBERFQUQQASrmAQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJ",
-          "RklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4K",
-          "CkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERf",
-          "Qk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdT",
-          "S0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80",
-          "EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOKk0KCURpcmVjdGlvbhIZChVESVJF",
-          "Q1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZU",
-          "EAMSCQoFUklHSFQQBCqqAQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABIN",
-          "CglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5H",
-          "X1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAEEhUKEUVYRUNVVElOR19TS0lM",
-          "TF8yEAUSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBhIVChFFWEVDVVRJTkdfU0tJ",
-          "TExfNBAHKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVE",
-          "EAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9T",
-          "VEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIK",
-          "DlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVU",
-          "EAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMS",
-          "CgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
+          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQSPwoTc2Vs",
+          "ZWN0ZWRfY2hhcmFjdGVycxgIIAMoCzIiLkdhbWVFdmVudC5TZWxlY3RlZENo",
+          "YXJhY3RlcnNFbnRyeRIYChBwbGF5ZXJfdGltZXN0YW1wGAkgASgDEhgKEHNl",
+          "cnZlcl90aW1lc3RhbXAYCiABKAMaOQoXU2VsZWN0ZWRDaGFyYWN0ZXJzRW50",
+          "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgJOgI4ASI8Cg9QbGF5ZXJD",
+          "aGFyYWN0ZXISEQoJcGxheWVyX2lkGAEgASgEEhYKDmNoYXJhY3Rlcl9uYW1l",
+          "GAIgASgJIpIECgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRoGAIgASgS",
+          "EhsKCHBvc2l0aW9uGAMgASgLMgkuUG9zaXRpb24SGQoRbGFzdF9tZWxlZV9h",
+          "dHRhY2sYBCABKAQSFwoGc3RhdHVzGAUgASgOMgcuU3RhdHVzEh0KBmFjdGlv",
+          "bhgGIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9zaXRpb24YByABKAsy",
+          "CS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAggASgEEhMKC2RlYXRoX2NvdW50",
+          "GAkgASgEEiQKEXRlbGVwb3J0X3Bvc2l0aW9uGAogASgLMgkuUG9zaXRpb24S",
+          "IQoZYmFzaWNfc2tpbGxfY29vbGRvd25fbGVmdBgLIAEoBBIdChVza2lsbF8x",
+          "X2Nvb2xkb3duX2xlZnQYDCABKAQSHQoVc2tpbGxfMl9jb29sZG93bl9sZWZ0",
+          "GA0gASgEEh0KFXNraWxsXzNfY29vbGRvd25fbGVmdBgOIAEoBBIdChVza2ls",
+          "bF80X2Nvb2xkb3duX2xlZnQYDyABKAQSFgoOY2hhcmFjdGVyX25hbWUYECAB",
+          "KAkSJQoHZWZmZWN0cxgRIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaLgoM",
+          "RWZmZWN0c0VudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEi",
+          "IAoIUG9zaXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZl",
+          "UG9zaXRpb24SCQoBeBgBIAEoAhIJCgF5GAIgASgCIuEBCgxDbGllbnRBY3Rp",
+          "b24SFwoGYWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEo",
+          "DjIKLkRpcmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9z",
+          "aXRpb24SJQoKbW92ZV9kZWx0YRgEIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24S",
+          "DgoGdGFyZ2V0GAUgASgSEhEKCXRpbWVzdGFtcBgGIAEoAxIqChBwbGF5ZXJf",
+          "Y2hhcmFjdGVyGAcgASgLMhAuUGxheWVyQ2hhcmFjdGVyIuYBCgpMb2JieUV2",
+          "ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9p",
+          "ZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lk",
+          "GAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgE",
+          "Eg8KB3BsYXllcnMYByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQS",
+          "KAoLZ2FtZV9jb25maWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoM",
+          "UnVubmVyQ29uZmlnEgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiAB",
+          "KAQSFAoMYm9hcmRfaGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9t",
+          "cxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZp",
+          "ZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90",
+          "aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJ",
+          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoT",
+          "Q2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJ",
+          "Eg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUg",
+          "ASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQK",
+          "DFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJ",
+          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
+          "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
+          "SXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgB",
+          "IAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgL",
+          "MhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgE",
+          "EhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMg",
+          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5n",
+          "ZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcK",
+          "D3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSAB",
+          "KA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0",
+          "aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4K",
+          "BnBpZXJjZRgMIAEoCCrOAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERB",
+          "VEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpO",
+          "RVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQ",
+          "BRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNFTEVDVEVEX0NIQVJBQ1RF",
+          "Ul9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAIKh0K",
+          "BlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJAgoGQWN0aW9uEhYKEkFD",
+          "VElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIMCghU",
+          "RUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9ZU1RJ",
+          "Q0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJQ19B",
+          "VFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxMXzMQ",
+          "DBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOEg8KC0VOQUJM",
+          "RV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJRGlyZWN0aW9uEhkKFURJ",
+          "UkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExF",
+          "RlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAA",
+          "Eg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJ",
+          "TkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUKEUVYRUNVVElOR19T",
+          "S0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJ",
+          "U0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBADKo8BCg5Mb2JieUV2",
+          "ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAES",
+          "EAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVS",
+          "X0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYq",
+          "MgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JV",
+          "TExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
+          "TE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "Timestamp", "SelectedCharacters" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerCharacter), global::PlayerCharacter.Parser, new[]{ "PlayerId", "CharacterName" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "FirstSkillCooldownLeft", "SecondSkillCooldownLeft", "ThirdSkillCooldownLeft", "FourthSkillCooldownLeft", "CharacterName" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target", "Timestamp", "PlayerCharacter" }, null, null, null, null),
@@ -152,12 +157,14 @@ public enum Status {
 /// Actions a client/player performs
 ///- MOVE: the player moves
 ///- ATTACK: player attacks
-///- TELEPORT: the player instantly moves to a non-contiguous position 
+///- TELEPORT: the player instantly moves to a non-contiguous position
 ///- ATTACK_AOE:
 ///- MOVE_WITH_JOYSTICK:
 ///- ADD_BOT: Ask the server to add a bot player to the game
 ///- AUTO_ATTACK: Player attacks nearest oponent, if in range.
 ///- BASIC_ATTACK, SKILL_{1, 2, 3, 4}: Player skills.
+///- ENABLE_BOTS: Bots are enabled (move, attack, etc)
+///- DISABLE_BOTS: Bots are disabled (stand still)
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
@@ -174,6 +181,8 @@ public enum Action {
   [pbr::OriginalName("SKILL_3")] Skill3 = 12,
   [pbr::OriginalName("SKILL_4")] Skill4 = 13,
   [pbr::OriginalName("SELECT_CHARACTER")] SelectCharacter = 14,
+  [pbr::OriginalName("ENABLE_BOTS")] EnableBots = 15,
+  [pbr::OriginalName("DISABLE_BOTS")] DisableBots = 16,
 }
 
 /// <summary>
@@ -201,6 +210,16 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 5,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 6,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 7,
+}
+
+/// <summary>
+/// Effects a player has 
+/// </summary>
+public enum PlayerEffect {
+  [pbr::OriginalName("PETRIFIED")] Petrified = 0,
+  [pbr::OriginalName("DISARMED")] Disarmed = 1,
+  [pbr::OriginalName("PIERCING")] Piercing = 2,
+  [pbr::OriginalName("RAGED")] Raged = 3,
 }
 
 /// <summary>
@@ -292,8 +311,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     playerJoinedId_ = other.playerJoinedId_;
     winnerPlayer_ = other.winnerPlayer_ != null ? other.winnerPlayer_.Clone() : null;
     currentRound_ = other.currentRound_;
-    timestamp_ = other.timestamp_;
     selectedCharacters_ = other.selectedCharacters_.Clone();
+    playerTimestamp_ = other.playerTimestamp_;
+    serverTimestamp_ = other.serverTimestamp_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -385,27 +405,39 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
   }
 
-  /// <summary>Field number for the "timestamp" field.</summary>
-  public const int TimestampFieldNumber = 8;
-  private long timestamp_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public long Timestamp {
-    get { return timestamp_; }
-    set {
-      timestamp_ = value;
-    }
-  }
-
   /// <summary>Field number for the "selected_characters" field.</summary>
-  public const int SelectedCharactersFieldNumber = 9;
+  public const int SelectedCharactersFieldNumber = 8;
   private static readonly pbc::MapField<ulong, string>.Codec _map_selectedCharacters_codec
-      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 74);
+      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 66);
   private readonly pbc::MapField<ulong, string> selectedCharacters_ = new pbc::MapField<ulong, string>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public pbc::MapField<ulong, string> SelectedCharacters {
     get { return selectedCharacters_; }
+  }
+
+  /// <summary>Field number for the "player_timestamp" field.</summary>
+  public const int PlayerTimestampFieldNumber = 9;
+  private long playerTimestamp_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long PlayerTimestamp {
+    get { return playerTimestamp_; }
+    set {
+      playerTimestamp_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "server_timestamp" field.</summary>
+  public const int ServerTimestampFieldNumber = 10;
+  private long serverTimestamp_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long ServerTimestamp {
+    get { return serverTimestamp_; }
+    set {
+      serverTimestamp_ = value;
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -430,8 +462,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (PlayerJoinedId != other.PlayerJoinedId) return false;
     if (!object.Equals(WinnerPlayer, other.WinnerPlayer)) return false;
     if (CurrentRound != other.CurrentRound) return false;
-    if (Timestamp != other.Timestamp) return false;
     if (!SelectedCharacters.Equals(other.SelectedCharacters)) return false;
+    if (PlayerTimestamp != other.PlayerTimestamp) return false;
+    if (ServerTimestamp != other.ServerTimestamp) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -446,8 +479,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (PlayerJoinedId != 0UL) hash ^= PlayerJoinedId.GetHashCode();
     if (winnerPlayer_ != null) hash ^= WinnerPlayer.GetHashCode();
     if (CurrentRound != 0UL) hash ^= CurrentRound.GetHashCode();
-    if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= SelectedCharacters.GetHashCode();
+    if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
+    if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -488,11 +522,15 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(56);
       output.WriteUInt64(CurrentRound);
     }
-    if (Timestamp != 0L) {
-      output.WriteRawTag(64);
-      output.WriteInt64(Timestamp);
-    }
     selectedCharacters_.WriteTo(output, _map_selectedCharacters_codec);
+    if (PlayerTimestamp != 0L) {
+      output.WriteRawTag(72);
+      output.WriteInt64(PlayerTimestamp);
+    }
+    if (ServerTimestamp != 0L) {
+      output.WriteRawTag(80);
+      output.WriteInt64(ServerTimestamp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -525,11 +563,15 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(56);
       output.WriteUInt64(CurrentRound);
     }
-    if (Timestamp != 0L) {
-      output.WriteRawTag(64);
-      output.WriteInt64(Timestamp);
-    }
     selectedCharacters_.WriteTo(ref output, _map_selectedCharacters_codec);
+    if (PlayerTimestamp != 0L) {
+      output.WriteRawTag(72);
+      output.WriteInt64(PlayerTimestamp);
+    }
+    if (ServerTimestamp != 0L) {
+      output.WriteRawTag(80);
+      output.WriteInt64(ServerTimestamp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -557,10 +599,13 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (CurrentRound != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(CurrentRound);
     }
-    if (Timestamp != 0L) {
-      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
-    }
     size += selectedCharacters_.CalculateSize(_map_selectedCharacters_codec);
+    if (PlayerTimestamp != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerTimestamp);
+    }
+    if (ServerTimestamp != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -593,10 +638,13 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.CurrentRound != 0UL) {
       CurrentRound = other.CurrentRound;
     }
-    if (other.Timestamp != 0L) {
-      Timestamp = other.Timestamp;
-    }
     selectedCharacters_.Add(other.selectedCharacters_);
+    if (other.PlayerTimestamp != 0L) {
+      PlayerTimestamp = other.PlayerTimestamp;
+    }
+    if (other.ServerTimestamp != 0L) {
+      ServerTimestamp = other.ServerTimestamp;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -643,12 +691,16 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           CurrentRound = input.ReadUInt64();
           break;
         }
-        case 64: {
-          Timestamp = input.ReadInt64();
+        case 66: {
+          selectedCharacters_.AddEntriesFrom(input, _map_selectedCharacters_codec);
           break;
         }
-        case 74: {
-          selectedCharacters_.AddEntriesFrom(input, _map_selectedCharacters_codec);
+        case 72: {
+          PlayerTimestamp = input.ReadInt64();
+          break;
+        }
+        case 80: {
+          ServerTimestamp = input.ReadInt64();
           break;
         }
       }
@@ -697,12 +749,16 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           CurrentRound = input.ReadUInt64();
           break;
         }
-        case 64: {
-          Timestamp = input.ReadInt64();
+        case 66: {
+          selectedCharacters_.AddEntriesFrom(ref input, _map_selectedCharacters_codec);
           break;
         }
-        case 74: {
-          selectedCharacters_.AddEntriesFrom(ref input, _map_selectedCharacters_codec);
+        case 72: {
+          PlayerTimestamp = input.ReadInt64();
+          break;
+        }
+        case 80: {
+          ServerTimestamp = input.ReadInt64();
           break;
         }
       }
@@ -997,11 +1053,12 @@ public sealed partial class Player : pb::IMessage<Player>
     deathCount_ = other.deathCount_;
     teleportPosition_ = other.teleportPosition_ != null ? other.teleportPosition_.Clone() : null;
     basicSkillCooldownLeft_ = other.basicSkillCooldownLeft_;
-    firstSkillCooldownLeft_ = other.firstSkillCooldownLeft_;
-    secondSkillCooldownLeft_ = other.secondSkillCooldownLeft_;
-    thirdSkillCooldownLeft_ = other.thirdSkillCooldownLeft_;
-    fourthSkillCooldownLeft_ = other.fourthSkillCooldownLeft_;
+    skill1CooldownLeft_ = other.skill1CooldownLeft_;
+    skill2CooldownLeft_ = other.skill2CooldownLeft_;
+    skill3CooldownLeft_ = other.skill3CooldownLeft_;
+    skill4CooldownLeft_ = other.skill4CooldownLeft_;
     characterName_ = other.characterName_;
+    effects_ = other.effects_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1146,51 +1203,51 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
-  /// <summary>Field number for the "first_skill_cooldown_left" field.</summary>
-  public const int FirstSkillCooldownLeftFieldNumber = 12;
-  private ulong firstSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_1_cooldown_left" field.</summary>
+  public const int Skill1CooldownLeftFieldNumber = 12;
+  private ulong skill1CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong FirstSkillCooldownLeft {
-    get { return firstSkillCooldownLeft_; }
+  public ulong Skill1CooldownLeft {
+    get { return skill1CooldownLeft_; }
     set {
-      firstSkillCooldownLeft_ = value;
+      skill1CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "second_skill_cooldown_left" field.</summary>
-  public const int SecondSkillCooldownLeftFieldNumber = 13;
-  private ulong secondSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_2_cooldown_left" field.</summary>
+  public const int Skill2CooldownLeftFieldNumber = 13;
+  private ulong skill2CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong SecondSkillCooldownLeft {
-    get { return secondSkillCooldownLeft_; }
+  public ulong Skill2CooldownLeft {
+    get { return skill2CooldownLeft_; }
     set {
-      secondSkillCooldownLeft_ = value;
+      skill2CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "third_skill_cooldown_left" field.</summary>
-  public const int ThirdSkillCooldownLeftFieldNumber = 14;
-  private ulong thirdSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_3_cooldown_left" field.</summary>
+  public const int Skill3CooldownLeftFieldNumber = 14;
+  private ulong skill3CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong ThirdSkillCooldownLeft {
-    get { return thirdSkillCooldownLeft_; }
+  public ulong Skill3CooldownLeft {
+    get { return skill3CooldownLeft_; }
     set {
-      thirdSkillCooldownLeft_ = value;
+      skill3CooldownLeft_ = value;
     }
   }
 
-  /// <summary>Field number for the "fourth_skill_cooldown_left" field.</summary>
-  public const int FourthSkillCooldownLeftFieldNumber = 15;
-  private ulong fourthSkillCooldownLeft_;
+  /// <summary>Field number for the "skill_4_cooldown_left" field.</summary>
+  public const int Skill4CooldownLeftFieldNumber = 15;
+  private ulong skill4CooldownLeft_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong FourthSkillCooldownLeft {
-    get { return fourthSkillCooldownLeft_; }
+  public ulong Skill4CooldownLeft {
+    get { return skill4CooldownLeft_; }
     set {
-      fourthSkillCooldownLeft_ = value;
+      skill4CooldownLeft_ = value;
     }
   }
 
@@ -1204,6 +1261,17 @@ public sealed partial class Player : pb::IMessage<Player>
     set {
       characterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
+  }
+
+  /// <summary>Field number for the "effects" field.</summary>
+  public const int EffectsFieldNumber = 17;
+  private static readonly pbc::MapField<ulong, ulong>.Codec _map_effects_codec
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 138);
+  private readonly pbc::MapField<ulong, ulong> effects_ = new pbc::MapField<ulong, ulong>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<ulong, ulong> Effects {
+    get { return effects_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1232,11 +1300,12 @@ public sealed partial class Player : pb::IMessage<Player>
     if (DeathCount != other.DeathCount) return false;
     if (!object.Equals(TeleportPosition, other.TeleportPosition)) return false;
     if (BasicSkillCooldownLeft != other.BasicSkillCooldownLeft) return false;
-    if (FirstSkillCooldownLeft != other.FirstSkillCooldownLeft) return false;
-    if (SecondSkillCooldownLeft != other.SecondSkillCooldownLeft) return false;
-    if (ThirdSkillCooldownLeft != other.ThirdSkillCooldownLeft) return false;
-    if (FourthSkillCooldownLeft != other.FourthSkillCooldownLeft) return false;
+    if (Skill1CooldownLeft != other.Skill1CooldownLeft) return false;
+    if (Skill2CooldownLeft != other.Skill2CooldownLeft) return false;
+    if (Skill3CooldownLeft != other.Skill3CooldownLeft) return false;
+    if (Skill4CooldownLeft != other.Skill4CooldownLeft) return false;
     if (CharacterName != other.CharacterName) return false;
+    if (!Effects.Equals(other.Effects)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1255,11 +1324,12 @@ public sealed partial class Player : pb::IMessage<Player>
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
     if (teleportPosition_ != null) hash ^= TeleportPosition.GetHashCode();
     if (BasicSkillCooldownLeft != 0UL) hash ^= BasicSkillCooldownLeft.GetHashCode();
-    if (FirstSkillCooldownLeft != 0UL) hash ^= FirstSkillCooldownLeft.GetHashCode();
-    if (SecondSkillCooldownLeft != 0UL) hash ^= SecondSkillCooldownLeft.GetHashCode();
-    if (ThirdSkillCooldownLeft != 0UL) hash ^= ThirdSkillCooldownLeft.GetHashCode();
-    if (FourthSkillCooldownLeft != 0UL) hash ^= FourthSkillCooldownLeft.GetHashCode();
+    if (Skill1CooldownLeft != 0UL) hash ^= Skill1CooldownLeft.GetHashCode();
+    if (Skill2CooldownLeft != 0UL) hash ^= Skill2CooldownLeft.GetHashCode();
+    if (Skill3CooldownLeft != 0UL) hash ^= Skill3CooldownLeft.GetHashCode();
+    if (Skill4CooldownLeft != 0UL) hash ^= Skill4CooldownLeft.GetHashCode();
     if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+    hash ^= Effects.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1322,26 +1392,27 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(88);
       output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
+    if (Skill1CooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstSkillCooldownLeft);
+      output.WriteUInt64(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
+    if (Skill2CooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondSkillCooldownLeft);
+      output.WriteUInt64(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
+    if (Skill3CooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(ThirdSkillCooldownLeft);
+      output.WriteUInt64(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
+    if (Skill4CooldownLeft != 0UL) {
       output.WriteRawTag(120);
-      output.WriteUInt64(FourthSkillCooldownLeft);
+      output.WriteUInt64(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       output.WriteRawTag(130, 1);
       output.WriteString(CharacterName);
     }
+    effects_.WriteTo(output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1396,26 +1467,27 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(88);
       output.WriteUInt64(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
+    if (Skill1CooldownLeft != 0UL) {
       output.WriteRawTag(96);
-      output.WriteUInt64(FirstSkillCooldownLeft);
+      output.WriteUInt64(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
+    if (Skill2CooldownLeft != 0UL) {
       output.WriteRawTag(104);
-      output.WriteUInt64(SecondSkillCooldownLeft);
+      output.WriteUInt64(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
+    if (Skill3CooldownLeft != 0UL) {
       output.WriteRawTag(112);
-      output.WriteUInt64(ThirdSkillCooldownLeft);
+      output.WriteUInt64(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
+    if (Skill4CooldownLeft != 0UL) {
       output.WriteRawTag(120);
-      output.WriteUInt64(FourthSkillCooldownLeft);
+      output.WriteUInt64(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       output.WriteRawTag(130, 1);
       output.WriteString(CharacterName);
     }
+    effects_.WriteTo(ref output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1459,21 +1531,22 @@ public sealed partial class Player : pb::IMessage<Player>
     if (BasicSkillCooldownLeft != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BasicSkillCooldownLeft);
     }
-    if (FirstSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FirstSkillCooldownLeft);
+    if (Skill1CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill1CooldownLeft);
     }
-    if (SecondSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SecondSkillCooldownLeft);
+    if (Skill2CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill2CooldownLeft);
     }
-    if (ThirdSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ThirdSkillCooldownLeft);
+    if (Skill3CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill3CooldownLeft);
     }
-    if (FourthSkillCooldownLeft != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(FourthSkillCooldownLeft);
+    if (Skill4CooldownLeft != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Skill4CooldownLeft);
     }
     if (CharacterName.Length != 0) {
       size += 2 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
     }
+    size += effects_.CalculateSize(_map_effects_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1528,21 +1601,22 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.BasicSkillCooldownLeft != 0UL) {
       BasicSkillCooldownLeft = other.BasicSkillCooldownLeft;
     }
-    if (other.FirstSkillCooldownLeft != 0UL) {
-      FirstSkillCooldownLeft = other.FirstSkillCooldownLeft;
+    if (other.Skill1CooldownLeft != 0UL) {
+      Skill1CooldownLeft = other.Skill1CooldownLeft;
     }
-    if (other.SecondSkillCooldownLeft != 0UL) {
-      SecondSkillCooldownLeft = other.SecondSkillCooldownLeft;
+    if (other.Skill2CooldownLeft != 0UL) {
+      Skill2CooldownLeft = other.Skill2CooldownLeft;
     }
-    if (other.ThirdSkillCooldownLeft != 0UL) {
-      ThirdSkillCooldownLeft = other.ThirdSkillCooldownLeft;
+    if (other.Skill3CooldownLeft != 0UL) {
+      Skill3CooldownLeft = other.Skill3CooldownLeft;
     }
-    if (other.FourthSkillCooldownLeft != 0UL) {
-      FourthSkillCooldownLeft = other.FourthSkillCooldownLeft;
+    if (other.Skill4CooldownLeft != 0UL) {
+      Skill4CooldownLeft = other.Skill4CooldownLeft;
     }
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
+    effects_.Add(other.effects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1612,23 +1686,27 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 96: {
-          FirstSkillCooldownLeft = input.ReadUInt64();
+          Skill1CooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondSkillCooldownLeft = input.ReadUInt64();
+          Skill2CooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          ThirdSkillCooldownLeft = input.ReadUInt64();
+          Skill3CooldownLeft = input.ReadUInt64();
           break;
         }
         case 120: {
-          FourthSkillCooldownLeft = input.ReadUInt64();
+          Skill4CooldownLeft = input.ReadUInt64();
           break;
         }
         case 130: {
           CharacterName = input.ReadString();
+          break;
+        }
+        case 138: {
+          effects_.AddEntriesFrom(input, _map_effects_codec);
           break;
         }
       }
@@ -1700,23 +1778,27 @@ public sealed partial class Player : pb::IMessage<Player>
           break;
         }
         case 96: {
-          FirstSkillCooldownLeft = input.ReadUInt64();
+          Skill1CooldownLeft = input.ReadUInt64();
           break;
         }
         case 104: {
-          SecondSkillCooldownLeft = input.ReadUInt64();
+          Skill2CooldownLeft = input.ReadUInt64();
           break;
         }
         case 112: {
-          ThirdSkillCooldownLeft = input.ReadUInt64();
+          Skill3CooldownLeft = input.ReadUInt64();
           break;
         }
         case 120: {
-          FourthSkillCooldownLeft = input.ReadUInt64();
+          Skill4CooldownLeft = input.ReadUInt64();
           break;
         }
         case 130: {
           CharacterName = input.ReadString();
+          break;
+        }
+        case 138: {
+          effects_.AddEntriesFrom(ref input, _map_effects_codec);
           break;
         }
       }
