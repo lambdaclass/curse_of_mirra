@@ -126,14 +126,16 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
-  field(:timestamp, 8, type: :int64)
 
-  field(:selected_characters, 9,
+  field(:selected_characters, 8,
     repeated: true,
     type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
+
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do

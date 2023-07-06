@@ -300,6 +300,70 @@ impl GameState {
         players
     }
 
+    pub fn players_in_projectile_movement(
+        attacking_player_id: u64,
+        players: &mut Vec<Player>,
+        previous_position: Position,
+        next_position: Position,
+    ) -> Vec<u64> {
+        let mut affected_players: Vec<u64> = vec![];
+
+        let (p1, p2) = match previous_position.x < next_position.x {
+            true => (previous_position, next_position),
+            false if previous_position.x > next_position.x => (next_position, previous_position),
+            false if previous_position.y < next_position.y => (previous_position, next_position),
+            _ => (next_position, previous_position),
+        };
+
+        players
+            .iter_mut()
+            .filter(|player| {
+                matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
+            })
+            .for_each(|player| {
+                // TODO: Make the radius configurable
+                let radius = 10f64;
+
+                let player_attacked = match p2.y == p1.y {
+                    true => {
+                        // The projectile is moving vertically
+                        let intersection = Position::new(player.position.x, p1.y);
+
+                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                    false if p2.x == p1.x => {
+                        // The projectile is moving horizontally
+                        let intersection = Position::new(p1.x, player.position.y);
+
+                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                    _ => {
+                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
+                        let perpendicular_slope = -1f32 / slope;
+                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
+                        let perpendicular_intercept = player.position.y as f32
+                            - (perpendicular_slope as f32 * player.position.x as f32);
+
+                        let x =
+                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
+                        let y = slope * x + intercept;
+                        let intersection = Position::new(x as usize, y as usize);
+
+                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                };
+
+                if player_attacked {
+                    affected_players.push(player.id);
+                }
+            });
+
+        affected_players
+    }
+
     pub fn basic_attack(
         self: &mut Self,
         attacking_player_id: u64,
@@ -359,11 +423,11 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                14,
-                10,
+                5,
+                1,
                 attacking_player.id,
                 attacking_player.character.attack_dmg_basic_skill(),
-                30,
+                100,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
@@ -515,10 +579,10 @@ impl GameState {
                         (angle_positive + modifier).to_radians().sin(),
                     ),
                     10,
-                    10,
+                    1,
                     attacking_player.id,
                     attacking_player.character.attack_dmg_first_active(),
-                    10,
+                    100,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
@@ -635,7 +699,7 @@ impl GameState {
                 10,
                 attacking_player.id,
                 0,
-                30,
+                100,
                 ProjectileType::DISARMINGBULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
@@ -706,38 +770,28 @@ impl GameState {
             });
         });
 
+        self.projectiles.retain(|projectile| {
+            projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
+        });
+
         self.projectiles.iter_mut().for_each(|projectile| {
             projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
-        self.projectiles
-            .retain(|projectile| projectile.remaining_ticks > 0);
-
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
-                let top_left = Position::new(
-                    projectile
-                        .position
-                        .x
-                        .saturating_sub(projectile.range as usize),
-                    projectile
-                        .position
-                        .y
-                        .saturating_sub(projectile.range as usize),
-                );
-                let bottom_right = Position::new(
-                    projectile.position.x + projectile.range as usize,
-                    projectile.position.y + projectile.range as usize,
-                );
-
-                let affected_players: Vec<u64> =
-                    GameState::players_in_range(&self.board, top_left, bottom_right)
-                        .into_iter()
-                        .filter(|&id| {
-                            id != projectile.player_id && id != projectile.last_attacked_player_id
-                        })
-                        .collect();
+                let affected_players: Vec<u64> = GameState::players_in_projectile_movement(
+                    projectile.player_id,
+                    &mut self.players,
+                    projectile.prev_position,
+                    projectile.position,
+                )
+                .into_iter()
+                .filter(|&id| {
+                    id != projectile.player_id && id != projectile.last_attacked_player_id
+                })
+                .collect();
 
                 if affected_players.len() > 0 && !projectile.pierce {
                     projectile.status = ProjectileStatus::EXPLODED;
@@ -747,6 +801,7 @@ impl GameState {
                 for target_player_id in affected_players {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id)?;
+
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player

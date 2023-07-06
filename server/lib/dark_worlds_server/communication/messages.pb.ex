@@ -133,14 +133,16 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   )
 
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
-  field(:timestamp, 8, type: :int64)
 
-  field(:selected_characters, 9,
+  field(:selected_characters, 8,
     repeated: true,
     type: DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
+
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
