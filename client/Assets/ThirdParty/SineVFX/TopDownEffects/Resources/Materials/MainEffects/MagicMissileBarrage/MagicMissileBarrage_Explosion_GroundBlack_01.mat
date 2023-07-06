@@ -10,7 +10,8 @@ Material:
   m_Name: MagicMissileBarrage_Explosion_GroundBlack_01
   m_Shader: {fileID: -6465566751694194690, guid: 28890434b7404a74095bc3cb05f55aed,
     type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _DISTORTIONENABLED_ON
   m_InvalidKeywords:
   - _DISSOLVETEXTUREFLIP_ON
   - _DISTORTIONRADIALUSEOLDMETHOD_ON
@@ -107,6 +108,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _CustomColorMaskAffectedByDynamics: 1
@@ -185,6 +198,8 @@ Material:
     - _Noise01ScrollSpeed1: 0
     - _Noise01ScrollSpeedU: 0
     - _Noise01ScrollSpeedV: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RAMPAFFECTEDBYVERTEXCOLOR: 0
     - _RAMPENABLED: 0
     - _RadialDistortionNoisePower: -0.31

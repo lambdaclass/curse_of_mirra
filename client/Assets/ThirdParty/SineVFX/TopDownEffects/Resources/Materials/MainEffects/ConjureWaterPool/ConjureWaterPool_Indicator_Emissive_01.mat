@@ -128,6 +128,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _CustomColorMaskAffectedByDynamics: 1
@@ -183,6 +195,8 @@ Material:
     - _FinalPower: 1
     - _Float4: 0.25
     - _MainMaskExp: 1
+    - _MainMaskScaleU: 1
+    - _MainMaskScaleV: 1
     - _MainMaskScrollSpeedU: 0
     - _MainMaskScrollSpeedV: 0
     - _NOISE01RADIAL: 1
@@ -202,6 +216,8 @@ Material:
     - _Noise01ScrollSpeed1: 0.25
     - _Noise01ScrollSpeedU: 0.125
     - _Noise01ScrollSpeedV: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RAMPAFFECTEDBYVERTEXCOLOR: 0
     - _RAMPENABLED: 0
     - _RadialDistortionNoisePower: 0
@@ -211,6 +227,7 @@ Material:
     - _RampOffsetExp: 2
     - _RampOffsetMultiply: 1
     - _RampOffsetMultiply1: 1
+    - _SOFTPARTICLESENABLED: 0
     - _SecondMaskAffectsDistortion: 1
     - _SecondMaskAffectsEmission: 0
     - _SecondMaskAffectsNoise01Negate: 1
@@ -231,6 +248,7 @@ Material:
     - _SecondaryMaskNegate: 0
     - _SecondaryMaskVSMoveU: 0
     - _SecondayMaskVSMoveV: 0
+    - _SoftParticlesDistance: 0.2
     - __dirty: 0
     m_Colors:
     - _CustomColorMaskChannels: {r: 1, g: 0, b: 0, a: 0}
