@@ -42,6 +42,8 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:SKILL_3, 12)
   field(:SKILL_4, 13)
   field(:SELECT_CHARACTER, 14)
+  field(:ENABLE_BOTS, 15)
+  field(:DISABLE_BOTS, 16)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -124,14 +126,16 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
   field(:current_round, 7, type: :uint64, json_name: "currentRound")
-  field(:timestamp, 8, type: :int64)
 
-  field(:selected_characters, 9,
+  field(:selected_characters, 8,
     repeated: true,
     type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
+
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
@@ -185,8 +189,8 @@ defmodule LoadTest.Communication.Proto.RelativePosition do
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field(:x, 1, type: :int64)
-  field(:y, 2, type: :int64)
+  field(:x, 1, type: :float)
+  field(:y, 2, type: :float)
 end
 
 defmodule LoadTest.Communication.Proto.ClientAction do
@@ -197,7 +201,12 @@ defmodule LoadTest.Communication.Proto.ClientAction do
   field(:action, 1, type: LoadTest.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true)
   field(:position, 3, type: LoadTest.Communication.Proto.RelativePosition)
-  field(:move_delta, 4, type: LoadTest.Communication.Proto.JoystickValues, json_name: "moveDelta")
+
+  field(:move_delta, 4,
+    type: LoadTest.Communication.Proto.RelativePosition,
+    json_name: "moveDelta"
+  )
+
   field(:target, 5, type: :sint64)
   field(:timestamp, 6, type: :int64)
 
@@ -205,15 +214,6 @@ defmodule LoadTest.Communication.Proto.ClientAction do
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
-end
-
-defmodule LoadTest.Communication.Proto.JoystickValues do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:x, 1, type: :float)
-  field(:y, 2, type: :float)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEvent do
@@ -316,7 +316,7 @@ defmodule LoadTest.Communication.Proto.Projectile do
 
   field(:id, 1, type: :uint64)
   field(:position, 2, type: LoadTest.Communication.Proto.Position)
-  field(:direction, 3, type: LoadTest.Communication.Proto.JoystickValues)
+  field(:direction, 3, type: LoadTest.Communication.Proto.RelativePosition)
   field(:speed, 4, type: :uint32)
   field(:range, 5, type: :uint32)
   field(:player_id, 6, type: :uint64, json_name: "playerId")
