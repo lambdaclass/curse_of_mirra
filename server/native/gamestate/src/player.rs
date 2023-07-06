@@ -1,4 +1,4 @@
-use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
+use crate::character::{Character, Name};
 use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
 use rand::Rng;
@@ -25,7 +25,6 @@ impl Effect {
         }
     }
 }
-
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack

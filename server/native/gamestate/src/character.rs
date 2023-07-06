@@ -13,7 +13,6 @@ pub enum Name {
     #[strum(ascii_case_insensitive)]
     Muflus,
 }
-pub type StatusEffects = HashMap<Effect, TicksLeft>;
 
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
 pub enum Faction {
@@ -167,7 +166,6 @@ impl Character {
             BasicSkill::Backstab => 1,
         }
     }
-
 }
 impl Default for Character {
     fn default() -> Self {
