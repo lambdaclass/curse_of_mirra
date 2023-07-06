@@ -1,4 +1,4 @@
-use crate::character::{Character, Name};
+use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
 use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::time_now;
 use rand::Rng;
@@ -25,6 +25,7 @@ impl Effect {
         }
     }
 }
+
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack
@@ -180,11 +181,12 @@ impl Player {
     #[inline]
     pub fn speed(&self) -> u64 {
         let base_speed = self.character.base_speed;
+
         if self.has_active_effect(&Effect::Petrified) {
             return 0;
         }
         if self.has_active_effect(&Effect::Raged) {
-            return ((self.character.base_speed as f64) * 1.5).ceil() as u64;
+            return ((base_speed as f64) * 1.5).ceil() as u64;
         }
         // TODO: Refactor this
         if self.character.name == Name::H4ck {

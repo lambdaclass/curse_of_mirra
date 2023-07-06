@@ -10,6 +10,7 @@ use rustler::NifUnitEnum;
 pub struct Projectile {
     pub id: u64,
     pub position: Position,
+    pub prev_position: Position,
     pub direction: RelativePosition,
     pub speed: u32,
     pub range: u32,
@@ -52,6 +53,7 @@ impl Projectile {
         Self {
             id,
             position,
+            prev_position: position.clone(),
             direction,
             speed,
             range,
@@ -65,6 +67,7 @@ impl Projectile {
         }
     }
     pub fn move_or_explode_if_out_of_board(&mut self, board_height: usize, board_width: usize) {
+        self.prev_position = self.position.clone();
         self.position = game::new_entity_position(
             board_height,
             board_width,
@@ -73,14 +76,45 @@ impl Projectile {
             self.position,
             self.speed as i64,
         );
-        let Position { x, y } = self.position;
-        // The projectile shouldn't move beyond the board limits,
-        // but just in case, lets compare it with greater than or eq.
-        let outside_height_range = x == 0 || x >= (board_height - 1);
-        let outside_width_range = y == 0 || y >= (board_width - 1);
-        let has_to_explode = outside_height_range || outside_width_range;
-        if has_to_explode {
+
+        // Next the left wall and moving to the left
+        if Projectile::needs_to_explode(
+            self.prev_position.x == self.position.x,
+            self.prev_position.x == 0,
+            self.direction.y > 0f32,
+        ) {
             self.status = ProjectileStatus::EXPLODED;
         }
+
+        // Next the right wall and moving to the right
+        if Projectile::needs_to_explode(
+            self.prev_position.x == self.position.x,
+            self.prev_position.x == board_height - 1,
+            self.direction.y < 0f32,
+        ) {
+            self.status = ProjectileStatus::EXPLODED;
+        }
+
+        // Next the up wall and moving to the up
+        if Projectile::needs_to_explode(
+            self.prev_position.y == self.position.y,
+            self.prev_position.y == 0,
+            self.direction.x < 0f32,
+        ) {
+            self.status = ProjectileStatus::EXPLODED;
+        }
+
+        // Next the down wall and moving to the down
+        if Projectile::needs_to_explode(
+            self.prev_position.y == self.position.y,
+            self.prev_position.y == board_height - 1,
+            self.direction.x > 0f32,
+        ) {
+            self.status = ProjectileStatus::EXPLODED;
+        }
+    }
+
+    pub fn needs_to_explode(eq_coordinates: bool, is_in_wall: bool, moving_to_wall: bool) -> bool {
+        return eq_coordinates && is_in_wall && moving_to_wall;
     }
 }
