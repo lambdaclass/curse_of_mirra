@@ -493,6 +493,22 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:ok, _game} = Game.new(config)
   end
 
+  defp all_characters_set?({:noreply, state} = real_state) do
+    IO.inspect(real_state, label: :que?)
+    cond do
+      Map.get(state, :game_status) == :playing ->
+        nil
+
+      Map.get(state, :selected_characters, %{}) |> map_size() == state[:max_players] ->
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
+
+      true ->
+        Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
+    end
+
+    {:noreply, state}
+  end
+
   defp all_characters_set?(state) do
     cond do
       Map.get(state, :game_status) == :playing ->
