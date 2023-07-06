@@ -1,4 +1,4 @@
-use std::{str::FromStr, collections::HashMap};
+use std::{collections::HashMap, str::FromStr};
 
 use rustler::NifStruct;
 
@@ -11,7 +11,7 @@ pub struct Skill {
     pub damage: u32,
     pub duration: u64,
     pub projectile: String,
-    pub minion: String
+    pub minion: String,
 }
 
 impl Skill {
@@ -23,7 +23,15 @@ impl Skill {
         let duration = get_skill_field(config, "Duration")?;
         let projectile = get_skill_field(config, "Projectile")?;
         let minion = get_skill_field(config, "Minion")?;
-        Ok(Self { name, do_func, cooldown_ms, damage, duration, projectile, minion })
+        Ok(Self {
+            name,
+            do_func,
+            cooldown_ms,
+            damage,
+            duration,
+            projectile,
+            minion,
+        })
     }
 }
 
@@ -42,10 +50,7 @@ impl Default for Skill {
 }
 
 pub fn build_from_config(skills_config: &[HashMap<String, String>]) -> Result<Vec<Skill>, String> {
-    skills_config
-        .iter()
-        .map(Skill::from_config_map)
-        .collect()
+    skills_config.iter().map(Skill::from_config_map).collect()
 }
 
 fn get_skill_field<T: FromStr>(config: &HashMap<String, String>, key: &str) -> Result<T, String> {
@@ -56,7 +61,7 @@ fn get_skill_field<T: FromStr>(config: &HashMap<String, String>, key: &str) -> R
 
     match value_result {
         Ok(value) => parse_attribute(&value),
-        Err(error) => Err(format!("Error parsing '{}'\n{}", key, error))
+        Err(error) => Err(format!("Error parsing '{}'\n{}", key, error)),
     }
 }
 

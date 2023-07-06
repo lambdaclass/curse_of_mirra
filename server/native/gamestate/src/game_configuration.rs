@@ -1,8 +1,9 @@
-use std::collections::HashMap;
 use rustler::Binary;
+use std::collections::HashMap;
 
-
-pub fn config_binaries_to_strings(binary_config: Vec<HashMap<Binary, Binary>>) -> Vec<HashMap<String, String>> {
+pub fn config_binaries_to_strings(
+    binary_config: Vec<HashMap<Binary, Binary>>,
+) -> Vec<HashMap<String, String>> {
     let mut string_config: Vec<HashMap<String, String>> = vec![];
 
     for binary_map in binary_config {

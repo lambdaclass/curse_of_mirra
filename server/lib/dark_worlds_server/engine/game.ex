@@ -17,8 +17,16 @@ defmodule DarkWorldsServer.Engine.Game do
     new_game(selected_players, number_of_players, width, height, build_walls, character_info, skills_info)
   end
 
-  def new_game(_selected_players, _num_of_players, _width, _height, _build_walls, _characters_config_list, _skills_config_list),
-    do: :erlang.nif_error(:nif_not_loaded)
+  def new_game(
+        _selected_players,
+        _num_of_players,
+        _width,
+        _height,
+        _build_walls,
+        _characters_config_list,
+        _skills_config_list
+      ),
+      do: :erlang.nif_error(:nif_not_loaded)
 
   def move_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
   def move_player_to_coordinates(_game_state, _player_id, _relative_position), do: :erlang.nif_error(:nif_not_loaded)

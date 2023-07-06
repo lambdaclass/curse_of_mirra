@@ -1,8 +1,8 @@
 use crate::skills::*;
+use rustler::NifTaggedEnum;
 use std::collections::HashMap;
 use std::ops::Div;
 use std::str::FromStr;
-use rustler::NifTaggedEnum;
 use strum_macros::{Display, EnumString};
 pub type TicksLeft = u64;
 
@@ -101,7 +101,10 @@ impl Character {
     // NOTE:
     // A possible improvement here is that elixir sends a Json and
     // we deserialize it here with Serde
-    pub fn from_config_map(config: &HashMap<String, String>, skills: &[Skill]) -> Result<Character, String> {
+    pub fn from_config_map(
+        config: &HashMap<String, String>,
+        skills: &[Skill],
+    ) -> Result<Character, String> {
         let name = get_key(config, "Name")?;
         let id = get_key(config, "Id")?;
         let active = get_key(config, "Active")?;

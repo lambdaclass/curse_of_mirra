@@ -548,7 +548,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()
 
   defp config_atom_to_string(config) do
-    Enum.reduce(config, [], fn (item, acc_config) ->
+    Enum.reduce(config, [], fn item, acc_config ->
       new_item =
         item
         |> Map.delete(:__unknown_fields__)
