@@ -494,7 +494,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp all_characters_set?({:noreply, state} = real_state) do
-    IO.inspect(real_state, label: :que?)
+    Logger.info("llegué acá #{real_state}")
     cond do
       Map.get(state, :game_status) == :playing ->
         nil
