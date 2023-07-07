@@ -116,6 +116,30 @@ defmodule DarkWorldsServer.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.LootAction do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:LOOT_ACTION_UNSPECIFIED, 0)
+  field(:SPAWNED, 1)
+  field(:TAKEN, 2)
+  field(:DESTROY, 3)
+end
+
+defmodule DarkWorldsServer.Communication.Proto.LootType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:LOOT_TYPE_UNSPECIFIED, 0)
+  field(:LOOT_HEALTH, 1)
+  field(:LOOT_SKILL_1, 2)
+  field(:LOOT_SKILL_2, 3)
+  field(:LOOT_SKILL_3, 4)
+  field(:LOOT_SKILL_4, 5)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
@@ -154,6 +178,12 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
 
   field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
+
+  field(:loot_packages, 11,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.LootPackage,
+    json_name: "lootPackages"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -406,10 +436,40 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
+defmodule DarkWorldsServer.Communication.Proto.LootPackageEvent do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:loot_action, 1,
+    type: DarkWorldsServer.Communication.Proto.LootAction,
+    json_name: "lootAction",
+    enum: true
+  )
+
+  field(:loot_package, 2,
+    type: DarkWorldsServer.Communication.Proto.LootPackage,
+    json_name: "lootPackage"
+  )
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.LootPackage do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:position, 2, type: DarkWorldsServer.Communication.Proto.Position)
+
+  field(:loot_type, 3,
+    type: DarkWorldsServer.Communication.Proto.LootType,
+    json_name: "lootType",
+    enum: true
+  )
+
+  field(:value, 4, type: :int64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

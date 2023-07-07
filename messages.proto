@@ -18,6 +18,7 @@ message GameEvent {
     map<uint64, string> selected_characters = 8;
     int64 player_timestamp = 9;
     int64 server_timestamp = 10;
+    repeated LootPackage loot_packages = 11;
 }
 
 /* Type of game events
@@ -310,6 +311,52 @@ message Projectile {
     bool pierce = 12;
 }
 
+/*
+    - loot_action: Action of the loot package
+    - loot_package: Loot
+ */
+message LootPackageEvent {
+    LootAction loot_action = 1;
+    LootPackage loot_package = 2;
+}
+
+/*
+    - id: Unique identifier for the loot
+    - position: Position of the loot
+    - loot_type: Type of loot
+    - value: Value of the loot given (e.g. health loot, how much it heals)
+ */
 message LootPackage {
-    
+    uint64 id = 1;
+    Position position = 2;
+    LootType loot_type = 3;
+    int64 value = 4;
+}
+
+/*
+    - SPAWNED: Loot has spawned
+    - TAKEN: Loot was taken by a player
+    - DESTROY: Loot has been destroyed (e.g expired)
+ */
+enum LootAction {
+    LOOT_ACTION_UNSPECIFIED = 0;
+    SPAWNED = 1;
+    TAKEN = 2;
+    DESTROY = 3;
+}
+
+/*
+   - HEALTH: Loot that gives health instantly
+   - SKILL_1: Loot to unlock skill_1
+   - SKILL_2: Loot to unlock skill_2
+   - SKILL_3: Loot to unlock skill_3
+   - SKILL_4: Loot to unlock skill_4
+ */
+enum LootType {
+    LOOT_TYPE_UNSPECIFIED = 0;
+    LOOT_HEALTH = 1;
+    LOOT_SKILL_1 = 2;
+    LOOT_SKILL_2 = 3;
+    LOOT_SKILL_3 = 4;
+    LOOT_SKILL_4 = 5;
 }

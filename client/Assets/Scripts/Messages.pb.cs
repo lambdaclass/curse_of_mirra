@@ -22,90 +22,100 @@ public static partial class MessagesReflection {
   static MessagesReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg5tZXNzYWdlcy5wcm90byL3AgoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
+          "Cg5tZXNzYWdlcy5wcm90byKcAwoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
           "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQSPwoTc2Vs",
           "ZWN0ZWRfY2hhcmFjdGVycxgIIAMoCzIiLkdhbWVFdmVudC5TZWxlY3RlZENo",
           "YXJhY3RlcnNFbnRyeRIYChBwbGF5ZXJfdGltZXN0YW1wGAkgASgDEhgKEHNl",
-          "cnZlcl90aW1lc3RhbXAYCiABKAMaOQoXU2VsZWN0ZWRDaGFyYWN0ZXJzRW50",
-          "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgJOgI4ASI8Cg9QbGF5ZXJD",
-          "aGFyYWN0ZXISEQoJcGxheWVyX2lkGAEgASgEEhYKDmNoYXJhY3Rlcl9uYW1l",
-          "GAIgASgJIpIECgZQbGF5ZXISCgoCaWQYASABKAQSDgoGaGVhbHRoGAIgASgS",
-          "EhsKCHBvc2l0aW9uGAMgASgLMgkuUG9zaXRpb24SGQoRbGFzdF9tZWxlZV9h",
-          "dHRhY2sYBCABKAQSFwoGc3RhdHVzGAUgASgOMgcuU3RhdHVzEh0KBmFjdGlv",
-          "bhgGIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9zaXRpb24YByABKAsy",
-          "CS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAggASgEEhMKC2RlYXRoX2NvdW50",
-          "GAkgASgEEiQKEXRlbGVwb3J0X3Bvc2l0aW9uGAogASgLMgkuUG9zaXRpb24S",
-          "IQoZYmFzaWNfc2tpbGxfY29vbGRvd25fbGVmdBgLIAEoBBIdChVza2lsbF8x",
-          "X2Nvb2xkb3duX2xlZnQYDCABKAQSHQoVc2tpbGxfMl9jb29sZG93bl9sZWZ0",
-          "GA0gASgEEh0KFXNraWxsXzNfY29vbGRvd25fbGVmdBgOIAEoBBIdChVza2ls",
-          "bF80X2Nvb2xkb3duX2xlZnQYDyABKAQSFgoOY2hhcmFjdGVyX25hbWUYECAB",
-          "KAkSJQoHZWZmZWN0cxgRIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaLgoM",
-          "RWZmZWN0c0VudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEi",
-          "IAoIUG9zaXRpb24SCQoBeBgBIAEoBBIJCgF5GAIgASgEIigKEFJlbGF0aXZl",
-          "UG9zaXRpb24SCQoBeBgBIAEoAhIJCgF5GAIgASgCIuEBCgxDbGllbnRBY3Rp",
-          "b24SFwoGYWN0aW9uGAEgASgOMgcuQWN0aW9uEh0KCWRpcmVjdGlvbhgCIAEo",
-          "DjIKLkRpcmVjdGlvbhIjCghwb3NpdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9z",
-          "aXRpb24SJQoKbW92ZV9kZWx0YRgEIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24S",
-          "DgoGdGFyZ2V0GAUgASgSEhEKCXRpbWVzdGFtcBgGIAEoAxIqChBwbGF5ZXJf",
-          "Y2hhcmFjdGVyGAcgASgLMhAuUGxheWVyQ2hhcmFjdGVyIuYBCgpMb2JieUV2",
-          "ZW50Eh0KBHR5cGUYASABKA4yDy5Mb2JieUV2ZW50VHlwZRIQCghsb2JieV9p",
-          "ZBgCIAEoCRIRCglwbGF5ZXJfaWQYAyABKAQSFwoPYWRkZWRfcGxheWVyX2lk",
-          "GAQgASgEEg8KB2dhbWVfaWQYBSABKAkSFAoMcGxheWVyX2NvdW50GAYgASgE",
-          "Eg8KB3BsYXllcnMYByADKAQSGQoRcmVtb3ZlZF9wbGF5ZXJfaWQYCCABKAQS",
-          "KAoLZ2FtZV9jb25maWcYCSABKAsyEy5TZXJ2ZXJHYW1lU2V0dGluZ3MifAoM",
-          "UnVubmVyQ29uZmlnEgwKBE5hbWUYASABKAkSEwoLYm9hcmRfd2lkdGgYAiAB",
-          "KAQSFAoMYm9hcmRfaGVpZ2h0GAMgASgEEhoKEnNlcnZlcl90aWNrcmF0ZV9t",
-          "cxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZp",
-          "ZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90",
-          "aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJ",
-          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoT",
-          "Q2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJ",
-          "Eg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUg",
-          "ASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQK",
-          "DFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJ",
-          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
-          "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
-          "SXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgB",
-          "IAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgL",
-          "MhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgE",
-          "EhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMg",
-          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5n",
-          "ZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcK",
-          "D3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSAB",
-          "KA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0",
-          "aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4K",
-          "BnBpZXJjZRgMIAEoCCINCgtMb290UGFja2FnZSrOAQoNR2FtZUV2ZW50VHlw",
-          "ZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlF",
-          "Ul9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEK",
-          "DUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNF",
-          "TEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVS",
-          "X1NFTEVDVElPThAIKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJ",
-          "AgoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIK",
-          "CgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJN",
-          "T1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRB",
-          "Q0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExf",
-          "MhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJB",
-          "Q1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJ",
-          "RGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAES",
-          "CAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJBY3Rp",
-          "b24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19B",
-          "T0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQS",
-          "FQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAG",
-          "EhUKEUVYRUNVVElOR19TS0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0KCVBF",
-          "VFJJRklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdF",
-          "RBADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAAS",
-          "DQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFS",
-          "VEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBM",
-          "QVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAAS",
-          "FAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoG",
-          "QUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
+          "cnZlcl90aW1lc3RhbXAYCiABKAMSIwoNbG9vdF9wYWNrYWdlcxgLIAMoCzIM",
+          "Lkxvb3RQYWNrYWdlGjkKF1NlbGVjdGVkQ2hhcmFjdGVyc0VudHJ5EgsKA2tl",
+          "eRgBIAEoBBINCgV2YWx1ZRgCIAEoCToCOAEiPAoPUGxheWVyQ2hhcmFjdGVy",
+          "EhEKCXBsYXllcl9pZBgBIAEoBBIWCg5jaGFyYWN0ZXJfbmFtZRgCIAEoCSKS",
+          "BAoGUGxheWVyEgoKAmlkGAEgASgEEg4KBmhlYWx0aBgCIAEoEhIbCghwb3Np",
+          "dGlvbhgDIAEoCzIJLlBvc2l0aW9uEhkKEWxhc3RfbWVsZWVfYXR0YWNrGAQg",
+          "ASgEEhcKBnN0YXR1cxgFIAEoDjIHLlN0YXR1cxIdCgZhY3Rpb24YBiABKA4y",
+          "DS5QbGF5ZXJBY3Rpb24SHwoMYW9lX3Bvc2l0aW9uGAcgASgLMgkuUG9zaXRp",
+          "b24SEgoKa2lsbF9jb3VudBgIIAEoBBITCgtkZWF0aF9jb3VudBgJIAEoBBIk",
+          "ChF0ZWxlcG9ydF9wb3NpdGlvbhgKIAEoCzIJLlBvc2l0aW9uEiEKGWJhc2lj",
+          "X3NraWxsX2Nvb2xkb3duX2xlZnQYCyABKAQSHQoVc2tpbGxfMV9jb29sZG93",
+          "bl9sZWZ0GAwgASgEEh0KFXNraWxsXzJfY29vbGRvd25fbGVmdBgNIAEoBBId",
+          "ChVza2lsbF8zX2Nvb2xkb3duX2xlZnQYDiABKAQSHQoVc2tpbGxfNF9jb29s",
+          "ZG93bl9sZWZ0GA8gASgEEhYKDmNoYXJhY3Rlcl9uYW1lGBAgASgJEiUKB2Vm",
+          "ZmVjdHMYESADKAsyFC5QbGF5ZXIuRWZmZWN0c0VudHJ5Gi4KDEVmZmVjdHNF",
+          "bnRyeRILCgNrZXkYASABKAQSDQoFdmFsdWUYAiABKAQ6AjgBIiAKCFBvc2l0",
+          "aW9uEgkKAXgYASABKAQSCQoBeRgCIAEoBCIoChBSZWxhdGl2ZVBvc2l0aW9u",
+          "EgkKAXgYASABKAISCQoBeRgCIAEoAiLhAQoMQ2xpZW50QWN0aW9uEhcKBmFj",
+          "dGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rpb24YAiABKA4yCi5EaXJl",
+          "Y3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEiUK",
+          "Cm1vdmVfZGVsdGEYBCABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg4KBnRhcmdl",
+          "dBgFIAEoEhIRCgl0aW1lc3RhbXAYBiABKAMSKgoQcGxheWVyX2NoYXJhY3Rl",
+          "chgHIAEoCzIQLlBsYXllckNoYXJhY3RlciLmAQoKTG9iYnlFdmVudBIdCgR0",
+          "eXBlGAEgASgOMg8uTG9iYnlFdmVudFR5cGUSEAoIbG9iYnlfaWQYAiABKAkS",
+          "EQoJcGxheWVyX2lkGAMgASgEEhcKD2FkZGVkX3BsYXllcl9pZBgEIAEoBBIP",
+          "CgdnYW1lX2lkGAUgASgJEhQKDHBsYXllcl9jb3VudBgGIAEoBBIPCgdwbGF5",
+          "ZXJzGAcgAygEEhkKEXJlbW92ZWRfcGxheWVyX2lkGAggASgEEigKC2dhbWVf",
+          "Y29uZmlnGAkgASgLMhMuU2VydmVyR2FtZVNldHRpbmdzInwKDFJ1bm5lckNv",
+          "bmZpZxIMCgROYW1lGAEgASgJEhMKC2JvYXJkX3dpZHRoGAIgASgEEhQKDGJv",
+          "YXJkX2hlaWdodBgDIAEoBBIaChJzZXJ2ZXJfdGlja3JhdGVfbXMYBCABKAQS",
+          "FwoPZ2FtZV90aW1lb3V0X21zGAUgASgEImEKCkdhbWVDb25maWcSHgoKYm9h",
+          "cmRfc2l6ZRgBIAEoCzIKLkJvYXJkU2l6ZRIaChJzZXJ2ZXJfdGlja3JhdGVf",
+          "bXMYAiABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAMgASgEIioKCUJvYXJkU2l6",
+          "ZRINCgV3aWR0aBgBIAEoBBIOCgZoZWlnaHQYAiABKAQi3AEKE0NoYXJhY3Rl",
+          "ckNvbmZpZ0l0ZW0SDAoETmFtZRgBIAEoCRIKCgJJZBgCIAEoCRIOCgZBY3Rp",
+          "dmUYAyABKAkSDQoFQ2xhc3MYBCABKAkSDwoHRmFjdGlvbhgFIAEoCRIRCglC",
+          "YXNlU3BlZWQYBiABKAkSEgoKU2tpbGxCYXNpYxgHIAEoCRIUCgxTa2lsbEFj",
+          "dGl2ZTEYCCABKAkSFAoMU2tpbGxBY3RpdmUyGAkgASgJEhEKCVNraWxsRGFz",
+          "aBgKIAEoCRIVCg1Ta2lsbFVsdGltYXRlGAsgASgJIjYKD0NoYXJhY3RlckNv",
+          "bmZpZxIjCgVJdGVtcxgBIAMoCzIULkNoYXJhY3RlckNvbmZpZ0l0ZW0iZgoS",
+          "U2VydmVyR2FtZVNldHRpbmdzEiQKDXJ1bm5lcl9jb25maWcYASABKAsyDS5S",
+          "dW5uZXJDb25maWcSKgoQY2hhcmFjdGVyX2NvbmZpZxgCIAEoCzIQLkNoYXJh",
+          "Y3RlckNvbmZpZyKzAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3Np",
+          "dGlvbhgCIAEoCzIJLlBvc2l0aW9uEiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJl",
+          "bGF0aXZlUG9zaXRpb24SDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0S",
+          "EQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5p",
+          "bmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJv",
+          "amVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1",
+          "cxIfChdsYXN0X2F0dGFja2VkX3BsYXllcl9pZBgLIAEoBBIOCgZwaWVyY2UY",
+          "DCABKAgiWAoQTG9vdFBhY2thZ2VFdmVudBIgCgtsb290X2FjdGlvbhgBIAEo",
+          "DjILLkxvb3RBY3Rpb24SIgoMbG9vdF9wYWNrYWdlGAIgASgLMgwuTG9vdFBh",
+          "Y2thZ2UiYwoLTG9vdFBhY2thZ2USCgoCaWQYASABKAQSGwoIcG9zaXRpb24Y",
+          "AiABKAsyCS5Qb3NpdGlvbhIcCglsb290X3R5cGUYAyABKA4yCS5Mb290VHlw",
+          "ZRINCgV2YWx1ZRgEIAEoAyrOAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9V",
+          "UERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIO",
+          "CgpORVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNI",
+          "RUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNFTEVDVEVEX0NIQVJB",
+          "Q1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAI",
+          "Kh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJAgoGQWN0aW9uEhYK",
+          "EkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIM",
+          "CghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9Z",
+          "U1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJ",
+          "Q19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxM",
+          "XzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOEg8KC0VO",
+          "QUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJRGlyZWN0aW9uEhkK",
+          "FURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggK",
+          "BExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElO",
+          "RxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVD",
+          "VVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoRRVhFQ1VUSU5H",
+          "X1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUKEUVYRUNVVElO",
+          "R19TS0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwK",
+          "CERJU0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBADKo8BCg5Mb2Ji",
+          "eUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVE",
+          "EAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExB",
+          "WUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVE",
+          "EAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5H",
+          "X0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoI",
+          "RVhQTE9ERUQQASpOCgpMb290QWN0aW9uEhsKF0xPT1RfQUNUSU9OX1VOU1BF",
+          "Q0lGSUVEEAASCwoHU1BBV05FRBABEgkKBVRBS0VOEAISCwoHREVTVFJPWRAD",
+          "Kn4KCExvb3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xP",
+          "T1RfSEVBTFRIEAESEAoMTE9PVF9TS0lMTF8xEAISEAoMTE9PVF9TS0lMTF8y",
+          "EAMSEAoMTE9PVF9TS0lMTF8zEAQSEAoMTE9PVF9TS0lMTF80EAViBnByb3Rv",
+          "Mw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootAction), typeof(global::LootType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp", "LootPackages" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerCharacter), global::PlayerCharacter.Parser, new[]{ "PlayerId", "CharacterName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "LastMeleeAttack", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "TeleportPosition", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
@@ -119,7 +129,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::LootPackage), global::LootPackage.Parser, null, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::LootPackageEvent), global::LootPackageEvent.Parser, new[]{ "LootAction", "LootPackage" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LootPackage), global::LootPackage.Parser, new[]{ "Id", "Position", "LootType", "Value" }, null, null, null, null)
         }));
   }
   #endregion
@@ -260,6 +271,36 @@ public enum ProjectileStatus {
   [pbr::OriginalName("EXPLODED")] Exploded = 1,
 }
 
+/// <summary>
+///
+///- SPAWNED: Loot has spawned
+///- TAKEN: Loot was taken by another player
+///- DESTROY: Loot has been destroyed (e.g expired)
+/// </summary>
+public enum LootAction {
+  [pbr::OriginalName("LOOT_ACTION_UNSPECIFIED")] Unspecified = 0,
+  [pbr::OriginalName("SPAWNED")] Spawned = 1,
+  [pbr::OriginalName("TAKEN")] Taken = 2,
+  [pbr::OriginalName("DESTROY")] Destroy = 3,
+}
+
+/// <summary>
+///
+///- HEALTH: Loot that gives health instantly
+///- SKILL_1: Loot to unlock skill_1
+///- SKILL_2: Loot to unlock skill_2
+///- SKILL_3: Loot to unlock skill_3
+///- SKILL_4: Loot to unlock skill_4
+/// </summary>
+public enum LootType {
+  [pbr::OriginalName("LOOT_TYPE_UNSPECIFIED")] Unspecified = 0,
+  [pbr::OriginalName("LOOT_HEALTH")] LootHealth = 1,
+  [pbr::OriginalName("LOOT_SKILL_1")] LootSkill1 = 2,
+  [pbr::OriginalName("LOOT_SKILL_2")] LootSkill2 = 3,
+  [pbr::OriginalName("LOOT_SKILL_3")] LootSkill3 = 4,
+  [pbr::OriginalName("LOOT_SKILL_4")] LootSkill4 = 5,
+}
+
 #endregion
 
 #region Messages
@@ -315,6 +356,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     selectedCharacters_ = other.selectedCharacters_.Clone();
     playerTimestamp_ = other.playerTimestamp_;
     serverTimestamp_ = other.serverTimestamp_;
+    lootPackages_ = other.lootPackages_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -441,6 +483,17 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
   }
 
+  /// <summary>Field number for the "loot_packages" field.</summary>
+  public const int LootPackagesFieldNumber = 11;
+  private static readonly pb::FieldCodec<global::LootPackage> _repeated_lootPackages_codec
+      = pb::FieldCodec.ForMessage(90, global::LootPackage.Parser);
+  private readonly pbc::RepeatedField<global::LootPackage> lootPackages_ = new pbc::RepeatedField<global::LootPackage>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::LootPackage> LootPackages {
+    get { return lootPackages_; }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -466,6 +519,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (!SelectedCharacters.Equals(other.SelectedCharacters)) return false;
     if (PlayerTimestamp != other.PlayerTimestamp) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
+    if(!lootPackages_.Equals(other.lootPackages_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -483,6 +537,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     hash ^= SelectedCharacters.GetHashCode();
     if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
+    hash ^= lootPackages_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -532,6 +587,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(80);
       output.WriteInt64(ServerTimestamp);
     }
+    lootPackages_.WriteTo(output, _repeated_lootPackages_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -573,6 +629,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(80);
       output.WriteInt64(ServerTimestamp);
     }
+    lootPackages_.WriteTo(ref output, _repeated_lootPackages_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -607,6 +664,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (ServerTimestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
     }
+    size += lootPackages_.CalculateSize(_repeated_lootPackages_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -646,6 +704,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.ServerTimestamp != 0L) {
       ServerTimestamp = other.ServerTimestamp;
     }
+    lootPackages_.Add(other.lootPackages_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -704,6 +763,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           ServerTimestamp = input.ReadInt64();
           break;
         }
+        case 90: {
+          lootPackages_.AddEntriesFrom(input, _repeated_lootPackages_codec);
+          break;
+        }
       }
     }
   #endif
@@ -760,6 +823,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
         }
         case 80: {
           ServerTimestamp = input.ReadInt64();
+          break;
+        }
+        case 90: {
+          lootPackages_.AddEntriesFrom(ref input, _repeated_lootPackages_codec);
           break;
         }
       }
@@ -5655,6 +5722,253 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
 
 }
 
+/// <summary>
+///
+///- loot_action: Action of the loot package
+///- loot_package: Loot
+/// </summary>
+public sealed partial class LootPackageEvent : pb::IMessage<LootPackageEvent>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<LootPackageEvent> _parser = new pb::MessageParser<LootPackageEvent>(() => new LootPackageEvent());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<LootPackageEvent> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[14]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public LootPackageEvent() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public LootPackageEvent(LootPackageEvent other) : this() {
+    lootAction_ = other.lootAction_;
+    lootPackage_ = other.lootPackage_ != null ? other.lootPackage_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public LootPackageEvent Clone() {
+    return new LootPackageEvent(this);
+  }
+
+  /// <summary>Field number for the "loot_action" field.</summary>
+  public const int LootActionFieldNumber = 1;
+  private global::LootAction lootAction_ = global::LootAction.Unspecified;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::LootAction LootAction {
+    get { return lootAction_; }
+    set {
+      lootAction_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "loot_package" field.</summary>
+  public const int LootPackageFieldNumber = 2;
+  private global::LootPackage lootPackage_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::LootPackage LootPackage {
+    get { return lootPackage_; }
+    set {
+      lootPackage_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as LootPackageEvent);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(LootPackageEvent other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (LootAction != other.LootAction) return false;
+    if (!object.Equals(LootPackage, other.LootPackage)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (LootAction != global::LootAction.Unspecified) hash ^= LootAction.GetHashCode();
+    if (lootPackage_ != null) hash ^= LootPackage.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (LootAction != global::LootAction.Unspecified) {
+      output.WriteRawTag(8);
+      output.WriteEnum((int) LootAction);
+    }
+    if (lootPackage_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(LootPackage);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (LootAction != global::LootAction.Unspecified) {
+      output.WriteRawTag(8);
+      output.WriteEnum((int) LootAction);
+    }
+    if (lootPackage_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(LootPackage);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (LootAction != global::LootAction.Unspecified) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LootAction);
+    }
+    if (lootPackage_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(LootPackage);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(LootPackageEvent other) {
+    if (other == null) {
+      return;
+    }
+    if (other.LootAction != global::LootAction.Unspecified) {
+      LootAction = other.LootAction;
+    }
+    if (other.lootPackage_ != null) {
+      if (lootPackage_ == null) {
+        LootPackage = new global::LootPackage();
+      }
+      LootPackage.MergeFrom(other.LootPackage);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          LootAction = (global::LootAction) input.ReadEnum();
+          break;
+        }
+        case 18: {
+          if (lootPackage_ == null) {
+            LootPackage = new global::LootPackage();
+          }
+          input.ReadMessage(LootPackage);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 8: {
+          LootAction = (global::LootAction) input.ReadEnum();
+          break;
+        }
+        case 18: {
+          if (lootPackage_ == null) {
+            LootPackage = new global::LootPackage();
+          }
+          input.ReadMessage(LootPackage);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+/// <summary>
+///
+///- id: Unique identifier for the loot
+///- position: Position of the loot
+///- loot_type: Type of loot
+///- value: Value of the loot given (e.g. health loot, how much it heals)
+/// </summary>
 public sealed partial class LootPackage : pb::IMessage<LootPackage>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -5669,7 +5983,7 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[14]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[15]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5689,6 +6003,10 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public LootPackage(LootPackage other) : this() {
+    id_ = other.id_;
+    position_ = other.position_ != null ? other.position_.Clone() : null;
+    lootType_ = other.lootType_;
+    value_ = other.value_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -5696,6 +6014,54 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public LootPackage Clone() {
     return new LootPackage(this);
+  }
+
+  /// <summary>Field number for the "id" field.</summary>
+  public const int IdFieldNumber = 1;
+  private ulong id_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong Id {
+    get { return id_; }
+    set {
+      id_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "position" field.</summary>
+  public const int PositionFieldNumber = 2;
+  private global::Position position_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Position Position {
+    get { return position_; }
+    set {
+      position_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "loot_type" field.</summary>
+  public const int LootTypeFieldNumber = 3;
+  private global::LootType lootType_ = global::LootType.Unspecified;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::LootType LootType {
+    get { return lootType_; }
+    set {
+      lootType_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "value" field.</summary>
+  public const int ValueFieldNumber = 4;
+  private long value_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Value {
+    get { return value_; }
+    set {
+      value_ = value;
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5713,6 +6079,10 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
     if (ReferenceEquals(other, this)) {
       return true;
     }
+    if (Id != other.Id) return false;
+    if (!object.Equals(Position, other.Position)) return false;
+    if (LootType != other.LootType) return false;
+    if (Value != other.Value) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5720,6 +6090,10 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
+    if (Id != 0UL) hash ^= Id.GetHashCode();
+    if (position_ != null) hash ^= Position.GetHashCode();
+    if (LootType != global::LootType.Unspecified) hash ^= LootType.GetHashCode();
+    if (Value != 0L) hash ^= Value.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5738,6 +6112,22 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
+    if (Id != 0UL) {
+      output.WriteRawTag(8);
+      output.WriteUInt64(Id);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Position);
+    }
+    if (LootType != global::LootType.Unspecified) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) LootType);
+    }
+    if (Value != 0L) {
+      output.WriteRawTag(32);
+      output.WriteInt64(Value);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -5748,6 +6138,22 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Id != 0UL) {
+      output.WriteRawTag(8);
+      output.WriteUInt64(Id);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Position);
+    }
+    if (LootType != global::LootType.Unspecified) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) LootType);
+    }
+    if (Value != 0L) {
+      output.WriteRawTag(32);
+      output.WriteInt64(Value);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -5758,6 +6164,18 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
+    if (Id != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
+    }
+    if (position_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    }
+    if (LootType != global::LootType.Unspecified) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LootType);
+    }
+    if (Value != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Value);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -5769,6 +6187,21 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
   public void MergeFrom(LootPackage other) {
     if (other == null) {
       return;
+    }
+    if (other.Id != 0UL) {
+      Id = other.Id;
+    }
+    if (other.position_ != null) {
+      if (position_ == null) {
+        Position = new global::Position();
+      }
+      Position.MergeFrom(other.Position);
+    }
+    if (other.LootType != global::LootType.Unspecified) {
+      LootType = other.LootType;
+    }
+    if (other.Value != 0L) {
+      Value = other.Value;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -5785,6 +6218,25 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
+        case 8: {
+          Id = input.ReadUInt64();
+          break;
+        }
+        case 18: {
+          if (position_ == null) {
+            Position = new global::Position();
+          }
+          input.ReadMessage(Position);
+          break;
+        }
+        case 24: {
+          LootType = (global::LootType) input.ReadEnum();
+          break;
+        }
+        case 32: {
+          Value = input.ReadInt64();
+          break;
+        }
       }
     }
   #endif
@@ -5800,6 +6252,25 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
+        case 8: {
+          Id = input.ReadUInt64();
+          break;
+        }
+        case 18: {
+          if (position_ == null) {
+            Position = new global::Position();
+          }
+          input.ReadMessage(Position);
+          break;
+        }
+        case 24: {
+          LootType = (global::LootType) input.ReadEnum();
+          break;
+        }
+        case 32: {
+          Value = input.ReadInt64();
+          break;
+        }
       }
     }
   }
