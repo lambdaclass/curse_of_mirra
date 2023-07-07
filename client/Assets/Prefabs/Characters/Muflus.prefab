@@ -516,7 +516,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 3761562668922342450, guid: d1aa7547c425a44b8acc728041634177,
+    type: 3}
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 

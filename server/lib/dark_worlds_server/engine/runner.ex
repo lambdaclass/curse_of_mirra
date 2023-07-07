@@ -69,13 +69,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
-    Logger.info("[#{DateTime.utc_now()}] Starting game with opts: #{inspect(opts, pretty: true)}")
-
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
       |> Keyword.fetch!(:process_priority)
 
-    Logger.info("Starting game with priority: #{priority}")
     Process.flag(:priority, priority)
 
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
@@ -195,7 +192,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = gen_server_state.server_game_state
 
     bot_id = gen_server_state.current_players + 1
-    new_game = Game.spawn_player(game_state.game, bot_id)
+    {:ok, new_game} = Game.spawn_player(game_state.game, bot_id)
 
     broadcast_to_darkworlds_server({:player_joined, bot_id})
 

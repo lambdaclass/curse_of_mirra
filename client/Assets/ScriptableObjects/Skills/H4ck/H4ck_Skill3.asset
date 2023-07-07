@@ -16,4 +16,3 @@ MonoBehaviour:
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0

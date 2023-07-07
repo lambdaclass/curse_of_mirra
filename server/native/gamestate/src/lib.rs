@@ -176,10 +176,10 @@ fn basic_attack(
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn spawn_player(game: GameState, player_id: u64) -> GameState {
+fn spawn_player(game: GameState, player_id: u64) -> Result<GameState, String> {
     let mut game_2 = game;
     game_2.spawn_player(player_id);
-    game_2
+    Ok(game_2)
 }
 
 pub fn load(env: Env, _: Term) -> bool {

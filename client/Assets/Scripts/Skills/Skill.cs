@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
+using MoreMountains.Feedbacks;
 
 public class Skill : CharacterAbility
 {
@@ -41,6 +42,13 @@ public class Skill : CharacterAbility
         {
             BlockingMovementStates = new CharacterStates.MovementStates[1];
             BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
+        }
+
+        if (skillInfo.feedbackAnimation)
+        {
+            GameObject feedback = Instantiate(skillInfo.feedbackAnimation, _model.transform.parent);
+
+            this.AbilityStartFeedbacks = feedback.GetComponent<MMF_Player>();
         }
 
         if (skillInfo)

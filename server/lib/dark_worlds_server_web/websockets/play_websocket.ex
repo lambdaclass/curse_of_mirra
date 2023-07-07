@@ -109,10 +109,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     reply_map = %{
       players: game_state.client_game_state.game.players,
       projectiles: game_state.client_game_state.game.projectiles,
-      timestamp: game_state.player_timestamps[web_socket_state.player_id]
+      player_timestamp: game_state.player_timestamps[web_socket_state.player_id],
+      server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond)
     }
 
-    {:reply, {:binary, Communication.encode!(reply_map)}, web_socket_state}
+    {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
   end
 
   def websocket_info({:game_finished, winner, game_state}, web_socket_state) do
