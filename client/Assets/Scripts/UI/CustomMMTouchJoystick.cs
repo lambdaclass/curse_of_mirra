@@ -16,6 +16,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         base.OnPointerDown(data);
         SetJoystick();
         newPointerDownEvent.Invoke(this);
+        FirstLayer();
     }
     public override void OnDrag(PointerEventData eventData)
     {
@@ -29,6 +30,11 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         ResetJoystick();
     }
 
+    public void FirstLayer()
+    {
+        Image joystickBg = gameObject.transform.parent.gameObject.GetComponent<Image>();
+        joystickBg.transform.SetAsLastSibling();
+    }
     public void SetJoystick()
     {
         Image joystickBg = gameObject.transform.parent.gameObject.GetComponent<Image>();
