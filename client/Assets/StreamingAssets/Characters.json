@@ -20,11 +20,11 @@
       "Class": "ass",
       "Faction": "kal",
       "BaseSpeed": "4",
-      "SkillBasic": "Backstab",
-      "SkillActive1": "Serpent Strike",
-      "SkillActive2": "Petrify",
+      "SkillBasic": "Elnars Mark",
+      "SkillActive1": "Yugens Mark",
+      "SkillActive2": "Xandas Mark",
       "SkillDash": "Shadowstep",
-      "SkillUltimate": "Toxic Tempest"
+      "SkillUltimate": "Final Vengeance"
     },
     {
       "Name": "H4ck",
@@ -36,7 +36,7 @@
       "SkillBasic": "Slingshot",
       "SkillActive1": "Multishot",
       "SkillActive2": "Disarm",
-      "SkillDash": "Hacktivate",
+      "SkillDash": "Neon Crash",
       "SkillUltimate": "Denial of Service"
     },
     {
@@ -94,15 +94,15 @@
     {
       "Name": "Dagna",
       "Id": "7",
-      "Active": "0",
+      "Active": "1",
       "Class": "hun",
       "Faction": "mer",
-      "BaseSpeed": "",
-      "SkillBasic": "",
-      "SkillActive1": "",
-      "SkillActive2": "",
-      "SkillDash": "",
-      "SkillUltimate": ""
+      "BaseSpeed": "90",
+      "SkillBasic": "Scherzo",
+      "SkillActive1": "Pizzicato",
+      "SkillActive2": "Band Recruit",
+      "SkillDash": "Danse Macabre",
+      "SkillUltimate": "Orchestra"
     }
   ]
 }

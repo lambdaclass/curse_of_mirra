@@ -1,7 +1,8 @@
-﻿{ "Items" : [
-  {
-    "Name": "none",
-    "Id": "0"
-  }
-]
+﻿{
+  "Items": [
+    {
+      "Name": "none",
+      "Id": "0"
+    }
+  ]
 }

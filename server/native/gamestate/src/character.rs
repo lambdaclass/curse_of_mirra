@@ -13,6 +13,8 @@ pub enum Name {
     H4ck,
     #[strum(ascii_case_insensitive)]
     Muflus,
+    #[strum(serialize = "Dagna")]
+    Placeholder,
 }
 
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
@@ -109,6 +111,7 @@ impl Character {
             FirstActive::BarrelRoll => 50_u32,
             FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
             FirstActive::MultiShot => 10_u32,
+            _ => 10_u32,
         }
     }
     pub fn attack_dmg_second_active(&mut self) -> u32 {
@@ -125,6 +128,7 @@ impl Character {
             BasicSkill::Slingshot => u128_to_millis(500), // H4ck basic attack cooldown
             BasicSkill::Bash => u128_to_millis(1000),     // Muflus basic attack cooldown
             BasicSkill::Backstab => u128_to_millis(1000),
+            _ => u128_to_millis(100000),
         }
     }
     pub fn cooldown_first_skill(&self) -> MillisTime {
@@ -132,6 +136,7 @@ impl Character {
             FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
             FirstActive::SerpentStrike => u128_to_millis(5000),
             FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
+            _ => u128_to_millis(100000),
         }
     }
     pub fn cooldown_second_skill(&self) -> MillisTime {
@@ -140,6 +145,7 @@ impl Character {
             SecondActive::MirrorImage => u128_to_millis(5000),
             SecondActive::Petrify => u128_to_millis(5000),
             SecondActive::Rage => u128_to_millis(5000),
+            _ => u128_to_millis(100000),
         }
     }
     pub fn cooldown_third_skill(&self) -> MillisTime {
@@ -165,6 +171,7 @@ impl Character {
             BasicSkill::Slingshot => 5,
             BasicSkill::Bash => 3,
             BasicSkill::Backstab => 1,
+            _ => 1_u64,
         }
     }
 }
