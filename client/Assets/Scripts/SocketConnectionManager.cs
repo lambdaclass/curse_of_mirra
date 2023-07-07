@@ -106,6 +106,10 @@ public class SocketConnectionManager : MonoBehaviour
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
         ws = new WebSocket(url);
+        ws.OnClose += (e) =>
+        {
+            print("SE CERRÓ REY");
+        };
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {
@@ -224,6 +228,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void CallSpawnBot()
     {
+        ws.Close();
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         ClientAction clientAction = new ClientAction
         {
@@ -279,5 +284,10 @@ public class SocketConnectionManager : MonoBehaviour
         {
             return "wss://" + server_ip + path;
         }
+    }
+
+    public void closeConnection()
+    {
+        ws.Close();
     }
 }
