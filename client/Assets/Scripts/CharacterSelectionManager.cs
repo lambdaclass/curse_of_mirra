@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
-    [SerializeField] CharacterSelectionList playersList;
-    [SerializeField] CharacterSelectionUI characterList;
+    [SerializeField]
+    CharacterSelectionList playersList;
+
+    [SerializeField]
+    CharacterSelectionUI characterList;
     public bool selected = false;
 
     void Update()
     {
-        if (selected == false && playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId) != null)
+        if (
+            selected == false
+            && playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId) != null
+        )
         {
             selected = true;
+            print("Created item for" + LobbyConnection.Instance.playerId);
             playersList.CreatePlayerItem(LobbyConnection.Instance.playerId);
         }
 
@@ -21,10 +28,18 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             characterList.updated = false;
             UICharacterItem updatedCharacter = GetSelectedCharacter();
-            playersList.UpdatePlayerItem(LobbyConnection.Instance.playerId, updatedCharacter.name.text);
+            print("Updated character for" + LobbyConnection.Instance.playerId);
+            playersList.UpdatePlayerItem(
+                LobbyConnection.Instance.playerId,
+                updatedCharacter.name.text
+            );
         }
 
-        if (selected && playersList.playerItems.Count > SocketConnectionManager.Instance.selectedCharacters?.Count)
+        if (
+            selected
+            && playersList.playerItems.Count
+                > SocketConnectionManager.Instance.selectedCharacters?.Count
+        )
         {
             playersList.removePlayerItems();
         }
@@ -36,7 +51,9 @@ public class CharacterSelectionManager : MonoBehaviour
     public UICharacterItem GetSelectedCharacter()
     {
         List<GameObject> allCharacter = characterList.GetAllChilds();
-        UICharacterItem selectedCharacter = allCharacter?.Find(el => el.GetComponent<UICharacterItem>().selected == true).GetComponent<UICharacterItem>();
+        UICharacterItem selectedCharacter = allCharacter
+            ?.Find(el => el.GetComponent<UICharacterItem>().selected == true)
+            .GetComponent<UICharacterItem>();
         return selectedCharacter != null ? selectedCharacter : null;
     }
 }

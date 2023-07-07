@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour
 {
-    [SerializeField] public Text playerText;
+    [SerializeField]
+    public Text playerText;
     public ulong id;
+    public string characterName;
 
     public ulong GetId()
     {
@@ -16,5 +18,15 @@ public class PlayerItem : MonoBehaviour
     public void SetId(ulong id)
     {
         this.id = id;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public void SetName(string name)
+    {
+        this.characterName = name;
     }
 }
