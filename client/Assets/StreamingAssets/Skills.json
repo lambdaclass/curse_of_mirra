@@ -1,11 +1,12 @@
-{
+﻿{
   "Items": [
     {
       "Name": "Attack",
       "DoFunc": "0",
+      "ButtonType": "2",
       "Cooldown": "1000",
-      "Damage": "10",
-      "State": "",
+      "Damage": "100",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -13,9 +14,10 @@
     {
       "Name": "Bash",
       "DoFunc": "0",
+      "ButtonType": "2",
       "Cooldown": "1000",
       "Damage": "30",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -23,9 +25,10 @@
     {
       "Name": "Barrel Roll",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "5000",
       "Damage": "50",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -33,9 +36,10 @@
     {
       "Name": "Rage",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "5000",
       "Damage": "0",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -43,9 +47,10 @@
     {
       "Name": "Leap",
       "DoFunc": "0",
+      "ButtonType": "4",
       "Cooldown": "8000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -53,39 +58,43 @@
     {
       "Name": "Fiery Rampage",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "60000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Backstab",
+      "Name": "Elnars Mark",
       "DoFunc": "0",
+      "ButtonType": "2",
       "Cooldown": "1000",
       "Damage": "50",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Serpent Strike",
+      "Name": "Yugens Mark",
       "DoFunc": "0",
+      "ButtonType": "3",
       "Cooldown": "5000",
       "Damage": "30",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Petrify",
+      "Name": "Xandas Mark",
       "DoFunc": "0",
+      "ButtonType": "4",
       "Cooldown": "5000",
       "Damage": "30",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -93,19 +102,21 @@
     {
       "Name": "Shadowstep",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "8000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Toxic Tempest",
+      "Name": "Final Vengeance",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "60000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -113,9 +124,10 @@
     {
       "Name": "Slingshot",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "1000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "slingshot",
       "Minion": ""
@@ -123,9 +135,10 @@
     {
       "Name": "Multishot",
       "DoFunc": "0",
+      "ButtonType": "3",
       "Cooldown": "5000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -133,19 +146,21 @@
     {
       "Name": "Disarm",
       "DoFunc": "0",
+      "ButtonType": "4",
       "Cooldown": "5000",
       "Damage": "5",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Hacktivate",
+      "Name": "Neon Crash",
       "DoFunc": "0",
+      "ButtonType": "3",
       "Cooldown": "8000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
@@ -153,59 +168,65 @@
     {
       "Name": "Denial of Service",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "60000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Void Blast",
+      "Name": "Scherzo",
       "DoFunc": "0",
+      "ButtonType": "5",
       "Cooldown": "0",
       "Damage": "100",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Shadow Pulse",
+      "Name": "Pizzicato",
       "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "4000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "Mirror Image",
+      "Name": "Band Recruit",
       "DoFunc": "0",
+      "ButtonType": "4",
       "Cooldown": "5000",
       "Damage": "10",
-      "State": "",
-      "Duration": "0",
-      "Projectile": "",
-      "Minion": "mirror_image"
-    },
-    {
-      "Name": "Blink",
-      "DoFunc": "0",
-      "Cooldown": "8000",
-      "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""
     },
     {
-      "Name": "The Trickster",
+      "Name": "Danse Macabre",
       "DoFunc": "0",
+      "ButtonType": "1",
+      "Cooldown": "8000",
+      "Damage": "10",
+      "Status": "",
+      "Duration": "0",
+      "Projectile": "",
+      "Minion": ""
+    },
+    {
+      "Name": "Orchestra",
+      "DoFunc": "0",
+      "ButtonType": "1",
       "Cooldown": "60000",
       "Damage": "10",
-      "State": "",
+      "Status": "",
       "Duration": "0",
       "Projectile": "",
       "Minion": ""

@@ -39,6 +39,8 @@ pub enum Name {
     H4ck,
     #[strum(ascii_case_insensitive)]
     Muflus,
+    #[strum(serialize = "Dagna")]
+    Placeholder,
 }
 
 pub type StatusEffects = HashMap<Effect, TicksLeft>;
