@@ -324,19 +324,44 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // TODO: check all this implementation when the backend is ready.
     void UpdateLootPackages()
     {
-        // Dictionary<LootPackage, Vector3> lootPackages = SocketConnectionManager
-        //     .Instance
-        //     .lootPackages;
-        // // For each loot package in the dictionary, call SpawnLoot.Init(lootPackage, position)
-        // foreach (KeyValuePair<LootPackage, Vector3> entry in lootPackages)
-        // {
-        //     LootPackage lootPackage = entry.Key;
-        //     Vector3 position = entry.Value;
-        //     // SpawnLoot.Init(lootPackage, position);
-        //     SpawnLoot.Init();
-        // }
+        Dictionary<int, GameObject> lootPackages = SocketConnectionManager.Instance.lootPackages;
+        List<LootPackage> gameLootPackages = SocketConnectionManager.Instance.gameLootPackages;
+        GameObject lootPackage;
+
+        // TODO: probably not ints, check this when backend is implemented.
+        var toPickUp = new List<int>();
+        var toSpawn = new List<int>();
+
+        // Repeated code with UpdatePlayerActions
+        foreach (var pr in lootPackages)
+        {
+            if (!gameLootPackages.Exists(x => (int)x.Id == pr.Key))
+            {
+                toPickUp.Add(pr.Key);
+            }
+            else
+            {
+                toSpawn.Add(pr.Key);
+            }
+        }
+
+        // Use a map() function or somethink like that.
+        foreach (var key in toPickUp)
+        {
+            SpawnLoot.PickUp(key);
+        }
+
+        // Use a map() function or somethink like that.
+        for (int i = 0; i < gameLootPackages.Count; i++)
+        {
+            Vector3 lootPackagePosition = Utils.transformBackendPositionToFrontendPosition(
+                gameLootPackages[i].Position
+            );
+            SpawnLoot.Init(toSpawn[i], lootPackagePosition);
+        }
     }
 
     private void movePlayer(GameObject player, Player playerUpdate)
