@@ -30,19 +30,19 @@ public class CustomInputManager : InputManager
     Image joystickL;
 
     [SerializeField]
-    MMTouchButton SkillBasic;
+    CustomMMTouchButton SkillBasic;
 
     [SerializeField]
-    MMTouchButton Skill1;
+    CustomMMTouchButton Skill1;
 
     [SerializeField]
-    MMTouchButton Skill2;
+    CustomMMTouchButton Skill2;
 
     [SerializeField]
-    MMTouchButton Skill3;
+    CustomMMTouchButton Skill3;
 
     [SerializeField]
-    MMTouchButton Skill4;
+    CustomMMTouchButton Skill4;
 
     [SerializeField]
     TMP_Text SkillBasicCooldown;
@@ -58,7 +58,7 @@ public class CustomInputManager : InputManager
 
     [SerializeField]
     TMP_Text Skill4Cooldown;
-    Dictionary<UIControls, MMTouchButton> mobileButtons;
+    Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
     private GameObject area;
@@ -71,7 +71,7 @@ public class CustomInputManager : InputManager
     {
         base.Start();
 
-        mobileButtons = new Dictionary<UIControls, MMTouchButton>();
+        mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
@@ -79,7 +79,7 @@ public class CustomInputManager : InputManager
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
-        // or extending MMTouchButton and linking its cooldown text
+        // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
         buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
         buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
@@ -88,21 +88,29 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
 
+    public void InitializeInputSprite(CoMCharacter characterInfo)
+    {
+        SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite, null);
+        Skill1.SetInitialSprite(characterInfo.skill1Sprite, characterInfo.skillBackground);
+        Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
+        Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
+        Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
+    }
+
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
         CustomMMTouchJoystick joystick = mobileButtons[
             trigger
         ].GetComponent<CustomMMTouchJoystick>();
+        CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
         {
             case UIType.Tap:
-                MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
-
                 button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
-                    mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
+                    joystick.enabled = false;
                 }
                 break;
 
@@ -265,7 +273,7 @@ public class CustomInputManager : InputManager
 
     public void CheckSkillCooldown(UIControls control, ulong cooldown)
     {
-        MMTouchButton button = mobileButtons[control];
+        CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
         if (cooldown == 0)
@@ -287,8 +295,8 @@ public class CustomInputManager : InputManager
         {
             if (button != activeJoystick)
             {
-                // Try MMTouchButton.DisableButton();
-                button.GetComponent<MMTouchButton>().Interactable = false;
+                // Try CustomMMTouchButton.DisableButton();
+                button.GetComponent<CustomMMTouchButton>().Interactable = false;
             }
         }
     }
@@ -297,7 +305,7 @@ public class CustomInputManager : InputManager
     {
         foreach (var (key, button) in mobileButtons)
         {
-            button.GetComponent<MMTouchButton>().Interactable = true;
+            button.GetComponent<CustomMMTouchButton>().Interactable = true;
         }
     }
 

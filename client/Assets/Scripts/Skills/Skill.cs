@@ -90,8 +90,12 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(RelativePosition relativePosition)
     {
-        skillsAnimationEvent.UpdateActiveSkill(this);
-        SendActionToBackend(relativePosition);
+        bool hasMoved = relativePosition.X != 0 || relativePosition.Y != 0;
+        if (AbilityAuthorized && hasMoved)
+        {
+            skillsAnimationEvent.UpdateActiveSkill(this);
+            SendActionToBackend(relativePosition);
+        }
     }
 
     public void ExecuteFeedback()
