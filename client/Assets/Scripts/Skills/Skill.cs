@@ -101,18 +101,15 @@ public class Skill : CharacterAbility
             Action = serverSkill,
             Position = relativePosition
         };
-        Debug.Log("Sending action to backend");
         SocketConnectionManager.Instance.SendAction(action);
     }
 
     private IEnumerator EndSkillFeedback()
     {
-        Debug.Log("Ending skill feedback");
         if (skillInfo)
         {
             yield return new WaitForSeconds(skillInfo.blockMovementTime);
         }
-        Debug.Log("Ending skill feedback - changing state");
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
     }
