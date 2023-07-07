@@ -1,16 +1,15 @@
-use rand::{thread_rng, Rng};
-use rustler::{NifStruct, NifUnitEnum};
-use std::f32::consts::PI;
-
 use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
 use crate::utils::RelativePosition;
+use rand::{thread_rng, Rng};
+use rustler::{NifStruct, NifUnitEnum};
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::f32::consts::PI;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -245,24 +244,39 @@ impl GameState {
             return Ok(());
         }
 
+        let speed = player.speed() as i64;
+        GameState::move_player_to_direction(
+            &mut self.board,
+            player.id,
+            &mut player.position,
+            &RelativePosition { x, y },
+            speed,
+        )?;
+
+        Ok(())
+    }
+
+    pub fn move_player_to_direction(
+        board: &mut Board,
+        player_id: u64,
+        position: &mut Position,
+        direction: &RelativePosition,
+        speed: i64,
+    ) -> Result<(), String> {
         let new_position = new_entity_position(
-            self.board.height,
-            self.board.width,
-            x,
-            y,
-            player.position,
-            player.speed() as i64,
+            board.height,
+            board.width,
+            direction.x,
+            direction.y,
+            *position,
+            speed,
         );
 
-        self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
+        board.set_cell(position.x, position.y, Tile::Empty)?;
 
-        player.position = new_position;
-        self.board.set_cell(
-            player.position.x,
-            player.position.y,
-            Tile::Player(player.id),
-        )?;
+        *position = new_position;
+
+        board.set_cell(position.x, position.y, Tile::Player(player_id))?;
 
         Ok(())
     }
@@ -781,35 +795,22 @@ impl GameState {
                     *time_left > 0
                 },
             );
-            // TODO: Refactor this
+            
             if player.character.name == Name::H4ck {
                 match player.effects.get(&Effect::NeonCrashing) {
                     Some(EffectData {
                         direction: Some(direction),
                         ..
                     }) => {
-                        //GameState::move_player_to_direction(self, player, *x as f32 / 100., *y as f32 / 100.);
-                        let new_position = new_entity_position(
-                            self.board.height,
-                            self.board.width,
-                            direction.x,
-                            direction.y,
-                            player.position,
-                            player.speed() as i64,
-                        );
-
-                        self.board
-                            .set_cell(player.position.x, player.position.y, Tile::Empty)
-                            .unwrap();
-
-                        player.position = new_position;
-                        self.board
-                            .set_cell(
-                                player.position.x,
-                                player.position.y,
-                                Tile::Player(player.id),
-                            )
-                            .unwrap();
+                        let speed = player.speed() as i64;
+                        GameState::move_player_to_direction(
+                            &mut self.board,
+                            player.id,
+                            &mut player.position,
+                            direction,
+                            speed,
+                        )
+                        .unwrap();
                     }
                     _ => {}
                 }
