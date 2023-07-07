@@ -1,55 +1,56 @@
-﻿{ "items" : [
-  {
-    "Name": "hp",
-    "Id": "0"
-  },
-  {
-    "Name": "maxhp",
-    "Id": "1"
-  },
-  {
-    "Name": "maxhp_percent",
-    "Id": "2"
-  },
-  {
-    "Name": "damage",
-    "Id": "3"
-  },
-  {
-    "Name": "damage_percent",
-    "Id": "4"
-  },
-  {
-    "Name": "velocity",
-    "Id": "5"
-  },
-  {
-    "Name": "velocity_percent",
-    "Id": "6"
-  },
-  {
-    "Name": "attackrate",
-    "Id": "7"
-  },
-  {
-    "Name": "hpregen",
-    "Id": "8"
-  },
-  {
-    "Name": "crit_percent",
-    "Id": "9"
-  },
-  {
-    "Name": "dodge_percent",
-    "Id": "10"
-  },
-  {
-    "Name": "armor",
-    "Id": "11"
-  },
-  {
-    "Name": "armor_percent",
-    "Id": "12"
-  }
-]
+﻿{
+  "Items": [
+    {
+      "Name": "hp",
+      "Id": "0"
+    },
+    {
+      "Name": "maxhp",
+      "Id": "1"
+    },
+    {
+      "Name": "maxhp_percent",
+      "Id": "2"
+    },
+    {
+      "Name": "damage",
+      "Id": "3"
+    },
+    {
+      "Name": "damage_percent",
+      "Id": "4"
+    },
+    {
+      "Name": "velocity",
+      "Id": "5"
+    },
+    {
+      "Name": "velocity_percent",
+      "Id": "6"
+    },
+    {
+      "Name": "attackrate",
+      "Id": "7"
+    },
+    {
+      "Name": "hpregen",
+      "Id": "8"
+    },
+    {
+      "Name": "crit_percent",
+      "Id": "9"
+    },
+    {
+      "Name": "dodge_percent",
+      "Id": "10"
+    },
+    {
+      "Name": "armor",
+      "Id": "11"
+    },
+    {
+      "Name": "armor_percent",
+      "Id": "12"
+    }
+  ]
 }
