@@ -251,12 +251,13 @@ message SkillsConfig {
 message SkillConfigItem {
     string Name = 1;
     string DoFunc = 2;
-    string Cooldown = 3;
-    string Damage = 4;
-    string State = 5;
-    string Duration = 6;
-    string Projectile = 7;
-    string Minion = 8;
+    string ButtonType = 3;
+    string Cooldown = 4;
+    string Damage = 5;
+    string Status = 6;
+    string Duration = 7;
+    string Projectile = 8;
+    string Minion = 9;
 }
 
 message ServerGameSettings {

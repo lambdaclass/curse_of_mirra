@@ -7,8 +7,10 @@ use rustler::NifStruct;
 pub struct Skill {
     pub name: String,
     pub do_func: u64,
+    pub button_type: String,
     pub cooldown_ms: u64,
     pub damage: u32,
+    pub status: String,
     pub duration: u64,
     pub projectile: String,
     pub minion: String,
@@ -18,16 +20,20 @@ impl Skill {
     pub fn from_config_map(config: &HashMap<String, String>) -> Result<Skill, String> {
         let name = get_skill_field(config, "Name")?;
         let do_func = get_skill_field(config, "DoFunc")?;
+        let button_type = get_skill_field(config, "ButtonType")?;
         let cooldown_ms = get_skill_field(config, "Cooldown")?;
         let damage = get_skill_field(config, "Damage")?;
+        let status = get_skill_field(config, "Status")?;
         let duration = get_skill_field(config, "Duration")?;
         let projectile = get_skill_field(config, "Projectile")?;
         let minion = get_skill_field(config, "Minion")?;
         Ok(Self {
             name,
             do_func,
+            button_type,
             cooldown_ms,
             damage,
+            status,
             duration,
             projectile,
             minion,
@@ -40,8 +46,10 @@ impl Default for Skill {
         Skill {
             name: "Slingshot".to_string(),
             do_func: 0,
+            button_type: "".to_string(),
             cooldown_ms: 1000,
             damage: 10,
+            status: "".to_string(),
             duration: 0,
             projectile: "".to_string(),
             minion: "".to_string(),

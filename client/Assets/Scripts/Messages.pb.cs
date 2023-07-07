@@ -69,44 +69,45 @@ public static partial class MessagesReflection {
           "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
           "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
           "SXRlbSIvCgxTa2lsbHNDb25maWcSHwoFSXRlbXMYASADKAsyEC5Ta2lsbENv",
-          "bmZpZ0l0ZW0ilgEKD1NraWxsQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEg4K",
-          "BkRvRnVuYxgCIAEoCRIQCghDb29sZG93bhgDIAEoCRIOCgZEYW1hZ2UYBCAB",
-          "KAkSDQoFU3RhdGUYBSABKAkSEAoIRHVyYXRpb24YBiABKAkSEgoKUHJvamVj",
-          "dGlsZRgHIAEoCRIOCgZNaW5pb24YCCABKAkijAEKElNlcnZlckdhbWVTZXR0",
-          "aW5ncxIkCg1ydW5uZXJfY29uZmlnGAEgASgLMg0uUnVubmVyQ29uZmlnEioK",
-          "EGNoYXJhY3Rlcl9jb25maWcYAiABKAsyEC5DaGFyYWN0ZXJDb25maWcSJAoN",
-          "c2tpbGxzX2NvbmZpZxgDIAEoCzINLlNraWxsc0NvbmZpZyKzAgoKUHJvamVj",
-          "dGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgCIAEoCzIJLlBvc2l0aW9u",
-          "EiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SDQoFc3Bl",
-          "ZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4K",
-          "BmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJv",
-          "amVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVz",
-          "GAogASgOMhEuUHJvamVjdGlsZVN0YXR1cxIfChdsYXN0X2F0dGFja2VkX3Bs",
-          "YXllcl9pZBgLIAEoBBIOCgZwaWVyY2UYDCABKAgqzgEKDUdhbWVFdmVudFR5",
-          "cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZ",
-          "RVJfSk9JTkVEEAISDgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQBBIR",
-          "Cg1HQU1FX0ZJTklTSEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBhIdChlT",
-          "RUxFQ1RFRF9DSEFSQUNURVJfVVBEQVRFEAcSHgoaRklOSVNIX0NIQVJBQ1RF",
-          "Ul9TRUxFQ1RJT04QCCodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq",
-          "iQIKBkFjdGlvbhIWChJBQ1RJT05fVU5TUEVDSUZJRUQQABIICgRNT1ZFEAES",
-          "CgoGQVRUQUNLEAISDAoIVEVMRVBPUlQQBBIOCgpBVFRBQ0tfQU9FEAUSFgoS",
-          "TU9WRV9XSVRIX0pPWVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRU",
-          "QUNLEAgSEAoMQkFTSUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKEgsKB1NLSUxM",
-          "XzIQCxILCgdTS0lMTF8zEAwSCwoHU0tJTExfNBANEhQKEFNFTEVDVF9DSEFS",
-          "QUNURVIQDhIPCgtFTkFCTEVfQk9UUxAPEhAKDERJU0FCTEVfQk9UUxAQKk0K",
-          "CURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBAB",
-          "EggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCqqAQoMUGxheWVyQWN0",
-          "aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdf",
-          "QU9FEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAE",
-          "EhUKEUVYRUNVVElOR19TS0lMTF8yEAUSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQ",
-          "BhIVChFFWEVDVVRJTkdfU0tJTExfNBAHKkQKDFBsYXllckVmZmVjdBINCglQ",
-          "RVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFH",
-          "RUQQAyqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAA",
-          "Eg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RB",
-          "UlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5Q",
-          "TEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAA",
-          "EhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoK",
-          "BkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
+          "bmZpZ0l0ZW0iqwEKD1NraWxsQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEg4K",
+          "BkRvRnVuYxgCIAEoCRISCgpCdXR0b25UeXBlGAMgASgJEhAKCENvb2xkb3du",
+          "GAQgASgJEg4KBkRhbWFnZRgFIAEoCRIOCgZTdGF0dXMYBiABKAkSEAoIRHVy",
+          "YXRpb24YByABKAkSEgoKUHJvamVjdGlsZRgIIAEoCRIOCgZNaW5pb24YCSAB",
+          "KAkijAEKElNlcnZlckdhbWVTZXR0aW5ncxIkCg1ydW5uZXJfY29uZmlnGAEg",
+          "ASgLMg0uUnVubmVyQ29uZmlnEioKEGNoYXJhY3Rlcl9jb25maWcYAiABKAsy",
+          "EC5DaGFyYWN0ZXJDb25maWcSJAoNc2tpbGxzX2NvbmZpZxgDIAEoCzINLlNr",
+          "aWxsc0NvbmZpZyKzAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3Np",
+          "dGlvbhgCIAEoCzIJLlBvc2l0aW9uEiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJl",
+          "bGF0aXZlUG9zaXRpb24SDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0S",
+          "EQoJcGxheWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5p",
+          "bmdfdGlja3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJv",
+          "amVjdGlsZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1",
+          "cxIfChdsYXN0X2F0dGFja2VkX3BsYXllcl9pZBgLIAEoBBIOCgZwaWVyY2UY",
+          "DCABKAgqzgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoL",
+          "UElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAISDgoKTkVYVF9ST1VO",
+          "RBADEg4KCkxBU1RfUk9VTkQQBBIRCg1HQU1FX0ZJTklTSEVEEAUSFQoRSU5J",
+          "VElBTF9QT1NJVElPTlMQBhIdChlTRUxFQ1RFRF9DSEFSQUNURVJfVVBEQVRF",
+          "EAcSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJT04QCCodCgZTdGF0dXMS",
+          "CQoFQUxJVkUQABIICgRERUFEEAEqiQIKBkFjdGlvbhIWChJBQ1RJT05fVU5T",
+          "UEVDSUZJRUQQABIICgRNT1ZFEAESCgoGQVRUQUNLEAISDAoIVEVMRVBPUlQQ",
+          "BBIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAYSCwoH",
+          "QUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFTSUNfQVRUQUNLEAkS",
+          "CwoHU0tJTExfMRAKEgsKB1NLSUxMXzIQCxILCgdTS0lMTF8zEAwSCwoHU0tJ",
+          "TExfNBANEhQKEFNFTEVDVF9DSEFSQUNURVIQDhIPCgtFTkFCTEVfQk9UUxAP",
+          "EhAKDERJU0FCTEVfQk9UUxAQKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05f",
+          "VU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoF",
+          "UklHSFQQBCqqAQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRB",
+          "Q0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhFQ1VUSU5HX1NLSUxM",
+          "XzEQAxIPCgtURUxFUE9SVElORxAEEhUKEUVYRUNVVElOR19TS0lMTF8yEAUS",
+          "FQoRRVhFQ1VUSU5HX1NLSUxMXzMQBhIVChFFWEVDVVRJTkdfU0tJTExfNBAH",
+          "KkQKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBAB",
+          "EgwKCFBJRVJDSU5HEAISCQoFUkFHRUQQAyqPAQoOTG9iYnlFdmVudFR5cGUS",
+          "FAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlF",
+          "Ul9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAE",
+          "Eg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2pl",
+          "Y3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASos",
+          "ChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFi",
+          "BnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -123,7 +124,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "Cooldown", "Damage", "State", "Duration", "Projectile", "Minion" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "ButtonType", "Cooldown", "Damage", "Status", "Duration", "Projectile", "Minion" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null)
         }));
@@ -5006,9 +5007,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   public SkillConfigItem(SkillConfigItem other) : this() {
     name_ = other.name_;
     doFunc_ = other.doFunc_;
+    buttonType_ = other.buttonType_;
     cooldown_ = other.cooldown_;
     damage_ = other.damage_;
-    state_ = other.state_;
+    status_ = other.status_;
     duration_ = other.duration_;
     projectile_ = other.projectile_;
     minion_ = other.minion_;
@@ -5045,8 +5047,20 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
+  /// <summary>Field number for the "ButtonType" field.</summary>
+  public const int ButtonTypeFieldNumber = 3;
+  private string buttonType_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ButtonType {
+    get { return buttonType_; }
+    set {
+      buttonType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   /// <summary>Field number for the "Cooldown" field.</summary>
-  public const int CooldownFieldNumber = 3;
+  public const int CooldownFieldNumber = 4;
   private string cooldown_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5058,7 +5072,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   }
 
   /// <summary>Field number for the "Damage" field.</summary>
-  public const int DamageFieldNumber = 4;
+  public const int DamageFieldNumber = 5;
   private string damage_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5069,20 +5083,20 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
-  /// <summary>Field number for the "State" field.</summary>
-  public const int StateFieldNumber = 5;
-  private string state_ = "";
+  /// <summary>Field number for the "Status" field.</summary>
+  public const int StatusFieldNumber = 6;
+  private string status_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string State {
-    get { return state_; }
+  public string Status {
+    get { return status_; }
     set {
-      state_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      status_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
   /// <summary>Field number for the "Duration" field.</summary>
-  public const int DurationFieldNumber = 6;
+  public const int DurationFieldNumber = 7;
   private string duration_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5094,7 +5108,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   }
 
   /// <summary>Field number for the "Projectile" field.</summary>
-  public const int ProjectileFieldNumber = 7;
+  public const int ProjectileFieldNumber = 8;
   private string projectile_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5106,7 +5120,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   }
 
   /// <summary>Field number for the "Minion" field.</summary>
-  public const int MinionFieldNumber = 8;
+  public const int MinionFieldNumber = 9;
   private string minion_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5134,9 +5148,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
     if (Name != other.Name) return false;
     if (DoFunc != other.DoFunc) return false;
+    if (ButtonType != other.ButtonType) return false;
     if (Cooldown != other.Cooldown) return false;
     if (Damage != other.Damage) return false;
-    if (State != other.State) return false;
+    if (Status != other.Status) return false;
     if (Duration != other.Duration) return false;
     if (Projectile != other.Projectile) return false;
     if (Minion != other.Minion) return false;
@@ -5149,9 +5164,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (DoFunc.Length != 0) hash ^= DoFunc.GetHashCode();
+    if (ButtonType.Length != 0) hash ^= ButtonType.GetHashCode();
     if (Cooldown.Length != 0) hash ^= Cooldown.GetHashCode();
     if (Damage.Length != 0) hash ^= Damage.GetHashCode();
-    if (State.Length != 0) hash ^= State.GetHashCode();
+    if (Status.Length != 0) hash ^= Status.GetHashCode();
     if (Duration.Length != 0) hash ^= Duration.GetHashCode();
     if (Projectile.Length != 0) hash ^= Projectile.GetHashCode();
     if (Minion.Length != 0) hash ^= Minion.GetHashCode();
@@ -5181,28 +5197,32 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(18);
       output.WriteString(DoFunc);
     }
-    if (Cooldown.Length != 0) {
+    if (ButtonType.Length != 0) {
       output.WriteRawTag(26);
+      output.WriteString(ButtonType);
+    }
+    if (Cooldown.Length != 0) {
+      output.WriteRawTag(34);
       output.WriteString(Cooldown);
     }
     if (Damage.Length != 0) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(42);
       output.WriteString(Damage);
     }
-    if (State.Length != 0) {
-      output.WriteRawTag(42);
-      output.WriteString(State);
+    if (Status.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Status);
     }
     if (Duration.Length != 0) {
-      output.WriteRawTag(50);
+      output.WriteRawTag(58);
       output.WriteString(Duration);
     }
     if (Projectile.Length != 0) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(66);
       output.WriteString(Projectile);
     }
     if (Minion.Length != 0) {
-      output.WriteRawTag(66);
+      output.WriteRawTag(74);
       output.WriteString(Minion);
     }
     if (_unknownFields != null) {
@@ -5223,28 +5243,32 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(18);
       output.WriteString(DoFunc);
     }
-    if (Cooldown.Length != 0) {
+    if (ButtonType.Length != 0) {
       output.WriteRawTag(26);
+      output.WriteString(ButtonType);
+    }
+    if (Cooldown.Length != 0) {
+      output.WriteRawTag(34);
       output.WriteString(Cooldown);
     }
     if (Damage.Length != 0) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(42);
       output.WriteString(Damage);
     }
-    if (State.Length != 0) {
-      output.WriteRawTag(42);
-      output.WriteString(State);
+    if (Status.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Status);
     }
     if (Duration.Length != 0) {
-      output.WriteRawTag(50);
+      output.WriteRawTag(58);
       output.WriteString(Duration);
     }
     if (Projectile.Length != 0) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(66);
       output.WriteString(Projectile);
     }
     if (Minion.Length != 0) {
-      output.WriteRawTag(66);
+      output.WriteRawTag(74);
       output.WriteString(Minion);
     }
     if (_unknownFields != null) {
@@ -5263,14 +5287,17 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (DoFunc.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(DoFunc);
     }
+    if (ButtonType.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ButtonType);
+    }
     if (Cooldown.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Cooldown);
     }
     if (Damage.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Damage);
     }
-    if (State.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(State);
+    if (Status.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Status);
     }
     if (Duration.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Duration);
@@ -5299,14 +5326,17 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (other.DoFunc.Length != 0) {
       DoFunc = other.DoFunc;
     }
+    if (other.ButtonType.Length != 0) {
+      ButtonType = other.ButtonType;
+    }
     if (other.Cooldown.Length != 0) {
       Cooldown = other.Cooldown;
     }
     if (other.Damage.Length != 0) {
       Damage = other.Damage;
     }
-    if (other.State.Length != 0) {
-      State = other.State;
+    if (other.Status.Length != 0) {
+      Status = other.Status;
     }
     if (other.Duration.Length != 0) {
       Duration = other.Duration;
@@ -5341,26 +5371,30 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
           break;
         }
         case 26: {
-          Cooldown = input.ReadString();
+          ButtonType = input.ReadString();
           break;
         }
         case 34: {
-          Damage = input.ReadString();
+          Cooldown = input.ReadString();
           break;
         }
         case 42: {
-          State = input.ReadString();
+          Damage = input.ReadString();
           break;
         }
         case 50: {
-          Duration = input.ReadString();
+          Status = input.ReadString();
           break;
         }
         case 58: {
-          Projectile = input.ReadString();
+          Duration = input.ReadString();
           break;
         }
         case 66: {
+          Projectile = input.ReadString();
+          break;
+        }
+        case 74: {
           Minion = input.ReadString();
           break;
         }
@@ -5388,26 +5422,30 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
           break;
         }
         case 26: {
-          Cooldown = input.ReadString();
+          ButtonType = input.ReadString();
           break;
         }
         case 34: {
-          Damage = input.ReadString();
+          Cooldown = input.ReadString();
           break;
         }
         case 42: {
-          State = input.ReadString();
+          Damage = input.ReadString();
           break;
         }
         case 50: {
-          Duration = input.ReadString();
+          Status = input.ReadString();
           break;
         }
         case 58: {
-          Projectile = input.ReadString();
+          Duration = input.ReadString();
           break;
         }
         case 66: {
+          Projectile = input.ReadString();
+          break;
+        }
+        case 74: {
           Minion = input.ReadString();
           break;
         }

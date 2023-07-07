@@ -378,12 +378,13 @@ defmodule DarkWorldsServer.Communication.Proto.SkillConfigItem do
 
   field(:Name, 1, type: :string)
   field(:DoFunc, 2, type: :string)
-  field(:Cooldown, 3, type: :string)
-  field(:Damage, 4, type: :string)
-  field(:State, 5, type: :string)
-  field(:Duration, 6, type: :string)
-  field(:Projectile, 7, type: :string)
-  field(:Minion, 8, type: :string)
+  field(:ButtonType, 3, type: :string)
+  field(:Cooldown, 4, type: :string)
+  field(:Damage, 5, type: :string)
+  field(:Status, 6, type: :string)
+  field(:Duration, 7, type: :string)
+  field(:Projectile, 8, type: :string)
+  field(:Minion, 9, type: :string)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
