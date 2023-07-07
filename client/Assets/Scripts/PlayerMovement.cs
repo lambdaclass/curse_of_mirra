@@ -338,23 +338,27 @@ public class PlayerMovement : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
+        if (playerUpdate.CharacterName == "Muflus")
         {
-            // TODO: Change to VFX effect in next URP PR
-            character.CharacterModel.transform
-                .GetChild(1)
-                .GetComponent<Renderer>()
-                .material.color = Color.red;
-            character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
-            characterSpeed *= 1.5f;
+            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
+            {
+                // TODO: Change to VFX effect in next URP PR
+                character.CharacterModel.transform
+                    .GetChild(1)
+                    .GetComponent<Renderer>()
+                    .material.color = Color.red;
+                character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
+                characterSpeed *= 1.5f;
+            }
+            else
+            {
+                character.CharacterModel.transform
+                    .GetChild(1)
+                    .GetComponent<Renderer>()
+                    .material.color = Color.white;
+                character.GetComponent<Skill2>().StopStartFeedbacks();
+            }
         }
-        else
-        {
-            character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>().material.color =
-                Color.white;
-            character.GetComponent<Skill2>().StopStartFeedbacks();
-        }
-
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
