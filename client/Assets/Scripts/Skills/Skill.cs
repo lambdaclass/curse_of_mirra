@@ -99,8 +99,11 @@ public class Skill : CharacterAbility
         GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
         GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
 
-        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
-        _animator.SetBool(skillId, true);
+        if (skillInfo.hasModelAnimation == true)
+        {
+            _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+            _animator.SetBool(skillId, true);
+        }
     }
 
     private void SendActionToBackend(RelativePosition relativePosition)

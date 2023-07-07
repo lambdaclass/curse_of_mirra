@@ -17,3 +17,4 @@ MonoBehaviour:
   feedbackAnimation: {fileID: 5680458291943351323, guid: d1aa7547c425a44b8acc728041634177,
     type: 3}
   animationSpeedMultiplier: 3.5
+  hasModelAnimation: 1
