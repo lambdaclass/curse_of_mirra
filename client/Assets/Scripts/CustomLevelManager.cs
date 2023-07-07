@@ -9,14 +9,19 @@ using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
-
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
     public GameObject quickGamePrefab;
-    [SerializeField] GameObject roundSplash;
-    [SerializeField] Text roundText;
-    [SerializeField] GameObject backToLobbyButton;
+
+    [SerializeField]
+    GameObject roundSplash;
+
+    [SerializeField]
+    Text roundText;
+
+    [SerializeField]
+    GameObject backToLobbyButton;
     private List<Player> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
@@ -59,7 +64,9 @@ public class CustomLevelManager : LevelManager
     {
         GameObject map = Instantiate(mapPrefab);
         //Add gameobject to the scene root
-        map.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+        map.transform.SetParent(
+            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
+        );
     }
 
     private IEnumerator InitializeLevel()
@@ -95,7 +102,9 @@ public class CustomLevelManager : LevelManager
     private GameObject GetCharacterPrefab(ulong playerId)
     {
         GameObject prefab = null;
-        foreach (KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters)
+        foreach (
+            KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters
+        )
         {
             if (entry.Key == (ulong)playerId)
             {
@@ -158,21 +167,50 @@ public class CustomLevelManager : LevelManager
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
             Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
 
-            string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[UInt64.Parse(player.PlayerID)];
+            string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
+                UInt64.Parse(player.PlayerID)
+            ];
             CoMCharacter characterInfo = charactersInfo.Find(el => el.name == selectedCharacter);
+            SkillAnimationEvents skillsAnimationEvent =
+                player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
-            skillBasic.SetSkill(Action.BasicAttack, characterInfo.skillBasicInfo);
-            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info);
-            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info);
-            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info);
-            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info);
+            skillBasic.SetSkill(
+                Action.BasicAttack,
+                characterInfo.skillBasicInfo,
+                skillsAnimationEvent
+            );
+            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info, skillsAnimationEvent);
+            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
+            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
+            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
 
-            if (UInt64.Parse(player.PlayerID) == clientPlayerId){
-                inputManager.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
-                inputManager.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
-                inputManager.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
-                inputManager.AssignSkillToInput(UIControls.Skill3, characterInfo.skill3Info.inputType, skill3);
-                inputManager.AssignSkillToInput(UIControls.Skill4, characterInfo.skill4Info.inputType, skill4);
+            if (UInt64.Parse(player.PlayerID) == clientPlayerId)
+            {
+                inputManager.AssignSkillToInput(
+                    UIControls.SkillBasic,
+                    characterInfo.skillBasicInfo.inputType,
+                    skillBasic
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill1,
+                    characterInfo.skill1Info.inputType,
+                    skill1
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill2,
+                    characterInfo.skill2Info.inputType,
+                    skill2
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill3,
+                    characterInfo.skill3Info.inputType,
+                    skill3
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill4,
+                    characterInfo.skill4Info.inputType,
+                    skill4
+                );
             }
         }
     }

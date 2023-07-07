@@ -9,5 +9,4 @@ public class SkillInfo : ScriptableObject
     public UIType inputType;
     public GameObject feedbackAnimation;
     public float animationSpeedMultiplier;
-    public float blockMovementTime;
 }

@@ -5,15 +5,32 @@ using MoreMountains.Tools;
 
 public class Skill : CharacterAbility
 {
-    [SerializeField] protected string skillId;
-    [SerializeField] protected Action serverSkill;
-    [SerializeField] protected bool blocksMovementOnExecute = true;
-    [SerializeField] protected SkillInfo skillInfo;
+    [SerializeField]
+    public string skillId;
 
-    public void SetSkill(Action serverSkill, SkillInfo skillInfo)
+    [SerializeField]
+    protected Action serverSkill;
+
+    [SerializeField]
+    protected bool blocksMovementOnExecute = true;
+
+    [SerializeField]
+    protected SkillInfo skillInfo;
+
+    protected SkillAnimationEvents skillsAnimationEvent;
+
+    // feedbackRotatePosition used to track the position to look at when executing the animation feedback
+    private Vector2 feedbackRotatePosition;
+
+    public void SetSkill(
+        Action serverSkill,
+        SkillInfo skillInfo,
+        SkillAnimationEvents skillsAnimationEvent
+    )
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
+        this.skillsAnimationEvent = skillsAnimationEvent;
     }
 
     protected override void Start()
@@ -36,20 +53,21 @@ public class Skill : CharacterAbility
     {
         if (AbilityAuthorized)
         {
-            Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+            Vector3 direction = this.GetComponent<Character>()
+                .GetComponent<CharacterOrientation3D>()
+                .ForcedRotationDirection;
             RelativePosition relativePosition = new RelativePosition
             {
                 X = direction.x,
                 Y = direction.z
             };
+            feedbackRotatePosition = new Vector2(direction.x, direction.z);
             ExecuteSkill(relativePosition);
         }
     }
 
     public void TryExecuteSkill(Vector2 position)
     {
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = position.y;
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = position.x;
         if (AbilityAuthorized)
         {
             RelativePosition relativePosition = new RelativePosition
@@ -57,38 +75,38 @@ public class Skill : CharacterAbility
                 X = position.x,
                 Y = position.y
             };
+            feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(relativePosition);
         }
     }
 
     private void ExecuteSkill(RelativePosition relativePosition)
     {
-        if (AbilityAuthorized)
-        {
-            SendActionToBackend(relativePosition);
-        }
+        skillsAnimationEvent.UpdateActiveSkill(this);
+        SendActionToBackend(relativePosition);
     }
 
     public void ExecuteFeedback()
     {
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
+
         _movement.ChangeState(CharacterStates.MovementStates.Attacking);
         _animator.SetBool(skillId, true);
-
-        StartCoroutine(EndSkillFeedback());
     }
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
+        ClientAction action = new ClientAction
+        {
+            Action = serverSkill,
+            Position = relativePosition
+        };
         SocketConnectionManager.Instance.SendAction(action);
     }
 
-    private IEnumerator EndSkillFeedback()
+    public void EndSkillFeedback()
     {
-        if (skillInfo)
-        {
-            yield return new WaitForSeconds(skillInfo.blockMovementTime);
-        }
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
     }

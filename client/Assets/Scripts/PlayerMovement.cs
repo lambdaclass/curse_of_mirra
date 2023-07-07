@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
-    [SerializeField] CustomInputManager InputManager;
+
+    [SerializeField]
+    CustomInputManager InputManager;
 
     public bool showServerGhost = false;
     public bool useClientPrediction;
@@ -93,9 +95,13 @@ public class PlayerMovement : MonoBehaviour
                     var vInput = Input.GetAxis("Vertical");
                     GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
                 }
-                else if (inputFromVirtualJoystick && joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+                else if (
+                    inputFromVirtualJoystick && joystickL.RawValue.x != 0
+                    || joystickL.RawValue.y != 0
+                )
                 {
-                    GetComponent<PlayerControls>().SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    GetComponent<PlayerControls>()
+                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
                 {
@@ -114,7 +120,10 @@ public class PlayerMovement : MonoBehaviour
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
-            if (serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId && useClientPrediction)
+            if (
+                serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                && useClientPrediction
+            )
             {
                 // Move the ghost BEFORE client prediction kicks in, so it only moves up until
                 // the last server update.
@@ -122,7 +131,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     movePlayer(serverGhost, serverPlayerUpdate);
                 }
-                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(serverPlayerUpdate, gameEvent.Timestamp);
+                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                    serverPlayerUpdate,
+                    gameEvent.Timestamp
+                );
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -135,8 +147,8 @@ public class PlayerMovement : MonoBehaviour
             if (serverPlayerUpdate.Health == 0)
             {
                 SocketConnectionManager.Instance.players[i]
-                    .GetComponent<Character>().CharacterModel
-                    .SetActive(false);
+                    .GetComponent<Character>()
+                    .CharacterModel.SetActive(false);
             }
         }
     }
@@ -185,7 +197,6 @@ public class PlayerMovement : MonoBehaviour
             GameObject player = SocketConnectionManager.Instance.players[0];
             player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
-
         }
 
         var toExplode = new List<int>();
@@ -223,18 +234,30 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
                 movementDirection.Normalize();
 
-                Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
+                Vector3 newPosition =
+                    projectile.transform.position + movementDirection * velocity * Time.deltaTime;
 
-                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
-                player.GetComponent<MainAttack>().ShootLaser(projectile, new Vector3(newPosition[0], 2.5f, newPosition[2]));
-
+                GameObject player = SocketConnectionManager.Instance.players[
+                    (int)gameProjectiles[i].PlayerId - 1
+                ];
+                player
+                    .GetComponent<MainAttack>()
+                    .ShootLaser(projectile, new Vector3(newPosition[0], 3f, newPosition[2]));
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
             {
-                float angle = Vector3.SignedAngle(new Vector3(1f, 0, 0),
-                new Vector3((long)(gameProjectiles[i].Direction.Y * 100), 0f, -(long)(gameProjectiles[i].Direction.X * 100)),
-                Vector3.up);
-                GameObject player = SocketConnectionManager.Instance.players[(int)gameProjectiles[i].PlayerId - 1];
+                float angle = Vector3.SignedAngle(
+                    new Vector3(1f, 0, 0),
+                    new Vector3(
+                        (long)(gameProjectiles[i].Direction.Y * 100),
+                        0f,
+                        -(long)(gameProjectiles[i].Direction.X * 100)
+                    ),
+                    Vector3.up
+                );
+                GameObject player = SocketConnectionManager.Instance.players[
+                    (int)gameProjectiles[i].PlayerId - 1
+                ];
                 GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);
 
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
@@ -262,7 +285,9 @@ public class PlayerMovement : MonoBehaviour
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
-        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(playerUpdate.Position);
+        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
+            playerUpdate.Position
+        );
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
@@ -270,8 +295,7 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        CharacterOrientation3D characterOrientation =
-            player.GetComponent<CharacterOrientation3D>();
+        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
         characterOrientation.ForcedRotation = true;
 
         bool walking = false;
@@ -284,7 +308,10 @@ public class PlayerMovement : MonoBehaviour
             movementDirection.Normalize();
 
             // FIXME: Removed harcoded validation once is fixed on the backend.
-            if (playerUpdate.CharacterName == "Muflus" && playerUpdate.Action == PlayerAction.ExecutingSkill2)
+            if (
+                playerUpdate.CharacterName == "Muflus"
+                && playerUpdate.Action == PlayerAction.ExecutingSkill2
+            )
             {
                 player.transform.position = frontendPosition;
             }
@@ -305,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
                 // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
                 // The exact same thing applies to `z`
                 Vector3 newPosition =
-                player.transform.position + movementDirection * velocity * Time.deltaTime;
+                    player.transform.position + movementDirection * velocity * Time.deltaTime;
 
                 if (movementDirection.x > 0)
                 {
@@ -326,23 +353,36 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
+
+                // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
+                // if the player is in attacking state, movement rotation from movement should be ignored
+                if (MovementAuthorized(player.GetComponent<Character>()))
+                {
+                    characterOrientation.ForcedRotationDirection = movementDirection;
+                }
+
+                // TODO: why not use character state?
                 walking = true;
             }
-
         }
         mAnimator.SetBool("Walking", walking);
 
         Health healthComponent = player.GetComponent<Health>();
 
         // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>().DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+        GetComponent<PlayerFeedbacks>()
+            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
         // FIXME: Temporary solution until all models can handle the feedback
         if (playerUpdate.CharacterName == "H4ck")
         {
             // Display damage done on others players (not you)
-            GetComponent<PlayerFeedbacks>().ChangePlayerTextureOnDamage(player, healthComponent.CurrentHealth, playerUpdate.Health);
+            GetComponent<PlayerFeedbacks>()
+                .ChangePlayerTextureOnDamage(
+                    player,
+                    healthComponent.CurrentHealth,
+                    playerUpdate.Health
+                );
         }
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
@@ -351,13 +391,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
-
-        bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
-        player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-        if (isAttackingAttack)
-        {
-            print(player.name + "attack");
-        }
 
         //if dead remove the player from the scene
         if (healthComponent.CurrentHealth <= 0)
@@ -371,9 +404,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            InputManager.CheckSkillCooldown(UIControls.SkillBasic, playerUpdate.BasicSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.SkillBasic,
+                playerUpdate.BasicSkillCooldownLeft
+            );
             InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.FirstSkillCooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.SecondSkillCooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                playerUpdate.SecondSkillCooldownLeft
+            );
             InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.ThirdSkillCooldownLeft);
         }
     }
