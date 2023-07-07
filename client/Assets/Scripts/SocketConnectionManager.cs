@@ -108,7 +108,7 @@ public class SocketConnectionManager : MonoBehaviour
         ws = new WebSocket(url);
         ws.OnClose += (e) =>
         {
-            print("SE CERRÓ REY");
+            print("Connection has been closed");
         };
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
