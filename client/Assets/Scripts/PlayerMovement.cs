@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
-            UpdateProyectileActions();
+            UpdateProjectileActions();
             UpdateLootPackages();
         }
     }
@@ -214,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void UpdateProyectileActions()
+    void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
@@ -326,17 +326,17 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdateLootPackages()
     {
-        Dictionary<LootPackage, Vector3> lootPackages = SocketConnectionManager
-            .Instance
-            .lootPackages;
-        // For each loot package in the dictionary, call SpawnLoot.Init(lootPackage, position)
-        foreach (KeyValuePair<LootPackage, Vector3> entry in lootPackages)
-        {
-            LootPackage lootPackage = entry.Key;
-            Vector3 position = entry.Value;
-            // SpawnLoot.Init(lootPackage, position);
-            SpawnLoot.Init();
-        }
+        // Dictionary<LootPackage, Vector3> lootPackages = SocketConnectionManager
+        //     .Instance
+        //     .lootPackages;
+        // // For each loot package in the dictionary, call SpawnLoot.Init(lootPackage, position)
+        // foreach (KeyValuePair<LootPackage, Vector3> entry in lootPackages)
+        // {
+        //     LootPackage lootPackage = entry.Key;
+        //     Vector3 position = entry.Value;
+        //     // SpawnLoot.Init(lootPackage, position);
+        //     SpawnLoot.Init();
+        // }
     }
 
     private void movePlayer(GameObject player, Player playerUpdate)
