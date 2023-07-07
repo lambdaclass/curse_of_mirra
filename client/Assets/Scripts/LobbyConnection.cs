@@ -54,6 +54,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("LobbyConnection Awake");
         this.Init();
         PopulateLists();
     }

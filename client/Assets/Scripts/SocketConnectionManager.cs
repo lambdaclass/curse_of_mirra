@@ -52,6 +52,12 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void Awake()
     {
+        Debug.Log("SocketConnectionManager Awake");
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         this.session_id = LobbyConnection.Instance.GameSession;
         this.server_ip = LobbyConnection.Instance.server_ip;

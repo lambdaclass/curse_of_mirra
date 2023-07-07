@@ -9,9 +9,12 @@ public class LobbyManager : LevelSelector
 {
     [SerializeField]
     GameObject playButton;
-    [SerializeField] GameObject mapList;
+
+    [SerializeField]
+    GameObject mapList;
 
     public static string LevelSelected;
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -60,7 +63,8 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && LobbyConnection.Instance.playerId != 1
+            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
+            && LobbyConnection.Instance.playerId != 1
         )
         {
             LobbyConnection.Instance.StartGame();
