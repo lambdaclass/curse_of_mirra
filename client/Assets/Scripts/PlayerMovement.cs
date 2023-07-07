@@ -358,7 +358,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
         {
-            characterSpeed *= 3f;
+            characterSpeed *= 4f;
         }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
@@ -486,11 +486,20 @@ public class PlayerMovement : MonoBehaviour
         {
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                playerUpdate.BasicSkillCooldownLeft
+                playerUpdate.BasicSkillCooldownLeft.Low / 1000
             );
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                playerUpdate.Skill1CooldownLeft.Low / 1000
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                playerUpdate.Skill2CooldownLeft.Low / 1000
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill3,
+                playerUpdate.Skill3CooldownLeft.Low / 1000
+            );
         }
     }
 

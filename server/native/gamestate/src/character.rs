@@ -1,5 +1,6 @@
 use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
+use crate::time_utils::{u128_to_millis, MillisTime};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
@@ -119,43 +120,43 @@ impl Character {
         }
     }
     #[inline]
-    pub fn cooldown_basic_skill(&self) -> u64 {
+    pub fn cooldown_basic_skill(&self) -> MillisTime {
         match self.skill_basic {
-            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
-            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
-            BasicSkill::Backstab => 1_u64,
+            BasicSkill::Slingshot => u128_to_millis(500), // H4ck basic attack cooldown
+            BasicSkill::Bash => u128_to_millis(1000),     // Muflus basic attack cooldown
+            BasicSkill::Backstab => u128_to_millis(1000),
         }
     }
-    pub fn cooldown_first_skill(&self) -> u64 {
+    pub fn cooldown_first_skill(&self) -> MillisTime {
         match self.skill_active_first {
-            FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-            FirstActive::SerpentStrike => 5_u64,
-            FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+            FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+            FirstActive::SerpentStrike => u128_to_millis(5000),
+            FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         }
     }
-    pub fn cooldown_second_skill(&self) -> u64 {
+    pub fn cooldown_second_skill(&self) -> MillisTime {
         match self.skill_active_second {
-            SecondActive::Disarm => 5_u64,
-            SecondActive::MirrorImage => 5_u64,
-            SecondActive::Petrify => 5_u64,
-            SecondActive::Rage => 5_u64,
+            SecondActive::Disarm => u128_to_millis(5000),
+            SecondActive::MirrorImage => u128_to_millis(5000),
+            SecondActive::Petrify => u128_to_millis(5000),
+            SecondActive::Rage => u128_to_millis(5000),
         }
     }
-    pub fn cooldown_third_skill(&self) -> u64 {
+    pub fn cooldown_third_skill(&self) -> MillisTime {
         // match self.skill_active_third {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => u128_to_millis(5000),
+        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         // }
-        10_u64
+        u128_to_millis(10000)
     }
-    pub fn cooldown_fourth_skill(&self) -> u64 {
+    pub fn cooldown_fourth_skill(&self) -> MillisTime {
         // match self.skill_active_fourth {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => u128_to_millis(5000),
+        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         // }
-        10_u64
+        u128_to_millis(10000)
     }
     // Cooldown in seconds
     #[inline]

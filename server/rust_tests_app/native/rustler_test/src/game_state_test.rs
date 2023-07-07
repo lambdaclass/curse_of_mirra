@@ -264,7 +264,15 @@ pub fn cant_move_if_petrified() -> TestResult {
         base_speed,
         ..Default::default()
     };
-    state.players[0].effects.insert(Effect::Petrified, EffectData{time_left: 2, ends_at: now + 2, direction: None});
+    state.players[0].effects.insert(Effect::Petrified, EffectData{
+        time_left: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        },
+        ends_at: time_utils::add_millis(now, time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        }), direction: None});
     let player_id = 1;
     let mut player = state.get_player(player_id)?;
 
@@ -315,7 +323,15 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     };
     let char: Character = speed1_character();
     let mut player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
-    player1.effects.insert(Effect::Disarmed, EffectData{time_left: 10, ends_at: now + 10, direction: None});
+    player1.effects.insert(Effect::Disarmed, EffectData{
+        time_left: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        },
+        ends_at: time_utils::add_millis(now, time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        }), direction: None});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2];
     state.board.set_cell(0, 0, Tile::Player(player_1_id))?;

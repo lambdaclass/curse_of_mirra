@@ -2,7 +2,7 @@ use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
-use crate::time_utils::time_now;
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
@@ -692,8 +692,8 @@ impl GameState {
         attacking_player.add_effect(
             Effect::Raged.clone(),
             EffectData {
-                time_left: 5,
-                ends_at: now + 5,
+                time_left: MillisTime { high: 0, low: 5000 },
+                ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                 direction: None,
             },
         );
@@ -721,8 +721,8 @@ impl GameState {
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
-                        time_left: 1,
-                        ends_at: now + 1,
+                        time_left: MillisTime { high: 0, low: 500 },
+                        ends_at: add_millis(now, MillisTime { high: 0, low: 500 }),
                         direction: Some(*direction),
                     },
                 );
@@ -758,8 +758,8 @@ impl GameState {
                 attacking_player.add_effect(
                     Effect::Piercing.clone(),
                     EffectData {
-                        time_left: 5,
-                        ends_at: now + 5,
+                        time_left: MillisTime { high: 0, low: 5000 },
+                        ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                         direction: None,
                     },
                 );
@@ -783,7 +783,7 @@ impl GameState {
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
-            player.update_cooldowns();
+            player.update_cooldowns(now);
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(
@@ -791,11 +791,11 @@ impl GameState {
                  EffectData {
                      time_left, ends_at, ..
                  }| {
-                    *time_left = ends_at.saturating_sub(now);
-                    *time_left > 0
+                    *time_left = sub_millis(*ends_at, now);
+                    millis_to_u128(*time_left) > 0
                 },
             );
-            
+
             if player.character.name == Name::H4ck {
                 match player.effects.get(&Effect::NeonCrashing) {
                     Some(EffectData {
@@ -854,8 +854,8 @@ impl GameState {
                             attacked_player.add_effect(
                                 Effect::Disarmed.clone(),
                                 EffectData {
-                                    time_left: 5,
-                                    ends_at: now + 5,
+                                    time_left: MillisTime { high: 0, low: 5000 },
+                                    ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
                                 },
                             );

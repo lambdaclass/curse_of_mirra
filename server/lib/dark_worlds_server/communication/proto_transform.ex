@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
@@ -28,6 +29,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(entry, SelectedCharactersEntry) do
     entry
+  end
+
+  def encode(millis_time, ProtoMillisTime) do
+    millis_time
   end
 
   def encode(runner_config, RunnerConfig) do
@@ -208,7 +213,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      last_melee_attack: attack,
       status: status,
       action: action,
       aoe_position: aoe_position,
@@ -227,7 +231,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      last_melee_attack: attack,
       status: status,
       action: player_action_decode(action),
       aoe_position: aoe_position,
