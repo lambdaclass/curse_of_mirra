@@ -55,7 +55,6 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void Init()
     {
-        Debug.Log("SocketConnectionManager Awake");
         if (Instance != null)
         {
             Destroy(gameObject);
