@@ -18,6 +18,8 @@ pub enum Basic {
     Bash,
     #[strum(ascii_case_insensitive)]
     Backstab,
+    #[strum(serialize = "Elnars Mark", serialize = "Scherzo")]
+    Placeholder,
 }
 
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
@@ -32,6 +34,8 @@ pub enum FirstActive {
     SerpentStrike,
     #[strum(ascii_case_insensitive)]
     MultiShot,
+    #[strum(serialize = "Yugens Mark", serialize = "Pizzicato")]
+    Placeholder,
 }
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
 pub enum SecondActive {
@@ -40,6 +44,8 @@ pub enum SecondActive {
     Petrify,
     Disarm,
     MirrorImage,
+    #[strum(serialize = "Xandas Mark", serialize = "Band Recruit")]
+    Placeholder,
 }
 
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
@@ -49,6 +55,8 @@ pub enum Dash {
     ShadowStep,
     Hacktivate,
     Blink,
+    #[strum(serialize = "Neon Crash", serialize = "Danse Macabre")]
+    Placeholder,
 }
 
 #[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
@@ -61,6 +69,8 @@ pub enum Ultimate {
     DenialOfService,
     #[strum(serialize = "The Trickster", ascii_case_insensitive)]
     TheTrickster,
+    #[strum(serialize = "Final Vengeance", serialize = "Orchestra")]
+    Placeholder,
 }
 // TODO have a trait for this
 // instead of matching enums.

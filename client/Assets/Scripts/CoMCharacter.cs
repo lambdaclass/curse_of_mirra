@@ -15,4 +15,10 @@ public class CoMCharacter : ScriptableObject
     public SkillInfo skill2Info;
     public SkillInfo skill3Info;
     public SkillInfo skill4Info;
+    public Sprite skillBasicSprite;
+    public Sprite skill1Sprite;
+    public Sprite skill2Sprite;
+    public Sprite skill3Sprite;
+    public Sprite skill4Sprite;
+    public Sprite skillBackground;
 }
