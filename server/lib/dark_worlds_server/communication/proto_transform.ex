@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
+  alias DarkWorldsServer.Communication.Proto.Player.ActionsEntry
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
@@ -21,6 +22,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # ENCODES #
   ###########
+
+  def encode(action_entry, ActionsEntry) do
+    action_encode(action_entry)
+  end
 
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
@@ -98,8 +103,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      actions: actions
     } = player
+
+    IO.inspect(actions, label: :queverga)
 
     %ProtoPlayer{
       id: id,
@@ -115,7 +123,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      actions: actions
     }
   end
 
@@ -220,7 +229,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      actions: actions
     } = player
 
     %EnginePlayer{
@@ -239,7 +249,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      actions: actions
     }
   end
 
@@ -388,4 +399,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:disarmed, ticks}), do: {1, ticks}
   defp effect_encode({:piercing, ticks}), do: {2, ticks}
   defp effect_encode({:raged, ticks}), do: {3, ticks}
+
+  defp action_encode({:nothing, ticks}), do: {0, ticks}
+  defp action_encode({:attacking, ticks}), do: {1, ticks}
+  defp action_encode({:attacking_aoe, ticks}), do: {2, ticks}
+  defp action_encode({:executing_skill_1, ticks}), do: {3, ticks}
+  defp action_encode({:teleporting, ticks}), do: {4, ticks}
+  defp action_encode({:executing_skill_2, ticks}), do: {5, ticks}
+  defp action_encode({:executing_skill_3, ticks}), do: {6, ticks}
+  defp action_encode({:executing_skill_4, ticks}), do: {7, ticks}
+  defp action_encode({:moving, ticks}), do: {8, ticks}
 end

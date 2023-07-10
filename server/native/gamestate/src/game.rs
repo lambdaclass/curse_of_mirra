@@ -250,6 +250,8 @@ impl GameState {
             player.speed() as i64,
         );
 
+        player.actions.insert(PlayerAction::MOVING, 3);
+
         self.board
             .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
