@@ -104,7 +104,8 @@ impl GameState {
             }
         }
 
-        let loots: Vec<Loot> = players.iter()
+        let loots: Vec<Loot> = players
+            .iter()
             .enumerate()
             .map(|(index, player)| {
                 let rng = &mut thread_rng();
@@ -114,10 +115,23 @@ impl GameState {
                 let center_y = board_width.div(2);
                 let x_diff = rng.gen_range(10..20);
                 let y_diff = rng.gen_range(10..20);
-                let x = if center_x < player_x { player_x - x_diff } else { player_x + x_diff };
-                let y = if center_y < player_y { player_y - y_diff } else { player_y + y_diff };
+                let x = if center_x < player_x {
+                    player_x - x_diff
+                } else {
+                    player_x + x_diff
+                };
+                let y = if center_y < player_y {
+                    player_y - y_diff
+                } else {
+                    player_y + y_diff
+                };
 
-                Loot { id: index as u64, loot_type: LootType::Skill1, position: Position { x, y }, value: 0 }
+                Loot {
+                    id: index as u64,
+                    loot_type: LootType::Skill1,
+                    position: Position { x, y },
+                    value: 0,
+                }
             })
             .collect();
 
@@ -841,15 +855,23 @@ impl GameState {
         }
 
         let rng = &mut thread_rng();
-        let position = Position {x: rng.gen_range(0..self.board.width), y: rng.gen_range(0..self.board.height)};
+        let position = Position {
+            x: rng.gen_range(0..self.board.width),
+            y: rng.gen_range(0..self.board.height),
+        };
         let (loot_type, value) = match rng.gen_range(1..=100) {
-                91..=100 => (LootType::Skill4, 0), // 10% chance to spawn
-                71..=90 => (LootType::Skill3, 0), // 20% chance to spawn
-                51..=70 => (LootType::Skill2, 0), // 20% chance to spawn
-                _ => (LootType::Health, rng.gen_range(20..=80)), // 50% chance to spawn
-            };
+            91..=100 => (LootType::Skill4, 0), // 10% chance to spawn
+            71..=90 => (LootType::Skill3, 0),  // 20% chance to spawn
+            51..=70 => (LootType::Skill2, 0),  // 20% chance to spawn
+            _ => (LootType::Health, rng.gen_range(20..=80)), // 50% chance to spawn
+        };
 
-        self.loots.push(Loot { id: self.loot_next_id, loot_type, position, value });
+        self.loots.push(Loot {
+            id: self.loot_next_id,
+            loot_type,
+            position,
+            value,
+        });
         self.loot_next_id += 1;
         self.loot_last_spawn_at = time_now();
     }
