@@ -248,7 +248,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
-
     {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
@@ -329,14 +328,14 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:noreply, gen_server_state}
     else
       Process.send_after(self(), :session_timeout, 500)
-      {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+      {:noreply, Map.put(gen_server_state, :game_status, :game_finished)}
     end
   end
 
   def handle_info(:game_timeout, gen_server_state) do
     Process.send_after(self(), :session_timeout, @session_timeout)
 
-    {:noreply, Map.put(gen_server_state, :has_finished?, true)}
+    {:noreply, Map.put(gen_server_state, :game_status, :game_finished)}
   end
 
   def handle_info(:session_timeout, gen_server_state) do

@@ -50,8 +50,15 @@ public class LobbyManager : LevelSelector
 
     public void Back()
     {
+        SocketConnectionManager.Instance.closeConnection();
         LobbyConnection.Instance.Init();
         SceneManager.LoadScene("Lobbies");
+    }
+
+    public void BackToLobbyAndCloseConnection()
+    {
+        SocketConnectionManager.Instance.closeConnection();
+        Back();
     }
 
     public void SelectMap(string mapName)
