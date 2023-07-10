@@ -22,6 +22,8 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public ServerGameSettings serverSettings;
 
+    public List<GameObject> totalLobbyPlayers = new List<GameObject>();
+
     public bool gameStarted = false;
 
     WebSocket ws;

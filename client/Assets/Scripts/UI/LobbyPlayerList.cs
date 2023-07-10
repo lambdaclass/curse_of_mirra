@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyPlayerList : MonoBehaviour
@@ -17,6 +18,7 @@ public class LobbyPlayerList : MonoBehaviour
         if (playerItems.Count < LobbyConnection.Instance.playerCount)
         {
             createPlayerItems();
+            LobbyConnection.Instance.totalLobbyPlayers = playerItems;
         }
         else if (playerItems.Count > LobbyConnection.Instance.playerCount)
         {
@@ -66,5 +68,10 @@ public class LobbyPlayerList : MonoBehaviour
         }
 
         return newPlayer;
+    }
+
+    public GameObject GetItemById(ulong id)
+    {
+        return playerItems.Find(el => el.GetComponent<PlayerItem>().id == id);
     }
 }

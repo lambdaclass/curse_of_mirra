@@ -12,17 +12,22 @@ public class CharacterSelectionManager : MonoBehaviour
     CharacterSelectionUI characterList;
     public bool selected = false;
 
+    void Start()
+    {
+        playersList.CreatePlayerItems();
+    }
+
     void Update()
     {
-        if (
-            selected == false
-            && playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId) != null
-        )
-        {
-            selected = true;
-            print("Created item for" + LobbyConnection.Instance.playerId);
-            playersList.CreatePlayerItem(LobbyConnection.Instance.playerId);
-        }
+        // if (
+        //     selected == false
+        //     && playersList.GetPlayerCharacter(LobbyConnection.Instance.playerId) != null
+        // )
+        // {
+        //     selected = true;
+        //     print("Created item for" + LobbyConnection.Instance.playerId);
+        //     playersList.CreatePlayerItem(LobbyConnection.Instance.playerId);
+        // }
 
         if (characterList.updated == true)
         {
@@ -35,16 +40,16 @@ public class CharacterSelectionManager : MonoBehaviour
             );
         }
 
-        if (
-            selected
-            && playersList.playerItems.Count
-                > SocketConnectionManager.Instance.selectedCharacters?.Count
-        )
-        {
-            playersList.removePlayerItems();
-        }
+        // if (
+        //     selected
+        //     && playersList.playerItems.Count
+        //         > SocketConnectionManager.Instance.selectedCharacters?.Count
+        // )
+        // {
+        //     playersList.removePlayerItems();
+        // }
 
-        playersList.DisplayPlayerItems();
+        // playersList.DisplayPlayerItems();
         playersList.DisplayUpdates();
     }
 

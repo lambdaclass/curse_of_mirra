@@ -10,6 +10,15 @@ public class CharacterSelectionList : MonoBehaviour
     public List<GameObject> playerItems = new List<GameObject>();
 
     // This create a new item for new selected character
+
+    public void CreatePlayerItems()
+    {
+        for (int i = 0; i < LobbyConnection.Instance.playerCount; i++)
+        {
+            CreatePlayerItem((ulong)i + 1);
+        }
+    }
+
     public void DisplayPlayerItems()
     {
         if (playerItems.Count < SocketConnectionManager.Instance.selectedCharacters?.Count)
@@ -49,27 +58,7 @@ public class CharacterSelectionList : MonoBehaviour
     //This updated the item for respective player
     public void DisplayUpdates()
     {
-        // if (SocketConnectionManager.Instance.selectedCharacters?.Count > 0 && playerItems.Count > 0)
-        // {
-        //     foreach (
-        //         KeyValuePair<ulong, string> entry in SocketConnectionManager
-        //             .Instance
-        //             .selectedCharacters
-        //     )
-        //     {
-        //         if (
-        //             entry.Key != (ulong)LobbyConnection.Instance.playerId
-        //             && GetUpdatedItem(entry.Key, entry.Value)
-        //         )
-        //         {
-        //             print("Updated item for the player + " + entry.Key);
-        //             UpdatePlayerItem(entry.Key, entry.Value);
-        //         }
-        //     }
-        // }
-        if (
-            SocketConnectionManager.Instance.selectedCharacters?.Count > 0 && playerItems?.Count > 0
-        )
+        if (SocketConnectionManager.Instance.selectedCharacters?.Count > 0 && playerItems.Count > 0)
         {
             foreach (
                 KeyValuePair<ulong, string> entry in SocketConnectionManager
@@ -82,6 +71,7 @@ public class CharacterSelectionList : MonoBehaviour
                     && GetUpdatedItem(entry.Key, entry.Value)
                 )
                 {
+                    print("Updated item for the player + " + entry.Key);
                     UpdatePlayerItem(entry.Key, entry.Value);
                 }
             }
@@ -121,17 +111,17 @@ public class CharacterSelectionList : MonoBehaviour
 
         if (id == 1)
         {
-            playerI.playerText.text += $" {id.ToString()} {character} HOST";
+            playerI.playerText.text += $" {id.ToString()} NO SELECTED HOST";
         }
         else
         {
             if (SocketConnectionManager.Instance.playerId == id)
             {
-                playerI.playerText.text += $" {id.ToString()} {character} YOU";
+                playerI.playerText.text += $" {id.ToString()} NO SELECTED YOU";
             }
             else
             {
-                playerI.playerText.text += $" {id.ToString()} {character}";
+                playerI.playerText.text += $" {id.ToString()} NO SELECTED";
             }
         }
         playerItems.Add(newPlayer);
