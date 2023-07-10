@@ -280,4 +280,9 @@ public class SocketConnectionManager : MonoBehaviour
             return "wss://" + server_ip + path;
         }
     }
+
+    public void closeConnection()
+    {
+        ws.Close();
+    }
 }

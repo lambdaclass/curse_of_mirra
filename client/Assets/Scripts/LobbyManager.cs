@@ -9,9 +9,12 @@ public class LobbyManager : LevelSelector
 {
     [SerializeField]
     GameObject playButton;
-    [SerializeField] GameObject mapList;
+
+    [SerializeField]
+    GameObject mapList;
 
     public static string LevelSelected;
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -47,8 +50,15 @@ public class LobbyManager : LevelSelector
 
     public void Back()
     {
+        SocketConnectionManager.Instance.closeConnection();
         LobbyConnection.Instance.Init();
         SceneManager.LoadScene("Lobbies");
+    }
+
+    public void BackToLobbyAndCloseConnection()
+    {
+        SocketConnectionManager.Instance.closeConnection();
+        Back();
     }
 
     public void SelectMap(string mapName)
@@ -60,7 +70,8 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession) && LobbyConnection.Instance.playerId != 1
+            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
+            && LobbyConnection.Instance.playerId != 1
         )
         {
             LobbyConnection.Instance.StartGame();
