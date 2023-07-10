@@ -1,9 +1,11 @@
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
 use std::f32::consts::PI;
+use std::ops::Div;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
+use crate::loot::{Loot, LootType};
 use crate::player::{Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
@@ -18,6 +20,8 @@ pub struct GameState {
     pub board: Board,
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
+    pub loots: Vec<Loot>,
+    pub next_loot_id: u64,
 }
 
 #[derive(Debug, NifUnitEnum)]
@@ -98,13 +102,30 @@ impl GameState {
             }
         }
 
-        let projectiles = Vec::new();
+        let loots: Vec<Loot> = players.iter()
+            .enumerate()
+            .map(|(index, player)| {
+                let rng = &mut thread_rng();
+                let player_x = player.position.x;
+                let player_y = player.position.y;
+                let center_x = board_height.div(2);
+                let center_y = board_width.div(2);
+                let x_diff = rng.gen_range(10..20);
+                let y_diff = rng.gen_range(10..20);
+                let x = if center_x < player_x { player_x - x_diff } else { player_x + x_diff };
+                let y = if center_y < player_y { player_y - y_diff } else { player_y + y_diff };
+
+                Loot { id: index as u64, loot_type: LootType::Skill1, position: Position { x, y }, value: 0 }
+            })
+            .collect();
 
         Ok(Self {
             players,
             board,
-            projectiles,
+            projectiles: Vec::new(),
             next_projectile_id: 0,
+            next_loot_id: loots.len() as u64,
+            loots,
         })
     }
 

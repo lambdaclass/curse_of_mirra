@@ -1,6 +1,7 @@
 pub mod board;
 pub mod character;
 pub mod game;
+pub mod loot;
 pub mod player;
 pub mod projectile;
 pub mod skills;
