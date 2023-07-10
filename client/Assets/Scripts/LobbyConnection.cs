@@ -308,4 +308,9 @@ public class LobbyConnection : MonoBehaviour
             return "wss://" + server_ip + path;
         }
     }
+
+    public bool isConnectionOpen()
+    {
+        return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
 }
