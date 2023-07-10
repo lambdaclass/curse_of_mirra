@@ -93,7 +93,6 @@ public class Skill : CharacterAbility
         bool hasMoved = relativePosition.X != 0 || relativePosition.Y != 0;
         if (AbilityAuthorized && hasMoved)
         {
-            skillsAnimationEvent.UpdateActiveSkill(this);
             SendActionToBackend(relativePosition);
         }
     }
@@ -105,6 +104,7 @@ public class Skill : CharacterAbility
 
         if (skillInfo.hasModelAnimation == true)
         {
+            skillsAnimationEvent.UpdateActiveSkill(this);
             _movement.ChangeState(CharacterStates.MovementStates.Attacking);
             _animator.SetBool(skillId, true);
         }
