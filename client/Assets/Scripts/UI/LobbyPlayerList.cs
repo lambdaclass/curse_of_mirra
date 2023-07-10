@@ -44,28 +44,12 @@ public class LobbyPlayerList : MonoBehaviour
         }
     }
 
-    private GameObject CreatePlayerItem(ulong id)
+    public GameObject CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
         playerI.SetId(id);
-
-        if (id == 1)
-        {
-            playerI.playerText.text += " " + (id.ToString() + " " + "HOST");
-            playButton.SetActive(true);
-        }
-        else
-        {
-            if (LobbyConnection.Instance.playerId == id)
-            {
-                playerI.playerText.text += " " + id.ToString() + " " + "YOU";
-            }
-            else
-            {
-                playerI.playerText.text += " " + id.ToString();
-            }
-        }
+        playerI.SetPlayerItemText();
 
         return newPlayer;
     }

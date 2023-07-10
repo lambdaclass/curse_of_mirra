@@ -9,8 +9,6 @@ public class CharacterSelectionList : MonoBehaviour
     GameObject playerItemPrefab;
     public List<GameObject> playerItems = new List<GameObject>();
 
-    // This create a new item for new selected character
-
     public void CreatePlayerItems()
     {
         for (int i = 0; i < LobbyConnection.Instance.playerCount; i++)
@@ -19,59 +17,18 @@ public class CharacterSelectionList : MonoBehaviour
         }
     }
 
-    public void DisplayPlayerItems()
-    {
-        if (playerItems.Count < SocketConnectionManager.Instance.selectedCharacters?.Count)
-        {
-            // foreach (
-            //     KeyValuePair<ulong, string> entry in SocketConnectionManager
-            //         .Instance
-            //         .selectedCharacters
-            // )
-            // {
-            //     if (entry.Key != (ulong)LobbyConnection.Instance.playerId)
-            //     {
-            //         playerItems.ForEach(el =>
-            //         {
-            //             if (el.GetComponent<PlayerItem>().GetId() != entry.Key)
-            //             {
-            //                 created = true;
-            //             }
-            //         });
-            //         if (created)
-            //         {
-            //             print("Created item for the player + " + entry.Key);
-            //             CreatePlayerItem(entry.Key);
-            //         }
-            //     }
-            // }
-            print(SocketConnectionManager.Instance.selectedCharacters.Keys.Last());
-            ulong lastKey = SocketConnectionManager.Instance.selectedCharacters
-                .OrderBy(x => x.Key)
-                .Last()
-                .Key;
-            print(lastKey);
-            CreatePlayerItem(SocketConnectionManager.Instance.selectedCharacters.Keys.Last());
-        }
-    }
-
-    //This updated the item for respective player
     public void DisplayUpdates()
     {
-        if (SocketConnectionManager.Instance.selectedCharacters?.Count > 0 && playerItems.Count > 0)
+        Dictionary<ulong, string> selectedCharacters = SocketConnectionManager
+            .Instance
+            .selectedCharacters;
+
+        if (selectedCharacters?.Count > 0 && playerItems.Count > 0)
         {
-            foreach (
-                KeyValuePair<ulong, string> entry in SocketConnectionManager
-                    .Instance
-                    .selectedCharacters
-            )
+            foreach (KeyValuePair<ulong, string> entry in selectedCharacters)
             {
-                if (
-                    entry.Key != (ulong)LobbyConnection.Instance.playerId
-                    && GetUpdatedItem(entry.Key, entry.Value)
-                )
+                if (GetUpdatedItem(entry.Key, entry.Value))
                 {
-                    print("Updated item for the player + " + entry.Key);
                     UpdatePlayerItem(entry.Key, entry.Value);
                 }
             }
@@ -106,24 +63,9 @@ public class CharacterSelectionList : MonoBehaviour
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
         playerI.SetId(id);
-        string character = GetPlayerCharacter(id);
-        playerI.SetName(character);
+        playerI.SetCharacterName("No Selected");
+        playerI.SetPlayerItemText();
 
-        if (id == 1)
-        {
-            playerI.playerText.text += $" {id.ToString()} NO SELECTED HOST";
-        }
-        else
-        {
-            if (SocketConnectionManager.Instance.playerId == id)
-            {
-                playerI.playerText.text += $" {id.ToString()} NO SELECTED YOU";
-            }
-            else
-            {
-                playerI.playerText.text += $" {id.ToString()} NO SELECTED";
-            }
-        }
         playerItems.Add(newPlayer);
     }
 
@@ -134,40 +76,8 @@ public class CharacterSelectionList : MonoBehaviour
             PlayerItem playerI = playerItems
                 ?.Find(el => el.GetComponent<PlayerItem>().GetId() == id)
                 ?.GetComponent<PlayerItem>();
-
-            if (id == 1)
-            {
-                playerI.playerText.text = $"Player {id.ToString()} {character} HOST";
-            }
-            else
-            {
-                if (SocketConnectionManager.Instance.playerId == id)
-                {
-                    playerI.playerText.text = $"Player {id.ToString()} {character} YOU";
-                }
-                else
-                {
-                    playerI.playerText.text = $"Player {id.ToString()} {character}";
-                }
-            }
+            playerI.SetCharacterName(character);
+            playerI.SetPlayerItemText();
         }
-    }
-
-    public string GetPlayerCharacter(ulong id)
-    {
-        string character = null;
-        if (SocketConnectionManager.Instance.selectedCharacters != null)
-        {
-            foreach (
-                KeyValuePair<ulong, string> entry in SocketConnectionManager
-                    .Instance
-                    .selectedCharacters
-            )
-            {
-                if (entry.Key == id)
-                    character = entry.Value;
-            }
-        }
-        return character;
     }
 }

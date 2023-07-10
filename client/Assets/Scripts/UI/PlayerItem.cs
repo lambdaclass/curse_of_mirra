@@ -25,8 +25,27 @@ public class PlayerItem : MonoBehaviour
         return name;
     }
 
-    public void SetName(string name)
+    public void SetCharacterName(string name)
     {
         this.characterName = name;
+    }
+
+    public void SetPlayerItemText()
+    {
+        if (id == 1)
+        {
+            this.playerText.text = $"Player {id.ToString()} {characterName} HOST";
+        }
+        else
+        {
+            if (LobbyConnection.Instance.playerId == id)
+            {
+                this.playerText.text = $"Player {id.ToString()} {characterName} YOU";
+            }
+            else
+            {
+                this.playerText.text = $"Player {id.ToString()} {characterName}";
+            }
+        }
     }
 }

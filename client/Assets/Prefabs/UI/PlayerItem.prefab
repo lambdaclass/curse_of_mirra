@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerText: {fileID: 6311838806410118359}
+  id: 0
+  characterName: 
 --- !u!1 &6311838806410118356
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +223,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player
+  m_Text: 
 --- !u!114 &6311838806410118358
 MonoBehaviour:
   m_ObjectHideFlags: 0
