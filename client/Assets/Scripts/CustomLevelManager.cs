@@ -169,6 +169,7 @@ public class CustomLevelManager : LevelManager
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
+                inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(UIControls.SkillBasic, characterInfo.skillBasicInfo.inputType, skillBasic);
                 inputManager.AssignSkillToInput(UIControls.Skill1, characterInfo.skill1Info.inputType, skill1);
                 inputManager.AssignSkillToInput(UIControls.Skill2, characterInfo.skill2Info.inputType, skill2);
