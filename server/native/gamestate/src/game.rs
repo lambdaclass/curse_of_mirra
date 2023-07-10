@@ -21,7 +21,9 @@ pub struct GameState {
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
     pub loots: Vec<Loot>,
-    pub next_loot_id: u64,
+    pub loot_next_id: u64,
+    // TODO: this should be time::Instance, but it is not supported by rustler
+    pub loot_last_spawn_at: u64,
 }
 
 #[derive(Debug, NifUnitEnum)]
@@ -124,7 +126,8 @@ impl GameState {
             board,
             projectiles: Vec::new(),
             next_projectile_id: 0,
-            next_loot_id: loots.len() as u64,
+            loot_next_id: loots.len() as u64,
+            loot_last_spawn_at: time_now(),
             loots,
         })
     }
@@ -827,7 +830,28 @@ impl GameState {
                 add_kills(&mut self.players, projectile.player_id, kill_count)?;
             }
         }
+
+        self.spawn_random_loot();
         Ok(())
+    }
+
+    fn spawn_random_loot(self: &mut Self) {
+        if (time_now() - self.loot_last_spawn_at) < 20 {
+            return;
+        }
+
+        let rng = &mut thread_rng();
+        let position = Position {x: rng.gen_range(0..self.board.width), y: rng.gen_range(0..self.board.height)};
+        let (loot_type, value) = match rng.gen_range(1..=100) {
+                91..=100 => (LootType::Skill4, 0), // 10% chance to spawn
+                71..=90 => (LootType::Skill3, 0), // 20% chance to spawn
+                51..=70 => (LootType::Skill2, 0), // 20% chance to spawn
+                _ => (LootType::Health, rng.gen_range(20..=80)), // 50% chance to spawn
+            };
+
+        self.loots.push(Loot { id: self.loot_next_id, loot_type, position, value });
+        self.loot_next_id += 1;
+        self.loot_last_spawn_at = time_now();
     }
 
     fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
