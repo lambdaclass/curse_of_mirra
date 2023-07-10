@@ -1,10 +1,10 @@
 ﻿{
   "Items": [
     {
-      "Name": "mirror_image",
+      "Name": "none",
       "Id": "0",
-      "Life": "50",
-      "Damage": "0"
+      "Life": "",
+      "Damage": ""
     }
   ]
 }

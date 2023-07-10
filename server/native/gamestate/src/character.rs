@@ -27,6 +27,8 @@ pub enum Name {
     H4ck,
     #[strum(ascii_case_insensitive)]
     Muflus,
+    #[strum(serialize = "Dagna")]
+    Placeholder,
 }
 
 pub type StatusEffects = HashMap<Effect, TicksLeft>;
@@ -124,6 +126,7 @@ impl Character {
             FirstActive::BarrelRoll => 50_u32,
             FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
             FirstActive::MultiShot => 10_u32,
+            _ => 10_u32,
         }
     }
     pub fn attack_dmg_second_active(&mut self) -> u32 {
@@ -140,6 +143,7 @@ impl Character {
             BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
             BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
             BasicSkill::Backstab => 1_u64,
+            _ => 1_u64,
         }
     }
     pub fn cooldown_first_skill(&self) -> u64 {
@@ -147,6 +151,7 @@ impl Character {
             FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
             FirstActive::SerpentStrike => 5_u64,
             FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+            _ => 5_u64,
         }
     }
     pub fn cooldown_second_skill(&self) -> u64 {
@@ -155,6 +160,7 @@ impl Character {
             SecondActive::MirrorImage => 5_u64,
             SecondActive::Petrify => 5_u64,
             SecondActive::Rage => 5_u64,
+            _ => 5_u64,
         }
     }
     pub fn cooldown_third_skill(&self) -> u64 {
@@ -180,6 +186,7 @@ impl Character {
             BasicSkill::Slingshot => 5,
             BasicSkill::Bash => 3,
             BasicSkill::Backstab => 1,
+            _ => 1_u64,
         }
     }
 
