@@ -9,8 +9,6 @@ using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -51,6 +49,11 @@ public class SocketConnectionManager : MonoBehaviour
     }
 
     public void Awake()
+    {
+        Init();
+    }
+
+    public void Init()
     {
         Debug.Log("SocketConnectionManager Awake");
         if (Instance != null)
