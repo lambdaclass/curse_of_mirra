@@ -22,3 +22,9 @@ MonoBehaviour:
   skill2Info: {fileID: 11400000, guid: 263aaa19f13b4489aaf19f696fb7d35d, type: 2}
   skill3Info: {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
   skill4Info: {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
+  skillBasicSprite: {fileID: 21300000, guid: bb3f6d8a2730d4931913631c65044059, type: 3}
+  skill1Sprite: {fileID: 21300000, guid: b8272e15bb2a648ada8297f392db3421, type: 3}
+  skill2Sprite: {fileID: 21300000, guid: 04067e31981624fa1adf2cfaa4ddaf86, type: 3}
+  skill3Sprite: {fileID: 21300000, guid: f2ca93608b36b427cae7555dba7ee47b, type: 3}
+  skill4Sprite: {fileID: 21300000, guid: 11497421eb93a43f6bc5dfd16df83d2e, type: 3}
+  skillBackground: {fileID: 21300000, guid: f250f50d2462c498d9fd214bb4e96654, type: 3}
