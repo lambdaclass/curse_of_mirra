@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
@@ -185,6 +186,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
     %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
+  end
+
+  def encode(loot, LootPackage) do
+    struct(LootPackage, %{loot | loot_type: loot_type_encode(loot.loot_type)})
   end
 
   ###########
@@ -388,4 +393,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:disarmed, ticks}), do: {1, ticks}
   defp effect_encode({:piercing, ticks}), do: {2, ticks}
   defp effect_encode({:raged, ticks}), do: {3, ticks}
+
+  defp loot_type_encode(:health), do: :LOOT_HEALTH
+  defp loot_type_encode(:skill1), do: :LOOT_SKILL_1
+  defp loot_type_encode(:skill2), do: :LOOT_SKILL_2
+  defp loot_type_encode(:skill3), do: :LOOT_SKILL_3
+  defp loot_type_encode(:skill4), do: :LOOT_SKILL_4
 end

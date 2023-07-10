@@ -109,6 +109,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     reply_map = %{
       players: game_state.client_game_state.game.players,
       projectiles: game_state.client_game_state.game.projectiles,
+      loots: game_state.client_game_state.game.loots,
       player_timestamp: game_state.player_timestamps[web_socket_state.player_id],
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond)
     }

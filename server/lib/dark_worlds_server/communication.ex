@@ -37,6 +37,7 @@ defmodule DarkWorldsServer.Communication do
   def game_update!(%{
         players: players,
         projectiles: projectiles,
+        loots: loots,
         player_timestamp: player_timestamp,
         server_timestamp: server_timestamp
       }) do
@@ -44,6 +45,7 @@ defmodule DarkWorldsServer.Communication do
       type: :STATE_UPDATE,
       players: players,
       projectiles: projectiles,
+      loot_packages: loots,
       player_timestamp: player_timestamp,
       server_timestamp: server_timestamp
     }
