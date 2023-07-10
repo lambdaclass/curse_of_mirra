@@ -55,7 +55,7 @@ pub enum Status {
     DISCONNECTED,
 }
 
-#[derive(Debug, Clone, NifUnitEnum, PartialEq, Eq, Hash)]
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum PlayerAction {
     NOTHING,
     ATTACKING,
@@ -65,7 +65,7 @@ pub enum PlayerAction {
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
     TELEPORTING,
-    MOVING
+    MOVING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
@@ -100,7 +100,7 @@ impl Player {
             skill_3_started_at: 0,
             skill_4_started_at: 0,
             effects: HashMap::new(),
-            actions: HashMap::new()
+            actions: HashMap::new(),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
@@ -244,6 +244,17 @@ impl Player {
             + self.character.cooldown_fourth_skill())
         .checked_sub(now)
         .unwrap_or(0);
+    }
+
+    pub fn update_actions(&mut self) {
+        for (key, value) in self.actions.clone() {
+            let new_value = value.saturating_sub(1);
+            if new_value == 0 {
+                self.actions.remove(&key);
+            } else {
+                self.actions.insert(key, new_value);
+            }
+        }
     }
 }
 
