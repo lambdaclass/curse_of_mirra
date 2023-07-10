@@ -107,8 +107,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       actions: actions
     } = player
 
-    IO.inspect(actions, label: :queverga)
-
     %ProtoPlayer{
       id: id,
       health: health,
