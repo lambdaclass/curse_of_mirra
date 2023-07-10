@@ -75,6 +75,7 @@ message Player {
     uint64 skill_4_cooldown_left = 15;
     string character_name = 16;
     map<uint64, uint64> effects = 17;
+    map<uint64, uint64> actions = 18;
 }
 
 /*
@@ -175,6 +176,7 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 5;
     EXECUTING_SKILL_3 = 6;
     EXECUTING_SKILL_4 = 7;
+    MOVING = 8;
 }
 
 /* Effects a player has */
