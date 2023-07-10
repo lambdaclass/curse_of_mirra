@@ -8,10 +8,6 @@ public class CharacterSelectionManager : MonoBehaviour
     [SerializeField]
     CharacterSelectionList playersList;
 
-    [SerializeField]
-    CharacterSelectionUI characterList;
-    public bool selected = false;
-
     void Start()
     {
         playersList.CreatePlayerItems();
