@@ -5,22 +5,30 @@ using UnityEngine;
 public class KillFeedManager : MonoBehaviour
 {
     [SerializeField] KillFeedItem killFeedItem;
-    public bool kill = false;
 
-    public void Init(string killerName, string killedName)
+    public static KillFeedManager instance;
+    private Queue<KillEvent> feedEvents = new Queue<KillEvent>();
+
+
+    public void Awake()
     {
-        killFeedItem.SetPlayerNames(killerName, killedName);
-        GameObject item = Instantiate(killFeedItem.gameObject, transform);
-        Destroy(item, 1.5f);
-        //TODO: Add create and destroy animations
+        KillFeedManager.instance = this;
     }
+
+    public void putEvents(List<KillEvent> feedEvent)
+    {
+        feedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
+    }
+
+    public
 
     void Update()
     {
-        if (kill)
-        {
-            //TEST
-            Init("player1", "player2");
+        KillEvent killEvent;
+        while(feedEvents.TryDequeue(out killEvent)) {
+            killFeedItem.SetPlayerNames(killEvent.KilledBy.ToString(), killEvent.Killed.ToString());
+            GameObject item = Instantiate(killFeedItem.gameObject, transform);
+            Destroy(item, 3.0f);
         }
     }
 
