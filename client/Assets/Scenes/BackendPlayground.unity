@@ -1352,6 +1352,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1311006561362000, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752794641914168, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879089594584572, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4847471433058572, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1436,7 +1448,13 @@ PrefabInstance:
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1302669239}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114276557751269602, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+    - {fileID: 965988363, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+    - {fileID: 2099158877, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+    - {fileID: 2106206325, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+    - {fileID: 8589184729297690426, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
+    - {fileID: 8589184727915425588, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
 --- !u!114 &2856279044554654230 stripped
 MonoBehaviour:

@@ -908,6 +908,11 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8204b292856974b849e0592b526ef9f7,
+        type: 3}
+      propertyPath: m_KeepAnimatorStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8204b292856974b849e0592b526ef9f7, type: 3}
 --- !u!95 &4324005410788790276 stripped
@@ -928,6 +933,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7884502959964188053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8694645949894089124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037446691743813828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8db6bc3b8dc9489d8a93cbf462694b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7701675253320321662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8204b292856974b849e0592b526ef9f7,
