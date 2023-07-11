@@ -241,6 +241,7 @@ impl GameState {
             return Ok(());
         }
 
+        player.actions.insert(PlayerAction::MOVING, 3);
         let new_position = new_entity_position(
             self.board.height,
             self.board.width,
@@ -744,6 +745,7 @@ impl GameState {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns();
+            player.update_actions();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(|_, ticks_left| {

@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            print("the actions are" + serverPlayerUpdate.Actions);
 
             if (
                 serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
@@ -380,8 +381,8 @@ public class PlayerMovement : MonoBehaviour
         bool walking = false;
 
         Vector2 movementChange = new Vector2(xChange, yChange);
-
-        if (movementChange.magnitude >= 0.2f)
+        if (playerUpdate.Actions.ContainsKey((ulong)PlayerAction.Moving))
+        // if (movementChange.magnitude >= 0.2f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
