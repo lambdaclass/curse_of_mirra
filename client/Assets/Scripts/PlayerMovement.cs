@@ -478,7 +478,7 @@ public class PlayerMovement : MonoBehaviour
         {
             healthComponent.Model.gameObject.SetActive(true);
         }
-        Debug.Log((float)playerUpdate.Skill4CooldownLeft.Low);
+
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
             /*
