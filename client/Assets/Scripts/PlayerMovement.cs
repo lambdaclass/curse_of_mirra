@@ -338,6 +338,7 @@ public class PlayerMovement : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -359,6 +360,12 @@ public class PlayerMovement : MonoBehaviour
                 character.GetComponent<Skill2>().StopStartFeedbacks();
             }
         }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
+        {
+            characterSpeed *= 4f;
+        }
+
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
@@ -474,13 +481,35 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
+            /*
+                - We divided the milliseconds time in two parts because
+                - rustler can't handle u128, so instead of developing those functions
+                - we decided to use 2 u64 fields to represent the time in milliseconds
+
+                - If you need to use complete time in milliseconds, you should use both
+                - If you need to use remaining time in milliseconds, you can use only low field
+                - because high field will be 0
+            */
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                playerUpdate.BasicSkillCooldownLeft
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
             );
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill3,
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill4,
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
+            );
         }
     }
 

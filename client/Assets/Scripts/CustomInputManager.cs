@@ -15,6 +15,7 @@ public enum UIControls
     Skill4,
     SkillBasic
 }
+
 public enum UIType
 {
     Tap,
@@ -25,17 +26,38 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] Image joystickL;
-    [SerializeField] CustomMMTouchButton SkillBasic;
-    [SerializeField] CustomMMTouchButton Skill1;
-    [SerializeField] CustomMMTouchButton Skill2;
-    [SerializeField] CustomMMTouchButton Skill3;
-    [SerializeField] CustomMMTouchButton Skill4;
-    [SerializeField] TMP_Text SkillBasicCooldown;
-    [SerializeField] TMP_Text Skill1Cooldown;
-    [SerializeField] TMP_Text Skill2Cooldown;
-    [SerializeField] TMP_Text Skill3Cooldown;
-    [SerializeField] TMP_Text Skill4Cooldown;
+    [SerializeField]
+    Image joystickL;
+
+    [SerializeField]
+    CustomMMTouchButton SkillBasic;
+
+    [SerializeField]
+    CustomMMTouchButton Skill1;
+
+    [SerializeField]
+    CustomMMTouchButton Skill2;
+
+    [SerializeField]
+    CustomMMTouchButton Skill3;
+
+    [SerializeField]
+    CustomMMTouchButton Skill4;
+
+    [SerializeField]
+    TMP_Text SkillBasicCooldown;
+
+    [SerializeField]
+    TMP_Text Skill1Cooldown;
+
+    [SerializeField]
+    TMP_Text Skill2Cooldown;
+
+    [SerializeField]
+    TMP_Text Skill3Cooldown;
+
+    [SerializeField]
+    TMP_Text Skill4Cooldown;
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -65,6 +87,7 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
+
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
         SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite, null);
@@ -73,9 +96,12 @@ public class CustomInputManager : InputManager
         Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
         Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
     }
+
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
-        CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
+        CustomMMTouchJoystick joystick = mobileButtons[
+            trigger
+        ].GetComponent<CustomMMTouchJoystick>();
         CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
@@ -147,7 +173,8 @@ public class CustomInputManager : InputManager
         GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         //Multiply vector values according to the scale of the animation (in this case 12)
-        indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+        indicator.transform.position =
+            _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
     }
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
@@ -157,7 +184,8 @@ public class CustomInputManager : InputManager
         //Destroy attack animation after showing it
         Destroy(areaWithAim, 2.1f);
 
-        indicator.transform.position = _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+        indicator.transform.position =
+            _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
         Destroy(indicator, 0.01f);
         Destroy(area, 0.01f);
 
@@ -198,14 +226,23 @@ public class CustomInputManager : InputManager
         area.transform.localScale = area.transform.localScale * 30;
 
         //Load the prefab
-        directionIndicator = Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
+        directionIndicator =
+            Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
         //Set the prefav as a player child
         directionIndicator.transform.parent = _player.transform;
         //Set its position to the player position
-        directionIndicator.transform.position = new Vector3(_player.transform.position.x, 0.4f, _player.transform.position.z);
+        directionIndicator.transform.position = new Vector3(
+            _player.transform.position.x,
+            0.4f,
+            _player.transform.position.z
+        );
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
-        directionIndicator.transform.localScale = new Vector3(directionIndicator.transform.localScale.x, area.transform.localScale.y * 2.45f, directionIndicator.transform.localScale.z);
+        directionIndicator.transform.localScale = new Vector3(
+            directionIndicator.transform.localScale.x,
+            area.transform.localScale.y * 2.45f,
+            directionIndicator.transform.localScale.z
+        );
         directionIndicator.SetActive(false);
 
         activeJoystick = joystick;
@@ -234,21 +271,28 @@ public class CustomInputManager : InputManager
         skill.TryExecuteSkill(direction);
     }
 
-    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
-        if (cooldown == 0)
-        {
-            button.EnableButton();
-            cooldownText.gameObject.SetActive(false);
-        }
-        else
+        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
         {
             button.DisableButton();
             cooldownText.gameObject.SetActive(true);
-            cooldownText.text = cooldown.ToString();
+            if (cooldown < 1f && cooldown > 0f)
+            {
+                cooldownText.text = String.Format("{0:0.0}", cooldown);
+            }
+            else
+            {
+                cooldownText.text = ((ulong)cooldown + 1).ToString();
+            }
+        }
+        else
+        {
+            button.EnableButton();
+            cooldownText.gameObject.SetActive(false);
         }
     }
 
@@ -276,6 +320,7 @@ public class CustomInputManager : InputManager
     {
         joystickL.color = new Color(255, 255, 255, 0.25f);
     }
+
     public void UnsetOpacity()
     {
         joystickL.color = new Color(255, 255, 255, 1);
