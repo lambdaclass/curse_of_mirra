@@ -58,14 +58,16 @@ public class SocketConnectionManager : MonoBehaviour
         if (Instance != null)
         {
             Destroy(gameObject);
-            return;
         }
-        Instance = this;
-        this.session_id = LobbyConnection.Instance.GameSession;
-        this.server_ip = LobbyConnection.Instance.server_ip;
-        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-        projectilesStatic = this.projectiles;
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            Instance = this;
+            this.session_id = LobbyConnection.Instance.GameSession;
+            this.server_ip = LobbyConnection.Instance.server_ip;
+            this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+            projectilesStatic = this.projectiles;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Start()
