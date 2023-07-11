@@ -271,21 +271,28 @@ public class CustomInputManager : InputManager
         skill.TryExecuteSkill(direction);
     }
 
-    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
-        if (cooldown == 0)
-        {
-            button.EnableButton();
-            cooldownText.gameObject.SetActive(false);
-        }
-        else
+        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
         {
             button.DisableButton();
             cooldownText.gameObject.SetActive(true);
-            cooldownText.text = cooldown.ToString();
+            if (cooldown < 1f && cooldown > 0f)
+            {
+                cooldownText.text = String.Format("{0:0.0}", cooldown);
+            }
+            else
+            {
+                cooldownText.text = ((ulong)cooldown + 1).ToString();
+            }
+        }
+        else
+        {
+            button.EnableButton();
+            cooldownText.gameObject.SetActive(false);
         }
     }
 

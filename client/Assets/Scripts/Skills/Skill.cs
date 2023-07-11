@@ -1,8 +1,8 @@
-using UnityEngine;
 using System.Collections;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class Skill : CharacterAbility
 {
@@ -32,6 +32,7 @@ public class Skill : CharacterAbility
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
         this.skillsAnimationEvent = skillsAnimationEvent;
+        this.AbilityStartSfx = skillInfo.abilityStartSfx;
     }
 
     protected override void Start()
@@ -107,6 +108,7 @@ public class Skill : CharacterAbility
             skillsAnimationEvent.UpdateActiveSkill(this);
             _movement.ChangeState(CharacterStates.MovementStates.Attacking);
             _animator.SetBool(skillId, true);
+            PlayAbilityStartSfx();
         }
     }
 

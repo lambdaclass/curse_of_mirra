@@ -1,10 +1,38 @@
-use crate::character::{Character, Effect, Name, StatusEffects, TicksLeft};
+use crate::character::{Character, Name};
 use crate::skills::{Basic as BasicSkill, FirstActive};
-use crate::time_utils::time_now;
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime};
+use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
+
+#[derive(Debug, Clone, NifStruct)]
+#[module = "DarkWorldsServer.Engine.Player"]
+pub struct EffectData {
+    pub time_left: MillisTime,
+    pub ends_at: MillisTime,
+    pub direction: Option<RelativePosition>,
+}
+
+pub type StatusEffects = HashMap<Effect, EffectData>;
+
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+pub enum Effect {
+    Petrified,
+    Disarmed,
+    Piercing,
+    Raged,
+    NeonCrashing,
+}
+impl Effect {
+    pub fn is_crowd_control(&self) -> bool {
+        match self {
+            Effect::Petrified | Effect::Disarmed => true,
+            _ => false,
+        }
+    }
+}
 
 /*
     Note: To track cooldowns we are storing the last system time when the ability/attack
@@ -18,8 +46,6 @@ pub struct Player {
     pub id: u64,
     pub health: i64,
     pub position: Position,
-    /// Time of the last melee attack done by the player, measured in seconds.
-    pub last_melee_attack: u64,
     pub status: Status,
     pub character: Character,
     pub action: PlayerAction,
@@ -28,17 +54,17 @@ pub struct Player {
     pub death_count: u64,
     // How many seconds are left until the
     // cooldown is over.
-    pub basic_skill_cooldown_left: u64,
-    pub skill_1_cooldown_left: u64,
-    pub skill_2_cooldown_left: u64,
-    pub skill_3_cooldown_left: u64,
-    pub skill_4_cooldown_left: u64,
+    pub basic_skill_cooldown_left: MillisTime,
+    pub skill_1_cooldown_left: MillisTime,
+    pub skill_2_cooldown_left: MillisTime,
+    pub skill_3_cooldown_left: MillisTime,
+    pub skill_4_cooldown_left: MillisTime,
     // Timestamp when the cooldown started.
-    pub basic_skill_started_at: u64,
-    pub skill_1_started_at: u64,
-    pub skill_2_started_at: u64,
-    pub skill_3_started_at: u64,
-    pub skill_4_started_at: u64,
+    pub basic_skill_started_at: MillisTime,
+    pub skill_1_started_at: MillisTime,
+    pub skill_2_started_at: MillisTime,
+    pub skill_3_started_at: MillisTime,
+    pub skill_4_started_at: MillisTime,
     // This field is redundant given that
     // we have the Character filed, this his
     // hopefully temporary and to tell
@@ -79,7 +105,6 @@ impl Player {
             id,
             health,
             position,
-            last_melee_attack: time_now(),
             status: Status::ALIVE,
             character_name: character.name.to_string(),
             character,
@@ -87,16 +112,16 @@ impl Player {
             aoe_position: Position::new(0, 0),
             kill_count: 0,
             death_count: 0,
-            basic_skill_cooldown_left: 0,
-            skill_1_cooldown_left: 0,
-            skill_2_cooldown_left: 0,
-            skill_3_cooldown_left: 0,
-            skill_4_cooldown_left: 0,
-            basic_skill_started_at: 0,
-            skill_1_started_at: 0,
-            skill_2_started_at: 0,
-            skill_3_started_at: 0,
-            skill_4_started_at: 0,
+            basic_skill_cooldown_left: MillisTime { high: 0, low: 0 },
+            skill_1_cooldown_left: MillisTime { high: 0, low: 0 },
+            skill_2_cooldown_left: MillisTime { high: 0, low: 0 },
+            skill_3_cooldown_left: MillisTime { high: 0, low: 0 },
+            skill_4_cooldown_left: MillisTime { high: 0, low: 0 },
+            basic_skill_started_at: MillisTime { high: 0, low: 0 },
+            skill_1_started_at: MillisTime { high: 0, low: 0 },
+            skill_2_started_at: MillisTime { high: 0, low: 0 },
+            skill_3_started_at: MillisTime { high: 0, low: 0 },
+            skill_4_started_at: MillisTime { high: 0, low: 0 },
             effects: HashMap::new(),
         }
     }
@@ -142,16 +167,16 @@ impl Player {
     }
 
     #[inline]
-    pub fn add_effect(&mut self, e: Effect, tl: TicksLeft) {
+    pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
         if !self.effects.contains_key(&e) {
             match self.character.name {
                 Name::Muflus => {
                     if !(self.muflus_partial_immunity(&e)) {
-                        self.effects.insert(e, tl);
+                        self.effects.insert(e, ed);
                     }
                 }
                 _ => {
-                    self.effects.insert(e.clone(), tl);
+                    self.effects.insert(e.clone(), ed);
                 }
             }
         }
@@ -159,19 +184,24 @@ impl Player {
 
     #[inline]
     pub fn speed(&self) -> u64 {
+        let base_speed = self.character.base_speed;
+
         if self.has_active_effect(&Effect::Petrified) {
             return 0;
         }
         if self.has_active_effect(&Effect::Raged) {
-            return ((self.character.base_speed as f64) * 1.5).ceil() as u64;
+            return ((base_speed as f64) * 1.5).ceil() as u64;
         }
-        return self.character.base_speed;
+        if self.has_active_effect(&Effect::NeonCrashing) {
+            return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        return base_speed;
     }
 
     fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {
         effect_to_apply.is_crowd_control()
             && self.has_active_effect(&Effect::Raged)
-            && Self::chance_check(0.3)
+            && Self::chance_check(0.5)
     }
 
     fn chance_check(chance: f64) -> bool {
@@ -183,7 +213,16 @@ impl Player {
     #[allow(unused_variables)]
     pub fn has_active_effect(&self, e: &Effect) -> bool {
         let effect = self.effects.get(e);
-        matches!(effect, Some(1..=u64::MAX))
+        matches!(
+            effect,
+            Some(EffectData {
+                time_left: MillisTime {
+                    high: 0_u64..=u64::MAX,
+                    low: 1_u64..=u64::MAX
+                },
+                ..
+            })
+        )
     }
 
     ///
@@ -193,54 +232,65 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &Self, cooldown_left: u64) -> bool {
+    pub fn can_attack(self: &Self, cooldown_left: MillisTime) -> bool {
         if matches!(self.status, Status::DEAD) {
             return false;
         }
 
-        if cooldown_left > 0 {
+        if millis_to_u128(cooldown_left) > 0 {
             return false;
         }
 
-        match self.effects.get(&Effect::Disarmed) {
-            Some((1_u64..=u64::MAX)) => false,
-            None | Some(0) => true,
-        }
+        return !self.has_active_effect(&Effect::Disarmed);
     }
 
     // TODO:
     // I think cooldown duration should be measured
     // in ticks instead of seconds to ensure
     // some kind of consistency.
-    pub fn update_cooldowns(&mut self) {
-        let now = time_now();
+    pub fn update_cooldowns(&mut self, now: MillisTime) {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_skill_cooldown_left = (self.basic_skill_started_at
-            + self.character.cooldown_basic_skill())
-        .checked_sub(now)
-        .unwrap_or(0);
+        self.basic_skill_cooldown_left = sub_millis(
+            add_millis(
+                self.basic_skill_started_at,
+                self.character.cooldown_basic_skill(),
+            ),
+            now,
+        );
 
-        self.skill_1_cooldown_left = (self.skill_1_started_at
-            + self.character.cooldown_first_skill())
-        .checked_sub(now)
-        .unwrap_or(0);
+        self.skill_1_cooldown_left = sub_millis(
+            add_millis(
+                self.skill_1_started_at,
+                self.character.cooldown_first_skill(),
+            ),
+            now,
+        );
 
-        self.skill_2_cooldown_left = (self.skill_2_started_at
-            + self.character.cooldown_second_skill())
-        .checked_sub(now)
-        .unwrap_or(0);
+        self.skill_2_cooldown_left = sub_millis(
+            add_millis(
+                self.skill_2_started_at,
+                self.character.cooldown_second_skill(),
+            ),
+            now,
+        );
 
-        self.skill_3_cooldown_left = (self.skill_3_started_at
-            + self.character.cooldown_third_skill())
-        .checked_sub(now)
-        .unwrap_or(0);
+        self.skill_3_cooldown_left = sub_millis(
+            add_millis(
+                self.skill_3_started_at,
+                self.character.cooldown_third_skill(),
+            ),
+            now,
+        );
 
-        self.skill_4_cooldown_left = (self.skill_4_started_at
-            + self.character.cooldown_fourth_skill())
-        .checked_sub(now)
-        .unwrap_or(0);
+        self.skill_4_cooldown_left = sub_millis(
+            add_millis(
+                self.skill_4_started_at,
+                self.character.cooldown_fourth_skill(),
+            ),
+            now,
+        );
     }
 }
 

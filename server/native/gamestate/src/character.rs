@@ -1,24 +1,10 @@
 use crate::skills::*;
 use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
+use crate::time_utils::{u128_to_millis, MillisTime};
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
-pub type TicksLeft = u64;
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
-pub enum Effect {
-    Petrified = 0,
-    Disarmed = 1,
-    Piercing = 2,
-    Raged = 3,
-}
-impl Effect {
-    pub fn is_crowd_control(&self) -> bool {
-        match self {
-            Effect::Petrified | Effect::Disarmed => true,
-            _ => false,
-        }
-    }
-}
+
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]
 pub enum Name {
     #[strum(ascii_case_insensitive)]
@@ -31,7 +17,6 @@ pub enum Name {
     Placeholder,
 }
 
-pub type StatusEffects = HashMap<Effect, TicksLeft>;
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
 pub enum Faction {
     #[strum(serialize = "ara", serialize = "Araban", ascii_case_insensitive)]
@@ -58,6 +43,7 @@ pub struct Character {
     pub skill_active_second: SecondActive,
     pub skill_dash: Dash,
     pub skill_ultimate: Ultimate,
+    pub body_size: f64,
 }
 
 impl Character {
@@ -69,6 +55,7 @@ impl Character {
         active: bool,
         id: u64,
         faction: Faction,
+        body_size: f64,
     ) -> Self {
         Self {
             class,
@@ -82,6 +69,7 @@ impl Character {
             skill_active_second: SecondActive::Disarm,
             skill_dash: Dash::Blink,
             skill_ultimate: Ultimate::DenialOfService,
+            body_size,
         }
     }
     // NOTE:
@@ -99,6 +87,7 @@ impl Character {
         let skill_active_second = get_key(config, "SkillActive2")?;
         let skill_dash = get_key(config, "SkillDash")?;
         let skill_ultimate = get_key(config, "SkillUltimate")?;
+        let body_size = get_key(config, "BodySize")?;
         Ok(Self {
             active: parse_character_attribute::<u64>(&active)? != 0,
             base_speed: parse_character_attribute(&base_speed)?,
@@ -111,6 +100,7 @@ impl Character {
             skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
+            body_size: parse_character_attribute(&body_size)?,
         })
     }
     pub fn attack_dmg_basic_skill(&self) -> u32 {
@@ -138,46 +128,46 @@ impl Character {
         }
     }
     #[inline]
-    pub fn cooldown_basic_skill(&self) -> u64 {
+    pub fn cooldown_basic_skill(&self) -> MillisTime {
         match self.skill_basic {
-            BasicSkill::Slingshot => 1_u64, // H4ck basic attack cooldown
-            BasicSkill::Bash => 1_u64,      // Muflus basic attack cooldown
-            BasicSkill::Backstab => 1_u64,
-            _ => 1_u64,
+            BasicSkill::Slingshot => u128_to_millis(500), // H4ck basic attack cooldown
+            BasicSkill::Bash => u128_to_millis(1000),     // Muflus basic attack cooldown
+            BasicSkill::Backstab => u128_to_millis(1000),
+            _ => u128_to_millis(100000),
         }
     }
-    pub fn cooldown_first_skill(&self) -> u64 {
+    pub fn cooldown_first_skill(&self) -> MillisTime {
         match self.skill_active_first {
-            FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-            FirstActive::SerpentStrike => 5_u64,
-            FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
-            _ => 5_u64,
+            FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+            FirstActive::SerpentStrike => u128_to_millis(5000),
+            FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
+            _ => u128_to_millis(100000),
         }
     }
-    pub fn cooldown_second_skill(&self) -> u64 {
+    pub fn cooldown_second_skill(&self) -> MillisTime {
         match self.skill_active_second {
-            SecondActive::Disarm => 5_u64,
-            SecondActive::MirrorImage => 5_u64,
-            SecondActive::Petrify => 5_u64,
-            SecondActive::Rage => 5_u64,
-            _ => 5_u64,
+            SecondActive::Disarm => u128_to_millis(5000),
+            SecondActive::MirrorImage => u128_to_millis(5000),
+            SecondActive::Petrify => u128_to_millis(5000),
+            SecondActive::Rage => u128_to_millis(5000),
+            _ => u128_to_millis(100000),
         }
     }
-    pub fn cooldown_third_skill(&self) -> u64 {
+    pub fn cooldown_third_skill(&self) -> MillisTime {
         // match self.skill_active_third {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => u128_to_millis(5000),
+        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         // }
-        10_u64
+        u128_to_millis(10000)
     }
-    pub fn cooldown_fourth_skill(&self) -> u64 {
+    pub fn cooldown_fourth_skill(&self) -> MillisTime {
         // match self.skill_active_fourth {
-        //     FirstActive::BarrelRoll => 5_u64, // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => 5_u64,
-        //     FirstActive::MultiShot => 5_u64, // H4ck skill 1 cooldown
+        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
+        //     FirstActive::SerpentStrike => u128_to_millis(5000),
+        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         // }
-        10_u64
+        u128_to_millis(10000)
     }
     // Cooldown in seconds
     #[inline]
@@ -187,18 +177,6 @@ impl Character {
             BasicSkill::Bash => 3,
             BasicSkill::Backstab => 1,
             _ => 1_u64,
-        }
-    }
-
-    // TODO:
-    // There should be an extra logic to choose the aoe effect
-    // An aoe effect can come from a skill 1, 2, etc.
-    #[inline]
-    pub fn select_basic_skill_effect(&self) -> Option<(Effect, TicksLeft)> {
-        match self.name {
-            Name::Uma => Some((Effect::Petrified, 300)),
-            Name::H4ck => Some((Effect::Disarmed, 300)),
-            _ => None,
         }
     }
 }
@@ -212,6 +190,7 @@ impl Default for Character {
             true,
             1,
             Faction::Araban,
+            10.0,
         )
     }
 }
