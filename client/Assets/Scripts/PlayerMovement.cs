@@ -483,19 +483,19 @@ public class PlayerMovement : MonoBehaviour
         {
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                playerUpdate.BasicSkillCooldownLeft.Low / 1000
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
-                playerUpdate.Skill1CooldownLeft.Low / 1000
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
-                playerUpdate.Skill2CooldownLeft.Low / 1000
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
-                playerUpdate.Skill3CooldownLeft.Low / 1000
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
             );
         }
     }
