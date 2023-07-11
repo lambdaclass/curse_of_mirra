@@ -162,7 +162,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     game =
       next_state.game
-      |> Game.move_player_to_coordinates(player_id, position_transform)
+      |> Game.move_player_to_relative_position(player_id, position_transform)
 
     next_state = Map.put(next_state, :game, game)
 

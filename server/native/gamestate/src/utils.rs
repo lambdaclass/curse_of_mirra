@@ -1,6 +1,6 @@
 use rustler::NifStruct;
 
-#[derive(Debug, Clone, NifStruct, PartialEq)]
+#[derive(Debug, Clone, Copy, NifStruct, PartialEq)]
 #[module = "DarkWorldsServer.Engine.RelativePosition"]
 pub struct RelativePosition {
     pub x: f32,

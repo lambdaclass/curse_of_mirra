@@ -49,8 +49,6 @@ message PlayerCharacter{
     - position: Position of the player in the server game grid (see Position for more info)
     - power: [Amin 2023-05-05:  not sure what this is, was copied from struct like this]
     - action: [Manu 2023-05-12: accion to renderize on client side]
-    - last_melee_attack: Time of the last melee attack done by the player in
-      seconds since unix epoch.
     - status: currently if alive or dead
     - aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
     - {basic, first, second, third, fourth}_cooldown_left: Time remaining in seconds until the cooldown is over.
@@ -60,21 +58,18 @@ message Player {
     uint64 id = 1;
     sint64 health = 2;
     Position position = 3;
-    // uint32 power = 4;
-    uint64 last_melee_attack  = 4;
-    Status status = 5;
-    PlayerAction action = 6;
-    Position aoe_position = 7;
-    uint64 kill_count = 8;
-    uint64 death_count = 9;
-    Position teleport_position = 10;
-    uint64 basic_skill_cooldown_left = 11;
-    uint64 skill_1_cooldown_left = 12;
-    uint64 skill_2_cooldown_left = 13;
-    uint64 skill_3_cooldown_left = 14;
-    uint64 skill_4_cooldown_left = 15;
-    string character_name = 16;
-    map<uint64, uint64> effects = 17;
+    Status status = 4;
+    PlayerAction action = 5;
+    Position aoe_position = 6;
+    uint64 kill_count = 7;
+    uint64 death_count = 8;
+    MillisTime basic_skill_cooldown_left = 9;
+    MillisTime skill_1_cooldown_left = 10;
+    MillisTime skill_2_cooldown_left = 11;
+    MillisTime skill_3_cooldown_left = 12;
+    MillisTime skill_4_cooldown_left = 13;
+    string character_name = 14;
+    map<uint64, MillisTime> effects = 15;
 }
 
 /*
@@ -183,6 +178,7 @@ enum PlayerEffect {
     DISARMED = 1;
     PIERCING = 2;
     RAGED = 3;
+    NEON_CRASHING = 4;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
@@ -309,4 +305,18 @@ message Projectile {
     ProjectileStatus status = 10;
     uint64 last_attacked_player_id = 11;
     bool pierce = 12;
+}
+
+/*
+    - We divided the milliseconds time in two parts because
+    - rustler can't handle u128, so instead of developing those functions
+    - we decided to use 2 u64 fields to represent the time in milliseconds
+
+    - If you need to use complete time in milliseconds, you should use both
+    - If you need to use remaining time in milliseconds, you can use only low field
+    - because high field will be 0
+*/
+message MillisTime {
+    uint64 high = 1;
+    uint64 low = 2;
 }

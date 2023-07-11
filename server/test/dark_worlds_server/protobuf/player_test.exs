@@ -8,24 +8,22 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
 
   describe "Player encoding and decoding" do
     test "Health below 0 is encodable" do
-      now = DateTime.utc_now() |> DateTime.to_unix()
       [status] = Enum.take_random([:ALIVE, :DEAD], 1)
 
       player = %ProtoPlayer{
         id: 1,
         health: -(2 ** 63 - 1),
         position: %Position{x: 1, y: 2},
-        last_melee_attack: now,
         status: status,
         action: :NOTHING,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
         death_count: 0,
-        basic_skill_cooldown_left: 0,
-        skill_1_cooldown_left: 0,
-        skill_2_cooldown_left: 0,
-        skill_3_cooldown_left: 0,
-        skill_4_cooldown_left: 0,
+        basic_skill_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_1_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_2_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_3_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{}
       }
@@ -34,17 +32,16 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         id: 1,
         health: -(2 ** 63 - 1),
         position: %Position{x: 1, y: 2},
-        last_melee_attack: now,
         status: status,
         action: :nothing,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
         death_count: 0,
-        basic_skill_cooldown_left: 0,
-        skill_1_cooldown_left: 0,
-        skill_2_cooldown_left: 0,
-        skill_3_cooldown_left: 0,
-        skill_4_cooldown_left: 0,
+        basic_skill_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_1_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_2_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_3_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
+        skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{}
       }

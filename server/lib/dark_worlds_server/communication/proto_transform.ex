@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
@@ -28,6 +29,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(entry, SelectedCharactersEntry) do
     entry
+  end
+
+  def encode(millis_time, ProtoMillisTime) do
+    millis_time
   end
 
   def encode(runner_config, RunnerConfig) do
@@ -208,7 +213,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      last_melee_attack: attack,
       status: status,
       action: action,
       aoe_position: aoe_position,
@@ -227,7 +231,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      last_melee_attack: attack,
       status: status,
       action: player_action_decode(action),
       aoe_position: aoe_position,
@@ -384,8 +387,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp projectile_status_decode(:ACTIVE), do: :active
   defp projectile_status_decode(:EXPLODED), do: :exploded
 
-  defp effect_encode({:petrified, ticks}), do: {0, ticks}
-  defp effect_encode({:disarmed, ticks}), do: {1, ticks}
-  defp effect_encode({:piercing, ticks}), do: {2, ticks}
-  defp effect_encode({:raged, ticks}), do: {3, ticks}
+  defp effect_encode({:petrified, %{ends_at: ends_at}}), do: {0, ends_at}
+  defp effect_encode({:disarmed, %{ends_at: ends_at}}), do: {1, ends_at}
+  defp effect_encode({:piercing, %{ends_at: ends_at}}), do: {2, ends_at}
+  defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
+  defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
 end
