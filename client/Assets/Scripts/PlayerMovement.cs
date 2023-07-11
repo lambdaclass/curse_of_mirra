@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
+            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -520,13 +523,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetPlayerDead(Character playerCharacter)
     {
-        playerCharacter.gameObject.SetActive(false);
+        playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
     }
 
     public void SetPlayerAlive(Character playerCharacter)
     {
-        playerCharacter.gameObject.SetActive(true);
+        playerCharacter.CharacterModel.SetActive(true);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
