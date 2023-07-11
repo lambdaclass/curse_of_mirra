@@ -471,10 +471,16 @@ public class PlayerMovement : MonoBehaviour
         if (healthComponent.CurrentHealth <= 0)
         {
             healthComponent.Model.gameObject.SetActive(false);
+            player
+                .GetComponent<Character>()
+                .ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         }
         if (healthComponent.CurrentHealth == 100)
         {
             healthComponent.Model.gameObject.SetActive(true);
+            player
+                .GetComponent<Character>()
+                .ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
         }
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)

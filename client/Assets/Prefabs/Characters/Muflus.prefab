@@ -908,6 +908,11 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8204b292856974b849e0592b526ef9f7,
+        type: 3}
+      propertyPath: m_KeepAnimatorStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8204b292856974b849e0592b526ef9f7, type: 3}
 --- !u!95 &4324005410788790276 stripped

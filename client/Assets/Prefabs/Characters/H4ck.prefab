@@ -665,7 +665,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 1
   m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3971461494162920976
 MonoBehaviour:
@@ -679,7 +679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8db6bc3b8dc9489d8a93cbf462694b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skill: {fileID: 0}
 --- !u!4 &5669474817118330847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7471d2a748cb24909acd6bc1fff42ca8,
@@ -1001,7 +1000,7 @@ PrefabInstance:
         type: 3}
       propertyPath: objectToHighlight
       value: 
-      objectReference: {fileID: 5248372586167607803}
+      objectReference: {fileID: 5036666926062634341}
     - target: {fileID: 8881652260837056422, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
       propertyPath: m_RootOrder
