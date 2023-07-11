@@ -93,11 +93,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(_actions, %{game_status: :game_finished} = gen_server_state) do
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "1"})}
   end
 
   def handle_cast(_actions, %{game_status: :round_finished} = gen_server_state) do
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "2"})}
   end
 
   def handle_cast(
@@ -112,7 +112,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
 
-    {:noreply, %{gen_server_state | selected_characters: selected_characters}}
+    {:noreply, Map.merge(%{gen_server_state | selected_characters: selected_characters}, %{tag: "3"})}
   end
 
   ## This will handle the case where players could send player movement actions or attacks
@@ -121,7 +121,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, _, _},
         %{game_status: :character_selection} = gen_server_state
       ) do
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "4"})}
   end
 
   def handle_cast(
@@ -136,7 +136,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "5"})}
   end
 
   def handle_cast(
@@ -153,7 +153,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> Map.put(:server_game_state, server_game_state)
     |> set_timestamp_for_player(timestamp, player)
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "6"})}
   end
 
   def handle_cast(
@@ -169,7 +169,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "7"})}
   end
 
   def handle_cast(
@@ -185,7 +185,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.put(gen_server_state, :server_game_state, server_game_state)
       |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "8"})}
   end
 
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
@@ -212,14 +212,15 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     BotPlayer.add_bot(bot_handler_pid, bot_id)
 
-    {:noreply,
-     %{
+
+    {:noreply, Map.merge(%{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
          current_players: gen_server_state.current_players + 1,
          selected_characters: selected_characters,
          bot_handler_pid: bot_handler_pid
-     }}
+     }, %{tag: "9"})}
+
   end
 
   def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
@@ -229,7 +230,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       BotPlayer.disable_bots(bot_pid)
     end
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "10"})}
   end
 
   def handle_cast({:play, _, %ActionOk{action: :enable_bots}}, gen_server_state) do
@@ -239,7 +240,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       BotPlayer.enable_bots(bot_pid)
     end
 
-    {:noreply, gen_server_state}
+    {:noreply, Map.merge(gen_server_state, %{tag: "11"})}
   end
 
   def handle_cast(
@@ -249,6 +250,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
     {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
@@ -278,11 +280,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
-    all_characters_set?(gen_server_state)
+    {:noreply, all_characters_set?(gen_server_state)}
   end
 
   def handle_info(:character_selection_time_out, gen_server_state) do
-    character_selection_time_out(gen_server_state)
+    {:noreply, character_selection_time_out(gen_server_state)}
   end
 
   def handle_info(:start_game, gen_server_state) do
@@ -504,39 +506,36 @@ defmodule DarkWorldsServer.Engine.Runner do
         Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     end
 
-    {:noreply, state}
+    state
   end
 
   defp character_selection_time_out(state) do
     selected_characters = state[:selected_characters]
 
-    state =
-      cond do
-        state[:game_status] == :playing ->
-          state
+    cond do
+      state[:game_status] == :playing ->
+        state
 
-        not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-          players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
+      not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
+        players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
-          players_without_character =
-            Enum.filter(state[:players], fn player_id -> player_id not in players_with_character end)
+        players_without_character =
+          Enum.filter(state[:players], fn player_id -> player_id not in players_with_character end)
 
-          selected_characters =
-            Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
-              character_name = Enum.random(["H4ck", "Muflus", "Uma"])
-              Map.put(map, player_id, character_name)
-            end)
+        selected_characters =
+          Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
+            character_name = Enum.random(["H4ck", "Muflus", "Uma"])
+            Map.put(map, player_id, character_name)
+          end)
 
-          Process.send_after(self(), :start_game, @game_start_timer_ms)
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
 
-          {:noreply, %{state | selected_characters: selected_characters}}
+        %{state | selected_characters: selected_characters}
 
-        true ->
-          Process.send_after(self(), :start_game, @game_start_timer_ms)
-          state
-      end
-
-    {:noreply, state}
+      true ->
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
+        state
+    end
   end
 
   defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)
