@@ -285,4 +285,9 @@ public class SocketConnectionManager : MonoBehaviour
     {
         ws.Close();
     }
+
+    public bool isConnectionOpen()
+    {
+        return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
 }

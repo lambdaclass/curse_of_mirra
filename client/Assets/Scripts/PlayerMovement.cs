@@ -444,17 +444,13 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<PlayerFeedbacks>()
             .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
 
-        // FIXME: Temporary solution until all models can handle the feedback
-        if (playerUpdate.CharacterName == "H4ck")
-        {
-            // Display damage done on others players (not you)
-            GetComponent<PlayerFeedbacks>()
-                .ChangePlayerTextureOnDamage(
-                    player,
-                    healthComponent.CurrentHealth,
-                    playerUpdate.Health
-                );
-        }
+        // Display damage done on others players (not you)
+        GetComponent<PlayerFeedbacks>()
+            .ChangePlayerTextureOnDamage(
+                player,
+                healthComponent.CurrentHealth,
+                playerUpdate.Health
+            );
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -465,10 +461,6 @@ public class PlayerMovement : MonoBehaviour
 
         bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
         player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-        if (isAttackingAttack)
-        {
-            print(player.name + "attack");
-        }
 
         //if dead remove the player from the scene
         if (healthComponent.CurrentHealth <= 0)
