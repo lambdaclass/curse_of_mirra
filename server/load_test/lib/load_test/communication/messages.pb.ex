@@ -325,6 +325,7 @@ defmodule LoadTest.Communication.Proto.CharacterConfigItem do
   field(:SkillActive2, 9, type: :string)
   field(:SkillDash, 10, type: :string)
   field(:SkillUltimate, 11, type: :string)
+  field(:BodySize, 12, type: :string)
 end
 
 defmodule LoadTest.Communication.Proto.CharacterConfig do
