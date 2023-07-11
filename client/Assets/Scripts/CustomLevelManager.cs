@@ -24,8 +24,6 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     GameObject backToLobbyButton;
-
-    [SerializeField]
     private List<Player> gamePlayers;
 
     [SerializeField]
@@ -183,12 +181,18 @@ public class CustomLevelManager : LevelManager
                 UInt64.Parse(player.PlayerID)
             ];
             CoMCharacter characterInfo = charactersInfo.Find(el => el.name == selectedCharacter);
+            SkillAnimationEvents skillsAnimationEvent =
+                player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
-            skillBasic.SetSkill(Action.BasicAttack, characterInfo.skillBasicInfo);
-            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info);
-            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info);
-            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info);
-            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info);
+            skillBasic.SetSkill(
+                Action.BasicAttack,
+                characterInfo.skillBasicInfo,
+                skillsAnimationEvent
+            );
+            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info, skillsAnimationEvent);
+            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
+            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
+            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
