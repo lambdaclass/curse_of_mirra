@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyPlayerList : MonoBehaviour
@@ -17,6 +18,7 @@ public class LobbyPlayerList : MonoBehaviour
         if (playerItems.Count < LobbyConnection.Instance.playerCount)
         {
             createPlayerItems();
+            LobbyConnection.Instance.totalLobbyPlayers = playerItems;
         }
         else if (playerItems.Count > LobbyConnection.Instance.playerCount)
         {
@@ -42,29 +44,18 @@ public class LobbyPlayerList : MonoBehaviour
         }
     }
 
-    private GameObject CreatePlayerItem(ulong id)
+    public GameObject CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
         playerI.SetId(id);
-
-        if (id == 1)
-        {
-            playerI.playerText.text += " " + (id.ToString() + " " + "HOST");
-            playButton.SetActive(true);
-        }
-        else
-        {
-            if (LobbyConnection.Instance.playerId == id)
-            {
-                playerI.playerText.text += " " + id.ToString() + " " + "YOU";
-            }
-            else
-            {
-                playerI.playerText.text += " " + id.ToString();
-            }
-        }
+        playerI.SetPlayerItemText();
 
         return newPlayer;
+    }
+
+    public GameObject GetItemById(ulong id)
+    {
+        return playerItems.Find(el => el.GetComponent<PlayerItem>().id == id);
     }
 }
