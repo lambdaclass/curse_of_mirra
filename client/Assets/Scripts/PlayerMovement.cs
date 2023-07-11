@@ -292,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
                     .GetComponent<MainAttack>()
                     .ShootLaser(
                         projectile,
-                        new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2])
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
