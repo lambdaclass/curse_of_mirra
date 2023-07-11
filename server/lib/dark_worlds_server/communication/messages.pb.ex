@@ -71,6 +71,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 5)
   field(:EXECUTING_SKILL_3, 6)
   field(:EXECUTING_SKILL_4, 7)
+  field(:MOVING, 8)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
@@ -180,6 +181,17 @@ defmodule DarkWorldsServer.Communication.Proto.Player.EffectsEntry do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
+defmodule DarkWorldsServer.Communication.Proto.Player.ActionsEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :uint64)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
 defmodule DarkWorldsServer.Communication.Proto.Player do
   @moduledoc false
 
@@ -215,6 +227,12 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   field(:effects, 17,
     repeated: true,
     type: DarkWorldsServer.Communication.Proto.Player.EffectsEntry,
+    map: true
+  )
+
+  field(:actions, 18,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.Player.ActionsEntry,
     map: true
   )
 
