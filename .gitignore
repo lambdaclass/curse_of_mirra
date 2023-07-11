@@ -117,3 +117,6 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+## Dev ##
+*.todo

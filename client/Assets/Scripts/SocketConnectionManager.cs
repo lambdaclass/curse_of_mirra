@@ -280,4 +280,14 @@ public class SocketConnectionManager : MonoBehaviour
             return "wss://" + server_ip + path;
         }
     }
+
+    public void closeConnection()
+    {
+        ws.Close();
+    }
+
+    public bool isConnectionOpen()
+    {
+        return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
 }

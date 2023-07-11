@@ -10,4 +10,5 @@ public class SkillInfo : ScriptableObject
     public GameObject feedbackAnimation;
     public float animationSpeedMultiplier;
     public float blockMovementTime;
+    public AudioClip abilityStartSfx;
 }
