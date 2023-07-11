@@ -405,10 +405,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp action_encode({:nothing, ticks}), do: {0, ticks}
   defp action_encode({:attacking, ticks}), do: {1, ticks}
   defp action_encode({:attacking_aoe, ticks}), do: {2, ticks}
-  defp action_encode({:executing_skill_1, ticks}), do: {3, ticks}
+  defp action_encode({:executingskill1, ticks}), do: {3, ticks}
   defp action_encode({:teleporting, ticks}), do: {4, ticks}
-  defp action_encode({:executing_skill_2, ticks}), do: {5, ticks}
-  defp action_encode({:executing_skill_3, ticks}), do: {6, ticks}
-  defp action_encode({:executing_skill_4, ticks}), do: {7, ticks}
+  defp action_encode({:executingskill2, ticks}), do: {5, ticks}
+  defp action_encode({:executingskill3, ticks}), do: {6, ticks}
+  defp action_encode({:executingskill4, ticks}), do: {7, ticks}
   defp action_encode({:moving, ticks}), do: {8, ticks}
 end

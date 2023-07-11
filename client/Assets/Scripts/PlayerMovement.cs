@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
-                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action, serverPlayerUpdate);
             }
 
             // TODO: try to optimize GetComponent calls
@@ -199,32 +199,55 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
+    private void executeSkillFeedback(
+        GameObject actualPlayer,
+        PlayerAction playerAction,
+        Player updatedPlayer
+    )
     {
         if (actualPlayer.name.Contains("BOT"))
         {
             return;
         }
-
-        // TODO: Refactor
-        switch (playerAction)
+        if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.Attacking))
         {
-            case PlayerAction.Attacking:
-                actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
-                break;
-            case PlayerAction.ExecutingSkill1:
-                actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
-                break;
-            case PlayerAction.ExecutingSkill2:
-                actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
-                break;
-            case PlayerAction.ExecutingSkill3:
-                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                break;
-            case PlayerAction.ExecutingSkill4:
-                actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
-                break;
+            actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
         }
+        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill1))
+        {
+            actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+        }
+        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill2))
+        {
+            actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+        }
+        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill3))
+        {
+            actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+        }
+        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill4))
+        {
+            actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+        }
+        // TODO: Refactor
+        // switch (playerAction)
+        // {
+        //     case PlayerAction.Attacking:
+        //         actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+        //         break;
+        //     case PlayerAction.ExecutingSkill1:
+        //         actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+        //         break;
+        //     case PlayerAction.ExecutingSkill2:
+        //         actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+        //         break;
+        //     case PlayerAction.ExecutingSkill3:
+        //         actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+        //         break;
+        //     case PlayerAction.ExecutingSkill4:
+        //         actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+        //         break;
+        // }
     }
 
     void UpdateProyectileActions()
