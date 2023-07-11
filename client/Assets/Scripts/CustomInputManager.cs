@@ -25,29 +25,31 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField] MMTouchButton SkillBasic;
-    [SerializeField] MMTouchButton Skill1;
-    [SerializeField] MMTouchButton Skill2;
-    [SerializeField] MMTouchButton Skill3;
-    [SerializeField] MMTouchButton Skill4;
+    [SerializeField] Image joystickL;
+    [SerializeField] CustomMMTouchButton SkillBasic;
+    [SerializeField] CustomMMTouchButton Skill1;
+    [SerializeField] CustomMMTouchButton Skill2;
+    [SerializeField] CustomMMTouchButton Skill3;
+    [SerializeField] CustomMMTouchButton Skill4;
     [SerializeField] TMP_Text SkillBasicCooldown;
     [SerializeField] TMP_Text Skill1Cooldown;
     [SerializeField] TMP_Text Skill2Cooldown;
     [SerializeField] TMP_Text Skill3Cooldown;
     [SerializeField] TMP_Text Skill4Cooldown;
-    Dictionary<UIControls, MMTouchButton> mobileButtons;
+    Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
+    private Vector3 initialLeftJoystickPosition;
 
     protected override void Start()
     {
         base.Start();
 
-        mobileButtons = new Dictionary<UIControls, MMTouchButton>();
+        mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
@@ -55,7 +57,7 @@ public class CustomInputManager : InputManager
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
-        // or extending MMTouchButton and linking its cooldown text
+        // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
         buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
         buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
@@ -63,20 +65,26 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
-
+    public void InitializeInputSprite(CoMCharacter characterInfo)
+    {
+        SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite, null);
+        Skill1.SetInitialSprite(characterInfo.skill1Sprite, characterInfo.skillBackground);
+        Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
+        Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
+        Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
+    }
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
         CustomMMTouchJoystick joystick = mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>();
+        CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
         {
             case UIType.Tap:
-                MMTouchButton button = mobileButtons[trigger].GetComponent<MMTouchButton>();
-
-                button.ButtonPressedFirstTime.AddListener(skill.ExecuteSkill);
+                button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
-                    mobileButtons[trigger].GetComponent<CustomMMTouchJoystick>().enabled = false;
+                    joystick.enabled = false;
                 }
                 break;
 
@@ -156,7 +164,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.ExecuteSkill(aoePosition);
+        skill.TryExecuteSkill(aoePosition);
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -223,17 +231,21 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.ExecuteSkill(direction);
+        skill.TryExecuteSkill(direction);
     }
 
-    public void CheckSkillCooldown(UIControls control, ulong cooldown){
-        MMTouchButton button = mobileButtons[control];
+    public void CheckSkillCooldown(UIControls control, ulong cooldown)
+    {
+        CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
 
-        if (cooldown == 0){
+        if (cooldown == 0)
+        {
             button.EnableButton();
             cooldownText.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             button.DisableButton();
             cooldownText.gameObject.SetActive(true);
             cooldownText.text = cooldown.ToString();
@@ -246,8 +258,8 @@ public class CustomInputManager : InputManager
         {
             if (button != activeJoystick)
             {
-                // Try MMTouchButton.DisableButton();
-                button.GetComponent<MMTouchButton>().Interactable = false;
+                // Try CustomMMTouchButton.DisableButton();
+                button.GetComponent<CustomMMTouchButton>().Interactable = false;
             }
         }
     }
@@ -256,7 +268,16 @@ public class CustomInputManager : InputManager
     {
         foreach (var (key, button) in mobileButtons)
         {
-            button.GetComponent<MMTouchButton>().Interactable = true;
+            button.GetComponent<CustomMMTouchButton>().Interactable = true;
         }
+    }
+
+    public void SetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 0.25f);
+    }
+    public void UnsetOpacity()
+    {
+        joystickL.color = new Color(255, 255, 255, 1);
     }
 }

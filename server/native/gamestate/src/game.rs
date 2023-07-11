@@ -4,9 +4,10 @@ use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
 use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, RelativePosition, Status};
-use crate::projectile::{JoystickValues, Projectile, ProjectileStatus, ProjectileType};
+use crate::player::{Player, PlayerAction, Position, Status};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::time_now;
+use crate::utils::RelativePosition;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -26,6 +27,7 @@ pub enum Direction {
     LEFT,
     RIGHT,
 }
+
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
@@ -60,11 +62,13 @@ impl GameState {
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
 
-                let selected_character = selected_characters.get(&player_id).unwrap().clone();
+                let selected_character = selected_characters
+                    .get(&player_id)
+                    .ok_or(format!("Could not get player {player_id} character"))?;
 
                 let character = characters
                     .iter()
-                    .find(|x| x.name == selected_character)
+                    .find(|x| x.name == *selected_character)
                     .ok_or("Can't get the character")?
                     .clone();
 
@@ -79,7 +83,7 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         // We generate 10 random walls if walls is true
@@ -89,7 +93,7 @@ impl GameState {
                 let row_idx: usize = rng.gen_range(0..board_width);
                 let col_idx: usize = rng.gen_range(0..board_height);
                 if let Some(Tile::Empty) = board.get_cell(row_idx, col_idx) {
-                    board.set_cell(row_idx, col_idx, Tile::Wall);
+                    board.set_cell(row_idx, col_idx, Tile::Wall)?;
                 }
             }
         }
@@ -104,7 +108,7 @@ impl GameState {
         })
     }
 
-    pub fn new_round(self: &mut Self, players: Vec<Player>) {
+    pub fn new_round(self: &mut Self, players: Vec<Player>) -> Result<(), String> {
         let mut positions = HashSet::new();
         let mut players: Vec<Player> = players;
 
@@ -121,14 +125,19 @@ impl GameState {
                 player.position.x,
                 player.position.y,
                 Tile::Player(player.id),
-            );
+            )?;
         }
 
         self.players = players;
         self.board = board;
+        Ok(())
     }
 
-    pub fn move_player(self: &mut Self, player_id: u64, direction: Direction) {
+    pub fn move_player(
+        self: &mut Self,
+        player_id: u64,
+        direction: Direction,
+    ) -> Result<(), String> {
         let player = self
             .players
             .iter_mut()
@@ -136,13 +145,13 @@ impl GameState {
             .unwrap();
 
         if matches!(player.status, Status::DEAD) {
-            return;
+            return Ok(());
         }
 
         let mut new_position = compute_adjacent_position_n_tiles(
             &direction,
             &player.position,
-            player.character.speed() as usize,
+            player.speed() as usize,
         );
 
         // These changes are done so that if the player is moving into one of the map's borders
@@ -158,14 +167,15 @@ impl GameState {
 
         // Remove the player from their previous position on the board
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
+        Ok(())
     }
 
     pub fn move_player_to_coordinates(
@@ -173,8 +183,10 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let new_position_x = attacking_player.position.x as i64 - direction.y;
-        let new_position_y = attacking_player.position.y as i64 + direction.x;
+        // TODO: 120 should be a config. It's the realtion between front range in skills and
+        // the distance in the back.
+        let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
+        let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
 
         // These changes are done so that if the player is moving into one of the map's borders
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
@@ -195,15 +207,15 @@ impl GameState {
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Empty,
-        );
+        )?;
         attacking_player.position = new_position_coordinates;
-        attacking_player.action = PlayerAction::TELEPORTING;
+        // attacking_player.action = PlayerAction::TELEPORTING;
 
         board.set_cell(
             attacking_player.position.x,
             attacking_player.position.y,
             Tile::Player(attacking_player.id),
-        );
+        )?;
 
         Ok(())
     }
@@ -235,18 +247,18 @@ impl GameState {
             x,
             y,
             player.position,
-            player.character.speed() as i64,
+            player.speed() as i64,
         );
 
         self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty);
+            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
 
         player.position = new_position;
         self.board.set_cell(
             player.position.x,
             player.position.y,
             Tile::Player(player.id),
-        );
+        )?;
         Ok(())
     }
 
@@ -287,6 +299,69 @@ impl GameState {
         players
     }
 
+    pub fn players_in_projectile_movement(
+        attacking_player_id: u64,
+        players: &mut Vec<Player>,
+        previous_position: Position,
+        next_position: Position,
+    ) -> Vec<u64> {
+        let mut affected_players: Vec<u64> = vec![];
+
+        let (p1, p2) = match previous_position.x < next_position.x {
+            true => (previous_position, next_position),
+            false if previous_position.x > next_position.x => (next_position, previous_position),
+            false if previous_position.y < next_position.y => (previous_position, next_position),
+            _ => (next_position, previous_position),
+        };
+
+        players
+            .iter_mut()
+            .filter(|player| {
+                matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
+            })
+            .for_each(|player| {
+                let radius = player.character.body_size;
+
+                let player_attacked = match p2.y == p1.y {
+                    true => {
+                        // The projectile is moving vertically
+                        let intersection = Position::new(player.position.x, p1.y);
+
+                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                    false if p2.x == p1.x => {
+                        // The projectile is moving horizontally
+                        let intersection = Position::new(p1.x, player.position.y);
+
+                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                    _ => {
+                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
+                        let perpendicular_slope = -1f32 / slope;
+                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
+                        let perpendicular_intercept = player.position.y as f32
+                            - (perpendicular_slope as f32 * player.position.x as f32);
+
+                        let x =
+                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
+                        let y = slope * x + intercept;
+                        let intersection = Position::new(x as usize, y as usize);
+
+                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
+                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                    }
+                };
+
+                if player_attacked {
+                    affected_players.push(player.id);
+                }
+            });
+
+        affected_players
+    }
+
     pub fn basic_attack(
         self: &mut Self,
         attacking_player_id: u64,
@@ -299,9 +374,8 @@ impl GameState {
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::ATTACKING;
-        attacking_player.basic_skill_cooldown_start = now;
+        attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
 
@@ -317,12 +391,7 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
             }
-            Name::Uma => Self::h4ck_basic_attack(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Ok(()),
         }
     }
 
@@ -332,12 +401,8 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
-            let piercing = match attacking_player
-                .character
-                .status_effects
-                .get(&Effect::Piercing)
-            {
+        if direction.x != 0f32 || direction.y != 0f32 {
+            let piercing = match attacking_player.effects.get(&Effect::Piercing) {
                 Some((1_u64..=u64::MAX)) => true,
                 None | Some(0) => false,
             };
@@ -345,11 +410,11 @@ impl GameState {
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
-                14,
-                10,
+                RelativePosition::new(direction.x as f32, direction.y as f32),
+                5,
+                1,
                 attacking_player.id,
-                attacking_player.character.attack_dmg_basic_skill(),
+                attacking_player.basic_skill_damage(),
                 30,
                 ProjectileType::BULLET,
                 ProjectileStatus::ACTIVE,
@@ -363,25 +428,25 @@ impl GameState {
     }
 
     pub fn position_to_direction(position: &RelativePosition) -> Direction {
-        if position.x > 0 && position.y > 0 {
+        if position.x > 0f32 && position.y > 0f32 {
             if position.x > position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x > 0 && position.y <= 0 {
+        } else if position.x > 0f32 && position.y <= 0f32 {
             if position.x > -position.y {
                 return Direction::RIGHT;
             } else {
                 return Direction::DOWN;
             }
-        } else if position.x <= 0 && position.y > 0 {
+        } else if position.x <= 0f32 && position.y > 0f32 {
             if -position.x > position.y {
                 return Direction::LEFT;
             } else {
                 return Direction::UP;
             }
-        } else if position.x <= 0 && position.y <= 0 {
+        } else if position.x <= 0f32 && position.y <= 0f32 {
             if -position.x > -position.y {
                 return Direction::LEFT;
             } else {
@@ -398,41 +463,28 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        let attack_dmg = attacking_player.character.attack_dmg_basic_skill() as i64;
+        let attack_dmg = attacking_player.basic_skill_damage() as i64;
         let attack_direction = Self::position_to_direction(direction);
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
         let (top_left, bottom_right) = compute_attack_initial_positions(
             &(attack_direction),
             &(attacking_player.position),
             attack_range,
         );
 
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
-                .into_iter()
-                .filter(|&id| id != attacking_player.id)
-                .collect();
-
+        let affected_players = GameState::players_in_range(board, top_left, bottom_right)
+            .into_iter()
+            .filter(|&id| id != attacking_player.id);
         let mut kill_count = 0;
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player.id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    if matches!(ap.status, Status::DEAD) {
-                        kill_count += 1;
-                    }
-                    let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
-                }
-                _ => continue,
+        for target_player_id in affected_players {
+            let attacked_player = GameState::get_player_mut(players, target_player_id)?;
+            attacked_player.modify_health(-attack_dmg);
+            if matches!(attacked_player.status, Status::DEAD) {
+                kill_count += 1;
             }
+            GameState::modify_cell_if_player_died(board, &attacked_player)?;
         }
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
@@ -446,16 +498,14 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.first_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
-        attacking_player.first_skill_start = now;
-        attacking_player.first_skill_cooldown_left =
-            attacking_player.character.cooldown_first_skill();
+        attacking_player.skill_1_started_at = now;
+        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_first_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -468,12 +518,7 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
             }
-            _ => Self::h4ck_skill_1(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Ok(()),
         }
     }
 
@@ -483,7 +528,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
+        if direction.x != 0f32 || direction.y != 0f32 {
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -497,14 +542,14 @@ impl GameState {
                 let projectile = Projectile::new(
                     *next_projectile_id,
                     attacking_player.position,
-                    JoystickValues::new(
+                    RelativePosition::new(
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
                     10,
-                    10,
+                    1,
                     attacking_player.id,
-                    attacking_player.character.attack_dmg_first_active(),
+                    attacking_player.skill_1_damage(),
                     10,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
@@ -523,12 +568,11 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<(), String> {
-        // TODO: This should be a config of the attack
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        let attack_dmg = attacking_player.character.attack_dmg_first_active() as i64;
+        let attack_dmg = attacking_player.skill_1_damage() as i64;
 
         // TODO: This should be a config of the attack
-        let attack_range = 20;
+        let attack_range = 40;
 
         let (top_left, bottom_right) =
             compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);
@@ -549,7 +593,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player);
+                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -563,6 +607,7 @@ impl GameState {
         direction: &RelativePosition,
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
+        // TODO: refactor this skill
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         Self::move_player_to_coordinates(board, attacking_player, direction)?;
         Self::muflus_skill_1(board, players, attacking_player_id)?;
@@ -576,16 +621,74 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.second_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
-        attacking_player.second_skill_cooldown_start = now;
-        attacking_player.second_skill_cooldown_left =
-            attacking_player.character.cooldown_basic_skill();
+        attacking_player.skill_2_started_at = now;
+        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_second_skill();
+
+        match attacking_player.character.name {
+            Name::H4ck => Self::h4ck_skill_2(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
+            Name::Muflus => Self::muflus_skill_2(attacking_player),
+            _ => Ok(()),
+        }
+    }
+
+    pub fn h4ck_skill_2(
+        attacking_player: &Player,
+        direction: &RelativePosition,
+        projectiles: &mut Vec<Projectile>,
+        next_projectile_id: &mut u64,
+    ) -> Result<(), String> {
+        if direction.x != 0f32 || direction.y != 0f32 {
+            let projectile = Projectile::new(
+                *next_projectile_id,
+                attacking_player.position,
+                RelativePosition::new(direction.x as f32, direction.y as f32),
+                14,
+                10,
+                attacking_player.id,
+                0,
+                100,
+                ProjectileType::DISARMINGBULLET,
+                ProjectileStatus::ACTIVE,
+                attacking_player.id,
+                false,
+            );
+            projectiles.push(projectile);
+            (*next_projectile_id) += 1;
+        }
+        Ok(())
+    }
+
+    pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
+        attacking_player.add_effect(Effect::Raged.clone(), 100);
+        Ok(())
+    }
+
+    pub fn skill_3(
+        self: &mut Self,
+        attacking_player_id: u64,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+
+        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left) {
+            return Ok(());
+        }
+
+        let now = time_now();
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player.skill_3_started_at = now;
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
 
         match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -598,48 +701,8 @@ impl GameState {
                 let id = attacking_player.id;
                 Self::leap(&mut self.board, id, direction, &mut self.players)
             }
-            _ => Self::h4ck_skill_2(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            _ => Ok(()),
         }
-    }
-
-    pub fn h4ck_skill_2(
-        attacking_player: &Player,
-        direction: &RelativePosition,
-        projectiles: &mut Vec<Projectile>,
-        next_projectile_id: &mut u64,
-    ) -> Result<(), String> {
-        if direction.x != 0 || direction.y != 0 {
-            let projectile = Projectile::new(
-                *next_projectile_id,
-                attacking_player.position,
-                JoystickValues::new(direction.x as f32 / 100f32, direction.y as f32 / 100f32),
-                14,
-                10,
-                attacking_player.id,
-                0,
-                30,
-                ProjectileType::DISARMINGBULLET,
-                ProjectileStatus::ACTIVE,
-                attacking_player.id,
-                false,
-            );
-            projectiles.push(projectile);
-            (*next_projectile_id) += 1;
-        }
-        Ok(())
-    }
-
-    pub fn skill_3(
-        self: &mut Self,
-        _attacking_player_id: u64,
-        _direction: &RelativePosition,
-    ) -> Result<(), String> {
-        return Ok(());
     }
 
     pub fn skill_4(
@@ -649,22 +712,18 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.fourth_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.last_melee_attack = now;
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player.fourth_skill_start = now;
-        attacking_player.fourth_skill_cooldown_left =
-            attacking_player.character.cooldown_fourth_skill();
+        attacking_player.skill_4_cooldown_left = now;
+        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
 
         match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player
-                    .character
-                    .add_effect(Effect::Piercing.clone(), 300);
+                attacking_player.add_effect(Effect::Piercing.clone(), 300);
                 Ok(())
             }
             _ => Ok(()),
@@ -687,10 +746,14 @@ impl GameState {
             player.update_cooldowns();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            player.character.status_effects.retain(|_, ticks_left| {
+            player.effects.retain(|_, ticks_left| {
                 *ticks_left = ticks_left.saturating_sub(1);
                 *ticks_left != 0
             });
+        });
+
+        self.projectiles.retain(|projectile| {
+            projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
         });
 
         self.projectiles.iter_mut().for_each(|projectile| {
@@ -698,33 +761,19 @@ impl GameState {
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
-        self.projectiles
-            .retain(|projectile| projectile.remaining_ticks > 0);
-
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
-                let top_left = Position::new(
-                    projectile
-                        .position
-                        .x
-                        .saturating_sub(projectile.range as usize),
-                    projectile
-                        .position
-                        .y
-                        .saturating_sub(projectile.range as usize),
-                );
-                let bottom_right = Position::new(
-                    projectile.position.x + projectile.range as usize,
-                    projectile.position.y + projectile.range as usize,
-                );
-
-                let affected_players: Vec<u64> =
-                    GameState::players_in_range(&self.board, top_left, bottom_right)
-                        .into_iter()
-                        .filter(|&id| {
-                            id != projectile.player_id && id != projectile.last_attacked_player_id
-                        })
-                        .collect();
+                let affected_players: Vec<u64> = GameState::players_in_projectile_movement(
+                    projectile.player_id,
+                    &mut self.players,
+                    projectile.prev_position,
+                    projectile.position,
+                )
+                .into_iter()
+                .filter(|&id| {
+                    id != projectile.player_id && id != projectile.last_attacked_player_id
+                })
+                .collect();
 
                 if affected_players.len() > 0 && !projectile.pierce {
                     projectile.status = ProjectileStatus::EXPLODED;
@@ -734,18 +783,20 @@ impl GameState {
                 for target_player_id in affected_players {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, target_player_id)?;
+
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
-                            attacked_player
-                                .character
-                                .add_effect(Effect::Disarmed.clone(), 300);
+                            attacked_player.add_effect(Effect::Disarmed.clone(), 300);
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             if matches!(attacked_player.status, Status::DEAD) {
                                 kill_count += 1;
                             }
-                            GameState::modify_cell_if_player_died(&mut self.board, attacked_player);
+                            GameState::modify_cell_if_player_died(
+                                &mut self.board,
+                                attacked_player,
+                            )?;
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
@@ -757,10 +808,11 @@ impl GameState {
         Ok(())
     }
 
-    fn modify_cell_if_player_died(board: &mut Board, player: &Player) {
+    fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
         if matches!(player.status, Status::DEAD) {
-            board.set_cell(player.position.x, player.position.y, Tile::Empty);
+            board.set_cell(player.position.x, player.position.y, Tile::Empty)?
         }
+        Ok(())
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
@@ -776,7 +828,8 @@ impl GameState {
         }
 
         self.board
-            .set_cell(position.x, position.y, Tile::Player(player_id));
+            .set_cell(position.x, position.y, Tile::Player(player_id))
+            .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
     }

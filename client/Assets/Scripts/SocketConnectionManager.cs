@@ -38,6 +38,11 @@ public class SocketConnectionManager : MonoBehaviour
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
+    public List<GameEvent> gameEvents = new List<GameEvent>();
+    private Boolean botsActive = true;
+
+    public EventsBuffer eventsBuffer;
+
     WebSocket ws;
 
     public class Session
@@ -59,6 +64,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         playerId = LobbyConnection.Instance.playerId;
         ConnectToSession(this.session_id);
+        eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     }
 
     void Update()
@@ -124,12 +130,17 @@ public class SocketConnectionManager : MonoBehaviour
                         game_event.Players
                             .ToList()
                             .FindAll((player) => !this.gamePlayers.Contains(player))
-                            .ForEach((player) => SpawnBot.Instance.Spawn(player));
+                            .ForEach(
+                                (player) =>
+                                {
+                                    SpawnBot.Instance.Spawn(player);
+                                }
+                            );
                     }
                     // This should be deleted when the match end is fixed
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
-                    this.gameEvent = game_event;
+                    eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     break;
                 case GameEventType.PingUpdate:
@@ -138,13 +149,19 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.NextRound:
                     print("The winner of the round is " + game_event.WinnerPlayer);
                     winners.Add(game_event.WinnerPlayer);
-                    var newPlayer1 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
+                    var newPlayer1 = GetPlayer(
+                        SocketConnectionManager.Instance.playerId,
+                        game_event.Players.ToList()
+                    );
 
                     break;
                 case GameEventType.LastRound:
                     winners.Add(game_event.WinnerPlayer);
                     print("The winner of the round is " + game_event.WinnerPlayer);
-                    var newPlayer2 = GetPlayer(SocketConnectionManager.Instance.playerId, game_event.Players.ToList());
+                    var newPlayer2 = GetPlayer(
+                        SocketConnectionManager.Instance.playerId,
+                        game_event.Players.ToList()
+                    );
 
                     break;
                 case GameEventType.GameFinished:
@@ -156,10 +173,14 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     break;
                 case GameEventType.SelectedCharacterUpdate:
-                    this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
+                    this.selectedCharacters = fromMapFieldToDictionary(
+                        game_event.SelectedCharacters
+                    );
                     break;
                 case GameEventType.FinishCharacterSelection:
-                    this.selectedCharacters = fromMapFieldToDictionary(game_event.SelectedCharacters);
+                    this.selectedCharacters = fromMapFieldToDictionary(
+                        game_event.SelectedCharacters
+                    );
                     this.gamePlayers = game_event.Players.ToList();
                     SceneManager.LoadScene("BackendPlayground");
                     break;
@@ -185,11 +206,10 @@ public class SocketConnectionManager : MonoBehaviour
 
         return result;
     }
+
     public static Player GetPlayer(ulong id, List<Player> player_list)
     {
-        return player_list.Find(
-            el => el.Id == id
-        );
+        return player_list.Find(el => el.Id == id);
     }
 
     public void SendAction(ClientAction action)
@@ -205,7 +225,27 @@ public class SocketConnectionManager : MonoBehaviour
     public void CallSpawnBot()
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        ClientAction clientAction = new ClientAction { Action = Action.AddBot, Timestamp = timestamp };
+        ClientAction clientAction = new ClientAction
+        {
+            Action = Action.AddBot,
+            Timestamp = timestamp
+        };
+        SendAction(clientAction);
+    }
+
+    public void ToggleBots()
+    {
+        ClientAction clientAction;
+        if (this.botsActive)
+        {
+            clientAction = new ClientAction { Action = Action.DisableBots };
+        }
+        else
+        {
+            clientAction = new ClientAction { Action = Action.EnableBots };
+        }
+
+        this.botsActive = !this.botsActive;
         SendAction(clientAction);
     }
 
@@ -239,5 +279,15 @@ public class SocketConnectionManager : MonoBehaviour
         {
             return "wss://" + server_ip + path;
         }
+    }
+
+    public void closeConnection()
+    {
+        ws.Close();
+    }
+
+    public bool isConnectionOpen()
+    {
+        return ws.State == NativeWebSocket.WebSocketState.Open;
     }
 }

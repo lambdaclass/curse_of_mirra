@@ -16,8 +16,8 @@ public class PlayerControls : MonoBehaviour
     {
         RelativePosition relativePosition = new RelativePosition
         {
-            X = (long)(direction.x * 100),
-            Y = (long)(direction.z * 100)
+            X = direction.x,
+            Y = direction.z
         };
 
         var clientAction = new ClientAction { Action = Action.BasicAttack, Position = relativePosition };
@@ -28,7 +28,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (x != 0 || y != 0)
         {
-            var valuesToSend = new JoystickValues { X = x, Y = y };
+            var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             var clientAction = new ClientAction { Action = Action.MoveWithJoystick, MoveDelta = valuesToSend, Timestamp = timestamp};
             SocketConnectionManager.Instance.SendAction(clientAction);
@@ -44,72 +44,40 @@ public class PlayerControls : MonoBehaviour
     }
     public void SendAction()
     {
+        float x = 0;
+        float y = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Up, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = 1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            y += 1f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Left, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = -1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            x += -1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Right, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 1f,
-                joystick_y_value = 0f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            x += 1f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            SendAction(Action.Move, Direction.Down, timestamp);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = 0f,
-                joystick_y_value = -1f,
-                timestamp = timestamp,
-            };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            y += -1f;
         }
+
+        SendJoystickValues(x, y);
     }
  
     public static float getBackendCharacterSpeed(ulong playerId) {
-        var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
-        
-        var characterSpeed = 0f;
-        foreach (var character in chars) {
-            if(charName == character.Name){
-                characterSpeed = float.Parse(character.BaseSpeed);
+        if(SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId)){
+            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+            
+            foreach (var character in chars) {
+                if(charName == character.Name){
+                    return float.Parse(character.BaseSpeed);
+                }
             }
         }
-
-        return characterSpeed;
+        return 0f;
     }
 
     private static void SendAction(Action action, Direction direction, long timestamp)
