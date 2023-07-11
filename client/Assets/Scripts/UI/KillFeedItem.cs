@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class KillFeedItem : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI killerPlayer;
-    [SerializeField] TextMeshProUGUI killedPlayer;
+    [SerializeField]
+    TextMeshProUGUI killerPlayer;
+
+    [SerializeField]
+    TextMeshProUGUI killedPlayer;
 
     void Start()
     {
@@ -16,7 +19,7 @@ public class KillFeedItem : MonoBehaviour
 
     public void SetPlayerNames(string killer, string killed)
     {
-        killerPlayer.text = killer;
-        killedPlayer.text = killed;
+        killerPlayer.text = "Player " + killer;
+        killedPlayer.text = "Player " + killed;
     }
 }
