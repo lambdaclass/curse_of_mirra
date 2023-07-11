@@ -58,6 +58,7 @@ pub struct Character {
     pub skill_active_second: SecondActive,
     pub skill_dash: Dash,
     pub skill_ultimate: Ultimate,
+    pub body_size: f64,
 }
 
 impl Character {
@@ -69,6 +70,7 @@ impl Character {
         active: bool,
         id: u64,
         faction: Faction,
+        body_size: f64,
     ) -> Self {
         Self {
             class,
@@ -82,6 +84,7 @@ impl Character {
             skill_active_second: SecondActive::Disarm,
             skill_dash: Dash::Blink,
             skill_ultimate: Ultimate::DenialOfService,
+            body_size,
         }
     }
     // NOTE:
@@ -99,6 +102,7 @@ impl Character {
         let skill_active_second = get_key(config, "SkillActive2")?;
         let skill_dash = get_key(config, "SkillDash")?;
         let skill_ultimate = get_key(config, "SkillUltimate")?;
+        let body_size = get_key(config, "BodySize")?;
         Ok(Self {
             active: parse_character_attribute::<u64>(&active)? != 0,
             base_speed: parse_character_attribute(&base_speed)?,
@@ -111,6 +115,7 @@ impl Character {
             skill_basic: parse_character_attribute(&skill_basic)?,
             skill_dash: parse_character_attribute(&skill_dash)?,
             skill_ultimate: parse_character_attribute(&skill_ultimate)?,
+            body_size: parse_character_attribute(&body_size)?,
         })
     }
     pub fn attack_dmg_basic_skill(&self) -> u32 {
@@ -212,6 +217,7 @@ impl Default for Character {
             true,
             1,
             Faction::Araban,
+            10.0,
         )
     }
 }

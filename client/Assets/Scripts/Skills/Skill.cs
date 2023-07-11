@@ -1,20 +1,28 @@
-using UnityEngine;
 using System.Collections;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class Skill : CharacterAbility
 {
-    [SerializeField] protected string skillId;
-    [SerializeField] protected Action serverSkill;
-    [SerializeField] protected bool blocksMovementOnExecute = true;
-    [SerializeField] protected SkillInfo skillInfo;
+    [SerializeField]
+    protected string skillId;
+
+    [SerializeField]
+    protected Action serverSkill;
+
+    [SerializeField]
+    protected bool blocksMovementOnExecute = true;
+
+    [SerializeField]
+    protected SkillInfo skillInfo;
 
     public void SetSkill(Action serverSkill, SkillInfo skillInfo)
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
+        this.AbilityStartSfx = skillInfo.abilityStartSfx;
     }
 
     protected override void Start()
@@ -44,7 +52,9 @@ public class Skill : CharacterAbility
     {
         if (AbilityAuthorized)
         {
-            Vector3 direction = this.GetComponent<Character>().GetComponent<CharacterOrientation3D>().ForcedRotationDirection;
+            Vector3 direction = this.GetComponent<Character>()
+                .GetComponent<CharacterOrientation3D>()
+                .ForcedRotationDirection;
             RelativePosition relativePosition = new RelativePosition
             {
                 X = direction.x,
@@ -80,13 +90,18 @@ public class Skill : CharacterAbility
     {
         _movement.ChangeState(CharacterStates.MovementStates.Attacking);
         _animator.SetBool(skillId, true);
+        PlayAbilityStartSfx();
 
         StartCoroutine(EndSkillFeedback());
     }
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction { Action = serverSkill, Position = relativePosition };
+        ClientAction action = new ClientAction
+        {
+            Action = serverSkill,
+            Position = relativePosition
+        };
         SocketConnectionManager.Instance.SendAction(action);
     }
 

@@ -238,6 +238,7 @@ message CharacterConfigItem {
     string SkillActive2 = 9;
     string SkillDash = 10;
     string SkillUltimate = 11;
+    string BodySize = 12;
 }
 
 message CharacterConfig {
