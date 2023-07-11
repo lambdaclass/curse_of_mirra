@@ -51,7 +51,10 @@ public class LobbyManager : LevelSelector
     public void Back()
     {
         LobbyConnection.Instance.Init();
-        SocketConnectionManager.Instance.Init();
+        if (SocketConnectionManager.Instance != null)
+        {
+            SocketConnectionManager.Instance.Init();
+        }
         SceneManager.LoadScene("Lobbies");
     }
 
