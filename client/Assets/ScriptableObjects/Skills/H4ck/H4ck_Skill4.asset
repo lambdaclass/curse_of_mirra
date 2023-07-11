@@ -16,5 +16,5 @@ MonoBehaviour:
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
   abilityStartSfx: {fileID: 0}

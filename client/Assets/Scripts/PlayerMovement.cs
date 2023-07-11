@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
+            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -176,11 +179,21 @@ public class PlayerMovement : MonoBehaviour
                 executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
-            if (serverPlayerUpdate.Health == 0)
+            // TODO: try to optimize GetComponent calls
+            Character playerCharacter = actualPlayer.GetComponent<Character>();
+
+            if (serverPlayerUpdate.Health <= 0)
             {
-                SocketConnectionManager.Instance.players[i]
-                    .GetComponent<Character>()
-                    .CharacterModel.SetActive(false);
+                SetPlayerDead(playerCharacter);
+            }
+            else if (
+                (
+                    playerCharacter.ConditionState.CurrentState
+                    == CharacterStates.CharacterConditions.Dead
+                ) && (serverPlayerUpdate.Health == 100)
+            )
+            {
+                SetPlayerAlive(playerCharacter);
             }
         }
     }
@@ -282,7 +295,7 @@ public class PlayerMovement : MonoBehaviour
                     .GetComponent<MainAttack>()
                     .ShootLaser(
                         projectile,
-                        new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2])
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
@@ -338,6 +351,7 @@ public class PlayerMovement : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -359,6 +373,12 @@ public class PlayerMovement : MonoBehaviour
                 character.GetComponent<Skill2>().StopStartFeedbacks();
             }
         }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
+        {
+            characterSpeed *= 4f;
+        }
+
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
@@ -386,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
 
-            // FIXME: Removed harcoded validation once is fixed on the backend.
+            // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
                 && playerUpdate.Action == PlayerAction.ExecutingSkill3
@@ -432,7 +452,15 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
+
+                // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
+                // if the player is in attacking state, movement rotation from movement should be ignored
+                if (MovementAuthorized(player.GetComponent<Character>()))
+                {
+                    characterOrientation.ForcedRotationDirection = movementDirection;
+                }
+
+                // TODO: why not use character state?
                 walking = true;
             }
         }
@@ -459,29 +487,50 @@ public class PlayerMovement : MonoBehaviour
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
-        bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
-        player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-
-        //if dead remove the player from the scene
-        if (healthComponent.CurrentHealth <= 0)
-        {
-            healthComponent.Model.gameObject.SetActive(false);
-        }
-        if (healthComponent.CurrentHealth == 100)
-        {
-            healthComponent.Model.gameObject.SetActive(true);
-        }
-
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
+            /*
+                - We divided the milliseconds time in two parts because
+                - rustler can't handle u128, so instead of developing those functions
+                - we decided to use 2 u64 fields to represent the time in milliseconds
+
+                - If you need to use complete time in milliseconds, you should use both
+                - If you need to use remaining time in milliseconds, you can use only low field
+                - because high field will be 0
+            */
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                playerUpdate.BasicSkillCooldownLeft
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
             );
-            InputManager.CheckSkillCooldown(UIControls.Skill1, playerUpdate.Skill1CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
-            InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill3,
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill4,
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
+            );
         }
+    }
+
+    public void SetPlayerDead(Character playerCharacter)
+    {
+        playerCharacter.CharacterModel.SetActive(false);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+    }
+
+    public void SetPlayerAlive(Character playerCharacter)
+    {
+        playerCharacter.CharacterModel.SetActive(true);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     public void ToggleGhost()

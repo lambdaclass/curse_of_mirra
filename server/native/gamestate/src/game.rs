@@ -1,16 +1,15 @@
+use crate::board::{Board, Tile};
+use crate::character::{Character, Name};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
+use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifUnitEnum};
-use std::f32::consts::PI;
-
-use crate::board::{Board, Tile};
-use crate::character::{Character, Effect, Name};
-use crate::player::{Player, PlayerAction, Position, Status};
-use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
-use crate::time_utils::time_now;
-use crate::utils::RelativePosition;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::f32::consts::PI;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -178,7 +177,7 @@ impl GameState {
         Ok(())
     }
 
-    pub fn move_player_to_coordinates(
+    pub fn move_player_to_relative_position(
         board: &mut Board,
         attacking_player: &mut Player,
         direction: &RelativePosition,
@@ -241,24 +240,44 @@ impl GameState {
             return Ok(());
         }
 
+        if player.character.name == Name::H4ck && player.has_active_effect(&Effect::NeonCrashing) {
+            return Ok(());
+        }
+
+        let speed = player.speed() as i64;
+        GameState::move_player_to_direction(
+            &mut self.board,
+            player.id,
+            &mut player.position,
+            &RelativePosition { x, y },
+            speed,
+        )?;
+
+        Ok(())
+    }
+
+    pub fn move_player_to_direction(
+        board: &mut Board,
+        player_id: u64,
+        position: &mut Position,
+        direction: &RelativePosition,
+        speed: i64,
+    ) -> Result<(), String> {
         let new_position = new_entity_position(
-            self.board.height,
-            self.board.width,
-            x,
-            y,
-            player.position,
-            player.speed() as i64,
+            board.height,
+            board.width,
+            direction.x,
+            direction.y,
+            *position,
+            speed,
         );
 
-        self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
+        board.set_cell(position.x, position.y, Tile::Empty)?;
 
-        player.position = new_position;
-        self.board.set_cell(
-            player.position.x,
-            player.position.y,
-            Tile::Player(player.id),
-        )?;
+        *position = new_position;
+
+        board.set_cell(position.x, position.y, Tile::Player(player_id))?;
+
         Ok(())
     }
 
@@ -402,16 +421,13 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<(), String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = match attacking_player.effects.get(&Effect::Piercing) {
-                Some((1_u64..=u64::MAX)) => true,
-                None | Some(0) => false,
-            };
+            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
 
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                5,
+                10,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -427,6 +443,7 @@ impl GameState {
         Ok(())
     }
 
+    // TODO: Refactor this
     pub fn position_to_direction(position: &RelativePosition) -> Direction {
         if position.x > 0f32 && position.y > 0f32 {
             if position.x > position.y {
@@ -609,7 +626,7 @@ impl GameState {
     ) -> Result<(), String> {
         // TODO: refactor this skill
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        Self::move_player_to_coordinates(board, attacking_player, direction)?;
+        Self::move_player_to_relative_position(board, attacking_player, direction)?;
         Self::muflus_skill_1(board, players, attacking_player_id)?;
         Ok(())
     }
@@ -670,7 +687,15 @@ impl GameState {
     }
 
     pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<(), String> {
-        attacking_player.add_effect(Effect::Raged.clone(), 100);
+        let now = time_now();
+        attacking_player.add_effect(
+            Effect::Raged.clone(),
+            EffectData {
+                time_left: MillisTime { high: 0, low: 5000 },
+                ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                direction: None,
+            },
+        );
         Ok(())
     }
 
@@ -688,15 +713,21 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
-        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_third_skill();
 
         match attacking_player.character.name {
-            Name::H4ck => Self::h4ck_skill_2(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::H4ck => {
+                attacking_player.add_effect(
+                    Effect::NeonCrashing.clone(),
+                    EffectData {
+                        time_left: MillisTime { high: 0, low: 500 },
+                        ends_at: add_millis(now, MillisTime { high: 0, low: 500 }),
+                        direction: Some(*direction),
+                    },
+                );
+
+                Ok(())
+            }
             Name::Muflus => {
                 let id = attacking_player.id;
                 Self::leap(&mut self.board, id, direction, &mut self.players)
@@ -718,12 +749,19 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player.skill_4_cooldown_left = now;
+        attacking_player.skill_4_started_at = now;
         attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
 
         match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player.add_effect(Effect::Piercing.clone(), 300);
+                attacking_player.add_effect(
+                    Effect::Piercing.clone(),
+                    EffectData {
+                        time_left: MillisTime { high: 0, low: 5000 },
+                        ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                        direction: None,
+                    },
+                );
                 Ok(())
             }
             _ => Ok(()),
@@ -740,16 +778,42 @@ impl GameState {
     }
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
+        let now = time_now();
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
-            player.update_cooldowns();
+            player.update_cooldowns(now);
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            player.effects.retain(|_, ticks_left| {
-                *ticks_left = ticks_left.saturating_sub(1);
-                *ticks_left != 0
-            });
+            player.effects.retain(
+                |_,
+                 EffectData {
+                     time_left, ends_at, ..
+                 }| {
+                    *time_left = sub_millis(*ends_at, now);
+                    millis_to_u128(*time_left) > 0
+                },
+            );
+
+            if player.character.name == Name::H4ck {
+                match player.effects.get(&Effect::NeonCrashing) {
+                    Some(EffectData {
+                        direction: Some(direction),
+                        ..
+                    }) => {
+                        let speed = player.speed() as i64;
+                        GameState::move_player_to_direction(
+                            &mut self.board,
+                            player.id,
+                            &mut player.position,
+                            direction,
+                            speed,
+                        )
+                        .unwrap();
+                    }
+                    _ => {}
+                }
+            }
         });
 
         self.projectiles.retain(|projectile| {
@@ -786,7 +850,14 @@ impl GameState {
 
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
-                            attacked_player.add_effect(Effect::Disarmed.clone(), 300);
+                            attacked_player.add_effect(
+                                Effect::Disarmed.clone(),
+                                EffectData {
+                                    time_left: MillisTime { high: 0, low: 5000 },
+                                    ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                                    direction: None,
+                                },
+                            );
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
