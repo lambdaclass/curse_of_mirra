@@ -37,6 +37,7 @@ defmodule DarkWorldsServer.Communication do
   def game_update!(%{
         players: players,
         projectiles: projectiles,
+        killfeed: killfeed,
         player_timestamp: player_timestamp,
         server_timestamp: server_timestamp
       }) do
@@ -44,6 +45,7 @@ defmodule DarkWorldsServer.Communication do
       type: :STATE_UPDATE,
       players: players,
       projectiles: projectiles,
+      killfeed: killfeed,
       player_timestamp: player_timestamp,
       server_timestamp: server_timestamp
     }
