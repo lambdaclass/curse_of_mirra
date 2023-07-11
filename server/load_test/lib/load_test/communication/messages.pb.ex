@@ -82,6 +82,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:DISARMED, 1)
   field(:PIERCING, 2)
   field(:RAGED, 3)
+  field(:NEON_CRASHING, 4)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -164,7 +165,7 @@ defmodule LoadTest.Communication.Proto.Player.EffectsEntry do
   use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:key, 1, type: :uint64)
-  field(:value, 2, type: :uint64)
+  field(:value, 2, type: LoadTest.Communication.Proto.MillisTime)
 end
 
 defmodule LoadTest.Communication.Proto.Player do
@@ -175,26 +176,40 @@ defmodule LoadTest.Communication.Proto.Player do
   field(:id, 1, type: :uint64)
   field(:health, 2, type: :sint64)
   field(:position, 3, type: LoadTest.Communication.Proto.Position)
-  field(:last_melee_attack, 4, type: :uint64, json_name: "lastMeleeAttack")
-  field(:status, 5, type: LoadTest.Communication.Proto.Status, enum: true)
-  field(:action, 6, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
-  field(:aoe_position, 7, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
-  field(:kill_count, 8, type: :uint64, json_name: "killCount")
-  field(:death_count, 9, type: :uint64, json_name: "deathCount")
+  field(:status, 4, type: LoadTest.Communication.Proto.Status, enum: true)
+  field(:action, 5, type: LoadTest.Communication.Proto.PlayerAction, enum: true)
+  field(:aoe_position, 6, type: LoadTest.Communication.Proto.Position, json_name: "aoePosition")
+  field(:kill_count, 7, type: :uint64, json_name: "killCount")
+  field(:death_count, 8, type: :uint64, json_name: "deathCount")
 
-  field(:teleport_position, 10,
-    type: LoadTest.Communication.Proto.Position,
-    json_name: "teleportPosition"
+  field(:basic_skill_cooldown_left, 9,
+    type: LoadTest.Communication.Proto.MillisTime,
+    json_name: "basicSkillCooldownLeft"
   )
 
-  field(:basic_skill_cooldown_left, 11, type: :uint64, json_name: "basicSkillCooldownLeft")
-  field(:skill_1_cooldown_left, 12, type: :uint64, json_name: "skill1CooldownLeft")
-  field(:skill_2_cooldown_left, 13, type: :uint64, json_name: "skill2CooldownLeft")
-  field(:skill_3_cooldown_left, 14, type: :uint64, json_name: "skill3CooldownLeft")
-  field(:skill_4_cooldown_left, 15, type: :uint64, json_name: "skill4CooldownLeft")
-  field(:character_name, 16, type: :string, json_name: "characterName")
+  field(:skill_1_cooldown_left, 10,
+    type: LoadTest.Communication.Proto.MillisTime,
+    json_name: "skill1CooldownLeft"
+  )
 
-  field(:effects, 17,
+  field(:skill_2_cooldown_left, 11,
+    type: LoadTest.Communication.Proto.MillisTime,
+    json_name: "skill2CooldownLeft"
+  )
+
+  field(:skill_3_cooldown_left, 12,
+    type: LoadTest.Communication.Proto.MillisTime,
+    json_name: "skill3CooldownLeft"
+  )
+
+  field(:skill_4_cooldown_left, 13,
+    type: LoadTest.Communication.Proto.MillisTime,
+    json_name: "skill4CooldownLeft"
+  )
+
+  field(:character_name, 14, type: :string, json_name: "characterName")
+
+  field(:effects, 15,
     repeated: true,
     type: LoadTest.Communication.Proto.Player.EffectsEntry,
     map: true
@@ -359,4 +374,13 @@ defmodule LoadTest.Communication.Proto.Projectile do
   field(:status, 10, type: LoadTest.Communication.Proto.ProjectileStatus, enum: true)
   field(:last_attacked_player_id, 11, type: :uint64, json_name: "lastAttackedPlayerId")
   field(:pierce, 12, type: :bool)
+end
+
+defmodule LoadTest.Communication.Proto.MillisTime do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:high, 1, type: :uint64)
+  field(:low, 2, type: :uint64)
 end
