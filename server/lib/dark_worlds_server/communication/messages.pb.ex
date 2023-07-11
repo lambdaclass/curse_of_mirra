@@ -347,6 +347,7 @@ defmodule DarkWorldsServer.Communication.Proto.CharacterConfigItem do
   field(:SkillActive2, 9, type: :string)
   field(:SkillDash, 10, type: :string)
   field(:SkillUltimate, 11, type: :string)
+  field(:BodySize, 12, type: :string)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
