@@ -804,6 +804,7 @@ impl GameState {
                         direction: Some(direction),
                         ..
                     }) => {
+                        player.actions.insert(PlayerAction::MOVING, 3);
                         let speed = player.speed() as i64;
                         GameState::move_player_to_direction(
                             &mut self.board,
