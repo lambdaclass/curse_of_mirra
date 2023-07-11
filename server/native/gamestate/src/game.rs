@@ -1,5 +1,5 @@
 use rand::{thread_rng, Rng};
-use rustler::{NifStruct, NifUnitEnum, NifTuple};
+use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::f32::consts::PI;
 
 use crate::board::{Board, Tile};
@@ -820,7 +820,10 @@ impl GameState {
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             if matches!(attacked_player.status, Status::DEAD) {
-                                tick_killed_events.push(KillEvent { kill_by: projectile.player_id, killed: attacked_player.id });
+                                tick_killed_events.push(KillEvent {
+                                    kill_by: projectile.player_id,
+                                    killed: attacked_player.id,
+                                });
                                 kill_count += 1;
                             }
                             GameState::modify_cell_if_player_died(
@@ -870,9 +873,18 @@ impl GameState {
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
-        let mut kill_events: Vec<KillEvent> = attacked_player_ids.into_iter()
-            .filter(|player_id| self.players.iter().find(|player| player.id == *player_id && matches!(player.status, Status::DEAD)).is_some())
-            .map(|killed_player| KillEvent { kill_by: attacking_player_id, killed: killed_player })
+        let mut kill_events: Vec<KillEvent> = attacked_player_ids
+            .into_iter()
+            .filter(|player_id| {
+                self.players
+                    .iter()
+                    .find(|player| player.id == *player_id && matches!(player.status, Status::DEAD))
+                    .is_some()
+            })
+            .map(|killed_player| KillEvent {
+                kill_by: attacking_player_id,
+                killed: killed_player,
+            })
             .collect();
 
         self.next_killfeed.append(&mut kill_events);
