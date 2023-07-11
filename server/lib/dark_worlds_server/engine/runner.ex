@@ -93,11 +93,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(_actions, %{game_status: :game_finished} = gen_server_state) do
-    {:noreply, Map.merge(gen_server_state, %{tag: "1"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(_actions, %{game_status: :round_finished} = gen_server_state) do
-    {:noreply, Map.merge(gen_server_state, %{tag: "2"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
@@ -112,7 +112,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
 
-    {:noreply, Map.merge(%{gen_server_state | selected_characters: selected_characters}, %{tag: "3"})}
+    {:noreply, %{gen_server_state | selected_characters: selected_characters}}
   end
 
   ## This will handle the case where players could send player movement actions or attacks
@@ -121,7 +121,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, _, _},
         %{game_status: :character_selection} = gen_server_state
       ) do
-    {:noreply, Map.merge(gen_server_state, %{tag: "4"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
@@ -136,7 +136,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "5"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
@@ -153,7 +153,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> Map.put(:server_game_state, server_game_state)
     |> set_timestamp_for_player(timestamp, player)
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "6"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
@@ -169,7 +169,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "7"})}
+    {:noreply, en_server_state}
   end
 
   def handle_cast(
@@ -185,7 +185,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.put(gen_server_state, :server_game_state, server_game_state)
       |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "8"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast({:play, _, %ActionOk{action: :add_bot}}, gen_server_state) do
@@ -213,13 +213,13 @@ defmodule DarkWorldsServer.Engine.Runner do
     BotPlayer.add_bot(bot_handler_pid, bot_id)
 
 
-    {:noreply, Map.merge(%{
+    {:noreply, %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
          current_players: gen_server_state.current_players + 1,
          selected_characters: selected_characters,
          bot_handler_pid: bot_handler_pid
-     }, %{tag: "9"})}
+     }}
 
   end
 
@@ -230,7 +230,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       BotPlayer.disable_bots(bot_pid)
     end
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "10"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast({:play, _, %ActionOk{action: :enable_bots}}, gen_server_state) do
@@ -240,7 +240,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       BotPlayer.enable_bots(bot_pid)
     end
 
-    {:noreply, Map.merge(gen_server_state, %{tag: "11"})}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
