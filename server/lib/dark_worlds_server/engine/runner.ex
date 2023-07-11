@@ -212,15 +212,14 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     BotPlayer.add_bot(bot_handler_pid, bot_id)
 
-
-    {:noreply, %{
+    {:noreply,
+     %{
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
          current_players: gen_server_state.current_players + 1,
          selected_characters: selected_characters,
          bot_handler_pid: bot_handler_pid
      }}
-
   end
 
   def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
@@ -250,7 +249,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
     {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
-
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
