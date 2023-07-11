@@ -61,47 +61,47 @@ public static partial class MessagesReflection {
           "cxgEIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYBSABKAQiYQoKR2FtZUNvbmZp",
           "ZxIeCgpib2FyZF9zaXplGAEgASgLMgouQm9hcmRTaXplEhoKEnNlcnZlcl90",
           "aWNrcmF0ZV9tcxgCIAEoBBIXCg9nYW1lX3RpbWVvdXRfbXMYAyABKAQiKgoJ",
-          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLcAQoT",
+          "Qm9hcmRTaXplEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBCLuAQoT",
           "Q2hhcmFjdGVyQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJEgoKAklkGAIgASgJ",
           "Eg4KBkFjdGl2ZRgDIAEoCRINCgVDbGFzcxgEIAEoCRIPCgdGYWN0aW9uGAUg",
           "ASgJEhEKCUJhc2VTcGVlZBgGIAEoCRISCgpTa2lsbEJhc2ljGAcgASgJEhQK",
           "DFNraWxsQWN0aXZlMRgIIAEoCRIUCgxTa2lsbEFjdGl2ZTIYCSABKAkSEQoJ",
-          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkiNgoPQ2hh",
-          "cmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29uZmln",
-          "SXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgB",
-          "IAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgL",
-          "MhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgE",
-          "EhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMg",
-          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5n",
-          "ZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcK",
-          "D3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSAB",
-          "KA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0",
-          "aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4K",
-          "BnBpZXJjZRgMIAEoCCrOAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERB",
-          "VEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIOCgpO",
-          "RVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdBTUVfRklOSVNIRUQQ",
-          "BRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNFTEVDVEVEX0NIQVJBQ1RF",
-          "Ul9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAIKh0K",
-          "BlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJAgoGQWN0aW9uEhYKEkFD",
-          "VElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZBVFRBQ0sQAhIMCghU",
-          "RUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZFX1dJVEhfSk9ZU1RJ",
-          "Q0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQCBIQCgxCQVNJQ19B",
-          "VFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExfMhALEgsKB1NLSUxMXzMQ",
-          "DBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJBQ1RFUhAOEg8KC0VOQUJM",
-          "RV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJRGlyZWN0aW9uEhkKFURJ",
-          "UkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExF",
-          "RlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAA",
-          "Eg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJ",
-          "TkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoRRVhFQ1VUSU5HX1NL",
-          "SUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUKEUVYRUNVVElOR19T",
-          "S0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJ",
-          "U0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBADKo8BCg5Mb2JieUV2",
-          "ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAES",
-          "EAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVS",
-          "X0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYq",
-          "MgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JV",
-          "TExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
-          "TE9ERUQQAWIGcHJvdG8z"));
+          "U2tpbGxEYXNoGAogASgJEhUKDVNraWxsVWx0aW1hdGUYCyABKAkSEAoIQm9k",
+          "eVNpemUYDCABKAkiNgoPQ2hhcmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygL",
+          "MhQuQ2hhcmFjdGVyQ29uZmlnSXRlbSJmChJTZXJ2ZXJHYW1lU2V0dGluZ3MS",
+          "JAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFy",
+          "YWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnIrMCCgpQcm9q",
+          "ZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRp",
+          "b24SJAoJZGlyZWN0aW9uGAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVz",
+          "cGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQS",
+          "DgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9w",
+          "cm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0",
+          "dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRf",
+          "cGxheWVyX2lkGAsgASgEEg4KBnBpZXJjZRgMIAEoCCrOAQoNR2FtZUV2ZW50",
+          "VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBM",
+          "QVlFUl9KT0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAE",
+          "EhEKDUdBTUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0K",
+          "GVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFD",
+          "VEVSX1NFTEVDVElPThAIKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQ",
+          "ASqJAgoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQ",
+          "ARIKCgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIW",
+          "ChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19B",
+          "VFRBQ0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJ",
+          "TExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NI",
+          "QVJBQ1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAq",
+          "TQoJRGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQ",
+          "EAESCAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJB",
+          "Y3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lO",
+          "R19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5H",
+          "EAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqRAoMUGxheWVyRWZmZWN0Eg0K",
+          "CVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVS",
+          "QUdFRBADKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVE",
+          "EAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9T",
+          "VEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIK",
+          "DlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVU",
+          "EAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMS",
+          "CgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -115,7 +115,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::RunnerConfig), global::RunnerConfig.Parser, new[]{ "Name", "BoardWidth", "BoardHeight", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate", "BodySize" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null)
@@ -638,7 +638,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.CurrentRound != 0UL) {
       CurrentRound = other.CurrentRound;
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1616,7 +1616,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.Add(other.effects_);
+    effects_.MergeFrom(other.effects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -4093,6 +4093,7 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     skillActive2_ = other.skillActive2_;
     skillDash_ = other.skillDash_;
     skillUltimate_ = other.skillUltimate_;
+    bodySize_ = other.bodySize_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -4234,6 +4235,18 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     }
   }
 
+  /// <summary>Field number for the "BodySize" field.</summary>
+  public const int BodySizeFieldNumber = 12;
+  private string bodySize_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string BodySize {
+    get { return bodySize_; }
+    set {
+      bodySize_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -4260,6 +4273,7 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     if (SkillActive2 != other.SkillActive2) return false;
     if (SkillDash != other.SkillDash) return false;
     if (SkillUltimate != other.SkillUltimate) return false;
+    if (BodySize != other.BodySize) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -4278,6 +4292,7 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     if (SkillActive2.Length != 0) hash ^= SkillActive2.GetHashCode();
     if (SkillDash.Length != 0) hash ^= SkillDash.GetHashCode();
     if (SkillUltimate.Length != 0) hash ^= SkillUltimate.GetHashCode();
+    if (BodySize.Length != 0) hash ^= BodySize.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -4340,6 +4355,10 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
       output.WriteRawTag(90);
       output.WriteString(SkillUltimate);
     }
+    if (BodySize.Length != 0) {
+      output.WriteRawTag(98);
+      output.WriteString(BodySize);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -4394,6 +4413,10 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
       output.WriteRawTag(90);
       output.WriteString(SkillUltimate);
     }
+    if (BodySize.Length != 0) {
+      output.WriteRawTag(98);
+      output.WriteString(BodySize);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -4436,6 +4459,9 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     }
     if (SkillUltimate.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SkillUltimate);
+    }
+    if (BodySize.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(BodySize);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -4481,6 +4507,9 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
     }
     if (other.SkillUltimate.Length != 0) {
       SkillUltimate = other.SkillUltimate;
+    }
+    if (other.BodySize.Length != 0) {
+      BodySize = other.BodySize;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -4541,6 +4570,10 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
           SkillUltimate = input.ReadString();
           break;
         }
+        case 98: {
+          BodySize = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -4598,6 +4631,10 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
         }
         case 90: {
           SkillUltimate = input.ReadString();
+          break;
+        }
+        case 98: {
+          BodySize = input.ReadString();
           break;
         }
       }

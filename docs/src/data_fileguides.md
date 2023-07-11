@@ -32,6 +32,7 @@ This file contains the information and base stats from characters in the game
 - **SkillActive2:** lookup field to Skills.json for the character's second active skill  
 - **SkillDash:** lookup field to Skills.json for the character's third active skill
 - **SkillUltimate:** lookup field to Skills.json for the character's ultimate skill
+- **BodySize** f64 that defines the circumference of how much space the character takes up in the board. Useful for knowing when an attack impacts them, for example.
 
 ## Classes.json
 ### Overview

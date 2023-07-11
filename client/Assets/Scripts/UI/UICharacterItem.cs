@@ -10,6 +10,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public Text name;
     public Image artWork;
     public bool selected = false;
+
     void Start()
     {
         artWork.sprite = comCharacter.artWork;
@@ -17,17 +18,22 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        selected = true;
-        if (selected)
+        if (SocketConnectionManager.Instance.isConnectionOpen())
         {
-            name.text = comCharacter.name;
-            artWork.sprite = comCharacter.selectedArtwork;
-            SendCharacterSelection();
-            transform.parent.GetComponent<CharacterSelectionUI>().DeselectCharacters(comCharacter.name);
-        }
-        else
-        {
-            artWork.sprite = comCharacter.artWork;
+            selected = true;
+            if (selected)
+            {
+                name.text = comCharacter.name;
+                artWork.sprite = comCharacter.selectedArtwork;
+                SendCharacterSelection();
+                transform.parent
+                    .GetComponent<CharacterSelectionUI>()
+                    .DeselectCharacters(comCharacter.name);
+            }
+            else
+            {
+                artWork.sprite = comCharacter.artWork;
+            }
         }
     }
 
