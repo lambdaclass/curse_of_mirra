@@ -788,6 +788,8 @@ impl GameState {
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
 
+        let mut tick_killed_events: Vec<KillEvent> = Vec::new();
+
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
                 let affected_players: Vec<u64> = GameState::players_in_projectile_movement(
@@ -818,6 +820,7 @@ impl GameState {
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             if matches!(attacked_player.status, Status::DEAD) {
+                                tick_killed_events.push(KillEvent { kill_by: projectile.player_id, killed: attacked_player.id });
                                 kill_count += 1;
                             }
                             GameState::modify_cell_if_player_died(
@@ -833,6 +836,7 @@ impl GameState {
             }
         }
 
+        self.next_killfeed.append(&mut tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
