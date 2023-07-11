@@ -221,8 +221,8 @@ MonoBehaviour:
   LockVerticalRotation: 1
   RotationSpeedResetSpeed: 2
   RotationOffsetSmoothSpeed: 1
-  ForcedRotation: 0
-  ForcedRotationDirection: {x: 0, y: 0, z: 0}
+  ForcedRotation: 1
+  ForcedRotationDirection: {x: 1, y: 0, z: 1}
 --- !u!114 &1787465996332106800
 MonoBehaviour:
   m_ObjectHideFlags: 0
