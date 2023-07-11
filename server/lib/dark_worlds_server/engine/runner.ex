@@ -169,7 +169,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player_id)
 
-    {:noreply, en_server_state}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast(
