@@ -176,11 +176,21 @@ public class PlayerMovement : MonoBehaviour
                 executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
-            if (serverPlayerUpdate.Health == 0)
+            // TODO: try to optimize GetComponent calls
+            Character playerCharacter = actualPlayer.GetComponent<Character>();
+
+            if (serverPlayerUpdate.Health <= 0)
             {
-                SocketConnectionManager.Instance.players[i]
-                    .GetComponent<Character>()
-                    .CharacterModel.SetActive(false);
+                SetPlayerDead(playerCharacter);
+            }
+            else if (
+                (
+                    playerCharacter.ConditionState.CurrentState
+                    == CharacterStates.CharacterConditions.Dead
+                ) && (serverPlayerUpdate.Health == 100)
+            )
+            {
+                SetPlayerAlive(playerCharacter);
             }
         }
     }
@@ -467,22 +477,6 @@ public class PlayerMovement : MonoBehaviour
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
 
-        //if dead remove the player from the scene
-        if (healthComponent.CurrentHealth <= 0)
-        {
-            healthComponent.Model.gameObject.SetActive(false);
-            player
-                .GetComponent<Character>()
-                .ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        }
-        if (healthComponent.CurrentHealth == 100)
-        {
-            healthComponent.Model.gameObject.SetActive(true);
-            player
-                .GetComponent<Character>()
-                .ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-        }
-
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
             InputManager.CheckSkillCooldown(
@@ -493,6 +487,18 @@ public class PlayerMovement : MonoBehaviour
             InputManager.CheckSkillCooldown(UIControls.Skill2, playerUpdate.Skill2CooldownLeft);
             InputManager.CheckSkillCooldown(UIControls.Skill3, playerUpdate.Skill3CooldownLeft);
         }
+    }
+
+    public void SetPlayerDead(Character playerCharacter)
+    {
+        playerCharacter.gameObject.SetActive(false);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+    }
+
+    public void SetPlayerAlive(Character playerCharacter)
+    {
+        playerCharacter.gameObject.SetActive(true);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     public void ToggleGhost()
