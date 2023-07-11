@@ -713,7 +713,7 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
-        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_second_skill();
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_third_skill();
 
         match attacking_player.character.name {
             Name::H4ck => {
@@ -749,7 +749,7 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player.skill_4_cooldown_left = now;
+        attacking_player.skill_4_started_at = now;
         attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
 
         match attacking_player.character.name {

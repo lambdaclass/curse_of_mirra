@@ -478,9 +478,18 @@ public class PlayerMovement : MonoBehaviour
         {
             healthComponent.Model.gameObject.SetActive(true);
         }
-
+        Debug.Log((float)playerUpdate.Skill4CooldownLeft.Low);
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
+            /*
+                - We divided the milliseconds time in two parts because
+                - rustler can't handle u128, so instead of developing those functions
+                - we decided to use 2 u64 fields to represent the time in milliseconds
+
+                - If you need to use complete time in milliseconds, you should use both
+                - If you need to use remaining time in milliseconds, you can use only low field
+                - because high field will be 0
+            */
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
@@ -496,6 +505,10 @@ public class PlayerMovement : MonoBehaviour
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
                 (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill4,
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
             );
         }
     }
