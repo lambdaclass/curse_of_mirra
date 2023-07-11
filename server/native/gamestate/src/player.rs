@@ -45,6 +45,7 @@ pub struct Player {
     // the client which character is being used.
     pub character_name: String,
     pub effects: StatusEffects,
+    pub actions: HashMap<PlayerAction, u64>
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -54,7 +55,7 @@ pub enum Status {
     DISCONNECTED,
 }
 
-#[derive(Debug, Clone, NifUnitEnum)]
+#[derive(Debug, Clone, NifUnitEnum, PartialEq, Eq, Hash)]
 pub enum PlayerAction {
     NOTHING,
     ATTACKING,
@@ -64,6 +65,7 @@ pub enum PlayerAction {
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
     TELEPORTING,
+    MOVING
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
@@ -98,6 +100,7 @@ impl Player {
             skill_3_started_at: 0,
             skill_4_started_at: 0,
             effects: HashMap::new(),
+            actions: HashMap::new()
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
