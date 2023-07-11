@@ -1,13 +1,13 @@
 use crate::assert_result;
 use crate::utils::{read_character_config, TestResult};
 use gamestate::board::{Grid, GridResource, Tile};
-use gamestate::character::{Character, Effect, Name, TicksLeft};
+use gamestate::character::{Character, Name};
 use gamestate::game::{Direction, GameState};
-use gamestate::player::{Player, Position};
+use gamestate::player::{Effect, EffectData, Player, Position};
 use gamestate::time_utils;
 use gamestate::utils::RelativePosition;
 use std::collections::HashMap;
-use std::time::{Duration, Instant};
+
 fn get_grid(game: &GameState) -> Grid {
     let grid = game.board.grid.resource.lock().unwrap();
     grid.clone()
@@ -171,25 +171,6 @@ fn movement() -> TestResult {
     )
 }
 
-// #[rustler::nif]
-// fn move_player_to_coordinates() -> TestResult {
-//     let mut state = GameState::new(0, 2, 2, false, &read_character_config()).unwrap(); // creates a 2x2 grid with no players
-//     let player_id = 1;
-//     let mut player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
-//     state.players = vec![player1];
-//     state.board.set_cell(0, 0, Tile::Player(player_id)); // adds player 1 to the cell at (0,0)
-//     let player = GameState::get_player_mut(&mut state.players, 1).unwrap();
-//     GameState::move_player_to_coordinates(&mut state.board, player, &RelativePosition::new(1, 1))
-//         .unwrap();
-//     assert_result!(
-//         vec![
-//             vec![Tile::Empty, Tile::Empty],
-//             vec![Tile::Empty, Tile::Player(player_id)]
-//         ],
-//         get_grid(&state)
-//     )
-// }
-
 #[rustler::nif]
 fn attacking() -> TestResult {
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
@@ -262,6 +243,7 @@ fn attacking() -> TestResult {
 
 #[rustler::nif]
 pub fn cant_move_if_petrified() -> TestResult {
+    let now = time_utils::time_now();
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
     let mut expected_grid: Vec<Vec<Tile>>;
@@ -282,14 +264,22 @@ pub fn cant_move_if_petrified() -> TestResult {
         base_speed,
         ..Default::default()
     };
-    state.players[0].effects.insert(Effect::Petrified,10);
+    state.players[0].effects.insert(Effect::Petrified, EffectData{
+        time_left: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        },
+        ends_at: time_utils::add_millis(now, time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        }), direction: None});
     let player_id = 1;
     let mut player = state.get_player(player_id)?;
 
-    // Update 5 ticks, the character should not be able to move.
-    for _ in 1..=5 {
-        state.world_tick()?;
-    }
+    // Sleep 1 seconds and update status, the character should not be able to move.
+    time_utils::sleep(1);
+    state.world_tick()?;
+
     // Try to move 10 times, the player/character should not move.
     for i in 0..10 {
         state.move_player(player_id, Direction::DOWN)?;
@@ -299,10 +289,10 @@ pub fn cant_move_if_petrified() -> TestResult {
         assert_result!(spawn_point.x, player.position.x)?;
     }
 
-    // "Update" 5 ticks, now the character should be able to move.
-    for _ in 1..=5 {
-        state.world_tick()?;
-    }
+    // Sleep 2 seconds and update status, now the character should be able to move.
+    time_utils::sleep(2);
+    state.world_tick()?;
+
     state.move_player(player_id, Direction::DOWN)?;
     player = state.get_player(player_id)?;
     assert_result!(player.speed(), base_speed)?;
@@ -312,6 +302,7 @@ pub fn cant_move_if_petrified() -> TestResult {
 
 #[rustler::nif]
 pub fn cant_attack_if_disarmed() -> TestResult {
+    let now = time_utils::time_now();
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
     let mut state = GameState::new(
@@ -332,7 +323,15 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     };
     let char: Character = speed1_character();
     let mut player1 = Player::new(player_1_id, 100, Position::new(0, 0), disarmed_char.clone());
-    player1.effects.insert(Effect::Disarmed,10);
+    player1.effects.insert(Effect::Disarmed, EffectData{
+        time_left: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        },
+        ends_at: time_utils::add_millis(now, time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        }), direction: None});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2];
     state.board.set_cell(0, 0, Tile::Player(player_1_id))?;

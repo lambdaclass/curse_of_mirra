@@ -1,9 +1,10 @@
-use crate::character::TicksLeft;
 use crate::game;
 use crate::player::Position;
 use crate::utils::RelativePosition;
 use rustler::NifStruct;
 use rustler::NifUnitEnum;
+
+pub type TicksLeft = u64;
 
 #[derive(Debug, Clone, NifStruct)]
 #[module = "DarkWorldsServer.Engine.Projectile"]
