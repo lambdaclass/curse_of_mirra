@@ -10,8 +10,8 @@ use std::collections::HashMap;
 #[derive(Debug, Clone, NifStruct)]
 #[module = "DarkWorldsServer.Engine.Player"]
 pub struct EffectData {
-    pub time_left: MillisTime, // in seconds FOR NOW
-    pub ends_at: MillisTime,   // in seconds FOR NOW
+    pub time_left: MillisTime,
+    pub ends_at: MillisTime,
     pub direction: Option<RelativePosition>,
 }
 
