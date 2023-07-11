@@ -43,7 +43,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_3_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
-        effects: %{}
+        effects: %{},
+        actions: %{}
       }
 
       decoded =
