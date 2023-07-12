@@ -78,11 +78,14 @@ impl Projectile {
             self.speed as i64,
         );
 
+        let direction_x = (self.direction.x * 100f32) as i16;
+        let direction_y = (self.direction.y * 100f32) as i16;
+
         // Next the left wall and moving to the left
         if Projectile::needs_to_explode(
             self.prev_position.x == self.position.x,
             self.prev_position.x == 0,
-            self.direction.y > 0f32,
+            direction_y > 0,
         ) {
             self.status = ProjectileStatus::EXPLODED;
         }
@@ -91,7 +94,7 @@ impl Projectile {
         if Projectile::needs_to_explode(
             self.prev_position.x == self.position.x,
             self.prev_position.x == board_height - 1,
-            self.direction.y < 0f32,
+            direction_y < 0,
         ) {
             self.status = ProjectileStatus::EXPLODED;
         }
@@ -100,7 +103,7 @@ impl Projectile {
         if Projectile::needs_to_explode(
             self.prev_position.y == self.position.y,
             self.prev_position.y == 0,
-            self.direction.x < 0f32,
+            direction_x < 0,
         ) {
             self.status = ProjectileStatus::EXPLODED;
         }
@@ -109,7 +112,7 @@ impl Projectile {
         if Projectile::needs_to_explode(
             self.prev_position.y == self.position.y,
             self.prev_position.y == board_height - 1,
-            self.direction.x > 0f32,
+            direction_x > 0,
         ) {
             self.status = ProjectileStatus::EXPLODED;
         }

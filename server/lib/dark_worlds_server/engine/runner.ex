@@ -278,11 +278,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
-    all_characters_set?(gen_server_state)
+    {:noreply, all_characters_set?(gen_server_state)}
   end
 
   def handle_info(:character_selection_time_out, gen_server_state) do
-    character_selection_time_out(gen_server_state)
+    {:noreply, character_selection_time_out(gen_server_state)}
   end
 
   def handle_info(:start_game, gen_server_state) do
@@ -504,39 +504,36 @@ defmodule DarkWorldsServer.Engine.Runner do
         Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     end
 
-    {:noreply, state}
+    state
   end
 
   defp character_selection_time_out(state) do
     selected_characters = state[:selected_characters]
 
-    state =
-      cond do
-        state[:game_status] == :playing ->
-          state
+    cond do
+      state[:game_status] == :playing ->
+        state
 
-        not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-          players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
+      not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
+        players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
-          players_without_character =
-            Enum.filter(state[:players], fn player_id -> player_id not in players_with_character end)
+        players_without_character =
+          Enum.filter(state[:players], fn player_id -> player_id not in players_with_character end)
 
-          selected_characters =
-            Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
-              character_name = Enum.random(["H4ck", "Muflus", "Uma"])
-              Map.put(map, player_id, character_name)
-            end)
+        selected_characters =
+          Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
+            character_name = Enum.random(["H4ck", "Muflus", "Uma"])
+            Map.put(map, player_id, character_name)
+          end)
 
-          Process.send_after(self(), :start_game, @game_start_timer_ms)
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
 
-          {:noreply, %{state | selected_characters: selected_characters}}
+        %{state | selected_characters: selected_characters}
 
-        true ->
-          Process.send_after(self(), :start_game, @game_start_timer_ms)
-          state
-      end
-
-    {:noreply, state}
+      true ->
+        Process.send_after(self(), :start_game, @game_start_timer_ms)
+        state
+    end
   end
 
   defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)

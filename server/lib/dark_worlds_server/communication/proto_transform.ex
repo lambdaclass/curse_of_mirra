@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
@@ -190,6 +191,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
     %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
+  end
+
+  def encode({killed_by, killed}, KillEvent) do
+    %KillEvent{killed_by: killed_by, killed: killed}
   end
 
   ###########

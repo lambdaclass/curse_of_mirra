@@ -122,6 +122,8 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
+
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < game_event.Players.Count
