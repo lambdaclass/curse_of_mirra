@@ -807,10 +807,9 @@ impl GameState {
     }
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
-        
         let now = time_now();
         let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        
+
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
@@ -846,25 +845,27 @@ impl GameState {
                         let attack_dmg = 2;
                         let attack_range = 20;
 
-                         let (top_left, bottom_right) =
+                        let (top_left, bottom_right) =
                             compute_barrel_roll_initial_positions(&(player.position), attack_range);
 
                         let affected_players: Vec<u64> =
                             GameState::players_in_range(&self.board, top_left, bottom_right)
                                 .into_iter()
                                 .filter(|&id| id != player.id)
-                                .collect(); 
-                        neon_crash_affected_players.insert(player.id, (attack_dmg, affected_players.clone()));
+                                .collect();
+                        neon_crash_affected_players
+                            .insert(player.id, (attack_dmg, affected_players.clone()));
                     }
                     _ => {}
                 }
             }
         });
-        
+
         for (player_id, (damage, attacked_players)) in neon_crash_affected_players.into_iter() {
             for target_player_id in attacked_players.iter() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-                let attacked_player = self.players
+                // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+                let attacked_player = self
+                    .players
                     .iter_mut()
                     .find(|player| player.id == *target_player_id && player.id != player_id);
 
@@ -878,16 +879,16 @@ impl GameState {
                 }
             }
         }
-        
+
         self.projectiles.retain(|projectile| {
             projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
         });
-        
+
         self.projectiles.iter_mut().for_each(|projectile| {
             projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
-        
+
         let mut tick_killed_events: Vec<KillEvent> = Vec::new();
 
         for projectile in self.projectiles.iter_mut() {

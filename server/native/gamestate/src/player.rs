@@ -244,7 +244,7 @@ impl Player {
             return false;
         }
 
-        return !(self.has_active_effect(&Effect::Disarmed) && is_basic_skill) ;
+        return !(self.has_active_effect(&Effect::Disarmed) && is_basic_skill);
     }
 
     // TODO:
