@@ -807,7 +807,10 @@ impl GameState {
     }
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
+        
         let now = time_now();
+        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
@@ -839,21 +842,52 @@ impl GameState {
                             speed,
                         )
                         .unwrap();
+
+                        let attack_dmg = 2;
+                        let attack_range = 20;
+
+                         let (top_left, bottom_right) =
+                            compute_barrel_roll_initial_positions(&(player.position), attack_range);
+
+                        let affected_players: Vec<u64> =
+                            GameState::players_in_range(&self.board, top_left, bottom_right)
+                                .into_iter()
+                                .filter(|&id| id != player.id)
+                                .collect(); 
+                        neon_crash_affected_players.insert(player.id, (attack_dmg, affected_players.clone()));
                     }
                     _ => {}
                 }
             }
         });
+        
+        for (player_id, (damage, attacked_players)) in neon_crash_affected_players.into_iter() {
+            for target_player_id in attacked_players.iter() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+                let attacked_player = self.players
+                    .iter_mut()
+                    .find(|player| player.id == *target_player_id && player.id != player_id);
 
+                match attacked_player {
+                    Some(ap) => {
+                        ap.modify_health(-damage);
+                        let player = ap.clone();
+                        GameState::modify_cell_if_player_died(&mut self.board, &player)?;
+                    }
+                    _ => continue,
+                }
+            }
+        }
+        
         self.projectiles.retain(|projectile| {
             projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
         });
-
+        
         self.projectiles.iter_mut().for_each(|projectile| {
             projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
             projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
         });
-
+        
         let mut tick_killed_events: Vec<KillEvent> = Vec::new();
 
         for projectile in self.projectiles.iter_mut() {
@@ -877,38 +911,40 @@ impl GameState {
                 let mut kill_count = 0;
 
                 // A projectile should attack only one player per tick
-                let attacked_player =
-                    GameState::get_player_mut(&mut self.players, affected_players[0])?;
+                if affected_players.len() > 0 {
+                    let attacked_player =
+                        GameState::get_player_mut(&mut self.players, affected_players[0])?;
 
-                match projectile.projectile_type {
-                    ProjectileType::DISARMINGBULLET => {
-                        attacked_player.add_effect(
-                            Effect::Disarmed.clone(),
-                            EffectData {
-                                time_left: MillisTime { high: 0, low: 5000 },
-                                ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
-                                direction: None,
-                            },
-                        );
-                    }
-                    _ => {
-                        attacked_player.modify_health(-(projectile.damage as i64));
-                        if matches!(attacked_player.status, Status::DEAD) {
-                            tick_killed_events.push(KillEvent {
-                                kill_by: projectile.player_id,
-                                killed: attacked_player.id,
-                            });
-                            kill_count += 1;
+                    match projectile.projectile_type {
+                        ProjectileType::DISARMINGBULLET => {
+                            attacked_player.add_effect(
+                                Effect::Disarmed.clone(),
+                                EffectData {
+                                    time_left: MillisTime { high: 0, low: 5000 },
+                                    ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                                    direction: None,
+                                },
+                            );
                         }
-                        GameState::modify_cell_if_player_died(
-                            &mut self.board,
-                            attacked_player,
-                        )?;
-                        projectile.last_attacked_player_id = attacked_player.id;
+                        _ => {
+                            attacked_player.modify_health(-(projectile.damage as i64));
+                            if matches!(attacked_player.status, Status::DEAD) {
+                                tick_killed_events.push(KillEvent {
+                                    kill_by: projectile.player_id,
+                                    killed: attacked_player.id,
+                                });
+                                kill_count += 1;
+                            }
+                            GameState::modify_cell_if_player_died(
+                                &mut self.board,
+                                attacked_player,
+                            )?;
+                            projectile.last_attacked_player_id = attacked_player.id;
+                        }
                     }
-                }
 
-                add_kills(&mut self.players, projectile.player_id, kill_count)?;
+                    add_kills(&mut self.players, projectile.player_id, kill_count)?;
+                }
             }
         }
 
