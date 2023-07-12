@@ -400,7 +400,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left, true) {
             return Ok(());
         }
 
@@ -532,7 +532,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left, false) {
             return Ok(());
         }
 
@@ -658,7 +658,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left, false) {
             return Ok(());
         }
 
@@ -729,7 +729,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left, false) {
             return Ok(());
         }
 
@@ -769,7 +769,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left, false) {
             return Ok(());
         }
 

@@ -232,7 +232,7 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &Self, cooldown_left: MillisTime) -> bool {
+    pub fn can_attack(self: &Self, cooldown_left: MillisTime, is_basic_skill: bool) -> bool {
         if matches!(self.status, Status::DEAD) {
             return false;
         }
@@ -241,7 +241,7 @@ impl Player {
             return false;
         }
 
-        return !self.has_active_effect(&Effect::Disarmed);
+        return !(self.has_active_effect(&Effect::Disarmed) && is_basic_skill) ;
     }
 
     // TODO:
