@@ -2,14 +2,19 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ExplosionStars_Flare_01_Example
-  m_Shader: {fileID: 4800000, guid: a11c402da186435cb7cdd325647bd0f3, type: 3}
-  m_ShaderKeywords: _DISSOLVETEXTUREFLIP_ON _RAMPAFFECTEDBYVERTEXCOLOR_ON _RAMPENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: c7e28235b80d40a4aa279be316006caf,
+    type: 3}
+  m_ValidKeywords:
+  - _RAMPENABLED_ON
+  m_InvalidKeywords:
+  - _DISSOLVETEXTUREFLIP_ON
+  - _RAMPAFFECTEDBYVERTEXCOLOR_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -75,13 +80,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DISSOLVETEXTUREFLIP: 1
     - _DetailNormalMapScale: 1
     - _DissolveExp: 6.47
     - _DissolveExpReversed: 2
-    - _DissolveTextureFlip: 1
     - _DissolveTextureScale: 1
     - _DstBlend: 0
     - _FinalOpacityPower: 1
@@ -96,9 +102,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 1
+    - _RAMPENABLED: 1
     - _RampAffectedByDynamics: 1
-    - _RampAffectedByVertexColor: 1
-    - _RampEnabled: 1
     - _RampOffsetExp: 3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -112,3 +118,17 @@ Material:
     - _FinalColor: {r: 1, g: 0.14344116, b: 0, a: 1}
     - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
     - _RampColorTint: {r: 0.5518868, g: 0.7482032, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &760827624737460950
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

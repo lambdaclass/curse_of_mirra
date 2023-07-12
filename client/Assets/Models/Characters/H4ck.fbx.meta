@@ -3,7 +3,37 @@ guid: 7471d2a748cb24909acd6bc1fff42ca8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: campera
+    second: {fileID: 2100000, guid: 412ba3912f2b24069bef04ff020d23e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: green_1
+    second: {fileID: 2100000, guid: a9626c75568b94174a6dffc233a0a617, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: green_2
+    second: {fileID: 2100000, guid: c7ba19ea2ada748e0a49964419b31239, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orange_1
+    second: {fileID: 2100000, guid: c255e3e23b1544a9da4c4a9de1e46f88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rose
+    second: {fileID: 2100000, guid: 123e078fe5f5345719eb3c0d2cd2ab93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white_1
+    second: {fileID: 2100000, guid: 114e4bd8bdda04b46be496664f07c2cd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

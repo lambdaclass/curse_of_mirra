@@ -2,14 +2,17 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IonMarker_Barrier_01
-  m_Shader: {fileID: 4800000, guid: d2891d0657494920bb2b9457a9964d4e, type: 3}
-  m_ShaderKeywords: _VERTICALGRADIENTENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: a02c41097dd31a74ca0833881a6b39b1,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _VERTICALGRADIENTENABLED_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -99,6 +102,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AppearGradientAbsSwitch: 1
     - _AppearGradientClampSwitch: 0
@@ -110,8 +114,8 @@ Material:
     - _AppearProgress: -0.125
     - _BackRampOffsetExp: 2
     - _Cutoff: 0.1
+    - _DEPTHMASKENABLED: 0
     - _DepthMaskDistance: 1
-    - _DepthMaskEnabled: 0
     - _DepthMaskExp: 2
     - _DepthMaskMultiply: 0.25
     - _DepthMaskRemapMax: 1
@@ -132,7 +136,7 @@ Material:
     - _FromSmokeExp: 2
     - _FrontSmokeExp: 2
     - _FrontSmokeFlip: 0
-    - _InnerRimEnabled: 0
+    - _INNERRIMENABLED: 0
     - _InnerRimExp: 4
     - _InnerRimFlipSwitch: 1
     - _MainMaskAdd: -0.15
@@ -169,29 +173,29 @@ Material:
     - _OffsetToOpacityNegate: 1
     - _OffsetVerticalAdjust: 0.075
     - _Progress: -0.15
+    - _RAMPENABLED: 0
     - _RampAffectedByDynamics: 1
     - _RampBlend: 0
-    - _RampEnabled: 0
     - _RampOffsetExp: 8
     - _RampOffsetMultiply: 1
     - _RampRemapMaxNew: 1.125
     - _RampRemapMinOld: 0.5
+    - _TRISGLAREENABLED: 0
     - _TransitionExp: 2
     - _TransitionFixAmount: 10
     - _TransitionMultiply: 1
-    - _TrisGlareEnabled: 0
     - _TrisGlareNegate: 1
     - _TrisGlareTextureScaleU: 1
     - _TrisGlareTextureScaleV: 1
+    - _VERTICALGRADIENTENABLED: 1
     - _VerticalGradientAbsSwitch: 1
     - _VerticalGradientClampSwitch: 0
-    - _VerticalGradientEnabled: 1
     - _VerticalGradientFlipSwitch: 0
     - _VerticalGradientOffset: 0
     - _VerticalGradientRemapMax: 1
     - _VerticalMaskAdd: -0.1
     - _VerticalMaskAdjust: -0.25
-    - _WavesEnabled: 0
+    - _WAVESENABLED: 0
     - _WavesScale: 8
     - _WavesSpeed: 4
     - __dirty: 0
@@ -206,3 +210,17 @@ Material:
     - _FrontSmokeColorTwo: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &6597693478740083108
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
