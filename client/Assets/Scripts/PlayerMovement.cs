@@ -54,8 +54,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
-            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -154,7 +152,6 @@ public class PlayerMovement : MonoBehaviour
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-            print("the actions are" + serverPlayerUpdate.Actions);
 
             if (
                 serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
@@ -479,7 +476,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                if (MovementAuthorized(player.GetComponent<Character>()))
+                float distance = Vector3.Distance(movementDirection, new Vector3(0, 0, 0));
+                if (MovementAuthorized(player.GetComponent<Character>()) && distance != 0f)
                 {
                     characterOrientation.ForcedRotationDirection = movementDirection;
                 }
