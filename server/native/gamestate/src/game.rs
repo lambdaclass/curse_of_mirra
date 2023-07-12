@@ -203,11 +203,12 @@ impl GameState {
         // but is not already on the edge, they move to the edge. In simpler terms, if the player is
         // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
         // something invalid like (0, -1).
-
         let new_position_x = min(new_position_x, (board.height - 1).try_into().unwrap());
         let new_position_x = max(new_position_x, 0);
         let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
         let new_position_y = max(new_position_y, 0);
+        
+        attacking_player.actions.insert(PlayerAction::MOVING, 3);
 
         let new_position_coordinates = Position {
             x: new_position_x as usize,
