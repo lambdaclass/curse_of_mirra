@@ -1,8 +1,8 @@
 use crate::skills::*;
 use crate::time_utils::{u128_to_millis, MillisTime};
+use rustler::NifTaggedEnum;
 use std::collections::HashMap;
 use std::str::FromStr;
-use rustler::NifTaggedEnum;
 use strum_macros::{Display, EnumString};
 
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString, Display, PartialEq)]

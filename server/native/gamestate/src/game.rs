@@ -2,7 +2,7 @@ use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
-use crate::skills::{Skill, self};
+use crate::skills::{self, Skill};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};

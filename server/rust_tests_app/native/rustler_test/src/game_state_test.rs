@@ -282,7 +282,8 @@ pub fn cant_move_if_petrified() -> TestResult {
     let mut player = state.get_player(player_id)?;
 
     // Sleep 1 seconds and update status, the character should not be able to move.
-    time_utils::sleep(1);
+    time_utils::sleep(time_utils::u128_to_millis(1000));
+    // std::thread::sleep(std::time::Duration::from_secs(1));
     state.world_tick()?;
 
     // Try to move 10 times, the player/character should not move.
@@ -295,7 +296,8 @@ pub fn cant_move_if_petrified() -> TestResult {
     }
 
     // Sleep 2 seconds and update status, now the character should be able to move.
-    time_utils::sleep(2);
+    // std::thread::sleep(std::time::Duration::from_secs(2));
+    time_utils::sleep(time_utils::u128_to_millis(2000));
     state.world_tick()?;
 
     state.move_player(player_id, Direction::DOWN)?;
