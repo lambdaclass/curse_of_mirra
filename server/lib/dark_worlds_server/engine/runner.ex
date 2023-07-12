@@ -158,7 +158,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
+        {:play, player_id,
+         %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
         %{next_state: next_state} = gen_server_state
       ) do
     game =
@@ -251,22 +252,27 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
 
-    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply,
+     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_cast(
-        {:disconnect, _player_id},
+        {:disconnect, player_id},
         %{game_status: :character_selection} = gen_server_state
       ) do
     current = gen_server_state.current_players - 1
-    {:noreply, %{gen_server_state | current_players: current}}
+    selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
+
+    {:noreply,
+     %{gen_server_state | current_players: current, selected_characters: selected_characters}}
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
     if gen_server_state.current_players < gen_server_state.max_players do
       broadcast_to_darkworlds_server({:player_joined, player_id})
 
-      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
+      {:reply, {:ok, player_id},
+       %{gen_server_state | current_players: gen_server_state.current_players + 1}}
     else
       {:reply, {:error, :game_full}, gen_server_state}
     end
@@ -300,7 +306,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} =
+      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
@@ -327,7 +334,8 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:current_round, 1)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
+      {:finish_character_selection, selected_players,
+       gen_server_state.client_game_state.game.players}
     )
 
     {:noreply, gen_server_state}
@@ -433,11 +441,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp broadcast_game_update({:next_round, gen_server_state, winner}) do
     server_game_state = gen_server_state.server_game_state
 
-    is_last_round = gen_server_state.current_round == 2 and amount_of_winners(gen_server_state.winners) == 2
+    is_last_round =
+      gen_server_state.current_round == 2 and amount_of_winners(gen_server_state.winners) == 2
 
     broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
-    round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
+    round_players =
+      if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
 
     {:ok, game} = Game.new_round(server_game_state.game, round_players)
 
@@ -530,7 +540,8 @@ defmodule DarkWorldsServer.Engine.Runner do
           state
 
         not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-          players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
+          players_with_character =
+            Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
           players_without_character =
             Enum.filter(state[:players], fn player_id ->
