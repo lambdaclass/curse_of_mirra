@@ -875,36 +875,36 @@ impl GameState {
                 }
 
                 let mut kill_count = 0;
-                for target_player_id in affected_players {
-                    let attacked_player =
-                        GameState::get_player_mut(&mut self.players, target_player_id)?;
 
-                    match projectile.projectile_type {
-                        ProjectileType::DISARMINGBULLET => {
-                            attacked_player.add_effect(
-                                Effect::Disarmed.clone(),
-                                EffectData {
-                                    time_left: MillisTime { high: 0, low: 5000 },
-                                    ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
-                                    direction: None,
-                                },
-                            );
+                // A projectile should attack only one player per tick
+                let attacked_player =
+                    GameState::get_player_mut(&mut self.players, affected_players[0])?;
+
+                match projectile.projectile_type {
+                    ProjectileType::DISARMINGBULLET => {
+                        attacked_player.add_effect(
+                            Effect::Disarmed.clone(),
+                            EffectData {
+                                time_left: MillisTime { high: 0, low: 5000 },
+                                ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                                direction: None,
+                            },
+                        );
+                    }
+                    _ => {
+                        attacked_player.modify_health(-(projectile.damage as i64));
+                        if matches!(attacked_player.status, Status::DEAD) {
+                            tick_killed_events.push(KillEvent {
+                                kill_by: projectile.player_id,
+                                killed: attacked_player.id,
+                            });
+                            kill_count += 1;
                         }
-                        _ => {
-                            attacked_player.modify_health(-(projectile.damage as i64));
-                            if matches!(attacked_player.status, Status::DEAD) {
-                                tick_killed_events.push(KillEvent {
-                                    kill_by: projectile.player_id,
-                                    killed: attacked_player.id,
-                                });
-                                kill_count += 1;
-                            }
-                            GameState::modify_cell_if_player_died(
-                                &mut self.board,
-                                attacked_player,
-                            )?;
-                            projectile.last_attacked_player_id = attacked_player.id;
-                        }
+                        GameState::modify_cell_if_player_died(
+                            &mut self.board,
+                            attacked_player,
+                        )?;
+                        projectile.last_attacked_player_id = attacked_player.id;
                     }
                 }
 
