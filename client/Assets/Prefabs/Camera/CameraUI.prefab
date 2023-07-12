@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d808c9bf14a1458aadf96d5f92b3b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: 
+  LevelName: Lobbies
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
@@ -1211,6 +1211,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224931852115754924}
+  m_RootOrder: 3
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2768,6 +2769,7 @@ GameObject:
   - component: {fileID: 114096636326014474}
   - component: {fileID: 114991275479998036}
   - component: {fileID: 8842644193255156245}
+  - component: {fileID: 6896190933309054917}
   m_Layer: 10
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -2955,6 +2957,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8aa3525151bb343b66b059b6095946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6896190933309054917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243820240813678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1272036331211942
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,6 +4170,7 @@ GameObject:
   - component: {fileID: 124846487602988218}
   - component: {fileID: 114905645026365078}
   - component: {fileID: 2053005125}
+  - component: {fileID: 5269512940582173692}
   m_Layer: 0
   m_Name: UICamera
   m_TagString: Untagged
@@ -4237,6 +4273,9 @@ MonoBehaviour:
   Joystick: {fileID: 5082067212023141501}
   PointsText: {fileID: 0}
   PointsTextPattern: 000000
+  KillFeedContainer: {fileID: 2374372053566511616, guid: 92b03542ba4f1406eb2515fd17bd1355,
+    type: 3}
+  Canvas: {fileID: 1182068805014700}
 --- !u!114 &2053005125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4272,6 +4311,39 @@ MonoBehaviour:
   Skill2Cooldown: {fileID: 8730552177544952447}
   Skill3Cooldown: {fileID: 56667048998880145}
   Skill4Cooldown: {fileID: 966231675131132017}
+--- !u!114 &5269512940582173692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737468962540040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 1
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1784286289901120
 GameObject:
   m_ObjectHideFlags: 0

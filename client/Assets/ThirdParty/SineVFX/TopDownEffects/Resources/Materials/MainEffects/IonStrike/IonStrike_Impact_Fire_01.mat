@@ -2,14 +2,18 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IonStrike_Impact_Fire_01
-  m_Shader: {fileID: 4800000, guid: eced831864e5482c9c1dc921da112540, type: 3}
-  m_ShaderKeywords: _DISSOLVETEXTUREFLIP_ON _RAMPENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: c444735a99fc1c64cb2c3aca113bbbe4,
+    type: 3}
+  m_ValidKeywords:
+  - _RAMPENABLED_ON
+  m_InvalidKeywords:
+  - _DISSOLVETEXTUREFLIP_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -79,7 +83,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _DISSOLVETEXTUREFLIP: 1
     - _DissolveExp: 0.5
     - _DissolveExpReversed: 1
     - _DissolveExpReversed1: 8
@@ -89,7 +95,6 @@ Material:
     - _DissolveGlowPower: 1
     - _DissolveMaskRemapMin: -1
     - _DissolveMaskScale: 1
-    - _DissolveTextureFlip: 1
     - _DissolveTextureRandomMax: 1.1
     - _DissolveTextureRandomMin: 0.9
     - _DissolveTextureScale: 0.25
@@ -106,7 +111,7 @@ Material:
     - _DistortionScrollSpeedV: 0
     - _DistortionU: 0
     - _DistortionV: 1
-    - _EmissionVertexStreamEnabled: 0
+    - _EMISSIONVERTEXSTREAMENABLED: 0
     - _FinalOpacityExp: 1
     - _FinalOpacityPower: 1
     - _FinalPower: 20
@@ -118,7 +123,7 @@ Material:
     - _MVDistortionFrameOffset: 0.001
     - _MVMainMaskExp: 1
     - _MVMainMaskRotation: 0.25
-    - _MVParticleFrameControlEnabled: 0
+    - _MVPARTICLEFRAMECONTROLENABLED: 0
     - _MVRandomFrame: 0
     - _MVRows: 8
     - _MainTexRotation: 0
@@ -130,9 +135,9 @@ Material:
     - _Noise01ScaleV: 1
     - _Noise01ScrollSpeedU: 0
     - _Noise01ScrollSpeedV: 0
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 0
+    - _RAMPENABLED: 1
     - _RampAffectedByDynamics: 1
-    - _RampAffectedByVertexColor: 0
-    - _RampEnabled: 1
     - _RampOffsetExp: 4
     - _RampOffsetMultiply: 1
     - _SecondaryMaskNegate: 1
@@ -143,3 +148,17 @@ Material:
     - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainTexChannels: {r: 0, g: 0, b: 1, a: 0}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &5759390745489293969
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

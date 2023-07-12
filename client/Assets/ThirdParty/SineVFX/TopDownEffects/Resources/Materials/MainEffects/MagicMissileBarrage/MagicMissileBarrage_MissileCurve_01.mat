@@ -2,15 +2,21 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MagicMissileBarrage_MissileCurve_01
-  m_Shader: {fileID: 4800000, guid: 09a48c3e92464c2289e53652a9098cc7, type: 3}
-  m_ShaderKeywords: _CAMERADEPTHFADEENABLED_ON _FRESNELMASKENABLED_ON _MAINMASKCHANNELSADDORMULTIPLY_ON
-    _RAMPENABLED1_ON _SOFTPARTICLESENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 23514104079acab47a8589c480f3b606,
+    type: 3}
+  m_ValidKeywords:
+  - _FRESNELMASKENABLED_ON
+  - _RAMPENABLED_ON
+  m_InvalidKeywords:
+  - _CAMERADEPTHFADEENABLED_ON
+  - _MAINMASKCHANNELSADDORMULTIPLY_ON
+  - _SOFTPARTICLESENABLED_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -92,6 +98,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _CameraDepthFadeEnabled: 1
     - _CameraDepthFadeLength: 1
@@ -99,6 +106,7 @@ Material:
     - _DissolveTextureRemapMax: 0.75
     - _DissolveTextureScaleU: 1
     - _DissolveTextureScaleV: 1
+    - _FRESNELMASKENABLED: 1
     - _FinalOpacityExp: 1
     - _FinalOpacityPower: 2
     - _FinalPower: 10
@@ -107,10 +115,9 @@ Material:
     - _Float0: 0.57
     - _Float1: 0.88
     - _Float2: 0.2
-    - _FresnelMaskEnabled: 1
     - _FresnelMaskPower: 1
     - _FresnelMaskScale: 1
-    - _MainMaskChannelsAddorMultiply: 1
+    - _MAINMASKCHANNELSADDORMULTIPLY: 1
     - _Mask02DistortionPower: 0
     - _Mask02Stretch: 1
     - _MaskLifetimeCustomProgress: 0
@@ -127,11 +134,14 @@ Material:
     - _Noise01ScaleV: 1
     - _Noise01ScrollSpeed: 0
     - _OpacityPower: 2
-    - _RampAffectedByVertexColor1: 0
-    - _RampEnabled1: 1
-    - _RampOffsetExp1: 1
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 0
+    - _RAMPENABLED: 1
+    - _RampOffsetExp: 1
     - _RampOffsetMultiply: 4
     - _RampTilingPower: 4
+    - _SECONDMASKFLIPANIMATION: 0
+    - _SECONDMASKFLIPUV: 0
+    - _SOFTPARTICLESENABLED: 1
     - _SecondMaskDirectionSwitch: 0
     - _SecondMaskDirectionU: 0
     - _SecondMaskDirectionV: 1
@@ -140,14 +150,11 @@ Material:
     - _SecondMaskDistortionRemapMin: -0.25
     - _SecondMaskDistortionScaleU: 1
     - _SecondMaskDistortionScaleV: 1
-    - _SecondMaskFlipAnimation: 0
-    - _SecondMaskFlipUV: 0
     - _SecondMaskLifetimeStretch: 2
     - _SecondMaskRotation: 0
     - _SoftParticleDistance: 1
     - _SoftParticleExp: 2
     - _SoftParticlesDistance: 1
-    - _SoftParticlesEnabled: 1
     - _SoftParticlesExp: 2
     - __dirty: 0
     m_Colors:
@@ -155,3 +162,17 @@ Material:
     - _MainMaskChannelsAdd: {r: 0, g: 0, b: 1, a: 1}
     - _MainMaskChannelsMultiply: {r: 1, g: 1, b: 0, a: 0}
     - _RampColorTint: {r: 0.7620503, g: 0.5801887, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &7931586403912040127
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

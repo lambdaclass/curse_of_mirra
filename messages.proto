@@ -18,6 +18,7 @@ message GameEvent {
     map<uint64, string> selected_characters = 8;
     int64 player_timestamp = 9;
     int64 server_timestamp = 10;
+    repeated KillEvent killfeed = 11;
 }
 
 /* Type of game events
@@ -70,6 +71,11 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+}
+
+message KillEvent {
+    uint64 killed_by = 1;
+    uint64 killed = 2;
 }
 
 /*

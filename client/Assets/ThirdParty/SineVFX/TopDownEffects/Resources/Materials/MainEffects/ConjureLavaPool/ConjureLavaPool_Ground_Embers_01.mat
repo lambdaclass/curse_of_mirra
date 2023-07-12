@@ -1,15 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8928844086187271302
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ConjureLavaPool_Ground_Embers_01
-  m_Shader: {fileID: 4800000, guid: a11c402da186435cb7cdd325647bd0f3, type: 3}
-  m_ShaderKeywords: _DISSOLVETEXTUREFLIP_ON
+  m_Shader: {fileID: -6465566751694194690, guid: c7e28235b80d40a4aa279be316006caf,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _DISSOLVETEXTUREFLIP_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -43,11 +59,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _DISSOLVETEXTUREFLIP: 1
     - _DissolveExp: 8
     - _DissolveExpReversed: 2
     - _DissolveExpReversed1: 8
-    - _DissolveTextureFlip: 1
     - _DissolveTextureScale: 0.25
     - _FinalOpacityPower: 1
     - _FinalPower: 20
@@ -55,12 +72,13 @@ Material:
     - _FlipbookFrame: 0.1
     - _FlipbookRows: 4
     - _MainTexRotation: 0
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 0
+    - _RAMPENABLED: 0
     - _RampAffectedByDynamics: 1
-    - _RampAffectedByVertexColor: 0
-    - _RampEnabled: 0
     - _RampOffsetExp: 1
     - __dirty: 0
     m_Colors:
     - _FinalColor: {r: 1, g: 0.12787381, b: 0, a: 1}
     - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

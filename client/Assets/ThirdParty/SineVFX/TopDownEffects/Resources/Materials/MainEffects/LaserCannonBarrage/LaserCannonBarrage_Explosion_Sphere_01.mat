@@ -1,16 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1465904083167121826
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LaserCannonBarrage_Explosion_Sphere_01
-  m_Shader: {fileID: 4800000, guid: a60f1e23313649f3802701db65f9f145, type: 3}
-  m_ShaderKeywords: _CAMERADEPTHFADEENABLED_ON _DEPTHFADEFLIP_ON _DEPTHFADEMAXMODE_ON
-    _DISSOLVENOISEFLIP_ON _RAMPENABLED_ON _RIMMASKENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 684cc95f61187234c95586b652bee33a,
+    type: 3}
+  m_ValidKeywords:
+  - _RAMPENABLED_ON
+  - _RIMMASKENABLED_ON
+  m_InvalidKeywords:
+  - _CAMERADEPTHFADEENABLED_ON
+  - _DEPTHFADEFLIP_ON
+  - _DEPTHFADEMAXMODE_ON
+  - _DISSOLVENOISEFLIP_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,14 +80,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _CameraDepthFadeEnabled: 1
     - _CameraDepthFadeLength: 1
     - _CameraDepthFadeOffset: 0
+    - _DEPTHFADEFLIP: 1
+    - _DEPTHFADEMAXMODE: 1
+    - _DISSOLVENOISEFLIP: 1
     - _DepthFadeDistance: 4
     - _DepthFadeExp: 16
-    - _DepthFadeFlip: 1
-    - _DepthFadeMaxMode: 1
     - _DepthGlowDistance: 4
     - _DepthGlowEnabled: 1
     - _DepthGlowExp: 16
@@ -75,7 +97,6 @@ Material:
     - _DissolveExpReversed1: 8
     - _DissolveNoiseExp: 4
     - _DissolveNoiseExpReversed: 4
-    - _DissolveNoiseFlip: 1
     - _DissolveNoiseRemapMax: -0.5
     - _DissolveNoiseRemapMin: 0.27
     - _DissolveNoiseThreshold: 0.25
@@ -99,9 +120,11 @@ Material:
     - _OpacityPower: 1
     - _ProgressRemapMax: -0.5
     - _ProgressRemapMin: 0.27
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 0
+    - _RAMPENABLED: 1
+    - _RIMMASKENABLED: 1
+    - _RIMMASKFLIP: 0
     - _RampAffectedByDynamics: 1
-    - _RampAffectedByVertexColor: 0
-    - _RampEnabled: 1
     - _RampExp: 1
     - _RampMultiplyScale: 1
     - _RampNoiseAmount: 1
@@ -109,13 +132,12 @@ Material:
     - _RampOffsetExpOne: 2
     - _RampOffsetMultiply: 1
     - _RampTilingPower: 1
-    - _RimMaskEnabled: 1
     - _RimMaskExp: 1
-    - _RimMaskFlip: 0
+    - _SOFTPARTICLESENABLED: 0
     - _SoftParticlesDistance: 3
-    - _SoftParticlesEnabled: 0
     - _SoftParticlesExp: 16
     - __dirty: 0
     m_Colors:
     - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
     - _RampColorTint: {r: 1, g: 0.70980394, b: 0.39607778, a: 1}
+  m_BuildTextureStacks: []

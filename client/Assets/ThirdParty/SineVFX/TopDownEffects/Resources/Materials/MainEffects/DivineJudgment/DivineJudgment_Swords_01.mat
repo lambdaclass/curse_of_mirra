@@ -1,16 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6987275778763328510
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DivineJudgment_Swords_01
-  m_Shader: {fileID: 4800000, guid: 362fbad5fd7549c698cc964f2cb7699b, type: 3}
-  m_ShaderKeywords: _RIMEMISSIONENABLED_ON
-  m_LightmapFlags: 0
+  m_Shader: {fileID: -6465566751694194690, guid: 4e11911a9b9313346925170bf2b846c5,
+    type: 3}
+  m_ValidKeywords:
+  - _RIMEMISSIONENABLED_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -59,27 +75,29 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlbedoDecalNegate: 1
     - _Cutoff: 0.5
+    - _DISSOLVEDIRECTIONMASKFLIP: 0
+    - _DISSOLVEMANUALCONTROL: 0
+    - _DISSOLVETEXTUREFLIP: 0
     - _DissolveDirectionMaskExp: 1
-    - _DissolveDirectionMaskFlip: 0
     - _DissolveDirectionScale: 0.25
     - _DissolveEmissionExp: 4
     - _DissolveEmissionOffset: -0.25
     - _DissolveEmissionPower: 2
     - _DissolveEmissionRemapMax: 0.25
-    - _DissolveManualControl: 0
     - _DissolveManualProgress: 0
-    - _DissolveTextureFlip: 0
     - _DissolveTextureScaleU: 1
     - _DissolveTextureScaleV: 1
+    - _EMISSIONVSCONTROLENABLED: 0
     - _EmissionPower: 3
     - _Float0: 1
     - _Float3: 0.35
     - _Metallic: 0.9
-    - _RimEmissionAffectsMask: 0
-    - _RimEmissionEnabled: 1
+    - _RIMEMISSIONAFFECTSMASK: 0
+    - _RIMEMISSIONENABLED: 1
     - _RimEmissionExp: 2
     - _RimEmissionNormal: 1
     - _RimEmissionPower: 2
@@ -91,3 +109,4 @@ Material:
     - _DissolveEmissionColor: {r: 1, g: 0.654902, b: 0.51372516, a: 1}
     - _EmissionColor: {r: 1, g: 0.654902, b: 0.5137255, a: 1}
     - _RimEmissionColor: {r: 1, g: 0.654902, b: 0.514151, a: 1}
+  m_BuildTextureStacks: []

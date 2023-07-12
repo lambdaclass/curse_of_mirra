@@ -1,16 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5596654502470332026
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PillarCrystal_Example_06
-  m_Shader: {fileID: 4800000, guid: a15b3fd0ee7c496a803e885a28591e3a, type: 3}
-  m_ShaderKeywords: _PARALLAXENABLED_ON _PARALLAXNOISEENABLED_ON _RAMPENABLED_ON _VERTICALGRADIENTENABLED_ON
-  m_LightmapFlags: 0
+  m_Shader: {fileID: -6465566751694194690, guid: 0b0d41d48b08dfa49bb41a2ef696095e,
+    type: 3}
+  m_ValidKeywords:
+  - _PARALLAXNOISEENABLED_ON
+  - _RAMPENABLED_ON
+  - _VERTICALGRADIENTENABLED_ON
+  m_InvalidKeywords:
+  - _PARALLAXENABLED_ON
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -79,9 +98,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _APPEARGRADIENTENABLED: 0
+    - _AlphaCutoff: 0.5
     - _AppearGradientAbsSwitch: 1
-    - _AppearGradientEnabled: 0
     - _AppearGradientExp: 4
     - _AppearGradientFlipSwitch: 1
     - _AppearGradientOffset: 1.25
@@ -94,45 +115,49 @@ Material:
     - _Float1: 0
     - _Float2: 0.49
     - _Float3: 1
+    - _INNERRIMENABLED: 0
+    - _INNERRIMMASKFLIP: 0
+    - _INNERRIMPROFILEENABLED: 0
     - _InnedRimExp: 4
     - _InnedRimHackedExp: 4
-    - _InnerRimEnabled: 0
     - _InnerRimExp: 6
     - _InnerRimHackNormals: 0.9
     - _InnerRimMaskExp: 2.55
-    - _InnerRimMaskFlip: 0
     - _InnerRimMaskNegate: 0.95
     - _InnerRimPower: 24
-    - _InnerRimProfileEnabled: 0
     - _MaskExp: 4
     - _MaskNegate: 0.75
     - _Metallic: 1
+    - _PARALLAXNOISEENABLED: 1
     - _ParallaxEnabled: 1
     - _ParallaxNegate: 0
     - _ParallaxNoiseDepth: 0.05
-    - _ParallaxNoiseEnabled: 1
     - _ParallaxNoiseFlip: 0
     - _ParallaxNoiseNegate: 0.95
     - _ParallaxNoisePower: 0.175
     - _ParallaxNoiseScaleU: 1
     - _ParallaxNoiseScaleV: 1
     - _ParallaxPower: 0.175
-    - _RampEnabled: 1
+    - _RAMPENABLED: 1
     - _RampOffsetExp: 1
     - _RampRemapMax: 0.6
     - _RimEmissionNormal: 1
     - _Smoothness: 1
+    - _TESTTT: 0
+    - _TESTTT2: 0
+    - _VERTICALGRADIENTENABLED: 1
+    - _VERTICALGRADIENTWORLDPOSITION: 0
     - _VersicalGradientFlipSwitch: 0
-    - _VerticalGradientEnabled: 1
     - _VerticalGradientExp: 4
     - _VerticalGradientFlipSwitch: 0
     - _VerticalGradientOffset: 1.85
     - _VerticalGradientRemapMax: 4.63
-    - _VerticalGradientWorldPosition: 0
     - __dirty: 0
     m_Colors:
     - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FinalColor: {r: 1, g: 0, b: 0, a: 1}
     - _InnerRimColor: {r: 1, g: 0, b: 0, a: 1}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _Vector0: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
