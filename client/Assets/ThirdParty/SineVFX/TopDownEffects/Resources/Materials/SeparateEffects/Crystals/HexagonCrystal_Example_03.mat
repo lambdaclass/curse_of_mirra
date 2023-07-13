@@ -2,15 +2,21 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HexagonCrystal_Example_03
-  m_Shader: {fileID: 4800000, guid: a15b3fd0ee7c496a803e885a28591e3a, type: 3}
-  m_ShaderKeywords: _INNERRIMENABLED_ON _INNERRIMMASKFLIP_ON _PARALLAXENABLED_ON _PARALLAXNOISEENABLED_ON
-    _RAMPENABLED_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 0b0d41d48b08dfa49bb41a2ef696095e,
+    type: 3}
+  m_ValidKeywords:
+  - _INNERRIMENABLED_ON
+  - _PARALLAXNOISEENABLED_ON
+  - _RAMPENABLED_ON
+  m_InvalidKeywords:
+  - _INNERRIMMASKFLIP_ON
+  - _PARALLAXENABLED_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -80,9 +86,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _APPEARGRADIENTENABLED: 0
     - _AppearGradientAbsSwitch: 1
-    - _AppearGradientEnabled: 0
     - _AppearGradientExp: 4
     - _AppearGradientFlipSwitch: 1
     - _AppearGradientOffset: -1
@@ -94,40 +101,40 @@ Material:
     - _Float0: 0.175
     - _Float1: 4
     - _Float2: 0.49
+    - _INNERRIMENABLED: 1
+    - _INNERRIMMASKFLIP: 1
+    - _INNERRIMPROFILEENABLED: 0
     - _InnedRimExp: 4
     - _InnedRimHackedExp: 4
-    - _InnerRimEnabled: 1
     - _InnerRimExp: 16
     - _InnerRimHackNormals: 1
     - _InnerRimMaskExp: 0.5
-    - _InnerRimMaskFlip: 1
     - _InnerRimMaskNegate: 0.5
     - _InnerRimPower: 24
-    - _InnerRimProfileEnabled: 0
     - _MaskExp: 4
     - _MaskNegate: 0.75
     - _Metallic: 1
+    - _PARALLAXNOISEENABLED: 1
     - _ParallaxEnabled: 1
     - _ParallaxNegate: 0
     - _ParallaxNoiseDepth: 0.175
-    - _ParallaxNoiseEnabled: 1
     - _ParallaxNoiseFlip: 0
     - _ParallaxNoiseNegate: 0.05
     - _ParallaxNoisePower: 0.175
     - _ParallaxNoiseScaleU: 4
     - _ParallaxNoiseScaleV: 4
     - _ParallaxPower: 0.175
-    - _RampEnabled: 1
+    - _RAMPENABLED: 1
     - _RampOffsetExp: 1
     - _RampRemapMax: 0.2
     - _RimEmissionNormal: 1
     - _Smoothness: 1
-    - _VerticalGradientEnabled: 0
+    - _VERTICALGRADIENTENABLED: 0
+    - _VERTICALGRADIENTWORLDPOSITION: 0
     - _VerticalGradientExp: 4
     - _VerticalGradientFlipSwitch: 0
     - _VerticalGradientOffset: 0.1515
     - _VerticalGradientRemapMax: 3.49
-    - _VerticalGradientWorldPosition: 0
     - __dirty: 0
     m_Colors:
     - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
@@ -135,3 +142,17 @@ Material:
     - _InnerRimColor: {r: 1, g: 0, b: 0, a: 1}
     - _RampColorTint: {r: 1, g: 0.38207546, b: 0.38207546, a: 1}
     - _Vector0: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &7590687227996554009
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

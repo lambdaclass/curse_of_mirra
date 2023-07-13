@@ -1,16 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4655927183761859001
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ConjureWaterPool_Ground_Impact_01
-  m_Shader: {fileID: 4800000, guid: 46b6ffc6d94c460197c654db36fc0ec1, type: 3}
-  m_ShaderKeywords: _CRACKSENABLED_ON _DISSOLVETEXTUREFLIP1_ON _DISSOLVETEXTUREFLIP_ON
-    _KEYWORD0_ON _LAVANOISEENABLED_ON _SECONDMASKPROFILEENABLED_ON _TEST_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 5a3e65935a267ad45a19b27fe3bf5060,
+    type: 3}
+  m_ValidKeywords:
+  - _CRACKSENABLED_ON
+  - _LAVANOISEENABLED_ON
+  m_InvalidKeywords:
+  - _DISSOLVETEXTUREFLIP1_ON
+  - _DISSOLVETEXTUREFLIP_ON
+  - _KEYWORD0_ON
+  - _SECONDMASKPROFILEENABLED_ON
+  - _TEST_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -148,6 +169,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AMe: 0
     - _AlbedoAffectedByHeight: 1
@@ -155,26 +189,26 @@ Material:
     - _AlbedoMapEnabled: 0
     - _AlbedoMapExp: 1
     - _AlbedoNoise: 10
-    - _CracksEnabled: 1
+    - _CRACKSENABLED: 1
     - _CracksNegate: 0
     - _CracksNegateSlope: 0
     - _CracksNegateSoft: 0
     - _CracksScaleU: 1
     - _CracksScaleV: 1
+    - _DISSOLVETEXTUREFLIP: 1
+    - _DISSOLVETEXTUREFLIP1: 1
+    - _DISSOLVETEXTURERADIAL: 0
+    - _DISSOLVETEXTURERADIAL1: 0
+    - _DISSOLVETEXTURERADIALScaleU: 0.1
+    - _DISSOLVETEXTURERADIALScaleU1: 0.1
+    - _DISSOLVETEXTURERADIALScaleV: 1
+    - _DISSOLVETEXTURERADIALScaleV1: 1
     - _DissolveExp: 6.47
     - _DissolveExp1: 4
     - _DissolveExpReversed: 2
     - _DissolveExpReversed1: 4
     - _DissolveMaskScale: 4
     - _DissolveMaskScale1: 1
-    - _DissolveTextureFlip: 1
-    - _DissolveTextureFlip1: 1
-    - _DissolveTextureRadial: 0
-    - _DissolveTextureRadial1: 0
-    - _DissolveTextureRadialScaleU: 0.1
-    - _DissolveTextureRadialScaleU1: 0.1
-    - _DissolveTextureRadialScaleV: 1
-    - _DissolveTextureRadialScaleV1: 1
     - _DissolveTextureRandomMax: 1.1
     - _DissolveTextureRandomMax1: 1.1
     - _DissolveTextureRandomMin: 0.9
@@ -200,6 +234,7 @@ Material:
     - _HeightMapNegate: 1
     - _HeightSlopeControl: 0
     - _Keyword0: 1
+    - _LAVANOISEENABLED: 1
     - _LavaAppearMaskExp: 2
     - _LavaAppearMaskScaleU: 1
     - _LavaAppearMaskScaleV: 1
@@ -212,7 +247,6 @@ Material:
     - _LavaNoiseDistortionScaleU: 2
     - _LavaNoiseDistortionScaleV: 4
     - _LavaNoiseDistortionScrollSpeed: 0.02
-    - _LavaNoiseEnabled: 1
     - _LavaNoiseNegate: 0.25
     - _LavaNoiseScaleU: 1.5
     - _LavaNoiseScaleV: 2
@@ -229,13 +263,15 @@ Material:
     - _OpacityMaskScaler: 1
     - _OpacityMaskVSEmilationTEST: -0.103
     - _Progress: -0.35
+    - _QueueControl: 1
+    - _QueueOffset: 0
     - _RampOffsetExp: 1
-    - _RampOffsetExp1: 0.5
     - _RampOffsetMultiply: 1
     - _RampSmoothstepMax: 0.75
     - _RampSmoothstepMin: 0.25
     - _SS1: 0.25
     - _SS2: 0.5
+    - _SURFACENOISEENABLED: 0
     - _SecondMaskEdgeGlow: 1
     - _SecondMaskExp: 1
     - _SecondMaskProfileEnabled: 1
@@ -244,17 +280,16 @@ Material:
     - _SecondMaskVSEmilationTEST: 1
     - _SlopeControl: 0.25
     - _SurfaceNoiseAdd: 0
-    - _SurfaceNoiseEnabled: 0
     - _SurfaceNoiseExp: 1
     - _SurfaceNoiseScaleU: 1
     - _SurfaceNoiseScaleV: 1
     - _Test: 1
     - _Tiling: 2
+    - _VALLEYSEMISSIONBOOSTENABLED: 0
     - _VSLavaAppearProgress: 0.31
     - _VSvsGLOBALControlSwitch: 0
     - _ValleysEmissionBoostAmount: 10
     - _ValleysEmissionBoostBloom: 1
-    - _ValleysEmissionBoostEnabled: 0
     - __dirty: 0
     - _dgdg: 4
     m_Colors:
@@ -262,3 +297,4 @@ Material:
     - _AlbedoColor2: {r: 0.11320587, g: 0.11320587, b: 0.11320587, a: 1}
     - _Color0: {r: 1, g: 0, b: 0.08737848, a: 0}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

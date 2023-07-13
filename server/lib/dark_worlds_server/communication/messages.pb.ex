@@ -155,6 +155,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
 
   field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
+  field(:killfeed, 11, repeated: true, type: DarkWorldsServer.Communication.Proto.KillEvent)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -232,6 +233,17 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     type: DarkWorldsServer.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.KillEvent do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:killed_by, 1, type: :uint64, json_name: "killedBy")
+  field(:killed, 2, type: :uint64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

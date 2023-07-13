@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
+            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -176,11 +179,21 @@ public class PlayerMovement : MonoBehaviour
                 executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
-            if (serverPlayerUpdate.Health == 0)
+            // TODO: try to optimize GetComponent calls
+            Character playerCharacter = actualPlayer.GetComponent<Character>();
+
+            if (serverPlayerUpdate.Health <= 0)
             {
-                SocketConnectionManager.Instance.players[i]
-                    .GetComponent<Character>()
-                    .CharacterModel.SetActive(false);
+                SetPlayerDead(playerCharacter);
+            }
+            else if (
+                (
+                    playerCharacter.ConditionState.CurrentState
+                    == CharacterStates.CharacterConditions.Dead
+                ) && (serverPlayerUpdate.Health == 100)
+            )
+            {
+                SetPlayerAlive(playerCharacter);
             }
         }
     }
@@ -282,7 +295,7 @@ public class PlayerMovement : MonoBehaviour
                     .GetComponent<MainAttack>()
                     .ShootLaser(
                         projectile,
-                        new Vector3(backToFrontPosition[0], 1f, backToFrontPosition[2])
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
@@ -393,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
 
-            // FIXME: Removed harcoded validation once is fixed on the backend.
+            // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
                 && playerUpdate.Action == PlayerAction.ExecutingSkill3
@@ -439,7 +452,15 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 player.transform.position = newPosition;
-                characterOrientation.ForcedRotationDirection = movementDirection;
+
+                // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
+                // if the player is in attacking state, movement rotation from movement should be ignored
+                if (MovementAuthorized(player.GetComponent<Character>()))
+                {
+                    characterOrientation.ForcedRotationDirection = movementDirection;
+                }
+
+                // TODO: why not use character state?
                 walking = true;
             }
         }
@@ -465,19 +486,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
-
-        bool isAttackingAttack = playerUpdate.Action == PlayerAction.Attacking;
-        player.GetComponent<AttackController>().SwordAttack(isAttackingAttack);
-
-        //if dead remove the player from the scene
-        if (healthComponent.CurrentHealth <= 0)
-        {
-            healthComponent.Model.gameObject.SetActive(false);
-        }
-        if (healthComponent.CurrentHealth == 100)
-        {
-            healthComponent.Model.gameObject.SetActive(true);
-        }
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
@@ -511,6 +519,18 @@ public class PlayerMovement : MonoBehaviour
                 (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
             );
         }
+    }
+
+    public void SetPlayerDead(Character playerCharacter)
+    {
+        playerCharacter.CharacterModel.SetActive(false);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+    }
+
+    public void SetPlayerAlive(Character playerCharacter)
+    {
+        playerCharacter.CharacterModel.SetActive(true);
+        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     public void ToggleGhost()

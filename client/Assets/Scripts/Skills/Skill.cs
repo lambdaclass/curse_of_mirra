@@ -7,7 +7,7 @@ using UnityEngine;
 public class Skill : CharacterAbility
 {
     [SerializeField]
-    protected string skillId;
+    public string skillId;
 
     [SerializeField]
     protected Action serverSkill;
@@ -18,10 +18,20 @@ public class Skill : CharacterAbility
     [SerializeField]
     protected SkillInfo skillInfo;
 
-    public void SetSkill(Action serverSkill, SkillInfo skillInfo)
+    protected SkillAnimationEvents skillsAnimationEvent;
+
+    // feedbackRotatePosition used to track the position to look at when executing the animation feedback
+    private Vector2 feedbackRotatePosition;
+
+    public void SetSkill(
+        Action serverSkill,
+        SkillInfo skillInfo,
+        SkillAnimationEvents skillsAnimationEvent
+    )
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
+        this.skillsAnimationEvent = skillsAnimationEvent;
         this.AbilityStartSfx = skillInfo.abilityStartSfx;
     }
 
@@ -60,6 +70,7 @@ public class Skill : CharacterAbility
                 X = direction.x,
                 Y = direction.z
             };
+            feedbackRotatePosition = new Vector2(direction.x, direction.z);
             ExecuteSkill(relativePosition);
         }
     }
@@ -73,6 +84,7 @@ public class Skill : CharacterAbility
                 X = position.x,
                 Y = position.y
             };
+            feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(relativePosition);
         }
     }
@@ -88,11 +100,16 @@ public class Skill : CharacterAbility
 
     public void ExecuteFeedback()
     {
-        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
-        _animator.SetBool(skillId, true);
-        PlayAbilityStartSfx();
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
 
-        StartCoroutine(EndSkillFeedback());
+        if (skillInfo.hasModelAnimation == true)
+        {
+            skillsAnimationEvent.UpdateActiveSkill(this);
+            _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+            _animator.SetBool(skillId, true);
+            PlayAbilityStartSfx();
+        }
     }
 
     private void SendActionToBackend(RelativePosition relativePosition)
@@ -105,12 +122,8 @@ public class Skill : CharacterAbility
         SocketConnectionManager.Instance.SendAction(action);
     }
 
-    private IEnumerator EndSkillFeedback()
+    public void EndSkillFeedback()
     {
-        if (skillInfo)
-        {
-            yield return new WaitForSeconds(skillInfo.blockMovementTime);
-        }
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
     }
