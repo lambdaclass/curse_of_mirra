@@ -128,10 +128,7 @@ impl GameState {
         for player in players.iter_mut() {
             let new_position =
                 generate_new_position(&mut positions, self.board.width, self.board.height);
-            player.position.x = new_position.x;
-            player.position.y = new_position.y;
-            player.health = 100;
-            player.status = Status::ALIVE;
+            player.restore_player_status(new_position);
             board.set_cell(
                 player.position.x,
                 player.position.y,
