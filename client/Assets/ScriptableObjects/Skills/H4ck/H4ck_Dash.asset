@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Hack_Skill3
   inputType: 0
-  feedbackAnimation: {fileID: 0}
+  feedbackAnimation: {fileID: 7017218312715976829, guid: 4fc144b63d69c4811ae710e9c3a2b968,
+    type: 3}
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}

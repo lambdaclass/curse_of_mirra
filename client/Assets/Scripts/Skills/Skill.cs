@@ -22,6 +22,8 @@ public class Skill : CharacterAbility
 
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
+    private GameObject feedbackAnimation;
+    private TrailRenderer trail;
 
     public void SetSkill(
         Action serverSkill,
@@ -47,9 +49,28 @@ public class Skill : CharacterAbility
 
         if (skillInfo.feedbackAnimation)
         {
-            GameObject feedback = Instantiate(skillInfo.feedbackAnimation, _model.transform.parent);
-
-            this.AbilityStartFeedbacks = feedback.GetComponent<MMF_Player>();
+            if (skillInfo.feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
+            {
+                feedbackAnimation = Instantiate(skillInfo.feedbackAnimation, _model.transform);
+                feedbackAnimation.SetActive(false);
+            }
+            else if (skillInfo.feedbackAnimation.GetComponent<TrailRenderer>())
+            {
+                feedbackAnimation = Instantiate(
+                    skillInfo.feedbackAnimation,
+                    _model.transform.parent
+                );
+                trail = feedbackAnimation.GetComponent<TrailRenderer>();
+                trail.emitting = false;
+            }
+            else
+            {
+                feedbackAnimation = Instantiate(
+                    skillInfo.feedbackAnimation,
+                    _model.transform.parent
+                );
+                this.AbilityStartFeedbacks = feedbackAnimation.GetComponent<MMF_Player>();
+            }
         }
 
         if (skillInfo)
@@ -110,6 +131,22 @@ public class Skill : CharacterAbility
             _animator.SetBool(skillId, true);
             PlayAbilityStartSfx();
         }
+
+        if (skillInfo.feedbackAnimation)
+        {
+            if (skillInfo.feedbackAnimation.GetComponent<MMF_Player>())
+            {
+                this.PlayAbilityStartFeedbacks();
+            }
+            if (skillInfo.feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
+            {
+                feedbackAnimation.SetActive(true);
+            }
+            if (trail)
+            {
+                trail.emitting = true;
+            }
+        }
     }
 
     private void SendActionToBackend(RelativePosition relativePosition)
@@ -126,5 +163,21 @@ public class Skill : CharacterAbility
     {
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
+
+        if (feedbackAnimation)
+        {
+            if (feedbackAnimation.GetComponent<MMF_Player>())
+            {
+                this.StopStartFeedbacks();
+            }
+            if (feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
+            {
+                feedbackAnimation.SetActive(false);
+            }
+            if (trail)
+            {
+                trail.emitting = false;
+            }
+        }
     }
 }
