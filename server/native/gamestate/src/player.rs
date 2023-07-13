@@ -292,6 +292,27 @@ impl Player {
             now,
         );
     }
+
+    // This ill be helpful once the deathmatch mode starts its development
+    pub fn restore_player_status(&mut self, new_position: Position){
+        self.health = 100;
+        self.position.x = new_position.x;
+        self.position.y = new_position.y;
+        self.status = Status::ALIVE;
+        self.action = PlayerAction::NOTHING;
+        self.aoe_position = Position::new(0,0);
+        self.effects = HashMap::new();
+        self.basic_skill_cooldown_left = MillisTime{high: 0, low: 0};
+        self.skill_1_cooldown_left = MillisTime{high: 0, low: 0};
+        self.skill_2_cooldown_left = MillisTime{high: 0, low: 0};
+        self.skill_3_cooldown_left = MillisTime{high: 0, low: 0};
+        self.skill_4_cooldown_left = MillisTime{high: 0, low: 0};
+        self.basic_skill_started_at = MillisTime{high: 0, low: 0};
+        self.skill_1_started_at = MillisTime{high: 0, low: 0};
+        self.skill_2_started_at = MillisTime{high: 0, low: 0};
+        self.skill_3_started_at = MillisTime{high: 0, low: 0};
+        self.skill_4_started_at = MillisTime{high: 0, low: 0};
+    }
 }
 
 impl Position {
