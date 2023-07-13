@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 368487285}
   - component: {fileID: 368487286}
   m_Layer: 5
-  m_Name: ButtonBackToLobbies
+  m_Name: ButtonResume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1079423894}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: BackToLobbyAndCloseConnection
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8794,7 +8794,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 658247120177733765}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: BackToLobbyAndCloseConnection
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9316,7 +9316,7 @@ GameObject:
   - component: {fileID: 3880324975267780781}
   - component: {fileID: 3492251112664245955}
   m_Layer: 5
-  m_Name: ButtonBackToLobbies
+  m_Name: ButtonResume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

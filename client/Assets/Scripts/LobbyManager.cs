@@ -57,7 +57,6 @@ public class LobbyManager : LevelSelector
     public void BackToLobbyAndCloseConnection()
     {
         SocketConnectionManager.Instance.closeConnection();
-        SocketConnectionManager.Instance.Init();
         Back();
     }
 
