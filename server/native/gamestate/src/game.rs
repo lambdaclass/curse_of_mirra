@@ -207,7 +207,7 @@ impl GameState {
         let new_position_x = max(new_position_x, 0);
         let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
         let new_position_y = max(new_position_y, 0);
-        
+
         attacking_player.actions.insert(PlayerAction::MOVING, 3);
 
         let new_position_coordinates = Position {
