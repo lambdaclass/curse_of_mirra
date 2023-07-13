@@ -64,11 +64,7 @@ public class LobbyManager : LevelSelector
     {
         SocketConnectionManager.Instance.closeConnection();
         SocketConnectionManager.Instance.Init();
-        if (GameManager.Instance != null)
-        {
-            Destroy(GameManager.Instance.gameObject);
-            Destroy(MMSoundManager.Instance.gameObject);
-        }
+        DestroySingletonInstances();
         Back();
     }
 
@@ -76,6 +72,15 @@ public class LobbyManager : LevelSelector
     {
         this.LevelName = mapName;
         LevelSelected = mapName;
+    }
+
+    private void DestroySingletonInstances()
+    {
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+            Destroy(MMSoundManager.Instance.gameObject);
+        }
     }
 
     private void Update()

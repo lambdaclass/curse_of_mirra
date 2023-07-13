@@ -196,7 +196,6 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = game_event.Players.ToList();
-                    // SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
                     print("Message received is: " + game_event.Type);
