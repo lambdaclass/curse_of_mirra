@@ -77,6 +77,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     Process.send_after(self(), :character_selection_time_out, @character_selection_timeout_ms)
+    Process.send_after(self(), :check_player_amount, @player_check)
 
     {:ok,
      %{
@@ -134,7 +135,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
-      Map.put(gen_server_state, :server_game_state, server_game_state) |> set_timestamp_for_player(timestamp, player)
+      Map.put(gen_server_state, :server_game_state, server_game_state)
+      |> set_timestamp_for_player(timestamp, player)
 
     {:noreply, gen_server_state}
   end
@@ -167,7 +169,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     next_state = Map.put(next_state, :game, game)
 
     gen_server_state =
-      Map.put(gen_server_state, :next_state, next_state) |> set_timestamp_for_player(timestamp, player_id)
+      Map.put(gen_server_state, :next_state, next_state)
+      |> set_timestamp_for_player(timestamp, player_id)
 
     {:noreply, gen_server_state}
   end
@@ -248,7 +251,18 @@ defmodule DarkWorldsServer.Engine.Runner do
       ) do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
+
     {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+  end
+
+  def handle_cast(
+        {:disconnect, player_id},
+        %{game_status: :character_selection} = gen_server_state
+      ) do
+    current = gen_server_state.current_players - 1
+    selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
+
+    {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
@@ -301,8 +315,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       :game_timeout,
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
-
-    Process.send_after(self(), :check_player_amount, @player_check)
 
     Process.send_after(self(), :update_state, tick_rate)
 
@@ -421,10 +433,13 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp broadcast_game_update({:next_round, gen_server_state, winner}) do
     server_game_state = gen_server_state.server_game_state
+
     is_last_round = gen_server_state.current_round == 2 and amount_of_winners(gen_server_state.winners) == 2
+
     broadcast_message = if is_last_round, do: :last_round, else: :next_round
 
     round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
+
     {:ok, game} = Game.new_round(server_game_state.game, round_players)
 
     server_game_state = %{server_game_state | game: game}
@@ -518,7 +533,9 @@ defmodule DarkWorldsServer.Engine.Runner do
         players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
 
         players_without_character =
-          Enum.filter(state[:players], fn player_id -> player_id not in players_with_character end)
+          Enum.filter(state[:players], fn player_id ->
+            player_id not in players_with_character
+          end)
 
         selected_characters =
           Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
@@ -536,10 +553,14 @@ defmodule DarkWorldsServer.Engine.Runner do
     end
   end
 
-  defp do_move(:move_with_joystick, game, player, %{x: x, y: y}), do: Game.move_with_joystick(game, player, x, y)
+  defp do_move(:move_with_joystick, game, player, %{x: x, y: y}),
+    do: Game.move_with_joystick(game, player, x, y)
+
   defp do_move(:move, game, player, value), do: Game.move_player(game, player, value)
 
-  defp do_action(:basic_attack, game, player_id, value), do: Game.basic_attack(game, player_id, value)
+  defp do_action(:basic_attack, game, player_id, value),
+    do: Game.basic_attack(game, player_id, value)
+
   defp do_action(:skill_1, game, player_id, value), do: Game.skill_1(game, player_id, value)
   defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
   defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
