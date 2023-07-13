@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c3b3ae0b3854c0885741bbbc9a716b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateInterval: 5
+  UpdateInterval: 0.3
 --- !u!1 &1512710031
 GameObject:
   m_ObjectHideFlags: 0
