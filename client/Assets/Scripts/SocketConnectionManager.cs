@@ -9,8 +9,6 @@ using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -52,12 +50,24 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void Awake()
     {
-        Instance = this;
-        this.session_id = LobbyConnection.Instance.GameSession;
-        this.server_ip = LobbyConnection.Instance.server_ip;
-        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-        projectilesStatic = this.projectiles;
-        DontDestroyOnLoad(gameObject);
+        Init();
+    }
+
+    public void Init()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            this.session_id = LobbyConnection.Instance.GameSession;
+            this.server_ip = LobbyConnection.Instance.server_ip;
+            this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+            projectilesStatic = this.projectiles;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Start()
