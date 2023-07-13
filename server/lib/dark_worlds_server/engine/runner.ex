@@ -256,13 +256,13 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:disconnect, player_id},
+        {:disconnect, _player_id},
         %{game_status: :character_selection} = gen_server_state
       ) do
     current = gen_server_state.current_players - 1
-    selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
+    #selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
 
-    {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
+    {:noreply, %{gen_server_state | current_players: current}}
   end
 
   def handle_call({:join, player_id}, _, gen_server_state) do
