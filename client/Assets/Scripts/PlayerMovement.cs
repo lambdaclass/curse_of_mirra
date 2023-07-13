@@ -54,8 +54,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
-            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
