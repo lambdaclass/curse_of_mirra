@@ -252,34 +252,22 @@ impl Player {
         );
 
         self.skill_1_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_1_started_at,
-                self.character.cooldown_first_skill(),
-            ),
+            add_millis(self.skill_1_started_at, self.character.cooldown_skill_1()),
             now,
         );
 
         self.skill_2_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_2_started_at,
-                self.character.cooldown_second_skill(),
-            ),
+            add_millis(self.skill_2_started_at, self.character.cooldown_skill_2()),
             now,
         );
 
         self.skill_3_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_3_started_at,
-                self.character.cooldown_third_skill(),
-            ),
+            add_millis(self.skill_3_started_at, self.character.cooldown_skill_3()),
             now,
         );
 
         self.skill_4_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_4_started_at,
-                self.character.cooldown_fourth_skill(),
-            ),
+            add_millis(self.skill_4_started_at, self.character.cooldown_skill_4()),
             now,
         );
     }

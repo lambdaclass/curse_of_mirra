@@ -135,20 +135,40 @@ impl Character {
         u128_to_millis(self.skill_basic.cooldown_ms as u128)
     }
 
-    pub fn cooldown_first_skill(&self) -> MillisTime {
+    pub fn cooldown_skill_1(&self) -> MillisTime {
         u128_to_millis(self.skill_1.cooldown_ms as u128)
     }
 
-    pub fn cooldown_second_skill(&self) -> MillisTime {
+    pub fn cooldown_skill_2(&self) -> MillisTime {
         u128_to_millis(self.skill_2.cooldown_ms as u128)
     }
 
-    pub fn cooldown_third_skill(&self) -> MillisTime {
+    pub fn cooldown_skill_3(&self) -> MillisTime {
         u128_to_millis(self.skill_3.cooldown_ms as u128)
     }
 
-    pub fn cooldown_fourth_skill(&self) -> MillisTime {
+    pub fn cooldown_skill_4(&self) -> MillisTime {
         u128_to_millis(self.skill_4.cooldown_ms as u128)
+    }
+
+    pub fn duration_basic_skill(&self) -> MillisTime {
+        u128_to_millis(self.skill_basic.duration as u128)
+    }
+
+    pub fn duration_skill_1(&self) -> MillisTime {
+        u128_to_millis(self.skill_1.duration as u128)
+    }
+
+    pub fn duration_skill_2(&self) -> MillisTime {
+        u128_to_millis(self.skill_2.duration as u128)
+    }
+
+    pub fn duration_skill_3(&self) -> MillisTime {
+        u128_to_millis(self.skill_3.duration as u128)
+    }
+
+    pub fn duration_skill_4(&self) -> MillisTime {
+        u128_to_millis(self.skill_4.duration as u128)
     }
 }
 

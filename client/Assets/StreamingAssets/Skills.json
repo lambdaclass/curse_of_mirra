@@ -15,7 +15,7 @@
       "Name": "Bash",
       "DoFunc": "0",
       "ButtonType": "2",
-      "Cooldown": "1000",
+      "Cooldown": "500",
       "Damage": "30",
       "Status": "",
       "Duration": "0",
@@ -37,10 +37,10 @@
       "Name": "Rage",
       "DoFunc": "0",
       "ButtonType": "1",
-      "Cooldown": "5000",
+      "Cooldown": "8000",
       "Damage": "0",
       "Status": "",
-      "Duration": "0",
+      "Duration": "5000",
       "Projectile": "",
       "Minion": ""
     },
@@ -150,7 +150,7 @@
       "Cooldown": "5000",
       "Damage": "5",
       "Status": "",
-      "Duration": "0",
+      "Duration": "5000",
       "Projectile": "",
       "Minion": ""
     },
@@ -161,7 +161,7 @@
       "Cooldown": "8000",
       "Damage": "10",
       "Status": "",
-      "Duration": "0",
+      "Duration": "1000",
       "Projectile": "",
       "Minion": ""
     },
@@ -172,7 +172,7 @@
       "Cooldown": "60000",
       "Damage": "10",
       "Status": "",
-      "Duration": "0",
+      "Duration": "6000",
       "Projectile": "",
       "Minion": ""
     },
