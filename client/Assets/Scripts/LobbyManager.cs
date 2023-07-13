@@ -58,6 +58,11 @@ public class LobbyManager : LevelSelector
     {
         SocketConnectionManager.Instance.closeConnection();
         SocketConnectionManager.Instance.Init();
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+            Destroy(MMSoundManager.Instance.gameObject);
+        }
         Back();
     }
 

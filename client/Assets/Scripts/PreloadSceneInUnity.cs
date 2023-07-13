@@ -6,22 +6,22 @@ using UnityEngine.SceneManagement;
 public class PreloadSceneInUnity : MonoBehaviour
 {
     [SerializeField]
-    private string _sceneName = "maingame";
-    public string _SceneName => this._sceneName;
+    private string sceneName = "BackendPlayground";
+    public string SceneName => this.sceneName;
 
-    private AsyncOperation _asyncOperation;
+    private AsyncOperation asyncOperation;
 
     private IEnumerator LoadSceneAsyncProcess(string sceneName)
     {
         // Begin to load the Scene you have specified.
-        this._asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        this.asyncOperation = SceneManager.LoadSceneAsync(sceneName);
 
         // Don't let the Scene activate until you allow it to.
-        this._asyncOperation.allowSceneActivation = false;
+        this.asyncOperation.allowSceneActivation = false;
 
-        while (!this._asyncOperation.isDone)
+        while (!this.asyncOperation.isDone)
         {
-            Debug.Log($"[scene]:{sceneName} [load progress]: {this._asyncOperation.progress}");
+            Debug.Log($"[scene]:{sceneName} [load progress]: {this.asyncOperation.progress}");
 
             yield return null;
         }
@@ -29,9 +29,9 @@ public class PreloadSceneInUnity : MonoBehaviour
 
     private void Start()
     {
-        if (this._asyncOperation == null)
+        if (this.asyncOperation == null)
         {
-            this.StartCoroutine(this.LoadSceneAsyncProcess(sceneName: this._sceneName));
+            this.StartCoroutine(this.LoadSceneAsyncProcess(sceneName: this.sceneName));
         }
     }
 
@@ -42,9 +42,9 @@ public class PreloadSceneInUnity : MonoBehaviour
 
     public void AllowSceneActivation()
     {
-        if (SocketConnectionManager.Instance.allSelected && this._asyncOperation != null)
+        if (SocketConnectionManager.Instance.allSelected && this.asyncOperation != null)
         {
-            this._asyncOperation.allowSceneActivation = true;
+            this.asyncOperation.allowSceneActivation = true;
         }
     }
 }
