@@ -1,34 +1,46 @@
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
 {
+    MMSimpleObjectPooler objectPooler;
+
     protected override void Initialization()
     {
         base.Initialization();
+        objectPooler = GetComponent<MMSimpleObjectPooler>();
     }
+
     public override void ProcessAbility()
     {
         base.ProcessAbility();
     }
+
     public GameObject InstanceShoot(float direction)
     {
-        GameObject HackShoot = Instantiate(Resources.Load("HackShoot", typeof(GameObject))) as GameObject;
+        // GameObject HackShoot = Instantiate(Resources.Load("HackShoot", typeof(GameObject))) as GameObject;
+        Debug.Log(this.objectPooler == null);
+        GameObject HackShoot = objectPooler.GetPooledGameObject();
         HackShoot.transform.position = transform.position;
         HackShoot.transform.rotation = Quaternion.Euler(0, direction, 0);
 
         return HackShoot;
     }
+
     public void ShootLaser(GameObject projectile, Vector3 position)
     {
         projectile.transform.position = position;
     }
+
     public void LaserCollision(GameObject projectileToDestroy)
     {
         Destroy(projectileToDestroy);
-        GameObject HackShootFeedback = Instantiate(Resources.Load("HackShootFeedback", typeof(GameObject))) as GameObject;
+        GameObject HackShootFeedback =
+            Instantiate(Resources.Load("HackShootFeedback", typeof(GameObject))) as GameObject;
         Destroy(HackShootFeedback, 1f);
         HackShootFeedback.transform.position = projectileToDestroy.transform.position;
     }
+
     public void LaserDisappear(GameObject projectileToDestroy)
     {
         Destroy(projectileToDestroy.GetComponent<ShootHandler>().element);
