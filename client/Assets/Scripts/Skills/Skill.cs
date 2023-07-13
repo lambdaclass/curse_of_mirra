@@ -49,26 +49,23 @@ public class Skill : CharacterAbility
 
         if (skillInfo.feedbackAnimation)
         {
+            Transform animationParent;
+            animationParent = skillInfo.instantiateAnimationOnModel
+                ? _model.transform
+                : _model.transform.parent;
+            feedbackAnimation = Instantiate(skillInfo.feedbackAnimation, animationParent);
+
             if (skillInfo.feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
             {
-                feedbackAnimation = Instantiate(skillInfo.feedbackAnimation, _model.transform);
                 feedbackAnimation.SetActive(false);
             }
             else if (skillInfo.feedbackAnimation.GetComponent<TrailRenderer>())
             {
-                feedbackAnimation = Instantiate(
-                    skillInfo.feedbackAnimation,
-                    _model.transform.parent
-                );
                 trail = feedbackAnimation.GetComponent<TrailRenderer>();
                 trail.emitting = false;
             }
             else
             {
-                feedbackAnimation = Instantiate(
-                    skillInfo.feedbackAnimation,
-                    _model.transform.parent
-                );
                 this.AbilityStartFeedbacks = feedbackAnimation.GetComponent<MMF_Player>();
             }
         }
