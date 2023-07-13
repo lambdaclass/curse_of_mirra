@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
+    private const string CHARACTER_SELECTION_SCENE_NAME = "CharacterSelection";
+    private const string LOBBY_SCENE_NAME = "Lobby";
+    private const string LOBBIES_SCENE_NAME = "Lobbies";
+
     [SerializeField]
     GameObject playButton;
 
@@ -40,6 +44,7 @@ public class LobbyManager : LevelSelector
     public void GameStart()
     {
         StartCoroutine(CreateGame());
+        this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
@@ -51,7 +56,8 @@ public class LobbyManager : LevelSelector
     public void Back()
     {
         LobbyConnection.Instance.Init();
-        SceneManager.LoadScene("Lobbies");
+        this.LevelName = LOBBIES_SCENE_NAME;
+        SceneManager.LoadScene(this.LevelName);
     }
 
     public void BackToLobbyAndCloseConnection()
@@ -72,10 +78,11 @@ public class LobbyManager : LevelSelector
         if (
             !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
             && LobbyConnection.Instance.playerId != 1
+            && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
             LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene(this.LevelName);
+            SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
     }
 }

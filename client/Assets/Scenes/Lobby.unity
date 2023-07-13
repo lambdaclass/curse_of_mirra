@@ -205,7 +205,6 @@ GameObject:
   - component: {fileID: 376544904}
   - component: {fileID: 376544903}
   - component: {fileID: 376544902}
-  - component: {fileID: 376544907}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -290,7 +289,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 376544907}
+      - m_Target: {fileID: 1083681582}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -402,23 +401,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376544899}
   m_CullTransparentMesh: 0
---- !u!114 &376544907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376544899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d808c9bf14a1458aadf96d5f92b3b12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: Lobbies
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
-  playButton: {fileID: 627144958}
-  mapList: {fileID: 0}
 --- !u!1 &387764653
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536246998}
   - component: {fileID: 536246997}
+  - component: {fileID: 536246999}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -697,6 +680,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &536246999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536246996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &538376567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1181,16 @@ PrefabInstance:
       propertyPath: LevelName
       value: CharacterSelection
       objectReference: {fileID: 0}
+    - target: {fileID: 1137753102254520005, guid: a13332193cbcb43ef809979d3205936d,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1083681582}
+    - target: {fileID: 1137753102254520005, guid: a13332193cbcb43ef809979d3205936d,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameStart
+      objectReference: {fileID: 0}
     - target: {fileID: 1137753103009242572, guid: a13332193cbcb43ef809979d3205936d,
         type: 3}
       propertyPath: m_Name
@@ -1293,7 +1306,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1137753102254520001, guid: a13332193cbcb43ef809979d3205936d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a13332193cbcb43ef809979d3205936d, type: 3}
 --- !u!1 &913157591
 GameObject:
@@ -1494,7 +1508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d808c9bf14a1458aadf96d5f92b3b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: CharacterSelection
+  LevelName: 
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 627144958}
