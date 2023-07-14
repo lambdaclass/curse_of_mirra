@@ -158,24 +158,6 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
                     break;
-                case GameEventType.NextRound:
-                    print("The winner of the round is " + game_event.WinnerPlayer);
-                    winners.Add(game_event.WinnerPlayer);
-                    var newPlayer1 = GetPlayer(
-                        SocketConnectionManager.Instance.playerId,
-                        game_event.Players.ToList()
-                    );
-
-                    break;
-                case GameEventType.LastRound:
-                    winners.Add(game_event.WinnerPlayer);
-                    print("The winner of the round is " + game_event.WinnerPlayer);
-                    var newPlayer2 = GetPlayer(
-                        SocketConnectionManager.Instance.playerId,
-                        game_event.Players.ToList()
-                    );
-
-                    break;
                 case GameEventType.GameFinished:
                     winnerPlayer = game_event.WinnerPlayer;
                     // This should be uncommented when the match end is finished
