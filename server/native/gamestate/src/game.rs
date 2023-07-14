@@ -194,25 +194,9 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        // TODO: 120 should be a config. It's the realtion between front range in skills and
-        // the distance in the back.
-        let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
-        let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
+        
+        let new_position_coordinates = GameState::new_position(attacking_player.position, direction, board.height, board.width);
 
-        // These changes are done so that if the player is moving into one of the map's borders
-        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
-        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
-        // something invalid like (0, -1).
-
-        let new_position_x = min(new_position_x, (board.height - 1).try_into().unwrap());
-        let new_position_x = max(new_position_x, 0);
-        let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
-        let new_position_y = max(new_position_y, 0);
-
-        let new_position_coordinates = Position {
-            x: new_position_x as usize,
-            y: new_position_y as usize,
-        };
         // Remove the player from their previous position on the board
         board.set_cell(
             attacking_player.position.x,
@@ -229,6 +213,28 @@ impl GameState {
         )?;
 
         Ok(())
+    }
+
+    pub fn new_position(initial_position: Position, direction: &RelativePosition, board_height: usize, board_width: usize) -> Position {
+        // TODO: 120 should be a config. It's the realtion between front range in skills and
+        // the distance in the back.
+        let new_position_x = initial_position.x as i64 - (direction.y * 1200f32) as i64;
+        let new_position_y = initial_position.y as i64 + (direction.x * 1200f32) as i64;
+
+        // These changes are done so that if the player is moving into one of the map's borders
+        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
+        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
+        // something invalid like (0, -1).
+
+        let new_position_x = min(new_position_x, (board_height - 1).try_into().unwrap());
+        let new_position_x = max(new_position_x, 0);
+        let new_position_y = min(new_position_y, (board_width - 1).try_into().unwrap());
+        let new_position_y = max(new_position_y, 0);
+
+        Position {
+            x: new_position_x as usize,
+            y: new_position_y as usize,
+        }
     }
 
     // Takes the raw value from Unity's joystick
@@ -717,6 +723,7 @@ impl GameState {
                 time_left: MillisTime { high: 0, low: 5000 },
                 ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                 direction: None,
+                position: None,
             },
         );
         Ok(Vec::new())
@@ -746,19 +753,34 @@ impl GameState {
                         time_left: MillisTime { high: 0, low: 500 },
                         ends_at: add_millis(now, MillisTime { high: 0, low: 500 }),
                         direction: Some(*direction),
+                        position: None,
                     },
                 );
 
-                Ok(Vec::new())
-            }
+                Vec::new()
+            },
             Name::Muflus => {
-                let id = attacking_player.id;
-                Self::leap(&mut self.board, id, direction, &mut self.players)
-            }
-            _ => Ok(Vec::new()),
+                let position = GameState::new_position(attacking_player.position, direction, self.board.height, self.board.width);
+                let distance = distance_between_positions(&attacking_player.position, &position);
+                let time = distance * attacking_player.speed() as f64 / 48.;
+                println!("distance: {}", distance);
+                println!("time: {}", time);
+                attacking_player.add_effect(
+                    Effect::Leaping.clone(),
+                    EffectData {
+                        time_left: MillisTime { high: 0, low: time as u64 },
+                        ends_at: add_millis(now, MillisTime { high: 0, low: time as u64 }),
+                        direction: Some(*direction),
+                        position: Some(position),
+                    },
+                );
+
+                Vec::new()
+            },
+            _ => Vec::new(),
         };
 
-        self.update_killfeed(attacking_player_id, attacked_player_ids?);
+        self.update_killfeed(attacking_player_id, attacked_player_ids);
         Ok(())
     }
 
@@ -786,6 +808,7 @@ impl GameState {
                         time_left: MillisTime { high: 0, low: 5000 },
                         ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                         direction: None,
+                        position: None,
                     },
                 );
                 Ok(Vec::new())
@@ -812,6 +835,7 @@ impl GameState {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
+
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(
@@ -839,6 +863,32 @@ impl GameState {
                             speed,
                         )
                         .unwrap();
+                    }
+                    _ => {}
+                }
+            }
+
+            if player.character.name == Name::Muflus {
+                match player.effects.get(&Effect::Leaping) {
+                    Some(EffectData {
+                        direction: Some(direction),
+                        ..
+                    }) => {
+                        let speed = player.speed() as i64;
+                        GameState::move_player_to_direction(
+                            &mut self.board,
+                            player.id,
+                            &mut player.position,
+                            direction,
+                            speed,
+                        )
+                        .unwrap();
+
+                        // if distance_between_positions(&player.position, position) < 50.0 {
+                        //     println!("Muflus landed");
+                        //     player.effects.remove(&Effect::Leaping);
+                        //     //Self::muflus_skill_1(&mut self.board, &mut self.players, player.id);
+                        // }
                     }
                     _ => {}
                 }
@@ -887,6 +937,7 @@ impl GameState {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
+                                    position: None,
                                 },
                             );
                         }
@@ -1155,6 +1206,13 @@ fn compute_barrel_roll_initial_positions(
 fn distance_to_center(player: &Player, center: &Position) -> f64 {
     let distance_squared =
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
+    (distance_squared as f64).sqrt()
+}
+
+#[allow(dead_code)]
+fn distance_between_positions(position_1: &Position, position_2: &Position) -> f64 {
+    let distance_squared =
+        (position_1.x - position_2.x).pow(2) + (position_1.y - position_2.y).pow(2);
     (distance_squared as f64).sqrt()
 }
 

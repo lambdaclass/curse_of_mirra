@@ -251,7 +251,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
+                float projectileSpeed = gameProjectiles[i].Speed / 100f;
 
                 float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
                 float velocity = tickRate * projectileSpeed;
@@ -348,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
         frames, but that's fine).
         */
         Character character = player.GetComponent<Character>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -373,6 +373,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
+        {
+            characterSpeed *= 4f;
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
         {
             characterSpeed *= 4f;
         }

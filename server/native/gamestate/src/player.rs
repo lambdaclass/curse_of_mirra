@@ -13,6 +13,7 @@ pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
     pub direction: Option<RelativePosition>,
+    pub position: Option<Position>,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -24,6 +25,7 @@ pub enum Effect {
     Piercing,
     Raged,
     NeonCrashing,
+    Leaping,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -193,6 +195,9 @@ impl Player {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
         if self.has_active_effect(&Effect::NeonCrashing) {
+            return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
         return base_speed;

@@ -185,6 +185,7 @@ enum PlayerEffect {
     PIERCING = 2;
     RAGED = 3;
     NEON_CRASHING = 4;
+    LEAPING = 5;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
