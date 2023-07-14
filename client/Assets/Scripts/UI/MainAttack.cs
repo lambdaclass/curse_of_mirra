@@ -8,7 +8,7 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     protected override void Initialization()
     {
         base.Initialization();
-        objectPooler = GetComponent<MMSimpleObjectPooler>();
+        InitializeObjectPooler();
     }
 
     public override void ProcessAbility()
@@ -19,8 +19,9 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     public GameObject InstanceShoot(float direction)
     {
         // GameObject HackShoot = Instantiate(Resources.Load("HackShoot", typeof(GameObject))) as GameObject;
-        Debug.Log(this.objectPooler == null);
         GameObject HackShoot = objectPooler.GetPooledGameObject();
+        HackShoot.SetActive(true);
+        Debug.Log("HackShoot: " + HackShoot);
         HackShoot.transform.position = transform.position;
         HackShoot.transform.rotation = Quaternion.Euler(0, direction, 0);
 
@@ -34,7 +35,8 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
 
     public void LaserCollision(GameObject projectileToDestroy)
     {
-        Destroy(projectileToDestroy);
+        //Destroy(projectileToDestroy);
+        projectileToDestroy.SetActive(false);
         GameObject HackShootFeedback =
             Instantiate(Resources.Load("HackShootFeedback", typeof(GameObject))) as GameObject;
         Destroy(HackShootFeedback, 1f);
@@ -44,6 +46,24 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     public void LaserDisappear(GameObject projectileToDestroy)
     {
         Destroy(projectileToDestroy.GetComponent<ShootHandler>().element);
-        Destroy(projectileToDestroy, 0.1f);
+        //Destroy(projectileToDestroy, 0.1f);
+        projectileToDestroy.SetActive(false);
+    }
+
+    private void InitializeObjectPooler()
+    {
+        GameObject objectPoolerGameObject = new GameObject();
+        objectPoolerGameObject.name = "HackShootPooler";
+        objectPoolerGameObject.transform.parent = this.transform;
+        MMSimpleObjectPooler objectPooler =
+            objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
+        objectPooler.GameObjectToPool =
+            Resources.Load("HackShoot", typeof(GameObject)) as GameObject;
+        objectPooler.PoolSize = 20;
+        objectPooler.NestWaitingPool = true;
+        objectPooler.MutualizeWaitingPools = true;
+        objectPooler.PoolCanExpand = true;
+        objectPooler.FillObjectPool();
+        this.objectPooler = objectPooler;
     }
 }

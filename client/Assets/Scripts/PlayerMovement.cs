@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
-using UnityEngine.UI;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -235,6 +235,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
+                Debug.Log("Add pr to toDelete list");
                 toDelete.Add(pr.Key);
             }
         }
@@ -244,6 +245,7 @@ public class PlayerMovement : MonoBehaviour
             // TODO unbind projectile destroy from player
             GameObject player = SocketConnectionManager.Instance.players[0];
             player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
+            Debug.Log(projectiles.ToString());
             projectiles.Remove(key);
         }
 
@@ -289,6 +291,7 @@ public class PlayerMovement : MonoBehaviour
                 GameObject player = SocketConnectionManager.Instance.players[
                     (int)gameProjectiles[i].PlayerId - 1
                 ];
+                Debug.Log("Shoot laser");
                 player
                     .GetComponent<MainAttack>()
                     .ShootLaser(
@@ -321,6 +324,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
             {
+                Debug.Log("Add pr to toExplode list");
                 toExplode.Add(pr.Key);
             }
         }
