@@ -97,10 +97,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  def handle_cast(_actions, %{game_status: :round_finished} = gen_server_state) do
-    {:noreply, gen_server_state}
-  end
-
   def handle_cast(
         {:play, _player,
          %ActionOk{
@@ -325,7 +321,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_status, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
-      |> Map.put(:current_round, 1)
 
     broadcast_to_darkworlds_server(
       {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
