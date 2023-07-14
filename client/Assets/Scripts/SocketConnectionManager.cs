@@ -115,7 +115,9 @@ public class SocketConnectionManager : MonoBehaviour
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
-        ws = new WebSocket(url);
+        Dictionary<string, string> headers =new Dictionary<string, string>();
+        headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
+        ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {
