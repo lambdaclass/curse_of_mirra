@@ -159,7 +159,7 @@ impl Character {
         //     FirstActive::SerpentStrike => u128_to_millis(5000),
         //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
         // }
-        u128_to_millis(10000)
+        u128_to_millis(1000)
     }
     pub fn cooldown_fourth_skill(&self) -> MillisTime {
         // match self.skill_active_fourth {
