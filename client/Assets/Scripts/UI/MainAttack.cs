@@ -18,7 +18,6 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
 
     public GameObject InstanceShoot(float direction)
     {
-        // GameObject HackShoot = Instantiate(Resources.Load("HackShoot", typeof(GameObject))) as GameObject;
         GameObject HackShoot = objectPooler.GetPooledGameObject();
         HackShoot.SetActive(true);
         HackShoot.transform.position = transform.position;
@@ -34,7 +33,6 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
 
     public void LaserCollision(GameObject projectileToDestroy)
     {
-        //Destroy(projectileToDestroy);
         projectileToDestroy.SetActive(false);
         GameObject HackShootFeedback =
             Instantiate(Resources.Load("HackShootFeedback", typeof(GameObject))) as GameObject;
@@ -45,7 +43,6 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     public void LaserDisappear(GameObject projectileToDestroy)
     {
         Destroy(projectileToDestroy.GetComponent<ShootHandler>().element);
-        //Destroy(projectileToDestroy, 0.1f);
         projectileToDestroy.SetActive(false);
     }
 
