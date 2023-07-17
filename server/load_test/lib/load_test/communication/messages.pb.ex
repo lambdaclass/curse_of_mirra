@@ -149,6 +149,12 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 11, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 12, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 13,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
