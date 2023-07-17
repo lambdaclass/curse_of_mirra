@@ -345,6 +345,30 @@ defmodule LoadTest.Communication.Proto.CharacterConfig do
   field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.CharacterConfigItem)
 end
 
+defmodule LoadTest.Communication.Proto.SkillsConfig do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.SkillConfigItem)
+end
+
+defmodule LoadTest.Communication.Proto.SkillConfigItem do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:Name, 1, type: :string)
+  field(:DoFunc, 2, type: :string)
+  field(:ButtonType, 3, type: :string)
+  field(:Cooldown, 4, type: :string)
+  field(:Damage, 5, type: :string)
+  field(:Status, 6, type: :string)
+  field(:Duration, 7, type: :string)
+  field(:Projectile, 8, type: :string)
+  field(:Minion, 9, type: :string)
+end
+
 defmodule LoadTest.Communication.Proto.ServerGameSettings do
   @moduledoc false
 
@@ -358,6 +382,11 @@ defmodule LoadTest.Communication.Proto.ServerGameSettings do
   field(:character_config, 2,
     type: LoadTest.Communication.Proto.CharacterConfig,
     json_name: "characterConfig"
+  )
+
+  field(:skills_config, 3,
+    type: LoadTest.Communication.Proto.SkillsConfig,
+    json_name: "skillsConfig"
   )
 end
 

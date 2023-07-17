@@ -37,6 +37,8 @@ public class PlayerFeedbacks : MonoBehaviour
 
     public void ChangePlayerTextureOnDamage(GameObject player, float auxHealth, float playerHealth)
     {
+        // player.GetComponentInChildren<OverlayEffect>().enabled = true;
+
         if (auxHealth != playerHealth)
         {
             player.GetComponentInChildren<OverlayEffect>().enabled = true;
