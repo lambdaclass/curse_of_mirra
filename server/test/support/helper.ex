@@ -7,6 +7,13 @@ defmodule DarkWorldsServer.Test do
     |> Jason.decode!(keys: :atoms)
   end
 
+  def skills_config() do
+    @config_folder
+    |> then(fn folder -> folder <> "Skills.json" end)
+    |> then(&File.read!/1)
+    |> Jason.decode!(keys: :atoms)
+  end
+
   def testing_config() do
     runner_config = %{
       board_width: 1000,
@@ -15,20 +22,20 @@ defmodule DarkWorldsServer.Test do
       game_timeout_ms: 1_200_000
     }
 
-    character_config = characters_config()
-    {runner_config, character_config}
+    {runner_config, characters_config(), skills_config()}
   end
 
   def game_config() do
-    {runner_config, character_config} = testing_config()
-    game_config(runner_config, character_config)
+    {runner_config, character_config, skills_config} = testing_config()
+    game_config(runner_config, character_config, skills_config)
   end
 
-  def game_config(runner_config, character_config) do
+  def game_config(runner_config, character_config, skills_config) do
     %{
       game_config: %{
         runner_config: runner_config,
-        character_config: character_config
+        character_config: character_config,
+        skills_config: skills_config
       }
     }
   end
