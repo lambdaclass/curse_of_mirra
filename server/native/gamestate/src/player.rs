@@ -1,5 +1,4 @@
 use crate::character::{Character, Name};
-use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime};
 use crate::utils::RelativePosition;
 use rand::Rng;
@@ -140,27 +139,19 @@ impl Player {
 
     pub fn basic_skill_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_basic_skill();
-        match self.character.skill_basic {
-            BasicSkill::Bash => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_1_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_first_active();
-        match self.character.skill_active_first {
-            FirstActive::BarrelRoll => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_2_damage(&mut self) -> u32 {
         return self.character.attack_dmg_second_active();
@@ -261,34 +252,22 @@ impl Player {
         );
 
         self.skill_1_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_1_started_at,
-                self.character.cooldown_first_skill(),
-            ),
+            add_millis(self.skill_1_started_at, self.character.cooldown_skill_1()),
             now,
         );
 
         self.skill_2_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_2_started_at,
-                self.character.cooldown_second_skill(),
-            ),
+            add_millis(self.skill_2_started_at, self.character.cooldown_skill_2()),
             now,
         );
 
         self.skill_3_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_3_started_at,
-                self.character.cooldown_third_skill(),
-            ),
+            add_millis(self.skill_3_started_at, self.character.cooldown_skill_3()),
             now,
         );
 
         self.skill_4_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_4_started_at,
-                self.character.cooldown_fourth_skill(),
-            ),
+            add_millis(self.skill_4_started_at, self.character.cooldown_skill_4()),
             now,
         );
     }

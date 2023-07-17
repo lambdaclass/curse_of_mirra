@@ -2,6 +2,7 @@ use crate::board::{Board, Tile};
 use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::skills::{self, Skill};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
@@ -40,6 +41,7 @@ pub enum Direction {
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
+        skills: &[Skill],
     ) -> Result<Vec<Character>, String> {
         character_config
             .into_iter()
@@ -53,7 +55,7 @@ impl GameState {
                     .expect("Expected 1 or 0 for Active key");
                 active == 1
             })
-            .map(Character::from_config_map)
+            .map(|config| Character::from_config_map(config, skills))
             .collect()
     }
 
@@ -64,9 +66,11 @@ impl GameState {
         board_height: usize,
         build_walls: bool,
         characters_config: &[HashMap<String, String>],
+        skills_config: &[HashMap<String, String>],
     ) -> Result<Self, String> {
         let mut positions = HashSet::new();
-        let characters = GameState::build_characters_with_config(&characters_config)?;
+        let skills = skills::build_from_config(skills_config)?;
+        let characters = GameState::build_characters_with_config(&characters_config, &skills)?;
         let players: Vec<Player> = (1..number_of_players + 1)
             .map(|player_id| -> Result<Player, String> {
                 let new_position = generate_new_position(&mut positions, board_width, board_height);
@@ -539,7 +543,7 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
         attacking_player.skill_1_started_at = now;
-        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_first_skill();
+        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -665,7 +669,7 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
         attacking_player.skill_2_started_at = now;
-        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_second_skill();
+        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -714,8 +718,8 @@ impl GameState {
         attacking_player.add_effect(
             Effect::Raged.clone(),
             EffectData {
-                time_left: MillisTime { high: 0, low: 5000 },
-                ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                time_left: attacking_player.character.duration_skill_2(),
+                ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
                 direction: None,
             },
         );
@@ -736,15 +740,15 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
-        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_third_skill();
+        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
-                        time_left: MillisTime { high: 0, low: 500 },
-                        ends_at: add_millis(now, MillisTime { high: 0, low: 500 }),
+                        time_left: attacking_player.character.duration_skill_3(),
+                        ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
                         direction: Some(*direction),
                     },
                 );
@@ -776,15 +780,15 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
         attacking_player.skill_4_started_at = now;
-        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_fourth_skill();
+        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_skill_4();
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
                     Effect::Piercing.clone(),
                     EffectData {
-                        time_left: MillisTime { high: 0, low: 5000 },
-                        ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                        time_left: attacking_player.character.duration_skill_4(),
+                        ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
                         direction: None,
                     },
                 );
