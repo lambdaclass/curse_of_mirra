@@ -156,6 +156,12 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 11, repeated: true, type: DarkWorldsServer.Communication.Proto.KillEvent)
+  field(:playable_radius, 12, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 13,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
