@@ -30,9 +30,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:stop, %{}}
   end
 
-  def websocket_init(%{client_hash: hash}) when hash != @server_hash do
-    {:stop, :version_mismatch}
-  end
+  # Uncomment to enable hash verification of client and server
+  # def websocket_init(%{client_hash: hash}) when hash != @server_hash do
+  #   {:stop, :version_mismatch}
+  # end
 
   def websocket_init(%{game_id: game_id, player_id: player_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
