@@ -58,6 +58,7 @@ public class CustomInputManager : InputManager
 
     [SerializeField]
     TMP_Text Skill4Cooldown;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -86,6 +87,23 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
+    }
+
+    public void ActivateDisarmEffect(bool disarmed)
+    {
+        if (disarmed)
+        {
+            DisableButtons();
+        }
+        else
+        {
+            EnableButtons();
+        }
+        SkillBasic.transform.GetChild(0).gameObject.SetActive(disarmed);
+        Skill1.transform.GetChild(0).gameObject.SetActive(disarmed);
+        Skill2.transform.GetChild(0).gameObject.SetActive(disarmed);
+        Skill3.transform.GetChild(0).gameObject.SetActive(disarmed);
+        Skill4.transform.GetChild(0).gameObject.SetActive(disarmed);
     }
 
     public void InitializeInputSprite(CoMCharacter characterInfo)

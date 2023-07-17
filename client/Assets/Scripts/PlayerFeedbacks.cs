@@ -5,18 +5,31 @@ using UnityEngine;
 
 public class PlayerFeedbacks : MonoBehaviour
 {
+    [SerializeField]
+    CustomInputManager InputManager;
+
     public void PlayDeathFeedback(GameObject player, Health healthComponent)
     {
-        if (healthComponent.CurrentHealth <= 0 && player.GetComponent<Character>().CharacterModel.activeSelf == true)
+        if (
+            healthComponent.CurrentHealth <= 0
+            && player.GetComponent<Character>().CharacterModel.activeSelf == true
+        )
         {
             healthComponent.DeathMMFeedbacks.PlayFeedbacks();
         }
     }
 
-    public void DisplayDamageRecieved(GameObject player, Health healthComponent, float playerHealth, ulong id)
+    public void DisplayDamageRecieved(
+        GameObject player,
+        Health healthComponent,
+        float playerHealth,
+        ulong id
+    )
     {
-        if (healthComponent.CurrentHealth != playerHealth &&
-        SocketConnectionManager.Instance.playerId == id)
+        if (
+            healthComponent.CurrentHealth != playerHealth
+            && SocketConnectionManager.Instance.playerId == id
+        )
         {
             healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
         }
@@ -41,5 +54,10 @@ public class PlayerFeedbacks : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         player.GetComponentInChildren<OverlayEffect>().enabled = false;
+    }
+
+    public void ExecuteH4ckDisarmFeedback(bool disarmed)
+    {
+        InputManager.ActivateDisarmEffect(disarmed);
     }
 }
