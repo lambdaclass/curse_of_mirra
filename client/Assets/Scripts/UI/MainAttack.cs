@@ -8,7 +8,11 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     protected override void Initialization()
     {
         base.Initialization();
-        InitializeObjectPooler();
+        this.objectPooler = Utils.SimpleObjectPooler(
+            "HackShootPooler",
+            this.transform,
+            "HackShoot"
+        );
     }
 
     public override void ProcessAbility()
@@ -44,22 +48,5 @@ public class MainAttack : MoreMountains.TopDownEngine.CharacterAbility
     {
         Destroy(projectileToDestroy.GetComponent<ShootHandler>().element);
         projectileToDestroy.SetActive(false);
-    }
-
-    private void InitializeObjectPooler()
-    {
-        GameObject objectPoolerGameObject = new GameObject();
-        objectPoolerGameObject.name = "HackShootPooler";
-        objectPoolerGameObject.transform.parent = this.transform;
-        MMSimpleObjectPooler objectPooler =
-            objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
-        objectPooler.GameObjectToPool =
-            Resources.Load("HackShoot", typeof(GameObject)) as GameObject;
-        objectPooler.PoolSize = 10;
-        objectPooler.NestWaitingPool = true;
-        objectPooler.MutualizeWaitingPools = true;
-        objectPooler.PoolCanExpand = true;
-        objectPooler.FillObjectPool();
-        this.objectPooler = objectPooler;
     }
 }
