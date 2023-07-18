@@ -72,42 +72,48 @@ public static partial class MessagesReflection {
           "a2lsbEFjdGl2ZTEYCCABKAkSFAoMU2tpbGxBY3RpdmUyGAkgASgJEhEKCVNr",
           "aWxsRGFzaBgKIAEoCRIVCg1Ta2lsbFVsdGltYXRlGAsgASgJEhAKCEJvZHlT",
           "aXplGAwgASgJIjYKD0NoYXJhY3RlckNvbmZpZxIjCgVJdGVtcxgBIAMoCzIU",
-          "LkNoYXJhY3RlckNvbmZpZ0l0ZW0iZgoSU2VydmVyR2FtZVNldHRpbmdzEiQK",
-          "DXJ1bm5lcl9jb25maWcYASABKAsyDS5SdW5uZXJDb25maWcSKgoQY2hhcmFj",
-          "dGVyX2NvbmZpZxgCIAEoCzIQLkNoYXJhY3RlckNvbmZpZyKzAgoKUHJvamVj",
-          "dGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgCIAEoCzIJLlBvc2l0aW9u",
-          "EiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SDQoFc3Bl",
-          "ZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgEEg4K",
-          "BmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoPcHJv",
-          "amVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3RhdHVz",
-          "GAogASgOMhEuUHJvamVjdGlsZVN0YXR1cxIfChdsYXN0X2F0dGFja2VkX3Bs",
-          "YXllcl9pZBgLIAEoBBIOCgZwaWVyY2UYDCABKAgiJwoKTWlsbGlzVGltZRIM",
-          "CgRoaWdoGAEgASgEEgsKA2xvdxgCIAEoBCrOAQoNR2FtZUV2ZW50VHlwZRIQ",
-          "CgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9K",
-          "T0lORUQQAhIOCgpORVhUX1JPVU5EEAMSDgoKTEFTVF9ST1VORBAEEhEKDUdB",
-          "TUVfRklOSVNIRUQQBRIVChFJTklUSUFMX1BPU0lUSU9OUxAGEh0KGVNFTEVD",
-          "VEVEX0NIQVJBQ1RFUl9VUERBVEUQBxIeChpGSU5JU0hfQ0hBUkFDVEVSX1NF",
-          "TEVDVElPThAIKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASqJAgoG",
-          "QWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQARIKCgZB",
-          "VFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIWChJNT1ZF",
-          "X1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19BVFRBQ0sQ",
-          "CBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJTExfMhAL",
-          "EgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJBQ1RF",
-          "UhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJRGly",
-          "ZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoE",
-          "RE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKrYBCgxQbGF5ZXJBY3Rpb24S",
-          "CwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQ",
-          "AhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoR",
-          "RVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUK",
-          "EUVYRUNVVElOR19TS0lMTF80EAcSCgoGTU9WSU5HEAgqVwoMUGxheWVyRWZm",
-          "ZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQ",
-          "AhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBCqPAQoOTG9iYnlFdmVu",
-          "dFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAK",
-          "DFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9D",
-          "T1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIK",
-          "DlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxM",
-          "RVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExP",
-          "REVEEAFiBnByb3RvMw=="));
+          "LkNoYXJhY3RlckNvbmZpZ0l0ZW0iLwoMU2tpbGxzQ29uZmlnEh8KBUl0ZW1z",
+          "GAEgAygLMhAuU2tpbGxDb25maWdJdGVtIqsBCg9Ta2lsbENvbmZpZ0l0ZW0S",
+          "DAoETmFtZRgBIAEoCRIOCgZEb0Z1bmMYAiABKAkSEgoKQnV0dG9uVHlwZRgD",
+          "IAEoCRIQCghDb29sZG93bhgEIAEoCRIOCgZEYW1hZ2UYBSABKAkSDgoGU3Rh",
+          "dHVzGAYgASgJEhAKCER1cmF0aW9uGAcgASgJEhIKClByb2plY3RpbGUYCCAB",
+          "KAkSDgoGTWluaW9uGAkgASgJIowBChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoN",
+          "cnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0",
+          "ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnEiQKDXNraWxsc19j",
+          "b25maWcYAyABKAsyDS5Ta2lsbHNDb25maWciswIKClByb2plY3RpbGUSCgoC",
+          "aWQYASABKAQSGwoIcG9zaXRpb24YAiABKAsyCS5Qb3NpdGlvbhIkCglkaXJl",
+          "Y3Rpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg0KBXNwZWVkGAQgASgN",
+          "Eg0KBXJhbmdlGAUgASgNEhEKCXBsYXllcl9pZBgGIAEoBBIOCgZkYW1hZ2UY",
+          "ByABKA0SFwoPcmVtYWluaW5nX3RpY2tzGAggASgSEigKD3Byb2plY3RpbGVf",
+          "dHlwZRgJIAEoDjIPLlByb2plY3RpbGVUeXBlEiEKBnN0YXR1cxgKIAEoDjIR",
+          "LlByb2plY3RpbGVTdGF0dXMSHwoXbGFzdF9hdHRhY2tlZF9wbGF5ZXJfaWQY",
+          "CyABKAQSDgoGcGllcmNlGAwgASgIIicKCk1pbGxpc1RpbWUSDAoEaGlnaBgB",
+          "IAEoBBILCgNsb3cYAiABKAQqzgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVf",
+          "VVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAIS",
+          "DgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQBBIRCg1HQU1FX0ZJTklT",
+          "SEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBhIdChlTRUxFQ1RFRF9DSEFS",
+          "QUNURVJfVVBEQVRFEAcSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJT04Q",
+          "CCodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEqiQIKBkFjdGlvbhIW",
+          "ChJBQ1RJT05fVU5TUEVDSUZJRUQQABIICgRNT1ZFEAESCgoGQVRUQUNLEAIS",
+          "DAoIVEVMRVBPUlQQBBIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRIX0pP",
+          "WVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoMQkFT",
+          "SUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKEgsKB1NLSUxMXzIQCxILCgdTS0lM",
+          "TF8zEAwSCwoHU0tJTExfNBANEhQKEFNFTEVDVF9DSEFSQUNURVIQDhIPCgtF",
+          "TkFCTEVfQk9UUxAPEhAKDERJU0FCTEVfQk9UUxAQKk0KCURpcmVjdGlvbhIZ",
+          "ChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhII",
+          "CgRMRUZUEAMSCQoFUklHSFQQBCq2AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJ",
+          "TkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoRRVhF",
+          "Q1VUSU5HX1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAEEhUKEUVYRUNVVElO",
+          "R19TS0lMTF8yEAUSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBhIVChFFWEVDVVRJ",
+          "TkdfU0tJTExfNBAHEgoKBk1PVklORxAIKmQKDFBsYXllckVmZmVjdBINCglQ",
+          "RVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFH",
+          "RUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAFKo8BCg5Mb2Ji",
+          "eUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVE",
+          "EAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExB",
+          "WUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVE",
+          "EAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5H",
+          "X0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoI",
+          "RVhQTE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -124,7 +130,9 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate", "BodySize" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "ButtonType", "Cooldown", "Damage", "Status", "Duration", "Projectile", "Minion" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null)
         }));
@@ -230,6 +238,7 @@ public enum PlayerEffect {
   [pbr::OriginalName("PIERCING")] Piercing = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
+  [pbr::OriginalName("LEAPING")] Leaping = 5,
 }
 
 /// <summary>
@@ -5067,6 +5076,669 @@ public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
 
 }
 
+public sealed partial class SkillsConfig : pb::IMessage<SkillsConfig>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<SkillsConfig> _parser = new pb::MessageParser<SkillsConfig>(() => new SkillsConfig());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<SkillsConfig> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[13]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillsConfig() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillsConfig(SkillsConfig other) : this() {
+    items_ = other.items_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillsConfig Clone() {
+    return new SkillsConfig(this);
+  }
+
+  /// <summary>Field number for the "Items" field.</summary>
+  public const int ItemsFieldNumber = 1;
+  private static readonly pb::FieldCodec<global::SkillConfigItem> _repeated_items_codec
+      = pb::FieldCodec.ForMessage(10, global::SkillConfigItem.Parser);
+  private readonly pbc::RepeatedField<global::SkillConfigItem> items_ = new pbc::RepeatedField<global::SkillConfigItem>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::SkillConfigItem> Items {
+    get { return items_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as SkillsConfig);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(SkillsConfig other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if(!items_.Equals(other.items_)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    hash ^= items_.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    items_.WriteTo(output, _repeated_items_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    items_.WriteTo(ref output, _repeated_items_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    size += items_.CalculateSize(_repeated_items_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(SkillsConfig other) {
+    if (other == null) {
+      return;
+    }
+    items_.Add(other.items_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          items_.AddEntriesFrom(input, _repeated_items_codec);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          items_.AddEntriesFrom(ref input, _repeated_items_codec);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<SkillConfigItem> _parser = new pb::MessageParser<SkillConfigItem>(() => new SkillConfigItem());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<SkillConfigItem> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[14]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillConfigItem() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillConfigItem(SkillConfigItem other) : this() {
+    name_ = other.name_;
+    doFunc_ = other.doFunc_;
+    buttonType_ = other.buttonType_;
+    cooldown_ = other.cooldown_;
+    damage_ = other.damage_;
+    status_ = other.status_;
+    duration_ = other.duration_;
+    projectile_ = other.projectile_;
+    minion_ = other.minion_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SkillConfigItem Clone() {
+    return new SkillConfigItem(this);
+  }
+
+  /// <summary>Field number for the "Name" field.</summary>
+  public const int NameFieldNumber = 1;
+  private string name_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Name {
+    get { return name_; }
+    set {
+      name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "DoFunc" field.</summary>
+  public const int DoFuncFieldNumber = 2;
+  private string doFunc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string DoFunc {
+    get { return doFunc_; }
+    set {
+      doFunc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "ButtonType" field.</summary>
+  public const int ButtonTypeFieldNumber = 3;
+  private string buttonType_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ButtonType {
+    get { return buttonType_; }
+    set {
+      buttonType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Cooldown" field.</summary>
+  public const int CooldownFieldNumber = 4;
+  private string cooldown_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Cooldown {
+    get { return cooldown_; }
+    set {
+      cooldown_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Damage" field.</summary>
+  public const int DamageFieldNumber = 5;
+  private string damage_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Damage {
+    get { return damage_; }
+    set {
+      damage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Status" field.</summary>
+  public const int StatusFieldNumber = 6;
+  private string status_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Status {
+    get { return status_; }
+    set {
+      status_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Duration" field.</summary>
+  public const int DurationFieldNumber = 7;
+  private string duration_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Duration {
+    get { return duration_; }
+    set {
+      duration_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Projectile" field.</summary>
+  public const int ProjectileFieldNumber = 8;
+  private string projectile_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Projectile {
+    get { return projectile_; }
+    set {
+      projectile_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Minion" field.</summary>
+  public const int MinionFieldNumber = 9;
+  private string minion_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Minion {
+    get { return minion_; }
+    set {
+      minion_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as SkillConfigItem);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(SkillConfigItem other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Name != other.Name) return false;
+    if (DoFunc != other.DoFunc) return false;
+    if (ButtonType != other.ButtonType) return false;
+    if (Cooldown != other.Cooldown) return false;
+    if (Damage != other.Damage) return false;
+    if (Status != other.Status) return false;
+    if (Duration != other.Duration) return false;
+    if (Projectile != other.Projectile) return false;
+    if (Minion != other.Minion) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Name.Length != 0) hash ^= Name.GetHashCode();
+    if (DoFunc.Length != 0) hash ^= DoFunc.GetHashCode();
+    if (ButtonType.Length != 0) hash ^= ButtonType.GetHashCode();
+    if (Cooldown.Length != 0) hash ^= Cooldown.GetHashCode();
+    if (Damage.Length != 0) hash ^= Damage.GetHashCode();
+    if (Status.Length != 0) hash ^= Status.GetHashCode();
+    if (Duration.Length != 0) hash ^= Duration.GetHashCode();
+    if (Projectile.Length != 0) hash ^= Projectile.GetHashCode();
+    if (Minion.Length != 0) hash ^= Minion.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Name.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Name);
+    }
+    if (DoFunc.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(DoFunc);
+    }
+    if (ButtonType.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(ButtonType);
+    }
+    if (Cooldown.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(Cooldown);
+    }
+    if (Damage.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Damage);
+    }
+    if (Status.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Status);
+    }
+    if (Duration.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Duration);
+    }
+    if (Projectile.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(Projectile);
+    }
+    if (Minion.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(Minion);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Name.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Name);
+    }
+    if (DoFunc.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(DoFunc);
+    }
+    if (ButtonType.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(ButtonType);
+    }
+    if (Cooldown.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(Cooldown);
+    }
+    if (Damage.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Damage);
+    }
+    if (Status.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Status);
+    }
+    if (Duration.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Duration);
+    }
+    if (Projectile.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(Projectile);
+    }
+    if (Minion.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(Minion);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Name.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+    }
+    if (DoFunc.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(DoFunc);
+    }
+    if (ButtonType.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ButtonType);
+    }
+    if (Cooldown.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Cooldown);
+    }
+    if (Damage.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Damage);
+    }
+    if (Status.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Status);
+    }
+    if (Duration.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Duration);
+    }
+    if (Projectile.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Projectile);
+    }
+    if (Minion.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Minion);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(SkillConfigItem other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Name.Length != 0) {
+      Name = other.Name;
+    }
+    if (other.DoFunc.Length != 0) {
+      DoFunc = other.DoFunc;
+    }
+    if (other.ButtonType.Length != 0) {
+      ButtonType = other.ButtonType;
+    }
+    if (other.Cooldown.Length != 0) {
+      Cooldown = other.Cooldown;
+    }
+    if (other.Damage.Length != 0) {
+      Damage = other.Damage;
+    }
+    if (other.Status.Length != 0) {
+      Status = other.Status;
+    }
+    if (other.Duration.Length != 0) {
+      Duration = other.Duration;
+    }
+    if (other.Projectile.Length != 0) {
+      Projectile = other.Projectile;
+    }
+    if (other.Minion.Length != 0) {
+      Minion = other.Minion;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          Name = input.ReadString();
+          break;
+        }
+        case 18: {
+          DoFunc = input.ReadString();
+          break;
+        }
+        case 26: {
+          ButtonType = input.ReadString();
+          break;
+        }
+        case 34: {
+          Cooldown = input.ReadString();
+          break;
+        }
+        case 42: {
+          Damage = input.ReadString();
+          break;
+        }
+        case 50: {
+          Status = input.ReadString();
+          break;
+        }
+        case 58: {
+          Duration = input.ReadString();
+          break;
+        }
+        case 66: {
+          Projectile = input.ReadString();
+          break;
+        }
+        case 74: {
+          Minion = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          Name = input.ReadString();
+          break;
+        }
+        case 18: {
+          DoFunc = input.ReadString();
+          break;
+        }
+        case 26: {
+          ButtonType = input.ReadString();
+          break;
+        }
+        case 34: {
+          Cooldown = input.ReadString();
+          break;
+        }
+        case 42: {
+          Damage = input.ReadString();
+          break;
+        }
+        case 50: {
+          Status = input.ReadString();
+          break;
+        }
+        case 58: {
+          Duration = input.ReadString();
+          break;
+        }
+        case 66: {
+          Projectile = input.ReadString();
+          break;
+        }
+        case 74: {
+          Minion = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
 public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -5081,7 +5753,7 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[13]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[15]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5103,6 +5775,7 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
   public ServerGameSettings(ServerGameSettings other) : this() {
     runnerConfig_ = other.runnerConfig_ != null ? other.runnerConfig_.Clone() : null;
     characterConfig_ = other.characterConfig_ != null ? other.characterConfig_.Clone() : null;
+    skillsConfig_ = other.skillsConfig_ != null ? other.skillsConfig_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -5136,6 +5809,18 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
     }
   }
 
+  /// <summary>Field number for the "skills_config" field.</summary>
+  public const int SkillsConfigFieldNumber = 3;
+  private global::SkillsConfig skillsConfig_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::SkillsConfig SkillsConfig {
+    get { return skillsConfig_; }
+    set {
+      skillsConfig_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -5153,6 +5838,7 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
     }
     if (!object.Equals(RunnerConfig, other.RunnerConfig)) return false;
     if (!object.Equals(CharacterConfig, other.CharacterConfig)) return false;
+    if (!object.Equals(SkillsConfig, other.SkillsConfig)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5162,6 +5848,7 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
     int hash = 1;
     if (runnerConfig_ != null) hash ^= RunnerConfig.GetHashCode();
     if (characterConfig_ != null) hash ^= CharacterConfig.GetHashCode();
+    if (skillsConfig_ != null) hash ^= SkillsConfig.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5188,6 +5875,10 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
       output.WriteRawTag(18);
       output.WriteMessage(CharacterConfig);
     }
+    if (skillsConfig_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(SkillsConfig);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -5206,6 +5897,10 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
       output.WriteRawTag(18);
       output.WriteMessage(CharacterConfig);
     }
+    if (skillsConfig_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(SkillsConfig);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -5221,6 +5916,9 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
     }
     if (characterConfig_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(CharacterConfig);
+    }
+    if (skillsConfig_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(SkillsConfig);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -5245,6 +5943,12 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
         CharacterConfig = new global::CharacterConfig();
       }
       CharacterConfig.MergeFrom(other.CharacterConfig);
+    }
+    if (other.skillsConfig_ != null) {
+      if (skillsConfig_ == null) {
+        SkillsConfig = new global::SkillsConfig();
+      }
+      SkillsConfig.MergeFrom(other.SkillsConfig);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -5275,6 +5979,13 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
           input.ReadMessage(CharacterConfig);
           break;
         }
+        case 26: {
+          if (skillsConfig_ == null) {
+            SkillsConfig = new global::SkillsConfig();
+          }
+          input.ReadMessage(SkillsConfig);
+          break;
+        }
       }
     }
   #endif
@@ -5302,6 +6013,13 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
             CharacterConfig = new global::CharacterConfig();
           }
           input.ReadMessage(CharacterConfig);
+          break;
+        }
+        case 26: {
+          if (skillsConfig_ == null) {
+            SkillsConfig = new global::SkillsConfig();
+          }
+          input.ReadMessage(SkillsConfig);
           break;
         }
       }
@@ -5336,7 +6054,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[14]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[16]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5960,7 +6678,7 @@ public sealed partial class MillisTime : pb::IMessage<MillisTime>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessagesReflection.Descriptor.MessageTypes[15]; }
+    get { return global::MessagesReflection.Descriptor.MessageTypes[17]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

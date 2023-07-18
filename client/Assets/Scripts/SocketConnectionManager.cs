@@ -40,6 +40,7 @@ public class SocketConnectionManager : MonoBehaviour
     private Boolean botsActive = true;
 
     public EventsBuffer eventsBuffer;
+    public bool allSelected = false;
 
     WebSocket ws;
 
@@ -193,8 +194,8 @@ public class SocketConnectionManager : MonoBehaviour
                     this.selectedCharacters = fromMapFieldToDictionary(
                         game_event.SelectedCharacters
                     );
+                    this.allSelected = true;
                     this.gamePlayers = game_event.Players.ToList();
-                    SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
                     print("Message received is: " + game_event.Type);

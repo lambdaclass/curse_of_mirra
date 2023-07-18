@@ -1,78 +1,86 @@
-use rustler::NifTaggedEnum;
-use strum_macros::{Display, EnumString};
-// TODO: Add misssing classes
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum Class {
-    #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
-    Hunter,
-    #[strum(serialize = "gua", serialize = "Guardian", ascii_case_insensitive)]
-    Guardian,
-    #[strum(serialize = "ass", serialize = "Assassin", ascii_case_insensitive)]
-    Assassin,
-}
-// TODO: Add misssing skills
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum Basic {
-    Slingshot,
-    #[strum(serialize = "Bash")]
-    Bash,
-    #[strum(ascii_case_insensitive)]
-    Backstab,
-    #[strum(serialize = "Elnars Mark", serialize = "Scherzo")]
-    Placeholder,
+use std::{collections::HashMap, str::FromStr};
+
+use rustler::NifStruct;
+
+#[derive(Debug, Clone, NifStruct)]
+#[module = "DarkWorldsServer.Engine.Skill"]
+pub struct Skill {
+    pub name: String,
+    pub do_func: u64,
+    pub button_type: String,
+    pub cooldown_ms: u64,
+    pub damage: u32,
+    pub status: String,
+    pub duration: u64,
+    pub projectile: String,
+    pub minion: String,
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum FirstActive {
-    #[strum(
-        serialize = "Barrel Roll",
-        serialize = "BarrelRoll",
-        ascii_case_insensitive
-    )]
-    BarrelRoll,
-    #[strum(serialize = "Serpent Strike", serialize = "SerpentStrike")]
-    SerpentStrike,
-    #[strum(ascii_case_insensitive)]
-    MultiShot,
-    #[strum(serialize = "Yugens Mark", serialize = "Pizzicato")]
-    Placeholder,
-}
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum SecondActive {
-    #[strum(ascii_case_insensitive)]
-    Rage,
-    Petrify,
-    Disarm,
-    MirrorImage,
-    #[strum(serialize = "Xandas Mark", serialize = "Band Recruit")]
-    Placeholder,
-}
-
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum Dash {
-    Leap,
-    #[strum(ascii_case_insensitive)]
-    ShadowStep,
-    Hacktivate,
-    Blink,
-    #[strum(serialize = "Neon Crash", serialize = "Danse Macabre")]
-    Placeholder,
+impl Skill {
+    pub fn from_config_map(config: &HashMap<String, String>) -> Result<Skill, String> {
+        let name = get_skill_field(config, "Name")?;
+        let do_func = get_skill_field(config, "DoFunc")?;
+        let button_type = get_skill_field(config, "ButtonType")?;
+        let cooldown_ms = get_skill_field(config, "Cooldown")?;
+        let damage = get_skill_field(config, "Damage")?;
+        let status = get_skill_field(config, "Status")?;
+        let duration = get_skill_field(config, "Duration")?;
+        let projectile = get_skill_field(config, "Projectile")?;
+        let minion = get_skill_field(config, "Minion")?;
+        Ok(Self {
+            name,
+            do_func,
+            button_type,
+            cooldown_ms,
+            damage,
+            status,
+            duration,
+            projectile,
+            minion,
+        })
+    }
 }
 
-#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
-pub enum Ultimate {
-    #[strum(serialize = "Fiery Rampage", ascii_case_insensitive)]
-    FieryRampage,
-    #[strum(serialize = "Toxic Tempest", ascii_case_insensitive)]
-    ToxicTempest,
-    #[strum(serialize = "Denial Of Service", ascii_case_insensitive)]
-    DenialOfService,
-    #[strum(serialize = "The Trickster", ascii_case_insensitive)]
-    TheTrickster,
-    #[strum(serialize = "Final Vengeance", serialize = "Orchestra")]
-    Placeholder,
+impl Default for Skill {
+    fn default() -> Self {
+        Skill {
+            name: "Slingshot".to_string(),
+            do_func: 0,
+            button_type: "".to_string(),
+            cooldown_ms: 1000,
+            damage: 10,
+            status: "".to_string(),
+            duration: 0,
+            projectile: "".to_string(),
+            minion: "".to_string(),
+        }
+    }
 }
-// TODO have a trait for this
-// instead of matching enums.
-// Something like:
-// impl Attack for BasicSkill
+
+pub fn build_from_config(skills_config: &[HashMap<String, String>]) -> Result<Vec<Skill>, String> {
+    skills_config.iter().map(Skill::from_config_map).collect()
+}
+
+fn get_skill_field<T: FromStr>(config: &HashMap<String, String>, key: &str) -> Result<T, String> {
+    let value_result = config
+        .get(key)
+        .ok_or(format!("Missing key: {:?}", key))
+        .map(|s| s.to_string());
+
+    match value_result {
+        Ok(value) => parse_attribute(&value),
+        Err(error) => Err(format!("Error parsing '{}'\n{}", key, error)),
+    }
+}
+
+fn parse_attribute<T: FromStr>(to_parse: &str) -> Result<T, String> {
+    let parsed = T::from_str(&to_parse);
+    match parsed {
+        Ok(parsed) => Ok(parsed),
+        Err(_parsing_error) => Err(format!(
+            "Could not parse value: '{}' for Skill Type: {}",
+            to_parse,
+            std::any::type_name::<T>()
+        )),
+    }
+}

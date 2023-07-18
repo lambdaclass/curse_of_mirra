@@ -406,6 +406,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:piercing, %{ends_at: ends_at}}), do: {2, ends_at}
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
+  defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
 
   defp action_encode({:nothing, ticks}), do: {0, ticks}
   defp action_encode({:attacking, ticks}), do: {1, ticks}
