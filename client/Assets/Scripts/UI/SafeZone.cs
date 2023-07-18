@@ -14,12 +14,12 @@ public class SafeZone : MonoBehaviour
         }
         instance = this;
         safeZone = GetComponentInChildren<SpriteMask>();
-        safeZoneRadius = 200f;
+        safeZoneRadius = 50f;
     }
 
     private void Update()
     {
-        safeZoneRadius -= Time.deltaTime * 10f;
+        safeZoneRadius -= Time.deltaTime * 1f;
         safeZone.transform.localScale = new Vector3(safeZoneRadius, safeZoneRadius, 1);
     }
 }
