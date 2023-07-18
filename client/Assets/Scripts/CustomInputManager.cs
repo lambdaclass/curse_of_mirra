@@ -82,7 +82,7 @@ public class CustomInputManager : InputManager
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
-    public bool hacked = false;
+    private bool hacked = false;
 
     protected override void Start()
     {
@@ -107,19 +107,23 @@ public class CustomInputManager : InputManager
 
     public void ActivateDisarmEffect(bool disarmed)
     {
-        if (disarmed)
+        print("Hacked " + hacked);
+        print("disarmed " + disarmed);
+        if (disarmed != hacked)
         {
+            print("ENTRO" + hacked);
+            hacked = !hacked;
             DisableButtons();
+            disarmObjectBasic.SetActive(disarmed);
+            disarmObjectSkill1.SetActive(disarmed);
+            disarmObjectSkill2.SetActive(disarmed);
+            disarmObjectSkill3.SetActive(disarmed);
+            disarmObjectSkill4.SetActive(disarmed);
         }
         else
         {
             EnableButtons();
         }
-        disarmObjectBasic.SetActive(disarmed);
-        disarmObjectSkill1.SetActive(disarmed);
-        disarmObjectSkill2.SetActive(disarmed);
-        disarmObjectSkill3.SetActive(disarmed);
-        disarmObjectSkill4.SetActive(disarmed);
     }
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
