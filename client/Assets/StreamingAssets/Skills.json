@@ -158,10 +158,10 @@
       "Name": "Neon Crash",
       "DoFunc": "0",
       "ButtonType": "3",
-      "Cooldown": "8000",
+      "Cooldown": "5000",
       "Damage": "10",
       "Status": "",
-      "Duration": "1000",
+      "Duration": "300",
       "Projectile": "",
       "Minion": ""
     },
