@@ -59,6 +59,21 @@ public class CustomInputManager : InputManager
     [SerializeField]
     TMP_Text Skill4Cooldown;
 
+    [SerializeField]
+    GameObject disarmObjectBasic;
+
+    [SerializeField]
+    GameObject disarmObjectSkill1;
+
+    [SerializeField]
+    GameObject disarmObjectSkill2;
+
+    [SerializeField]
+    GameObject disarmObjectSkill3;
+
+    [SerializeField]
+    GameObject disarmObjectSkill4;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -67,6 +82,7 @@ public class CustomInputManager : InputManager
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
+    public bool hacked = false;
 
     protected override void Start()
     {
@@ -99,11 +115,11 @@ public class CustomInputManager : InputManager
         {
             EnableButtons();
         }
-        SkillBasic.transform.GetChild(0).gameObject.SetActive(disarmed);
-        Skill1.transform.GetChild(0).gameObject.SetActive(disarmed);
-        Skill2.transform.GetChild(0).gameObject.SetActive(disarmed);
-        Skill3.transform.GetChild(0).gameObject.SetActive(disarmed);
-        Skill4.transform.GetChild(0).gameObject.SetActive(disarmed);
+        disarmObjectBasic.SetActive(disarmed);
+        disarmObjectSkill1.SetActive(disarmed);
+        disarmObjectSkill2.SetActive(disarmed);
+        disarmObjectSkill3.SetActive(disarmed);
+        disarmObjectSkill4.SetActive(disarmed);
     }
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
