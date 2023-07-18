@@ -19,7 +19,7 @@ public class SafeZone : MonoBehaviour
 
     private void Update()
     {
-        safeZoneRadius -= Time.deltaTime * 5f;
+        safeZoneRadius -= Time.deltaTime * 10f;
         safeZone.transform.localScale = new Vector3(safeZoneRadius, safeZoneRadius, 1);
     }
 }
