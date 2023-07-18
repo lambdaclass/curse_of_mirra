@@ -271,7 +271,7 @@ impl GameState {
             return Ok(());
         }
 
-        if player.character.name == Name::H4ck && player.has_active_effect(&Effect::NeonCrashing) {
+        if !player.can_move() {
             return Ok(());
         }
 

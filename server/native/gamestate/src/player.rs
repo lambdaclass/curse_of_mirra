@@ -237,7 +237,17 @@ impl Player {
             return false;
         }
 
-        return !self.has_active_effect(&Effect::Disarmed);
+        !self.has_active_effect(&Effect::Disarmed)
+    }
+
+    pub fn can_move(self: &Self) -> bool {
+        if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        !self.has_active_effect(&Effect::Leaping)
+            && !self.has_active_effect(&Effect::Petrified)
+            && !self.has_active_effect(&Effect::NeonCrashing)
     }
 
     // TODO:
