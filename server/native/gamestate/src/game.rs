@@ -198,8 +198,12 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        
-        let new_position_coordinates = GameState::new_position(attacking_player.position, direction, board.height, board.width);
+        let new_position_coordinates = GameState::new_position(
+            attacking_player.position,
+            direction,
+            board.height,
+            board.width,
+        );
 
         // Remove the player from their previous position on the board
         board.set_cell(
@@ -219,7 +223,12 @@ impl GameState {
         Ok(())
     }
 
-    pub fn new_position(initial_position: Position, direction: &RelativePosition, board_height: usize, board_width: usize) -> Position {
+    pub fn new_position(
+        initial_position: Position,
+        direction: &RelativePosition,
+        board_height: usize,
+        board_width: usize,
+    ) -> Position {
         // TODO: 120 should be a config. It's the realtion between front range in skills and
         // the distance in the back.
         let new_position_x = initial_position.x as i64 - (direction.y * 1200f32) as i64;
@@ -341,7 +350,11 @@ impl GameState {
     // }
 
     // Return all player_id in range
-    pub fn players_in_range(players: &Vec<Player>, attacking_position: &Position, range: f64) -> Vec<u64> {
+    pub fn players_in_range(
+        players: &Vec<Player>,
+        attacking_position: &Position,
+        range: f64,
+    ) -> Vec<u64> {
         let mut players_in_range: Vec<u64> = vec![];
         for player in players {
             if distance_between_positions(&player.position, attacking_position) <= range {
@@ -494,10 +507,11 @@ impl GameState {
         // TODO: This should be a config of the attack
         let attack_range = 100.;
 
-        let affected_players: Vec<u64> = GameState::players_in_range(players, &attack_position, attack_range)
-            .into_iter()
-            .filter(|&id| id != attacking_player.id)
-            .collect();
+        let affected_players: Vec<u64> =
+            GameState::players_in_range(players, &attack_position, attack_range)
+                .into_iter()
+                .filter(|&id| id != attacking_player.id)
+                .collect();
 
         let mut kill_count = 0;
         for target_player_id in affected_players.iter() {
@@ -594,7 +608,6 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<Vec<u64>, String> {
-        
         let pys = players.clone();
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.skill_1_damage() as i64;
@@ -722,7 +735,7 @@ impl GameState {
         }
 
         let now = time_now();
-        
+
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
@@ -740,24 +753,38 @@ impl GameState {
                 );
 
                 Vec::new()
-            },
+            }
             Name::Muflus => {
-                let position = GameState::new_position(attacking_player.position, direction, self.board.height, self.board.width);
+                let position = GameState::new_position(
+                    attacking_player.position,
+                    direction,
+                    self.board.height,
+                    self.board.width,
+                );
                 let distance = distance_between_positions(&attacking_player.position, &position);
                 let time = distance * attacking_player.speed() as f64 / 48.;
 
                 attacking_player.add_effect(
                     Effect::Leaping.clone(),
                     EffectData {
-                        time_left: MillisTime { high: 0, low: time as u64 },
-                        ends_at: add_millis(now, MillisTime { high: 0, low: time as u64 }),
+                        time_left: MillisTime {
+                            high: 0,
+                            low: time as u64,
+                        },
+                        ends_at: add_millis(
+                            now,
+                            MillisTime {
+                                high: 0,
+                                low: time as u64,
+                            },
+                        ),
                         direction: Some(*direction),
                         position: Some(position),
                     },
                 );
 
                 Vec::new()
-            },
+            }
             _ => Vec::new(),
         };
 
@@ -831,7 +858,10 @@ impl GameState {
                  }| {
                     *time_left = sub_millis(*ends_at, now);
 
-                    if player.character.name == Name::Muflus && millis_to_u128(*time_left) == 0 && effect == &Effect::Leaping {
+                    if player.character.name == Name::Muflus
+                        && millis_to_u128(*time_left) == 0
+                        && effect == &Effect::Leaping
+                    {
                         player.action = PlayerAction::EXECUTINGSKILL3;
 
                         let attack_dmg = 20;
@@ -1048,62 +1078,6 @@ fn compute_adjacent_position_n_tiles(
         Direction::RIGHT => Position::new(x, y + n),
     }
 }
-
-fn compute_attack_initial_positions(
-    direction: &Direction,
-    position: &Position,
-    range: usize,
-) -> (Position, Position) {
-    let x = position.x;
-    let y = position.y;
-
-    match direction {
-        Direction::UP => (
-            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-            Position::new(x.saturating_sub(1), y + range),
-        ),
-        Direction::DOWN => (
-            Position::new(x + 1, y.saturating_sub(range)),
-            Position::new(x + range, y + range),
-        ),
-        Direction::LEFT => (
-            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-            Position::new(x + range, y.saturating_sub(1)),
-        ),
-        Direction::RIGHT => (
-            Position::new(x.saturating_sub(range), y + 1),
-            Position::new(x + range, y + range),
-        ),
-    }
-}
-
-fn compute_barrel_roll_initial_positions(
-    position: &Position,
-    range: usize,
-) -> (Position, Position) {
-    let x = position.x;
-    let y = position.y;
-    (
-        Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-        Position::new(x + range, y + range),
-    )
-}
-// fn compute_attack_aoe_initial_positions(
-//     player_position: &Position,
-//     attack_position: &RelativePosition,
-// ) -> (Position, Position, Position) {
-//     let modifier = 120_f64;
-
-//     let x =
-//         (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
-//     let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
-
-//     (
-//         Position::new(x, y),
-//         Position::new(x.saturating_sub(25), y.saturating_sub(25)),
-//         Position::new(x + 25, y + 25),
-//     )
-// }
 
 /// TODO: update documentation
 /// Checks if the given movement from `old_position` to `new_position` is valid.
