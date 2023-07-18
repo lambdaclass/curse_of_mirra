@@ -535,7 +535,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
         selected_characters =
           Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
-            character_name = Enum.random(["H4ck", "Muflus", "Uma"])
+            character_name = Enum.random(["H4ck", "Muflus", "Uma", "DAgna"])
             Map.put(map, player_id, character_name)
           end)
 
