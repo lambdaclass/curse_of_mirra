@@ -307,6 +307,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189a908dfa1455a4fbb4ee28d46cd041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &672995939 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 813438968687883540, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1302669236
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +510,7 @@ MonoBehaviour:
     type: 3}
   roundSplash: {fileID: 2856279044554654234}
   roundText: {fileID: 2856279044554654233}
+  totalKillsText: {fileID: 672995939}
   backToLobbyButton: {fileID: 2856279044554654232}
   soundManager: {fileID: 1734572836}
   backgroundMusic: {fileID: 2040541225}
@@ -836,6 +849,7 @@ MonoBehaviour:
   playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
+  allSelected: 0
 --- !u!1 &1918232350
 GameObject:
   m_ObjectHideFlags: 0

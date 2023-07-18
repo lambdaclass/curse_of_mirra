@@ -30,7 +30,7 @@ public class SocketConnectionManager : MonoBehaviour
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
-    public Player winnerPlayer = null;
+    public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
 
@@ -160,7 +160,8 @@ public class SocketConnectionManager : MonoBehaviour
                     currentPing = (uint)game_event.Latency;
                     break;
                 case GameEventType.GameFinished:
-                    winnerPlayer = game_event.WinnerPlayer;
+                    winnerPlayer.Item1 = game_event.WinnerPlayer;
+                    winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
                     // This should be uncommented when the match end is finished
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     break;
