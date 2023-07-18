@@ -426,6 +426,11 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
             }
+            Name::DAgna => {
+                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
+                let players = &mut self.players;
+                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+            }
             _ => Ok(Vec::new()),
         };
 
@@ -527,6 +532,45 @@ impl GameState {
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
         Ok(affected_players)
+    }
+
+    // D'Agna basic attack: While active, D’agna will move at half speed. It deals damage to all nearby enemies. The further the enemy is, the less damage it deals.
+
+    pub fn dagna_basic_attack(
+        board: &mut Board,
+        players: &mut Vec<Player>,
+        attacking_player: &Player,
+        direction: &RelativePosition,
+    ) -> Result<Vec<u64>, String> {
+        let attack_dmg = attacking_player.basic_skill_damage() as i64;
+        let attack_direction = Self::position_to_direction(direction);
+
+        // TODO: This should be a config of the attack
+        let attack_range = 40;
+        let (top_left, bottom_right) = compute_attack_initial_positions(
+            &(attack_direction),
+            &(attacking_player.position),
+            attack_range,
+        );
+
+        let affected_players: Vec<u64> = GameState::players_in_range(board, top_left, bottom_right)
+            .into_iter()
+            .filter(|&id| id != attacking_player.id)
+            .collect();
+
+        let mut kill_count = 0;
+        for target_player_id in affected_players.iter() {
+            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+            attacked_player.modify_health(-attack_dmg);
+            if matches!(attacked_player.status, Status::DEAD) {
+                kill_count += 1;
+            }
+            GameState::modify_cell_if_player_died(board, &attacked_player)?;
+        }
+        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
+
+        Ok(affected_players)
+        
     }
 
     pub fn skill_1(

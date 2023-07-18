@@ -14,7 +14,7 @@ pub enum Name {
     #[strum(ascii_case_insensitive)]
     Muflus,
     #[strum(serialize = "Dagna")]
-    Placeholder,
+    DAgna,
 }
 
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]
