@@ -123,28 +123,6 @@ impl GameState {
         })
     }
 
-    pub fn new_round(self: &mut Self, players: Vec<Player>) -> Result<(), String> {
-        let mut positions = HashSet::new();
-        let mut players: Vec<Player> = players;
-
-        let mut board = Board::new(self.board.width, self.board.height);
-
-        for player in players.iter_mut() {
-            let new_position =
-                generate_new_position(&mut positions, self.board.width, self.board.height);
-            player.restore_player_status(new_position);
-            board.set_cell(
-                player.position.x,
-                player.position.y,
-                Tile::Player(player.id),
-            )?;
-        }
-
-        self.players = players;
-        self.board = board;
-        Ok(())
-    }
-
     pub fn move_player(
         self: &mut Self,
         player_id: u64,
