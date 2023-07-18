@@ -34,18 +34,16 @@ public class PlayerItem : MonoBehaviour
     {
         if (id == 1)
         {
-            this.playerText.text = $"Player {id.ToString()} {characterName} HOST";
+            this.playerText.text = $"Player {id.ToString()} {characterName} HOST ";
         }
         else
         {
-            if (LobbyConnection.Instance.playerId == id)
-            {
-                this.playerText.text = $"Player {id.ToString()} {characterName} YOU";
-            }
-            else
-            {
-                this.playerText.text = $"Player {id.ToString()} {characterName}";
-            }
+            this.playerText.text = $"Player {id.ToString()} {characterName} ";
+        }
+
+        if (LobbyConnection.Instance.playerId == id)
+        {
+            this.playerText.text += "YOU";
         }
     }
 }

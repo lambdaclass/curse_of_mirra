@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
 
 public class Utils
 {
@@ -25,5 +26,25 @@ public class Utils
         return SocketConnectionManager.Instance.players.Find(
             el => el.GetComponent<Character>().PlayerID == id.ToString()
         );
+    }
+
+    public static MMSimpleObjectPooler SimpleObjectPooler(
+        string name,
+        Transform parentTransform,
+        string resource
+    )
+    {
+        GameObject objectPoolerGameObject = new GameObject();
+        objectPoolerGameObject.name = name;
+        objectPoolerGameObject.transform.parent = parentTransform;
+        MMSimpleObjectPooler objectPooler =
+            objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
+        objectPooler.GameObjectToPool = Resources.Load(resource, typeof(GameObject)) as GameObject;
+        objectPooler.PoolSize = 10;
+        objectPooler.NestWaitingPool = true;
+        objectPooler.MutualizeWaitingPools = true;
+        objectPooler.PoolCanExpand = true;
+        objectPooler.FillObjectPool();
+        return objectPooler;
     }
 }
