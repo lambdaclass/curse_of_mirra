@@ -102,14 +102,14 @@ public static partial class MessagesReflection {
           "CUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIVChFFWEVDVVRJTkdf",
           "U0tJTExfMRADEg8KC1RFTEVQT1JUSU5HEAQSFQoRRVhFQ1VUSU5HX1NLSUxM",
           "XzIQBRIVChFFWEVDVVRJTkdfU0tJTExfMxAGEhUKEUVYRUNVVElOR19TS0lM",
-          "TF80EAcqVwoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FS",
+          "TF80EAcqZAoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FS",
           "TUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJ",
-          "TkcQBCqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAA",
-          "Eg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RB",
-          "UlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5Q",
-          "TEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAA",
-          "EhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoK",
-          "BkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
+          "TkcQBBILCgdMRUFQSU5HEAUqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVf",
+          "VU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQ",
+          "AhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFS",
+          "VF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlw",
+          "ZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVj",
+          "dGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -231,6 +231,7 @@ public enum PlayerEffect {
   [pbr::OriginalName("PIERCING")] Piercing = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
+  [pbr::OriginalName("LEAPING")] Leaping = 5,
 }
 
 /// <summary>

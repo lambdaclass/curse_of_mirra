@@ -6,13 +6,13 @@
       "Active": "1",
       "Class": "gua",
       "Faction": "ara",
-      "BaseSpeed": "2",
+      "BaseSpeed": "20",
       "SkillBasic": "Bash",
       "SkillActive1": "Barrel Roll",
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
       "SkillUltimate": "Fiery Rampage",
-      "BodySize": "10.0"
+      "BodySize": "50.0"
     },
     {
       "Name": "Uma",
@@ -20,13 +20,13 @@
       "Active": "1",
       "Class": "ass",
       "Faction": "kal",
-      "BaseSpeed": "4",
+      "BaseSpeed": "40",
       "SkillBasic": "Elnars Mark",
       "SkillActive1": "Yugens Mark",
       "SkillActive2": "Xandas Mark",
       "SkillDash": "Shadowstep",
       "SkillUltimate": "Final Vengeance",
-      "BodySize": "9.0"
+      "BodySize": "45.0"
     },
     {
       "Name": "H4ck",
@@ -34,13 +34,13 @@
       "Active": "1",
       "Class": "hun",
       "Faction": "oto",
-      "BaseSpeed": "3",
+      "BaseSpeed": "30",
       "SkillBasic": "Slingshot",
       "SkillActive1": "Multishot",
       "SkillActive2": "Disarm",
       "SkillDash": "Neon Crash",
       "SkillUltimate": "Denial of Service",
-      "BodySize": "8.0"
+      "BodySize": "40.0"
     },
     {
       "Name": "Valtimer",
@@ -54,7 +54,7 @@
       "SkillActive2": "Mirror Image",
       "SkillDash": "Blink",
       "SkillUltimate": "The Trickster",
-      "BodySize": "8.0"
+      "BodySize": "40.0"
     },
     {
       "Name": "Otix",
@@ -68,7 +68,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "6.0"
+      "BodySize": "50.0"
     },
     {
       "Name": "Uren",
@@ -82,7 +82,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "9.0"
+      "BodySize": "45.0"
     },
     {
       "Name": "Kenzu",
@@ -96,7 +96,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "9.0"
+      "BodySize": "45.0"
     },
     {
       "Name": "Dagna",
@@ -110,7 +110,7 @@
       "SkillActive2": "Band Recruit",
       "SkillDash": "Danse Macabre",
       "SkillUltimate": "Orchestra",
-      "BodySize": "8.0"
+      "BodySize": "45.0"
     }
   ]
 }

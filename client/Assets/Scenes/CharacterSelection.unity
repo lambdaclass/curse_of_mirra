@@ -498,6 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536246998}
   - component: {fileID: 536246997}
+  - component: {fileID: 536246999}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -582,6 +583,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &536246999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536246996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &711933318
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,6 +819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 957799346}
   - component: {fileID: 957799345}
+  - component: {fileID: 957799347}
   m_Layer: 0
   m_Name: SelectionManager
   m_TagString: Untagged
@@ -833,6 +855,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &957799347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957799344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d6dd0d82cd54ae9bb06dd9a1ed228a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneName: BackendPlayground
 --- !u!1 &1042052377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1818,7 @@ MonoBehaviour:
   playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
+  allSelected: 0
 --- !u!4 &2077431644
 Transform:
   m_ObjectHideFlags: 0
