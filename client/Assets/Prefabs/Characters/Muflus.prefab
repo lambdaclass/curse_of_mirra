@@ -653,6 +653,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
+      propertyPath: shader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 65b762670eb1b4985b173e753a58d807,
+        type: 3}
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
+        type: 3}
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 6624899701852712067}
@@ -891,6 +902,11 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8204b292856974b849e0592b526ef9f7,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -607056918500283681, guid: 8204b292856974b849e0592b526ef9f7,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8204b292856974b849e0592b526ef9f7,

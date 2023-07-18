@@ -247,9 +247,26 @@ message CharacterConfig {
     repeated CharacterConfigItem Items = 1;
 }
 
+message SkillsConfig {
+    repeated SkillConfigItem Items = 1;
+}
+
+message SkillConfigItem {
+    string Name = 1;
+    string DoFunc = 2;
+    string ButtonType = 3;
+    string Cooldown = 4;
+    string Damage = 5;
+    string Status = 6;
+    string Duration = 7;
+    string Projectile = 8;
+    string Minion = 9;
+}
+
 message ServerGameSettings {
     RunnerConfig runner_config = 1;
     CharacterConfig character_config = 2;
+    SkillsConfig skills_config = 3;
 }
 
 

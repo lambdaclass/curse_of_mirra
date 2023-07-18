@@ -41,7 +41,7 @@ pub fn time_now() -> MillisTime {
     u128_to_millis(since_the_epoch.as_millis())
 }
 
-pub fn sleep(seconds: u64) {
-    let duration = time::Duration::from_secs(seconds);
+pub fn sleep(milliseconds: MillisTime) {
+    let duration = time::Duration::from_millis(millis_to_u128(milliseconds) as u64);
     thread::sleep(duration);
 }

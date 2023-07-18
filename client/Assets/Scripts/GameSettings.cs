@@ -13,6 +13,7 @@ public class GameSettings
 {
     private const string GameSettingsFileName = "GameSettings.json";
     private const string CharactersFileName = "Characters.json";
+    private const string SkillsFileName = "Skills.json";
     private const string ContentTypeHeader = "application/json";
 
     public string path { get; set; }
@@ -31,8 +32,15 @@ public class GameSettings
             CharactersFileName
         );
 
+        string skillsSettingsPath = Path.Combine(
+            Application.streamingAssetsPath,
+            SkillsFileName
+        );
+
         string jsonGameSettingsText = string.Empty;
         string jsonCharacterSettingsText = string.Empty;
+        string jsonSkillsSettingsText = string.Empty;
+
         GetRequest(
             gameSettingsPath,
             result =>
@@ -45,20 +53,33 @@ public class GameSettings
                     {
                         jsonCharacterSettingsText = charactersResult;
 
-                        RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
-                            jsonGameSettingsText.TrimStart('\uFEFF')
-                        );
-                        CharacterConfig characters = parser.Parse<CharacterConfig>(
-                            jsonCharacterSettingsText.TrimStart('\uFEFF')
+                        GetRequest(
+                            skillsSettingsPath,
+                            skillsResult => {
+                                jsonSkillsSettingsText = skillsResult;
+
+                                RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
+                                    jsonGameSettingsText.TrimStart('\uFEFF')
+                                );
+                                CharacterConfig characters = parser.Parse<CharacterConfig>(
+                                    jsonCharacterSettingsText.TrimStart('\uFEFF')
+                                );
+                                SkillsConfig skills = parser.Parse<SkillsConfig>(
+                                    jsonSkillsSettingsText.TrimStart('\uFEFF')
+                                );
+
+                                ServerGameSettings settings = new ServerGameSettings
+                                {
+                                    RunnerConfig = parsedRunner,
+                                    CharacterConfig = characters,
+                                    SkillsConfig = skills,
+                                };
+
+                                callback?.Invoke(settings);
+
+                            }
                         );
 
-                        ServerGameSettings settings = new ServerGameSettings
-                        {
-                            RunnerConfig = parsedRunner,
-                            CharacterConfig = characters
-                        };
-
-                        callback?.Invoke(settings);
                     }
                 );
             }
@@ -67,6 +88,7 @@ public class GameSettings
         while (
             string.IsNullOrEmpty(jsonGameSettingsText)
             || string.IsNullOrEmpty(jsonCharacterSettingsText)
+            || string.IsNullOrEmpty(jsonSkillsSettingsText)
         )
         {
             yield return null;
