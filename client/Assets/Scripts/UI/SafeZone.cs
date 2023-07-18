@@ -14,7 +14,7 @@ public class SafeZone : MonoBehaviour
         }
         instance = this;
         safeZone = GetComponentInChildren<SpriteMask>();
-        safeZoneRadius = 50f;
+        safeZoneRadius = 200f;
     }
 
     private void Update()
