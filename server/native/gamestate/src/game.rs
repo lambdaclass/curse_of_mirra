@@ -337,7 +337,7 @@ impl GameState {
         let mut players_in_range: Vec<u64> = vec![];
         for player in players {
             if distance_between_positions(&player.position, attacking_position) <= range
-                && matches!(player.status, Status::DEAD)
+                && !matches!(player.status, Status::DEAD)
             {
                 players_in_range.push(player.id);
             }
