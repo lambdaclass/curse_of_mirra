@@ -4,7 +4,7 @@ use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
-use crate::utils::RelativePosition;
+use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::f32::consts::PI;
@@ -307,11 +307,10 @@ impl GameState {
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
-    pub fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
-        self.players
+    pub fn get_player(players: &Vec<Player>, player_id: u64) -> Result<&Player, String> {
+        players
             .get((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
-            .cloned()
     }
 
     // Return all player_id inside an area
@@ -336,11 +335,13 @@ impl GameState {
 
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
-        players: &mut Vec<Player>,
+        players: &Vec<Player>,
         previous_position: Position,
         next_position: Position,
-    ) -> Vec<u64> {
-        let mut affected_players: Vec<u64> = vec![];
+    ) -> HashMap<u64, f64> {
+        let mut affected_players: HashMap<u64, f64> = HashMap::new();
+
+        let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
 
         let (p1, p2) = match previous_position.x < next_position.x {
             true => (previous_position, next_position),
@@ -350,7 +351,7 @@ impl GameState {
         };
 
         players
-            .iter_mut()
+            .iter()
             .filter(|player| {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
@@ -390,7 +391,10 @@ impl GameState {
                 };
 
                 if player_attacked {
-                    affected_players.push(player.id);
+                    affected_players.insert(
+                        player.id,
+                        distance_to_center(attacking_player, &player.position),
+                    );
                 }
             });
 
@@ -422,9 +426,14 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+                let players = &self.players.clone();
+                let attacking_player = GameState::get_player(players, attacking_player_id)?;
+                Self::muflus_basic_attack(
+                    &mut self.board,
+                    &mut self.players,
+                    attacking_player,
+                    direction,
+                )
             }
             _ => Ok(Vec::new()),
         };
@@ -865,13 +874,13 @@ impl GameState {
             }
         });
 
-        for (player_id, (damage, attacked_players)) in neon_crash_affected_players.into_iter() {
+        for (player_id, (damage, attacked_players)) in neon_crash_affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
                 let attacked_player = self
                     .players
                     .iter_mut()
-                    .find(|player| player.id == *target_player_id && player.id != player_id);
+                    .find(|player| player.id == *target_player_id && player.id != *player_id);
 
                 match attacked_player {
                     Some(ap) => {
@@ -897,17 +906,18 @@ impl GameState {
 
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
-                let affected_players: Vec<u64> = GameState::players_in_projectile_movement(
-                    projectile.player_id,
-                    &mut self.players,
-                    projectile.prev_position,
-                    projectile.position,
-                )
-                .into_iter()
-                .filter(|&id| {
-                    id != projectile.player_id && id != projectile.last_attacked_player_id
-                })
-                .collect();
+                let affected_players: HashMap<u64, f64> =
+                    GameState::players_in_projectile_movement(
+                        projectile.player_id,
+                        &self.players,
+                        projectile.prev_position,
+                        projectile.position,
+                    )
+                    .into_iter()
+                    .filter(|&(id, _distance)| {
+                        id != projectile.player_id && id != projectile.last_attacked_player_id
+                    })
+                    .collect();
 
                 if affected_players.len() > 0 && !projectile.pierce {
                     projectile.status = ProjectileStatus::EXPLODED;
@@ -917,8 +927,15 @@ impl GameState {
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
+                    // if there are more than one player affected by the projectile
+                    // finde the nearest one
+                    let (attacked_player_id, _) = affected_players
+                        .iter()
+                        .min_by(|a, b| cmp_float(*a.1, *b.1))
+                        .unwrap();
+
                     let attacked_player =
-                        GameState::get_player_mut(&mut self.players, affected_players[0])?;
+                        GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
 
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
