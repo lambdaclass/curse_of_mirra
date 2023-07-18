@@ -32,6 +32,39 @@ pub fn read_character_config() -> Vec<HashMap<String, String>> {
         .collect::<Vec<_>>();
     return info;
 }
+
+pub fn read_skills_config() -> Vec<HashMap<String, String>> {
+    let path = "../client/Assets/StreamingAssets/Skills.json";
+    let file = std::fs::read_to_string(path)
+        .expect("Missing config file! Make sure you're running this from the server folder");
+    let parsed = file
+        .parse::<JsonValue>()
+        .expect("Could not parse config json!");
+    let object: HashMap<_, _> = parsed.try_into().expect("Not valid config in json");
+    let skills: Vec<JsonValue> = object["Items"]
+        .clone()
+        .try_into()
+        .expect("Expected an array of skills");
+    let info = skills
+        .into_iter()
+        .map(|skills_info| {
+            let mut map: HashMap<String, String> = HashMap::new();
+            let skills_info: HashMap<_, _> = skills_info
+                .clone()
+                .try_into()
+                .expect(&format!("Expected object, got: {:?}", skills_info));
+            for (key, value) in skills_info {
+                let string: String = value
+                    .try_into()
+                    .expect("Skills json values must be strings!");
+                map.insert(key, string);
+            }
+            return map;
+        })
+        .collect::<Vec<_>>();
+    return info;
+}
+
 #[macro_export]
 macro_rules! assert_result {
     ($expected:expr, $actual:expr) => {
