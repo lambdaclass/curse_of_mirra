@@ -7,16 +7,26 @@ public class PlayerFeedbacks : MonoBehaviour
 {
     public void PlayDeathFeedback(GameObject player, Health healthComponent)
     {
-        if (healthComponent.CurrentHealth <= 0 && player.GetComponent<Character>().CharacterModel.activeSelf == true)
+        if (
+            healthComponent.CurrentHealth <= 0
+            && player.GetComponent<Character>().CharacterModel.activeSelf == true
+        )
         {
             healthComponent.DeathMMFeedbacks.PlayFeedbacks();
         }
     }
 
-    public void DisplayDamageRecieved(GameObject player, Health healthComponent, float playerHealth, ulong id)
+    public void DisplayDamageRecieved(
+        GameObject player,
+        Health healthComponent,
+        float playerHealth,
+        ulong id
+    )
     {
-        if (healthComponent.CurrentHealth != playerHealth &&
-        SocketConnectionManager.Instance.playerId == id)
+        if (
+            healthComponent.CurrentHealth != playerHealth
+            && SocketConnectionManager.Instance.playerId == id
+        )
         {
             healthComponent.Damage(0.001f, this.gameObject, 0, 0, Vector3.up);
         }
@@ -24,6 +34,8 @@ public class PlayerFeedbacks : MonoBehaviour
 
     public void ChangePlayerTextureOnDamage(GameObject player, float auxHealth, float playerHealth)
     {
+        // player.GetComponentInChildren<OverlayEffect>().enabled = true;
+
         if (auxHealth != playerHealth)
         {
             player.GetComponentInChildren<OverlayEffect>().enabled = true;

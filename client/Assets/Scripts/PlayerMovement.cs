@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
-using UnityEngine.UI;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -54,8 +54,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            Debug.Log("Condition: " + player.GetComponent<Character>().ConditionState.CurrentState);
-            Debug.Log("Movement: " + player.GetComponent<Character>().MovementState.CurrentState);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();

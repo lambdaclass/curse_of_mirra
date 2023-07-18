@@ -484,24 +484,20 @@ defmodule DarkWorldsServer.Engine.Runner do
       )
 
   defp create_new_game(
-         %{runner_config: rg, character_config: %{Items: character_info}},
+         %{runner_config: rg, character_config: %{Items: characters_info}, skills_config: %{Items: skills_info}},
          players,
          selected_players
        ) do
-    character_info =
-      for character <- character_info do
-        Enum.reduce(character, %{}, fn
-          {:__unknown_fields__, _}, map -> map
-          {key, val}, map -> Map.put(map, key |> Atom.to_string(), val)
-        end)
-      end
+    characters_info = config_atom_to_string(characters_info)
+    skills_info = config_atom_to_string(skills_info)
 
     config = %{
       selected_players: selected_players,
       number_of_players: players,
       board: {rg.board_width, rg.board_height},
       build_walls: @build_walls,
-      characters: character_info
+      characters: characters_info,
+      skills: skills_info
     }
 
     {:ok, _game} = Game.new(config)
@@ -567,4 +563,15 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
 
   defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()
+
+  defp config_atom_to_string(config) do
+    Enum.reduce(config, [], fn item, acc_config ->
+      new_item =
+        item
+        |> Map.delete(:__unknown_fields__)
+        |> Map.new(fn {key, val} -> {Atom.to_string(key), val} end)
+
+      [new_item | acc_config]
+    end)
+  end
 end

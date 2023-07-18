@@ -14,7 +14,8 @@ defmodule DarkWorldsServer.Test.Disconnect do
             server_tickrate_ms: 30,
             game_timeout_ms: 1_200_000
           },
-          character_config: DarkWorldsServer.Test.characters_config()
+          character_config: DarkWorldsServer.Test.characters_config(),
+          skills_config: DarkWorldsServer.Test.skills_config()
         }
       })
 
