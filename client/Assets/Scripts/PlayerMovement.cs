@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
