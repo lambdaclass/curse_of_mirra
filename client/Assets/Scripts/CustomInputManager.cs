@@ -79,7 +79,7 @@ public class CustomInputManager : InputManager
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
-    private bool hacked = false;
+    private bool disarmed = false;
 
     protected override void Start()
     {
@@ -102,20 +102,24 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
 
-    public void ActivateDisarmEffect(bool disarmed)
+    public void ActivateDisarmEffect(bool isDisarmed)
     {
-        if (disarmed != hacked)
+        if (disarmed != isDisarmed)
         {
-            hacked = !hacked;
-            DisableButtons();
-            disarmObjectSkill1.SetActive(disarmed);
-            disarmObjectSkill2.SetActive(disarmed);
-            disarmObjectSkill3.SetActive(disarmed);
-            disarmObjectSkill4.SetActive(disarmed);
-        }
-        else
-        {
-            EnableButtons();
+            if (isDisarmed)
+            {
+                DisableButtons();
+                SkillBasic.GetComponent<CustomMMTouchButton>().Interactable = true;
+            }
+            else
+            {
+                EnableButtons();
+            }
+            disarmObjectSkill1.SetActive(isDisarmed);
+            disarmObjectSkill2.SetActive(isDisarmed);
+            disarmObjectSkill3.SetActive(isDisarmed);
+            disarmObjectSkill4.SetActive(isDisarmed);
+            disarmed = isDisarmed;
         }
     }
 
@@ -331,7 +335,6 @@ public class CustomInputManager : InputManager
         {
             if (button != activeJoystick)
             {
-                // Try CustomMMTouchButton.DisableButton();
                 button.GetComponent<CustomMMTouchButton>().Interactable = false;
             }
         }
