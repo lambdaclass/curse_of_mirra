@@ -188,6 +188,9 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
+        if self.has_active_effect(&Effect::Piercing) {
+            return ((base_speed as f64) * 1.5).ceil() as u64;
+        }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
@@ -231,7 +234,7 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &Self, cooldown_left: MillisTime) -> bool {
+    pub fn can_attack(self: &Self, cooldown_left: MillisTime, is_basic_skill: bool) -> bool {
         if matches!(self.status, Status::DEAD) {
             return false;
         }
@@ -240,7 +243,7 @@ impl Player {
             return false;
         }
 
-        !self.has_active_effect(&Effect::Disarmed)
+        !(self.has_active_effect(&Effect::Disarmed) && !is_basic_skill)
     }
 
     pub fn can_move(self: &Self) -> bool {
@@ -299,6 +302,27 @@ impl Player {
                 self.actions.insert(key, new_value);
             }
         }
+    }
+
+    // This ill be helpful once the deathmatch mode starts its development
+    pub fn restore_player_status(&mut self, new_position: Position) {
+        self.health = 100;
+        self.position.x = new_position.x;
+        self.position.y = new_position.y;
+        self.status = Status::ALIVE;
+        self.action = PlayerAction::NOTHING;
+        self.aoe_position = Position::new(0, 0);
+        self.effects = HashMap::new();
+        self.basic_skill_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_1_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_2_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_3_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_4_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.basic_skill_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_1_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_2_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_3_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_4_started_at = MillisTime { high: 0, low: 0 };
     }
 }
 
