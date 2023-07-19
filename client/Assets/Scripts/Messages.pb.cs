@@ -234,7 +234,7 @@ public enum PlayerEffect {
   [pbr::OriginalName("PIERCING")] Piercing = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
-  [pbr::OriginalName("SLOWED")] NeonCrashing = 4,
+  [pbr::OriginalName("SLOWED")] Slowed = 4,
 }
 
 /// <summary>
