@@ -1,8 +1,8 @@
 using System.Collections;
-using UnityEngine.SceneManagement;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Utils
 {
@@ -26,6 +26,11 @@ public class Utils
         return SocketConnectionManager.Instance.players.Find(
             el => el.GetComponent<Character>().PlayerID == id.ToString()
         );
+    }
+
+    public static Player GetGamePlayer(ulong id)
+    {
+        return SocketConnectionManager.Instance.gamePlayers.Find(el => el.Id == id);
     }
 
     public static MMSimpleObjectPooler SimpleObjectPooler(

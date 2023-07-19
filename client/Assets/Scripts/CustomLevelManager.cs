@@ -104,8 +104,11 @@ public class CustomLevelManager : LevelManager
 
         print(gamePlayer);
         print(gamePlayer == null);
-        print(gamePlayer.Status);
-        print(gamePlayer.Health);
+        if (gamePlayer != null)
+        {
+            print(gamePlayer.Status);
+            print(gamePlayer.Health);
+        }
         if (gamePlayer != null && Utils.GetGamePlayer(playerId).Status == Status.Dead)
         {
             ShowDeathSplash();

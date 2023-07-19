@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +6,6 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -88,13 +85,18 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+        if (gamePlayers != null && players != null)
+        {
+            print(gamePlayers.Count());
+            print(players.Count());
+        }
     }
 
     private void ConnectToSession(string session_id)
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
-        Dictionary<string, string> headers =new Dictionary<string, string>();
+        Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
