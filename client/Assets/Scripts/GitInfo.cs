@@ -27,7 +27,7 @@ class GitInfo
     }
 
     public static string GetGitHashInOS() {
-        var procStartInfo = new System.Diagnostics.ProcessStartInfo("bash", "-c \"git rev-parse --short HEAD\"");
+        var procStartInfo = new System.Diagnostics.ProcessStartInfo("bash", "-c \"git rev-parse --short=8 HEAD\"");
         procStartInfo.RedirectStandardOutput = true;
         procStartInfo.UseShellExecute = false;
         procStartInfo.CreateNoWindow = true;
