@@ -116,10 +116,37 @@ public class Skill : CharacterAbility
         }
     }
 
+    public void StartFeedback()
+    {
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
+        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
+
+        if (skillInfo.hasModelAnimation == true)
+        {
+            skillsAnimationEvent.UpdateActiveSkill(this);
+            _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+            _animator.SetBool(skillId + "_start", true);
+        }
+
+        if (skillInfo.startFeedbackVfx)
+        {
+            if (skillInfo.startFeedbackVfx.GetComponent<MMF_Player>())
+            {
+                // this.PlayAbilityStartFeedbacks();
+            }
+            if (skillInfo.startFeedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
+            {
+                skillInfo.startFeedbackVfx.SetActive(true);
+            }
+        }
+    }
+
     public void ExecuteFeedback()
     {
         GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
         GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
+
+        _animator.SetBool(skillId + "_start", false);
 
         if (skillInfo.hasModelAnimation == true)
         {
@@ -143,6 +170,8 @@ public class Skill : CharacterAbility
             {
                 trail.emitting = true;
             }
+
+            StartCoroutine(StopFeedbackVfx(skillInfo.feedbackVfxTime));
         }
     }
 
@@ -160,27 +189,23 @@ public class Skill : CharacterAbility
     {
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
-
-        if (feedbackAnimation)
-        {
-            if (feedbackAnimation.GetComponent<MMF_Player>())
-            {
-                this.StopStartFeedbacks();
-            }
-            if (feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
-            {
-                feedbackAnimation.SetActive(false);
-            }
-            if (trail)
-            {
-                StartCoroutine(StopEmitting(.3f));
-            }
-        }
     }
 
-    IEnumerator StopEmitting(float time)
+    IEnumerator StopFeedbackVfx(float time)
     {
         yield return new WaitForSeconds(time);
-        trail.emitting = false;
+
+        if (feedbackAnimation.GetComponent<MMF_Player>())
+        {
+            this.StopStartFeedbacks();
+        }
+        if (feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
+        {
+            feedbackAnimation.SetActive(false);
+        }
+        if (trail)
+        {
+            trail.emitting = false;
+        }
     }
 }

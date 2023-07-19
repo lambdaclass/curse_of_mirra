@@ -16,6 +16,9 @@ MonoBehaviour:
   inputType: 0
   feedbackAnimation: {fileID: 7017218312715976829, guid: 4fc144b63d69c4811ae710e9c3a2b968,
     type: 3}
+  feedbackVfxTime: 0.6
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxTime: 0
   instantiateAnimationOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
