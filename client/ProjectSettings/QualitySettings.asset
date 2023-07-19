@@ -40,7 +40,8 @@ QualitySettings:
     asyncUploadBufferSize: 4
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: 26069ada66dc74fadac3579def5cf03c,
+      type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Fast

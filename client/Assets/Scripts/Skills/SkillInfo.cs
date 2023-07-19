@@ -8,6 +8,7 @@ public class SkillInfo : ScriptableObject
     public new string name;
     public UIType inputType;
     public GameObject feedbackAnimation;
+    public bool instantiateAnimationOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;

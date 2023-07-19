@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
-using UnityEngine.UI;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -251,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
+                float projectileSpeed = gameProjectiles[i].Speed / 100f;
 
                 float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
                 float velocity = tickRate * projectileSpeed;
@@ -348,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
         frames, but that's fine).
         */
         Character character = player.GetComponent<Character>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -373,6 +372,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
+        {
+            characterSpeed *= 4f;
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
         {
             characterSpeed *= 4f;
         }

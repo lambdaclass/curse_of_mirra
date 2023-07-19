@@ -1,6 +1,6 @@
 use crate::skills::*;
-use crate::skills::{Basic as BasicSkill, Class, FirstActive, SecondActive};
 use crate::time_utils::{u128_to_millis, MillisTime};
+use rustler::NifTaggedEnum;
 use std::collections::HashMap;
 use std::str::FromStr;
 use strum_macros::{Display, EnumString};
@@ -29,6 +29,16 @@ pub enum Faction {
     Merliot,
 }
 
+#[derive(NifTaggedEnum, Debug, Clone, EnumString, Display)]
+pub enum Class {
+    #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
+    Hunter,
+    #[strum(serialize = "gua", serialize = "Guardian", ascii_case_insensitive)]
+    Guardian,
+    #[strum(serialize = "ass", serialize = "Assassin", ascii_case_insensitive)]
+    Assassin,
+}
+
 #[derive(Debug, Clone, rustler::NifStruct)]
 #[module = "DarkWorldsServer.Engine.Character"]
 pub struct Character {
@@ -38,20 +48,24 @@ pub struct Character {
     pub faction: Faction,
     pub name: Name,
     pub base_speed: u64,
-    pub skill_basic: Basic,
-    pub skill_active_first: FirstActive,
-    pub skill_active_second: SecondActive,
-    pub skill_dash: Dash,
-    pub skill_ultimate: Ultimate,
+    pub skill_basic: Skill,
+    pub skill_1: Skill,
+    pub skill_2: Skill,
+    pub skill_3: Skill,
+    pub skill_4: Skill,
     pub body_size: f64,
 }
 
 impl Character {
     pub fn new(
         class: Class,
-        speed: u64,
+        base_speed: u64,
         name: &Name,
-        basic_skill: Basic,
+        skill_basic: Skill,
+        skill_1: Skill,
+        skill_2: Skill,
+        skill_3: Skill,
+        skill_4: Skill,
         active: bool,
         id: u64,
         faction: Faction,
@@ -63,19 +77,22 @@ impl Character {
             active,
             id,
             faction,
-            skill_basic: basic_skill,
-            base_speed: speed,
-            skill_active_first: FirstActive::BarrelRoll,
-            skill_active_second: SecondActive::Disarm,
-            skill_dash: Dash::Blink,
-            skill_ultimate: Ultimate::DenialOfService,
+            base_speed,
+            skill_basic,
+            skill_1,
+            skill_2,
+            skill_3,
+            skill_4,
             body_size,
         }
     }
     // NOTE:
     // A possible improvement here is that elixir sends a Json and
     // we deserialize it here with Serde
-    pub fn from_config_map(config: &HashMap<String, String>) -> Result<Character, String> {
+    pub fn from_config_map(
+        config: &HashMap<String, String>,
+        skills: &[Skill],
+    ) -> Result<Character, String> {
         let name = get_key(config, "Name")?;
         let id = get_key(config, "Id")?;
         let active = get_key(config, "Active")?;
@@ -83,10 +100,10 @@ impl Character {
         let faction = get_key(config, "Faction")?;
         let base_speed = get_key(config, "BaseSpeed")?;
         let skill_basic = get_key(config, "SkillBasic")?;
-        let skill_active_first = get_key(config, "SkillActive1")?;
-        let skill_active_second = get_key(config, "SkillActive2")?;
-        let skill_dash = get_key(config, "SkillDash")?;
-        let skill_ultimate = get_key(config, "SkillUltimate")?;
+        let skill_1 = get_key(config, "SkillActive1")?;
+        let skill_2 = get_key(config, "SkillActive2")?;
+        let skill_3 = get_key(config, "SkillDash")?;
+        let skill_4 = get_key(config, "SkillUltimate")?;
         let body_size = get_key(config, "BodySize")?;
         Ok(Self {
             active: parse_character_attribute::<u64>(&active)? != 0,
@@ -95,98 +112,78 @@ impl Character {
             faction: parse_character_attribute(&faction)?,
             id: parse_character_attribute(&id)?,
             name: parse_character_attribute(&name)?,
-            skill_active_first: parse_character_attribute(&skill_active_first)?,
-            skill_active_second: parse_character_attribute(&skill_active_second)?,
-            skill_basic: parse_character_attribute(&skill_basic)?,
-            skill_dash: parse_character_attribute(&skill_dash)?,
-            skill_ultimate: parse_character_attribute(&skill_ultimate)?,
+            skill_basic: get_skill(&skills, &skill_basic)?,
+            skill_1: get_skill(&skills, &skill_1)?,
+            skill_2: get_skill(&skills, &skill_2)?,
+            skill_3: get_skill(&skills, &skill_3)?,
+            skill_4: get_skill(&skills, &skill_4)?,
             body_size: parse_character_attribute(&body_size)?,
         })
     }
+
     pub fn attack_dmg_basic_skill(&self) -> u32 {
-        match self.skill_basic {
-            BasicSkill::Slingshot => 10_u32, // H4ck basic attack damage
-            BasicSkill::Bash => 30_u32,      // Muflus basic attack damage
-            _ => 10_u32,
-        }
+        self.skill_basic.damage
     }
     pub fn attack_dmg_first_active(&self) -> u32 {
-        match self.skill_active_first {
-            // Muflus attack
-            FirstActive::BarrelRoll => 50_u32,
-            FirstActive::SerpentStrike => 30_u32, // H4ck skill 1 damage
-            FirstActive::MultiShot => 10_u32,
-            _ => 10_u32,
-        }
+        self.skill_1.damage
     }
     pub fn attack_dmg_second_active(&mut self) -> u32 {
-        match self.skill_active_second {
-            SecondActive::Petrify => 30_u32,
-            SecondActive::MirrorImage => 10_u32,
-            SecondActive::Disarm => 5_u32,
-            _ => 0_u32,
-        }
+        self.skill_2.damage
     }
-    #[inline]
+
     pub fn cooldown_basic_skill(&self) -> MillisTime {
-        match self.skill_basic {
-            BasicSkill::Slingshot => u128_to_millis(500), // H4ck basic attack cooldown
-            BasicSkill::Bash => u128_to_millis(1000),     // Muflus basic attack cooldown
-            BasicSkill::Backstab => u128_to_millis(1000),
-            _ => u128_to_millis(100000),
-        }
+        u128_to_millis(self.skill_basic.cooldown_ms as u128)
     }
-    pub fn cooldown_first_skill(&self) -> MillisTime {
-        match self.skill_active_first {
-            FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
-            FirstActive::SerpentStrike => u128_to_millis(5000),
-            FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
-            _ => u128_to_millis(100000),
-        }
+
+    pub fn cooldown_skill_1(&self) -> MillisTime {
+        u128_to_millis(self.skill_1.cooldown_ms as u128)
     }
-    pub fn cooldown_second_skill(&self) -> MillisTime {
-        match self.skill_active_second {
-            SecondActive::Disarm => u128_to_millis(5000),
-            SecondActive::MirrorImage => u128_to_millis(5000),
-            SecondActive::Petrify => u128_to_millis(5000),
-            SecondActive::Rage => u128_to_millis(5000),
-            _ => u128_to_millis(100000),
-        }
+
+    pub fn cooldown_skill_2(&self) -> MillisTime {
+        u128_to_millis(self.skill_2.cooldown_ms as u128)
     }
-    pub fn cooldown_third_skill(&self) -> MillisTime {
-        // match self.skill_active_third {
-        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => u128_to_millis(5000),
-        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
-        // }
-        u128_to_millis(10000)
+
+    pub fn cooldown_skill_3(&self) -> MillisTime {
+        u128_to_millis(self.skill_3.cooldown_ms as u128)
     }
-    pub fn cooldown_fourth_skill(&self) -> MillisTime {
-        // match self.skill_active_fourth {
-        //     FirstActive::BarrelRoll => u128_to_millis(5000), // Muflus skill 1 cooldown
-        //     FirstActive::SerpentStrike => u128_to_millis(5000),
-        //     FirstActive::MultiShot => u128_to_millis(5000), // H4ck skill 1 cooldown
-        // }
-        u128_to_millis(10000)
+
+    pub fn cooldown_skill_4(&self) -> MillisTime {
+        u128_to_millis(self.skill_4.cooldown_ms as u128)
     }
-    // Cooldown in seconds
-    #[inline]
-    pub fn cooldown(&self) -> u64 {
-        match self.skill_basic {
-            BasicSkill::Slingshot => 5,
-            BasicSkill::Bash => 3,
-            BasicSkill::Backstab => 1,
-            _ => 1_u64,
-        }
+
+    pub fn duration_basic_skill(&self) -> MillisTime {
+        u128_to_millis(self.skill_basic.duration as u128)
+    }
+
+    pub fn duration_skill_1(&self) -> MillisTime {
+        u128_to_millis(self.skill_1.duration as u128)
+    }
+
+    pub fn duration_skill_2(&self) -> MillisTime {
+        u128_to_millis(self.skill_2.duration as u128)
+    }
+
+    pub fn duration_skill_3(&self) -> MillisTime {
+        u128_to_millis(self.skill_3.duration as u128)
+    }
+
+    pub fn duration_skill_4(&self) -> MillisTime {
+        u128_to_millis(self.skill_4.duration as u128)
     }
 }
+
+//TODO: This character is broken, it has basic skill as all skills
 impl Default for Character {
     fn default() -> Self {
         Character::new(
             Class::Hunter,
             5,
             &Name::H4ck,
-            Basic::Slingshot,
+            Skill::default(),
+            Skill::default(),
+            Skill::default(),
+            Skill::default(),
+            Skill::default(),
             true,
             1,
             Faction::Araban,
@@ -210,4 +207,12 @@ fn parse_character_attribute<T: FromStr>(to_parse: &str) -> Result<T, String> {
             std::any::type_name::<T>()
         )),
     }
+}
+
+fn get_skill(skills: &[Skill], skill_name: &str) -> Result<Skill, String> {
+    skills
+        .iter()
+        .find(|skill| skill.name == skill_name)
+        .ok_or(format!("Skill '{}' does not exist", skill_name))
+        .map(|skill| skill.clone())
 }

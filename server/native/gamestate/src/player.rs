@@ -1,5 +1,4 @@
 use crate::character::{Character, Name};
-use crate::skills::{Basic as BasicSkill, FirstActive};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime};
 use crate::utils::RelativePosition;
 use rand::Rng;
@@ -13,6 +12,7 @@ pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
     pub direction: Option<RelativePosition>,
+    pub position: Option<Position>,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -24,6 +24,7 @@ pub enum Effect {
     Piercing,
     Raged,
     NeonCrashing,
+    Leaping,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -140,27 +141,19 @@ impl Player {
 
     pub fn basic_skill_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_basic_skill();
-        match self.character.skill_basic {
-            BasicSkill::Bash => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_1_damage(&self) -> u32 {
         let mut damage = self.character.attack_dmg_first_active();
-        match self.character.skill_active_first {
-            FirstActive::BarrelRoll => {
-                if self.has_active_effect(&Effect::Raged) {
-                    damage += 10_u32;
-                }
-                return damage;
-            }
-            _ => damage,
+        if self.has_active_effect(&Effect::Raged) {
+            damage += 10_u32;
         }
+
+        damage
     }
     pub fn skill_2_damage(&mut self) -> u32 {
         return self.character.attack_dmg_second_active();
@@ -193,6 +186,9 @@ impl Player {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
         if self.has_active_effect(&Effect::NeonCrashing) {
+            return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
         return base_speed;
@@ -241,7 +237,17 @@ impl Player {
             return false;
         }
 
-        return !self.has_active_effect(&Effect::Disarmed);
+        !self.has_active_effect(&Effect::Disarmed)
+    }
+
+    pub fn can_move(self: &Self) -> bool {
+        if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        !self.has_active_effect(&Effect::Leaping)
+            && !self.has_active_effect(&Effect::Petrified)
+            && !self.has_active_effect(&Effect::NeonCrashing)
     }
 
     // TODO:
@@ -261,36 +267,45 @@ impl Player {
         );
 
         self.skill_1_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_1_started_at,
-                self.character.cooldown_first_skill(),
-            ),
+            add_millis(self.skill_1_started_at, self.character.cooldown_skill_1()),
             now,
         );
 
         self.skill_2_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_2_started_at,
-                self.character.cooldown_second_skill(),
-            ),
+            add_millis(self.skill_2_started_at, self.character.cooldown_skill_2()),
             now,
         );
 
         self.skill_3_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_3_started_at,
-                self.character.cooldown_third_skill(),
-            ),
+            add_millis(self.skill_3_started_at, self.character.cooldown_skill_3()),
             now,
         );
 
         self.skill_4_cooldown_left = sub_millis(
-            add_millis(
-                self.skill_4_started_at,
-                self.character.cooldown_fourth_skill(),
-            ),
+            add_millis(self.skill_4_started_at, self.character.cooldown_skill_4()),
             now,
         );
+    }
+
+    // This ill be helpful once the deathmatch mode starts its development
+    pub fn restore_player_status(&mut self, new_position: Position) {
+        self.health = 100;
+        self.position.x = new_position.x;
+        self.position.y = new_position.y;
+        self.status = Status::ALIVE;
+        self.action = PlayerAction::NOTHING;
+        self.aoe_position = Position::new(0, 0);
+        self.effects = HashMap::new();
+        self.basic_skill_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_1_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_2_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_3_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.skill_4_cooldown_left = MillisTime { high: 0, low: 0 };
+        self.basic_skill_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_1_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_2_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_3_started_at = MillisTime { high: 0, low: 0 };
+        self.skill_4_started_at = MillisTime { high: 0, low: 0 };
     }
 }
 
