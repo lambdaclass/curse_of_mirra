@@ -11,7 +11,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   @behaviour :cowboy_websocket
   @ping_interval_ms 500
-  @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+  # @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
   @impl true
   def init(req, _opts) do
