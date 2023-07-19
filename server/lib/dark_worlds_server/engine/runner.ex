@@ -97,10 +97,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:noreply, gen_server_state}
   end
 
-  def handle_cast(_actions, %{game_status: :round_finished} = gen_server_state) do
-    {:noreply, gen_server_state}
-  end
-
   def handle_cast(
         {:play, _player,
          %ActionOk{
@@ -325,7 +321,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_status, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
-      |> Map.put(:current_round, 1)
 
     broadcast_to_darkworlds_server(
       {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
@@ -375,13 +370,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     |> broadcast_game_update()
   end
 
-  def handle_info(:next_round, %{server_game_state: server_game_state} = gen_server_state) do
-    gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
-
-    decide_next_game_update(gen_server_state)
-    |> broadcast_game_update()
-  end
-
   ####################
   # Internal helpers #
   ####################
@@ -398,14 +386,10 @@ defmodule DarkWorldsServer.Engine.Runner do
         player.status == :alive
       end)
 
-    if Enum.count(players_alive) == 1 do
-      :round_finished
-    else
-      :playing
-    end
+    if Enum.count(players_alive) == 1, do: :game_finished, else: :playing
   end
 
-  defp decide_next_game_update(%{game_status: :round_finished} = gen_server_state) do
+  defp decide_next_game_update(%{game_status: :game_finished} = gen_server_state) do
     # This has to be done in order to apply the last attack
     broadcast_to_darkworlds_server({:game_update, gen_server_state})
 
@@ -414,49 +398,11 @@ defmodule DarkWorldsServer.Engine.Runner do
         player.status == :alive
       end)
 
-    current_round = gen_server_state.current_round
-    winners = [winner | gen_server_state.winners]
-
-    gen_server_state = Map.put(gen_server_state, :winners, winners)
-
-    next_game_update =
-      if (current_round == 2 && amount_of_winners(winners) == 1) || current_round == 3,
-        do: :game_finished,
-        else: :next_round
-
-    {next_game_update, gen_server_state, winner}
+    {:game_finished, gen_server_state, winner}
   end
 
   defp decide_next_game_update(%{game_status: :playing} = gen_server_state) do
     {:game_update, gen_server_state}
-  end
-
-  defp broadcast_game_update({:next_round, gen_server_state, winner}) do
-    server_game_state = gen_server_state.server_game_state
-
-    is_last_round = gen_server_state.current_round == 2 and amount_of_winners(gen_server_state.winners) == 2
-
-    broadcast_message = if is_last_round, do: :last_round, else: :next_round
-
-    round_players = if is_last_round, do: gen_server_state.winners, else: server_game_state.game.players
-
-    {:ok, game} = Game.new_round(server_game_state.game, round_players)
-
-    server_game_state = %{server_game_state | game: game}
-
-    gen_server_state =
-      gen_server_state
-      |> Map.put(:server_game_state, server_game_state)
-      |> Map.put(:current_round, gen_server_state.current_round + 1)
-      |> Map.put(:game_status, :playing)
-
-    if is_last_round, do: Process.send_after(self(), :update_state, gen_server_state.tick_rate)
-
-    broadcast_to_darkworlds_server({broadcast_message, winner, gen_server_state})
-
-    Process.send_after(self(), :update_state, gen_server_state.tick_rate)
-
-    {:noreply, gen_server_state}
   end
 
   defp broadcast_game_update({:game_update, gen_server_state}) do
@@ -468,6 +414,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
+    # Needed to show the last tick that finished the game
+    broadcast_to_darkworlds_server({:game_update, gen_server_state})
+
     broadcast_to_darkworlds_server({:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
@@ -561,8 +510,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp do_action(:skill_2, game, player_id, value), do: Game.skill_2(game, player_id, value)
   defp do_action(:skill_3, game, player_id, value), do: Game.skill_3(game, player_id, value)
   defp do_action(:skill_4, game, player_id, value), do: Game.skill_4(game, player_id, value)
-
-  defp amount_of_winners(winners), do: winners |> Enum.uniq_by(& &1.id) |> Enum.count()
 
   defp config_atom_to_string(config) do
     Enum.reduce(config, [], fn item, acc_config ->

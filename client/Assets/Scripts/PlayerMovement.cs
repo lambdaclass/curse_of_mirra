@@ -379,6 +379,10 @@ public class PlayerMovement : MonoBehaviour
                 );
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
+        {
+            characterSpeed *= 1.5f;
+        }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
         {
             characterSpeed *= 4f;

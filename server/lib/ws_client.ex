@@ -7,8 +7,13 @@ defmodule DarkWorldsServer.WsClient do
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.Runner
 
+  @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+
   def start_link(url) do
-    WebSockex.start_link(url, __MODULE__, %{}, name: __MODULE__)
+    WebSockex.start_link(url, __MODULE__, %{},
+      name: __MODULE__,
+      extra_headers: [{"dark-worlds-client-hash", @server_hash}]
+    )
   end
 
   def get_board(session_id) do
