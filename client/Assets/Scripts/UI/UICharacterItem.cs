@@ -23,6 +23,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
             selected = true;
             if (selected)
             {
+                Debug.Log(comCharacter);
                 name.text = comCharacter.name;
                 artWork.sprite = comCharacter.selectedArtwork;
                 SendCharacterSelection();

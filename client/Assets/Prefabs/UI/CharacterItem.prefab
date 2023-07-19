@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587f57c4ac3cb4b669ea443404d518ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comCharacter: {fileID: 11400000, guid: 49f1e22bf30394970a6da77c66930595, type: 2}
+  comCharacter: {fileID: 0}
   name: {fileID: 0}
   artWork: {fileID: 5482374025242549030}
   selected: 0

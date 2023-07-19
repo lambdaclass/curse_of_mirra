@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691c96ecee34d41aa9f915ac9e819a7f, type: 3}
   m_Name: DAgna
   m_EditorClassIdentifier: 
-  name: Uma
-  artWork: {fileID: 21300000, guid: 35d487e62c586412c95941a32dfa499f, type: 3}
-  selectedArtwork: {fileID: 21300000, guid: 22e71ad123b5a465a84a63889a8b1369, type: 3}
+  name: DAgna
+  artWork: {fileID: 21300000, guid: 64a940724ad4d4c2696f577551b9a2e4, type: 3}
+  selectedArtwork: {fileID: 21300000, guid: ee4c7ad25540c4f54b533a3606cec916, type: 3}
   selected: 0
-  prefab: {fileID: 1787465996332106805, guid: 94e572dc010a245f8a7fac3c1c846b1a, type: 3}
+  prefab: {fileID: 1787465996332106805, guid: d42c2ccf3b0554aa59188f4d8ef4a4b3, type: 3}
   skillBasicInfo: {fileID: 11400000, guid: 006e5c754d1fb4f2fa147355f5705123, type: 2}
   skill1Info: {fileID: 11400000, guid: dc37d4787c07e4b8d81224bb2e0592f5, type: 2}
   skill2Info: {fileID: 11400000, guid: 1784299165adc474f8aaa980903baed9, type: 2}
