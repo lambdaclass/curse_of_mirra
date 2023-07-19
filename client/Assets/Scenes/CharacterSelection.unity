@@ -387,18 +387,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &452256918 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5482374025242549030, guid: 91cc569c19fb6492d985a54c8122b566,
-    type: 3}
-  m_PrefabInstance: {fileID: 1632839505}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &467557523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1338,17 +1326,6 @@ PrefabInstance:
       propertyPath: name
       value: 
       objectReference: {fileID: 1171070016}
-    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
-        type: 3}
-      propertyPath: artWork
-      value: 
-      objectReference: {fileID: 452256918}
-    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
-        type: 3}
-      propertyPath: comCharacter
-      value: 
-      objectReference: {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677,
-        type: 2}
     - target: {fileID: 6434438377310489346, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_Name
@@ -1398,21 +1375,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
@@ -2189,6 +2151,12 @@ PrefabInstance:
       propertyPath: playersList
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1831105967030637602, guid: 1b31c7cd2a8b34ab5b4bc26e0cfba7f1,
+        type: 3}
+      propertyPath: comCharacter
+      value: 
+      objectReference: {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677,
+        type: 2}
     - target: {fileID: 4228761055633594534, guid: 1b31c7cd2a8b34ab5b4bc26e0cfba7f1,
         type: 3}
       propertyPath: m_Name

@@ -13,7 +13,7 @@ pub enum Name {
     H4ck,
     #[strum(ascii_case_insensitive)]
     Muflus,
-    #[strum(serialize = "Dagna")]
+    #[strum(serialize = "DAgna", serialize = "Dagna")]
     DAgna,
 }
 
