@@ -12,6 +12,7 @@ use std::f32::consts::PI;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::ops::Div;
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
@@ -22,6 +23,8 @@ pub struct GameState {
     pub killfeed: Vec<KillEvent>,
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
+    pub playable_radius: u64,
+    pub shrinking_center: Position,
 }
 
 #[derive(Clone, NifTuple)]
@@ -120,6 +123,8 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
+            playable_radius: max(board_height, board_width).div(2) as u64,
+            shrinking_center: Position { x: board_height.div(2), y: board_width.div(2) },
         })
     }
 
@@ -947,6 +952,10 @@ impl GameState {
             .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
+    }
+
+    pub fn shrink_map(self: &mut Self) {
+        self.playable_radius = self.playable_radius.div(3) * 2;
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
