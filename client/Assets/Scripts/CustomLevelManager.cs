@@ -20,6 +20,9 @@ public class CustomLevelManager : LevelManager
     GameObject roundSplash;
 
     [SerializeField]
+    GameObject deathSplash;
+
+    [SerializeField]
     Text roundText;
 
     [SerializeField]
@@ -28,6 +31,7 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
+    private Player gamePlayer;
 
     [SerializeField]
     MMSoundManager soundManager;
@@ -55,6 +59,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Start();
         StartCoroutine(InitializeLevel());
+        this.gamePlayer = Utils.GetGamePlayer(playerId);
     }
 
     private void InitializeMap()
@@ -95,6 +100,15 @@ public class CustomLevelManager : LevelManager
         if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
         {
             ShowRoundTransition();
+        }
+
+        print(gamePlayer);
+        print(gamePlayer == null);
+        print(gamePlayer.Status);
+        print(gamePlayer.Health);
+        if (gamePlayer != null && Utils.GetGamePlayer(playerId).Status == Status.Dead)
+        {
+            ShowDeathSplash();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -233,6 +247,12 @@ public class CustomLevelManager : LevelManager
 
         roundSplash.SetActive(true);
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
+    }
+
+    private void ShowDeathSplash()
+    {
+        print("ShowDeathSplash");
+        deathSplash.SetActive(true);
     }
 
     private void InitializeAudio()
