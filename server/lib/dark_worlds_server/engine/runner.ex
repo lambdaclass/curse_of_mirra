@@ -414,6 +414,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
+    # Needed to show the last tick that finished the game
+    broadcast_to_darkworlds_server({:game_update, gen_server_state})
+
     broadcast_to_darkworlds_server({:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
