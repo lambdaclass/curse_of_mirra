@@ -12,6 +12,7 @@ pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
     pub direction: Option<RelativePosition>,
+    pub triggered_at: MillisTime,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;

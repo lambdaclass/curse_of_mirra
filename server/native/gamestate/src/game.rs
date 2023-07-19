@@ -3,7 +3,7 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime, self};
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime, self, u128_to_millis};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -726,6 +726,7 @@ impl GameState {
                 time_left: attacking_player.character.duration_skill_2(),
                 ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
                 direction: None,
+                triggered_at: u128_to_millis(0),
             },
         );
         Ok(Vec::new())
@@ -755,6 +756,7 @@ impl GameState {
                         time_left: attacking_player.character.duration_skill_3(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
                         direction: Some(*direction),
+                        triggered_at: u128_to_millis(0),
                     },
                 );
 
@@ -795,6 +797,7 @@ impl GameState {
                         time_left: attacking_player.character.duration_skill_4(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
                         direction: None,
+                        triggered_at: u128_to_millis(0),
                     },
                 );
                 Ok(Vec::new())
@@ -896,6 +899,7 @@ impl GameState {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
+                                    triggered_at: u128_to_millis(0),
                                 },
                             );
                         }
@@ -979,8 +983,9 @@ impl GameState {
     }
 
     fn check_and_damage_outside_playable(self: &mut Self) {
+        let now = time_utils::time_now();
         let time_left = time_utils::u128_to_millis(3_600_000); // 1 hour
-        let ends_at = time_utils::add_millis(time_utils::time_now(), time_left);
+        let ends_at = time_utils::add_millis(now, time_left);
         let (top_left, bottom_right) = compute_barrel_roll_initial_positions(&self.shrinking_center, self.playable_radius as usize);
         let player_ids_in_playable = GameState::players_in_range(&self.board, top_left, bottom_right);
 
@@ -989,11 +994,17 @@ impl GameState {
                 if player_ids_in_playable.contains(&player.id) {
                     player.effects.remove(&Effect::OutOfArea);
                 } else {
-                    if !player.has_active_effect(&Effect::OutOfArea) {
-                        player.add_effect(Effect::OutOfArea, EffectData { time_left, ends_at, direction: None })
+                    let mut effect_data = match player.effects.get(&Effect::OutOfArea) {
+                        None => EffectData { time_left, ends_at, direction: None, triggered_at: now },
+                        Some(data) => data.clone(),
+                    };
+
+                    if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 {
+                        player.modify_health(-5);
+                        effect_data.triggered_at = now;
                     }
 
-                    player.modify_health(-1);
+                    player.effects.insert(Effect::OutOfArea, effect_data);
                 }
             });
     }
