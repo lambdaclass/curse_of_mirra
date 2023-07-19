@@ -173,8 +173,14 @@ public class Skill : CharacterAbility
             }
             if (trail)
             {
-                trail.emitting = false;
+                StartCoroutine(StopEmitting(.3f));
             }
         }
+    }
+
+    IEnumerator StopEmitting(float time)
+    {
+        yield return new WaitForSeconds(time);
+        trail.emitting = false;
     }
 }
