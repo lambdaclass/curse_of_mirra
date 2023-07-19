@@ -539,7 +539,7 @@ impl GameState {
     pub fn dagna_basic_attack(
         board: &mut Board,
         players: &mut Vec<Player>,
-        attacking_player: &Player,
+        attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
@@ -557,7 +557,7 @@ impl GameState {
             Effect::Slowed.clone(),
             EffectData {
                 time_left: attacking_player.character.duration_basic_skill(),
-                ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                ends_at: add_millis(time_now(), attacking_player.character.duration_basic_skill()),
                 direction: Some(*direction),
             },
         );
