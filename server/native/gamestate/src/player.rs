@@ -23,6 +23,7 @@ pub enum Effect {
     Piercing,
     Raged,
     NeonCrashing,
+    Slowed,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -185,6 +186,9 @@ impl Player {
         }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        if self.has_active_effect(&Effect::slowed) {
+            return ((base_speed as f64) / 2).ceil() as u64;
         }
         return base_speed;
     }

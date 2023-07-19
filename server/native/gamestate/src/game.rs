@@ -552,6 +552,15 @@ impl GameState {
             &(attacking_player.position),
             attack_range,
         );
+        // Slow down DAgna
+        attacking_player.add_effect(
+            Effect::Slowed.clone(),
+            EffectData {
+                time_left: attacking_player.character.duration_basic_skill(),
+                ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                direction: Some(*direction),
+            },
+        );
 
         let affected_players: Vec<u64> = GameState::players_in_range(board, top_left, bottom_right)
             .into_iter()
