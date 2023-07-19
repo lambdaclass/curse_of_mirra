@@ -347,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
         frames, but that's fine).
         */
         Character character = player.GetComponent<Character>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -398,7 +398,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
-        if (movementChange.magnitude >= 0.002f)
+        if (movementChange.magnitude > 0.002f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
