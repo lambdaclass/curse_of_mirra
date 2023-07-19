@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
+using MoreMountains.TopDownEngine;
+using MoreMountains.Tools;
+using System.Linq;
 using UnityEngine.UI;
+using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -174,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
-                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action, serverPlayerUpdate);
+                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
             // TODO: try to optimize GetComponent calls
@@ -196,55 +195,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(
-        GameObject actualPlayer,
-        PlayerAction playerAction,
-        Player updatedPlayer
-    )
+    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
     {
         if (actualPlayer.name.Contains("BOT"))
         {
             return;
         }
-        if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.Attacking))
-        {
-            actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
-        }
-        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill1))
-        {
-            actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
-        }
-        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill2))
-        {
-            actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
-        }
-        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill3))
-        {
-            actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-        }
-        else if (updatedPlayer.Actions.ContainsKey((ulong)PlayerAction.ExecutingSkill4))
-        {
-            actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
-        }
+
         // TODO: Refactor
-        // switch (playerAction)
-        // {
-        //     case PlayerAction.Attacking:
-        //         actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
-        //         break;
-        //     case PlayerAction.ExecutingSkill1:
-        //         actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
-        //         break;
-        //     case PlayerAction.ExecutingSkill2:
-        //         actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
-        //         break;
-        //     case PlayerAction.ExecutingSkill3:
-        //         actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-        //         break;
-        //     case PlayerAction.ExecutingSkill4:
-        //         actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
-        //         break;
-        // }
+        switch (playerAction)
+        {
+            case PlayerAction.Attacking:
+                actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill1:
+                actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill2:
+                actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill3:
+                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                break;
+            case PlayerAction.ExecutingSkill4:
+                actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                break;
+        }
     }
 
     void UpdateProyectileActions()
@@ -274,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 100f;
+                float projectileSpeed = gameProjectiles[i].Speed / 10f;
 
                 float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
                 float velocity = tickRate * projectileSpeed;
@@ -371,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
         frames, but that's fine).
         */
         Character character = player.GetComponent<Character>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 10f;
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -400,11 +376,6 @@ public class PlayerMovement : MonoBehaviour
             characterSpeed *= 4f;
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
-        {
-            characterSpeed *= 4f;
-        }
-
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
@@ -426,8 +397,8 @@ public class PlayerMovement : MonoBehaviour
         bool walking = false;
 
         Vector2 movementChange = new Vector2(xChange, yChange);
-        if (playerUpdate.Actions.ContainsKey((ulong)PlayerAction.Moving))
-        // if (movementChange.magnitude >= 0.2f)
+
+        if (movementChange.magnitude >= 0.002f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
@@ -481,8 +452,7 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                float distance = Vector3.Distance(movementDirection, new Vector3(0, 0, 0));
-                if (MovementAuthorized(player.GetComponent<Character>()) && distance != 0f)
+                if (MovementAuthorized(player.GetComponent<Character>()))
                 {
                     characterOrientation.ForcedRotationDirection = movementDirection;
                 }
