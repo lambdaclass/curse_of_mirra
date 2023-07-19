@@ -283,6 +283,8 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
     type: LoadTest.Communication.Proto.ServerGameSettings,
     json_name: "gameConfig"
   )
+
+  field(:server_hash, 10, type: :string, json_name: "serverHash")
 end
 
 defmodule LoadTest.Communication.Proto.RunnerConfig do

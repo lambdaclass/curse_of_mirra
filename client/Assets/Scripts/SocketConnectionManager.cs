@@ -30,6 +30,7 @@ public class SocketConnectionManager : MonoBehaviour
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
+    public string serverHash;
     public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
@@ -66,6 +67,7 @@ public class SocketConnectionManager : MonoBehaviour
             this.session_id = LobbyConnection.Instance.GameSession;
             this.server_ip = LobbyConnection.Instance.server_ip;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+            this.serverHash = LobbyConnection.Instance.serverHash;
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
         }
@@ -88,35 +90,13 @@ public class SocketConnectionManager : MonoBehaviour
 #endif
     }
 
-    IEnumerator GetRequest()
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(makeUrl("/new_session")))
-        {
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            yield return webRequest.SendWebRequest();
-            switch (webRequest.result)
-            {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
-                case UnityWebRequest.Result.Success:
-                    Session session = JsonUtility.FromJson<Session>(
-                        webRequest.downloadHandler.text
-                    );
-                    print("Creating and joining Session ID: " + session.session_id);
-                    ConnectToSession(session.session_id);
-                    break;
-            }
-        }
-    }
-
     private void ConnectToSession(string session_id)
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
-        ws = new WebSocket(url);
+        Dictionary<string, string> headers =new Dictionary<string, string>();
+        headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
+        ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {

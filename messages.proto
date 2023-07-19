@@ -205,6 +205,7 @@ message LobbyEvent {
     repeated uint64 players = 7;
     uint64 removed_player_id = 8;
     ServerGameSettings game_config = 9;
+    string server_hash = 10;
 }
 
 message RunnerConfig {

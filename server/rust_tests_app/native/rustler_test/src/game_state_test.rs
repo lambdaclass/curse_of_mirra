@@ -279,7 +279,8 @@ pub fn cant_move_if_petrified() -> TestResult {
             low: 2000
         }), direction: None, position: None});
     let player_id = 1;
-    let mut player = state.get_player(player_id)?;
+    let players = state.players.clone();
+    let player = GameState::get_player(&players, player_id)?;
 
     // Sleep 1 seconds and update status, the character should not be able to move.
     time_utils::sleep(time_utils::u128_to_millis(1000));
@@ -301,10 +302,10 @@ pub fn cant_move_if_petrified() -> TestResult {
     state.world_tick()?;
 
     state.move_player(player_id, Direction::DOWN)?;
-    player = state.get_player(player_id)?;
-    assert_result!(player.speed(), base_speed)?;
-    assert_result!(spawn_point.x + 1, player.position.x)?;
-    assert_result!(spawn_point.y, player.position.y)
+    let player2 = GameState::get_player(&state.players, player_id)?;
+    assert_result!(player2.speed(), base_speed)?;
+    assert_result!(spawn_point.x + 1, player2.position.x)?;
+    assert_result!(spawn_point.y, player2.position.y)
 }
 
 #[rustler::nif]

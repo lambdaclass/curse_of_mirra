@@ -185,6 +185,9 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
+        if self.has_active_effect(&Effect::Piercing) {
+            return ((base_speed as f64) * 1.5).ceil() as u64;
+        }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
@@ -228,7 +231,7 @@ impl Player {
     /// - the character's cooldown
     /// - the character's effects
     ///
-    pub fn can_attack(self: &Self, cooldown_left: MillisTime) -> bool {
+    pub fn can_attack(self: &Self, cooldown_left: MillisTime, is_basic_skill: bool) -> bool {
         if matches!(self.status, Status::DEAD) {
             return false;
         }
@@ -237,7 +240,7 @@ impl Player {
             return false;
         }
 
-        !self.has_active_effect(&Effect::Disarmed)
+        !(self.has_active_effect(&Effect::Disarmed) && !is_basic_skill)
     }
 
     pub fn can_move(self: &Self) -> bool {

@@ -20,6 +20,7 @@ public class LobbyConnection : MonoBehaviour
     public ulong playerId;
     public int playerCount;
     public uint serverTickRate_ms;
+    public string serverHash;
     public ServerGameSettings serverSettings;
 
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
@@ -264,6 +265,7 @@ public class LobbyConnection : MonoBehaviour
                     GameSession = lobby_event.GameId;
                     serverSettings = lobby_event.GameConfig;
                     serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    serverHash = lobby_event.ServerHash;
                     gameStarted = true;
                     break;
 
