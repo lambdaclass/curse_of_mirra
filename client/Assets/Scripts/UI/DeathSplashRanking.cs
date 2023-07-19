@@ -17,7 +17,7 @@ public class DeathSplashRanking : MonoBehaviour
     private int GetAlivePlayers()
     {
         return SocketConnectionManager.Instance.gamePlayers
-            .Where(player => player.Status == 0)
+            .Where(player => player.Status == 0) // 0 represents the ALIVE status
             .Count();
     }
 }
