@@ -19,6 +19,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   @character_selection_check_ms 30
   # This is the amount of time to wait until the game starts, ofc we should change it
   @game_start_timer_ms 30
+  # Amount of time to wait before starting to shrink the map
+  @map_shrink_wait_ms 10_000 #120_000
+  # Amount of time between map shrinking
+  @map_shrink_interval_ms 10_000 #20_000
 
   case Mix.env() do
     :test ->
@@ -78,6 +82,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     Process.send_after(self(), :character_selection_time_out, @character_selection_timeout_ms)
     Process.send_after(self(), :check_player_amount, @player_check)
+    Process.send_after(self(), :shrink_map, @map_shrink_wait_ms)
 
     {:ok,
      %{
@@ -380,6 +385,15 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
+  end
+
+  def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
+    Process.send_after(self(), :shrink_map, @map_shrink_interval_ms)
+
+    {:ok, game} = Game.shrink_map(server_game_state.game)
+    gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
+
+    {:noreply, gen_server_state}
   end
 
   ####################
