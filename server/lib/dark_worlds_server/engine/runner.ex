@@ -129,7 +129,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:ok, game} = do_move(action, server_game_state.game, player, value)
 
     server_game_state = %{server_game_state | game: game}
-    Logger.info("Registered #{inspect(action)} with value #{inspect(value)}");
+    Logger.info("Registered #{inspect(action)} with value #{inspect(value)}")
 
     gen_server_state =
       Map.put(gen_server_state, :server_game_state, server_game_state)

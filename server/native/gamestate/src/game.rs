@@ -718,8 +718,8 @@ impl GameState {
             Name::H4ck => {
                 attacking_player.action = PlayerAction::EXECUTINGSKILL3;
                 attacking_player
-                .actions
-                .insert(PlayerAction::EXECUTINGSKILL3, 3);
+                    .actions
+                    .insert(PlayerAction::EXECUTINGSKILL3, 3);
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
