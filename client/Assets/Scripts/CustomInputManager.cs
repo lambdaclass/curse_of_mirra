@@ -60,9 +60,6 @@ public class CustomInputManager : InputManager
     TMP_Text Skill4Cooldown;
 
     [SerializeField]
-    GameObject disarmObjectBasic;
-
-    [SerializeField]
     GameObject disarmObjectSkill1;
 
     [SerializeField]
@@ -107,14 +104,10 @@ public class CustomInputManager : InputManager
 
     public void ActivateDisarmEffect(bool disarmed)
     {
-        print("Hacked " + hacked);
-        print("disarmed " + disarmed);
         if (disarmed != hacked)
         {
-            print("ENTRO" + hacked);
             hacked = !hacked;
             DisableButtons();
-            disarmObjectBasic.SetActive(disarmed);
             disarmObjectSkill1.SetActive(disarmed);
             disarmObjectSkill2.SetActive(disarmed);
             disarmObjectSkill3.SetActive(disarmed);
