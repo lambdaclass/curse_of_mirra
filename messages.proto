@@ -14,13 +14,12 @@ message GameEvent {
     repeated Projectile projectiles = 4;
     uint64 player_joined_id = 5;
     Player winner_player = 6;
-    uint64 current_round = 7;
-    map<uint64, string> selected_characters = 8;
-    int64 player_timestamp = 9;
-    int64 server_timestamp = 10;
-    repeated KillEvent killfeed = 11;
-    uint64 playable_radius = 12;
-    Position shrinking_center = 13;
+    map<uint64, string> selected_characters = 7;
+    int64 player_timestamp = 8;
+    int64 server_timestamp = 9;
+    repeated KillEvent killfeed = 10;
+    uint64 playable_radius = 11;
+    Position shrinking_center = 12;
 }
 
 /* Type of game events
@@ -33,12 +32,10 @@ enum GameEventType {
     STATE_UPDATE = 0;
     PING_UPDATE = 1;
     PLAYER_JOINED = 2;
-    NEXT_ROUND = 3;
-    LAST_ROUND = 4;
-    GAME_FINISHED = 5;
-    INITIAL_POSITIONS = 6;
-    SELECTED_CHARACTER_UPDATE = 7;
-    FINISH_CHARACTER_SELECTION = 8;
+    GAME_FINISHED = 3;
+    INITIAL_POSITIONS = 4;
+    SELECTED_CHARACTER_UPDATE = 5;
+    FINISH_CHARACTER_SELECTION = 6;
 }
 
 message PlayerCharacter{
@@ -187,7 +184,8 @@ enum PlayerEffect {
     PIERCING = 2;
     RAGED = 3;
     NEON_CRASHING = 4;
-    OUT_OF_AREA = 5;
+    LEAPING = 5;
+    OUT_OF_AREA = 6;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
@@ -210,6 +208,7 @@ message LobbyEvent {
     repeated uint64 players = 7;
     uint64 removed_player_id = 8;
     ServerGameSettings game_config = 9;
+    string server_hash = 10;
 }
 
 message RunnerConfig {

@@ -45,7 +45,6 @@ defmodule DarkWorldsServer.Engine.Game do
   def get_non_empty(_a), do: :erlang.nif_error(:nif_not_loaded)
   def world_tick(_game_state), do: :erlang.nif_error(:nif_not_loaded)
   def disconnect(_game, _id), do: :erlang.nif_error(:nif_not_loaded)
-  def new_round(_game, _players), do: :erlang.nif_error(:nif_not_loaded)
   def spawn_player(_game, _player_id), do: :erlang.nif_error(:nif_not_loaded)
   def shrink_map(_game), do: :erlang.nif_error(:nif_not_loaded)
 end
