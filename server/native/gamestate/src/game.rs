@@ -543,16 +543,37 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_direction = Self::position_to_direction(direction);
-
+        let attacking_player_id = attacking_player.id;
+        
+        // --- Attack AOE ---
         // TODO: This should be a config of the attack
-        let attack_range = 40;
-        let (top_left, bottom_right) = compute_attack_initial_positions(
-            &(attack_direction),
-            &(attacking_player.position),
-            attack_range,
-        );
-        // Slow down DAgna
+        let attack_range = 400;
+        let (top_left, bottom_right) =
+            compute_aoe_initial_positions(&(attacking_player.position), attack_range);
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(board, top_left, bottom_right)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg);
+                    let player = ap.clone();
+                    GameState::modify_cell_if_player_died(board, &player)?;
+                }
+                _ => continue,
+            }
+        }
+
+        //--- Slow down D'Agna ---
         attacking_player.add_effect(
             Effect::Slowed.clone(),
             EffectData {
@@ -562,24 +583,7 @@ impl GameState {
             },
         );
 
-        let affected_players: Vec<u64> = GameState::players_in_range(board, top_left, bottom_right)
-            .into_iter()
-            .filter(|&id| id != attacking_player.id)
-            .collect();
-
-        let mut kill_count = 0;
-        for target_player_id in affected_players.iter() {
-            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
-            attacked_player.modify_health(-attack_dmg);
-            if matches!(attacked_player.status, Status::DEAD) {
-                kill_count += 1;
-            }
-            GameState::modify_cell_if_player_died(board, &attacked_player)?;
-        }
-        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
-
         Ok(affected_players)
-        
     }
 
     pub fn skill_1(
@@ -670,7 +674,7 @@ impl GameState {
         let attack_range = 40;
 
         let (top_left, bottom_right) =
-            compute_barrel_roll_initial_positions(&(attacking_player.position), attack_range);
+            compute_aoe_initial_positions(&(attacking_player.position), attack_range);
 
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(board, top_left, bottom_right)
@@ -1068,7 +1072,7 @@ fn compute_attack_initial_positions(
     }
 }
 
-fn compute_barrel_roll_initial_positions(
+fn compute_aoe_initial_positions(
     position: &Position,
     range: usize,
 ) -> (Position, Position) {
