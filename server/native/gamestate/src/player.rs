@@ -23,6 +23,7 @@ pub enum Effect {
     Piercing,
     Raged,
     NeonCrashing,
+    OutOfArea,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
