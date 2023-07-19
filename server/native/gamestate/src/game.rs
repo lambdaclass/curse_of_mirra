@@ -3,7 +3,9 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime, self, u128_to_millis};
+use crate::time_utils::{
+    self, add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
+};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -124,7 +126,10 @@ impl GameState {
             projectiles,
             next_projectile_id: 0,
             playable_radius: max(board_height, board_width).div(2) as u64,
-            shrinking_center: Position { x: board_height.div(2), y: board_width.div(2) },
+            shrinking_center: Position {
+                x: board_height.div(2),
+                y: board_width.div(2),
+            },
         })
     }
 
@@ -986,27 +991,35 @@ impl GameState {
         let now = time_utils::time_now();
         let time_left = time_utils::u128_to_millis(3_600_000); // 1 hour
         let ends_at = time_utils::add_millis(now, time_left);
-        let (top_left, bottom_right) = compute_barrel_roll_initial_positions(&self.shrinking_center, self.playable_radius as usize);
-        let player_ids_in_playable = GameState::players_in_range(&self.board, top_left, bottom_right);
+        let (top_left, bottom_right) = compute_barrel_roll_initial_positions(
+            &self.shrinking_center,
+            self.playable_radius as usize,
+        );
+        let player_ids_in_playable =
+            GameState::players_in_range(&self.board, top_left, bottom_right);
 
-        self.players.iter_mut()
-            .for_each(|player| {
-                if player_ids_in_playable.contains(&player.id) {
-                    player.effects.remove(&Effect::OutOfArea);
-                } else {
-                    let mut effect_data = match player.effects.get(&Effect::OutOfArea) {
-                        None => EffectData { time_left, ends_at, direction: None, triggered_at: now },
-                        Some(data) => data.clone(),
-                    };
+        self.players.iter_mut().for_each(|player| {
+            if player_ids_in_playable.contains(&player.id) {
+                player.effects.remove(&Effect::OutOfArea);
+            } else {
+                let mut effect_data = match player.effects.get(&Effect::OutOfArea) {
+                    None => EffectData {
+                        time_left,
+                        ends_at,
+                        direction: None,
+                        triggered_at: now,
+                    },
+                    Some(data) => data.clone(),
+                };
 
-                    if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 {
-                        player.modify_health(-5);
-                        effect_data.triggered_at = now;
-                    }
-
-                    player.effects.insert(Effect::OutOfArea, effect_data);
+                if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 {
+                    player.modify_health(-5);
+                    effect_data.triggered_at = now;
                 }
-            });
+
+                player.effects.insert(Effect::OutOfArea, effect_data);
+            }
+        });
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles
