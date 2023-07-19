@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: H4ck_Skill3
+  m_Name: H4ck_Dash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Hack_Skill3
   inputType: 0
-  feedbackAnimation: {fileID: 0}
-  animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  feedbackAnimation: {fileID: 7017218312715976829, guid: 4fc144b63d69c4811ae710e9c3a2b968,
+    type: 3}
+  instantiateAnimationOnModel: 0
+  animationSpeedMultiplier: 4
+  hasModelAnimation: 1
+  abilityStartSfx: {fileID: 0}
