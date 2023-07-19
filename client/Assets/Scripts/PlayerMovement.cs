@@ -398,7 +398,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
-        if (movementChange.magnitude > 0.002f)
+        if (movementChange.magnitude > 0f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
