@@ -104,15 +104,15 @@ public static partial class MessagesReflection {
           "bGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFU",
           "VEFDS0lOR19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQ",
           "T1JUSU5HEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdf",
-          "U0tJTExfMxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqVwoMUGxheWVyRWZm",
+          "U0tJTExfMxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqaAoMUGxheWVyRWZm",
           "ZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQ",
-          "AhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBCqPAQoOTG9iYnlFdmVu",
-          "dFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAK",
-          "DFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9D",
-          "T1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIK",
-          "DlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxM",
-          "RVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExP",
-          "REVEEAFiBnByb3RvMw=="));
+          "AhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBBIPCgtPVVRfT0ZfQVJF",
+          "QRAFKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAAS",
+          "DQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFS",
+          "VEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBM",
+          "QVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAAS",
+          "FAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoG",
+          "QUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -236,6 +236,7 @@ public enum PlayerEffect {
   [pbr::OriginalName("PIERCING")] Piercing = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
+  [pbr::OriginalName("OUT_OF_AREA")] OutOfArea = 5,
 }
 
 /// <summary>

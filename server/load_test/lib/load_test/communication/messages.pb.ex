@@ -83,6 +83,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:PIERCING, 2)
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
+  field(:OUT_OF_AREA, 5)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

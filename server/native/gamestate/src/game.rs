@@ -3,7 +3,7 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime, self};
 use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -921,6 +921,8 @@ impl GameState {
             }
         }
 
+        self.check_and_damage_outside_playable();
+
         self.next_killfeed.append(&mut tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
@@ -974,6 +976,26 @@ impl GameState {
             .collect();
 
         self.next_killfeed.append(&mut kill_events);
+    }
+
+    fn check_and_damage_outside_playable(self: &mut Self) {
+        let time_left = time_utils::u128_to_millis(3_600_000); // 1 hour
+        let ends_at = time_utils::add_millis(time_utils::time_now(), time_left);
+        let (top_left, bottom_right) = compute_barrel_roll_initial_positions(&self.shrinking_center, self.playable_radius as usize);
+        let player_ids_in_playable = GameState::players_in_range(&self.board, top_left, bottom_right);
+
+        self.players.iter_mut()
+            .for_each(|player| {
+                if player_ids_in_playable.contains(&player.id) {
+                    player.effects.remove(&Effect::OutOfArea);
+                } else {
+                    if !player.has_active_effect(&Effect::OutOfArea) {
+                        player.add_effect(Effect::OutOfArea, EffectData { time_left, ends_at, direction: None })
+                    }
+
+                    player.modify_health(-1);
+                }
+            });
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles
