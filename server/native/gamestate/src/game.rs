@@ -701,13 +701,12 @@ impl GameState {
         }
 
         let now = time_now();
-
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player.action = PlayerAction::EXECUTINGSKILL3;
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
@@ -827,7 +826,7 @@ impl GameState {
                         && millis_to_u128(*time_left) == 0
                         && effect == &Effect::Leaping
                     {
-                        player.action = PlayerAction::EXECUTINGSKILL3;
+                        player.action = PlayerAction::FINISHINGSKILL3;
                         leap_affected_players = GameState::affected_players(
                             20,
                             200.,

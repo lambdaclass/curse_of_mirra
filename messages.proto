@@ -169,10 +169,10 @@ enum PlayerAction {
     ATTACKING = 1;
     ATTACKING_AOE = 2;
     EXECUTING_SKILL_1 = 3;
-    TELEPORTING = 4;
-    EXECUTING_SKILL_2 = 5;
-    EXECUTING_SKILL_3 = 6;
-    EXECUTING_SKILL_4 = 7;
+    EXECUTING_SKILL_2 = 4;
+    EXECUTING_SKILL_3 = 5;
+    EXECUTING_SKILL_4 = 6;
+    FINISHING_SKILL_3 = 7;
 }
 
 /* Effects a player has */

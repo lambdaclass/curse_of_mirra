@@ -90,7 +90,7 @@ pub enum PlayerAction {
     EXECUTINGSKILL2,
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
-    TELEPORTING,
+    FINISHINGSKILL3,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]

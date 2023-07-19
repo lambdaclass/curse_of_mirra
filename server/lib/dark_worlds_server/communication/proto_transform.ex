@@ -370,7 +370,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
   defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
   defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
-  defp player_action_encode(:teleporting), do: :TELEPORTING
+  defp player_action_encode(:finishingskill3), do: :FINISHING_SKILL_3
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
@@ -379,7 +379,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
   defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
   defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
-  defp player_action_decode(:TELEPORTING), do: :teleporting
+  defp player_action_decode(:FINISHING_SKILL_3), do: :finishingskill3
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_encode(:disarmingbullet), do: :DISARMING_BULLET
