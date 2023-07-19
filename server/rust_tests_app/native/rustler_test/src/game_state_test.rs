@@ -277,7 +277,7 @@ pub fn cant_move_if_petrified() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None});
+        }), direction: None, position: None});
     let player_id = 1;
     let mut player = state.get_player(player_id)?;
 
@@ -339,7 +339,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None});
+        }), direction: None, position: None});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2.clone()];
     state.board.set_cell(0, 0, Tile::Player(player_1_id))?;

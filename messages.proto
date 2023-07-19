@@ -14,11 +14,10 @@ message GameEvent {
     repeated Projectile projectiles = 4;
     uint64 player_joined_id = 5;
     Player winner_player = 6;
-    uint64 current_round = 7;
-    map<uint64, string> selected_characters = 8;
-    int64 player_timestamp = 9;
-    int64 server_timestamp = 10;
-    repeated KillEvent killfeed = 11;
+    map<uint64, string> selected_characters = 7;
+    int64 player_timestamp = 8;
+    int64 server_timestamp = 9;
+    repeated KillEvent killfeed = 10;
 }
 
 /* Type of game events
@@ -31,12 +30,10 @@ enum GameEventType {
     STATE_UPDATE = 0;
     PING_UPDATE = 1;
     PLAYER_JOINED = 2;
-    NEXT_ROUND = 3;
-    LAST_ROUND = 4;
-    GAME_FINISHED = 5;
-    INITIAL_POSITIONS = 6;
-    SELECTED_CHARACTER_UPDATE = 7;
-    FINISH_CHARACTER_SELECTION = 8;
+    GAME_FINISHED = 3;
+    INITIAL_POSITIONS = 4;
+    SELECTED_CHARACTER_UPDATE = 5;
+    FINISH_CHARACTER_SELECTION = 6;
 }
 
 message PlayerCharacter{
@@ -185,6 +182,7 @@ enum PlayerEffect {
     PIERCING = 2;
     RAGED = 3;
     NEON_CRASHING = 4;
+    LEAPING = 5;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

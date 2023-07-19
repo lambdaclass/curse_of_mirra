@@ -23,6 +23,9 @@ public class CustomLevelManager : LevelManager
     Text roundText;
 
     [SerializeField]
+    Text totalKillsText;
+
+    [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
 
@@ -40,8 +43,6 @@ public class CustomLevelManager : LevelManager
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-
-    int winnersCount = 0;
 
     protected override void Awake()
     {
@@ -91,15 +92,9 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if (
-            (
-                SocketConnectionManager.Instance.winners.Count >= 1
-                && winnersCount != SocketConnectionManager.Instance.winners.Count
-            )
-            || SocketConnectionManager.Instance.winnerPlayer != null
-        )
+        if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
         {
-            ShowRoundTransition(SocketConnectionManager.Instance.winners.Count);
+            ShowRoundTransition();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -226,24 +221,18 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void ShowRoundTransition(int roundNumber)
+    private void ShowRoundTransition()
     {
         bool animate = true;
-        if (SocketConnectionManager.Instance.winners.Count == 2)
-        {
-            roundText.text = "Last Round!";
-        }
-        if (SocketConnectionManager.Instance.winnerPlayer != null)
-        {
-            roundText.text =
-                "Player " + SocketConnectionManager.Instance.winnerPlayer.Id + " Wins!";
-            backToLobbyButton.SetActive(true);
-            animate = false;
-        }
+
+        roundText.text =
+            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
+        totalKillsText.text = "Total Kills: " + SocketConnectionManager.Instance.winnerPlayer.Item2;
+        backToLobbyButton.SetActive(true);
+        animate = false;
 
         roundSplash.SetActive(true);
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
-        winnersCount = roundNumber;
     }
 
     private void InitializeAudio()
