@@ -7,7 +7,7 @@ pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 pub mod utils;
-use crate::{board::GridResource, board::Tile, game::Direction, utils::RelativePosition};
+use crate::{game::Direction, utils::RelativePosition};
 use game::GameState;
 use rustler::{Binary, Env, Term};
 use std::collections::HashMap;
@@ -141,8 +141,7 @@ fn spawn_player(game: GameState, player_id: u64) -> Result<GameState, String> {
     Ok(game_2)
 }
 
-pub fn load(env: Env, _: Term) -> bool {
-    rustler::resource!(GridResource, env);
+pub fn load(_env: Env, _: Term) -> bool {
     true
 }
 

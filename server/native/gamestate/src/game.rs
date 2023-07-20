@@ -1,4 +1,4 @@
-use crate::board::{Board, Tile};
+use crate::board::Board;
 use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
@@ -64,7 +64,7 @@ impl GameState {
         number_of_players: u64,
         board_width: usize,
         board_height: usize,
-        build_walls: bool,
+        _build_walls: bool,
         characters_config: &[HashMap<String, String>],
         skills_config: &[HashMap<String, String>],
     ) -> Result<Self, String> {
@@ -89,7 +89,7 @@ impl GameState {
             })
             .collect::<Result<Vec<Player>, String>>()?;
 
-        let mut board = Board::new(board_width, board_height);
+        let board = Board::new(board_width, board_height);
 
         let projectiles = Vec::new();
 
@@ -212,7 +212,6 @@ impl GameState {
         let speed = player.speed() as i64;
         GameState::move_player_to_direction(
             &mut self.board,
-            player.id,
             &mut player.position,
             &RelativePosition { x, y },
             speed,
@@ -223,7 +222,6 @@ impl GameState {
 
     pub fn move_player_to_direction(
         board: &mut Board,
-        player_id: u64,
         position: &mut Position,
         direction: &RelativePosition,
         speed: i64,
@@ -370,12 +368,7 @@ impl GameState {
             Name::Muflus => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::muflus_basic_attack(
-                    &mut self.board,
-                    &mut self.players,
-                    attacking_player,
-                    direction,
-                )
+                Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
             _ => Ok(Vec::new()),
         };
@@ -414,7 +407,6 @@ impl GameState {
     }
 
     pub fn muflus_basic_attack(
-        board: &mut Board,
         players: &mut Vec<Player>,
         attacking_player: &Player,
         direction: &RelativePosition,
@@ -472,7 +464,7 @@ impl GameState {
             ),
             Name::Muflus => {
                 let players = &mut self.players;
-                Self::muflus_skill_1(&mut self.board, players, attacking_player_id)
+                Self::muflus_skill_1(players, attacking_player_id)
             }
             _ => Ok(Vec::new()),
         };
@@ -524,7 +516,6 @@ impl GameState {
     }
 
     pub fn muflus_skill_1(
-        board: &mut Board,
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<Vec<u64>, String> {
@@ -550,7 +541,6 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
-                    let player = ap.clone();
                 }
                 _ => continue,
             }
@@ -567,7 +557,7 @@ impl GameState {
         // TODO: refactor this skill
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         Self::move_player_to_relative_position(board, attacking_player, direction)?;
-        Self::muflus_skill_1(board, players, attacking_player_id)
+        Self::muflus_skill_1(players, attacking_player_id)
     }
 
     pub fn skill_2(
@@ -803,7 +793,6 @@ impl GameState {
                         let speed = player.speed() as i64;
                         GameState::move_player_to_direction(
                             &mut self.board,
-                            player.id,
                             &mut player.position,
                             direction,
                             speed,
@@ -826,7 +815,6 @@ impl GameState {
                         let speed = player.speed() as i64;
                         GameState::move_player_to_direction(
                             &mut self.board,
-                            player.id,
                             &mut player.position,
                             direction,
                             speed,
@@ -840,19 +828,11 @@ impl GameState {
 
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        GameState::attack_players_with_effect(
-            neon_crash_affected_players,
-            &mut self.players,
-            &mut self.board,
-        )?;
+        GameState::attack_players_with_effect(neon_crash_affected_players, &mut self.players)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        GameState::attack_players_with_effect(
-            leap_affected_players,
-            &mut self.players,
-            &mut self.board,
-        )?;
+        GameState::attack_players_with_effect(leap_affected_players, &mut self.players)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -949,7 +929,6 @@ impl GameState {
     fn attack_players_with_effect(
         affected_players: HashMap<u64, (i64, Vec<u64>)>,
         players: &mut Vec<Player>,
-        board: &mut Board,
     ) -> Result<(), String> {
         for (player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
@@ -960,7 +939,6 @@ impl GameState {
                 match attacked_player {
                     Some(ap) => {
                         ap.modify_health(-damage);
-                        let player = ap.clone();
                     }
                     _ => continue,
                 }
@@ -993,7 +971,7 @@ impl GameState {
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
         let mut tried_positions = HashSet::new();
-        let mut position: Position;
+        let position: Position;
 
         position = generate_new_position(&mut tried_positions, self.board.width, self.board.height);
 

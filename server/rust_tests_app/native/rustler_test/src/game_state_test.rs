@@ -1,6 +1,5 @@
 use crate::assert_result;
 use crate::utils::{read_character_config, read_skills_config, TestResult};
-use gamestate::board::{Grid, GridResource, Tile};
 use gamestate::character::{Character, Name};
 use gamestate::game::{Direction, GameState};
 use gamestate::player::{Effect, EffectData, Player, Position};
@@ -16,7 +15,6 @@ fn speed1_character() -> Character {
 }
 #[rustler::nif]
 pub fn no_move_if_beyond_boundaries() -> TestResult {
-    let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
@@ -135,7 +133,6 @@ pub fn cant_move_if_petrified() -> TestResult {
     let now = time_utils::time_now();
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
-    let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
     let mut state = GameState::new(
         selected_characters,

@@ -1,17 +1,4 @@
-use rustler::{NifStruct, NifTaggedEnum, ResourceArc};
-use std::sync::Mutex;
-pub type Grid = Vec<Tile>;
-#[derive(Debug)]
-pub struct GridResource {
-    pub resource: Mutex<Vec<Tile>>,
-}
-
-#[derive(Debug, Clone, NifTaggedEnum, PartialEq)]
-pub enum Tile {
-    Player(u64),
-    Empty,
-    Wall,
-}
+use rustler::NifStruct;
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Board"]
