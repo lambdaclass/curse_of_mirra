@@ -10,7 +10,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   # The game will be closed twenty minute after it starts
   @game_timeout 20 * 60 * 1000
   # The session will be closed one minute after the game has finished
-  @session_timeout 60 * 1000
+  @session_timeout 5 * 1000
   # This is the amount of time between state updates in milliseconds
   @tick_rate_ms 20
   # This is the amount of time that players have to select a character
@@ -414,9 +414,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp broadcast_game_update({:game_finished, gen_server_state, winner}) do
-    # Needed to show the last tick that finished the game
-    broadcast_to_darkworlds_server({:game_update, gen_server_state})
-
     broadcast_to_darkworlds_server({:game_finished, winner, gen_server_state})
 
     Process.send_after(self(), :session_timeout, @session_timeout)
@@ -453,8 +450,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp all_characters_set?(state) do
+    game_status = Map.get(state, :game_status)
     cond do
-      Map.get(state, :game_status) == :playing ->
+      game_status == :playing || game_status == :game_finished ->
         nil
 
       Map.get(state, :selected_characters, %{}) |> map_size() == state[:max_players] ->
@@ -468,10 +466,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp character_selection_time_out(state) do
-    selected_characters = state[:selected_characters]
+    selected_characters = Map.get(state, :selected_characters)
+    game_status = Map.get(state, :game_status)
 
     cond do
-      state[:game_status] == :playing ->
+      game_status == :playing || game_status == :game_finished ->
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
