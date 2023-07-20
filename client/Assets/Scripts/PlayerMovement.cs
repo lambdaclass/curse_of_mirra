@@ -215,7 +215,26 @@ public class PlayerMovement : MonoBehaviour
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
                 break;
             case PlayerAction.ExecutingSkill3:
-                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
+                if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
+                {
+                    actualPlayer.GetComponent<Skill3>().StartFeedback();
+                }
+                else
+                {
+                    actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                }
+                break;
+            case PlayerAction.FinishingSkill3:
+                // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
+                if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
+                {
+                    actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                }
+                else
+                {
+                    actualPlayer.GetComponent<Skill3>().StartFeedback();
+                }
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
@@ -358,7 +377,6 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.red;
-                character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
                 characterSpeed *= 1.5f;
             }
             else
@@ -367,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.white;
-                character.GetComponent<Skill2>().StopStartFeedbacks();
             }
         }
 

@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Muflus_Rage
   inputType: 0
-  feedbackAnimation: {fileID: 5680458291943351323, guid: d1aa7547c425a44b8acc728041634177,
+  feedbackVfx: {fileID: 5680458291943351323, guid: d1aa7547c425a44b8acc728041634177,
     type: 3}
+  feedbackVfxDuration: 4
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 3.5
   hasModelAnimation: 1
+  abilityStartSfx: {fileID: 0}
