@@ -8,6 +8,7 @@ use crate::utils::RelativePosition;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::f32::consts::PI;
+use crate::time_utils::u128_to_millis;
 
 use std::cmp::{max, min};
 use std::collections::HashMap;
@@ -602,11 +603,12 @@ impl GameState {
         }
         
         // -- Slow down D'Agna --
+        let slowed_effect_duration_in_milliseconds = u128_to_millis(1000);
         attacking_player.add_effect(
             Effect::Slowed.clone(),
             EffectData {
-                time_left: attacking_player.character.duration_basic_skill(),
-                ends_at: add_millis(time_now(), attacking_player.character.duration_basic_skill()),
+                time_left: slowed_effect_duration_in_milliseconds,
+                ends_at: add_millis(time_now(), slowed_effect_duration_in_milliseconds),
                 direction: Some(*direction),
             },
         );
@@ -903,6 +905,7 @@ impl GameState {
             player.update_cooldowns(now);
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
+            println!("{:?}", player.effects);
             player.effects.retain(
                 |_,
                  EffectData {
@@ -912,6 +915,8 @@ impl GameState {
                     millis_to_u128(*time_left) > 0
                 },
             );
+
+            println!("{}", player.speed());
 
             if player.character.name == Name::H4ck {
                 match player.effects.get(&Effect::NeonCrashing) {
