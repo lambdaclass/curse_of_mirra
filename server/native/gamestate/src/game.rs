@@ -424,9 +424,13 @@ impl GameState {
                 )
             }
             Name::DAgna => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::dagna_basic_attack(&mut self.board, players, &mut attacking_player.clone(), direction)
+                let players = &self.players.clone();
+                let attacking_player = GameState::get_player(players, attacking_player_id)?;
+                Self::dagna_basic_attack(
+                    &mut self.board, 
+                    &mut self.players, 
+                    &mut attacking_player.clone(), 
+                )
             }
             _ => Ok(Vec::new()),
         };
@@ -505,20 +509,16 @@ impl GameState {
         board: &mut Board,
         players: &mut Vec<Player>,
         attacking_player: &mut Player,
-        direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
         let attacking_player_id = attacking_player.id;
 
         // -- Small Area --
         // TODO: This should be a config of the attack
-        let attack_range = 40;
-
-        let (top_left_small_area, bottom_right_small_area) =
-            compute_aoe_initial_positions(&(attacking_player.position), attack_range);
+        let attack_range = 40.0_f64;
 
         let mut affected_players_small_area: Vec<u64> =
-            GameState::players_in_range(board, top_left_small_area, bottom_right_small_area)
+            GameState::players_in_range(players, &attacking_player.position, attack_range)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
@@ -540,12 +540,8 @@ impl GameState {
         }
 
         // -- Large Area --
-
-        let (top_left_large_area, bottom_right_large_area) =
-            compute_aoe_initial_positions(&(attacking_player.position), attack_range * 3);
-
         let mut affected_players_large_area: Vec<u64> =
-            GameState::players_in_range(board, top_left_large_area, bottom_right_large_area)
+            GameState::players_in_range(players, &attacking_player.position, attack_range * 3.0_f64)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
@@ -573,7 +569,8 @@ impl GameState {
             EffectData {
                 time_left: slowed_effect_duration_in_milliseconds,
                 ends_at: add_millis(time_now(), slowed_effect_duration_in_milliseconds),
-                direction: Some(*direction),
+                direction: None,
+                position: None,
             },
         );
 
