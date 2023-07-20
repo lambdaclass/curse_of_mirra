@@ -12,4 +12,5 @@ public class SkillInfo : ScriptableObject
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
+    public float skillAreaRadius;
 }

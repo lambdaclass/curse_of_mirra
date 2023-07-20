@@ -55,6 +55,12 @@ public class Skill : CharacterAbility
                 : _model.transform.parent;
             feedbackAnimation = Instantiate(skillInfo.feedbackAnimation, animationParent);
 
+            ParticleSystem.MainModule particle = feedbackAnimation
+                .GetComponent<MMF_Player>()
+                .GetFeedbackOfType<MMF_Particles>()
+                .BoundParticleSystem.main;
+            particle.startSize = skillInfo.skillAreaRadius;
+
             if (skillInfo.feedbackAnimation.GetComponent<UnityEngine.VFX.VisualEffect>())
             {
                 feedbackAnimation.SetActive(false);
