@@ -28,9 +28,9 @@ public class Utils
         );
     }
 
-    public static Player GetGamePlayer(ulong id)
+    public static Player GetGamePlayer(ulong gamePlayerId)
     {
-        return SocketConnectionManager.Instance.gamePlayers.Find(el => el.Id == id);
+        return SocketConnectionManager.Instance.gamePlayers.Find(gp => gp.Id == gamePlayerId);
     }
 
     public static MMSimpleObjectPooler SimpleObjectPooler(

@@ -5,7 +5,6 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -31,7 +30,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
-    private Player gamePlayer;
 
     [SerializeField]
     MMSoundManager soundManager;
@@ -59,7 +57,6 @@ public class CustomLevelManager : LevelManager
     {
         base.Start();
         StartCoroutine(InitializeLevel());
-        this.gamePlayer = Utils.GetGamePlayer(playerId);
     }
 
     private void InitializeMap()
@@ -101,6 +98,7 @@ public class CustomLevelManager : LevelManager
         {
             ShowRoundTransition();
         }
+        var gamePlayer = Utils.GetGamePlayer(playerId);
 
         print(gamePlayer);
         print(gamePlayer == null);
@@ -109,7 +107,9 @@ public class CustomLevelManager : LevelManager
             print(gamePlayer.Status);
             print(gamePlayer.Health);
         }
-        if (gamePlayer != null && Utils.GetGamePlayer(playerId).Status == Status.Dead)
+
+        // TODO: we should only check if the gamePlayer.Status is dead, but there's a bug yet to be fixed on the backend side for that to work properly.
+        if (gamePlayer != null && (gamePlayer.Status == Status.Dead || gamePlayer.Health <= 0))
         {
             ShowDeathSplash();
         }
