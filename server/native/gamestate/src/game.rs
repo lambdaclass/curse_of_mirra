@@ -903,7 +903,6 @@ impl GameState {
 
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
-            println!("{:?}", player.effects);
             player.effects.retain(
                 |effect,
                  EffectData {
