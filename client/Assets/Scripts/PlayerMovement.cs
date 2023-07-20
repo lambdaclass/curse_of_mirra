@@ -214,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
                 break;
-            case PlayerAction.ExecutingSkill3:
+            case PlayerAction.StartingSkill3:
                 // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
                 if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
                 {
@@ -225,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
                     actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
                 }
                 break;
-            case PlayerAction.FinishingSkill3:
+            case PlayerAction.ExecutingSkill3:
                 // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
                 if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
                 {
