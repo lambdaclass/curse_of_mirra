@@ -265,7 +265,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_call({:join, client_id, player_id}, _, gen_server_state) do
     if gen_server_state.current_players < gen_server_state.max_players do
       broadcast_to_darkworlds_server({:player_joined, player_id})
-      PlayerTracker.add_player_game(client_id, self())
+      PlayerTracker.add_player_game(client_id, player_id, self())
 
       {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
     else

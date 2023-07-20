@@ -16,7 +16,7 @@ defmodule DarkWorldsServerWeb.GameController do
   def player_game(conn, %{"player_id" => player_id}) do
     case PlayerTracker.get_player_game(player_id) do
       nil -> json(conn, %{current_game: nil})
-      game_pid -> json(conn, %{current_game: Communication.pid_to_external_id(game_pid)})
+      {game_pid, game_player_id} -> json(conn, %{current_game: Communication.pid_to_external_id(game_pid), game_player_id: game_player_id})
     end
   end
 end

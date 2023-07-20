@@ -9,16 +9,16 @@ defmodule DarkWorldsServer.Engine.PlayerTracker do
     :ets.new(@table, [:set, :public, :named_table])
   end
 
-  def add_player_game(player_id, game_pid) when is_binary(player_id) do
+  def add_player_game(client_id, game_player_id, game_pid) when is_binary(client_id) do
     runtime_id = :persistent_term.get(@persistent_term_key)
-    true = :ets.insert(@table, {player_id, runtime_id, game_pid})
+    true = :ets.insert(@table, {client_id, runtime_id, game_pid, game_player_id})
   end
 
-  def get_player_game(player_id) when is_binary(player_id) do
+  def get_player_game(client_id) when is_binary(client_id) do
     with runtime_id <- :persistent_term.get(@persistent_term_key),
-         [{^player_id, ^runtime_id, game_pid}] <- :ets.lookup(@table, player_id),
+         [{^client_id, ^runtime_id, game_pid, game_player_id}] <- :ets.lookup(@table, client_id),
          true <- Process.alive?(game_pid) do
-      game_pid
+      {game_pid, game_player_id}
     else
       _ -> nil
     end
