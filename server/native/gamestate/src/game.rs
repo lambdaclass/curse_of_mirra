@@ -429,7 +429,7 @@ impl GameState {
             Name::DAgna => {
                 let attacking_player = GameState::get_player(&self, attacking_player_id)?;
                 let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+                Self::dagna_basic_attack(&mut self.board, players, &mut attacking_player.clone(), direction)
             }
             _ => Ok(Vec::new()),
         };
@@ -544,10 +544,10 @@ impl GameState {
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
         let attacking_player_id = attacking_player.id;
-        
-        // --- Attack AOE ---
+
         // TODO: This should be a config of the attack
-        let attack_range = 400;
+        let attack_range = 40;
+
         let (top_left, bottom_right) =
             compute_aoe_initial_positions(&(attacking_player.position), attack_range);
 
@@ -572,7 +572,6 @@ impl GameState {
                 _ => continue,
             }
         }
-
         //--- Slow down D'Agna ---
         attacking_player.add_effect(
             Effect::Slowed.clone(),
@@ -582,6 +581,8 @@ impl GameState {
                 direction: Some(*direction),
             },
         );
+
+        println!("{:?}", attacking_player.effects);
 
         Ok(affected_players)
     }
