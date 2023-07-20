@@ -1,11 +1,11 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
   require Logger
-  alias DarkWorldsServer.Engine.PlayerTracker
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.BotPlayer
   alias DarkWorldsServer.Engine.Game
+  alias DarkWorldsServer.Engine.PlayerTracker
 
   @build_walls false
   # The game will be closed twenty minute after it starts
