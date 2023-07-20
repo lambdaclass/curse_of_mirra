@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 {
     public CoMCharacter comCharacter;
-    public Text name;
+    public TextMeshProUGUI name;
     public Image artWork;
     public bool selected = false;
 
