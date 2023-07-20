@@ -545,19 +545,20 @@ impl GameState {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
         let attacking_player_id = attacking_player.id;
 
+        // -- Small Area --
         // TODO: This should be a config of the attack
         let attack_range = 40;
 
-        let (top_left, bottom_right) =
+        let (top_left_small_area, bottom_right_small_area) =
             compute_aoe_initial_positions(&(attacking_player.position), attack_range);
 
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
+        let mut affected_players_small_area: Vec<u64> =
+            GameState::players_in_range(board, top_left_small_area, bottom_right_small_area)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
 
-        for target_player_id in affected_players.iter_mut() {
+        for target_player_id in affected_players_small_area.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = players
                 .iter_mut()
@@ -572,7 +573,35 @@ impl GameState {
                 _ => continue,
             }
         }
-        //--- Slow down D'Agna ---
+
+        // -- Large Area --
+
+        let (top_left_large_area, bottom_right_large_area) =
+            compute_aoe_initial_positions(&(attacking_player.position), attack_range * 3);
+
+        let mut affected_players_large_area: Vec<u64> =
+            GameState::players_in_range(board, top_left_large_area, bottom_right_large_area)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+
+        for target_player_id in affected_players_large_area.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg / 2);
+                    let player = ap.clone();
+                    GameState::modify_cell_if_player_died(board, &player)?;
+                }
+                _ => continue,
+            }
+        }
+        
+        // -- Slow down D'Agna --
         attacking_player.add_effect(
             Effect::Slowed.clone(),
             EffectData {
@@ -582,9 +611,7 @@ impl GameState {
             },
         );
 
-        println!("{:?}", attacking_player.effects);
-
-        Ok(affected_players)
+        Ok(affected_players_large_area)
     }
 
     pub fn skill_1(
