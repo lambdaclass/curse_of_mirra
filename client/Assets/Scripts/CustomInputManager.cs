@@ -165,7 +165,6 @@ public class CustomInputManager : InputManager
         indicator.transform.localScale = indicator.transform.localScale * 5;
 
         activeJoystick = joystick;
-        DisableButtons();
     }
 
     public void AimAoeSkill(Vector2 aoePosition)
@@ -246,7 +245,6 @@ public class CustomInputManager : InputManager
         directionIndicator.SetActive(false);
 
         activeJoystick = joystick;
-        DisableButtons();
     }
 
     private void AimDirectionSkill(Vector2 direction)

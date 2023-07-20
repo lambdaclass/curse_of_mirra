@@ -30,7 +30,8 @@ public class SocketConnectionManager : MonoBehaviour
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
-    public Player winnerPlayer = null;
+    public string serverHash;
+    public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
 
@@ -40,6 +41,7 @@ public class SocketConnectionManager : MonoBehaviour
     private Boolean botsActive = true;
 
     public EventsBuffer eventsBuffer;
+    public bool allSelected = false;
 
     WebSocket ws;
 
@@ -65,6 +67,7 @@ public class SocketConnectionManager : MonoBehaviour
             this.session_id = LobbyConnection.Instance.GameSession;
             this.server_ip = LobbyConnection.Instance.server_ip;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+            this.serverHash = LobbyConnection.Instance.serverHash;
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
         }
@@ -87,35 +90,13 @@ public class SocketConnectionManager : MonoBehaviour
 #endif
     }
 
-    IEnumerator GetRequest()
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(makeUrl("/new_session")))
-        {
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            yield return webRequest.SendWebRequest();
-            switch (webRequest.result)
-            {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
-                case UnityWebRequest.Result.Success:
-                    Session session = JsonUtility.FromJson<Session>(
-                        webRequest.downloadHandler.text
-                    );
-                    print("Creating and joining Session ID: " + session.session_id);
-                    ConnectToSession(session.session_id);
-                    break;
-            }
-        }
-    }
-
     private void ConnectToSession(string session_id)
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
-        ws = new WebSocket(url);
+        Dictionary<string, string> headers =new Dictionary<string, string>();
+        headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
+        ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnError += (e) =>
         {
@@ -158,26 +139,9 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
                     break;
-                case GameEventType.NextRound:
-                    print("The winner of the round is " + game_event.WinnerPlayer);
-                    winners.Add(game_event.WinnerPlayer);
-                    var newPlayer1 = GetPlayer(
-                        SocketConnectionManager.Instance.playerId,
-                        game_event.Players.ToList()
-                    );
-
-                    break;
-                case GameEventType.LastRound:
-                    winners.Add(game_event.WinnerPlayer);
-                    print("The winner of the round is " + game_event.WinnerPlayer);
-                    var newPlayer2 = GetPlayer(
-                        SocketConnectionManager.Instance.playerId,
-                        game_event.Players.ToList()
-                    );
-
-                    break;
                 case GameEventType.GameFinished:
-                    winnerPlayer = game_event.WinnerPlayer;
+                    winnerPlayer.Item1 = game_event.WinnerPlayer;
+                    winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
                     // This should be uncommented when the match end is finished
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     break;
@@ -193,8 +157,8 @@ public class SocketConnectionManager : MonoBehaviour
                     this.selectedCharacters = fromMapFieldToDictionary(
                         game_event.SelectedCharacters
                     );
+                    this.allSelected = true;
                     this.gamePlayers = game_event.Players.ToList();
-                    SceneManager.LoadScene("BackendPlayground");
                     break;
                 default:
                     print("Message received is: " + game_event.Type);

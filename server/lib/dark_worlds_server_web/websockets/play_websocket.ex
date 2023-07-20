@@ -11,12 +11,14 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   @behaviour :cowboy_websocket
   @ping_interval_ms 500
+  # @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
   @impl true
   def init(req, _opts) do
     game_id = :cowboy_req.binding(:game_id, req)
     player_id = :cowboy_req.binding(:player_id, req)
-    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id}}
+    client_hash = :cowboy_req.header("dark-worlds-client-hash", req)
+    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_hash: client_hash}}
   end
 
   @impl true
@@ -28,11 +30,15 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:stop, %{}}
   end
 
+  # Uncomment to enable hash verification of client and server
+  # def websocket_init(%{client_hash: hash}) when hash != @server_hash do
+  #   {:stop, :version_mismatch}
+  # end
+
   def websocket_init(%{game_id: game_id, player_id: player_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
 
-    with :ok <-
-           Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
+    with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
          {:ok, player_id} <- Runner.join(runner_pid, String.to_integer(player_id)) do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id}
@@ -53,6 +59,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   def terminate(reason, _partialreq, %{runner_pid: pid, player_id: id}) do
     log_termination(reason)
     Runner.disconnect(pid, id)
+    :ok
+  end
+
+  def terminate(:stop, _req, :version_mismatch) do
+    Logger.info("#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch")
     :ok
   end
 
@@ -126,26 +137,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     Logger.info("THE GAME HAS FINISHED")
 
     {:reply, {:binary, Communication.game_finished!(reply_map)}, web_socket_state}
-  end
-
-  def websocket_info({:next_round, winner, game_state}, web_socket_state) do
-    reply_map = %{
-      winner: winner,
-      current_round: game_state.current_round,
-      players: game_state.server_game_state.game.players
-    }
-
-    {:reply, {:binary, Communication.next_round!(reply_map)}, web_socket_state}
-  end
-
-  def websocket_info({:last_round, winner, game_state}, web_socket_state) do
-    reply_map = %{
-      winner: winner,
-      current_round: game_state.current_round,
-      players: game_state.server_game_state.game.players
-    }
-
-    {:reply, {:binary, Communication.last_round!(reply_map)}, web_socket_state}
   end
 
   def websocket_info({:selected_characters, selected_characters}, web_socket_state) do

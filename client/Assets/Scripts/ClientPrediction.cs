@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ClientPrediction {
+public class ClientPrediction
+{
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -17,7 +18,8 @@ public class ClientPrediction {
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Player player, long timestamp) {
+    public void simulatePlayerState(Player player, long timestamp)
+    {
         removeServerAcknowledgedInputs(player, timestamp);
         simulatePlayerMovement(player);
     }
@@ -27,11 +29,16 @@ public class ClientPrediction {
         pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
     }
 
-    void simulatePlayerMovement(Player player) {
+    void simulatePlayerMovement(Player player)
+    {
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
 
-        pendingPlayerInputs.ForEach(input => {
-            Vector2 movementDirection = new Vector2(-input.joystick_y_value, input.joystick_x_value);
+        pendingPlayerInputs.ForEach(input =>
+        {
+            Vector2 movementDirection = new Vector2(
+                -input.joystick_y_value,
+                input.joystick_x_value
+            );
             movementDirection.Normalize();
             Vector2 movementVector = movementDirection * characterSpeed;
 
@@ -39,9 +46,9 @@ public class ClientPrediction {
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
             var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
 
-            newPositionX = Math.Min(newPositionX, (1000 - 1));
+            newPositionX = Math.Min(newPositionX, (10000 - 1));
             newPositionX = Math.Max(newPositionX, 0);
-            newPositionY = Math.Min(newPositionY, (1000 - 1));
+            newPositionY = Math.Min(newPositionY, (10000 - 1));
             newPositionY = Math.Max(newPositionY, 0);
 
             newPlayerPosition.X = (ulong)newPositionX;
