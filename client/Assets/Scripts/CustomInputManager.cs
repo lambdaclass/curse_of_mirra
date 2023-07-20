@@ -67,6 +67,8 @@ public class CustomInputManager : InputManager
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
 
+    private float currentSkillRadius = 0;
+
     protected override void Start()
     {
         base.Start();
@@ -219,10 +221,9 @@ public class CustomInputManager : InputManager
         areaWithAim.transform.parent = _player.transform;
         //Set its position to the player position
         areaWithAim.transform.position = _player.transform.position;
-
         //Set scales
         area = areaWithAim.GetComponent<AimHandler>().area;
-        area.transform.localScale = area.transform.localScale * 30;
+        area.transform.localScale = area.transform.localScale * joystick.skill.GetSkillRadius();
 
         //Load the prefab
         directionIndicator =

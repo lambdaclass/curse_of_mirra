@@ -183,4 +183,9 @@ public class Skill : CharacterAbility
         yield return new WaitForSeconds(time);
         trail.emitting = false;
     }
+
+    public float GetSkillRadius()
+    {
+        return skillInfo.skillCircleRadius;
+    }
 }

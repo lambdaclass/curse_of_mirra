@@ -15,6 +15,8 @@ MonoBehaviour:
   name: Hack_Aimshot
   inputType: 2
   feedbackAnimation: {fileID: 0}
+  instantiateAnimationOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
+  skillCircleRadius: 30
