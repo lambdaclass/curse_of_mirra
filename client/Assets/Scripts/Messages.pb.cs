@@ -22,106 +22,106 @@ public static partial class MessagesReflection {
   static MessagesReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg5tZXNzYWdlcy5wcm90byKVAwoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
+          "Cg5tZXNzYWdlcy5wcm90byL+AgoJR2FtZUV2ZW50EhwKBHR5cGUYASABKA4y",
           "Di5HYW1lRXZlbnRUeXBlEhgKB3BsYXllcnMYAiADKAsyBy5QbGF5ZXISDwoH",
           "bGF0ZW5jeRgDIAEoBBIgCgtwcm9qZWN0aWxlcxgEIAMoCzILLlByb2plY3Rp",
           "bGUSGAoQcGxheWVyX2pvaW5lZF9pZBgFIAEoBBIeCg13aW5uZXJfcGxheWVy",
-          "GAYgASgLMgcuUGxheWVyEhUKDWN1cnJlbnRfcm91bmQYByABKAQSPwoTc2Vs",
-          "ZWN0ZWRfY2hhcmFjdGVycxgIIAMoCzIiLkdhbWVFdmVudC5TZWxlY3RlZENo",
-          "YXJhY3RlcnNFbnRyeRIYChBwbGF5ZXJfdGltZXN0YW1wGAkgASgDEhgKEHNl",
-          "cnZlcl90aW1lc3RhbXAYCiABKAMSHAoIa2lsbGZlZWQYCyADKAsyCi5LaWxs",
-          "RXZlbnQaOQoXU2VsZWN0ZWRDaGFyYWN0ZXJzRW50cnkSCwoDa2V5GAEgASgE",
-          "Eg0KBXZhbHVlGAIgASgJOgI4ASI8Cg9QbGF5ZXJDaGFyYWN0ZXISEQoJcGxh",
-          "eWVyX2lkGAEgASgEEhYKDmNoYXJhY3Rlcl9uYW1lGAIgASgJIp8ECgZQbGF5",
-          "ZXISCgoCaWQYASABKAQSDgoGaGVhbHRoGAIgASgSEhsKCHBvc2l0aW9uGAMg",
-          "ASgLMgkuUG9zaXRpb24SFwoGc3RhdHVzGAQgASgOMgcuU3RhdHVzEh0KBmFj",
-          "dGlvbhgFIAEoDjINLlBsYXllckFjdGlvbhIfCgxhb2VfcG9zaXRpb24YBiAB",
-          "KAsyCS5Qb3NpdGlvbhISCgpraWxsX2NvdW50GAcgASgEEhMKC2RlYXRoX2Nv",
-          "dW50GAggASgEEi4KGWJhc2ljX3NraWxsX2Nvb2xkb3duX2xlZnQYCSABKAsy",
-          "Cy5NaWxsaXNUaW1lEioKFXNraWxsXzFfY29vbGRvd25fbGVmdBgKIAEoCzIL",
-          "Lk1pbGxpc1RpbWUSKgoVc2tpbGxfMl9jb29sZG93bl9sZWZ0GAsgASgLMgsu",
-          "TWlsbGlzVGltZRIqChVza2lsbF8zX2Nvb2xkb3duX2xlZnQYDCABKAsyCy5N",
-          "aWxsaXNUaW1lEioKFXNraWxsXzRfY29vbGRvd25fbGVmdBgNIAEoCzILLk1p",
-          "bGxpc1RpbWUSFgoOY2hhcmFjdGVyX25hbWUYDiABKAkSJQoHZWZmZWN0cxgP",
-          "IAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaOwoMRWZmZWN0c0VudHJ5EgsK",
-          "A2tleRgBIAEoBBIaCgV2YWx1ZRgCIAEoCzILLk1pbGxpc1RpbWU6AjgBIi4K",
-          "CUtpbGxFdmVudBIRCglraWxsZWRfYnkYASABKAQSDgoGa2lsbGVkGAIgASgE",
-          "IiAKCFBvc2l0aW9uEgkKAXgYASABKAQSCQoBeRgCIAEoBCIoChBSZWxhdGl2",
-          "ZVBvc2l0aW9uEgkKAXgYASABKAISCQoBeRgCIAEoAiLhAQoMQ2xpZW50QWN0",
-          "aW9uEhcKBmFjdGlvbhgBIAEoDjIHLkFjdGlvbhIdCglkaXJlY3Rpb24YAiAB",
-          "KA4yCi5EaXJlY3Rpb24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBv",
-          "c2l0aW9uEiUKCm1vdmVfZGVsdGEYBCABKAsyES5SZWxhdGl2ZVBvc2l0aW9u",
-          "Eg4KBnRhcmdldBgFIAEoEhIRCgl0aW1lc3RhbXAYBiABKAMSKgoQcGxheWVy",
-          "X2NoYXJhY3RlchgHIAEoCzIQLlBsYXllckNoYXJhY3RlciLmAQoKTG9iYnlF",
-          "dmVudBIdCgR0eXBlGAEgASgOMg8uTG9iYnlFdmVudFR5cGUSEAoIbG9iYnlf",
-          "aWQYAiABKAkSEQoJcGxheWVyX2lkGAMgASgEEhcKD2FkZGVkX3BsYXllcl9p",
-          "ZBgEIAEoBBIPCgdnYW1lX2lkGAUgASgJEhQKDHBsYXllcl9jb3VudBgGIAEo",
-          "BBIPCgdwbGF5ZXJzGAcgAygEEhkKEXJlbW92ZWRfcGxheWVyX2lkGAggASgE",
-          "EigKC2dhbWVfY29uZmlnGAkgASgLMhMuU2VydmVyR2FtZVNldHRpbmdzInwK",
-          "DFJ1bm5lckNvbmZpZxIMCgROYW1lGAEgASgJEhMKC2JvYXJkX3dpZHRoGAIg",
-          "ASgEEhQKDGJvYXJkX2hlaWdodBgDIAEoBBIaChJzZXJ2ZXJfdGlja3JhdGVf",
-          "bXMYBCABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAUgASgEImEKCkdhbWVDb25m",
-          "aWcSHgoKYm9hcmRfc2l6ZRgBIAEoCzIKLkJvYXJkU2l6ZRIaChJzZXJ2ZXJf",
-          "dGlja3JhdGVfbXMYAiABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAMgASgEIioK",
-          "CUJvYXJkU2l6ZRINCgV3aWR0aBgBIAEoBBIOCgZoZWlnaHQYAiABKAQi7gEK",
-          "E0NoYXJhY3RlckNvbmZpZ0l0ZW0SDAoETmFtZRgBIAEoCRIKCgJJZBgCIAEo",
-          "CRIOCgZBY3RpdmUYAyABKAkSDQoFQ2xhc3MYBCABKAkSDwoHRmFjdGlvbhgF",
-          "IAEoCRIRCglCYXNlU3BlZWQYBiABKAkSEgoKU2tpbGxCYXNpYxgHIAEoCRIU",
-          "CgxTa2lsbEFjdGl2ZTEYCCABKAkSFAoMU2tpbGxBY3RpdmUyGAkgASgJEhEK",
-          "CVNraWxsRGFzaBgKIAEoCRIVCg1Ta2lsbFVsdGltYXRlGAsgASgJEhAKCEJv",
-          "ZHlTaXplGAwgASgJIjYKD0NoYXJhY3RlckNvbmZpZxIjCgVJdGVtcxgBIAMo",
-          "CzIULkNoYXJhY3RlckNvbmZpZ0l0ZW0iLwoMU2tpbGxzQ29uZmlnEh8KBUl0",
-          "ZW1zGAEgAygLMhAuU2tpbGxDb25maWdJdGVtIqsBCg9Ta2lsbENvbmZpZ0l0",
-          "ZW0SDAoETmFtZRgBIAEoCRIOCgZEb0Z1bmMYAiABKAkSEgoKQnV0dG9uVHlw",
-          "ZRgDIAEoCRIQCghDb29sZG93bhgEIAEoCRIOCgZEYW1hZ2UYBSABKAkSDgoG",
-          "U3RhdHVzGAYgASgJEhAKCER1cmF0aW9uGAcgASgJEhIKClByb2plY3RpbGUY",
-          "CCABKAkSDgoGTWluaW9uGAkgASgJIowBChJTZXJ2ZXJHYW1lU2V0dGluZ3MS",
-          "JAoNcnVubmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFy",
-          "YWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnEiQKDXNraWxs",
-          "c19jb25maWcYAyABKAsyDS5Ta2lsbHNDb25maWciswIKClByb2plY3RpbGUS",
-          "CgoCaWQYASABKAQSGwoIcG9zaXRpb24YAiABKAsyCS5Qb3NpdGlvbhIkCglk",
-          "aXJlY3Rpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg0KBXNwZWVkGAQg",
-          "ASgNEg0KBXJhbmdlGAUgASgNEhEKCXBsYXllcl9pZBgGIAEoBBIOCgZkYW1h",
-          "Z2UYByABKA0SFwoPcmVtYWluaW5nX3RpY2tzGAggASgSEigKD3Byb2plY3Rp",
-          "bGVfdHlwZRgJIAEoDjIPLlByb2plY3RpbGVUeXBlEiEKBnN0YXR1cxgKIAEo",
-          "DjIRLlByb2plY3RpbGVTdGF0dXMSHwoXbGFzdF9hdHRhY2tlZF9wbGF5ZXJf",
-          "aWQYCyABKAQSDgoGcGllcmNlGAwgASgIIicKCk1pbGxpc1RpbWUSDAoEaGln",
-          "aBgBIAEoBBILCgNsb3cYAiABKAQqzgEKDUdhbWVFdmVudFR5cGUSEAoMU1RB",
-          "VEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVE",
-          "EAISDgoKTkVYVF9ST1VORBADEg4KCkxBU1RfUk9VTkQQBBIRCg1HQU1FX0ZJ",
-          "TklTSEVEEAUSFQoRSU5JVElBTF9QT1NJVElPTlMQBhIdChlTRUxFQ1RFRF9D",
-          "SEFSQUNURVJfVVBEQVRFEAcSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJ",
-          "T04QCCodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEqiQIKBkFjdGlv",
-          "bhIWChJBQ1RJT05fVU5TUEVDSUZJRUQQABIICgRNT1ZFEAESCgoGQVRUQUNL",
-          "EAISDAoIVEVMRVBPUlQQBBIOCgpBVFRBQ0tfQU9FEAUSFgoSTU9WRV9XSVRI",
-          "X0pPWVNUSUNLEAYSCwoHQUREX0JPVBAHEg8KC0FVVE9fQVRUQUNLEAgSEAoM",
-          "QkFTSUNfQVRUQUNLEAkSCwoHU0tJTExfMRAKEgsKB1NLSUxMXzIQCxILCgdT",
-          "S0lMTF8zEAwSCwoHU0tJTExfNBANEhQKEFNFTEVDVF9DSEFSQUNURVIQDhIP",
-          "CgtFTkFCTEVfQk9UUxAPEhAKDERJU0FCTEVfQk9UUxAQKk0KCURpcmVjdGlv",
-          "bhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04Q",
-          "AhIICgRMRUZUEAMSCQoFUklHSFQQBCqqAQoMUGxheWVyQWN0aW9uEgsKB05P",
-          "VEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFQoR",
-          "RVhFQ1VUSU5HX1NLSUxMXzEQAxIPCgtURUxFUE9SVElORxAEEhUKEUVYRUNV",
-          "VElOR19TS0lMTF8yEAUSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBhIVChFFWEVD",
-          "VVRJTkdfU0tJTExfNBAHKlcKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQ",
-          "ABIMCghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFHRUQQAxIRCg1O",
-          "RU9OX0NSQVNISU5HEAQqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5T",
-          "UEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQAhIQ",
-          "CgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFSVF9H",
-          "QU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlwZRIK",
-          "CgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVjdGls",
-          "ZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
+          "GAYgASgLMgcuUGxheWVyEj8KE3NlbGVjdGVkX2NoYXJhY3RlcnMYByADKAsy",
+          "Ii5HYW1lRXZlbnQuU2VsZWN0ZWRDaGFyYWN0ZXJzRW50cnkSGAoQcGxheWVy",
+          "X3RpbWVzdGFtcBgIIAEoAxIYChBzZXJ2ZXJfdGltZXN0YW1wGAkgASgDEhwK",
+          "CGtpbGxmZWVkGAogAygLMgouS2lsbEV2ZW50GjkKF1NlbGVjdGVkQ2hhcmFj",
+          "dGVyc0VudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoCToCOAEiPAoP",
+          "UGxheWVyQ2hhcmFjdGVyEhEKCXBsYXllcl9pZBgBIAEoBBIWCg5jaGFyYWN0",
+          "ZXJfbmFtZRgCIAEoCSKfBAoGUGxheWVyEgoKAmlkGAEgASgEEg4KBmhlYWx0",
+          "aBgCIAEoEhIbCghwb3NpdGlvbhgDIAEoCzIJLlBvc2l0aW9uEhcKBnN0YXR1",
+          "cxgEIAEoDjIHLlN0YXR1cxIdCgZhY3Rpb24YBSABKA4yDS5QbGF5ZXJBY3Rp",
+          "b24SHwoMYW9lX3Bvc2l0aW9uGAYgASgLMgkuUG9zaXRpb24SEgoKa2lsbF9j",
+          "b3VudBgHIAEoBBITCgtkZWF0aF9jb3VudBgIIAEoBBIuChliYXNpY19za2ls",
+          "bF9jb29sZG93bl9sZWZ0GAkgASgLMgsuTWlsbGlzVGltZRIqChVza2lsbF8x",
+          "X2Nvb2xkb3duX2xlZnQYCiABKAsyCy5NaWxsaXNUaW1lEioKFXNraWxsXzJf",
+          "Y29vbGRvd25fbGVmdBgLIAEoCzILLk1pbGxpc1RpbWUSKgoVc2tpbGxfM19j",
+          "b29sZG93bl9sZWZ0GAwgASgLMgsuTWlsbGlzVGltZRIqChVza2lsbF80X2Nv",
+          "b2xkb3duX2xlZnQYDSABKAsyCy5NaWxsaXNUaW1lEhYKDmNoYXJhY3Rlcl9u",
+          "YW1lGA4gASgJEiUKB2VmZmVjdHMYDyADKAsyFC5QbGF5ZXIuRWZmZWN0c0Vu",
+          "dHJ5GjsKDEVmZmVjdHNFbnRyeRILCgNrZXkYASABKAQSGgoFdmFsdWUYAiAB",
+          "KAsyCy5NaWxsaXNUaW1lOgI4ASIuCglLaWxsRXZlbnQSEQoJa2lsbGVkX2J5",
+          "GAEgASgEEg4KBmtpbGxlZBgCIAEoBCIgCghQb3NpdGlvbhIJCgF4GAEgASgE",
+          "EgkKAXkYAiABKAQiKAoQUmVsYXRpdmVQb3NpdGlvbhIJCgF4GAEgASgCEgkK",
+          "AXkYAiABKAIi4QEKDENsaWVudEFjdGlvbhIXCgZhY3Rpb24YASABKA4yBy5B",
+          "Y3Rpb24SHQoJZGlyZWN0aW9uGAIgASgOMgouRGlyZWN0aW9uEiMKCHBvc2l0",
+          "aW9uGAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhIlCgptb3ZlX2RlbHRhGAQg",
+          "ASgLMhEuUmVsYXRpdmVQb3NpdGlvbhIOCgZ0YXJnZXQYBSABKBISEQoJdGlt",
+          "ZXN0YW1wGAYgASgDEioKEHBsYXllcl9jaGFyYWN0ZXIYByABKAsyEC5QbGF5",
+          "ZXJDaGFyYWN0ZXIi+wEKCkxvYmJ5RXZlbnQSHQoEdHlwZRgBIAEoDjIPLkxv",
+          "YmJ5RXZlbnRUeXBlEhAKCGxvYmJ5X2lkGAIgASgJEhEKCXBsYXllcl9pZBgD",
+          "IAEoBBIXCg9hZGRlZF9wbGF5ZXJfaWQYBCABKAQSDwoHZ2FtZV9pZBgFIAEo",
+          "CRIUCgxwbGF5ZXJfY291bnQYBiABKAQSDwoHcGxheWVycxgHIAMoBBIZChFy",
+          "ZW1vdmVkX3BsYXllcl9pZBgIIAEoBBIoCgtnYW1lX2NvbmZpZxgJIAEoCzIT",
+          "LlNlcnZlckdhbWVTZXR0aW5ncxITCgtzZXJ2ZXJfaGFzaBgKIAEoCSJ8CgxS",
+          "dW5uZXJDb25maWcSDAoETmFtZRgBIAEoCRITCgtib2FyZF93aWR0aBgCIAEo",
+          "BBIUCgxib2FyZF9oZWlnaHQYAyABKAQSGgoSc2VydmVyX3RpY2tyYXRlX21z",
+          "GAQgASgEEhcKD2dhbWVfdGltZW91dF9tcxgFIAEoBCJhCgpHYW1lQ29uZmln",
+          "Eh4KCmJvYXJkX3NpemUYASABKAsyCi5Cb2FyZFNpemUSGgoSc2VydmVyX3Rp",
+          "Y2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgDIAEoBCIqCglC",
+          "b2FyZFNpemUSDQoFd2lkdGgYASABKAQSDgoGaGVpZ2h0GAIgASgEIu4BChND",
+          "aGFyYWN0ZXJDb25maWdJdGVtEgwKBE5hbWUYASABKAkSCgoCSWQYAiABKAkS",
+          "DgoGQWN0aXZlGAMgASgJEg0KBUNsYXNzGAQgASgJEg8KB0ZhY3Rpb24YBSAB",
+          "KAkSEQoJQmFzZVNwZWVkGAYgASgJEhIKClNraWxsQmFzaWMYByABKAkSFAoM",
+          "U2tpbGxBY3RpdmUxGAggASgJEhQKDFNraWxsQWN0aXZlMhgJIAEoCRIRCglT",
+          "a2lsbERhc2gYCiABKAkSFQoNU2tpbGxVbHRpbWF0ZRgLIAEoCRIQCghCb2R5",
+          "U2l6ZRgMIAEoCSI2Cg9DaGFyYWN0ZXJDb25maWcSIwoFSXRlbXMYASADKAsy",
+          "FC5DaGFyYWN0ZXJDb25maWdJdGVtIi8KDFNraWxsc0NvbmZpZxIfCgVJdGVt",
+          "cxgBIAMoCzIQLlNraWxsQ29uZmlnSXRlbSKrAQoPU2tpbGxDb25maWdJdGVt",
+          "EgwKBE5hbWUYASABKAkSDgoGRG9GdW5jGAIgASgJEhIKCkJ1dHRvblR5cGUY",
+          "AyABKAkSEAoIQ29vbGRvd24YBCABKAkSDgoGRGFtYWdlGAUgASgJEg4KBlN0",
+          "YXR1cxgGIAEoCRIQCghEdXJhdGlvbhgHIAEoCRISCgpQcm9qZWN0aWxlGAgg",
+          "ASgJEg4KBk1pbmlvbhgJIAEoCSKMAQoSU2VydmVyR2FtZVNldHRpbmdzEiQK",
+          "DXJ1bm5lcl9jb25maWcYASABKAsyDS5SdW5uZXJDb25maWcSKgoQY2hhcmFj",
+          "dGVyX2NvbmZpZxgCIAEoCzIQLkNoYXJhY3RlckNvbmZpZxIkCg1za2lsbHNf",
+          "Y29uZmlnGAMgASgLMg0uU2tpbGxzQ29uZmlnIrMCCgpQcm9qZWN0aWxlEgoK",
+          "AmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGly",
+          "ZWN0aW9uGAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEo",
+          "DRINCgVyYW5nZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdl",
+          "GAcgASgNEhcKD3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxl",
+          "X3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4y",
+          "ES5Qcm9qZWN0aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lk",
+          "GAsgASgEEg4KBnBpZXJjZRgMIAEoCCInCgpNaWxsaXNUaW1lEgwKBGhpZ2gY",
+          "ASABKAQSCwoDbG93GAIgASgEKq4BCg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRF",
+          "X1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExBWUVSX0pPSU5FRBAC",
+          "EhEKDUdBTUVfRklOSVNIRUQQAxIVChFJTklUSUFMX1BPU0lUSU9OUxAEEh0K",
+          "GVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBRIeChpGSU5JU0hfQ0hBUkFD",
+          "VEVSX1NFTEVDVElPThAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQ",
+          "ASqJAgoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEggKBE1PVkUQ",
+          "ARIKCgZBVFRBQ0sQAhIMCghURUxFUE9SVBAEEg4KCkFUVEFDS19BT0UQBRIW",
+          "ChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBhILCgdBRERfQk9UEAcSDwoLQVVUT19B",
+          "VFRBQ0sQCBIQCgxCQVNJQ19BVFRBQ0sQCRILCgdTS0lMTF8xEAoSCwoHU0tJ",
+          "TExfMhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NI",
+          "QVJBQ1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAq",
+          "TQoJRGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQ",
+          "EAESCAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKqoBCgxQbGF5ZXJB",
+          "Y3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lO",
+          "R19BT0UQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEg8KC1RFTEVQT1JUSU5H",
+          "EAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBRIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MxAGEhUKEUVYRUNVVElOR19TS0lMTF80EAcqZAoMUGxheWVyRWZmZWN0Eg0K",
+          "CVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVS",
+          "QUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBBILCgdMRUFQSU5HEAUqjwEKDkxv",
+          "YmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNU",
+          "RUQQARIQCgxQTEFZRVJfQURERUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQ",
+          "TEFZRVJfQ09VTlQQBBIOCgpTVEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9W",
+          "RUQQBioyCg5Qcm9qZWN0aWxlVHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1J",
+          "TkdfQlVMTEVUEAEqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIM",
+          "CghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "CurrentRound", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp", "Killfeed" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "WinnerPlayer", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp", "Killfeed" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerCharacter), global::PlayerCharacter.Parser, new[]{ "PlayerId", "CharacterName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Id", "Health", "Position", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEvent), global::KillEvent.Parser, new[]{ "KilledBy", "Killed" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target", "Timestamp", "PlayerCharacter" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerId", "AddedPlayerId", "GameId", "PlayerCount", "Players", "RemovedPlayerId", "GameConfig", "ServerHash" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RunnerConfig), global::RunnerConfig.Parser, new[]{ "Name", "BoardWidth", "BoardHeight", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BoardSize), global::BoardSize.Parser, new[]{ "Width", "Height" }, null, null, null, null),
@@ -149,12 +149,10 @@ public enum GameEventType {
   [pbr::OriginalName("STATE_UPDATE")] StateUpdate = 0,
   [pbr::OriginalName("PING_UPDATE")] PingUpdate = 1,
   [pbr::OriginalName("PLAYER_JOINED")] PlayerJoined = 2,
-  [pbr::OriginalName("NEXT_ROUND")] NextRound = 3,
-  [pbr::OriginalName("LAST_ROUND")] LastRound = 4,
-  [pbr::OriginalName("GAME_FINISHED")] GameFinished = 5,
-  [pbr::OriginalName("INITIAL_POSITIONS")] InitialPositions = 6,
-  [pbr::OriginalName("SELECTED_CHARACTER_UPDATE")] SelectedCharacterUpdate = 7,
-  [pbr::OriginalName("FINISH_CHARACTER_SELECTION")] FinishCharacterSelection = 8,
+  [pbr::OriginalName("GAME_FINISHED")] GameFinished = 3,
+  [pbr::OriginalName("INITIAL_POSITIONS")] InitialPositions = 4,
+  [pbr::OriginalName("SELECTED_CHARACTER_UPDATE")] SelectedCharacterUpdate = 5,
+  [pbr::OriginalName("FINISH_CHARACTER_SELECTION")] FinishCharacterSelection = 6,
 }
 
 /// <summary>
@@ -234,7 +232,8 @@ public enum PlayerEffect {
   [pbr::OriginalName("PIERCING")] Piercing = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
-  [pbr::OriginalName("SLOWED")] Slowed = 4,
+  [pbr::OriginalName("SLOWED")] Slowed = 5,
+  [pbr::OriginalName("LEAPING")] Leaping = 6,
 }
 
 /// <summary>
@@ -325,7 +324,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     projectiles_ = other.projectiles_.Clone();
     playerJoinedId_ = other.playerJoinedId_;
     winnerPlayer_ = other.winnerPlayer_ != null ? other.winnerPlayer_.Clone() : null;
-    currentRound_ = other.currentRound_;
     selectedCharacters_ = other.selectedCharacters_.Clone();
     playerTimestamp_ = other.playerTimestamp_;
     serverTimestamp_ = other.serverTimestamp_;
@@ -409,22 +407,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
   }
 
-  /// <summary>Field number for the "current_round" field.</summary>
-  public const int CurrentRoundFieldNumber = 7;
-  private ulong currentRound_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong CurrentRound {
-    get { return currentRound_; }
-    set {
-      currentRound_ = value;
-    }
-  }
-
   /// <summary>Field number for the "selected_characters" field.</summary>
-  public const int SelectedCharactersFieldNumber = 8;
+  public const int SelectedCharactersFieldNumber = 7;
   private static readonly pbc::MapField<ulong, string>.Codec _map_selectedCharacters_codec
-      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 66);
+      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 58);
   private readonly pbc::MapField<ulong, string> selectedCharacters_ = new pbc::MapField<ulong, string>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -433,7 +419,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "player_timestamp" field.</summary>
-  public const int PlayerTimestampFieldNumber = 9;
+  public const int PlayerTimestampFieldNumber = 8;
   private long playerTimestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -445,7 +431,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "server_timestamp" field.</summary>
-  public const int ServerTimestampFieldNumber = 10;
+  public const int ServerTimestampFieldNumber = 9;
   private long serverTimestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -457,9 +443,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "killfeed" field.</summary>
-  public const int KillfeedFieldNumber = 11;
+  public const int KillfeedFieldNumber = 10;
   private static readonly pb::FieldCodec<global::KillEvent> _repeated_killfeed_codec
-      = pb::FieldCodec.ForMessage(90, global::KillEvent.Parser);
+      = pb::FieldCodec.ForMessage(82, global::KillEvent.Parser);
   private readonly pbc::RepeatedField<global::KillEvent> killfeed_ = new pbc::RepeatedField<global::KillEvent>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -488,7 +474,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if(!projectiles_.Equals(other.projectiles_)) return false;
     if (PlayerJoinedId != other.PlayerJoinedId) return false;
     if (!object.Equals(WinnerPlayer, other.WinnerPlayer)) return false;
-    if (CurrentRound != other.CurrentRound) return false;
     if (!SelectedCharacters.Equals(other.SelectedCharacters)) return false;
     if (PlayerTimestamp != other.PlayerTimestamp) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
@@ -506,7 +491,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     hash ^= projectiles_.GetHashCode();
     if (PlayerJoinedId != 0UL) hash ^= PlayerJoinedId.GetHashCode();
     if (winnerPlayer_ != null) hash ^= WinnerPlayer.GetHashCode();
-    if (CurrentRound != 0UL) hash ^= CurrentRound.GetHashCode();
     hash ^= SelectedCharacters.GetHashCode();
     if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
@@ -547,17 +531,13 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(50);
       output.WriteMessage(WinnerPlayer);
     }
-    if (CurrentRound != 0UL) {
-      output.WriteRawTag(56);
-      output.WriteUInt64(CurrentRound);
-    }
     selectedCharacters_.WriteTo(output, _map_selectedCharacters_codec);
     if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(72);
+      output.WriteRawTag(64);
       output.WriteInt64(PlayerTimestamp);
     }
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(80);
+      output.WriteRawTag(72);
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(output, _repeated_killfeed_codec);
@@ -589,17 +569,13 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(50);
       output.WriteMessage(WinnerPlayer);
     }
-    if (CurrentRound != 0UL) {
-      output.WriteRawTag(56);
-      output.WriteUInt64(CurrentRound);
-    }
     selectedCharacters_.WriteTo(ref output, _map_selectedCharacters_codec);
     if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(72);
+      output.WriteRawTag(64);
       output.WriteInt64(PlayerTimestamp);
     }
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(80);
+      output.WriteRawTag(72);
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
@@ -626,9 +602,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
     if (winnerPlayer_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(WinnerPlayer);
-    }
-    if (CurrentRound != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(CurrentRound);
     }
     size += selectedCharacters_.CalculateSize(_map_selectedCharacters_codec);
     if (PlayerTimestamp != 0L) {
@@ -666,9 +639,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
         WinnerPlayer = new global::Player();
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
-    }
-    if (other.CurrentRound != 0UL) {
-      CurrentRound = other.CurrentRound;
     }
     selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
@@ -720,23 +690,19 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           input.ReadMessage(WinnerPlayer);
           break;
         }
-        case 56: {
-          CurrentRound = input.ReadUInt64();
-          break;
-        }
-        case 66: {
+        case 58: {
           selectedCharacters_.AddEntriesFrom(input, _map_selectedCharacters_codec);
           break;
         }
-        case 72: {
+        case 64: {
           PlayerTimestamp = input.ReadInt64();
           break;
         }
-        case 80: {
+        case 72: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 90: {
+        case 82: {
           killfeed_.AddEntriesFrom(input, _repeated_killfeed_codec);
           break;
         }
@@ -782,23 +748,19 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           input.ReadMessage(WinnerPlayer);
           break;
         }
-        case 56: {
-          CurrentRound = input.ReadUInt64();
-          break;
-        }
-        case 66: {
+        case 58: {
           selectedCharacters_.AddEntriesFrom(ref input, _map_selectedCharacters_codec);
           break;
         }
-        case 72: {
+        case 64: {
           PlayerTimestamp = input.ReadInt64();
           break;
         }
-        case 80: {
+        case 72: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 90: {
+        case 82: {
           killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
           break;
         }
@@ -2995,6 +2957,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     players_ = other.players_.Clone();
     removedPlayerId_ = other.removedPlayerId_;
     gameConfig_ = other.gameConfig_ != null ? other.gameConfig_.Clone() : null;
+    serverHash_ = other.serverHash_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3111,6 +3074,18 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
   }
 
+  /// <summary>Field number for the "server_hash" field.</summary>
+  public const int ServerHashFieldNumber = 10;
+  private string serverHash_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ServerHash {
+    get { return serverHash_; }
+    set {
+      serverHash_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -3135,6 +3110,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     if(!players_.Equals(other.players_)) return false;
     if (RemovedPlayerId != other.RemovedPlayerId) return false;
     if (!object.Equals(GameConfig, other.GameConfig)) return false;
+    if (ServerHash != other.ServerHash) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -3151,6 +3127,7 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     hash ^= players_.GetHashCode();
     if (RemovedPlayerId != 0UL) hash ^= RemovedPlayerId.GetHashCode();
     if (gameConfig_ != null) hash ^= GameConfig.GetHashCode();
+    if (ServerHash.Length != 0) hash ^= ServerHash.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -3202,6 +3179,10 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
       output.WriteRawTag(74);
       output.WriteMessage(GameConfig);
     }
+    if (ServerHash.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(ServerHash);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3245,6 +3226,10 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
       output.WriteRawTag(74);
       output.WriteMessage(GameConfig);
     }
+    if (ServerHash.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(ServerHash);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -3279,6 +3264,9 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
     if (gameConfig_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(GameConfig);
+    }
+    if (ServerHash.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ServerHash);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -3319,6 +3307,9 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
         GameConfig = new global::ServerGameSettings();
       }
       GameConfig.MergeFrom(other.GameConfig);
+    }
+    if (other.ServerHash.Length != 0) {
+      ServerHash = other.ServerHash;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -3375,6 +3366,10 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
           input.ReadMessage(GameConfig);
           break;
         }
+        case 82: {
+          ServerHash = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -3428,6 +3423,10 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
             GameConfig = new global::ServerGameSettings();
           }
           input.ReadMessage(GameConfig);
+          break;
+        }
+        case 82: {
+          ServerHash = input.ReadString();
           break;
         }
       }

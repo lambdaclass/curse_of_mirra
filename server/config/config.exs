@@ -71,6 +71,11 @@ config :phoenix, :json_library, Jason
 # Configures game GenServer
 config :dark_worlds_server, DarkWorldsServer.Engine.Runner, process_priority: :high
 
+# Configure server hash
+{hash, _} = System.cmd("git", ["rev-parse", "--short=8", "HEAD"])
+hash = String.trim(hash)
+config :dark_worlds_server, :information, version_hash: hash
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 case Mix.env() do

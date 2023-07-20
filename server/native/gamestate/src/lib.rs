@@ -137,13 +137,6 @@ fn disconnect(game: GameState, player_id: u64) -> Result<GameState, String> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn new_round(game: GameState, players: Vec<Player>) -> Result<GameState, String> {
-    let mut game = game;
-    game.new_round(players)?;
-    Ok(game)
-}
-
-#[rustler::nif(schedule = "DirtyCpu")]
 fn move_with_joystick(
     game: GameState,
     player_id: u64,
@@ -189,7 +182,6 @@ rustler::init!(
         world_tick,
         disconnect,
         move_with_joystick,
-        new_round,
         spawn_player,
         basic_attack,
         skill_1,

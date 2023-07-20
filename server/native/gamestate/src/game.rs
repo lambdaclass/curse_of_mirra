@@ -4,7 +4,7 @@ use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
-use crate::utils::RelativePosition;
+use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::f32::consts::PI;
@@ -124,31 +124,6 @@ impl GameState {
         })
     }
 
-    pub fn new_round(self: &mut Self, players: Vec<Player>) -> Result<(), String> {
-        let mut positions = HashSet::new();
-        let mut players: Vec<Player> = players;
-
-        let mut board = Board::new(self.board.width, self.board.height);
-
-        for player in players.iter_mut() {
-            let new_position =
-                generate_new_position(&mut positions, self.board.width, self.board.height);
-            player.position.x = new_position.x;
-            player.position.y = new_position.y;
-            player.health = 100;
-            player.status = Status::ALIVE;
-            board.set_cell(
-                player.position.x,
-                player.position.y,
-                Tile::Player(player.id),
-            )?;
-        }
-
-        self.players = players;
-        self.board = board;
-        Ok(())
-    }
-
     pub fn move_player(
         self: &mut Self,
         player_id: u64,
@@ -199,25 +174,13 @@ impl GameState {
         attacking_player: &mut Player,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        // TODO: 120 should be a config. It's the realtion between front range in skills and
-        // the distance in the back.
-        let new_position_x = attacking_player.position.x as i64 - (direction.y * 120f32) as i64;
-        let new_position_y = attacking_player.position.y as i64 + (direction.x * 120f32) as i64;
+        let new_position_coordinates = GameState::new_position(
+            attacking_player.position,
+            direction,
+            board.height,
+            board.width,
+        );
 
-        // These changes are done so that if the player is moving into one of the map's borders
-        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
-        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
-        // something invalid like (0, -1).
-
-        let new_position_x = min(new_position_x, (board.height - 1).try_into().unwrap());
-        let new_position_x = max(new_position_x, 0);
-        let new_position_y = min(new_position_y, (board.height - 1).try_into().unwrap());
-        let new_position_y = max(new_position_y, 0);
-
-        let new_position_coordinates = Position {
-            x: new_position_x as usize,
-            y: new_position_y as usize,
-        };
         // Remove the player from their previous position on the board
         board.set_cell(
             attacking_player.position.x,
@@ -234,6 +197,33 @@ impl GameState {
         )?;
 
         Ok(())
+    }
+
+    pub fn new_position(
+        initial_position: Position,
+        direction: &RelativePosition,
+        board_height: usize,
+        board_width: usize,
+    ) -> Position {
+        // TODO: 120 should be a config. It's the realtion between front range in skills and
+        // the distance in the back.
+        let new_position_x = initial_position.x as i64 - (direction.y * 1200f32) as i64;
+        let new_position_y = initial_position.y as i64 + (direction.x * 1200f32) as i64;
+
+        // These changes are done so that if the player is moving into one of the map's borders
+        // but is not already on the edge, they move to the edge. In simpler terms, if the player is
+        // trying to move from (0, 1) to the left, this ensures that new_position is (0, 0) instead of
+        // something invalid like (0, -1).
+
+        let new_position_x = min(new_position_x, (board_height - 1).try_into().unwrap());
+        let new_position_x = max(new_position_x, 0);
+        let new_position_y = min(new_position_y, (board_width - 1).try_into().unwrap());
+        let new_position_y = max(new_position_y, 0);
+
+        Position {
+            x: new_position_x as usize,
+            y: new_position_y as usize,
+        }
     }
 
     // Takes the raw value from Unity's joystick
@@ -257,7 +247,7 @@ impl GameState {
             return Ok(());
         }
 
-        if player.character.name == Name::H4ck && player.has_active_effect(&Effect::NeonCrashing) {
+        if !player.can_move() {
             return Ok(());
         }
 
@@ -308,40 +298,38 @@ impl GameState {
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
-    pub fn get_player(self: &Self, player_id: u64) -> Result<Player, String> {
-        self.players
+    pub fn get_player(players: &Vec<Player>, player_id: u64) -> Result<&Player, String> {
+        players
             .get((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
-            .cloned()
     }
 
-    // Return all player_id inside an area
-    pub fn players_in_range(board: &Board, top_left: Position, bottom_right: Position) -> Vec<u64> {
-        let mut players: Vec<u64> = vec![];
-        for fil in top_left.x..=bottom_right.x {
-            for col in top_left.y..=bottom_right.y {
-                let cell = board.get_cell(fil, col);
-                if cell.is_none() {
-                    continue;
-                }
-                match cell.unwrap() {
-                    Tile::Player(player_id) => {
-                        players.push(player_id);
-                    }
-                    _ => continue,
-                }
+    // Return all player_id in range and not dead
+    pub fn players_in_range(
+        players: &Vec<Player>,
+        attacking_position: &Position,
+        range: f64,
+    ) -> Vec<u64> {
+        let mut players_in_range: Vec<u64> = vec![];
+        for player in players {
+            if distance_between_positions(&player.position, attacking_position) <= range
+                && !matches!(player.status, Status::DEAD)
+            {
+                players_in_range.push(player.id);
             }
         }
-        players
+        players_in_range
     }
 
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
-        players: &mut Vec<Player>,
+        players: &Vec<Player>,
         previous_position: Position,
         next_position: Position,
-    ) -> Vec<u64> {
-        let mut affected_players: Vec<u64> = vec![];
+    ) -> HashMap<u64, f64> {
+        let mut affected_players: HashMap<u64, f64> = HashMap::new();
+
+        let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
 
         let (p1, p2) = match previous_position.x < next_position.x {
             true => (previous_position, next_position),
@@ -351,7 +339,7 @@ impl GameState {
         };
 
         players
-            .iter_mut()
+            .iter()
             .filter(|player| {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
@@ -391,7 +379,10 @@ impl GameState {
                 };
 
                 if player_attacked {
-                    affected_players.push(player.id);
+                    affected_players.insert(
+                        player.id,
+                        distance_to_center(attacking_player, &player.position),
+                    );
                 }
             });
 
@@ -405,7 +396,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left, true) {
             return Ok(());
         }
 
@@ -423,9 +414,14 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                let attacking_player = GameState::get_player(&self, attacking_player_id)?;
-                let players = &mut self.players;
-                Self::muflus_basic_attack(&mut self.board, players, &attacking_player, direction)
+                let players = &self.players.clone();
+                let attacking_player = GameState::get_player(players, attacking_player_id)?;
+                Self::muflus_basic_attack(
+                    &mut self.board,
+                    &mut self.players,
+                    attacking_player,
+                    direction,
+                )
             }
             Name::DAgna => {
                 let attacking_player = GameState::get_player(&self, attacking_player_id)?;
@@ -452,7 +448,7 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                10,
+                100,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -468,37 +464,6 @@ impl GameState {
         Ok(Vec::new())
     }
 
-    // TODO: Refactor this
-    pub fn position_to_direction(position: &RelativePosition) -> Direction {
-        if position.x > 0f32 && position.y > 0f32 {
-            if position.x > position.y {
-                return Direction::RIGHT;
-            } else {
-                return Direction::UP;
-            }
-        } else if position.x > 0f32 && position.y <= 0f32 {
-            if position.x > -position.y {
-                return Direction::RIGHT;
-            } else {
-                return Direction::DOWN;
-            }
-        } else if position.x <= 0f32 && position.y > 0f32 {
-            if -position.x > position.y {
-                return Direction::LEFT;
-            } else {
-                return Direction::UP;
-            }
-        } else if position.x <= 0f32 && position.y <= 0f32 {
-            if -position.x > -position.y {
-                return Direction::LEFT;
-            } else {
-                return Direction::DOWN;
-            }
-        } else {
-            return Direction::UP;
-        }
-    }
-
     pub fn muflus_basic_attack(
         board: &mut Board,
         players: &mut Vec<Player>,
@@ -506,20 +471,19 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_direction = Self::position_to_direction(direction);
-
-        // TODO: This should be a config of the attack
-        let attack_range = 40;
-        let (top_left, bottom_right) = compute_attack_initial_positions(
-            &(attack_direction),
-            &(attacking_player.position),
-            attack_range,
+        let attack_position = Position::new(
+            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
+            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
         );
 
-        let affected_players: Vec<u64> = GameState::players_in_range(board, top_left, bottom_right)
-            .into_iter()
-            .filter(|&id| id != attacking_player.id)
-            .collect();
+        // TODO: This should be a config of the attack
+        let attack_range = 100.;
+
+        let affected_players: Vec<u64> =
+            GameState::players_in_range(players, &attack_position, attack_range)
+                .into_iter()
+                .filter(|&id| id != attacking_player.id)
+                .collect();
 
         let mut kill_count = 0;
         for target_player_id in affected_players.iter() {
@@ -623,7 +587,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left, false) {
             return Ok(());
         }
 
@@ -675,11 +639,11 @@ impl GameState {
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
-                    10,
+                    100,
                     1,
                     attacking_player.id,
                     attacking_player.skill_1_damage(),
-                    10,
+                    30,
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
@@ -697,17 +661,15 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<Vec<u64>, String> {
+        let pys = players.clone();
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.skill_1_damage() as i64;
 
         // TODO: This should be a config of the attack
-        let attack_range = 40;
-
-        let (top_left, bottom_right) =
-            compute_aoe_initial_positions(&(attacking_player.position), attack_range);
+        let attack_range = 350.;
 
         let mut affected_players: Vec<u64> =
-            GameState::players_in_range(board, top_left, bottom_right)
+            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
@@ -749,7 +711,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left, false) {
             return Ok(());
         }
 
@@ -784,7 +746,7 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                14,
+                140,
                 10,
                 attacking_player.id,
                 0,
@@ -808,6 +770,7 @@ impl GameState {
                 time_left: attacking_player.character.duration_skill_2(),
                 ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
                 direction: None,
+                position: None,
             },
         );
         Ok(Vec::new())
@@ -820,36 +783,65 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left, false) {
             return Ok(());
         }
 
         let now = time_now();
-        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
+                attacking_player.action = PlayerAction::EXECUTINGSKILL3;
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
                         time_left: attacking_player.character.duration_skill_3(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
                         direction: Some(*direction),
+                        position: None,
                     },
                 );
 
-                Ok(Vec::new())
+                Vec::new()
             }
             Name::Muflus => {
-                let id = attacking_player.id;
-                Self::leap(&mut self.board, id, direction, &mut self.players)
+                let position = GameState::new_position(
+                    attacking_player.position,
+                    direction,
+                    self.board.height,
+                    self.board.width,
+                );
+                let distance = distance_between_positions(&attacking_player.position, &position);
+                let time = distance * attacking_player.speed() as f64 / 48.;
+
+                attacking_player.add_effect(
+                    Effect::Leaping.clone(),
+                    EffectData {
+                        time_left: MillisTime {
+                            high: 0,
+                            low: time as u64,
+                        },
+                        ends_at: add_millis(
+                            now,
+                            MillisTime {
+                                high: 0,
+                                low: time as u64,
+                            },
+                        ),
+                        direction: Some(*direction),
+                        position: Some(position),
+                    },
+                );
+
+                Vec::new()
             }
-            _ => Ok(Vec::new()),
+            _ => Vec::new(),
         };
 
-        self.update_killfeed(attacking_player_id, attacked_player_ids?);
+        self.update_killfeed(attacking_player_id, attacked_player_ids);
         Ok(())
     }
 
@@ -860,7 +852,7 @@ impl GameState {
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
-        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left) {
+        if !attacking_player.can_attack(attacking_player.skill_4_cooldown_left, false) {
             return Ok(());
         }
 
@@ -877,6 +869,7 @@ impl GameState {
                         time_left: attacking_player.character.duration_skill_4(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
                         direction: None,
+                        position: None,
                     },
                 );
                 Ok(Vec::new())
@@ -899,19 +892,39 @@ impl GameState {
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
         let now = time_now();
+        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let pys = self.players.clone();
+        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
+
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             println!("{:?}", player.effects);
             player.effects.retain(
-                |_,
+                |effect,
                  EffectData {
                      time_left, ends_at, ..
                  }| {
                     *time_left = sub_millis(*ends_at, now);
+
+                    if player.character.name == Name::Muflus
+                        && millis_to_u128(*time_left) == 0
+                        && effect == &Effect::Leaping
+                    {
+                        player.action = PlayerAction::EXECUTINGSKILL3;
+                        leap_affected_players = GameState::affected_players(
+                            20,
+                            200.,
+                            &pys,
+                            &player.position,
+                            player.id,
+                        );
+                    }
+
                     millis_to_u128(*time_left) > 0
                 },
             );
@@ -933,45 +946,90 @@ impl GameState {
                             speed,
                         )
                         .unwrap();
+
+                        neon_crash_affected_players =
+                            GameState::affected_players(2, 200., &pys, &player.position, player.id);
+                    }
+                    _ => {}
+                }
+            }
+
+            if player.character.name == Name::Muflus {
+                match player.effects.get(&Effect::Leaping) {
+                    Some(EffectData {
+                        direction: Some(direction),
+                        ..
+                    }) => {
+                        let speed = player.speed() as i64;
+                        GameState::move_player_to_direction(
+                            &mut self.board,
+                            player.id,
+                            &mut player.position,
+                            direction,
+                            speed,
+                        )
+                        .unwrap();
                     }
                     _ => {}
                 }
             }
         });
 
-        self.projectiles.retain(|projectile| {
-            projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
-        });
+        // Neon Crash Attack
+        // We can have more than one h4ck attacking
+        GameState::attack_players_with_effect(
+            neon_crash_affected_players,
+            &mut self.players,
+            &mut self.board,
+        )?;
 
-        self.projectiles.iter_mut().for_each(|projectile| {
-            projectile.move_or_explode_if_out_of_board(self.board.height, self.board.width);
-            projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
-        });
+        // Leap Attack
+        // We can have more than one muflus attacking
+        GameState::attack_players_with_effect(
+            leap_affected_players,
+            &mut self.players,
+            &mut self.board,
+        )?;
+
+        // Update projectiles
+        // - Retain active projectiles
+        // - Update positions
+        GameState::update_projectiles(&mut self.projectiles, self.board.height, self.board.width);
 
         let mut tick_killed_events: Vec<KillEvent> = Vec::new();
 
         for projectile in self.projectiles.iter_mut() {
             if projectile.status == ProjectileStatus::ACTIVE {
-                let affected_players: Vec<u64> = GameState::players_in_projectile_movement(
-                    projectile.player_id,
-                    &mut self.players,
-                    projectile.prev_position,
-                    projectile.position,
-                )
-                .into_iter()
-                .filter(|&id| {
-                    id != projectile.player_id && id != projectile.last_attacked_player_id
-                })
-                .collect();
+                let affected_players: HashMap<u64, f64> =
+                    GameState::players_in_projectile_movement(
+                        projectile.player_id,
+                        &self.players,
+                        projectile.prev_position,
+                        projectile.position,
+                    )
+                    .into_iter()
+                    .filter(|&(id, _distance)| {
+                        id != projectile.player_id && id != projectile.last_attacked_player_id
+                    })
+                    .collect();
 
                 if affected_players.len() > 0 && !projectile.pierce {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
 
                 let mut kill_count = 0;
-                for target_player_id in affected_players {
+
+                // A projectile should attack only one player per tick
+                if affected_players.len() > 0 {
+                    // if there are more than one player affected by the projectile
+                    // finde the nearest one
+                    let (attacked_player_id, _) = affected_players
+                        .iter()
+                        .min_by(|a, b| cmp_float(*a.1, *b.1))
+                        .unwrap();
+
                     let attacked_player =
-                        GameState::get_player_mut(&mut self.players, target_player_id)?;
+                        GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
 
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
@@ -981,6 +1039,7 @@ impl GameState {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
+                                    position: None,
                                 },
                             );
                         }
@@ -1000,9 +1059,9 @@ impl GameState {
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
-                }
 
-                add_kills(&mut self.players, projectile.player_id, kill_count)?;
+                    add_kills(&mut self.players, projectile.player_id, kill_count)?;
+                }
             }
         }
 
@@ -1013,11 +1072,72 @@ impl GameState {
         Ok(())
     }
 
+    fn update_projectiles(
+        projectiles: &mut Vec<Projectile>,
+        board_height: usize,
+        board_width: usize,
+    ) {
+        projectiles.retain(|projectile| {
+            projectile.remaining_ticks > 0 && projectile.status == ProjectileStatus::ACTIVE
+        });
+
+        projectiles.iter_mut().for_each(|projectile| {
+            projectile.move_or_explode_if_out_of_board(board_height, board_width);
+            projectile.remaining_ticks = projectile.remaining_ticks.saturating_sub(1);
+        });
+    }
+
     fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
         if matches!(player.status, Status::DEAD) {
             board.set_cell(player.position.x, player.position.y, Tile::Empty)?
         }
         Ok(())
+    }
+
+    fn attack_players_with_effect(
+        affected_players: HashMap<u64, (i64, Vec<u64>)>,
+        players: &mut Vec<Player>,
+        board: &mut Board,
+    ) -> Result<(), String> {
+        for (player_id, (damage, attacked_players)) in affected_players.iter() {
+            for target_player_id in attacked_players.iter() {
+                let attacked_player = players
+                    .iter_mut()
+                    .find(|player| player.id == *target_player_id && player.id != *player_id);
+
+                match attacked_player {
+                    Some(ap) => {
+                        ap.modify_health(-damage);
+                        let player = ap.clone();
+                        GameState::modify_cell_if_player_died(board, &player)?;
+                    }
+                    _ => continue,
+                }
+            }
+        }
+        Ok(())
+    }
+
+    fn affected_players(
+        attack_damage: i64,
+        attack_range: f64,
+        players: &Vec<Player>,
+        attacking_player_position: &Position,
+        attacking_player_id: u64,
+    ) -> HashMap<u64, (i64, Vec<u64>)> {
+        let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+
+        let affected_players: Vec<u64> =
+            GameState::players_in_range(players, attacking_player_position, attack_range)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+        afp.insert(
+            attacking_player_id,
+            (attack_damage, affected_players.clone()),
+        );
+
+        afp
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
@@ -1249,6 +1369,13 @@ fn compute_aoe_initial_positions(
 fn distance_to_center(player: &Player, center: &Position) -> f64 {
     let distance_squared =
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
+    (distance_squared as f64).sqrt()
+}
+
+#[allow(dead_code)]
+fn distance_between_positions(position_1: &Position, position_2: &Position) -> f64 {
+    let distance_squared =
+        (position_1.x - position_2.x).pow(2) + (position_1.y - position_2.y).pow(2);
     (distance_squared as f64).sqrt()
 }
 

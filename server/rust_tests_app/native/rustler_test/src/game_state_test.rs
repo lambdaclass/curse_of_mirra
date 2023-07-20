@@ -277,9 +277,10 @@ pub fn cant_move_if_petrified() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None});
+        }), direction: None, position: None});
     let player_id = 1;
-    let mut player = state.get_player(player_id)?;
+    let players = state.players.clone();
+    let player = GameState::get_player(&players, player_id)?;
 
     // Sleep 1 seconds and update status, the character should not be able to move.
     time_utils::sleep(time_utils::u128_to_millis(1000));
@@ -301,10 +302,10 @@ pub fn cant_move_if_petrified() -> TestResult {
     state.world_tick()?;
 
     state.move_player(player_id, Direction::DOWN)?;
-    player = state.get_player(player_id)?;
-    assert_result!(player.speed(), base_speed)?;
-    assert_result!(spawn_point.x + 1, player.position.x)?;
-    assert_result!(spawn_point.y, player.position.y)
+    let player2 = GameState::get_player(&state.players, player_id)?;
+    assert_result!(player2.speed(), base_speed)?;
+    assert_result!(spawn_point.x + 1, player2.position.x)?;
+    assert_result!(spawn_point.y, player2.position.y)
 }
 
 #[rustler::nif]
@@ -339,7 +340,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None});
+        }), direction: None, position: None});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2.clone()];
     state.board.set_cell(0, 0, Tile::Player(player_1_id))?;
