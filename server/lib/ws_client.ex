@@ -26,12 +26,6 @@ defmodule DarkWorldsServer.WsClient do
     GenServer.call(runner_pid, :get_players)
   end
 
-  def get_grid(session_id) do
-    runner_pid = Communication.external_id_to_pid(session_id)
-    state = Runner.get_game_state(runner_pid)
-    Game.get_grid(state.game)
-  end
-
   def set_character_muflus(player_id, session_id) do
     runner_pid = Communication.external_id_to_pid(session_id)
 

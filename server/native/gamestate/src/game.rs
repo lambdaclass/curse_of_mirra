@@ -91,26 +91,6 @@ impl GameState {
 
         let mut board = Board::new(board_width, board_height);
 
-        for player in players.clone() {
-            board.set_cell(
-                player.position.x,
-                player.position.y,
-                Tile::Player(player.id),
-            )?;
-        }
-
-        // We generate 10 random walls if walls is true
-        if build_walls {
-            for _ in 1..=10 {
-                let rng = &mut thread_rng();
-                let row_idx: usize = rng.gen_range(0..board_width);
-                let col_idx: usize = rng.gen_range(0..board_height);
-                if let Some(Tile::Empty) = board.get_cell(row_idx, col_idx) {
-                    board.set_cell(row_idx, col_idx, Tile::Wall)?;
-                }
-            }
-        }
-
         let projectiles = Vec::new();
 
         Ok(Self {
@@ -155,16 +135,8 @@ impl GameState {
 
         // let tile_to_move_to = tile_to_move_to(&self.board, &player.position, &new_position);
 
-        // Remove the player from their previous position on the board
-        self.board
-            .set_cell(player.position.x, player.position.y, Tile::Empty)?;
-
         player.position = new_position;
-        self.board.set_cell(
-            player.position.x,
-            player.position.y,
-            Tile::Player(player.id),
-        )?;
+
         Ok(())
     }
 
@@ -180,20 +152,7 @@ impl GameState {
             board.width,
         );
 
-        // Remove the player from their previous position on the board
-        board.set_cell(
-            attacking_player.position.x,
-            attacking_player.position.y,
-            Tile::Empty,
-        )?;
         attacking_player.position = new_position_coordinates;
-        // attacking_player.action = PlayerAction::TELEPORTING;
-
-        board.set_cell(
-            attacking_player.position.x,
-            attacking_player.position.y,
-            Tile::Player(attacking_player.id),
-        )?;
 
         Ok(())
     }
@@ -278,11 +237,7 @@ impl GameState {
             speed,
         );
 
-        board.set_cell(position.x, position.y, Tile::Empty)?;
-
         *position = new_position;
-
-        board.set_cell(position.x, position.y, Tile::Player(player_id))?;
 
         Ok(())
     }
@@ -486,7 +441,6 @@ impl GameState {
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
-            GameState::modify_cell_if_player_died(board, &attacked_player)?;
         }
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
@@ -597,7 +551,6 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player)?;
                 }
                 _ => continue,
             }
@@ -962,10 +915,6 @@ impl GameState {
                                 });
                                 kill_count += 1;
                             }
-                            GameState::modify_cell_if_player_died(
-                                &mut self.board,
-                                attacked_player,
-                            )?;
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
@@ -997,13 +946,6 @@ impl GameState {
         });
     }
 
-    fn modify_cell_if_player_died(board: &mut Board, player: &Player) -> Result<(), String> {
-        if matches!(player.status, Status::DEAD) {
-            board.set_cell(player.position.x, player.position.y, Tile::Empty)?
-        }
-        Ok(())
-    }
-
     fn attack_players_with_effect(
         affected_players: HashMap<u64, (i64, Vec<u64>)>,
         players: &mut Vec<Player>,
@@ -1019,7 +961,6 @@ impl GameState {
                     Some(ap) => {
                         ap.modify_health(-damage);
                         let player = ap.clone();
-                        GameState::modify_cell_if_player_died(board, &player)?;
                     }
                     _ => continue,
                 }
@@ -1054,17 +995,8 @@ impl GameState {
         let mut tried_positions = HashSet::new();
         let mut position: Position;
 
-        loop {
-            position =
-                generate_new_position(&mut tried_positions, self.board.width, self.board.height);
-            if let Some(Tile::Empty) = self.board.get_cell(position.x, position.y) {
-                break;
-            }
-        }
+        position = generate_new_position(&mut tried_positions, self.board.width, self.board.height);
 
-        self.board
-            .set_cell(position.x, position.y, Tile::Player(player_id))
-            .unwrap();
         self.players
             .push(Player::new(player_id, 100, position, Default::default()));
     }
