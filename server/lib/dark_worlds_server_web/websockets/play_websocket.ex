@@ -17,8 +17,9 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   def init(req, _opts) do
     game_id = :cowboy_req.binding(:game_id, req)
     player_id = :cowboy_req.binding(:player_id, req)
+    client_id = :cowboy_req.binding(:client_id, req)
     client_hash = :cowboy_req.header("dark-worlds-client-hash", req)
-    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_hash: client_hash}}
+    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_id: client_id, client_hash: client_hash}}
   end
 
   @impl true
@@ -30,17 +31,21 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:stop, %{}}
   end
 
+  def websocket_init(%{client_id: :undefined}) do
+    {:stop, %{}}
+  end
+
   # Uncomment to enable hash verification of client and server
   # def websocket_init(%{client_hash: hash}) when hash != @server_hash do
   #   {:stop, :version_mismatch}
   # end
 
-  def websocket_init(%{game_id: game_id, player_id: player_id}) do
+  def websocket_init(%{game_id: game_id, player_id: player_id, client_id: client_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
-         {:ok, player_id} <- Runner.join(runner_pid, String.to_integer(player_id)) do
+         {:ok, player_id} <- Runner.join(runner_pid, client_id, String.to_integer(player_id)) do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
