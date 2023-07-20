@@ -27,10 +27,6 @@ defmodule DarkWorldsServer.PlayerTest do
     end)
   end
 
-  defp is_wall_or_player?({:player, _}), do: true
-  defp is_wall_or_player?(:wall), do: true
-  defp is_wall_or_player?(_), do: false
-
   defp create_session(config) do
     {:ok, session_id} = DarkWorldsServer.Engine.start_child(%{players: [1], game_config: config})
     DarkWorldsServer.Communication.pid_to_external_id(session_id)
