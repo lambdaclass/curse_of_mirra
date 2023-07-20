@@ -45,6 +45,8 @@ public class SocketConnectionManager : MonoBehaviour
 
     WebSocket ws;
 
+    private string clientId;
+
     public class Session
     {
         public string session_id { get; set; }
@@ -68,6 +70,7 @@ public class SocketConnectionManager : MonoBehaviour
             this.server_ip = LobbyConnection.Instance.server_ip;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
             this.serverHash = LobbyConnection.Instance.serverHash;
+            this.clientId = LobbyConnection.Instance.clientId;
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
         }
@@ -92,7 +95,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string session_id)
     {
-        string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
+        string url = makeWebsocketUrl("/play/" + session_id + "/" + this.clientId + "/" + playerId);
         print(url);
         Dictionary<string, string> headers =new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());

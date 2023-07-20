@@ -26,6 +26,7 @@ public class LobbyConnection : MonoBehaviour
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
     public bool gameStarted = false;
+    public string clientId;
 
     WebSocket ws;
 
@@ -58,6 +59,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
+        LoadClientId();
         PopulateLists();
     }
 
@@ -90,6 +92,16 @@ public class LobbyConnection : MonoBehaviour
         this.gamesList = new List<string>();
         StartCoroutine(GetLobbies());
         StartCoroutine(GetGames());
+    }
+
+    private void LoadClientId()
+    {
+        if (!PlayerPrefs.HasKey("client_id")) {
+            Guid g = Guid.NewGuid();
+            PlayerPrefs.SetString("client_id", g.ToString());
+        }
+
+        this.clientId = PlayerPrefs.GetString("client_id");
     }
 
     public void CreateLobby()
