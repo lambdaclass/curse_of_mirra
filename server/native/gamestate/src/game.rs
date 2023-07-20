@@ -729,6 +729,7 @@ impl GameState {
                 let distance = distance_between_positions(&attacking_player.position, &position);
                 let time = distance * attacking_player.speed() as f64 / 48.;
 
+                attacking_player.action = PlayerAction::STARTINGSKILL3;
                 attacking_player.add_effect(
                     Effect::Leaping.clone(),
                     EffectData {
@@ -826,7 +827,7 @@ impl GameState {
                         && millis_to_u128(*time_left) == 0
                         && effect == &Effect::Leaping
                     {
-                        player.action = PlayerAction::FINISHINGSKILL3;
+                        player.action = PlayerAction::EXECUTINGSKILL3;
                         leap_affected_players = GameState::affected_players(
                             20,
                             200.,
