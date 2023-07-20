@@ -4,7 +4,6 @@ defmodule DarkWorldsServer.WsClient do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.ClientAction
   alias DarkWorldsServer.Engine.ActionOk
-  alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.Runner
 
   @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
