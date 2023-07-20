@@ -3,12 +3,12 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
+use crate::time_utils::u128_to_millis;
 use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
 use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::f32::consts::PI;
-use crate::time_utils::u128_to_millis;
 
 use std::cmp::{max, min};
 use std::collections::HashMap;
@@ -427,9 +427,9 @@ impl GameState {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::dagna_basic_attack(
-                    &mut self.board, 
-                    &mut self.players, 
-                    &mut attacking_player.clone(), 
+                    &mut self.board,
+                    &mut self.players,
+                    &mut attacking_player.clone(),
                 )
             }
             _ => Ok(Vec::new()),
@@ -540,11 +540,14 @@ impl GameState {
         }
 
         // -- Large Area --
-        let mut affected_players_large_area: Vec<u64> =
-            GameState::players_in_range(players, &attacking_player.position, attack_range * 3.0_f64)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
+        let mut affected_players_large_area: Vec<u64> = GameState::players_in_range(
+            players,
+            &attacking_player.position,
+            attack_range * 3.0_f64,
+        )
+        .into_iter()
+        .filter(|&id| id != attacking_player_id)
+        .collect();
 
         for target_player_id in affected_players_large_area.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
@@ -561,7 +564,7 @@ impl GameState {
                 _ => continue,
             }
         }
-        
+
         // -- Slow down D'Agna --
         let slowed_effect_duration_in_milliseconds = u128_to_millis(1000);
         attacking_player.add_effect(
@@ -1222,10 +1225,7 @@ fn compute_attack_initial_positions(
     }
 }
 
-fn compute_aoe_initial_positions(
-    position: &Position,
-    range: usize,
-) -> (Position, Position) {
+fn compute_aoe_initial_positions(position: &Position, range: usize) -> (Position, Position) {
     let x = position.x;
     let y = position.y;
     (
