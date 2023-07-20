@@ -216,6 +216,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InnerLight_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1941365530076763453, guid: ddde9b3801b304df88b1d96901429c55,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8085879903594386912, guid: ddde9b3801b304df88b1d96901429c55,
         type: 3}
       propertyPath: m_RootOrder
