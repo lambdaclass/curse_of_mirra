@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -256,6 +257,15 @@ public class CustomLevelManager : LevelManager
     {
         print("ShowDeathSplash");
         deathSplash.SetActive(true);
+        SetCameraToRandomPlayer();
+    }
+
+    private void SetCameraToRandomPlayer()
+    {
+        var alivePlayers = Utils.GetAlivePlayers();
+        var rand = new System.Random();
+        var randomPlayer = alivePlayers.ElementAt(rand.Next(0, alivePlayers.Count()));
+        setCameraToPlayer(randomPlayer.Id);
     }
 
     private void InitializeAudio()

@@ -11,13 +11,6 @@ public class DeathSplashRanking : MonoBehaviour
 
     private int GetRanking()
     {
-        return GetAlivePlayers() + 1;
-    }
-
-    private int GetAlivePlayers()
-    {
-        return SocketConnectionManager.Instance.gamePlayers
-            .Where(player => player.Status == Status.Alive)
-            .Count();
+        return Utils.GetAlivePlayers().Count() + 1;
     }
 }

@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -31,6 +33,13 @@ public class Utils
     public static Player GetGamePlayer(ulong gamePlayerId)
     {
         return SocketConnectionManager.Instance.gamePlayers.Find(gp => gp.Id == gamePlayerId);
+    }
+
+    public static IEnumerable<Player> GetAlivePlayers()
+    {
+        return SocketConnectionManager.Instance.gamePlayers.Where(
+            player => player.Status == Status.Alive
+        );
     }
 
     public static MMSimpleObjectPooler SimpleObjectPooler(
