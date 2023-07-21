@@ -370,6 +370,11 @@ impl GameState {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
+            Name::Uma => {
+                let players = &self.players.clone();
+                let attacking_player = GameState::get_player(players, attacking_player_id)?;
+                Self::uma_basic_attack(&mut self.players, attacking_player, direction)
+            }
             _ => Ok(Vec::new()),
         };
 
@@ -439,6 +444,48 @@ impl GameState {
         Ok(affected_players)
     }
 
+    pub fn uma_basic_attack(
+        players: &mut Vec<Player>,
+        attacking_player: &Player,
+        direction: &RelativePosition,
+    ) -> Result<Vec<u64>, String> {
+        let attack_dmg = attacking_player.basic_skill_damage() as i64;
+        let attack_position = Position::new(
+            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
+            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
+        );
+
+        // TODO: This should be a config of the attack
+        let attack_range = 100.;
+
+        let affected_players: Vec<u64> =
+            GameState::players_in_range(players, &attack_position, attack_range)
+                .into_iter()
+                .filter(|&id| id != attacking_player.id)
+                .collect();
+
+        let mut kill_count = 0;
+        for target_player_id in affected_players.iter() {
+            let now = time_now();
+            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+            attacked_player.modify_health(-attack_dmg);
+            attacked_player.add_effect(
+                Effect::ElnarMark.clone(),
+                EffectData {
+                    time_left: attacking_player.character.duration_basic_skill(),
+                    ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                    direction: None,
+                    position: None,
+                },);
+            if matches!(attacked_player.status, Status::DEAD) {
+                kill_count += 1;
+            }
+        }
+        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
+
+        Ok(affected_players)
+    }
+
     pub fn skill_1(
         self: &mut Self,
         attacking_player_id: u64,
@@ -465,7 +512,13 @@ impl GameState {
             Name::Muflus => {
                 let players = &mut self.players;
                 Self::muflus_skill_1(players, attacking_player_id)
-            }
+            },
+            Name::Uma => Self::uma_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             _ => Ok(Vec::new()),
         };
 

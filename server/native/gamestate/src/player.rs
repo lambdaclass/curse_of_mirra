@@ -25,6 +25,9 @@ pub enum Effect {
     Raged,
     NeonCrashing,
     Leaping,
+    ElnarMark,
+    YugenMark,
+    XandaMark,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -169,7 +172,7 @@ impl Player {
                     }
                 }
                 _ => {
-                    self.effects.insert(e.clone(), ed);
+                    self.effects.insert(e, ed);
                 }
             }
         }
