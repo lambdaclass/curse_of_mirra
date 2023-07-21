@@ -208,33 +208,26 @@ public class PlayerMovement : MonoBehaviour
             case PlayerAction.Attacking:
                 actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
                 break;
+            case PlayerAction.StartingSkill1:
+                actualPlayer.GetComponent<Skill1>().StartFeedback();
+                break;
             case PlayerAction.ExecutingSkill1:
                 actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                break;
+            case PlayerAction.StartingSkill2:
+                actualPlayer.GetComponent<Skill2>().StartFeedback();
                 break;
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
                 break;
             case PlayerAction.StartingSkill3:
-                // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
-                if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
-                {
-                    actualPlayer.GetComponent<Skill3>().StartFeedback();
-                }
-                else
-                {
-                    actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                }
+                actualPlayer.GetComponent<Skill3>().StartFeedback();
                 break;
             case PlayerAction.ExecutingSkill3:
-                // FIXME: Temporary validation until FinishingSkill3 is changed to StartingSkill3
-                if (actualPlayer.GetComponent<Character>().CharacterModel.name == "Muflus")
-                {
-                    actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                }
-                else
-                {
-                    actualPlayer.GetComponent<Skill3>().StartFeedback();
-                }
+                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                break;
+            case PlayerAction.StartingSkill4:
+                actualPlayer.GetComponent<Skill4>().StartFeedback();
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
