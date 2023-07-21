@@ -27,6 +27,12 @@ public class LobbyConnection : MonoBehaviour
 
     public bool gameStarted = false;
     public string clientId;
+    public bool reconnect = false;
+    public string reconnectGameId;
+    public string reconnectPlayerId;
+    public Dictionary<ulong, string> reconnectPlayers;
+    public ServerGameSettings reconnectServerSettings;
+
 
     WebSocket ws;
 
@@ -48,6 +54,31 @@ public class LobbyConnection : MonoBehaviour
         public List<string> current_games;
     }
 
+    [Serializable]
+    public class CurrentGameResponse
+    {
+        public bool ongoing_game;
+        public string current_game_id;
+        public string current_game_player_id;
+        public List<Player> players;
+        public Configs game_config;
+
+        [Serializable]
+        public class Player
+        {
+            public ulong id;
+            public string character_name;
+        }
+
+        [Serializable]
+        public class Configs
+        {
+            public string runner_config;
+            public string character_config;
+            public string skills_config;
+        }
+    }
+
     class AcceptAllCertificates : CertificateHandler
     {
         protected override bool ValidateCertificate(byte[] certificateData)
@@ -60,6 +91,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         LoadClientId();
+        MaybeReconnect();
         PopulateLists();
     }
 
@@ -102,6 +134,11 @@ public class LobbyConnection : MonoBehaviour
         }
 
         this.clientId = PlayerPrefs.GetString("client_id");
+    }
+
+    private void MaybeReconnect()
+    {
+        StartCoroutine(GetCurrentGame());
     }
 
     public void CreateLobby()
@@ -147,6 +184,16 @@ public class LobbyConnection : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
+    }
+
+    public void Reconnect() {
+        this.reconnect = true;
+        this.GameSession = this.reconnectGameId;
+        this.playerId = Convert.ToUInt64(this.reconnectPlayerId);
+        this.serverSettings = this.reconnectServerSettings;
+        this.serverTickRate_ms = (uint) this.serverSettings.RunnerConfig.ServerTickrateMs;
+        // serverHash = lobby_event.ServerHash;
+        this.gameStarted = true;
     }
 
     private IEnumerator WaitLobbyCreated()
@@ -222,6 +269,41 @@ public class LobbyConnection : MonoBehaviour
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    IEnumerator GetCurrentGame()
+    {
+        string url = makeUrl("/player_game/" + this.clientId);
+        Debug.Log(url);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    CurrentGameResponse response = JsonUtility.FromJson<CurrentGameResponse>(
+                        webRequest.downloadHandler.text
+                    );
+
+                    if (response.ongoing_game)
+                    {
+                        this.reconnectGameId = response.current_game_id;
+                        this.reconnectPlayerId = response.current_game_player_id;
+                        this.playerCount = response.players.Count;
+
+                        this.reconnectPlayers = new Dictionary<ulong, string>();
+                        response.players.ForEach(player => this.reconnectPlayers.Add(player.id, player.character_name));
+
+                        this.reconnectServerSettings = parseReconnectServerSettings(response.game_config);
+                    }
                     break;
                 default:
                     break;
@@ -328,5 +410,27 @@ public class LobbyConnection : MonoBehaviour
     public bool isConnectionOpen()
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
+
+    private ServerGameSettings parseReconnectServerSettings(CurrentGameResponse.Configs configs)
+    {
+        JsonParser parser = new JsonParser(new JsonParser.Settings(100000)); //GameSettings
+
+        RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
+            configs.runner_config.TrimStart('\uFEFF')
+        );
+        CharacterConfig characters = parser.Parse<CharacterConfig>(
+            configs.character_config.TrimStart('\uFEFF')
+        );
+        SkillsConfig skills = parser.Parse<SkillsConfig>(
+            configs.skills_config.TrimStart('\uFEFF')
+        );
+
+        return new ServerGameSettings
+        {
+            RunnerConfig = parsedRunner,
+            CharacterConfig = characters,
+            SkillsConfig = skills,
+        };
     }
 }

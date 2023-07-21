@@ -2,8 +2,14 @@ defmodule DarkWorldsServerWeb.GameController do
   use DarkWorldsServerWeb, :controller
 
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Communication.Proto.CharacterConfig
+  alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
+  alias DarkWorldsServer.Communication.Proto.RunnerConfig
+  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
+  alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.PlayerTracker
+  alias DarkWorldsServer.Engine.Runner
 
   def current_games(conn, _params) do
     current_games_pids = Engine.list_runners_pids()
@@ -15,8 +21,53 @@ defmodule DarkWorldsServerWeb.GameController do
 
   def player_game(conn, %{"player_id" => player_id}) do
     case PlayerTracker.get_player_game(player_id) do
-      nil -> json(conn, %{current_game: nil})
-      {game_pid, game_player_id} -> json(conn, %{current_game: Communication.pid_to_external_id(game_pid), game_player_id: game_player_id})
+      nil ->
+        json(conn, %{ongoing_game: false})
+
+      {game_pid, game_player_id} ->
+        {%{game: %{players: players}}, %{game_config: game_config}} = Runner.get_game_state(game_pid)
+
+        players = Enum.map(players, fn player -> %{character_name: player.character_name, id: player.id} end)
+        game_config = Enum.reduce(game_config, %{}, &transform_config/2)
+
+        json(conn, %{
+          ongoing_game: true,
+          current_game_id: Communication.pid_to_external_id(game_pid),
+          current_game_player_id: game_player_id,
+          players: players,
+          game_config: game_config
+        })
     end
+  end
+
+  defp transform_config({:runner_config, config}, acc) do
+    do_transform_config(:runner_config, config, RunnerConfig, acc)
+  end
+
+  defp transform_config({:character_config, config}, acc) do
+    do_transform_config(:character_config, config, CharacterConfig, CharacterConfigItem, acc)
+  end
+
+  defp transform_config({:skills_config, config}, acc) do
+    do_transform_config(:skills_config, config, SkillsConfig, SkillConfigItem, acc)
+  end
+
+  defp transform_config({:__unknown_fields__, _}, acc) do
+    acc
+  end
+
+  defp do_transform_config(key, config, config_struct, acc) do
+    {:ok, character_config} =
+      struct!(config_struct, config)
+      |> Protobuf.JSON.encode()
+
+    Map.put(acc, key, character_config)
+  end
+
+  defp do_transform_config(key, config, config_struct, config_item_struct, acc) do
+    items = Enum.map(config[:Items], &struct!(config_item_struct, &1))
+    config = Map.put(config, :Items, items)
+
+    do_transform_config(key, config, config_struct, acc)
   end
 end
