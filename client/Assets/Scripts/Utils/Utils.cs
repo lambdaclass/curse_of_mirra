@@ -21,6 +21,11 @@ public class Utils
         return new Vector3(x, 1f, y);
     }
 
+    public static float transformBackendRadiusToFrontendRadius(float radius)
+    {
+        return radius * 100f / 5000;
+    }
+
     public static GameObject GetPlayer(ulong id)
     {
         return SocketConnectionManager.Instance.players.Find(

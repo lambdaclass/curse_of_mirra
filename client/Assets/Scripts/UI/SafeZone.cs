@@ -2,24 +2,26 @@ using UnityEngine;
 
 public class SafeZone : MonoBehaviour
 {
-    public static SafeZone instance;
-    public float safeZoneRadius;
-    public SpriteMask safeZone;
+    private const float MAX_SAFE_ZONE_RADIUS = 200f;
+    private const float MAX_SERVER_SAFE_ZONE_RADIUS = 5000f;
+    private float safeZoneRadius;
+    private SpriteMask safeZone;
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            return;
-        }
-        instance = this;
         safeZone = GetComponentInChildren<SpriteMask>();
-        safeZoneRadius = 200f;
+        safeZoneRadius = MAX_SAFE_ZONE_RADIUS;
     }
 
     private void Update()
     {
-        safeZoneRadius -= Time.deltaTime * 10f;
-        safeZone.transform.localScale = new Vector3(safeZoneRadius, safeZoneRadius, 1);
+        var radius = Utils.transformBackendRadiusToFrontendRadius(
+            SocketConnectionManager.Instance.playableRadius
+        );
+        safeZone.transform.localScale = new Vector3(radius, radius, 1);
+        var center = Utils.transformBackendPositionToFrontendPosition(
+            SocketConnectionManager.Instance.shrinkingCenter
+        );
+        safeZone.transform.position = center;
     }
 }
