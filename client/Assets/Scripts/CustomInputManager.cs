@@ -58,6 +58,19 @@ public class CustomInputManager : InputManager
 
     [SerializeField]
     TMP_Text Skill4Cooldown;
+
+    [SerializeField]
+    GameObject disarmObjectSkill1;
+
+    [SerializeField]
+    GameObject disarmObjectSkill2;
+
+    [SerializeField]
+    GameObject disarmObjectSkill3;
+
+    [SerializeField]
+    GameObject disarmObjectSkill4;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -66,6 +79,7 @@ public class CustomInputManager : InputManager
     private GameObject directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
+    private bool disarmed = false;
 
     protected override void Start()
     {
@@ -86,6 +100,27 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
+    }
+
+    public void ActivateDisarmEffect(bool isDisarmed)
+    {
+        if (disarmed != isDisarmed)
+        {
+            if (isDisarmed)
+            {
+                DisableButtons();
+                SkillBasic.GetComponent<CustomMMTouchButton>().Interactable = true;
+            }
+            else
+            {
+                EnableButtons();
+            }
+            disarmObjectSkill1.SetActive(isDisarmed);
+            disarmObjectSkill2.SetActive(isDisarmed);
+            disarmObjectSkill3.SetActive(isDisarmed);
+            disarmObjectSkill4.SetActive(isDisarmed);
+            disarmed = isDisarmed;
+        }
     }
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
@@ -300,7 +335,6 @@ public class CustomInputManager : InputManager
         {
             if (button != activeJoystick)
             {
-                // Try CustomMMTouchButton.DisableButton();
                 button.GetComponent<CustomMMTouchButton>().Interactable = false;
             }
         }
