@@ -82,6 +82,9 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:ELNAR_MARK, 6)
+  field(:YUGEN_MARK, 7)
+  field(:XANDA_MARK, 8)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do

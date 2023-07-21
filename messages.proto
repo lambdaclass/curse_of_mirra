@@ -183,6 +183,9 @@ enum PlayerEffect {
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
+    ELNAR_MARK = 6;
+    YUGEN_MARK = 7;
+    XANDA_MARK = 8;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

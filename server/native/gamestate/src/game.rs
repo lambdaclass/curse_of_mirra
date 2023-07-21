@@ -3,7 +3,9 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
+use crate::time_utils::{
+    add_millis, millis_to_u128, sub_millis, time_now, MillisTime,
+};
 use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -393,13 +395,13 @@ impl GameState {
         if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = attacking_player.has_active_effect(&Effect::Piercing);
 
-            let projectile_direction = match Self::nearest_position_player(
+            let projectile_direction = match Self::nearest_player(
                 players,
                 &attacking_player.position,
                 attacking_player.id,
                 1000.,
             ) {
-                Some(position) => RelativePosition::new(
+                Some((_player_id, position)) => RelativePosition::new(
                     position.y as f32 - attacking_player.position.y as f32,
                     -(position.x as f32 - attacking_player.position.x as f32),
                 ),
@@ -426,13 +428,13 @@ impl GameState {
         Ok(Vec::new())
     }
 
-    fn nearest_position_player(
+    fn nearest_player(
         players: &Vec<Player>,
         position: &Position,
         attacking_player_id: u64,
         max_distance: f64,
-    ) -> Option<Position> {
-        let mut nearest_player_position = None;
+    ) -> Option<(u64, Position)> {
+        let mut nearest_player = None;
         let mut nearest_distance = max_distance;
         let mut lowest_hp = 100;
 
@@ -441,13 +443,13 @@ impl GameState {
                 let distance = distance_to_center(player, position);
                 if distance < nearest_distance && player.health <= lowest_hp {
                     lowest_hp = player.health;
-                    nearest_player_position = Some(player.position);    
+                    nearest_player = Some((player.id, player.position));    
                     nearest_distance = distance;
                 }
             }
         }
 
-        nearest_player_position
+        nearest_player
     }
 
     pub fn muflus_basic_attack(
@@ -530,6 +532,7 @@ impl GameState {
         attacking_player_id: u64,
         direction: &RelativePosition,
     ) -> Result<(), String> {
+        let pys = self.players.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left, false) {
@@ -552,12 +555,32 @@ impl GameState {
                 let players = &mut self.players;
                 Self::muflus_skill_1(players, attacking_player_id)
             },
-            Name::Uma => Self::uma_skill_1(
-                &attacking_player,
-                direction,
-                &mut self.projectiles,
-                &mut self.next_projectile_id,
-            ),
+            Name::Uma => {
+                let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
+                let duration = attacking_player.character.duration_skill_1();
+                match Self::nearest_player(
+                    &pys,
+                    &attacking_player.position,
+                    attacking_player.id,
+                    1000.,
+                ) {
+                    Some((player_id, _position)) => {
+                        let attacked_player = GameState::get_player_mut(&mut self.players, player_id)?;
+                        attacked_player.add_effect(
+                            Effect::YugenMark.clone(),
+                        EffectData {
+                            time_left: duration,
+                            ends_at: add_millis(now, duration),
+                            direction: None,
+                            position: None,
+                        },
+                        )
+
+                    },
+                    None => (),
+                };
+                Ok(Vec::new())
+            },
             _ => Ok(Vec::new()),
         };
 
@@ -996,12 +1019,23 @@ impl GameState {
             }
         }
 
+        self.check_and_damage_poisoned_players();
+
         self.next_killfeed.append(&mut tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
         Ok(())
     }
+
+    fn check_and_damage_poisoned_players(self: &mut Self) {
+        self.players.iter_mut().for_each(|player| {
+            if player.has_active_effect(&Effect::YugenMark) {
+                println!("Player {} has Yugen Mark", player.id);
+            }
+        });
+    }
+
 
     fn update_projectiles(
         projectiles: &mut Vec<Projectile>,

@@ -398,4 +398,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
   defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
+  defp effect_encode({:elnar_mark, %{ends_at: ends_at}}), do: {6, ends_at}
+  defp effect_encode({:yugen_mark, %{ends_at: ends_at}}), do: {7, ends_at}
+  defp effect_encode({:xanda_mark, %{ends_at: ends_at}}), do: {8, ends_at}
 end
