@@ -18,10 +18,11 @@ public class SafeZone : MonoBehaviour
         var radius = Utils.transformBackendRadiusToFrontendRadius(
             SocketConnectionManager.Instance.playableRadius
         );
-        safeZone.transform.localScale = new Vector3(radius, radius, 1);
+        safeZone.transform.localScale = new Vector3(radius, radius, 2);
         var center = Utils.transformBackendPositionToFrontendPosition(
             SocketConnectionManager.Instance.shrinkingCenter
         );
+        center.y += 3.3f;
         safeZone.transform.position = center;
     }
 }
