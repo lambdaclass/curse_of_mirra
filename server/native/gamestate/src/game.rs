@@ -727,7 +727,7 @@ impl GameState {
                     self.board.width,
                 );
                 let distance = distance_between_positions(&attacking_player.position, &position);
-                let time = distance * attacking_player.speed() as f64 / 48.;
+                let time = distance * attacking_player.character.base_speed as f64 / 48.;
 
                 attacking_player.action = PlayerAction::STARTINGSKILL3;
                 attacking_player.add_effect(

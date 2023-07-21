@@ -370,7 +370,9 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.red;
-                characterSpeed *= 1.5f;
+                characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
+                    ? 4f
+                    : 1.5f;
             }
             else
             {
@@ -378,6 +380,10 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.white;
+                if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
+                {
+                    characterSpeed *= 4f;
+                }
             }
         }
 
@@ -386,11 +392,6 @@ public class PlayerMovement : MonoBehaviour
             characterSpeed *= 1.5f;
         }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
-        {
-            characterSpeed *= 4f;
-        }
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
         {
             characterSpeed *= 4f;
         }
