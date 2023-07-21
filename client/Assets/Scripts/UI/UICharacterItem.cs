@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -12,28 +10,65 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public Image artWork;
     public bool selected = false;
 
+    [SerializeField]
+    public Image skillBasicSprite;
+
+    [SerializeField]
+    public Image skill1Sprite;
+
+    [SerializeField]
+    public Image skill2Sprite;
+
+    [SerializeField]
+    public Image skill3Sprite;
+
+    [SerializeField]
+    public Image skill4Sprite;
+
     void Start()
     {
-        artWork.sprite = comCharacter.artWork;
+        if (isActive())
+        {
+            artWork.sprite = comCharacter.artWork;
+        }
+        else
+        {
+            print("llegó");
+            artWork.sprite = comCharacter.blockArtwork;
+        }
+    }
+
+    public bool isActive()
+    {
+        var charactersList = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        foreach (var character in charactersList)
+        {
+            if (comCharacter.name == character.Name)
+            {
+                return int.Parse(character.Active) == 1;
+            }
+        }
+        return false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (SocketConnectionManager.Instance.isConnectionOpen())
         {
-            selected = true;
-            if (selected)
+            if (isActive())
             {
-                name.text = comCharacter.name;
+                selected = true;
                 artWork.sprite = comCharacter.selectedArtwork;
+                name.text = comCharacter.name;
+                skillBasicSprite.sprite = comCharacter.skillBasicSprite;
+                skill1Sprite.sprite = comCharacter.skill1Sprite;
+                skill2Sprite.sprite = comCharacter.skill2Sprite;
+                skill3Sprite.sprite = comCharacter.skill3Sprite;
+                skill4Sprite.sprite = comCharacter.skill4Sprite;
                 SendCharacterSelection();
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);
-            }
-            else
-            {
-                artWork.sprite = comCharacter.artWork;
             }
         }
     }

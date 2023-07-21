@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48101cbbf554f4562ae7f8109438bfc9
+guid: 44cfa3b478ca7479cb9b5673c0f8e4e8
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Source Code Pro
+  - Source Sans 3
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterSelectionUI : MonoBehaviour
 {
     public bool updated = false;
+
     public List<GameObject> GetAllChilds()
     {
         List<GameObject> list = new List<GameObject>();
@@ -21,14 +22,20 @@ public class CharacterSelectionUI : MonoBehaviour
         List<GameObject> list = GetAllChilds();
         list.ForEach(el =>
         {
-
             if (el.GetComponent<UICharacterItem>().selected == true && el.name != characterName)
             {
                 el.GetComponent<UICharacterItem>().selected = false;
-                el.GetComponent<UICharacterItem>().artWork.sprite = el.GetComponent<UICharacterItem>().comCharacter.artWork;
+                el.GetComponent<UICharacterItem>().artWork.sprite =
+                    el.GetComponent<UICharacterItem>().comCharacter.artWork;
             }
-        }
-        );
+        });
         updated = true;
+    }
+
+    public UICharacterItem GetSelectedCharacter()
+    {
+        List<GameObject> list = GetAllChilds();
+        return list.Find(el => el.GetComponent<UICharacterItem>().selected)
+            .GetComponent<UICharacterItem>();
     }
 }
