@@ -112,13 +112,13 @@ public class PlayerMovement : MonoBehaviour
                             playerUpdate,
                             lastEvent.ServerTimestamp
                         );
-                        movePlayer(player, playerUpdate);
+                        //movePlayer(player, playerUpdate);
                     }
                     // MovingPlayer(player, hInput, -vInput);
                 }
                 else if (
-                    inputFromVirtualJoystick && joystickL.RawValue.x != 0
-                    || joystickL.RawValue.y != 0
+                    inputFromVirtualJoystick
+                    && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
                 {
                     GetComponent<PlayerControls>()
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
                         playerUpdate,
                         lastEvent.ServerTimestamp
                     );
-                    movePlayer(player, playerUpdate);
+                    //movePlayer(player, playerUpdate);
                     // MovingPlayer(player, joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
                         playerUpdate,
                         lastEvent.ServerTimestamp
                     );
-                    movePlayer(player, playerUpdate);
+                    //movePlayer(player, playerUpdate);
                     // MovingPlayer(player, x, y);
                 }
             }
@@ -224,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
             if (actualPlayer.activeSelf)
             {
-                // movePlayer(actualPlayer, serverPlayerUpdate);
+                movePlayer(actualPlayer, serverPlayerUpdate);
                 executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
@@ -450,7 +450,16 @@ public class PlayerMovement : MonoBehaviour
         CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
         characterOrientation.ForcedRotation = true;
 
-        bool walking = false;
+        var inputFromVirtualJoystick = joystickL is not null;
+
+        bool walking =
+            (inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0))
+            || (
+                Input.GetKey(KeyCode.W)
+                || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.D)
+                || Input.GetKey(KeyCode.S)
+            );
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -514,7 +523,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // TODO: why not use character state?
-                walking = true;
+                //walking = true;
             }
         }
         mAnimator.SetBool("Walking", walking);
