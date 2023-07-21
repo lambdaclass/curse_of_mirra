@@ -512,56 +512,44 @@ impl GameState {
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
 
-        // -- Slow down D'Agna --
-        let slowed_effect_duration_in_milliseconds = u128_to_millis(1000);
-        attacking_player.add_effect(
-            Effect::Slowed.clone(),
-            EffectData {
-                time_left: slowed_effect_duration_in_milliseconds,
-                ends_at: add_millis(time_now(), slowed_effect_duration_in_milliseconds),
-                direction: None,
-                position: None,
-            },
+        let now = time_now();
+        let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
+        let ends_at = add_millis(now, time_left);
+        let player_ids_in_area = GameState::players_in_range(
+            players,
+            position,
+            attack_range,
         );
-
-            let now = time_now();
-            let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
-            let ends_at = add_millis(now, time_left);
-            let player_ids_in_area = GameState::players_in_range(
-                &self.players,
-                position,
-                attack_range,
-            );
 
         // TODO: This should be a config of the attack
         let attack_range = 40.0_f64;
         let position = attacking_player.position;
-        
-            // We use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
-            self.players.iter_mut().for_each(|player| {
-                if player_ids_in_area.contains(&player.id) {
-                    let mut effect_data = match attacking_player.effects.get(&Effect::Slowed) {
-                        None => EffectData {
-                            time_left,
-                            ends_at,
-                            direction: None,
-                            position: None,
-                            triggered_at: now,
-                        },
-                        Some(data) => data.clone(),
-                    };
 
-                    // Triggers every 100 milliseconds, that is, 4 times per second
-                    if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 250 {
-                        player.modify_health(-5);
-                        effect_data.triggered_at = now;
-                    }
-    
-                    player.effects.insert(Effect::OutOfArea, effect_data);
+        // We use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
+        players.iter_mut().for_each(|player| {
+            if player_ids_in_area.contains(&player.id) {
+                let mut effect_data = match attacking_player.effects.get(&Effect::Slowed) {
+                    None => EffectData {
+                        time_left,
+                        ends_at,
+                        direction: None,
+                        position: None,
+                        triggered_at: now,
+                    },
+                    Some(data) => data.clone(),
+                };
+
+                // Triggers every 100 milliseconds, that is, 4 times per second
+                if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 250 {
+                    player.modify_health(attack_dmg);
+                    effect_data.triggered_at = now;
                 }
-            });
 
-        Ok(affected_players_large_area)
+                attacking_player.effects.insert(Effect::Slowed, effect_data);
+            }
+        });
+
+        Ok(players)
     }
 
     pub fn skill_1(
