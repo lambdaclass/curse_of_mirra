@@ -28,6 +28,7 @@ public class LobbyConnection : MonoBehaviour
     public bool gameStarted = false;
     public string clientId;
     public bool reconnect = false;
+    public GameObject reconnectButton;
     public string reconnectServerHash;
     public string reconnectGameId;
     public string reconnectPlayerId;
@@ -140,6 +141,8 @@ public class LobbyConnection : MonoBehaviour
 
     private void MaybeReconnect()
     {
+        this.reconnectButton = GameObject.Find("Reconnect");
+        this.reconnectButton.SetActive(false);
         StartCoroutine(GetCurrentGame());
     }
 
@@ -307,6 +310,8 @@ public class LobbyConnection : MonoBehaviour
                         response.players.ForEach(player => this.reconnectPlayers.Add(player.id, player.character_name));
 
                         this.reconnectServerSettings = parseReconnectServerSettings(response.game_config);
+
+                        this.reconnectButton.SetActive(true);
                     }
                     break;
                 default:
