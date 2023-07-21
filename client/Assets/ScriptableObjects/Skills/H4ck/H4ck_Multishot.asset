@@ -20,3 +20,4 @@ MonoBehaviour:
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 38a7cb9ad55e44e22a9f83432ecf918d, type: 3}
   skillCircleRadius: 30
+  skillConeAngle: 30

@@ -188,4 +188,14 @@ public class Skill : CharacterAbility
     {
         return skillInfo.skillCircleRadius;
     }
+
+    public float GetIndicatorAngle()
+    {
+        return skillInfo.skillConeAngle;
+    }
+
+    public UIIndicatorType GetIndicatorType()
+    {
+        return skillInfo.indicatorType;
+    }
 }

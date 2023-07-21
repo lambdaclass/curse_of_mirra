@@ -16,6 +16,13 @@ public enum UIControls
     SkillBasic
 }
 
+public enum UIIndicatorType
+{
+    Cone,
+    AOE,
+    Arrow,
+}
+
 public enum UIType
 {
     Tap,
@@ -238,9 +245,24 @@ public class CustomInputManager : InputManager
         );
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
+        //TODO : Add the spread area (amgle) depeding of the skill.json
+        directionIndicator
+            .GetComponent<SelectIndicator>()
+            .ActivateIndicator(joystick.skill.GetIndicatorType());
+
+        float scaleX =
+            joystick.skill.GetIndicatorType() == UIIndicatorType.Cone
+                ? directionIndicator.transform.localScale.x * joystick.skill.GetSkillRadius()
+                : directionIndicator.transform.localScale.x;
+
+        float scaleY =
+            joystick.skill.GetIndicatorType() == UIIndicatorType.Cone
+                ? area.transform.localScale.y * joystick.skill.GetSkillRadius()
+                : 2.45f;
+
         directionIndicator.transform.localScale = new Vector3(
-            directionIndicator.transform.localScale.x,
-            area.transform.localScale.y * 2.45f,
+            scaleX,
+            scaleY,
             directionIndicator.transform.localScale.z
         );
         directionIndicator.SetActive(false);
