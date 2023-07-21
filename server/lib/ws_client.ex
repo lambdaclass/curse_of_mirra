@@ -4,11 +4,15 @@ defmodule DarkWorldsServer.WsClient do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.ClientAction
   alias DarkWorldsServer.Engine.ActionOk
-  alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.Runner
 
+  @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+
   def start_link(url) do
-    WebSockex.start_link(url, __MODULE__, %{}, name: __MODULE__)
+    WebSockex.start_link(url, __MODULE__, %{},
+      name: __MODULE__,
+      extra_headers: [{"dark-worlds-client-hash", @server_hash}]
+    )
   end
 
   def get_board(session_id) do
@@ -19,12 +23,6 @@ defmodule DarkWorldsServer.WsClient do
   def get_players(session_id) do
     runner_pid = Communication.external_id_to_pid(session_id)
     GenServer.call(runner_pid, :get_players)
-  end
-
-  def get_grid(session_id) do
-    runner_pid = Communication.external_id_to_pid(session_id)
-    state = Runner.get_game_state(runner_pid)
-    Game.get_grid(state.game)
   end
 
   def set_character_muflus(player_id, session_id) do

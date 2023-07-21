@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
@@ -372,6 +371,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+        {
+            GetComponent<PlayerFeedbacks>()
+                .ExecuteH4ckDisarmFeedback(
+                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
+                );
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
+        {
+            characterSpeed *= 1.5f;
+        }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
         {
             characterSpeed *= 4f;
