@@ -29,9 +29,11 @@ defmodule DarkWorldsServerWeb.GameController do
 
         players = Enum.map(players, fn player -> %{character_name: player.character_name, id: player.id} end)
         game_config = Enum.reduce(game_config, %{}, &transform_config/2)
+        server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
         json(conn, %{
           ongoing_game: true,
+          server_hash: server_hash,
           current_game_id: Communication.pid_to_external_id(game_pid),
           current_game_player_id: game_player_id,
           players: players,

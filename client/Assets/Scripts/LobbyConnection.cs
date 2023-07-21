@@ -28,6 +28,7 @@ public class LobbyConnection : MonoBehaviour
     public bool gameStarted = false;
     public string clientId;
     public bool reconnect = false;
+    public string reconnectServerHash;
     public string reconnectGameId;
     public string reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
@@ -58,6 +59,7 @@ public class LobbyConnection : MonoBehaviour
     public class CurrentGameResponse
     {
         public bool ongoing_game;
+        public string server_hash;
         public string current_game_id;
         public string current_game_player_id;
         public List<Player> players;
@@ -156,6 +158,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.server_ip = SelectServerIP.GetServerIp();
         PopulateLists();
+        MaybeReconnect();
     }
 
     public void QuickGame()
@@ -192,7 +195,7 @@ public class LobbyConnection : MonoBehaviour
         this.playerId = Convert.ToUInt64(this.reconnectPlayerId);
         this.serverSettings = this.reconnectServerSettings;
         this.serverTickRate_ms = (uint) this.serverSettings.RunnerConfig.ServerTickrateMs;
-        // serverHash = lobby_event.ServerHash;
+        this.serverHash = this.reconnectServerHash;
         this.gameStarted = true;
     }
 
@@ -298,6 +301,7 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectGameId = response.current_game_id;
                         this.reconnectPlayerId = response.current_game_player_id;
                         this.playerCount = response.players.Count;
+                        this.reconnectServerHash = response.server_hash;
 
                         this.reconnectPlayers = new Dictionary<ulong, string>();
                         response.players.ForEach(player => this.reconnectPlayers.Add(player.id, player.character_name));
