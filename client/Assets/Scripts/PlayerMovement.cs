@@ -407,7 +407,10 @@ public class PlayerMovement : MonoBehaviour
 
         var inputFromVirtualJoystick = joystickL is not null;
 
-        bool walking = inputsAreBeingUsed();
+        bool walking =
+            playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                ? inputsAreBeingUsed()
+                : playerUpdate.Actions.ContainsKey((ulong)PlayerAction.Moving);
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
