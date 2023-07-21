@@ -429,12 +429,14 @@ impl GameState {
     ) -> Option<Position> {
         let mut nearest_player_position = None;
         let mut nearest_distance = max_distance;
+        let mut highest_hp = 100;
 
         for player in players {
-            if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
+            if player.id != attacking_player_id && matches!(player.status, Status::ALIVE){
                 let distance = distance_to_center(player, position);
-                if distance < nearest_distance {
-                    nearest_player_position = Some(player.position);
+                if distance < nearest_distance && player.health <= highest_hp {
+                    highest_hp = player.health;
+                    nearest_player_position = Some(player.position);    
                     nearest_distance = distance;
                 }
             }
