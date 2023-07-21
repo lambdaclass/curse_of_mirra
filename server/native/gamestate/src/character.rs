@@ -177,7 +177,7 @@ impl Default for Character {
     fn default() -> Self {
         Character::new(
             Class::Hunter,
-            5,
+            50,
             &Name::H4ck,
             Skill::default(),
             Skill::default(),
@@ -187,7 +187,7 @@ impl Default for Character {
             true,
             1,
             Faction::Araban,
-            10.0,
+            100.0,
         )
     }
 }

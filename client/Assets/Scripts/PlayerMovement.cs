@@ -371,6 +371,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+        {
+            GetComponent<PlayerFeedbacks>()
+                .ExecuteH4ckDisarmFeedback(
+                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
+                );
+        }
+
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
         {
             characterSpeed *= 1.5f;
