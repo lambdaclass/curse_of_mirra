@@ -432,11 +432,11 @@ impl GameState {
         let mut lowest_hp = 100;
 
         for player in players {
-            if player.id != attacking_player_id && matches!(player.status, Status::ALIVE){
+            if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
                 let distance = distance_to_center(player, position);
                 if distance < nearest_distance && player.health <= lowest_hp {
                     lowest_hp = player.health;
-                    nearest_player_position = Some(player.position);    
+                    nearest_player_position = Some(player.position);
                     nearest_distance = distance;
                 }
             }
