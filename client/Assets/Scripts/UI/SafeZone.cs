@@ -22,6 +22,8 @@ public class SafeZone : MonoBehaviour
         var center = Utils.transformBackendPositionToFrontendPosition(
             SocketConnectionManager.Instance.shrinkingCenter
         );
+        // 3.3f is the height of the safe zone in the scene.
+        // TODO: Remove it when we improve the implementation of the damage area
         center.y += 3.3f;
         safeZone.transform.position = center;
     }
