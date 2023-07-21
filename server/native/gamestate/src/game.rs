@@ -368,15 +368,16 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                let players = &self.players.clone();
+                let players: &Vec<_> = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
             Name::DAgna => {
+                let players: &Vec<_> = &self.players.clone();
+                let mut attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::dagna_basic_attack(
-                    &mut self.board,
                     &mut self.players,
-                    attacking_player_id
+                    &mut attacking_player
                 )
             }
             _ => Ok(Vec::new()),
@@ -451,25 +452,21 @@ impl GameState {
     // D'Agna basic attack: While active, D’agna will move at half speed. It deals AOE damage to all nearby enemies over a period of time. The further the enemy is, the less damage it deals.
 
     pub fn dagna_basic_attack(
-        board: &mut Board,
         players: &mut Vec<Player>,
-        attacking_player_id: u64
+        attacking_player: &mut Player,
     ) -> Result<Vec<u64>, String> {
-        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-
+        // TODO: This should be a config of the attack
+        let attack_range = 40.0_f64;
+        let position = attacking_player.position;
         let now = time_now();
         let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
         let ends_at = add_millis(now, time_left);
         let player_ids_in_area = GameState::players_in_range(
-            players,
-            position,
+            &players,
+            &position,
             attack_range,
         );
-
-        // TODO: This should be a config of the attack
-        let attack_range = 40.0_f64;
-        let position = attacking_player.position;
 
         // We use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
         players.iter_mut().for_each(|player| {
@@ -495,7 +492,7 @@ impl GameState {
             }
         });
 
-        Ok(players)
+        Ok(player_ids_in_area)
     }
 
     pub fn skill_1(
@@ -686,6 +683,7 @@ impl GameState {
                 ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
                 direction: None,
                 position: None,
+                triggered_at: u128_to_millis(0),
             },
         );
         Ok(Vec::new())
@@ -717,6 +715,7 @@ impl GameState {
                         ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
                         direction: Some(*direction),
                         position: None,
+                        triggered_at: u128_to_millis(0),
                     },
                 );
 
@@ -748,6 +747,7 @@ impl GameState {
                         ),
                         direction: Some(*direction),
                         position: Some(position),
+                        triggered_at: u128_to_millis(0),
                     },
                 );
 
@@ -785,6 +785,7 @@ impl GameState {
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
                         direction: None,
                         position: None,
+                        triggered_at: u128_to_millis(0),
                     },
                 );
                 Ok(Vec::new())
@@ -944,6 +945,7 @@ impl GameState {
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
                                     position: None,
+                                    triggered_at: u128_to_millis(0),
                                 },
                             );
                         }
