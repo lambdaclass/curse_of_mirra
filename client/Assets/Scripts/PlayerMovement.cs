@@ -407,14 +407,7 @@ public class PlayerMovement : MonoBehaviour
 
         var inputFromVirtualJoystick = joystickL is not null;
 
-        bool walking =
-            (inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0))
-            || (
-                Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.D)
-                || Input.GetKey(KeyCode.S)
-            );
+        bool walking = inputsAreBeingUsed();
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -478,7 +471,6 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // TODO: why not use character state?
-                //walking = true;
             }
         }
         mAnimator.SetBool("Walking", walking);
@@ -594,5 +586,22 @@ public class PlayerMovement : MonoBehaviour
         useInterpolation = !useInterpolation;
         Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
         toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
+    }
+
+    public bool inputsAreBeingUsed()
+    {
+        var inputFromVirtualJoystick = joystickL is not null;
+        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
+
+        return (
+                inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+            )
+            || (
+                Input.GetKey(KeyCode.W)
+                || Input.GetKey(KeyCode.A)
+                || Input.GetKey(KeyCode.D)
+                || Input.GetKey(KeyCode.S)
+            )
+            || inputFromPhysicalJoystick;
     }
 }
