@@ -108,13 +108,7 @@ public class PlayerMovement : MonoBehaviour
                     if (hInput != 0 && vInput != 0)
                     {
                         GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
-                        SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                            playerUpdate,
-                            lastEvent.ServerTimestamp
-                        );
-                        //movePlayer(player, playerUpdate);
                     }
-                    // MovingPlayer(player, hInput, -vInput);
                 }
                 else if (
                     inputFromVirtualJoystick
@@ -123,51 +117,13 @@ public class PlayerMovement : MonoBehaviour
                 {
                     GetComponent<PlayerControls>()
                         .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                        playerUpdate,
-                        lastEvent.ServerTimestamp
-                    );
-                    //movePlayer(player, playerUpdate);
-                    // MovingPlayer(player, joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
                 {
-                    var (x, y) = GetComponent<PlayerControls>().SendAction();
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                        playerUpdate,
-                        lastEvent.ServerTimestamp
-                    );
-                    //movePlayer(player, playerUpdate);
-                    // MovingPlayer(player, x, y);
+                    GetComponent<PlayerControls>().SendAction();
                 }
             }
         }
-    }
-
-    private void MovingPlayer(GameObject player, float x, float y)
-    {
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(
-            SocketConnectionManager.Instance.playerId
-        );
-
-        Vector2 movementDirection = new Vector2(x, -y);
-        movementDirection.Normalize();
-
-        Vector2 movementVector = movementDirection * characterSpeed;
-
-        Vector2 newPlayerPosition = new Vector2();
-        var newPositionX = player.transform.position.x + Math.Round(movementVector.x);
-        var newPositionY = player.transform.position.z + Math.Round(movementVector.y);
-
-        newPositionX = Math.Min(newPositionX, (10000 - 1));
-        newPositionX = Math.Max(newPositionX, 0);
-        newPositionY = Math.Min(newPositionY, (10000 - 1));
-        newPositionY = Math.Max(newPositionY, 0);
-
-        newPlayerPosition.x = (ulong)newPositionX;
-        newPlayerPosition.y = (ulong)newPositionY;
-        print(newPlayerPosition);
-        player.transform.position = new Vector3(newPlayerPosition.x, 0, newPlayerPosition.y);
     }
 
     void UpdatePlayerActions()
@@ -218,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
                     serverPlayerUpdate,
                     gameEvent.PlayerTimestamp
                 );
-                print(serverPlayerUpdate);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
