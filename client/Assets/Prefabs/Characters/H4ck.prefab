@@ -63,7 +63,7 @@ MonoBehaviour:
   CharacterDimension: 0
   CharacterType: 0
   PlayerID: Player1
-  CharacterAnimator: {fileID: 1001301430282559196}
+  CharacterAnimator: {fileID: 1176938118362079851}
   UseDefaultMecanim: 1
   RunAnimatorSanityChecks: 0
   DisableAnimatorLogs: 1
@@ -674,6 +674,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 1
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1498650646455393689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603193989365964841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8db6bc3b8dc9489d8a93cbf462694b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5270544393976231988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,7 +1463,7 @@ PrefabInstance:
         type: 3}
       propertyPath: objectToHighlight
       value: 
-      objectReference: {fileID: 5036666926062634341}
+      objectReference: {fileID: 5603193989365964841}
     - target: {fileID: 8881652260837056422, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
       propertyPath: m_RootOrder
