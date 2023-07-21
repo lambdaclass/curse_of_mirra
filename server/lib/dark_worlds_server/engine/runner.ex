@@ -20,11 +20,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   # This is the amount of time to wait until the game starts, ofc we should change it
   @game_start_timer_ms 30
   # Amount of time to wait before starting to shrink the map
-  # 120_000
-  @map_shrink_wait_ms 10_000
+  @map_shrink_wait_ms 120_000
   # Amount of time between map shrinking
-  # 20_000
-  @map_shrink_interval_ms 10_000
+  @map_shrink_interval_ms 100
 
   case Mix.env() do
     :test ->
