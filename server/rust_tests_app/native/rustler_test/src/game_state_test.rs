@@ -1,6 +1,5 @@
 use crate::assert_result;
 use crate::utils::{read_character_config, read_skills_config, TestResult};
-use gamestate::board::{Grid, GridResource, Tile};
 use gamestate::character::{Character, Name};
 use gamestate::game::{Direction, GameState};
 use gamestate::player::{Effect, EffectData, Player, Position};
@@ -8,10 +7,6 @@ use gamestate::time_utils;
 use gamestate::utils::RelativePosition;
 use std::collections::HashMap;
 
-fn get_grid(game: &GameState) -> Grid {
-    let grid = game.board.grid.resource.lock().unwrap();
-    grid.clone()
-}
 fn speed1_character() -> Character {
     Character {
         base_speed: 1,
@@ -20,7 +15,6 @@ fn speed1_character() -> Character {
 }
 #[rustler::nif]
 pub fn no_move_if_beyond_boundaries() -> TestResult {
-    let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
@@ -66,115 +60,6 @@ pub fn no_move_if_beyond_boundaries() -> TestResult {
 }
 
 #[rustler::nif]
-fn no_move_if_occupied() -> TestResult {
-    let mut selected_characters: HashMap<u64, Name> = HashMap::new();
-    selected_characters.insert(1, Name::Muflus);
-    selected_characters.insert(2, Name::Muflus);
-
-    let mut state = GameState::new(
-        selected_characters,
-        2,
-        2,
-        2,
-        false,
-        &read_character_config(),
-        &read_skills_config(),
-    )
-    .unwrap();
-    let player1_id = 1;
-    let player2_id = 2;
-    let player1 = Player::new(player1_id, 100, Position::new(0, 0), speed1_character());
-    let player2 = Player::new(player2_id, 100, Position::new(0, 1), speed1_character());
-    state.players = vec![player1, player2];
-    state.board.set_cell(0, 0, Tile::Player(player1_id))?;
-    state.board.set_cell(0, 1, Tile::Player(player2_id))?;
-    state.board.set_cell(1, 1, Tile::Empty)?;
-    state.board.set_cell(1, 0, Tile::Empty)?;
-    let expected_grid = get_grid(&state);
-    state.move_player(player1_id, Direction::RIGHT)?;
-    assert_result!(expected_grid, get_grid(&state))
-}
-
-#[rustler::nif]
-fn no_move_if_wall() -> TestResult {
-    let mut state = GameState::new(HashMap::new(), 1, 2, 2, false, &read_character_config(), &read_skills_config(),)?;
-    let player1_id = 1;
-    let player1 = Player::new(player1_id, 100, Position::new(0, 0), speed1_character());
-    state.players = vec![player1];
-    state.board.set_cell(0, 0, Tile::Player(player1_id))?;
-    state.board.set_cell(0, 1, Tile::Wall)?;
-
-    let expected_grid = get_grid(&state);
-    state.move_player(player1_id, Direction::RIGHT)?;
-    assert_result!(expected_grid, get_grid(&state))
-}
-
-#[rustler::nif]
-fn movement() -> TestResult {
-    let mut selected_characters: HashMap<u64, Name> = HashMap::new();
-    selected_characters.insert(1, Name::Muflus);
-
-    let mut state = GameState::new(
-        selected_characters,
-        0,
-        2,
-        2,
-        false,
-        &read_character_config(),
-        &read_skills_config(),
-    )
-    .unwrap();
-    let player_id = 1;
-    let player1 = Player::new(player_id, 100, Position::new(0, 0), speed1_character());
-    state.players = vec![player1];
-    state.board.set_cell(0, 0, Tile::Player(player_id))?;
-
-    state.move_player(player_id, Direction::RIGHT)?;
-    assert_result!(
-        vec![
-            Tile::Empty,
-            Tile::Player(player_id),
-            Tile::Empty,
-            Tile::Empty
-        ],
-        get_grid(&state)
-    )?;
-
-    state.move_player(player_id, Direction::DOWN)?;
-    assert_result!(
-        vec![
-            Tile::Empty,
-            Tile::Empty,
-            Tile::Empty,
-            Tile::Player(player_id)
-        ],
-        get_grid(&state)
-    )?;
-
-    state.move_player(player_id, Direction::LEFT)?;
-    assert_result!(
-        vec![
-            Tile::Empty,
-            Tile::Empty,
-            Tile::Player(player_id),
-            Tile::Empty
-        ],
-        get_grid(&state)
-    )?;
-
-    state.move_player(player_id, Direction::UP)?;
-    assert_result!(
-        vec![
-            Tile::Player(player_id),
-            Tile::Empty,
-            Tile::Empty,
-            Tile::Empty
-        ],
-        get_grid(&state)
-    )
-}
-
-#[rustler::nif]
 fn attacking() -> TestResult {
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
@@ -196,8 +81,6 @@ fn attacking() -> TestResult {
     let player1 = Player::new(player_1_id, 100, Position::new(0, 0), char.clone());
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2];
-    state.board.set_cell(0, 0, Tile::Player(player_1_id))?;
-    state.board.set_cell(0, 1, Tile::Player(player_2_id))?;
     let cooldown = player1.character.cooldown_basic_skill();
     time_utils::sleep(cooldown);
 
@@ -250,7 +133,6 @@ pub fn cant_move_if_petrified() -> TestResult {
     let now = time_utils::time_now();
     let mut selected_characters: HashMap<u64, Name> = HashMap::new();
     selected_characters.insert(1, Name::Muflus);
-    let mut expected_grid: Vec<Vec<Tile>>;
     let (grid_height, grid_width) = (100, 100);
     let mut state = GameState::new(
         selected_characters,
@@ -343,8 +225,6 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         }), direction: None, position: None});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2.clone()];
-    state.board.set_cell(0, 0, Tile::Player(player_1_id))?;
-    state.board.set_cell(10, 10, Tile::Player(player_2_id))?;
     let player1_cooldown = player1.character.cooldown_basic_skill();
     let player2_cooldown = player2.character.cooldown_basic_skill();
     // make sure both abilities are off cooldown
