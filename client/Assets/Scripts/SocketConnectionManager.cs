@@ -116,7 +116,6 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
-                    Debug.Log(game_event.PlayableRadius);
                     this.playableRadius = game_event.PlayableRadius;
                     this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
