@@ -13,6 +13,7 @@ use std::f32::consts::PI;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::ops::RangeBounds;
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
@@ -424,12 +425,10 @@ impl GameState {
                 )
             }
             Name::DAgna => {
-                let players = &self.players.clone();
-                let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::dagna_basic_attack(
                     &mut self.board,
                     &mut self.players,
-                    &mut attacking_player.clone(),
+                    attacking_player_id
                 )
             }
             _ => Ok(Vec::new()),
@@ -503,67 +502,15 @@ impl GameState {
         Ok(affected_players)
     }
 
-    // D'Agna basic attack: While active, D’agna will move at half speed. It deals damage to all nearby enemies. The further the enemy is, the less damage it deals.
+    // D'Agna basic attack: While active, D’agna will move at half speed. It deals AOE damage to all nearby enemies over a period of time. The further the enemy is, the less damage it deals.
 
     pub fn dagna_basic_attack(
         board: &mut Board,
         players: &mut Vec<Player>,
-        attacking_player: &mut Player,
+        attacking_player_id: u64
     ) -> Result<Vec<u64>, String> {
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attacking_player_id = attacking_player.id;
-
-        // -- Small Area --
-        // TODO: This should be a config of the attack
-        let attack_range = 40.0_f64;
-
-        let mut affected_players_small_area: Vec<u64> =
-            GameState::players_in_range(players, &attacking_player.position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-
-        for target_player_id in affected_players_small_area.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                    let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player)?;
-                }
-                _ => continue,
-            }
-        }
-
-        // -- Large Area --
-        let mut affected_players_large_area: Vec<u64> = GameState::players_in_range(
-            players,
-            &attacking_player.position,
-            attack_range * 3.0_f64,
-        )
-        .into_iter()
-        .filter(|&id| id != attacking_player_id)
-        .collect();
-
-        for target_player_id in affected_players_large_area.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg / 2);
-                    let player = ap.clone();
-                    GameState::modify_cell_if_player_died(board, &player)?;
-                }
-                _ => continue,
-            }
-        }
 
         // -- Slow down D'Agna --
         let slowed_effect_duration_in_milliseconds = u128_to_millis(1000);
@@ -576,6 +523,43 @@ impl GameState {
                 position: None,
             },
         );
+
+            let now = time_now();
+            let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
+            let ends_at = add_millis(now, time_left);
+            let player_ids_in_area = GameState::players_in_range(
+                &self.players,
+                position,
+                attack_range,
+            );
+
+        // TODO: This should be a config of the attack
+        let attack_range = 40.0_f64;
+        let position = attacking_player.position;
+        
+            // We use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
+            self.players.iter_mut().for_each(|player| {
+                if player_ids_in_area.contains(&player.id) {
+                    let mut effect_data = match attacking_player.effects.get(&Effect::Slowed) {
+                        None => EffectData {
+                            time_left,
+                            ends_at,
+                            direction: None,
+                            position: None,
+                            triggered_at: now,
+                        },
+                        Some(data) => data.clone(),
+                    };
+
+                    // Triggers every 100 milliseconds, that is, 4 times per second
+                    if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 250 {
+                        player.modify_health(-5);
+                        effect_data.triggered_at = now;
+                    }
+    
+                    player.effects.insert(Effect::OutOfArea, effect_data);
+                }
+            });
 
         Ok(affected_players_large_area)
     }
