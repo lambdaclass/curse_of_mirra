@@ -18,6 +18,8 @@ message GameEvent {
     int64 player_timestamp = 8;
     int64 server_timestamp = 9;
     repeated KillEvent killfeed = 10;
+    uint64 playable_radius = 11;
+    Position shrinking_center = 12;
 }
 
 /* Type of game events
@@ -168,11 +170,14 @@ enum PlayerAction {
     NOTHING = 0;
     ATTACKING = 1;
     ATTACKING_AOE = 2;
-    EXECUTING_SKILL_1 = 3;
-    TELEPORTING = 4;
-    EXECUTING_SKILL_2 = 5;
-    EXECUTING_SKILL_3 = 6;
-    EXECUTING_SKILL_4 = 7;
+    STARTING_SKILL_1 = 3;
+    STARTING_SKILL_2 = 4;
+    STARTING_SKILL_3 = 5;
+    STARTING_SKILL_4 = 6;
+    EXECUTING_SKILL_1 = 7;
+    EXECUTING_SKILL_2 = 8;
+    EXECUTING_SKILL_3 = 9;
+    EXECUTING_SKILL_4 = 10;
 }
 
 /* Effects a player has */
@@ -183,9 +188,10 @@ enum PlayerEffect {
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
-    ELNAR_MARK = 6;
-    YUGEN_MARK = 7;
-    XANDA_MARK = 8;
+    OUT_OF_AREA = 6;
+    ELNAR_MARK = 7;
+    YUGEN_MARK = 8;
+    XANDA_MARK = 9;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

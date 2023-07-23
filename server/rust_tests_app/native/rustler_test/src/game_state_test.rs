@@ -159,7 +159,7 @@ pub fn cant_move_if_petrified() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None, position: None});
+        }), direction: None, position: None, triggered_at: time_utils::u128_to_millis(0)});
     let player_id = 1;
     let players = state.players.clone();
     let player = GameState::get_player(&players, player_id)?;
@@ -222,7 +222,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None, position: None});
+        }), direction: None, position: None, triggered_at: time_utils::u128_to_millis(0)});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2.clone()];
     let player1_cooldown = player1.character.cooldown_basic_skill();

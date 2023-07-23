@@ -141,6 +141,13 @@ fn spawn_player(game: GameState, player_id: u64) -> Result<GameState, String> {
     Ok(game_2)
 }
 
+#[rustler::nif(schedule = "DirtyCpu")]
+fn shrink_map(game: GameState) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.shrink_map();
+    Ok(game_2)
+}
+
 pub fn load(_env: Env, _: Term) -> bool {
     true
 }
@@ -160,6 +167,7 @@ rustler::init!(
         skill_2,
         skill_3,
         skill_4,
+        shrink_map,
     ],
     load = load
 );

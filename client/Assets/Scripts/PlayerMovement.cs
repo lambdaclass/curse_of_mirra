@@ -208,14 +208,26 @@ public class PlayerMovement : MonoBehaviour
             case PlayerAction.Attacking:
                 actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
                 break;
+            case PlayerAction.StartingSkill1:
+                actualPlayer.GetComponent<Skill1>().StartFeedback();
+                break;
             case PlayerAction.ExecutingSkill1:
                 actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                break;
+            case PlayerAction.StartingSkill2:
+                actualPlayer.GetComponent<Skill2>().StartFeedback();
                 break;
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
                 break;
+            case PlayerAction.StartingSkill3:
+                actualPlayer.GetComponent<Skill3>().StartFeedback();
+                break;
             case PlayerAction.ExecutingSkill3:
                 actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                break;
+            case PlayerAction.StartingSkill4:
+                actualPlayer.GetComponent<Skill4>().StartFeedback();
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
@@ -358,8 +370,9 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.red;
-                character.GetComponent<Skill2>().PlayAbilityStartFeedbacks();
-                characterSpeed *= 1.5f;
+                characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
+                    ? 4f
+                    : 1.5f;
             }
             else
             {
@@ -367,7 +380,10 @@ public class PlayerMovement : MonoBehaviour
                     .GetChild(1)
                     .GetComponent<Renderer>()
                     .material.color = Color.white;
-                character.GetComponent<Skill2>().StopStartFeedbacks();
+                if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
+                {
+                    characterSpeed *= 4f;
+                }
             }
         }
 
@@ -384,11 +400,6 @@ public class PlayerMovement : MonoBehaviour
             characterSpeed *= 1.5f;
         }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
-        {
-            characterSpeed *= 4f;
-        }
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
         {
             characterSpeed *= 4f;
         }
