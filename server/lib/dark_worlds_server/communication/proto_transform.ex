@@ -25,10 +25,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
-  def encode(action_entry, ActionsEntry) do
-    action_encode(action_entry)
-  end
-
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
   end
@@ -109,8 +105,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects,
-      actions: actions
+      effects: effects
     } = player
 
     %ProtoPlayer{
@@ -127,8 +122,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects,
-      actions: actions
+      effects: effects
     }
   end
 
@@ -236,8 +230,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects,
-      actions: actions
+      effects: effects
     } = player
 
     %EnginePlayer{
@@ -255,8 +248,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects,
-      actions: actions
+      effects: effects
     }
   end
 
@@ -413,14 +405,4 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
   defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
-
-  defp action_encode({:nothing, ticks}), do: {0, ticks}
-  defp action_encode({:attacking, ticks}), do: {1, ticks}
-  defp action_encode({:attacking_aoe, ticks}), do: {2, ticks}
-  defp action_encode({:executingskill1, ticks}), do: {3, ticks}
-  defp action_encode({:teleporting, ticks}), do: {4, ticks}
-  defp action_encode({:executingskill2, ticks}), do: {5, ticks}
-  defp action_encode({:executingskill3, ticks}), do: {6, ticks}
-  defp action_encode({:executingskill4, ticks}), do: {7, ticks}
-  defp action_encode({:moving, ticks}), do: {8, ticks}
 end

@@ -355,7 +355,6 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::ATTACKING;
-        attacking_player.actions.insert(PlayerAction::ATTACKING, 3);
         attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
@@ -492,9 +491,6 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
-        attacking_player
-            .actions
-            .insert(PlayerAction::EXECUTINGSKILL1, 3);
         attacking_player.skill_1_started_at = now;
         attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
 
@@ -616,9 +612,6 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
-        attacking_player
-            .actions
-            .insert(PlayerAction::EXECUTINGSKILL2, 3);
         attacking_player.skill_2_started_at = now;
         attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
 
@@ -691,9 +684,6 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
-        attacking_player
-            .actions
-            .insert(PlayerAction::EXECUTINGSKILL3, 3);
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
@@ -763,9 +753,6 @@ impl GameState {
 
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
-        attacking_player
-            .actions
-            .insert(PlayerAction::EXECUTINGSKILL4, 3);
         attacking_player.skill_4_started_at = now;
         attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_skill_4();
 
