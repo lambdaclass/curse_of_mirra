@@ -1,6 +1,6 @@
 use crate::assert_result;
 use crate::utils::{read_character_config, read_skills_config, TestResult};
-use crate::time_utils::u128_to_millis;
+use gamestate::time_utils::u128_to_millis;
 use gamestate::character::{Character, Name};
 use gamestate::game::{Direction, GameState};
 use gamestate::player::{Effect, EffectData, Player, Position};
