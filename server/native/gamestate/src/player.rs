@@ -15,6 +15,7 @@ pub struct EffectData {
     pub position: Option<Position>,
     pub triggered_at: MillisTime,
     pub caused_by: u64,
+    pub caused_to: u64,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -31,6 +32,7 @@ pub enum Effect {
     ElnarMark,
     YugenMark,
     XandaMark,
+    XandaMarkOwner,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {

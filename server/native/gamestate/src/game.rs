@@ -513,13 +513,29 @@ impl GameState {
                 .collect();
 
         let mut kill_count = 0;
+        let mut uma_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+
         for target_player_id in affected_players.iter() {
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
-            attacked_player.modify_health(-attack_dmg);
+            let atp = attacking_player.clone();
+            if atp.character.name == Name::Uma {
+                match atp.effects.get(&Effect::XandaMark) {
+                    Some(effect) => {
+                        attacked_player.modify_health(-(attack_dmg/2));
+                        uma_affected_players.insert(attacked_player.id, (attack_dmg/2, vec![effect.caused_to]));
+                    },
+                    None => {
+                        attacked_player.modify_health(-attack_dmg);
+                    }
+                }
+            } else {
+                attacked_player.modify_health(-attack_dmg);
+            }
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
         }
+        GameState::attack_players_with_effect(uma_affected_players, players)?;
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
         Ok(affected_players)
@@ -559,6 +575,7 @@ impl GameState {
                     position: None,
                     triggered_at: now,
                     caused_by: attacking_player.id,
+                    caused_to: attacked_player.id,
                 },);
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
@@ -618,6 +635,7 @@ impl GameState {
                             position: None,
                             triggered_at: now,
                             caused_by: attacking_player_id,
+                            caused_to: attacked_player.id,
                         },
                         )
 
@@ -756,8 +774,9 @@ impl GameState {
                     1000.,
                 ) {
                     Some((player_id, _position)) => {
+                        
                         attacking_player.add_effect(
-                            Effect::XandaMark.clone(),
+                            Effect::XandaMarkOwner.clone(),
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
@@ -765,6 +784,7 @@ impl GameState {
                                 position: None,
                                 triggered_at: u128_to_millis(0),
                                 caused_by: attacking_player.id,
+                                caused_to: player_id,
                             },
                         );
 
@@ -778,6 +798,7 @@ impl GameState {
                                 position: None,
                                 triggered_at: now,
                                 caused_by: attacking_player_id,
+                                caused_to: attacked_player.id,
                             },
                         )
                     },
@@ -830,6 +851,7 @@ impl GameState {
                 position: None,
                 triggered_at: u128_to_millis(0),
                 caused_by: attacking_player.id,
+                caused_to: attacking_player.id,
             },
         );
         Ok(Vec::new())
@@ -862,6 +884,7 @@ impl GameState {
                         position: None,
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
                     },
                 );
 
@@ -896,6 +919,7 @@ impl GameState {
                         position: Some(position),
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
                     },
                 );
 
@@ -935,6 +959,7 @@ impl GameState {
                         position: None,
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
                     },
                 );
                 Ok(Vec::new())
@@ -1126,6 +1151,7 @@ impl GameState {
                                     position: None,
                                     triggered_at: u128_to_millis(0),
                                     caused_by: projectile.player_id,
+                                    caused_to: attacked_player.id,
                                 },
                             );
                         }
@@ -1287,6 +1313,7 @@ impl GameState {
                         position: None,
                         triggered_at: now,
                         caused_by: player.id,
+                        caused_to: player.id,
                     },
                     Some(data) => data.clone(),
                 };

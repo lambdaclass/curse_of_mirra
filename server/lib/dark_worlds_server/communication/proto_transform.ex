@@ -408,4 +408,5 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:elnar_mark, %{ends_at: ends_at}}), do: {7, ends_at}
   defp effect_encode({:yugen_mark, %{ends_at: ends_at}}), do: {8, ends_at}
   defp effect_encode({:xanda_mark, %{ends_at: ends_at}}), do: {9, ends_at}
+  defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at}}), do: {10, ends_at}
 end

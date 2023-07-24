@@ -192,6 +192,7 @@ enum PlayerEffect {
     ELNAR_MARK = 7;
     YUGEN_MARK = 8;
     XANDA_MARK = 9;
+    XANDA_MARK_OWNER = 10;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
