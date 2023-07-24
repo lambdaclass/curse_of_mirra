@@ -11,6 +11,10 @@ public class VolumeController : MonoBehaviour
     void Awake()
     {
         volumeSlider = GetComponent<Slider>();
+        volumeSlider.value = soundManager.GetTrackVolume(
+            MMSoundManager.MMSoundManagerTracks.Music,
+            false
+        );
     }
 
     public void ChangeMusicVolume()
