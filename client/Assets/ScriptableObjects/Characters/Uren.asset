@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Uren
   artWork: {fileID: 21300000, guid: 17d6a6c923b3f43359954f05ac208f6f, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5810ae90f4e274bf09798d2c8fb8bca5, type: 3}
-  blockArtwork: {fileID: 21300000, guid: 3ef0ca6888e7644658ecdb099f7afb39, type: 3}
+  blockArtwork: {fileID: 21300000, guid: 71f1cd017a16c4feab4573d41241087e, type: 3}
   prefab: {fileID: 0}
   skillBasicInfo: {fileID: 0}
   skill1Info: {fileID: 0}

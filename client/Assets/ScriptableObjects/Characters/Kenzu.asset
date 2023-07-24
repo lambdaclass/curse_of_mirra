@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Kenzu
   artWork: {fileID: 21300000, guid: d8d11da874a274698912639d5fea1403, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5749ed7bc217c40c3a32fd0cf71acb2d, type: 3}
-  blockArtwork: {fileID: 21300000, guid: b4689f7610b3f416b98b9d8ace6f9436, type: 3}
+  blockArtwork: {fileID: 21300000, guid: 11656ee72c86a45b99ddc43d666cd368, type: 3}
   prefab: {fileID: 0}
   skillBasicInfo: {fileID: 0}
   skill1Info: {fileID: 0}
