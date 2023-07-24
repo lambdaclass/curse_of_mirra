@@ -18,6 +18,8 @@ message GameEvent {
     int64 player_timestamp = 8;
     int64 server_timestamp = 9;
     repeated KillEvent killfeed = 10;
+    uint64 playable_radius = 11;
+    Position shrinking_center = 12;
 }
 
 /* Type of game events
@@ -186,6 +188,7 @@ enum PlayerEffect {
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
+    OUT_OF_AREA = 6;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

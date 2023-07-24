@@ -85,6 +85,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:OUT_OF_AREA, 6)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -156,6 +157,12 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 10, repeated: true, type: DarkWorldsServer.Communication.Proto.KillEvent)
+  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 12,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

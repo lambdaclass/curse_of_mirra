@@ -13,6 +13,7 @@ pub struct EffectData {
     pub ends_at: MillisTime,
     pub direction: Option<RelativePosition>,
     pub position: Option<Position>,
+    pub triggered_at: MillisTime,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -25,6 +26,7 @@ pub enum Effect {
     Raged,
     NeonCrashing,
     Leaping,
+    OutOfArea,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {

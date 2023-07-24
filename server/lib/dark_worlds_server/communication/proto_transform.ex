@@ -404,4 +404,5 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
   defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
+  defp effect_encode({:out_of_area, %{ends_at: ends_at}}), do: {6, ends_at}
 end
