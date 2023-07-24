@@ -366,20 +366,26 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:attacking), do: :ATTACKING
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
+  defp player_action_encode(:startingskill1), do: :STARTING_SKILL_1
+  defp player_action_encode(:startingskill2), do: :STARTING_SKILL_2
+  defp player_action_encode(:startingskill3), do: :STARTING_SKILL_3
+  defp player_action_encode(:startingskill4), do: :STARTING_SKILL_4
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
   defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
   defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
-  defp player_action_encode(:teleporting), do: :TELEPORTING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
+  defp player_action_decode(:STARTING_SKILL_1), do: :startingskill1
+  defp player_action_decode(:STARTING_SKILL_2), do: :startingskill2
+  defp player_action_decode(:STARTING_SKILL_3), do: :startingskill3
+  defp player_action_decode(:STARTING_SKILL_4), do: :startingskill4
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
   defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
   defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
-  defp player_action_decode(:TELEPORTING), do: :teleporting
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_encode(:disarmingbullet), do: :DISARMING_BULLET

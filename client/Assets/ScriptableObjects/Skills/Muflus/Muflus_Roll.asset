@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Muflus_Leap
   inputType: 0
-  feedbackAnimation: {fileID: 5318754383943643802, guid: e82539d5a6925411bb4e49908d74e9ac,
+  feedbackVfx: {fileID: 5318754383943643802, guid: e82539d5a6925411bb4e49908d74e9ac,
     type: 3}
-  instantiateAnimationOnModel: 0
+  feedbackVfxDuration: 0.2
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 3
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: c590b419253be4535bc86a275dda97e4, type: 3}
