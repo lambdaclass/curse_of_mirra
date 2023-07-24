@@ -33,7 +33,6 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         }
         else
         {
-            print("llegó");
             artWork.sprite = comCharacter.blockArtwork;
         }
     }
