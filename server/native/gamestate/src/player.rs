@@ -97,7 +97,7 @@ pub enum PlayerAction {
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
     TELEPORTING,
-    MOVING
+    MOVING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
