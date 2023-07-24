@@ -49,7 +49,7 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
 
         if (LobbyConnection.Instance.playerId == id)
         {
-            this.playerText.text += "YOU";
+            this.playerText.color = new Color32(196, 121, 217, 255);
         }
     }
 

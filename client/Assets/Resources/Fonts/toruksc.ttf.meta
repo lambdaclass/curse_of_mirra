@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b0e4026e254e34815babce88d69fd15f
+guid: eb57cfa6192734376a6c84e871e8e08e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Almendra
+  - TorukSC
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

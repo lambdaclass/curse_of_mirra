@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -113}
+  m_AnchoredPosition: {x: 55, y: -139}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3053432004692964897
@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Players
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 016c7968982b648d193a4351d1306ba3, type: 2}
-  m_sharedMaterial: {fileID: -2035446795519318862, guid: 016c7968982b648d193a4351d1306ba3,
+  m_fontAsset: {fileID: 11400000, guid: 667e7236549264b55bb6dd2d15692e80, type: 2}
+  m_sharedMaterial: {fileID: 3314857687251653942, guid: 667e7236549264b55bb6dd2d15692e80,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

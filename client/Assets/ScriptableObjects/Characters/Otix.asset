@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691c96ecee34d41aa9f915ac9e819a7f, type: 3}
   m_Name: Otix
   m_EditorClassIdentifier: 
-  name: Uma
-  artWork: {fileID: 21300000, guid: c822c7d5c79d340c78de341ab277dc34, type: 3}
-  selectedArtwork: {fileID: 21300000, guid: a1437621e6e31420581434f1405b4f74, type: 3}
-  selected: 0
-  prefab: {fileID: 1787465996332106805, guid: 94e572dc010a245f8a7fac3c1c846b1a, type: 3}
+  name: Otix
+  artWork: {fileID: 21300000, guid: 933a2fa5f5b2d43ef80935185aff7c44, type: 3}
+  selectedArtwork: {fileID: 21300000, guid: ef5cf10fc670c4a9bb59d930e0db8eb8, type: 3}
+  blockArtwork: {fileID: 21300000, guid: e6381730b42064b9cb8301a83aa32c57, type: 3}
+  prefab: {fileID: 0}
   skillBasicInfo: {fileID: 0}
   skill1Info: {fileID: 0}
   skill2Info: {fileID: 0}
@@ -27,4 +27,4 @@ MonoBehaviour:
   skill2Sprite: {fileID: 0}
   skill3Sprite: {fileID: 0}
   skill4Sprite: {fileID: 0}
-  skillBackground: {fileID: 0}
+  skillBackground: {fileID: 21300000, guid: d3ef22ef18d3742aea06930beaf21dc8, type: 3}
