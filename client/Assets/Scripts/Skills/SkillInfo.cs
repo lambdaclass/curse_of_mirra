@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Tools;
 
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
@@ -17,5 +18,7 @@ public class SkillInfo : ScriptableObject
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
     public float skillCircleRadius;
+
+    [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]
     public float skillConeAngle;
 }

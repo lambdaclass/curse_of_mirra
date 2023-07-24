@@ -21,6 +21,7 @@ public enum UIIndicatorType
     Cone,
     Area,
     Arrow,
+    None
 }
 
 public enum UIType
