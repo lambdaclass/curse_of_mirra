@@ -67,6 +67,6 @@ public class EventsBuffer
                 : 0;
 
         Debug.Log("the count is: " + count);
-        return count >= 2;
+        return count >= 1;
     }
 }

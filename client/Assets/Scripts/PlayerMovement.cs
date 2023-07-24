@@ -171,22 +171,18 @@ public class PlayerMovement : MonoBehaviour
                 // the last server update.
                 if (serverGhost != null)
                 {
-                    movePlayer(serverGhost, serverPlayerUpdate);
+                    movePlayer(serverGhost, serverPlayerUpdate, pastTime);
                 }
                 SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                     serverPlayerUpdate,
                     gameEvent.PlayerTimestamp
                 );
             }
-            var moving = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                serverPlayerUpdate.Id,
-                pastTime
-            );
-            print($"player is moving? {(moving ? "yes" : "no")}");
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+
             if (actualPlayer.activeSelf)
             {
-                movePlayer(actualPlayer, serverPlayerUpdate);
+                movePlayer(actualPlayer, serverPlayerUpdate, pastTime);
                 executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
             }
 
@@ -359,7 +355,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void movePlayer(GameObject player, Player playerUpdate)
+    private void movePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -444,7 +440,10 @@ public class PlayerMovement : MonoBehaviour
         bool walking =
             playerUpdate.Id == SocketConnectionManager.Instance.playerId
                 ? inputsAreBeingUsed()
-                : false;
+                : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                    playerUpdate.Id,
+                    (long)pastTime
+                );
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
