@@ -155,12 +155,12 @@ impl Player {
         damage
     }
 
-    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64>{
+    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64> {
         if self.character.name == Name::Uma {
             match self.effects.get(&Effect::XandaMarkOwner) {
                 Some(effect) => {
                     return Some(effect.caused_to);
-                },
+                }
                 None => return None,
             }
         }
@@ -284,6 +284,24 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+    }
+
+    pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {
+        self.has_mark(&Effect::ElnarMark, attacking_player_id)
+            + self.has_mark(&Effect::YugenMark, attacking_player_id)
+            + self.has_mark(&Effect::XandaMark, attacking_player_id)
+    }
+
+    fn has_mark(self: &Self, e: &Effect, attacking_player_id: u64) -> u64 {
+        let mark = self.effects.get(e);
+        return if matches!(
+            mark,
+            Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+        ) {
+            1
+        } else {
+            0
+        };
     }
 
     // TODO:

@@ -283,38 +283,6 @@ impl GameState {
         players_in_range
     }
 
-    // Return all player_id with 3 marks of a specific Uma
-    pub fn players_with_all_marks(
-        players: &Vec<Player>,
-        attacking_player_id: u64,
-    ) -> Vec<u64> {
-        let mut players_in_range: Vec<u64> = vec![];
-        for player in players {
-            let elnar_mark = player.effects.get(&Effect::ElnarMark);
-            let yugen_mark = player.effects.get(&Effect::YugenMark);
-            let xanda_mark = player.effects.get(&Effect::XandaMark);
-
-            let has_elnar_mark = matches!(
-                elnar_mark,
-                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
-            );
-            let has_yugen_mark = matches!(
-                yugen_mark,
-                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
-            );
-            let has_xanda_mark = matches!(
-                xanda_mark,
-                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
-            );
-
-            if has_elnar_mark && has_yugen_mark && has_xanda_mark
-            {
-                players_in_range.push(player.id);
-            }
-        }
-        players_in_range
-    }
-
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
         players: &Vec<Player>,
@@ -520,15 +488,16 @@ impl GameState {
 
             attacked_player.modify_health(-attack_dmg);
             match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, ((attack_dmg/2), mirrored_id)),
+                Some(mirrored_id) => uma_mirroring_affected_players
+                    .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
                 None => None,
             };
-            
+
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
         }
-        
+
         GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
@@ -563,7 +532,8 @@ impl GameState {
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
             attacked_player.modify_health(-attack_dmg);
             match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (attack_dmg/2, mirrored_id)),
+                Some(mirrored_id) => uma_mirroring_affected_players
+                    .insert(attacked_player.id, (attack_dmg / 2, mirrored_id)),
                 None => None,
             };
             attacked_player.add_effect(
@@ -576,7 +546,8 @@ impl GameState {
                     triggered_at: now,
                     caused_by: attacking_player.id,
                     caused_to: attacked_player.id,
-                },);
+                },
+            );
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
@@ -614,7 +585,7 @@ impl GameState {
             Name::Muflus => {
                 let players = &mut self.players;
                 Self::muflus_skill_1(players, attacking_player_id)
-            },
+            }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
                 let attacking_player_id = attacking_player.id;
@@ -626,25 +597,25 @@ impl GameState {
                     1000.,
                 ) {
                     Some((player_id, _position)) => {
-                        let attacked_player = GameState::get_player_mut(&mut self.players, player_id)?;
+                        let attacked_player =
+                            GameState::get_player_mut(&mut self.players, player_id)?;
                         attacked_player.add_effect(
                             Effect::YugenMark.clone(),
-                        EffectData {
-                            time_left: duration,
-                            ends_at: add_millis(now, duration),
-                            direction: None,
-                            position: None,
-                            triggered_at: now,
-                            caused_by: attacking_player_id,
-                            caused_to: attacked_player.id,
-                        },
+                            EffectData {
+                                time_left: duration,
+                                ends_at: add_millis(now, duration),
+                                direction: None,
+                                position: None,
+                                triggered_at: now,
+                                caused_by: attacking_player_id,
+                                caused_to: attacked_player.id,
+                            },
                         )
-
-                    },
+                    }
                     None => (),
                 };
                 Ok(Vec::new())
-            },
+            }
             _ => Ok(Vec::new()),
         };
 
@@ -710,7 +681,7 @@ impl GameState {
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
-        
+
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
@@ -722,7 +693,8 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     match ap.get_mirrored_player_id() {
-                        Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (attack_dmg/2, mirrored_id)),
+                        Some(mirrored_id) => uma_mirroring_affected_players
+                            .insert(ap.id, (attack_dmg / 2, mirrored_id)),
                         None => None,
                     };
                 }
@@ -771,7 +743,8 @@ impl GameState {
             ),
             Name::Muflus => Self::muflus_skill_2(attacking_player),
             Name::Uma => {
-                let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+                let attacking_player =
+                    GameState::get_player_mut(&mut self.players, attacking_player_id)?;
                 let attacking_player_id = attacking_player.id;
                 let duration = attacking_player.character.duration_skill_2();
                 match Self::nearest_player(
@@ -781,7 +754,6 @@ impl GameState {
                     1000.,
                 ) {
                     Some((player_id, _position)) => {
-                        
                         attacking_player.add_effect(
                             Effect::XandaMarkOwner.clone(),
                             EffectData {
@@ -795,10 +767,11 @@ impl GameState {
                             },
                         );
 
-                        let attacked_player = GameState::get_player_mut(&mut self.players, player_id)?;
+                        let attacked_player =
+                            GameState::get_player_mut(&mut self.players, player_id)?;
                         attacked_player.add_effect(
-                        Effect::XandaMark.clone(),
-                        EffectData {
+                            Effect::XandaMark.clone(),
+                            EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
                                 direction: None,
@@ -808,11 +781,11 @@ impl GameState {
                                 caused_to: attacked_player.id,
                             },
                         )
-                    },
+                    }
                     None => (),
                 };
                 Ok(Vec::new())
-            },
+            }
             _ => Ok(Vec::new()),
         };
 
@@ -970,7 +943,7 @@ impl GameState {
                     },
                 );
                 Ok(Vec::new())
-            },
+            }
             Name::Uma => {
                 GameState::uma_skill_4(&mut self.players, attacking_player_id)?;
                 Ok(Vec::new())
@@ -986,28 +959,15 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player_id: u64,
     ) -> Result<Vec<u64>, String> {
-        let pys = players.clone();
-        
-        let mut affected_players: Vec<u64> =
-            GameState::players_with_all_marks(&pys, attacking_player_id)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-(ap.health as f64 * 0.8) as i64);
-                }
-                _ => continue,
+        for target_player in players.iter_mut() {
+            if target_player.id == attacking_player_id {
+                continue;
             }
+            let marks_count = target_player.marks_per_player(attacking_player_id);
+            target_player
+                .modify_health(-(target_player.health as f64 * 0.2 * marks_count as f64) as i64);
         }
-        Ok(affected_players)
+        Ok(Vec::new())
     }
 
     pub fn disconnect(self: &mut Self, player_id: u64) -> Result<(), String> {
@@ -1166,7 +1126,10 @@ impl GameState {
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             match attacked_player.get_mirrored_player_id() {
-                                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, ((projectile.damage as i64)/2, mirrored_id)),
+                                Some(mirrored_id) => uma_mirroring_affected_players.insert(
+                                    attacked_player.id,
+                                    ((projectile.damage as i64) / 2, mirrored_id),
+                                ),
                                 None => None,
                             };
                             if matches!(attacked_player.status, Status::DEAD) {
@@ -1236,7 +1199,6 @@ impl GameState {
         affected_players: HashMap<u64, (i64, Vec<u64>)>,
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
-
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for (player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
@@ -1247,7 +1209,8 @@ impl GameState {
                     Some(ap) => {
                         ap.modify_health(-damage);
                         match ap.get_mirrored_player_id() {
-                            Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (damage/2, mirrored_id)),
+                            Some(mirrored_id) => uma_mirroring_affected_players
+                                .insert(ap.id, (damage / 2, mirrored_id)),
                             None => None,
                         };
                     }
@@ -1267,7 +1230,7 @@ impl GameState {
             let attacked_player = GameState::get_player_mut(players, *attacked_player_id)?;
             attacked_player.modify_health(-damage);
         }
-        
+
         Ok(())
     }
 
