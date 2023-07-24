@@ -520,7 +520,7 @@ impl GameState {
 
             attacked_player.modify_health(-attack_dmg);
             match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-(attack_dmg/2), mirrored_id)),
+                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, ((attack_dmg/2), mirrored_id)),
                 None => None,
             };
             
@@ -563,7 +563,7 @@ impl GameState {
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
             attacked_player.modify_health(-attack_dmg);
             match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-(attack_dmg/2), mirrored_id)),
+                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (attack_dmg/2, mirrored_id)),
                 None => None,
             };
             attacked_player.add_effect(
@@ -722,7 +722,7 @@ impl GameState {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
                     match ap.get_mirrored_player_id() {
-                        Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (-(attack_dmg/2), mirrored_id)),
+                        Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (attack_dmg/2, mirrored_id)),
                         None => None,
                     };
                 }
@@ -1166,7 +1166,7 @@ impl GameState {
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
                             match attacked_player.get_mirrored_player_id() {
-                                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-((projectile.damage as i64)/2), mirrored_id)),
+                                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, ((projectile.damage as i64)/2, mirrored_id)),
                                 None => None,
                             };
                             if matches!(attacked_player.status, Status::DEAD) {
@@ -1247,7 +1247,7 @@ impl GameState {
                     Some(ap) => {
                         ap.modify_health(-damage);
                         match ap.get_mirrored_player_id() {
-                            Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (-(damage/2), mirrored_id)),
+                            Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (damage/2, mirrored_id)),
                             None => None,
                         };
                     }
