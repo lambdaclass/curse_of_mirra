@@ -182,15 +182,19 @@ impl Player {
         damage
     }
     pub fn skill_1_damage(&self) -> u32 {
-        let mut damage = self.character.attack_dmg_first_active();
+        let mut damage = self.character.attack_dmg_skill_1();
         if self.has_active_effect(&Effect::Raged) {
             damage += 10_u32;
         }
 
         damage
     }
-    pub fn skill_2_damage(&mut self) -> u32 {
-        return self.character.attack_dmg_second_active();
+    pub fn skill_2_damage(&self) -> u32 {
+        return self.character.attack_dmg_skill_2();
+    }
+
+    pub fn skill_3_damage(&self) -> u32 {
+        return self.character.attack_dmg_skill_3();
     }
 
     #[inline]

@@ -809,7 +809,7 @@ impl GameState {
                 140,
                 10,
                 attacking_player.id,
-                0,
+                attacking_player.skill_2_damage(),
                 100,
                 ProjectileType::DISARMINGBULLET,
                 ProjectileStatus::ACTIVE,
@@ -992,6 +992,8 @@ impl GameState {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
+            let damage = player.skill_3_damage() as i64;
+
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(
@@ -1007,8 +1009,8 @@ impl GameState {
                     {
                         player.action = PlayerAction::EXECUTINGSKILL3;
                         leap_affected_players = GameState::affected_players(
-                            20,
-                            200.,
+                            damage,
+                            450.,
                             &pys,
                             &player.position,
                             player.id,
