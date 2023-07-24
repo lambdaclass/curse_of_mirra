@@ -134,6 +134,10 @@ public class PlayerMovement : MonoBehaviour
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
+        auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
+        currentTime = buffer.firstTimestamp + auxAccumulatedTime;
+        pastTime = currentTime - buffer.deltaInterpolationTime;
+
         if (buffer.firstTimestamp == 0)
         {
             buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
@@ -147,9 +151,6 @@ public class PlayerMovement : MonoBehaviour
                     != SocketConnectionManager.Instance.gamePlayers[i].Id
             )
             {
-                auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
-                currentTime = buffer.firstTimestamp + auxAccumulatedTime;
-                pastTime = currentTime - buffer.deltaInterpolationTime;
                 gameEvent = buffer.getNextEventToRender(pastTime);
             }
             else
@@ -177,7 +178,11 @@ public class PlayerMovement : MonoBehaviour
                     gameEvent.PlayerTimestamp
                 );
             }
-
+            var moving = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                serverPlayerUpdate.Id,
+                pastTime
+            );
+            print($"player is moving? {(moving ? "yes" : "no")}");
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
             if (actualPlayer.activeSelf)
             {

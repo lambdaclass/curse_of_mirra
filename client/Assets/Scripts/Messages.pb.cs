@@ -100,20 +100,21 @@ public static partial class MessagesReflection {
           "XzQQDRIUChBTRUxFQ1RfQ0hBUkFDVEVSEA4SDwoLRU5BQkxFX0JPVFMQDxIQ",
           "CgxESVNBQkxFX0JPVFMQECpNCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VO",
           "U1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVGVBADEgkKBVJJ",
-          "R0hUEAQq8QEKDFBsYXllckFjdGlvbhILCgdOT1RISU5HEAASDQoJQVRUQUNL",
+          "R0hUEAQq/QEKDFBsYXllckFjdGlvbhILCgdOT1RISU5HEAASDQoJQVRUQUNL",
           "SU5HEAESEQoNQVRUQUNLSU5HX0FPRRACEhQKEFNUQVJUSU5HX1NLSUxMXzEQ",
           "AxIUChBTVEFSVElOR19TS0lMTF8yEAQSFAoQU1RBUlRJTkdfU0tJTExfMxAF",
           "EhQKEFNUQVJUSU5HX1NLSUxMXzQQBhIVChFFWEVDVVRJTkdfU0tJTExfMRAH",
           "EhUKEUVYRUNVVElOR19TS0lMTF8yEAgSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQ",
-          "CRIVChFFWEVDVVRJTkdfU0tJTExfNBAKKnUKDFBsYXllckVmZmVjdBINCglQ",
-          "RVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFH",
-          "RUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9P",
-          "Rl9BUkVBEAYqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJ",
-          "RUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQAhIQCgxHQU1F",
-          "X1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFSVF9HQU1FEAUS",
-          "EgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlwZRIKCgZCVUxM",
-          "RVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVjdGlsZVN0YXR1",
-          "cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
+          "CRIVChFFWEVDVVRJTkdfU0tJTExfNBAKEgoKBk1PVklORxALKnUKDFBsYXll",
+          "ckVmZmVjdBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwKCFBJRVJD",
+          "SU5HEAISCQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElO",
+          "RxAFEg8KC09VVF9PRl9BUkVBEAYqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZ",
+          "UEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURE",
+          "RUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpT",
+          "VEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxl",
+          "VHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJv",
+          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90",
+          "bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -227,6 +228,7 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 8,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 9,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 10,
+  [pbr::OriginalName("MOVING")] Moving = 11,
 }
 
 /// <summary>
@@ -698,7 +700,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.MergeFrom(other.selectedCharacters_);
+    selectedCharacters_.Add(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1657,7 +1659,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.MergeFrom(other.effects_);
+    effects_.Add(other.effects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 

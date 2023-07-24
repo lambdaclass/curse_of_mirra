@@ -42,4 +42,31 @@ public class EventsBuffer
             return nextGameEvent;
         }
     }
+
+    public bool playerIsMoving(ulong playerId, long pastTime)
+    {
+        var count = 0;
+        GameEvent previousRenderedEvent = this.getNextEventToRender(pastTime - 30);
+        GameEvent currentEventToRender = this.getNextEventToRender(pastTime);
+        GameEvent followingEventToRender = this.getNextEventToRender(pastTime + 30);
+
+        count +=
+            (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
+            == PlayerAction.Moving
+                ? 1
+                : 0;
+        count +=
+            (currentEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
+            == PlayerAction.Moving
+                ? 1
+                : 0;
+        count +=
+            (followingEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
+            == PlayerAction.Moving
+                ? 1
+                : 0;
+
+        Debug.Log("the count is: " + count);
+        return count >= 2;
+    }
 }
