@@ -361,6 +361,16 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
+        // TODO: if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        if (true)
+        {
+            // Find the particle system in the player's Poison children, and activate it.
+            GameObject
+                .FindGameObjectWithTag("Player")
+                .transform.Find("Poison")
+                .GetComponent<ParticleSystem>()
+                .gameObject.SetActive(true);
+        }
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
