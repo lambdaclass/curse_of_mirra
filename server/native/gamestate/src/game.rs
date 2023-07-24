@@ -695,8 +695,8 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player
-        .actions
-        .insert(PlayerAction::EXECUTINGSKILL3, 3);
+            .actions
+            .insert(PlayerAction::EXECUTINGSKILL3, 3);
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
