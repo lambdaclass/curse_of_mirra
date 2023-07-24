@@ -209,7 +209,6 @@ impl GameState {
             return Ok(());
         }
 
-
         let speed = player.speed() as i64;
         GameState::move_player_to_direction(
             &mut self.board,
