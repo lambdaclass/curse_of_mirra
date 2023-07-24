@@ -1,4 +1,4 @@
-# Fileguide
+# Fileguides
 
 ## Overview
 
@@ -109,6 +109,7 @@ This file contains information about all projectiles in the game
 - **Id:** unique numeric ID
 - **Duration:** how long the projectile will exist as long as it isn't destroyed by a collision
 - **Speed:** determines how fast a missile travels
+- **Size:** how big the missile is, making it easier to collide with other objects
 - **CollideKill:** boolean field, if set to 1 the missile will be destroyed once it collides with a matching CollideType
 
 ## Status.json
