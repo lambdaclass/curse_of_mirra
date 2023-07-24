@@ -71,9 +71,9 @@
       "DoFunc": "0",
       "ButtonType": "2",
       "Cooldown": "500",
-      "Damage": "50",
+      "Damage": "5",
       "Status": "",
-      "Duration": "0",
+      "Duration": "60000",
       "Projectile": "",
       "Minion": ""
     },
@@ -84,7 +84,7 @@
       "Cooldown": "500",
       "Damage": "30",
       "Status": "",
-      "Duration": "10000",
+      "Duration": "60000",
       "Projectile": "",
       "Minion": ""
     },
@@ -95,7 +95,7 @@
       "Cooldown": "500",
       "Damage": "30",
       "Status": "",
-      "Duration": "0",
+      "Duration": "60000",
       "Projectile": "",
       "Minion": ""
     },

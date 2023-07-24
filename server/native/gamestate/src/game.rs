@@ -283,6 +283,38 @@ impl GameState {
         players_in_range
     }
 
+    // Return all player_id with 3 marks of a specific Uma
+    pub fn players_with_all_marks(
+        players: &Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Vec<u64> {
+        let mut players_in_range: Vec<u64> = vec![];
+        for player in players {
+            let elnar_mark = player.effects.get(&Effect::ElnarMark);
+            let yugen_mark = player.effects.get(&Effect::YugenMark);
+            let xanda_mark = player.effects.get(&Effect::XandaMark);
+
+            let has_elnar_mark = matches!(
+                elnar_mark,
+                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+            );
+            let has_yugen_mark = matches!(
+                yugen_mark,
+                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+            );
+            let has_xanda_mark = matches!(
+                xanda_mark,
+                Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+            );
+
+            if has_elnar_mark && has_yugen_mark && has_xanda_mark
+            {
+                players_in_range.push(player.id);
+            }
+        }
+        players_in_range
+    }
+
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
         players: &Vec<Player>,
@@ -526,6 +558,7 @@ impl GameState {
                     direction: None,
                     position: None,
                     triggered_at: now,
+                    caused_by: attacking_player.id,
                 },);
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
@@ -566,6 +599,7 @@ impl GameState {
             },
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
+                let attacking_player_id = attacking_player.id;
                 let duration = attacking_player.character.duration_skill_1();
                 match Self::nearest_player(
                     &pys,
@@ -583,6 +617,7 @@ impl GameState {
                             direction: None,
                             position: None,
                             triggered_at: now,
+                            caused_by: attacking_player_id,
                         },
                         )
 
@@ -690,6 +725,7 @@ impl GameState {
         attacking_player_id: u64,
         direction: &RelativePosition,
     ) -> Result<(), String> {
+        let pys = self.players.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left, false) {
@@ -709,6 +745,46 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => Self::muflus_skill_2(attacking_player),
+            Name::Uma => {
+                let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
+                let attacking_player_id = attacking_player.id;
+                let duration = attacking_player.character.duration_skill_2();
+                match Self::nearest_player(
+                    &pys,
+                    &attacking_player.position,
+                    attacking_player.id,
+                    1000.,
+                ) {
+                    Some((player_id, _position)) => {
+                        attacking_player.add_effect(
+                            Effect::XandaMark.clone(),
+                            EffectData {
+                                time_left: duration,
+                                ends_at: add_millis(now, duration),
+                                direction: None,
+                                position: None,
+                                triggered_at: u128_to_millis(0),
+                                caused_by: attacking_player.id,
+                            },
+                        );
+
+                        let attacked_player = GameState::get_player_mut(&mut self.players, player_id)?;
+                        attacked_player.add_effect(
+                        Effect::XandaMark.clone(),
+                        EffectData {
+                                time_left: duration,
+                                ends_at: add_millis(now, duration),
+                                direction: None,
+                                position: None,
+                                triggered_at: now,
+                                caused_by: attacking_player_id,
+                            },
+                        )
+                    },
+                    None => (),
+                };
+                Ok(Vec::new())
+            },
             _ => Ok(Vec::new()),
         };
 
@@ -753,6 +829,7 @@ impl GameState {
                 direction: None,
                 position: None,
                 triggered_at: u128_to_millis(0),
+                caused_by: attacking_player.id,
             },
         );
         Ok(Vec::new())
@@ -784,6 +861,7 @@ impl GameState {
                         direction: Some(*direction),
                         position: None,
                         triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
                     },
                 );
 
@@ -817,6 +895,7 @@ impl GameState {
                         direction: Some(*direction),
                         position: Some(position),
                         triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
                     },
                 );
 
@@ -855,8 +934,13 @@ impl GameState {
                         direction: None,
                         position: None,
                         triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
                     },
                 );
+                Ok(Vec::new())
+            },
+            Name::Uma => {
+                GameState::uma_skill_4(&mut self.players, attacking_player_id)?;
                 Ok(Vec::new())
             }
             _ => Ok(Vec::new()),
@@ -864,6 +948,34 @@ impl GameState {
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
         Ok(())
+    }
+
+    pub fn uma_skill_4(
+        players: &mut Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Result<Vec<u64>, String> {
+        let pys = players.clone();
+        
+        let mut affected_players: Vec<u64> =
+            GameState::players_with_all_marks(&pys, attacking_player_id)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-ap.health);
+                }
+                _ => continue,
+            }
+        }
+        Ok(affected_players)
     }
 
     pub fn disconnect(self: &mut Self, player_id: u64) -> Result<(), String> {
@@ -1013,6 +1125,7 @@ impl GameState {
                                     direction: None,
                                     position: None,
                                     triggered_at: u128_to_millis(0),
+                                    caused_by: projectile.player_id,
                                 },
                             );
                         }
@@ -1046,13 +1159,21 @@ impl GameState {
     }
 
     fn check_and_damage_poisoned_players(self: &mut Self) {
+        let now = time_now();
         self.players.iter_mut().for_each(|player| {
-            if player.has_active_effect(&Effect::YugenMark) {
-                println!("Player {} has Yugen Mark", player.id);
+            let mut effect_data = match player.effects.get(&Effect::YugenMark) {
+                Some(data) => data.clone(),
+                None => return,
+            };
+
+            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 5000 {
+                player.modify_health(-5);
+                effect_data.triggered_at = now;
             }
+
+            player.effects.insert(Effect::YugenMark, effect_data);
         });
     }
-
 
     fn update_projectiles(
         projectiles: &mut Vec<Projectile>,
@@ -1165,6 +1286,7 @@ impl GameState {
                         direction: None,
                         position: None,
                         triggered_at: now,
+                        caused_by: player.id,
                     },
                     Some(data) => data.clone(),
                 };
