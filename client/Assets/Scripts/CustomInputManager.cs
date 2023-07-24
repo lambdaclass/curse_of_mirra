@@ -71,6 +71,9 @@ public class CustomInputManager : InputManager
     [SerializeField]
     GameObject disarmObjectSkill4;
 
+    [SerializeField]
+    GameObject cancelButton;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -80,6 +83,9 @@ public class CustomInputManager : InputManager
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
     private bool disarmed = false;
+    private bool activeJoystickStatus = false;
+
+    public bool canceled = false;
 
     protected override void Start()
     {
@@ -101,6 +107,12 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
+
+    // void Update()
+    // {
+    //     activeJoystickStatus = activeJoystick != null ? true : false;
+    //     cancelButton.SetActive(activeJoystickStatus);
+    // }
 
     public void ActivateDisarmEffect(bool isDisarmed)
     {
@@ -142,11 +154,12 @@ public class CustomInputManager : InputManager
         switch (triggerType)
         {
             case UIType.Tap:
-                button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
+                // button.ButtonReleased.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
                     joystick.enabled = false;
                 }
+                MapTapInputEvents(button, skill);
                 break;
 
             case UIType.Area:
@@ -181,6 +194,14 @@ public class CustomInputManager : InputManager
         aoeRelease.AddListener(ExecuteAoeSkill);
         joystick.skill = skill;
         joystick.newPointerUpEvent = aoeRelease;
+    }
+
+    private void MapTapInputEvents(CustomMMTouchButton button, Skill skill)
+    {
+        UnityEvent<Skill> tapRelease = new UnityEvent<Skill>();
+        tapRelease.AddListener(ExecuteTapSkill);
+        button.skill = skill;
+        button.newPointerTapUp = tapRelease;
     }
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
@@ -226,7 +247,18 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.TryExecuteSkill(aoePosition);
+        if (!canceled)
+        {
+            skill.TryExecuteSkill(aoePosition);
+        }
+    }
+
+    public void ExecuteTapSkill(Skill skill)
+    {
+        if (!canceled)
+        {
+            skill.TryExecuteSkill();
+        }
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -301,7 +333,10 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.TryExecuteSkill(direction);
+        if (!canceled)
+        {
+            skill.TryExecuteSkill(direction);
+        }
     }
 
     public void CheckSkillCooldown(UIControls control, float cooldown)
@@ -356,5 +391,24 @@ public class CustomInputManager : InputManager
     public void UnsetOpacity()
     {
         joystickL.color = new Color(255, 255, 255, 1);
+    }
+
+    public void SetCanceled(bool value)
+    {
+        canceled = value;
+    }
+
+    public void ToggleCanceled(bool value)
+    {
+        if (activeJoystick != null)
+        {
+            activeJoystickStatus = activeJoystick != null ? true : false;
+            cancelButton.SetActive(activeJoystickStatus);
+        }
+        else
+        {
+            print("tap" + value);
+            cancelButton.SetActive(value);
+        }
     }
 }
