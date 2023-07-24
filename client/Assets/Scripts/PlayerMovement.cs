@@ -133,10 +133,12 @@ public class PlayerMovement : MonoBehaviour
         long pastTime;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
+
         if (buffer.firstTimestamp == 0)
         {
             buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
         }
+
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
             if (
@@ -418,7 +420,7 @@ public class PlayerMovement : MonoBehaviour
         bool walking =
             playerUpdate.Id == SocketConnectionManager.Instance.playerId
                 ? inputsAreBeingUsed()
-                : playerUpdate.Actions.ContainsKey((ulong)PlayerAction.Moving);
+                : false;
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -480,9 +482,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     characterOrientation.ForcedRotationDirection = movementDirection;
                 }
-
-                // TODO: why not use character state?
             }
+            walking = true;
         }
         mAnimator.SetBool("Walking", walking);
 
