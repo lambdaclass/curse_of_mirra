@@ -519,7 +519,7 @@ impl GameState {
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
             let atp = attacking_player.clone();
             if atp.character.name == Name::Uma {
-                match atp.effects.get(&Effect::XandaMark) {
+                match atp.effects.get(&Effect::XandaMarkOwner) {
                     Some(effect) => {
                         attacked_player.modify_health(-(attack_dmg/2));
                         uma_affected_players.insert(attacked_player.id, (attack_dmg/2, vec![effect.caused_to]));
