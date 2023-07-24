@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Google.Protobuf;
-using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -331,8 +332,10 @@ public class LobbyConnection : MonoBehaviour
         return ws.State == NativeWebSocket.WebSocketState.Open;
     }
 
-    private void InitializeAudio()
+    private async void InitializeAudio()
     {
         backgroundMusic.PlayFeedbacks();
+        await Task.Delay(1);
+        soundManager.MuteTrack(MMSoundManager.MMSoundManagerTracks.Music);
     }
 }
