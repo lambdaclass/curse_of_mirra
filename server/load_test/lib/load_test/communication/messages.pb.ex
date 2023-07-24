@@ -307,6 +307,9 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:board_height, 3, type: :uint64, json_name: "boardHeight")
   field(:server_tickrate_ms, 4, type: :uint64, json_name: "serverTickrateMs")
   field(:game_timeout_ms, 5, type: :uint64, json_name: "gameTimeoutMs")
+  field(:map_shrink_wait_ms, 6, type: :uint64, json_name: "mapShrinkWaitMs")
+  field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
+  field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do
