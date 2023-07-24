@@ -14,6 +14,8 @@ pub struct EffectData {
     pub direction: Option<RelativePosition>,
     pub position: Option<Position>,
     pub triggered_at: MillisTime,
+    pub caused_by: u64,
+    pub caused_to: u64,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -27,6 +29,10 @@ pub enum Effect {
     NeonCrashing,
     Leaping,
     OutOfArea,
+    ElnarMark,
+    YugenMark,
+    XandaMark,
+    XandaMarkOwner,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -135,13 +141,34 @@ impl Player {
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
         if matches!(self.status, Status::ALIVE) {
-            self.health = self.health.saturating_add(hp_points);
+            self.health = self.health.saturating_add(self.calculate_damage(hp_points));
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
             }
         }
     }
+
+    pub fn calculate_damage(self: &Self, hp_points: i64) -> i64 {
+        let mut damage = hp_points;
+        if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
+            damage = damage / 2;
+        }
+        damage
+    }
+
+    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64> {
+        if self.character.name == Name::Uma {
+            match self.effects.get(&Effect::XandaMarkOwner) {
+                Some(effect) => {
+                    return Some(effect.caused_to);
+                }
+                None => return None,
+            }
+        }
+        None
+    }
+
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
@@ -176,7 +203,7 @@ impl Player {
                     }
                 }
                 _ => {
-                    self.effects.insert(e.clone(), ed);
+                    self.effects.insert(e, ed);
                 }
             }
         }
@@ -259,6 +286,24 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+    }
+
+    pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {
+        self.has_mark(&Effect::ElnarMark, attacking_player_id)
+            + self.has_mark(&Effect::YugenMark, attacking_player_id)
+            + self.has_mark(&Effect::XandaMark, attacking_player_id)
+    }
+
+    fn has_mark(self: &Self, e: &Effect, attacking_player_id: u64) -> u64 {
+        let mark = self.effects.get(e);
+        return if matches!(
+            mark,
+            Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+        ) {
+            1
+        } else {
+            0
+        };
     }
 
     // TODO:
