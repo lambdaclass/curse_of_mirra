@@ -86,11 +86,14 @@ pub enum PlayerAction {
     NOTHING,
     ATTACKING,
     ATTACKINGAOE,
+    STARTINGSKILL1,
+    STARTINGSKILL2,
+    STARTINGSKILL3,
+    STARTINGSKILL4,
     EXECUTINGSKILL1,
     EXECUTINGSKILL2,
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
-    TELEPORTING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
@@ -182,6 +185,9 @@ impl Player {
         if self.has_active_effect(&Effect::Petrified) {
             return 0;
         }
+        if self.has_active_effect(&Effect::Leaping) {
+            return ((base_speed as f64) * 4.).ceil() as u64;
+        }
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
@@ -191,9 +197,7 @@ impl Player {
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
-        if self.has_active_effect(&Effect::Leaping) {
-            return ((base_speed as f64) * 4.).ceil() as u64;
-        }
+
         return base_speed;
     }
 
