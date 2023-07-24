@@ -234,7 +234,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
     // Player 1 can't attack since it is in a Disarmed state
     // Player 2 can attack
     state
-        .basic_attack(player_1_id, &RelativePosition::new(0f32, 1f32))
+        .skill_1(player_1_id, &RelativePosition::new(0f32, 1f32))
         .unwrap();
     state
         .basic_attack(player_2_id, &RelativePosition::new(0f32, 1f32))

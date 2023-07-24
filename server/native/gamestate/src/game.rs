@@ -349,6 +349,7 @@ impl GameState {
         attacking_player_id: u64,
         direction: &RelativePosition,
     ) -> Result<(), String> {
+        let players = &self.players.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left, true) {
@@ -368,9 +369,9 @@ impl GameState {
                 direction,
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
+                players,
             ),
             Name::Muflus => {
-                let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
@@ -386,14 +387,28 @@ impl GameState {
         direction: &RelativePosition,
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
+        players: &Vec<Player>,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = attacking_player.has_active_effect(&Effect::Piercing);
 
+            let projectile_direction = match Self::nearest_position_player(
+                players,
+                &attacking_player.position,
+                attacking_player.id,
+                1000.,
+            ) {
+                Some(position) => RelativePosition::new(
+                    position.y as f32 - attacking_player.position.y as f32,
+                    -(position.x as f32 - attacking_player.position.x as f32),
+                ),
+                None => *direction,
+            };
+
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
-                RelativePosition::new(direction.x as f32, direction.y as f32),
+                projectile_direction,
                 100,
                 1,
                 attacking_player.id,
@@ -408,6 +423,30 @@ impl GameState {
             (*next_projectile_id) += 1;
         }
         Ok(Vec::new())
+    }
+
+    fn nearest_position_player(
+        players: &Vec<Player>,
+        position: &Position,
+        attacking_player_id: u64,
+        max_distance: f64,
+    ) -> Option<Position> {
+        let mut nearest_player_position = None;
+        let mut nearest_distance = max_distance;
+        let mut lowest_hp = 100;
+
+        for player in players {
+            if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
+                let distance = distance_to_center(player, position);
+                if distance < nearest_distance && player.health <= lowest_hp {
+                    lowest_hp = player.health;
+                    nearest_player_position = Some(player.position);
+                    nearest_distance = distance;
+                }
+            }
+        }
+
+        nearest_player_position
     }
 
     pub fn muflus_basic_attack(
@@ -654,15 +693,15 @@ impl GameState {
         }
 
         let now = time_now();
+        attacking_player.action = PlayerAction::EXECUTINGSKILL3;
+        attacking_player
+        .actions
+        .insert(PlayerAction::EXECUTINGSKILL3, 3);
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player.action = PlayerAction::EXECUTINGSKILL3;
-                attacking_player
-                    .actions
-                    .insert(PlayerAction::EXECUTINGSKILL3, 3);
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
                     EffectData {
@@ -683,8 +722,9 @@ impl GameState {
                     self.board.width,
                 );
                 let distance = distance_between_positions(&attacking_player.position, &position);
-                let time = distance * attacking_player.speed() as f64 / 48.;
+                let time = distance * attacking_player.character.base_speed as f64 / 48.;
 
+                attacking_player.action = PlayerAction::STARTINGSKILL3;
                 attacking_player.add_effect(
                     Effect::Leaping.clone(),
                     EffectData {

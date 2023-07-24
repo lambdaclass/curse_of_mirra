@@ -64,12 +64,15 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
-  field(:EXECUTING_SKILL_1, 3)
-  field(:TELEPORTING, 4)
-  field(:EXECUTING_SKILL_2, 5)
-  field(:EXECUTING_SKILL_3, 6)
-  field(:EXECUTING_SKILL_4, 7)
-  field(:MOVING, 8)
+  field(:STARTING_SKILL_1, 3)
+  field(:STARTING_SKILL_2, 4)
+  field(:STARTING_SKILL_3, 5)
+  field(:STARTING_SKILL_4, 6)
+  field(:EXECUTING_SKILL_1, 7)
+  field(:EXECUTING_SKILL_2, 8)
+  field(:EXECUTING_SKILL_3, 9)
+  field(:EXECUTING_SKILL_4, 10)
+  field(:MOVING, 11)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
