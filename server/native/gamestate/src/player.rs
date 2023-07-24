@@ -297,17 +297,6 @@ impl Player {
         );
     }
 
-    pub fn update_actions(&mut self) {
-        for (key, value) in self.actions.clone() {
-            let new_value = value.saturating_sub(1);
-            if new_value == 0 {
-                self.actions.remove(&key);
-            } else {
-                self.actions.insert(key, new_value);
-            }
-        }
-    }
-
     // This ill be helpful once the deathmatch mode starts its development
     pub fn restore_player_status(&mut self, new_position: Position) {
         self.health = 100;

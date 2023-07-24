@@ -795,7 +795,6 @@ impl GameState {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
-            player.update_actions();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(
