@@ -18,12 +18,6 @@ public class LobbyManager : LevelSelector
     [SerializeField]
     GameObject mapList;
 
-    [SerializeField]
-    MMSoundManager soundManager;
-
-    [SerializeField]
-    private MMF_Player backgroundMusic;
-
     public static string LevelSelected;
 
     public override void GoToLevel()
@@ -34,7 +28,6 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        InitializeAudio();
         if (playButton != null && mapList != null)
         {
             if (LobbyConnection.Instance.playerId == 1)
@@ -102,12 +95,5 @@ public class LobbyManager : LevelSelector
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
-    }
-
-    private void InitializeAudio()
-    {
-        backgroundMusic.PlayFeedbacks();
-        // soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
-        // soundManager.MuteMaster();
     }
 }

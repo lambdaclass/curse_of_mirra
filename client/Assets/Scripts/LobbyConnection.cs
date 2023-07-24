@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
+using MoreMountains.Tools;
+using MoreMountains.Feedbacks;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -47,6 +49,12 @@ public class LobbyConnection : MonoBehaviour
         public List<string> current_games;
     }
 
+    [SerializeField]
+    MMSoundManager soundManager;
+
+    [SerializeField]
+    private MMF_Player backgroundMusic;
+
     class AcceptAllCertificates : CertificateHandler
     {
         protected override bool ValidateCertificate(byte[] certificateData)
@@ -59,6 +67,11 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         PopulateLists();
+    }
+
+    private void Start()
+    {
+        InitializeAudio();
     }
 
     public void Init()
@@ -316,5 +329,10 @@ public class LobbyConnection : MonoBehaviour
     public bool isConnectionOpen()
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
+
+    private void InitializeAudio()
+    {
+        backgroundMusic.PlayFeedbacks();
     }
 }
