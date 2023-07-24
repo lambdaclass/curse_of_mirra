@@ -319,7 +319,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, @map_shrink_wait_ms)
 
-
     gen_server_state =
       gen_server_state
       |> Map.put(:client_game_state, %{game: game})
