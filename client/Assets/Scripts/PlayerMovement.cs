@@ -404,13 +404,16 @@ public class PlayerMovement : MonoBehaviour
                 );
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
-        {
-            characterSpeed *= 1.5f;
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing))
+        if (
+            playerUpdate.CharacterName == "H4ck"
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
+        )
         {
             characterSpeed *= 4f;
+        }
+        else if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
+        {
+            characterSpeed *= 1.5f;
         }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
