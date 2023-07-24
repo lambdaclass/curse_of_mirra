@@ -38,6 +38,8 @@ defmodule DarkWorldsServer.Communication do
         players: players,
         projectiles: projectiles,
         killfeed: killfeed,
+        playable_radius: playable_radius,
+        shrinking_center: shrinking_center,
         player_timestamp: player_timestamp,
         server_timestamp: server_timestamp
       }) do
@@ -46,6 +48,8 @@ defmodule DarkWorldsServer.Communication do
       players: players,
       projectiles: projectiles,
       killfeed: killfeed,
+      playable_radius: playable_radius,
+      shrinking_center: shrinking_center,
       player_timestamp: player_timestamp,
       server_timestamp: server_timestamp
     }

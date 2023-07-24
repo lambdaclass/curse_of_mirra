@@ -85,6 +85,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:OUT_OF_AREA, 6)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -150,6 +151,12 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 10, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 12,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do

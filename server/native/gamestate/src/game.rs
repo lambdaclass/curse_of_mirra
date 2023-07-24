@@ -3,7 +3,9 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, time_now, MillisTime};
+use crate::time_utils::{
+    add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
+};
 use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -12,6 +14,7 @@ use std::f32::consts::PI;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::ops::{Div, Mul};
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
@@ -22,6 +25,8 @@ pub struct GameState {
     pub killfeed: Vec<KillEvent>,
     pub projectiles: Vec<Projectile>,
     pub next_projectile_id: u64,
+    pub playable_radius: u64,
+    pub shrinking_center: Position,
 }
 
 #[derive(Clone, NifTuple)]
@@ -100,6 +105,11 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
+            playable_radius: max(board_height, board_width) as u64,
+            shrinking_center: Position {
+                x: board_height.div(2),
+                y: board_width.div(2),
+            },
         })
     }
 
@@ -666,6 +676,7 @@ impl GameState {
                 ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
                 direction: None,
                 position: None,
+                triggered_at: u128_to_millis(0),
             },
         );
         Ok(Vec::new())
@@ -696,6 +707,7 @@ impl GameState {
                         ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
                         direction: Some(*direction),
                         position: None,
+                        triggered_at: u128_to_millis(0),
                     },
                 );
 
@@ -728,6 +740,7 @@ impl GameState {
                         ),
                         direction: Some(*direction),
                         position: Some(position),
+                        triggered_at: u128_to_millis(0),
                     },
                 );
 
@@ -765,6 +778,7 @@ impl GameState {
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
                         direction: None,
                         position: None,
+                        triggered_at: u128_to_millis(0),
                     },
                 );
                 Ok(Vec::new())
@@ -922,6 +936,7 @@ impl GameState {
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
                                     direction: None,
                                     position: None,
+                                    triggered_at: u128_to_millis(0),
                                 },
                             );
                         }
@@ -942,6 +957,8 @@ impl GameState {
                 }
             }
         }
+
+        self.check_and_damage_outside_playable();
 
         self.next_killfeed.append(&mut tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
@@ -1018,6 +1035,10 @@ impl GameState {
             .push(Player::new(player_id, 100, position, Default::default()));
     }
 
+    pub fn shrink_map(self: &mut Self) {
+        self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+    }
+
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
         let mut kill_events: Vec<KillEvent> = attacked_player_ids
             .into_iter()
@@ -1034,6 +1055,41 @@ impl GameState {
             .collect();
 
         self.next_killfeed.append(&mut kill_events);
+    }
+
+    fn check_and_damage_outside_playable(self: &mut Self) {
+        let now = time_now();
+        let time_left = u128_to_millis(3_600_000); // 1 hour
+        let ends_at = add_millis(now, time_left);
+        let player_ids_in_playable = GameState::players_in_range(
+            &self.players,
+            &self.shrinking_center,
+            self.playable_radius as f64,
+        );
+
+        self.players.iter_mut().for_each(|player| {
+            if player_ids_in_playable.contains(&player.id) {
+                player.effects.remove(&Effect::OutOfArea);
+            } else {
+                let mut effect_data = match player.effects.get(&Effect::OutOfArea) {
+                    None => EffectData {
+                        time_left,
+                        ends_at,
+                        direction: None,
+                        position: None,
+                        triggered_at: now,
+                    },
+                    Some(data) => data.clone(),
+                };
+
+                if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 {
+                    player.modify_health(-5);
+                    effect_data.triggered_at = now;
+                }
+
+                player.effects.insert(Effect::OutOfArea, effect_data);
+            }
+        });
     }
 }
 /// Given a position and a direction, returns the position adjacent to it `n` tiles
