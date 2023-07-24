@@ -10,6 +10,9 @@ public class SelectIndicator : MonoBehaviour
     [SerializeField]
     GameObject arrow;
 
+    [SerializeField]
+    GameObject area;
+
     public void ActivateIndicator(UIIndicatorType indicatorType)
     {
         switch (indicatorType)
@@ -19,6 +22,9 @@ public class SelectIndicator : MonoBehaviour
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(true);
+                break;
+            case UIIndicatorType.Area:
+                area.SetActive(true);
                 break;
         }
     }

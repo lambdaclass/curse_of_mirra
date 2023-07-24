@@ -15,10 +15,13 @@ MonoBehaviour:
   name: Hack_Aimshot
   inputType: 2
   indicatorType: 2
-  feedbackAnimation: {fileID: 0}
-  instantiateAnimationOnModel: 0
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
-  skillCircleRadius: 15
+  skillCircleRadius: 12
   skillConeAngle: 0
