@@ -6,12 +6,10 @@ defmodule LoadTest.Communication.Proto.GameEventType do
   field(:STATE_UPDATE, 0)
   field(:PING_UPDATE, 1)
   field(:PLAYER_JOINED, 2)
-  field(:NEXT_ROUND, 3)
-  field(:LAST_ROUND, 4)
-  field(:GAME_FINISHED, 5)
-  field(:INITIAL_POSITIONS, 6)
-  field(:SELECTED_CHARACTER_UPDATE, 7)
-  field(:FINISH_CHARACTER_SELECTION, 8)
+  field(:GAME_FINISHED, 3)
+  field(:INITIAL_POSITIONS, 4)
+  field(:SELECTED_CHARACTER_UPDATE, 5)
+  field(:FINISH_CHARACTER_SELECTION, 6)
 end
 
 defmodule LoadTest.Communication.Proto.Status do
@@ -66,11 +64,14 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
   field(:ATTACKING_AOE, 2)
-  field(:EXECUTING_SKILL_1, 3)
-  field(:TELEPORTING, 4)
-  field(:EXECUTING_SKILL_2, 5)
-  field(:EXECUTING_SKILL_3, 6)
-  field(:EXECUTING_SKILL_4, 7)
+  field(:STARTING_SKILL_1, 3)
+  field(:STARTING_SKILL_2, 4)
+  field(:STARTING_SKILL_3, 5)
+  field(:STARTING_SKILL_4, 6)
+  field(:EXECUTING_SKILL_1, 7)
+  field(:EXECUTING_SKILL_2, 8)
+  field(:EXECUTING_SKILL_3, 9)
+  field(:EXECUTING_SKILL_4, 10)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerEffect do
@@ -84,6 +85,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:OUT_OF_AREA, 6)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -138,18 +140,23 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:projectiles, 4, repeated: true, type: LoadTest.Communication.Proto.Projectile)
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
-  field(:current_round, 7, type: :uint64, json_name: "currentRound")
 
-  field(:selected_characters, 8,
+  field(:selected_characters, 7,
     repeated: true,
     type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
 
-  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
-  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
-  field(:killfeed, 11, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
+  field(:killfeed, 10, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 12,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
@@ -286,6 +293,8 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
     type: LoadTest.Communication.Proto.ServerGameSettings,
     json_name: "gameConfig"
   )
+
+  field(:server_hash, 10, type: :string, json_name: "serverHash")
 end
 
 defmodule LoadTest.Communication.Proto.RunnerConfig do

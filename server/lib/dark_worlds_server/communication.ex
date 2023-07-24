@@ -27,10 +27,10 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_game_started!(%{game_pid: game_pid, game_config: game_config}) do
+  def lobby_game_started!(%{game_pid: game_pid, game_config: game_config, server_hash: server_hash}) do
     game_id = pid_to_external_id(game_pid)
 
-    %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config}
+    %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config, server_hash: server_hash}
     |> LobbyEvent.encode()
   end
 
@@ -38,6 +38,8 @@ defmodule DarkWorldsServer.Communication do
         players: players,
         projectiles: projectiles,
         killfeed: killfeed,
+        playable_radius: playable_radius,
+        shrinking_center: shrinking_center,
         player_timestamp: player_timestamp,
         server_timestamp: server_timestamp
       }) do
@@ -46,6 +48,8 @@ defmodule DarkWorldsServer.Communication do
       players: players,
       projectiles: projectiles,
       killfeed: killfeed,
+      playable_radius: playable_radius,
+      shrinking_center: shrinking_center,
       player_timestamp: player_timestamp,
       server_timestamp: server_timestamp
     }
@@ -54,26 +58,6 @@ defmodule DarkWorldsServer.Communication do
 
   def encode!(%{latency: latency}) do
     %GameEvent{type: :PING_UPDATE, latency: latency}
-    |> GameEvent.encode()
-  end
-
-  def last_round!(%{winner: winner, current_round: current_round, players: players}) do
-    %GameEvent{
-      type: :LAST_ROUND,
-      winner_player: winner,
-      current_round: current_round,
-      players: players
-    }
-    |> GameEvent.encode()
-  end
-
-  def next_round!(%{winner: winner, current_round: current_round, players: players}) do
-    %GameEvent{
-      type: :NEXT_ROUND,
-      winner_player: winner,
-      current_round: current_round,
-      players: players
-    }
     |> GameEvent.encode()
   end
 
