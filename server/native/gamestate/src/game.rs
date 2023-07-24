@@ -513,30 +513,23 @@ impl GameState {
                 .collect();
 
         let mut kill_count = 0;
-        let mut uma_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
         for target_player_id in affected_players.iter() {
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
-            let atp = attacked_player.clone();
-            if atp.character.name == Name::Uma {
-                match atp.effects.get(&Effect::XandaMarkOwner) {
-                    Some(effect) => {
-                        attacked_player.modify_health(-(attack_dmg/2));
-                        uma_affected_players.insert(attacked_player.id, (attack_dmg/2, vec![effect.caused_to]));
-                        println!("Uma affected players: {:?}", uma_affected_players);
-                    },
-                    None => {
-                        attacked_player.modify_health(-attack_dmg);
-                    }
-                }
-            } else {
-                attacked_player.modify_health(-attack_dmg);
-            }
+
+            attacked_player.modify_health(-attack_dmg);
+            match attacked_player.get_mirrored_player_id() {
+                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-(attack_dmg/2), mirrored_id)),
+                None => None,
+            };
+            
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
         }
-        GameState::attack_players_with_effect(uma_affected_players, players)?;
+        
+        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
         Ok(affected_players)
@@ -563,10 +556,16 @@ impl GameState {
                 .collect();
 
         let mut kill_count = 0;
+        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
+
         for target_player_id in affected_players.iter() {
             let now = time_now();
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
             attacked_player.modify_health(-attack_dmg);
+            match attacked_player.get_mirrored_player_id() {
+                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-(attack_dmg/2), mirrored_id)),
+                None => None,
+            };
             attacked_player.add_effect(
                 Effect::ElnarMark.clone(),
                 EffectData {
@@ -582,6 +581,7 @@ impl GameState {
                 kill_count += 1;
             }
         }
+        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
         add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
         Ok(affected_players)
@@ -710,7 +710,8 @@ impl GameState {
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
-
+        
+        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = players
@@ -720,10 +721,15 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
+                    match ap.get_mirrored_player_id() {
+                        Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (-(attack_dmg/2), mirrored_id)),
+                        None => None,
+                    };
                 }
                 _ => continue,
             }
         }
+        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
         Ok(affected_players)
     }
 
@@ -996,7 +1002,7 @@ impl GameState {
 
             match attacked_player {
                 Some(ap) => {
-                    ap.modify_health(-ap.health);
+                    ap.modify_health(-(ap.health as f64 * 0.8) as i64);
                 }
                 _ => continue,
             }
@@ -1015,9 +1021,10 @@ impl GameState {
 
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
         let now = time_now();
-        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
         let pys = self.players.clone();
+        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
         let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
@@ -1158,6 +1165,10 @@ impl GameState {
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
+                            match attacked_player.get_mirrored_player_id() {
+                                Some(mirrored_id) => uma_mirroring_affected_players.insert(attacked_player.id, (-((projectile.damage as i64)/2), mirrored_id)),
+                                None => None,
+                            };
                             if matches!(attacked_player.status, Status::DEAD) {
                                 tick_killed_events.push(KillEvent {
                                     kill_by: projectile.player_id,
@@ -1172,6 +1183,10 @@ impl GameState {
                     add_kills(&mut self.players, projectile.player_id, kill_count)?;
                 }
             }
+
+            let uma_mirrored_players = uma_mirroring_affected_players.clone();
+            GameState::attack_mirrored_player(uma_mirrored_players, &mut self.players)?;
+            uma_mirroring_affected_players.clear();
         }
 
         self.check_and_damage_outside_playable();
@@ -1221,20 +1236,38 @@ impl GameState {
         affected_players: HashMap<u64, (i64, Vec<u64>)>,
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
+
+        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for (player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 let attacked_player = players
                     .iter_mut()
                     .find(|player| player.id == *target_player_id && player.id != *player_id);
-
                 match attacked_player {
                     Some(ap) => {
                         ap.modify_health(-damage);
+                        match ap.get_mirrored_player_id() {
+                            Some(mirrored_id) => uma_mirroring_affected_players.insert(ap.id, (-(damage/2), mirrored_id)),
+                            None => None,
+                        };
                     }
                     _ => continue,
                 }
             }
         }
+        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
+        Ok(())
+    }
+
+    fn attack_mirrored_player(
+        affected_players: HashMap<u64, (i64, u64)>,
+        players: &mut Vec<Player>,
+    ) -> Result<(), String> {
+        for (_player_id, (damage, attacked_player_id)) in affected_players.iter() {
+            let attacked_player = GameState::get_player_mut(players, *attacked_player_id)?;
+            attacked_player.modify_health(-damage);
+        }
+        
         Ok(())
     }
 

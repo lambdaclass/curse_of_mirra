@@ -139,13 +139,34 @@ impl Player {
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
         if matches!(self.status, Status::ALIVE) {
-            self.health = self.health.saturating_add(hp_points);
+            self.health = self.health.saturating_add(self.calculate_damage(hp_points));
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
             }
         }
     }
+
+    pub fn calculate_damage(self: &Self, hp_points: i64) -> i64 {
+        let mut damage = hp_points;
+        if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
+            damage = damage / 2;
+        }
+        damage
+    }
+
+    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64>{
+        if self.character.name == Name::Uma {
+            match self.effects.get(&Effect::XandaMarkOwner) {
+                Some(effect) => {
+                    return Some(effect.caused_to);
+                },
+                None => return None,
+            }
+        }
+        None
+    }
+
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
