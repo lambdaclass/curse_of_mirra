@@ -72,6 +72,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 8)
   field(:EXECUTING_SKILL_3, 9)
   field(:EXECUTING_SKILL_4, 10)
+  field(:MOVING, 11)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do

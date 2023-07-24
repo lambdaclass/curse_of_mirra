@@ -178,6 +178,7 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 8;
     EXECUTING_SKILL_3 = 9;
     EXECUTING_SKILL_4 = 10;
+    MOVING = 11;
 }
 
 /* Effects a player has */
