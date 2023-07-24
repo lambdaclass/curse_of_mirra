@@ -20,7 +20,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   # This is the amount of time to wait until the game starts, ofc we should change it
   @game_start_timer_ms 30
   # Amount of time to wait before starting to shrink the map
-  @map_shrink_wait_ms 120_000
+  @map_shrink_wait_ms 60_000
   # Amount of time between map shrinking
   @map_shrink_interval_ms 100
 
@@ -318,6 +318,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     )
 
     Process.send_after(self(), :update_state, tick_rate)
+    Process.send_after(self(), :shrink_map, @map_shrink_wait_ms)
 
     gen_server_state =
       gen_server_state
