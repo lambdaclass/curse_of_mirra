@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Muflus_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Muflus_Skill4
+  description: Become engulfed in flames for a period, increasing resilience and
+    adding a burn damage (DoT) and flame effects to all attacks. Myrra has provided
+    the bulls with a PED that has unleashed the full aggressive potential of their
+    bodies.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3
   hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

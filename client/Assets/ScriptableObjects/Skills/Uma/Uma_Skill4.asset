@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Uma_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Uma_SkillBasic
+  description: "Performs the ultimate revenge: assassinate any target that has all
+    three Marks. If the target has been anointed with the three marks it\u2019s ready
+    to be sacrificed to the feathered serpent."
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

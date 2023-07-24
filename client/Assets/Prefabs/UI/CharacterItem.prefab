@@ -128,5 +128,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comCharacter: {fileID: 0}
   name: {fileID: 0}
+  skillName: {fileID: 0}
+  skillDescription: {fileID: 0}
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   artWork: {fileID: 0}
   selected: 0
+  characterDescription: {fileID: 0}
+  skillBasicSprite: {fileID: 0}
+  skill1Sprite: {fileID: 0}
+  skill2Sprite: {fileID: 0}
+  skill3Sprite: {fileID: 0}
+  skill4Sprite: {fileID: 0}

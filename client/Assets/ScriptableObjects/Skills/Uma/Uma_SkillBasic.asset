@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Uma_SkillBasic
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Uma_SkillBasic
+  description: "Melee attack that deals high damage and inflicts a Mark on the enemy
+    for a short period which slows them down slightly. Marks of same type don\u2019t
+    stack, but they reset the duration. Taints her enemy preparing it for the kill.
+    The first mark is named before her husband. "
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

@@ -2,13 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections.Generic;
 
 public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 {
     public CoMCharacter comCharacter;
     public TextMeshProUGUI name;
+    public TextMeshProUGUI skillName;
+    public TextMeshProUGUI skillDescription;
+
     public Image artWork;
     public bool selected = false;
+
+    [SerializeField]
+    public GameObject characterDescription;
 
     [SerializeField]
     public Image skillBasicSprite;
@@ -56,14 +63,26 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         {
             if (isActive())
             {
+                characterDescription.SetActive(true);
                 selected = true;
                 artWork.sprite = comCharacter.selectedArtwork;
                 name.text = comCharacter.name;
+                skillName.text = comCharacter.skillBasicInfo.name;
+                skillDescription.text = comCharacter.skillBasicInfo.description;
                 skillBasicSprite.sprite = comCharacter.skillBasicSprite;
                 skill1Sprite.sprite = comCharacter.skill1Sprite;
                 skill2Sprite.sprite = comCharacter.skill2Sprite;
                 skill3Sprite.sprite = comCharacter.skill3Sprite;
                 skill4Sprite.sprite = comCharacter.skill4Sprite;
+
+                skillBasicSprite
+                    .GetComponent<SkillDescription>()
+                    .GetCharacter(comCharacter.skillBasicInfo);
+                skill1Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill1Info);
+                skill2Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill2Info);
+                skill3Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill3Info);
+                skill4Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill4Info);
+
                 SendCharacterSelection();
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()

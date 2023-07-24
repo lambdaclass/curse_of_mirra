@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: H4ck_Basic
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Hack_Basic
+  description: High speed ranged attack, can bounce off walls, like a pinball machine.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 4

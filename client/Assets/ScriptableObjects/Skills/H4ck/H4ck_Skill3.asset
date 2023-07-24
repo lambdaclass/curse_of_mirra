@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: H4ck_Skill3
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Hack_Skill3
+  description: Short-ish cooldown offensive dash that deals damage to enemies near
+    the dash path. H4ck has been using his roller skates to escape from trouble since
+    he was a child so he excells on this.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
   hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

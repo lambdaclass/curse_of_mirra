@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Muflus_Roll
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Muflus_Leap
+  description: Does a 360deg spin with the weapon extended, dealing great damage
+    nearly instantly in the area. When enraged Muflus has the ability to wield aggressively
+    his chainsaw tipped club.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3

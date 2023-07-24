@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: H4ck_Aimshot
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Hack_Aimshot
+  description: "Target opponent can\u2019t use any skills for 2 seconds. Always a
+    sneaky guy, he has mastered the art of impairing his foes using his slingshot."
   inputType: 2
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 4

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Muflus_Leap
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Muflus_Leap
+  description: Jump to a location, dealing damages and slowing enemies near area
+    upon arrival. His powerful legs give him the ability to leap to prodigious heights
+    and destroy the floor when he lands.
   inputType: 1
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3
