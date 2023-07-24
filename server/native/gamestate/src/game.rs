@@ -373,8 +373,8 @@ impl GameState {
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
             Name::DAgna => {
-                let players: &Vec<_> = &self.players.clone();
-                let mut attacking_player = GameState::get_player(players, attacking_player_id)?;
+                let players: &mut Vec<_> = &mut self.players.clone();
+                let mut attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
                 Self::dagna_basic_attack(
                     &mut self.players,
                     &mut attacking_player
@@ -455,44 +455,21 @@ impl GameState {
         players: &mut Vec<Player>,
         attacking_player: &mut Player,
     ) -> Result<Vec<u64>, String> {
-        let attack_dmg = attacking_player.basic_skill_damage() as i64;
         // TODO: This should be a config of the attack
-        let attack_range = 40.0_f64;
         let position = attacking_player.position;
         let now = time_now();
         let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
-        let ends_at = add_millis(now, time_left);
-        let player_ids_in_area = GameState::players_in_range(
-            &players,
-            &position,
-            attack_range,
-        );
 
-        // We use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
-        players.iter_mut().for_each(|player| {
-            if player_ids_in_area.contains(&player.id) {
-                let mut effect_data = match attacking_player.effects.get(&Effect::Slowed) {
-                    None => EffectData {
-                        time_left,
-                        ends_at,
-                        direction: None,
-                        position: None,
-                        triggered_at: now,
-                    },
-                    Some(data) => data.clone(),
-                };
-
-                // Triggers every 100 milliseconds, that is, 4 times per second
-                if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 250 {
-                    player.modify_health(attack_dmg);
-                    effect_data.triggered_at = now;
-                }
-
-                attacking_player.effects.insert(Effect::Slowed, effect_data);
-            }
+        // In the world_tick function, we use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
+        attacking_player.effects.insert(Effect::Slowed.clone(), EffectData{ 
+            time_left: time_left,
+            ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+            direction: None,
+            position: Some(position),
+            triggered_at: u128_to_millis(0),
         });
 
-        Ok(player_ids_in_area)
+        Ok(Vec::new())
     }
 
     pub fn skill_1(
@@ -811,6 +788,7 @@ impl GameState {
         let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
         let pys = self.players.clone();
         let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut scherzo_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
         self.players.iter_mut().for_each(|player| {
             // Clean each player actions
@@ -843,8 +821,6 @@ impl GameState {
                     millis_to_u128(*time_left) > 0
                 },
             );
-
-            println!("{}", player.speed());
 
             if player.character.name == Name::H4ck {
                 match player.effects.get(&Effect::NeonCrashing) {
@@ -886,6 +862,24 @@ impl GameState {
                     _ => {}
                 }
             }
+
+            if player.character.name == Name::DAgna {
+                match player.effects.get(&Effect::Slowed) {
+                    Some(EffectData {
+                        ..
+                    }) => {
+                        scherzo_affected_players = GameState::affected_players(
+                            20,
+                            200.,
+                            &pys,
+                            &player.position,
+                            player.id,
+                        );
+
+                    }
+                    _ => {}
+                }
+            }
         });
 
         // Neon Crash Attack
@@ -895,6 +889,10 @@ impl GameState {
         // Leap Attack
         // We can have more than one muflus attacking
         GameState::attack_players_with_effect(leap_affected_players, &mut self.players)?;
+
+        // Scherzo Attack
+        // We can have more than one D'Agna attacking
+        GameState::attack_players_with_effect(scherzo_affected_players, &mut self.players)?;
 
         // Update projectiles
         // - Retain active projectiles
