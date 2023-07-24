@@ -100,21 +100,20 @@ public static partial class MessagesReflection {
           "MhALEgsKB1NLSUxMXzMQDBILCgdTS0lMTF80EA0SFAoQU0VMRUNUX0NIQVJB",
           "Q1RFUhAOEg8KC0VOQUJMRV9CT1RTEA8SEAoMRElTQUJMRV9CT1RTEBAqTQoJ",
           "RGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAES",
-          "CAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKv0BCgxQbGF5ZXJBY3Rp",
+          "CAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKvEBCgxQbGF5ZXJBY3Rp",
           "b24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19B",
           "T0UQAhIUChBTVEFSVElOR19TS0lMTF8xEAMSFAoQU1RBUlRJTkdfU0tJTExf",
           "MhAEEhQKEFNUQVJUSU5HX1NLSUxMXzMQBRIUChBTVEFSVElOR19TS0lMTF80",
           "EAYSFQoRRVhFQ1VUSU5HX1NLSUxMXzEQBxIVChFFWEVDVVRJTkdfU0tJTExf",
           "MhAIEhUKEUVYRUNVVElOR19TS0lMTF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxM",
-          "XzQQChIKCgZNT1ZJTkcQCypkCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVE",
-          "EAASDAoIRElTQVJNRUQQARIMCghQSUVSQ0lORxACEgkKBVJBR0VEEAMSEQoN",
-          "TkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBSqPAQoOTG9iYnlFdmVudFR5",
-          "cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBM",
-          "QVlFUl9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VO",
-          "VBAEEg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlBy",
-          "b2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQ",
-          "ASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVE",
-          "EAFiBnByb3RvMw=="));
+          "XzQQCipkCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVEEAASDAoIRElTQVJN",
+          "RUQQARIMCghQSUVSQ0lORxACEgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElO",
+          "RxAEEgsKB0xFQVBJTkcQBSqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9V",
+          "TlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBAC",
+          "EhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJU",
+          "X0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBl",
+          "EgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0",
+          "aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -228,7 +227,6 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 8,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 9,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 10,
-  [pbr::OriginalName("MOVING")] Moving = 11,
 }
 
 /// <summary>
