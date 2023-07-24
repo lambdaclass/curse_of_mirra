@@ -452,7 +452,7 @@ impl GameState {
     // D'Agna basic attack: While active, D’agna will move at half speed. It deals AOE damage to all nearby enemies over a period of time. The further the enemy is, the less damage it deals.
 
     pub fn dagna_basic_attack(
-        players: &mut Vec<Player>,
+        _players: &mut Vec<Player>,
         attacking_player: &mut Player,
     ) -> Result<Vec<u64>, String> {
         // TODO: This should be a config of the attack
