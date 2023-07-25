@@ -50,7 +50,7 @@ public class EventsBuffer
     event we're going to render now and the following is the next we're going to render
     in the next 30ms.
     After getting all those events, we just check that the amount of moving states
-    which the player has, is greater than one, assuming that he was moving, is moving now or he will.
+    which the player has, is greater or equal than one, assuming that he was moving, is moving now or he will.
     */
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
