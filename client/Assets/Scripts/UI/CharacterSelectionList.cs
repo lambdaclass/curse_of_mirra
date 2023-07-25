@@ -68,8 +68,8 @@ public class CharacterSelectionList : MonoBehaviour
                 ?.GetComponent<CharacterSelectionPlayerItem>();
             playerI.SetCharacterName(character);
             playerI.SetPlayerItemText();
-            UICharacterItem ui = characterItems.GetSelectedCharacter(character);
-            playerI.SetSprite(ui.artWork.sprite);
+            CoMCharacter ui = characterItems.GetSelectedCharacter(character);
+            playerI.SetSprite(ui.selectedArtwork);
         }
     }
 }
