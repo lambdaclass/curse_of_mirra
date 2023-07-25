@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - server/**
+      - .github/workflows/testing-deploy.yml
 
 jobs:
   build-deploy:
