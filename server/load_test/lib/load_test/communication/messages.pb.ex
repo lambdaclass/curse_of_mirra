@@ -90,6 +90,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:YUGEN_MARK, 8)
   field(:XANDA_MARK, 9)
   field(:XANDA_MARK_OWNER, 10)
+  field(:POISONED, 11)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

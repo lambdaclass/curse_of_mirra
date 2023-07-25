@@ -11,11 +11,13 @@ use std::collections::HashMap;
 pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
+    pub duration: MillisTime,
     pub direction: Option<RelativePosition>,
     pub position: Option<Position>,
     pub triggered_at: MillisTime,
     pub caused_by: u64,
     pub caused_to: u64,
+    pub damage: u32,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -33,6 +35,7 @@ pub enum Effect {
     YugenMark,
     XandaMark,
     XandaMarkOwner,
+    Poisoned,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -80,6 +83,7 @@ pub struct Player {
     // the client which character is being used.
     pub character_name: String,
     pub effects: StatusEffects,
+    pub direction: RelativePosition,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -135,6 +139,7 @@ impl Player {
             skill_3_started_at: MillisTime { high: 0, low: 0 },
             skill_4_started_at: MillisTime { high: 0, low: 0 },
             effects: HashMap::new(),
+            direction: RelativePosition::new(0., 0.),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {

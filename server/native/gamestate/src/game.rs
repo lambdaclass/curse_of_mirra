@@ -541,11 +541,13 @@ impl GameState {
                 EffectData {
                     time_left: attacking_player.character.duration_basic_skill(),
                     ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                    duration: attacking_player.character.duration_basic_skill(),
                     direction: None,
                     position: None,
                     triggered_at: now,
                     caused_by: attacking_player.id,
                     caused_to: attacked_player.id,
+                    damage: 0,
                 },
             );
             if matches!(attacked_player.status, Status::DEAD) {
@@ -597,18 +599,36 @@ impl GameState {
                     1000.,
                 ) {
                     Some((player_id, _position)) => {
+                        let damage = attacking_player.skill_1_damage();
                         let attacked_player =
                             GameState::get_player_mut(&mut self.players, player_id)?;
+
                         attacked_player.add_effect(
                             Effect::YugenMark.clone(),
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
+                                duration: duration,
                                 direction: None,
                                 position: None,
                                 triggered_at: now,
                                 caused_by: attacking_player_id,
                                 caused_to: attacked_player.id,
+                                damage: 0,
+                            },
+                        );
+                        attacked_player.add_effect(
+                            Effect::Poisoned.clone(),
+                            EffectData {
+                                time_left: duration,
+                                ends_at: add_millis(now, duration),
+                                duration: duration,
+                                direction: None,
+                                position: None,
+                                triggered_at: now,
+                                caused_by: attacking_player_id,
+                                caused_to: attacked_player.id,
+                                damage: damage,
                             },
                         )
                     }
@@ -759,11 +779,13 @@ impl GameState {
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
+                                duration: duration,
                                 direction: None,
                                 position: None,
                                 triggered_at: u128_to_millis(0),
                                 caused_by: attacking_player.id,
                                 caused_to: player_id,
+                                damage: 0,
                             },
                         );
 
@@ -774,11 +796,13 @@ impl GameState {
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
+                                duration: duration,
                                 direction: None,
                                 position: None,
                                 triggered_at: now,
                                 caused_by: attacking_player_id,
                                 caused_to: attacked_player.id,
+                                damage: 0,
                             },
                         )
                     }
@@ -827,11 +851,13 @@ impl GameState {
             EffectData {
                 time_left: attacking_player.character.duration_skill_2(),
                 ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
+                duration: attacking_player.character.duration_skill_2(),
                 direction: None,
                 position: None,
                 triggered_at: u128_to_millis(0),
                 caused_by: attacking_player.id,
                 caused_to: attacking_player.id,
+                damage: 0,
             },
         );
         Ok(Vec::new())
@@ -860,11 +886,13 @@ impl GameState {
                     EffectData {
                         time_left: attacking_player.character.duration_skill_3(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
+                        duration: attacking_player.character.duration_skill_3(),
                         direction: Some(*direction),
                         position: None,
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
                         caused_to: attacking_player.id,
+                        damage: 0,
                     },
                 );
 
@@ -895,11 +923,16 @@ impl GameState {
                                 low: time as u64,
                             },
                         ),
+                        duration: MillisTime {
+                            high: 0,
+                            low: time as u64,
+                        },
                         direction: Some(*direction),
                         position: Some(position),
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
                         caused_to: attacking_player.id,
+                        damage: 0,
                     },
                 );
 
@@ -935,11 +968,13 @@ impl GameState {
                     EffectData {
                         time_left: attacking_player.character.duration_skill_4(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
+                        duration: attacking_player.character.duration_skill_4(),
                         direction: None,
                         position: None,
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
                         caused_to: attacking_player.id,
+                        damage: 0,
                     },
                 );
                 Ok(Vec::new())
@@ -1116,11 +1151,13 @@ impl GameState {
                                 EffectData {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
+                                    duration: MillisTime { high: 0, low: 5000 },
                                     direction: None,
                                     position: None,
                                     triggered_at: u128_to_millis(0),
                                     caused_by: projectile.player_id,
                                     caused_to: attacked_player.id,
+                                    damage: 0,
                                 },
                             );
                         }
@@ -1167,17 +1204,20 @@ impl GameState {
     fn check_and_damage_poisoned_players(self: &mut Self) {
         let now = time_now();
         self.players.iter_mut().for_each(|player| {
-            let mut effect_data = match player.effects.get(&Effect::YugenMark) {
+            let mut effect_data = match player.effects.get(&Effect::Poisoned) {
                 Some(data) => data.clone(),
                 None => return,
             };
 
-            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 5000 {
-                player.modify_health(-5);
+            let delta = (1000 / 2) as u32;
+            let damage = effect_data.damage / (effect_data.duration.low as u32 / delta);
+
+            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > delta as u128 {
+                player.modify_health(-(damage as i64));
                 effect_data.triggered_at = now;
             }
 
-            player.effects.insert(Effect::YugenMark, effect_data);
+            player.effects.insert(Effect::Poisoned, effect_data);
         });
     }
 
@@ -1292,6 +1332,7 @@ impl GameState {
     fn check_and_damage_outside_playable(self: &mut Self) {
         let now = time_now();
         let time_left = u128_to_millis(3_600_000); // 1 hour
+        let duration = u128_to_millis(3_600_000); // 1 hour
         let ends_at = add_millis(now, time_left);
         let player_ids_in_playable = GameState::players_in_range(
             &self.players,
@@ -1307,11 +1348,13 @@ impl GameState {
                     None => EffectData {
                         time_left,
                         ends_at,
+                        duration,
                         direction: None,
                         position: None,
                         triggered_at: now,
                         caused_by: player.id,
                         caused_to: player.id,
+                        damage: 0,
                     },
                     Some(data) => data.clone(),
                 };
