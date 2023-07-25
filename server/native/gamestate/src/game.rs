@@ -231,11 +231,11 @@ impl GameState {
     }
 
     pub fn move_player_to_direction(
-        board: &mut Board,
+        board: &Board,
         position: &mut Position,
         direction: &RelativePosition,
         speed: i64,
-    ) -> Result<(), String> {
+    ) -> Result<(Position), String> {
         let new_position = new_entity_position(
             board.height,
             board.width,
@@ -245,9 +245,7 @@ impl GameState {
             speed,
         );
 
-        *position = new_position;
-
-        Ok(())
+        Ok(new_position)
     }
 
     pub fn get_player_mut(
@@ -1014,14 +1012,39 @@ impl GameState {
         }
     }
 
+    /// Move with a dash movement, mostly used on world tick.
+    fn move_with_dash(
+        dashing_player_position: &mut Position,
+        dashing_player_speed: u64,
+        dashing_player_id: u64,
+        players: &Vec<Player>,
+        board: &Board,
+        affected_players: &mut HashMap<u64, (i64, Vec<u64>)>,
+        direction: &RelativePosition,
+    ) -> Result<(), String> {
+        *dashing_player_position = GameState::move_player_to_direction(
+            &board,
+            dashing_player_position,
+            direction,
+            dashing_player_speed as i64,
+        )?;
+        *affected_players = GameState::affected_players(
+            2,
+            200.,
+            players,
+            &dashing_player_position,
+            dashing_player_id,
+        );
+        Ok(())
+    }
+    // type AffectedPlayers = HashMap<u64, (i64, Vec<u64>)>;
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
         let now = time_now();
         let pys = self.players.clone();
         let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
         let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-
-        self.players.iter_mut().for_each(|player| {
+        for player in self.players.iter_mut() {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
@@ -1054,47 +1077,33 @@ impl GameState {
                 },
             );
 
-            if player.character.name == Name::H4ck {
-                match player.effects.get(&Effect::NeonCrashing) {
-                    Some(EffectData {
-                        direction: Some(direction),
-                        ..
-                    }) => {
-                        let speed = player.speed() as i64;
-                        GameState::move_player_to_direction(
-                            &mut self.board,
-                            &mut player.position,
-                            direction,
-                            speed,
-                        )
-                        .unwrap();
-
-                        neon_crash_affected_players =
-                            GameState::affected_players(2, 200., &pys, &player.position, player.id);
-                    }
-                    _ => {}
-                }
+            let (dash_effect, mut players_to_affect) = match player.character.name {
+                Name::H4ck => (
+                    player.effects.get(&Effect::NeonCrashing),
+                    &mut neon_crash_affected_players,
+                ),
+                Name::Muflus => (
+                    player.effects.get(&Effect::Leaping),
+                    &mut leap_affected_players,
+                ),
+                _ => (None, &mut neon_crash_affected_players),
+            };
+            if let Some(effect) = dash_effect {
+                effect.direction.map(|direction| -> Result<(), String> {
+                    let speed = player.speed();
+                    GameState::move_with_dash(
+                        &mut player.position,
+                        speed,
+                        player.id,
+                        &pys,
+                        &self.board,
+                        players_to_affect,
+                        &direction,
+                    )?;
+                    Ok(())
+                });
             }
-
-            if player.character.name == Name::Muflus {
-                match player.effects.get(&Effect::Leaping) {
-                    Some(EffectData {
-                        direction: Some(direction),
-                        ..
-                    }) => {
-                        let speed = player.speed() as i64;
-                        GameState::move_player_to_direction(
-                            &mut self.board,
-                            &mut player.position,
-                            direction,
-                            speed,
-                        )
-                        .unwrap();
-                    }
-                    _ => {}
-                }
-            }
-        });
+        }
 
         // Neon Crash Attack
         // We can have more than one h4ck attacking
