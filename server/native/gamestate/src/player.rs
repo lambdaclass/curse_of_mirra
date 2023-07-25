@@ -11,9 +11,13 @@ use std::collections::HashMap;
 pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
+    pub duration: MillisTime,
     pub direction: Option<RelativePosition>,
     pub position: Option<Position>,
     pub triggered_at: MillisTime,
+    pub caused_by: u64,
+    pub caused_to: u64,
+    pub damage: u32,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -27,6 +31,11 @@ pub enum Effect {
     NeonCrashing,
     Leaping,
     OutOfArea,
+    ElnarMark,
+    YugenMark,
+    XandaMark,
+    XandaMarkOwner,
+    Poisoned,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -74,6 +83,7 @@ pub struct Player {
     // the client which character is being used.
     pub character_name: String,
     pub effects: StatusEffects,
+    pub direction: RelativePosition,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -129,17 +139,39 @@ impl Player {
             skill_3_started_at: MillisTime { high: 0, low: 0 },
             skill_4_started_at: MillisTime { high: 0, low: 0 },
             effects: HashMap::new(),
+            direction: RelativePosition::new(0., 0.),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
         if matches!(self.status, Status::ALIVE) {
-            self.health = self.health.saturating_add(hp_points);
+            self.health = self.health.saturating_add(self.calculate_damage(hp_points));
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
             }
         }
     }
+
+    pub fn calculate_damage(self: &Self, hp_points: i64) -> i64 {
+        let mut damage = hp_points;
+        if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
+            damage = damage / 2;
+        }
+        damage
+    }
+
+    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64> {
+        if self.character.name == Name::Uma {
+            match self.effects.get(&Effect::XandaMarkOwner) {
+                Some(effect) => {
+                    return Some(effect.caused_to);
+                }
+                None => return None,
+            }
+        }
+        None
+    }
+
     pub fn add_kills(self: &mut Self, kills: u64) {
         self.kill_count += kills;
     }
@@ -153,15 +185,19 @@ impl Player {
         damage
     }
     pub fn skill_1_damage(&self) -> u32 {
-        let mut damage = self.character.attack_dmg_first_active();
+        let mut damage = self.character.attack_dmg_skill_1();
         if self.has_active_effect(&Effect::Raged) {
             damage += 10_u32;
         }
 
         damage
     }
-    pub fn skill_2_damage(&mut self) -> u32 {
-        return self.character.attack_dmg_second_active();
+    pub fn skill_2_damage(&self) -> u32 {
+        return self.character.attack_dmg_skill_2();
+    }
+
+    pub fn skill_3_damage(&self) -> u32 {
+        return self.character.attack_dmg_skill_3();
     }
 
     #[inline]
@@ -174,7 +210,7 @@ impl Player {
                     }
                 }
                 _ => {
-                    self.effects.insert(e.clone(), ed);
+                    self.effects.insert(e, ed);
                 }
             }
         }
@@ -257,6 +293,24 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+    }
+
+    pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {
+        self.has_mark(&Effect::ElnarMark, attacking_player_id)
+            + self.has_mark(&Effect::YugenMark, attacking_player_id)
+            + self.has_mark(&Effect::XandaMark, attacking_player_id)
+    }
+
+    fn has_mark(self: &Self, e: &Effect, attacking_player_id: u64) -> u64 {
+        let mark = self.effects.get(e);
+        return if matches!(
+            mark,
+            Some(EffectData { caused_by: ap_id, .. }) if *ap_id == attacking_player_id
+        ) {
+            1
+        } else {
+            0
+        };
     }
 
     // TODO:
