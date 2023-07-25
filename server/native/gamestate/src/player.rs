@@ -106,6 +106,8 @@ pub enum PlayerAction {
     EXECUTINGSKILL2,
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
+    TELEPORTING,
+    MOVING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
@@ -226,14 +228,14 @@ impl Player {
         if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
+        if self.has_active_effect(&Effect::NeonCrashing) {
+            return ((base_speed as f64) * 4.).ceil() as u64;
+        }
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
         if self.has_active_effect(&Effect::Piercing) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
-        }
-        if self.has_active_effect(&Effect::NeonCrashing) {
-            return ((base_speed as f64) * 4.).ceil() as u64;
         }
 
         return base_speed;
@@ -287,6 +289,19 @@ impl Player {
 
     pub fn can_move(self: &Self) -> bool {
         if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        if matches!(self.action, PlayerAction::ATTACKING)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL1)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL2)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL3)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL4)
+            || matches!(self.action, PlayerAction::STARTINGSKILL1)
+            || matches!(self.action, PlayerAction::STARTINGSKILL2)
+            || matches!(self.action, PlayerAction::STARTINGSKILL3)
+            || matches!(self.action, PlayerAction::STARTINGSKILL4)
+        {
             return false;
         }
 
