@@ -230,6 +230,7 @@ public class CustomInputManager : InputManager
         //Multiply vector values according to the scale of the animation (in this case 12)
         indicator.transform.position =
             _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+        activeJoystickStatus = canceled;
     }
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
@@ -247,7 +248,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        if (!canceled)
+        if (!activeJoystickStatus)
         {
             skill.TryExecuteSkill(aoePosition);
         }
@@ -323,6 +324,7 @@ public class CustomInputManager : InputManager
         }
         directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
         directionIndicator.SetActive(true);
+        activeJoystickStatus = canceled;
     }
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
@@ -333,7 +335,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        if (!canceled)
+        if (!activeJoystickStatus)
         {
             skill.TryExecuteSkill(direction);
         }
@@ -400,15 +402,6 @@ public class CustomInputManager : InputManager
 
     public void ToggleCanceled(bool value)
     {
-        if (activeJoystick != null)
-        {
-            activeJoystickStatus = activeJoystick != null ? true : false;
-            cancelButton.SetActive(activeJoystickStatus);
-        }
-        else
-        {
-            print("tap" + value);
-            cancelButton.SetActive(value);
-        }
+        cancelButton.SetActive(value);
     }
 }
