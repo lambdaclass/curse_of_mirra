@@ -178,6 +178,7 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 8;
     EXECUTING_SKILL_3 = 9;
     EXECUTING_SKILL_4 = 10;
+    MOVING = 11;
 }
 
 /* Effects a player has */
@@ -190,6 +191,11 @@ enum PlayerEffect {
     SLOWED = 5;
     LEAPING = 6;
     OUT_OF_AREA = 7;
+    ELNAR_MARK = 8;
+    YUGEN_MARK = 9;
+    XANDA_MARK = 10;
+    XANDA_MARK_OWNER = 11;
+    POISONED = 12;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
