@@ -96,16 +96,6 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
                     comCharacter.name;
-
-                if (PlayersList.GetComponentInChildren<CharacterSelectionPlayerItem>().GetId() == 1)
-                {
-                    PlayersList
-                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
-                        .characterText.text = comCharacter.name;
-                    PlayersList
-                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
-                        .characterImage.sprite = comCharacter.selectedArtwork;
-                }
             }
         }
     }
