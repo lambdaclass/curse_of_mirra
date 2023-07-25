@@ -1480,7 +1480,7 @@ MonoBehaviour:
   IdleAnimationParameterName: Idle
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
-  MouseMode: 0
+  MouseMode: 1
 --- !u!1 &7155037339286450602
 GameObject:
   m_ObjectHideFlags: 0
