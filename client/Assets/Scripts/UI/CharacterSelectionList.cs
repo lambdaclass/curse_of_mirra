@@ -47,20 +47,6 @@ public class CharacterSelectionList : MonoBehaviour
         );
     }
 
-    public void removePlayerItems()
-    {
-        for (
-            int i = playerItems.Count;
-            i > SocketConnectionManager.Instance.selectedCharacters.Count;
-            i--
-        )
-        {
-            GameObject player = playerItems[i - 1];
-            playerItems.RemoveAt(i - 1);
-            Destroy(player);
-        }
-    }
-
     public void CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
@@ -82,7 +68,7 @@ public class CharacterSelectionList : MonoBehaviour
                 ?.GetComponent<CharacterSelectionPlayerItem>();
             playerI.SetCharacterName(character);
             playerI.SetPlayerItemText();
-            UICharacterItem ui = characterItems.GetSelectedCharacter();
+            UICharacterItem ui = characterItems.GetSelectedCharacter(character);
             playerI.SetSprite(ui.artWork.sprite);
         }
     }

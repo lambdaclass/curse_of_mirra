@@ -97,14 +97,14 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
                     comCharacter.name;
 
-                if (PlayersList.GetComponentInChildren<CharacterSelectionPlayerItem>().GetId() == 1)
+                foreach (var pi in PlayersList.playerItems)
                 {
-                    PlayersList
-                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
-                        .characterText.text = comCharacter.name;
-                    PlayersList
-                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
-                        .characterImage.sprite = comCharacter.selectedArtwork;
+                    var item = pi.GetComponent<CharacterSelectionPlayerItem>();
+                    if (item.id == SocketConnectionManager.Instance.playerId)
+                    {
+                        item.characterText.text = comCharacter.name;
+                        item.characterImage.sprite = comCharacter.selectedArtwork;
+                    }
                 }
             }
         }
