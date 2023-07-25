@@ -302,21 +302,27 @@ public class CustomInputManager : InputManager
             .GetComponent<SelectIndicator>()
             .ActivateIndicator(joystick.skill.GetIndicatorType());
 
-        float scaleX =
-            joystick.skill.GetIndicatorType() == UIIndicatorType.Cone
-                ? directionIndicator.transform.localScale.x * joystick.skill.GetSkillRadius()
-                : directionIndicator.transform.localScale.x;
+        directionIndicator.GetComponent<SelectIndicator>().viewDistance =
+            joystick.skill.GetSkillRadius();
 
-        float scaleY =
-            joystick.skill.GetIndicatorType() == UIIndicatorType.Cone
-                ? area.transform.localScale.y * joystick.skill.GetSkillRadius()
-                : 2.45f;
+        directionIndicator.GetComponent<SelectIndicator>().fov = joystick.skill.GetIndicatorAngle();
 
-        directionIndicator.transform.localScale = new Vector3(
-            scaleX,
-            scaleY,
-            directionIndicator.transform.localScale.z
-        );
+        var cone = directionIndicator.GetComponent<SelectIndicator>().cone;
+        print(cone);
+        print("in custominputmanager " + cone.transform.eulerAngles);
+
+        float scaleX = directionIndicator.transform.localScale.x;
+
+        float scaleY = 2.45f;
+
+        if (joystick.skill.GetIndicatorType() == UIIndicatorType.Arrow)
+        {
+            directionIndicator.transform.localScale = new Vector3(
+                scaleX,
+                scaleY,
+                directionIndicator.transform.localScale.z
+            );
+        }
         directionIndicator.SetActive(false);
 
         activeJoystick = joystick;
@@ -324,12 +330,17 @@ public class CustomInputManager : InputManager
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
+        bool isCone = joystick.skill.GetIndicatorType() == UIIndicatorType.Cone;
         var result = Mathf.Atan(direction.x / direction.y) * Mathf.Rad2Deg;
         if (direction.y > 0)
         {
             result += 180f;
         }
-        directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
+        directionIndicator.transform.rotation = Quaternion.Euler(
+            90f,
+            result,
+            isCone ? -(180 - joystick.skill.GetIndicatorAngle()) / 2 : 0
+        );
         directionIndicator.SetActive(true);
     }
 
