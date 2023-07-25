@@ -372,6 +372,7 @@ impl GameState {
         attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
@@ -383,12 +384,35 @@ impl GameState {
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
+                Self::melee_attack(&mut self.players, attacking_player, direction, 300.)
             }
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::uma_basic_attack(&mut self.players, attacking_player, direction)
+                let attacked_players_ids =
+                    Self::melee_attack(&mut self.players, attacking_player, direction, 300.)?;
+                for attacked_player_id in attacked_players_ids.clone() {
+                    let attacked_player =
+                        GameState::get_player_mut(&mut self.players, attacked_player_id)?;
+                    attacked_player.add_effect(
+                        Effect::ElnarMark.clone(),
+                        EffectData {
+                            time_left: attacking_player.character.duration_basic_skill(),
+                            ends_at: add_millis(
+                                now,
+                                attacking_player.character.duration_basic_skill(),
+                            ),
+                            duration: attacking_player.character.duration_basic_skill(),
+                            direction: None,
+                            position: None,
+                            triggered_at: now,
+                            caused_by: attacking_player.id,
+                            caused_to: attacked_player.id,
+                            damage: 0,
+                        },
+                    )
+                }
+                Ok(attacked_players_ids)
             }
             _ => Ok(Vec::new()),
         };
@@ -467,14 +491,14 @@ impl GameState {
         nearest_player
     }
 
-    pub fn muflus_basic_attack(
+    pub fn melee_attack(
         players: &mut Vec<Player>,
         attacking_player: &Player,
         direction: &RelativePosition,
+        attack_range: f64,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
         // TODO: This should be a config of the attack
-        let attack_range = 300.;
 
         let (attacked_players, direction) = match Self::nearest_player(
             players,
@@ -518,63 +542,6 @@ impl GameState {
         attacking_player.direction = direction;
 
         Ok(attacked_players)
-    }
-
-    pub fn uma_basic_attack(
-        players: &mut Vec<Player>,
-        attacking_player: &Player,
-        direction: &RelativePosition,
-    ) -> Result<Vec<u64>, String> {
-        let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_position = Position::new(
-            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
-            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
-        );
-
-        // TODO: This should be a config of the attack
-        let attack_range = 100.;
-
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, &attack_position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player.id)
-                .collect();
-
-        let mut kill_count = 0;
-        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-
-        for target_player_id in affected_players.iter() {
-            let now = time_now();
-            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
-            attacked_player.modify_health(-attack_dmg);
-            match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players
-                    .insert(attacked_player.id, (attack_dmg / 2, mirrored_id)),
-                None => None,
-            };
-            attacked_player.add_effect(
-                Effect::ElnarMark.clone(),
-                EffectData {
-                    time_left: attacking_player.character.duration_basic_skill(),
-                    ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
-                    duration: attacking_player.character.duration_basic_skill(),
-                    direction: None,
-                    position: None,
-                    triggered_at: now,
-                    caused_by: attacking_player.id,
-                    caused_to: attacked_player.id,
-                    damage: 0,
-                },
-            );
-            if matches!(attacked_player.status, Status::DEAD) {
-                kill_count += 1;
-            }
-        }
-
-        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
-        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
-
-        Ok(affected_players)
     }
 
     pub fn skill_1(
