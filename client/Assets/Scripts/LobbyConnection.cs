@@ -51,9 +51,6 @@ public class LobbyConnection : MonoBehaviour
     }
 
     [SerializeField]
-    MMSoundManager soundManager;
-
-    [SerializeField]
     private MMF_Player backgroundMusic;
 
     class AcceptAllCertificates : CertificateHandler
@@ -336,6 +333,6 @@ public class LobbyConnection : MonoBehaviour
     {
         backgroundMusic.PlayFeedbacks();
         await Task.Delay(1);
-        soundManager.MuteTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        MMSoundManager.Instance.MuteTrack(MMSoundManager.MMSoundManagerTracks.Music);
     }
 }

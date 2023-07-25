@@ -29,9 +29,6 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
 
     [SerializeField]
-    MMSoundManager soundManager;
-
-    [SerializeField]
     private MMF_Player backgroundMusic;
     private bool isMuted;
     private ulong totalPlayers;
@@ -236,6 +233,8 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeAudio()
     {
+        var soundManager = MMSoundManager.Instance;
+
         // Stop previous scene music
         soundManager.StopTrack(MMSoundManager.MMSoundManagerTracks.Music);
 

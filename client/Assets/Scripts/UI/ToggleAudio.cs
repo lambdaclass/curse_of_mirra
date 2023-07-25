@@ -1,4 +1,3 @@
-using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +9,6 @@ public class ToggleAudio : MonoBehaviour
 
     [SerializeField]
     public Sprite unmutedSprite;
-
-    [SerializeField]
     private MMSoundManager soundManager;
 
     private Image muteButtonImage;
@@ -19,6 +16,7 @@ public class ToggleAudio : MonoBehaviour
     void Start()
     {
         muteButtonImage = GetComponent<Image>();
+        soundManager = MMSoundManager.Instance;
     }
 
     public void Toggle()
