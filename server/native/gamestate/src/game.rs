@@ -235,7 +235,7 @@ impl GameState {
         position: &mut Position,
         direction: &RelativePosition,
         speed: i64,
-    ) -> Result<(Position), String> {
+    ) -> Result<Position, String> {
         let new_position = new_entity_position(
             board.height,
             board.width,
@@ -1077,7 +1077,7 @@ impl GameState {
                 },
             );
 
-            let (dash_effect, mut players_to_affect) = match player.character.name {
+            let (dash_effect, players_to_affect) = match player.character.name {
                 Name::H4ck => (
                     player.effects.get(&Effect::NeonCrashing),
                     &mut neon_crash_affected_players,
