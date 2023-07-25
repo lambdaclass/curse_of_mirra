@@ -8,6 +8,8 @@ public class SkillAnimationEvents : MonoBehaviour
 
     public void UpdateActiveSkill(Skill activeSkill)
     {
+        print("Update active skill (activeskill)" + activeSkill);
+        print("Update active skill (skill)" + activeSkill);
         skill = activeSkill;
     }
 
@@ -15,6 +17,7 @@ public class SkillAnimationEvents : MonoBehaviour
     {
         if (skill)
         {
+            print("EndSkillFeedback (skill)" + skill);
             skill.EndSkillFeedback();
             skill = null;
         }

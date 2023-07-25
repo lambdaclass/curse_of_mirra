@@ -151,7 +151,9 @@ public class Skill : CharacterAbility
             _movement.ChangeState(CharacterStates.MovementStates.Attacking);
             _animator.SetBool(skillId + "_start", true);
         }
-
+        print("--start feedback---");
+        print("Current Movement state" + _movement.CurrentState);
+        print("Current skill bool state " + skillId + " " + _animator.GetBool(skillId));
         if (skillInfo.startFeedbackVfx)
         {
             if (skillInfo.startFeedbackVfx.GetComponent<MMF_Player>())
@@ -180,6 +182,9 @@ public class Skill : CharacterAbility
             _animator.SetBool(skillId, true);
             PlayAbilityStartSfx();
         }
+        print("--execute feedback---");
+        print("Current Movement state " + _movement.CurrentState);
+        print("Current skill bool state " + skillId + " " + _animator.GetBool(skillId));
 
         if (skillInfo.feedbackVfx)
         {
@@ -212,6 +217,7 @@ public class Skill : CharacterAbility
 
     public void EndSkillFeedback()
     {
+        print("Endskill feedback  " + skillId);
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(skillId, false);
     }
