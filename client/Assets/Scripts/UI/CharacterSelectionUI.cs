@@ -32,10 +32,10 @@ public class CharacterSelectionUI : MonoBehaviour
         updated = true;
     }
 
-    public UICharacterItem GetSelectedCharacter(string name)
+    public UICharacterItem GetSelectedCharacter()
     {
         List<GameObject> list = GetAllChilds();
-        return list.Find(el => el.GetComponent<UICharacterItem>().name.text == name)
+        return list.Find(el => el.GetComponent<UICharacterItem>().selected)
             .GetComponent<UICharacterItem>();
     }
 
