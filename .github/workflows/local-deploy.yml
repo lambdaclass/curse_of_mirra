@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - server/**
+      - .github/workflows/local-deploy.yml
 
 jobs:
   build-deploy:
