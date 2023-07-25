@@ -83,7 +83,7 @@ pub enum Status {
     DISCONNECTED,
 }
 
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, NifUnitEnum)]
 pub enum PlayerAction {
     NOTHING,
     ATTACKING,
