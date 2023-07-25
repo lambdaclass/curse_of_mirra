@@ -481,7 +481,6 @@ impl GameState {
             attack_range,
         ) {
             Some((player_id, position)) => {
-
                 let direction = RelativePosition::new(
                     position.y as f32 - attacking_player.position.y as f32,
                     -(position.x as f32 - attacking_player.position.x as f32),
@@ -506,11 +505,11 @@ impl GameState {
                 add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
                 (vec![player_id], direction)
-            },
+            }
             None => {
                 //attacking_player.direction = *direction;
                 (Vec::new(), *direction)
-            },
+            }
         };
 
         let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
