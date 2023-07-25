@@ -102,20 +102,22 @@ public static partial class MessagesReflection {
           "EhQKEFNFTEVDVF9DSEFSQUNURVIQDhIPCgtFTkFCTEVfQk9UUxAPEhAKDERJ",
           "U0FCTEVfQk9UUxAQKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVD",
           "SUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQ",
-          "BCrxAQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQ",
+          "BCr9AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQ",
           "ARIRCg1BVFRBQ0tJTkdfQU9FEAISFAoQU1RBUlRJTkdfU0tJTExfMRADEhQK",
           "EFNUQVJUSU5HX1NLSUxMXzIQBBIUChBTVEFSVElOR19TS0lMTF8zEAUSFAoQ",
           "U1RBUlRJTkdfU0tJTExfNBAGEhUKEUVYRUNVVElOR19TS0lMTF8xEAcSFQoR",
           "RVhFQ1VUSU5HX1NLSUxMXzIQCBIVChFFWEVDVVRJTkdfU0tJTExfMxAJEhUK",
-          "EUVYRUNVVElOR19TS0lMTF80EAoqdQoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJ",
-          "RklFRBAAEgwKCERJU0FSTUVEEAESDAoIUElFUkNJTkcQAhIJCgVSQUdFRBAD",
-          "EhEKDU5FT05fQ1JBU0hJTkcQBBILCgdMRUFQSU5HEAUSDwoLT1VUX09GX0FS",
-          "RUEQBiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAA",
-          "Eg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RB",
-          "UlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5Q",
-          "TEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAA",
-          "EhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoK",
-          "BkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
+          "EUVYRUNVVElOR19TS0lMTF80EAoSCgoGTU9WSU5HEAsqyQEKDFBsYXllckVm",
+          "ZmVjdBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwKCFBJRVJDSU5H",
+          "EAISCQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAF",
+          "Eg8KC09VVF9PRl9BUkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4KCllVR0VOX01B",
+          "UksQCBIOCgpYQU5EQV9NQVJLEAkSFAoQWEFOREFfTUFSS19PV05FUhAKEgwK",
+          "CFBPSVNPTkVEEAsqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVD",
+          "SUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQAhIQCgxH",
+          "QU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFSVF9HQU1F",
+          "EAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlwZRIKCgZC",
+          "VUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVjdGlsZVN0",
+          "YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -229,6 +231,7 @@ public enum PlayerAction {
   [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 8,
   [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 9,
   [pbr::OriginalName("EXECUTING_SKILL_4")] ExecutingSkill4 = 10,
+  [pbr::OriginalName("MOVING")] Moving = 11,
 }
 
 /// <summary>
@@ -242,6 +245,11 @@ public enum PlayerEffect {
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
   [pbr::OriginalName("LEAPING")] Leaping = 5,
   [pbr::OriginalName("OUT_OF_AREA")] OutOfArea = 6,
+  [pbr::OriginalName("ELNAR_MARK")] ElnarMark = 7,
+  [pbr::OriginalName("YUGEN_MARK")] YugenMark = 8,
+  [pbr::OriginalName("XANDA_MARK")] XandaMark = 9,
+  [pbr::OriginalName("XANDA_MARK_OWNER")] XandaMarkOwner = 10,
+  [pbr::OriginalName("POISONED")] Poisoned = 11,
 }
 
 /// <summary>
