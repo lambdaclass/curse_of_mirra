@@ -83,27 +83,13 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 skill3Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill3Info);
                 skill4Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill4Info);
 
-                SendCharacterSelection();
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);
+
+                transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
+                    comCharacter.name;
             }
         }
-    }
-
-    public void SendCharacterSelection()
-    {
-        PlayerCharacter characterSelected = new PlayerCharacter
-        {
-            PlayerId = (ulong)SocketConnectionManager.Instance.playerId,
-            CharacterName = name.text
-        };
-        ClientAction clientAction = new ClientAction
-        {
-            Action = Action.SelectCharacter,
-            PlayerCharacter = characterSelected
-        };
-
-        SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }

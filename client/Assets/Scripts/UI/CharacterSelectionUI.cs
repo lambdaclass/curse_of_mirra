@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterSelectionUI : MonoBehaviour
 {
     public bool updated = false;
+    public string selectedCharacterName;
 
     public List<GameObject> GetAllChilds()
     {
@@ -37,5 +38,21 @@ public class CharacterSelectionUI : MonoBehaviour
         List<GameObject> list = GetAllChilds();
         return list.Find(el => el.GetComponent<UICharacterItem>().selected)
             .GetComponent<UICharacterItem>();
+    }
+
+    public void SendCharacterSelection()
+    {
+        PlayerCharacter characterSelected = new PlayerCharacter
+        {
+            PlayerId = (ulong)SocketConnectionManager.Instance.playerId,
+            CharacterName = selectedCharacterName
+        };
+        ClientAction clientAction = new ClientAction
+        {
+            Action = Action.SelectCharacter,
+            PlayerCharacter = characterSelected
+        };
+
+        SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }
