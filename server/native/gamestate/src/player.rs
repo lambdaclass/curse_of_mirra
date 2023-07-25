@@ -80,6 +80,7 @@ pub struct Player {
     // the client which character is being used.
     pub character_name: String,
     pub effects: StatusEffects,
+    pub direction: RelativePosition,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -135,6 +136,7 @@ impl Player {
             skill_3_started_at: MillisTime { high: 0, low: 0 },
             skill_4_started_at: MillisTime { high: 0, low: 0 },
             effects: HashMap::new(),
+            direction: RelativePosition::new(0., 0.),
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {

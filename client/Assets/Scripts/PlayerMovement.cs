@@ -173,7 +173,11 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate);
-                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                executeSkillFeedback(
+                    actualPlayer,
+                    serverPlayerUpdate.Action,
+                    serverPlayerUpdate.Direction
+                );
             }
 
             // TODO: try to optimize GetComponent calls
@@ -195,13 +199,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
+    private void executeSkillFeedback(
+        GameObject actualPlayer,
+        PlayerAction playerAction,
+        RelativePosition direction
+    )
     {
         if (actualPlayer.name.Contains("BOT"))
         {
             return;
         }
 
+        rotatePlayer(actualPlayer, direction);
         // TODO: Refactor
         switch (playerAction)
         {
@@ -345,6 +354,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void rotatePlayer(GameObject player, RelativePosition direction)
+    {
+        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        movementDirection.Normalize();
+        characterOrientation.ForcedRotationDirection = movementDirection;
+    }
+
     private void movePlayer(GameObject player, Player playerUpdate)
     {
         /*
@@ -419,8 +437,8 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
+        // CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+        // characterOrientation.ForcedRotation = true;
 
         bool walking = false;
 
@@ -482,7 +500,7 @@ public class PlayerMovement : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
-                    characterOrientation.ForcedRotationDirection = movementDirection;
+                    rotatePlayer(player, playerUpdate.Direction);
                 }
 
                 // TODO: why not use character state?

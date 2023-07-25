@@ -220,12 +220,14 @@ impl GameState {
         }
 
         let speed = player.speed() as i64;
+        let direction = RelativePosition { x, y };
         GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
-            &RelativePosition { x, y },
+            &direction,
             speed,
         )?;
+        player.direction = direction;
 
         Ok(())
     }
@@ -371,7 +373,7 @@ impl GameState {
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
-                &attacking_player,
+                attacking_player,
                 direction,
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
@@ -394,7 +396,7 @@ impl GameState {
     }
 
     pub fn h4ck_basic_attack(
-        attacking_player: &Player,
+        attacking_player: &mut Player,
         direction: &RelativePosition,
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
@@ -432,6 +434,9 @@ impl GameState {
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
+
+            //let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
+            attacking_player.direction = projectile_direction;
         }
         Ok(Vec::new())
     }
@@ -466,42 +471,52 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_position = Position::new(
-            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
-            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
-        );
-
         // TODO: This should be a config of the attack
-        let attack_range = 100.;
+        let attack_range = 300.;
 
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, &attack_position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player.id)
-                .collect();
+        let (attacked_players, direction) = match Self::nearest_player(
+            players,
+            &attacking_player.position,
+            attacking_player.id,
+            attack_range,
+        ) {
+            Some((player_id, position)) => {
 
-        let mut kill_count = 0;
-        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
+                let direction = RelativePosition::new(
+                    position.y as f32 - attacking_player.position.y as f32,
+                    -(position.x as f32 - attacking_player.position.x as f32),
+                );
+                let mut kill_count = 0;
+                let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
-        for target_player_id in affected_players.iter() {
-            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+                let attacked_player = GameState::get_player_mut(players, player_id)?;
 
-            attacked_player.modify_health(-attack_dmg);
-            match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players
-                    .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
-                None => None,
-            };
+                attacked_player.modify_health(-attack_dmg);
+                match attacked_player.get_mirrored_player_id() {
+                    Some(mirrored_id) => uma_mirroring_affected_players
+                        .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
+                    None => None,
+                };
 
-            if matches!(attacked_player.status, Status::DEAD) {
-                kill_count += 1;
-            }
-        }
+                if matches!(attacked_player.status, Status::DEAD) {
+                    kill_count += 1;
+                }
 
-        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
-        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
+                GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
+                add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
-        Ok(affected_players)
+                (vec![player_id], direction)
+            },
+            None => {
+                //attacking_player.direction = *direction;
+                (Vec::new(), *direction)
+            },
+        };
+
+        let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
+        attacking_player.direction = direction;
+
+        Ok(attacked_players)
     }
 
     pub fn uma_basic_attack(
