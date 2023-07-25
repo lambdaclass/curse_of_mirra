@@ -219,7 +219,7 @@ impl GameState {
             return Ok(());
         }
 
-        player.action = PlayerAction::MOVING.clone();
+        player.action = PlayerAction::MOVING;
 
         let speed = player.speed() as i64;
         GameState::move_player_to_direction(
