@@ -43,6 +43,15 @@ public class EventsBuffer
         }
     }
 
+    /*
+    This function is used to tell whether if another player is moving between the
+    previous, current and following events to render, if true, we will show the walking
+    animation. The previous rendered event is 30ms in the past, the current is the
+    event we're going to render now and the following is the next we're going to render
+    in the next 30ms.
+    After getting all those events, we just check that the amount of moving states
+    which the player has, is greater than one, assuming that he was moving, is moving now or he will.
+    */
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
         var count = 0;
@@ -66,7 +75,6 @@ public class EventsBuffer
                 ? 1
                 : 0;
 
-        Debug.Log("the count is: " + count);
         return count >= 1;
     }
 }
