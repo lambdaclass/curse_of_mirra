@@ -11,11 +11,17 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
 
+    [SerializeField]
+    public CharacterSelectionList PlayersList;
+
     public Image artWork;
     public bool selected = false;
 
     [SerializeField]
     public GameObject characterDescription;
+
+    [SerializeField]
+    public GameObject confirmButton;
 
     [SerializeField]
     public Image skillBasicSprite;
@@ -64,6 +70,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
             if (isActive())
             {
                 characterDescription.SetActive(true);
+                confirmButton.SetActive(true);
                 selected = true;
                 artWork.sprite = comCharacter.selectedArtwork;
                 name.text = comCharacter.name;
@@ -89,6 +96,16 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
                     comCharacter.name;
+
+                if (PlayersList.GetComponentInChildren<CharacterSelectionPlayerItem>().GetId() == 1)
+                {
+                    PlayersList
+                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
+                        .characterText.text = comCharacter.name;
+                    PlayersList
+                        .GetComponentInChildren<CharacterSelectionPlayerItem>()
+                        .characterImage.sprite = comCharacter.selectedArtwork;
+                }
             }
         }
     }
