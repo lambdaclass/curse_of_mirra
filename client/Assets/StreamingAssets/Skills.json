@@ -183,7 +183,7 @@
       "Cooldown": "0",
       "Damage": "10",
       "Status": "",
-      "Duration": "2000",
+      "Duration": "60000",
       "Projectile": "",
       "Minion": ""
     },

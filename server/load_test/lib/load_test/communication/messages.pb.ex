@@ -84,13 +84,9 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:PIERCING, 2)
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
-<<<<<<< HEAD
   field(:SLOWED, 5)
   field(:LEAPING, 6)
-=======
-  field(:LEAPING, 5)
-  field(:OUT_OF_AREA, 6)
->>>>>>> shrinking-damage-area
+  field(:OUT_OF_AREA, 7)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

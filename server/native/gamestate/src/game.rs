@@ -383,12 +383,8 @@ impl GameState {
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
             Name::DAgna => {
-                let players: &mut Vec<_> = &mut self.players.clone();
-                let mut attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-                Self::dagna_basic_attack(
-                    &mut self.players,
-                    &mut attacking_player
-                )
+                println!("Dagna basic attack");
+                Self::dagna_basic_attack(attacking_player)
             }
             _ => Ok(Vec::new()),
         };
@@ -497,26 +493,27 @@ impl GameState {
         Ok(affected_players)
     }
 
-    // D'Agna basic attack: While active, D’agna will move at half speed. It deals AOE damage to all nearby enemies over a period of time. The further the enemy is, the less damage it deals.
+    pub fn dagna_basic_attack(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
 
-    pub fn dagna_basic_attack(
-        _players: &mut Vec<Player>,
-        attacking_player: &mut Player,
-    ) -> Result<Vec<u64>, String> {
-        // TODO: This should be a config of the attack
-        let position = attacking_player.position;
-        let now = time_now();
-        let time_left = u128_to_millis(2000); // duration of the skill is 2 seconds
-
-        // In the world_tick function, we use D'Agna's Slowed effect as an indication that the skill is active and therefore surrounding players should receive damage    
-        attacking_player.effects.insert(Effect::Slowed.clone(), EffectData{ 
-            time_left: time_left,
-            ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
-            direction: None,
-            position: Some(position),
-            triggered_at: u128_to_millis(0),
-        });
-
+        match attacking_player.effects.get(&Effect::Slowed) {
+            Some(_) => {
+                attacking_player.effects.remove(&Effect::Slowed);
+            }
+            None => {
+                let now = time_now();
+                attacking_player.add_effect(
+                    Effect::Slowed.clone(),
+                    EffectData {
+                        time_left: attacking_player.character.duration_basic_skill(),
+                        ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                        direction: None,
+                        position: None,
+                        triggered_at: u128_to_millis(0),
+                    },
+                );
+            }
+        }
+        
         Ok(Vec::new())
     }
 
