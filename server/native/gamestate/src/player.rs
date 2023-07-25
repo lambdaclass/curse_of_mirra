@@ -256,6 +256,19 @@ impl Player {
             return false;
         }
 
+        if matches!(self.action, PlayerAction::ATTACKING)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL1)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL2)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL3)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL4)
+            || matches!(self.action, PlayerAction::STARTINGSKILL1)
+            || matches!(self.action, PlayerAction::STARTINGSKILL2)
+            || matches!(self.action, PlayerAction::STARTINGSKILL3)
+            || matches!(self.action, PlayerAction::STARTINGSKILL4)
+        {
+            return false;
+        }
+
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
