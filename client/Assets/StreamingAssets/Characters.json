@@ -12,7 +12,7 @@
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
       "SkillUltimate": "Fiery Rampage",
-      "BodySize": "75.0"
+      "BodySize": "100.0"
     },
     {
       "Name": "Uma",
@@ -26,7 +26,7 @@
       "SkillActive2": "Xandas Mark",
       "SkillDash": "Shadowstep",
       "SkillUltimate": "Final Vengeance",
-      "BodySize": "45.0"
+      "BodySize": "50.0"
     },
     {
       "Name": "H4ck",
@@ -40,7 +40,7 @@
       "SkillActive2": "Disarm",
       "SkillDash": "Neon Crash",
       "SkillUltimate": "Denial of Service",
-      "BodySize": "40.0"
+      "BodySize": "50.0"
     },
     {
       "Name": "Valtimer",
