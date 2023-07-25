@@ -11,11 +11,13 @@ use std::collections::HashMap;
 pub struct EffectData {
     pub time_left: MillisTime,
     pub ends_at: MillisTime,
+    pub duration: MillisTime,
     pub direction: Option<RelativePosition>,
     pub position: Option<Position>,
     pub triggered_at: MillisTime,
     pub caused_by: u64,
     pub caused_to: u64,
+    pub damage: u32,
 }
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
@@ -33,6 +35,7 @@ pub enum Effect {
     YugenMark,
     XandaMark,
     XandaMarkOwner,
+    Poisoned,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {

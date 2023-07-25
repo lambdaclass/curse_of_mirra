@@ -210,36 +210,44 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        rotatePlayer(actualPlayer, direction);
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerAction.Attacking:
                 actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
                 actualPlayer.GetComponent<Skill1>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
                 actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
                 actualPlayer.GetComponent<Skill2>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
                 actualPlayer.GetComponent<Skill3>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
                 actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
                 actualPlayer.GetComponent<Skill4>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
         }
     }

@@ -82,7 +82,7 @@
       "DoFunc": "0",
       "ButtonType": "3",
       "Cooldown": "5000",
-      "Damage": "3",
+      "Damage": "20",
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
