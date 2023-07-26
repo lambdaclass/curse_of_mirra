@@ -530,9 +530,7 @@ impl GameState {
 
                 (vec![player_id], direction)
             }
-            None => {
-                (Vec::new(), *direction)
-            }
+            None => (Vec::new(), *direction),
         };
 
         let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
