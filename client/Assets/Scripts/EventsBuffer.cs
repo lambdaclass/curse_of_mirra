@@ -7,6 +7,8 @@ public class EventsBuffer
     const int bufferLimit = 30;
     public List<GameEvent> updatesBuffer = new List<GameEvent>();
 
+    public Dictionary<ulong, long> lastTimestampsSeen = new Dictionary<ulong, long>();
+
     public long firstTimestamp = 0;
 
     public long deltaInterpolationTime { get; set; }
@@ -76,5 +78,19 @@ public class EventsBuffer
                 : 0;
 
         return count >= 1;
+    }
+
+    public void setLastTimestampSeen(ulong playerId, long serverTimestamp)
+    {
+        lastTimestampsSeen[playerId] = serverTimestamp;
+    }
+
+    public bool timestampAlreadySeen(ulong playerId, long serverTimestamp)
+    {
+        if (!lastTimestampsSeen.ContainsKey(playerId))
+        {
+            return false;
+        }
+        return lastTimestampsSeen[playerId] == serverTimestamp;
     }
 }

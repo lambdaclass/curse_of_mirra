@@ -159,6 +159,21 @@ public class PlayerMovement : MonoBehaviour
                 gameEvent = buffer.lastEvent();
             }
 
+            if (
+                buffer.timestampAlreadySeen(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id,
+                    gameEvent.PlayerTimestamp
+                )
+            )
+            {
+                continue;
+            }
+
+            buffer.setLastTimestampSeen(
+                SocketConnectionManager.Instance.gamePlayers[i].Id,
+                gameEvent.ServerTimestamp
+            );
+
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
@@ -212,7 +227,6 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-
         // TODO: Refactor
         switch (playerAction)
         {
