@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -378,9 +375,14 @@ public class PlayerMovement : MonoBehaviour
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
         {
             Debug.Log("Player is poisoned");
-            StartCoroutine(
-                ActivatePoisonEffect(playerUpdate.Effects[(ulong)PlayerEffect.Poisoned])
-            );
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+            //ActivatePoisonParticleSystem(true);
+        }
+        else
+        {
+            Debug.Log("Player is not poisoned");
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+            //ActivatePoisonParticleSystem(false);
         }
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -649,30 +651,5 @@ public class PlayerMovement : MonoBehaviour
                 || Input.GetKey(KeyCode.S)
             )
             || inputFromPhysicalJoystick;
-    }
-
-    private IEnumerator ActivatePoisonEffect(MillisTime poisonTime)
-    {
-        if (playerIsPoisoned)
-        {
-            yield break;
-        }
-        else
-        {
-            playerIsPoisoned = true;
-            // Find the particle system in the player's Poison children, and activate it.
-            GameObject
-                .FindGameObjectWithTag("Player")
-                .transform.Find("Poison")
-                .GetComponent<ParticleSystem>()
-                .gameObject.SetActive(true);
-            yield return new WaitForSeconds(poisonTime.Low / 1000);
-            GameObject
-                .FindGameObjectWithTag("Player")
-                .transform.Find("Poison")
-                .GetComponent<ParticleSystem>()
-                .gameObject.SetActive(false);
-            playerIsPoisoned = false;
-        }
     }
 }
