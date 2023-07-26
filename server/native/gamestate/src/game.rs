@@ -221,11 +221,16 @@ impl GameState {
 
         player.action = PlayerAction::MOVING;
 
+        let direction = match player.has_active_effect(&Effect::DanseMacabre) {
+            true => RelativePosition { x: y, y: -x },
+            false => RelativePosition { x, y },
+        };
+
         let speed = player.speed() as i64;
         GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
-            &RelativePosition { x, y },
+            &direction,
             speed,
         )?;
 
@@ -564,8 +569,9 @@ impl GameState {
     }
 
     pub fn dagna_basic_attack(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
-        match attacking_player.effects.get(&Effect::Slowed) {
+        match attacking_player.effects.get(&Effect::Scherzo) {
             Some(_) => {
+                attacking_player.effects.remove(&Effect::Scherzo);
                 attacking_player.effects.remove(&Effect::Slowed);
             }
             None => {
@@ -581,7 +587,21 @@ impl GameState {
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
                         caused_to: attacking_player.id,
-                        damage: 0,
+                        damage: attacking_player.character.attack_dmg_basic_skill(),
+                    },
+                );
+                attacking_player.add_effect(
+                    Effect::Scherzo.clone(),
+                    EffectData {
+                        time_left: attacking_player.character.duration_basic_skill(),
+                        ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                        duration: attacking_player.character.duration_basic_skill(),
+                        direction: None,
+                        position: None,
+                        triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
+                        damage: attacking_player.character.attack_dmg_basic_skill(),
                     },
                 );
             }
@@ -657,6 +677,10 @@ impl GameState {
 
                 Ok(Vec::new())
             }
+            Name::DAgna => {
+                let players = &mut self.players;
+                Self::dagna_skill_1(players, attacking_player_id)
+            },
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
                 let attacking_player_id = attacking_player.id;
@@ -705,7 +729,6 @@ impl GameState {
                 };
                 Ok(Vec::new())
             }
-            _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
@@ -752,6 +775,50 @@ impl GameState {
             }
         }
         Ok(Vec::new())
+    }
+
+    pub fn dagna_skill_1(
+        players: &mut Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Result<Vec<u64>, String> {
+        let pys = players.clone();
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        let duration = attacking_player.character.duration_skill_1();
+        let damage = attacking_player.skill_1_damage();
+
+        let now = time_now();
+
+        // TODO: This should be a config of the attack
+        let attack_range = 1000.;
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
+                .into_iter()
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+
+            
+            attacked_player.add_effect(
+                Effect::DanseMacabre.clone(),
+                EffectData {
+                    time_left: duration,
+                    ends_at: add_millis(now, duration),
+                    duration: duration,
+                    direction: None,
+                    position: None,
+                    triggered_at: now,
+                    caused_by: attacking_player_id,
+                    caused_to: attacked_player.id,
+                    damage: damage,
+                },
+            )
+        }
+        Ok(affected_players)
     }
 
     pub fn skill_2(
@@ -1111,13 +1178,13 @@ impl GameState {
             }
 
             if player.character.name == Name::DAgna {
-                match player.effects.get(&Effect::Slowed) {
+                match player.effects.get(&Effect::Scherzo) {
                     Some(data) => {
                         let mut effect_data = data.clone();
                         if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 as u128
                         {
                             scherzo_affected_players = GameState::affected_players_gradient(
-                                50,
+                                effect_data.damage as i64,
                                 1000.,
                                 &pys,
                                 &player.position,
@@ -1126,7 +1193,7 @@ impl GameState {
                             effect_data.triggered_at = now;
                         }
 
-                        player.effects.insert(Effect::Slowed, effect_data);
+                        player.effects.insert(Effect::Scherzo, effect_data);
                     }
                     None => {}
                 };

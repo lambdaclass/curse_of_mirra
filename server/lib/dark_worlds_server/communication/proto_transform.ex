@@ -413,4 +413,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:xanda_mark, %{ends_at: ends_at}}), do: {10, ends_at}
   defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at}}), do: {11, ends_at}
   defp effect_encode({:poisoned, %{ends_at: ends_at}}), do: {12, ends_at}
+  defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {13, ends_at}
+  defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {14, ends_at}
 end

@@ -196,6 +196,8 @@ enum PlayerEffect {
     XANDA_MARK = 10;
     XANDA_MARK_OWNER = 11;
     POISONED = 12;
+    SCHERZO = 13;
+    DANSE_MACABRE = 14;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

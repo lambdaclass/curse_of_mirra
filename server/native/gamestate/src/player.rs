@@ -37,6 +37,8 @@ pub enum Effect {
     XandaMark,
     XandaMarkOwner,
     Poisoned,
+    Scherzo,
+    DanseMacabre,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
