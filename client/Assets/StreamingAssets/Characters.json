@@ -106,9 +106,9 @@
       "Faction": "mer",
       "BaseSpeed": "30",
       "SkillBasic": "Scherzo",
-      "SkillActive1": "Pizzicato",
+      "SkillActive1": "Danse Macabre",
       "SkillActive2": "Band Recruit",
-      "SkillDash": "Danse Macabre",
+      "SkillDash": "Pizzicato",
       "SkillUltimate": "Orchestra",
       "BodySize": "45.0"
     }
