@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_SkillBasic
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: "ELNAR\u2019S MARK"
+  description: "Melee attack that deals high damage and inflicts a Mark on the enemy
+    for a short period which slows them down slightly. Marks of same type don\u2019t
+    stack, but they reset the duration. Taints her enemy preparing it for the kill.
+    The first mark is named before her husband. "
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}
