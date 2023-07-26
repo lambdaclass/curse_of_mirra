@@ -351,8 +351,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:session_timeout, gen_server_state) do
-    broadcast_to_darkworlds_server({:game_finished, gen_server_state})
-
     {:stop, :normal, gen_server_state}
   end
 
