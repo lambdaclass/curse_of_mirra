@@ -18,9 +18,8 @@ public class ToggleAudio : MonoBehaviour
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
-        print(
-            "Master is muted? " + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
-        );
+
+        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what it name suggests.
         if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             muteButtonImage.overrideSprite = mutedSprite;
@@ -33,9 +32,7 @@ public class ToggleAudio : MonoBehaviour
 
     public void Toggle()
     {
-        print(
-            "Master is muted? " + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
-        );
+        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what it name suggests.
         if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             SilenceSound();
@@ -52,19 +49,11 @@ public class ToggleAudio : MonoBehaviour
     {
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
-        print(
-            "Master is muted after MuteMaster? "
-                + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
-        );
     }
 
     private void PlaySound()
     {
         soundManager.UnmuteMaster();
         soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
-        print(
-            "Master is muted after UnmuteMaster? "
-                + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
-        );
     }
 }
