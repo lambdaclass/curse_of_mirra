@@ -344,7 +344,7 @@ public class CustomInputManager : InputManager
 
         float scaleX = directionIndicator.transform.localScale.x;
 
-        float scaleY = 2.45f;
+        float scaleY = (3.45f * joystick.skill.GetSkillRadius()) / 12;
 
         if (joystick.skill.GetIndicatorType() == UIIndicatorType.Arrow)
         {
