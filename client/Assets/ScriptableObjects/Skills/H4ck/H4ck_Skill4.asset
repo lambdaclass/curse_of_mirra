@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: H4ck_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Hack_Skill4
+  name: DENIAL OF SERVICE
+  description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
+    H4ck has a lotofupgrades under his sleave.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1

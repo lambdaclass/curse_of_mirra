@@ -6,6 +6,7 @@ using UnityEngine;
 public class SkillInfo : ScriptableObject
 {
     public new string name;
+    public string description;
     public UIType inputType;
     public GameObject feedbackVfx;
     public float feedbackVfxDuration;
