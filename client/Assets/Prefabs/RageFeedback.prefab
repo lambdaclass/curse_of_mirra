@@ -121,8 +121,8 @@ MonoBehaviour:
         m_Calls: []
   DebugActive: 0
   FeedbacksList:
-  - rid: 7520062630575734788
   - rid: 7520062630575734784
+  - rid: 7520062630575734788
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   ForceStopFeedbacksOnDisable: 1

@@ -71,6 +71,9 @@ public class CustomInputManager : InputManager
     [SerializeField]
     GameObject disarmObjectSkill4;
 
+    [SerializeField]
+    GameObject cancelButton;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -80,6 +83,9 @@ public class CustomInputManager : InputManager
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
     private bool disarmed = false;
+    private bool activeJoystickStatus = false;
+
+    public bool canceled = false;
 
     protected override void Start()
     {
@@ -101,6 +107,12 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
     }
+
+    // void Update()
+    // {
+    //     activeJoystickStatus = activeJoystick != null ? true : false;
+    //     cancelButton.SetActive(activeJoystickStatus);
+    // }
 
     public void ActivateDisarmEffect(bool isDisarmed)
     {
@@ -142,11 +154,12 @@ public class CustomInputManager : InputManager
         switch (triggerType)
         {
             case UIType.Tap:
-                button.ButtonPressedFirstTime.AddListener(skill.TryExecuteSkill);
+                // button.ButtonReleased.AddListener(skill.TryExecuteSkill);
                 if (joystick)
                 {
                     joystick.enabled = false;
                 }
+                MapTapInputEvents(button, skill);
                 break;
 
             case UIType.Area:
@@ -183,6 +196,14 @@ public class CustomInputManager : InputManager
         joystick.newPointerUpEvent = aoeRelease;
     }
 
+    private void MapTapInputEvents(CustomMMTouchButton button, Skill skill)
+    {
+        UnityEvent<Skill> tapRelease = new UnityEvent<Skill>();
+        tapRelease.AddListener(ExecuteTapSkill);
+        button.skill = skill;
+        button.newPointerTapUp = tapRelease;
+    }
+
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
         GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
@@ -209,6 +230,7 @@ public class CustomInputManager : InputManager
         //Multiply vector values according to the scale of the animation (in this case 12)
         indicator.transform.position =
             _player.transform.position + new Vector3(aoePosition.x * 12, 0f, aoePosition.y * 12);
+        activeJoystickStatus = canceled;
     }
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
@@ -226,7 +248,18 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.TryExecuteSkill(aoePosition);
+        if (!activeJoystickStatus)
+        {
+            skill.TryExecuteSkill(aoePosition);
+        }
+    }
+
+    public void ExecuteTapSkill(Skill skill)
+    {
+        if (!canceled)
+        {
+            skill.TryExecuteSkill();
+        }
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -291,6 +324,7 @@ public class CustomInputManager : InputManager
         }
         directionIndicator.transform.rotation = Quaternion.Euler(90f, result, 0);
         directionIndicator.SetActive(true);
+        activeJoystickStatus = canceled;
     }
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
@@ -301,7 +335,10 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        skill.TryExecuteSkill(direction);
+        if (!activeJoystickStatus)
+        {
+            skill.TryExecuteSkill(direction);
+        }
     }
 
     public void CheckSkillCooldown(UIControls control, float cooldown)
@@ -356,5 +393,15 @@ public class CustomInputManager : InputManager
     public void UnsetOpacity()
     {
         joystickL.color = new Color(255, 255, 255, 1);
+    }
+
+    public void SetCanceled(bool value)
+    {
+        canceled = value;
+    }
+
+    public void ToggleCanceled(bool value)
+    {
+        cancelButton.SetActive(value);
     }
 }

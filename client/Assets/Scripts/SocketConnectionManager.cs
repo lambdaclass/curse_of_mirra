@@ -40,6 +40,9 @@ public class SocketConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer;
     public bool allSelected = false;
 
+    public float playableRadius;
+    public Position shrinkingCenter;
+
     WebSocket ws;
 
     public class Session
@@ -115,6 +118,8 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    this.playableRadius = game_event.PlayableRadius;
+                    this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
 
                     if (

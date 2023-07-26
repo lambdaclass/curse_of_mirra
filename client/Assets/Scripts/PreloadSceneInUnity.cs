@@ -21,7 +21,7 @@ public class PreloadSceneInUnity : MonoBehaviour
 
         while (!this.asyncOperation.isDone)
         {
-            Debug.Log($"[scene]:{sceneName} [load progress]: {this.asyncOperation.progress}");
+            // Debug.Log($"[scene]:{sceneName} [load progress]: {this.asyncOperation.progress}");
 
             yield return null;
         }

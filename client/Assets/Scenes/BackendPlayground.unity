@@ -406,8 +406,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5709ce9db31d4ac4a77637a0e344de4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   InputManager: {fileID: 2856279044554654230}
 --- !u!65 &1392788253
 BoxCollider:
@@ -528,7 +528,7 @@ MonoBehaviour:
   charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
   - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
-  - {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677, type: 2}
+  - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
@@ -860,6 +860,7 @@ MonoBehaviour:
   serverTickRate_ms: 0
   serverHash: 
   allSelected: 0
+  playableRadius: 0
 --- !u!1 &1918232350
 GameObject:
   m_ObjectHideFlags: 0
