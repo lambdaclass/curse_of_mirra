@@ -14,11 +14,14 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    void Update()
+    void Start()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
+    }
 
+    void Update()
+    {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what it name suggests.
         if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
