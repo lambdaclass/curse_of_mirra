@@ -65,6 +65,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         PopulateLists();
+        DontDestroyOnLoad(MMSoundManager.Instance);
     }
 
     private void Start()
@@ -333,6 +334,6 @@ public class LobbyConnection : MonoBehaviour
     {
         backgroundMusic.PlayFeedbacks();
         await Task.Delay(1);
-        MMSoundManager.Instance.MuteTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        MMSoundManager.Instance.MuteTrack(MMSoundManager.MMSoundManagerTracks.Master);
     }
 }

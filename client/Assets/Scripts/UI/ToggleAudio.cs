@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,14 +14,31 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    void Awake()
+    async void Start()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
+        await Task.Delay(1);
+        print(
+            "Master is muted? "
+                + MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+        );
+        if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        {
+            muteButtonImage.overrideSprite = mutedSprite;
+        }
+        else
+        {
+            muteButtonImage.overrideSprite = unmutedSprite;
+        }
     }
 
     public void Toggle()
     {
+        print(
+            "Master is muted? "
+                + MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+        );
         if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             SilenceSound();
