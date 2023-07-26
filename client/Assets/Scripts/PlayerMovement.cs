@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
-using UnityEngine.UI;
+using System.Threading.Tasks;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
+
+    private bool playerIsPoisoned;
 
     void Start()
     {
@@ -373,12 +377,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
         {
-            // Find the particle system in the player's Poison children, and activate it.
-            GameObject
-                .FindGameObjectWithTag("Player")
-                .transform.Find("Poison")
-                .GetComponent<ParticleSystem>()
-                .gameObject.SetActive(true);
+            Debug.Log("Player is poisoned");
+            StartCoroutine(
+                ActivatePoisonEffect(playerUpdate.Effects[(ulong)PlayerEffect.Poisoned])
+            );
         }
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -647,5 +649,30 @@ public class PlayerMovement : MonoBehaviour
                 || Input.GetKey(KeyCode.S)
             )
             || inputFromPhysicalJoystick;
+    }
+
+    private IEnumerator ActivatePoisonEffect(MillisTime poisonTime)
+    {
+        if (playerIsPoisoned)
+        {
+            yield break;
+        }
+        else
+        {
+            playerIsPoisoned = true;
+            // Find the particle system in the player's Poison children, and activate it.
+            GameObject
+                .FindGameObjectWithTag("Player")
+                .transform.Find("Poison")
+                .GetComponent<ParticleSystem>()
+                .gameObject.SetActive(true);
+            yield return new WaitForSeconds(poisonTime.Low / 1000);
+            GameObject
+                .FindGameObjectWithTag("Player")
+                .transform.Find("Poison")
+                .GetComponent<ParticleSystem>()
+                .gameObject.SetActive(false);
+            playerIsPoisoned = false;
+        }
     }
 }
