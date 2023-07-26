@@ -12,9 +12,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject lobbyItemPrefab;
 
-    [SerializeField]
-    GameObject gameItemPrefab;
-
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
 
