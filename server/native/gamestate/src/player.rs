@@ -201,6 +201,23 @@ impl Player {
         return self.character.attack_dmg_skill_3();
     }
 
+    pub fn basic_skill_range(&self) -> f64{
+        self.character.skill_basic.skill_range
+    }
+
+    pub fn skill_1_range(&self) -> f64 {
+        self.character.skill_1.skill_range
+    }
+    pub fn skill_2_range(&self) -> f64 {
+        self.character.skill_2.skill_range
+    }
+    pub fn skill_3_range(&self) -> f64 {
+        self.character.skill_3.skill_range
+    }
+    pub fn skill_4_range(&self) -> f64 {
+        self.character.skill_3.skill_range
+    }
+
     #[inline]
     pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
         if !self.effects.contains_key(&e) {

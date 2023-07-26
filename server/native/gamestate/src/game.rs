@@ -474,7 +474,7 @@ impl GameState {
         );
 
         // TODO: This should be a config of the attack
-        let attack_range = 100.;
+        let attack_range = attacking_player.basic_skill_range();
 
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
@@ -518,7 +518,7 @@ impl GameState {
         );
 
         // TODO: This should be a config of the attack
-        let attack_range = 100.;
+        let attack_range = attacking_player.basic_skill_range();
 
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
@@ -696,7 +696,7 @@ impl GameState {
         let attack_dmg = attacking_player.skill_1_damage() as i64;
 
         // TODO: This should be a config of the attack
-        let attack_range = 350.;
+        let attack_range = attacking_player.skill_1_range();
 
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(&pys, &attacking_player.position, attack_range)
