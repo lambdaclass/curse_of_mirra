@@ -201,7 +201,7 @@ impl Player {
         return self.character.attack_dmg_skill_3();
     }
 
-    pub fn basic_skill_range(&self) -> f64{
+    pub fn basic_skill_range(&self) -> f64 {
         self.character.skill_basic.skill_range
     }
 
