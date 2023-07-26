@@ -13,7 +13,7 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    void Start()
+    void Awake()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
