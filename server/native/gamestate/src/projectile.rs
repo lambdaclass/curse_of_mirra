@@ -121,4 +121,8 @@ impl Projectile {
     pub fn needs_to_explode(eq_coordinates: bool, is_in_wall: bool, moving_to_wall: bool) -> bool {
         return eq_coordinates && is_in_wall && moving_to_wall;
     }
+
+    pub fn is_active(&self) -> bool {
+        matches!(self.status, ProjectileStatus::ACTIVE)
+    }
 }

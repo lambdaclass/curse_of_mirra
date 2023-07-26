@@ -29,7 +29,10 @@ pub fn sub_millis(t1: MillisTime, t2: MillisTime) -> MillisTime {
     let sub = millis_to_u128(t1).saturating_sub(millis_to_u128(t2));
     return u128_to_millis(sub);
 }
-
+pub fn sub_millis_by_ref(t1: &MillisTime, t2: &MillisTime) -> MillisTime {
+    let sub = millis_to_u128(*t1).saturating_sub(millis_to_u128(*t2));
+    return u128_to_millis(sub);
+}
 /// Returns the current system time in seconds. Note that system time is
 /// unreliable as it's not guaranteed to be monotonic.
 pub fn time_now() -> MillisTime {

@@ -1,5 +1,8 @@
 use crate::character::{Character, Name};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime};
+use crate::projectile::{Projectile, ProjectileType};
+use crate::time_utils::{
+    add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
+};
 use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
@@ -160,16 +163,14 @@ impl Player {
         damage
     }
 
-    pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64> {
-        if self.character.name == Name::Uma {
-            match self.effects.get(&Effect::XandaMarkOwner) {
-                Some(effect) => {
-                    return Some(effect.caused_to);
-                }
-                None => return None,
-            }
+    pub fn get_mirrored_player_id(self: &Self) -> Option<u64> {
+        match self.character.name {
+            Name::Uma => self
+                .effects
+                .get(&Effect::XandaMarkOwner)
+                .map(|effect| effect.caused_to),
+            _ => None,
         }
-        None
     }
 
     pub fn add_kills(self: &mut Self, kills: u64) {
@@ -369,6 +370,67 @@ impl Player {
         self.skill_2_started_at = MillisTime { high: 0, low: 0 };
         self.skill_3_started_at = MillisTime { high: 0, low: 0 };
         self.skill_4_started_at = MillisTime { high: 0, low: 0 };
+    }
+    /// Update a player's current status effects,
+    /// return the expired ones.
+    pub fn update_effects_time_left(&mut self, now: &MillisTime) -> Result<Vec<Effect>, String> {
+        let mut expired_effects = vec![];
+        self.effects.retain(
+            |effect,
+             EffectData {
+                 time_left, ends_at, ..
+             }| {
+                *time_left = sub_millis(*ends_at, now.clone());
+                let expires = millis_to_u128(*time_left) == 0;
+                if expires {
+                    expired_effects.push((*effect).clone());
+                }
+                !(expires)
+            },
+        );
+
+        Ok(expired_effects)
+    }
+    pub fn is_alive(&self) -> bool {
+        matches!(self.status, Status::ALIVE)
+    }
+    pub fn is_dead(&self) -> bool {
+        matches!(self.status, Status::DEAD)
+    }
+    /// Applies the effects of a projectile
+    /// on this player.
+    // pub fn apply_projectile_effect(&mut self, projectile: &Projectile, ) {
+    //     match projectile.projectile_type {
+    //                     ProjectileType::DISARMINGBULLET => {
+    //                         let duration = MillisTime {high: 0, low: 5000};
+    //                         let ends_at = add_millis(time_now(), duration);
+    //                         attacked_player.disarm_by_projectile(duration, ends_at, &projectile);
+    //                     }
+    //         _ => {}
+    //     }
+    // }
+
+    /// Set a player as disarmed by a certain projectile.
+    pub fn disarm_by_projectile(
+        &mut self,
+        duration: MillisTime,
+        ends_at: MillisTime,
+        projectile: &Projectile,
+    ) {
+        self.add_effect(
+            Effect::Disarmed.clone(),
+            EffectData {
+                time_left: duration,
+                ends_at,
+                duration,
+                direction: None,
+                position: None,
+                triggered_at: u128_to_millis(0),
+                caused_by: projectile.player_id,
+                caused_to: self.id,
+                damage: 0,
+            },
+        );
     }
 }
 
