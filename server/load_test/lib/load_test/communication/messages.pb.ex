@@ -72,6 +72,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 8)
   field(:EXECUTING_SKILL_3, 9)
   field(:EXECUTING_SKILL_4, 10)
+  field(:MOVING, 11)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerEffect do
@@ -85,6 +86,12 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:OUT_OF_AREA, 6)
+  field(:ELNAR_MARK, 7)
+  field(:YUGEN_MARK, 8)
+  field(:XANDA_MARK, 9)
+  field(:XANDA_MARK_OWNER, 10)
+  field(:POISONED, 11)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -150,6 +157,12 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 10, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 12,
+    type: LoadTest.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do

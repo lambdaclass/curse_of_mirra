@@ -7,6 +7,7 @@ using MoreMountains.Tools;
 public class SkillInfo : ScriptableObject
 {
     public new string name;
+    public string description;
     public UIType inputType;
     public UIIndicatorType indicatorType;
     public GameObject feedbackVfx;

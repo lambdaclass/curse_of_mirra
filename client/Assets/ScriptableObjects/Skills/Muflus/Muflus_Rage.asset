@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Muflus_Rage
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Muflus_Rage
+  name: RAGE
+  description: While active, gain a small boost of movement speed, partial crowd
+    control immunity, and damage for every hit and subsequent ones. Myrra has provided
+    the bulls with a PED that has unleashed the full aggressive potential of their
+    bodies.
   inputType: 0
   feedbackVfx: {fileID: 5680458291943351323, guid: d1aa7547c425a44b8acc728041634177,
     type: 3}
