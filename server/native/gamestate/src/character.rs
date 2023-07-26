@@ -124,11 +124,17 @@ impl Character {
     pub fn attack_dmg_basic_skill(&self) -> u32 {
         self.skill_basic.damage
     }
-    pub fn attack_dmg_first_active(&self) -> u32 {
+    pub fn attack_dmg_skill_1(&self) -> u32 {
         self.skill_1.damage
     }
-    pub fn attack_dmg_second_active(&mut self) -> u32 {
+    pub fn attack_dmg_skill_2(&self) -> u32 {
         self.skill_2.damage
+    }
+    pub fn attack_dmg_skill_3(&self) -> u32 {
+        self.skill_3.damage
+    }
+    pub fn attack_dmg_skill_4(&self) -> u32 {
+        self.skill_4.damage
     }
 
     pub fn cooldown_basic_skill(&self) -> MillisTime {
@@ -177,7 +183,7 @@ impl Default for Character {
     fn default() -> Self {
         Character::new(
             Class::Hunter,
-            5,
+            50,
             &Name::H4ck,
             Skill::default(),
             Skill::default(),
@@ -187,7 +193,7 @@ impl Default for Character {
             true,
             1,
             Faction::Araban,
-            10.0,
+            100.0,
         )
     }
 }

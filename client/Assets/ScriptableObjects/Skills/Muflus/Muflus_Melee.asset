@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Muflus_Melee
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Muflus_Melee
+  name: BASH
+  description: Targets an arc in front of you, dealing damage. Muflus wields a chainsaw
+    tipped club fiercely against his enemies.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3

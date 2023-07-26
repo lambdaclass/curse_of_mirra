@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerFeedbacks : MonoBehaviour
 {
+    [SerializeField]
+    CustomInputManager InputManager;
+
     public void PlayDeathFeedback(GameObject player, Health healthComponent)
     {
         if (
@@ -53,5 +56,10 @@ public class PlayerFeedbacks : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         player.GetComponentInChildren<OverlayEffect>().enabled = false;
+    }
+
+    public void ExecuteH4ckDisarmFeedback(bool disarmed)
+    {
+        InputManager.ActivateDisarmEffect(disarmed);
     }
 }
