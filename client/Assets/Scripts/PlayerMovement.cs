@@ -374,15 +374,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
         {
-            Debug.Log("Player is poisoned");
             GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
-            //ActivatePoisonParticleSystem(true);
         }
         else
         {
-            Debug.Log("Player is not poisoned");
             GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-            //ActivatePoisonParticleSystem(false);
         }
         if (playerUpdate.CharacterName == "Muflus")
         {
