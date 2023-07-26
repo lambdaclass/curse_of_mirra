@@ -461,7 +461,6 @@ impl GameState {
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
 
-            //let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
             attacking_player.direction = projectile_direction;
         }
         Ok(Vec::new())
@@ -498,7 +497,6 @@ impl GameState {
         attack_range: f64,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        // TODO: This should be a config of the attack
 
         let (attacked_players, direction) = match Self::nearest_player(
             players,
@@ -533,7 +531,6 @@ impl GameState {
                 (vec![player_id], direction)
             }
             None => {
-                //attacking_player.direction = *direction;
                 (Vec::new(), *direction)
             }
         };

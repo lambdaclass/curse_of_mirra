@@ -458,8 +458,6 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        // CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        // characterOrientation.ForcedRotation = true;
 
         var inputFromVirtualJoystick = joystickL is not null;
 
