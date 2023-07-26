@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: DAgna_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: Orchestra
+  description: Revives all recruits that spawned since the last use of this ultimate.
+    But they all use Scherzo now! Myrra granted her the ability to use her music
+    to create illusions of herself.
   inputType: 0
-  feedbackAnimation: {fileID: 0}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

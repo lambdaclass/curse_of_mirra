@@ -877,7 +877,8 @@ impl GameState {
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(&pys, &attacking_player.position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player_id)
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| id)
                 .collect();
 
         for target_player_id in affected_players.iter_mut() {

@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: DAgna_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: Pizzicato
+  description: Performs a pizzicato, doing concentrated damage in a close area and
+    knocking enemies back. Like Scherzo, it deals more optimal damage the closer
+    it is to the target. Being a music virtuoso Myrra granted her atonal music the
+    the power to damage everyone that hears it.
   inputType: 0
-  feedbackAnimation: {fileID: 0}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

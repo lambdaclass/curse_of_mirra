@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: DAgna_Scherzo
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: Scherzo
+  description: "Togglable skill, while active, D\u2019agna will stand still and play
+    music, dealing damage to all nearby enemies. The further the sound travels, the
+    less damage it deals. Being a music virtuoso Myrra granted her music the the
+    power to damage everyone that hears it."
   inputType: 0
-  feedbackAnimation: {fileID: 0}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}
