@@ -27,13 +27,19 @@ public class CustomLogs : MonoBehaviour
         Application.logMessageReceivedThreaded -= HandleLog;
     }
 
+    void Update()
+    {
+        CustomDebugLog.CustomDebug("CUSTOMM!!");
+    }
+
     void HandleLog(string logString, string stackTrace, LogType type)
     {
-        if (queue.Count >= maxLines || !debugPrint)
-        {
-            queue.Dequeue();
-            debugLogText.text = " ";
-        }
+        //if we want a max messages length descomment this :)
+        // if (queue.Count >= maxLines || !debugPrint)
+        // {
+        //     queue.Dequeue();
+        //     debugLogText.text = " ";
+        // }
         if (debugPrint)
         {
             queue.Enqueue(logString);
