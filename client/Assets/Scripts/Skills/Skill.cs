@@ -267,6 +267,11 @@ public class Skill : CharacterAbility
         return skillInfo.skillConeAngle;
     }
 
+    public float GetArroWidth()
+    {
+        return skillInfo.arrowWidth;
+    }
+
     public UIIndicatorType GetIndicatorType()
     {
         return skillInfo.indicatorType;

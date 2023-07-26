@@ -22,4 +22,7 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]
     public float skillConeAngle;
+
+    [MMEnumCondition("indicatorType", (int)UIIndicatorType.Arrow)]
+    public float arrowWidth;
 }

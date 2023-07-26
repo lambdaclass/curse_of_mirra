@@ -342,7 +342,7 @@ public class CustomInputManager : InputManager
 
         var cone = directionIndicator.GetComponent<SelectIndicator>().cone;
 
-        float scaleX = directionIndicator.transform.localScale.x;
+        float scaleX = directionIndicator.transform.localScale.x * joystick.skill.GetArroWidth();
 
         float scaleY = (3.45f * joystick.skill.GetSkillRadius()) / 12;
 
