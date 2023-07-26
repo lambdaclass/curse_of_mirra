@@ -5,6 +5,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.UI;
+using static MoreMountains.TopDownEngine.CharacterStates;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
             SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.players.Count > 0
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
+            && !SocketConnectionManager.Instance.gameFinished
         )
         {
             accumulatedTime += Time.deltaTime * 1000f;
