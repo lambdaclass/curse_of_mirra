@@ -431,6 +431,7 @@ defmodule DarkWorldsServer.Communication.Proto.SkillConfigItem do
   field(:Duration, 7, type: :string)
   field(:Projectile, 8, type: :string)
   field(:Minion, 9, type: :string)
+  field(:SkillRange, 10, type: :string)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
