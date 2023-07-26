@@ -341,8 +341,6 @@ public class CustomInputManager : InputManager
         directionIndicator.GetComponent<SelectIndicator>().fov = joystick.skill.GetIndicatorAngle();
 
         var cone = directionIndicator.GetComponent<SelectIndicator>().cone;
-        print(cone);
-        print("in custominputmanager " + cone.transform.eulerAngles);
 
         float scaleX = directionIndicator.transform.localScale.x;
 

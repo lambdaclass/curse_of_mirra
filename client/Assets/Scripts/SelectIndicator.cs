@@ -22,7 +22,6 @@ public class SelectIndicator : MonoBehaviour
     public void Start()
     {
         CreateConeIndicator();
-        print("CONE INSIDE SELECTINDICATOR" + cone.transform.rotation);
     }
 
     public void CreateConeIndicator()
