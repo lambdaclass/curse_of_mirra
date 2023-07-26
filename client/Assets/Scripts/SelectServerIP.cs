@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,13 +6,13 @@ using UnityEngine.UI;
 public class SelectServerIP : MonoBehaviour
 {
     [SerializeField]
-    Text IP;
+    TextMeshProUGUI IP;
 
     [SerializeField]
     GameObject Button;
 
     [SerializeField]
-    Text ButtonText;
+    TextMeshProUGUI ButtonText;
     public Color selectedColor = Color.white;
 
     Image ButtonImage;
@@ -30,14 +31,15 @@ public class SelectServerIP : MonoBehaviour
 
     private void SetButtonContent()
     {
-        if (LobbyConnection.Instance.server_ip == IP.text)
+        Debug.Log("SERVER IP: " + LobbyConnection.Instance.server_ip);
+        /* if (LobbyConnection.Instance.server_ip == IP.text)
         {
             ButtonText.text = "Connected!";
         }
         else
         {
             ButtonText.text = "Connect";
-        }
+        } */
     }
 
     //This method is called when the button is pressed
