@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 using UnityEngine.UI;
-using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
+
+    private bool playerIsPoisoned;
 
     void Start()
     {
@@ -397,6 +398,14 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
