@@ -46,8 +46,6 @@ public class SocketConnectionManager : MonoBehaviour
     public float playableRadius;
     public Position shrinkingCenter;
 
-    public bool gameFinished;
-
     WebSocket ws;
 
     public class Session
@@ -149,7 +147,6 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.GameFinished:
                     winnerPlayer.Item1 = game_event.WinnerPlayer;
                     winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
-                    gameFinished = true;
                     // This should be uncommented when the match end is finished
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     break;
