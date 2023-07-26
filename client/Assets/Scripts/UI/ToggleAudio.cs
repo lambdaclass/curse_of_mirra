@@ -22,7 +22,7 @@ public class ToggleAudio : MonoBehaviour
 
     void Update()
     {
-        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what it name suggests.
+        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
         if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             muteButtonImage.overrideSprite = mutedSprite;
@@ -35,7 +35,7 @@ public class ToggleAudio : MonoBehaviour
 
     public void Toggle()
     {
-        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what it name suggests.
+        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
         if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             SilenceSound();
