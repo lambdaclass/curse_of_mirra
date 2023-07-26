@@ -273,13 +273,12 @@ impl GameState {
         players: &Vec<Player>,
         attacking_position: &Position,
         range: f64,
-    ) -> Vec<u64> {
-        let mut players_in_range: Vec<u64> = vec![];
+    ) -> Vec<(u64, f64)> {
+        let mut players_in_range: Vec<(u64, f64)> = vec![];
         for player in players {
-            if distance_between_positions(&player.position, attacking_position) <= range
-                && !matches!(player.status, Status::DEAD)
-            {
-                players_in_range.push(player.id);
+            let distance = distance_between_positions(&player.position, attacking_position);
+            if distance <= range && !matches!(player.status, Status::DEAD) {
+                players_in_range.push((player.id, distance));
             }
         }
         players_in_range
@@ -383,16 +382,12 @@ impl GameState {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
             }
-            Name::DAgna => {
-                println!("Dagna basic attack");
-                Self::dagna_basic_attack(attacking_player)
-            }
+            Name::DAgna => Self::dagna_basic_attack(attacking_player),
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 Self::uma_basic_attack(&mut self.players, attacking_player, direction)
             }
-            _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
@@ -483,7 +478,8 @@ impl GameState {
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player.id)
+                .filter(|&(id, _distance)| id != attacking_player.id)
+                .map(|(id, _distance)| id)
                 .collect();
 
         let mut kill_count = 0;
@@ -527,7 +523,8 @@ impl GameState {
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player.id)
+                .filter(|&(id, _distance)| id != attacking_player.id)
+                .map(|(id, _distance)| id)
                 .collect();
 
         let mut kill_count = 0;
@@ -583,13 +580,13 @@ impl GameState {
                         position: None,
                         triggered_at: u128_to_millis(0),
                         caused_by: attacking_player.id,
-                        caused_to: attacked_player.id,
+                        caused_to: attacking_player.id,
                         damage: 0,
                     },
                 );
             }
         }
-        
+
         Ok(Vec::new())
     }
 
@@ -732,7 +729,8 @@ impl GameState {
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(&pys, &attacking_player.position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player_id)
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| id)
                 .collect();
 
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
@@ -1050,9 +1048,9 @@ impl GameState {
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
         let now = time_now();
         let pys = self.players.clone();
-        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        let mut scherzo_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut neon_crash_affected_players: HashMap<u64, Vec<(u64, i64)>> = HashMap::new();
+        let mut leap_affected_players: HashMap<u64, Vec<(u64, i64)>> = HashMap::new();
+        let mut scherzo_affected_players: HashMap<u64, Vec<(u64, i64)>> = HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
         self.players.iter_mut().for_each(|player| {
@@ -1131,20 +1129,24 @@ impl GameState {
 
             if player.character.name == Name::DAgna {
                 match player.effects.get(&Effect::Slowed) {
-                    Some(EffectData {
-                        ..
-                    }) => {
-                        scherzo_affected_players = GameState::affected_players(
-                            2,
-                            2000.,
-                            &pys,
-                            &player.position,
-                            player.id,
-                        );
+                    Some(data) => {
+                        let mut effect_data = data.clone();
+                        if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 as u128
+                        {
+                            scherzo_affected_players = GameState::affected_players_gradient(
+                                50,
+                                1000.,
+                                &pys,
+                                &player.position,
+                                player.id,
+                            );
+                            effect_data.triggered_at = now;
+                        }
 
+                        player.effects.insert(Effect::Slowed, effect_data);
                     }
-                    _ => {}
-                }
+                    None => {}
+                };
             }
         });
 
@@ -1293,12 +1295,12 @@ impl GameState {
     }
 
     fn attack_players_with_effect(
-        affected_players: HashMap<u64, (i64, Vec<u64>)>,
+        affected_players: HashMap<u64, Vec<(u64, i64)>>,
         players: &mut Vec<Player>,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        for (player_id, (damage, attacked_players)) in affected_players.iter() {
-            for target_player_id in attacked_players.iter() {
+        for (player_id, attacked_players) in affected_players.iter() {
+            for (target_player_id, damage) in attacked_players.iter() {
                 let attacked_player = players
                     .iter_mut()
                     .find(|player| player.id == *target_player_id && player.id != *player_id);
@@ -1337,19 +1339,42 @@ impl GameState {
         players: &Vec<Player>,
         attacking_player_position: &Position,
         attacking_player_id: u64,
-    ) -> HashMap<u64, (i64, Vec<u64>)> {
-        let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+    ) -> HashMap<u64, Vec<(u64, i64)>> {
+        let mut afp: HashMap<u64, Vec<(u64, i64)>> = HashMap::new();
 
-        let affected_players: Vec<u64> =
+        let affected_players: Vec<(u64, i64)> =
             GameState::players_in_range(players, attacking_player_position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player_id)
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| (id, attack_damage))
                 .collect();
-        afp.insert(
-            attacking_player_id,
-            (attack_damage, affected_players.clone()),
-        );
+        afp.insert(attacking_player_id, affected_players.clone());
+        afp
+    }
 
+    fn affected_players_gradient(
+        max_attack_damage: i64,
+        attack_range: f64,
+        players: &Vec<Player>,
+        attacking_player_position: &Position,
+        attacking_player_id: u64,
+    ) -> HashMap<u64, Vec<(u64, i64)>> {
+        let mut afp: HashMap<u64, Vec<(u64, i64)>> = HashMap::new();
+
+        let affected_players: Vec<(u64, i64)> =
+            GameState::players_in_range(players, attacking_player_position, attack_range)
+                .into_iter()
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, distance)| {
+                    (
+                        id,
+                        (max_attack_damage as f64
+                            - max_attack_damage as f64 * distance / attack_range)
+                            as i64,
+                    )
+                })
+                .collect();
+        afp.insert(attacking_player_id, affected_players.clone());
         afp
     }
 
@@ -1390,11 +1415,14 @@ impl GameState {
         let time_left = u128_to_millis(3_600_000); // 1 hour
         let duration = u128_to_millis(3_600_000); // 1 hour
         let ends_at = add_millis(now, time_left);
-        let player_ids_in_playable = GameState::players_in_range(
+        let player_ids_in_playable: Vec<u64> = GameState::players_in_range(
             &self.players,
             &self.shrinking_center,
             self.playable_radius as f64,
-        );
+        )
+        .into_iter()
+        .map(|(id, _distance)| id)
+        .collect();
 
         self.players.iter_mut().for_each(|player| {
             if player_ids_in_playable.contains(&player.id) {
@@ -1444,59 +1472,6 @@ fn compute_adjacent_position_n_tiles(
         Direction::RIGHT => Position::new(x, y + n),
     }
 }
-
-fn compute_attack_initial_positions(
-    direction: &Direction,
-    position: &Position,
-    range: usize,
-) -> (Position, Position) {
-    let x = position.x;
-    let y = position.y;
-
-    match direction {
-        Direction::UP => (
-            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-            Position::new(x.saturating_sub(1), y + range),
-        ),
-        Direction::DOWN => (
-            Position::new(x + 1, y.saturating_sub(range)),
-            Position::new(x + range, y + range),
-        ),
-        Direction::LEFT => (
-            Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-            Position::new(x + range, y.saturating_sub(1)),
-        ),
-        Direction::RIGHT => (
-            Position::new(x.saturating_sub(range), y + 1),
-            Position::new(x + range, y + range),
-        ),
-    }
-}
-
-fn compute_aoe_initial_positions(position: &Position, range: usize) -> (Position, Position) {
-    let x = position.x;
-    let y = position.y;
-    (
-        Position::new(x.saturating_sub(range), y.saturating_sub(range)),
-        Position::new(x + range, y + range),
-    )
-}
-// fn compute_attack_aoe_initial_positions(
-//     player_position: &Position,
-//     attack_position: &RelativePosition,
-// ) -> (Position, Position, Position) {
-//     let modifier = 120_f64;
-
-//     let x =
-//         (player_position.x as f64 + modifier * (-(attack_position.y) as f64) / 100_f64) as usize;
-//     let y = (player_position.y as f64 + modifier * (attack_position.x as f64) / 100_f64) as usize;
-
-//     (
-//         Position::new(x, y),
-//         Position::new(x.saturating_sub(25), y.saturating_sub(25)),
-//         Position::new(x + 25, y + 25),
-//     )
-// }
 
 /// TODO: update documentation
 /// Checks if the given movement from `old_position` to `new_position` is valid.
