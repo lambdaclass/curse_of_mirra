@@ -316,7 +316,7 @@ public class CustomInputManager : InputManager
         area = areaWithAim.GetComponent<AimHandler>().area;
         area.transform.localScale = area.transform.localScale * joystick.skill.GetSkillRadius();
         area.GetComponent<SpriteRenderer>().maskInteraction =
-            SpriteMaskInteraction.VisibleInsideMask;
+            SpriteMaskInteraction.VisibleOutsideMask;
         //Load the prefab
         directionIndicator =
             Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
