@@ -474,7 +474,7 @@ impl GameState {
         );
 
         // TODO: This should be a config of the attack
-        let attack_range = attacking_player.basic_skill_range();
+        let attack_range = 100.;
 
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
@@ -518,7 +518,7 @@ impl GameState {
         );
 
         // TODO: This should be a config of the attack
-        let attack_range = attacking_player.basic_skill_range();
+        let attack_range = 100.;
 
         let affected_players: Vec<u64> =
             GameState::players_in_range(players, &attack_position, attack_range)
@@ -590,44 +590,8 @@ impl GameState {
                 )
             }
             Name::Muflus => {
-                let position = GameState::new_position(
-                    attacking_player.position,
-                    direction,
-                    self.board.height,
-                    self.board.width,
-                );
-                let distance = distance_between_positions(&attacking_player.position, &position);
-                let time = distance * attacking_player.character.base_speed as f64 / 48.;
-
-                attacking_player.action = PlayerAction::STARTINGSKILL1;
-                attacking_player.add_effect(
-                    Effect::Leaping.clone(),
-                    EffectData {
-                        time_left: MillisTime {
-                            high: 0,
-                            low: time as u64,
-                        },
-                        ends_at: add_millis(
-                            now,
-                            MillisTime {
-                                high: 0,
-                                low: time as u64,
-                            },
-                        ),
-                        duration: MillisTime {
-                            high: 0,
-                            low: time as u64,
-                        },
-                        direction: Some(*direction),
-                        position: Some(position),
-                        triggered_at: u128_to_millis(0),
-                        caused_by: attacking_player.id,
-                        caused_to: attacking_player.id,
-                        damage: 0,
-                    },
-                );
-
-                Ok(Vec::new())
+                let players = &mut self.players;
+                Self::muflus_skill_1(players, attacking_player_id)
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
@@ -726,6 +690,39 @@ impl GameState {
         Ok(Vec::new())
     }
 
+    pub fn muflus_skill_1(
+        players: &mut Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Result<Vec<u64>, String> {
+        let pys = players.clone();
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        let attack_dmg = attacking_player.skill_1_damage() as i64;
+
+        // TODO: This should be a config of the attack
+        let attack_range = 350.;
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
+                .into_iter()
+                .filter(|&id| id != attacking_player_id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = players
+                .iter_mut()
+                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
+
+            match attacked_player {
+                Some(ap) => {
+                    ap.modify_health(-attack_dmg);
+                }
+                _ => continue,
+            }
+        }
+        Ok(affected_players)
+    }
+
     pub fn skill_2(
         self: &mut Self,
         attacking_player_id: u64,
@@ -751,8 +748,7 @@ impl GameState {
                 &mut self.next_projectile_id,
             ),
             Name::Muflus => {
-                let players = &mut self.players;
-                Self::muflus_skill_2(players, attacking_player_id)
+                Self::muflus_skill_2(attacking_player)
             }
             Name::Uma => {
                 let attacking_player =
@@ -835,39 +831,26 @@ impl GameState {
         }
         Ok(Vec::new())
     }
-    pub fn muflus_skill_2(
-        players: &mut Vec<Player>,
-        attacking_player_id: u64,
-    ) -> Result<Vec<u64>, String> {
-        let pys = players.clone();
-        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        let attack_dmg = attacking_player.skill_1_damage() as i64;
 
-        // TODO: This should be a config of the attack
-        let attack_range: f64 = attacking_player.skill_2_range();
-
-        let mut affected_players: Vec<u64> =
-            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-
-        for target_player_id in affected_players.iter_mut() {
-            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
-            let attacked_player = players
-                .iter_mut()
-                .find(|player| player.id == *target_player_id && player.id != attacking_player_id);
-
-            match attacked_player {
-                Some(ap) => {
-                    ap.modify_health(-attack_dmg);
-                }
-                _ => continue,
-            }
-        }
-        Ok(affected_players)
+    pub fn muflus_skill_2(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
+        let now = time_now();
+        attacking_player.add_effect(
+            Effect::Raged.clone(),
+            EffectData {
+                time_left: attacking_player.character.duration_skill_2(),
+                ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
+                duration: attacking_player.character.duration_skill_2(),
+                direction: None,
+                position: None,
+                triggered_at: u128_to_millis(0),
+                caused_by: attacking_player.id,
+                caused_to: attacking_player.id,
+                damage: 0,
+            },
+        );
+        Ok(Vec::new())
     }
-
+    
     pub fn skill_3(
         self: &mut Self,
         attacking_player_id: u64,
@@ -884,7 +867,7 @@ impl GameState {
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
 
-        let attacked_player_ids = match attacking_player.character.name {
+        let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
                     Effect::NeonCrashing.clone(),
@@ -903,31 +886,49 @@ impl GameState {
 
                 Ok(Vec::new())
             }
-            Name::Muflus => Self::muflus_skill_3(attacking_player),
+            Name::Muflus => {let position = GameState::new_position(
+                attacking_player.position,
+                direction,
+                self.board.height,
+                self.board.width,
+            );
+            let distance = distance_between_positions(&attacking_player.position, &position);
+            let time = distance * attacking_player.character.base_speed as f64 / 48.;
+
+            attacking_player.action = PlayerAction::STARTINGSKILL1;
+            attacking_player.add_effect(
+                Effect::Leaping.clone(),
+                EffectData {
+                    time_left: MillisTime {
+                        high: 0,
+                        low: time as u64,
+                    },
+                    ends_at: add_millis(
+                        now,
+                        MillisTime {
+                            high: 0,
+                            low: time as u64,
+                        },
+                    ),
+                    duration: MillisTime {
+                        high: 0,
+                        low: time as u64,
+                    },
+                    direction: Some(*direction),
+                    position: Some(position),
+                    triggered_at: u128_to_millis(0),
+                    caused_by: attacking_player.id,
+                    caused_to: attacking_player.id,
+                    damage: 0,
+                },
+            );
+
+            Ok(Vec::new())},
             _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
         Ok(())
-    }
-
-    pub fn muflus_skill_3(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
-        let now = time_now();
-        attacking_player.add_effect(
-            Effect::Raged.clone(),
-            EffectData {
-                time_left: attacking_player.character.duration_skill_2(),
-                ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
-                duration: attacking_player.character.duration_skill_2(),
-                direction: None,
-                position: None,
-                triggered_at: u128_to_millis(0),
-                caused_by: attacking_player.id,
-                caused_to: attacking_player.id,
-                damage: 0,
-            },
-        );
-        Ok(Vec::new())
     }
 
     pub fn skill_4(
