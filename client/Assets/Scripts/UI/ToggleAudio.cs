@@ -14,14 +14,14 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    void Start()
+    void Update()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
         print(
             "Master is muted? " + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
         );
-        if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             muteButtonImage.overrideSprite = mutedSprite;
         }
