@@ -200,7 +200,15 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                if (
+                    !buffer.timestampAlreadySeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.PlayerTimestamp
+                    )
+                )
+                {
+                    executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                }
             }
 
             // TODO: try to optimize GetComponent calls
