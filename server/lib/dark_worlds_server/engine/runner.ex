@@ -405,9 +405,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp decide_next_game_update(%{game_status: :game_finished} = gen_server_state) do
-    # This has to be done in order to apply the last attack
-    broadcast_to_darkworlds_server({:game_update, gen_server_state})
-
     [winner] =
       Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
         player.status == :alive
