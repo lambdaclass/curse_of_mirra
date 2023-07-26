@@ -680,7 +680,7 @@ impl GameState {
             Name::DAgna => {
                 let players = &mut self.players;
                 Self::dagna_skill_1(players, attacking_player_id)
-            },
+            }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
                 let attacking_player_id = attacking_player.id;
@@ -802,7 +802,6 @@ impl GameState {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
             let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
 
-            
             attacked_player.add_effect(
                 Effect::DanseMacabre.clone(),
                 EffectData {
