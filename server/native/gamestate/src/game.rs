@@ -574,14 +574,14 @@ impl GameState {
             return Ok(());
         }
 
+        attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+
         let now = time_now();
         attacking_player.skill_1_started_at = now;
         attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
-                attacking_player.action = PlayerAction::EXECUTINGSKILL1;
-
                 Self::h4ck_skill_1(
                     &attacking_player,
                     direction,
@@ -895,7 +895,7 @@ impl GameState {
             let distance = distance_between_positions(&attacking_player.position, &position);
             let time = distance * attacking_player.character.base_speed as f64 / 48.;
 
-            attacking_player.action = PlayerAction::STARTINGSKILL1;
+            attacking_player.action = PlayerAction::STARTINGSKILL3;
             attacking_player.add_effect(
                 Effect::Leaping.clone(),
                 EffectData {
@@ -1026,7 +1026,7 @@ impl GameState {
                         && millis_to_u128(*time_left) == 0
                         && effect == &Effect::Leaping
                     {
-                        player.action = PlayerAction::EXECUTINGSKILL1;
+                        player.action = PlayerAction::EXECUTINGSKILL3;
                         leap_affected_players = GameState::affected_players(
                             damage,
                             450.,
