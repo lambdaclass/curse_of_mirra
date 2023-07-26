@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Uma
   m_EditorClassIdentifier: 
   name: Uma
-  artWork: {fileID: 21300000, guid: 35d487e62c586412c95941a32dfa499f, type: 3}
-  selectedArtwork: {fileID: 21300000, guid: 22e71ad123b5a465a84a63889a8b1369, type: 3}
-  selected: 0
+  artWork: {fileID: 21300000, guid: c822c7d5c79d340c78de341ab277dc34, type: 3}
+  selectedArtwork: {fileID: 21300000, guid: a1437621e6e31420581434f1405b4f74, type: 3}
+  blockArtwork: {fileID: 21300000, guid: 3144019d1288c4de9851065f05a1cbc5, type: 3}
   prefab: {fileID: 1787465996332106805, guid: 052306642baca4783a87cd1380a47e66, type: 3}
   skillBasicInfo: {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
   skill1Info: {fileID: 11400000, guid: 279a098f0c0664c50a725ed54d4f8e2c, type: 2}
   skill2Info: {fileID: 11400000, guid: 6e1b4c6729c554e248b46a54a5319a0a, type: 2}
   skill3Info: {fileID: 11400000, guid: 1174f220c8d564f2da1089e2e0107211, type: 2}
   skill4Info: {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
-  skillBasicSprite: {fileID: 21300000, guid: bb3f6d8a2730d4931913631c65044059, type: 3}
-  skill1Sprite: {fileID: 21300000, guid: 04067e31981624fa1adf2cfaa4ddaf86, type: 3}
-  skill2Sprite: {fileID: 21300000, guid: b8272e15bb2a648ada8297f392db3421, type: 3}
-  skill3Sprite: {fileID: 21300000, guid: f2ca93608b36b427cae7555dba7ee47b, type: 3}
-  skill4Sprite: {fileID: 21300000, guid: bb3f6d8a2730d4931913631c65044059, type: 3}
-  skillBackground: {fileID: 21300000, guid: bb3f6d8a2730d4931913631c65044059, type: 3}
+  skillBasicSprite: {fileID: 21300000, guid: bb4428fe7b4fe4367a7a424eab36d0c2, type: 3}
+  skill1Sprite: {fileID: 21300000, guid: e88ed245af34b44a09d395d5767df93b, type: 3}
+  skill2Sprite: {fileID: 21300000, guid: 3b961129105594fd8a47cba07332bb0a, type: 3}
+  skill3Sprite: {fileID: 21300000, guid: 7ace4db523322437c810c82678f0680f, type: 3}
+  skill4Sprite: {fileID: 21300000, guid: d19e1e4711fa645539bce8af849e0e78, type: 3}
+  skillBackground: {fileID: 21300000, guid: a3a6ee393ec9f494bb2b2f4aea4a12de, type: 3}
