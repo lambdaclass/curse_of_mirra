@@ -14,14 +14,12 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    async void Start()
+    void Start()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
-        await Task.Delay(1);
         print(
-            "Master is muted? "
-                + MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+            "Master is muted? " + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
         );
         if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
@@ -36,8 +34,7 @@ public class ToggleAudio : MonoBehaviour
     public void Toggle()
     {
         print(
-            "Master is muted? "
-                + MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+            "Master is muted? " + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
         );
         if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
@@ -55,11 +52,19 @@ public class ToggleAudio : MonoBehaviour
     {
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
+        print(
+            "Master is muted after MuteMaster? "
+                + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+        );
     }
 
     private void PlaySound()
     {
         soundManager.UnmuteMaster();
         soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        print(
+            "Master is muted after UnmuteMaster? "
+                + soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master)
+        );
     }
 }
