@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: FINAL VENGEANCE
+  description: "Performs the ultimate revenge: assassinate any target that has all
+    three Marks. If the target has been anointed with the three marks it\u2019s ready
+    to be sacrificed to the feathered serpent."
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: H4ck_Basic
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Hack_Basic
+  name: SLINGSHOT
+  description: High speed ranged attack, can bounce off walls, like a pinball machine.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 4

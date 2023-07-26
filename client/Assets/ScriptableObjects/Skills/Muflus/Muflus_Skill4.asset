@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Muflus_Skill4
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Muflus_Skill4
+  name: FIERY RAMPAGE
+  description: Become engulfed in flames for a period, increasing resilience and
+    adding a burn damage (DoT) and flame effects to all attacks. Myrra has provided
+    the bulls with a PED that has unleashed the full aggressive potential of their
+    bodies.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 3
   hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

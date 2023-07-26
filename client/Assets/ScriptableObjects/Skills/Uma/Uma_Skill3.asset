@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill3
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: "XANDA\u2019S MARK "
+  description: Target an enemy which has 50%+ health, inflicting a Mark for a short
+    period. Any damage incoming to Uma will instead be divided between Uma and any
+    target cursed by this Mark. Taints her enemy preparing it for the kill. This
+    mark is named before her second born.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}

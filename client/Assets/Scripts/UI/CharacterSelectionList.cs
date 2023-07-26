@@ -7,6 +7,9 @@ public class CharacterSelectionList : MonoBehaviour
 {
     [SerializeField]
     GameObject playerItemPrefab;
+
+    [SerializeField]
+    CharacterSelectionUI characterItems;
     public List<GameObject> playerItems = new List<GameObject>();
 
     public void CreatePlayerItems()
@@ -39,31 +42,18 @@ public class CharacterSelectionList : MonoBehaviour
     {
         return playerItems.Find(
             el =>
-                el.GetComponent<PlayerItem>().GetId() == key
-                && el.GetComponent<PlayerItem>().GetName() != value
+                el.GetComponent<CharacterSelectionPlayerItem>().GetId() == key
+                && el.GetComponent<CharacterSelectionPlayerItem>().GetName() != value
         );
-    }
-
-    public void removePlayerItems()
-    {
-        for (
-            int i = playerItems.Count;
-            i > SocketConnectionManager.Instance.selectedCharacters.Count;
-            i--
-        )
-        {
-            GameObject player = playerItems[i - 1];
-            playerItems.RemoveAt(i - 1);
-            Destroy(player);
-        }
     }
 
     public void CreatePlayerItem(ulong id)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
-        PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
+        CharacterSelectionPlayerItem playerI =
+            newPlayer.GetComponent<CharacterSelectionPlayerItem>();
         playerI.SetId(id);
-        playerI.SetCharacterName("No Selected");
+        playerI.SetCharacterName("Not Selected");
         playerI.SetPlayerItemText();
 
         playerItems.Add(newPlayer);
@@ -73,11 +63,13 @@ public class CharacterSelectionList : MonoBehaviour
     {
         if (playerItems.Count > 0)
         {
-            PlayerItem playerI = playerItems
-                ?.Find(el => el.GetComponent<PlayerItem>().GetId() == id)
-                ?.GetComponent<PlayerItem>();
+            CharacterSelectionPlayerItem playerI = playerItems
+                ?.Find(el => el.GetComponent<CharacterSelectionPlayerItem>().GetId() == id)
+                ?.GetComponent<CharacterSelectionPlayerItem>();
             playerI.SetCharacterName(character);
             playerI.SetPlayerItemText();
+            CoMCharacter ui = characterItems.GetSelectedCharacter(character);
+            playerI.SetSprite(ui.selectedArtwork);
         }
     }
 }
