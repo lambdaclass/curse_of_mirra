@@ -1495,6 +1495,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4559471607071226958}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4060671328190216528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 512311172252402974, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4559471607071226958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5450023447993378974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8422892626600285392, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
@@ -1659,6 +1665,11 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5450023447993379102}
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
+        type: 3}
+      propertyPath: weaponToHighlight
+      value: 
+      objectReference: {fileID: 4060671328190216528}
     - target: {fileID: 8881652260837056422, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
       propertyPath: m_RootOrder

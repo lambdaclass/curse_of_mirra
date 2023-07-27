@@ -886,7 +886,12 @@ PrefabInstance:
         type: 3}
       propertyPath: objectToHighlight
       value: 
-      objectReference: {fileID: 7619667591683466028}
+      objectReference: {fileID: 8175219020353018321}
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
+        type: 3}
+      propertyPath: weaponToHighlight
+      value: 
+      objectReference: {fileID: 8928025950718215053}
     - target: {fileID: 8881652260837056422, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
       propertyPath: m_RootOrder
@@ -1049,6 +1054,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd10a2b21f924b5cb1d3b886a91bf9d, type: 3}
+--- !u!1 &8928025950718215053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fcd10a2b21f924b5cb1d3b886a91bf9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8586061688154521308}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9058251449559262336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1152,12 +1163,6 @@ Transform:
 --- !u!95 &3233525273091971345 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b8ce0e5543fed4cb89e7c45069253bfa,
-    type: 3}
-  m_PrefabInstance: {fileID: 9058251449559262336}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7619667591683466028 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7779087653139593300, guid: b8ce0e5543fed4cb89e7c45069253bfa,
     type: 3}
   m_PrefabInstance: {fileID: 9058251449559262336}
   m_PrefabAsset: {fileID: 0}
