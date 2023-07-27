@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SelectServerIP : MonoBehaviour
 {
@@ -9,49 +8,28 @@ public class SelectServerIP : MonoBehaviour
     TextMeshProUGUI IP;
 
     [SerializeField]
-    GameObject Button;
+    TextMeshProUGUI severName;
 
-    [SerializeField]
-    TextMeshProUGUI ButtonText;
-    public Color selectedColor = Color.white;
+    public static string serverIp = "localhost";
+    public static string serverNameString = "LocalHost";
 
-    Image ButtonImage;
-
-    public static string serverIp;
-
-    void Awake()
-    {
-        ButtonImage = Button.GetComponent<Image>();
-    }
-
-    void Update()
-    {
-        SetButtonContent();
-    }
-
-    private void SetButtonContent()
-    {
-        Debug.Log("SERVER IP: " + LobbyConnection.Instance.server_ip);
-        /* if (LobbyConnection.Instance.server_ip == IP.text)
-        {
-            ButtonText.text = "Connected!";
-        }
-        else
-        {
-            ButtonText.text = "Connect";
-        } */
-    }
-
-    //This method is called when the button is pressed
     public void SetServerIp()
     {
         serverIp = IP.text;
+        serverNameString = severName.text;
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static string GetServerIp()
     {
+        Debug.Log("server ip: " + serverIp);
         return string.IsNullOrEmpty(serverIp) ? "localhost" : serverIp;
+    }
+
+    public static string GetServerName()
+    {
+        Debug.Log("server name: " + serverNameString);
+        return string.IsNullOrEmpty(serverNameString) ? "LocalHost" : serverNameString;
     }
 }
