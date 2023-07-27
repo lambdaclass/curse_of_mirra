@@ -9,7 +9,7 @@ public class SelectServerIP : MonoBehaviour
     TextMeshProUGUI IP;
 
     [SerializeField]
-    TextMeshProUGUI severName;
+    TextMeshProUGUI serverName;
 
     [SerializeField]
     Sprite selectedButtonSprite;
@@ -20,7 +20,7 @@ public class SelectServerIP : MonoBehaviour
     public void SetServerIp()
     {
         serverIp = IP.text;
-        serverNameString = severName.text;
+        serverNameString = serverName.text;
         GetComponent<Image>().sprite = selectedButtonSprite;
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -28,13 +28,11 @@ public class SelectServerIP : MonoBehaviour
 
     public static string GetServerIp()
     {
-        Debug.Log("server ip: " + serverIp);
         return string.IsNullOrEmpty(serverIp) ? "localhost" : serverIp;
     }
 
     public static string GetServerName()
     {
-        Debug.Log("server name: " + serverNameString);
         return string.IsNullOrEmpty(serverNameString) ? "LocalHost" : serverNameString;
     }
 }
