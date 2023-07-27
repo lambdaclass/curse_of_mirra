@@ -60,10 +60,16 @@ public class PlayerFeedbacks : MonoBehaviour
     public void ExecuteH4ckDisarmFeedback(bool disarmed)
     {
         InputManager.ActivateDisarmEffect(disarmed);
+        GetComponent<PlayerStates>().DisplayStateIcon("Disarmed", disarmed);
     }
 
     public void SetActivePoisonedFeedback(GameObject player, bool active)
     {
         player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(active);
+        GetComponent<PlayerStates>()
+            .DisplayStateIcon(
+                "Poisoned",
+                player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.activeSelf
+            );
     }
 }
