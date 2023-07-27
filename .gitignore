@@ -120,3 +120,4 @@ $RECYCLE.BIN/
 
 ## Dev ##
 *.todo
+client/ProjectSettings/ProjectSettings.asset

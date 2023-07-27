@@ -247,6 +247,8 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     map: true
   )
 
+  field(:direction, 16, type: DarkWorldsServer.Communication.Proto.RelativePosition)
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 

@@ -202,7 +202,11 @@ public class PlayerMovement : MonoBehaviour
                     )
                 )
                 {
-                    executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                    executeSkillFeedback(
+                        actualPlayer,
+                        serverPlayerUpdate.Action,
+                        serverPlayerUpdate.Direction
+                    );
                     buffer.setLastTimestampSeen(
                         SocketConnectionManager.Instance.gamePlayers[i].Id,
                         gameEvent.ServerTimestamp
@@ -229,7 +233,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
+    private void executeSkillFeedback(
+        GameObject actualPlayer,
+        PlayerAction playerAction,
+        RelativePosition direction
+    )
     {
         if (actualPlayer.name.Contains("BOT"))
         {
@@ -245,30 +253,39 @@ public class PlayerMovement : MonoBehaviour
         {
             case PlayerAction.Attacking:
                 actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
                 actualPlayer.GetComponent<Skill1>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
                 actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
                 actualPlayer.GetComponent<Skill2>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
                 actualPlayer.GetComponent<Skill3>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
                 actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
                 actualPlayer.GetComponent<Skill4>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
         }
     }
@@ -383,6 +400,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void rotatePlayer(GameObject player, RelativePosition direction)
+    {
+        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        movementDirection.Normalize();
+        characterOrientation.ForcedRotationDirection = movementDirection;
+    }
+
     private void movePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
@@ -468,8 +494,6 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
 
         var inputFromVirtualJoystick = joystickL is not null;
 
@@ -539,7 +563,7 @@ public class PlayerMovement : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
-                    characterOrientation.ForcedRotationDirection = movementDirection;
+                    rotatePlayer(player, playerUpdate.Direction);
                 }
             }
             walking = true;
