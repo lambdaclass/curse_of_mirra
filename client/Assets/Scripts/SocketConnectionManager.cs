@@ -139,8 +139,11 @@ public class SocketConnectionManager : MonoBehaviour
                     // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = game_event.Players.ToList();
                     eventsBuffer.AddEvent(game_event);
+                    using (StreamWriter w = File.AppendText("packets.txt"))
+                    {
+                        w.Write("The packet number is: " + game_event.PacketNumber + "\n");
+                    }
                     this.gameProjectiles = game_event.Projectiles.ToList();
-                    print("The packet number is: " + game_event.PacketNumber);
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
