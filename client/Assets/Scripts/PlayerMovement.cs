@@ -5,7 +5,6 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.UI;
-using static MoreMountains.TopDownEngine.CharacterStates;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -232,11 +231,6 @@ public class PlayerMovement : MonoBehaviour
         if (actualPlayer.name.Contains("BOT"))
         {
             return;
-        }
-
-        if (playerAction != PlayerAction.Moving && playerAction != PlayerAction.Nothing)
-        {
-            Debug.Log(playerAction);
         }
         // TODO: Refactor
         switch (playerAction)
