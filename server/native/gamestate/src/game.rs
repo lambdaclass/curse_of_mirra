@@ -227,7 +227,7 @@ impl GameState {
         };
 
         let speed = player.speed() as i64;
-        let direction = RelativePosition { x, y };
+
         GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
