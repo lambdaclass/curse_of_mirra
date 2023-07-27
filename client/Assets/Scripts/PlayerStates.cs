@@ -14,20 +14,20 @@ public class PlayerStates : MonoBehaviour
     [SerializeField]
     GameObject StateItem;
 
-    public bool created = false;
-
-    public void DisplayStateIcon(string stateName, bool isActive)
+    public void DisplayStateIcon(ulong id, string stateName, bool isActive)
     {
-        GameObject item = null;
-        if (isActive && !created)
+        if (id == SocketConnectionManager.Instance.playerId)
         {
-            StateInfo state = GetStateById(stateName);
-            item = Instantiate(StateItem, statesContainer.transform);
-            item.GetComponent<Image>().sprite = state.image;
-            item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-            created = true;
+            GameObject item = null;
+            if (isActive)
+            {
+                StateInfo state = GetStateById(stateName);
+                item = Instantiate(StateItem, statesContainer.transform);
+                item.GetComponent<Image>().sprite = state.image;
+                item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            }
+            StartCoroutine(RemoveIconState(!isActive, item));
         }
-        StartCoroutine(RemoveIconState(!isActive, item));
     }
 
     private StateInfo GetStateById(string stateName)
@@ -41,6 +41,5 @@ public class PlayerStates : MonoBehaviour
         yield return new WaitUntil(() => duration == false);
         Destroy(item);
         print("termino el poison" + duration);
-        created = false;
     }
 }

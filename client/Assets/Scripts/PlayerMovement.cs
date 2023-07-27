@@ -400,11 +400,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
         {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+            GetComponent<PlayerFeedbacks>()
+                .SetActivePoisonedFeedback(playerUpdate.Id, player, true);
         }
         else
         {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+            GetComponent<PlayerFeedbacks>()
+                .SetActivePoisonedFeedback(playerUpdate.Id, player, false);
         }
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -436,6 +438,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerFeedbacks>()
                 .ExecuteH4ckDisarmFeedback(
+                    playerUpdate.Id,
                     playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
                 );
         }

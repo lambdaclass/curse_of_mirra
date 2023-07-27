@@ -57,17 +57,18 @@ public class PlayerFeedbacks : MonoBehaviour
         player.GetComponentInChildren<OverlayEffect>().enabled = false;
     }
 
-    public void ExecuteH4ckDisarmFeedback(bool disarmed)
+    public void ExecuteH4ckDisarmFeedback(ulong id, bool disarmed)
     {
         InputManager.ActivateDisarmEffect(disarmed);
-        GetComponent<PlayerStates>().DisplayStateIcon("Disarmed", disarmed);
+        GetComponent<PlayerStates>().DisplayStateIcon(id, "Disarmed", disarmed);
     }
 
-    public void SetActivePoisonedFeedback(GameObject player, bool active)
+    public void SetActivePoisonedFeedback(ulong id, GameObject player, bool active)
     {
         player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(active);
         GetComponent<PlayerStates>()
             .DisplayStateIcon(
+                id,
                 "Poisoned",
                 player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.activeSelf
             );
