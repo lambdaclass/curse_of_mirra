@@ -11,6 +11,7 @@ using UnityEngine.Networking;
 public class LobbyConnection : MonoBehaviour
 {
     [Tooltip("IP to connect to. If empty, localhost will be used")]
+    public string server_name = "LocalHost";
     public string server_ip = "localhost";
     public List<string> lobbiesList;
     public List<string> gamesList;
@@ -70,6 +71,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.server_ip = SelectServerIP.GetServerIp();
+        this.server_name = SelectServerIP.GetServerName();
         this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
@@ -106,6 +108,7 @@ public class LobbyConnection : MonoBehaviour
     public void Refresh()
     {
         this.server_ip = SelectServerIP.GetServerIp();
+        this.server_name = SelectServerIP.GetServerName();
         PopulateLists();
     }
 
