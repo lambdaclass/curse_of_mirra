@@ -1007,7 +1007,6 @@ impl GameState {
                         && millis_to_u128(*time_left) == 0
                         && effect == &Effect::Leaping
                     {
-                        dbg!(attack_range);
                         player.action = PlayerAction::EXECUTINGSKILL1;
                         leap_affected_players = GameState::affected_players(
                             damage,
@@ -1017,7 +1016,6 @@ impl GameState {
                             player.id,
                         );
                     }
-                    dbg!(&leap_affected_players);
                     millis_to_u128(*time_left) > 0
                 },
             );
