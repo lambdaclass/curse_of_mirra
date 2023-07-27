@@ -326,6 +326,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:game_status, :playing)
       |> Map.put(:winners, [])
       |> Map.put(:tick_rate, tick_rate)
+      |> Map.put(:packet_number, 0)
 
     broadcast_to_darkworlds_server(
       {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
@@ -357,6 +358,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
+    Logger.info("The packet number is: #{gen_server_state.packet_number}")
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
     game =
@@ -370,6 +372,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state =
       Map.put(gen_server_state, :server_game_state, server_game_state)
       |> Map.put(:game_status, game_status)
+      |> Map.put(:packet_number, Map.get(gen_server_state, :packet_number) + 1)
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()

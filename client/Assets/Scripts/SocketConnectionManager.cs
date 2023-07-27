@@ -140,6 +140,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
+                    print("The packet number is: " + game_event.PacketNumber);
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
