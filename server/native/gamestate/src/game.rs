@@ -106,8 +106,7 @@ impl GameState {
         let board = Board::new(board_width, board_height);
 
         let projectiles = Vec::new();
-        let decoy = Decoy::new(1, Position { x: 5000, y: 5000 }, 25, 0, DecoyStatus::DECOYALIVE, true);
-        let decoys = vec![decoy];
+        let decoys = vec![];
 
         Ok(Self {
             players,
