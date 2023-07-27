@@ -1694,14 +1694,14 @@ MonoBehaviour:
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
-  DisabledSprite: {fileID: 0}
+  DisabledSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515, type: 3}
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 1
+  HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 0.91008675, b: 0, a: 1}
   PressedOpacity: 1
   IdleOpacity: 1
@@ -5395,20 +5395,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4073895302451433295}
+        m_TargetAssemblyTypeName: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
+        m_MethodName: DisableButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonReleased:
     m_PersistentCalls:
       m_Calls: []
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
-  DisabledSprite: {fileID: 0}
+  DisabledSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515, type: 3}
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 1
+  HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 0.91008675, b: 0, a: 1}
   PressedOpacity: 1
   IdleOpacity: 1
@@ -6116,6 +6128,18 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 6279149563321762238}
+        m_TargetAssemblyTypeName: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
+        m_MethodName: DisableButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 580734115480870141}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: Refresh
@@ -6134,14 +6158,14 @@ MonoBehaviour:
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
-  DisabledSprite: {fileID: 0}
+  DisabledSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515, type: 3}
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
   PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightedSprite: {fileID: 0}
-  HighlightedChangeColor: 1
+  HighlightedChangeColor: 0
   HighlightedColor: {r: 1, g: 0.91008675, b: 0, a: 1}
   PressedOpacity: 1
   IdleOpacity: 1
