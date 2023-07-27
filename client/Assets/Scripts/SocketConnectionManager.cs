@@ -17,6 +17,9 @@ public class SocketConnectionManager : MonoBehaviour
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
     public static Dictionary<int, GameObject> projectilesStatic;
 
+    public Dictionary<int, GameObject> decoys = new Dictionary<int, GameObject>();
+    public static Dictionary<int, GameObject> decoysStatic;
+
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string session_id = "";
 
@@ -26,6 +29,7 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> gamePlayers;
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
+    public List<Decoy> gameDecoys;
     public Dictionary<ulong, string> selectedCharacters;
     public ulong playerId;
     public uint currentPing;
@@ -72,6 +76,7 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
             this.serverHash = LobbyConnection.Instance.serverHash;
             projectilesStatic = this.projectiles;
+            decoysStatic = this.decoys;
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -140,6 +145,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
+                    this.gameDecoys = game_event.Decoys.ToList();
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;

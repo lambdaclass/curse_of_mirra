@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.147
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.027422901, g: 0.06080262, b: 0.11036408, a: 0.147}
+  m_IndirectSpecularColor: {r: 0.18075794, g: 0.27351362, b: 0.366144, a: 0.147}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -378,6 +378,8 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   accumulatedTime: 0
+  dagnaPrefab: {fileID: 1787465996332106805, guid: d42c2ccf3b0554aa59188f4d8ef4a4b3,
+    type: 3}
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0

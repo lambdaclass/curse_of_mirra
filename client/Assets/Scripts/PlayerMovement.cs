@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
+    public GameObject dagnaPrefab;
 
     void Start()
     {
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
             accumulatedTime += Time.deltaTime * 1000f;
             UpdatePlayerActions();
             UpdateProyectileActions();
+            UpdateDecoyActions();
         }
     }
 
@@ -353,6 +355,74 @@ public class PlayerMovement : MonoBehaviour
             player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
             projectiles.Remove(key);
         }
+    }
+
+    void UpdateDecoyActions()
+    {
+        Dictionary<int, GameObject> decoys = SocketConnectionManager.Instance.decoys;
+        List<Decoy> gameDecoys = SocketConnectionManager.Instance.gameDecoys;
+        GameObject decoy;
+
+        // var toDelete = new List<int>();
+        // foreach (var pr in projectiles)
+        // {
+        //     if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
+        //     {
+        //         toDelete.Add(pr.Key);
+        //     }
+        // }
+
+        // foreach (var key in toDelete)
+        // {
+        //     // TODO unbind projectile destroy from player
+        //     GameObject player = SocketConnectionManager.Instance.players[0];
+        //     player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
+        //     projectiles.Remove(key);
+        // }
+
+        for (int i = 0; i < gameDecoys.Count; i++)
+        {
+            if (decoys.TryGetValue((int)gameDecoys[i].Id, out decoy))
+            {
+                Health healthComponent = decoy.GetComponent<Health>();
+                healthComponent.SetHealth(gameDecoys[i].Health);
+            }
+            else if (gameDecoys[i].Status == DecoyStatus.DecoyAlive)
+            {
+                //dania
+                GameObject newDecoy = Instantiate(dagnaPrefab);
+
+                newDecoy.transform.localScale = new Vector3(1f, 1f, 1f);
+                newDecoy.transform.position = new Vector3(
+                    ((long)gameDecoys[i].Position.Y) / 100f - 50.0f,
+                    1f,
+                    -(((long)gameDecoys[i].Position.X) / 100f - 50.0f)
+                );
+
+                Health healthComponent = newDecoy.GetComponent<Health>();
+                // TODO: The health should be start low, not full and then decrease
+                healthComponent.SetHealth(gameDecoys[i].Health);
+
+                decoys.Add((int)gameDecoys[i].Id, newDecoy);
+            }
+        }
+
+        // var toExplode = new List<int>();
+        // foreach (var pr in projectiles)
+        // {
+        //     if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+        //     {
+        //         toExplode.Add(pr.Key);
+        //     }
+        // }
+
+        // foreach (var key in toExplode)
+        // {
+        //     // TODO unbind projectile destroy from player
+        //     GameObject player = SocketConnectionManager.Instance.players[0];
+        //     player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
+        //     projectiles.Remove(key);
+        // }
     }
 
     private void movePlayer(GameObject player, Player playerUpdate, long pastTime)

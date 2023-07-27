@@ -20,6 +20,7 @@ message GameEvent {
     repeated KillEvent killfeed = 10;
     uint64 playable_radius = 11;
     Position shrinking_center = 12;
+    repeated Decoy decoys = 13;
 }
 
 /* Type of game events
@@ -70,6 +71,20 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+}
+
+enum DecoyStatus {
+    DECOY_ALIVE = 0;
+    DECOY_DEAD = 1;
+    DECOY_RESPAWNED = 2;
+}
+
+message Decoy {
+    uint64 id = 1;
+    sint64 health = 2;
+    Position position = 3;
+    uint64 owner = 4;
+    DecoyStatus status = 5;
 }
 
 message KillEvent {

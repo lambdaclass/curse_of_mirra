@@ -17,7 +17,7 @@ MonoBehaviour:
     knocking enemies back. Like Scherzo, it deals more optimal damage the closer
     it is to the target. Being a music virtuoso Myrra granted her atonal music the
     the power to damage everyone that hears it.
-  inputType: 0
+  inputType: 1
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
