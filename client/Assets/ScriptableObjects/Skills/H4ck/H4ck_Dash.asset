@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: H4ck_Dash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Hack_Skill3
+  name: NEON CRASH
+  description: Short-ish cooldown offensive dash that deals damage to enemies near    
+    the dash path. H4ck has been using his roller skates to escape from trouble since    
+    he was a child so he excells on this.
   inputType: 0
   feedbackVfx: {fileID: 7017218312715976829, guid: 4fc144b63d69c4811ae710e9c3a2b968,
     type: 3}

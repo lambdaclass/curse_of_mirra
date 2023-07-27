@@ -70,6 +70,7 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+    RelativePosition direction = 16;
 }
 
 message KillEvent {
@@ -178,6 +179,7 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 8;
     EXECUTING_SKILL_3 = 9;
     EXECUTING_SKILL_4 = 10;
+    MOVING = 11;
 }
 
 /* Effects a player has */
@@ -189,6 +191,11 @@ enum PlayerEffect {
     NEON_CRASHING = 4;
     LEAPING = 5;
     OUT_OF_AREA = 6;
+    ELNAR_MARK = 7;
+    YUGEN_MARK = 8;
+    XANDA_MARK = 9;
+    XANDA_MARK_OWNER = 10;
+    POISONED = 11;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
