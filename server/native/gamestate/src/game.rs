@@ -1,5 +1,6 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
+use crate::decoy::{Decoy, DecoyStatus};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
@@ -27,6 +28,8 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
+    pub decoys: Vec<Decoy>,
+    pub next_decoy_id: u64,
 }
 
 #[derive(Clone, NifTuple)]
@@ -97,6 +100,8 @@ impl GameState {
         let board = Board::new(board_width, board_height);
 
         let projectiles = Vec::new();
+        let decoy = Decoy::new(1, Position { x: 5000, y: 5000 }, 25, 0, DecoyStatus::DECOYALIVE);
+        let decoys = vec![decoy];
 
         Ok(Self {
             players,
@@ -110,6 +115,8 @@ impl GameState {
                 x: board_height.div(2),
                 y: board_width.div(2),
             },
+            decoys,
+            next_decoy_id: 0,
         })
     }
 
@@ -267,6 +274,16 @@ impl GameState {
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
+    pub fn get_decoy_mut(
+        decoys: &mut Vec<Decoy>,
+        decoy_id: u64,
+    ) -> Result<&mut Decoy, String> {
+        decoys
+            .iter_mut()
+            .find(|decoy| decoy.id == decoy_id)
+            .ok_or(format!("Given id ({decoy_id}) is not valid"))
+    }
+
     pub fn get_player(players: &Vec<Player>, player_id: u64) -> Result<&Player, String> {
         players
             .get((player_id - 1) as usize)
@@ -287,6 +304,21 @@ impl GameState {
             }
         }
         players_in_range
+    }
+
+    pub fn decoys_in_range(
+        decoys: &Vec<Decoy>,
+        attacking_position: &Position,
+        range: f64,
+    ) -> Vec<(u64, f64)> {
+        let mut decoys_in_range: Vec<(u64, f64)> = vec![];
+        for decoy in decoys {
+            let distance = distance_between_positions(&decoy.position, attacking_position);
+            if distance <= range && !matches!(decoy.status, DecoyStatus::DECOYDEAD) {
+                decoys_in_range.push((decoy.id, distance));
+            }
+        }
+        decoys_in_range
     }
 
     pub fn players_in_projectile_movement(
@@ -385,7 +417,7 @@ impl GameState {
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::muflus_basic_attack(&mut self.players, attacking_player, direction)
+                Self::muflus_basic_attack(&mut self.players, &mut self.decoys, attacking_player, direction)
             }
             Name::DAgna => Self::dagna_basic_attack(attacking_player),
             Name::Uma => {
@@ -468,6 +500,7 @@ impl GameState {
 
     pub fn muflus_basic_attack(
         players: &mut Vec<Player>,
+        decoys: &mut Vec<Decoy>,
         attacking_player: &Player,
         direction: &RelativePosition,
     ) -> Result<Vec<u64>, String> {
@@ -503,6 +536,20 @@ impl GameState {
             if matches!(attacked_player.status, Status::DEAD) {
                 kill_count += 1;
             }
+        }
+
+        let affected_decoys: Vec<u64> =
+            GameState::decoys_in_range(decoys, &attack_position, attack_range)
+                .into_iter()
+                .filter(|&(id, _distance)| id != attacking_player.id)
+                .map(|(id, _distance)| id)
+                .collect();
+
+        println!("Decoys: {:?}", decoys);
+        println!("Affected decoys: {:?}", affected_decoys);
+        for target_decoy_id in affected_decoys.iter() {
+            let attacked_decoy = GameState::get_decoy_mut(decoys, *target_decoy_id)?;
+            attacked_decoy.modify_health(-attack_dmg);
         }
 
         GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
@@ -847,7 +894,21 @@ impl GameState {
             Name::Muflus => {
                 let players = &mut self.players;
                 Self::muflus_skill_2(players, attacking_player_id)
-            }
+            },
+            Name::DAgna => {
+                let position = GameState::new_position(
+                    attacking_player.position,
+                    direction,
+                    self.board.height,
+                    self.board.width,
+                );
+                let decoy = Decoy::new(self.next_decoy_id, position, 25, attacking_player_id, DecoyStatus::DECOYALIVE);
+                self.decoys.push(decoy);
+                (self.next_decoy_id) += 1;
+                
+                println!("Decoy created {:}.", self.decoys.len());
+                Ok(Vec::new())
+            },
             Name::Uma => {
                 let attacking_player =
                     GameState::get_player_mut(&mut self.players, attacking_player_id)?;
@@ -896,7 +957,6 @@ impl GameState {
                 };
                 Ok(Vec::new())
             }
-            _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);

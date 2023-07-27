@@ -12,6 +12,16 @@ defmodule DarkWorldsServer.Communication.Proto.GameEventType do
   field(:FINISH_CHARACTER_SELECTION, 6)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.DecoyStatus do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:DECOY_ALIVE, 0)
+  field(:DECOY_DEAD, 1)
+  field(:DECOY_RESPAWNED, 2)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.Status do
   @moduledoc false
 
@@ -173,6 +183,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
     json_name: "shrinkingCenter"
   )
 
+  field(:decoys, 13, repeated: true, type: DarkWorldsServer.Communication.Proto.Decoy)
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
@@ -249,6 +261,20 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     type: DarkWorldsServer.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.Decoy do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:health, 2, type: :sint64)
+  field(:position, 3, type: DarkWorldsServer.Communication.Proto.Position)
+  field(:owner, 4, type: :uint64)
+  field(:status, 5, type: DarkWorldsServer.Communication.Proto.DecoyStatus, enum: true)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

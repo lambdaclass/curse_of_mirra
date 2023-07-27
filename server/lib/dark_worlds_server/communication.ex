@@ -37,6 +37,7 @@ defmodule DarkWorldsServer.Communication do
   def game_update!(%{
         players: players,
         projectiles: projectiles,
+        decoys: decoys,
         killfeed: killfeed,
         playable_radius: playable_radius,
         shrinking_center: shrinking_center,
@@ -47,6 +48,7 @@ defmodule DarkWorldsServer.Communication do
       type: :STATE_UPDATE,
       players: players,
       projectiles: projectiles,
+      decoys: decoys,
       killfeed: killfeed,
       playable_radius: playable_radius,
       shrinking_center: shrinking_center,

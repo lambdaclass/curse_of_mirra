@@ -16,7 +16,7 @@ defmodule DarkWorldsServer.Engine.Player do
     :skill_3_cooldown_left,
     :skill_4_cooldown_left,
     :character_name,
-    :effects
+    :effects,
   ]
   defstruct [
     :id,
@@ -33,6 +33,6 @@ defmodule DarkWorldsServer.Engine.Player do
     :skill_3_cooldown_left,
     :skill_4_cooldown_left,
     :character_name,
-    :effects
+    :effects,
   ]
 end

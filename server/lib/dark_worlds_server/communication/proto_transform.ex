@@ -2,6 +2,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
+  alias DarkWorldsServer.Communication.Proto.Decoy, as: ProtoDecoy
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
@@ -13,6 +14,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
+  alias DarkWorldsServer.Engine.Decoy, as: EngineDecoy
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
   alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
@@ -104,7 +106,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
     } = player
 
     %ProtoPlayer{
@@ -121,9 +123,28 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
     }
   end
+
+  def encode(%EngineDecoy{} = decoy, ProtoDecoy) do
+    %{
+      id: id,
+      health: health,
+      position: position,
+      owner: owner,
+      status: status,
+    } = decoy
+
+    %ProtoDecoy{
+      id: id,
+      health: health,
+      position: position,
+      owner: owner,
+      status: decoy_status_encode(status),
+    }
+  end
+
 
   def encode(%EngineProjectile{} = projectile, ProtoProjectile) do
     %{
@@ -229,7 +250,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
     } = player
 
     %EnginePlayer{
@@ -247,7 +268,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
     }
   end
 
@@ -415,4 +436,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:poisoned, %{ends_at: ends_at}}), do: {12, ends_at}
   defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {13, ends_at}
   defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {14, ends_at}
+
+  defp decoy_status_encode(:decoyalive), do: :DECOY_ALIVE
+  defp decoy_status_encode(:decoydead), do: :DECOY_DEAD
+  defp decoy_status_encode(:decoyrespawned), do: :DECOY_RESPAWNED
+
+  defp decoy_status_decode(:DECOY_ALIVE), do: :decoyalive
+  defp decoy_status_decode(:DECOY_DEAD), do: :decoydead
+  defp decoy_status_decode(:DECOY_RESPAWNED), do: :decoyrespawned
 end

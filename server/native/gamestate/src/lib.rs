@@ -1,5 +1,6 @@
 pub mod board;
 pub mod character;
+pub mod decoy;
 pub mod game;
 pub mod game_configuration;
 pub mod player;

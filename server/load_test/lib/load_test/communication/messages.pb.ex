@@ -12,6 +12,16 @@ defmodule LoadTest.Communication.Proto.GameEventType do
   field(:FINISH_CHARACTER_SELECTION, 6)
 end
 
+defmodule LoadTest.Communication.Proto.DecoyStatus do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:DECOY_ALIVE, 0)
+  field(:DECOY_DEAD, 1)
+  field(:DECOY_RESPAWNED, 2)
+end
+
 defmodule LoadTest.Communication.Proto.Status do
   @moduledoc false
 
@@ -166,6 +176,8 @@ defmodule LoadTest.Communication.Proto.GameEvent do
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
+
+  field(:decoys, 13, repeated: true, type: LoadTest.Communication.Proto.Decoy)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
@@ -232,6 +244,18 @@ defmodule LoadTest.Communication.Proto.Player do
     type: LoadTest.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+end
+
+defmodule LoadTest.Communication.Proto.Decoy do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:health, 2, type: :sint64)
+  field(:position, 3, type: LoadTest.Communication.Proto.Position)
+  field(:owner, 4, type: :uint64)
+  field(:status, 5, type: LoadTest.Communication.Proto.DecoyStatus, enum: true)
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do
