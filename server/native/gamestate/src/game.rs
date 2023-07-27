@@ -841,7 +841,7 @@ impl GameState {
     ) -> Result<Vec<u64>, String> {
         let pys = players.clone();
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
-        let attack_dmg = attacking_player.skill_1_damage() as i64;
+        let attack_dmg = attacking_player.skill_2_damage() as i64;
 
         // TODO: This should be a config of the attack
         let attack_range: f64 = attacking_player.skill_2_range();
@@ -916,9 +916,9 @@ impl GameState {
         attacking_player.add_effect(
             Effect::Raged.clone(),
             EffectData {
-                time_left: attacking_player.character.duration_skill_2(),
-                ends_at: add_millis(now, attacking_player.character.duration_skill_2()),
-                duration: attacking_player.character.duration_skill_2(),
+                time_left: attacking_player.character.duration_skill_3(),
+                ends_at: add_millis(now, attacking_player.character.duration_skill_3()),
+                duration: attacking_player.character.duration_skill_3(),
                 direction: None,
                 position: None,
                 triggered_at: u128_to_millis(0),
@@ -1010,8 +1010,8 @@ impl GameState {
             // Clean each player actions
             player.action = PlayerAction::NOTHING;
             player.update_cooldowns(now);
-            let damage = player.skill_3_damage() as i64;
-
+            let damage = player.skill_1_damage() as i64;
+            let attack_range = player.skill_1_range();
             // Keep only (de)buffs that have
             // a non-zero amount of ticks left.
             player.effects.retain(
@@ -1025,16 +1025,17 @@ impl GameState {
                         && millis_to_u128(*time_left) == 0
                         && effect == &Effect::Leaping
                     {
+                        dbg!(attack_range);
                         player.action = PlayerAction::EXECUTINGSKILL1;
                         leap_affected_players = GameState::affected_players(
                             damage,
-                            450.,
+                            attack_range,
                             &pys,
                             &player.position,
                             player.id,
                         );
                     }
-
+                    dbg!(&leap_affected_players);
                     millis_to_u128(*time_left) > 0
                 },
             );
