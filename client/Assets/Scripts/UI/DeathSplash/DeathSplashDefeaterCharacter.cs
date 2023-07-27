@@ -1,17 +1,17 @@
-using System.Linq;
 using UnityEngine;
 
-public class DeathSplashKillCount : MonoBehaviour
+public class DeathSplashDefeaterCharacter : MonoBehaviour
 {
     private void Awake()
     {
         var killCount = GetKillCount();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "Total kills: " + killCount;
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + "KILLS";
     }
 
     private int GetKillCount()
     {
         // get kill count
+        // asdfas
         return 0;
     }
 }
