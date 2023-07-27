@@ -406,6 +406,15 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
         }
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        if (true)
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+        }
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
