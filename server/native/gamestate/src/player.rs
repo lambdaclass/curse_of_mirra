@@ -215,7 +215,7 @@ impl Player {
         self.character.skill_3.skill_range
     }
     pub fn skill_4_range(&self) -> f64 {
-        self.character.skill_3.skill_range
+        self.character.skill_4.skill_range
     }
 
     #[inline]
