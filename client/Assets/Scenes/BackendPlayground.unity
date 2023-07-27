@@ -200,17 +200,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eb705877d0df4104bc55cb9ae188411, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   server_ip: localhost
   lobbiesList: []
   gamesList: []
-  GameSession:
-  LobbySession:
+  GameSession: 
+  LobbySession: 
   playerId: 0
   playerCount: 0
   serverTickRate_ms: 0
-  serverHash:
+  serverHash: 
   totalLobbyPlayers: []
   gameStarted: 0
 --- !u!1 &598334956
@@ -240,13 +240,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dfad200c8782a3449dfd49ea310c909, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   AutomaticallyUnparentOnAwake: 1
   TargetFrameRate: 300
   MaximumLives: 0
   CurrentLives: 0
-  GameOverScene:
+  GameOverScene: 
   Points: 0
   PauseGameWhenInventoryOpens: 1
 --- !u!4 &598334959
@@ -306,8 +306,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 189a908dfa1455a4fbb4ee28d46cd041, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &672995939 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 813438968687883540, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -318,8 +318,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1302669236
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +364,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f873a947f374623ad960f283bba9ce, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   joystickL: {fileID: 2856279044554654235}
   InputManager: {fileID: 2856279044554654230}
   showServerGhost: 0
@@ -375,8 +375,8 @@ MonoBehaviour:
   serverGhost: {fileID: 0}
   nextAttackDirection: 0
   isAttacking: 0
-  BlockingMovementStates:
-  BlockingConditionStates:
+  BlockingMovementStates: 
+  BlockingConditionStates: 
   accumulatedTime: 0
 --- !u!114 &1302669240
 MonoBehaviour:
@@ -388,8 +388,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c58b4c90ce3bd4b69aa3dc17e6fabc9a, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1302669241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,8 +400,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5709ce9db31d4ac4a77637a0e344de4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   InputManager: {fileID: 2856279044554654230}
 --- !u!65 &1392788253
 BoxCollider:
@@ -426,8 +426,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1632f0d3f35e4c6a8abf8ad6c723e36, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   AutoAttributePlayerIDs: 1
   PlayerPrefabs: []
   SceneCharacters: []
@@ -504,7 +504,7 @@ MonoBehaviour:
     ProgressBarSpeed: 5
     FadeMode: 0
     UnloadMethod: 2
-    AntiSpillSceneName:
+    AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
   quickMapPrefab: {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07,
     type: 3}
@@ -521,7 +521,7 @@ MonoBehaviour:
   charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
   - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
-  - {fileID: 11400000, guid: c832f83f926f24135b6e13ebac026677, type: 2}
+  - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
@@ -559,7 +559,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -574,8 +574,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca4c1ca8bc423b748983b24393521cb7, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1512710034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -638,8 +638,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f359eb84f4e17794791e62eb88e8c6a8, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   FacingDirection: 1
   ForceAssignation: 0
   CheckPointOrder: 0
@@ -732,8 +732,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   AutomaticallyUnparentOnAwake: 1
   settingsSo: {fileID: 11400000, guid: 07ea3ff88e1ecb84d91f58aa804badc6, type: 2}
   AudioSourcePoolSize: 10
@@ -795,8 +795,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7de9ef06f04864391a928af29f4b46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   NormalTimeScale: 1
   CurrentTimeScale: 1
   TargetTimeScale: 1
@@ -843,16 +843,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6186ef20af4c4442aaf5adf09d9a2714, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   players: []
-  session_id:
+  session_id: 
   server_ip: localhost
   playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
-  serverHash:
+  serverHash: 
   allSelected: 0
+  playableRadius: 0
 --- !u!1 &1918232350
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,8 +921,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Feedbacks: []
   InitializationMode: 1
   SafeMode: 3
@@ -1202,8 +1203,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae12fda2e1e1c974790159e9720db70b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2856279044554654229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1262,7 +1263,7 @@ PrefabInstance:
     - target: {fileID: 3410200342787630021, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: soundManager
-      value:
+      value: 
       objectReference: {fileID: 1734572836}
     - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1272,7 +1273,7 @@ PrefabInstance:
     - target: {fileID: 4736848132354094292, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: soundManager
-      value:
+      value: 
       objectReference: {fileID: 1734572836}
     - target: {fileID: 5115653289524282631, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1287,12 +1288,12 @@ PrefabInstance:
     - target: {fileID: 8589184728240042611, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value:
+      value: 
       objectReference: {fileID: 1302669239}
     - target: {fileID: 8589184729072353917, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value:
+      value: 
       objectReference: {fileID: 1302669239}
     - target: {fileID: 8924515767307020969, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1311,8 +1312,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20bee497d0fd1474e87f3c8722ada53f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &2856279044554654231 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20646998284766860, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -1335,8 +1336,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2856279044554654234 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 540652120, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -1353,5 +1354,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f6a0577d46b80a4f929e57370c60650, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 

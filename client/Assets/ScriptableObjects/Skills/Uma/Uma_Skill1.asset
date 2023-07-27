@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill1
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Uma_SkillBasic
+  name: SHADOWSTEP
+  description: While active, grants a high dodge chance and movement speed bonus
+    for a short time. Uma is a wraith like spirit of vengeance, that grants her limited
+    intangibility.
   inputType: 0
   feedbackAnimation: {fileID: 0}
   animationSpeedMultiplier: 1
-  blockMovementTime: 0
+  hasModelAnimation: 0
+  abilityStartSfx: {fileID: 0}
