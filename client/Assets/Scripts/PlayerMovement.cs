@@ -534,9 +534,10 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
+                var direction = getPlayerDirection(playerUpdate);
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
-                    rotatePlayer(player, playerUpdate.Direction);
+                    rotatePlayer(player, direction);
                 }
             }
             walking = true;
@@ -665,11 +666,45 @@ public class PlayerMovement : MonoBehaviour
                 inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
             )
             || (
-                Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.D)
-                || Input.GetKey(KeyCode.S)
+                (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+                || (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+                || (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                || (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             )
             || inputFromPhysicalJoystick;
+    }
+
+    public RelativePosition getPlayerDirection(Player playerUpdate)
+    {
+        var inputFromVirtualJoystick = joystickL is not null;
+        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
+
+        var direction = playerUpdate.Direction;
+        if (
+            playerUpdate.Id == SocketConnectionManager.Instance.playerId
+            && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+        )
+        {
+            direction = new RelativePosition { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
+        }
+        else if (
+            Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S)
+        )
+        {
+            direction = new RelativePosition { X = 0, Y = 0 };
+            if (Input.GetKey(KeyCode.W))
+                direction.Y = 1;
+            if (Input.GetKey(KeyCode.A))
+                direction.X = -1;
+            if (Input.GetKey(KeyCode.D))
+                direction.X = 1;
+            if (Input.GetKey(KeyCode.S))
+                direction.Y = -1;
+        }
+
+        return direction;
     }
 }
