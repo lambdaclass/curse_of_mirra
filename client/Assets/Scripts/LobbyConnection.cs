@@ -50,9 +50,6 @@ public class LobbyConnection : MonoBehaviour
         public List<string> current_games;
     }
 
-    [SerializeField]
-    private MMF_Player backgroundMusic;
-
     class AcceptAllCertificates : CertificateHandler
     {
         protected override bool ValidateCertificate(byte[] certificateData)
@@ -66,11 +63,6 @@ public class LobbyConnection : MonoBehaviour
         this.Init();
         PopulateLists();
         DontDestroyOnLoad(MMSoundManager.Instance);
-    }
-
-    private void Start()
-    {
-        InitializeAudio();
     }
 
     public void Init()
@@ -328,12 +320,5 @@ public class LobbyConnection : MonoBehaviour
     public bool isConnectionOpen()
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
-    }
-
-    private async void InitializeAudio()
-    {
-        backgroundMusic.PlayFeedbacks();
-        await Task.Delay(1);
-        MMSoundManager.Instance.MuteTrack(MMSoundManager.MMSoundManagerTracks.Master);
     }
 }
