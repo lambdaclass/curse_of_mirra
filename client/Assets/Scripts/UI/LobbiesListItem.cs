@@ -8,9 +8,9 @@ public class LobbiesListItem : MonoBehaviour
     TextMeshProUGUI idContainer;
     public string idHash;
 
-    public void setId(string id)
+    public void setId(string id, string lastCharacters)
     {
         idHash = id;
-        idContainer.text = id;
+        idContainer.text = lastCharacters;
     }
 }

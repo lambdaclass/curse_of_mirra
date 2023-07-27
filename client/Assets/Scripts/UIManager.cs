@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject item = (GameObject)Instantiate(itemPrefab, container);
             string lastCharactersInID = el.Substring(el.Length - 5);
-            item.GetComponent<LobbiesListItem>().setId(lastCharactersInID);
+            item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
     }
 }
