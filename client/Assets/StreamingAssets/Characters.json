@@ -8,9 +8,9 @@
       "Faction": "ara",
       "BaseSpeed": "20",
       "SkillBasic": "Bash",
-      "SkillActive1": "Barrel Roll",
-      "SkillActive2": "Rage",
-      "SkillDash": "Leap",
+      "SkillActive1": "Leap",
+      "SkillActive2": "Barrel Roll",
+      "SkillDash": "Rage",
       "SkillUltimate": "Fiery Rampage",
       "BodySize": "100.0"
     },
