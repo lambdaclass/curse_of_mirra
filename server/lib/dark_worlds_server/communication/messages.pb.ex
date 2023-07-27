@@ -170,6 +170,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
     json_name: "shrinkingCenter"
   )
 
+  field(:packet_number, 13, type: :uint64, json_name: "packetNumber")
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 

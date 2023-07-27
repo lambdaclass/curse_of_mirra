@@ -20,6 +20,7 @@ message GameEvent {
     repeated KillEvent killfeed = 10;
     uint64 playable_radius = 11;
     Position shrinking_center = 12;
+    uint64 packet_number = 13;
 }
 
 /* Type of game events

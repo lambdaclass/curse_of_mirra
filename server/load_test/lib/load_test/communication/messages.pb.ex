@@ -163,6 +163,8 @@ defmodule LoadTest.Communication.Proto.GameEvent do
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
+
+  field(:packet_number, 13, type: :uint64, json_name: "packetNumber")
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
