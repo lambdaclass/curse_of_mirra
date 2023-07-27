@@ -22,7 +22,7 @@
       "Duration": "0",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "5000"
+      "SkillRange": "350"
     },
     {
       "Name": "Barrel Roll",
@@ -34,7 +34,7 @@
       "Duration": "0",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350"
+      "SkillRange": "450"
     },
     {
       "Name": "Rage",
@@ -46,7 +46,7 @@
       "Duration": "5000",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350"
+      "SkillRange": "0"
     },
     {
       "Name": "Leap",
@@ -58,7 +58,7 @@
       "Duration": "0",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350"
+      "SkillRange": "450"
     },
     {
       "Name": "Fiery Rampage",
