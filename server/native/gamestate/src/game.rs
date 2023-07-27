@@ -46,6 +46,12 @@ pub enum Direction {
     RIGHT,
 }
 
+#[derive(Debug, NifUnitEnum)]
+pub enum EntityType {
+    PLAYER,
+    DECOY,
+}
+
 impl GameState {
     fn build_characters_with_config(
         character_config: &[HashMap<String, String>],
@@ -100,7 +106,7 @@ impl GameState {
         let board = Board::new(board_width, board_height);
 
         let projectiles = Vec::new();
-        let decoy = Decoy::new(1, Position { x: 5000, y: 5000 }, 25, 0, DecoyStatus::DECOYALIVE);
+        let decoy = Decoy::new(1, Position { x: 5000, y: 5000 }, 25, 0, DecoyStatus::DECOYALIVE, true);
         let decoys = vec![decoy];
 
         Ok(Self {
@@ -234,12 +240,14 @@ impl GameState {
         };
 
         let speed = player.speed() as i64;
+        let direction = RelativePosition { x, y };
         GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
             &direction,
             speed,
         )?;
+        player.direction = direction;
 
         Ok(())
     }
@@ -314,7 +322,7 @@ impl GameState {
         let mut decoys_in_range: Vec<(u64, f64)> = vec![];
         for decoy in decoys {
             let distance = distance_between_positions(&decoy.position, attacking_position);
-            if distance <= range && !matches!(decoy.status, DecoyStatus::DECOYDEAD) {
+            if distance <= range && decoy.is_alive() {
                 decoys_in_range.push((decoy.id, distance));
             }
         }
@@ -395,6 +403,7 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<(), String> {
         let players = &self.players.clone();
+        let decoys = &self.decoys.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.basic_skill_cooldown_left, true) {
@@ -406,24 +415,49 @@ impl GameState {
         attacking_player.basic_skill_started_at = now;
         attacking_player.basic_skill_cooldown_left =
             attacking_player.character.cooldown_basic_skill();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
-                &attacking_player,
+                attacking_player,
                 direction,
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
                 players,
+                decoys,
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::muflus_basic_attack(&mut self.players, &mut self.decoys, attacking_player, direction)
+                Self::melee_attack(&mut self.players, &mut self.decoys, attacking_player, direction, 300.)
             }
             Name::DAgna => Self::dagna_basic_attack(attacking_player),
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                Self::uma_basic_attack(&mut self.players, attacking_player, direction)
+                let attacked_players_ids =
+                    Self::melee_attack(&mut self.players, &mut self.decoys, attacking_player, direction, 300.)?;
+                for attacked_player_id in attacked_players_ids.clone() {
+                    let attacked_player =
+                        GameState::get_player_mut(&mut self.players, attacked_player_id)?;
+                    attacked_player.add_effect(
+                        Effect::ElnarMark.clone(),
+                        EffectData {
+                            time_left: attacking_player.character.duration_basic_skill(),
+                            ends_at: add_millis(
+                                now,
+                                attacking_player.character.duration_basic_skill(),
+                            ),
+                            duration: attacking_player.character.duration_basic_skill(),
+                            direction: None,
+                            position: None,
+                            triggered_at: now,
+                            caused_by: attacking_player.id,
+                            caused_to: attacked_player.id,
+                            damage: 0,
+                        },
+                    )
+                }
+                Ok(attacked_players_ids)
             }
         };
 
@@ -432,22 +466,24 @@ impl GameState {
     }
 
     pub fn h4ck_basic_attack(
-        attacking_player: &Player,
+        attacking_player: &mut Player,
         direction: &RelativePosition,
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
         players: &Vec<Player>,
+        decoys: &Vec<Decoy>,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = attacking_player.has_active_effect(&Effect::Piercing);
 
             let projectile_direction = match Self::nearest_player(
                 players,
+                decoys,
                 &attacking_player.position,
                 attacking_player.id,
                 1000.,
             ) {
-                Some((_player_id, position)) => RelativePosition::new(
+                Some((_player_id, position, _)) => RelativePosition::new(
                     position.y as f32 - attacking_player.position.y as f32,
                     -(position.x as f32 - attacking_player.position.x as f32),
                 ),
@@ -470,26 +506,40 @@ impl GameState {
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
+
+            attacking_player.direction = projectile_direction;
         }
         Ok(Vec::new())
     }
 
     fn nearest_player(
         players: &Vec<Player>,
+        decoys: &Vec<Decoy>,
         position: &Position,
         attacking_player_id: u64,
         max_distance: f64,
-    ) -> Option<(u64, Position)> {
+    ) -> Option<(u64, Position, EntityType)> {
         let mut nearest_player = None;
         let mut nearest_distance = max_distance;
         let mut lowest_hp = 100;
 
         for player in players {
             if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
-                let distance = distance_to_center(player, position);
+                let distance = distance_between_positions(&player.position, position);
                 if distance < nearest_distance && player.health <= lowest_hp {
                     lowest_hp = player.health;
-                    nearest_player = Some((player.id, player.position));
+                    nearest_player = Some((player.id, player.position, EntityType::PLAYER));
+                    nearest_distance = distance;
+                }
+            }
+        }
+
+        for decoy in decoys {
+            if (matches!(decoy.status, DecoyStatus::DECOYALIVE) || matches!(decoy.status, DecoyStatus::DECOYRESPAWNED)) {
+                let distance = distance_between_positions(&decoy.position, position);
+                if distance < nearest_distance && decoy.health <= lowest_hp {
+                    lowest_hp = decoy.health;
+                    nearest_player = Some((decoy.id, decoy.position, EntityType::DECOY));
                     nearest_distance = distance;
                 }
             }
@@ -498,121 +548,66 @@ impl GameState {
         nearest_player
     }
 
-    pub fn muflus_basic_attack(
+    pub fn melee_attack(
         players: &mut Vec<Player>,
         decoys: &mut Vec<Decoy>,
         attacking_player: &Player,
         direction: &RelativePosition,
+        attack_range: f64,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_position = Position::new(
-            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
-            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
-        );
 
-        // TODO: This should be a config of the attack
-        let attack_range = 100.;
+        let (attacked_players, direction) = match Self::nearest_player(
+            players,
+            decoys,
+            &attacking_player.position,
+            attacking_player.id,
+            attack_range,
+        ) {
+            Some((player_id, position, EntityType::PLAYER)) => {
+                let direction = RelativePosition::new(
+                    position.y as f32 - attacking_player.position.y as f32,
+                    -(position.x as f32 - attacking_player.position.x as f32),
+                );
+                let mut kill_count = 0;
+                let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, &attack_position, attack_range)
-                .into_iter()
-                .filter(|&(id, _distance)| id != attacking_player.id)
-                .map(|(id, _distance)| id)
-                .collect();
+                let attacked_player = GameState::get_player_mut(players, player_id)?;
 
-        let mut kill_count = 0;
-        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
+                attacked_player.modify_health(-attack_dmg);
+                match attacked_player.get_mirrored_player_id() {
+                    Some(mirrored_id) => uma_mirroring_affected_players
+                        .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
+                    None => None,
+                };
 
-        for target_player_id in affected_players.iter() {
-            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+                if matches!(attacked_player.status, Status::DEAD) {
+                    kill_count += 1;
+                }
 
-            attacked_player.modify_health(-attack_dmg);
-            match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players
-                    .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
-                None => None,
-            };
+                GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
+                add_kills(players, attacking_player.id, kill_count).expect("Player not found");
 
-            if matches!(attacked_player.status, Status::DEAD) {
-                kill_count += 1;
+                (vec![player_id], direction)
+            },
+            Some((decoy_id, position, EntityType::DECOY)) => {
+                let direction = RelativePosition::new(
+                    position.y as f32 - attacking_player.position.y as f32,
+                    -(position.x as f32 - attacking_player.position.x as f32),
+                );
+                
+                let attacked_decoy = GameState::get_decoy_mut(decoys, decoy_id)?;
+                attacked_decoy.modify_health(-attack_dmg);
+                
+                (vec![], direction)
             }
-        }
+            None => (Vec::new(), *direction),
+        };
 
-        let affected_decoys: Vec<u64> =
-            GameState::decoys_in_range(decoys, &attack_position, attack_range)
-                .into_iter()
-                .filter(|&(id, _distance)| id != attacking_player.id)
-                .map(|(id, _distance)| id)
-                .collect();
+        let attacking_player = GameState::get_player_mut(players, attacking_player.id)?;
+        attacking_player.direction = direction;
 
-        println!("Decoys: {:?}", decoys);
-        println!("Affected decoys: {:?}", affected_decoys);
-        for target_decoy_id in affected_decoys.iter() {
-            let attacked_decoy = GameState::get_decoy_mut(decoys, *target_decoy_id)?;
-            attacked_decoy.modify_health(-attack_dmg);
-        }
-
-        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
-        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
-
-        Ok(affected_players)
-    }
-
-    pub fn uma_basic_attack(
-        players: &mut Vec<Player>,
-        attacking_player: &Player,
-        direction: &RelativePosition,
-    ) -> Result<Vec<u64>, String> {
-        let attack_dmg = attacking_player.basic_skill_damage() as i64;
-        let attack_position = Position::new(
-            (attacking_player.position.x as i64 - (direction.y * 200.) as i64) as usize,
-            (attacking_player.position.y as i64 + (direction.x * 200.) as i64) as usize,
-        );
-
-        // TODO: This should be a config of the attack
-        let attack_range = 100.;
-
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, &attack_position, attack_range)
-                .into_iter()
-                .filter(|&(id, _distance)| id != attacking_player.id)
-                .map(|(id, _distance)| id)
-                .collect();
-
-        let mut kill_count = 0;
-        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-
-        for target_player_id in affected_players.iter() {
-            let now = time_now();
-            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
-            attacked_player.modify_health(-attack_dmg);
-            match attacked_player.get_mirrored_player_id() {
-                Some(mirrored_id) => uma_mirroring_affected_players
-                    .insert(attacked_player.id, (attack_dmg / 2, mirrored_id)),
-                None => None,
-            };
-            attacked_player.add_effect(
-                Effect::ElnarMark.clone(),
-                EffectData {
-                    time_left: attacking_player.character.duration_basic_skill(),
-                    ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
-                    duration: attacking_player.character.duration_basic_skill(),
-                    direction: None,
-                    position: None,
-                    triggered_at: now,
-                    caused_by: attacking_player.id,
-                    caused_to: attacked_player.id,
-                    damage: 0,
-                },
-            );
-            if matches!(attacked_player.status, Status::DEAD) {
-                kill_count += 1;
-            }
-        }
-        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
-        add_kills(players, attacking_player.id, kill_count).expect("Player not found");
-
-        Ok(affected_players)
+        Ok(attacked_players)
     }
 
     pub fn dagna_basic_attack(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
@@ -663,6 +658,7 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<(), String> {
         let pys = self.players.clone();
+        let dcys = self.decoys.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.skill_1_cooldown_left, false) {
@@ -672,6 +668,7 @@ impl GameState {
         let now = time_now();
         attacking_player.skill_1_started_at = now;
         attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
@@ -734,11 +731,12 @@ impl GameState {
                 let duration = attacking_player.character.duration_skill_1();
                 match Self::nearest_player(
                     &pys,
+                    &dcys,
                     &attacking_player.position,
                     attacking_player.id,
                     1000.,
                 ) {
-                    Some((player_id, _position)) => {
+                    Some((player_id, _position, _)) => {
                         let damage = attacking_player.skill_1_damage();
                         let attacked_player =
                             GameState::get_player_mut(&mut self.players, player_id)?;
@@ -873,6 +871,7 @@ impl GameState {
         direction: &RelativePosition,
     ) -> Result<(), String> {
         let pys = self.players.clone();
+        let dcys = self.decoys.clone();
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.skill_2_cooldown_left, false) {
@@ -883,6 +882,7 @@ impl GameState {
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
         attacking_player.skill_2_started_at = now;
         attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -902,7 +902,7 @@ impl GameState {
                     self.board.height,
                     self.board.width,
                 );
-                let decoy = Decoy::new(self.next_decoy_id, position, 25, attacking_player_id, DecoyStatus::DECOYALIVE);
+                let decoy = Decoy::new(self.next_decoy_id, position, 25, attacking_player_id, DecoyStatus::DECOYALIVE, true);
                 self.decoys.push(decoy);
                 (self.next_decoy_id) += 1;
                 
@@ -916,11 +916,12 @@ impl GameState {
                 let duration = attacking_player.character.duration_skill_2();
                 match Self::nearest_player(
                     &pys,
+                    &dcys,
                     &attacking_player.position,
                     attacking_player.id,
                     1000.,
                 ) {
-                    Some((player_id, _position)) => {
+                    Some((player_id, _position, _)) => {
                         attacking_player.add_effect(
                             Effect::XandaMarkOwner.clone(),
                             EffectData {
@@ -1038,6 +1039,7 @@ impl GameState {
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
         attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => {
@@ -1088,7 +1090,7 @@ impl GameState {
     pub fn skill_4(
         self: &mut Self,
         attacking_player_id: u64,
-        _direction: &RelativePosition,
+        direction: &RelativePosition,
     ) -> Result<(), String> {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
@@ -1100,6 +1102,7 @@ impl GameState {
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
         attacking_player.skill_4_started_at = now;
         attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_skill_4();
+        attacking_player.direction = *direction;
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
             Name::H4ck => {
@@ -1361,6 +1364,8 @@ impl GameState {
 
         self.check_and_damage_poisoned_players();
 
+        self.explode_decoys();
+
         self.next_killfeed.append(&mut tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
@@ -1385,6 +1390,35 @@ impl GameState {
             }
 
             player.effects.insert(Effect::Poisoned, effect_data);
+        });
+    }
+
+    fn explode_decoys(self: &mut Self) {
+        self.decoys.iter_mut().filter(|decoy| decoy.status == DecoyStatus::DECOYTOEXPLODE).for_each(|decoy| {
+            let attack_range = 350.;
+            if decoy.should_respawn {
+                decoy.status = DecoyStatus::DECOYDEAD;
+            }
+
+            let mut affected_players: Vec<u64> =
+                GameState::players_in_range(&self.players, &decoy.position, attack_range)
+                    .into_iter()
+                    .map(|(id, _distance)| id)
+                    .collect();
+
+            for target_player_id in affected_players.iter_mut() {
+                // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+                let attacked_player = self.players
+                    .iter_mut()
+                    .find(|player| player.id == *target_player_id);
+
+                match attacked_player {
+                    Some(ap) => {
+                        ap.modify_health(-50);
+                    }
+                    _ => continue,
+                }
+            }
         });
     }
 

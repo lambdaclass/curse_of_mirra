@@ -7,6 +7,7 @@ defmodule DarkWorldsServer.Engine.Decoy do
     :owner,
     :position,
     :status,
+    :should_respawn,
   ]
   defstruct [
     :id,
@@ -14,5 +15,6 @@ defmodule DarkWorldsServer.Engine.Decoy do
     :owner,
     :position,
     :status,
+    :should_respawn,
   ]
 end

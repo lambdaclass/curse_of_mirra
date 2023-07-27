@@ -71,12 +71,14 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+    RelativePosition direction = 16;
 }
 
 enum DecoyStatus {
     DECOY_ALIVE = 0;
     DECOY_DEAD = 1;
     DECOY_RESPAWNED = 2;
+    DECOY_TO_EXPLODE = 3;
 }
 
 message Decoy {
@@ -85,6 +87,7 @@ message Decoy {
     Position position = 3;
     uint64 owner = 4;
     DecoyStatus status = 5;
+    bool should_respawn = 6;
 }
 
 message KillEvent {

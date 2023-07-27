@@ -20,6 +20,7 @@ defmodule LoadTest.Communication.Proto.DecoyStatus do
   field(:DECOY_ALIVE, 0)
   field(:DECOY_DEAD, 1)
   field(:DECOY_RESPAWNED, 2)
+  field(:DECOY_TO_EXPLODE, 3)
 end
 
 defmodule LoadTest.Communication.Proto.Status do
@@ -244,6 +245,8 @@ defmodule LoadTest.Communication.Proto.Player do
     type: LoadTest.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  field(:direction, 16, type: LoadTest.Communication.Proto.RelativePosition)
 end
 
 defmodule LoadTest.Communication.Proto.Decoy do
@@ -256,6 +259,7 @@ defmodule LoadTest.Communication.Proto.Decoy do
   field(:position, 3, type: LoadTest.Communication.Proto.Position)
   field(:owner, 4, type: :uint64)
   field(:status, 5, type: LoadTest.Communication.Proto.DecoyStatus, enum: true)
+  field(:should_respawn, 6, type: :bool, json_name: "shouldRespawn")
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do

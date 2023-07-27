@@ -20,6 +20,7 @@ defmodule DarkWorldsServer.Communication.Proto.DecoyStatus do
   field(:DECOY_ALIVE, 0)
   field(:DECOY_DEAD, 1)
   field(:DECOY_RESPAWNED, 2)
+  field(:DECOY_TO_EXPLODE, 3)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Status do
@@ -262,6 +263,8 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     map: true
   )
 
+  field(:direction, 16, type: DarkWorldsServer.Communication.Proto.RelativePosition)
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
@@ -275,6 +278,7 @@ defmodule DarkWorldsServer.Communication.Proto.Decoy do
   field(:position, 3, type: DarkWorldsServer.Communication.Proto.Position)
   field(:owner, 4, type: :uint64)
   field(:status, 5, type: DarkWorldsServer.Communication.Proto.DecoyStatus, enum: true)
+  field(:should_respawn, 6, type: :bool, json_name: "shouldRespawn")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

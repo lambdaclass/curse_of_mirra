@@ -12,6 +12,7 @@ pub struct Decoy {
     pub health: i64,
     pub owner: u64,
     pub status: DecoyStatus,
+    pub should_respawn: bool,
 }
 
 #[derive(Debug, Clone, NifUnitEnum, PartialEq)]
@@ -19,6 +20,7 @@ pub enum DecoyStatus {
     DECOYALIVE,
     DECOYDEAD,
     DECOYRESPAWNED,
+    DECOYTOEXPLODE,
 }
 
 impl Decoy {
@@ -28,6 +30,7 @@ impl Decoy {
         health: i64,
         owner: u64,
         status: DecoyStatus,
+        should_respawn: bool,
     ) -> Self {
         Self {
             id,
@@ -35,14 +38,25 @@ impl Decoy {
             health,
             owner,
             status,
+            should_respawn,
         }
     }
     pub fn modify_health(self: &mut Self, hp_points: i64) {
         if matches!(self.status, DecoyStatus::DECOYALIVE) {
-            self.health = self.health.saturating_sub(hp_points);
+            self.health = self.health.saturating_add(hp_points);
             if self.health <= 0 {
-                self.status = DecoyStatus::DECOYDEAD;
+                self.status = DecoyStatus::DECOYTOEXPLODE;
             }
         }
+        if matches!(self.status, DecoyStatus::DECOYRESPAWNED) {
+            self.health = self.health.saturating_add(hp_points);
+            if self.health <= 0 {
+                self.status = DecoyStatus::DECOYTOEXPLODE;
+                self.should_respawn = false;
+            }
+        }
+    }
+    pub fn is_alive(self: &Self) -> bool {
+        matches!(self.status, DecoyStatus::DECOYALIVE) || matches!(self.status, DecoyStatus::DECOYRESPAWNED)
     }
 }

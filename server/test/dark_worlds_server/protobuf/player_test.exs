@@ -5,6 +5,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Engine.Player
   alias DarkWorldsServer.Engine.Position
+  alias DarkWorldsServer.Engine.RelativePosition
 
   describe "Player encoding and decoding" do
     test "Health below 0 is encodable" do
@@ -25,7 +26,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_3_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
-        effects: %{}
+        effects: %{},
+        direction: %RelativePosition{x: 1, y: 1}
       }
 
       expected = %Player{
@@ -43,7 +45,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_3_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
-        effects: %{}
+        effects: %{},
+        direction: %RelativePosition{x: 1, y: 1}
       }
 
       decoded =

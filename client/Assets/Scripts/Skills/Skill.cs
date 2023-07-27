@@ -142,9 +142,6 @@ public class Skill : CharacterAbility
 
     public void StartFeedback()
     {
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
-
         if (skillInfo.hasModelAnimation == true)
         {
             skillsAnimationEvent.UpdateActiveSkill(this);
@@ -168,9 +165,6 @@ public class Skill : CharacterAbility
 
     public void ExecuteFeedback()
     {
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.z = feedbackRotatePosition.y;
-        GetComponent<CharacterOrientation3D>().ForcedRotationDirection.x = feedbackRotatePosition.x;
-
         _animator.SetBool(skillId + "_start", false);
 
         if (skillInfo.hasModelAnimation == true)

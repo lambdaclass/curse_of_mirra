@@ -107,6 +107,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
+      direction: direction
     } = player
 
     %ProtoPlayer{
@@ -124,6 +125,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
+      direction: direction
     }
   end
 
@@ -134,6 +136,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       position: position,
       owner: owner,
       status: status,
+      should_respawn: should_respawn,
     } = decoy
 
     %ProtoDecoy{
@@ -142,6 +145,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       position: position,
       owner: owner,
       status: decoy_status_encode(status),
+      should_respawn: should_respawn,
     }
   end
 
@@ -251,6 +255,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
+      direction: direction
     } = player
 
     %EnginePlayer{
@@ -269,6 +274,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
+      direction: direction
     }
   end
 
@@ -440,8 +446,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp decoy_status_encode(:decoyalive), do: :DECOY_ALIVE
   defp decoy_status_encode(:decoydead), do: :DECOY_DEAD
   defp decoy_status_encode(:decoyrespawned), do: :DECOY_RESPAWNED
+  defp decoy_status_encode(:decoytoexplode), do: :DECOY_TO_EXPLODE
 
   defp decoy_status_decode(:DECOY_ALIVE), do: :decoyalive
   defp decoy_status_decode(:DECOY_DEAD), do: :decoydead
   defp decoy_status_decode(:DECOY_RESPAWNED), do: :decoyrespawned
+  defp decoy_status_decode(:DECOY_TO_EXPLODE), do: :decoytoexplode
 end
