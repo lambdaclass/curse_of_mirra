@@ -2565,7 +2565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 8840088534954488687}
+  IP: {fileID: 7658927444705192994}
   serverName: {fileID: 1052374048945092439}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
@@ -2745,7 +2745,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4966209065802375589}
-  m_TextComponent: {fileID: 8840088534954488687}
+  m_TextComponent: {fileID: 7658927444705192994}
   m_Placeholder: {fileID: 0}
   m_ContentType: 0
   m_InputType: 0
@@ -5962,7 +5962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1304225938828919519}
   - component: {fileID: 3393441547117813440}
-  - component: {fileID: 8840088534954488687}
+  - component: {fileID: 7658927444705192994}
   m_Layer: 5
   m_Name: IP
   m_TagString: Untagged
@@ -5998,7 +5998,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7183346048708201003}
   m_CullTransparentMesh: 1
---- !u!114 &8840088534954488687
+--- !u!114 &7658927444705192994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
