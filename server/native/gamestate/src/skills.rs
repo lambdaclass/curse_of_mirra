@@ -15,6 +15,7 @@ pub struct Skill {
     pub projectile: String,
     pub minion: String,
     pub skill_range: f64,
+    pub angle: u64
 }
 
 impl Skill {
@@ -29,6 +30,7 @@ impl Skill {
         let projectile = get_skill_field(config, "Projectile")?;
         let minion = get_skill_field(config, "Minion")?;
         let skill_range = get_skill_field(config, "SkillRange")?;
+        let angle = get_skill_field(config, "Angle")?;
         Ok(Self {
             name,
             do_func,
@@ -40,6 +42,7 @@ impl Skill {
             projectile,
             minion,
             skill_range,
+            angle
         })
     }
 }
@@ -57,6 +60,7 @@ impl Default for Skill {
             projectile: "".to_string(),
             minion: "".to_string(),
             skill_range: 100.0,
+            angle: 10
         }
     }
 }
