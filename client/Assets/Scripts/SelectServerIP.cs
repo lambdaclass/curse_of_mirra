@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SelectServerIP : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI IP;
+    Text IP;
 
     [SerializeField]
     TextMeshProUGUI serverName;
@@ -14,8 +14,8 @@ public class SelectServerIP : MonoBehaviour
     [SerializeField]
     Sprite selectedButtonSprite;
 
-    public static string serverIp = "localhost";
-    public static string serverNameString = "LocalHost";
+    public static string serverIp;
+    public static string serverNameString;
 
     public void SetServerIp()
     {

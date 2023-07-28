@@ -1139,7 +1139,7 @@ MonoBehaviour:
             m_PostInfinity: 2
             m_RotationOrder: 4
           Initialized: 0
-        SoloSingleTrack: 0
+        SoloSingleTrack: 1
         SoloAllTracks: 0
         AutoUnSoloOnEnd: 0
         PanStereo: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class LobbyManager : LevelSelector
     GameObject playButton;
 
     [SerializeField]
-    GameObject mapList;
+    GameObject waitingText;
 
     public static string LevelSelected;
 
@@ -27,16 +28,17 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (playButton != null && mapList != null)
+        if (playButton != null && waitingText != null)
         {
             if (LobbyConnection.Instance.playerId == 1)
             {
                 playButton.SetActive(true);
+                waitingText.SetActive(false);
             }
             else
             {
                 playButton.SetActive(false);
-                mapList.SetActive(false);
+                waitingText.SetActive(true);
             }
         }
     }
