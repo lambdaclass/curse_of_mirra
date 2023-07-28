@@ -1232,8 +1232,10 @@ impl GameState {
     ) -> Result<(), String> {
         for (player_id, (damage, attacked_player_id)) in affected_players.iter() {
             let attacked_player = GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
-            attacked_player.modify_health(-damage);
-            self.update_killfeed(*player_id, vec![*attacked_player_id]);
+            if !matches!(attacked_player.status, Status::DEAD) {
+                attacked_player.modify_health(-damage);
+                self.update_killfeed(*player_id, vec![*attacked_player_id]);
+            }
         }
 
         Ok(())
