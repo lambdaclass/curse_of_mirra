@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -142,11 +143,22 @@ public class Skill : CharacterAbility
 
     public void StartFeedback()
     {
+        ClearAnimator();
+
         if (skillInfo.hasModelAnimation == true)
         {
-            skillsAnimationEvent.UpdateActiveSkill(this);
-            _movement.ChangeState(CharacterStates.MovementStates.Attacking);
-            _animator.SetBool(skillId + "_start", true);
+            string animation = skillId + "_start";
+            ChangeCharacterState(animation);
+            if (skillInfo.startAnimationDuration > 0)
+            {
+                StartCoroutine(
+                    skillsAnimationEvent.TryEjectAnimation(
+                        this,
+                        animation,
+                        skillInfo.startAnimationDuration
+                    )
+                );
+            }
         }
 
         if (skillInfo.startFeedbackVfx)
@@ -165,13 +177,22 @@ public class Skill : CharacterAbility
 
     public void ExecuteFeedback()
     {
-        _animator.SetBool(skillId + "_start", false);
+        ClearAnimator();
 
         if (skillInfo.hasModelAnimation == true)
         {
-            skillsAnimationEvent.UpdateActiveSkill(this);
-            _movement.ChangeState(CharacterStates.MovementStates.Attacking);
-            _animator.SetBool(skillId, true);
+            ChangeCharacterState(skillId);
+            if (skillInfo.executeAnimationDuration > 0)
+            {
+                StartCoroutine(
+                    skillsAnimationEvent.TryEjectAnimation(
+                        this,
+                        skillId,
+                        skillInfo.executeAnimationDuration
+                    )
+                );
+            }
+
             PlayAbilityStartSfx();
         }
 
@@ -194,6 +215,23 @@ public class Skill : CharacterAbility
         }
     }
 
+    private void ClearAnimator()
+    {
+        foreach (int skill in Enum.GetValues(typeof(UIControls)))
+        {
+            String skillName = Enum.GetName(typeof(UIControls), skill);
+            _animator.SetBool(skillName, false);
+            _animator.SetBool(skillName + "_start", false);
+        }
+    }
+
+    private void ChangeCharacterState(string animation)
+    {
+        skillsAnimationEvent.UpdateActiveSkill(this, animation);
+        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+        _animator.SetBool(animation, true);
+    }
+
     private void SendActionToBackend(RelativePosition relativePosition)
     {
         ClientAction action = new ClientAction
@@ -204,10 +242,10 @@ public class Skill : CharacterAbility
         SocketConnectionManager.Instance.SendAction(action);
     }
 
-    public void EndSkillFeedback()
+    public void EndSkillFeedback(string animationId)
     {
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
-        _animator.SetBool(skillId, false);
+        _animator.SetBool(animationId, false);
     }
 
     IEnumerator StopFeedbackVfx(float time)
