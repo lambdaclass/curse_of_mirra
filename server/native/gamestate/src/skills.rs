@@ -15,7 +15,7 @@ pub struct Skill {
     pub projectile: String,
     pub minion: String,
     pub skill_range: f64,
-    pub angle: u64
+    pub angle: u64,
 }
 
 impl Skill {
@@ -42,7 +42,7 @@ impl Skill {
             projectile,
             minion,
             skill_range,
-            angle
+            angle,
         })
     }
 }
@@ -60,7 +60,7 @@ impl Default for Skill {
             projectile: "".to_string(),
             minion: "".to_string(),
             skill_range: 100.0,
-            angle: 10
+            angle: 10,
         }
     }
 }
