@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9ef606ea35fa64efda4fa922df0e483f
+guid: 2aebec3a6afa145cb819df02977bc997
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,10 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - PT Mono
-  fallbackFontReferences: []
+  - Source Sans 3
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9774f90a5ca2c42efa52244c33381640, type: 3}
+  - {fileID: 12800000, guid: 44cfa3b478ca7479cb9b5673c0f8e4e8, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
