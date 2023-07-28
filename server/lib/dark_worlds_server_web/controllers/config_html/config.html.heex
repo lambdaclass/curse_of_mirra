@@ -1,0 +1,26 @@
+<.header>
+    Edit Config
+</.header>
+  
+<.simple_form :let={f} for={@config} action={#}>
+<.input field={f[:Name]} type="text" label="Name" />
+<.input field={f[:Id]} type="number" label="Id" />
+<.input field={f[:Active]} type="select" label="Active" options={[0, 1]} />
+<.input field={f[:Class]} type="text" label="Class" />
+<.input field={f[:Faction]} type="text" label="Faction" />
+<.input field={f[:BaseSpeed]} type="number" label="Base Speed" />
+<.input field={f[:SkillBasic]} type="text" label="Skill Basic" />
+<.input field={f[:SkillActive1]} type="text" label="Skill Active 1" />
+<.input field={f[:SkillActive2]} type="text" label="Skill Active 2" />
+<.input field={f[:SkillDash]} type="text" label="Skill Dash" />
+<.input field={f[:SkillUltimate]} type="text" label="Skill Ultimate" />
+<.input field={f[:BodySize]} type="number" label="Body Size" />
+
+<:actions>
+    <.button>Save</.button>
+</:actions>
+</.simple_form>
+
+
+
+<.back navigate={~p"/config"}>Back to config</.back>
