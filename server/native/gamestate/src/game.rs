@@ -510,7 +510,6 @@ impl GameState {
                     position.y as f32 - attacking_player.position.y as f32,
                     -(position.x as f32 - attacking_player.position.x as f32),
                 );
-                let mut kill_count = 0;
                 let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
 
                 let attacked_player = GameState::get_player_mut(&mut self.players, player_id)?;
@@ -521,10 +520,6 @@ impl GameState {
                         .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
                     None => None,
                 };
-
-                if matches!(attacked_player.status, Status::DEAD) {
-                    kill_count += 1;
-                }
 
                 self.attack_mirrored_player(uma_mirroring_affected_players)?;
 
@@ -1093,8 +1088,6 @@ impl GameState {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
 
-                let mut kill_count = 0;
-
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
                     // if there are more than one player affected by the projectile
@@ -1135,9 +1128,6 @@ impl GameState {
                                 ),
                                 None => None,
                             };
-                            if matches!(attacked_player.status, Status::DEAD) {
-                                kill_count += 1;
-                            }
                             projectile.last_attacked_player_id = attacked_player.id;
                         }
                     }
