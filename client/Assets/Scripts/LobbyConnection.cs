@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Google.Protobuf;
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -60,6 +63,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         PopulateLists();
+        DontDestroyOnLoad(MMSoundManager.Instance);
     }
 
     public void Init()
