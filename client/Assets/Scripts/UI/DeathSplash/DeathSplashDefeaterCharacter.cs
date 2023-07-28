@@ -4,14 +4,12 @@ public class DeathSplashDefeaterCharacter : MonoBehaviour
 {
     private void Awake()
     {
-        var killCount = GetKillCount();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + "KILLS";
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = GetDefeaterCharacter();
     }
 
-    private int GetKillCount()
+    private string GetDefeaterCharacter()
     {
-        // get kill count
-        // asdfas
-        return 0;
+        // TODO: get defeater character
+        return "-";
     }
 }

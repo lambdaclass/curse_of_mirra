@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeathSplashDefeaterImage : MonoBehaviour
 {
     private void Awake()
     {
-        var killCount = GetKillCount();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + "KILLS";
+        gameObject.GetComponent<Image>().sprite = GetDefeaterSprite();
     }
 
-    private int GetKillCount()
+    private Sprite GetDefeaterSprite()
     {
-        // get kill count
-        return 0;
+        // TODO: get defeater sprite
+        return null;
     }
 }

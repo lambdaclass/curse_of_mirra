@@ -4,13 +4,12 @@ public class DeathSplashKilledBy : MonoBehaviour
 {
     private void Awake()
     {
-        var killer = GetKiller();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killer.ToString();
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = GetKiller();
     }
 
-    private int GetKiller()
+    private string GetKiller()
     {
-        // get killer
-        return 0;
+        // TODO: get killer
+        return "-";
     }
 }

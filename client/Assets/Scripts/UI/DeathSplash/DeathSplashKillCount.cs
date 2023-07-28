@@ -5,12 +5,13 @@ public class DeathSplashKillCount : MonoBehaviour
     private void Awake()
     {
         var killCount = GetKillCount();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + "KILLS";
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + " KILLS";
     }
 
-    private int GetKillCount()
+    private ulong GetKillCount()
     {
-        // get kill count
-        return 0;
+        var playerId = LobbyConnection.Instance.playerId;
+        var gamePlayer = Utils.GetGamePlayer(playerId);
+        return gamePlayer.KillCount;
     }
 }
