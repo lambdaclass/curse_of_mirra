@@ -379,6 +379,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   accumulatedTime: 0
+  Ghosts: []
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,6 +1617,16 @@ PrefabInstance:
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1302669239}
+    - target: {fileID: 8589184729072353917, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleGhosts
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589184729297690427, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_Text
+      value: Toggle Ghosts
+      objectReference: {fileID: 0}
     - target: {fileID: 8924515767307020969, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
