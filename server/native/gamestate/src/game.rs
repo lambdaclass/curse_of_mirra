@@ -562,16 +562,13 @@ impl GameState {
         attacking_player.direction = *direction;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
 
-
         let attacked_player_ids = match attacking_player.character.name {
-            Name::H4ck => {
-                Self::h4ck_skill_1(
-                    &attacking_player,
-                    direction,
-                    &mut self.projectiles,
-                    &mut self.next_projectile_id,
-                )
-            }
+            Name::H4ck => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Muflus => {
                 let players = &mut self.players;
                 Self::muflus_skill_1(players, attacking_player_id)
@@ -731,9 +728,7 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
             ),
-            Name::Muflus => {
-                Self::muflus_skill_2(attacking_player)
-            }
+            Name::Muflus => Self::muflus_skill_2(attacking_player),
             Name::Uma => {
                 let attacking_player =
                     GameState::get_player_mut(&mut self.players, attacking_player_id)?;
