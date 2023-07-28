@@ -20,6 +20,10 @@ if System.get_env("PHX_SERVER") do
   config :dark_worlds_server, DarkWorldsServerWeb.Endpoint, server: true
 end
 
+use_proxy = System.get_env("USE_PROXY") || false
+
+config :dark_worlds_server, use_proxy: use_proxy
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

@@ -234,11 +234,11 @@ public class SocketConnectionManager : MonoBehaviour
     {
         if (server_ip.Contains("localhost"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":5000" + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":5000" + path;
         }
         else
         {
@@ -250,11 +250,11 @@ public class SocketConnectionManager : MonoBehaviour
     {
         if (server_ip.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":5000" + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":5000" + path;
         }
         else
         {
