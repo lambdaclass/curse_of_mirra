@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IP: {fileID: 6235657091100635561}
-  severName: {fileID: 3735084527951812104}
+  serverName: {fileID: 3735084527951812104}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &319769787942066519
@@ -2432,7 +2432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IP: {fileID: 1031589879129480241}
-  severName: {fileID: 1052374048945092439}
+  serverName: {fileID: 1052374048945092439}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &2461370457626985535
@@ -3421,7 +3421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IP: {fileID: 3756463603080803164}
-  severName: {fileID: 4280810500618110275}
+  serverName: {fileID: 4280810500618110275}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &4914977317430518225
@@ -4107,7 +4107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IP: {fileID: 3895596342977644000}
-  severName: {fileID: 5245234001412026325}
+  serverName: {fileID: 5245234001412026325}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &5951903642302692889
@@ -5806,7 +5806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IP: {fileID: 8133054059653966533}
-  severName: {fileID: 3639264453588071328}
+  serverName: {fileID: 3639264453588071328}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &8387308921426275745
