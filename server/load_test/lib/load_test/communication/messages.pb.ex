@@ -389,6 +389,7 @@ defmodule LoadTest.Communication.Proto.SkillConfigItem do
   field(:Projectile, 8, type: :string)
   field(:Minion, 9, type: :string)
   field(:SkillRange, 10, type: :string)
+  field(:Angle, 11, type: :string)
 end
 
 defmodule LoadTest.Communication.Proto.ServerGameSettings do

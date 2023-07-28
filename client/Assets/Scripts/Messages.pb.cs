@@ -75,51 +75,51 @@ public static partial class MessagesReflection {
           "CRIRCglTa2lsbERhc2gYCiABKAkSFQoNU2tpbGxVbHRpbWF0ZRgLIAEoCRIQ",
           "CghCb2R5U2l6ZRgMIAEoCSI2Cg9DaGFyYWN0ZXJDb25maWcSIwoFSXRlbXMY",
           "ASADKAsyFC5DaGFyYWN0ZXJDb25maWdJdGVtIi8KDFNraWxsc0NvbmZpZxIf",
-          "CgVJdGVtcxgBIAMoCzIQLlNraWxsQ29uZmlnSXRlbSK/AQoPU2tpbGxDb25m",
+          "CgVJdGVtcxgBIAMoCzIQLlNraWxsQ29uZmlnSXRlbSLOAQoPU2tpbGxDb25m",
           "aWdJdGVtEgwKBE5hbWUYASABKAkSDgoGRG9GdW5jGAIgASgJEhIKCkJ1dHRv",
           "blR5cGUYAyABKAkSEAoIQ29vbGRvd24YBCABKAkSDgoGRGFtYWdlGAUgASgJ",
           "Eg4KBlN0YXR1cxgGIAEoCRIQCghEdXJhdGlvbhgHIAEoCRISCgpQcm9qZWN0",
           "aWxlGAggASgJEg4KBk1pbmlvbhgJIAEoCRISCgpTa2lsbFJhbmdlGAogASgJ",
-          "IowBChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEo",
-          "CzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAu",
-          "Q2hhcmFjdGVyQ29uZmlnEiQKDXNraWxsc19jb25maWcYAyABKAsyDS5Ta2ls",
-          "bHNDb25maWciswIKClByb2plY3RpbGUSCgoCaWQYASABKAQSGwoIcG9zaXRp",
-          "b24YAiABKAsyCS5Qb3NpdGlvbhIkCglkaXJlY3Rpb24YAyABKAsyES5SZWxh",
-          "dGl2ZVBvc2l0aW9uEg0KBXNwZWVkGAQgASgNEg0KBXJhbmdlGAUgASgNEhEK",
-          "CXBsYXllcl9pZBgGIAEoBBIOCgZkYW1hZ2UYByABKA0SFwoPcmVtYWluaW5n",
-          "X3RpY2tzGAggASgSEigKD3Byb2plY3RpbGVfdHlwZRgJIAEoDjIPLlByb2pl",
-          "Y3RpbGVUeXBlEiEKBnN0YXR1cxgKIAEoDjIRLlByb2plY3RpbGVTdGF0dXMS",
-          "HwoXbGFzdF9hdHRhY2tlZF9wbGF5ZXJfaWQYCyABKAQSDgoGcGllcmNlGAwg",
-          "ASgIIicKCk1pbGxpc1RpbWUSDAoEaGlnaBgBIAEoBBILCgNsb3cYAiABKAQq",
-          "rgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19V",
-          "UERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAISEQoNR0FNRV9GSU5JU0hFRBAD",
-          "EhUKEUlOSVRJQUxfUE9TSVRJT05TEAQSHQoZU0VMRUNURURfQ0hBUkFDVEVS",
-          "X1VQREFURRAFEh4KGkZJTklTSF9DSEFSQUNURVJfU0VMRUNUSU9OEAYqHQoG",
-          "U3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBABKokCCgZBY3Rpb24SFgoSQUNU",
-          "SU9OX1VOU1BFQ0lGSUVEEAASCAoETU9WRRABEgoKBkFUVEFDSxACEgwKCFRF",
-          "TEVQT1JUEAQSDgoKQVRUQUNLX0FPRRAFEhYKEk1PVkVfV0lUSF9KT1lTVElD",
-          "SxAGEgsKB0FERF9CT1QQBxIPCgtBVVRPX0FUVEFDSxAIEhAKDEJBU0lDX0FU",
-          "VEFDSxAJEgsKB1NLSUxMXzEQChILCgdTS0lMTF8yEAsSCwoHU0tJTExfMxAM",
-          "EgsKB1NLSUxMXzQQDRIUChBTRUxFQ1RfQ0hBUkFDVEVSEA4SDwoLRU5BQkxF",
-          "X0JPVFMQDxIQCgxESVNBQkxFX0JPVFMQECpNCglEaXJlY3Rpb24SGQoVRElS",
-          "RUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVG",
-          "VBADEgkKBVJJR0hUEAQq/QEKDFBsYXllckFjdGlvbhILCgdOT1RISU5HEAAS",
-          "DQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACEhQKEFNUQVJUSU5H",
-          "X1NLSUxMXzEQAxIUChBTVEFSVElOR19TS0lMTF8yEAQSFAoQU1RBUlRJTkdf",
-          "U0tJTExfMxAFEhQKEFNUQVJUSU5HX1NLSUxMXzQQBhIVChFFWEVDVVRJTkdf",
-          "U0tJTExfMRAHEhUKEUVYRUNVVElOR19TS0lMTF8yEAgSFQoRRVhFQ1VUSU5H",
-          "X1NLSUxMXzMQCRIVChFFWEVDVVRJTkdfU0tJTExfNBAKEgoKBk1PVklORxAL",
-          "KskBCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVEEAASDAoIRElTQVJNRUQQ",
-          "ARIMCghQSUVSQ0lORxACEgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElORxAE",
-          "EgsKB0xFQVBJTkcQBRIPCgtPVVRfT0ZfQVJFQRAGEg4KCkVMTkFSX01BUksQ",
-          "BxIOCgpZVUdFTl9NQVJLEAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01B",
-          "UktfT1dORVIQChIMCghQT0lTT05FRBALKo8BCg5Mb2JieUV2ZW50VHlwZRIU",
-          "ChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVS",
-          "X0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQS",
-          "DgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVj",
-          "dGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwK",
-          "EFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIG",
-          "cHJvdG8z"));
+          "Eg0KBUFuZ2xlGAsgASgJIowBChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVu",
+          "bmVyX2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJf",
+          "Y29uZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnEiQKDXNraWxsc19jb25m",
+          "aWcYAyABKAsyDS5Ta2lsbHNDb25maWciswIKClByb2plY3RpbGUSCgoCaWQY",
+          "ASABKAQSGwoIcG9zaXRpb24YAiABKAsyCS5Qb3NpdGlvbhIkCglkaXJlY3Rp",
+          "b24YAyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg0KBXNwZWVkGAQgASgNEg0K",
+          "BXJhbmdlGAUgASgNEhEKCXBsYXllcl9pZBgGIAEoBBIOCgZkYW1hZ2UYByAB",
+          "KA0SFwoPcmVtYWluaW5nX3RpY2tzGAggASgSEigKD3Byb2plY3RpbGVfdHlw",
+          "ZRgJIAEoDjIPLlByb2plY3RpbGVUeXBlEiEKBnN0YXR1cxgKIAEoDjIRLlBy",
+          "b2plY3RpbGVTdGF0dXMSHwoXbGFzdF9hdHRhY2tlZF9wbGF5ZXJfaWQYCyAB",
+          "KAQSDgoGcGllcmNlGAwgASgIIicKCk1pbGxpc1RpbWUSDAoEaGlnaBgBIAEo",
+          "BBILCgNsb3cYAiABKAQqrgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVfVVBE",
+          "QVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAISEQoN",
+          "R0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJQUxfUE9TSVRJT05TEAQSHQoZU0VM",
+          "RUNURURfQ0hBUkFDVEVSX1VQREFURRAFEh4KGkZJTklTSF9DSEFSQUNURVJf",
+          "U0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBABKokC",
+          "CgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCAoETU9WRRABEgoK",
+          "BkFUVEFDSxACEgwKCFRFTEVQT1JUEAQSDgoKQVRUQUNLX0FPRRAFEhYKEk1P",
+          "VkVfV0lUSF9KT1lTVElDSxAGEgsKB0FERF9CT1QQBxIPCgtBVVRPX0FUVEFD",
+          "SxAIEhAKDEJBU0lDX0FUVEFDSxAJEgsKB1NLSUxMXzEQChILCgdTS0lMTF8y",
+          "EAsSCwoHU0tJTExfMxAMEgsKB1NLSUxMXzQQDRIUChBTRUxFQ1RfQ0hBUkFD",
+          "VEVSEA4SDwoLRU5BQkxFX0JPVFMQDxIQCgxESVNBQkxFX0JPVFMQECpNCglE",
+          "aXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARII",
+          "CgRET1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQq/QEKDFBsYXllckFjdGlv",
+          "bhILCgdOT1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FP",
+          "RRACEhQKEFNUQVJUSU5HX1NLSUxMXzEQAxIUChBTVEFSVElOR19TS0lMTF8y",
+          "EAQSFAoQU1RBUlRJTkdfU0tJTExfMxAFEhQKEFNUQVJUSU5HX1NLSUxMXzQQ",
+          "BhIVChFFWEVDVVRJTkdfU0tJTExfMRAHEhUKEUVYRUNVVElOR19TS0lMTF8y",
+          "EAgSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFFWEVDVVRJTkdfU0tJTExf",
+          "NBAKEgoKBk1PVklORxALKskBCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVE",
+          "EAASDAoIRElTQVJNRUQQARIMCghQSUVSQ0lORxACEgkKBVJBR0VEEAMSEQoN",
+          "TkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIPCgtPVVRfT0ZfQVJFQRAG",
+          "Eg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJLEAgSDgoKWEFOREFfTUFS",
+          "SxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQT0lTT05FRBALKo8BCg5M",
+          "b2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVD",
+          "VEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoM",
+          "UExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1P",
+          "VkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJN",
+          "SU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAAS",
+          "DAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -137,7 +137,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate", "BodySize" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "ButtonType", "Cooldown", "Damage", "Status", "Duration", "Projectile", "Minion", "SkillRange" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "ButtonType", "Cooldown", "Damage", "Status", "Duration", "Projectile", "Minion", "SkillRange", "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null)
@@ -5525,6 +5525,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     projectile_ = other.projectile_;
     minion_ = other.minion_;
     skillRange_ = other.skillRange_;
+    angle_ = other.angle_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -5654,6 +5655,18 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
+  /// <summary>Field number for the "Angle" field.</summary>
+  public const int AngleFieldNumber = 11;
+  private string angle_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Angle {
+    get { return angle_; }
+    set {
+      angle_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -5679,6 +5692,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (Projectile != other.Projectile) return false;
     if (Minion != other.Minion) return false;
     if (SkillRange != other.SkillRange) return false;
+    if (Angle != other.Angle) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5696,6 +5710,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (Projectile.Length != 0) hash ^= Projectile.GetHashCode();
     if (Minion.Length != 0) hash ^= Minion.GetHashCode();
     if (SkillRange.Length != 0) hash ^= SkillRange.GetHashCode();
+    if (Angle.Length != 0) hash ^= Angle.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5754,6 +5769,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(82);
       output.WriteString(SkillRange);
     }
+    if (Angle.Length != 0) {
+      output.WriteRawTag(90);
+      output.WriteString(Angle);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -5804,6 +5823,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(82);
       output.WriteString(SkillRange);
     }
+    if (Angle.Length != 0) {
+      output.WriteRawTag(90);
+      output.WriteString(Angle);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -5843,6 +5866,9 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
     if (SkillRange.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SkillRange);
+    }
+    if (Angle.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Angle);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -5885,6 +5911,9 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
     if (other.SkillRange.Length != 0) {
       SkillRange = other.SkillRange;
+    }
+    if (other.Angle.Length != 0) {
+      Angle = other.Angle;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -5941,6 +5970,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
           SkillRange = input.ReadString();
           break;
         }
+        case 90: {
+          Angle = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -5994,6 +6027,10 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
         }
         case 82: {
           SkillRange = input.ReadString();
+          break;
+        }
+        case 90: {
+          Angle = input.ReadString();
           break;
         }
       }

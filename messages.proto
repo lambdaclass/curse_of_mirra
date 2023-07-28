@@ -277,6 +277,7 @@ message SkillConfigItem {
     string Projectile = 8;
     string Minion = 9;
     string SkillRange = 10;
+    string Angle = 11;
 }
 
 message ServerGameSettings {
