@@ -150,6 +150,7 @@ impl Player {
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
+                self.effects.clear();
             }
         }
     }
