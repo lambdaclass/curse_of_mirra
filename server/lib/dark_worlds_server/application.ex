@@ -31,6 +31,8 @@ defmodule DarkWorldsServer.Application do
   end
 
   if Application.get_env(:dark_worlds_server, :use_proxy) do
+    IO.inspect("TEST if use_proxy")
+
     ToxiproxyEx.populate!([
       %{
         name: "myrra_proxy",
