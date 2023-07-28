@@ -676,6 +676,11 @@ public class PlayerMovement : MonoBehaviour
 
     public RelativePosition getPlayerDirection(Player playerUpdate)
     {
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        {
+            return playerUpdate.Direction;
+        }
+
         var inputFromVirtualJoystick = joystickL is not null;
         var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
