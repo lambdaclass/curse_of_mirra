@@ -3,5 +3,6 @@
   "board_width": "10000",
   "board_height": "10000",
   "server_tickrate_ms": "30",
-  "game_timeout_ms": "1200000"
+  "game_timeout_ms": "1200000",
+  "use_proxy": "false"
 }

@@ -344,6 +344,7 @@ defmodule DarkWorldsServer.Communication.Proto.RunnerConfig do
   field(:board_height, 3, type: :uint64, json_name: "boardHeight")
   field(:server_tickrate_ms, 4, type: :uint64, json_name: "serverTickrateMs")
   field(:game_timeout_ms, 5, type: :uint64, json_name: "gameTimeoutMs")
+  field(:use_proxy, 6, type: :string, json_name: "useProxy")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -227,6 +227,7 @@ message RunnerConfig {
     uint64 board_height = 3;
     uint64 server_tickrate_ms = 4;
     uint64 game_timeout_ms = 5;
+    string use_proxy = 6;
 }
 
 message GameConfig {
