@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class VersionsHashes : MonoBehaviour
 {
-	public void Start()
+    public bool serverHash;
+
+    public void Start()
 	{
 		if(GetComponent<Text>() == null)
 		{
@@ -12,12 +13,7 @@ public class VersionsHashes : MonoBehaviour
 			return;
 		}
 
-        string server_hash = "Server hash \t" + SocketConnectionManager.Instance.serverHash;
-        string client_hash = "Client hash \t" + GitInfo.GetGitHash();
-		GetComponent<Text>().text = server_hash + "\n" + client_hash;
-	}
-
-	public void Update()
-	{
+        string hash = serverHash ? "Server# " + SocketConnectionManager.Instance.serverHash : "Client# "+ GitInfo.GetGitHash();
+		GetComponent<Text>().text =  hash;
 	}
 }
