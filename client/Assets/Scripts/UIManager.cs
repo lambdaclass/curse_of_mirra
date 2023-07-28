@@ -12,12 +12,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject lobbyItemPrefab;
 
-    [SerializeField]
-    GameObject gameItemPrefab;
-
-    [SerializeField]
-    Transform gamesContainer;
-
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
 
@@ -29,11 +23,6 @@ public class UIManager : MonoBehaviour
             GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
             lobbiesEmpty = false;
         }
-        if (gamesEmpty && LobbyConnection.Instance.gamesList.Count > 0)
-        {
-            GenerateList(LobbyConnection.Instance.gamesList, gameItemPrefab, gamesContainer);
-            gamesEmpty = false;
-        }
     }
 
     public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
@@ -41,7 +30,8 @@ public class UIManager : MonoBehaviour
         itemList.ForEach(el =>
         {
             GameObject item = (GameObject)Instantiate(itemPrefab, container);
-            item.GetComponent<LobbiesListItem>().setId(el);
+            string lastCharactersInID = el.Substring(el.Length - 5);
+            item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
     }
 }
