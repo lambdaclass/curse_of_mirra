@@ -18,11 +18,13 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         newPointerDownEvent.Invoke(this);
         FirstLayer();
     }
+
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
         newDragEvent.Invoke(RawValue);
     }
+
     public override void OnPointerUp(PointerEventData data)
     {
         newPointerUpEvent.Invoke(RawValue, skill);
@@ -35,11 +37,13 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         Image joystickBg = gameObject.transform.parent.gameObject.GetComponent<Image>();
         joystickBg.transform.SetAsLastSibling();
     }
+
     public void SetJoystick()
     {
         Image joystickBg = gameObject.transform.parent.gameObject.GetComponent<Image>();
         joystickBg.enabled = true;
     }
+
     public void UnSetJoystick()
     {
         Image joystickBg = gameObject.transform.parent.gameObject.GetComponent<Image>();

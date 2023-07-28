@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbiesListItem : MonoBehaviour
 {
     [SerializeField]
-    GameObject idContainer;
+    TextMeshProUGUI idContainer;
+    public string idHash;
 
-    public void setId(string id)
+    public void setId(string id, string lastCharacters)
     {
-        idContainer.GetComponent<Text>().text = id;
+        idHash = id;
+        idContainer.text = lastCharacters;
     }
 }

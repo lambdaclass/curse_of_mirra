@@ -1,13 +1,13 @@
 ---
-name: "\U0001F3A8 Desing"
-about: Suggest an design improvement or bug fix
+name: "\U0001F3A8 Design"
+about: Suggest a design improvement or bug fix
 title: "[DESIGN]"
 labels: design
 assignees: ''
 
 ---
 
-## 🎨 Desing
+## 🎨 Design
 
 <!--
     What module or piece of code would you like to design or fix on DarkWorlds Server?

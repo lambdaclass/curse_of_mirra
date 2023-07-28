@@ -70,6 +70,7 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+    RelativePosition direction = 16;
 }
 
 message KillEvent {

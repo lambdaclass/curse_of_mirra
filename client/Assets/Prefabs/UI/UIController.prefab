@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4276914180947046946}
-  - component: {fileID: 4276914180947046945}
+  - component: {fileID: 88203665}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4276914180947046945
+--- !u!114 &88203665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,6 +47,3 @@ MonoBehaviour:
   lobbiesContainer: {fileID: 0}
   lobbyItemPrefab: {fileID: 6431237631302165411, guid: 13e64695dc3a44037a7a7568727079c6,
     type: 3}
-  gameItemPrefab: {fileID: 6291501560866832240, guid: 2f3aa629e9ebe4328a3e05d7de5b649c,
-    type: 3}
-  gamesContainer: {fileID: 0}
