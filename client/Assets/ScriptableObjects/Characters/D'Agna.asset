@@ -16,6 +16,7 @@ MonoBehaviour:
   artWork: {fileID: 21300000, guid: 45d37ec53220e4aed924e7ae7a04305b, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5c156d61c2fbe4c02b104a69fe0700c8, type: 3}
   blockArtwork: {fileID: 21300000, guid: b1af22155b47b491182a78568a6cfa40, type: 3}
+  characterPlayer: {fileID: 21300000, guid: d3cc7f3a888914743a4f6e826a75735c, type: 3}
   prefab: {fileID: 0}
   skillBasicInfo: {fileID: 0}
   skill1Info: {fileID: 0}

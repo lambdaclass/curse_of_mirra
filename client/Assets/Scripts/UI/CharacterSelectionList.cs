@@ -69,7 +69,7 @@ public class CharacterSelectionList : MonoBehaviour
             playerI.SetCharacterName(character);
             playerI.SetPlayerItemText();
             CoMCharacter ui = characterItems.GetSelectedCharacter(character);
-            playerI.SetSprite(ui.selectedArtwork);
+            playerI.SetSprite(ui.characterPlayer);
         }
     }
 }

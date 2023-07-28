@@ -9,6 +9,7 @@ public class CoMCharacter : ScriptableObject
     public Sprite artWork;
     public Sprite selectedArtwork;
     public Sprite blockArtwork;
+    public Sprite characterPlayer;
     public GameObject prefab;
     public SkillInfo skillBasicInfo;
     public SkillInfo skill1Info;
