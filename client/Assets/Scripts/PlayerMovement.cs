@@ -696,10 +696,7 @@ public class PlayerMovement : MonoBehaviour
         var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
         var direction = playerUpdate.Direction;
-        if (
-            playerUpdate.Id == SocketConnectionManager.Instance.playerId
-            && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        )
+        if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
         {
             direction = new RelativePosition { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
         }
