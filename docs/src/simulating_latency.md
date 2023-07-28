@@ -16,7 +16,7 @@ To use it, do the following:
     toxiproxy-server
     ```
 
-- Set the following environment variable before running the server:
+- Set the following environment variable before running the backend:
     ```
     USE_PROXY=true
     ```
