@@ -26,3 +26,5 @@ MonoBehaviour:
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
