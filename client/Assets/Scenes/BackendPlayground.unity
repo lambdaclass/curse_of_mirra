@@ -525,6 +525,7 @@ MonoBehaviour:
   soundManager: {fileID: 1734572836}
   backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
+  UiControls: {fileID: 1717439191}
   camera: {fileID: 2053005125}
   charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
@@ -713,6 +714,12 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+--- !u!1 &1717439191 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4190701241990048127, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734572835
 GameObject:
   m_ObjectHideFlags: 0

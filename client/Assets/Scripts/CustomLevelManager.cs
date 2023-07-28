@@ -42,6 +42,9 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+
+    [SerializeField]
+    public GameObject UiControls;
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
@@ -255,8 +258,8 @@ public class CustomLevelManager : LevelManager
 
     private void ShowDeathSplash()
     {
-        print("ShowDeathSplash");
         deathSplash.SetActive(true);
+        UiControls.SetActive(false);
         SetCameraToRandomPlayer();
     }
 
