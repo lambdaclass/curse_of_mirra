@@ -20,14 +20,7 @@ if System.get_env("PHX_SERVER") do
   config :dark_worlds_server, DarkWorldsServerWeb.Endpoint, server: true
 end
 
-# use_proxy = System.get_env("USE_PROXY") || false
-
-# config :dark_worlds_server, use_proxy: use_proxy
-
-# if Application.get_env(:dark_worlds_server, :use_proxy) do
 if System.get_env("USE_PROXY") do
-  IO.inspect("TEST if use_proxy")
-
   ToxiproxyEx.populate!([
     %{
       name: "myrra_proxy",
