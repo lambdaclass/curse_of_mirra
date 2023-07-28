@@ -30,18 +30,6 @@ defmodule DarkWorldsServer.Application do
     Supervisor.start_link(children, opts)
   end
 
-  if Application.get_env(:dark_worlds_server, :use_proxy) do
-    IO.inspect("TEST if use_proxy")
-
-    ToxiproxyEx.populate!([
-      %{
-        name: "myrra_proxy",
-        listen: "0.0.0.0:5000",
-        upstream: "127.0.0.1:4000"
-      }
-    ])
-  end
-
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   @impl true
