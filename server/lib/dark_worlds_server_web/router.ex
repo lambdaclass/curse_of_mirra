@@ -44,7 +44,8 @@ defmodule DarkWorldsServerWeb.Router do
       live "/matchmaking/:session_id", MatchmakingLive.Show
     end
 
-    get "/config", ConfigController, :config
+    get "/config", ConfigController, :index
+    live "/config/characters", ConfigLive.Characters
   end
 
   # Enable Swoosh mailbox preview in development
