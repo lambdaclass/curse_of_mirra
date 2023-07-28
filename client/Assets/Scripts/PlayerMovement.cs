@@ -25,12 +25,13 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
 
+    public List<GameObject> interpolationGhosts = new List<GameObject>();
+
     private bool playerIsPoisoned;
 
     void Start()
     {
         InitBlockingStates();
-
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = true;
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             accumulatedTime += Time.deltaTime * 1000f;
+            ToggleInterpolationGhosts();
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -161,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
 
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
+            Player serverPlayerUpdateCopy = new Player(gameEvent.Players[i]);
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
             if (
@@ -179,6 +182,24 @@ public class PlayerMovement : MonoBehaviour
                     gameEvent.PlayerTimestamp
                 );
             }
+
+            if (
+                SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
+                && SocketConnectionManager.Instance.playerId != serverPlayerUpdateCopy.Id
+            )
+            {
+                GameObject interpolationGhost = interpolationGhosts.Find(
+                    ig =>
+                        ig.GetComponent<Character>().PlayerID
+                        == serverPlayerUpdateCopy.Id.ToString()
+                );
+                movePlayer(
+                    interpolationGhost,
+                    SocketConnectionManager.Instance.eventsBuffer.lastEvent().Players[i],
+                    pastTime
+                );
+            }
+
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
             if (actualPlayer.activeSelf)
@@ -642,6 +663,48 @@ public class PlayerMovement : MonoBehaviour
             serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
             Destroy(serverGhost);
             serverGhost = null;
+        }
+    }
+
+    public void ToggleInterpolationGhosts()
+    {
+        if (
+            SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
+            && interpolationGhosts.Count == 0
+        )
+        {
+            for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+            {
+                print("llega");
+                GameObject player = Utils.GetPlayer(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id
+                );
+                GameObject interpolationGhost;
+                interpolationGhost = Instantiate(
+                    player,
+                    player.transform.position,
+                    Quaternion.identity
+                );
+                interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
+                    .Instance
+                    .gamePlayers[i].Id.ToString();
+                interpolationGhost.GetComponent<Character>().name =
+                    $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
+
+                interpolationGhosts.Add(interpolationGhost);
+            }
+        }
+
+        if (SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime == 0)
+        {
+            foreach (GameObject interpolationGhost in interpolationGhosts)
+            {
+                interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+                interpolationGhost.SetActive(false);
+                Destroy(interpolationGhost.GetComponent<Health>());
+                Destroy(interpolationGhost);
+            }
+            interpolationGhosts = new List<GameObject>();
         }
     }
 
