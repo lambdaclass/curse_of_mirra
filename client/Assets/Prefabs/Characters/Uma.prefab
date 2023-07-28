@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 7873102551915249125}
   - component: {fileID: 4221220233964836970}
+  - component: {fileID: 1266864684986704021}
   m_Layer: 10
   m_Name: Uma
   m_TagString: Player
@@ -1131,6 +1132,20 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+--- !u!114 &1266864684986704021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c27519de357b4dae962d7fcc6dc3470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  umaMarks: {fileID: 721937715987147546}
+  currentMark: 0
 --- !u!1 &2447440010751429322
 GameObject:
   m_ObjectHideFlags: 0
@@ -3257,6 +3272,12 @@ PrefabInstance:
       objectReference: {fileID: 1787465996332106811}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e098dcba25946b6b2853c408723ff3, type: 3}
+--- !u!1 &721937715987147546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6492954784424382206, guid: 20e098dcba25946b6b2853c408723ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5773418454012339684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6955363313147366760 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,

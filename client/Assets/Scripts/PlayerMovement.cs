@@ -27,6 +27,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool playerIsPoisoned;
 
+    Dictionary<ulong, PlayerEffect> marksToDisplay = new Dictionary<ulong, PlayerEffect>
+    {
+        { (ulong)PlayerEffect.ElnarMark, PlayerEffect.ElnarMark },
+        { (ulong)PlayerEffect.YugenMark, PlayerEffect.YugenMark },
+        { (ulong)PlayerEffect.XandaMark, PlayerEffect.XandaMark }
+    };
+
     void Start()
     {
         InitBlockingStates();
@@ -408,6 +415,22 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<PlayerFeedbacks>()
                 .SetActivePoisonedFeedback(playerUpdate.Id, player, false);
         }
+
+        CharacterFeedbackManager feedbackManager =
+            character.GetComponent<CharacterFeedbackManager>();
+
+        foreach (ulong markId in marksToDisplay.Keys)
+        {
+            if (playerUpdate.Effects.ContainsKey(markId))
+            {
+                feedbackManager.DisplayUmaMarks(markId);
+            }
+            else
+            {
+                feedbackManager.RemoveMarks(markId);
+            }
+        }
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 1826878300138968485}
   - component: {fileID: 7873102551915249125}
   - component: {fileID: 4221220233964836970}
+  - component: {fileID: 6739023870110965775}
   m_Layer: 10
   m_Name: Muflus
   m_TagString: Player
@@ -558,6 +559,20 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+--- !u!114 &6739023870110965775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c27519de357b4dae962d7fcc6dc3470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  umaMarks: {fileID: 2480244430950355849}
+  currentMark: 0
 --- !u!1001 &744156147560492938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1075,6 +1090,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1787465996332106948}
     m_Modifications:
+    - target: {fileID: 1764886736275641122, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1192,6 +1212,12 @@ PrefabInstance:
       objectReference: {fileID: 1787465996332106811}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e098dcba25946b6b2853c408723ff3, type: 3}
+--- !u!1 &2480244430950355849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6492954784424382206, guid: 20e098dcba25946b6b2853c408723ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8678439586846088567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5253771918319810043 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,

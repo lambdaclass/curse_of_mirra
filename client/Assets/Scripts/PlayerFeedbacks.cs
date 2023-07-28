@@ -36,8 +36,6 @@ public class PlayerFeedbacks : MonoBehaviour
 
     public void ChangePlayerTextureOnDamage(GameObject player, float auxHealth, float playerHealth)
     {
-        // player.GetComponentInChildren<OverlayEffect>().enabled = true;
-
         if (auxHealth != playerHealth)
         {
             player.GetComponentInChildren<OverlayEffect>().enabled = true;
@@ -60,17 +58,33 @@ public class PlayerFeedbacks : MonoBehaviour
     public void ExecuteH4ckDisarmFeedback(ulong id, bool disarmed)
     {
         InputManager.ActivateDisarmEffect(disarmed);
-        GetComponent<PlayerStates>().DisplayStateIcon(id, "Disarmed", disarmed);
+        //Add Icon state
+        GetComponent<PlayerStates>()
+            .DisplayStateIcon(id, "Disarmed", disarmed);
+
+        // Remove icon state
+        if (!disarmed)
+        {
+            GetComponent<PlayerStates>().RemoveIconState("Disarmed");
+        }
     }
 
     public void SetActivePoisonedFeedback(ulong id, GameObject player, bool active)
     {
         player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(active);
+        //Add Icon state
         GetComponent<PlayerStates>()
             .DisplayStateIcon(
                 id,
                 "Poisoned",
                 player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.activeSelf
             );
+
+        if (!active)
+        {
+            // Remove icon state
+            GetComponent<PlayerStates>()
+                .RemoveIconState("Poisoned");
+        }
     }
 }
