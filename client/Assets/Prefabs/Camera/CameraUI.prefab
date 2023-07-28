@@ -7168,7 +7168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 435.99988, y: 55}
+  m_AnchoredPosition: {x: 680, y: 55}
   m_SizeDelta: {x: 344.91, y: 100.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1326514085191306140
@@ -9596,6 +9596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f07abbd7b9d43a8b34a430d21c7467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interpolationText: {fileID: 6866113266742032662}
 --- !u!1 &7165471738176455137
 GameObject:
   m_ObjectHideFlags: 0
@@ -9777,7 +9778,7 @@ GameObject:
   - component: {fileID: 1690452832012598951}
   - component: {fileID: 6866113266742032662}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: InterpolationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9831,7 +9832,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Interpolation Time
+  m_text: Interpolation Time 100ms
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10665,7 +10666,7 @@ PrefabInstance:
     - target: {fileID: 8589184727271786672, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Text
-      value: Toggle Ghost
+      value: Toggle Ghosts
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727591687666, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
@@ -10695,7 +10696,7 @@ PrefabInstance:
     - target: {fileID: 8589184727591687670, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleGhost
+      value: ToggleGhosts
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727591687670, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
@@ -10830,7 +10831,7 @@ PrefabInstance:
     - target: {fileID: 8589184729169344721, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Name
-      value: ToggleGhost
+      value: ToggleGhosts
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19229c6b3de9144aea6bd7ae03f513dc, type: 3}
