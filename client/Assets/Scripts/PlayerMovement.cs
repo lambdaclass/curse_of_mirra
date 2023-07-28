@@ -184,11 +184,23 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-                executeSkillFeedback(
-                    actualPlayer,
-                    serverPlayerUpdate.Action,
-                    serverPlayerUpdate.Direction
-                );
+                if (
+                    !buffer.timestampAlreadySeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    )
+                )
+                {
+                    executeSkillFeedback(
+                        actualPlayer,
+                        serverPlayerUpdate.Action,
+                        serverPlayerUpdate.Direction
+                    );
+                    buffer.setLastTimestampSeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    );
+                }
             }
 
             // TODO: try to optimize GetComponent calls
@@ -220,7 +232,6 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-
         // TODO: Refactor
         switch (playerAction)
         {
