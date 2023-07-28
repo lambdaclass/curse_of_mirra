@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.TopDownEngine;
-using MoreMountains.Tools;
 using System.Linq;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 using UnityEngine.UI;
-using MoreMountains.Feedbacks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
+
+    private bool playerIsPoisoned;
 
     void Start()
     {
@@ -183,7 +184,23 @@ public class PlayerMovement : MonoBehaviour
             if (actualPlayer.activeSelf)
             {
                 movePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-                executeSkillFeedback(actualPlayer, serverPlayerUpdate.Action);
+                if (
+                    !buffer.timestampAlreadySeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    )
+                )
+                {
+                    executeSkillFeedback(
+                        actualPlayer,
+                        serverPlayerUpdate.Action,
+                        serverPlayerUpdate.Direction
+                    );
+                    buffer.setLastTimestampSeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    );
+                }
             }
 
             // TODO: try to optimize GetComponent calls
@@ -205,42 +222,54 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(GameObject actualPlayer, PlayerAction playerAction)
+    private void executeSkillFeedback(
+        GameObject actualPlayer,
+        PlayerAction playerAction,
+        RelativePosition direction
+    )
     {
         if (actualPlayer.name.Contains("BOT"))
         {
             return;
         }
-
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerAction.Attacking:
                 actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
                 actualPlayer.GetComponent<Skill1>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
                 actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
                 actualPlayer.GetComponent<Skill2>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
                 actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
                 actualPlayer.GetComponent<Skill3>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
                 actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
                 actualPlayer.GetComponent<Skill4>().StartFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
                 actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                rotatePlayer(actualPlayer, direction);
                 break;
         }
     }
@@ -355,6 +384,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void rotatePlayer(GameObject player, RelativePosition direction)
+    {
+        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        movementDirection.Normalize();
+        characterOrientation.ForcedRotationDirection = movementDirection;
+    }
+
     private void movePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
@@ -371,6 +409,14 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -432,8 +478,6 @@ public class PlayerMovement : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
 
         var inputFromVirtualJoystick = joystickL is not null;
 
@@ -501,9 +545,10 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
+                var direction = getPlayerDirection(playerUpdate);
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
-                    characterOrientation.ForcedRotationDirection = movementDirection;
+                    rotatePlayer(player, direction);
                 }
             }
             walking = true;
@@ -632,11 +677,47 @@ public class PlayerMovement : MonoBehaviour
                 inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
             )
             || (
-                Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.D)
-                || Input.GetKey(KeyCode.S)
+                (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+                || (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+                || (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                || (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             )
             || inputFromPhysicalJoystick;
+    }
+
+    public RelativePosition getPlayerDirection(Player playerUpdate)
+    {
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        {
+            return playerUpdate.Direction;
+        }
+
+        var inputFromVirtualJoystick = joystickL is not null;
+        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
+
+        var direction = playerUpdate.Direction;
+        if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+        {
+            direction = new RelativePosition { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
+        }
+        else if (
+            Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S)
+        )
+        {
+            direction = new RelativePosition { X = 0, Y = 0 };
+            if (Input.GetKey(KeyCode.W))
+                direction.Y = 1;
+            if (Input.GetKey(KeyCode.A))
+                direction.X = -1;
+            if (Input.GetKey(KeyCode.D))
+                direction.X = 1;
+            if (Input.GetKey(KeyCode.S))
+                direction.Y = -1;
+        }
+
+        return direction;
     }
 }

@@ -18,6 +18,8 @@ public class SkillInfo : ScriptableObject
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
+    public float startAnimationDuration;
+    public float executeAnimationDuration;
     public float skillCircleRadius;
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]

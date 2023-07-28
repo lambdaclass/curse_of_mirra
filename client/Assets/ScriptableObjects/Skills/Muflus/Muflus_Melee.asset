@@ -25,5 +25,7 @@ MonoBehaviour:
   animationSpeedMultiplier: 3
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: d018a797cd1c94aeabf3e45f6ca33b2f, type: 3}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
   skillCircleRadius: 0
   skillConeAngle: 0

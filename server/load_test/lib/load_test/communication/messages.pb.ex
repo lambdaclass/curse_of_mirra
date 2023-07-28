@@ -229,6 +229,8 @@ defmodule LoadTest.Communication.Proto.Player do
     type: LoadTest.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  field(:direction, 16, type: LoadTest.Communication.Proto.RelativePosition)
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do

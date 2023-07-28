@@ -284,6 +284,10 @@ impl Player {
             return false;
         }
 
+        if self.has_active_effect(&Effect::Leaping) {
+            return false;
+        }
+
         !(self.has_active_effect(&Effect::Disarmed) && !is_basic_skill)
     }
 
