@@ -1,26 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbyInfo : MonoBehaviour
 {
     [SerializeField]
-    Text lobbyID;
+    TextMeshProUGUI lobbyID;
 
     [SerializeField]
-    Text playersAmount;
+    TextMeshProUGUI playersAmount;
+
+    [SerializeField]
+    TextMeshProUGUI mapName;
 
     // Start is called before the first frame update
     void Start()
     {
-        lobbyID.text = LobbyConnection.Instance.LobbySession;
+        string id = LobbyConnection.Instance.LobbySession.ToString();
+        lobbyID.text = "# " + id.Substring(id.Length - 5);
+
+        // TODO bring from LobbyConnection map name
+        mapName.text = "Araban";
     }
 
     // Update is called once per frame
     void Update()
     {
-        playersAmount.text = "Amount of Players: " + LobbyConnection.Instance.playerCount;
+        playersAmount.text = LobbyConnection.Instance.playerCount.ToString();
     }
 }
