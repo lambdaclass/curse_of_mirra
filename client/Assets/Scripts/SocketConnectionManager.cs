@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +6,6 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -91,6 +88,11 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+        if (gamePlayers != null && players != null)
+        {
+            print(gamePlayers.Count());
+            print(players.Count());
+        }
     }
 
     private void ConnectToSession(string session_id)

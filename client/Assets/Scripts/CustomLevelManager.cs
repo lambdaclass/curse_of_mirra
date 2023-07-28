@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,6 +18,9 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     GameObject roundSplash;
+
+    [SerializeField]
+    GameObject deathSplash;
 
     [SerializeField]
     Text roundText;
@@ -39,6 +42,9 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+
+    [SerializeField]
+    public GameObject UiControls;
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
@@ -95,6 +101,21 @@ public class CustomLevelManager : LevelManager
         if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
         {
             ShowRoundTransition();
+        }
+        var gamePlayer = Utils.GetGamePlayer(playerId);
+
+        print(gamePlayer);
+        print(gamePlayer == null);
+        if (gamePlayer != null)
+        {
+            print(gamePlayer.Status);
+            print(gamePlayer.Health);
+        }
+
+        // TODO: we should only check if the gamePlayer.Status is dead, but there's a bug yet to be fixed on the backend side for that to work properly.
+        if (gamePlayer != null && (gamePlayer.Status == Status.Dead || gamePlayer.Health <= 0))
+        {
+            ShowDeathSplash();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -233,6 +254,21 @@ public class CustomLevelManager : LevelManager
 
         roundSplash.SetActive(true);
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
+    }
+
+    private void ShowDeathSplash()
+    {
+        deathSplash.SetActive(true);
+        UiControls.SetActive(false);
+        SetCameraToRandomPlayer();
+    }
+
+    private void SetCameraToRandomPlayer()
+    {
+        var alivePlayers = Utils.GetAlivePlayers();
+        var rand = new System.Random();
+        var randomPlayer = alivePlayers.ElementAt(rand.Next(0, alivePlayers.Count()));
+        setCameraToPlayer(randomPlayer.Id);
     }
 
     private void InitializeAudio()
