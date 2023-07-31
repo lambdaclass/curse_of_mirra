@@ -8,7 +8,7 @@ public class CoMCharacter : ScriptableObject
     public new string name;
     public Sprite artWork;
     public Sprite selectedArtwork;
-    public bool selected = false;
+    public Sprite blockArtwork;
     public GameObject prefab;
     public SkillInfo skillBasicInfo;
     public SkillInfo skill1Info;

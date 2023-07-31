@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class LobbiesManager : LevelSelector
 {
     [SerializeField]
-    Text sessionId;
+    LobbiesListItem listItem;
 
     public override void GoToLevel()
     {
@@ -24,7 +25,7 @@ public class LobbiesManager : LevelSelector
 
     public void ConnectToLobby()
     {
-        LobbyConnection.Instance.ConnectToLobby(sessionId.text);
+        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
         SceneManager.LoadScene("Lobby");
     }
 

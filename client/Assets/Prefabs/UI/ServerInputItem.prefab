@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idContainer: {fileID: 6414615370394600162}
+  idHash: 
 --- !u!1 &6414615369073437645
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +665,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8612576593162131314
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,10 +902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 6414615370394600174}
-  Button: {fileID: 8612576593162131314}
-  ButtonText: {fileID: 19441822680051426}
-  selectedColor: {r: 1, g: 0.76862746, b: 0, a: 1}
+  IP: {fileID: 0}
+  severName: {fileID: 0}
 --- !u!114 &1166018969710624067
 MonoBehaviour:
   m_ObjectHideFlags: 0

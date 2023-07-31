@@ -43,6 +43,9 @@ public class SocketConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer;
     public bool allSelected = false;
 
+    public float playableRadius;
+    public Position shrinkingCenter;
+
     WebSocket ws;
 
     private string clientId;
@@ -105,7 +108,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + this.clientId + "/" + playerId);
         print(url);
-        Dictionary<string, string> headers =new Dictionary<string, string>();
+        Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
@@ -124,6 +127,8 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    this.playableRadius = game_event.PlayableRadius;
+                    this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
 
                     if (

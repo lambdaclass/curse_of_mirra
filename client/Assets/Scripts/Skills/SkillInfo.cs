@@ -6,10 +6,16 @@ using UnityEngine;
 public class SkillInfo : ScriptableObject
 {
     public new string name;
+    public string description;
     public UIType inputType;
-    public GameObject feedbackAnimation;
-    public bool instantiateAnimationOnModel;
+    public GameObject feedbackVfx;
+    public float feedbackVfxDuration;
+    public GameObject startFeedbackVfx;
+    public float startFeedbackVfxDuration;
+    public bool instantiateVfxOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
+    public float startAnimationDuration;
+    public float executeAnimationDuration;
 }

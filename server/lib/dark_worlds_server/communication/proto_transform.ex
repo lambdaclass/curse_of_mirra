@@ -104,7 +104,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      direction: direction
     } = player
 
     %ProtoPlayer{
@@ -121,7 +122,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      direction: direction
     }
   end
 
@@ -229,7 +231,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      direction: direction
     } = player
 
     %EnginePlayer{
@@ -247,7 +250,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_3_cooldown_left: skill_3_cooldown_left,
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
-      effects: effects
+      effects: effects,
+      direction: direction
     }
   end
 
@@ -366,20 +370,28 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp player_action_encode(:attacking), do: :ATTACKING
   defp player_action_encode(:nothing), do: :NOTHING
   defp player_action_encode(:attackingaoe), do: :ATTACKING_AOE
+  defp player_action_encode(:startingskill1), do: :STARTING_SKILL_1
+  defp player_action_encode(:startingskill2), do: :STARTING_SKILL_2
+  defp player_action_encode(:startingskill3), do: :STARTING_SKILL_3
+  defp player_action_encode(:startingskill4), do: :STARTING_SKILL_4
   defp player_action_encode(:executingskill1), do: :EXECUTING_SKILL_1
   defp player_action_encode(:executingskill2), do: :EXECUTING_SKILL_2
   defp player_action_encode(:executingskill3), do: :EXECUTING_SKILL_3
   defp player_action_encode(:executingskill4), do: :EXECUTING_SKILL_4
-  defp player_action_encode(:teleporting), do: :TELEPORTING
+  defp player_action_encode(:moving), do: :MOVING
 
   defp player_action_decode(:ATTACKING), do: :attacking
   defp player_action_decode(:NOTHING), do: :nothing
   defp player_action_decode(:ATTACKING_AOE), do: :attackingaoe
+  defp player_action_decode(:STARTING_SKILL_1), do: :startingskill1
+  defp player_action_decode(:STARTING_SKILL_2), do: :startingskill2
+  defp player_action_decode(:STARTING_SKILL_3), do: :startingskill3
+  defp player_action_decode(:STARTING_SKILL_4), do: :startingskill4
   defp player_action_decode(:EXECUTING_SKILL_1), do: :executingskill1
   defp player_action_decode(:EXECUTING_SKILL_2), do: :executingskill2
   defp player_action_decode(:EXECUTING_SKILL_3), do: :executingskill3
   defp player_action_decode(:EXECUTING_SKILL_4), do: :executingskill4
-  defp player_action_decode(:TELEPORTING), do: :teleporting
+  defp player_action_decode(:MOVING), do: :moving
 
   defp projectile_encode(:bullet), do: :BULLET
   defp projectile_encode(:disarmingbullet), do: :DISARMING_BULLET
@@ -398,4 +410,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
   defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
+  defp effect_encode({:out_of_area, %{ends_at: ends_at}}), do: {6, ends_at}
+  defp effect_encode({:elnar_mark, %{ends_at: ends_at}}), do: {7, ends_at}
+  defp effect_encode({:yugen_mark, %{ends_at: ends_at}}), do: {8, ends_at}
+  defp effect_encode({:xanda_mark, %{ends_at: ends_at}}), do: {9, ends_at}
+  defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at}}), do: {10, ends_at}
+  defp effect_encode({:poisoned, %{ends_at: ends_at}}), do: {11, ends_at}
 end
