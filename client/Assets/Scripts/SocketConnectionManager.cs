@@ -82,7 +82,7 @@ public class SocketConnectionManager : MonoBehaviour
             if (this.reconnect) {
                 this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
                 this.gamePlayers = new List<Player>();
-                this.allSelected = true;
+                this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
             }
         }
     }

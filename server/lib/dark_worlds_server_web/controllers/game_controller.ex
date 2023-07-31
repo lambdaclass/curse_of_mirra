@@ -25,18 +25,19 @@ defmodule DarkWorldsServerWeb.GameController do
         json(conn, %{ongoing_game: false})
 
       {game_pid, game_player_id} ->
-        {%{game: %{players: players}}, %{game_config: game_config}} = Runner.get_game_state(game_pid)
+        {game_status, selected_characters, %{game_config: game_config}} = Runner.get_game_state(game_pid)
 
-        players = Enum.map(players, fn player -> %{character_name: player.character_name, id: player.id} end)
+        selections = Enum.map(selected_characters, fn {id, name} -> %{character_name: name, id: id} end)
         game_config = Enum.reduce(game_config, %{}, &transform_config/2)
         server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
         json(conn, %{
           ongoing_game: true,
+          on_character_selection: game_status == :character_selection,
           server_hash: server_hash,
           current_game_id: Communication.pid_to_external_id(game_pid),
           current_game_player_id: game_player_id,
-          players: players,
+          players: selections,
           game_config: game_config
         })
     end

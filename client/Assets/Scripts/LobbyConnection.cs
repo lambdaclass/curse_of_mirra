@@ -29,6 +29,7 @@ public class LobbyConnection : MonoBehaviour
     public bool gameStarted = false;
     public string clientId;
     public bool reconnect = false;
+    public bool reconnectToCharacterSelection = false;
     public string reconnectServerHash;
     public string reconnectGameId;
     public string reconnectPlayerId;
@@ -60,6 +61,7 @@ public class LobbyConnection : MonoBehaviour
     public class CurrentGameResponse
     {
         public bool ongoing_game;
+        public bool on_character_selection;
         public string server_hash;
         public string current_game_id;
         public string current_game_player_id;
@@ -300,6 +302,7 @@ public class LobbyConnection : MonoBehaviour
 
                     if (response.ongoing_game)
                     {
+                        this.reconnectToCharacterSelection = response.on_character_selection;
                         this.reconnectGameId = response.current_game_id;
                         this.reconnectPlayerId = response.current_game_player_id;
                         this.playerCount = response.players.Count;
