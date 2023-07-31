@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
     public UnityEvent<Vector2, Skill> newPointerUpEvent;
-    public UnityEvent<Vector2> newDragEvent;
+    public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
 
@@ -22,7 +22,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        newDragEvent.Invoke(RawValue);
+        newDragEvent.Invoke(RawValue, this);
     }
 
     public override void OnPointerUp(PointerEventData data)
