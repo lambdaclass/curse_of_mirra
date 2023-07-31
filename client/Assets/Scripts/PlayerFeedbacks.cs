@@ -60,7 +60,7 @@ public class PlayerFeedbacks : MonoBehaviour
         InputManager.ActivateDisarmEffect(disarmed);
         //Add Icon state
         GetComponent<PlayerStates>()
-            .DisplayStateIcon(id, "Disarmed", disarmed);
+            .DisplayStateIcon("Disarmed", disarmed);
 
         // Remove icon state
         if (!disarmed)
@@ -72,19 +72,5 @@ public class PlayerFeedbacks : MonoBehaviour
     public void SetActivePoisonedFeedback(ulong id, GameObject player, bool active)
     {
         player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(active);
-        //Add Icon state
-        GetComponent<PlayerStates>()
-            .DisplayStateIcon(
-                id,
-                "Poisoned",
-                player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.activeSelf
-            );
-
-        if (!active)
-        {
-            // Remove icon state
-            GetComponent<PlayerStates>()
-                .RemoveIconState("Poisoned");
-        }
     }
 }

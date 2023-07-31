@@ -405,6 +405,16 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
+        //Display state icon
+        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+        {
+            GetComponent<PlayerStates>()
+                .DisplayStateIcon(
+                    "Poisoned",
+                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+                );
+        }
+        //refactor this? maybe do it as disarmed effect ?
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
         {
             GetComponent<PlayerFeedbacks>()

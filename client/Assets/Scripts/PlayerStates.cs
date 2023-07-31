@@ -16,20 +16,21 @@ public class PlayerStates : MonoBehaviour
 
     List<GameObject> iconStates = new List<GameObject>();
 
-    public void DisplayStateIcon(ulong id, string stateName, bool isActive)
+    public void DisplayStateIcon(string stateName, bool isActive)
     {
-        if (id == SocketConnectionManager.Instance.playerId)
+        GameObject item = null;
+        if (isActive && !iconStates?.Find(el => el.name == stateName))
         {
-            GameObject item = null;
-            if (isActive && !iconStates?.Find(el => el.name == stateName))
-            {
-                StateInfo state = GetStateById(stateName);
-                item = Instantiate(StateItem, statesContainer.transform);
-                item.name = stateName;
-                item.GetComponent<Image>().sprite = state.image;
-                item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-                iconStates.Add(item);
-            }
+            StateInfo state = GetStateById(stateName);
+            item = Instantiate(StateItem, statesContainer.transform);
+            item.name = stateName;
+            item.GetComponent<Image>().sprite = state.image;
+            item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            iconStates.Add(item);
+        }
+        if (!isActive)
+        {
+            RemoveIconState(stateName);
         }
     }
 
