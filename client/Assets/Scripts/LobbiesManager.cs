@@ -3,9 +3,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System;
-using TMPro;
 
 public class LobbiesManager : LevelSelector
 {

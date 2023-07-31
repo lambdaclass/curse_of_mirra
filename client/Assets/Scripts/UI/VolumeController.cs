@@ -13,20 +13,20 @@ public class VolumeController : MonoBehaviour
         soundManager = MMSoundManager.Instance;
 
         volumeSlider.value = soundManager.GetTrackVolume(
-            MMSoundManager.MMSoundManagerTracks.Music,
+            MMSoundManager.MMSoundManagerTracks.Master,
             false
         );
     }
 
     public void ChangeMusicVolume()
     {
-        soundManager.SetVolumeMusic(volumeSlider.value);
+        soundManager.SetVolumeMaster(volumeSlider.value);
     }
 
     private void Update()
     {
         volumeSlider.value = soundManager.GetTrackVolume(
-            MMSoundManager.MMSoundManagerTracks.Music,
+            MMSoundManager.MMSoundManagerTracks.Master,
             false
         );
     }
