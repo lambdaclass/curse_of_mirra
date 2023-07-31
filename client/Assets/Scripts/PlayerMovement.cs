@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
 
-    private bool playerIsPoisoned;
-
     Dictionary<ulong, PlayerEffect> marksToDisplay = new Dictionary<ulong, PlayerEffect>
     {
         { (ulong)PlayerEffect.ElnarMark, PlayerEffect.ElnarMark },
@@ -409,7 +407,7 @@ public class PlayerMovement : MonoBehaviour
         if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
         {
             GetComponent<PlayerStates>()
-                .DisplayStateIcon(
+                .ToggleStateIcon(
                     "Poisoned",
                     playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
                 );
@@ -429,6 +427,7 @@ public class PlayerMovement : MonoBehaviour
         CharacterFeedbackManager feedbackManager =
             character.GetComponent<CharacterFeedbackManager>();
 
+        //Uma marks
         foreach (ulong markId in marksToDisplay.Keys)
         {
             if (playerUpdate.Effects.ContainsKey(markId))
@@ -472,6 +471,12 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<PlayerFeedbacks>()
                 .ExecuteH4ckDisarmFeedback(
                     playerUpdate.Id,
+                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
+                );
+
+            GetComponent<PlayerStates>()
+                .ToggleStateIcon(
+                    "Disarmed",
                     playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
                 );
         }

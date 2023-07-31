@@ -58,15 +58,6 @@ public class PlayerFeedbacks : MonoBehaviour
     public void ExecuteH4ckDisarmFeedback(ulong id, bool disarmed)
     {
         InputManager.ActivateDisarmEffect(disarmed);
-        //Add Icon state
-        GetComponent<PlayerStates>()
-            .DisplayStateIcon("Disarmed", disarmed);
-
-        // Remove icon state
-        if (!disarmed)
-        {
-            GetComponent<PlayerStates>().RemoveIconState("Disarmed");
-        }
     }
 
     public void SetActivePoisonedFeedback(ulong id, GameObject player, bool active)

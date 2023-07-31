@@ -16,7 +16,26 @@ public class PlayerStates : MonoBehaviour
 
     List<GameObject> iconStates = new List<GameObject>();
 
-    public void DisplayStateIcon(string stateName, bool isActive)
+    public void ToggleStateIcon(string stateName, bool isActive)
+    {
+        if (isActive)
+        {
+            CreateIconState(stateName, isActive);
+        }
+        else
+        {
+            RemoveIconState(stateName);
+        }
+    }
+
+    public void RemoveIconState(string stateName)
+    {
+        GameObject iconToRemove = iconStates.Find(el => el.name == stateName);
+        iconStates.Remove(iconToRemove);
+        Destroy(iconToRemove);
+    }
+
+    public void CreateIconState(string stateName, bool isActive)
     {
         GameObject item = null;
         if (isActive && !iconStates?.Find(el => el.name == stateName))
@@ -28,17 +47,6 @@ public class PlayerStates : MonoBehaviour
             item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             iconStates.Add(item);
         }
-        if (!isActive)
-        {
-            RemoveIconState(stateName);
-        }
-    }
-
-    public void RemoveIconState(string stateName)
-    {
-        GameObject iconToRemove = iconStates.Find(el => el.name == stateName);
-        iconStates.Remove(iconToRemove);
-        Destroy(iconToRemove);
     }
 
     private StateInfo GetStateById(string stateName)
