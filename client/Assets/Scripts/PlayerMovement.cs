@@ -687,8 +687,7 @@ public class PlayerMovement : MonoBehaviour
                 Ghosts.Add(interpolationGhost);
             }
         }
-
-        if (SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime == 0)
+        else
         {
             foreach (GameObject interpolationGhost in Ghosts)
             {
