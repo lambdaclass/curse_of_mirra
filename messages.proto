@@ -227,6 +227,9 @@ message RunnerConfig {
     uint64 board_height = 3;
     uint64 server_tickrate_ms = 4;
     uint64 game_timeout_ms = 5;
+    uint64 map_shrink_wait_ms = 6;
+    uint64 map_shrink_interval = 7;
+    uint64 out_of_area_damage = 8;
 }
 
 message GameConfig {
@@ -273,6 +276,8 @@ message SkillConfigItem {
     string Duration = 7;
     string Projectile = 8;
     string Minion = 9;
+    string SkillRange = 10;
+    string Angle = 11;
 }
 
 message ServerGameSettings {
