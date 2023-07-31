@@ -687,7 +687,7 @@ public class PlayerMovement : MonoBehaviour
 
     public RelativePosition getPlayerDirection(Player playerUpdate)
     {
-        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
             return playerUpdate.Direction;
         }
