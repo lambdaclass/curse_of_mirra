@@ -188,10 +188,10 @@ public class PlayerMovement : MonoBehaviour
             if (
                 SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
                 && SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id
+                && serverGhost != null
             )
             {
-                GameObject interpolationGhost = findGhostPlayer(serverPlayerUpdate.Id.ToString());
-                movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                movePlayer(serverGhost, buffer.lastEvent().Players[i], pastTime);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -635,29 +635,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCharacter.CharacterModel.SetActive(true);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-    }
-
-    public void ToggleGhost()
-    {
-        if (!useClientPrediction)
-        {
-            return;
-        }
-        showServerGhost = !showServerGhost;
-        if (showServerGhost)
-        {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-            serverGhost.GetComponent<Character>().name = "Server Ghost";
-            // serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
-            // serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
-        }
-        else
-        {
-            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-            Destroy(serverGhost);
-            serverGhost = null;
-        }
     }
 
     public void ToggleGhosts()
