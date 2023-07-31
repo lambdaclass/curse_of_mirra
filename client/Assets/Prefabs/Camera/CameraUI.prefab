@@ -9227,7 +9227,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CLIENT #99999999
+  m_Text: CLIENT #
 --- !u!114 &4319422502157351612
 MonoBehaviour:
   m_ObjectHideFlags: 0
