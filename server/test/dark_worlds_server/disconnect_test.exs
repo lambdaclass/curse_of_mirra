@@ -12,7 +12,10 @@ defmodule DarkWorldsServer.Test.Disconnect do
             board_width: 1000,
             board_height: 1000,
             server_tickrate_ms: 30,
-            game_timeout_ms: 1_200_000
+            game_timeout_ms: 1_200_000,
+            map_shrink_wait_ms: 60_000,
+            map_shrink_interval: 100,
+            out_of_area_damage: 10
           },
           character_config: DarkWorldsServer.Test.characters_config(),
           skills_config: DarkWorldsServer.Test.skills_config()
