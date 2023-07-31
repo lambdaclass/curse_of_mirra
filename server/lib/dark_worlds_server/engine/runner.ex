@@ -317,8 +317,10 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
+    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+
     Process.send_after(self(), :update_state, tick_rate)
-    Process.send_after(self(), :shrink_map, @map_shrink_wait_ms)
+    Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
 
     gen_server_state =
       gen_server_state
@@ -359,10 +361,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
     game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
     game =
       server_game_state.game
-      |> Game.world_tick()
+      |> Game.world_tick(out_of_area_damage)
 
     server_game_state = server_game_state |> Map.put(:game, game)
 
@@ -378,7 +381,10 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
-    Process.send_after(self(), :shrink_map, @map_shrink_interval_ms)
+    map_shrink_interval_ms =
+      Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval_ms, @map_shrink_interval_ms)
+
+    Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
     {:ok, game} = Game.shrink_map(server_game_state.game)
     gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)

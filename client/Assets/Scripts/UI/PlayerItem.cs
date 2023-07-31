@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour
 {
     [SerializeField]
-    public Text playerText;
+    public TextMeshProUGUI playerText;
+
+    [SerializeField]
+    public TextMeshProUGUI playerRollText;
     public ulong id;
     public string characterName;
 
@@ -32,18 +36,18 @@ public class PlayerItem : MonoBehaviour
 
     public void SetPlayerItemText()
     {
-        if (id == 1)
+        this.playerText.text = $"Player {id.ToString()} {characterName} ";
+        if (id == 1 && LobbyConnection.Instance.playerId == id)
         {
-            this.playerText.text = $"Player {id.ToString()} {characterName} HOST ";
+            this.playerRollText.text = $"HOST / YOU";
         }
-        else
+        else if (id == 1)
         {
-            this.playerText.text = $"Player {id.ToString()} {characterName} ";
+            this.playerRollText.text = $"HOST ";
         }
-
-        if (LobbyConnection.Instance.playerId == id)
+        else if (LobbyConnection.Instance.playerId == id)
         {
-            this.playerText.text += "YOU";
+            this.playerRollText.text = "YOU";
         }
     }
 }
