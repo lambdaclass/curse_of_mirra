@@ -29,7 +29,9 @@ public class LobbyConnection : MonoBehaviour
     public bool gameStarted = false;
     public string clientId;
     public bool reconnect = false;
+    public bool reconnectPossible = false;
     public bool reconnectToCharacterSelection = false;
+    public int reconnectPlayerCount;
     public string reconnectServerHash;
     public string reconnectGameId;
     public string reconnectPlayerId;
@@ -62,6 +64,7 @@ public class LobbyConnection : MonoBehaviour
     {
         public bool ongoing_game;
         public bool on_character_selection;
+        public int player_count;
         public string server_hash;
         public string current_game_id;
         public string current_game_player_id;
@@ -201,6 +204,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverSettings = this.reconnectServerSettings;
         this.serverTickRate_ms = (uint) this.serverSettings.RunnerConfig.ServerTickrateMs;
         this.serverHash = this.reconnectServerHash;
+        this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
     }
 
@@ -302,10 +306,12 @@ public class LobbyConnection : MonoBehaviour
 
                     if (response.ongoing_game)
                     {
+                        this.reconnectPossible = true;
                         this.reconnectToCharacterSelection = response.on_character_selection;
+                        this.reconnectPlayerCount = response.player_count;
                         this.reconnectGameId = response.current_game_id;
                         this.reconnectPlayerId = response.current_game_player_id;
-                        this.playerCount = response.players.Count;
+                        this.reconnectPlayerCount = response.player_count;
                         this.reconnectServerHash = response.server_hash;
 
                         this.reconnectPlayers = new Dictionary<ulong, string>();
