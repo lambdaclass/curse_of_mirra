@@ -387,17 +387,13 @@ impl GameState {
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
                 self.melee_attack(attacking_player, direction, attack_range)
-
             }
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
 
-                let attacked_players_ids = self.melee_attack(
-                    attacking_player,
-                    direction,
-                    attack_range,
-                )?;
+                let attacked_players_ids =
+                    self.melee_attack(attacking_player, direction, attack_range)?;
                 for attacked_player_id in attacked_players_ids.clone() {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, attacked_player_id)?;
