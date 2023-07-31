@@ -2,16 +2,20 @@
     Edit Character Config
 </.header>
   
-<.simple_form :let={f} for={@config} action={#}>
-    <%= for key <- @config |> Map.keys() |> Enum.map(&String.to_existing_atom/1) do %>
-        <.input field={f[key]} type="text" label={key} />
-    <% end %>
+<.simple_form for={@config} action={#}>
+    <%= for {id, i} <- @config do %>
+        <h1><%= i["Name"] %></h1>
+        <% IO.inspect(i) %>
 
+            <%= for key <- i |> Map.keys() do %>
+                <.input field={@config |> IO.inspect()} type="text" label={key} />
+            <% end %>
+    <% end %>
     <:actions>
         <.button phx-click="save">Save</.button>
     </:actions>
 </.simple_form>
-
+    
 
 
 <.back navigate={~p"/config"}>Back to config</.back>
