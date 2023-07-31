@@ -878,7 +878,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
-  mapList: {fileID: 0}
+  waitingText: {fileID: 0}
 --- !u!1 &1219565901
 GameObject:
   m_ObjectHideFlags: 0
@@ -8853,7 +8853,7 @@ MonoBehaviour:
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
   playButton: {fileID: 0}
-  mapList: {fileID: 0}
+  waitingText: {fileID: 0}
 --- !u!1 &5601055529000293198
 GameObject:
   m_ObjectHideFlags: 0
@@ -10833,7 +10833,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToggleGhosts
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6265185516999118662, guid: 19229c6b3de9144aea6bd7ae03f513dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 19229c6b3de9144aea6bd7ae03f513dc, type: 3}
 --- !u!224 &8589184727428656987 stripped
 RectTransform:

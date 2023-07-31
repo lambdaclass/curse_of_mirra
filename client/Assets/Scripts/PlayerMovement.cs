@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public float accumulatedTime;
 
-    public List<GameObject> interpolationGhosts = new List<GameObject>();
+    public List<GameObject> Ghosts = new List<GameObject>();
 
     private bool playerIsPoisoned;
 
@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             accumulatedTime += Time.deltaTime * 1000f;
-            ToggleInterpolationGhosts();
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -148,6 +147,10 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
+            GameObject serverGhost = findGhostPlayer(
+                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+            );
+
             if (
                 useInterpolation
                 && SocketConnectionManager.Instance.playerId
@@ -163,7 +166,6 @@ public class PlayerMovement : MonoBehaviour
 
             // This call to `new` here is extremely important for client prediction. If we don't make a copy,
             // prediction will modify the player in place, which is not what we want.
-            Player serverPlayerUpdateCopy = new Player(gameEvent.Players[i]);
             Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
             if (
@@ -185,19 +187,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (
                 SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
-                && SocketConnectionManager.Instance.playerId != serverPlayerUpdateCopy.Id
+                && SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id
             )
             {
-                GameObject interpolationGhost = interpolationGhosts.Find(
-                    ig =>
-                        ig.GetComponent<Character>().PlayerID
-                        == serverPlayerUpdateCopy.Id.ToString()
-                );
-                movePlayer(
-                    interpolationGhost,
-                    SocketConnectionManager.Instance.eventsBuffer.lastEvent().Players[i],
-                    pastTime
-                );
+                GameObject interpolationGhost = findGhostPlayer(serverPlayerUpdate.Id.ToString());
+                movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -666,16 +660,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ToggleInterpolationGhosts()
+    public void ToggleGhosts()
     {
         if (
             SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
-            && interpolationGhosts.Count == 0
+            && Ghosts.Count == 0
         )
         {
             for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
             {
-                print("llega");
                 GameObject player = Utils.GetPlayer(
                     SocketConnectionManager.Instance.gamePlayers[i].Id
                 );
@@ -691,20 +684,19 @@ public class PlayerMovement : MonoBehaviour
                 interpolationGhost.GetComponent<Character>().name =
                     $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
 
-                interpolationGhosts.Add(interpolationGhost);
+                Ghosts.Add(interpolationGhost);
             }
         }
 
         if (SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime == 0)
         {
-            foreach (GameObject interpolationGhost in interpolationGhosts)
+            foreach (GameObject interpolationGhost in Ghosts)
             {
                 interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
                 interpolationGhost.SetActive(false);
-                Destroy(interpolationGhost.GetComponent<Health>());
                 Destroy(interpolationGhost);
             }
-            interpolationGhosts = new List<GameObject>();
+            Ghosts = new List<GameObject>();
         }
     }
 
@@ -782,5 +774,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return direction;
+    }
+
+    private GameObject findGhostPlayer(string playerId)
+    {
+        return Ghosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
     }
 }
