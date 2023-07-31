@@ -36,7 +36,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig
+    path: Armature
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -61,7 +61,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root
+    path: Armature/root
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -113,7 +113,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine
+    path: Armature/root/spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -165,7 +165,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine
+    path: Armature/root/spine/IK_Spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -190,7 +190,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003
+    path: Armature/root/spine/IK_Spine/spine.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -215,7 +215,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -240,7 +240,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -292,7 +292,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -380,7 +380,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -486,7 +486,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -556,13 +556,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.009470149, y: -0.029210048, z: -0.708334, w: 0.7052092}
+        value: {x: 0.50535464, y: -0.48021317, z: 0.5215224, w: -0.49196178}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -571,7 +571,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: -0.009470149, y: -0.029210048, z: -0.708334, w: 0.7052092}
+        value: {x: 0.50535464, y: -0.48021317, z: 0.5215224, w: -0.49196178}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -581,7 +581,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -606,7 +606,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -631,7 +631,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -656,7 +656,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -681,7 +681,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -706,7 +706,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -731,7 +731,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -756,7 +756,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -781,7 +781,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -806,7 +806,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -831,7 +831,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -856,7 +856,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -881,13 +881,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.44820246, y: -0.49365184, z: 0.5183198, w: 0.5355063}
+        value: {x: 0.44820258, y: -0.49365187, z: 0.51831985, w: 0.5355063}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -896,7 +896,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: 0.44820246, y: -0.49365184, z: 0.5183198, w: 0.5355063}
+        value: {x: 0.44820258, y: -0.49365187, z: 0.51831985, w: 0.5355063}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -906,7 +906,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -931,7 +931,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -956,7 +956,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1062,7 +1062,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1114,7 +1114,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1220,13 +1220,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.5053545, y: -0.48021317, z: 0.52152246, w: 0.49196184}
+        value: {x: 0.70520914, y: 0.7083341, z: -0.029210055, w: 0.009470172}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -1235,7 +1235,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: -0.5053545, y: -0.48021317, z: 0.52152246, w: 0.49196184}
+        value: {x: 0.70520914, y: 0.7083341, z: -0.029210055, w: 0.009470172}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -1245,7 +1245,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1270,7 +1270,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1295,7 +1295,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1320,7 +1320,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1345,7 +1345,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1370,7 +1370,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1395,7 +1395,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1420,7 +1420,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1445,7 +1445,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1470,7 +1470,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1495,7 +1495,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1520,7 +1520,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1545,13 +1545,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.39121786, y: 0.54396605, z: -0.4652402, w: 0.5784471}
+        value: {x: 0.39121786, y: 0.5439661, z: -0.46524012, w: 0.57844716}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -1560,7 +1560,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: 0.39121786, y: 0.54396605, z: -0.4652402, w: 0.5784471}
+        value: {x: 0.39121786, y: 0.5439661, z: -0.46524012, w: 0.57844716}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -1570,7 +1570,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1595,7 +1595,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1620,7 +1620,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1645,7 +1645,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001
+    path: Armature/root/spine/spine.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1679,7 +1679,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001/spine.002
+    path: Armature/root/spine/spine.001/spine.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1794,7 +1794,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001
+    path: Armature/root/tail.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1900,7 +1900,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002
+    path: Armature/root/tail.001/tail.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1997,7 +1997,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003
+    path: Armature/root/tail.001/tail.002/tail.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2103,7 +2103,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2173,7 +2173,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2279,7 +2279,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2367,7 +2367,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2473,7 +2473,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -2501,7 +2501,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig
+    path: Armature
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2526,7 +2526,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root
+    path: Armature/root
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2578,7 +2578,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine
+    path: Armature/root/spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2603,7 +2603,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine
+    path: Armature/root/spine/IK_Spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2628,7 +2628,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003
+    path: Armature/root/spine/IK_Spine/spine.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2653,7 +2653,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2678,7 +2678,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2703,7 +2703,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2728,7 +2728,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2753,7 +2753,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2778,7 +2778,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2803,7 +2803,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2828,7 +2828,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2853,7 +2853,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2878,7 +2878,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2903,7 +2903,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2928,7 +2928,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2953,7 +2953,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2978,7 +2978,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3003,7 +3003,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3028,7 +3028,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3053,7 +3053,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3078,7 +3078,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3103,7 +3103,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3128,7 +3128,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3153,7 +3153,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3178,7 +3178,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3203,7 +3203,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3228,7 +3228,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3253,7 +3253,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3278,7 +3278,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3303,7 +3303,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3328,7 +3328,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3353,7 +3353,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3378,7 +3378,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3403,7 +3403,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3428,7 +3428,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3453,7 +3453,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3478,7 +3478,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3503,7 +3503,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3528,7 +3528,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3553,7 +3553,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3578,7 +3578,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3603,7 +3603,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3628,7 +3628,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3653,7 +3653,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3678,7 +3678,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001
+    path: Armature/root/spine/spine.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3703,7 +3703,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001/spine.002
+    path: Armature/root/spine/spine.001/spine.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3728,7 +3728,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001
+    path: Armature/root/tail.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3753,7 +3753,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002
+    path: Armature/root/tail.001/tail.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3778,7 +3778,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003
+    path: Armature/root/tail.001/tail.002/tail.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3803,7 +3803,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3828,7 +3828,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3853,7 +3853,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3878,7 +3878,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3903,7 +3903,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
   m_ScaleCurves:
   - curve:
       serializedVersion: 2
@@ -3929,7 +3929,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine
+    path: Armature/root/spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3954,7 +3954,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine
+    path: Armature/root/spine/IK_Spine
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3979,7 +3979,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003
+    path: Armature/root/spine/IK_Spine/spine.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4004,7 +4004,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4029,7 +4029,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4054,7 +4054,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
+    path: Armature/root/spine/IK_Spine/spine.003/spine.004/spine.005/spine.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4079,7 +4079,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4104,7 +4104,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4129,13 +4129,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.010000002, y: 0.009999995, z: 0.010000003}
+        value: {x: 1.0000001, y: 1.0000002, z: 0.9999995}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -4144,7 +4144,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: 0.010000002, y: 0.009999995, z: 0.010000003}
+        value: {x: 1.0000001, y: 1.0000002, z: 0.9999995}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -4154,7 +4154,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/lantern
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4179,7 +4179,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4204,7 +4204,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4229,7 +4229,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_index.01.L/f_index.02.L/f_index.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4254,7 +4254,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4279,7 +4279,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4304,7 +4304,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4329,7 +4329,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4354,7 +4354,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4379,7 +4379,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4404,7 +4404,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4429,7 +4429,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4454,7 +4454,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4479,7 +4479,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4504,7 +4504,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4529,7 +4529,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.L/forearm.L/hand.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4554,7 +4554,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4579,7 +4579,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4604,13 +4604,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.010000002, y: 0.01, z: 0.009999996}
+        value: {x: 1.0000001, y: 0.9999996, z: 1}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -4619,7 +4619,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.9583334
-        value: {x: 0.010000002, y: 0.01, z: 0.009999996}
+        value: {x: 1.0000001, y: 0.9999996, z: 1}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -4629,7 +4629,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/knife
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4654,7 +4654,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4679,7 +4679,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4704,7 +4704,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_index.01.R/f_index.02.R/f_index.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4729,7 +4729,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4754,7 +4754,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4779,7 +4779,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4804,7 +4804,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4829,7 +4829,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4854,7 +4854,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4879,7 +4879,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4904,7 +4904,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4929,7 +4929,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4954,7 +4954,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4979,7 +4979,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5004,7 +5004,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
+    path: Armature/root/spine/IK_Spine/spine.003/upper_arm.R/forearm.R/hand.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5029,7 +5029,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001
+    path: Armature/root/spine/spine.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5054,7 +5054,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/spine/spine.001/spine.002
+    path: Armature/root/spine/spine.001/spine.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5079,7 +5079,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001
+    path: Armature/root/tail.001
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5104,7 +5104,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002
+    path: Armature/root/tail.001/tail.002
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5129,7 +5129,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003
+    path: Armature/root/tail.001/tail.002/tail.003
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5154,7 +5154,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5179,7 +5179,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5204,7 +5204,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5229,7 +5229,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5254,7 +5254,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: metarig/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
+    path: Armature/root/tail.001/tail.002/tail.003/tail.004/tail.005/tail.006/tail.007/tail.008
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 24
@@ -5265,1162 +5265,1162 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 234272999
+      path: 627083825
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 234272999
+      path: 627083825
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1126109280
+      path: 2215491726
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 997590758
+      path: 72576900
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2433369724
+      path: 1612847520
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2418290988
+      path: 2423822530
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1243368730
+      path: 3665031868
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1795521311
+      path: 2586649795
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2527847298
+      path: 2532788844
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4004257265
+      path: 2126750295
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1344223597
+      path: 1837555504
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2086972869
+      path: 24938095
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2125795009
+      path: 1219408901
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 819996366
+      path: 621253217
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 521250899
+      path: 3819714178
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 562965706
+      path: 990521457
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 774922813
+      path: 3193953691
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 380348943
+      path: 3998990125
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 712418382
+      path: 798331017
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2422219504
+      path: 2104266162
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3382320989
+      path: 476801506
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1126109280
+      path: 2215491726
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3975127440
+      path: 2912693237
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1934678969
+      path: 2001106658
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3301197984
+      path: 3728755739
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 997590758
+      path: 72576900
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2433369724
+      path: 1612847520
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2418290988
+      path: 2423822530
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1243368730
+      path: 3665031868
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1601851048
+      path: 3451979125
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3063962136
+      path: 28100517
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4091270442
+      path: 2275736601
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 587140795
+      path: 2410474980
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 666717640
+      path: 3989968883
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3405349166
+      path: 121130621
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4254273129
+      path: 3680806285
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4056830915
+      path: 1151963247
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2070597243
+      path: 3451078488
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3702198499
+      path: 1014684066
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1816395967
+      path: 3716515521
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3366130835
+      path: 1391331556
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2785254012
+      path: 1724047547
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 64563651
+      path: 3033904254
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3069146171
+      path: 3264240904
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4251192882
+      path: 1345842541
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1795521311
+      path: 2586649795
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2527847298
+      path: 2532788844
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4004257265
+      path: 2126750295
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3643128813
+      path: 446794110
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3334252981
+      path: 1907373064
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1012533669
+      path: 1210392726
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 965149924
+      path: 2496980923
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 114424811
+      path: 3435045328
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 602652317
+      path: 3995759054
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1185195648
+      path: 1616055652
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2006422233
+      path: 3270529397
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3407341463
+      path: 2110680756
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3531236322
+      path: 850111139
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3763085255
+      path: 1368234425
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3193068888
+      path: 606028079
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2886246803
+      path: 1825168212
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1942346350
+      path: 3301525459
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2037295284
+      path: 219251079
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3860595821
+      path: 1263527730
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3522151006
+      path: 2526683017
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1344223597
+      path: 1837555504
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2086972869
+      path: 24938095
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2125795009
+      path: 1219408901
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 819996366
+      path: 621253217
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 521250899
+      path: 3819714178
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 562965706
+      path: 990521457
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 774922813
+      path: 3193953691
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 380348943
+      path: 3998990125
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 712418382
+      path: 798331017
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2422219504
+      path: 2104266162
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3382320989
+      path: 476801506
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3975127440
+      path: 2912693237
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1934678969
+      path: 2001106658
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3301197984
+      path: 3728755739
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1601851048
+      path: 3451979125
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3063962136
+      path: 28100517
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4091270442
+      path: 2275736601
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 587140795
+      path: 2410474980
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 666717640
+      path: 3989968883
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3405349166
+      path: 121130621
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4254273129
+      path: 3680806285
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4056830915
+      path: 1151963247
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2070597243
+      path: 3451078488
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3702198499
+      path: 1014684066
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1816395967
+      path: 3716515521
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3366130835
+      path: 1391331556
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2785254012
+      path: 1724047547
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 64563651
+      path: 3033904254
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3069146171
+      path: 3264240904
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4251192882
+      path: 1345842541
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3643128813
+      path: 446794110
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3334252981
+      path: 1907373064
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1012533669
+      path: 1210392726
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 965149924
+      path: 2496980923
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 114424811
+      path: 3435045328
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 602652317
+      path: 3995759054
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1185195648
+      path: 1616055652
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2006422233
+      path: 3270529397
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3407341463
+      path: 2110680756
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3531236322
+      path: 850111139
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3763085255
+      path: 1368234425
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3193068888
+      path: 606028079
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2886246803
+      path: 1825168212
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1942346350
+      path: 3301525459
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2037295284
+      path: 219251079
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3860595821
+      path: 1263527730
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3522151006
+      path: 2526683017
       attribute: 2
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 234272999
+      path: 627083825
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1126109280
+      path: 2215491726
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3975127440
+      path: 2912693237
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1934678969
+      path: 2001106658
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3301197984
+      path: 3728755739
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 997590758
+      path: 72576900
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2433369724
+      path: 1612847520
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2418290988
+      path: 2423822530
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1243368730
+      path: 3665031868
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1601851048
+      path: 3451979125
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3063962136
+      path: 28100517
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4091270442
+      path: 2275736601
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 587140795
+      path: 2410474980
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 666717640
+      path: 3989968883
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3405349166
+      path: 121130621
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4254273129
+      path: 3680806285
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4056830915
+      path: 1151963247
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2070597243
+      path: 3451078488
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3702198499
+      path: 1014684066
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1816395967
+      path: 3716515521
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3366130835
+      path: 1391331556
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2785254012
+      path: 1724047547
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 64563651
+      path: 3033904254
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3069146171
+      path: 3264240904
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4251192882
+      path: 1345842541
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1795521311
+      path: 2586649795
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2527847298
+      path: 2532788844
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4004257265
+      path: 2126750295
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3643128813
+      path: 446794110
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3334252981
+      path: 1907373064
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1012533669
+      path: 1210392726
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 965149924
+      path: 2496980923
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 114424811
+      path: 3435045328
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 602652317
+      path: 3995759054
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1185195648
+      path: 1616055652
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2006422233
+      path: 3270529397
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3407341463
+      path: 2110680756
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3531236322
+      path: 850111139
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3763085255
+      path: 1368234425
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3193068888
+      path: 606028079
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2886246803
+      path: 1825168212
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1942346350
+      path: 3301525459
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2037295284
+      path: 219251079
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3860595821
+      path: 1263527730
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3522151006
+      path: 2526683017
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1344223597
+      path: 1837555504
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2086972869
+      path: 24938095
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2125795009
+      path: 1219408901
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 819996366
+      path: 621253217
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 521250899
+      path: 3819714178
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 562965706
+      path: 990521457
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 774922813
+      path: 3193953691
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 380348943
+      path: 3998990125
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 712418382
+      path: 798331017
       attribute: 3
       script: {fileID: 0}
       typeID: 4
