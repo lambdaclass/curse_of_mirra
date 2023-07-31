@@ -390,8 +390,7 @@ impl GameState {
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                let attacked_players_ids =
-                    self.melee_attack(attacking_player, direction, 300.)?;
+                let attacked_players_ids = self.melee_attack(attacking_player, direction, 300.)?;
                 for attacked_player_id in attacked_players_ids.clone() {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, attacked_player_id)?;
@@ -553,14 +552,12 @@ impl GameState {
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
 
         let attacked_player_ids = match attacking_player.character.name {
-            Name::H4ck => {
-                Self::h4ck_skill_1(
-                    &attacking_player,
-                    direction,
-                    &mut self.projectiles,
-                    &mut self.next_projectile_id,
-                )
-            }
+            Name::H4ck => Self::h4ck_skill_1(
+                &attacking_player,
+                direction,
+                &mut self.projectiles,
+                &mut self.next_projectile_id,
+            ),
             Name::Muflus => {
                 let position = GameState::new_position(
                     attacking_player.position,
@@ -646,7 +643,7 @@ impl GameState {
                         );
                         Ok(vec![player_id])
                     }
-                    None => Ok(Vec::new())
+                    None => Ok(Vec::new()),
                 }
             }
             _ => Ok(Vec::new()),
@@ -953,10 +950,15 @@ impl GameState {
         let mut affected_players: Vec<u64> = vec![];
 
         for target_player in players.iter_mut() {
-            if target_player.id == attacking_player_id {
+            let marks_count = target_player.marks_per_player(attacking_player_id);
+
+            if target_player.id == attacking_player_id
+                || matches!(target_player.status, Status::DEAD)
+                || marks_count == 0
+            {
                 continue;
             }
-            let marks_count = target_player.marks_per_player(attacking_player_id);
+
             target_player
                 .modify_health(-(target_player.health as f64 * 0.2 * marks_count as f64) as i64);
             affected_players.push(target_player.id);
@@ -1119,7 +1121,10 @@ impl GameState {
                         }
                         _ => {
                             attacked_player.modify_health(-(projectile.damage as i64));
-                            projectile_affected_players.entry(projectile.player_id).and_modify(|at| at.1.push(attacked_player.id)).or_insert((0, vec![attacked_player.id]));
+                            projectile_affected_players
+                                .entry(projectile.player_id)
+                                .and_modify(|at| at.1.push(attacked_player.id))
+                                .or_insert((0, vec![attacked_player.id]));
 
                             match attacked_player.get_mirrored_player_id() {
                                 Some(mirrored_id) => uma_mirroring_affected_players.insert(
@@ -1171,7 +1176,10 @@ impl GameState {
                 player.modify_health(-(damage as i64));
                 effect_data.triggered_at = now;
             }
-            poisoned_affected_players.entry(effect_data.caused_by).and_modify(|at| at.1.push(player.id)).or_insert((0, vec![player.id]));
+            poisoned_affected_players
+                .entry(effect_data.caused_by)
+                .and_modify(|at| at.1.push(player.id))
+                .or_insert((0, vec![player.id]));
 
             player.effects.insert(Effect::Poisoned, effect_data);
         });
@@ -1199,12 +1207,13 @@ impl GameState {
 
     fn attack_players_with_effect(
         self: &mut Self,
-        affected_players: HashMap<u64, (i64, Vec<u64>)>
+        affected_players: HashMap<u64, (i64, Vec<u64>)>,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for (player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
-                let attacked_player = self.players
+                let attacked_player = self
+                    .players
                     .iter_mut()
                     .find(|player| player.id == *target_player_id && player.id != *player_id);
                 match attacked_player {
@@ -1231,7 +1240,8 @@ impl GameState {
         affected_players: HashMap<u64, (i64, u64)>,
     ) -> Result<(), String> {
         for (player_id, (damage, attacked_player_id)) in affected_players.iter() {
-            let attacked_player = GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
+            let attacked_player =
+                GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
             if !matches!(attacked_player.status, Status::DEAD) {
                 attacked_player.modify_health(-damage);
                 self.update_killfeed(*player_id, vec![*attacked_player_id]);
@@ -1282,20 +1292,23 @@ impl GameState {
             .into_iter()
             .unique()
             .filter(|player_id| {
-                let a = self.players
+                self.players
                     .iter()
                     .find(|player| player.id == *player_id && matches!(player.status, Status::DEAD))
-                    .is_some();
-                a
+                    .is_some()
             })
-            .map(|killed_player| 
-                KillEvent {
+            .map(|killed_player| KillEvent {
                 kill_by: attacking_player_id,
                 killed: killed_player,
             })
             .collect();
 
-        add_kills(&mut self.players, attacking_player_id, kill_events.len() as u64);
+        add_kills(
+            &mut self.players,
+            attacking_player_id,
+            kill_events.len() as u64,
+        )
+        .unwrap();
 
         self.next_killfeed.append(&mut kill_events);
     }

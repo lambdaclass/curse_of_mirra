@@ -164,6 +164,7 @@ impl Player {
     }
 
     pub fn get_mirrored_player_id(self: &mut Self) -> Option<u64> {
+        println!("entra?");
         if self.character.name == Name::Uma {
             match self.effects.get(&Effect::XandaMarkOwner) {
                 Some(effect) => {
