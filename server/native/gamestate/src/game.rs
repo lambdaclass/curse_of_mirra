@@ -983,7 +983,7 @@ impl GameState {
         }
     }
 
-    pub fn world_tick(self: &mut Self) -> Result<(), String> {
+    pub fn world_tick(self: &mut Self, out_of_area_damage: i64) -> Result<(), String> {
         let now = time_now();
         let pys = self.players.clone();
         let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
@@ -1158,7 +1158,7 @@ impl GameState {
             uma_mirroring_affected_players.clear();
         }
 
-        self.check_and_damage_outside_playable();
+        self.check_and_damage_outside_playable(out_of_area_damage);
 
         self.check_and_damage_poisoned_players();
 
@@ -1297,7 +1297,7 @@ impl GameState {
         self.next_killfeed.append(&mut kill_events);
     }
 
-    fn check_and_damage_outside_playable(self: &mut Self) {
+    fn check_and_damage_outside_playable(self: &mut Self, out_of_area_damage: i64) {
         let now = time_now();
         let time_left = u128_to_millis(3_600_000); // 1 hour
         let duration = u128_to_millis(3_600_000); // 1 hour
@@ -1328,7 +1328,7 @@ impl GameState {
                 };
 
                 if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 {
-                    player.modify_health(-5);
+                    player.modify_health(-out_of_area_damage);
                     effect_data.triggered_at = now;
                 }
 

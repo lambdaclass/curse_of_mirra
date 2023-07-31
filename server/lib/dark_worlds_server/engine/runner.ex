@@ -360,10 +360,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
     game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
     game =
       server_game_state.game
-      |> Game.world_tick()
+      |> Game.world_tick(out_of_area_damage)
 
     server_game_state = server_game_state |> Map.put(:game, game)
 
