@@ -662,13 +662,28 @@ public class PlayerMovement : MonoBehaviour
 
     public void ToggleGhosts()
     {
-        if (
-            SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
-            && Ghosts.Count == 0
-        )
+        if (Ghosts.Count == 0)
         {
             for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
             {
+                // Own ghost a.k.a client prediction ghost
+                if (
+                    SocketConnectionManager.Instance.playerId
+                        == SocketConnectionManager.Instance.gamePlayers[i].Id
+                    && !useClientPrediction
+                )
+                {
+                    continue;
+                }
+                else if ( //Others ghost a.k.a interpolation ghost
+                    SocketConnectionManager.Instance.playerId
+                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    && SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime == 0
+                )
+                {
+                    continue;
+                }
+
                 GameObject player = Utils.GetPlayer(
                     SocketConnectionManager.Instance.gamePlayers[i].Id
                 );
