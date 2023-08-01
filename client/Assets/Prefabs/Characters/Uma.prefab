@@ -610,8 +610,8 @@ Transform:
   m_GameObject: {fileID: 1787465996332106805}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.16, y: 1.16, z: 1.16}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1500645749941631028}
   - {fileID: 9071700161952155051}
@@ -890,9 +890,9 @@ MonoBehaviour:
   TimeScale: 0
   HealthBarPrefab: {fileID: 0}
   TargetProgressBar: {fileID: 0}
-  Size: {x: 1.25, y: 0.4}
+  Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
-  InitialRotationAngles: {x: 0, y: 0, z: 0}
+  InitialRotationAngles: {x: 45, y: 0, z: 0}
   ForegroundColor:
     serializedVersion: 2
     key0: {r: 1, g: 0.13610148, b: 0, a: 1}

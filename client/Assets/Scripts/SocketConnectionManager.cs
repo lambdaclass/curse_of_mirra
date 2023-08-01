@@ -234,13 +234,22 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeUrl(string path)
     {
+        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        int port;
+
+        if (useProxy == "true") {
+            port = 5000;
+        } else {
+            port = 4000;
+        }
+
         if (server_ip.Contains("localhost"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":" + port + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":" + port + path;
         }
         else
         {
@@ -250,13 +259,23 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
+        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+
+        int port;
+
+        if (useProxy == "true") {
+            port = 5000;
+        } else {
+            port = 4000;
+        }
+
         if (server_ip.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":" + port + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":" + port + path;
         }
         else
         {

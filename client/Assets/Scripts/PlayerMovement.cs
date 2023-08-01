@@ -100,18 +100,8 @@ public class PlayerMovement : MonoBehaviour
             Character character = player.GetComponent<Character>();
             if (MovementAuthorized(character))
             {
-                var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
                 var inputFromVirtualJoystick = joystickL is not null;
-                if (inputFromPhysicalJoystick)
-                {
-                    var hInput = Input.GetAxis("Horizontal");
-                    var vInput = Input.GetAxis("Vertical");
-                    if (hInput != 0 && vInput != 0)
-                    {
-                        GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
-                    }
-                }
-                else if (
+                if (
                     inputFromVirtualJoystick
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
@@ -481,13 +471,28 @@ public class PlayerMovement : MonoBehaviour
 
         var inputFromVirtualJoystick = joystickL is not null;
 
-        bool walking =
-            playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                ? inputsAreBeingUsed()
-                : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+        bool walking = false;
+
+        if (useClientPrediction)
+        {
+            walking =
+                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                    ? inputsAreBeingUsed()
+                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                        playerUpdate.Id,
+                        (long)pastTime
+                    );
+        }
+        else
+        {
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
                     playerUpdate.Id,
                     (long)pastTime
                 );
+            }
+        }
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -545,7 +550,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                var direction = getPlayerDirection(playerUpdate);
+                RelativePosition direction = getPlayerDirection(playerUpdate);
+
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
                     rotatePlayer(player, direction);
@@ -671,7 +677,6 @@ public class PlayerMovement : MonoBehaviour
     public bool inputsAreBeingUsed()
     {
         var inputFromVirtualJoystick = joystickL is not null;
-        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
         return (
                 inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
@@ -681,19 +686,17 @@ public class PlayerMovement : MonoBehaviour
                 || (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
                 || (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
                 || (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            )
-            || inputFromPhysicalJoystick;
+            );
     }
 
     public RelativePosition getPlayerDirection(Player playerUpdate)
     {
-        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
             return playerUpdate.Direction;
         }
 
         var inputFromVirtualJoystick = joystickL is not null;
-        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
         var direction = playerUpdate.Direction;
         if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)

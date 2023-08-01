@@ -316,9 +316,9 @@ MonoBehaviour:
   TimeScale: 0
   HealthBarPrefab: {fileID: 0}
   TargetProgressBar: {fileID: 0}
-  Size: {x: 1.25, y: 0.4}
+  Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
-  InitialRotationAngles: {x: 0, y: 0, z: 0}
+  InitialRotationAngles: {x: 45, y: 0, z: 0}
   ForegroundColor:
     serializedVersion: 2
     key0: {r: 1, g: 0.13610148, b: 0, a: 1}
