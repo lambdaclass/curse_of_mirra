@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +9,9 @@ public class CharacterSelectionList : MonoBehaviour
 
     [SerializeField]
     CharacterSelectionUI characterItems;
+
+    [SerializeField]
+    GameObject confirmButton;
     public List<GameObject> playerItems = new List<GameObject>();
 
     public void CreatePlayerItems()
@@ -70,6 +72,7 @@ public class CharacterSelectionList : MonoBehaviour
             playerI.SetPlayerItemText();
             CoMCharacter ui = characterItems.GetSelectedCharacter(character);
             playerI.SetSprite(ui.characterPlayer);
+            confirmButton.SetActive(false);
         }
     }
 }

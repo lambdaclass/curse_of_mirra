@@ -1155,6 +1155,7 @@ MonoBehaviour:
   playerItemPrefab: {fileID: 6311838805071223672, guid: 69e6ae180746b4b3a89280914cfae1bf,
     type: 3}
   characterItems: {fileID: 8232675041001302400}
+  confirmButton: {fileID: 6676200538747965701}
   playerItems: []
 --- !u!1 &4213020107015403265
 GameObject:
