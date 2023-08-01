@@ -56,6 +56,7 @@ public class ToggleAudio : MonoBehaviour
     private void PlaySound()
     {
         soundManager.UnmuteMaster();
+        soundManager.SetVolumeMaster(1);
         soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
     }
 }
