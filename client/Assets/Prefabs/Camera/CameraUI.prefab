@@ -10470,17 +10470,17 @@ PrefabInstance:
     - target: {fileID: 8589184727271786672, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Text
-      value: Client Prediction On
+      value: Client Prediction / Entity Interpolation On
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727271786675, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Name
-      value: ToggleCPText
+      value: ToggleCPEIText
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727591687666, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Name
-      value: ToggleCPBackground
+      value: ToggleCPEIBackground
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727591687670, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
@@ -10495,7 +10495,7 @@ PrefabInstance:
     - target: {fileID: 8589184727591687670, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleClientPrediction
+      value: ToggleClientPredictionAndInterpolation
       objectReference: {fileID: 0}
     - target: {fileID: 8589184727591687670, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
@@ -10630,7 +10630,7 @@ PrefabInstance:
     - target: {fileID: 8589184729169344721, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}
       propertyPath: m_Name
-      value: Client Prediction
+      value: Client Prediction / Interpolation
       objectReference: {fileID: 0}
     - target: {fileID: 8589184729169344721, guid: 19229c6b3de9144aea6bd7ae03f513dc,
         type: 3}

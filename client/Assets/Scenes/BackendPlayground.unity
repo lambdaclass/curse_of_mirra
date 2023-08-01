@@ -369,17 +369,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickL: {fileID: 2856279044554654235}
   InputManager: {fileID: 2856279044554654230}
-  showServerGhost: 0
   useClientPrediction: 0
   useInterpolation: 0
-  showInterpolationGhost: 0
-  serverGhost: {fileID: 0}
   nextAttackDirection: 0
   isAttacking: 0
   BlockingMovementStates: 
   BlockingConditionStates: 
   accumulatedTime: 0
-  interpolationGhosts: []
+  Ghosts: []
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0
