@@ -66,7 +66,11 @@ public class LobbyConnection : MonoBehaviour
     {
         if (Instance != null)
         {
-            this.ws.Close();
+            if (this.ws != null)
+            {
+              this.ws.Close();
+            }
+
             Destroy(gameObject);
             return;
         }
