@@ -68,9 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skill Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 12a41c309e7f54f31af917c5d610429f, type: 2}
-  m_sharedMaterial: {fileID: -4019354300235453826, guid: 12a41c309e7f54f31af917c5d610429f,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -243,9 +242,8 @@ MonoBehaviour:
   m_text: 'The most deadly class, but also very fragile itself. Very quick and hard
     to predict. '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 12a41c309e7f54f31af917c5d610429f, type: 2}
-  m_sharedMaterial: {fileID: -4019354300235453826, guid: 12a41c309e7f54f31af917c5d610429f,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -344,11 +342,11 @@ RectTransform:
   - {fileID: 3802088428415666595}
   - {fileID: 9125450043329068637}
   - {fileID: 7259936831582468660}
+  - {fileID: 6285338208346572785}
   - {fileID: 4339993522464934212}
   - {fileID: 5647743955468065390}
   - {fileID: 3678040634253757696}
   - {fileID: 1516037109344061163}
-  - {fileID: 6285338208346572785}
   m_Father: {fileID: 8474596286573142812}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -499,6 +497,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
+  skillSprite: {fileID: 0}
+  selectedSkillSprite: {fileID: 0}
+  selected: 0
 --- !u!1 &3031970256918495232
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 46, y: -67.600006}
+  m_AnchoredPosition: {x: 46, y: -36.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &233319134354447976
@@ -593,15 +594,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 16
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -663,7 +664,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7217003383845503277}
+  - {fileID: 3941371315899995936}
   - {fileID: 4001327303677730897}
   - {fileID: 834377587258925391}
   - {fileID: 856734187630771834}
@@ -779,6 +780,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
+  skillSprite: {fileID: 0}
+  selectedSkillSprite: {fileID: 0}
+  selected: 0
 --- !u!1 &3895044163865416041
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4001327303677730897}
   - component: {fileID: 6124387805764082753}
+  - component: {fileID: 4760535875643805996}
   m_Layer: 5
   m_Name: SkillsList
   m_TagString: Untagged
@@ -845,6 +850,20 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 3
+--- !u!114 &4760535875643805996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895044163865416041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba72c713d088847f484962d14c233a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: {fileID: 3559691647198255115}
+  skillDescription: {fileID: 1678620968804355485}
 --- !u!1 &3996843027451480336
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,10 +978,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 760, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6287067038968400913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,7 +1005,7 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
+  m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!114 &4136633252259404712
@@ -1155,6 +1174,83 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4632510171111746262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3941371315899995936}
+  - component: {fileID: 8490427228857693011}
+  - component: {fileID: 3161767909991288607}
+  m_Layer: 5
+  m_Name: NameContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3941371315899995936
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632510171111746262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7217003383845503277}
+  m_Father: {fileID: 884347542527320081}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_SizeDelta: {x: 400, y: 80}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &8490427228857693011
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632510171111746262}
+  m_CullTransparentMesh: 1
+--- !u!114 &3161767909991288607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632510171111746262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f0c308ea317c647d790cd587653b9ff0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5856978585340056714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,6 +1355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
+  skillSprite: {fileID: 0}
+  selectedSkillSprite: {fileID: 0}
+  selected: 0
 --- !u!1 &5946239845349413507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,6 +1496,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
+  skillSprite: {fileID: 0}
+  selectedSkillSprite: {fileID: 0}
+  selected: 0
 --- !u!1 &6676200538747965701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,8 +1537,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 0, y: 82.5}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7374343148630582410
 CanvasRenderer:
@@ -1466,7 +1568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fd2f78f16482f4e3d9f706256e3d4007, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af4b0e28fd9e04baaa4d6b123dffab75, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1646,6 +1748,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
+  skillSprite: {fileID: 0}
+  selectedSkillSprite: {fileID: 0}
+  selected: 0
 --- !u!1 &7644384234179708966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,7 +1786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -123}
+  m_AnchoredPosition: {x: 0, y: -87.1}
   m_SizeDelta: {x: -80, y: 5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6959143597683855605
@@ -1752,14 +1857,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 884347542527320081}
+  m_Father: {fileID: 3941371315899995936}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -51}
-  m_SizeDelta: {x: 0, y: 70}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -26}
+  m_SizeDelta: {x: 400, y: 80}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1223819131594065538
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1790,16 +1895,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: Muflus
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 667e7236549264b55bb6dd2d15692e80, type: 2}
-  m_sharedMaterial: {fileID: 3314857687251653942, guid: 667e7236549264b55bb6dd2d15692e80,
+  m_fontAsset: {fileID: 11400000, guid: ad7095a8160a94dc2a8c06bc9c4db145, type: 2}
+  m_sharedMaterial: {fileID: -6215521632685670565, guid: ad7095a8160a94dc2a8c06bc9c4db145,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292442564
-  m_fontColor: {r: 0.76862746, g: 0.4745098, b: 0.8509804, a: 1}
+    rgba: 4287037660
+  m_fontColor: {r: 0.8627451, g: 0, b: 0.5294118, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1852,7 +1957,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -24.14795, z: -4.316739, w: 54.481995}
+  m_margin: {x: 0, y: -7.4414062, z: 190.1293, w: 46.26703}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1917,7 +2022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 0.19607843}
+  m_Color: {r: 0.09411765, g: 0.09803922, b: 0.15294118, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2780,8 +2885,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -70}
-  m_SizeDelta: {x: 0, y: -140}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 0, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8513654137399138314
 MonoBehaviour:
@@ -2934,10 +3039,10 @@ RectTransform:
   m_Father: {fileID: 7520633390840495169}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8237324517293820862
 CanvasRenderer:
@@ -2969,16 +3074,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: Confirm
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 667e7236549264b55bb6dd2d15692e80, type: 2}
-  m_sharedMaterial: {fileID: 3314857687251653942, guid: 667e7236549264b55bb6dd2d15692e80,
+  m_fontAsset: {fileID: 11400000, guid: ad7095a8160a94dc2a8c06bc9c4db145, type: 2}
+  m_sharedMaterial: {fileID: -6215521632685670565, guid: ad7095a8160a94dc2a8c06bc9c4db145,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283811069
-  m_fontColor: {r: 0.99215686, g: 0.76862746, b: 0.33333334, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3031,7 +3136,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 21.310974, y: -9.9496, z: 20.853516, w: 0}
+  m_margin: {x: 2.2318726, y: 3.02417, z: 1.7744141, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3059,6 +3164,11 @@ PrefabInstance:
       propertyPath: artWork
       value: 
       objectReference: {fileID: 4713055326936114544}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillName
@@ -3105,6 +3215,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -3299,6 +3414,11 @@ PrefabInstance:
       objectReference: {fileID: 6560694327168131353}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -3338,6 +3458,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -3532,6 +3657,11 @@ PrefabInstance:
       objectReference: {fileID: 7563302317597498588}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -3571,6 +3701,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -3629,7 +3764,7 @@ PrefabInstance:
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
@@ -3765,6 +3900,11 @@ PrefabInstance:
       objectReference: {fileID: 8191185267939410243}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -3804,6 +3944,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -3862,7 +4007,7 @@ PrefabInstance:
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
@@ -3998,6 +4143,11 @@ PrefabInstance:
       objectReference: {fileID: 920767141179577901}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -4037,6 +4187,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -4095,7 +4250,7 @@ PrefabInstance:
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
@@ -4231,6 +4386,11 @@ PrefabInstance:
       objectReference: {fileID: 797002883646050958}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -4281,6 +4441,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -4490,6 +4655,11 @@ PrefabInstance:
       objectReference: {fileID: 285696771370078825}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -4529,6 +4699,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -4587,7 +4762,7 @@ PrefabInstance:
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
@@ -4906,6 +5081,11 @@ PrefabInstance:
       objectReference: {fileID: 3082209379026132422}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillList
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillName
       value: 
       objectReference: {fileID: 3559691647198255115}
@@ -4945,6 +5125,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 6676200538747965701}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillsContainer
+      value: 
+      objectReference: {fileID: 1534130646940272441}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillBasicSprite
@@ -5003,7 +5188,7 @@ PrefabInstance:
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8347827145611968523, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}

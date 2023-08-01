@@ -47,7 +47,7 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
 
     public void SetPlayerItemText()
     {
-        this.playerText.text = $"Player";
+        this.playerText.text = $"Player " + id;
         if (id == 1)
         {
             this.hostLabel.SetActive(true);

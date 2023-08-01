@@ -21,22 +21,10 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public GameObject characterDescription;
 
     [SerializeField]
+    public SkillsDetailHandler skillList;
+
+    [SerializeField]
     public GameObject confirmButton;
-
-    [SerializeField]
-    public Image skillBasicSprite;
-
-    [SerializeField]
-    public Image skill1Sprite;
-
-    [SerializeField]
-    public Image skill2Sprite;
-
-    [SerializeField]
-    public Image skill3Sprite;
-
-    [SerializeField]
-    public Image skill4Sprite;
 
     void Start()
     {
@@ -76,19 +64,19 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-                skillBasicSprite.sprite = comCharacter.skillBasicSprite;
-                skill1Sprite.sprite = comCharacter.skill1Sprite;
-                skill2Sprite.sprite = comCharacter.skill2Sprite;
-                skill3Sprite.sprite = comCharacter.skill3Sprite;
-                skill4Sprite.sprite = comCharacter.skill4Sprite;
 
-                skillBasicSprite
-                    .GetComponent<SkillDescription>()
-                    .GetCharacter(comCharacter.skillBasicInfo);
-                skill1Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill1Info);
-                skill2Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill2Info);
-                skill3Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill3Info);
-                skill4Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill4Info);
+                List<GameObject> list = skillList.GetAllChilds();
+                skillList
+                    .GetAllChilds()
+                    .ForEach(el =>
+                    {
+                        el.GetComponent<SkillDescription>()
+                            .SetSkillDescription(
+                                comCharacter.skillsInfo[list.IndexOf(el)],
+                                comCharacter.notSelectedSkills[list.IndexOf(el)],
+                                comCharacter.selectedSkills[list.IndexOf(el)]
+                            );
+                    });
 
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()

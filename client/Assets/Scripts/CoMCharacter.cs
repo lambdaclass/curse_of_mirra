@@ -22,4 +22,7 @@ public class CoMCharacter : ScriptableObject
     public Sprite skill3Sprite;
     public Sprite skill4Sprite;
     public Sprite skillBackground;
+    public List<Sprite> selectedSkills;
+    public List<Sprite> notSelectedSkills;
+    public List<SkillInfo> skillsInfo;
 }

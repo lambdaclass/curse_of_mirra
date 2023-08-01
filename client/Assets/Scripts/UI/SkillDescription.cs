@@ -1,24 +1,41 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SkillDescription : MonoBehaviour, IPointerDownHandler
 {
-    public TextMeshProUGUI skillName;
-    public TextMeshProUGUI skillDescription;
     SkillInfo skillData;
+    public Sprite skillSprite;
+    public Sprite selectedSkillSprite;
 
-    // Start is called before the first frame update
-    void Start() { }
-
-    public void GetCharacter(SkillInfo skill)
+    public void SetSkillDescription(SkillInfo skillInfo, Sprite skill, Sprite selectedSkill)
     {
-        skillData = skill;
+        skillData = skillInfo;
+        skillSprite = skill;
+        selectedSkillSprite = selectedSkill;
+
+        // The first list element always starts with a selected display
+        if (
+            this.gameObject.name
+            == transform.parent.GetComponent<SkillsDetailHandler>().GetAllChilds()[0].name
+        )
+        {
+            GetComponent<Image>().sprite = selectedSkillSprite;
+        }
+        else
+        {
+            GetComponent<Image>().sprite = skillSprite;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        skillName.text = skillData.name;
-        skillDescription.text = skillData.description;
+        transform.parent
+            .GetComponent<SkillsDetailHandler>()
+            .SetSkillDetaill(skillData.name, skillData.description);
+        transform.parent
+            .GetComponent<SkillsDetailHandler>()
+            .SetSkillIcon(skillSprite, selectedSkillSprite);
     }
 }
