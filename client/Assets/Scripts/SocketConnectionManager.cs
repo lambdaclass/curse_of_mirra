@@ -145,6 +145,10 @@ public class SocketConnectionManager : MonoBehaviour
                     currentPing = (uint)game_event.Latency;
                     break;
                 case GameEventType.GameFinished:
+                    foreach (Player player in game_event.Players)
+                    {
+                        print("PLAYER: " + player.Id + " KILLS: " + player.KillCount);
+                    }
                     winnerPlayer.Item1 = game_event.WinnerPlayer;
                     winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
                     // This should be uncommented when the match end is finished
@@ -235,9 +239,12 @@ public class SocketConnectionManager : MonoBehaviour
         var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 
@@ -261,9 +268,12 @@ public class SocketConnectionManager : MonoBehaviour
 
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 
