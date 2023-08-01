@@ -14,8 +14,8 @@ public class VersionsHashes : MonoBehaviour
         }
 
         string hash = serverHash
-            ? "Server #" + SocketConnectionManager.Instance.serverHash
-            : "Client #" + GitInfo.GetGitHash();
+            ? "SERVER #" + SocketConnectionManager.Instance.serverHash
+            : "CLIENT #" + GitInfo.GetGitHash();
         GetComponent<Text>().text = hash;
     }
 }
