@@ -330,6 +330,7 @@ defmodule DarkWorldsServer.Communication.Proto.LobbyEvent do
   )
 
   field(:server_hash, 10, type: :string, json_name: "serverHash")
+  field(:host_player_id, 11, type: :uint64, json_name: "hostPlayerId")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
