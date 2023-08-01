@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         useInterpolation = true;
         showInterpolationGhost = false;
         accumulatedTime = 0;
-        firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
     }
 
     private void InitBlockingStates()
@@ -56,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            if (firstTimestamp == 0) {
+                firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            }
             var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             accumulatedTime = (currentTimestamp - firstTimestamp);
             UpdatePlayerActions();
