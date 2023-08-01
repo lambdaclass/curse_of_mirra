@@ -318,6 +318,7 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:map_shrink_wait_ms, 6, type: :uint64, json_name: "mapShrinkWaitMs")
   field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
   field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
+  field(:use_proxy, 9, type: :string, json_name: "useProxy")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do

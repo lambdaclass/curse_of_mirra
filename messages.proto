@@ -230,6 +230,7 @@ message RunnerConfig {
     uint64 map_shrink_wait_ms = 6;
     uint64 map_shrink_interval = 7;
     uint64 out_of_area_damage = 8;
+    string use_proxy = 9;
 }
 
 message GameConfig {
