@@ -14,11 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
-    public bool showServerGhost = false;
     public bool useClientPrediction;
     public bool useInterpolation;
-    public bool showInterpolationGhost;
-    public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
@@ -35,9 +32,7 @@ public class PlayerMovement : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = true;
-        showServerGhost = false;
         useInterpolation = true;
-        showInterpolationGhost = false;
         accumulatedTime = 0;
     }
 
@@ -681,37 +676,32 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            foreach (GameObject interpolationGhost in Ghosts)
-            {
-                interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-                interpolationGhost.SetActive(false);
-                Destroy(interpolationGhost);
-            }
-            Ghosts = new List<GameObject>();
+            TurnOffGhosts();
         }
     }
 
-    public void ToggleClientPrediction()
+    public void ToggleClientPredictionAndInterpolation()
     {
         useClientPrediction = !useClientPrediction;
-        Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
-        toggleGhostButton.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
-        if (!useClientPrediction)
+        useInterpolation = !useInterpolation;
+        Text toggleCPEI = GameObject.Find("ToggleCPEIText").GetComponent<Text>();
+        toggleCPEI.text =
+            $"Client Prediction / Entity Interpolation {(useClientPrediction && useInterpolation ? "On" : "Off")}";
+        if (!(useClientPrediction && useInterpolation))
         {
-            showServerGhost = false;
-            if (serverGhost != null)
-            {
-                serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-                Destroy(serverGhost);
-            }
+            TurnOffGhosts();
         }
     }
 
-    public void ToggleInterpolation()
+    public void TurnOffGhosts()
     {
-        useInterpolation = !useInterpolation;
-        Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
-        toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
+        foreach (GameObject interpolationGhost in Ghosts)
+        {
+            interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.SetActive(false);
+            Destroy(interpolationGhost);
+        }
+        Ghosts = new List<GameObject>();
     }
 
     public bool inputsAreBeingUsed()
