@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/Images/UI/info_bg.png.meta
 guid: 343080cbe9d4a415a842e5bfe722682d
+========
+guid: 2297de1bf5bfa4da7922333288436a12
+>>>>>>>> main:client/Assets/Images/UI/list_bg.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

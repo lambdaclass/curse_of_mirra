@@ -58,7 +58,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_height: board_height,
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms
+      server_tickrate_ms: server_tickrate_ms,
+      use_proxy: use_proxy
     } = runner_config
 
     runner_config = %RunnerConfig{
@@ -66,7 +67,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_height: board_height,
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms
+      server_tickrate_ms: server_tickrate_ms,
+      use_proxy: use_proxy
     }
 
     character_config = %CharacterConfig{

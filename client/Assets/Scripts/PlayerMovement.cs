@@ -481,13 +481,28 @@ public class PlayerMovement : MonoBehaviour
 
         var inputFromVirtualJoystick = joystickL is not null;
 
-        bool walking =
-            playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                ? inputsAreBeingUsed()
-                : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+        bool walking = false;
+
+        if (useClientPrediction)
+        {
+            walking =
+                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                    ? inputsAreBeingUsed()
+                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                        playerUpdate.Id,
+                        (long)pastTime
+                    );
+        }
+        else
+        {
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
                     playerUpdate.Id,
                     (long)pastTime
                 );
+            }
+        }
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -545,7 +560,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                var direction = getPlayerDirection(playerUpdate);
+                RelativePosition direction = getPlayerDirection(playerUpdate);
+
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
                     rotatePlayer(player, direction);
@@ -687,7 +703,7 @@ public class PlayerMovement : MonoBehaviour
 
     public RelativePosition getPlayerDirection(Player playerUpdate)
     {
-        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
             return playerUpdate.Direction;
         }
