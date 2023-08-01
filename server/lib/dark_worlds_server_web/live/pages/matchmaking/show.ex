@@ -13,7 +13,7 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
         Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(session_id))
         session_pid = Communication.external_id_to_pid(session_id)
         current_player_count = Matchmaking.fetch_amount_of_players(session_pid)
-        player_id = current_player_count + 1
+        player_id = Matchmaking.next_id(session_pid)
 
         Matchmaking.add_player(player_id, session_pid)
 

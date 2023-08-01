@@ -22,8 +22,7 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(lobby_id))
 
     matchmaking_session_pid = Communication.external_id_to_pid(lobby_id)
-    players = Matchmaking.list_players(matchmaking_session_pid)
-    player_id = Enum.count(players) + 1
+    player_id = Matchmaking.next_id(matchmaking_session_pid)
     Matchmaking.add_player(player_id, matchmaking_session_pid)
 
     {:reply, {:binary, Communication.lobby_connected!(lobby_id, player_id)},

@@ -19,8 +19,24 @@ defmodule DarkWorldsServer.Matchmaking do
     MatchingSession.remove_player(player_id, session_pid)
   end
 
-  def list_players(session_id) do
-    MatchingSession.list_players(session_id)
+  def next_id(session_pid) do
+    case MatchingSession.list_players(session_pid) do
+      [] ->
+        1
+
+      ids ->
+        expected = MapSet.new(1..length(ids))
+        actual = MapSet.new(ids)
+
+        missing_ids =
+          MapSet.difference(expected, actual)
+          |> MapSet.to_list()
+
+        case missing_ids do
+          [] -> length(ids) + 1
+          [missing_id | _] -> missing_id
+        end
+    end
   end
 
   def fetch_amount_of_players(session_pid) do
