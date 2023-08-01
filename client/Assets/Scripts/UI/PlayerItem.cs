@@ -47,7 +47,7 @@ public class PlayerItem : MonoBehaviour
         }
         else if (LobbyConnection.Instance.playerId == id)
         {
-            this.playerRollText.text += "YOU";
+            this.playerRollText.text = "YOU";
         }
     }
 }

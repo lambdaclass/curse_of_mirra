@@ -444,26 +444,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5245956269512698890, guid: e580470930bcc40c78798bc2c97d07d2,
-        type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1083681582}
-    - target: {fileID: 5245956269512698890, guid: e580470930bcc40c78798bc2c97d07d2,
-        type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Back
-      objectReference: {fileID: 0}
-    - target: {fileID: 5245956269512698890, guid: e580470930bcc40c78798bc2c97d07d2,
-        type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LobbyManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5245956269512698890, guid: e580470930bcc40c78798bc2c97d07d2,
-        type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6573909195795444929, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
       propertyPath: m_AnchorMax.x
