@@ -43,6 +43,9 @@ public class SocketConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer;
     public bool allSelected = false;
 
+    public float playableRadius;
+    public Position shrinkingCenter;
+
     WebSocket ws;
 
     public class Session
@@ -94,7 +97,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
         print(url);
-        Dictionary<string, string> headers =new Dictionary<string, string>();
+        Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
@@ -113,6 +116,8 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    this.playableRadius = game_event.PlayableRadius;
+                    this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
 
                     if (
@@ -227,13 +232,22 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeUrl(string path)
     {
+        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        int port;
+
+        if (useProxy == "true") {
+            port = 5000;
+        } else {
+            port = 4000;
+        }
+
         if (server_ip.Contains("localhost"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":" + port + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + server_ip + ":" + port + path;
         }
         else
         {
@@ -243,13 +257,23 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
+        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+
+        int port;
+
+        if (useProxy == "true") {
+            port = 5000;
+        } else {
+            port = 4000;
+        }
+
         if (server_ip.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":" + port + path;
         }
         else if (server_ip.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + server_ip + ":" + port + path;
         }
         else
         {

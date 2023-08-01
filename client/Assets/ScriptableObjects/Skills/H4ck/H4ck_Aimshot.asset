@@ -12,9 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: H4ck_Aimshot
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Hack_Aimshot
+  name: DISARM
+  description: "Target opponent can\u2019t use any skills for 2 seconds. Always a
+    sneaky guy, he has mastered the art of impairing his foes using his slingshot."
   inputType: 2
-  feedbackAnimation: {fileID: 0}
+  indicatorType: 2
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
+  skillCircleRadius: 12
+  skillConeAngle: 0
+  arrowWidth: 1.5

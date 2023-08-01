@@ -159,7 +159,11 @@ pub fn cant_move_if_petrified() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None, position: None});
+        }),
+        duration: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        },direction: None, position: None, triggered_at: time_utils::u128_to_millis(0), caused_by: 1, caused_to: 1, damage: 1});
     let player_id = 1;
     let players = state.players.clone();
     let player = GameState::get_player(&players, player_id)?;
@@ -167,7 +171,7 @@ pub fn cant_move_if_petrified() -> TestResult {
     // Sleep 1 seconds and update status, the character should not be able to move.
     time_utils::sleep(time_utils::u128_to_millis(1000));
     // std::thread::sleep(std::time::Duration::from_secs(1));
-    state.world_tick()?;
+    state.world_tick(-5)?;
 
     // Try to move 10 times, the player/character should not move.
     for i in 0..10 {
@@ -181,7 +185,7 @@ pub fn cant_move_if_petrified() -> TestResult {
     // Sleep 2 seconds and update status, now the character should be able to move.
     // std::thread::sleep(std::time::Duration::from_secs(2));
     time_utils::sleep(time_utils::u128_to_millis(2000));
-    state.world_tick()?;
+    state.world_tick(-5)?;
 
     state.move_player(player_id, Direction::DOWN)?;
     let player2 = GameState::get_player(&state.players, player_id)?;
@@ -222,7 +226,11 @@ pub fn cant_attack_if_disarmed() -> TestResult {
         ends_at: time_utils::add_millis(now, time_utils::MillisTime {
             high: 0,
             low: 2000
-        }), direction: None, position: None});
+        }),
+        duration: time_utils::MillisTime {
+            high: 0,
+            low: 2000
+        }, direction: None, position: None, triggered_at: time_utils::u128_to_millis(0), caused_by: player1.id, caused_to: player1.id, damage: 1});
     let player2 = Player::new(player_2_id, 100, Position::new(0, 0), char.clone());
     state.players = vec![player1.clone(), player2.clone()];
     let player1_cooldown = player1.character.cooldown_basic_skill();
@@ -244,7 +252,7 @@ pub fn cant_attack_if_disarmed() -> TestResult {
 
     // Wait for the Disarmed state to finish
     for _ in 0..10 {
-        state.world_tick().unwrap();
+        state.world_tick(-5).unwrap();
     }
 
     // make sure both abilities are off cooldown

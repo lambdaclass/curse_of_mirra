@@ -18,6 +18,8 @@ message GameEvent {
     int64 player_timestamp = 8;
     int64 server_timestamp = 9;
     repeated KillEvent killfeed = 10;
+    uint64 playable_radius = 11;
+    Position shrinking_center = 12;
 }
 
 /* Type of game events
@@ -68,6 +70,7 @@ message Player {
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
+    RelativePosition direction = 16;
 }
 
 message KillEvent {
@@ -176,6 +179,7 @@ enum PlayerAction {
     EXECUTING_SKILL_2 = 8;
     EXECUTING_SKILL_3 = 9;
     EXECUTING_SKILL_4 = 10;
+    MOVING = 11;
 }
 
 /* Effects a player has */
@@ -186,6 +190,12 @@ enum PlayerEffect {
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
+    OUT_OF_AREA = 6;
+    ELNAR_MARK = 7;
+    YUGEN_MARK = 8;
+    XANDA_MARK = 9;
+    XANDA_MARK_OWNER = 10;
+    POISONED = 11;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
@@ -217,6 +227,10 @@ message RunnerConfig {
     uint64 board_height = 3;
     uint64 server_tickrate_ms = 4;
     uint64 game_timeout_ms = 5;
+    uint64 map_shrink_wait_ms = 6;
+    uint64 map_shrink_interval = 7;
+    uint64 out_of_area_damage = 8;
+    string use_proxy = 9;
 }
 
 message GameConfig {
@@ -263,6 +277,8 @@ message SkillConfigItem {
     string Duration = 7;
     string Projectile = 8;
     string Minion = 9;
+    string SkillRange = 10;
+    string Angle = 11;
 }
 
 message ServerGameSettings {

@@ -19,6 +19,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   @character_selection_check_ms 30
   # This is the amount of time to wait until the game starts, ofc we should change it
   @game_start_timer_ms 30
+  # Amount of time to wait before starting to shrink the map
+  @map_shrink_wait_ms 60_000
+  # Amount of time between map shrinking
+  @map_shrink_interval_ms 100
 
   case Mix.env() do
     :test ->
@@ -312,7 +316,10 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
+    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+
     Process.send_after(self(), :update_state, tick_rate)
+    Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
 
     gen_server_state =
       gen_server_state
@@ -346,19 +353,18 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_info(:session_timeout, gen_server_state) do
-    broadcast_to_darkworlds_server({:game_finished, gen_server_state})
-
     {:stop, :normal, gen_server_state}
   end
 
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
+    game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
+
     game =
       server_game_state.game
-      |> Game.world_tick()
-
-    game_status = has_a_player_won?(game.players, gen_server_state.is_single_player?)
+      |> Game.world_tick(out_of_area_damage)
 
     server_game_state = server_game_state |> Map.put(:game, game)
 
@@ -368,6 +374,21 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     decide_next_game_update(gen_server_state)
     |> broadcast_game_update()
+  end
+
+  def handle_info(:shrink_map, %{game_status: :game_finished} = gen_server_state),
+    do: {:noreply, gen_server_state}
+
+  def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
+    map_shrink_interval_ms =
+      Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval_ms, @map_shrink_interval_ms)
+
+    Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
+
+    {:ok, game} = Game.shrink_map(server_game_state.game)
+    gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
+
+    {:noreply, gen_server_state}
   end
 
   ####################
@@ -390,9 +411,6 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp decide_next_game_update(%{game_status: :game_finished} = gen_server_state) do
-    # This has to be done in order to apply the last attack
-    broadcast_to_darkworlds_server({:game_update, gen_server_state})
-
     [winner] =
       Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
         player.status == :alive
@@ -433,7 +451,11 @@ defmodule DarkWorldsServer.Engine.Runner do
       )
 
   defp create_new_game(
-         %{runner_config: rg, character_config: %{Items: characters_info}, skills_config: %{Items: skills_info}},
+         %{
+           runner_config: rg,
+           character_config: %{Items: characters_info},
+           skills_config: %{Items: skills_info}
+         },
          players,
          selected_players
        ) do
@@ -471,7 +493,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     selected_characters = state[:selected_characters]
 
     cond do
-      state[:game_status] == :playing ->
+      state[:game_status] == :playing or state[:game_status] == :game_finished ->
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->

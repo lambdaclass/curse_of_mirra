@@ -72,6 +72,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 8)
   field(:EXECUTING_SKILL_3, 9)
   field(:EXECUTING_SKILL_4, 10)
+  field(:MOVING, 11)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
@@ -85,6 +86,12 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
+  field(:OUT_OF_AREA, 6)
+  field(:ELNAR_MARK, 7)
+  field(:YUGEN_MARK, 8)
+  field(:XANDA_MARK, 9)
+  field(:XANDA_MARK_OWNER, 10)
+  field(:POISONED, 11)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -156,6 +163,12 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
   field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
   field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
   field(:killfeed, 10, repeated: true, type: DarkWorldsServer.Communication.Proto.KillEvent)
+  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 12,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -233,6 +246,8 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
     type: DarkWorldsServer.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  field(:direction, 16, type: DarkWorldsServer.Communication.Proto.RelativePosition)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -329,6 +344,10 @@ defmodule DarkWorldsServer.Communication.Proto.RunnerConfig do
   field(:board_height, 3, type: :uint64, json_name: "boardHeight")
   field(:server_tickrate_ms, 4, type: :uint64, json_name: "serverTickrateMs")
   field(:game_timeout_ms, 5, type: :uint64, json_name: "gameTimeoutMs")
+  field(:map_shrink_wait_ms, 6, type: :uint64, json_name: "mapShrinkWaitMs")
+  field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
+  field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
+  field(:use_proxy, 9, type: :string, json_name: "useProxy")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -415,6 +434,8 @@ defmodule DarkWorldsServer.Communication.Proto.SkillConfigItem do
   field(:Duration, 7, type: :string)
   field(:Projectile, 8, type: :string)
   field(:Minion, 9, type: :string)
+  field(:SkillRange, 10, type: :string)
+  field(:Angle, 11, type: :string)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
