@@ -94,7 +94,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_added, player, state[:players]}
+      {:player_added, player, List.last(state.players), state.players}
     )
 
     {:noreply, state}
@@ -104,7 +104,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_removed, player, state[:players]}
+      {:player_removed, player, List.last(state.players), state.players}
     )
 
     {:noreply, state}

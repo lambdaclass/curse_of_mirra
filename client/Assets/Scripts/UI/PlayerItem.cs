@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,11 +38,11 @@ public class PlayerItem : MonoBehaviour
     public void SetPlayerItemText()
     {
         this.playerText.text = $"Player {id.ToString()} {characterName} ";
-        if (id == 1 && LobbyConnection.Instance.playerId == id)
+        if (LobbyConnection.Instance.hostId == id && LobbyConnection.Instance.playerId == id)
         {
             this.playerRollText.text = $"HOST / YOU";
         }
-        else if (id == 1)
+        else if (LobbyConnection.Instance.hostId == id)
         {
             this.playerRollText.text = $"HOST ";
         }

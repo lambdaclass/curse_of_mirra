@@ -47,12 +47,12 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   @impl true
-  def websocket_info({:player_added, player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_added!(player_id, players)}, state}
+  def websocket_info({:player_added, player_id, host_player_id, players}, state) do
+    {:reply, {:binary, Communication.lobby_player_added!(player_id, host_player_id, players)}, state}
   end
 
-  def websocket_info({:player_removed, player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_removed!(player_id, players)}, state}
+  def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
+    {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
   end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do

@@ -19,6 +19,8 @@ public class LobbyConnection : MonoBehaviour
     public string GameSession;
     public string LobbySession;
     public ulong playerId;
+    public bool isHost = false;
+    public ulong hostId;
     public int playerCount;
     public uint serverTickRate_ms;
     public string serverHash;
@@ -262,11 +264,16 @@ public class LobbyConnection : MonoBehaviour
                     {
                         playerId = lobby_event.AddedPlayerId;
                     }
-                    playerCount = lobby_event.Players.Count();
+
+                    this.hostId = lobby_event.HostPlayerId;
+                    this.isHost = this.playerId == this.hostId;
+                    this.playerCount = lobby_event.Players.Count();
                     break;
 
                 case LobbyEventType.PlayerRemoved:
-                    playerCount = lobby_event.Players.Count();
+                    this.playerCount = lobby_event.Players.Count();
+                    this.hostId = lobby_event.HostPlayerId;
+                    this.isHost = this.playerId == this.hostId;
                     break;
 
                 case LobbyEventType.GameStarted:
