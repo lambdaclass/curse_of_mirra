@@ -209,6 +209,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetPlayerAlive(playerCharacter);
             }
+
+            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+
+            // FIXME: change with actual value once it's sent by the backend.
+            float hitboxSize = 100f / 50f;
+            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
