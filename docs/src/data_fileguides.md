@@ -37,6 +37,9 @@ This file contains various settings used by the game
 - **board_height:** defines the length of the playing board
 - **server_tickrate_ms:** represents how often the server sends updates to the client
 - **game_timeout_ms:** represents how much a game session lasts
+- **map_shrink_wait_ms:** Represents the amount of time players have to wait until the zone starts to shrink
+- **map_shrink_interval:** It's the interval time between shrinks
+- **out_of_area_damage:** Represents the damage the area does
 
 ## Skills.json
 ### Overview
@@ -52,6 +55,8 @@ This file contains information about all the skills in the game
 - **Duration:** determines the duration of a skill/buff, if used by the skill func
 - **Projectile:** (not implemented) pointer to Projectiles.json, if used by the skill func
 - **Minion:** (not implemented) pointer to Units.json to summon units, if used by the skill func
+- **SkillRange:** represents the attack's range of an skill
+- **Angle** (not being used, but implemented) represents an angle modifier for the skill
 
 
 # Unused Fileguides
