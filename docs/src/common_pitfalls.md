@@ -4,7 +4,7 @@
 
 ## Keeping track of time in Unity
 
-Some parts of the client code need to keep track of how much time has passed since the game started. Most notably, entity interpolation uses this to know which game update from the buffer it should render. There are at least two ways of keeping track of this:
+Some parts of the client code need to keep track of how much time has passed since the game started. Most notably, entity interpolation uses this to know which game update from the buffer it should render. There are at least two ways to do this:
 
 - Using the `Time` module provided by unity, with functions like `Time.deltaTime`, which gives you the time passed between frames.
 - Using Unix timestamps, keeping an initial timestamp at the beginning and then getting a new one each time we want to know how much time has passed.
