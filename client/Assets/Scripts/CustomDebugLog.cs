@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CustomDebugLog : MonoBehaviour
 {
-    public static void CustomDebug(object message)
+    public static void CustomLog(object message)
     {
         if (CustomLogs.allowCustomDebug)
         {
