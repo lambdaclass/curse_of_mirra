@@ -65,6 +65,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
       ^players ->
         {:reply, :ok, state}
 
+      [] ->
+        {:stop, :normal, :ok, %{state | :players => []}}
+
       remaining_players ->
         send(self(), {:player_removed, player})
         {:reply, :ok, %{state | :players => remaining_players}}
