@@ -8,15 +8,19 @@ public class SkillsDetailHandler : MonoBehaviour
 {
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
+    public List<GameObject> list;
 
-    public List<GameObject> GetAllChilds()
+    void Awake()
     {
-        List<GameObject> list = new List<GameObject>();
+        SetSkillsList();
+    }
+
+    public void SetSkillsList()
+    {
         for (int i = 0; i < transform.childCount; i++)
         {
             list.Add(transform.GetChild(i).gameObject);
         }
-        return list;
     }
 
     public void SetSkillDetaill(string setSkillName, string setSkillDescription)
@@ -27,7 +31,6 @@ public class SkillsDetailHandler : MonoBehaviour
 
     public void SetSkillIcon(Sprite skillIcon, Sprite selectedSkillIcon)
     {
-        List<GameObject> list = GetAllChilds();
         list.ForEach(el =>
         {
             if (

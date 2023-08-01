@@ -65,18 +65,16 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
 
-                List<GameObject> list = skillList.GetAllChilds();
-                skillList
-                    .GetAllChilds()
-                    .ForEach(el =>
-                    {
-                        el.GetComponent<SkillDescription>()
-                            .SetSkillDescription(
-                                comCharacter.skillsInfo[list.IndexOf(el)],
-                                comCharacter.notSelectedSkills[list.IndexOf(el)],
-                                comCharacter.selectedSkills[list.IndexOf(el)]
-                            );
-                    });
+                skillList.list.ForEach(el =>
+                {
+                    var skill = skillList.list.IndexOf(el);
+                    el.GetComponent<SkillDescription>()
+                        .SetSkillDescription(
+                            comCharacter.skillsInfo[skill],
+                            comCharacter.notSelectedSkills[skill],
+                            comCharacter.selectedSkills[skill]
+                        );
+                });
 
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
