@@ -522,7 +522,6 @@ MonoBehaviour:
   roundText: {fileID: 2856279044554654233}
   totalKillsText: {fileID: 672995939}
   backToLobbyButton: {fileID: 2856279044554654232}
-  soundManager: {fileID: 1734572836}
   backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
   UiControls: {fileID: 1717439191}
@@ -714,6 +713,7 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+<<<<<<< HEAD
 --- !u!1 &1717439191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4190701241990048127, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -768,6 +768,8 @@ Transform:
   m_Father: {fileID: 1918232351}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> a9d50a3b122d4dc2eac19e40731e3341e54bdd84
 --- !u!1 &1747284128
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +906,6 @@ Transform:
   - {fileID: 1836016680}
   - {fileID: 585127343}
   - {fileID: 1302669237}
-  - {fileID: 1734572837}
   - {fileID: 2040541226}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -943,7 +944,7 @@ MonoBehaviour:
   SafeMode: 3
   Direction: 0
   AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
+  AutoPlayOnStart: 1
   AutoPlayOnEnable: 0
   ForceTimescaleMode: 0
   ForcedTimescaleMode: 1
@@ -1139,7 +1140,7 @@ MonoBehaviour:
             m_PostInfinity: 2
             m_RotationOrder: 4
           Initialized: 0
-        SoloSingleTrack: 0
+        SoloSingleTrack: 1
         SoloAllTracks: 0
         AutoUnSoloOnEnd: 0
         PanStereo: 0
@@ -1206,7 +1207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1918232351}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2053005125 stripped
 MonoBehaviour:
@@ -1279,12 +1280,31 @@ PrefabInstance:
         type: 3}
       propertyPath: soundManager
       value: 
-      objectReference: {fileID: 1734572836}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 680
+      objectReference: {fileID: 0}
     - target: {fileID: 4736848132354094292, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: soundManager
       value: 
+<<<<<<< HEAD
       objectReference: {fileID: 1734572836}
+=======
+      objectReference: {fileID: 0}
+    - target: {fileID: 5115653289524282631, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -239
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107698710368138245, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+>>>>>>> a9d50a3b122d4dc2eac19e40731e3341e54bdd84
     - target: {fileID: 8589184728240042611, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
