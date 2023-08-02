@@ -637,6 +637,7 @@ public class PlayerMovement : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
+    // CLIENT PREDICTION UTILITY FUNCTIONS
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
@@ -683,6 +684,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // ENTITY INTERPOLATION UTILITY FUNCTIONS
     public void ToggleInterpolationGhosts()
     {
         showInterpolationGhosts = !showInterpolationGhosts;
