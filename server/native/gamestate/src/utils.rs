@@ -38,8 +38,3 @@ pub fn angle_between_vectors(v1: RelativePosition, v2: RelativePosition) -> u64 
     }
     a.abs() as u64 % 360
 }
-
-fn normalize_vector(x: f32, y: f32) -> (f32, f32) {
-    let norm = f32::sqrt(x.powf(2.) + y.powf(2.));
-    (x / norm, y / norm)
-}
