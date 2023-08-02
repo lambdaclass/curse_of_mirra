@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class CharacterSelectionPlayerItem : MonoBehaviour
 {
     [SerializeField]
+    public GameObject hostLabel;
+
+    [SerializeField]
     public TextMeshProUGUI playerText;
 
     [SerializeField]
@@ -12,6 +15,12 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
 
     [SerializeField]
     public Image characterImage;
+
+    [SerializeField]
+    public Sprite playerBackground;
+
+    [SerializeField]
+    public Image background;
     public ulong id;
     public string characterName;
 
@@ -38,18 +47,15 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
 
     public void SetPlayerItemText()
     {
+        this.playerText.text = $"Player " + id;
         if (id == 1)
         {
-            this.playerText.text = $"Player HOST ";
+            this.hostLabel.SetActive(true);
         }
-        else
-        {
-            this.playerText.text = $"Player ";
-        }
-
         if (LobbyConnection.Instance.playerId == id)
         {
-            this.playerText.color = new Color32(196, 121, 217, 255);
+            this.background.color = new Color32(255, 255, 255, 255);
+            this.background.sprite = playerBackground;
         }
     }
 
