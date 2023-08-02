@@ -180,11 +180,7 @@ public class PlayerMovement : MonoBehaviour
                 );
             }
 
-            if (
-                interpolationGhost != null
-                && SocketConnectionManager.Instance.playerId
-                    != SocketConnectionManager.Instance.gamePlayers[i].Id
-            )
+            if (interpolationGhost != null)
             {
                 movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
             }
