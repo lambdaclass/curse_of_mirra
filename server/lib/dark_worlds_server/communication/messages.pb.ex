@@ -248,6 +248,7 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
   )
 
   field(:direction, 16, type: DarkWorldsServer.Communication.Proto.RelativePosition)
+  field(:body_size, 17, type: :float, json_name: "bodySize")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

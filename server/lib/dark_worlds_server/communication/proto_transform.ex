@@ -107,7 +107,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %ProtoPlayer{
@@ -125,7 +126,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 
@@ -234,7 +236,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %EnginePlayer{
@@ -253,7 +256,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 

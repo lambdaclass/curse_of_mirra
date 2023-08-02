@@ -71,6 +71,7 @@ message Player {
     string character_name = 14;
     map<uint64, MillisTime> effects = 15;
     RelativePosition direction = 16;
+    float body_size = 17;
 }
 
 message KillEvent {

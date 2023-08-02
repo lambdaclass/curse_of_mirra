@@ -231,6 +231,7 @@ defmodule LoadTest.Communication.Proto.Player do
   )
 
   field(:direction, 16, type: LoadTest.Communication.Proto.RelativePosition)
+  field(:body_size, 17, type: :float, json_name: "bodySize")
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do
