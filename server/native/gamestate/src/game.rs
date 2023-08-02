@@ -1,6 +1,6 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, self};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{
@@ -472,11 +472,16 @@ impl GameState {
                 None => *direction,
             };
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
                 projectile_direction,
-                100,
+                speed as u32,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -676,6 +681,8 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
+            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -685,6 +692,11 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
                     *next_projectile_id,
@@ -693,7 +705,7 @@ impl GameState {
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
-                    100,
+                    speed as u32,
                     1,
                     attacking_player.id,
                     attacking_player.skill_1_damage(),
@@ -701,7 +713,7 @@ impl GameState {
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
-                    false,
+                    piercing,
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
