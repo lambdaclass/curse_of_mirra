@@ -14,11 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
-    public bool showServerGhost = false;
     public bool useClientPrediction;
     public bool useInterpolation;
-    public bool showInterpolationGhost;
-    public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
@@ -26,18 +23,17 @@ public class PlayerMovement : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    public List<GameObject> Ghosts = new List<GameObject>();
+
     private bool playerIsPoisoned;
 
     void Start()
     {
         InitBlockingStates();
-
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = true;
-        showServerGhost = false;
         useInterpolation = true;
-        showInterpolationGhost = false;
         accumulatedTime = 0;
     }
 
@@ -150,6 +146,10 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
+            GameObject serverGhost = findGhostPlayer(
+                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+            );
+
             if (
                 useInterpolation
                 && (SocketConnectionManager.Instance.playerId
@@ -183,6 +183,16 @@ public class PlayerMovement : MonoBehaviour
                     gameEvent.PlayerTimestamp
                 );
             }
+
+            if (
+                SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime != 0
+                && SocketConnectionManager.Instance.playerId != serverPlayerUpdate.Id
+                && serverGhost != null
+            )
+            {
+                movePlayer(serverGhost, buffer.lastEvent().Players[i], pastTime);
+            }
+
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
             if (actualPlayer.activeSelf)
@@ -642,50 +652,76 @@ public class PlayerMovement : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
-    public void ToggleGhost()
+    public void ToggleGhosts()
     {
-        if (!useClientPrediction)
+        if (Ghosts.Count == 0)
         {
-            return;
-        }
-        showServerGhost = !showServerGhost;
-        if (showServerGhost)
-        {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-            serverGhost.GetComponent<Character>().name = "Server Ghost";
-            // serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
-            // serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
+            for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+            {
+                // Own ghost a.k.a client prediction ghost
+                if (
+                    SocketConnectionManager.Instance.playerId
+                        == SocketConnectionManager.Instance.gamePlayers[i].Id
+                    && !useClientPrediction
+                )
+                {
+                    continue;
+                }
+                else if ( //Others ghost a.k.a interpolation ghost
+                    SocketConnectionManager.Instance.playerId
+                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    && SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime == 0
+                )
+                {
+                    continue;
+                }
+
+                GameObject player = Utils.GetPlayer(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id
+                );
+                GameObject interpolationGhost;
+                interpolationGhost = Instantiate(
+                    player,
+                    player.transform.position,
+                    Quaternion.identity
+                );
+                interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
+                    .Instance
+                    .gamePlayers[i].Id.ToString();
+                interpolationGhost.GetComponent<Character>().name =
+                    $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
+
+                Ghosts.Add(interpolationGhost);
+            }
         }
         else
         {
-            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-            Destroy(serverGhost);
-            serverGhost = null;
+            TurnOffGhosts();
         }
     }
 
-    public void ToggleClientPrediction()
+    public void ToggleClientPredictionAndInterpolation()
     {
         useClientPrediction = !useClientPrediction;
-        Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
-        toggleGhostButton.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
-        if (!useClientPrediction)
+        useInterpolation = !useInterpolation;
+        Text toggleCPEI = GameObject.Find("ToggleCPEIText").GetComponent<Text>();
+        toggleCPEI.text =
+            $"Client Prediction / Entity Interpolation {(useClientPrediction && useInterpolation ? "On" : "Off")}";
+        if (!(useClientPrediction && useInterpolation))
         {
-            showServerGhost = false;
-            if (serverGhost != null)
-            {
-                serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-                Destroy(serverGhost);
-            }
+            TurnOffGhosts();
         }
     }
 
-    public void ToggleInterpolation()
+    public void TurnOffGhosts()
     {
-        useInterpolation = !useInterpolation;
-        Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
-        toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
+        foreach (GameObject interpolationGhost in Ghosts)
+        {
+            interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.SetActive(false);
+            Destroy(interpolationGhost);
+        }
+        Ghosts = new List<GameObject>();
     }
 
     public bool inputsAreBeingUsed()
@@ -739,5 +775,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return direction;
+    }
+
+    private GameObject findGhostPlayer(string playerId)
+    {
+        return Ghosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
     }
 }
