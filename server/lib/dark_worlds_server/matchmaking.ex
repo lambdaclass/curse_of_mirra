@@ -11,8 +11,8 @@ defmodule DarkWorldsServer.Matchmaking do
     pid
   end
 
-  def add_player(player, session_pid) do
-    MatchingSession.add_player(player, session_pid)
+  def add_player(player_id, player_name, session_pid) do
+    MatchingSession.add_player(player_id, player_name, session_pid)
   end
 
   def remove_player(player_id, session_pid) do
