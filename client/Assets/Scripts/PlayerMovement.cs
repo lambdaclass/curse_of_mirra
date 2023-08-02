@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
-    public float accumulatedTime;
+    public long accumulatedTime;
+    public long firstTimestamp;
 
     private bool playerIsPoisoned;
 
@@ -54,7 +55,11 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            accumulatedTime += Time.deltaTime * 1000f;
+            if (firstTimestamp == 0) {
+                firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            }
+            var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            accumulatedTime = (currentTimestamp - firstTimestamp);
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -119,14 +124,13 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
-        long auxAccumulatedTime;
         long currentTime;
         long pastTime;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
-        auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
-        currentTime = buffer.firstTimestamp + auxAccumulatedTime;
+
+        currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
 
         if (buffer.firstTimestamp == 0)
