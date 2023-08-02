@@ -248,16 +248,13 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
-        // GameObject.Find("UIControls").SetActive(false);
         UiControls.SetActive(false);
     }
 
     private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
-        print(alivePlayers);
         playerToFollow = alivePlayers.ElementAt(0);
-        print("player id to follow is : " + playerToFollow.Id);
 
         setCameraToPlayer(playerToFollow.Id);
     }

@@ -145,21 +145,21 @@ public class SocketConnectionManager : MonoBehaviour
                     winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
                     this.gamePlayers = game_event.Players.ToList();
                     // This should be uncommented when the match end is finished
-                    game_event.Players
-                        .ToList()
-                        .ForEach(
-                            (player) =>
-                                print(
-                                    "PLAYER: "
-                                        + player.Id
-                                        + " KILLS: "
-                                        + player.KillCount
-                                        + " DEATHS: "
-                                        + player.DeathCount
-                                        + " STATUS: "
-                                        + player.Status
-                                )
-                        );
+                    // game_event.Players
+                    //     .ToList()
+                    //     .ForEach(
+                    //         (player) =>
+                    //             print(
+                    //                 "PLAYER: "
+                    //                     + player.Id
+                    //                     + " KILLS: "
+                    //                     + player.KillCount
+                    //                     + " DEATHS: "
+                    //                     + player.DeathCount
+                    //                     + " STATUS: "
+                    //                     + player.Status
+                    //             )
+                    //     );
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = game_event.Players.ToList();
