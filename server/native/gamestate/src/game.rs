@@ -1170,7 +1170,6 @@ impl GameState {
         // - Update positions
         GameState::update_projectiles(&mut self.projectiles, self.board.height, self.board.width);
 
-        let mut tick_killed_events: Vec<KillEvent> = Vec::new();
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
                 let affected_players: HashMap<u64, f64> =
@@ -1196,7 +1195,7 @@ impl GameState {
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
-                    // if there are more than one player affected by the projectile
+                    // If there are more than one players affected by the projectile
                     // find the nearest one
                     let (attacked_player_id, _) = affected_players
                         .into_iter()
@@ -1232,7 +1231,7 @@ impl GameState {
         self.check_and_damage_outside_playable();
         self.check_and_damage_poisoned_players();
 
-        self.next_killfeed.append(&mut tick_killed_events);
+        self.next_killfeed.append(&mut self.world_tick_state.tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
