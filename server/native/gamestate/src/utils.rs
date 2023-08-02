@@ -24,3 +24,22 @@ pub fn cmp_float(f1: f64, f2: f64) -> Ordering {
         Ordering::Equal
     }
 }
+
+pub fn angle_between_vectors(v1: RelativePosition, v2: RelativePosition) -> u64 {
+
+    let angle1 = (v1.y as f32).atan2(v1.x as f32).to_degrees();
+    let angle2 = (v2.y as f32).atan2(v2.x as f32).to_degrees();
+    
+    let mut a = angle1 - angle2;
+    if a > 180. {
+        a -= 360.;
+    } else if a < -180. {
+        a += 360.;
+    }
+    a.abs() as u64 % 360
+}
+
+fn normalize_vector(x: f32, y: f32) -> (f32, f32) {
+    let norm = f32::sqrt(x.powf(2.) + y.powf(2.));
+    (x / norm, y / norm)
+}

@@ -23,8 +23,8 @@
       "Duration": "0",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350",
-      "Angle": "10"
+      "SkillRange": "450",
+      "Angle": "120"
     },
     {
       "Name": "Barrel Roll",
@@ -154,7 +154,7 @@
       "Projectile": "slingshot",
       "Minion": "",
       "SkillRange": "350",
-      "Angle": "10"
+      "Angle": "120"
     },
     {
       "Name": "Multishot",

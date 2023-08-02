@@ -6,7 +6,7 @@ use crate::skills::{self, Skill};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
-use crate::utils::{cmp_float, RelativePosition};
+use crate::utils::{angle_between_vectors, cmp_float, RelativePosition};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -375,6 +375,7 @@ impl GameState {
             attacking_player.character.cooldown_basic_skill();
         attacking_player.direction = *direction;
         let attack_range = attacking_player.basic_skill_range();
+        let attack_angle = attacking_player.basic_skill_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
@@ -383,17 +384,18 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
                 players,
+                attack_angle,
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                self.melee_attack(attacking_player, direction, attack_range)
+                self.melee_attack(attacking_player, direction, attack_range, attack_angle)
             }
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
 
                 let attacked_players_ids =
-                    self.melee_attack(attacking_player, direction, attack_range)?;
+                    self.melee_attack(attacking_player, direction, attack_range, attack_angle)?;
                 for attacked_player_id in attacked_players_ids.clone() {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, attacked_player_id)?;
@@ -430,6 +432,7 @@ impl GameState {
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
         players: &Vec<Player>,
+        attack_angle: u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = attacking_player.has_active_effect(&Effect::Piercing);
@@ -437,8 +440,10 @@ impl GameState {
             let projectile_direction = match Self::nearest_player(
                 players,
                 &attacking_player.position,
+                &attacking_player.direction,
                 attacking_player.id,
                 1000.,
+                attack_angle,
             ) {
                 Some((_player_id, position)) => RelativePosition::new(
                     position.y as f32 - attacking_player.position.y as f32,
@@ -472,8 +477,10 @@ impl GameState {
     fn nearest_player(
         players: &Vec<Player>,
         position: &Position,
+        direction: &RelativePosition,
         attacking_player_id: u64,
         max_distance: f64,
+        max_angle: u64,
     ) -> Option<(u64, Position)> {
         let mut nearest_player = None;
         let mut nearest_distance = max_distance;
@@ -482,7 +489,13 @@ impl GameState {
         for player in players {
             if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
                 let distance = distance_to_center(player, position);
-                if distance < nearest_distance && player.health <= lowest_hp {
+                let v1 = direction;
+                let v2 = RelativePosition::new(
+                    player.position.y as f32 - position.y as f32,
+                    -(player.position.x as f32 - position.x as f32),
+                );
+                let angle = angle_between_vectors(*v1, v2);
+                if distance < nearest_distance && angle < (max_angle / 2) && player.health <= lowest_hp {
                     lowest_hp = player.health;
                     nearest_player = Some((player.id, player.position));
                     nearest_distance = distance;
@@ -498,14 +511,17 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
         attack_range: f64,
+        attack_angle: u64,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
 
         let (attacked_players, direction) = match Self::nearest_player(
             &mut self.players,
             &attacking_player.position,
+            &attacking_player.direction,
             attacking_player.id,
             attack_range,
+            attack_angle
         ) {
             Some((player_id, position)) => {
                 let direction = RelativePosition::new(
@@ -553,6 +569,7 @@ impl GameState {
         attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
         attacking_player.direction = *direction;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+        let attack_angle = attacking_player.skill_1_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -572,8 +589,10 @@ impl GameState {
                 match Self::nearest_player(
                     &pys,
                     &attacking_player.position,
+                    &attacking_player.direction,
                     attacking_player.id,
                     1000.,
+                    attack_angle,
                 ) {
                     Some((player_id, _position)) => {
                         let damage = attacking_player.skill_1_damage();
@@ -711,6 +730,7 @@ impl GameState {
         attacking_player.skill_2_started_at = now;
         attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
         attacking_player.direction = *direction;
+        let attack_angle = attacking_player.skill_2_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -728,8 +748,10 @@ impl GameState {
                 match Self::nearest_player(
                     &pys,
                     &attacking_player.position,
+                    &attacking_player.direction,
                     attacking_player.id,
                     1000.,
+                    attack_angle,
                 ) {
                     Some((player_id, _position)) => {
                         attacking_player.add_effect(

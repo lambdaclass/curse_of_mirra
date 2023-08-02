@@ -205,7 +205,6 @@ impl Player {
     pub fn basic_skill_range(&self) -> f64 {
         self.character.skill_basic.skill_range
     }
-
     pub fn skill_1_range(&self) -> f64 {
         self.character.skill_1.skill_range
     }
@@ -217,6 +216,22 @@ impl Player {
     }
     pub fn skill_4_range(&self) -> f64 {
         self.character.skill_4.skill_range
+    }
+
+    pub fn basic_skill_angle(&self) -> u64 {
+        self.character.skill_basic.angle
+    }
+    pub fn skill_1_angle(&self) -> u64 {
+        self.character.skill_1.angle
+    }
+    pub fn skill_2_angle(&self) -> u64 {
+        self.character.skill_2.angle
+    }
+    pub fn skill_3_angle(&self) -> u64 {
+        self.character.skill_3.angle
+    }
+    pub fn skill_4_angle(&self) -> u64 {
+        self.character.skill_4.angle
     }
 
     #[inline]
