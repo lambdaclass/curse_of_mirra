@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         useClientPrediction = true;
         useInterpolation = true;
         accumulatedTime = 0;
+        showClientPredictionGhost = false;
+        showInterpolationGhosts = false;
     }
 
     private void InitBlockingStates()
@@ -635,70 +637,10 @@ public class PlayerMovement : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
-    public void ToggleGhosts()
-    {
-        if (InterpolationGhosts.Count == 0)
-        {
-            for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
-            {
-                GameObject player = Utils.GetPlayer(
-                    SocketConnectionManager.Instance.gamePlayers[i].Id
-                );
-                // Own ghost a.k.a client prediction ghost
-                if (
-                    SocketConnectionManager.Instance.playerId
-                        == SocketConnectionManager.Instance.gamePlayers[i].Id
-                    && useClientPrediction
-                )
-                {
-                    clientPredictionGhost = Instantiate(
-                        player,
-                        player.transform.position,
-                        Quaternion.identity
-                    );
-                    clientPredictionGhost.GetComponent<Character>().PlayerID =
-                        SocketConnectionManager.Instance.gamePlayers[i].Id.ToString();
-                    clientPredictionGhost.GetComponent<Character>().name =
-                        $"Client Prediction Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
-                }
-                GameObject interpolationGhost;
-                interpolationGhost = Instantiate(
-                    player,
-                    player.transform.position,
-                    Quaternion.identity
-                );
-                interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
-                    .Instance
-                    .gamePlayers[i].Id.ToString();
-                interpolationGhost.GetComponent<Character>().name =
-                    $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
-
-                InterpolationGhosts.Add(interpolationGhost);
-            }
-        }
-        else
-        {
-            TurnOffInterpolationGhosts();
-        }
-    }
-
-    public void ToggleClientPredictionAndInterpolation()
-    {
-        useClientPrediction = !useClientPrediction;
-        useInterpolation = !useInterpolation;
-        Text toggleCPEI = GameObject.Find("ToggleCPEIText").GetComponent<Text>();
-        toggleCPEI.text =
-            $"Client Prediction / Entity Interpolation {(useClientPrediction && useInterpolation ? "On" : "Off")}";
-        if (!(useClientPrediction && useInterpolation))
-        {
-            TurnOffInterpolationGhosts();
-        }
-    }
-
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
-        Text buttonText = GameObject.Find("ToggleCPText").GetComponent<Text>();
+        Text buttonText = GameObject.Find("ToggleClientPredictionText").GetComponent<Text>();
         buttonText.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
@@ -706,12 +648,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ToggleClientPredictionGhosts()
+    public void ToggleClientPredictionGhost()
     {
         showClientPredictionGhost = !showClientPredictionGhost;
-        if (showClientPredictionGhost)
+        if (showClientPredictionGhost && clientPredictionGhost == null)
         {
-            spawnClientPredictionGhost();
+            SpawnClientPredictionGhost();
         }
         else
         {
@@ -719,7 +661,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void spawnClientPredictionGhost()
+    private void SpawnClientPredictionGhost()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
@@ -727,22 +669,26 @@ public class PlayerMovement : MonoBehaviour
             SocketConnectionManager.Instance.playerId.ToString();
         clientPredictionGhost.GetComponent<Character>().name =
             $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
+        showClientPredictionGhost = true;
     }
 
-    public void TurnOffClientPredictionGhost()
+    private void TurnOffClientPredictionGhost()
     {
-        clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-        clientPredictionGhost.SetActive(false);
-        Destroy(clientPredictionGhost);
-        clientPredictionGhost = null;
+        if (showClientPredictionGhost && clientPredictionGhost != null)
+        {
+            clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            clientPredictionGhost.SetActive(false);
+            Destroy(clientPredictionGhost);
+            clientPredictionGhost = null;
+        }
     }
 
-    public void toggleInterpolationGhosts()
+    public void ToggleInterpolationGhosts()
     {
         showInterpolationGhosts = !showInterpolationGhosts;
         if (showInterpolationGhosts)
         {
-            spawnInterpolationGhosts();
+            SpawnInterpolationGhosts();
         }
         else
         {
@@ -750,7 +696,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void spawnInterpolationGhosts()
+    private void SpawnInterpolationGhosts()
     {
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
@@ -771,7 +717,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void TurnOffInterpolationGhosts()
+    private void TurnOffInterpolationGhosts()
     {
         foreach (GameObject interpolationGhost in InterpolationGhosts)
         {
