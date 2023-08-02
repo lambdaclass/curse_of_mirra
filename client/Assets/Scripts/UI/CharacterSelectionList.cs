@@ -72,7 +72,6 @@ public class CharacterSelectionList : MonoBehaviour
             playerI.SetPlayerItemText();
             CoMCharacter ui = characterItems.GetSelectedCharacter(character);
             playerI.SetSprite(ui.characterPlayer);
-            confirmButton.SetActive(false);
         }
     }
 }
