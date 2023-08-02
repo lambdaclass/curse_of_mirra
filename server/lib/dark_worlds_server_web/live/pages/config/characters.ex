@@ -3,11 +3,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
 
   def mount(_params, _session, socket) do
     config = read_config()
-    {:ok, assign(socket, :config, config)}
-  end
-
-  def handle_event("save", value, socket) do
-    {:noreply, socket}
+    {:ok, assign(socket, config: to_form(config), characters: Map.keys(config))}
   end
 
   defp read_config() do
@@ -15,7 +11,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
          {:ok, body} <- File.read(path),
          {:ok, json} <- Jason.decode(body) do
       {:ok, json}
-      json["Items"] |> Map.new(fn v -> {v["Id"], v} end)
+      json["Items"] |> Map.new(fn v -> {v["Name"], v} end)
     else
       {:error, reason} -> {:error, reason}
     end

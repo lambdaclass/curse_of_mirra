@@ -45,6 +45,7 @@ defmodule DarkWorldsServerWeb.Router do
     end
 
     get "/config", ConfigController, :index
+    post "/config/characters", ConfigController, :save_characters
     live "/config/characters", ConfigLive.Characters
   end
 

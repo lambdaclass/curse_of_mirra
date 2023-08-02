@@ -2,20 +2,18 @@
     Edit Character Config
 </.header>
   
-<.simple_form for={@config} action={#}>
-    <%= for {id, i} <- @config do %>
-        <h1><%= i["Name"] %></h1>
-        <% IO.inspect(i) %>
-
-            <%= for key <- i |> Map.keys() do %>
-                <.input field={@config |> IO.inspect()} type="text" label={key} />
+<.simple_form :let={form} for={@config} action={~p"/config/characters"}>
+    <%= for name <- @characters do %>
+        <h1><%= name %></h1>
+        <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
+            <%= for key <- Map.keys(@config.params[name]) do %>
+                <.input field={nested_form[key]} type="text" label={key} />
             <% end %>
+        </.inputs_for>
     <% end %>
     <:actions>
-        <.button phx-click="save">Save</.button>
+        <.button>Save</.button>
     </:actions>
 </.simple_form>
-    
-
 
 <.back navigate={~p"/config"}>Back to config</.back>
