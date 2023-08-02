@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class DeathSplashKillCount : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         var killCount = GetKillCount();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = killCount.ToString() + " KILLS";
+        var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text =
+            killCount.ToString() + killCountMessage;
     }
 
     private ulong GetKillCount()

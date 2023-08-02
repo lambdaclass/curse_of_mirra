@@ -88,11 +88,6 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-        if (gamePlayers != null && players != null)
-        {
-            print(gamePlayers.Count());
-            print(players.Count());
-        }
     }
 
     private void ConnectToSession(string session_id)
@@ -162,7 +157,7 @@ public class SocketConnectionManager : MonoBehaviour
                                         + player.KillCount
                                         + " DEATHS: "
                                         + player.DeathCount
-                                        + " STATUS "
+                                        + " STATUS: "
                                         + player.Status
                                 )
                         );

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class DeathSplashDefeaterImage : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         gameObject.GetComponent<Image>().sprite = GetDefeaterSprite();
     }

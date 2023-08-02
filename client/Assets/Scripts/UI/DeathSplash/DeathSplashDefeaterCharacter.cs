@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeathSplashDefeaterCharacter : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = GetDefeaterCharacter();
     }

@@ -101,16 +101,7 @@ public class CustomLevelManager : LevelManager
         }
         var gamePlayer = Utils.GetGamePlayer(playerId);
 
-        print(gamePlayer);
-        print(gamePlayer == null);
-        if (gamePlayer != null)
-        {
-            print(gamePlayer.Status);
-            print(gamePlayer.Health);
-        }
-
-        // TODO: we should only check if the gamePlayer.Status is dead, but there's a bug yet to be fixed on the backend side for that to work properly.
-        if (gamePlayer != null && (gamePlayer.Status == Status.Dead || gamePlayer.Health <= 0))
+        if (gamePlayer != null && (gamePlayer.Status == Status.Dead))
         {
             ShowDeathSplash();
         }
