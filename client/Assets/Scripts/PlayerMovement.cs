@@ -228,8 +228,7 @@ public class PlayerMovement : MonoBehaviour
 
             Transform hitbox = actualPlayer.transform.Find("Hitbox");
 
-            // FIXME: change hitboxSize with the actual value once it's sent by the backend.
-            float hitboxSize = 100f / 50f;
+            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
             hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
