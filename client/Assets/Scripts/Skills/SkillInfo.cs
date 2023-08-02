@@ -18,7 +18,6 @@ public class SkillInfo : ScriptableObject
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
-    public float skillAreaRadius;
     public float startAnimationDuration;
     public float executeAnimationDuration;
     public float skillCircleRadius;
@@ -28,4 +27,7 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Arrow)]
     public float arrowWidth;
+
+    [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
+    public float skillAreaRadius;
 }

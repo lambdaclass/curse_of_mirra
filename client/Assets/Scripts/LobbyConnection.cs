@@ -23,6 +23,7 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
+    public SkillsConfig skillsConfig;
 
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
@@ -123,6 +124,7 @@ public class LobbyConnection : MonoBehaviour
         yield return GameSettings.ParseSettingsCoroutine(settings =>
         {
             serverSettings = settings;
+            skillsConfig = serverSettings.SkillsConfig;
         });
         LobbyEvent lobbyEvent = new LobbyEvent
         {
