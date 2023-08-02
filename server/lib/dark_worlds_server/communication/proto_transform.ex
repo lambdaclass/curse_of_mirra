@@ -7,6 +7,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
+  alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
@@ -23,6 +24,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # ENCODES #
   ###########
+
+  def encode(status, Status) do
+    status
+  end
 
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
@@ -96,8 +101,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      action: action,
       status: status,
+      action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
@@ -115,8 +120,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
+      status: player_status_encode(status),
       action: player_action_encode(action),
-      status: status,
       aoe_position: aoe_position,
       kill_count: kill_count,
       death_count: death_count,
@@ -249,7 +254,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      status: status,
+      status: player_status_decode(status),
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -414,6 +419,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp direction_decode(:DOWN), do: :down
   defp direction_decode(:LEFT), do: :left
   defp direction_decode(:RIGHT), do: :right
+
+  defp player_status_encode(:alive), do: :ALIVE
+  defp player_status_encode(:dead), do: :DEAD
+
+  defp player_status_decode(:ALIVE), do: :alive
+  defp player_status_decode(:DEAD), do: :dead
 
   defp player_action_encode(:attacking), do: :ATTACKING
   defp player_action_encode(:nothing), do: :NOTHING
