@@ -32,10 +32,10 @@ public class UIManager : MonoBehaviour
 
     public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
     {
+        itemList.Reverse();
         itemList.ForEach(el =>
         {
             GameObject item = (GameObject)Instantiate(itemPrefab, container);
-            item.transform.SetAsFirstSibling();
             string lastCharactersInID = el.Substring(el.Length - 5);
             item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
