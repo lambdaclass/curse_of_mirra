@@ -7,17 +7,7 @@ defmodule DarkWorldsServerWeb.ConfigController do
 
   def save_characters(conn, params) do
     list = params |> Map.drop(["_csrf_token"]) |> Map.values() |> Enum.sort_by(& &1["Id"])
-    write_config(%{"Items" => list})
+    Utils.Config.write_config(list, :characters)
     render(conn, :index)
-  end
-
-  defp write_config(config_map) do
-    case Jason.encode(config_map, pretty: true) do
-      {:ok, json} ->
-        File.write(Path.absname("../client/Assets/StreamingAssets/Characters.json"), json)
-
-      error ->
-        error
-    end
   end
 end
