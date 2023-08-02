@@ -513,7 +513,6 @@ MonoBehaviour:
   roundText: {fileID: 2856279044554654233}
   totalKillsText: {fileID: 672995939}
   backToLobbyButton: {fileID: 2856279044554654232}
-  soundManager: {fileID: 1734572836}
   backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
   camera: {fileID: 2053005125}
@@ -704,54 +703,6 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
---- !u!1 &1734572835
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1734572837}
-  - component: {fileID: 1734572836}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1734572836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734572835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutomaticallyUnparentOnAwake: 1
-  settingsSo: {fileID: 11400000, guid: 07ea3ff88e1ecb84d91f58aa804badc6, type: 2}
-  AudioSourcePoolSize: 10
-  PoolCanExpand: 1
---- !u!4 &1734572837
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734572835}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.5, y: -1.5, z: -9.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1918232351}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1747284128
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +839,6 @@ Transform:
   - {fileID: 1836016680}
   - {fileID: 585127343}
   - {fileID: 1302669237}
-  - {fileID: 1734572837}
   - {fileID: 2040541226}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -927,7 +877,7 @@ MonoBehaviour:
   SafeMode: 3
   Direction: 0
   AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
+  AutoPlayOnStart: 1
   AutoPlayOnEnable: 0
   ForceTimescaleMode: 0
   ForcedTimescaleMode: 1
@@ -1123,7 +1073,7 @@ MonoBehaviour:
             m_PostInfinity: 2
             m_RotationOrder: 4
           Initialized: 0
-        SoloSingleTrack: 0
+        SoloSingleTrack: 1
         SoloAllTracks: 0
         AutoUnSoloOnEnd: 0
         PanStereo: 0
@@ -1190,7 +1140,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1918232351}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2053005125 stripped
 MonoBehaviour:
@@ -1358,33 +1308,18 @@ PrefabInstance:
         type: 3}
       propertyPath: soundManager
       value: 
-      objectReference: {fileID: 1734572836}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 680
+      objectReference: {fileID: 0}
     - target: {fileID: 4736848132354094292, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: soundManager
       value: 
-      objectReference: {fileID: 1734572836}
-    - target: {fileID: 4958016521692925438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958016521692925438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958016521692925438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958016521692925438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958016521692925438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    - target: {fileID: 5115653289524282631, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
