@@ -1,0 +1,19 @@
+<.header>
+    Edit Skills Config
+</.header>
+  
+<.simple_form :let={form} for={@config} action={~p"/config/skills"}>
+    <%= for name <- @skills do %>
+        <h1><%= name %></h1>
+        <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
+            <%= for key <- Map.keys(@config.params[name]) do %>
+                <.input field={nested_form[key]} type="text" label={key} />
+            <% end %>
+        </.inputs_for>
+    <% end %>
+    <:actions>
+        <.button>Save</.button>
+    </:actions>
+</.simple_form>
+
+<.back navigate={~p"/config"}>Back to config</.back>
