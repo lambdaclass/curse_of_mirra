@@ -141,8 +141,8 @@ public class PlayerMovement : MonoBehaviour
             );
             if (
                 useInterpolation
-                && SocketConnectionManager.Instance.playerId
-                    != SocketConnectionManager.Instance.gamePlayers[i].Id
+                && (SocketConnectionManager.Instance.playerId
+                    != SocketConnectionManager.Instance.gamePlayers[i].Id || !useClientPrediction)
             )
             {
                 gameEvent = buffer.getNextEventToRender(pastTime);
