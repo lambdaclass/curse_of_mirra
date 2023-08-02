@@ -1,6 +1,6 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, self};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{
@@ -388,14 +388,15 @@ impl GameState {
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                self.melee_attack(attacking_player, direction, attack_range, attack_angle)
+                let extra_effect = GameState::get_extra_effect(attacking_player, now);
+                self.melee_attack(attacking_player, direction, attack_range, attack_angle, extra_effect)
             }
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
 
                 let attacked_players_ids =
-                    self.melee_attack(attacking_player, direction, attack_range, attack_angle)?;
+                    self.melee_attack(attacking_player, direction, attack_range, attack_angle, None)?;
                 for attacked_player_id in attacked_players_ids.clone() {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, attacked_player_id)?;
@@ -424,6 +425,25 @@ impl GameState {
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
         Ok(())
+    }
+
+    pub fn get_extra_effect(attacking_player: &Player, now: MillisTime) -> Option<(Effect, EffectData)> {
+        if attacking_player.has_active_effect(&Effect::FieryRampage){
+            let effect_data =  
+                EffectData {
+                    time_left: u128_to_millis(2000 as u128),
+                    ends_at: add_millis(now, u128_to_millis(2000 as u128)),
+                    duration: u128_to_millis(2000 as u128),
+                    direction: None,
+                    position: None,
+                    triggered_at: now,
+                    caused_by: attacking_player.id,
+                    caused_to: attacking_player.id,
+                    damage: attacking_player.basic_skill_damage() / 4,
+                };
+            return Some((Effect::Burned.clone(), effect_data))
+        }
+        None
     }
 
     pub fn h4ck_basic_attack(
@@ -512,6 +532,7 @@ impl GameState {
         direction: &RelativePosition,
         attack_range: f64,
         attack_angle: u64,
+        effect: Option<(Effect, EffectData)>
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
 
@@ -538,6 +559,15 @@ impl GameState {
                         .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
                     None => None,
                 };
+
+                match effect {
+                    Some((effect, effect_data)) => {
+                        let mut effect_data = effect_data.clone();
+                        effect_data.caused_to = attacked_player.id;
+                        attacked_player.add_effect(effect, effect_data);
+                    },
+                    None => (),
+                }
 
                 self.attack_mirrored_player(uma_mirroring_affected_players)?;
 
@@ -580,7 +610,7 @@ impl GameState {
             ),
             Name::Muflus => {
                 let players = &mut self.players;
-                Self::muflus_skill_1(players, attacking_player_id)
+                Self::muflus_skill_1(players, attacking_player_id, now)
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
@@ -683,10 +713,13 @@ impl GameState {
     pub fn muflus_skill_1(
         players: &mut Vec<Player>,
         attacking_player_id: u64,
+        now: MillisTime
     ) -> Result<Vec<u64>, String> {
         let pys = players.clone();
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.skill_1_damage() as i64;
+
+        let extra_effect = GameState::get_extra_effect(attacking_player, now);
 
         // TODO: This should be a config of the attack
         let attack_range: f64 = attacking_player.skill_1_range();
@@ -706,6 +739,15 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
+
+                    match extra_effect {
+                        Some((effect, effect_data)) => {
+                            let mut effect_data = effect_data.clone();
+                            effect_data.caused_to = ap.id;
+                            ap.add_effect(effect, effect_data);
+                        },
+                        None => (),
+                    }
                 }
                 _ => continue,
             }
@@ -960,7 +1002,24 @@ impl GameState {
                     },
                 );
                 Ok(Vec::new())
-            }
+            },
+            Name::Muflus => {
+                attacking_player.add_effect(
+                    Effect::FieryRampage.clone(),
+                    EffectData {
+                        time_left: attacking_player.character.duration_skill_4(),
+                        ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
+                        duration: attacking_player.character.duration_skill_4(),
+                        direction: None,
+                        position: None,
+                        triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
+                        damage: 0,
+                    },
+                );
+                Ok(Vec::new())
+            },
             Name::Uma => GameState::uma_skill_4(&mut self.players, attacking_player_id),
             _ => Ok(Vec::new()),
         };
@@ -1182,6 +1241,8 @@ impl GameState {
 
         self.check_and_damage_poisoned_players();
 
+        self.check_and_damage_burned_players();
+
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
@@ -1216,6 +1277,39 @@ impl GameState {
         });
 
         for (player_id, (_, attacked_players)) in poisoned_affected_players.iter() {
+            let attacked = attacked_players.clone();
+            self.update_killfeed(*player_id, attacked);
+        }
+    }
+
+    fn check_and_damage_burned_players(self: &mut Self) {
+        let now = time_now();
+        let mut burned_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        self.players.iter_mut().for_each(|player| {
+            if matches!(player.status, Status::DEAD) {
+                return;
+            }
+            let mut effect_data = match player.effects.get(&Effect::Burned) {
+                Some(data) => data.clone(),
+                None => return,
+            };
+
+            let delta = (1000 / 2) as u32;
+            let damage = effect_data.damage / (effect_data.duration.low as u32 / delta);
+
+            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > delta as u128 {
+                player.modify_health(-(damage as i64));
+                effect_data.triggered_at = now;
+            }
+            burned_affected_players
+                .entry(effect_data.caused_by)
+                .and_modify(|at| at.1.push(player.id))
+                .or_insert((0, vec![player.id]));
+
+            player.effects.insert(Effect::Burned, effect_data);
+        });
+
+        for (player_id, (_, attacked_players)) in burned_affected_players.iter() {
             let attacked = attacked_players.clone();
             self.update_killfeed(*player_id, attacked);
         }

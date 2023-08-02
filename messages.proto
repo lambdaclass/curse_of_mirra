@@ -197,6 +197,8 @@ enum PlayerEffect {
     XANDA_MARK_OWNER = 10;
     POISONED = 11;
     SLOWED = 12;
+    FIERY_RAMPAGE = 13;
+    BURNED = 14;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

@@ -6,7 +6,7 @@ use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone, NifStruct)]
+#[derive(Debug, Clone, Copy, NifStruct)]
 #[module = "DarkWorldsServer.Engine.Player"]
 pub struct EffectData {
     pub time_left: MillisTime,
@@ -22,7 +22,7 @@ pub struct EffectData {
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
 
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, Copy, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
     Disarmed,
@@ -37,6 +37,8 @@ pub enum Effect {
     XandaMarkOwner,
     Poisoned,
     Slowed,
+    FieryRampage,
+    Burned,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -159,6 +161,9 @@ impl Player {
         let mut damage = hp_points;
         if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
             damage = damage / 2;
+        }
+        if self.has_active_effect(&Effect::FieryRampage) {
+            damage = damage * 3 / 4;
         }
         damage
     }
