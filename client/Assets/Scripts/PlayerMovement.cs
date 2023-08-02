@@ -173,9 +173,25 @@ public class PlayerMovement : MonoBehaviour
                 );
             }
 
-            if (interpolationGhost != null)
+            if (
+                interpolationGhost != null
+                && SocketConnectionManager.Instance.playerId
+                    != SocketConnectionManager.Instance.gamePlayers[i].Id
+            )
             {
                 movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+            }
+            else if ( // This IF lets you interpolate your own ghost.
+                interpolationGhost != null
+                && SocketConnectionManager.Instance.playerId
+                    == SocketConnectionManager.Instance.gamePlayers[i].Id
+            )
+            {
+                movePlayer(
+                    interpolationGhost,
+                    buffer.getNextEventToRender(pastTime).Players[i],
+                    pastTime
+                );
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
