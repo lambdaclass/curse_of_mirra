@@ -92,6 +92,23 @@ public class Skill : CharacterAbility
             else
             {
                 this.AbilityStopFeedbacks = feedbackVfx.GetComponent<MMF_Player>();
+                if (
+                    skillInfo.indicatorType == UIIndicatorType.Area
+                    && skillInfo.inputType == UIType.Tap
+                )
+                {
+                    print(feedbackVfx.name);
+                    Transform go = feedbackVfx
+                        .GetComponent<MMF_Player>()
+                        .GetFeedbackOfType<MMF_Particles>()
+                        .BoundParticleSystem.transform;
+
+                    // This is kind of hack for now , we will have to equalize all feedback scales.
+
+                    float radius = (skillInfo.skillAreaRadius * 0.5f);
+
+                    go.localScale = new Vector3(radius, radius, radius);
+                }
             }
         }
 

@@ -203,6 +203,8 @@ public class CustomLevelManager : LevelManager
                 {
                     if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
                     {
+                        // 350 in the back is equal to 12 in the front
+                        // So this is the calculation
                         skillList[i].SetSkillAreaRadius((float.Parse(skill.SkillRange) * 12) / 350);
                     }
                 }
