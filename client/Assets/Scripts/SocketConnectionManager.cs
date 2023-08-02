@@ -46,6 +46,8 @@ public class SocketConnectionManager : MonoBehaviour
     public float playableRadius;
     public Position shrinkingCenter;
 
+    public List<Player> alive = new List<Player>();
+
     WebSocket ws;
 
     public class Session
@@ -116,6 +118,8 @@ public class SocketConnectionManager : MonoBehaviour
             switch (game_event.Type)
             {
                 case GameEventType.StateUpdate:
+                    print(LobbyConnection.Instance.runnerConfig.MapShrinkWaitMs);
+                    print(LobbyConnection.Instance.runnerConfig.MapShrinkInterval);
                     this.playableRadius = game_event.PlayableRadius;
                     this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
@@ -140,6 +144,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
+                    alive = game_event.Players.ToList().FindAll(el => el.Health > 0);
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
@@ -235,9 +240,12 @@ public class SocketConnectionManager : MonoBehaviour
         var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 
@@ -261,9 +269,12 @@ public class SocketConnectionManager : MonoBehaviour
 
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 

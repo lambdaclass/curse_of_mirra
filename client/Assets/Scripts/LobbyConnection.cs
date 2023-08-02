@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
-using MoreMountains.Tools;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -28,6 +27,8 @@ public class LobbyConnection : MonoBehaviour
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
     public bool gameStarted = false;
+
+    public RunnerConfig runnerConfig;
 
     WebSocket ws;
 
@@ -61,7 +62,6 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         PopulateLists();
-        DontDestroyOnLoad(MMSoundManager.Instance);
     }
 
     public void Init()
@@ -125,6 +125,7 @@ public class LobbyConnection : MonoBehaviour
         yield return GameSettings.ParseSettingsCoroutine(settings =>
         {
             serverSettings = settings;
+            runnerConfig = serverSettings.RunnerConfig;
         });
         LobbyEvent lobbyEvent = new LobbyEvent
         {

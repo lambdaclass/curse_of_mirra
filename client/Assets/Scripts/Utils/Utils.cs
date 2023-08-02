@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using MoreMountains.TopDownEngine;
 using MoreMountains.Tools;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Utils
 {
@@ -30,6 +32,18 @@ public class Utils
     {
         return SocketConnectionManager.Instance.players.Find(
             el => el.GetComponent<Character>().PlayerID == id.ToString()
+        );
+    }
+
+    public static Player GetGamePlayer(ulong id)
+    {
+        return SocketConnectionManager.Instance.gamePlayers.Find(el => el.Id == id);
+    }
+
+    public static IEnumerable<Player> GetAlivePlayers()
+    {
+        return SocketConnectionManager.Instance.gamePlayers.Where(
+            player => player.Status == Status.Alive
         );
     }
 
