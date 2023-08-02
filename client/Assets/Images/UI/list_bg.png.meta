@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/Images/UI/list_bg.png.meta
 guid: 2297de1bf5bfa4da7922333288436a12
+========
+guid: 1329d2eb27d9545f281379a87e33d4d1
+>>>>>>>> main:client/Assets/Images/UI/minionLobby.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
