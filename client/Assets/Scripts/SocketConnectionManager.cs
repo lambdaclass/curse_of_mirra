@@ -149,8 +149,23 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.GameFinished:
                     winnerPlayer.Item1 = game_event.WinnerPlayer;
                     winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
+                    this.gamePlayers = game_event.Players.ToList();
                     // This should be uncommented when the match end is finished
-                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+                    game_event.Players
+                        .ToList()
+                        .ForEach(
+                            (player) =>
+                                print(
+                                    "PLAYER: "
+                                        + player.Id
+                                        + " KILLS: "
+                                        + player.KillCount
+                                        + " DEATHS: "
+                                        + player.DeathCount
+                                        + " STATUS "
+                                        + player.Status
+                                )
+                        );
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = game_event.Players.ToList();
@@ -237,9 +252,12 @@ public class SocketConnectionManager : MonoBehaviour
         var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 
@@ -263,9 +281,12 @@ public class SocketConnectionManager : MonoBehaviour
 
         int port;
 
-        if (useProxy == "true") {
+        if (useProxy == "true")
+        {
             port = 5000;
-        } else {
+        }
+        else
+        {
             port = 4000;
         }
 
