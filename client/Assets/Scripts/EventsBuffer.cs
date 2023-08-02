@@ -69,7 +69,7 @@ public class EventsBuffer
         }
 
         if (index == (updatesBuffer.Count - 1)) {
-            nextIndex = updatesBuffer.Count;
+            nextIndex = updatesBuffer.Count - 1;
         } else {
             nextIndex = index + 1;
         }
