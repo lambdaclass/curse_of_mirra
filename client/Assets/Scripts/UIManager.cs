@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject lobbyItemPrefab;
 
+    [SerializeField]
+    GameObject noLobbiesText;
+
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
 
@@ -20,9 +23,11 @@ public class UIManager : MonoBehaviour
     {
         if (lobbiesEmpty && LobbyConnection.Instance.lobbiesList.Count > 0)
         {
+            noLobbiesText.SetActive(false);
             GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
             lobbiesEmpty = false;
         }
+        noLobbiesText.SetActive(lobbiesEmpty);
     }
 
     public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
