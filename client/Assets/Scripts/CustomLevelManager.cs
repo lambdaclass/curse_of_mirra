@@ -97,7 +97,7 @@ public class CustomLevelManager : LevelManager
     {
         if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
         {
-            ShowRoundTransition();
+            ShowDeathSplash();
         }
         var gamePlayer = Utils.GetGamePlayer(playerId);
 
@@ -110,7 +110,7 @@ public class CustomLevelManager : LevelManager
         }
 
         // TODO: we should only check if the gamePlayer.Status is dead, but there's a bug yet to be fixed on the backend side for that to work properly.
-        if (gamePlayer != null && gamePlayer.Status == Status.Dead)
+        if (gamePlayer != null && (gamePlayer.Status == Status.Dead || gamePlayer.Health <= 0))
         {
             ShowDeathSplash();
         }
@@ -256,7 +256,6 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
-        UiControls.SetActive(false);
         SetCameraToRandomPlayer();
     }
 

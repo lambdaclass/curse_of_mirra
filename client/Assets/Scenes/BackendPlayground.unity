@@ -524,7 +524,6 @@ MonoBehaviour:
   backToLobbyButton: {fileID: 2856279044554654232}
   backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
-  UiControls: {fileID: 1717439191}
   camera: {fileID: 2053005125}
   charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}

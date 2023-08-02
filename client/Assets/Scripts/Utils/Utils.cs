@@ -43,7 +43,7 @@ public class Utils
     public static IEnumerable<Player> GetAlivePlayers()
     {
         return SocketConnectionManager.Instance.gamePlayers.Where(
-            player => player.Status == Status.Alive
+            player => player.Status == Status.Alive && player.Health > 0
         );
     }
 
