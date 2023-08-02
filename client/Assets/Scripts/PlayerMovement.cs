@@ -55,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            if (firstTimestamp == 0) {
+            if (firstTimestamp == 0)
+            {
                 firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             }
             var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -129,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
-
         currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
 
@@ -145,8 +145,11 @@ public class PlayerMovement : MonoBehaviour
             );
             if (
                 useInterpolation
-                && (SocketConnectionManager.Instance.playerId
-                    != SocketConnectionManager.Instance.gamePlayers[i].Id || !useClientPrediction)
+                && (
+                    SocketConnectionManager.Instance.playerId
+                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    || !useClientPrediction
+                )
             )
             {
                 gameEvent = buffer.getNextEventToRender(pastTime);
@@ -184,18 +187,6 @@ public class PlayerMovement : MonoBehaviour
             )
             {
                 movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
-            }
-            else if ( // This IF lets you interpolate your own ghost.
-                interpolationGhost != null
-                && SocketConnectionManager.Instance.playerId
-                    == SocketConnectionManager.Instance.gamePlayers[i].Id
-            )
-            {
-                movePlayer(
-                    interpolationGhost,
-                    buffer.getNextEventToRender(pastTime).Players[i],
-                    pastTime
-                );
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
