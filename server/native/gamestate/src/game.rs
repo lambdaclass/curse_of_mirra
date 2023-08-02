@@ -282,7 +282,7 @@ impl GameState {
         players_in_range
     }
     pub fn world_tick_players_in_range(
-        players: &MutablePlayers,
+        players: MutablePlayers,
         attacking_position: &Position,
         range: f64,
     ) -> Vec<u64> {
@@ -304,7 +304,9 @@ impl GameState {
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
-        let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
+        let attacking_player = players
+            .get((attacking_player_id - 1) as usize)
+            .expect("Non-valid player id!");
 
         let (p1, p2) = match previous_position.x < next_position.x {
             true => (previous_position, next_position),
@@ -314,7 +316,7 @@ impl GameState {
         };
 
         players
-            .iter()
+            .into_iter()
             .filter(|player| player.is_alive() && player.id != attacking_player_id)
             .for_each(|player| {
                 let radius = player.character.body_size;
@@ -325,7 +327,7 @@ impl GameState {
                         let intersection = Position::new(player.position.x, p1.y);
 
                         intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                        (distance_to_center(player.into(), &intersection) <= radius) // The player is near the intersection
                     }
                     false if p2.x == p1.x => {
                         // The projectile is moving horizontally
@@ -1044,7 +1046,7 @@ impl GameState {
         *affected_players = GameState::affected_players(
             2,
             200.,
-            players,
+            (players.clone()).into_iter().map(Into::into).collect(),
             &dashing_player_position,
             dashing_player_id,
         );
@@ -1083,7 +1085,7 @@ impl GameState {
                     world_tick_state.leap_affected_players = GameState::affected_players(
                         player.skill_3_damage() as i64,
                         450.,
-                        &players,
+                        players.clone().into_iter().map(Into::into).collect(),
                         &player.position(),
                         player.id(),
                     );
@@ -1125,6 +1127,58 @@ impl GameState {
                 killed: attacked_player.id(),
             });
             attacking_player.increment_kill_count(1);
+        }
+        Ok(())
+    }
+    pub fn world_tick_active_projectile_update(
+        players: &MutablePlayers,
+        projectile: &mut Projectile,
+        world_tick_state: &mut TickState,
+    ) -> Result<(), String>{
+        let affected_players: HashMap<u64, f64> = GameState::players_in_projectile_movement(
+            projectile.player_id,
+            &(players.clone()).into_iter().map(Into::into).collect(),
+            projectile.prev_position,
+            projectile.position,
+        )
+        .into_iter()
+        .filter(|&(id, _distance)| {
+            id != projectile.player_id && id != projectile.last_attacked_player_id
+        })
+        .collect();
+
+        if affected_players.len() > 0 && !projectile.pierce {
+            projectile.status = ProjectileStatus::EXPLODED;
+        }
+
+        // Seems like the current logic is to count
+        // kill_counts by one, right?
+        // let mut kill_count = 0;
+
+        // A projectile should attack only one player per tick
+        if affected_players.len() > 0 {
+            // If there are more than one players affected by the projectile
+            // find the nearest one
+            let (attacked_player_id, _) = affected_players
+                .into_iter()
+                .min_by(|(_, player_dist_1), (_, player_dist_2)| {
+                    cmp_float(*player_dist_1, *player_dist_2)
+                })
+                .ok_or("No player found for projectile attack!")?;
+
+            let attacking_player = players
+                .get((projectile.player_id - 1) as usize)
+                .ok_or("Non valid ID")?;
+            let attacked_player = players
+                .get((attacked_player_id - 1) as usize)
+                .ok_or("Non valid ID")?;
+
+            GameState::world_tick_apply_projectile_on_player(
+                world_tick_state,
+                &attacking_player.clone(),
+                &attacked_player.clone(),
+                projectile,
+            )?;
         }
         Ok(())
     }
@@ -1172,52 +1226,7 @@ impl GameState {
 
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                let affected_players: HashMap<u64, f64> =
-                    GameState::players_in_projectile_movement(
-                        projectile.player_id,
-                        &self.players,
-                        projectile.prev_position,
-                        projectile.position,
-                    )
-                    .into_iter()
-                    .filter(|&(id, _distance)| {
-                        id != projectile.player_id && id != projectile.last_attacked_player_id
-                    })
-                    .collect();
-
-                if affected_players.len() > 0 && !projectile.pierce {
-                    projectile.status = ProjectileStatus::EXPLODED;
-                }
-
-                // Seems like the current logic is to count
-                // kill_counts by one, right?
-                // let mut kill_count = 0;
-
-                // A projectile should attack only one player per tick
-                if affected_players.len() > 0 {
-                    // If there are more than one players affected by the projectile
-                    // find the nearest one
-                    let (attacked_player_id, _) = affected_players
-                        .into_iter()
-                        .min_by(|(_, player_dist_1), (_, player_dist_2)| {
-                            cmp_float(*player_dist_1, *player_dist_2)
-                        })
-                        .ok_or("No player found for projectile attack!")?;
-
-                    let attacking_player = players
-                        .get((projectile.player_id - 1) as usize)
-                        .ok_or("Non valid ID")?;
-                    let attacked_player = players
-                        .get((attacked_player_id - 1) as usize)
-                        .ok_or("Non valid ID")?;
-
-                    GameState::world_tick_apply_projectile_on_player(
-                        &mut self.world_tick_state,
-                        attacking_player.clone(),
-                        attacked_player.clone(),
-                        projectile,
-                    )?;
-                }
+                GameState::world_tick_active_projectile_update(&players, projectile, &mut self.world_tick_state);
             }
 
             GameState::world_tick_attack_mirrored_player(
@@ -1231,7 +1240,8 @@ impl GameState {
         self.check_and_damage_outside_playable();
         self.check_and_damage_poisoned_players();
 
-        self.next_killfeed.append(&mut self.world_tick_state.tick_killed_events);
+        self.next_killfeed
+            .append(&mut self.world_tick_state.tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
@@ -1319,7 +1329,7 @@ impl GameState {
     fn affected_players(
         attack_damage: i64,
         attack_range: f64,
-        players: &MutablePlayers,
+        players: MutablePlayers,
         attacking_player_position: &Position,
         attacking_player_id: u64,
     ) -> HashMap<u64, (i64, Vec<u64>)> {
@@ -1551,7 +1561,6 @@ fn distance_to_center(player: &Player, center: &Position) -> f64 {
         (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
     (distance_squared as f64).sqrt()
 }
-
 #[allow(dead_code)]
 fn distance_between_positions(position_1: &Position, position_2: &Position) -> f64 {
     let distance_squared =

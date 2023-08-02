@@ -7,7 +7,7 @@ use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
-pub type MutablePlayers = [MutablePlayer];
+pub type MutablePlayers = Vec<MutablePlayer>;
 pub struct MutablePlayer {
     inner: Rc<RefCell<Player>>,
 }
@@ -20,6 +20,11 @@ impl From<Player> for MutablePlayer {
 impl From<MutablePlayer> for Player {
     fn from(player: MutablePlayer) -> Player {
         return player.into();
+    }
+}
+impl Clone for MutablePlayer {
+    fn clone(&self) -> MutablePlayer {
+        return MutablePlayer{ inner: self.inner.clone() }
     }
 }
 impl MutablePlayer {
@@ -57,6 +62,9 @@ impl MutablePlayer {
     }
     pub fn kill_count(&self) -> u64 {
         self.inner.borrow().kill_count
+    }
+    pub fn is_alive(&self) -> bool {
+        self.inner.borrow().is_alive()
     }
     // PLAYER MUTATING FUNCTIONS
     pub fn set_action(&self, action: &PlayerAction) {
