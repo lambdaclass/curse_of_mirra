@@ -39,6 +39,7 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+    public Player playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
@@ -87,6 +88,7 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         playerId = LobbyConnection.Instance.playerId;
+        playerToFollow = Utils.GetGamePlayer(playerId);
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
@@ -95,13 +97,8 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
-        {
-            ShowDeathSplash();
-        }
         var gamePlayer = Utils.GetGamePlayer(playerId);
-
-        if (gamePlayer != null && (gamePlayer.Status == Status.Dead))
+        if (GameHasEndedOrPlayerHasDied(gamePlayer))
         {
             ShowDeathSplash();
         }
@@ -110,6 +107,11 @@ public class CustomLevelManager : LevelManager
         {
             GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
             paused = !paused;
+        }
+
+        if (playerToFollow.Status == Status.Dead)
+        {
+            SetCameraToAlivePlayer();
         }
     }
 
@@ -247,15 +249,15 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
-        SetCameraToRandomPlayer();
+        GameObject.Find("UIControls").SetActive(false);
     }
 
-    private void SetCameraToRandomPlayer()
+    private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
-        var rand = new System.Random();
-        var randomPlayer = alivePlayers.ElementAt(rand.Next(0, alivePlayers.Count()));
-        setCameraToPlayer(randomPlayer.Id);
+        playerToFollow = alivePlayers.ElementAt(0);
+
+        setCameraToPlayer(playerToFollow.Id);
     }
 
     private void InitializeAudio()
@@ -268,5 +270,11 @@ public class CustomLevelManager : LevelManager
         backgroundMusic.PlayFeedbacks();
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
+    }
+
+    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    {
+        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
+            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
     }
 }
