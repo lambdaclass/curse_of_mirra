@@ -92,6 +92,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:XANDA_MARK, 9)
   field(:XANDA_MARK_OWNER, 10)
   field(:POISONED, 11)
+  field(:SLOWED, 12)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do

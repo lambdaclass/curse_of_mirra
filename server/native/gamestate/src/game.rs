@@ -1004,8 +1004,8 @@ impl GameState {
     pub fn world_tick(self: &mut Self, out_of_area_damage: i64) -> Result<(), String> {
         let now = time_now();
         let pys = self.players.clone();
-        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)> = HashMap::new();
+        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)> = HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         let mut projectile_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
@@ -1029,13 +1029,15 @@ impl GameState {
                         && effect == &Effect::Leaping
                     {
                         player.action = PlayerAction::EXECUTINGSKILL3;
-                        leap_affected_players = GameState::affected_players(
-                            damage,
+                        let af_pl = GameState::affected_players(
                             attack_range,
                             &pys,
                             &player.position,
                             player.id,
                         );
+                        let effect = Effect::Slowed;
+                        let duration = player.character.duration_skill_3();
+                        leap_affected_players.insert(player.id, (damage, af_pl, Some((effect, duration))));
                     }
                     millis_to_u128(*time_left) > 0
                 },
@@ -1056,8 +1058,12 @@ impl GameState {
                         )
                         .unwrap();
 
-                        neon_crash_affected_players =
-                            GameState::affected_players(2, 200., &pys, &player.position, player.id);
+                        let damage_neon_crash = player.skill_3_damage() as i64;
+                        let range_neon_crash = player.skill_3_range() as f64;
+
+                        let af_pl =
+                            GameState::affected_players(range_neon_crash, &pys, &player.position, player.id);
+                        neon_crash_affected_players.insert(player.id, (damage_neon_crash, af_pl, None));
                     }
                     _ => {}
                 }
@@ -1085,11 +1091,11 @@ impl GameState {
 
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        self.attack_players_with_effect(neon_crash_affected_players)?;
+        self.attack_players_with_effect(neon_crash_affected_players, now)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        self.attack_players_with_effect(leap_affected_players)?;
+        self.attack_players_with_effect(leap_affected_players, now)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1232,10 +1238,11 @@ impl GameState {
 
     fn attack_players_with_effect(
         self: &mut Self,
-        affected_players: HashMap<u64, (i64, Vec<u64>)>,
+        affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)>,
+        now: MillisTime,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        for (player_id, (damage, attacked_players)) in affected_players.iter() {
+        for (player_id, (damage, attacked_players, effect)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 let attacked_player = self
                     .players
@@ -1244,6 +1251,23 @@ impl GameState {
                 match attacked_player {
                     Some(ap) => {
                         ap.modify_health(-damage);
+                        match effect {
+                            Some((effect, duration)) => {
+                                let effect_data = EffectData {
+                                    time_left: *duration,
+                                    ends_at: add_millis(now, *duration),
+                                    duration: *duration,
+                                    direction: None,
+                                    position: None,
+                                    triggered_at: now,
+                                    caused_by: *player_id,
+                                    caused_to: ap.id,
+                                    damage: 0,
+                                };
+                                ap.add_effect(effect.clone(), effect_data.clone());
+                            }
+                            None => {}
+                        }
                         match ap.get_mirrored_player_id() {
                             Some(mirrored_id) => uma_mirroring_affected_players
                                 .insert(ap.id, (damage / 2, mirrored_id)),
@@ -1277,25 +1301,15 @@ impl GameState {
     }
 
     fn affected_players(
-        attack_damage: i64,
         attack_range: f64,
         players: &Vec<Player>,
         attacking_player_position: &Position,
         attacking_player_id: u64,
-    ) -> HashMap<u64, (i64, Vec<u64>)> {
-        let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, attacking_player_position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-        afp.insert(
-            attacking_player_id,
-            (attack_damage, affected_players.clone()),
-        );
-
-        afp
+    ) -> Vec<u64> {
+        GameState::players_in_range(players, attacking_player_position, attack_range)
+            .into_iter()
+            .filter(|&id| id != attacking_player_id)
+            .collect()
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {

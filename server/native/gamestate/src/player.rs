@@ -36,6 +36,7 @@ pub enum Effect {
     XandaMark,
     XandaMarkOwner,
     Poisoned,
+    Slowed,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -259,6 +260,9 @@ impl Player {
         }
         if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        if self.has_active_effect(&Effect::Slowed) {
+            return ((base_speed as f64) * 0.5).ceil() as u64;
         }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
