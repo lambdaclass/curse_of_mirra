@@ -1,42 +1,21 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
-use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
+use crate::projectile::{self, Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
+use crate::tick_state::{MutablePlayer, MutablePlayers, TickState};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
 use crate::utils::{cmp_float, RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
-use std::f32::consts::PI;
-
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::f32::consts::PI;
 use std::ops::{Div, Mul};
-#[derive(NifStruct)]
-#[module = "DarkWorldsServer.Engine.WorldTickState"]
-pub struct WorldTickState {
-    // TODO:
-    // There's a simple performance gain here,
-    // we can use arrays/vectors instead of hashmaps,
-    // fully sized with the number of players.
-    pub neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)>,
-    pub leap_affected_players: HashMap<u64, (i64, Vec<u64>)>,
-    pub uma_mirroring_affected_players: HashMap<u64, (i64, u64)>,
-    pub reference_time: MillisTime,
-}
-impl Default for WorldTickState {
-    fn default() -> Self {
-        WorldTickState {
-            neon_crash_affected_players: HashMap::new(),
-            leap_affected_players: HashMap::new(),
-            uma_mirroring_affected_players: HashMap::new(),
-            reference_time: time_now(),
-        }
-    }
-}
+use std::rc::Rc;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -48,7 +27,7 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
-    world_tick_state: WorldTickState,
+    world_tick_state: TickState,
 }
 
 #[derive(Clone, NifTuple)]
@@ -132,7 +111,7 @@ impl GameState {
                 x: board_height.div(2),
                 y: board_width.div(2),
             },
-            world_tick_state: Default::default(),
+            world_tick_state: TickState::new(),
         })
     }
 
@@ -276,8 +255,7 @@ impl GameState {
         player_id: u64,
     ) -> Result<&mut Player, String> {
         players
-            .iter_mut()
-            .find(|player| player.id == player_id)
+            .get_mut((player_id - 1) as usize)
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
@@ -299,6 +277,21 @@ impl GameState {
                 && !matches!(player.status, Status::DEAD)
             {
                 players_in_range.push(player.id);
+            }
+        }
+        players_in_range
+    }
+    pub fn world_tick_players_in_range(
+        players: &MutablePlayers,
+        attacking_position: &Position,
+        range: f64,
+    ) -> Vec<u64> {
+        let mut players_in_range: Vec<u64> = vec![];
+        for player in players {
+            if distance_between_positions(&(player.position()), attacking_position) <= range
+                && !matches!(player.status(), Status::DEAD)
+            {
+                players_in_range.push(player.id());
             }
         }
         players_in_range
@@ -1033,11 +1026,11 @@ impl GameState {
     }
 
     /// Move with a dash movement, mostly used on world tick.
-    fn move_with_dash(
+    fn world_tick_move_with_dash(
         dashing_player_position: &mut Position,
         dashing_player_speed: u64,
         dashing_player_id: u64,
-        players: &[Player],
+        players: &MutablePlayers,
         board: &Board,
         affected_players: &mut HashMap<u64, (i64, Vec<u64>)>,
         direction: &RelativePosition,
@@ -1059,22 +1052,22 @@ impl GameState {
     }
 
     fn accumulate_dashing_effects(
-        world_tick_state: &mut WorldTickState,
-        player: &mut Player,
+        world_tick_state: &mut TickState,
+        player: &MutablePlayer,
         expired_effects: &[Effect],
-        players: &[Player],
+        players: &MutablePlayers,
         board: &Board,
     ) -> Result<(), String> {
-        match player.character.name {
+        match player.character().name {
             Name::H4ck => {
-                let effect = player.effects.get(&Effect::NeonCrashing);
+                let effect = player.fetch_effect(&Effect::NeonCrashing);
                 if let Some(effect) = effect {
                     effect.direction.map(|direction| -> Result<(), String> {
                         let speed = player.speed();
-                        GameState::move_with_dash(
-                            &mut player.position,
+                        GameState::world_tick_move_with_dash(
+                            &mut player.position(),
                             speed,
-                            player.id,
+                            player.id(),
                             players,
                             &board,
                             &mut world_tick_state.neon_crash_affected_players,
@@ -1086,13 +1079,13 @@ impl GameState {
             }
             Name::Muflus => {
                 if expired_effects.contains(&Effect::Leaping) {
-                    player.action = PlayerAction::EXECUTINGSKILL3;
+                    player.set_action(&PlayerAction::EXECUTINGSKILL3);
                     world_tick_state.leap_affected_players = GameState::affected_players(
                         player.skill_3_damage() as i64,
                         450.,
                         &players,
-                        &player.position,
-                        player.id,
+                        &player.position(),
+                        player.id(),
                     );
                 }
             }
@@ -1101,46 +1094,76 @@ impl GameState {
 
         Ok(())
     }
+    /// Apply the effects of a projectile on the given player
+    fn world_tick_apply_projectile_on_player(
+        // &mut self,
+        state: &mut TickState,
+        attacking_player: &MutablePlayer,
+        attacked_player: &MutablePlayer,
+        projectile: &mut Projectile,
+    ) -> Result<(), String> {
+        match projectile.projectile_type {
+            ProjectileType::DISARMINGBULLET => {
+                let duration = MillisTime { high: 0, low: 5000 };
+                let ends_at = add_millis(state.reference_time, duration);
+                attacked_player.disarm_by_projectile(duration, ends_at, &projectile);
+            }
+            ProjectileType::BULLET => {
+                attacked_player.modify_health(-(projectile.damage as i64));
+                attacked_player.get_mirrored_player_id().map(|mirrored_id| {
+                    state.uma_mirroring_affected_players.insert(
+                        attacked_player.id(),
+                        ((projectile.damage as i64) / 2, mirrored_id),
+                    )
+                });
+                projectile.last_attacked_player_id = attacked_player.id();
+            }
+        }
+        if attacked_player.is_dead() {
+            state.tick_killed_events.push(KillEvent {
+                kill_by: projectile.player_id,
+                killed: attacked_player.id(),
+            });
+            attacking_player.increment_kill_count(1);
+        }
+        Ok(())
+    }
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
-        self.world_tick_state = Default::default();
-        let pys = self.players.clone();
-        let players = &mut (self.players);
-        let mut world_tick_state = &mut (self.world_tick_state);
-        let now = world_tick_state.reference_time;
-        // TODO:
-        // Remove these variables.
-        let mut neon_crash_affected_players = world_tick_state.neon_crash_affected_players.clone();
-        let mut leap_affected_players = &mut (world_tick_state.leap_affected_players.clone());
-        let mut uma_mirroring_affected_players =
-            world_tick_state.uma_mirroring_affected_players.clone();
-        for player in self.players.iter_mut() {
-            // Clean each player actions
-            player.action = PlayerAction::NOTHING;
-            player.update_cooldowns(now);
-            // Keep only (de)buffs that have
-            // a non-zero amount of ticks left.
-            // Expired effects are stored in case they have
-            // some kind of effect.
-            let expired_effects = player.update_effects_time_left(&now)?;
-            let damage = player.skill_3_damage() as i64;
+        self.world_tick_state = TickState::new();
+        let mut players = self
+            .players
+            .clone()
+            .into_iter()
+            .map(|mut player| player.into())
+            .collect::<Vec<MutablePlayer>>();
+        let now = self.world_tick_state.reference_time;
+        for player in players.iter() {
+            // Store expired effects in case they have
+            // some kind of consequence in the game, like muflus' leap.
+            let expired_effects = player.world_tick_updates(&now)?;
+            // Check if this player is dashing and register
+            // the dash effects on the game.
             GameState::accumulate_dashing_effects(
-                world_tick_state,
+                &mut self.world_tick_state,
                 player,
                 &expired_effects,
-                &pys,
+                &players,
                 &self.board,
             )?;
         }
         // Neon Crash Attack
         // We can have more than one h4ck attacking
         GameState::attack_players_with_effect(
-            neon_crash_affected_players.to_owned(),
-            &mut self.players,
+            &mut self.world_tick_state.leap_affected_players,
+            &mut players,
         )?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        GameState::attack_players_with_effect(leap_affected_players.to_owned(), &mut self.players)?;
+        GameState::attack_players_with_effect(
+            &mut self.world_tick_state.leap_affected_players,
+            &mut players,
+        )?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1167,7 +1190,9 @@ impl GameState {
                     projectile.status = ProjectileStatus::EXPLODED;
                 }
 
-                let mut kill_count = 0;
+                // Seems like the current logic is to count
+                // kill_counts by one, right?
+                // let mut kill_count = 0;
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
@@ -1180,45 +1205,31 @@ impl GameState {
                         })
                         .ok_or("No player found for projectile attack!")?;
 
-                    let attacked_player =
-                        GameState::get_player_mut(&mut self.players, attacked_player_id)?;
+                    let attacking_player = players
+                        .get((projectile.player_id - 1) as usize)
+                        .ok_or("Non valid ID")?;
+                    let attacked_player = players
+                        .get((attacked_player_id - 1) as usize)
+                        .ok_or("Non valid ID")?;
 
-                    match projectile.projectile_type {
-                        ProjectileType::DISARMINGBULLET => {
-                            let duration = MillisTime { high: 0, low: 5000 };
-                            let ends_at = add_millis(world_tick_state.reference_time, duration);
-                            attacked_player.disarm_by_projectile(duration, ends_at, &projectile);
-                        }
-                        _ => {
-                            attacked_player.modify_health(-(projectile.damage as i64));
-                            attacked_player.get_mirrored_player_id().map(|mirrored_id| {
-                                uma_mirroring_affected_players.insert(
-                                    attacked_player.id,
-                                    ((projectile.damage as i64) / 2, mirrored_id),
-                                )
-                            });
-                            if attacked_player.is_dead() {
-                                tick_killed_events.push(KillEvent {
-                                    kill_by: projectile.player_id,
-                                    killed: attacked_player.id,
-                                });
-                                kill_count += 1;
-                            }
-                            projectile.last_attacked_player_id = attacked_player.id;
-                        }
-                    }
-
-                    add_kills(&mut self.players, projectile.player_id, kill_count)?;
+                    GameState::world_tick_apply_projectile_on_player(
+                        &mut self.world_tick_state,
+                        attacking_player.clone(),
+                        attacked_player.clone(),
+                        projectile,
+                    )?;
                 }
             }
 
-            let uma_mirrored_players = uma_mirroring_affected_players.clone();
-            GameState::attack_mirrored_player(uma_mirrored_players, &mut self.players)?;
-            uma_mirroring_affected_players.clear();
+            GameState::world_tick_attack_mirrored_player(
+                &mut self.world_tick_state.uma_mirroring_affected_players,
+                &players,
+            )?;
+            self.world_tick_state.uma_mirroring_affected_players.clear()
         }
 
+        self.players = players.into_iter().map(|player| player.into()).collect();
         self.check_and_damage_outside_playable();
-
         self.check_and_damage_poisoned_players();
 
         self.next_killfeed.append(&mut tick_killed_events);
@@ -1264,29 +1275,33 @@ impl GameState {
     }
 
     fn attack_players_with_effect(
-        affected_players: HashMap<u64, (i64, Vec<u64>)>,
-        players: &mut Vec<Player>,
+        affected_players: &HashMap<u64, (i64, Vec<u64>)>,
+        players: &mut MutablePlayers,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         for (player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 let attacked_player = players
-                    .iter_mut()
-                    .find(|player| player.id == *target_player_id && player.id != *player_id);
-                match attacked_player {
-                    Some(ap) => {
-                        ap.modify_health(-damage);
-                        match ap.get_mirrored_player_id() {
-                            Some(mirrored_id) => uma_mirroring_affected_players
-                                .insert(ap.id, (damage / 2, mirrored_id)),
-                            None => None,
-                        };
-                    }
-                    _ => continue,
-                }
+                    .get((target_player_id - 1) as usize)
+                    .expect("Player with invalid ID aborting!!!");
+                attacked_player.modify_health(-damage)
             }
         }
-        GameState::attack_mirrored_player(uma_mirroring_affected_players, players)?;
+        GameState::world_tick_attack_mirrored_player(&mut uma_mirroring_affected_players, players)?;
+        Ok(())
+    }
+
+    fn world_tick_attack_mirrored_player(
+        affected_players: &mut HashMap<u64, (i64, u64)>,
+        players: &MutablePlayers,
+    ) -> Result<(), String> {
+        for (_player_id, (damage, attacked_player_id)) in affected_players.iter() {
+            let attacked_player = players
+                .get((attacked_player_id - 1) as usize)
+                .expect("Player with invalid ID aborting!!!");
+            attacked_player.modify_health(-damage)
+        }
+
         Ok(())
     }
 
@@ -1305,17 +1320,20 @@ impl GameState {
     fn affected_players(
         attack_damage: i64,
         attack_range: f64,
-        players: &[Player],
+        players: &MutablePlayers,
         attacking_player_position: &Position,
         attacking_player_id: u64,
     ) -> HashMap<u64, (i64, Vec<u64>)> {
         let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, attacking_player_position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
+        let affected_players: Vec<u64> = GameState::world_tick_players_in_range(
+            players,
+            attacking_player_position,
+            attack_range,
+        )
+        .into_iter()
+        .filter(|&id| id != attacking_player_id)
+        .collect();
         afp.insert(
             attacking_player_id,
             (attack_damage, affected_players.clone()),

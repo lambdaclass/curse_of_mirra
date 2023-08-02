@@ -7,6 +7,7 @@ pub mod projectile;
 pub mod skills;
 pub mod time_utils;
 pub mod utils;
+pub mod tick_state;
 use crate::{game::Direction, utils::RelativePosition};
 use game::GameState;
 use rustler::{Binary, Env, Term};
