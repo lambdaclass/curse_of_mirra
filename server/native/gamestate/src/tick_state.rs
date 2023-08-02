@@ -31,7 +31,7 @@ impl MutablePlayer {
         self.inner.borrow().status.clone()
     }
     pub fn id(&self) -> u64 {
-        self.inner.borrow().id.clone()
+        self.inner.borrow().id
     }
     pub fn character(&self) -> Character {
         self.inner.borrow().character.clone()
