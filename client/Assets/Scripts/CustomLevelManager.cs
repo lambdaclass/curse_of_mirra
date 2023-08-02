@@ -88,7 +88,6 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         playerId = LobbyConnection.Instance.playerId;
-        playerToFollow = Utils.GetGamePlayer(playerId);
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
@@ -109,7 +108,7 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if (playerToFollow.Status == Status.Dead)
+        if (Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId).Health <= 0)
         {
             SetCameraToAlivePlayer();
         }
@@ -249,13 +248,16 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
-        GameObject.Find("UIControls").SetActive(false);
+        // GameObject.Find("UIControls").SetActive(false);
+        UiControls.SetActive(false);
     }
 
     private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
+        print(alivePlayers);
         playerToFollow = alivePlayers.ElementAt(0);
+        print("player id to follow is : " + playerToFollow.Id);
 
         setCameraToPlayer(playerToFollow.Id);
     }

@@ -116,7 +116,6 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = game_event.PlayableRadius;
                     this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
-
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < game_event.Players.Count
