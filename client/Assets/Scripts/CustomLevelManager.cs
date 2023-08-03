@@ -205,7 +205,7 @@ public class CustomLevelManager : LevelManager
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
             skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
 
-            var items = LobbyConnection.Instance.skillsConfig.Items;
+            var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
             foreach (var skill in items)
             {
