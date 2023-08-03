@@ -24,7 +24,7 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
-
+    public Errors errorContainer;
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
     public bool gameStarted = false;
@@ -166,8 +166,9 @@ public class LobbyConnection : MonoBehaviour
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
-                    // TODO: Trigger connection error modal here, feel free to remove Debug.Log
-                    Debug.Log("Error making a request to the server");
+                    string errorTitle = "Error";
+                    string errorDescription = "Error making a request to the server";
+                    errorContainer.HandleError(errorTitle, errorDescription);
                     break;
             }
         }
@@ -191,8 +192,9 @@ public class LobbyConnection : MonoBehaviour
                     lobbiesList = response.lobbies;
                     break;
                 default:
-                    // TODO: Trigger connection error modal here, feel free to remove Debug.Log
-                    Debug.Log("Error making a request to the server");
+                    string errorTitle = "Error";
+                    string errorDescription = "Error making a request to the server";
+                    errorContainer.HandleError(errorTitle, errorDescription);
                     break;
             }
         }
@@ -217,8 +219,9 @@ public class LobbyConnection : MonoBehaviour
                     gamesList = response.current_games;
                     break;
                 default:
-                    // TODO: Trigger connection error modal here, feel free to remove Debug.Log
-                    Debug.Log("Error making a request to the server");
+                    string errorTitle = "Error";
+                    string errorDescription = "Error making a request to the server";
+                    errorContainer.HandleError(errorTitle, errorDescription);
                     break;
             }
         }
@@ -289,8 +292,9 @@ public class LobbyConnection : MonoBehaviour
     {
         if (closeCode != WebSocketCloseCode.Normal)
         {
-            // TODO: Trigger connection error modal here, feel free to remove Debug.Log
-            Debug.Log("Connection closed unexpectedly");
+            string errorTitle = "Error";
+            string errorDescription = "Connection closed unexpectedly";
+            errorContainer.HandleError(errorTitle, errorDescription);
         }
     }
 
