@@ -12,12 +12,12 @@
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
       "SkillUltimate": "Fiery Rampage",
-      "BodySize": "100.0"
+      "BodySize": "200.0"
     },
     {
       "Name": "Uma",
       "Id": "1",
-      "Active": "1",
+      "Active": "0",
       "Class": "ass",
       "Faction": "kal",
       "BaseSpeed": "40",

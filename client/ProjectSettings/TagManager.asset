@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - World
   - NoMask
+  - Hitbox
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,7 @@ using MoreMountains.TopDownEngine;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 
 public enum UIControls
 {
@@ -82,6 +83,9 @@ public class CustomInputManager : InputManager
     [SerializeField]
     GameObject cancelButton;
 
+    [SerializeField]
+    GameObject UIControlsWrapper;
+
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
     private GameObject areaWithAim;
@@ -116,6 +120,13 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
+
+        CanvasGroup[] inputsRenderers =
+            UIControlsWrapper.transform.GetComponentsInChildren<CanvasGroup>();
+        foreach (CanvasGroup item in inputsRenderers)
+        {
+            item.alpha = 0;
+        }
     }
 
     // void Update()
@@ -152,6 +163,18 @@ public class CustomInputManager : InputManager
         Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
         Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
         Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
+    }
+
+    public IEnumerator ShowInputs()
+    {
+        yield return new WaitForSeconds(.1f);
+
+        CanvasGroup[] inputsRenderers =
+            UIControlsWrapper.transform.GetComponentsInChildren<CanvasGroup>();
+        foreach (CanvasGroup item in inputsRenderers)
+        {
+            item.alpha = 1;
+        }
     }
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)

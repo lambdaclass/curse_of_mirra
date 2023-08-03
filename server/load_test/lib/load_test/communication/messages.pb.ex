@@ -27,21 +27,20 @@ defmodule LoadTest.Communication.Proto.Action do
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:ACTION_UNSPECIFIED, 0)
-  field(:MOVE, 1)
-  field(:ATTACK, 2)
-  field(:TELEPORT, 4)
-  field(:ATTACK_AOE, 5)
-  field(:MOVE_WITH_JOYSTICK, 6)
-  field(:ADD_BOT, 7)
-  field(:AUTO_ATTACK, 8)
-  field(:BASIC_ATTACK, 9)
-  field(:SKILL_1, 10)
-  field(:SKILL_2, 11)
-  field(:SKILL_3, 12)
-  field(:SKILL_4, 13)
-  field(:SELECT_CHARACTER, 14)
-  field(:ENABLE_BOTS, 15)
-  field(:DISABLE_BOTS, 16)
+  field(:ATTACK, 1)
+  field(:TELEPORT, 2)
+  field(:ATTACK_AOE, 3)
+  field(:MOVE_WITH_JOYSTICK, 4)
+  field(:ADD_BOT, 5)
+  field(:AUTO_ATTACK, 6)
+  field(:BASIC_ATTACK, 7)
+  field(:SKILL_1, 8)
+  field(:SKILL_2, 9)
+  field(:SKILL_3, 10)
+  field(:SKILL_4, 11)
+  field(:SELECT_CHARACTER, 12)
+  field(:ENABLE_BOTS, 13)
+  field(:DISABLE_BOTS, 14)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -92,6 +91,9 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:XANDA_MARK, 9)
   field(:XANDA_MARK_OWNER, 10)
   field(:POISONED, 11)
+  field(:SLOWED, 12)
+  field(:FIERY_RAMPAGE, 13)
+  field(:BURNED, 14)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -231,6 +233,7 @@ defmodule LoadTest.Communication.Proto.Player do
   )
 
   field(:direction, 16, type: LoadTest.Communication.Proto.RelativePosition)
+  field(:body_size, 17, type: :float, json_name: "bodySize")
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do
@@ -319,6 +322,7 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
   field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
   field(:use_proxy, 9, type: :string, json_name: "useProxy")
+  field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do
