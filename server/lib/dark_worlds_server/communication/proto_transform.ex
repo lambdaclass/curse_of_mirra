@@ -11,9 +11,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
-  alias DarkWorldsServer.Communication.Proto.SkillsConfig
-  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
+  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
+  alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
