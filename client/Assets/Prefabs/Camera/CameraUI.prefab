@@ -3518,8 +3518,6 @@ MonoBehaviour:
   Joystick: {fileID: 5082067212023141501}
   PointsText: {fileID: 0}
   PointsTextPattern: 000000
-  KillFeedContainer: {fileID: 2374372053566511616, guid: 92b03542ba4f1406eb2515fd17bd1355,
-    type: 3}
   Canvas: {fileID: 1182068805014700}
 --- !u!114 &2053005125
 MonoBehaviour:
@@ -11026,12 +11024,12 @@ PrefabInstance:
     - target: {fileID: 2374372053566511617, guid: 92b03542ba4f1406eb2515fd17bd1355,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 46.873047
+      value: 2.307888
       objectReference: {fileID: 0}
     - target: {fileID: 2374372053566511617, guid: 92b03542ba4f1406eb2515fd17bd1355,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -186.75967
+      value: -169.48111
       objectReference: {fileID: 0}
     - target: {fileID: 2374372053566511617, guid: 92b03542ba4f1406eb2515fd17bd1355,
         type: 3}
