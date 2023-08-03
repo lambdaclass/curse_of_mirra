@@ -29,11 +29,11 @@ pub fn angle_between_vectors(v1: RelativePosition, v2: RelativePosition) -> u64 
     let angle1 = (v1.y as f32).atan2(v1.x as f32).to_degrees();
     let angle2 = (v2.y as f32).atan2(v2.x as f32).to_degrees();
 
-    let mut a = angle1 - angle2;
-    if a > 180. {
-        a -= 360.;
-    } else if a < -180. {
-        a += 360.;
+    let mut angle_diff = angle1 - angle2;
+    if angle_diff > 180. {
+        angle_diff -= 360.;
+    } else if angle_diff < -180. {
+        angle_diff += 360.;
     }
-    a.abs() as u64 % 360
+    angle_diff.abs() as u64 % 360
 }
