@@ -1,4 +1,4 @@
-# Fluid Gameplay in a Multiplayer Environment
+# Fluid Gameplay in an Online Environment
 
 Curse of Myrra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and eventually sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
 
@@ -21,7 +21,7 @@ while true {
 }
 ```
 
-This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is one iteration of this loop.
+This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is one iteration of this loop. Our game is multiplayer, so this loop likes slightly different; clients are not the ones updating game state, they get those updates from the server. The general idea still applies however.
  
 Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom left corner of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS`.
 
@@ -67,19 +67,42 @@ The less hacky solution to this is to make move commands tell the server where y
 
 In Myrra, the action rate is set to be the same as the tick rate. This way, we get one movement per tick. The immediate problem caused by this is that speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
 
-## Inescapable fact: Networks are unreliable
+## Networks are unreliable
 
-## No Perfect Solutions
+There are two main problems we are trying to solve. They are:
+
+- *Input lag*: Players feel a delay between when they press a button and when the corresponding action happens in-game.
+- *Choppy movement*: Character movement does not look fluid. Sometimes movement stops in-place and then starts again, when it should have been continuous the whole time.
+
+Both of these things are the result of playing over the network:
+
+- The first one happens because every action the player submits has to go the server and then back to the client before it gets applied. This round trip time is what we call the player's `ping`. The higher the ping, the higher the input lag.
+- The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), and we assume clients get them at that same frequency. This assumption is _wrong_. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Weboscket`, which uses `tcp` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
+
+Before going over how we solve these issues, a very important fact needs to be stressed out: __networks are unreliable__. This is especially important for the second item we talked about. Ping can be lowered by having servers close to players, but the network will still be unpredictable.
+
+This problem is inescapable. We won't solve it, we will just find clever ways to hide it from players. Our solutions will involve tradeoffs and will not (and cannot) be perfect.
 
 ## High ping vs high ping *Variance*
+
+As we said, input lag is directly correlated with high ping, as ping tells us how long messages (and thus user input) take going to the server and then back to the client. In general, any ping value below `50ms` will make input lag barely noticeable, while going above `100ms` it becomes apparent. Values over `300ms` are borderline unplayable.
+
+We can measure input lag, but how do we measure network instability/packets arriving irregularly? This is not so easy, but a decent proxy to it is ping *variance*. If your current ping is `100ms` and it suddenly jumps to `180ms`, then it's likely there was a hiccup in the network. A packet that only an instant before took `100ms` to do the round trip to the server suddenly takes an extra `80` milliseconds. Keep in mind this metric is not perfect; we have no idea what's happening to each individual packet or what's happening underneath in the slightest. A million different things could be going wrong to make ping jump like that, some of them not even related to the network itself.
+
+Ping variance is a *heuristic*. It's not perfect information, but if your ping is constantly jumping around, the network might be acting up. Even under normal network conditions, ping is never flat; there's always some fluctuation. What's important is that it doesn't vary *too much*. 
+
+Let's be more precise about what kind of environment we expect from players:
+
+- Ping should be below `200ms`. If it's anything above this, either your connection is not good enough or you are an entire continent away from the server. Both of these things we will not try to solve with code. An ideal ping is around `60ms` or below.
+- Ping should be somewhat stable, it can't be constantly jumping around by more than `50ms`.
+
+## Addressing input lag: Client prediction
 
 ## Naive movement code (use latest update to set position)
 
 ## Framerate same as tick rate example
 
 ## Smooth movement through interpolation
-
-## Client prediction
 
 ## Entity interpolation
 
