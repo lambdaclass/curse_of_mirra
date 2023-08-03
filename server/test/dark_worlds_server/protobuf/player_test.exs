@@ -34,7 +34,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         id: 1,
         health: -(2 ** 63 - 1),
         position: %Position{x: 1, y: 2},
-        status: :dead,
+        status: lower(status),
         action: :nothing,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
@@ -57,4 +57,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
       assert decoded == expected
     end
   end
+
+  defp lower(:DEAD), do: :dead
+  defp lower(:ALIVE), do: :alive
 end

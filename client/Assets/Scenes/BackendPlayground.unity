@@ -392,6 +392,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   accumulatedTime: 0
+  firstTimestamp: 0
 --- !u!114 &1302669240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,6 +1576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522350908692792759, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 106.5
       objectReference: {fileID: 0}
     - target: {fileID: 8087555408711965871, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}

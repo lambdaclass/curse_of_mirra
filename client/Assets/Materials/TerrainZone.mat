@@ -60,7 +60,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Distance: 36.48
+    - _Distance: 100
     - _EffectOffset: 0.2
     - _Fill: -1.12
     - _Fresnel_Power: 0.36

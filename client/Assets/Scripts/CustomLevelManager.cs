@@ -228,6 +228,8 @@ public class CustomLevelManager : LevelManager
                     skill4
                 );
             }
+
+            StartCoroutine(inputManager.ShowInputs());
         }
     }
 
