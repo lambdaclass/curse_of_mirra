@@ -144,9 +144,9 @@ fn spawn_player(game: GameState, player_id: u64) -> Result<GameState, String> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn shrink_map(game: GameState) -> Result<GameState, String> {
+fn shrink_map(game: GameState, map_shrink_minimum_radius: u64) -> Result<GameState, String> {
     let mut game_2 = game;
-    game_2.shrink_map();
+    game_2.shrink_map(map_shrink_minimum_radius);
     Ok(game_2)
 }
 

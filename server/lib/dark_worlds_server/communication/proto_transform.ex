@@ -81,6 +81,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_wait_ms: map_shrink_wait_ms,
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     } = runner_config
 
@@ -93,6 +94,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_wait_ms: map_shrink_wait_ms,
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     }
 
