@@ -28,8 +28,6 @@ public class LobbyConnection : MonoBehaviour
 
     public bool gameStarted = false;
 
-    public RunnerConfig runnerConfig;
-
     WebSocket ws;
 
     [Serializable]
@@ -125,7 +123,6 @@ public class LobbyConnection : MonoBehaviour
         yield return GameSettings.ParseSettingsCoroutine(settings =>
         {
             serverSettings = settings;
-            runnerConfig = serverSettings.RunnerConfig;
         });
         LobbyEvent lobbyEvent = new LobbyEvent
         {
