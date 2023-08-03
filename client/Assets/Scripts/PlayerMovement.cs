@@ -485,7 +485,11 @@ public class PlayerMovement : MonoBehaviour
                 );
         }
 
-        if (
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        {
+            characterSpeed *= 0.5f;
+        }
+        else if (
             playerUpdate.CharacterName == "H4ck"
             && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
         )
