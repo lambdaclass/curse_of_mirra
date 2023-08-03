@@ -28,7 +28,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         character_name: "Name",
         effects: %{},
         direction: %RelativePosition{x: 1, y: 1},
-        body_size: 100,
+        body_size: 100
       }
 
       expected = %Player{
@@ -48,7 +48,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         character_name: "Name",
         effects: %{},
         direction: %RelativePosition{x: 1, y: 1},
-        body_size: 100,
+        body_size: 100
       }
 
       decoded =
