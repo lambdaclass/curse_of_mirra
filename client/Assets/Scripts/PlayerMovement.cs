@@ -423,8 +423,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
         }
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
-        if (true)
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
         {
             GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
         }
