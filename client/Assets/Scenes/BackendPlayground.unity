@@ -125,6 +125,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &34274793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1041692957302306, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &105135216
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +327,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1103355900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4190701241990048127, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2856279044554654229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1302669236
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,11 +525,13 @@ MonoBehaviour:
   quickGamePrefab: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854,
     type: 3}
   roundSplash: {fileID: 2856279044554654234}
+  deathSplash: {fileID: 34274793}
   roundText: {fileID: 2856279044554654233}
   totalKillsText: {fileID: 672995939}
   backToLobbyButton: {fileID: 2856279044554654232}
   backgroundMusic: {fileID: 2040541225}
   UiCamera: {fileID: 2856279044554654231}
+  UiControls: {fileID: 1103355900}
   camera: {fileID: 2053005125}
   charactersInfo:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
@@ -1622,7 +1636,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8589184728240042611, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+    - target: {fileID: 6399823345918844847, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
