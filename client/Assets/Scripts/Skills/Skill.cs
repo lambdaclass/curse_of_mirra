@@ -92,10 +92,7 @@ public class Skill : CharacterAbility
             else
             {
                 this.AbilityStopFeedbacks = feedbackVfx.GetComponent<MMF_Player>();
-                if (
-                    skillInfo.indicatorType == UIIndicatorType.Area
-                    && skillInfo.inputType == UIType.Tap
-                )
+                if (skillInfo.indicatorType == UIIndicatorType.Area)
                 {
                     Transform parentTransform = feedbackVfx.GetComponent<MMF_Player>().transform;
                     float diameter = skillInfo.skillAreaRadius * 2;
