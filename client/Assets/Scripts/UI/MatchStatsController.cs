@@ -34,7 +34,7 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        alivePlayers.text = SocketConnectionManager.Instance.alive.Count().ToString();
+        alivePlayers.text = SocketConnectionManager.Instance.alivePlayers.Count().ToString();
         killCount.text = Utils
             .GetGamePlayer(SocketConnectionManager.Instance.playerId)
             .KillCount.ToString();
