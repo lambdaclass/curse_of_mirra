@@ -6,6 +6,12 @@ Below we go over the problems that arise from networking, how we solved some of 
 
 The main thing we will discuss is *movement*, as it is the most basic element of the game that needs to render smoothly. Constant jitters/stutters in movement are the hallmark of code that is not robust enough to handle multiplayer gameplay.
 
+Most of the ideas presented here are not new, and were taken primarily from the following articles:
+
+- [Gabriel Gambetta's Series on Client-Server Game Architecture](https://www.gabrielgambetta.com/client-server-game-architecture.html)
+- [Valve's article on Source multiplayer networking](https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking)
+- [Valve's article on Latency Compensating methods](https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization)
+
 ## Framerate, Tick rate and Action rate
 
 Before continuing, we need to talk about three extremely important concepts.
@@ -79,7 +85,7 @@ Both of these things are the result of playing over the network:
 - The first one happens because every action the player submits has to go the server and then back to the client before it gets applied. This round trip time is what we call the player's `ping`. The higher the ping, the higher the input lag.
 - The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), and we assume clients get them at that same frequency. This assumption is _wrong_. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Weboscket`, which uses `tcp` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
 
-Before going over how we solve these issues, a very important fact needs to be stressed out: __networks are unreliable__. This is especially important for the second item we talked about. Ping can be lowered by having servers close to players, but the network will still be unpredictable.
+Before going over how we solve these issues, a very important fact needs to be stressed out: __networks are unreliable__. This is especially important for the second item. Ping can be lowered by having servers close to players, but the network will still be unpredictable.
 
 This problem is inescapable. We won't solve it, we will just find clever ways to hide it from players. Our solutions will involve tradeoffs and will not (and cannot) be perfect.
 
@@ -97,6 +103,36 @@ Let's be more precise about what kind of environment we expect from players:
 - Ping should be somewhat stable, it can't be constantly jumping around by more than `50ms`.
 
 ## Addressing input lag: Client prediction
+
+Input lag was the first issue we tackled, even though in hindsight it's clearly way less important than choppy movement. The way we address it is incredibly simple:
+
+- When users move their joystick or press a movement key, the client sends the command to the server and immediately assumes it was applied by it, thus moving the player.
+
+This is called `Client Prediction`, because it's the client predicting what the server update is going to look like in the future, once it processes the movement command. Instead of waiting for confirmation, the client immediately applies the update, and input lag disappears.
+
+Notice that, by doing this, we are lying to the player. When they move in a direction, they immediately see themselves forward, but that's not where they actually are; the server still needs to process that command. The higher the ping, the more we lie. This is a tradeoff. The game feels better to play with prediction on, but lie to players too much and they might notice. They may see shots that look like they should miss hit them, because they are not seeing their character where it actually is.
+
+### Implementation
+
+Our implementation, located in the `ClientPrediction` class, works like this:
+
+- We keep a list of movement commands that the player has submitted but the server has not yet applied. In code this is called `pendingPlayerInputs`.
+- On each frame, we start from the current position the server tells us we are, then apply each movement command from our list. This is the `simulatePlayerState` method.
+- Also on each frame, we remove from the `pendingPlayerInputs` list the commands that were applied by the server. This is the `removeServerAcknowledgedInputs` method.
+
+So how do we know which inputs were applied by the server? The client attaches a timestamp to every action they send. When the server sends a new update to a client, it attaches to it the last timestamp they processed from said client. The client can therefore consider all actions before that timestamp as applied. In reality, it doesn't need to be a timestamp. Any ID that's auto-incremented suffices.
+
+Note that, for this to be accurate, the client's movement code has to be _exactly the same_ as the one the backend uses, otherwise prediction will go wrong. Valve solves this by having shared movement code that both the client and the server use. We don't have that luxury, because our backend is in `Rust`, while the client is in `C#`. This means we have duplicated code; if the movement logic ever changes on the backend we have to update the client as well to match it.
+
+### Ghost
+
+To visualize client prediction in-game, we added what we call a player `ghost`. With client prediction on, the ghost is simply the player's character rendered without client prediction, that is, at the position the server says it is. Below are some examples of prediction at different ping values.
+
+
+
+### Assumptions
+
+One last important thing: even though it's called client prediction, the client isn't predicting anything. Predictions can go wrong, this can't; we are actively relying on the server always applying our commands. If, for some reason, that does not happen, the client gets desynced from the server. This is important. At some point we considered making the server only apply one movement command per tick, discarding the rest. Had we done that, client prediction would have broken, because the client would've had no way of knowing which updates were going to be applied and which ones weren't.
 
 ## Naive movement code (use latest update to set position)
 
