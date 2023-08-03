@@ -20,7 +20,7 @@ public class MatchStatsController : MonoBehaviour
 
     public float time = 0f;
 
-    ulong seconds = LobbyConnection.Instance.runnerConfig.MapShrinkWaitMs / 1000;
+    ulong seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
 
     void Start()
     {

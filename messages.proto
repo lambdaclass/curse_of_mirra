@@ -136,21 +136,20 @@ message ClientAction {
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
-    MOVE = 1;
-    ATTACK = 2;
-    TELEPORT = 4;
-    ATTACK_AOE = 5;
-    MOVE_WITH_JOYSTICK = 6;
-    ADD_BOT = 7;
-    AUTO_ATTACK = 8;
-    BASIC_ATTACK = 9;
-    SKILL_1 = 10;
-    SKILL_2 = 11;
-    SKILL_3 = 12;
-    SKILL_4 = 13;
-    SELECT_CHARACTER = 14;
-    ENABLE_BOTS = 15;
-    DISABLE_BOTS = 16;
+    ATTACK = 1;
+    TELEPORT = 2;
+    ATTACK_AOE = 3;
+    MOVE_WITH_JOYSTICK = 4;
+    ADD_BOT = 5;
+    AUTO_ATTACK = 6;
+    BASIC_ATTACK = 7;
+    SKILL_1 = 8;
+    SKILL_2 = 9;
+    SKILL_3 = 10;
+    SKILL_4 = 11;
+    SELECT_CHARACTER = 12;
+    ENABLE_BOTS = 13;
+    DISABLE_BOTS = 14;
 }
 
 /* Directions an action can happen in
