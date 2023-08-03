@@ -12,6 +12,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
+  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
+  alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
@@ -41,6 +43,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     millis_time
   end
 
+  def encode(skill_config, SkillsConfig) do
+    skill_config
+  end
+
+  def encode(skill_config_item, SkillConfigItem) do
+    skill_config_item
+  end
+
   def encode(runner_config, RunnerConfig) do
     runner_config
   end
@@ -55,7 +65,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def encode(
-        %{character_config: character_config, runner_config: runner_config},
+        %{
+          character_config: character_config,
+          runner_config: runner_config,
+          skills_config: skills_config
+        },
         ServerGameSettings
       ) do
     %{
@@ -64,6 +78,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
       server_tickrate_ms: server_tickrate_ms,
+      map_shrink_wait_ms: map_shrink_wait_ms,
+      map_shrink_interval: map_shrink_interval,
+      out_of_area_damage: out_of_area_damage,
       use_proxy: use_proxy
     } = runner_config
 
@@ -73,6 +90,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
       server_tickrate_ms: server_tickrate_ms,
+      map_shrink_wait_ms: map_shrink_wait_ms,
+      map_shrink_interval: map_shrink_interval,
+      out_of_area_damage: out_of_area_damage,
       use_proxy: use_proxy
     }
 
@@ -80,9 +100,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       Items: character_config[:Items]
     }
 
+    skills_config = %SkillsConfig{
+      Items: skills_config[:Items]
+    }
+
     %ServerGameSettings{
       runner_config: runner_config,
-      character_config: character_config
+      character_config: character_config,
+      skills_config: skills_config
     }
   end
 

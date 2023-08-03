@@ -189,21 +189,20 @@ public enum Status {
 /// </summary>
 public enum Action {
   [pbr::OriginalName("ACTION_UNSPECIFIED")] Unspecified = 0,
-  [pbr::OriginalName("MOVE")] Move = 1,
-  [pbr::OriginalName("ATTACK")] Attack = 2,
-  [pbr::OriginalName("TELEPORT")] Teleport = 4,
-  [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 5,
-  [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 6,
-  [pbr::OriginalName("ADD_BOT")] AddBot = 7,
-  [pbr::OriginalName("AUTO_ATTACK")] AutoAttack = 8,
-  [pbr::OriginalName("BASIC_ATTACK")] BasicAttack = 9,
-  [pbr::OriginalName("SKILL_1")] Skill1 = 10,
-  [pbr::OriginalName("SKILL_2")] Skill2 = 11,
-  [pbr::OriginalName("SKILL_3")] Skill3 = 12,
-  [pbr::OriginalName("SKILL_4")] Skill4 = 13,
-  [pbr::OriginalName("SELECT_CHARACTER")] SelectCharacter = 14,
-  [pbr::OriginalName("ENABLE_BOTS")] EnableBots = 15,
-  [pbr::OriginalName("DISABLE_BOTS")] DisableBots = 16,
+  [pbr::OriginalName("ATTACK")] Attack = 1,
+  [pbr::OriginalName("TELEPORT")] Teleport = 2,
+  [pbr::OriginalName("ATTACK_AOE")] AttackAoe = 3,
+  [pbr::OriginalName("MOVE_WITH_JOYSTICK")] MoveWithJoystick = 4,
+  [pbr::OriginalName("ADD_BOT")] AddBot = 5,
+  [pbr::OriginalName("AUTO_ATTACK")] AutoAttack = 6,
+  [pbr::OriginalName("BASIC_ATTACK")] BasicAttack = 7,
+  [pbr::OriginalName("SKILL_1")] Skill1 = 8,
+  [pbr::OriginalName("SKILL_2")] Skill2 = 9,
+  [pbr::OriginalName("SKILL_3")] Skill3 = 10,
+  [pbr::OriginalName("SKILL_4")] Skill4 = 11,
+  [pbr::OriginalName("SELECT_CHARACTER")] SelectCharacter = 12,
+  [pbr::OriginalName("ENABLE_BOTS")] EnableBots = 13,
+  [pbr::OriginalName("DISABLE_BOTS")] DisableBots = 14,
 }
 
 /// <summary>
@@ -714,7 +713,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1725,7 +1724,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.Add(other.effects_);
+    effects_.MergeFrom(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();

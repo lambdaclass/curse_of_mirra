@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ConjureLavaPool_Ground_Impact_01
+  m_Name: Slowed
   m_Shader: {fileID: -6465566751694194690, guid: 5a3e65935a267ad45a19b27fe3bf5060,
     type: 3}
   m_ValidKeywords:
