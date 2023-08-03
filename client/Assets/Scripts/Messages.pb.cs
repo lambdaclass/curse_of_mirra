@@ -113,17 +113,18 @@ public static partial class MessagesReflection {
           "VEFSVElOR19TS0lMTF8yEAQSFAoQU1RBUlRJTkdfU0tJTExfMxAFEhQKEFNU",
           "QVJUSU5HX1NLSUxMXzQQBhIVChFFWEVDVVRJTkdfU0tJTExfMRAHEhUKEUVY",
           "RUNVVElOR19TS0lMTF8yEAgSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFF",
-          "WEVDVVRJTkdfU0tJTExfNBAKEgoKBk1PVklORxALKskBCgxQbGF5ZXJFZmZl",
+          "WEVDVVRJTkdfU0tJTExfNBAKEgoKBk1PVklORxALKvQBCgxQbGF5ZXJFZmZl",
           "Y3QSDQoJUEVUUklGSUVEEAASDAoIRElTQVJNRUQQARIMCghQSUVSQ0lORxAC",
           "EgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIP",
           "CgtPVVRfT0ZfQVJFQRAGEg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJL",
           "EAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQ",
-          "T0lTT05FRBALKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lG",
-          "SUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FN",
-          "RV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAF",
-          "EhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVM",
-          "TEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0",
-          "dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQAWIGcHJvdG8z"));
+          "T0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBBR0UQDRIKCgZC",
+          "VVJORUQQDiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJRklF",
+          "RBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdBTUVf",
+          "U1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQBRIS",
+          "Cg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExF",
+          "VBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVz",
+          "EgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -257,6 +258,9 @@ public enum PlayerEffect {
   [pbr::OriginalName("XANDA_MARK")] XandaMark = 9,
   [pbr::OriginalName("XANDA_MARK_OWNER")] XandaMarkOwner = 10,
   [pbr::OriginalName("POISONED")] Poisoned = 11,
+  [pbr::OriginalName("SLOWED")] Slowed = 12,
+  [pbr::OriginalName("FIERY_RAMPAGE")] FieryRampage = 13,
+  [pbr::OriginalName("BURNED")] Burned = 14,
 }
 
 /// <summary>
@@ -3063,7 +3067,7 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
 ///- added_player_info: Information of any new player joining the lobby, used on PLAYER_ADDED
 ///- game_id: ID of the game session to join, used on GAME_STARTED
 ///- [DEPRECATED] player_count: Number of players in the matchmaking lobby, used on PLAYER_COUNT
-///- players: List of players, used on PLAYER_ADDED
+///- players_info: List of players, used on PLAYER_ADDED
 ///- removed_player_info: Information of any player leaving the lobby, used on PLAYER_REMOVED
 ///- host_player_id: ID of the player considered host of the lobby, used on PLAYER_ADDED, PLAYER_REMOVED
 /// </summary>

@@ -1,17 +1,63 @@
 # Curse of Myrra
 
-We've just open sourced the repository. A lot of code reorganization needs to be done yet. We will be splitting the game from the actual backend-frontend framework we created. This process should be done before the end of July 2023.
+## Requirements
+- Rust:
+    - https://www.rust-lang.org/tools/install
+- Elixir and Erlang: 
+    - https://thinkingelixir.com/install-elixir-using-asdf/
+    - Erlang/OTP 25
+    - Elixir 1.14.4
+- Unity
+- Docker 
 
-- Elixir + Rust backend
-- Unity frontend
-- Websockets and Protobuff
+## Setup project
+Make sure Docker is running.
+```
+git clone https://github.com/lambdaclass/curse_of_myrra
+cd curse_of_myrra/server
+make db
+make setup
+```
+
+## Run backend
+Make sure Docker is running.
+```
+make start
+```
+
+## Useful commands
+```
+make tests
+```
+Will run elixir and rust tests
+
+```
+make format
+```
+Will format elixir and rust code.`
+```
+make prepush
+```
+Will format you code, runs credo check and tests.
 
 ## Documentation
+You can find our documentation [here](https://docs.curseofmyrra.com/) or run it locally.
 
-Live documentation on https://docs.curseofmyrra.com/
+For that you have to install:
+```
+cargo install mdbook
+cargo install mdbook-mermaid
+```
 
-To serve the documentation locally, first install both [mdbook](https://rust-lang.github.io/mdBook/guide/installation.html) and [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid#installation), then run
-
+Then run:
 ```
 make docs
 ```
+Open:
+[http://localhost:3000/](http://localhost:3000/ios_builds.html)
+
+Some useful links
+- [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
+- [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
+- [Android build](https://docs.curseofmyrra.com/android_builds.html)
+- [IOs builds](https://docs.curseofmyrra.com/ios_builds.html)

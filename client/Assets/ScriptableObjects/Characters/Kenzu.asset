@@ -16,6 +16,7 @@ MonoBehaviour:
   artWork: {fileID: 21300000, guid: d8d11da874a274698912639d5fea1403, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5749ed7bc217c40c3a32fd0cf71acb2d, type: 3}
   blockArtwork: {fileID: 21300000, guid: 11656ee72c86a45b99ddc43d666cd368, type: 3}
+  characterPlayer: {fileID: 0}
   prefab: {fileID: 0}
   skillBasicInfo: {fileID: 0}
   skill1Info: {fileID: 0}
@@ -27,4 +28,32 @@ MonoBehaviour:
   skill2Sprite: {fileID: 0}
   skill3Sprite: {fileID: 0}
   skill4Sprite: {fileID: 0}
+  notSelectedSkillBasicSprite: {fileID: 0}
+  notSelectedSkill1Sprite: {fileID: 0}
+  notSelectedSkill2Sprite: {fileID: 0}
+  notSelectedSkill3Sprite: {fileID: 0}
+  notSelectedSkill4Sprite: {fileID: 0}
+  selectedSkillBasicSprite: {fileID: 0}
+  selectedSkill1Sprite: {fileID: 0}
+  selectedSkill2Sprite: {fileID: 0}
+  selectedSkill3Sprite: {fileID: 0}
+  selectedSkill4Sprite: {fileID: 0}
   skillBackground: {fileID: 21300000, guid: f250f50d2462c498d9fd214bb4e96654, type: 3}
+  selectedSkills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  notSelectedSkills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillsInfo:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

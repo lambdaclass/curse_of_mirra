@@ -34,7 +34,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         id: 1,
         health: -(2 ** 63 - 1),
         position: %Position{x: 1, y: 2},
-        status: status,
+        status: :dead,
         action: :nothing,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
