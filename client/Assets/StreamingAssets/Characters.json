@@ -17,7 +17,7 @@
     {
       "Name": "Uma",
       "Id": "1",
-      "Active": "1",
+      "Active": "0",
       "Class": "ass",
       "Faction": "kal",
       "BaseSpeed": "40",
