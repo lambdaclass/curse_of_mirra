@@ -348,6 +348,7 @@ defmodule DarkWorldsServer.Communication.Proto.RunnerConfig do
   field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
   field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
   field(:use_proxy, 9, type: :string, json_name: "useProxy")
+  field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
