@@ -1286,7 +1286,9 @@ impl GameState {
             .push(Player::new(player_id, 100, position, Default::default()));
     }
 
-    pub fn shrink_map(self: &mut Self) {
+    pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
+        let new_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+        self.playable_radius = new_radius.max(map_shrink_minimum_radius);
         self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
     }
 
