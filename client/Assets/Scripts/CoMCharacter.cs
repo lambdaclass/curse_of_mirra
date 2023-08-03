@@ -9,6 +9,7 @@ public class CoMCharacter : ScriptableObject
     public Sprite artWork;
     public Sprite selectedArtwork;
     public Sprite blockArtwork;
+    public Sprite characterPlayer;
     public GameObject prefab;
     public SkillInfo skillBasicInfo;
     public SkillInfo skill1Info;
@@ -21,4 +22,7 @@ public class CoMCharacter : ScriptableObject
     public Sprite skill3Sprite;
     public Sprite skill4Sprite;
     public Sprite skillBackground;
+    public List<Sprite> selectedSkills;
+    public List<Sprite> notSelectedSkills;
+    public List<SkillInfo> skillsInfo;
 }

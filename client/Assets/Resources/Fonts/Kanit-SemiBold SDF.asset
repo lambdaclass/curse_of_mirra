@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!28 &-1878963478691880173
+--- !u!28 &-7799299856104570114
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: Kanit-SemiBold SDF
   m_EditorClassIdentifier: 
   hashCode: -2082691726
-  material: {fileID: 2545957612956034030}
+  material: {fileID: 5933940353665505937}
   materialHashCode: -1199305582
   m_Version: 1.1.0
   m_SourceFontFileGUID: 536efdc4dafbf4de98dcf5a45035d8c8
@@ -1936,7 +1936,7 @@ MonoBehaviour:
     m_GlyphIndex: 546
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: -1878963478691880173}
+  - {fileID: -7799299856104570114}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -2713,7 +2713,7 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!21 &2545957612956034030
+--- !u!21 &5933940353665505937
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2746,7 +2746,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: -1878963478691880173}
+        m_Texture: {fileID: -7799299856104570114}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
