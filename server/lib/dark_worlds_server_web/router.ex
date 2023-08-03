@@ -45,10 +45,12 @@ defmodule DarkWorldsServerWeb.Router do
     end
 
     get "/config", ConfigController, :index
-    post "/config/skills", ConfigController, :save_skills
-    live "/config/skills", ConfigLive.Skills
     post "/config/characters", ConfigController, :save_characters
     live "/config/characters", ConfigLive.Characters
+    post "/config/game_settings", ConfigController, :save_game_settings
+    live "/config/game_settings", ConfigLive.GameSettings
+    post "/config/skills", ConfigController, :save_skills
+    live "/config/skills", ConfigLive.Skills
   end
 
   # Enable Swoosh mailbox preview in development

@@ -1,0 +1,14 @@
+<.header>
+    Edit Game Settings
+</.header>
+  
+<.simple_form :let={form} for={@config} action={~p"/config/game_settings"}>
+    <%= for key <- Map.keys(@config.params) do %>
+        <.input field={form[key]} type="text" label={key} />
+    <% end %>
+    <:actions>
+        <.button>Save</.button>
+    </:actions>
+</.simple_form>
+
+<.back navigate={~p"/config"}>Back to config</.back>
