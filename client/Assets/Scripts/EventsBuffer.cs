@@ -7,6 +7,8 @@ public class EventsBuffer
     const int bufferLimit = 30;
     public List<GameEvent> updatesBuffer = new List<GameEvent>();
 
+    public Dictionary<ulong, long> lastTimestampsSeen = new Dictionary<ulong, long>();
+
     public long firstTimestamp = 0;
 
     public long deltaInterpolationTime { get; set; }
@@ -55,9 +57,25 @@ public class EventsBuffer
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
         var count = 0;
-        GameEvent previousRenderedEvent = this.getNextEventToRender(pastTime - 30);
         GameEvent currentEventToRender = this.getNextEventToRender(pastTime);
-        GameEvent followingEventToRender = this.getNextEventToRender(pastTime + 30);
+        var index = updatesBuffer.IndexOf(currentEventToRender);
+        int previousIndex;
+        int nextIndex;
+
+        if (index == 0) {
+            previousIndex = 0;
+        } else {
+            previousIndex = index - 1;
+        }
+
+        if (index == (updatesBuffer.Count - 1)) {
+            nextIndex = updatesBuffer.Count - 1;
+        } else {
+            nextIndex = index + 1;
+        }
+        
+        GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
+        GameEvent followingEventToRender = updatesBuffer[nextIndex];
 
         count +=
             (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
@@ -76,5 +94,19 @@ public class EventsBuffer
                 : 0;
 
         return count >= 1;
+    }
+
+    public void setLastTimestampSeen(ulong playerId, long serverTimestamp)
+    {
+        lastTimestampsSeen[playerId] = serverTimestamp;
+    }
+
+    public bool timestampAlreadySeen(ulong playerId, long serverTimestamp)
+    {
+        if (!lastTimestampsSeen.ContainsKey(playerId))
+        {
+            return false;
+        }
+        return lastTimestampsSeen[playerId] == serverTimestamp;
     }
 }
