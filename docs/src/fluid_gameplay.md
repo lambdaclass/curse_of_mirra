@@ -128,7 +128,15 @@ Note that, for this to be accurate, the client's movement code has to be _exactl
 
 To visualize client prediction in-game, we added what we call a player `ghost`. With client prediction on, the ghost is simply the player's character rendered without client prediction, that is, at the position the server says it is. Below are some examples of prediction at different ping values.
 
+#### Ghost with `50ms` ping
 
+![](./videos/prediction_50_ping.gif)
+
+#### Ghost with `240ms` ping
+
+![](./videos/prediction_240_ping.gif)
+
+At `240` ping the discrepancy between the ghost and the predicted character is massive. So massive that players will probably notice while playing, when a shot that has no business connecting with them does so. One way to mitigate this is to make characters move slower.
 
 ### Assumptions
 
