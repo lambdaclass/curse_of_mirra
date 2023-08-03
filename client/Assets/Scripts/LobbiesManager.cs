@@ -1,15 +1,14 @@
+using System;
 using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using System;
 
 public class LobbiesManager : LevelSelector
 {
     [SerializeField]
-    Text sessionId;
+    LobbiesListItem listItem;
 
     public override void GoToLevel()
     {
@@ -24,7 +23,7 @@ public class LobbiesManager : LevelSelector
 
     public void ConnectToLobby()
     {
-        LobbyConnection.Instance.ConnectToLobby(sessionId.text);
+        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
         SceneManager.LoadScene("Lobby");
     }
 
@@ -38,6 +37,7 @@ public class LobbiesManager : LevelSelector
     {
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MMSoundManager.Instance.FreeAllSounds();
     }
 
     public void QuickGame()

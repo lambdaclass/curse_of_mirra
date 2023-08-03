@@ -5,7 +5,6 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -28,9 +27,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
-
-    [SerializeField]
-    MMSoundManager soundManager;
 
     [SerializeField]
     private MMF_Player backgroundMusic;
@@ -237,6 +233,11 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeAudio()
     {
+        var soundManager = MMSoundManager.Instance;
+
+        // Stop previous scene music
+        soundManager.StopTrack(MMSoundManager.MMSoundManagerTracks.Music);
+
         backgroundMusic.PlayFeedbacks();
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
