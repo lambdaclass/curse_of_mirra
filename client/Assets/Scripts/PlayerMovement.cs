@@ -415,22 +415,8 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
-        {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
-        }
+        ManageStateFeedbacks(player, playerUpdate);
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -830,5 +816,35 @@ public class PlayerMovement : MonoBehaviour
     private GameObject findGhostPlayer(string playerId)
     {
         return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
+    }
+
+    private void ManageStateFeedbacks(GameObject player, Player playerUpdate)
+    {
+        ManagePoisonedFeedback(player, playerUpdate);
+        ManageSlowedFeedback(player, playerUpdate);
+    }
+
+    private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
+    }
+
+    private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+        }
     }
 }
