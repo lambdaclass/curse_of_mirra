@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -19,6 +20,9 @@ public class CustomLevelManager : LevelManager
     GameObject roundSplash;
 
     [SerializeField]
+    GameObject deathSplash;
+
+    [SerializeField]
     Text roundText;
 
     [SerializeField]
@@ -35,6 +39,10 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+    public Player playerToFollow;
+
+    [SerializeField]
+    public GameObject UiControls;
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
@@ -88,15 +96,21 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
+        var gamePlayer = Utils.GetGamePlayer(playerId);
+        if (GameHasEndedOrPlayerHasDied(gamePlayer))
         {
-            ShowRoundTransition();
+            ShowDeathSplash();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
             paused = !paused;
+        }
+
+        if (Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId).Health <= 0)
+        {
+            SetCameraToAlivePlayer();
         }
     }
 
@@ -231,6 +245,20 @@ public class CustomLevelManager : LevelManager
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     }
 
+    private void ShowDeathSplash()
+    {
+        deathSplash.SetActive(true);
+        UiControls.SetActive(false);
+    }
+
+    private void SetCameraToAlivePlayer()
+    {
+        var alivePlayers = Utils.GetAlivePlayers();
+        playerToFollow = alivePlayers.ElementAt(0);
+
+        setCameraToPlayer(playerToFollow.Id);
+    }
+
     private void InitializeAudio()
     {
         var soundManager = MMSoundManager.Instance;
@@ -241,5 +269,11 @@ public class CustomLevelManager : LevelManager
         backgroundMusic.PlayFeedbacks();
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
+    }
+
+    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    {
+        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
+            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
     }
 }

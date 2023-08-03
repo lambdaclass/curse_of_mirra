@@ -10,20 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: H4ck_Skill4
+  m_Name: H4ck_Denial
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: DENIAL OF SERVICE
   description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
     H4ck has a lotofupgrades under his sleave.
   inputType: 0
   indicatorType: 3
-  feedbackVfx: {fileID: 0}
-  feedbackVfxDuration: 0
+  feedbackVfx: {fileID: 5680458291943351323, guid: dbbd50ca956aa4dda8bec377c198f728,
+    type: 3}
+  feedbackVfxDuration: 6
   startFeedbackVfx: {fileID: 0}
   startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
-  animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  animationSpeedMultiplier: 3
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
   skillCircleRadius: 0
   skillConeAngle: 0
+  arrowWidth: 0
