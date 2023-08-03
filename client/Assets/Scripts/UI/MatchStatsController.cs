@@ -36,7 +36,7 @@ public class MatchStatsController : MonoBehaviour
 
         time += Time.deltaTime;
 
-        if (time >= period)
+        if (time >= period && seconds > 0)
         {
             time = time - period;
             seconds--;
