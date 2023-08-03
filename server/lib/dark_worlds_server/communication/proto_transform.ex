@@ -14,6 +14,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Communication.Proto.SkillConfigItem
   alias DarkWorldsServer.Communication.Proto.SkillsConfig
+  alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
@@ -25,6 +26,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # ENCODES #
   ###########
+
+  def encode(status, Status) do
+    status
+  end
 
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
@@ -121,6 +126,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
+      status: status,
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -139,6 +145,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
+      status: player_status_encode(status),
       action: player_action_encode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -272,7 +279,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
-      status: status,
+      status: player_status_decode(status),
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -437,6 +444,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp direction_decode(:DOWN), do: :down
   defp direction_decode(:LEFT), do: :left
   defp direction_decode(:RIGHT), do: :right
+
+  defp player_status_encode(:alive), do: :ALIVE
+  defp player_status_encode(:dead), do: :DEAD
+
+  defp player_status_decode(:ALIVE), do: :alive
+  defp player_status_decode(:DEAD), do: :dead
 
   defp player_action_encode(:attacking), do: :ATTACKING
   defp player_action_encode(:nothing), do: :NOTHING

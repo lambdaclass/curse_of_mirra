@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +6,6 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -121,7 +118,6 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = game_event.PlayableRadius;
                     this.shrinkingCenter = game_event.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
-
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < game_event.Players.Count
@@ -150,8 +146,23 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.GameFinished:
                     winnerPlayer.Item1 = game_event.WinnerPlayer;
                     winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
+                    this.gamePlayers = game_event.Players.ToList();
                     // This should be uncommented when the match end is finished
-                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+                    // game_event.Players
+                    //     .ToList()
+                    //     .ForEach(
+                    //         (player) =>
+                    //             print(
+                    //                 "PLAYER: "
+                    //                     + player.Id
+                    //                     + " KILLS: "
+                    //                     + player.KillCount
+                    //                     + " DEATHS: "
+                    //                     + player.DeathCount
+                    //                     + " STATUS: "
+                    //                     + player.Status
+                    //             )
+                    //     );
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = game_event.Players.ToList();
