@@ -57,9 +57,25 @@ public class EventsBuffer
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
         var count = 0;
-        GameEvent previousRenderedEvent = this.getNextEventToRender(pastTime - 30);
         GameEvent currentEventToRender = this.getNextEventToRender(pastTime);
-        GameEvent followingEventToRender = this.getNextEventToRender(pastTime + 30);
+        var index = updatesBuffer.IndexOf(currentEventToRender);
+        int previousIndex;
+        int nextIndex;
+
+        if (index == 0) {
+            previousIndex = 0;
+        } else {
+            previousIndex = index - 1;
+        }
+
+        if (index == (updatesBuffer.Count - 1)) {
+            nextIndex = updatesBuffer.Count - 1;
+        } else {
+            nextIndex = index + 1;
+        }
+        
+        GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
+        GameEvent followingEventToRender = updatesBuffer[nextIndex];
 
         count +=
             (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action

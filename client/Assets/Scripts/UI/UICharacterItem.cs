@@ -24,7 +24,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public SkillsDetailHandler skillList;
 
     [SerializeField]
-    public GameObject confirmButton;
+    public ConfirmButtonHandler confirmButton;
 
     void Start()
     {
@@ -58,13 +58,11 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
             if (isActive())
             {
                 characterDescription.SetActive(true);
-                confirmButton.SetActive(true);
                 selected = true;
                 artWork.sprite = comCharacter.selectedArtwork;
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-
                 skillList.list.ForEach(el =>
                 {
                     var skill = skillList.list.IndexOf(el);
@@ -75,13 +73,13 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                             comCharacter.selectedSkills[skill]
                         );
                 });
-
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);
-
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
                     comCharacter.name;
+
+                confirmButton.HandleButton();
             }
         }
     }
