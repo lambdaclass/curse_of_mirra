@@ -826,7 +826,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+        )
         {
             GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
         }
@@ -838,7 +841,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
+        )
         {
             GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
         }
@@ -846,5 +852,10 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
         }
+    }
+
+    private bool PlayerIsAlive(Player playerUpdate)
+    {
+        return playerUpdate.Status == Status.Alive;
     }
 }
