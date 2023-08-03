@@ -43,6 +43,8 @@ public class SocketConnectionManager : MonoBehaviour
     public float playableRadius;
     public Position shrinkingCenter;
 
+    public List<Player> alivePlayers = new List<Player>();
+
     WebSocket ws;
 
     public class Session
@@ -136,6 +138,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = game_event.Players.ToList();
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
+                    alivePlayers = game_event.Players.ToList().FindAll(el => el.Health > 0);
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
