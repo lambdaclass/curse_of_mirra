@@ -19,7 +19,7 @@ MonoBehaviour:
   indicatorType: 3
   feedbackVfx: {fileID: 5680458291943351323, guid: dbbd50ca956aa4dda8bec377c198f728,
     type: 3}
-  feedbackVfxDuration: 4
+  feedbackVfxDuration: 6
   startFeedbackVfx: {fileID: 0}
   startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
