@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
 
+    void Start()
+    {
+        noLobbiesText.SetActive(lobbiesEmpty);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +32,6 @@ public class UIManager : MonoBehaviour
             GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
             lobbiesEmpty = false;
         }
-        noLobbiesText.SetActive(lobbiesEmpty);
     }
 
     public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
