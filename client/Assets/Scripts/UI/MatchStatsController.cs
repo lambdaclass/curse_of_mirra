@@ -20,10 +20,16 @@ public class MatchStatsController : MonoBehaviour
 
     public float time = 0f;
 
-    ulong seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
+    ulong seconds = 0;
+
+    void Awake()
+    {
+        seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
+    }
 
     void Start()
     {
+        print(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs);
         zomeTimer.text = seconds.ToString();
     }
 
