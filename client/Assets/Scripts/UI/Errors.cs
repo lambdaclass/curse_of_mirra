@@ -12,7 +12,13 @@ public class Errors : MonoBehaviour
     public TextMeshProUGUI description;
 
     [SerializeField]
-    public List<GameObject> options;
+    public GameObject yesButton;
+
+    [SerializeField]
+    public GameObject noButton;
+
+    [SerializeField]
+    public GameObject okButton;
 
     public void HandleError(string title, string descriptionErr)
     {
@@ -21,12 +27,12 @@ public class Errors : MonoBehaviour
         description.text = descriptionErr;
         if (error.text == "Error")
         {
-            options[2].SetActive(true);
+            okButton.SetActive(true);
         }
         else if (error.text == "You have a game in progress")
         {
-            options[0].SetActive(true);
-            options[1].SetActive(true);
+            yesButton.SetActive(true);
+            noButton.SetActive(true);
         }
     }
 
