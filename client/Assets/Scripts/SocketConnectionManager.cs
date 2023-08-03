@@ -98,6 +98,7 @@ public class SocketConnectionManager : MonoBehaviour
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
+        ws.OnClose += onWebsocketClose;
         ws.OnError += (e) =>
         {
             Debug.Log("Received error: " + e);
@@ -187,6 +188,14 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
+    private void onWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            // TODO: Trigger connection error modal here, feel free to remove Debug.Log
+            Debug.Log("Connection closed unexpectedly");
+        }
+    }
     public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict)
     {
         Dictionary<ulong, string> result = new Dictionary<ulong, string>();
