@@ -11,7 +11,7 @@ public class MatchStatsController : MonoBehaviour
     TextMeshProUGUI alivePlayers;
 
     [SerializeField]
-    TextMeshProUGUI zomeTimer;
+    TextMeshProUGUI zoneTimer;
 
     [SerializeField]
     TextMeshProUGUI killCount;
@@ -29,8 +29,7 @@ public class MatchStatsController : MonoBehaviour
 
     void Start()
     {
-        print(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs);
-        zomeTimer.text = seconds.ToString();
+        zoneTimer.text = seconds.ToString();
     }
 
     void FixedUpdate()
@@ -46,7 +45,7 @@ public class MatchStatsController : MonoBehaviour
         {
             time = time - period;
             seconds--;
-            zomeTimer.text = seconds.ToString();
+            zoneTimer.text = seconds.ToString();
         }
     }
 }

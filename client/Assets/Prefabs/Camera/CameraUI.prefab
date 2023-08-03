@@ -13141,6 +13141,11 @@ PrefabInstance:
       objectReference: {fileID: 737706812}
     - target: {fileID: 8166273359142336723, guid: ffbef13757aa14013b5478fe3ee649ab,
         type: 3}
+      propertyPath: zoneTimer
+      value: 
+      objectReference: {fileID: 737706812}
+    - target: {fileID: 8166273359142336723, guid: ffbef13757aa14013b5478fe3ee649ab,
+        type: 3}
       propertyPath: alivePlayers
       value: 
       objectReference: {fileID: 747710055}
