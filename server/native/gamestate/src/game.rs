@@ -6,7 +6,7 @@ use crate::skills::{self, Skill};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
-use crate::utils::{cmp_float, RelativePosition};
+use crate::utils::{angle_between_vectors, cmp_float, RelativePosition};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -375,6 +375,7 @@ impl GameState {
             attacking_player.character.cooldown_basic_skill();
         attacking_player.direction = *direction;
         let attack_range = attacking_player.basic_skill_range();
+        let attack_angle = attacking_player.basic_skill_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_basic_attack(
@@ -383,17 +384,30 @@ impl GameState {
                 &mut self.projectiles,
                 &mut self.next_projectile_id,
                 players,
+                attack_angle,
             ),
             Name::Muflus => {
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
-                self.melee_attack(attacking_player, direction, attack_range)
+                let extra_effect = GameState::get_extra_effect(attacking_player, now);
+                self.melee_attack(
+                    attacking_player,
+                    direction,
+                    attack_range,
+                    attack_angle,
+                    extra_effect,
+                )
             }
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
 
-                let attacked_players_ids =
-                    self.melee_attack(attacking_player, direction, attack_range)?;
+                let attacked_players_ids = self.melee_attack(
+                    attacking_player,
+                    direction,
+                    attack_range,
+                    attack_angle,
+                    None,
+                )?;
                 for attacked_player_id in attacked_players_ids.clone() {
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, attacked_player_id)?;
@@ -424,12 +438,34 @@ impl GameState {
         Ok(())
     }
 
+    pub fn get_extra_effect(
+        attacking_player: &Player,
+        now: MillisTime,
+    ) -> Option<(Effect, EffectData)> {
+        if attacking_player.has_active_effect(&Effect::FieryRampage) {
+            let effect_data = EffectData {
+                time_left: u128_to_millis(2000 as u128),
+                ends_at: add_millis(now, u128_to_millis(2000 as u128)),
+                duration: u128_to_millis(2000 as u128),
+                direction: None,
+                position: None,
+                triggered_at: now,
+                caused_by: attacking_player.id,
+                caused_to: attacking_player.id,
+                damage: attacking_player.basic_skill_damage() / 4,
+            };
+            return Some((Effect::Burned.clone(), effect_data));
+        }
+        None
+    }
+
     pub fn h4ck_basic_attack(
         attacking_player: &mut Player,
         direction: &RelativePosition,
         projectiles: &mut Vec<Projectile>,
         next_projectile_id: &mut u64,
         players: &Vec<Player>,
+        attack_angle: u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
             let piercing = attacking_player.has_active_effect(&Effect::Piercing);
@@ -437,8 +473,10 @@ impl GameState {
             let projectile_direction = match Self::nearest_player(
                 players,
                 &attacking_player.position,
+                &attacking_player.direction,
                 attacking_player.id,
                 1000.,
+                attack_angle,
             ) {
                 Some((_player_id, position)) => RelativePosition::new(
                     position.y as f32 - attacking_player.position.y as f32,
@@ -447,11 +485,16 @@ impl GameState {
                 None => *direction,
             };
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
                 projectile_direction,
-                100,
+                speed as u32,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -472,8 +515,10 @@ impl GameState {
     fn nearest_player(
         players: &Vec<Player>,
         position: &Position,
+        direction: &RelativePosition,
         attacking_player_id: u64,
         max_distance: f64,
+        max_angle: u64,
     ) -> Option<(u64, Position)> {
         let mut nearest_player = None;
         let mut nearest_distance = max_distance;
@@ -482,7 +527,16 @@ impl GameState {
         for player in players {
             if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
                 let distance = distance_to_center(player, position);
-                if distance < nearest_distance && player.health <= lowest_hp {
+                let v1 = direction;
+                let v2 = RelativePosition::new(
+                    player.position.y as f32 - position.y as f32,
+                    -(player.position.x as f32 - position.x as f32),
+                );
+                let angle = angle_between_vectors(*v1, v2);
+                if distance < nearest_distance
+                    && angle < (max_angle / 2)
+                    && player.health <= lowest_hp
+                {
                     lowest_hp = player.health;
                     nearest_player = Some((player.id, player.position));
                     nearest_distance = distance;
@@ -498,14 +552,18 @@ impl GameState {
         attacking_player: &Player,
         direction: &RelativePosition,
         attack_range: f64,
+        attack_angle: u64,
+        effect: Option<(Effect, EffectData)>,
     ) -> Result<Vec<u64>, String> {
         let attack_dmg = attacking_player.basic_skill_damage() as i64;
 
         let (attacked_players, direction) = match Self::nearest_player(
             &mut self.players,
             &attacking_player.position,
+            &attacking_player.direction,
             attacking_player.id,
             attack_range,
+            attack_angle,
         ) {
             Some((player_id, position)) => {
                 let direction = RelativePosition::new(
@@ -522,6 +580,15 @@ impl GameState {
                         .insert(attacked_player.id, ((attack_dmg / 2), mirrored_id)),
                     None => None,
                 };
+
+                match effect {
+                    Some((effect, effect_data)) => {
+                        let mut effect_data = effect_data.clone();
+                        effect_data.caused_to = attacked_player.id;
+                        attacked_player.add_effect(effect, effect_data);
+                    }
+                    None => (),
+                }
 
                 self.attack_mirrored_player(uma_mirroring_affected_players)?;
 
@@ -553,6 +620,7 @@ impl GameState {
         attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
         attacking_player.direction = *direction;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
+        let attack_angle = attacking_player.skill_1_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_1(
@@ -563,7 +631,7 @@ impl GameState {
             ),
             Name::Muflus => {
                 let players = &mut self.players;
-                Self::muflus_skill_1(players, attacking_player_id)
+                Self::muflus_skill_1(players, attacking_player_id, now)
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
@@ -572,8 +640,10 @@ impl GameState {
                 match Self::nearest_player(
                     &pys,
                     &attacking_player.position,
+                    &attacking_player.direction,
                     attacking_player.id,
                     1000.,
+                    attack_angle,
                 ) {
                     Some((player_id, _position)) => {
                         let damage = attacking_player.skill_1_damage();
@@ -627,6 +697,8 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
+            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -636,6 +708,11 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
                     *next_projectile_id,
@@ -644,7 +721,7 @@ impl GameState {
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
-                    100,
+                    speed as u32,
                     1,
                     attacking_player.id,
                     attacking_player.skill_1_damage(),
@@ -652,7 +729,7 @@ impl GameState {
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
-                    false,
+                    piercing,
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
@@ -664,10 +741,13 @@ impl GameState {
     pub fn muflus_skill_1(
         players: &mut Vec<Player>,
         attacking_player_id: u64,
+        now: MillisTime,
     ) -> Result<Vec<u64>, String> {
         let pys = players.clone();
         let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
         let attack_dmg = attacking_player.skill_1_damage() as i64;
+
+        let extra_effect = GameState::get_extra_effect(attacking_player, now);
 
         // TODO: This should be a config of the attack
         let attack_range: f64 = attacking_player.skill_1_range();
@@ -687,6 +767,15 @@ impl GameState {
             match attacked_player {
                 Some(ap) => {
                     ap.modify_health(-attack_dmg);
+
+                    match extra_effect {
+                        Some((effect, effect_data)) => {
+                            let mut effect_data = effect_data.clone();
+                            effect_data.caused_to = ap.id;
+                            ap.add_effect(effect, effect_data);
+                        }
+                        None => (),
+                    }
                 }
                 _ => continue,
             }
@@ -711,6 +800,7 @@ impl GameState {
         attacking_player.skill_2_started_at = now;
         attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
         attacking_player.direction = *direction;
+        let attack_angle = attacking_player.skill_2_angle();
 
         let attacked_player_ids = match attacking_player.character.name {
             Name::H4ck => Self::h4ck_skill_2(
@@ -728,8 +818,10 @@ impl GameState {
                 match Self::nearest_player(
                     &pys,
                     &attacking_player.position,
+                    &attacking_player.direction,
                     attacking_player.id,
                     1000.,
+                    attack_angle,
                 ) {
                     Some((player_id, _position)) => {
                         attacking_player.add_effect(
@@ -939,6 +1031,23 @@ impl GameState {
                 );
                 Ok(Vec::new())
             }
+            Name::Muflus => {
+                attacking_player.add_effect(
+                    Effect::FieryRampage.clone(),
+                    EffectData {
+                        time_left: attacking_player.character.duration_skill_4(),
+                        ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
+                        duration: attacking_player.character.duration_skill_4(),
+                        direction: None,
+                        position: None,
+                        triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
+                        damage: 0,
+                    },
+                );
+                Ok(Vec::new())
+            }
             Name::Uma => GameState::uma_skill_4(&mut self.players, attacking_player_id),
             _ => Ok(Vec::new()),
         };
@@ -982,8 +1091,12 @@ impl GameState {
     pub fn world_tick(self: &mut Self, out_of_area_damage: i64) -> Result<(), String> {
         let now = time_now();
         let pys = self.players.clone();
-        let mut neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        let mut neon_crash_affected_players: HashMap<
+            u64,
+            (i64, Vec<u64>, Option<(Effect, MillisTime)>),
+        > = HashMap::new();
+        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)> =
+            HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
         let mut projectile_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
@@ -1007,13 +1120,16 @@ impl GameState {
                         && effect == &Effect::Leaping
                     {
                         player.action = PlayerAction::EXECUTINGSKILL3;
-                        leap_affected_players = GameState::affected_players(
-                            damage,
+                        let af_pl = GameState::affected_players(
                             attack_range,
                             &pys,
                             &player.position,
                             player.id,
                         );
+                        let effect = Effect::Slowed;
+                        let duration = player.character.duration_skill_3();
+                        leap_affected_players
+                            .insert(player.id, (damage, af_pl, Some((effect, duration))));
                     }
                     millis_to_u128(*time_left) > 0
                 },
@@ -1034,8 +1150,17 @@ impl GameState {
                         )
                         .unwrap();
 
-                        neon_crash_affected_players =
-                            GameState::affected_players(2, 200., &pys, &player.position, player.id);
+                        let damage_neon_crash = player.skill_3_damage() as i64;
+                        let range_neon_crash = player.skill_3_range() as f64;
+
+                        let af_pl = GameState::affected_players(
+                            range_neon_crash,
+                            &pys,
+                            &player.position,
+                            player.id,
+                        );
+                        neon_crash_affected_players
+                            .insert(player.id, (damage_neon_crash, af_pl, None));
                     }
                     _ => {}
                 }
@@ -1063,11 +1188,11 @@ impl GameState {
 
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        self.attack_players_with_effect(neon_crash_affected_players)?;
+        self.attack_players_with_effect(neon_crash_affected_players, now)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        self.attack_players_with_effect(leap_affected_players)?;
+        self.attack_players_with_effect(leap_affected_players, now)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1154,6 +1279,8 @@ impl GameState {
 
         self.check_and_damage_poisoned_players();
 
+        self.check_and_damage_burned_players();
+
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
@@ -1193,6 +1320,39 @@ impl GameState {
         }
     }
 
+    fn check_and_damage_burned_players(self: &mut Self) {
+        let now = time_now();
+        let mut burned_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
+        self.players.iter_mut().for_each(|player| {
+            if matches!(player.status, Status::DEAD) {
+                return;
+            }
+            let mut effect_data = match player.effects.get(&Effect::Burned) {
+                Some(data) => data.clone(),
+                None => return,
+            };
+
+            let delta = (1000 / 2) as u32;
+            let damage = effect_data.damage / (effect_data.duration.low as u32 / delta);
+
+            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > delta as u128 {
+                player.modify_health(-(damage as i64));
+                effect_data.triggered_at = now;
+            }
+            burned_affected_players
+                .entry(effect_data.caused_by)
+                .and_modify(|at| at.1.push(player.id))
+                .or_insert((0, vec![player.id]));
+
+            player.effects.insert(Effect::Burned, effect_data);
+        });
+
+        for (player_id, (_, attacked_players)) in burned_affected_players.iter() {
+            let attacked = attacked_players.clone();
+            self.update_killfeed(*player_id, attacked);
+        }
+    }
+
     fn update_projectiles(
         projectiles: &mut Vec<Projectile>,
         board_height: usize,
@@ -1210,10 +1370,11 @@ impl GameState {
 
     fn attack_players_with_effect(
         self: &mut Self,
-        affected_players: HashMap<u64, (i64, Vec<u64>)>,
+        affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)>,
+        now: MillisTime,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        for (player_id, (damage, attacked_players)) in affected_players.iter() {
+        for (player_id, (damage, attacked_players, effect)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 let attacked_player = self
                     .players
@@ -1222,6 +1383,23 @@ impl GameState {
                 match attacked_player {
                     Some(ap) => {
                         ap.modify_health(-damage);
+                        match effect {
+                            Some((effect, duration)) => {
+                                let effect_data = EffectData {
+                                    time_left: *duration,
+                                    ends_at: add_millis(now, *duration),
+                                    duration: *duration,
+                                    direction: None,
+                                    position: None,
+                                    triggered_at: now,
+                                    caused_by: *player_id,
+                                    caused_to: ap.id,
+                                    damage: 0,
+                                };
+                                ap.add_effect(effect.clone(), effect_data.clone());
+                            }
+                            None => {}
+                        }
                         match ap.get_mirrored_player_id() {
                             Some(mirrored_id) => uma_mirroring_affected_players
                                 .insert(ap.id, (damage / 2, mirrored_id)),
@@ -1255,25 +1433,15 @@ impl GameState {
     }
 
     fn affected_players(
-        attack_damage: i64,
         attack_range: f64,
         players: &Vec<Player>,
         attacking_player_position: &Position,
         attacking_player_id: u64,
-    ) -> HashMap<u64, (i64, Vec<u64>)> {
-        let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-
-        let affected_players: Vec<u64> =
-            GameState::players_in_range(players, attacking_player_position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
-        afp.insert(
-            attacking_player_id,
-            (attack_damage, affected_players.clone()),
-        );
-
-        afp
+    ) -> Vec<u64> {
+        GameState::players_in_range(players, attacking_player_position, attack_range)
+            .into_iter()
+            .filter(|&id| id != attacking_player_id)
+            .collect()
     }
 
     pub fn spawn_player(self: &mut Self, player_id: u64) {
