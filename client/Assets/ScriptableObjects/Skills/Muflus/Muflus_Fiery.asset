@@ -21,7 +21,7 @@ MonoBehaviour:
   indicatorType: 3
   feedbackVfx: {fileID: 5680458291943351323, guid: 590c335f5b27b4f5eb06fabdf02bf860,
     type: 3}
-  feedbackVfxDuration: 6
+  feedbackVfxDuration: 5
   startFeedbackVfx: {fileID: 0}
   startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
