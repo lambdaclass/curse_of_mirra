@@ -383,7 +383,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
 
     map_shrink_interval_ms =
-      Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval_ms, @map_shrink_interval_ms)
+      Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval, @map_shrink_interval_ms)
 
     Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
