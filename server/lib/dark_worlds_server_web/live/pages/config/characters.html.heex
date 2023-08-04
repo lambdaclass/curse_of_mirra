@@ -5,7 +5,7 @@
 <.simple_form :let={form} for={@config} action={~p"/config/characters"}>
     <%= for name <- @characters do %>
         <h1><%= name %></h1>
-        <.button phx-click="remove_character" phx-value={name}>X</.button>
+        <div phx-click="remove_character" phx-value-name={name}>X</div>
         <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
             <%= for key <- Map.keys(@config.params[name]) do %>
                 <.input field={nested_form[key]} type="text" label={key} />
