@@ -78,4 +78,12 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
 
       {:noreply, assign(socket, config: to_form(config), new_key_name: "")}
   end
+
+  def handle_event("remove_key", %{"name" => name}, socket) do
+    config =
+      socket.assigns.config.params
+      |> Map.new(fn {char_name, char_config} -> {char_name, Map.drop(char_config, [name])} end)
+
+      {:noreply, assign(socket, config: to_form(config))}
+  end
 end
