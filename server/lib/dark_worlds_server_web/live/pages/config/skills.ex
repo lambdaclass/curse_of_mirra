@@ -30,8 +30,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Skills do
     config = socket.assigns.config.params
 
     # Get the currently existing keys for other skills if any
-    keys =
-      if map_size(config) == 0, do: @default_keys, else: Map.keys(config |> Enum.at(0) |> elem(1))
+    keys = if map_size(config) == 0, do: @default_keys, else: Map.keys(config |> Enum.at(0) |> elem(1))
 
     name = if name == "", do: "Skill ##{map_size(config) + 1}"
     new_skill_config = %{Map.new(keys, fn key -> {key, ""} end) | "Name" => name}
