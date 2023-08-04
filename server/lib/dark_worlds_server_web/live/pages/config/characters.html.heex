@@ -8,7 +8,7 @@
         <div phx-click="remove_character" phx-value-name={name}>X</div>
         <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
             <%= for key <- Map.keys(@config.params[name]) do %>
-                <.input field={nested_form[key]} type="text" label={key} />
+                <.input field={nested_form[key]} type="text" label={key} required={if key in ["Name", "Id"], do: true, else: false}/>
             <% end %>
         </.inputs_for>
     <% end %>
