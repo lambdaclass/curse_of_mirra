@@ -99,6 +99,14 @@ impl GameState {
 
         let projectiles = Vec::new();
 
+        let rng = &mut thread_rng();
+        let shrinking_center_x_coordinate: usize = rng.gen_range(0..board_width);
+        let shrinking_center_y_coordinate: usize = rng.gen_range(0..board_height);
+        let shrinking_center = Position {
+            x: shrinking_center_x_coordinate,
+            y: shrinking_center_y_coordinate,
+        };
+
         Ok(Self {
             players,
             board,
@@ -106,11 +114,8 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
-            playable_radius: max(board_height, board_width) as u64,
-            shrinking_center: Position {
-                x: board_height.div(2),
-                y: board_width.div(2),
-            },
+            playable_radius: (max(board_height, board_width) * 2) as u64,
+            shrinking_center,
         })
     }
 
@@ -1410,7 +1415,9 @@ impl GameState {
             .push(Player::new(player_id, 100, position, Default::default()));
     }
 
-    pub fn shrink_map(self: &mut Self) {
+    pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
+        let new_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+        self.playable_radius = new_radius.max(map_shrink_minimum_radius);
         self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
     }
 
