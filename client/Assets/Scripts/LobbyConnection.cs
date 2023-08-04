@@ -69,7 +69,7 @@ public class LobbyConnection : MonoBehaviour
         {
             if (this.ws != null)
             {
-              this.ws.Close();
+                this.ws.Close();
             }
 
             Destroy(gameObject);
@@ -263,7 +263,12 @@ public class LobbyConnection : MonoBehaviour
                     this.hostId = lobby_event.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
                     this.playerCount = lobby_event.PlayersInfo.Count();
-                    lobby_event.PlayersInfo.ToList().ForEach(playerInfo => this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName);
+                    lobby_event.PlayersInfo
+                        .ToList()
+                        .ForEach(
+                            playerInfo =>
+                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
+                        );
                     break;
 
                 case LobbyEventType.PlayerRemoved:

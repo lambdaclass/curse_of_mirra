@@ -92,6 +92,12 @@ public class Skill : CharacterAbility
             else
             {
                 this.AbilityStopFeedbacks = feedbackVfx.GetComponent<MMF_Player>();
+                if (skillInfo.indicatorType == UIIndicatorType.Area)
+                {
+                    Transform parentTransform = feedbackVfx.GetComponent<MMF_Player>().transform;
+                    float diameter = skillInfo.skillAreaRadius * 2;
+                    parentTransform.localScale = new Vector3(diameter, diameter, diameter);
+                }
             }
         }
 
@@ -294,6 +300,16 @@ public class Skill : CharacterAbility
         return skillInfo.skillCircleRadius;
     }
 
+    public void SetSkillRadius(float radius)
+    {
+        skillInfo.skillCircleRadius = radius;
+    }
+
+    public void SetSkillAreaRadius(float radius)
+    {
+        skillInfo.skillAreaRadius = radius;
+    }
+
     public float GetIndicatorAngle()
     {
         return skillInfo.skillConeAngle;
@@ -307,5 +323,10 @@ public class Skill : CharacterAbility
     public UIIndicatorType GetIndicatorType()
     {
         return skillInfo.indicatorType;
+    }
+
+    public String GetSkillName()
+    {
+        return skillInfo.name;
     }
 }

@@ -512,12 +512,9 @@ defmodule DarkWorldsServer.Engine.Runner do
             Map.put(map, player_id, character_name)
           end)
 
-        Process.send_after(self(), :start_game, @game_start_timer_ms)
-
         %{state | selected_characters: selected_characters}
 
       true ->
-        Process.send_after(self(), :start_game, @game_start_timer_ms)
         state
     end
   end
