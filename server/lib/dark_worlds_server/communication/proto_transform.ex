@@ -12,6 +12,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
+  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
+  alias DarkWorldsServer.Communication.Proto.SkillsConfig
+  alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
@@ -24,6 +27,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
+  def encode(status, Status) do
+    status
+  end
+
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
   end
@@ -34,6 +41,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(millis_time, ProtoMillisTime) do
     millis_time
+  end
+
+  def encode(skill_config, SkillsConfig) do
+    skill_config
+  end
+
+  def encode(skill_config_item, SkillConfigItem) do
+    skill_config_item
   end
 
   def encode(runner_config, RunnerConfig) do
@@ -50,7 +65,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def encode(
-        %{character_config: character_config, runner_config: runner_config},
+        %{
+          character_config: character_config,
+          runner_config: runner_config,
+          skills_config: skills_config
+        },
         ServerGameSettings
       ) do
     %{
@@ -59,6 +78,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
       server_tickrate_ms: server_tickrate_ms,
+      map_shrink_wait_ms: map_shrink_wait_ms,
+      map_shrink_interval: map_shrink_interval,
+      out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     } = runner_config
 
@@ -68,6 +91,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       board_width: board_width,
       game_timeout_ms: game_timeout_ms,
       server_tickrate_ms: server_tickrate_ms,
+      map_shrink_wait_ms: map_shrink_wait_ms,
+      map_shrink_interval: map_shrink_interval,
+      out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     }
 
@@ -75,9 +102,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       Items: character_config[:Items]
     }
 
+    skills_config = %SkillsConfig{
+      Items: skills_config[:Items]
+    }
+
     %ServerGameSettings{
       runner_config: runner_config,
-      character_config: character_config
+      character_config: character_config,
+      skills_config: skills_config
     }
   end
 
@@ -96,6 +128,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       id: id,
       health: health,
       position: position,
+      status: status,
       action: action,
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -107,13 +140,15 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %ProtoPlayer{
       id: id,
       health: health,
       position: position,
+      status: player_status_encode(status),
       action: player_action_encode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -125,7 +160,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 
@@ -173,7 +209,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :ATTACK, direction: direction_encode(direction), timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}, ProtoAction) do
+  def encode(
+        %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}
   end
 
@@ -193,7 +232,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}
   end
 
-  def encode(%EngineAction{action: :basic_attack, value: position, timestamp: timestamp}, ProtoAction) do
+  def encode(
+        %EngineAction{action: :basic_attack, value: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
   end
 
@@ -234,14 +276,15 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %EnginePlayer{
       id: id,
       health: health,
       position: position,
-      status: status,
+      status: player_status_decode(status),
       action: player_action_decode(action),
       aoe_position: aoe_position,
       kill_count: kill_count,
@@ -253,11 +296,15 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 
-  def decode(%ProtoAction{action: :AUTO_ATTACK, target: target, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :AUTO_ATTACK, target: target, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :auto_attack, value: target, timestamp: timestamp}
   end
 
@@ -293,7 +340,14 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(%ProtoAction{action: :MOVE_WITH_JOYSTICK, move_delta: %{x: x, y: y}, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{
+          action: :MOVE_WITH_JOYSTICK,
+          move_delta: %{x: x, y: y},
+          timestamp: timestamp
+        },
+        ProtoAction
+      ) do
     %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}
   end
 
@@ -301,31 +355,52 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %EngineAction{action: :move, value: direction_decode(direction), timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ATTACK, direction: direction, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :ATTACK, direction: direction, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :attack, value: direction_decode(direction), timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :skill_1, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :skill_3, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :skill_4, value: position, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
   end
 
@@ -334,13 +409,20 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(
-        %ProtoAction{action: :SELECT_CHARACTER, player_character: player_character, timestamp: timestamp},
+        %ProtoAction{
+          action: :SELECT_CHARACTER,
+          player_character: player_character,
+          timestamp: timestamp
+        },
         ProtoAction
       ) do
     %EngineAction{action: :select_character, value: player_character, timestamp: timestamp}
   end
 
-  def decode(%ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}, ProtoAction) do
+  def decode(
+        %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp},
+        ProtoAction
+      ) do
     %EngineAction{action: :teleport, value: position, timestamp: timestamp}
   end
 
@@ -368,6 +450,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp direction_decode(:DOWN), do: :down
   defp direction_decode(:LEFT), do: :left
   defp direction_decode(:RIGHT), do: :right
+
+  defp player_status_encode(:alive), do: :ALIVE
+  defp player_status_encode(:dead), do: :DEAD
+
+  defp player_status_decode(:ALIVE), do: :alive
+  defp player_status_decode(:DEAD), do: :dead
 
   defp player_action_encode(:attacking), do: :ATTACKING
   defp player_action_encode(:nothing), do: :NOTHING
@@ -418,4 +506,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:xanda_mark, %{ends_at: ends_at}}), do: {9, ends_at}
   defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at}}), do: {10, ends_at}
   defp effect_encode({:poisoned, %{ends_at: ends_at}}), do: {11, ends_at}
+  defp effect_encode({:slowed, %{ends_at: ends_at}}), do: {12, ends_at}
+  defp effect_encode({:fiery_rampage, %{ends_at: ends_at}}), do: {13, ends_at}
+  defp effect_encode({:burned, %{ends_at: ends_at}}), do: {14, ends_at}
 end

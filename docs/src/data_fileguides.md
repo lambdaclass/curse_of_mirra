@@ -2,7 +2,7 @@
 
 ## Overview
 
-All duration related fields are measured in miliseconds by default.  
+All duration related fields are measured in miliseconds by default.
 Units to measure distance and velocity are still undefined.
 
 ## Characters.json
@@ -20,7 +20,7 @@ This file contains the information and base stats from characters in the game
 - **BaseSpeed:** defines a numeric value for the character's base movement speed
 - **SkillBasic:** lookup field to Skills.json for the character's basic skill
 - **SkillActive1:** lookup field to Skills.json for the character's first active skill
-- **SkillActive2:** lookup field to Skills.json for the character's second active skill  
+- **SkillActive2:** lookup field to Skills.json for the character's second active skill
 - **SkillDash:** lookup field to Skills.json for the character's third active skill
 - **SkillUltimate:** lookup field to Skills.json for the character's ultimate skill
 - **BodySize:** f64 that defines the circumference of how much space the character takes up in the board. Useful for knowing when an attack impacts them, for example.
@@ -39,6 +39,7 @@ This file contains various settings used by the game
 - **game_timeout_ms:** represents how much a game session lasts
 - **map_shrink_wait_ms:** Represents the amount of time players have to wait until the zone starts to shrink
 - **map_shrink_interval:** It's the interval time between shrinks
+- **map_shrink_minimum_radius:** Mininum radius for the playable area, how small can the playable zone can get
 - **out_of_area_damage:** Represents the damage the area does
 
 ## Skills.json

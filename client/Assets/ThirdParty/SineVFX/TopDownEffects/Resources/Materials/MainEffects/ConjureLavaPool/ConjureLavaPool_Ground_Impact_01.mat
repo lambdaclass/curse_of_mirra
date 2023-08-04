@@ -158,6 +158,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _AMe: 0
@@ -241,6 +253,8 @@ Material:
     - _OpacityMaskScaler: 1
     - _OpacityMaskVSEmilationTEST: -0.103
     - _Progress: -0.35
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RampOffsetExp: 0.5
     - _RampOffsetMultiply: 1
     - _RampSmoothstepMax: 0.5

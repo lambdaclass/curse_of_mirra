@@ -23,8 +23,8 @@
       "Duration": "0",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350",
-      "Angle": "10"
+      "SkillRange": "450",
+      "Angle": "120"
     },
     {
       "Name": "Barrel Roll",
@@ -59,7 +59,7 @@
       "Cooldown": "8000",
       "Damage": "40",
       "Status": "",
-      "Duration": "0",
+      "Duration": "2000",
       "Projectile": "",
       "Minion": "",
       "SkillRange": "450",
@@ -69,10 +69,10 @@
       "Name": "Fiery Rampage",
       "DoFunc": "0",
       "ButtonType": "1",
-      "Cooldown": "60000",
+      "Cooldown": "5000",
       "Damage": "10",
       "Status": "",
-      "Duration": "0",
+      "Duration": "5000",
       "Projectile": "",
       "Minion": "",
       "SkillRange": "350",
@@ -154,7 +154,7 @@
       "Projectile": "slingshot",
       "Minion": "",
       "SkillRange": "350",
-      "Angle": "10"
+      "Angle": "120"
     },
     {
       "Name": "Multishot",
@@ -187,19 +187,19 @@
       "DoFunc": "0",
       "ButtonType": "3",
       "Cooldown": "5000",
-      "Damage": "10",
+      "Damage": "2",
       "Status": "",
       "Duration": "300",
       "Projectile": "",
       "Minion": "",
-      "SkillRange": "350",
+      "SkillRange": "200",
       "Angle": "10"
     },
     {
       "Name": "Denial of Service",
       "DoFunc": "0",
       "ButtonType": "1",
-      "Cooldown": "60000",
+      "Cooldown": "5000",
       "Damage": "10",
       "Status": "",
       "Duration": "6000",
