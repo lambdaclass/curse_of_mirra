@@ -142,12 +142,73 @@ At `240` ping the discrepancy between the ghost and the predicted character is m
 
 One last important thing: even though it's called client prediction, the client isn't predicting anything. Predictions can go wrong, this can't; we are actively relying on the server always applying our commands. If, for some reason, that does not happen, the client gets desynced from the server. This is important. At some point we considered making the server only apply one movement command per tick, discarding the rest. Had we done that, client prediction would have broken, because the client would've had no way of knowing which commands were going to be applied and which ones weren't.
 
-## Naive movement code (use latest update to set position)
+## Choppy Movement: Naive implementation
 
-## Framerate same as tick rate example
+We now turn our attention to the second (and most important) issue we are trying to solve. Let's first talk about how  player movement can be implemented in general. 
 
-## Smooth movement through interpolation
+Recall that, our game being online, each player's position is updated and given to us by the server every `tick_rate` milliseconds. The easiest way to implement player movement, then, is to do the following:
+
+- On each frame, take the last game state we have from the server, then set each player's position to be the position that's on said state.
+
+If the tick rate is low enough, these jumps in position should not be noticeable and movement should look smooth. This makes sense, but when implemented, movement looks like this:
+
+![](./videos/naive_movement_uncapped_framerate.gif)
+
+The character looks super jittery. This is unacceptable. 
+
+Notice that my ping is `0` `ms`. I'm playing on a local server, there is no real network in between. This is not a networking issue, but rather a subtler problem. What you are seeing here is the interplay between `framerate` and `tick rate`. In the video, my framerate is close to `300` `FPS`, while tick rate is `20` `ms`. This means that, per second, unity renders 300 frames but only 50 ticks happen on the backend.
+
+Because of this, there are roughly 6 frames being rendered per tick ($300 / 50$). On some of them, a new game state from the server arrives, and the player is moved from where they were before to a new position. On most of them, however, nothing changes, as no new update from the server arrives. This difference between frames where position does not change and frames where it does creates the jitter.
+
+We can test this. If the above is correct, then setting framerate to coincide with tick rate should make it look smooth, because now position changes on every frame. This is what movement looks like with framerate capped at `50` `FPS` and tick rate at `20` `ms` (i.e. `50` ticks per second):
+
+![](./videos/naive_movement_framerate_same_as_tickrate.gif)
+
+As expected, movement now looks fluid. This is not an idea solution, however, because we said at the beginning that we would not cap framerate. Even if we did, if we ever change tick rates on our backend we would have to change the framerate cap to a new one. Also, framerate is not flat, even when capped. A slight dip in framerate from `50` to `49` could immediately make movement look jittery again. This is not just conjecture, if you play around like this for a while you will see it happen.
+
+## Less Naive implementation: Interpolation
+
+Our naive implementation is not good enough. We need to move characters on every frame, regardless of whether there's a new update from the server or not. For this to make sense, characters have to be moved on each frame proportionally to how much time has passed, so if there's six frames per tick they should go from their previous position to their current one smoothly along those six frames.
+
+More precisely, what we do to fix the jitter above for our character is the following:
+
+- On each frame, we take the latest position the server tells us we should be at.
+- We then calculate how much time has passed since the last frame (in Unity this is `Time.deltaTime`) and move towards that latest position at our character's velocity for that amount of time. In code this looks something like this:
+    ```
+    Vector3 newPosition = players_current_position + movementDirection * velocity * Time.deltaTime;
+    ```
+    where `movementDirection` is the vector of length `1` pointing towards the position the server tells us we should be at.
+
+In other words, what we are doing is making characters chase the server's latest position at their corresponding speed, showing movement gradually over the course of however many frames happen between each tick. When we get a new updated position from the server, instead of immediately placing them there, we move characters smoothly from where they are up to where they need to be. This process of taking two discrete points and smoothing out the movement between them is sometimes called `interpolation`, `linear` `interpolation` or `lerp` for short.
+
+Note that, as with client prediction, this is a lie. In our backend, the command "move right" will immediately place you `n` units to the right; you do not smoothly travel that distance. On the client, however, if your framerate is higher than the tick rate (which it will almost always be, as our default tick rate is `30` `ms`), the game will show that movement happen more continuously, as if you actually pass through the segment in between. This lie is pretty much unnoticeable though; both the time and space windows are very small.
+
+Interpolation makes jitter disappear without having to mess with framerate; things will look fluid whether you run at 50 or 300 `FPS`. Here are the same two scenarios as before but with interpolated movement:
+
+#### 300 FPS
+
+![](./videos/interpolated_movement_uncapped_framerate.gif)
+
+#### 50 FPS
+
+![](./videos/interpolated_movement_50_fps.gif)
+
+Now they both look good.
+
+### Assumptions/Possible issues
+
+For the above to work well, the client needs to know each character's speed. If the speed used by unity to interpolate movement differs from the one the backend uses, things will go wrong. Every time we get a new position update, we have to travel at just the right speed so that we arrive at that new position just in time for the next server update. 
+
+If we go too fast, we will stop in our tracks for a little while, waiting for the next position update to arrive. If we go too slow, we won't have reached our desired position by the time the next update arrives. This will make us lag behind the server, falling further and further behind as time goes on. The result of this last scenario is `sliding`; players will notice their character still moving for a while after releasing the joystick, as it catches up with the server.
+
+To avoid both these things, the speed used by the client needs to exactly match the one used by the server.
 
 ## Entity interpolation
 
+We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough.
+
+TODO
+
 ## Action rate, hacky solution
+
+TODO
