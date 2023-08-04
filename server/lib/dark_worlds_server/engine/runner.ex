@@ -14,7 +14,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   # This is the amount of time between state updates in milliseconds
   @tick_rate_ms 20
   # This is the amount of time that players have to select a character
-  @character_selection_timeout_ms 60 * 1000
+  @character_selection_timeout_ms 30 * 1000
   # This is the amount of time to check if all players are set
   @character_selection_check_ms 30
   # This is the amount of time to wait until the game starts, ofc we should change it
@@ -499,7 +499,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-        players_with_character = Enum.map(selected_characters, fn selected_char -> selected_char.player_id end)
+        players_with_character = Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
 
         players_without_character =
           Enum.filter(state[:players], fn player_id ->
@@ -508,16 +508,13 @@ defmodule DarkWorldsServer.Engine.Runner do
 
         selected_characters =
           Enum.reduce(players_without_character, selected_characters, fn player_id, map ->
-            character_name = Enum.random(["H4ck", "Muflus", "Uma"])
+            character_name = Enum.random(["H4ck", "Muflus"])
             Map.put(map, player_id, character_name)
           end)
-
-        Process.send_after(self(), :start_game, @game_start_timer_ms)
 
         %{state | selected_characters: selected_characters}
 
       true ->
-        Process.send_after(self(), :start_game, @game_start_timer_ms)
         state
     end
   end

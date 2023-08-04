@@ -10,52 +10,53 @@ public class LobbyPlayerList : MonoBehaviour
 
     [SerializeField]
     GameObject playButton;
-    List<GameObject> playerItems = new List<GameObject>();
+    // List<GameObject> playerItems = new List<GameObject>();
+    Dictionary<ulong, GameObject> playerItems = new Dictionary<ulong, GameObject>();
 
     // Update is called once per frame
     void Update()
     {
-        if (playerItems.Count < LobbyConnection.Instance.playerCount)
+        var removed_keys = this.playerItems.Keys.Except(LobbyConnection.Instance.playersIdName.Keys).ToList();
+        foreach (ulong key in removed_keys)
         {
-            createPlayerItems();
-            LobbyConnection.Instance.totalLobbyPlayers = playerItems;
+            removePlayerItem(key);
         }
-        else if (playerItems.Count > LobbyConnection.Instance.playerCount)
+
+        if (removed_keys.Count > 0)
         {
-            removePlayerItems();
+            updatePlayerItem(LobbyConnection.Instance.hostId);
+        }
+
+        foreach (KeyValuePair<ulong, string> kvp in LobbyConnection.Instance.playersIdName)
+        {
+            if (!this.playerItems.ContainsKey(kvp.Key))
+            {
+                createPlayerItem(kvp.Key, kvp.Value);
+            }
         }
     }
 
-    private void createPlayerItems()
-    {
-        for (int i = playerItems.Count; i < LobbyConnection.Instance.playerCount; i++)
-        {
-            playerItems.Add(CreatePlayerItem((ulong)i + 1));
-        }
-    }
-
-    private void removePlayerItems()
-    {
-        for (int i = playerItems.Count; i > LobbyConnection.Instance.playerCount; i--)
-        {
-            GameObject player = playerItems[i - 1];
-            playerItems.RemoveAt(i - 1);
-            Destroy(player);
-        }
-    }
-
-    public GameObject CreatePlayerItem(ulong id)
+    public void createPlayerItem(ulong id, string name)
     {
         GameObject newPlayer = Instantiate(playerItemPrefab, gameObject.transform);
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
         playerI.SetId(id);
-        playerI.SetPlayerItemText();
+        playerI.SetPlayerItemText(name);
 
-        return newPlayer;
+        this.playerItems[id] = newPlayer;
     }
 
-    public GameObject GetItemById(ulong id)
+    public void removePlayerItem(ulong id)
     {
-        return playerItems.Find(el => el.GetComponent<PlayerItem>().id == id);
+        GameObject player = this.playerItems[id];
+        this.playerItems.Remove(id);
+        Destroy(player);
+    }
+
+    public void updatePlayerItem(ulong id)
+    {
+        GameObject player = this.playerItems[id];
+        PlayerItem playerI = player.GetComponent<PlayerItem>();
+        playerI.updateText();
     }
 }
