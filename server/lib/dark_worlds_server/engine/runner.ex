@@ -380,12 +380,14 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
+    map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
+
     map_shrink_interval_ms =
       Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval_ms, @map_shrink_interval_ms)
 
     Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
-    {:ok, game} = Game.shrink_map(server_game_state.game)
+    {:ok, game} = Game.shrink_map(server_game_state.game, map_shrink_minimum_radius)
     gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
 
     {:noreply, gen_server_state}

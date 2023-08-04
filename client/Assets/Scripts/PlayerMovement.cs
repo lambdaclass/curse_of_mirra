@@ -225,6 +225,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetPlayerAlive(playerCharacter);
             }
+
+            if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
+            {
+                // TODO: Refactor: create a script/reference.
+                actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
+                    new Color(1, 0, 0, .5f);
+            }
+
+            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+
+            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
@@ -415,14 +427,8 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-        }
+        ManageStateFeedbacks(player, playerUpdate);
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -664,6 +670,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+        playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
+        playerCharacter.transform.Find("Position").gameObject.SetActive(false);
     }
 
     public void SetPlayerAlive(Character playerCharacter)
@@ -818,5 +826,46 @@ public class PlayerMovement : MonoBehaviour
     private GameObject findGhostPlayer(string playerId)
     {
         return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
+    }
+
+    private void ManageStateFeedbacks(GameObject player, Player playerUpdate)
+    {
+        ManagePoisonedFeedback(player, playerUpdate);
+        ManageSlowedFeedback(player, playerUpdate);
+    }
+
+    private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+        )
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
+    }
+
+    private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
+        )
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+        }
+    }
+
+    private bool PlayerIsAlive(Player playerUpdate)
+    {
+        return playerUpdate.Status == Status.Alive;
     }
 }

@@ -27,14 +27,15 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{},
-        direction: %RelativePosition{x: 1, y: 1}
+        direction: %RelativePosition{x: 1, y: 1},
+        body_size: 100
       }
 
       expected = %Player{
         id: 1,
         health: -(2 ** 63 - 1),
         position: %Position{x: 1, y: 2},
-        status: :dead,
+        status: lower(status),
         action: :nothing,
         aoe_position: %Position{x: 1, y: 1},
         kill_count: 0,
@@ -46,7 +47,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{},
-        direction: %RelativePosition{x: 1, y: 1}
+        direction: %RelativePosition{x: 1, y: 1},
+        body_size: 100
       }
 
       decoded =
@@ -57,4 +59,7 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
       assert decoded == expected
     end
   end
+
+  defp lower(:DEAD), do: :dead
+  defp lower(:ALIVE), do: :alive
 end

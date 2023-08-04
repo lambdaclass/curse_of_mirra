@@ -87,6 +87,7 @@ pub struct Player {
     pub character_name: String,
     pub effects: StatusEffects,
     pub direction: RelativePosition,
+    pub body_size: f64,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -127,6 +128,7 @@ impl Player {
             position,
             status: Status::ALIVE,
             character_name: character.name.to_string(),
+            body_size: character.body_size,
             character,
             action: PlayerAction::NOTHING,
             aoe_position: Position::new(0, 0),
