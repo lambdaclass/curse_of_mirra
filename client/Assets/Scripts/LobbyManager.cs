@@ -29,7 +29,7 @@ public class LobbyManager : LevelSelector
     {
         if (playButton != null && waitingText != null)
         {
-            if (LobbyConnection.Instance.playerId == 1)
+            if (LobbyConnection.Instance.isHost)
             {
                 playButton.SetActive(true);
                 waitingText.SetActive(false);
@@ -88,12 +88,19 @@ public class LobbyManager : LevelSelector
     {
         if (
             !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && LobbyConnection.Instance.playerId != 1
+            && !LobbyConnection.Instance.isHost
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
+
+        if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
+        {
+            this.playButton.SetActive(true);
+            this.waitingText.SetActive(false);
+        }
+
     }
 }

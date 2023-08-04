@@ -27,4 +27,7 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Arrow)]
     public float arrowWidth;
+
+    [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
+    public float skillAreaRadius;
 }

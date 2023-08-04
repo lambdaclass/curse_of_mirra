@@ -277,9 +277,6 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
-        if self.has_active_effect(&Effect::Piercing) {
-            return ((base_speed as f64) * 1.5).ceil() as u64;
-        }
 
         return base_speed;
     }

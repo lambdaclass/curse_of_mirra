@@ -23,8 +23,7 @@ public class LobbiesManager : LevelSelector
 
     public void ConnectToLobby()
     {
-        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
-        SceneManager.LoadScene("Lobby");
+        StartCoroutine(WaitForLobbyJoin());
     }
 
     public void Back()
@@ -54,6 +53,13 @@ public class LobbiesManager : LevelSelector
                 !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
                 && LobbyConnection.Instance.playerId != UInt64.MaxValue
         );
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public IEnumerator WaitForLobbyJoin()
+    {
+        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
+        yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
 }

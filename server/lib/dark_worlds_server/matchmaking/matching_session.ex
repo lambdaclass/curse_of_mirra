@@ -13,8 +13,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     GenServer.start_link(__MODULE__, [])
   end
 
-  def add_player(player_id, session_pid) do
-    GenServer.call(session_pid, {:add_player, player_id})
+  def add_player(player_id, player_name, session_pid) do
+    GenServer.call(session_pid, {:add_player, player_id, player_name})
   end
 
   def remove_player(player_id, session_pid) do
@@ -41,67 +41,80 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
-    {:ok, %{players: [], session_id: session_id, topic: topic}}
+    {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
   end
 
   @impl GenServer
-  def handle_call({:add_player, player}, _from, state) do
+  def handle_call({:add_player, player_id, player_name}, _from, state) do
     players = state[:players]
 
-    case Enum.member?(players, player) do
+    case Map.has_key?(players, player_id) do
       true ->
         {:reply, :ok, state}
 
       false ->
-        send(self(), {:player_added, player})
-        {:reply, :ok, %{state | :players => [player | players]}}
+        send(self(), {:player_added, player_id, player_name})
+
+        players = Map.put(players, player_id, player_name)
+        host_player_id = state.host_player_id || player_id
+        {:reply, :ok, %{state | players: players, host_player_id: host_player_id}}
     end
   end
 
-  def handle_call({:remove_player, player}, _from, state) do
+  def handle_call({:remove_player, player_id}, _from, state) do
     players = state[:players]
 
-    case List.delete(players, player) do
+    case Map.delete(players, player_id) do
       ^players ->
         {:reply, :ok, state}
 
+      empty_map when map_size(empty_map) == 0 ->
+        {:stop, :normal, :ok, %{state | :players => %{}}}
+
       remaining_players ->
-        send(self(), {:player_removed, player})
-        {:reply, :ok, %{state | :players => remaining_players}}
+        send(self(), {:player_removed, player_id})
+
+        host_player_id =
+          case state.host_player_id do
+            ^player_id -> Map.keys(remaining_players) |> Enum.random()
+            _ -> state.host_player_id
+          end
+
+        {:reply, :ok, %{state | :players => remaining_players, host_player_id: host_player_id}}
     end
   end
 
   def handle_call(:list_players, _from, state) do
-    {:reply, state[:players], state}
+    {:reply, Map.keys(state.players), state}
   end
 
   def handle_call(:fetch_amount_of_players, _from, state) do
-    {:reply, length(state[:players]), state}
+    {:reply, Enum.count(state.players), state}
   end
 
   @impl GenServer
   def handle_cast({:start_game, game_config}, state) do
-    {:ok, game_pid} = Engine.start_child(%{players: state.players, game_config: game_config})
+    {:ok, game_pid} = Engine.start_child(%{players: Map.keys(state.players), game_config: game_config})
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
     {:stop, :normal, state}
   end
 
   @impl GenServer
-  def handle_info({:player_added, player}, state) do
+  def handle_info({:player_added, player_id, player_name}, state) do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_added, player, state[:players]}
+      {:player_added, player_id, player_name, state.host_player_id, state.players}
     )
 
     {:noreply, state}
   end
 
-  def handle_info({:player_removed, player}, state) do
+  def handle_info({:player_removed, player_id}, state) do
     Phoenix.PubSub.broadcast!(
       DarkWorldsServer.PubSub,
       state[:topic],
-      {:player_removed, player, state[:players]}
+      {:player_removed, player_id, state.host_player_id, state.players}
     )
 
     {:noreply, state}
