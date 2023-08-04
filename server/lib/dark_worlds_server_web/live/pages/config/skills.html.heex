@@ -5,9 +5,13 @@
 <.simple_form :let={form} for={@config} action={~p"/config/skills"}>
     <%= for name <- @skills do %>
         <h1><%= name %></h1>
+        <div phx-click="remove_skill" phx-value-name={name}>Remove Skill</div>
         <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
             <%= for key <- Map.keys(@config.params[name]) do %>
                 <.input field={nested_form[key]} type="text" label={key} />
+                <%= unless key in ["Name"] do %>
+                    <div phx-click="remove_key" phx-value-name={key}>X</div>
+                <% end %>
             <% end %>
         </.inputs_for>
     <% end %>
@@ -15,5 +19,11 @@
         <.button>Save</.button>
     </:actions>
 </.simple_form>
+
+<.input phx-blur="new_skill_name" value={@new_skill_name} type="text" name="new_skill_name"/> 
+<div phx-click="add_skill" phx-value-name={@new_skill_name}>Add Skill</div>
+
+<.input phx-blur="new_key_name" value={@new_key_name} type="text" name="new_key_name"/> 
+<div phx-click="add_key" phx-value-name={@new_key_name}>Add Key</div>
 
 <.back navigate={~p"/config"}>Back to config</.back>
