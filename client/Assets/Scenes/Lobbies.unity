@@ -626,7 +626,7 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 631924960}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: 5b986bc28ed384a53a85635ea3090a58, type: 3}
+        Sfx: {fileID: 8300000, guid: 898360411a9c7472899cd0cc8f837726, type: 3}
         RandomSfx: []
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
