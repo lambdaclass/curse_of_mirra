@@ -1286,8 +1286,6 @@ impl GameState {
 
         self.check_and_damage_players(Effect::Burned);
 
-        self.check_and_damage_burned_players();
-
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
 
@@ -1323,39 +1321,6 @@ impl GameState {
         });
 
         for (player_id, (_, attacked_players)) in poisoned_affected_players.iter() {
-            let attacked = attacked_players.clone();
-            self.update_killfeed(*player_id, attacked);
-        }
-    }
-
-    fn check_and_damage_burned_players(self: &mut Self) {
-        let now = time_now();
-        let mut burned_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
-        self.players.iter_mut().for_each(|player| {
-            if matches!(player.status, Status::DEAD) {
-                return;
-            }
-            let mut effect_data = match player.effects.get(&Effect::Burned) {
-                Some(data) => data.clone(),
-                None => return,
-            };
-
-            let delta = (1000 / 2) as u32;
-            let damage = effect_data.damage / (effect_data.duration.low as u32 / delta);
-
-            if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > delta as u128 {
-                player.modify_health(-(damage as i64));
-                effect_data.triggered_at = now;
-            }
-            burned_affected_players
-                .entry(effect_data.caused_by)
-                .and_modify(|at| at.1.push(player.id))
-                .or_insert((0, vec![player.id]));
-
-            player.effects.insert(Effect::Burned, effect_data);
-        });
-
-        for (player_id, (_, attacked_players)) in burned_affected_players.iter() {
             let attacked = attacked_players.clone();
             self.update_killfeed(*player_id, attacked);
         }
