@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: Muflus_Skill4
+  m_Name: Muflus_Fiery
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: FIERY RAMPAGE
   description: Become engulfed in flames for a period, increasing resilience and
@@ -19,15 +19,17 @@ MonoBehaviour:
     bodies.
   inputType: 0
   indicatorType: 3
-  feedbackVfx: {fileID: 0}
-  feedbackVfxDuration: 0
+  feedbackVfx: {fileID: 5680458291943351323, guid: 590c335f5b27b4f5eb06fabdf02bf860,
+    type: 3}
+  feedbackVfxDuration: 5
   startFeedbackVfx: {fileID: 0}
   startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 3
-  hasModelAnimation: 0
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 0
   skillConeAngle: 0
+  arrowWidth: 0
