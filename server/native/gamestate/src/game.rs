@@ -108,7 +108,6 @@ impl GameState {
         };
 
         let playable_radius = calculate_hypotenuse(board_width as u64, board_height as u64);
-        dbg!(playable_radius);
         Ok(Self {
             players,
             board,
