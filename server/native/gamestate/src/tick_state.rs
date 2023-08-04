@@ -1,8 +1,9 @@
 use crate::character::{Character, Name};
 use crate::game::{GameState, KillEvent};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
-use crate::projectile::Projectile;
+use crate::projectile::{Projectile, ProjectileType, ProjectileStatus};
 use crate::time_utils::{time_now, MillisTime};
+use crate::utils::cmp_float;
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::cell::RefCell;
 use std::collections::HashMap;
@@ -131,5 +132,93 @@ impl TickState {
             kill_count: vec![],
             tick_killed_events: vec![],
         }
+    }
+
+    /// Apply the effects of a projectile on the given player,
+    /// on this tick.
+    fn apply_projectile_on_player(
+        &mut self,
+        attacking_player: MutablePlayer,
+        attacked_player: MutablePlayer,
+        projectile: &mut Projectile,
+    ) -> Result<(), String> {
+        match projectile.projectile_type {
+            ProjectileType::DISARMINGBULLET => {
+                let duration = MillisTime { high: 0, low: 5000 };
+                let ends_at = crate::time_utils::add_millis(self.reference_time, duration);
+                attacked_player.disarm_by_projectile(duration, ends_at, &projectile);
+            }
+            ProjectileType::BULLET => {
+                attacked_player.modify_health(-(projectile.damage as i64));
+                attacked_player.get_mirrored_player_id().map(|mirrored_id| {
+                    self.uma_mirroring_affected_players.insert(
+                        attacked_player.id(),
+                        ((projectile.damage as i64) / 2, mirrored_id),
+                    )
+                });
+                projectile.last_attacked_player_id = attacked_player.id();
+            }
+        }
+        if attacked_player.is_dead() {
+            self.tick_killed_events.push(KillEvent {
+                kill_by: projectile.player_id,
+                killed: attacked_player.id(),
+            });
+            attacking_player.increment_kill_count(1);
+        }
+        Ok(())
+    }
+
+    /// Apply a projectile to this tick
+    pub fn active_projectile_update(
+        &mut self,
+        players: &MutablePlayers,
+        projectile: &mut Projectile,
+    ) -> Result<(), String> {
+        let affected_players: HashMap<u64, f64> = GameState::players_in_projectile_movement(
+            projectile.player_id,
+            &(players.clone()).into_iter().map(Into::into).collect(),
+            projectile.prev_position,
+            projectile.position,
+        )
+        .into_iter()
+        .filter(|&(id, _distance)| {
+            id != projectile.player_id && id != projectile.last_attacked_player_id
+        })
+        .collect();
+
+        if affected_players.len() > 0 && !projectile.pierce {
+            projectile.status = ProjectileStatus::EXPLODED;
+        }
+
+        // Seems like the current logic is to count
+        // kill_counts by one, right?
+        // let mut kill_count = 0;
+
+        // A projectile should attack only one player per tick
+        if affected_players.len() > 0 {
+            // If there are more than one players affected by the projectile
+            // find the nearest one
+            let (attacked_player_id, _) = affected_players
+                .into_iter()
+                .min_by(|(_, player_dist_1), (_, player_dist_2)| {
+                    cmp_float(*player_dist_1, *player_dist_2)
+                })
+                .ok_or("No player found for projectile attack!")?;
+
+            let attacking_player = players
+                .get((projectile.player_id - 1) as usize)
+                .ok_or("Non valid ID")?;
+            let attacked_player = players
+                .get((attacked_player_id - 1) as usize)
+                .ok_or("Non valid ID")?;
+
+            self.apply_projectile_on_player(
+                attacking_player.clone(),
+                attacked_player.clone(),
+                projectile,
+            )?;
+        }
+        Ok(())
     }
 }

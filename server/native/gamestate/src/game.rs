@@ -327,7 +327,8 @@ impl GameState {
                         let intersection = Position::new(player.position.x, p1.y);
 
                         intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(player.into(), &intersection) <= radius) // The player is near the intersection
+                        (distance_to_center(player.into(), &intersection) <= radius)
+                        // The player is near the intersection
                     }
                     false if p2.x == p1.x => {
                         // The projectile is moving horizontally
@@ -1096,92 +1097,6 @@ impl GameState {
 
         Ok(())
     }
-    /// Apply the effects of a projectile on the given player
-    fn world_tick_apply_projectile_on_player(
-        // &mut self,
-        state: &mut TickState,
-        attacking_player: &MutablePlayer,
-        attacked_player: &MutablePlayer,
-        projectile: &mut Projectile,
-    ) -> Result<(), String> {
-        match projectile.projectile_type {
-            ProjectileType::DISARMINGBULLET => {
-                let duration = MillisTime { high: 0, low: 5000 };
-                let ends_at = add_millis(state.reference_time, duration);
-                attacked_player.disarm_by_projectile(duration, ends_at, &projectile);
-            }
-            ProjectileType::BULLET => {
-                attacked_player.modify_health(-(projectile.damage as i64));
-                attacked_player.get_mirrored_player_id().map(|mirrored_id| {
-                    state.uma_mirroring_affected_players.insert(
-                        attacked_player.id(),
-                        ((projectile.damage as i64) / 2, mirrored_id),
-                    )
-                });
-                projectile.last_attacked_player_id = attacked_player.id();
-            }
-        }
-        if attacked_player.is_dead() {
-            state.tick_killed_events.push(KillEvent {
-                kill_by: projectile.player_id,
-                killed: attacked_player.id(),
-            });
-            attacking_player.increment_kill_count(1);
-        }
-        Ok(())
-    }
-    pub fn world_tick_active_projectile_update(
-        players: &MutablePlayers,
-        projectile: &mut Projectile,
-        world_tick_state: &mut TickState,
-    ) -> Result<(), String>{
-        let affected_players: HashMap<u64, f64> = GameState::players_in_projectile_movement(
-            projectile.player_id,
-            &(players.clone()).into_iter().map(Into::into).collect(),
-            projectile.prev_position,
-            projectile.position,
-        )
-        .into_iter()
-        .filter(|&(id, _distance)| {
-            id != projectile.player_id && id != projectile.last_attacked_player_id
-        })
-        .collect();
-
-        if affected_players.len() > 0 && !projectile.pierce {
-            projectile.status = ProjectileStatus::EXPLODED;
-        }
-
-        // Seems like the current logic is to count
-        // kill_counts by one, right?
-        // let mut kill_count = 0;
-
-        // A projectile should attack only one player per tick
-        if affected_players.len() > 0 {
-            // If there are more than one players affected by the projectile
-            // find the nearest one
-            let (attacked_player_id, _) = affected_players
-                .into_iter()
-                .min_by(|(_, player_dist_1), (_, player_dist_2)| {
-                    cmp_float(*player_dist_1, *player_dist_2)
-                })
-                .ok_or("No player found for projectile attack!")?;
-
-            let attacking_player = players
-                .get((projectile.player_id - 1) as usize)
-                .ok_or("Non valid ID")?;
-            let attacked_player = players
-                .get((attacked_player_id - 1) as usize)
-                .ok_or("Non valid ID")?;
-
-            GameState::world_tick_apply_projectile_on_player(
-                world_tick_state,
-                &attacking_player.clone(),
-                &attacked_player.clone(),
-                projectile,
-            )?;
-        }
-        Ok(())
-    }
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
         self.world_tick_state = TickState::new();
         let mut players = self
@@ -1226,7 +1141,10 @@ impl GameState {
 
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                GameState::world_tick_active_projectile_update(&players, projectile, &mut self.world_tick_state);
+                self.world_tick_state.active_projectile_update(
+                    &players,
+                    projectile,
+                );
             }
 
             GameState::world_tick_attack_mirrored_player(
