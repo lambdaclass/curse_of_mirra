@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Targets an arc in front of you, dealing damage. Muflus wields a chainsaw
     tipped club fiercely against his enemies.
   inputType: 0
+  indicatorType: 3
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -26,3 +27,5 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: d018a797cd1c94aeabf3e45f6ca33b2f, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
+  skillCircleRadius: 0
+  skillConeAngle: 0

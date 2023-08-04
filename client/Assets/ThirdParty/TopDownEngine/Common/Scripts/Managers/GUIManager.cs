@@ -15,40 +15,50 @@ namespace MoreMountains.TopDownEngine
         /// the main canvas
         [Tooltip("the main canvas")]
         public Canvas MainCanvas;
+
         /// the game object that contains the heads up display (avatar, health, points...)
         [Tooltip("the game object that contains the heads up display (avatar, health, points...)")]
         public GameObject HUD;
+
         /// the health bars to update
         [Tooltip("the health bars to update")]
         public MMProgressBar[] HealthBars;
+
         /// the dash bars to update
         [Tooltip("the dash bars to update")]
         public MMRadialProgressBar[] DashBars;
+
         /// the panels and bars used to display current weapon ammo
         [Tooltip("the panels and bars used to display current weapon ammo")]
         public AmmoDisplay[] AmmoDisplays;
+
         /// the pause screen game object
         [Tooltip("the pause screen game object")]
         public GameObject PauseScreen;
+
         /// the death screen
         [Tooltip("the death screen")]
         public GameObject DeathScreen;
+
         /// The mobile buttons
         [Tooltip("The mobile buttons")]
         public CanvasGroup Buttons;
+
         /// The mobile arrows
         [Tooltip("The mobile arrows")]
         public CanvasGroup Arrows;
+
         /// The mobile movement joystick
         [Tooltip("The mobile movement joystick")]
         public CanvasGroup Joystick;
+
         /// the points counter
         [Tooltip("the points counter")]
         public Text PointsText;
+
         /// the pattern to apply to format the display of points
         [Tooltip("the pattern to apply to format the display of points")]
         public string PointsTextPattern = "000000";
-        public GameObject KillFeedContainer;
         public GameObject Canvas;
 
         protected float _initialJoystickAlpha;
@@ -92,7 +102,6 @@ namespace MoreMountains.TopDownEngine
             RefreshPoints();
             SetPauseScreen(false);
             SetDeathScreen(false);
-            Instantiate(KillFeedContainer, Canvas.transform);
         }
 
         /// <summary>
@@ -128,7 +137,10 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         /// <param name="state">If set to <c>true</c> state.</param>
         /// <param name="movementControl">Movement control.</param>
-        public virtual void SetMobileControlsActive(bool state, InputManager.MovementControls movementControl = InputManager.MovementControls.Joystick)
+        public virtual void SetMobileControlsActive(
+            bool state,
+            InputManager.MovementControls movementControl = InputManager.MovementControls.Joystick
+        )
         {
             Initialization();
 
@@ -240,7 +252,10 @@ namespace MoreMountains.TopDownEngine
             {
                 if (ammoDisplay != null)
                 {
-                    if ((ammoDisplay.PlayerID == playerID) && (ammoDisplayID == ammoDisplay.AmmoDisplayID))
+                    if (
+                        (ammoDisplay.PlayerID == playerID)
+                        && (ammoDisplayID == ammoDisplay.AmmoDisplayID)
+                    )
                     {
                         ammoDisplay.gameObject.SetActive(state);
                     }
@@ -266,20 +281,33 @@ namespace MoreMountains.TopDownEngine
         /// <param name="minHealth">Minimum health.</param>
         /// <param name="maxHealth">Max health.</param>
         /// <param name="playerID">Player I.</param>
-        public virtual void UpdateHealthBar(float currentHealth, float minHealth, float maxHealth, string playerID)
+        public virtual void UpdateHealthBar(
+            float currentHealth,
+            float minHealth,
+            float maxHealth,
+            string playerID
+        )
         {
-            if (HealthBars == null) { return; }
-            if (HealthBars.Length <= 0) { return; }
+            if (HealthBars == null)
+            {
+                return;
+            }
+            if (HealthBars.Length <= 0)
+            {
+                return;
+            }
 
             foreach (MMProgressBar healthBar in HealthBars)
             {
-                if (healthBar == null) { continue; }
+                if (healthBar == null)
+                {
+                    continue;
+                }
                 if (healthBar.PlayerID == playerID)
                 {
                     healthBar.UpdateBar(currentHealth, minHealth, maxHealth);
                 }
             }
-
         }
 
         /// <summary>
@@ -289,7 +317,12 @@ namespace MoreMountains.TopDownEngine
         /// <param name="minFuel">Minimum fuel.</param>
         /// <param name="maxFuel">Max fuel.</param>
         /// <param name="playerID">Player I.</param>
-        public virtual void UpdateDashBars(float currentFuel, float minFuel, float maxFuel, string playerID)
+        public virtual void UpdateDashBars(
+            float currentFuel,
+            float minFuel,
+            float maxFuel,
+            string playerID
+        )
         {
             if (DashBars == null)
             {
@@ -298,7 +331,10 @@ namespace MoreMountains.TopDownEngine
 
             foreach (MMRadialProgressBar dashbar in DashBars)
             {
-                if (dashbar == null) { return; }
+                if (dashbar == null)
+                {
+                    return;
+                }
                 if (dashbar.PlayerID == playerID)
                 {
                     dashbar.UpdateBar(currentFuel, minFuel, maxFuel);
@@ -316,7 +352,16 @@ namespace MoreMountains.TopDownEngine
         /// <param name="magazineSize">Magazine size.</param>
         /// <param name="playerID">Player I.</param>
         /// <param name="displayTotal">If set to <c>true</c> display total.</param>
-        public virtual void UpdateAmmoDisplays(bool magazineBased, int totalAmmo, int maxAmmo, int ammoInMagazine, int magazineSize, string playerID, int ammoDisplayID, bool displayTotal)
+        public virtual void UpdateAmmoDisplays(
+            bool magazineBased,
+            int totalAmmo,
+            int maxAmmo,
+            int ammoInMagazine,
+            int magazineSize,
+            string playerID,
+            int ammoDisplayID,
+            bool displayTotal
+        )
         {
             if (AmmoDisplays == null)
             {
@@ -325,10 +370,23 @@ namespace MoreMountains.TopDownEngine
 
             foreach (AmmoDisplay ammoDisplay in AmmoDisplays)
             {
-                if (ammoDisplay == null) { return; }
-                if ((ammoDisplay.PlayerID == playerID) && (ammoDisplayID == ammoDisplay.AmmoDisplayID))
+                if (ammoDisplay == null)
                 {
-                    ammoDisplay.UpdateAmmoDisplays(magazineBased, totalAmmo, maxAmmo, ammoInMagazine, magazineSize, displayTotal);
+                    return;
+                }
+                if (
+                    (ammoDisplay.PlayerID == playerID)
+                    && (ammoDisplayID == ammoDisplay.AmmoDisplayID)
+                )
+                {
+                    ammoDisplay.UpdateAmmoDisplays(
+                        magazineBased,
+                        totalAmmo,
+                        maxAmmo,
+                        ammoInMagazine,
+                        magazineSize,
+                        displayTotal
+                    );
                 }
             }
         }

@@ -21,22 +21,10 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public GameObject characterDescription;
 
     [SerializeField]
-    public GameObject confirmButton;
+    public SkillsDetailHandler skillList;
 
     [SerializeField]
-    public Image skillBasicSprite;
-
-    [SerializeField]
-    public Image skill1Sprite;
-
-    [SerializeField]
-    public Image skill2Sprite;
-
-    [SerializeField]
-    public Image skill3Sprite;
-
-    [SerializeField]
-    public Image skill4Sprite;
+    public ConfirmButtonHandler confirmButton;
 
     void Start()
     {
@@ -70,32 +58,28 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
             if (isActive())
             {
                 characterDescription.SetActive(true);
-                confirmButton.SetActive(true);
                 selected = true;
                 artWork.sprite = comCharacter.selectedArtwork;
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-                skillBasicSprite.sprite = comCharacter.skillBasicSprite;
-                skill1Sprite.sprite = comCharacter.skill1Sprite;
-                skill2Sprite.sprite = comCharacter.skill2Sprite;
-                skill3Sprite.sprite = comCharacter.skill3Sprite;
-                skill4Sprite.sprite = comCharacter.skill4Sprite;
-
-                skillBasicSprite
-                    .GetComponent<SkillDescription>()
-                    .GetCharacter(comCharacter.skillBasicInfo);
-                skill1Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill1Info);
-                skill2Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill2Info);
-                skill3Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill3Info);
-                skill4Sprite.GetComponent<SkillDescription>().GetCharacter(comCharacter.skill4Info);
-
+                skillList.list.ForEach(el =>
+                {
+                    var skill = skillList.list.IndexOf(el);
+                    el.GetComponent<SkillDescription>()
+                        .SetSkillDescription(
+                            comCharacter.skillsInfo[skill],
+                            comCharacter.notSelectedSkills[skill],
+                            comCharacter.selectedSkills[skill]
+                        );
+                });
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);
-
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =
                     comCharacter.name;
+
+                confirmButton.HandleButton();
             }
         }
     }

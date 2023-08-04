@@ -288,4 +288,24 @@ public class Skill : CharacterAbility
     {
         AbilityStopFeedbacks?.StopFeedbacks();
     }
+
+    public float GetSkillRadius()
+    {
+        return skillInfo.skillCircleRadius;
+    }
+
+    public float GetIndicatorAngle()
+    {
+        return skillInfo.skillConeAngle;
+    }
+
+    public float GetArroWidth()
+    {
+        return skillInfo.arrowWidth;
+    }
+
+    public UIIndicatorType GetIndicatorType()
+    {
+        return skillInfo.indicatorType;
+    }
 }

@@ -7,3 +7,5 @@
 - [Android Build](./android_builds.md)
 - [IOS Build](./ios_builds.md)
 - [WebGL Builds](./webgl_builds.md)
+- [Simulating high latency](./simulating_latency.md)
+- [Common Pitfalls](./common_pitfalls.md)
