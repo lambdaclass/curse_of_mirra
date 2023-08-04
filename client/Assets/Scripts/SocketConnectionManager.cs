@@ -192,10 +192,10 @@ public class SocketConnectionManager : MonoBehaviour
     {
         if (closeCode != WebSocketCloseCode.Normal)
         {
-            // TODO: Trigger connection error modal here, feel free to remove Debug.Log
-            Debug.Log("Connection closed unexpectedly");
+            LobbyConnection.Instance.errorConnection = true;
         }
     }
+
     public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict)
     {
         Dictionary<ulong, string> result = new Dictionary<ulong, string>();

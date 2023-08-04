@@ -6,6 +6,9 @@ using TMPro;
 public class Errors : MonoBehaviour
 {
     [SerializeField]
+    public GameObject container;
+
+    [SerializeField]
     public TextMeshProUGUI error;
 
     [SerializeField]
@@ -20,24 +23,47 @@ public class Errors : MonoBehaviour
     [SerializeField]
     public GameObject okButton;
 
-    public void HandleError(string title, string descriptionErr)
+    string ongoingGameTitle = "You have a game in progress";
+    string ongoingGameDescription = "Do you want to reconnect to the game?";
+    string connectionTitle = "Error";
+    string connectionDescription = "Your connection to the server has been lost.";
+
+    void Update()
     {
-        gameObject.SetActive(true);
-        error.text = title;
-        description.text = descriptionErr;
-        if (error.text == "Error")
+        if (LobbyConnection.Instance.errorConnection || LobbyConnection.Instance.errorOngoingGame)
         {
-            okButton.SetActive(true);
-        }
-        else if (error.text == "You have a game in progress")
-        {
-            yesButton.SetActive(true);
-            noButton.SetActive(true);
+            container.SetActive(true);
+            HandleError();
         }
     }
 
-    public void Hide()
+    public void HandleError()
     {
-        gameObject.SetActive(false);
+        if (LobbyConnection.Instance.errorConnection)
+        {
+            error.text = connectionTitle;
+            description.text = connectionDescription;
+        }
+        if (LobbyConnection.Instance.errorOngoingGame)
+        {
+            error.text = ongoingGameTitle;
+            description.text = ongoingGameDescription;
+        }
+
+        okButton.SetActive(LobbyConnection.Instance.errorConnection);
+        yesButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
+        noButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
+    }
+
+    public void HideConnectionError()
+    {
+        container.SetActive(false);
+        LobbyConnection.Instance.errorConnection = false;
+    }
+
+    public void HideOngoingGameError()
+    {
+        container.SetActive(false);
+        LobbyConnection.Instance.errorOngoingGame = false;
     }
 }
