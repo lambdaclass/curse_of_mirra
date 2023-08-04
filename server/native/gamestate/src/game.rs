@@ -1430,7 +1430,7 @@ impl GameState {
     }
 
     pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
-        let new_radius = self.playable_radius - 10;// self.playable_radius.mul(1).div(100).div(5);
+        let new_radius = self.playable_radius - 10; // self.playable_radius.mul(1).div(100).div(5);
         self.playable_radius = new_radius.max(map_shrink_minimum_radius);
     }
 
@@ -1646,7 +1646,7 @@ fn distance_between_positions(position_1: &Position, position_2: &Position) -> f
     (distance_squared as f64).sqrt()
 }
 
-fn calculate_hypotenuse(base: u64, altitude: u64) -> u64{
+fn calculate_hypotenuse(base: u64, altitude: u64) -> u64 {
     let squared_hypotenuse = base.pow(2) + altitude.pow(2);
     (squared_hypotenuse as f64).sqrt() as u64
 }
