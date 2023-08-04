@@ -19,11 +19,11 @@ defmodule Utils.Config do
     end
   end
 
-  @spec write_config(map, atom) :: :ok | {:error, term}
-  def write_config(config_map, type) do
-    config_map = if type == :game_settings, do: config_map, else: %{"Items" => config_map}
+  @spec write_config(list, atom) :: :ok | {:error, term}
+  def write_config(config_list, type) do
+    config_list = if type == :game_settings, do: config_list, else: %{"Items" => config_list}
 
-    case Jason.encode(config_map, pretty: true) do
+    case Jason.encode(config_list, pretty: true) do
       {:ok, json} ->
         type
         |> get_config_type_filepath
