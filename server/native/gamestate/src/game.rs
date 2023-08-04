@@ -107,6 +107,8 @@ impl GameState {
             y: shrinking_center_y_coordinate,
         };
 
+        let playable_radius = calculate_hypotenuse(board_width as u64, board_height as u64);
+        dbg!(playable_radius);
         Ok(Self {
             players,
             board,
@@ -114,7 +116,7 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
-            playable_radius: 14500,
+            playable_radius: playable_radius,
             shrinking_center,
         })
     }
@@ -1642,6 +1644,11 @@ fn distance_between_positions(position_1: &Position, position_2: &Position) -> f
     let distance_squared =
         (position_1.x - position_2.x).pow(2) + (position_1.y - position_2.y).pow(2);
     (distance_squared as f64).sqrt()
+}
+
+fn calculate_hypotenuse(base: u64, altitude: u64) -> u64{
+    let squared_hypotenuse = base.pow(2) + altitude.pow(2);
+    (squared_hypotenuse as f64).sqrt() as u64
 }
 
 // We might want to abstract this into a Vector2 type or something, whatever.
