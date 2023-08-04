@@ -114,7 +114,7 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
-            playable_radius: (max(board_height, board_width) * 2) as u64,
+            playable_radius: 14500,
             shrinking_center,
         })
     }
@@ -1428,9 +1428,9 @@ impl GameState {
     }
 
     pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
-        let new_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+        let new_radius = self.playable_radius - 10;// self.playable_radius.mul(1).div(100).div(5);
         self.playable_radius = new_radius.max(map_shrink_minimum_radius);
-        self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+        // self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div();
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
