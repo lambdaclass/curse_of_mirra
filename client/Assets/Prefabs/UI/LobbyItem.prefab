@@ -500,6 +500,18 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 128906090582597004}
+        m_TargetAssemblyTypeName: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
+        m_MethodName: DisableButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7803031921548610432}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: ConnectToLobby
@@ -519,8 +531,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 0
-  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  DisabledChangeColor: 1
+  DisabledColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}
