@@ -166,10 +166,10 @@ Material:
     - _DistortionUseOldMethod: 0
     - _DistortionV: 1
     - _EMISSIONVERTEXSTREAMENABLED: 1
-    - _FinalOpacityExp: 1
+    - _FinalOpacityExp: 0.76
     - _FinalOpacityExp1: 1.125
     - _FinalOpacityPower: 1
-    - _FinalPower: 1
+    - _FinalPower: 3.9
     - _MainMaskExp: 1
     - _MainMaskScaleU: 1
     - _MainMaskScaleV: 1
