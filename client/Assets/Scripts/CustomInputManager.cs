@@ -121,12 +121,7 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
 
-        CanvasGroup[] inputsRenderers =
-            UIControlsWrapper.transform.GetComponentsInChildren<CanvasGroup>();
-        foreach (CanvasGroup item in inputsRenderers)
-        {
-            item.alpha = 0;
-        }
+        UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     // void Update()
@@ -169,12 +164,7 @@ public class CustomInputManager : InputManager
     {
         yield return new WaitForSeconds(.1f);
 
-        CanvasGroup[] inputsRenderers =
-            UIControlsWrapper.transform.GetComponentsInChildren<CanvasGroup>();
-        foreach (CanvasGroup item in inputsRenderers)
-        {
-            item.alpha = 1;
-        }
+        UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
