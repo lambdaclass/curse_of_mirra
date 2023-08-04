@@ -15,7 +15,6 @@ use std::f32::consts::PI;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::ops::{Div, Mul};
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
