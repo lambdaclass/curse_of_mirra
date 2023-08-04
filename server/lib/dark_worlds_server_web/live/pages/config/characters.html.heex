@@ -20,4 +20,7 @@
 <.input phx-blur="new_character_name" value={@new_character_name} type="text" name="new_character_name"/> 
 <div phx-click="add_character" phx-value-name={@new_character_name}>Add Character</div>
 
+<.input phx-blur="new_key_name" value={@new_key_name} type="text" name="new_key_name"/> 
+<div phx-click="add_key" phx-value-name={@new_key_name}>Add Key</div>
+
 <.back navigate={~p"/config"}>Back to config</.back>

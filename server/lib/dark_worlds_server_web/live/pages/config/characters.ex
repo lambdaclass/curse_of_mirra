@@ -18,11 +18,15 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
 
   def mount(_params, _session, socket) do
     config = Utils.Config.read_config(@config_type)
-    {:ok, assign(socket, config: to_form(config), characters: Map.keys(config), new_character_name: "")}
+    {:ok, assign(socket, config: to_form(config), characters: Map.keys(config), new_character_name: "", new_key_name: "")}
   end
 
   def handle_event("new_character_name", %{"value" => new_name}, socket) do
     {:noreply, assign(socket, :new_character_name, new_name)}
+  end
+
+  def handle_event("new_key_name", %{"value" => new_name}, socket) do
+    {:noreply, assign(socket, :new_key_name, new_name)}
   end
 
   def handle_event("add_character", %{"name" => new_name}, socket) do
@@ -61,5 +65,17 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
       )
 
     {:noreply, socket}
+  end
+
+  #TODO: Tell user to fill input
+  def handle_event("add_key", %{"name" => ""}, socket), do:
+    {:noreply, socket}
+
+  def handle_event("add_key", %{"name" => name}, socket) do
+    config =
+      socket.assigns.config.params
+      |> Map.new(fn {char_name, char_config} -> {char_name, Map.put(char_config, name, "")} end)
+
+      {:noreply, assign(socket, config: to_form(config), new_key_name: "")}
   end
 end
