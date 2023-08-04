@@ -148,7 +148,7 @@
       "DoFunc": "0",
       "ButtonType": "1",
       "Cooldown": "1000",
-      "Damage": "50",
+      "Damage": "15",
       "Status": "",
       "Duration": "0",
       "Projectile": "slingshot",

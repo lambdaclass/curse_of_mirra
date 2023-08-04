@@ -1053,23 +1053,6 @@ impl GameState {
                 );
                 Ok(Vec::new())
             }
-            Name::Muflus => {
-                attacking_player.add_effect(
-                    Effect::FieryRampage.clone(),
-                    EffectData {
-                        time_left: attacking_player.character.duration_skill_4(),
-                        ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
-                        duration: attacking_player.character.duration_skill_4(),
-                        direction: None,
-                        position: None,
-                        triggered_at: u128_to_millis(0),
-                        caused_by: attacking_player.id,
-                        caused_to: attacking_player.id,
-                        damage: 0,
-                    },
-                );
-                Ok(Vec::new())
-            }
             Name::Uma => GameState::uma_skill_4(&mut self.players, attacking_player_id),
             _ => Ok(Vec::new()),
         };
