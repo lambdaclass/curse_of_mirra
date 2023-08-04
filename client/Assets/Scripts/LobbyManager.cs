@@ -96,11 +96,13 @@ public class LobbyManager : LevelSelector
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
 
-        if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
+        if (this.playButton)
         {
-            this.playButton.SetActive(true);
-            this.waitingText.SetActive(false);
+            if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
+            {
+                this.playButton.SetActive(true);
+                this.waitingText.SetActive(false);
+            }
         }
-
     }
 }
