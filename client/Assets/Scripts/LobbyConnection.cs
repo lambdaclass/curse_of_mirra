@@ -27,6 +27,8 @@ public class LobbyConnection : MonoBehaviour
     public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
     public bool gameStarted = false;
+    public bool errorConnection = false;
+    public bool errorOngoingGame = false;
     public string clientId;
     public bool reconnect = false;
     public bool reconnectPossible = false;
@@ -37,7 +39,6 @@ public class LobbyConnection : MonoBehaviour
     public string reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
-
 
     WebSocket ws;
 
@@ -137,7 +138,8 @@ public class LobbyConnection : MonoBehaviour
 
     private void LoadClientId()
     {
-        if (!PlayerPrefs.HasKey("client_id")) {
+        if (!PlayerPrefs.HasKey("client_id"))
+        {
             Guid g = Guid.NewGuid();
             PlayerPrefs.SetString("client_id", g.ToString());
         }
@@ -197,12 +199,13 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    public void Reconnect() {
+    public void Reconnect()
+    {
         this.reconnect = true;
         this.GameSession = this.reconnectGameId;
         this.playerId = Convert.ToUInt64(this.reconnectPlayerId);
         this.serverSettings = this.reconnectServerSettings;
-        this.serverTickRate_ms = (uint) this.serverSettings.RunnerConfig.ServerTickrateMs;
+        this.serverTickRate_ms = (uint)this.serverSettings.RunnerConfig.ServerTickrateMs;
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
@@ -315,9 +318,14 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectServerHash = response.server_hash;
 
                         this.reconnectPlayers = new Dictionary<ulong, string>();
-                        response.players.ForEach(player => this.reconnectPlayers.Add(player.id, player.character_name));
+                        response.players.ForEach(
+                            player => this.reconnectPlayers.Add(player.id, player.character_name)
+                        );
 
-                        this.reconnectServerSettings = parseReconnectServerSettings(response.game_config);
+                        this.reconnectServerSettings = parseReconnectServerSettings(
+                            response.game_config
+                        );
+                        this.errorOngoingGame = true;
                     }
                     break;
                 default:
@@ -437,9 +445,7 @@ public class LobbyConnection : MonoBehaviour
         CharacterConfig characters = parser.Parse<CharacterConfig>(
             configs.character_config.TrimStart('\uFEFF')
         );
-        SkillsConfig skills = parser.Parse<SkillsConfig>(
-            configs.skills_config.TrimStart('\uFEFF')
-        );
+        SkillsConfig skills = parser.Parse<SkillsConfig>(configs.skills_config.TrimStart('\uFEFF'));
 
         return new ServerGameSettings
         {
