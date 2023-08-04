@@ -7,6 +7,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
+  alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
@@ -241,6 +242,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode({killed_by, killed}, KillEvent) do
     %KillEvent{killed_by: killed_by, killed: killed}
+  end
+
+  def encode(%ProtoPlayerInformation{} = player_information, ProtoPlayerInformation) do
+    player_information
   end
 
   ###########

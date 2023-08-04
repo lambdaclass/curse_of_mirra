@@ -173,7 +173,7 @@ public class CustomLevelManager : LevelManager
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
-
+        List<Skill> skillList = new List<Skill>();
         foreach (Character player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
@@ -181,6 +181,12 @@ public class CustomLevelManager : LevelManager
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
             Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+
+            skillList.Add(skillBasic);
+            skillList.Add(skill1);
+            skillList.Add(skill2);
+            skillList.Add(skill3);
+            skillList.Add(skill4);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -198,6 +204,21 @@ public class CustomLevelManager : LevelManager
             skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
             skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
+
+            var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+
+            foreach (var skill in items)
+            {
+                for (int i = 0; i < skillList.Count; i++)
+                {
+                    if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+                    {
+                        // 350 in the back is equal to 12 in the front
+                        // So this is the calculation
+                        skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
+                    }
+                }
+            }
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {

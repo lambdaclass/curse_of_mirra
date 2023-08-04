@@ -18,6 +18,7 @@ MonoBehaviour:
     the bulls with a PED that has unleashed the full aggressive potential of their
     bodies.
   inputType: 0
+  indicatorType: 3
   feedbackVfx: {fileID: 5680458291943351323, guid: d1aa7547c425a44b8acc728041634177,
     type: 3}
   feedbackVfxDuration: 4
@@ -29,3 +30,7 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 1
+  skillCircleRadius: 0
+  skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 0

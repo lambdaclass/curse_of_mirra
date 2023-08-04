@@ -22,11 +22,15 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(lobby_id))
 
     matchmaking_session_pid = Communication.external_id_to_pid(lobby_id)
-    players = Matchmaking.list_players(matchmaking_session_pid)
-    player_id = Enum.count(players) + 1
-    Matchmaking.add_player(player_id, matchmaking_session_pid)
+    player_id = Matchmaking.next_id(matchmaking_session_pid)
 
-    {:reply, {:binary, Communication.lobby_connected!(lobby_id, player_id)},
+    # TODO: player_name should be sent by client, see issue #527
+    # https://github.com/lambdaclass/curse_of_myrra/issues/527
+    player_name = to_string(player_id)
+
+    Matchmaking.add_player(player_id, player_name, matchmaking_session_pid)
+
+    {:reply, {:binary, Communication.lobby_connected!(lobby_id, player_id, player_name)},
      %{lobby_pid: matchmaking_session_pid, player_id: player_id}}
   end
 
@@ -48,12 +52,12 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   @impl true
-  def websocket_info({:player_added, player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_added!(player_id, players)}, state}
+  def websocket_info({:player_added, player_id, player_name, host_player_id, players}, state) do
+    {:reply, {:binary, Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
   end
 
-  def websocket_info({:player_removed, player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_removed!(player_id, players)}, state}
+  def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
+    {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
   end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do

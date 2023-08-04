@@ -293,12 +293,30 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
 
   field(:type, 1, type: LoadTest.Communication.Proto.LobbyEventType, enum: true)
   field(:lobby_id, 2, type: :string, json_name: "lobbyId")
-  field(:player_id, 3, type: :uint64, json_name: "playerId")
-  field(:added_player_id, 4, type: :uint64, json_name: "addedPlayerId")
+
+  field(:player_info, 3,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "playerInfo"
+  )
+
+  field(:added_player_info, 4,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "addedPlayerInfo"
+  )
+
   field(:game_id, 5, type: :string, json_name: "gameId")
   field(:player_count, 6, type: :uint64, json_name: "playerCount")
-  field(:players, 7, repeated: true, type: :uint64)
-  field(:removed_player_id, 8, type: :uint64, json_name: "removedPlayerId")
+
+  field(:players_info, 7,
+    repeated: true,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "playersInfo"
+  )
+
+  field(:removed_player_info, 8,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "removedPlayerInfo"
+  )
 
   field(:game_config, 9,
     type: LoadTest.Communication.Proto.ServerGameSettings,
@@ -306,6 +324,16 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
   )
 
   field(:server_hash, 10, type: :string, json_name: "serverHash")
+  field(:host_player_id, 11, type: :uint64, json_name: "hostPlayerId")
+end
+
+defmodule LoadTest.Communication.Proto.PlayerInformation do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:player_name, 2, type: :string, json_name: "playerName")
 end
 
 defmodule LoadTest.Communication.Proto.RunnerConfig do

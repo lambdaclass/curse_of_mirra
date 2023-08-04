@@ -204,25 +204,36 @@ enum PlayerEffect {
 /* Represents the events happening in the matchmaking lobby, either from client or server
     - type: type of the event
     - lobby_id: ID of the matchmaking lobby, used on CONNECTED
-    - player_id: ID assigned to the player (client) in the matchmaking lobby, used on CONNECTED
-    - added_player_id: ID of any new player joining the lobby, used on PLAYER_ADDED
+    - player_info: Information assigned to the player (client) in the matchmaking lobby, used on CONNECTED
+    - added_player_info: Information of any new player joining the lobby, used on PLAYER_ADDED
     - game_id: ID of the game session to join, used on GAME_STARTED
     - [DEPRECATED] player_count: Number of players in the matchmaking lobby, used on PLAYER_COUNT
-    - players: List of players, used on PLAYER_ADDED
-    - removed_player_id: ID of any player leaving the lobby, used on PLAYER_REMOVED
+    - players_info: List of players, used on PLAYER_ADDED
+    - removed_player_info: Information of any player leaving the lobby, used on PLAYER_REMOVED
+    - host_player_id: ID of the player considered host of the lobby, used on PLAYER_ADDED, PLAYER_REMOVED
  */
 message LobbyEvent {
     LobbyEventType type = 1;
     string lobby_id = 2;
-    uint64 player_id = 3;
-    uint64 added_player_id = 4;
+    PlayerInformation player_info = 3;
+    PlayerInformation added_player_info = 4;
     string game_id = 5;
     uint64 player_count = 6;
-    repeated uint64 players = 7;
-    uint64 removed_player_id = 8;
+    repeated PlayerInformation players_info = 7;
+    PlayerInformation removed_player_info = 8;
     ServerGameSettings game_config = 9;
     string server_hash = 10;
+    uint64 host_player_id = 11;
 }
+
+/* Represents the information of a player/client
+    - player_id: Internal ID used by backend to identify the player/client
+    - player_name: Name to use to identify the player/client
+ */
+ message PlayerInformation {
+    uint64 player_id = 1;
+    string player_name = 2;
+ }
 
 message RunnerConfig {
     string Name = 1;
