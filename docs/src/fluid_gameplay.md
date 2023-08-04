@@ -164,7 +164,7 @@ We can test this. If the above is correct, then setting framerate to coincide wi
 
 ![](./videos/naive_movement_framerate_same_as_tickrate.gif)
 
-As expected, movement now looks fluid. This is not an idea solution, however, because we said at the beginning that we would not cap framerate. Even if we did, if we ever change tick rates on our backend we would have to change the framerate cap to a new one. Also, framerate is not flat, even when capped. A slight dip in framerate from `50` to `49` could immediately make movement look jittery again. This is not just conjecture, if you play around like this for a while you will see it happen.
+As expected, movement now looks fluid. This is not an ideal solution, however, because we said at the beginning that we would not cap framerate. Even if we did, if we ever change tick rates on our backend we would have to change the framerate cap to a new one. Also, framerate is not flat, even when capped. A slight dip in framerate from `50` to `49` could immediately make movement look jittery again. This is not just conjecture, if you play around like this for a while you will see it happen.
 
 ## Less Naive implementation: Interpolation
 
