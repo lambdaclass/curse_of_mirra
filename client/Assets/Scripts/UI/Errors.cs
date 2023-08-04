@@ -43,16 +43,15 @@ public class Errors : MonoBehaviour
         {
             error.text = connectionTitle;
             description.text = connectionDescription;
+            okButton.SetActive(LobbyConnection.Instance.errorConnection);
         }
         if (LobbyConnection.Instance.errorOngoingGame)
         {
             error.text = ongoingGameTitle;
             description.text = ongoingGameDescription;
+            yesButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
+            noButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
         }
-
-        okButton.SetActive(LobbyConnection.Instance.errorConnection);
-        yesButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
-        noButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
     }
 
     public void HideConnectionError()
