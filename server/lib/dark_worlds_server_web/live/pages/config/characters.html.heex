@@ -1,10 +1,11 @@
 <.header>
     Edit Character Config
 </.header>
-  
+
 <.simple_form :let={form} for={@config} action={~p"/config/characters"}>
     <%= for name <- @characters do %>
         <h1><%= name %></h1>
+        <.button phx-click="remove_character" phx-value={name}>X</.button>
         <.inputs_for :let={nested_form} field={form[name]} id={name} as={name}>
             <%= for key <- Map.keys(@config.params[name]) do %>
                 <.input field={nested_form[key]} type="text" label={key} />
@@ -15,5 +16,8 @@
         <.button>Save</.button>
     </:actions>
 </.simple_form>
+
+<.input phx-blur="new_character_name" value={@new_character_name} type="text" name="new_character_name"/> 
+<div phx-click="add_character" phx-value-name={@new_character_name}>Add Character</div>
 
 <.back navigate={~p"/config"}>Back to config</.back>
