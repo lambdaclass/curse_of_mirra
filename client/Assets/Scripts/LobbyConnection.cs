@@ -37,7 +37,7 @@ public class LobbyConnection : MonoBehaviour
     public int reconnectPlayerCount;
     public string reconnectServerHash;
     public string reconnectGameId;
-    public string reconnectPlayerId;
+    public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
@@ -69,7 +69,7 @@ public class LobbyConnection : MonoBehaviour
         public int player_count;
         public string server_hash;
         public string current_game_id;
-        public string current_game_player_id;
+        public ulong current_game_player_id;
         public List<Player> players;
         public Configs game_config;
 
@@ -209,7 +209,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.reconnect = true;
         this.GameSession = this.reconnectGameId;
-        this.playerId = Convert.ToUInt64(this.reconnectPlayerId);
+        this.playerId = this.reconnectPlayerId;
         this.serverSettings = this.reconnectServerSettings;
         this.serverTickRate_ms = (uint)this.serverSettings.RunnerConfig.ServerTickrateMs;
         this.serverHash = this.reconnectServerHash;
