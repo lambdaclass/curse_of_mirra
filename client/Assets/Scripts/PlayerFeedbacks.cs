@@ -62,8 +62,13 @@ public class PlayerFeedbacks : MonoBehaviour
         InputManager.ActivateDisarmEffect(disarmed);
     }
 
-    public void SetActivePoisonedFeedback(GameObject player, bool active)
+    public void SetActivePoisonedFeedback(GameObject player, bool value)
     {
-        player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(active);
+        player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+    }
+
+    public void SetActiveSlowedFeedback(GameObject player, bool value)
+    {
+        player.transform.Find("Slowed").GetComponent<ParticleSystem>().gameObject.SetActive(value);
     }
 }

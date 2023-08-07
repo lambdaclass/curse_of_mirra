@@ -14,30 +14,31 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
-    public bool showServerGhost = false;
+    public bool showClientPredictionGhost;
+    public bool showInterpolationGhosts;
+    public List<GameObject> InterpolationGhosts = new List<GameObject>();
+    public GameObject clientPredictionGhost;
     public bool useClientPrediction;
     public bool useInterpolation;
-    public bool showInterpolationGhost;
-    public GameObject serverGhost;
     public Direction nextAttackDirection;
     public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
-    public float accumulatedTime;
+    public long accumulatedTime;
+    public long firstTimestamp;
 
     private bool playerIsPoisoned;
 
     void Start()
     {
         InitBlockingStates();
-
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         useClientPrediction = true;
-        showServerGhost = false;
         useInterpolation = true;
-        showInterpolationGhost = false;
         accumulatedTime = 0;
+        showClientPredictionGhost = false;
+        showInterpolationGhosts = false;
     }
 
     private void InitBlockingStates()
@@ -54,7 +55,12 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            accumulatedTime += Time.deltaTime * 1000f;
+            if (firstTimestamp == 0)
+            {
+                firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            }
+            var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            accumulatedTime = (currentTimestamp - firstTimestamp);
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
@@ -100,18 +106,8 @@ public class PlayerMovement : MonoBehaviour
             Character character = player.GetComponent<Character>();
             if (MovementAuthorized(character))
             {
-                var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
                 var inputFromVirtualJoystick = joystickL is not null;
-                if (inputFromPhysicalJoystick)
-                {
-                    var hInput = Input.GetAxis("Horizontal");
-                    var vInput = Input.GetAxis("Vertical");
-                    if (hInput != 0 && vInput != 0)
-                    {
-                        GetComponent<PlayerControls>().SendJoystickValues(hInput, -vInput);
-                    }
-                }
-                else if (
+                if (
                     inputFromVirtualJoystick
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
@@ -129,14 +125,12 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdatePlayerActions()
     {
-        long auxAccumulatedTime;
         long currentTime;
         long pastTime;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
-        auxAccumulatedTime = (long)accumulatedTime; // Casting needed to avoid calcuting numbers with floating point
-        currentTime = buffer.firstTimestamp + auxAccumulatedTime;
+        currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
 
         if (buffer.firstTimestamp == 0)
@@ -146,10 +140,16 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
+            GameObject interpolationGhost = findGhostPlayer(
+                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+            );
             if (
                 useInterpolation
-                && SocketConnectionManager.Instance.playerId
-                    != SocketConnectionManager.Instance.gamePlayers[i].Id
+                && (
+                    SocketConnectionManager.Instance.playerId
+                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    || !useClientPrediction
+                )
             )
             {
                 gameEvent = buffer.getNextEventToRender(pastTime);
@@ -170,15 +170,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Move the ghost BEFORE client prediction kicks in, so it only moves up until
                 // the last server update.
-                if (serverGhost != null)
+                if (clientPredictionGhost != null)
                 {
-                    movePlayer(serverGhost, serverPlayerUpdate, pastTime);
+                    movePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                 }
                 SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                     serverPlayerUpdate,
                     gameEvent.PlayerTimestamp
                 );
             }
+
+            if (interpolationGhost != null)
+            {
+                movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+            }
+
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
             if (actualPlayer.activeSelf)
@@ -219,6 +225,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetPlayerAlive(playerCharacter);
             }
+
+            if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
+            {
+                // TODO: Refactor: create a script/reference.
+                actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
+                    new Color(1, 0, 0, .5f);
+            }
+
+            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+
+            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
@@ -409,36 +427,49 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-        }
+        ManageStateFeedbacks(player, playerUpdate);
+
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
             {
-                // TODO: Change to VFX effect in next URP PR
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.red;
                 characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
                     ? 4f
                     : 1.5f;
             }
             else
             {
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.white;
                 if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
                 {
                     characterSpeed *= 4f;
+                }
+            }
+        }
+
+        // TODO: Temporary out of area feedback. Refactor!
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+        {
+            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
+            {
+                Renderer renderer = character.CharacterModel.transform
+                    .GetChild(i)
+                    .GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.color = Color.magenta;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
+            {
+                Renderer renderer = character.CharacterModel.transform
+                    .GetChild(i)
+                    .GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.color = Color.white;
                 }
             }
         }
@@ -451,16 +482,16 @@ public class PlayerMovement : MonoBehaviour
                 );
         }
 
-        if (
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        {
+            characterSpeed *= 0.5f;
+        }
+        else if (
             playerUpdate.CharacterName == "H4ck"
             && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
         )
         {
             characterSpeed *= 4f;
-        }
-        else if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
-        {
-            characterSpeed *= 1.5f;
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
@@ -491,13 +522,28 @@ public class PlayerMovement : MonoBehaviour
 
         var inputFromVirtualJoystick = joystickL is not null;
 
-        bool walking =
-            playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                ? inputsAreBeingUsed()
-                : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+        bool walking = false;
+
+        if (useClientPrediction)
+        {
+            walking =
+                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                    ? inputsAreBeingUsed()
+                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                        playerUpdate.Id,
+                        (long)pastTime
+                    );
+        }
+        else
+        {
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
                     playerUpdate.Id,
                     (long)pastTime
                 );
+            }
+        }
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
@@ -555,7 +601,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                var direction = getPlayerDirection(playerUpdate);
+                RelativePosition direction = getPlayerDirection(playerUpdate);
+
                 if (MovementAuthorized(player.GetComponent<Character>()))
                 {
                     rotatePlayer(player, direction);
@@ -624,6 +671,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+        playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
+        playerCharacter.transform.Find("Position").gameObject.SetActive(false);
     }
 
     public void SetPlayerAlive(Character playerCharacter)
@@ -632,56 +681,102 @@ public class PlayerMovement : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
-    public void ToggleGhost()
-    {
-        if (!useClientPrediction)
-        {
-            return;
-        }
-        showServerGhost = !showServerGhost;
-        if (showServerGhost)
-        {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-            serverGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-            serverGhost.GetComponent<Character>().name = "Server Ghost";
-            // serverGhost.GetComponent<CharacterHandleWeapon>().enabled = false;
-            // serverGhost.GetComponent<Character>().CharacterModel.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = Texture2D.whiteTexture;
-        }
-        else
-        {
-            serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-            Destroy(serverGhost);
-            serverGhost = null;
-        }
-    }
-
+    // CLIENT PREDICTION UTILITY FUNCTIONS
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
-        Text toggleGhostButton = GameObject.Find("ToggleCPText").GetComponent<Text>();
-        toggleGhostButton.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
+        Text buttonText = GameObject.Find("ToggleClientPredictionText").GetComponent<Text>();
+        buttonText.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
-            showServerGhost = false;
-            if (serverGhost != null)
-            {
-                serverGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
-                Destroy(serverGhost);
-            }
+            TurnOffClientPredictionGhost();
         }
     }
 
-    public void ToggleInterpolation()
+    public void ToggleClientPredictionGhost()
     {
-        useInterpolation = !useInterpolation;
-        Text toggleInterpolationButton = GameObject.Find("ToggleINText").GetComponent<Text>();
-        toggleInterpolationButton.text = $"Interpolation {(useInterpolation ? "On" : "Off")}";
+        showClientPredictionGhost = !showClientPredictionGhost;
+        if (showClientPredictionGhost && clientPredictionGhost == null)
+        {
+            SpawnClientPredictionGhost();
+        }
+        else
+        {
+            TurnOffClientPredictionGhost();
+        }
+    }
+
+    private void SpawnClientPredictionGhost()
+    {
+        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+        clientPredictionGhost.GetComponent<Character>().PlayerID =
+            SocketConnectionManager.Instance.playerId.ToString();
+        clientPredictionGhost.GetComponent<Character>().name =
+            $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
+        showClientPredictionGhost = true;
+    }
+
+    private void TurnOffClientPredictionGhost()
+    {
+        if (showClientPredictionGhost && clientPredictionGhost != null)
+        {
+            clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            clientPredictionGhost.SetActive(false);
+            Destroy(clientPredictionGhost);
+            clientPredictionGhost = null;
+        }
+    }
+
+    // ENTITY INTERPOLATION UTILITY FUNCTIONS
+    public void ToggleInterpolationGhosts()
+    {
+        showInterpolationGhosts = !showInterpolationGhosts;
+        if (showInterpolationGhosts)
+        {
+            SpawnInterpolationGhosts();
+        }
+        else
+        {
+            TurnOffInterpolationGhosts();
+        }
+    }
+
+    private void SpawnInterpolationGhosts()
+    {
+        for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+        {
+            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.gamePlayers[i].Id);
+            GameObject interpolationGhost;
+            interpolationGhost = Instantiate(
+                player,
+                player.transform.position,
+                Quaternion.identity
+            );
+            interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
+                .Instance
+                .gamePlayers[i].Id.ToString();
+            interpolationGhost.GetComponent<Character>().name =
+                $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
+
+            InterpolationGhosts.Add(interpolationGhost);
+        }
+    }
+
+    private void TurnOffInterpolationGhosts()
+    {
+        foreach (GameObject interpolationGhost in InterpolationGhosts)
+        {
+            interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.SetActive(false);
+            Destroy(interpolationGhost);
+        }
+        InterpolationGhosts = new List<GameObject>();
     }
 
     public bool inputsAreBeingUsed()
     {
         var inputFromVirtualJoystick = joystickL is not null;
-        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
         return (
                 inputFromVirtualJoystick && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
@@ -691,19 +786,17 @@ public class PlayerMovement : MonoBehaviour
                 || (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
                 || (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
                 || (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            )
-            || inputFromPhysicalJoystick;
+            );
     }
 
     public RelativePosition getPlayerDirection(Player playerUpdate)
     {
-        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id)
+        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
             return playerUpdate.Direction;
         }
 
         var inputFromVirtualJoystick = joystickL is not null;
-        var inputFromPhysicalJoystick = Input.GetJoystickNames().Length > 0;
 
         var direction = playerUpdate.Direction;
         if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
@@ -729,5 +822,51 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return direction;
+    }
+
+    private GameObject findGhostPlayer(string playerId)
+    {
+        return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
+    }
+
+    private void ManageStateFeedbacks(GameObject player, Player playerUpdate)
+    {
+        ManagePoisonedFeedback(player, playerUpdate);
+        ManageSlowedFeedback(player, playerUpdate);
+    }
+
+    private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+        )
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
+    }
+
+    private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
+    {
+        if (
+            PlayerIsAlive(playerUpdate)
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
+        )
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+        }
+    }
+
+    private bool PlayerIsAlive(Player playerUpdate)
+    {
+        return playerUpdate.Status == Status.Alive;
     }
 }

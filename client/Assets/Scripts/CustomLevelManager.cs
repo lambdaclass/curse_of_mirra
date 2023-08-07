@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -20,6 +20,9 @@ public class CustomLevelManager : LevelManager
     GameObject roundSplash;
 
     [SerializeField]
+    GameObject deathSplash;
+
+    [SerializeField]
     Text roundText;
 
     [SerializeField]
@@ -30,15 +33,16 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
 
     [SerializeField]
-    MMSoundManager soundManager;
-
-    [SerializeField]
     private MMF_Player backgroundMusic;
     private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+    public Player playerToFollow;
+
+    [SerializeField]
+    public GameObject UiControls;
     public CinemachineCameraController camera;
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
@@ -92,15 +96,21 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        if (SocketConnectionManager.Instance.winnerPlayer.Item1 != null)
+        var gamePlayer = Utils.GetGamePlayer(playerId);
+        if (GameHasEndedOrPlayerHasDied(gamePlayer))
         {
-            ShowRoundTransition();
+            ShowDeathSplash();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
             paused = !paused;
+        }
+
+        if (Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId).Health <= 0)
+        {
+            SetCameraToAlivePlayer();
         }
     }
 
@@ -163,7 +173,7 @@ public class CustomLevelManager : LevelManager
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
-
+        List<Skill> skillList = new List<Skill>();
         foreach (Character player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
@@ -171,6 +181,12 @@ public class CustomLevelManager : LevelManager
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
             Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+
+            skillList.Add(skillBasic);
+            skillList.Add(skill1);
+            skillList.Add(skill2);
+            skillList.Add(skill3);
+            skillList.Add(skill4);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -188,6 +204,21 @@ public class CustomLevelManager : LevelManager
             skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
             skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
+
+            var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+
+            foreach (var skill in items)
+            {
+                for (int i = 0; i < skillList.Count; i++)
+                {
+                    if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+                    {
+                        // 350 in the back is equal to 12 in the front
+                        // So this is the calculation
+                        skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
+                    }
+                }
+            }
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
@@ -218,6 +249,8 @@ public class CustomLevelManager : LevelManager
                     skill4
                 );
             }
+
+            StartCoroutine(inputManager.ShowInputs());
         }
     }
 
@@ -235,10 +268,35 @@ public class CustomLevelManager : LevelManager
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     }
 
+    private void ShowDeathSplash()
+    {
+        deathSplash.SetActive(true);
+        UiControls.SetActive(false);
+    }
+
+    private void SetCameraToAlivePlayer()
+    {
+        var alivePlayers = Utils.GetAlivePlayers();
+        playerToFollow = alivePlayers.ElementAt(0);
+
+        setCameraToPlayer(playerToFollow.Id);
+    }
+
     private void InitializeAudio()
     {
+        var soundManager = MMSoundManager.Instance;
+
+        // Stop previous scene music
+        soundManager.StopTrack(MMSoundManager.MMSoundManagerTracks.Music);
+
         backgroundMusic.PlayFeedbacks();
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
+    }
+
+    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    {
+        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
+            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
     }
 }

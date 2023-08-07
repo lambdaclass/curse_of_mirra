@@ -6,7 +6,7 @@ use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone, NifStruct)]
+#[derive(Debug, Clone, Copy, NifStruct)]
 #[module = "DarkWorldsServer.Engine.Player"]
 pub struct EffectData {
     pub time_left: MillisTime,
@@ -22,7 +22,7 @@ pub struct EffectData {
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
 
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, Copy, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
     Disarmed,
@@ -37,6 +37,9 @@ pub enum Effect {
     XandaMark,
     XandaMarkOwner,
     Poisoned,
+    Slowed,
+    FieryRampage,
+    Burned,
     Scherzo,
     DanseMacabre,
 }
@@ -87,6 +90,7 @@ pub struct Player {
     pub character_name: String,
     pub effects: StatusEffects,
     pub direction: RelativePosition,
+    pub body_size: f64,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -127,6 +131,7 @@ impl Player {
             position,
             status: Status::ALIVE,
             character_name: character.name.to_string(),
+            body_size: character.body_size,
             character,
             action: PlayerAction::NOTHING,
             aoe_position: Position::new(0, 0),
@@ -152,6 +157,7 @@ impl Player {
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
+                self.effects.clear();
             }
         }
     }
@@ -160,6 +166,9 @@ impl Player {
         let mut damage = hp_points;
         if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
             damage = damage / 2;
+        }
+        if self.has_active_effect(&Effect::FieryRampage) {
+            damage = damage * 3 / 4;
         }
         damage
     }
@@ -207,7 +216,6 @@ impl Player {
     pub fn basic_skill_range(&self) -> f64 {
         self.character.skill_basic.skill_range
     }
-
     pub fn skill_1_range(&self) -> f64 {
         self.character.skill_1.skill_range
     }
@@ -219,6 +227,22 @@ impl Player {
     }
     pub fn skill_4_range(&self) -> f64 {
         self.character.skill_4.skill_range
+    }
+
+    pub fn basic_skill_angle(&self) -> u64 {
+        self.character.skill_basic.angle
+    }
+    pub fn skill_1_angle(&self) -> u64 {
+        self.character.skill_1.angle
+    }
+    pub fn skill_2_angle(&self) -> u64 {
+        self.character.skill_2.angle
+    }
+    pub fn skill_3_angle(&self) -> u64 {
+        self.character.skill_3.angle
+    }
+    pub fn skill_4_angle(&self) -> u64 {
+        self.character.skill_4.angle
     }
 
     #[inline]
@@ -247,17 +271,14 @@ impl Player {
         if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
+        if self.has_active_effect(&Effect::Slowed) {
+            return ((base_speed as f64) * 0.5).ceil() as u64;
+        }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
-        }
-        if self.has_active_effect(&Effect::Piercing) {
-            return ((base_speed as f64) * 1.5).ceil() as u64;
-        }
-        if self.has_active_effect(&Effect::Slowed) {
-            return ((base_speed as f64) / 2.).ceil() as u64;
         }
         return base_speed;
     }

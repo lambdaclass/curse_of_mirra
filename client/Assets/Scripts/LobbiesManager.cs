@@ -1,11 +1,9 @@
+using System;
 using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using System;
-using TMPro;
 
 public class LobbiesManager : LevelSelector
 {
@@ -25,8 +23,7 @@ public class LobbiesManager : LevelSelector
 
     public void ConnectToLobby()
     {
-        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
-        SceneManager.LoadScene("Lobby");
+        StartCoroutine(WaitForLobbyJoin());
     }
 
     public void Back()
@@ -39,6 +36,7 @@ public class LobbiesManager : LevelSelector
     {
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MMSoundManager.Instance.FreeAllSounds();
     }
 
     public void QuickGame()
@@ -55,6 +53,13 @@ public class LobbiesManager : LevelSelector
                 !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
                 && LobbyConnection.Instance.playerId != UInt64.MaxValue
         );
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public IEnumerator WaitForLobbyJoin()
+    {
+        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
+        yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
 }

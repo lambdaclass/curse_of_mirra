@@ -4,17 +4,30 @@ using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
-    [SerializeField]
     private MMSoundManager soundManager;
     private Slider volumeSlider;
 
-    void Awake()
+    void Start()
     {
         volumeSlider = GetComponent<Slider>();
+        soundManager = MMSoundManager.Instance;
+
+        volumeSlider.value = soundManager.GetTrackVolume(
+            MMSoundManager.MMSoundManagerTracks.Master,
+            false
+        );
     }
 
     public void ChangeMusicVolume()
     {
-        soundManager.SetVolumeMusic(volumeSlider.value);
+        soundManager.SetVolumeMaster(volumeSlider.value);
+    }
+
+    private void Update()
+    {
+        volumeSlider.value = soundManager.GetTrackVolume(
+            MMSoundManager.MMSoundManagerTracks.Master,
+            false
+        );
     }
 }

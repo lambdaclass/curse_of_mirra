@@ -2,23 +2,42 @@ defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.ClientAction
   alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
+  alias DarkWorldsServer.Communication.Proto.PlayerInformation
 
   @moduledoc """
   The Communication context
   """
 
-  def lobby_connected!(lobby_id, player_id) do
-    %LobbyEvent{type: :CONNECTED, lobby_id: lobby_id, player_id: player_id}
+  def lobby_connected!(lobby_id, player_id, player_name) do
+    player_info = %PlayerInformation{player_id: player_id, player_name: player_name}
+
+    %LobbyEvent{type: :CONNECTED, lobby_id: lobby_id, player_info: player_info}
     |> LobbyEvent.encode()
   end
 
-  def lobby_player_added!(player_id, players) do
-    %LobbyEvent{type: :PLAYER_ADDED, added_player_id: player_id, players: players}
+  def lobby_player_added!(player_id, player_name, host_player_id, players) do
+    player_info = %PlayerInformation{player_id: player_id, player_name: player_name}
+    players_info = Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
+
+    %LobbyEvent{
+      type: :PLAYER_ADDED,
+      added_player_info: player_info,
+      host_player_id: host_player_id,
+      players_info: players_info
+    }
     |> LobbyEvent.encode()
   end
 
-  def lobby_player_removed!(player_id, players) do
-    %LobbyEvent{type: :PLAYER_REMOVED, removed_player_id: player_id, players: players}
+  def lobby_player_removed!(player_id, host_player_id, players) do
+    player_info = %PlayerInformation{player_id: player_id, player_name: "not_needed"}
+    players_info = Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
+
+    %LobbyEvent{
+      type: :PLAYER_REMOVED,
+      removed_player_info: player_info,
+      host_player_id: host_player_id,
+      players_info: players_info
+    }
     |> LobbyEvent.encode()
   end
 
