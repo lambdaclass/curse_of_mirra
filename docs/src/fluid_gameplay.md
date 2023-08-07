@@ -205,9 +205,29 @@ To avoid both these things, the speed used by the client needs to exactly match 
 
 ## Entity interpolation
 
-We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough.
+We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough. There's still one thing to do, and that is *Entity Interpolation*. 
+For this topic, lets set up our scenario:
 
-TODO
+- We have two players in the game (Player 1 and 2)
+
+Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and supposing we receive an update every 20ms, we are receiving 50 game updates times per second.
+
+Now, let's see Player 2's movement:
+
+![](./videos/Interpolation_at_0ms.gif)
+
+As you can see, his movement feels weird sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based what on the updates sent by the server. How can we solve this?. Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
+
+Theory behing Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement. Let's suppose we're interpolating 100ms in the past, player's movement would like this
+
+![](./videos/Interpolation_at_100ms.gif)
+
+Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allows us to see what exactly is Interpolation attacking
+
+
+
+
+
 
 ## Action rate, hacky solution
 
