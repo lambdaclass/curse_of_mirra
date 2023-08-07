@@ -15,7 +15,6 @@ use std::f32::consts::PI;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::ops::{Div, Mul};
 
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
@@ -107,6 +106,7 @@ impl GameState {
             y: shrinking_center_y_coordinate,
         };
 
+        let playable_radius = calculate_hypotenuse(board_width as u64, board_height as u64);
         Ok(Self {
             players,
             board,
@@ -114,7 +114,7 @@ impl GameState {
             killfeed: Vec::new(),
             projectiles,
             next_projectile_id: 0,
-            playable_radius: (max(board_height, board_width) * 2) as u64,
+            playable_radius: playable_radius,
             shrinking_center,
         })
     }
@@ -490,11 +490,16 @@ impl GameState {
                 None => *direction,
             };
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             let projectile = Projectile::new(
                 *next_projectile_id,
                 attacking_player.position,
                 projectile_direction,
-                100,
+                speed as u32,
                 1,
                 attacking_player.id,
                 attacking_player.basic_skill_damage(),
@@ -697,6 +702,8 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
+            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
                 (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
@@ -706,6 +713,11 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
+            let mut speed = 100.;
+            if piercing {
+                speed *= 1.25;
+            }
+
             for modifier in angle_modifiers {
                 let projectile = Projectile::new(
                     *next_projectile_id,
@@ -714,7 +726,7 @@ impl GameState {
                         (angle_positive + modifier).to_radians().cos(),
                         (angle_positive + modifier).to_radians().sin(),
                     ),
-                    100,
+                    speed as u32,
                     1,
                     attacking_player.id,
                     attacking_player.skill_1_damage(),
@@ -722,7 +734,7 @@ impl GameState {
                     ProjectileType::BULLET,
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
-                    false,
+                    piercing,
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
@@ -1416,9 +1428,8 @@ impl GameState {
     }
 
     pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
-        let new_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
+        let new_radius = self.playable_radius - 10; // self.playable_radius.mul(1).div(100).div(5);
         self.playable_radius = new_radius.max(map_shrink_minimum_radius);
-        self.playable_radius = self.playable_radius - self.playable_radius.mul(1).div(100).div(3);
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
@@ -1631,6 +1642,11 @@ fn distance_between_positions(position_1: &Position, position_2: &Position) -> f
     let distance_squared =
         (position_1.x - position_2.x).pow(2) + (position_1.y - position_2.y).pow(2);
     (distance_squared as f64).sqrt()
+}
+
+fn calculate_hypotenuse(base: u64, altitude: u64) -> u64 {
+    let squared_hypotenuse = base.pow(2) + altitude.pow(2);
+    (squared_hypotenuse as f64).sqrt() as u64
 }
 
 // We might want to abstract this into a Vector2 type or something, whatever.

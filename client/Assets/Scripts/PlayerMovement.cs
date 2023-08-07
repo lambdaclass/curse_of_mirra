@@ -433,21 +433,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
             {
-                // TODO: Change to VFX effect in next URP PR
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.red;
                 characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
                     ? 4f
                     : 1.5f;
             }
             else
             {
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.white;
                 if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
                 {
                     characterSpeed *= 4f;
@@ -501,10 +492,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             characterSpeed *= 4f;
-        }
-        else if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
-        {
-            characterSpeed *= 1.5f;
         }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend

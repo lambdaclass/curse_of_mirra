@@ -5,8 +5,8 @@
   "server_tickrate_ms": "30",
   "game_timeout_ms": "1200000",
   "map_shrink_wait_ms": "60000",
-  "map_shrink_interval": "100",
-  "map_shrink_minimum_radius": "500",
+  "map_shrink_interval": "25",
+  "map_shrink_minimum_radius": "2000",
   "out_of_area_damage": "10",
   "use_proxy": "false"
 }
