@@ -64,6 +64,10 @@ public class SocketConnectionManager : MonoBehaviour
     {
         if (Instance != null)
         {
+            if (this.ws != null)
+            {
+                this.ws.Close();
+            }
             Destroy(gameObject);
         }
         else

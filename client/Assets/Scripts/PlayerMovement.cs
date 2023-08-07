@@ -225,6 +225,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetPlayerAlive(playerCharacter);
             }
+
+            if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
+            {
+                // TODO: Refactor: create a script/reference.
+                actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
+                    new Color(1, 0, 0, .5f);
+            }
+
+            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+
+            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
@@ -421,21 +433,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
             {
-                // TODO: Change to VFX effect in next URP PR
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.red;
                 characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
                     ? 4f
                     : 1.5f;
             }
             else
             {
-                character.CharacterModel.transform
-                    .GetChild(1)
-                    .GetComponent<Renderer>()
-                    .material.color = Color.white;
                 if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
                 {
                     characterSpeed *= 4f;
@@ -489,10 +492,6 @@ public class PlayerMovement : MonoBehaviour
         )
         {
             characterSpeed *= 4f;
-        }
-        else if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Piercing))
-        {
-            characterSpeed *= 1.5f;
         }
 
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
@@ -662,6 +661,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+        playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
+        playerCharacter.transform.Find("Position").gameObject.SetActive(false);
     }
 
     public void SetPlayerAlive(Character playerCharacter)

@@ -7,6 +7,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
+  alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
@@ -81,6 +82,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_wait_ms: map_shrink_wait_ms,
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     } = runner_config
 
@@ -93,6 +95,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_wait_ms: map_shrink_wait_ms,
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
+      map_shrink_minimum_radius: map_shrink_minimum_radius,
       use_proxy: use_proxy
     }
 
@@ -138,7 +141,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %ProtoPlayer{
@@ -157,7 +161,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 
@@ -239,6 +244,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     %KillEvent{killed_by: killed_by, killed: killed}
   end
 
+  def encode(%ProtoPlayerInformation{} = player_information, ProtoPlayerInformation) do
+    player_information
+  end
+
   ###########
   # DECODES #
   ###########
@@ -272,7 +281,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     } = player
 
     %EnginePlayer{
@@ -291,7 +301,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       skill_4_cooldown_left: skill_4_cooldown_left,
       character_name: name,
       effects: effects,
-      direction: direction
+      direction: direction,
+      body_size: body_size
     }
   end
 

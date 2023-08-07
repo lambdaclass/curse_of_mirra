@@ -19,12 +19,13 @@ public class LobbyConnection : MonoBehaviour
     public string GameSession;
     public string LobbySession;
     public ulong playerId;
+    public bool isHost = false;
+    public ulong hostId;
     public int playerCount;
+    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
-
-    public List<GameObject> totalLobbyPlayers = new List<GameObject>();
 
     public bool gameStarted = false;
     public bool errorConnection = false;
@@ -108,6 +109,11 @@ public class LobbyConnection : MonoBehaviour
     {
         if (Instance != null)
         {
+            if (this.ws != null)
+            {
+                this.ws.Close();
+            }
+
             Destroy(gameObject);
             return;
         }
@@ -362,20 +368,28 @@ public class LobbyConnection : MonoBehaviour
                         "Connected to lobby "
                             + lobby_event.LobbyId
                             + " as player_id "
-                            + lobby_event.PlayerId
+                            + lobby_event.PlayerInfo.PlayerId
                     );
+                    this.playerId = lobby_event.PlayerInfo.PlayerId;
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    if (playerId == UInt64.MaxValue)
-                    {
-                        playerId = lobby_event.AddedPlayerId;
-                    }
-                    playerCount = lobby_event.Players.Count();
+                    this.hostId = lobby_event.HostPlayerId;
+                    this.isHost = this.playerId == this.hostId;
+                    this.playerCount = lobby_event.PlayersInfo.Count();
+                    lobby_event.PlayersInfo
+                        .ToList()
+                        .ForEach(
+                            playerInfo =>
+                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
+                        );
                     break;
 
                 case LobbyEventType.PlayerRemoved:
-                    playerCount = lobby_event.Players.Count();
+                    this.playerCount = lobby_event.PlayersInfo.Count();
+                    this.hostId = lobby_event.HostPlayerId;
+                    this.isHost = this.playerId == this.hostId;
+                    this.playersIdName.Remove(lobby_event.RemovedPlayerInfo.PlayerId);
                     break;
 
                 case LobbyEventType.GameStarted:

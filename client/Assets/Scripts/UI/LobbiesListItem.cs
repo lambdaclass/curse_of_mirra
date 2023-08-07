@@ -1,6 +1,9 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 
 public class LobbiesListItem : MonoBehaviour
 {
@@ -12,5 +15,17 @@ public class LobbiesListItem : MonoBehaviour
     {
         idHash = id;
         idContainer.text = lastCharacters;
+    }
+
+    public void Disable()
+    {
+        GetComponent<MMTouchButton>().DisableButton();
+        StartCoroutine(RestoreButton());
+    }
+
+    IEnumerator RestoreButton()
+    {
+        yield return new WaitForSeconds(2f);
+        GetComponent<MMTouchButton>().EnableButton();
     }
 }

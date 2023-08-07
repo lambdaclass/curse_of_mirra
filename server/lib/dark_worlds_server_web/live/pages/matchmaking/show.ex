@@ -13,9 +13,13 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
         Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(session_id))
         session_pid = Communication.external_id_to_pid(session_id)
         current_player_count = Matchmaking.fetch_amount_of_players(session_pid)
-        player_id = current_player_count + 1
+        player_id = Matchmaking.next_id(session_pid)
 
-        Matchmaking.add_player(player_id, session_pid)
+        # TODO: player_name should be sent by client, see issue #527
+        # https://github.com/lambdaclass/curse_of_myrra/issues/527
+        player_name = to_string(player_id)
+
+        Matchmaking.add_player(player_id, player_name, session_pid)
 
         {:ok,
          assign(socket,
@@ -43,12 +47,12 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Show do
     {:noreply, socket}
   end
 
-  def handle_info({:player_added, _player_id, players}, socket) do
-    {:noreply, assign(socket, :player_count, length(players))}
+  def handle_info({:player_added, _player_id, _player_name, _host_player_id, players}, socket) do
+    {:noreply, assign(socket, :player_count, Enum.count(players))}
   end
 
-  def handle_info({:player_removed, _player_id, players}, socket) do
-    {:noreply, assign(socket, :player_count, length(players))}
+  def handle_info({:player_removed, _player_id, _host_player_id, players}, socket) do
+    {:noreply, assign(socket, :player_count, Enum.count(players))}
   end
 
   def handle_info({:game_started, game_pid}, socket) do

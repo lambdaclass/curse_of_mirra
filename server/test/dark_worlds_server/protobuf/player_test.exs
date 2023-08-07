@@ -27,7 +27,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{},
-        direction: %RelativePosition{x: 1, y: 1}
+        direction: %RelativePosition{x: 1, y: 1},
+        body_size: 100
       }
 
       expected = %Player{
@@ -46,7 +47,8 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
         skill_4_cooldown_left: %{high: 0, low: 0, __unknown_fields__: []},
         character_name: "Name",
         effects: %{},
-        direction: %RelativePosition{x: 1, y: 1}
+        direction: %RelativePosition{x: 1, y: 1},
+        body_size: 100
       }
 
       decoded =
