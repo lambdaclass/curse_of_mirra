@@ -494,9 +494,9 @@ public class PlayerMovement : MonoBehaviour
             characterSpeed *= 4f;
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
-            characterSpeed /= 2f;
+            characterSpeed *= 0.5f;
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))

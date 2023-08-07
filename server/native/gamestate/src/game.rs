@@ -616,24 +616,9 @@ impl GameState {
         match attacking_player.effects.get(&Effect::Scherzo) {
             Some(_) => {
                 attacking_player.effects.remove(&Effect::Scherzo);
-                attacking_player.effects.remove(&Effect::Slowed);
             }
             None => {
                 let now = time_now();
-                attacking_player.add_effect(
-                    Effect::Slowed.clone(),
-                    EffectData {
-                        time_left: attacking_player.character.duration_basic_skill(),
-                        ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
-                        duration: attacking_player.character.duration_basic_skill(),
-                        direction: None,
-                        position: None,
-                        triggered_at: u128_to_millis(0),
-                        caused_by: attacking_player.id,
-                        caused_to: attacking_player.id,
-                        damage: attacking_player.character.attack_dmg_basic_skill(),
-                    },
-                );
                 attacking_player.add_effect(
                     Effect::Scherzo.clone(),
                     EffectData {
