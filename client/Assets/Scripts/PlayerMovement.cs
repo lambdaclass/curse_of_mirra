@@ -426,9 +426,23 @@ public class PlayerMovement : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        Animator mAnimator = player
+            .GetComponent<Character>()
+            .CharacterModel.GetComponent<Animator>();
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+        }
+        else
+        {
+            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+        }
 
-        ManageStateFeedbacks(player, playerUpdate);
-
+        if (playerUpdate.Effects.ContainsKey(((ulong)PlayerEffect.Scherzo)))
+        {
+            mAnimator.SetBool("SkillBasic", true);
+            print("Scherzo");
+        }
         if (playerUpdate.CharacterName == "Muflus")
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
@@ -515,10 +529,6 @@ public class PlayerMovement : MonoBehaviour
 
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
-
-        Animator mAnimator = player
-            .GetComponent<Character>()
-            .CharacterModel.GetComponent<Animator>();
 
         var inputFromVirtualJoystick = joystickL is not null;
 
