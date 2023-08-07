@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PreloadSceneInUnity : MonoBehaviour
 {
     [SerializeField]
-    private string sceneName = "BackendPlayground";
+    private string sceneName = "Battle";
     public string SceneName => this.sceneName;
 
     private AsyncOperation asyncOperation;
