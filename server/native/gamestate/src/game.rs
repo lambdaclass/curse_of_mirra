@@ -1178,11 +1178,15 @@ impl GameState {
             u64,
             (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
         > = HashMap::new();
-        let mut leap_affected_players: HashMap<u64, (Vec<(u64, i64)>, Option<(Effect, MillisTime)>)> =
-            HashMap::new();
+        let mut leap_affected_players: HashMap<
+            u64,
+            (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
+        > = HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        let mut scherzo_affected_players: HashMap<u64, (Vec<(u64, i64)>, Option<(Effect, MillisTime)>)> =
-            HashMap::new();
+        let mut scherzo_affected_players: HashMap<
+            u64,
+            (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
+        > = HashMap::new();
         let mut projectile_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
         self.players.iter_mut().for_each(|player| {
@@ -1214,8 +1218,7 @@ impl GameState {
                         );
                         let effect = Effect::Slowed;
                         let duration = player.character.duration_skill_3();
-                        leap_affected_players
-                            .insert(player.id, (af_pl, Some((effect, duration))));
+                        leap_affected_players.insert(player.id, (af_pl, Some((effect, duration))));
                     }
                     millis_to_u128(*time_left) > 0
                 },
@@ -1246,8 +1249,7 @@ impl GameState {
                             &player.position,
                             player.id,
                         );
-                        neon_crash_affected_players
-                            .insert(player.id, (af_pl, None));
+                        neon_crash_affected_players.insert(player.id, (af_pl, None));
                     }
                     _ => {}
                 }
@@ -1285,8 +1287,7 @@ impl GameState {
                                 &player.position,
                                 player.id,
                             );
-                            scherzo_affected_players
-                            .insert(player.id, (af_pl, None));
+                            scherzo_affected_players.insert(player.id, (af_pl, None));
                             effect_data.triggered_at = now;
                         }
 
@@ -1542,8 +1543,7 @@ impl GameState {
             .map(|(id, distance)| {
                 (
                     id,
-                    (max_attack_damage as f64
-                        - max_attack_damage as f64 * distance / attack_range)
+                    (max_attack_damage as f64 - max_attack_damage as f64 * distance / attack_range)
                         as i64,
                 )
             })
