@@ -481,7 +481,7 @@ public class PlayerMovement : MonoBehaviour
                 Renderer renderer = character.CharacterModel.transform
                     .GetChild(i)
                     .GetComponent<Renderer>();
-                if (renderer)
+                if (renderer && renderer.material.GetTexture("_BaseMap"))
                 {
                     renderer.material.color = Color.white;
                 }
