@@ -2,7 +2,7 @@
 
 ## Install mdbook
 
-☝️🤓 First make sure you have installed mdbook in yout machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if not install it with the following:
+☝️🤓 First make sure you have installed mdbook in your machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if you dont, install it with the following:
 
 ```
 cargo install mdbook
@@ -36,4 +36,4 @@ Write your document and save it. Then open `SUMMARY.md` document and add your ne
 - [Your new section name](./{your_page_name}.md)
 ```
 
-Finally go back to the root folder `cd ../..` and run `make docs` and you are ready to go. Your new section had been added to the docs 🤩
+Finally go back to the root folder `cd ../..` and run `make docs`, now you are ready to go. Your new section had been added to the docs 🤩
