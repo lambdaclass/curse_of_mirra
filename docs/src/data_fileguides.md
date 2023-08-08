@@ -38,13 +38,15 @@ This file contains various settings used by the game
 ## Skills.json
 ### Overview
 
-This file contains information about all the skills in the game
+This file contains information about all the skills in the game. NOTE: whether each field is used or not depends on the function of each skill. So adding damage to a buff does nothing unless the buff is referencing that field.
 
 ### Data Fields
 
 - **Name:** defines the internal name for a skill
-- **Cooldown:** determines how long one must wait before using a skill at the start of the game and every time it's used
+- **Cooldown:** determines how long one must wait between uses of a skill
 - **Damage:** determines the damage of a skill as a percent of the character's base damage
-- **Duration:** determines the duration of a skill/buff, if used by the skill func
+- **Duration:** determines the duration of a skill/buff
 - **SkillRange:** represents the attack's range of an skill
-- **Angle** (not being used, but implemented) represents an angle modifier for the skill
+- **Par1-5:** arbitrary parameters depending on the skill func
+- **Par1-5Desc:** comment fields, describing the above
+- **Angle** represents an angle modifier for the skill
