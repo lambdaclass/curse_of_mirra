@@ -237,4 +237,17 @@ All of this code is in the `EventsBuffer.cs`. Where you can change the delta int
 
 ## Action rate, hacky solution
 
-TODO
+As we said in the previous topic, we keep track of the accumulated time since we received the first update from the server to interpolate the movement. Well, that seemed to work as intended...
+but it wasn't at all. There were times where the interpolation ghosts, differed too much from the server, but a lot, it didn't make sense. After a bit of research, we discovered that the problem was with using the [`Time.deltaTime`](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html) that belongs to Unity. That amount of time is how much time has passed since the last frame to the current one, that sounds okay but the problem is that the game editor/android build/ios build should be active in the screen, if you change tabs or let the game run in the background the `Time.DeltaTime` stops but the server doesn't and because of that all the operations messes up. In order to solve this, we just change it for Unix time in milliseconds.
+
+```csharp
+    if (firstTimestamp == 0)
+    {
+        firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    }
+    var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    accumulatedTime = (currentTimestamp - firstTimestamp);
+```
+
+And now that we deattached the time from Unity, at the moment, everything seemed to work as intended.
+
