@@ -28,7 +28,8 @@ MonoBehaviour:
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
-  executeAnimationDuration: 1
+  executeAnimationDuration: 1.5
   skillCircleRadius: 0
   skillConeAngle: 0
   arrowWidth: 0
+  skillAreaRadius: 3.5
