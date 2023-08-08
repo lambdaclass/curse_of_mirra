@@ -33,7 +33,7 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
 
     [SerializeField]
-    private MMF_Player backgroundMusic;
+    private PersistentBackgroundMusic backgroundMusic;
     private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
@@ -289,9 +289,9 @@ public class CustomLevelManager : LevelManager
         // Stop previous scene music
         soundManager.StopTrack(MMSoundManager.MMSoundManagerTracks.Music);
 
-        backgroundMusic.PlayFeedbacks();
-        soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
-        soundManager.MuteMaster();
+        //backgroundMusic.PlayFeedbacks();
+        // soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
+        // soundManager.MuteMaster();
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)

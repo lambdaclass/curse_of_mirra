@@ -960,6 +960,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4185892125426726782, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: AutomaticallyUnparentOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: camera
