@@ -224,10 +224,16 @@ Theory behing Interpolation is that we render an X amount of time in the past wh
 
 Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allows us to see what exactly is Interpolation attacking
 
+![](./videos/Interpolation_with_ghost.gif)
 
+The Player 2 that's behind is the one you're really seeing when you're playing, and the one that's in front it is showing the latest update you received from the server, as we saw, it looks choppy and sometimes jitters.
 
+How did we achieve this?. Basically we're doing a few things:
+1. We keep track of time that has passed since the first update
+2. We store the last 20 updates sent by the server
+3. We're *Interpolating* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
 
-
+All of this code is in the `EventsBuffer.cs`. Where you can change the delta interpolation time as you please. Remember, the delta interpolation time is how much time in the past you will render, if it's too high, you'll lying too much to your players.
 
 ## Action rate, hacky solution
 
