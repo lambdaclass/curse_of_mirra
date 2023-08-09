@@ -3,7 +3,7 @@ use crate::character::{Character, Name};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
 use crate::projectile::{self, Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
-use crate::tick_state::{MutablePlayer, MutablePlayers, TickState};
+use crate::tick_changes::{MutablePlayer, MutablePlayers, TickChanges};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
@@ -27,7 +27,7 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
-    world_tick_state: TickState,
+    world_tick_state: TickChanges,
 }
 
 #[derive(Clone, NifTuple)]
@@ -111,7 +111,7 @@ impl GameState {
                 x: board_height.div(2),
                 y: board_width.div(2),
             },
-            world_tick_state: TickState::new(),
+            world_tick_state: TickChanges::new(),
         })
     }
 
@@ -273,7 +273,7 @@ impl GameState {
     ) -> Vec<u64> {
         let mut players_in_range: Vec<u64> = vec![];
         for player in players {
-            if distance_between_positions(&player.position, attacking_position) <= range
+            if Position::distance_between(&player.position, attacking_position) <= range
                 && !matches!(player.status, Status::DEAD)
             {
                 players_in_range.push(player.id);
@@ -288,7 +288,7 @@ impl GameState {
     ) -> Vec<u64> {
         let mut players_in_range: Vec<u64> = vec![];
         for player in players {
-            if distance_between_positions(&(player.position()), attacking_position) <= range
+            if Position::distance_between(&(player.position()), attacking_position) <= range
                 && !matches!(player.status(), Status::DEAD)
             {
                 players_in_range.push(player.id());
@@ -327,7 +327,7 @@ impl GameState {
                         let intersection = Position::new(player.position.x, p1.y);
 
                         intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(player.into(), &intersection) <= radius)
+                        (Position::distance_between(&player.position, &intersection) <= radius)
                         // The player is near the intersection
                     }
                     false if p2.x == p1.x => {
@@ -335,7 +335,7 @@ impl GameState {
                         let intersection = Position::new(p1.x, player.position.y);
 
                         intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
                     }
                     _ => {
                         let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
@@ -350,14 +350,14 @@ impl GameState {
                         let intersection = Position::new(x as usize, y as usize);
 
                         x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
                     }
                 };
 
                 if player_attacked {
                     affected_players.insert(
                         player.id,
-                        distance_to_center(attacking_player, &player.position),
+                        Position::distance_between(&attacking_player.position, &player.position)
                     );
                 }
             });
@@ -462,7 +462,7 @@ impl GameState {
 
         for player in players {
             if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
-                let distance = distance_to_center(player, position);
+                let distance = Position::distance_between(&player.position, position);
                 if distance < nearest_distance && player.health <= lowest_hp {
                     lowest_hp = player.health;
                     nearest_player = Some((player.id, player.position));
@@ -919,7 +919,7 @@ impl GameState {
                     self.board.height,
                     self.board.width,
                 );
-                let distance = distance_between_positions(&attacking_player.position, &position);
+                let distance = Position::distance_between(&attacking_player.position, &position);
                 let time = distance * attacking_player.character.base_speed as f64 / 48.;
 
                 attacking_player.action = PlayerAction::STARTINGSKILL3;
@@ -1029,7 +1029,7 @@ impl GameState {
     }
 
     /// Move with a dash movement, mostly used on world tick.
-    fn world_tick_move_with_dash(
+    pub fn move_with_dash(
         dashing_player_position: &mut Position,
         dashing_player_speed: u64,
         dashing_player_id: u64,
@@ -1054,66 +1054,23 @@ impl GameState {
         Ok(())
     }
 
-    fn accumulate_dashing_effects(
-        world_tick_state: &mut TickState,
-        player: &MutablePlayer,
-        expired_effects: &[Effect],
-        players: &MutablePlayers,
-        board: &Board,
-    ) -> Result<(), String> {
-        match player.character().name {
-            Name::H4ck => {
-                let effect = player.fetch_effect(&Effect::NeonCrashing);
-                if let Some(effect) = effect {
-                    effect.direction.map(|direction| -> Result<(), String> {
-                        let speed = player.speed();
-                        GameState::world_tick_move_with_dash(
-                            &mut player.position(),
-                            speed,
-                            player.id(),
-                            players,
-                            &board,
-                            &mut world_tick_state.neon_crash_affected_players,
-                            &direction,
-                        )?;
-                        Ok(())
-                    });
-                }
-            }
-            Name::Muflus => {
-                if expired_effects.contains(&Effect::Leaping) {
-                    player.set_action(&PlayerAction::EXECUTINGSKILL3);
-                    world_tick_state.leap_affected_players = GameState::affected_players(
-                        player.skill_3_damage() as i64,
-                        450.,
-                        players.clone().into_iter().map(Into::into).collect(),
-                        &player.position(),
-                        player.id(),
-                    );
-                }
-            }
-            _ => {}
-        }
-
-        Ok(())
-    }
     pub fn world_tick(self: &mut Self) -> Result<(), String> {
-        self.world_tick_state = TickState::new();
+        self.world_tick_state = TickChanges::new();
+        let tick_changes = &mut self.world_tick_state;
         let mut players = self
             .players
             .clone()
             .into_iter()
             .map(|mut player| player.into())
             .collect::<Vec<MutablePlayer>>();
-        let now = self.world_tick_state.reference_time;
+        let now = tick_changes.reference_time;
         for player in players.iter() {
             // Store expired effects in case they have
             // some kind of consequence in the game, like muflus' leap.
             let expired_effects = player.world_tick_updates(&now)?;
             // Check if this player is dashing and register
             // the dash effects on the game.
-            GameState::accumulate_dashing_effects(
-                &mut self.world_tick_state,
+            tick_changes.accumulate_dashing_effects(
                 player,
                 &expired_effects,
                 &players,
@@ -1122,15 +1079,15 @@ impl GameState {
         }
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        GameState::attack_players_with_effect(
-            &mut self.world_tick_state.leap_affected_players,
+        tick_changes.attack_players_with_effect(
+            Effect::NeonCrashing,
             &mut players,
         )?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        GameState::attack_players_with_effect(
-            &mut self.world_tick_state.leap_affected_players,
+        tick_changes.attack_players_with_effect(
+            Effect::Leaping,
             &mut players,
         )?;
 
@@ -1139,21 +1096,23 @@ impl GameState {
         // - Update positions
         GameState::update_projectiles(&mut self.projectiles, self.board.height, self.board.width);
 
+        // Update what happens with each projectile.
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                self.world_tick_state.active_projectile_update(
+                tick_changes.active_projectile_update(
                     &players,
                     projectile,
                 );
             }
 
-            GameState::world_tick_attack_mirrored_player(
-                &mut self.world_tick_state.uma_mirroring_affected_players,
+            tick_changes.attack_mirrored_players(
                 &players,
             )?;
-            self.world_tick_state.uma_mirroring_affected_players.clear()
+            tick_changes.uma_mirroring_affected_players.clear()
         }
 
+        // Take the updates on players and put them into
+        // the GameState.
         self.players = players.into_iter().map(|player| player.into()).collect();
         self.check_and_damage_outside_playable();
         self.check_and_damage_poisoned_players();
@@ -1201,37 +1160,6 @@ impl GameState {
         });
     }
 
-    fn attack_players_with_effect(
-        affected_players: &HashMap<u64, (i64, Vec<u64>)>,
-        players: &mut MutablePlayers,
-    ) -> Result<(), String> {
-        let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        for (player_id, (damage, attacked_players)) in affected_players.iter() {
-            for target_player_id in attacked_players.iter() {
-                let attacked_player = players
-                    .get((target_player_id - 1) as usize)
-                    .expect("Player with invalid ID aborting!!!");
-                attacked_player.modify_health(-damage)
-            }
-        }
-        GameState::world_tick_attack_mirrored_player(&mut uma_mirroring_affected_players, players)?;
-        Ok(())
-    }
-
-    fn world_tick_attack_mirrored_player(
-        affected_players: &mut HashMap<u64, (i64, u64)>,
-        players: &MutablePlayers,
-    ) -> Result<(), String> {
-        for (_player_id, (damage, attacked_player_id)) in affected_players.iter() {
-            let attacked_player = players
-                .get((attacked_player_id - 1) as usize)
-                .expect("Player with invalid ID aborting!!!");
-            attacked_player.modify_health(-damage)
-        }
-
-        Ok(())
-    }
-
     fn attack_mirrored_player(
         affected_players: HashMap<u64, (i64, u64)>,
         players: &mut Vec<Player>,
@@ -1244,7 +1172,7 @@ impl GameState {
         Ok(())
     }
 
-    fn affected_players(
+    pub fn affected_players(
         attack_damage: i64,
         attack_range: f64,
         players: MutablePlayers,
@@ -1472,19 +1400,6 @@ fn compute_adjacent_position_n_tiles(
 //         }
 //     }
 // }
-
-#[allow(dead_code)]
-fn distance_to_center(player: &Player, center: &Position) -> f64 {
-    let distance_squared =
-        (player.position.x - center.x).pow(2) + (player.position.y - center.y).pow(2);
-    (distance_squared as f64).sqrt()
-}
-#[allow(dead_code)]
-fn distance_between_positions(position_1: &Position, position_2: &Position) -> f64 {
-    let distance_squared =
-        (position_1.x - position_2.x).pow(2) + (position_1.y - position_2.y).pow(2);
-    (distance_squared as f64).sqrt()
-}
 
 // We might want to abstract this into a Vector2 type or something, whatever.
 fn normalize_vector(x: f32, y: f32) -> (f32, f32) {

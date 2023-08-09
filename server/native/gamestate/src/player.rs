@@ -118,6 +118,13 @@ pub struct Position {
     pub y: usize,
 }
 
+impl Position {
+    pub fn distance_between(p1: &Self, p2: &Self) -> f64 {
+        let distance_squared = (p1.x - p2.x).pow(2) + (p1.y - p2.y).pow(2);
+        (distance_squared as f64).sqrt()
+    }
+}
+
 impl Player {
     pub fn new(id: u64, health: i64, position: Position, character: Character) -> Self {
         Self {

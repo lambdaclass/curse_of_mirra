@@ -1,12 +1,14 @@
 use crate::character::{Character, Name};
 use crate::game::{GameState, KillEvent};
+use crate::board::Board;
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
-use crate::projectile::{Projectile, ProjectileType, ProjectileStatus};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::time_utils::{time_now, MillisTime};
 use crate::utils::cmp_float;
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::cell::RefCell;
 use std::collections::HashMap;
+use std::ops::{Deref, Index};
 use std::rc::Rc;
 pub type MutablePlayers = Vec<MutablePlayer>;
 pub struct MutablePlayer {
@@ -25,7 +27,9 @@ impl From<MutablePlayer> for Player {
 }
 impl Clone for MutablePlayer {
     fn clone(&self) -> MutablePlayer {
-        return MutablePlayer{ inner: self.inner.clone() }
+        return MutablePlayer {
+            inner: self.inner.clone(),
+        };
     }
 }
 impl MutablePlayer {
@@ -108,9 +112,11 @@ impl MutablePlayer {
     }
 }
 
+/// Holds necessary data to update
+/// the GameState on each tick.
 #[derive(NifStruct)]
-#[module = "DarkWorldsServer.Engine.WorldTickState"]
-pub struct TickState {
+#[module = "DarkWorldsServer.Engine.WorldTickChanges"]
+pub struct TickChanges {
     // TODO:
     // There's a simple performance gain here,
     // we can use arrays/vectors instead of hashmaps,
@@ -122,9 +128,9 @@ pub struct TickState {
     pub tick_killed_events: Vec<KillEvent>,
     pub kill_count: Vec<u64>,
 }
-impl TickState {
-    pub fn new() -> TickState {
-        TickState {
+impl TickChanges {
+    pub fn new() -> TickChanges {
+        TickChanges {
             neon_crash_affected_players: HashMap::new(),
             leap_affected_players: HashMap::new(),
             uma_mirroring_affected_players: HashMap::new(),
@@ -138,8 +144,8 @@ impl TickState {
     /// on this tick.
     fn apply_projectile_on_player(
         &mut self,
-        attacking_player: MutablePlayer,
-        attacked_player: MutablePlayer,
+        attacking_player: &MutablePlayer,
+        attacked_player: &MutablePlayer,
         projectile: &mut Projectile,
     ) -> Result<(), String> {
         match projectile.projectile_type {
@@ -214,11 +220,104 @@ impl TickState {
                 .ok_or("Non valid ID")?;
 
             self.apply_projectile_on_player(
-                attacking_player.clone(),
-                attacked_player.clone(),
+                attacking_player,
+                attacked_player,
                 projectile,
             )?;
         }
+        Ok(())
+    }
+
+    pub fn attack_mirrored_players(&mut self, players: &MutablePlayers) -> Result<(), String> {
+        for (_player_id, (damage, attacked_player_id)) in
+            self.uma_mirroring_affected_players.iter_mut()
+        {
+            let attacked_player = players
+                .get((attacked_player_id.deref() - 1) as usize)
+                .expect("Player with invalid ID aborting!!!");
+            attacked_player.modify_health(-damage.deref())
+        }
+
+        Ok(())
+    }
+
+    pub fn world_tick_players_in_range(
+        players: MutablePlayers,
+        attacking_position: &Position,
+        range: f64,
+    ) -> Vec<u64> {
+        let mut players_in_range: Vec<u64> = vec![];
+        for player in players {
+            if Position::distance_between(&(player.position()), attacking_position) <= range
+                && !matches!(player.status(), Status::DEAD)
+            {
+                players_in_range.push(player.id());
+            }
+        }
+        players_in_range
+    }
+    pub fn attack_players_with_effect(
+        &mut self,
+        effect: Effect,
+        players: &mut MutablePlayers,
+    ) -> Result<(), String> {
+        let affected_players = match effect {
+            Effect::NeonCrashing => &self.neon_crash_affected_players,
+            Effect::Leaping => &self.leap_affected_players,
+            _ => todo!("Attack with effect not implemented for {effect:?}")
+        };
+        for (player_id, (damage, attacked_players)) in affected_players.iter() {
+            for target_player_id in attacked_players.iter() {
+                let attacked_player = players
+                    .get((target_player_id - 1) as usize)
+                    .expect("Player with invalid ID aborting!!!");
+                attacked_player.modify_health(-damage)
+            }
+        }
+        self.attack_mirrored_players(players)?;
+        Ok(())
+    }
+    pub fn accumulate_dashing_effects(
+        &mut self,
+        player: &MutablePlayer,
+        expired_effects: &[Effect],
+        players: &MutablePlayers,
+        board: &Board,
+    ) -> Result<(), String> {
+        match player.character().name {
+            Name::H4ck => {
+                let effect = player.fetch_effect(&Effect::NeonCrashing);
+                if let Some(effect) = effect {
+                    effect.direction.map(|direction| -> Result<(), String> {
+                        let speed = player.speed();
+                        GameState::move_with_dash(
+                            &mut player.position(),
+                            speed,
+                            player.id(),
+                            players,
+                            &board,
+                            &mut self.neon_crash_affected_players,
+                            &direction,
+                        )?;
+                        Ok(())
+                    });
+                }
+            }
+            Name::Muflus => {
+                if expired_effects.contains(&Effect::Leaping) {
+                    player.set_action(&PlayerAction::EXECUTINGSKILL3);
+                    self.leap_affected_players = GameState::affected_players(
+                        player.skill_3_damage() as i64,
+                        450.,
+                        players.clone().into_iter().map(Into::into).collect(),
+                        &player.position(),
+                        player.id(),
+                    );
+                }
+            }
+            _ => {}
+        }
+
         Ok(())
     }
 }
