@@ -290,11 +290,16 @@ message SkillConfigItem {
     string Projectile = 5;
     string SkillRange = 6;
     string Par1 = 7;
-    string Par2 = 8;
-    string Par3 = 9;
-    string Par4 = 10;
-    string Par5 = 11;
-    string Angle = 12;
+    string Par1Desc = 8;
+    string Par2 = 9;
+    string Par2Desc = 10;
+    string Par3 = 11;
+    string Par3Desc = 12;
+    string Par4 = 13;
+    string Par4Desc = 14;
+    string Par5 = 15;
+    string Par5Desc = 16;
+    string Angle = 17;
 }
 
 message ServerGameSettings {

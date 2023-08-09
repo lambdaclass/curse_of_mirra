@@ -413,16 +413,22 @@ defmodule LoadTest.Communication.Proto.SkillConfigItem do
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:Name, 1, type: :string)
-  field(:DoFunc, 2, type: :string)
-  field(:ButtonType, 3, type: :string)
-  field(:Cooldown, 4, type: :string)
-  field(:Damage, 5, type: :string)
-  field(:Status, 6, type: :string)
-  field(:Duration, 7, type: :string)
-  field(:Projectile, 8, type: :string)
-  field(:Minion, 9, type: :string)
-  field(:SkillRange, 10, type: :string)
-  field(:Angle, 11, type: :string)
+  field(:Cooldown, 2, type: :string)
+  field(:Damage, 3, type: :string)
+  field(:Duration, 4, type: :string)
+  field(:Projectile, 5, type: :string)
+  field(:SkillRange, 6, type: :string)
+  field(:Par1, 7, type: :string)
+  field(:Par1Desc, 8, type: :string)
+  field(:Par2, 9, type: :string)
+  field(:Par2Desc, 10, type: :string)
+  field(:Par3, 11, type: :string)
+  field(:Par3Desc, 12, type: :string)
+  field(:Par4, 13, type: :string)
+  field(:Par4Desc, 14, type: :string)
+  field(:Par5, 15, type: :string)
+  field(:Par5Desc, 16, type: :string)
+  field(:Angle, 17, type: :string)
 end
 
 defmodule LoadTest.Communication.Proto.ServerGameSettings do
