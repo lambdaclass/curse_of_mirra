@@ -20,9 +20,14 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     PlayerMovement playerMovement;
 
+    void Start()
+    {
+        GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically = false;
+    }
+
     public void ToggleClientPrediction()
     {
-        if (playerMovement && playerMovement.useClientPrediction)
+        if (playerMovement.useClientPrediction)
         {
             ToggleOn();
         }
