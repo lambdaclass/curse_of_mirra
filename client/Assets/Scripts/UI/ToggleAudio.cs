@@ -13,6 +13,8 @@ public class ToggleAudio : MonoBehaviour
     [SerializeField]
     private Slider volumeSlider;
 
+    private float unmutedVolume;
+
     private MMSoundManager soundManager;
     
     private Image muteButtonImage;
@@ -26,26 +28,30 @@ public class ToggleAudio : MonoBehaviour
     void Update()
     {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
-            muteButtonImage.overrideSprite = mutedSprite;
+            print("Update() IsMuted -> false");
+            muteButtonImage.overrideSprite = unmutedSprite;
         }
         else
         {
-            muteButtonImage.overrideSprite = unmutedSprite;
+            print("Update() IsMuted -> true");
+            muteButtonImage.overrideSprite = mutedSprite;
         }
     }
 
     public void Toggle()
     {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
+            print("Toggle() IsMuted -> false");
             SilenceSound();
             muteButtonImage.overrideSprite = mutedSprite;
         }
         else
         {
+            print("Toggle() IsMuted -> true");
             PlaySound();
             muteButtonImage.overrideSprite = unmutedSprite;
         }
@@ -55,6 +61,7 @@ public class ToggleAudio : MonoBehaviour
     {
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
+        //soundManager.SetVolumeMaster(0.0001f);
     }
 
     private void PlaySound()
@@ -72,5 +79,10 @@ public class ToggleAudio : MonoBehaviour
         } else {
             soundManager.SetVolumeMaster(1f);
         }
+    }
+
+    private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
+    {
+        return !soundManager.IsMuted(track) || soundManager.GetTrackVolume(track, false) <= 0.0001f;
     }
 }
