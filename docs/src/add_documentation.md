@@ -2,7 +2,7 @@
 
 ## Install mdbook
 
-☝️🤓 First make sure you have installed mdbook in your machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if you dont, install it with the following:
+☝️🤓 First make sure you have installed mdbook in your machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if you don't, install it with the following:
 
 ```
 cargo install mdbook
@@ -18,7 +18,7 @@ In the root of the project type:
 ```
 cd docs/src
 ```
-Inside the `src` folder create your markdown document ( without curly braces ).
+Inside the `src` folder create your markdown document (without curly braces).
 ```
 touch {your_page_name}.md
 open {your_page_name}.md
