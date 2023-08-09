@@ -816,7 +816,6 @@ public class Battle : MonoBehaviour
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
             characterSpeed *= 0.5f;
-            print("scherzo");
         }
 
         // TODO: Temporary out of area feedback. Refactor!
