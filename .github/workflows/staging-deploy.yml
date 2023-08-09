@@ -1,6 +1,8 @@
 name: Deploy to Europe staging
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - staging-env
   release:
     types:
       - created

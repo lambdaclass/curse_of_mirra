@@ -1,6 +1,8 @@
 name: Deploy to Brazil staging
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - staging-env
   release:
     types:
       - created
