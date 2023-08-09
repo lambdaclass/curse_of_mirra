@@ -910,7 +910,10 @@ impl GameState {
             return Ok(());
         }
 
-        if attacking_player.has_active_effect(&Effect::Paralyzed) && (attacking_player.character.name == Name::H4ck || attacking_player.character.name == Name::Muflus) {
+        if attacking_player.has_active_effect(&Effect::Paralyzed)
+            && (attacking_player.character.name == Name::H4ck
+                || attacking_player.character.name == Name::Muflus)
+        {
             return Ok(());
         }
 
