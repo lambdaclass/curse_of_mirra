@@ -230,7 +230,7 @@ impl GameState {
 
         let speed = player.speed() as i64;
         let direction = RelativePosition { x, y };
-        GameState::move_player_to_direction(
+        player.position = GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
             &direction,
@@ -305,14 +305,16 @@ impl GameState {
                         let intersection = Position::new(player.position.x, p1.y);
 
                         intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius)
+                        // The player is near the intersection
                     }
                     false if p2.x == p1.x => {
                         // The projectile is moving horizontally
                         let intersection = Position::new(p1.x, player.position.y);
 
                         intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
-                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius)
+                        // The player is near the intersection
                     }
                     _ => {
                         let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
@@ -327,7 +329,8 @@ impl GameState {
                         let intersection = Position::new(x as usize, y as usize);
 
                         x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
-                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius)
+                        // The player is near the intersection
                     }
                 };
 
@@ -738,11 +741,14 @@ impl GameState {
         // TODO: This should be a config of the attack
         let attack_range: f64 = attacking_player.skill_1_range();
 
-        let mut affected_players: Vec<u64> =
-            TickChanges::world_tick_players_in_range(pys.into_iter().map(Into::into).collect_vec(), &attacking_player.position, attack_range)
-                .into_iter()
-                .filter(|&id| id != attacking_player_id)
-                .collect();
+        let mut affected_players: Vec<u64> = TickChanges::world_tick_players_in_range(
+            pys.into_iter().map(Into::into).collect_vec(),
+            &attacking_player.position,
+            attack_range,
+        )
+        .into_iter()
+        .filter(|&id| id != attacking_player_id)
+        .collect();
 
         for target_player_id in affected_players.iter_mut() {
             // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
@@ -1304,7 +1310,11 @@ impl GameState {
         let duration = u128_to_millis(3_600_000); // 1 hour
         let ends_at = add_millis(now, time_left);
         let player_ids_in_playable = TickChanges::world_tick_players_in_range(
-            self.players.clone().into_iter().map(Into::into).collect::<Vec<MutablePlayer>>(),
+            self.players
+                .clone()
+                .into_iter()
+                .map(Into::into)
+                .collect::<Vec<MutablePlayer>>(),
             &self.shrinking_center,
             self.playable_radius as f64,
         );
