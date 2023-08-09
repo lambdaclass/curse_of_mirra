@@ -32,7 +32,7 @@ defmodule DarkWorldsServerWeb.GameController do
         server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
         json(conn, %{
-          ongoing_game: true,
+          ongoing_game: game_status != :game_finished,
           on_character_selection: game_status == :character_selection,
           # We add 1 because when the reconnect happens it will increase by 1
           player_count: player_count + 1,
