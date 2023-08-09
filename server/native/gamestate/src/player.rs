@@ -39,6 +39,7 @@ pub enum Effect {
     Slowed,
     FieryRampage,
     Burned,
+    Paralyzed,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -352,6 +353,7 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+            && !self.has_active_effect(&Effect::Paralyzed)
     }
 
     pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {

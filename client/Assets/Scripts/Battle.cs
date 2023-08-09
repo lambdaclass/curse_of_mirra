@@ -850,6 +850,11 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            characterSpeed = 0f;
+        }
+
         return characterSpeed;
     }
 

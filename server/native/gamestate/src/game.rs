@@ -1238,7 +1238,7 @@ impl GameState {
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(
-                                Effect::Disarmed,
+                                Effect::Paralyzed,
                                 EffectData {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),

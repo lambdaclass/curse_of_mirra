@@ -94,6 +94,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:SLOWED, 12)
   field(:FIERY_RAMPAGE, 13)
   field(:BURNED, 14)
+  field(:PARALYZED, 15)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
