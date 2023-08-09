@@ -1,14 +1,13 @@
 use crate::character::{Character, Name};
 use crate::game::{GameState, KillEvent};
 use crate::board::Board;
-use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
-use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
+use crate::{player::{Effect, EffectData, Player, PlayerAction, Position, Status}, projectile::{Projectile, ProjectileStatus, ProjectileType}};
 use crate::time_utils::{time_now, MillisTime};
 use crate::utils::cmp_float;
-use rustler::{NifStruct, NifTuple, NifUnitEnum};
+use rustler::NifStruct;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use std::ops::{Deref, Index};
+use std::ops::Deref;
 use std::rc::Rc;
 pub type MutablePlayers = Vec<MutablePlayer>;
 pub struct MutablePlayer {
@@ -266,7 +265,7 @@ impl TickChanges {
             Effect::Leaping => &self.leap_affected_players,
             _ => todo!("Attack with effect not implemented for {effect:?}")
         };
-        for (player_id, (damage, attacked_players)) in affected_players.iter() {
+        for (_player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {
                 let attacked_player = players
                     .get((target_player_id - 1) as usize)

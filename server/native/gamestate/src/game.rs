@@ -1,13 +1,13 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status, StatusEffects};
-use crate::projectile::{self, Projectile, ProjectileStatus, ProjectileType};
+use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
+use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::tick_changes::{MutablePlayer, MutablePlayers, TickChanges};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
-use crate::utils::{cmp_float, RelativePosition};
+use crate::utils::{RelativePosition};
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
 use std::cmp::{max, min};
@@ -15,7 +15,6 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 use std::f32::consts::PI;
 use std::ops::{Div, Mul};
-use std::rc::Rc;
 #[derive(NifStruct)]
 #[module = "DarkWorldsServer.Engine.Game"]
 pub struct GameState {
@@ -1061,7 +1060,7 @@ impl GameState {
             .players
             .clone()
             .into_iter()
-            .map(|mut player| player.into())
+            .map(|player| player.into())
             .collect::<Vec<MutablePlayer>>();
         let now = tick_changes.reference_time;
         for player in players.iter() {
@@ -1102,7 +1101,7 @@ impl GameState {
                 tick_changes.active_projectile_update(
                     &players,
                     projectile,
-                );
+                )?;
             }
 
             tick_changes.attack_mirrored_players(
