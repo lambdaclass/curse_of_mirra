@@ -233,16 +233,15 @@ public class LobbyConnection : MonoBehaviour
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
             {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
                 case UnityWebRequest.Result.Success:
                     Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
                     ConnectToSession(session.lobby_id);
+                    break;
+                default:
+                    this.errorConnection = true;
                     break;
             }
         }
@@ -259,15 +258,14 @@ public class LobbyConnection : MonoBehaviour
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
             {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
                 case UnityWebRequest.Result.Success:
                     var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
+                    break;
+                default:
+                    this.errorConnection = true;
                     break;
             }
         }
@@ -292,6 +290,7 @@ public class LobbyConnection : MonoBehaviour
                     gamesList = response.current_games;
                     break;
                 default:
+                    this.errorConnection = true;
                     break;
             }
         }
@@ -345,10 +344,7 @@ public class LobbyConnection : MonoBehaviour
         string url = makeWebsocketUrl("/matchmaking/" + session_id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnError += (e) =>
-        {
-            Debug.Log("Error received: " + e);
-        };
+        ws.OnClose += onWebsocketClose;
         ws.OnOpen += () =>
         {
             LobbySession = session_id;
@@ -409,6 +405,15 @@ public class LobbyConnection : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
+        }
+    }
+
+    private void onWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            this.errorConnection = true;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
