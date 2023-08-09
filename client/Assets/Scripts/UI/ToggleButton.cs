@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Tools;
@@ -30,6 +27,20 @@ public class ToggleButton : MonoBehaviour
         if (playerMovement.useClientPrediction)
         {
             ToggleOn();
+            state.text = "On";
+        }
+        else
+        {
+            ToggleOff();
+            state.text = "Off";
+        }
+    }
+
+    public void ToggleWithSiblingComponentBool(bool value)
+    {
+        if (value)
+        {
+            ToggleOn();
         }
         else
         {
@@ -40,12 +51,10 @@ public class ToggleButton : MonoBehaviour
     public void ToggleOn()
     {
         GetComponent<Image>().sprite = selectedButton;
-        state.text = "On";
     }
 
     public void ToggleOff()
     {
         GetComponent<Image>().sprite = notSelectedButton;
-        state.text = "Off";
     }
 }
