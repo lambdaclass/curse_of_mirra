@@ -813,6 +813,12 @@ public class Battle : MonoBehaviour
             }
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
+        {
+            characterSpeed *= 0.5f;
+            print("scherzo");
+        }
+
         // TODO: Temporary out of area feedback. Refactor!
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
         {
@@ -852,6 +858,7 @@ public class Battle : MonoBehaviour
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
         {
             characterSpeed *= 0.5f;
+            print("slowed");
         }
         else if (
             playerUpdate.CharacterName == "H4ck"
