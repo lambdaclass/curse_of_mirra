@@ -11,3 +11,5 @@
 - [Simulating high latency](./simulating_latency.md)
 - [Common Pitfalls](./common_pitfalls.md)
 - [Unity Animations](./animations.md)
+  - [Skill.cs](./skill.md)
+  - [How to map the animations](./how_to_add_anim.md)

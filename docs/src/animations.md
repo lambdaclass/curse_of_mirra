@@ -2,15 +2,15 @@
 
 ## Quick overview
 
-##### The animator
+#### The animator
 
 The animator is the nterface to control the Mecanim animation system. We use it to add the animations and create a flow within them.
 
-##### Animation
+#### Animation
 
 The animation component is used to play animation clips, which are movement keyframes of the object we want to animate.
 
-##### Transitions
+#### Transitions
 
 Animation transitions allow the state machine to switch or blend from one animation state to another. We can use differents parameters to make a transition happend. Such as booleans, floats, etc.
 
@@ -42,7 +42,7 @@ We use a specific list of parameters for our transitions
 
 Lets deep into how we use the animations to match with our backend, the scripts we use and more. The main scripts that participate in the animation flow are:
 
-- `Skillinfo.cs` an ScriptableObject with the skill information, here what we care about are the fields `hasModelAnimation`, `startAnimationDuration` , `executeAnimationDuration` and `animationSpeedMultiplier`. these talks about them later but keep them in mind.
+- `Skillinfo.cs` an ScriptableObject with the skill information, here what we care about are the fields `hasModelAnimation`, `startAnimationDuration` , `executeAnimationDuration` and `animationSpeedMultiplier` fields. Lets talk about them later, keep them in mind.
 
 - `Skill.cs` This is a really importart script, here we control the complete flow of the animations ( Play, Stop, Block movements, etc )
 
@@ -53,12 +53,13 @@ Lets deep into how we use the animations to match with our backend, the scripts 
 ### SkillInfo fields
 
 - `hasModelAnimation` allows the animation to start and execute it. If this is not true you would have to start the animation manually. It can be useful to have it false with animations like walking where you want them to play constantly.
+
 - `executeAnimationDuration` Determinates the time that the animation will be played
+
 - `startAnimationDuration` Determinates the time to start the animation
 - `animationSpeedMultiplier` Determinate the play speed of the animation ( used in the transition parameters if it is set )
 
 ### Skill.cs
 
 In this scripts is where all the magic happends. It has all the scripts to Start, Execute, Stop , Change the animations. I believe this script leads to a separeted guide. So for now have in mind that all the logic of flows happends here.
-
-### How to Map the animations to a new character
+[Skill.cs docs](./skill.md)
