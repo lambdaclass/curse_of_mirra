@@ -56,6 +56,12 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene("Lobby");
     }
 
+    public void Reconnect()
+    {
+        LobbyConnection.Instance.Reconnect();
+        SceneManager.LoadScene("CharacterSelection");
+    }
+
     public IEnumerator WaitForLobbyJoin()
     {
         LobbyConnection.Instance.ConnectToLobby(listItem.idHash);

@@ -47,6 +47,9 @@ public class SocketConnectionManager : MonoBehaviour
 
     WebSocket ws;
 
+    private string clientId;
+    private bool reconnect;
+
     public class Session
     {
         public string session_id { get; set; }
@@ -74,8 +77,15 @@ public class SocketConnectionManager : MonoBehaviour
             this.server_ip = LobbyConnection.Instance.server_ip;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
             this.serverHash = LobbyConnection.Instance.serverHash;
+            this.clientId = LobbyConnection.Instance.clientId;
+            this.reconnect = LobbyConnection.Instance.reconnect;
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
+
+            if (this.reconnect) {
+                this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
+                this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
+            }
         }
     }
 
@@ -98,7 +108,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string session_id)
     {
-        string url = makeWebsocketUrl("/play/" + session_id + "/" + playerId);
+        string url = makeWebsocketUrl("/play/" + session_id + "/" + this.clientId + "/" + playerId);
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
@@ -125,6 +135,7 @@ public class SocketConnectionManager : MonoBehaviour
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < game_event.Players.Count
+                        && SpawnBot.Instance != null
                     )
                     {
                         game_event.Players
