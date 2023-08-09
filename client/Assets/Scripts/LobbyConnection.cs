@@ -28,6 +28,18 @@ public class LobbyConnection : MonoBehaviour
     public ServerGameSettings serverSettings;
 
     public bool gameStarted = false;
+    public bool errorConnection = false;
+    public bool errorOngoingGame = false;
+    public string clientId;
+    public bool reconnect = false;
+    public bool reconnectPossible = false;
+    public bool reconnectToCharacterSelection = false;
+    public int reconnectPlayerCount;
+    public string reconnectServerHash;
+    public string reconnectGameId;
+    public ulong reconnectPlayerId;
+    public Dictionary<ulong, string> reconnectPlayers;
+    public ServerGameSettings reconnectServerSettings;
 
     WebSocket ws;
 
@@ -49,6 +61,34 @@ public class LobbyConnection : MonoBehaviour
         public List<string> current_games;
     }
 
+    [Serializable]
+    public class CurrentGameResponse
+    {
+        public bool ongoing_game;
+        public bool on_character_selection;
+        public int player_count;
+        public string server_hash;
+        public string current_game_id;
+        public ulong current_game_player_id;
+        public List<Player> players;
+        public Configs game_config;
+
+        [Serializable]
+        public class Player
+        {
+            public ulong id;
+            public string character_name;
+        }
+
+        [Serializable]
+        public class Configs
+        {
+            public string runner_config;
+            public string character_config;
+            public string skills_config;
+        }
+    }
+
     class AcceptAllCertificates : CertificateHandler
     {
         protected override bool ValidateCertificate(byte[] certificateData)
@@ -60,6 +100,8 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
+        LoadClientId();
+        MaybeReconnect();
         PopulateLists();
     }
 
@@ -100,6 +142,22 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetGames());
     }
 
+    private void LoadClientId()
+    {
+        if (!PlayerPrefs.HasKey("client_id"))
+        {
+            Guid g = Guid.NewGuid();
+            PlayerPrefs.SetString("client_id", g.ToString());
+        }
+
+        this.clientId = PlayerPrefs.GetString("client_id");
+    }
+
+    private void MaybeReconnect()
+    {
+        StartCoroutine(GetCurrentGame());
+    }
+
     public void CreateLobby()
     {
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
@@ -116,6 +174,7 @@ public class LobbyConnection : MonoBehaviour
         this.server_ip = SelectServerIP.GetServerIp();
         this.server_name = SelectServerIP.GetServerName();
         PopulateLists();
+        MaybeReconnect();
     }
 
     public void QuickGame()
@@ -144,6 +203,18 @@ public class LobbyConnection : MonoBehaviour
             var msg = stream.ToArray();
             ws.Send(msg);
         }
+    }
+
+    public void Reconnect()
+    {
+        this.reconnect = true;
+        this.GameSession = this.reconnectGameId;
+        this.playerId = this.reconnectPlayerId;
+        this.serverSettings = this.reconnectServerSettings;
+        this.serverTickRate_ms = (uint)this.serverSettings.RunnerConfig.ServerTickrateMs;
+        this.serverHash = this.reconnectServerHash;
+        this.playerCount = this.reconnectPlayerCount;
+        this.gameStarted = true;
     }
 
     private IEnumerator WaitLobbyCreated()
@@ -219,6 +290,49 @@ public class LobbyConnection : MonoBehaviour
                         webRequest.downloadHandler.text
                     );
                     gamesList = response.current_games;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    IEnumerator GetCurrentGame()
+    {
+        string url = makeUrl("/player_game/" + this.clientId);
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    CurrentGameResponse response = JsonUtility.FromJson<CurrentGameResponse>(
+                        webRequest.downloadHandler.text
+                    );
+
+                    if (response.ongoing_game)
+                    {
+                        this.reconnectPossible = true;
+                        this.reconnectToCharacterSelection = response.on_character_selection;
+                        this.reconnectPlayerCount = response.player_count;
+                        this.reconnectGameId = response.current_game_id;
+                        this.reconnectPlayerId = response.current_game_player_id;
+                        this.reconnectPlayerCount = response.player_count;
+                        this.reconnectServerHash = response.server_hash;
+
+                        this.reconnectPlayers = new Dictionary<ulong, string>();
+                        response.players.ForEach(
+                            player => this.reconnectPlayers.Add(player.id, player.character_name)
+                        );
+
+                        this.reconnectServerSettings = parseReconnectServerSettings(
+                            response.game_config
+                        );
+                        this.errorOngoingGame = true;
+                    }
                     break;
                 default:
                     break;
@@ -333,5 +447,25 @@ public class LobbyConnection : MonoBehaviour
     public bool isConnectionOpen()
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
+    }
+
+    private ServerGameSettings parseReconnectServerSettings(CurrentGameResponse.Configs configs)
+    {
+        JsonParser parser = new JsonParser(new JsonParser.Settings(100000)); //GameSettings
+
+        RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
+            configs.runner_config.TrimStart('\uFEFF')
+        );
+        CharacterConfig characters = parser.Parse<CharacterConfig>(
+            configs.character_config.TrimStart('\uFEFF')
+        );
+        SkillsConfig skills = parser.Parse<SkillsConfig>(configs.skills_config.TrimStart('\uFEFF'));
+
+        return new ServerGameSettings
+        {
+            RunnerConfig = parsedRunner,
+            CharacterConfig = characters,
+            SkillsConfig = skills,
+        };
     }
 }
