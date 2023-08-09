@@ -34,6 +34,7 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     private PersistentBackgroundMusic backgroundMusic;
+
     private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
@@ -91,7 +92,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
-        InitializeAudio();
+        MMSoundManager.Instance.FreeAllSounds();
     }
 
     void Update()
@@ -280,18 +281,6 @@ public class CustomLevelManager : LevelManager
         playerToFollow = alivePlayers.ElementAt(0);
 
         setCameraToPlayer(playerToFollow.Id);
-    }
-
-    private void InitializeAudio()
-    {
-        var soundManager = MMSoundManager.Instance;
-
-        // Stop previous scene music
-        soundManager.StopTrack(MMSoundManager.MMSoundManagerTracks.Music);
-
-        //backgroundMusic.PlayFeedbacks();
-        // soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
-        // soundManager.MuteMaster();
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)

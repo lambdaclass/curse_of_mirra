@@ -9,8 +9,12 @@ public class ToggleAudio : MonoBehaviour
 
     [SerializeField]
     public Sprite unmutedSprite;
-    private MMSoundManager soundManager;
+    
+    [SerializeField]
+    private Slider volumeSlider;
 
+    private MMSoundManager soundManager;
+    
     private Image muteButtonImage;
 
     void Start()
@@ -56,7 +60,17 @@ public class ToggleAudio : MonoBehaviour
     private void PlaySound()
     {
         soundManager.UnmuteMaster();
-        soundManager.SetVolumeMaster(1);
+        SetVolume();
+        //soundManager.SetVolumeMaster(1f);
         soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
+    }
+
+    private void SetVolume()
+    {
+        if(volumeSlider != null) {
+            soundManager.SetVolumeMaster(volumeSlider.value);
+        } else {
+            soundManager.SetVolumeMaster(1f);
+        }
     }
 }

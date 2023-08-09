@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b40e925b573770499e28eae3c7fd038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutomaticallyUnparentOnAwake: 0
+  AutomaticallyUnparentOnAwake: 1
   SoundClip: {fileID: 8300000, guid: 898360411a9c7472899cd0cc8f837726, type: 3}
   Loop: 1
 --- !u!1 &1070930919
