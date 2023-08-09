@@ -8,10 +8,10 @@
 cargo install mdbook
 cargo install mdbook-mermaid
 ```
-Now you are ready to continue , for more information check the mdbook [mdbook docs](https://rust-lang.github.io/mdBook/).
+Now you are ready to continue, for more information check the mdbook [mdbook docs](https://rust-lang.github.io/mdBook/).
 
 ## Create a new section
-If you want to add a new documentation page it is pretty simple , follow the steps bellow
+If you want to add a new documentation page it is pretty simple, follow the steps bellow
 
 ### Using the Command Line :
 In the root of the project type:
