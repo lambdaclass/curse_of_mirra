@@ -1392,7 +1392,7 @@ PrefabInstance:
     - target: {fileID: 3588419606031734362, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3588419606031734362, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1402,12 +1402,22 @@ PrefabInstance:
     - target: {fileID: 3588419606031734362, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3588419606031734362, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616936810601058186, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1302669239}
+    - target: {fileID: 3616936810601058186, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleClientPrediction
       objectReference: {fileID: 0}
     - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1587,7 +1597,7 @@ PrefabInstance:
     - target: {fileID: 6931199597341928760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6931199597341928760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -1597,7 +1607,12 @@ PrefabInstance:
     - target: {fileID: 6931199597341928760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931199597341928760, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961978296768111840, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
