@@ -14,6 +14,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
+    public Vector3? lastPosition = null;
     public bool showClientPredictionGhost;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -333,6 +334,25 @@ public class Battle : MonoBehaviour
                 Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
                     gameProjectiles[i].Position
                 );
+
+                if (lastPosition == null)
+                {
+                    lastPosition = new Vector3(
+                        backToFrontPosition.x,
+                        backToFrontPosition.y,
+                        backToFrontPosition.z
+                    );
+                }
+                else
+                {
+                    print("The last position was: " + lastPosition);
+                    print("The current position is: " + backToFrontPosition);
+                    lastPosition = new Vector3(
+                        backToFrontPosition.x,
+                        backToFrontPosition.y,
+                        backToFrontPosition.z
+                    );
+                }
 
                 // TODO: We need to figure out how to use this. To make the movemete more fluid.
                 // float xChange = backToFrontPosition.x - projectile.transform.position.x;

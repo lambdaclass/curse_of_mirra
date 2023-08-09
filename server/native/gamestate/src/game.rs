@@ -301,6 +301,8 @@ impl GameState {
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
+        dbg!(previous_position);
+        dbg!(next_position);
         let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
 
         let (p1, p2) = match previous_position.x < next_position.x {
@@ -317,38 +319,44 @@ impl GameState {
             })
             .for_each(|player| {
                 let radius = player.character.body_size;
+                let player_attacked ;
+                if (distance_between_positions(&previous_position, &player.position) <= radius) {
+                    player_attacked = true;
+                } else if (distance_between_positions(&next_position, &player.position) <= radius) {
+                    player_attacked = true;
+                } else {
+                    player_attacked = match p2.y == p1.y {
+                        true => {
+                            // The projectile is moving vertically
+                            let intersection = Position::new(player.position.x, p1.y);
 
-                let player_attacked = match p2.y == p1.y {
-                    true => {
-                        // The projectile is moving vertically
-                        let intersection = Position::new(player.position.x, p1.y);
-
-                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
+                            intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
                         (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    false if p2.x == p1.x => {
-                        // The projectile is moving horizontally
-                        let intersection = Position::new(p1.x, player.position.y);
+                        }
+                        false if p2.x == p1.x => {
+                            // The projectile is moving horizontally
+                            let intersection = Position::new(p1.x, player.position.y);
 
-                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
+                            intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
                         (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    _ => {
-                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
-                        let perpendicular_slope = -1f32 / slope;
-                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
-                        let perpendicular_intercept = player.position.y as f32
-                            - (perpendicular_slope as f32 * player.position.x as f32);
+                        }
+                        _ => {
+                            let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
+                            let perpendicular_slope = -1f32 / slope;
+                            let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
+                            let perpendicular_intercept = player.position.y as f32
+                                - (perpendicular_slope as f32 * player.position.x as f32);
 
-                        let x =
-                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
-                        let y = slope * x + intercept;
-                        let intersection = Position::new(x as usize, y as usize);
+                            let x = (perpendicular_intercept - intercept)
+                                / (slope - perpendicular_slope);
+                            let y = slope * x + intercept;
+                            let intersection = Position::new(x as usize, y as usize);
 
-                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
+                            x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
                         (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                };
+                        }
+                    };
+                }
 
                 if player_attacked {
                     affected_players.insert(
@@ -883,11 +891,11 @@ impl GameState {
                 *next_projectile_id,
                 attacking_player.position,
                 RelativePosition::new(direction.x as f32, direction.y as f32),
-                140,
+                5,
                 10,
                 attacking_player.id,
                 attacking_player.skill_2_damage(),
-                100,
+                5000,
                 ProjectileType::DISARMINGBULLET,
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
