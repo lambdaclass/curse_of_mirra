@@ -1,6 +1,6 @@
-# Skill.cs
+# Skill.cs Animations
 
-Lets start by explaining the differents methods we have in this script, no all of them but the ones we care to handle animations.
+Lets start by explaining the differents methods we have in this script, since this script handle more things than just animations, lets focus only in the methods and flow of the animations.
 
 `SetSkill` 
 
