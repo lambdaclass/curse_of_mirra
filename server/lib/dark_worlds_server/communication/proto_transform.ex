@@ -1,4 +1,5 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
+  alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
@@ -246,6 +247,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%ProtoPlayerInformation{} = player_information, ProtoPlayerInformation) do
     player_information
+  end
+
+  def encode(loot, LootPackage) do
+    %LootPackage{id: loot.id, loot_type: loot_type_encode(loot.loot_type), position: loot.position}
   end
 
   ###########
@@ -514,4 +519,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:slowed, %{ends_at: ends_at}}), do: {12, ends_at}
   defp effect_encode({:fiery_rampage, %{ends_at: ends_at}}), do: {13, ends_at}
   defp effect_encode({:burned, %{ends_at: ends_at}}), do: {14, ends_at}
+
+  defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
 end

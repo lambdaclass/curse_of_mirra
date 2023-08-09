@@ -41,6 +41,7 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:SELECT_CHARACTER, 12)
   field(:ENABLE_BOTS, 13)
   field(:DISABLE_BOTS, 14)
+  field(:TAKE_LOOT, 15)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -128,6 +129,15 @@ defmodule DarkWorldsServer.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule DarkWorldsServer.Communication.Proto.LootType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:LOOT_TYPE_UNSPECIFIED, 0)
+  field(:LOOT_HEALTH, 1)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
@@ -171,6 +181,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameEvent do
     type: DarkWorldsServer.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
+
+  field(:loots, 13, repeated: true, type: DarkWorldsServer.Communication.Proto.LootPackage)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -309,6 +321,8 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
+
+  field(:loot_id, 8, type: :uint64, json_name: "lootId")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -531,6 +545,23 @@ defmodule DarkWorldsServer.Communication.Proto.MillisTime do
 
   field(:high, 1, type: :uint64)
   field(:low, 2, type: :uint64)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.LootPackage do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:position, 2, type: DarkWorldsServer.Communication.Proto.Position)
+
+  field(:loot_type, 3,
+    type: DarkWorldsServer.Communication.Proto.LootType,
+    json_name: "lootType",
+    enum: true
+  )
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

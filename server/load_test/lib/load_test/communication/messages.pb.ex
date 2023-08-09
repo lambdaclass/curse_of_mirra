@@ -41,6 +41,7 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:SELECT_CHARACTER, 12)
   field(:ENABLE_BOTS, 13)
   field(:DISABLE_BOTS, 14)
+  field(:TAKE_LOOT, 15)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -128,6 +129,15 @@ defmodule LoadTest.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule LoadTest.Communication.Proto.LootType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:LOOT_TYPE_UNSPECIFIED, 0)
+  field(:LOOT_HEALTH, 1)
+end
+
 defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
@@ -165,6 +175,8 @@ defmodule LoadTest.Communication.Proto.GameEvent do
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
+
+  field(:loots, 13, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
@@ -284,6 +296,8 @@ defmodule LoadTest.Communication.Proto.ClientAction do
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
+
+  field(:loot_id, 8, type: :uint64, json_name: "lootId")
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEvent do
@@ -478,4 +492,19 @@ defmodule LoadTest.Communication.Proto.MillisTime do
 
   field(:high, 1, type: :uint64)
   field(:low, 2, type: :uint64)
+end
+
+defmodule LoadTest.Communication.Proto.LootPackage do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:position, 2, type: LoadTest.Communication.Proto.Position)
+
+  field(:loot_type, 3,
+    type: LoadTest.Communication.Proto.LootType,
+    json_name: "lootType",
+    enum: true
+  )
 end
