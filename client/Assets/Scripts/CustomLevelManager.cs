@@ -33,7 +33,7 @@ public class CustomLevelManager : LevelManager
     private List<Player> gamePlayers;
 
     [SerializeField]
-    private PersistentBackgroundMusic backgroundMusic;
+    private BackgroundMusic backgroundMusic;
 
     private bool isMuted;
     private ulong totalPlayers;
@@ -93,6 +93,7 @@ public class CustomLevelManager : LevelManager
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         MMSoundManager.Instance.FreeAllSounds();
+        MMSoundManagerSoundPlayEvent.Trigger(backgroundMusic.SoundClip, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position);
     }
 
     void Update()
