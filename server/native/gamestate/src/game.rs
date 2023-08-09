@@ -910,6 +910,10 @@ impl GameState {
             return Ok(());
         }
 
+        if attacking_player.has_active_effect(&Effect::Paralyzed) && (attacking_player.character.name == Name::H4ck || attacking_player.character.name == Name::Muflus) {
+            return Ok(());
+        }
+
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;

@@ -520,8 +520,6 @@ public class Battle : MonoBehaviour
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
 
-        // var inputFromVirtualJoystick = joystickL is not null;
-
         bool walking = false;
 
         if (useClientPrediction)
@@ -544,6 +542,8 @@ public class Battle : MonoBehaviour
                 );
             }
         }
+
+        walking = walking && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed);
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
