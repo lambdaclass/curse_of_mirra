@@ -301,6 +301,7 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             this.errorConnection = true;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
