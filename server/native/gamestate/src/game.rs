@@ -116,7 +116,7 @@ impl GameState {
             next_projectile_id: 0,
             playable_radius,
             shrinking_center,
-            world_tick_state: TickChanges::new()
+            world_tick_state: TickChanges::new(),
         })
     }
 
@@ -274,11 +274,7 @@ impl GameState {
             .ok_or(format!("Given id ({player_id}) is not valid"))
     }
 
-    // Return all player_id in range and not dead
     pub fn players_in_range(
-        players: &[Player],
-        attacking_position: &Position,
-        range: f64
         attacking_player_id: u64,
         players: &Vec<Player>,
         previous_position: Position,
@@ -286,9 +282,7 @@ impl GameState {
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
-        let attacking_player = players
-            .get((attacking_player_id - 1) as usize)
-            .expect("Non-valid player id!");
+        let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
 
         let (p1, p2) = match previous_position.x < next_position.x {
             true => (previous_position, next_position),
@@ -298,8 +292,10 @@ impl GameState {
         };
 
         players
-            .into_iter()
-            .filter(|player| player.is_alive() && player.id != attacking_player_id)
+            .iter()
+            .filter(|player| {
+                matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
+            })
             .for_each(|player| {
                 let radius = player.character.body_size;
 
@@ -309,8 +305,7 @@ impl GameState {
                         let intersection = Position::new(player.position.x, p1.y);
 
                         intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (Position::distance_between(&player.position, &intersection) <= radius)
-                        // The player is near the intersection
+                        (Position::distance_between(&player.position, &intersection) <= radius) // The player is near the intersection
                     }
                     false if p2.x == p1.x => {
                         // The projectile is moving horizontally
@@ -339,7 +334,7 @@ impl GameState {
                 if player_attacked {
                     affected_players.insert(
                         player.id,
-                        Position::distance_between(&attacking_player.position, &player.position)
+                        Position::distance_between(&attacking_player.position, &player.position),
                     );
                 }
             });
@@ -692,7 +687,7 @@ impl GameState {
 
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
-                (angle + 2.0 * PI).to_degrees() // Adjusts the angle if negative.
+                (angle + 2.0 * std::f32::consts::PI).to_degrees() // Adjusts the angle if negative.
             } else {
                 angle.to_degrees()
             };
@@ -744,7 +739,7 @@ impl GameState {
         let attack_range: f64 = attacking_player.skill_1_range();
 
         let mut affected_players: Vec<u64> =
-            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
+            TickChanges::world_tick_players_in_range(pys.into_iter().map(Into::into).collect_vec(), &attacking_player.position, attack_range)
                 .into_iter()
                 .filter(|&id| id != attacking_player_id)
                 .collect();
@@ -1130,17 +1125,11 @@ impl GameState {
         }
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        tick_changes.attack_players_with_effect(
-            Effect::NeonCrashing,
-            &mut players,
-        )?;
+        tick_changes.attack_players_with_effect(Effect::NeonCrashing, &mut players)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        tick_changes.attack_players_with_effect(
-            Effect::Leaping,
-            &mut players,
-        )?;
+        tick_changes.attack_players_with_effect(Effect::Leaping, &mut players)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1150,24 +1139,19 @@ impl GameState {
         // Update what happens with each projectile.
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                tick_changes.active_projectile_update(
-                    &players,
-                    projectile,
-                )?;
+                tick_changes.active_projectile_update(&players, projectile)?;
             }
 
-            tick_changes.attack_mirrored_players(
-                &players,
-            )?;
+            tick_changes.attack_mirrored_players(&players)?;
             tick_changes.uma_mirroring_affected_players.clear()
         }
 
-        for (player_id, (_, attacked_players)) in projectile_affected_players.iter() {
-            let attacked = attacked_players.clone();
-            self.update_killfeed(*player_id, attacked);
-        }
+        // for (player_id, (_, attacked_player_id)) in tick_changes.projectile_affected_players.iter()
+        // {
+        //     self.update_killfeed(*player_id, );
+        // }
 
-        self.attack_mirrored_player(uma_mirroring_affected_players)?;
+        self.world_tick_state.attack_mirrored_players(&players)?;
 
         self.check_and_damage_outside_playable(out_of_area_damage);
 
@@ -1257,7 +1241,7 @@ impl GameState {
     ) -> HashMap<u64, (i64, Vec<u64>)> {
         let mut afp: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
-        let affected_players: Vec<u64> = GameState::world_tick_players_in_range(
+        let affected_players: Vec<u64> = TickChanges::world_tick_players_in_range(
             players,
             attacking_player_position,
             attack_range,
@@ -1319,8 +1303,8 @@ impl GameState {
         let time_left = u128_to_millis(3_600_000); // 1 hour
         let duration = u128_to_millis(3_600_000); // 1 hour
         let ends_at = add_millis(now, time_left);
-        let player_ids_in_playable = GameState::players_in_range(
-            &self.players,
+        let player_ids_in_playable = TickChanges::world_tick_players_in_range(
+            self.players.clone().into_iter().map(Into::into).collect::<Vec<MutablePlayer>>(),
             &self.shrinking_center,
             self.playable_radius as f64,
         );
@@ -1552,4 +1536,9 @@ fn add_kills(
     let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
     attacking_player.add_kills(kills);
     Ok(())
+}
+
+fn calculate_hypotenuse(base: u64, altitude: u64) -> u64 {
+    let squared_hypotenuse = base.pow(2) + altitude.pow(2);
+    (squared_hypotenuse as f64).sqrt() as u64
 }

@@ -123,6 +123,7 @@ pub struct TickChanges {
     pub neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)>,
     pub leap_affected_players: HashMap<u64, (i64, Vec<u64>)>,
     pub uma_mirroring_affected_players: HashMap<u64, (i64, u64)>,
+    pub projectile_affected_players: HashMap<u64, (i64, u64)>,
     pub reference_time: MillisTime,
     pub tick_killed_events: Vec<KillEvent>,
     pub kill_count: Vec<u64>,
@@ -136,6 +137,7 @@ impl TickChanges {
             reference_time: time_now(),
             kill_count: vec![],
             tick_killed_events: vec![],
+            projectile_affected_players: HashMap::new()
         }
     }
 
@@ -180,7 +182,7 @@ impl TickChanges {
         players: &MutablePlayers,
         projectile: &mut Projectile,
     ) -> Result<(), String> {
-        let affected_players: HashMap<u64, f64> = GameState::players_in_projectile_movement(
+        let affected_players: HashMap<u64, f64> = GameState::players_in_range(
             projectile.player_id,
             &(players.clone()).into_iter().map(Into::into).collect(),
             projectile.prev_position,
