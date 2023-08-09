@@ -1,12 +1,12 @@
 name: Deploy to Europe staging
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #    - main
-  #  paths:
-  #    - server/**
-  #    - .github/workflows/staging-deploy.yml
+  release:
+    types:
+      - created
+    paths:
+      - server/**
+      - .github/workflows/staging-deploy.yml
 
 jobs:
   build-deploy:
