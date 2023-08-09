@@ -543,8 +543,6 @@ public class Battle : MonoBehaviour
             }
         }
 
-        walking = walking && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed);
-
         Vector2 movementChange = new Vector2(xChange, yChange);
 
         if (movementChange.magnitude > 0f)
@@ -603,13 +601,19 @@ public class Battle : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = getPlayerDirection(playerUpdate);
 
-                if (PlayerMovementAuthorized(player.GetComponent<Character>()))
+                if (
+                    PlayerMovementAuthorized(player.GetComponent<Character>())
+                    && !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed)
+                )
                 {
                     rotatePlayer(player, direction);
                 }
             }
             walking = true;
         }
+
+        walking = walking && !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed);
+
         mAnimator.SetBool("Walking", walking);
     }
 
