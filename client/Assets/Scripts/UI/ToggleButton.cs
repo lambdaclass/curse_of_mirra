@@ -17,6 +17,9 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     PlayerMovement playerMovement;
 
+    [SerializeField]
+    CustomLogs customLogs;
+
     void Start()
     {
         GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically = false;
@@ -33,6 +36,56 @@ public class ToggleButton : MonoBehaviour
         {
             ToggleOff();
             state.text = "Off";
+        }
+    }
+
+    public void ToggleClientPredictionGhost()
+    {
+        if (playerMovement.showClientPredictionGhost)
+        {
+            ToggleOn();
+            state.text = "On";
+        }
+        else
+        {
+            ToggleOff();
+            state.text = "Off";
+        }
+    }
+
+    public void ToggleInterpolationGhosts()
+    {
+        if (playerMovement.showInterpolationGhosts)
+        {
+            ToggleOn();
+        }
+        else
+        {
+            ToggleOff();
+        }
+    }
+
+    public void ToggleAllLogs()
+    {
+        if (customLogs.debugPrint)
+        {
+            ToggleOn();
+        }
+        else
+        {
+            ToggleOff();
+        }
+    }
+
+    public void ToggleCustomLogs()
+    {
+        if (CustomLogs.allowCustomDebug)
+        {
+            ToggleOn();
+        }
+        else
+        {
+            ToggleOff();
         }
     }
 
