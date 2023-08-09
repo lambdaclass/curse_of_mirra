@@ -6,7 +6,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class Battle : MonoBehaviour
 {
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -20,31 +20,32 @@ public class PlayerMovement : MonoBehaviour
     public GameObject clientPredictionGhost;
     public bool useClientPrediction;
     public bool useInterpolation;
-    public Direction nextAttackDirection;
-    public bool isAttacking = false;
     public CharacterStates.MovementStates[] BlockingMovementStates;
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public long accumulatedTime;
     public long firstTimestamp;
-
-    private bool playerIsPoisoned;
 
     void Start()
     {
         InitBlockingStates();
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
-        useClientPrediction = true;
-        useInterpolation = true;
-        accumulatedTime = 0;
-        showClientPredictionGhost = false;
-        showInterpolationGhosts = false;
+        SetupInitialState();
     }
 
     private void InitBlockingStates()
     {
         BlockingMovementStates = new CharacterStates.MovementStates[1];
         BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
+    }
+
+    private void SetupInitialState()
+    {
+        useClientPrediction = true;
+        useInterpolation = true;
+        accumulatedTime = 0;
+        showClientPredictionGhost = false;
+        showInterpolationGhosts = false;
     }
 
     void Update()
@@ -55,18 +56,23 @@ public class PlayerMovement : MonoBehaviour
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            if (firstTimestamp == 0)
-            {
-                firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            }
-            var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            accumulatedTime = (currentTimestamp - firstTimestamp);
+            SetAccumulatedTime();
             UpdatePlayerActions();
             UpdateProyectileActions();
         }
     }
 
-    public bool MovementAuthorized(Character character)
+    private void SetAccumulatedTime()
+    {
+        if (firstTimestamp == 0)
+        {
+            firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        }
+        var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        accumulatedTime = (currentTimestamp - firstTimestamp);
+    }
+
+    public bool PlayerMovementAuthorized(Character character)
     {
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
@@ -104,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         if (player)
         {
             Character character = player.GetComponent<Character>();
-            if (MovementAuthorized(character))
+            if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
@@ -172,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
                 // the last server update.
                 if (clientPredictionGhost != null)
                 {
-                    movePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                    updatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                 }
                 SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                     serverPlayerUpdate,
@@ -182,14 +188,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (interpolationGhost != null)
             {
-                movePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                updatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
             if (actualPlayer.activeSelf)
             {
-                movePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
                 if (
                     !buffer.timestampAlreadySeen(
                         SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -411,15 +417,15 @@ public class PlayerMovement : MonoBehaviour
         characterOrientation.ForcedRotationDirection = movementDirection;
     }
 
-    private void movePlayer(GameObject player, Player playerUpdate, long pastTime)
+    private void updatePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
         There are 50 ticks per second. A player's velocity is 50 * 0.3f
-    
+
         In general, if a player's velocity is n tiles per tick, their unity velocity
         is 50 * (n / 10f)
-    
+
         The above is the player's velocity's magnitude. Their velocity's direction
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
@@ -427,73 +433,77 @@ public class PlayerMovement : MonoBehaviour
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
 
-        ManageStateFeedbacks(player, playerUpdate);
+        characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
-        if (playerUpdate.CharacterName == "Muflus")
-        {
-            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
-            {
-                characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
-                    ? 4f
-                    : 1.5f;
-            }
-            else
-            {
-                if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
-                {
-                    characterSpeed *= 4f;
-                }
-            }
-        }
+        HandleMovement(player, playerUpdate, pastTime, characterSpeed);
 
-        // TODO: Temporary out of area feedback. Refactor!
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
-        {
-            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-            {
-                Renderer renderer = character.CharacterModel.transform
-                    .GetChild(i)
-                    .GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.color = Color.magenta;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-            {
-                Renderer renderer = character.CharacterModel.transform
-                    .GetChild(i)
-                    .GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.color = Color.white;
-                }
-            }
-        }
+        HandlePlayerHealth(player, playerUpdate);
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            GetComponent<PlayerFeedbacks>()
-                .ExecuteH4ckDisarmFeedback(
-                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
-                );
+            /*
+                - We divided the milliseconds time in two parts because
+                - rustler can't handle u128, so instead of developing those functions
+                - we decided to use 2 u64 fields to represent the time in milliseconds
+
+                - If you need to use complete time in milliseconds, you should use both
+                - If you need to use remaining time in milliseconds, you can use only low field
+                - because high field will be 0
+            */
+            InputManager.CheckSkillCooldown(
+                UIControls.SkillBasic,
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill3,
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill4,
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
+            );
+        }
+    }
+
+    private void HandlePlayerHealth(GameObject player, Player playerUpdate)
+    {
+        Health healthComponent = player.GetComponent<Health>();
+
+        // Display damage done on you on your client
+        GetComponent<PlayerFeedbacks>()
+            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+
+        // Display damage done on others players (not you)
+        GetComponent<PlayerFeedbacks>()
+            .ChangePlayerTextureOnDamage(
+                player,
+                healthComponent.CurrentHealth,
+                playerUpdate.Health
+            );
+
+        if (playerUpdate.Health != healthComponent.CurrentHealth)
+        {
+            healthComponent.SetHealth(playerUpdate.Health);
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
-        {
-            characterSpeed *= 0.5f;
-        }
-        else if (
-            playerUpdate.CharacterName == "H4ck"
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
-        )
-        {
-            characterSpeed *= 4f;
-        }
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
+    }
 
+    private void HandleMovement(
+        GameObject player,
+        Player playerUpdate,
+        long pastTime,
+        float characterSpeed
+    )
+    {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
@@ -510,7 +520,7 @@ public class PlayerMovement : MonoBehaviour
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
 
-        var inputFromVirtualJoystick = joystickL is not null;
+        // var inputFromVirtualJoystick = joystickL is not null;
 
         bool walking = false;
 
@@ -593,7 +603,7 @@ public class PlayerMovement : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = getPlayerDirection(playerUpdate);
 
-                if (MovementAuthorized(player.GetComponent<Character>()))
+                if (PlayerMovementAuthorized(player.GetComponent<Character>()))
                 {
                     rotatePlayer(player, direction);
                 }
@@ -601,60 +611,6 @@ public class PlayerMovement : MonoBehaviour
             walking = true;
         }
         mAnimator.SetBool("Walking", walking);
-
-        Health healthComponent = player.GetComponent<Health>();
-
-        // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>()
-            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
-
-        // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>()
-            .ChangePlayerTextureOnDamage(
-                player,
-                healthComponent.CurrentHealth,
-                playerUpdate.Health
-            );
-
-        if (playerUpdate.Health != healthComponent.CurrentHealth)
-        {
-            healthComponent.SetHealth(playerUpdate.Health);
-        }
-
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
-
-        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
-        {
-            /*
-                - We divided the milliseconds time in two parts because
-                - rustler can't handle u128, so instead of developing those functions
-                - we decided to use 2 u64 fields to represent the time in milliseconds
-
-                - If you need to use complete time in milliseconds, you should use both
-                - If you need to use remaining time in milliseconds, you can use only low field
-                - because high field will be 0
-            */
-            InputManager.CheckSkillCooldown(
-                UIControls.SkillBasic,
-                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill1,
-                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill2,
-                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill3,
-                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
-            );
-        }
     }
 
     public void SetPlayerDead(Character playerCharacter)
@@ -819,10 +775,82 @@ public class PlayerMovement : MonoBehaviour
         return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
     }
 
-    private void ManageStateFeedbacks(GameObject player, Player playerUpdate)
+    private float ManageStateFeedbacks(
+        GameObject player,
+        Player playerUpdate,
+        Character character,
+        float characterSpeed
+    )
     {
         ManagePoisonedFeedback(player, playerUpdate);
         ManageSlowedFeedback(player, playerUpdate);
+
+        if (playerUpdate.CharacterName == "Muflus")
+        {
+            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
+            {
+                characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
+                    ? 4f
+                    : 1.5f;
+            }
+            else
+            {
+                if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
+                {
+                    characterSpeed *= 4f;
+                }
+            }
+        }
+
+        // TODO: Temporary out of area feedback. Refactor!
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+        {
+            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
+            {
+                Renderer renderer = character.CharacterModel.transform
+                    .GetChild(i)
+                    .GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.color = Color.magenta;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
+            {
+                Renderer renderer = character.CharacterModel.transform
+                    .GetChild(i)
+                    .GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.color = Color.white;
+                }
+            }
+        }
+
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+        {
+            GetComponent<PlayerFeedbacks>()
+                .ExecuteH4ckDisarmFeedback(
+                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
+                );
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
+        {
+            characterSpeed *= 0.5f;
+        }
+        else if (
+            playerUpdate.CharacterName == "H4ck"
+            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
+        )
+        {
+            characterSpeed *= 4f;
+        }
+
+        return characterSpeed;
     }
 
     private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
