@@ -1261,7 +1261,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!1 &4136633252259404715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +1869,7 @@ GameObject:
   - component: {fileID: 1780994511806515099}
   - component: {fileID: 4491987156319386742}
   - component: {fileID: 7149123901655631209}
+  - component: {fileID: 7575533622992301819}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -2026,6 +2027,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSelectionUI: {fileID: 8232675041001302400}
+--- !u!114 &7575533622992301819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676200538747965701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c29756d7127346488dfe477be32e28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notSelectedButton: {fileID: 21300000, guid: af4b0e28fd9e04baaa4d6b123dffab75, type: 3}
+  selectedButton: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515, type: 3}
 --- !u!1 &7155037339286450602
 GameObject:
   m_ObjectHideFlags: 0

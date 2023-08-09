@@ -35,9 +35,9 @@ public class Utils
         );
     }
 
-    public static Player GetGamePlayer(ulong gamePlayerId)
+    public static Player GetGamePlayer(ulong id)
     {
-        return SocketConnectionManager.Instance.gamePlayers.Find(gp => gp.Id == gamePlayerId);
+        return SocketConnectionManager.Instance.gamePlayers.Find(el => el.Id == id);
     }
 
     public static IEnumerable<Player> GetAlivePlayers()
