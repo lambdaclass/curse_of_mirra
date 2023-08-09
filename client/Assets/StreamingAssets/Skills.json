@@ -9,7 +9,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Bash",
@@ -20,7 +22,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "450",
+      "Angle": "120"
     },
     {
       "Name": "Barrel Roll",
@@ -31,7 +35,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "450",
+      "Angle": "10"
     },
     {
       "Name": "Rage",
@@ -42,7 +48,9 @@
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "0",
+      "Angle": "10"
     },
     {
       "Name": "Leap",
@@ -51,20 +59,24 @@
       "Cooldown": "8000",
       "Damage": "40",
       "Status": "",
-      "Duration": "0",
+      "Duration": "2000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "450",
+      "Angle": "10"
     },
     {
       "Name": "Fiery Rampage",
       "DoFunc": "0",
       "ButtonType": "1",
-      "Cooldown": "60000",
+      "Cooldown": "10000",
       "Damage": "10",
       "Status": "",
-      "Duration": "0",
+      "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Elnars Mark",
@@ -75,7 +87,9 @@
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "100",
+      "Angle": "10"
     },
     {
       "Name": "Yugens Mark",
@@ -86,7 +100,9 @@
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Xandas Mark",
@@ -97,7 +113,9 @@
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Shadowstep",
@@ -108,7 +126,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Final Vengeance",
@@ -119,7 +139,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Slingshot",
@@ -130,7 +152,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "slingshot",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "120"
     },
     {
       "Name": "Multishot",
@@ -141,7 +165,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Disarm",
@@ -152,29 +178,35 @@
       "Status": "",
       "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Neon Crash",
       "DoFunc": "0",
       "ButtonType": "3",
       "Cooldown": "5000",
-      "Damage": "10",
+      "Damage": "2",
       "Status": "",
       "Duration": "300",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "200",
+      "Angle": "10"
     },
     {
       "Name": "Denial of Service",
       "DoFunc": "0",
       "ButtonType": "1",
-      "Cooldown": "60000",
+      "Cooldown": "20000",
       "Damage": "10",
       "Status": "",
-      "Duration": "6000",
+      "Duration": "5000",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Scherzo",
@@ -185,7 +217,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Pizzicato",
@@ -196,7 +230,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Band Recruit",
@@ -207,7 +243,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Danse Macabre",
@@ -218,7 +256,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     },
     {
       "Name": "Orchestra",
@@ -229,7 +269,9 @@
       "Status": "",
       "Duration": "0",
       "Projectile": "",
-      "Minion": ""
+      "Minion": "",
+      "SkillRange": "350",
+      "Angle": "10"
     }
   ]
 }

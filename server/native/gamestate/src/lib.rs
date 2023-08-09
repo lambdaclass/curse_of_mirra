@@ -55,10 +55,10 @@ fn move_player(game: GameState, player_id: u64, direction: Direction) -> Result<
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn world_tick(game: GameState) -> GameState {
+fn world_tick(game: GameState, out_of_area_damage: i64) -> GameState {
     let mut game_2 = game;
     game_2
-        .world_tick()
+        .world_tick(out_of_area_damage)
         .map_err(|err| format!("Failed to tick world with err: {}", err))
         .unwrap();
     game_2
@@ -146,9 +146,9 @@ fn spawn_player(game: GameState, player_id: u64) -> Result<GameState, String> {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn shrink_map(game: GameState) -> Result<GameState, String> {
+fn shrink_map(game: GameState, map_shrink_minimum_radius: u64) -> Result<GameState, String> {
     let mut game_2 = game;
-    game_2.shrink_map();
+    game_2.shrink_map(map_shrink_minimum_radius);
     Ok(game_2)
 }
 

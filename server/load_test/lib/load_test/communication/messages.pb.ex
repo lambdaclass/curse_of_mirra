@@ -27,21 +27,20 @@ defmodule LoadTest.Communication.Proto.Action do
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:ACTION_UNSPECIFIED, 0)
-  field(:MOVE, 1)
-  field(:ATTACK, 2)
-  field(:TELEPORT, 4)
-  field(:ATTACK_AOE, 5)
-  field(:MOVE_WITH_JOYSTICK, 6)
-  field(:ADD_BOT, 7)
-  field(:AUTO_ATTACK, 8)
-  field(:BASIC_ATTACK, 9)
-  field(:SKILL_1, 10)
-  field(:SKILL_2, 11)
-  field(:SKILL_3, 12)
-  field(:SKILL_4, 13)
-  field(:SELECT_CHARACTER, 14)
-  field(:ENABLE_BOTS, 15)
-  field(:DISABLE_BOTS, 16)
+  field(:ATTACK, 1)
+  field(:TELEPORT, 2)
+  field(:ATTACK_AOE, 3)
+  field(:MOVE_WITH_JOYSTICK, 4)
+  field(:ADD_BOT, 5)
+  field(:AUTO_ATTACK, 6)
+  field(:BASIC_ATTACK, 7)
+  field(:SKILL_1, 8)
+  field(:SKILL_2, 9)
+  field(:SKILL_3, 10)
+  field(:SKILL_4, 11)
+  field(:SELECT_CHARACTER, 12)
+  field(:ENABLE_BOTS, 13)
+  field(:DISABLE_BOTS, 14)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -72,6 +71,7 @@ defmodule LoadTest.Communication.Proto.PlayerAction do
   field(:EXECUTING_SKILL_2, 8)
   field(:EXECUTING_SKILL_3, 9)
   field(:EXECUTING_SKILL_4, 10)
+  field(:MOVING, 11)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerEffect do
@@ -91,6 +91,9 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:XANDA_MARK, 9)
   field(:XANDA_MARK_OWNER, 10)
   field(:POISONED, 11)
+  field(:SLOWED, 12)
+  field(:FIERY_RAMPAGE, 13)
+  field(:BURNED, 14)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -228,6 +231,9 @@ defmodule LoadTest.Communication.Proto.Player do
     type: LoadTest.Communication.Proto.Player.EffectsEntry,
     map: true
   )
+
+  field(:direction, 16, type: LoadTest.Communication.Proto.RelativePosition)
+  field(:body_size, 17, type: :float, json_name: "bodySize")
 end
 
 defmodule LoadTest.Communication.Proto.KillEvent do
@@ -287,12 +293,30 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
 
   field(:type, 1, type: LoadTest.Communication.Proto.LobbyEventType, enum: true)
   field(:lobby_id, 2, type: :string, json_name: "lobbyId")
-  field(:player_id, 3, type: :uint64, json_name: "playerId")
-  field(:added_player_id, 4, type: :uint64, json_name: "addedPlayerId")
+
+  field(:player_info, 3,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "playerInfo"
+  )
+
+  field(:added_player_info, 4,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "addedPlayerInfo"
+  )
+
   field(:game_id, 5, type: :string, json_name: "gameId")
   field(:player_count, 6, type: :uint64, json_name: "playerCount")
-  field(:players, 7, repeated: true, type: :uint64)
-  field(:removed_player_id, 8, type: :uint64, json_name: "removedPlayerId")
+
+  field(:players_info, 7,
+    repeated: true,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "playersInfo"
+  )
+
+  field(:removed_player_info, 8,
+    type: LoadTest.Communication.Proto.PlayerInformation,
+    json_name: "removedPlayerInfo"
+  )
 
   field(:game_config, 9,
     type: LoadTest.Communication.Proto.ServerGameSettings,
@@ -300,6 +324,16 @@ defmodule LoadTest.Communication.Proto.LobbyEvent do
   )
 
   field(:server_hash, 10, type: :string, json_name: "serverHash")
+  field(:host_player_id, 11, type: :uint64, json_name: "hostPlayerId")
+end
+
+defmodule LoadTest.Communication.Proto.PlayerInformation do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:player_id, 1, type: :uint64, json_name: "playerId")
+  field(:player_name, 2, type: :string, json_name: "playerName")
 end
 
 defmodule LoadTest.Communication.Proto.RunnerConfig do
@@ -312,6 +346,11 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:board_height, 3, type: :uint64, json_name: "boardHeight")
   field(:server_tickrate_ms, 4, type: :uint64, json_name: "serverTickrateMs")
   field(:game_timeout_ms, 5, type: :uint64, json_name: "gameTimeoutMs")
+  field(:map_shrink_wait_ms, 6, type: :uint64, json_name: "mapShrinkWaitMs")
+  field(:map_shrink_interval, 7, type: :uint64, json_name: "mapShrinkInterval")
+  field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
+  field(:use_proxy, 9, type: :string, json_name: "useProxy")
+  field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do
@@ -382,6 +421,8 @@ defmodule LoadTest.Communication.Proto.SkillConfigItem do
   field(:Duration, 7, type: :string)
   field(:Projectile, 8, type: :string)
   field(:Minion, 9, type: :string)
+  field(:SkillRange, 10, type: :string)
+  field(:Angle, 11, type: :string)
 end
 
 defmodule LoadTest.Communication.Proto.ServerGameSettings do

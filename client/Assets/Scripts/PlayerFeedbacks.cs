@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -61,5 +60,15 @@ public class PlayerFeedbacks : MonoBehaviour
     public void ExecuteH4ckDisarmFeedback(bool disarmed)
     {
         InputManager.ActivateDisarmEffect(disarmed);
+    }
+
+    public void SetActivePoisonedFeedback(GameObject player, bool value)
+    {
+        player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+    }
+
+    public void SetActiveSlowedFeedback(GameObject player, bool value)
+    {
+        player.transform.Find("Slowed").GetComponent<ParticleSystem>().gameObject.SetActive(value);
     }
 }

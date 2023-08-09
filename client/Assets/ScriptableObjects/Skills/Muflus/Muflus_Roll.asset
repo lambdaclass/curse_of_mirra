@@ -12,9 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Muflus_Roll
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: Muflus_Leap
+  name: BARREL ROLL
+  description: Does a 360deg spin with the weapon extended, dealing great damage
+    nearly instantly in the area. When enraged Muflus has the ability to wield aggressively
+    his chainsaw tipped club.
   inputType: 0
-  feedbackAnimation: {fileID: 0}
-  animationSpeedMultiplier: 3
+  indicatorType: 1
+  feedbackVfx: {fileID: 5318754383943643802, guid: e82539d5a6925411bb4e49908d74e9ac,
+    type: 3}
+  feedbackVfxDuration: 0.2
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
+  animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: c590b419253be4535bc86a275dda97e4, type: 3}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
+  skillCircleRadius: 0
+  skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 3

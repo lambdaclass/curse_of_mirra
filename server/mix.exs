@@ -66,7 +66,8 @@ defmodule DarkWorldsServer.MixProject do
       {:rust_tests, path: "rust_tests_app", runtime: Mix.env() == :rust_test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:cors_plug, "~> 3.0"},
-      {:tesla, "~> 1.4"}
+      {:tesla, "~> 1.4", override: true},
+      {:toxiproxy_ex, "~> 1.0.0"}
     ]
   end
 

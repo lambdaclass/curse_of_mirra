@@ -9,7 +9,7 @@ use rustler::NifStruct;
 use rustler::NifUnitEnum;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone, NifStruct)]
+#[derive(Debug, Clone, Copy, NifStruct)]
 #[module = "DarkWorldsServer.Engine.Player"]
 pub struct EffectData {
     pub time_left: MillisTime,
@@ -25,7 +25,7 @@ pub struct EffectData {
 
 pub type StatusEffects = HashMap<Effect, EffectData>;
 
-#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, Copy, PartialEq, Eq)]
 pub enum Effect {
     Petrified,
     Disarmed,
@@ -39,6 +39,9 @@ pub enum Effect {
     XandaMark,
     XandaMarkOwner,
     Poisoned,
+    Slowed,
+    FieryRampage,
+    Burned,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -87,6 +90,7 @@ pub struct Player {
     pub character_name: String,
     pub effects: StatusEffects,
     pub direction: RelativePosition,
+    pub body_size: f64,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -96,7 +100,7 @@ pub enum Status {
     DISCONNECTED,
 }
 
-#[derive(Debug, Clone, NifUnitEnum)]
+#[derive(rustler::NifTaggedEnum, Debug, Hash, Clone, PartialEq, Eq)]
 pub enum PlayerAction {
     NOTHING,
     ATTACKING,
@@ -109,6 +113,7 @@ pub enum PlayerAction {
     EXECUTINGSKILL2,
     EXECUTINGSKILL3,
     EXECUTINGSKILL4,
+    MOVING,
 }
 
 #[derive(Debug, Copy, Clone, NifStruct, PartialEq)]
@@ -133,6 +138,7 @@ impl Player {
             position,
             status: Status::ALIVE,
             character_name: character.name.to_string(),
+            body_size: character.body_size,
             character,
             action: PlayerAction::NOTHING,
             aoe_position: Position::new(0, 0),
@@ -158,6 +164,7 @@ impl Player {
             if self.health <= 0 {
                 self.status = Status::DEAD;
                 self.death_count += 1;
+                self.effects.clear();
             }
         }
     }
@@ -166,6 +173,9 @@ impl Player {
         let mut damage = hp_points;
         if self.character.name == Name::Uma && self.has_active_effect(&Effect::XandaMarkOwner) {
             damage = damage / 2;
+        }
+        if self.has_active_effect(&Effect::FieryRampage) {
+            damage = damage * 3 / 4;
         }
         damage
     }
@@ -208,6 +218,38 @@ impl Player {
         return self.character.attack_dmg_skill_3();
     }
 
+    pub fn basic_skill_range(&self) -> f64 {
+        self.character.skill_basic.skill_range
+    }
+    pub fn skill_1_range(&self) -> f64 {
+        self.character.skill_1.skill_range
+    }
+    pub fn skill_2_range(&self) -> f64 {
+        self.character.skill_2.skill_range
+    }
+    pub fn skill_3_range(&self) -> f64 {
+        self.character.skill_3.skill_range
+    }
+    pub fn skill_4_range(&self) -> f64 {
+        self.character.skill_4.skill_range
+    }
+
+    pub fn basic_skill_angle(&self) -> u64 {
+        self.character.skill_basic.angle
+    }
+    pub fn skill_1_angle(&self) -> u64 {
+        self.character.skill_1.angle
+    }
+    pub fn skill_2_angle(&self) -> u64 {
+        self.character.skill_2.angle
+    }
+    pub fn skill_3_angle(&self) -> u64 {
+        self.character.skill_3.angle
+    }
+    pub fn skill_4_angle(&self) -> u64 {
+        self.character.skill_4.angle
+    }
+
     #[inline]
     pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
         if !self.effects.contains_key(&e) {
@@ -234,14 +276,14 @@ impl Player {
         if self.has_active_effect(&Effect::Leaping) {
             return ((base_speed as f64) * 4.).ceil() as u64;
         }
-        if self.has_active_effect(&Effect::Raged) {
-            return ((base_speed as f64) * 1.5).ceil() as u64;
-        }
-        if self.has_active_effect(&Effect::Piercing) {
-            return ((base_speed as f64) * 1.5).ceil() as u64;
+        if self.has_active_effect(&Effect::Slowed) {
+            return ((base_speed as f64) * 0.5).ceil() as u64;
         }
         if self.has_active_effect(&Effect::NeonCrashing) {
             return ((base_speed as f64) * 4.).ceil() as u64;
+        }
+        if self.has_active_effect(&Effect::Raged) {
+            return ((base_speed as f64) * 1.5).ceil() as u64;
         }
 
         return base_speed;
@@ -290,11 +332,28 @@ impl Player {
             return false;
         }
 
+        if self.has_active_effect(&Effect::Leaping) {
+            return false;
+        }
+
         !(self.has_active_effect(&Effect::Disarmed) && !is_basic_skill)
     }
 
     pub fn can_move(self: &Self) -> bool {
         if matches!(self.status, Status::DEAD) {
+            return false;
+        }
+
+        if matches!(self.action, PlayerAction::ATTACKING)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL1)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL2)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL3)
+            || matches!(self.action, PlayerAction::EXECUTINGSKILL4)
+            || matches!(self.action, PlayerAction::STARTINGSKILL1)
+            || matches!(self.action, PlayerAction::STARTINGSKILL2)
+            || matches!(self.action, PlayerAction::STARTINGSKILL3)
+            || matches!(self.action, PlayerAction::STARTINGSKILL4)
+        {
             return false;
         }
 

@@ -13,35 +13,35 @@ public class UIManager : MonoBehaviour
     GameObject lobbyItemPrefab;
 
     [SerializeField]
-    GameObject gameItemPrefab;
-
-    [SerializeField]
-    Transform gamesContainer;
+    GameObject noLobbiesText;
 
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
+
+    void Start()
+    {
+        noLobbiesText.SetActive(lobbiesEmpty);
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (lobbiesEmpty && LobbyConnection.Instance.lobbiesList.Count > 0)
         {
+            noLobbiesText.SetActive(false);
             GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
             lobbiesEmpty = false;
-        }
-        if (gamesEmpty && LobbyConnection.Instance.gamesList.Count > 0)
-        {
-            GenerateList(LobbyConnection.Instance.gamesList, gameItemPrefab, gamesContainer);
-            gamesEmpty = false;
         }
     }
 
     public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
     {
+        itemList.Reverse();
         itemList.ForEach(el =>
         {
             GameObject item = (GameObject)Instantiate(itemPrefab, container);
-            item.GetComponent<LobbiesListItem>().setId(el);
+            string lastCharactersInID = el.Substring(el.Length - 5);
+            item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
     }
 }
