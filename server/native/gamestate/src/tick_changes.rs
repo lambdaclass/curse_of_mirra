@@ -1,9 +1,12 @@
+use crate::board::Board;
 use crate::character::{Character, Name};
 use crate::game::{GameState, KillEvent};
-use crate::board::Board;
-use crate::{player::{Effect, EffectData, Player, PlayerAction, Position, Status}, projectile::{Projectile, ProjectileStatus, ProjectileType}};
 use crate::time_utils::{time_now, MillisTime};
 use crate::utils::cmp_float;
+use crate::{
+    player::{Effect, EffectData, Player, PlayerAction, Position, Status},
+    projectile::{Projectile, ProjectileStatus, ProjectileType},
+};
 use itertools::Itertools;
 use rustler::NifStruct;
 use std::cell::RefCell;
@@ -22,7 +25,7 @@ impl From<Player> for MutablePlayer {
 }
 impl From<MutablePlayer> for Player {
     fn from(player: MutablePlayer) -> Player {
-         player.inner.deref().borrow().clone()
+        player.inner.deref().borrow().clone()
     }
 }
 impl Clone for MutablePlayer {
@@ -141,7 +144,7 @@ impl TickChanges {
             reference_time: time_now(),
             kill_count: vec![],
             tick_killed_events: vec![],
-            projectile_affected_players: HashMap::new()
+            projectile_affected_players: HashMap::new(),
         }
     }
 
@@ -195,7 +198,7 @@ impl TickChanges {
             projectile.player_id,
             &players_vec,
             projectile.prev_position,
-            projectile.position
+            projectile.position,
         )
         .into_iter()
         .filter(|&(id, _distance)| {
@@ -206,7 +209,7 @@ impl TickChanges {
         if affected_players.len() > 0 && !projectile.pierce {
             projectile.status = ProjectileStatus::EXPLODED;
         }
-        
+
         // Seems like the current logic is to count
         // kill_counts by one, right?
         // let mut kill_count = 0;
@@ -274,7 +277,7 @@ impl TickChanges {
         let affected_players = match effect {
             Effect::NeonCrashing => &self.neon_crash_affected_players,
             Effect::Leaping => &self.leap_affected_players,
-            _ => todo!("Attack with effect not implemented for {effect:?}")
+            _ => todo!("Attack with effect not implemented for {effect:?}"),
         };
         for (_player_id, (damage, attacked_players)) in affected_players.iter() {
             for target_player_id in attacked_players.iter() {

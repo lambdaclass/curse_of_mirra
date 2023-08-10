@@ -1134,11 +1134,13 @@ impl GameState {
         }
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        self.tick_changes.attack_players_with_effect(Effect::NeonCrashing, &mut players)?;
+        self.tick_changes
+            .attack_players_with_effect(Effect::NeonCrashing, &mut players)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        self.tick_changes.attack_players_with_effect(Effect::Leaping, &mut players)?;
+        self.tick_changes
+            .attack_players_with_effect(Effect::Leaping, &mut players)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1148,14 +1150,15 @@ impl GameState {
         // Update what happens with each projectile.
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                self.tick_changes.active_projectile_update(&players, projectile)?;
+                self.tick_changes
+                    .active_projectile_update(&players, projectile)?;
             }
 
             self.tick_changes.attack_mirrored_players(&players)?;
             self.tick_changes.uma_mirroring_affected_players.clear()
         }
 
-        //TODO: Avoid cloning this 
+        //TODO: Avoid cloning this
         let projectile_affected_players = self.tick_changes.projectile_affected_players.clone();
         for (player_id, (_, attacked_players)) in projectile_affected_players {
             // TODO: Avoid cloning this

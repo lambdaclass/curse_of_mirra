@@ -57,8 +57,7 @@ fn move_player(game: GameState, player_id: u64, direction: Direction) -> Result<
 #[rustler::nif(schedule = "DirtyCpu")]
 fn world_tick(game: GameState, out_of_area_damage: i64) -> Result<GameState, String> {
     let mut game = game;
-    game
-        .world_tick(out_of_area_damage)
+    game.world_tick(out_of_area_damage)
         .map_err(|err| format!("Failed to tick world with err: {}", err))?;
     Ok(game)
 }

@@ -1,8 +1,6 @@
 use crate::character::{Character, Name};
 use crate::projectile::Projectile;
-use crate::time_utils::{
-    add_millis, millis_to_u128, sub_millis, u128_to_millis, MillisTime,
-};
+use crate::time_utils::{add_millis, millis_to_u128, sub_millis, u128_to_millis, MillisTime};
 use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
