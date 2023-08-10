@@ -4,6 +4,7 @@ use crate::board::Board;
 use crate::{player::{Effect, EffectData, Player, PlayerAction, Position, Status}, projectile::{Projectile, ProjectileStatus, ProjectileType}};
 use crate::time_utils::{time_now, MillisTime};
 use crate::utils::cmp_float;
+use itertools::Itertools;
 use rustler::NifStruct;
 use std::cell::RefCell;
 use std::collections::HashMap;
@@ -21,14 +22,14 @@ impl From<Player> for MutablePlayer {
 }
 impl From<MutablePlayer> for Player {
     fn from(player: MutablePlayer) -> Player {
-        return player.into();
+         player.inner.deref().borrow().clone()
     }
 }
 impl Clone for MutablePlayer {
     fn clone(&self) -> MutablePlayer {
-        return MutablePlayer {
+        MutablePlayer {
             inner: self.inner.clone(),
-        };
+        }
     }
 }
 impl MutablePlayer {
@@ -182,11 +183,16 @@ impl TickChanges {
         players: &MutablePlayers,
         projectile: &mut Projectile,
     ) -> Result<(), String> {
+        // Remove this if we end up using MutablePlayer
+        let mut players_vec: Vec<Player> = vec![];
+        for player in players.iter() {
+            players_vec.push(player.clone().into())
+        }
         let affected_players: HashMap<u64, f64> = GameState::players_in_range(
             projectile.player_id,
-            &(players.clone()).into_iter().map(Into::into).collect(),
+            &players_vec,
             projectile.prev_position,
-            projectile.position,
+            projectile.position
         )
         .into_iter()
         .filter(|&(id, _distance)| {
@@ -197,7 +203,7 @@ impl TickChanges {
         if affected_players.len() > 0 && !projectile.pierce {
             projectile.status = ProjectileStatus::EXPLODED;
         }
-
+        
         // Seems like the current logic is to count
         // kill_counts by one, right?
         // let mut kill_count = 0;
@@ -221,8 +227,8 @@ impl TickChanges {
                 .ok_or("Non valid ID")?;
 
             self.apply_projectile_on_player(
-                attacking_player,
-                attacked_player,
+                (&(*attacking_player)).into(),
+                (&(*attacked_player)).into(),
                 projectile,
             )?;
         }

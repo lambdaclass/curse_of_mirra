@@ -5,9 +5,9 @@ pub mod game_configuration;
 pub mod player;
 pub mod projectile;
 pub mod skills;
+pub mod tick_changes;
 pub mod time_utils;
 pub mod utils;
-pub mod tick_changes;
 use crate::{game::Direction, utils::RelativePosition};
 use game::GameState;
 use rustler::{Binary, Env, Term};
@@ -55,13 +55,12 @@ fn move_player(game: GameState, player_id: u64, direction: Direction) -> Result<
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn world_tick(game: GameState, out_of_area_damage: i64) -> GameState {
-    let mut game_2 = game;
-    game_2
+fn world_tick(game: GameState, out_of_area_damage: i64) -> Result<GameState, String> {
+    let mut game = game;
+    game
         .world_tick(out_of_area_damage)
-        .map_err(|err| format!("Failed to tick world with err: {}", err))
-        .unwrap();
-    game_2
+        .map_err(|err| format!("Failed to tick world with err: {}", err))?;
+    Ok(game)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]

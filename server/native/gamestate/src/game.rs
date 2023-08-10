@@ -1113,7 +1113,7 @@ impl GameState {
             .players
             .clone()
             .into_iter()
-            .map(|player| player.into())
+            .map(|player| MutablePlayer::from(player))
             .collect::<Vec<MutablePlayer>>();
         let now = tick_changes.reference_time;
         for player in players.iter() {
@@ -1159,17 +1159,16 @@ impl GameState {
 
         self.world_tick_state.attack_mirrored_players(&players)?;
 
+
         self.check_and_damage_outside_playable(out_of_area_damage);
 
         self.check_and_damage_players(Effect::Poisoned);
 
         self.check_and_damage_players(Effect::Burned);
-
         self.next_killfeed
             .append(&mut self.world_tick_state.tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
-
         Ok(())
     }
 
