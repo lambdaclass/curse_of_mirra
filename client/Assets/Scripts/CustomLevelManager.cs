@@ -89,7 +89,7 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         playerId = LobbyConnection.Instance.playerId;
-        GeneratePlayers();
+        GeneratePlayers(); 
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         MMSoundManager.Instance.FreeAllSounds();
