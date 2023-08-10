@@ -23,11 +23,9 @@ public class VolumeController : MonoBehaviour
 
     public void ChangeMusicVolume()
     {
-        //soundManager.SetVolumeMaster(volumeSlider.value);
         if (IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             MMSoundManager.Instance.UnmuteMaster();
-            //MMSoundManager.Instance.SetVolumeMaster(unmutedVolume);
         }
 
         MMSoundManagerTrackEvent.Trigger(
