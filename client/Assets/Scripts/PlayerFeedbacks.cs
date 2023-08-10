@@ -64,11 +64,11 @@ public class PlayerFeedbacks : MonoBehaviour
 
     public void SetActivePoisonedFeedback(GameObject player, bool value)
     {
-        player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback("Poison", value);
     }
 
     public void SetActiveSlowedFeedback(GameObject player, bool value)
     {
-        player.transform.Find("Slowed").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback("Slowed", value);
     }
 }
