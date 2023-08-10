@@ -284,16 +284,22 @@ message SkillsConfig {
 
 message SkillConfigItem {
     string Name = 1;
-    string DoFunc = 2;
-    string ButtonType = 3;
-    string Cooldown = 4;
-    string Damage = 5;
-    string Status = 6;
-    string Duration = 7;
-    string Projectile = 8;
-    string Minion = 9;
-    string SkillRange = 10;
-    string Angle = 11;
+    string Cooldown = 2;
+    string Damage = 3;
+    string Duration = 4;
+    string Projectile = 5;
+    string SkillRange = 6;
+    string Par1 = 7;
+    string Par1Desc = 8;
+    string Par2 = 9;
+    string Par2Desc = 10;
+    string Par3 = 11;
+    string Par3Desc = 12;
+    string Par4 = 13;
+    string Par4Desc = 14;
+    string Par5 = 15;
+    string Par5Desc = 16;
+    string Angle = 17;
 }
 
 message ServerGameSettings {
