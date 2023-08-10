@@ -41,6 +41,11 @@ public class LobbyConnection : MonoBehaviour
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
+    public string ongoingGameTitle = "You have a game in progress";
+    public string ongoingGameDescription = "Do you want to reconnect to the game?";
+    public string connectionTitle = "Error";
+    public string connectionDescription = "Your connection to the server has been lost.";
+
     WebSocket ws;
 
     [Serializable]
@@ -207,6 +212,7 @@ public class LobbyConnection : MonoBehaviour
 
     public void Reconnect()
     {
+        Debug.Log("reconect");
         this.reconnect = true;
         this.GameSession = this.reconnectGameId;
         this.playerId = this.reconnectPlayerId;
@@ -241,7 +247,7 @@ public class LobbyConnection : MonoBehaviour
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
-                    this.errorConnection = true;
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -265,7 +271,7 @@ public class LobbyConnection : MonoBehaviour
                     lobbiesList = response.lobbies;
                     break;
                 default:
-                    this.errorConnection = true;
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -290,7 +296,7 @@ public class LobbyConnection : MonoBehaviour
                     gamesList = response.current_games;
                     break;
                 default:
-                    this.errorConnection = true;
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -330,7 +336,10 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectServerSettings = parseReconnectServerSettings(
                             response.game_config
                         );
-                        this.errorOngoingGame = true;
+                        Errors.Instance.HandleReconnectError(
+                            ongoingGameTitle,
+                            ongoingGameDescription
+                        );
                     }
                     break;
                 default:
@@ -412,7 +421,7 @@ public class LobbyConnection : MonoBehaviour
     {
         if (closeCode != WebSocketCloseCode.Normal)
         {
-            this.errorConnection = true;
+            Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }

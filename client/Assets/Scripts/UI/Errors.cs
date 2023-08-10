@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Errors : MonoBehaviour
 {
@@ -23,48 +28,57 @@ public class Errors : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI reconnectDescription;
 
-    string ongoingGameTitle = "You have a game in progress";
-    string ongoingGameDescription = "Do you want to reconnect to the game?";
-    string connectionTitle = "Error";
-    string connectionDescription = "Your connection to the server has been lost.";
+    [SerializeField]
+    public MMTouchButton yesButton;
 
-    void Update()
+    public static Errors Instance;
+
+    public void Awake()
     {
-        if (LobbyConnection.Instance.errorConnection)
+        if (Instance != null)
         {
-            networkContainer.SetActive(true);
-            HandleError();
+            Destroy(transform.parent.gameObject);
+            return;
         }
-        if (LobbyConnection.Instance.errorOngoingGame)
-        {
-            reconnectContainer.SetActive(true);
-            HandleError();
-        }
+        Instance = this;
+        DontDestroyOnLoad(transform.parent.gameObject);
+
+        UnityEvent reconnectEvent = new UnityEvent();
+        reconnectEvent.AddListener(Reconnect);
+        yesButton.ButtonPressedFirstTime = reconnectEvent;
     }
 
-    public void HandleError()
+    public void Reconnect()
     {
-        if (LobbyConnection.Instance.errorConnection)
-        {
-            networkError.text = connectionTitle;
-            networkDescription.text = connectionDescription;
-        }
-        if (LobbyConnection.Instance.errorOngoingGame)
-        {
-            reconnectError.text = ongoingGameTitle;
-            reconnectDescription.text = ongoingGameDescription;
-        }
+        // TODO: This is what LobbiesManager.Reconnect() does
+        // whe should leave this here or instantiate that
+        LobbyConnection.Instance.Reconnect();
+        // TODO: it should go directly to the Battle if I want to go back to it
+        SceneManager.LoadScene("CharacterSelection");
+        HideOngoingGameError();
     }
 
-    public void HideConnectionError()
+    public void HandleReconnectError(string title, string description)
     {
-        networkContainer.SetActive(false);
-        LobbyConnection.Instance.errorConnection = false;
+        reconnectContainer.SetActive(true);
+        reconnectError.text = title;
+        reconnectDescription.text = description;
     }
 
     public void HideOngoingGameError()
     {
         reconnectContainer.SetActive(false);
-        LobbyConnection.Instance.errorOngoingGame = false;
+    }
+
+    public void HandleNetworkError(string title, string description)
+    {
+        networkContainer.SetActive(true);
+        networkError.text = title;
+        networkDescription.text = description;
+    }
+
+    public void HideConnectionError()
+    {
+        networkContainer.SetActive(false);
     }
 }
