@@ -2,7 +2,7 @@
 
 ## Install mdbook
 
-☝️🤓 First make sure you have installed mdbook in your machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if you don't, install it with the following:
+☝️🤓 First make sure you have installed mdbook in your machine. Run `mdbook -V`. If you have it you will see something like `mdbook v0.4.34` if you don't, install it with the following command lines:
 
 ```
 cargo install mdbook
