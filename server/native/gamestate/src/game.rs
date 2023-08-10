@@ -490,7 +490,7 @@ impl GameState {
                 None => *direction,
             };
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_basic_skill() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -713,7 +713,7 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_skill_1() as f32;
             if piercing {
                 speed *= 1.25;
             }
