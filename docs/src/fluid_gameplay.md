@@ -216,13 +216,13 @@ Now, let's see Player 2's movement:
 
 ![](./videos/Interpolation_at_0ms.gif)
 
-As you can see, his movement feels weird sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based what on the updates sent by the server. How can we solve this?. Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
+As you can see, our player's movement feels that sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based on the updates sent by the server. How can we solve this?. Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
 
-Theory behing Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement. Let's suppose we're interpolating 100ms in the past, player's movement would like this
+Theory behind Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement. Let's suppose we're interpolating 100ms in the past, player's movement would like this
 
 ![](./videos/Interpolation_at_100ms.gif)
 
-Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allows us to see what exactly is Interpolation attacking
+Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allow us to see what exactly Interpolation is attacking
 
 ![](./videos/Interpolation_with_ghost.gif)
 
