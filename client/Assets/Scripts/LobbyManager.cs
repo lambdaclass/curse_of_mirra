@@ -69,6 +69,12 @@ public class LobbyManager : LevelSelector
         Back();
     }
 
+    public void BackToLobbyFromGame()
+    {
+        Destroy(GameObject.Find("LobbiesBackgroundMusic"));
+        Back();
+    }
+
     public void SelectMap(string mapName)
     {
         this.LevelName = mapName;
@@ -80,7 +86,6 @@ public class LobbyManager : LevelSelector
         if (GameManager.Instance != null)
         {
             Destroy(GameManager.Instance.gameObject);
-            // Destroy(MMSoundManager.Instance.gameObject);
         }
     }
 
