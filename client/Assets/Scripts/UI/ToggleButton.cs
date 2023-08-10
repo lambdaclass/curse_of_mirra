@@ -15,7 +15,7 @@ public class ToggleButton : MonoBehaviour
     TextMeshProUGUI state;
 
     [SerializeField]
-    PlayerMovement playerMovement;
+    Battle battle;
 
     [SerializeField]
     CustomLogs customLogs;
@@ -27,7 +27,7 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleClientPrediction()
     {
-        if (playerMovement.useClientPrediction)
+        if (battle.useClientPrediction)
         {
             ToggleOn();
             state.text = "On";
@@ -41,7 +41,7 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleClientPredictionGhost()
     {
-        if (playerMovement.showClientPredictionGhost)
+        if (battle.showClientPredictionGhost)
         {
             ToggleOn();
             state.text = "On";
@@ -55,7 +55,7 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleInterpolationGhosts()
     {
-        if (playerMovement.showInterpolationGhosts)
+        if (battle.showInterpolationGhosts)
         {
             ToggleOn();
         }
