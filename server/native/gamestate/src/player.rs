@@ -1,5 +1,5 @@
 use crate::character::{Character, Name};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime, u128_to_millis};
+use crate::time_utils::{millis_to_u128, sub_millis, u128_to_millis, MillisTime};
 use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
@@ -416,30 +416,15 @@ impl Player {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_skill_cooldown_left = sub_millis(
-            self.basic_skill_ends_at,
-            now,
-        );
+        self.basic_skill_cooldown_left = sub_millis(self.basic_skill_ends_at, now);
 
-        self.skill_1_cooldown_left = sub_millis(
-            self.skill_1_ends_at,
-            now,
-        );
+        self.skill_1_cooldown_left = sub_millis(self.skill_1_ends_at, now);
 
-        self.skill_2_cooldown_left = sub_millis(
-            self.skill_2_ends_at,
-            now,
-        );
+        self.skill_2_cooldown_left = sub_millis(self.skill_2_ends_at, now);
 
-        self.skill_3_cooldown_left = sub_millis(
-            self.skill_3_ends_at,
-            now,
-        );
+        self.skill_3_cooldown_left = sub_millis(self.skill_3_ends_at, now);
 
-        self.skill_4_cooldown_left = sub_millis(
-            self.skill_4_ends_at,
-            now,
-        );
+        self.skill_4_cooldown_left = sub_millis(self.skill_4_ends_at, now);
     }
 
     // This ill be helpful once the deathmatch mode starts its development

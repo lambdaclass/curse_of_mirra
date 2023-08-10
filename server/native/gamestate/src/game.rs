@@ -376,9 +376,9 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::ATTACKING;
         attacking_player.basic_skill_started_at = now;
-        attacking_player.basic_skill_cooldown_left =
-            attacking_player.basic_skill_cooldown();
-        attacking_player.basic_skill_ends_at = add_millis(now,  attacking_player.basic_skill_cooldown_left);
+        attacking_player.basic_skill_cooldown_left = attacking_player.basic_skill_cooldown();
+        attacking_player.basic_skill_ends_at =
+            add_millis(now, attacking_player.basic_skill_cooldown_left);
         attacking_player.direction = *direction;
         let attack_range = attacking_player.basic_skill_range();
         let attack_angle = attacking_player.basic_skill_angle();
@@ -1039,10 +1039,22 @@ impl GameState {
                         damage: 0,
                     },
                 );
-                attacking_player.basic_skill_ends_at = add_millis(attacking_player.basic_skill_started_at, attacking_player.basic_skill_cooldown());
-                attacking_player.skill_1_ends_at = add_millis(attacking_player.skill_1_started_at, attacking_player.skill_1_cooldown());
-                attacking_player.skill_2_ends_at = add_millis(attacking_player.skill_2_started_at, attacking_player.skill_2_cooldown());
-                attacking_player.skill_3_ends_at = add_millis(attacking_player.skill_3_started_at, attacking_player.skill_3_cooldown());
+                attacking_player.basic_skill_ends_at = add_millis(
+                    attacking_player.basic_skill_started_at,
+                    attacking_player.basic_skill_cooldown(),
+                );
+                attacking_player.skill_1_ends_at = add_millis(
+                    attacking_player.skill_1_started_at,
+                    attacking_player.skill_1_cooldown(),
+                );
+                attacking_player.skill_2_ends_at = add_millis(
+                    attacking_player.skill_2_started_at,
+                    attacking_player.skill_2_cooldown(),
+                );
+                attacking_player.skill_3_ends_at = add_millis(
+                    attacking_player.skill_3_started_at,
+                    attacking_player.skill_3_cooldown(),
+                );
                 Ok(Vec::new())
             }
             Name::Muflus => {
