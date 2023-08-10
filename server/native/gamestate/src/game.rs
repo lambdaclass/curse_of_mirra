@@ -1242,7 +1242,7 @@ impl GameState {
                     if !projectile.pierce {
                         projectile.status = ProjectileStatus::EXPLODED;
                         projectile.position = attacked_player.position;
-                    } 
+                    }
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(
