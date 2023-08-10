@@ -6,6 +6,7 @@ public class VolumeController : MonoBehaviour
 {
     private MMSoundManager soundManager;
     private Slider volumeSlider;
+    private float unmutedVolume;
 
     void Start()
     {
@@ -16,11 +17,24 @@ public class VolumeController : MonoBehaviour
             MMSoundManager.MMSoundManagerTracks.Master,
             false
         );
+
+        unmutedVolume = volumeSlider.value;
     }
 
     public void ChangeMusicVolume()
     {
-        soundManager.SetVolumeMaster(volumeSlider.value);
+        //soundManager.SetVolumeMaster(volumeSlider.value);
+        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        {
+            MMSoundManager.Instance.UnmuteMaster();
+            //MMSoundManager.Instance.SetVolumeMaster(unmutedVolume);
+        }
+
+        MMSoundManagerTrackEvent.Trigger(
+            MMSoundManagerTrackEventTypes.SetVolumeTrack,
+            MMSoundManager.MMSoundManagerTracks.Master,
+            volumeSlider.value
+        );
     }
 
     private void Update()
@@ -29,5 +43,10 @@ public class VolumeController : MonoBehaviour
             MMSoundManager.MMSoundManagerTracks.Master,
             false
         );
+    }
+
+    private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
+    {
+        return !soundManager.IsMuted(track) || soundManager.GetTrackVolume(track, false) <= 0.0001f;
     }
 }
