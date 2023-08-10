@@ -4,30 +4,6 @@ using System;
 
 public class PlayerControls : MonoBehaviour
 {
-    // I think this should be an instance method
-    // instead of void.
-    public static void AttackIfInRange(int PlayerId)
-    {
-        var clientAction = new ClientAction { Action = Action.AutoAttack, Target = PlayerId };
-        SocketConnectionManager.Instance.SendAction(clientAction);
-    }
-
-    public static void BasicAttack(Vector3 direction)
-    {
-        RelativePosition relativePosition = new RelativePosition
-        {
-            X = direction.x,
-            Y = direction.z
-        };
-
-        var clientAction = new ClientAction
-        {
-            Action = Action.BasicAttack,
-            Position = relativePosition
-        };
-        SocketConnectionManager.Instance.SendAction(clientAction);
-    }
-
     public void SendJoystickValues(float x, float y)
     {
         if (x != 0 || y != 0)
@@ -95,16 +71,5 @@ public class PlayerControls : MonoBehaviour
             }
         }
         return 0f;
-    }
-
-    private static void SendAction(Action action, Direction direction, long timestamp)
-    {
-        ClientAction clientAction = new ClientAction
-        {
-            Action = action,
-            Direction = direction,
-            Timestamp = timestamp
-        };
-        SocketConnectionManager.Instance.SendAction(clientAction);
     }
 }
