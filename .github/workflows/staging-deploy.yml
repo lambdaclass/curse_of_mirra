@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://testing.dark-worlds.lambdaclass.com/board
+      url: http://europe-staging.curseofmyrra.com/
 
     steps:
       - name: Checkout deploy script
