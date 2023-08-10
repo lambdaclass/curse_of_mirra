@@ -2,6 +2,7 @@ pub mod board;
 pub mod character;
 pub mod game;
 pub mod game_configuration;
+pub mod loot;
 pub mod player;
 pub mod projectile;
 pub mod skills;
@@ -150,6 +151,13 @@ fn shrink_map(game: GameState, map_shrink_minimum_radius: u64) -> Result<GameSta
     Ok(game_2)
 }
 
+#[rustler::nif(schedule = "DirtyCpu")]
+fn spawn_loot(game: GameState) -> Result<GameState, String> {
+    let mut game_2 = game;
+    game_2.spawn_loot();
+    Ok(game_2)
+}
+
 pub fn load(_env: Env, _: Term) -> bool {
     true
 }
@@ -170,6 +178,7 @@ rustler::init!(
         skill_3,
         skill_4,
         shrink_map,
+        spawn_loot,
     ],
     load = load
 );

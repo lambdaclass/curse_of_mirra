@@ -324,6 +324,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
+    Process.send_after(self(), :spawn_loot, 20_000)
 
     gen_server_state =
       gen_server_state
@@ -392,6 +393,15 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
     {:ok, game} = Game.shrink_map(server_game_state.game, map_shrink_minimum_radius)
+    gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_info(:spawn_loot, %{server_game_state: server_game_state} = gen_server_state) do
+    Process.send_after(self(), :spawn_loot, 20_000)
+
+    {:ok, game} = Game.spawn_loot(server_game_state.game)
     gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
 
     {:noreply, gen_server_state}

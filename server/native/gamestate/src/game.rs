@@ -1,5 +1,6 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
+use crate::loot::{Loot, self};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
@@ -27,6 +28,8 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
+    pub loots: Vec<Loot>,
+    pub next_loot_id: u64,
 }
 
 #[derive(Clone, NifTuple)]
@@ -96,8 +99,6 @@ impl GameState {
 
         let board = Board::new(board_width, board_height);
 
-        let projectiles = Vec::new();
-
         let rng = &mut thread_rng();
         let shrinking_center_x_coordinate: usize = rng.gen_range(0..board_width);
         let shrinking_center_y_coordinate: usize = rng.gen_range(0..board_height);
@@ -112,10 +113,12 @@ impl GameState {
             board,
             next_killfeed: Vec::new(),
             killfeed: Vec::new(),
-            projectiles,
+            projectiles: Vec::new(),
             next_projectile_id: 0,
             playable_radius: playable_radius,
             shrinking_center,
+            loots: Vec::new(),
+            next_loot_id: 0,
         })
     }
 
@@ -1430,6 +1433,14 @@ impl GameState {
     pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
         let new_radius = self.playable_radius - 10; // self.playable_radius.mul(1).div(100).div(5);
         self.playable_radius = new_radius.max(map_shrink_minimum_radius);
+    }
+
+    pub fn spawn_loot(self: &mut Self) {
+        let id = self.next_loot_id;
+        self.next_loot_id += 1;
+
+        let loot = loot::spawn_random_loot(id, self.board.height, self.board.width);
+        self.loots.push(loot);
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
