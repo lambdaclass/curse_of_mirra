@@ -24,7 +24,7 @@ defmodule DarkWorldsServerWeb.BoardLive.Show do
     {board_width, board_height} = {state.game.board.height, state.game.board.width}
 
     {mode, player_id} =
-      case Runner.join(runner_pid, player_id) do
+      case Runner.join(runner_pid, :persistent_term.get(:runtime_id), player_id) do
         {:ok, player_id} -> {:player, player_id}
         {:error, :game_full} -> {:spectator, nil}
       end

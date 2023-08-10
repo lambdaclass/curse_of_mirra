@@ -33,6 +33,6 @@ defmodule DarkWorldsServer.PlayerTest do
   end
 
   defp ws_connect(session_id, player_id) do
-    WsClient.start_link("ws://localhost:4002/play/#{session_id}/#{player_id}")
+    WsClient.start_link("ws://localhost:4002/play/#{session_id}/client-id/#{player_id}")
   end
 end
