@@ -1,14 +1,8 @@
 name: Deploy to Brazil staging
 on:
-  push:
-    branches:
-      - staging-env
   release:
     types:
       - created
-    paths:
-      - server/**
-      - .github/workflows/aws-staging-deploy.yml
 
 jobs:
   build-deploy:
