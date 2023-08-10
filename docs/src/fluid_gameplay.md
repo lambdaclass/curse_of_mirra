@@ -204,8 +204,7 @@ If we go too fast, we will stop in our tracks for a little while, waiting for th
 To avoid both these things, the speed used by the client needs to exactly match the one used by the server.
 
 ## Entity interpolation
-
-We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough. There's still one thing to do, and that is *Entity Interpolation*. 
+We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough. There's still one thing to do, and that is *Entity Interpolation*.
 For this topic, lets set up our scenario:
 
 - We have two players in the game (Player 1 and 2)
@@ -218,7 +217,7 @@ Now, let's see Player 2's movement:
 
 As you can see, our player's movement feels that sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based on the updates sent by the server. How can we solve this?. Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
 
-Theory behind Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement. Let's suppose we're interpolating 100ms in the past, player's movement would like this
+Theory behind Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement, that means we're somehow predicting what the player is going to do (It is later explained how we're doing that). Let's suppose we're interpolating 100ms in the past, player's movement would like this
 
 ![](./videos/Interpolation_at_100ms.gif)
 
