@@ -4,7 +4,7 @@
 
 #### The animator
 
-The animator is the interface to control the Mecanim animation system. We use it to add the animations and create a flow within them.
+The animator is the interface to control the [Mecanim animation system](https://docs.unity3d.com/462/Documentation/Manual/MecanimAnimationSystem.html). We use it to add the animations and create a flow within them.
 
 #### Animation
 
@@ -14,7 +14,7 @@ The animation component is used to play animation clips, which are movement keyf
 
 Animation transitions allow the state machine to switch or blend from one animation state to another. We can use differents parameters to make a transition happend. Such as booleans, floats, etc.
 
-Transitions have diffenrents settings to setup deppending of what you want, these are the most important.
+Transitions have differents settings to setup deppending on what you want, these are the most important.
 
 - Has Exit Time: Determinates a fixed time for a animation. Ignores any kind of transition parameter.
 - If the Fixed Duration box is checked, the transition time is interpreted in seconds. If the Fixed Duration box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.
