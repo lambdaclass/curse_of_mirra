@@ -76,9 +76,7 @@ impl MutablePlayer {
         self.inner.borrow_mut().action = action.clone();
     }
     pub fn set_position(&self, pos: Position) {
-        dbg!(self.position());
         self.inner.borrow_mut().position = pos;
-        dbg!(self.position());
     }
     fn update_cooldowns(&self, now: &MillisTime) {
         self.inner.borrow_mut().update_cooldowns(*now);

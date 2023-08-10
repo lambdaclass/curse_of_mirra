@@ -1098,7 +1098,6 @@ impl GameState {
             dashing_player_speed as i64,
         )?;
         player.set_position(new_position);
-        dbg!(&player.position());
         *affected_players = GameState::affected_players(
             2,
             200.,
@@ -1107,7 +1106,6 @@ impl GameState {
             &dashing_player_position,
             dashing_player_id,
         );
-        dbg!(&affected_players);
         Ok(())
     }
 
