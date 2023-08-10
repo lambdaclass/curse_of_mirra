@@ -75,6 +75,11 @@ impl MutablePlayer {
     pub fn set_action(&self, action: &PlayerAction) {
         self.inner.borrow_mut().action = action.clone();
     }
+    pub fn set_position(&self, pos: Position) {
+        dbg!(self.position());
+        self.inner.borrow_mut().position = pos;
+        dbg!(self.position());
+    }
     fn update_cooldowns(&self, now: &MillisTime) {
         self.inner.borrow_mut().update_cooldowns(*now);
     }
@@ -124,7 +129,7 @@ pub struct TickChanges {
     pub neon_crash_affected_players: HashMap<u64, (i64, Vec<u64>)>,
     pub leap_affected_players: HashMap<u64, (i64, Vec<u64>)>,
     pub uma_mirroring_affected_players: HashMap<u64, (i64, u64)>,
-    pub projectile_affected_players: HashMap<u64, (i64, u64)>,
+    pub projectile_affected_players: HashMap<u64, (i64, Vec<u64>)>,
     pub reference_time: MillisTime,
     pub tick_killed_events: Vec<KillEvent>,
     pub kill_count: Vec<u64>,
@@ -298,7 +303,7 @@ impl TickChanges {
                     effect.direction.map(|direction| -> Result<(), String> {
                         let speed = player.speed();
                         GameState::move_with_dash(
-                            &mut player.position(),
+                            player.clone(),
                             speed,
                             player.id(),
                             players,

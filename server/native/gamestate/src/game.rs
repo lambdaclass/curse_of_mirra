@@ -26,7 +26,7 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
-    world_tick_state: TickChanges,
+    tick_changes: TickChanges,
 }
 
 #[derive(Clone, NifTuple)]
@@ -116,7 +116,7 @@ impl GameState {
             next_projectile_id: 0,
             playable_radius,
             shrinking_center,
-            world_tick_state: TickChanges::new(),
+            tick_changes: TickChanges::new(),
         })
     }
 
@@ -243,7 +243,7 @@ impl GameState {
 
     pub fn move_player_to_direction(
         board: &Board,
-        position: &mut Position,
+        position: &Position,
         direction: &RelativePosition,
         speed: i64,
     ) -> Result<Position, String> {
@@ -1082,7 +1082,7 @@ impl GameState {
 
     /// Move with a dash movement, mostly used on world tick.
     pub fn move_with_dash(
-        dashing_player_position: &mut Position,
+        player: MutablePlayer,
         dashing_player_speed: u64,
         dashing_player_id: u64,
         players: &MutablePlayers,
@@ -1090,39 +1090,44 @@ impl GameState {
         affected_players: &mut HashMap<u64, (i64, Vec<u64>)>,
         direction: &RelativePosition,
     ) -> Result<(), String> {
-        *dashing_player_position = GameState::move_player_to_direction(
+        let dashing_player_position = player.position();
+        let new_position = GameState::move_player_to_direction(
             &board,
-            dashing_player_position,
+            &dashing_player_position,
             direction,
             dashing_player_speed as i64,
         )?;
+        player.set_position(new_position);
+        dbg!(&player.position());
         *affected_players = GameState::affected_players(
             2,
             200.,
+            // TODO: Remove this if we ever use MutablePlayers
             (players.clone()).into_iter().map(Into::into).collect(),
             &dashing_player_position,
             dashing_player_id,
         );
+        dbg!(&affected_players);
         Ok(())
     }
 
     pub fn world_tick(self: &mut Self, out_of_area_damage: i64) -> Result<(), String> {
-        self.world_tick_state = TickChanges::new();
-        let tick_changes = &mut self.world_tick_state;
+        self.tick_changes = TickChanges::new();
         let mut players = self
             .players
             .clone()
             .into_iter()
             .map(|player| MutablePlayer::from(player))
             .collect::<Vec<MutablePlayer>>();
-        let now = tick_changes.reference_time;
+        let now = self.tick_changes.reference_time;
         for player in players.iter() {
             // Store expired effects in case they have
             // some kind of consequence in the game, like muflus' leap.
             let expired_effects = player.world_tick_updates(&now)?;
+            player.action();
             // Check if this player is dashing and register
             // the dash effects on the game.
-            tick_changes.accumulate_dashing_effects(
+            self.tick_changes.accumulate_dashing_effects(
                 player,
                 &expired_effects,
                 &players,
@@ -1131,11 +1136,11 @@ impl GameState {
         }
         // Neon Crash Attack
         // We can have more than one h4ck attacking
-        tick_changes.attack_players_with_effect(Effect::NeonCrashing, &mut players)?;
+        self.tick_changes.attack_players_with_effect(Effect::NeonCrashing, &mut players)?;
 
         // Leap Attack
         // We can have more than one muflus attacking
-        tick_changes.attack_players_with_effect(Effect::Leaping, &mut players)?;
+        self.tick_changes.attack_players_with_effect(Effect::Leaping, &mut players)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1145,29 +1150,28 @@ impl GameState {
         // Update what happens with each projectile.
         for projectile in self.projectiles.iter_mut() {
             if projectile.is_active() {
-                tick_changes.active_projectile_update(&players, projectile)?;
+                self.tick_changes.active_projectile_update(&players, projectile)?;
             }
 
-            tick_changes.attack_mirrored_players(&players)?;
-            tick_changes.uma_mirroring_affected_players.clear()
+            self.tick_changes.attack_mirrored_players(&players)?;
+            self.tick_changes.uma_mirroring_affected_players.clear()
         }
 
-        for (player_id, (_, attacked_players)) in tick_changes.projectile_affected_players.iter()
-        {
-            let attacked = attacked_players.clone()
-            self.update_killfeed(*player_id, attacked);
+        //TODO: Avoid cloning this 
+        let projectile_affected_players = self.tick_changes.projectile_affected_players.clone();
+        for (player_id, (_, attacked_players)) in projectile_affected_players {
+            // TODO: Avoid cloning this
+            let attacked = attacked_players.clone();
+            self.update_killfeed(player_id, attacked);
         }
 
-        self.world_tick_state.attack_mirrored_players(&players)?;
-
-
+        self.tick_changes.attack_mirrored_players(&players)?;
+        self.players = players.into_iter().map(Into::into).collect_vec();
         self.check_and_damage_outside_playable(out_of_area_damage);
-
         self.check_and_damage_players(Effect::Poisoned);
-
         self.check_and_damage_players(Effect::Burned);
         self.next_killfeed
-            .append(&mut self.world_tick_state.tick_killed_events);
+            .append(&mut self.tick_changes.tick_killed_events);
         self.killfeed = self.next_killfeed.clone();
         self.next_killfeed.clear();
         Ok(())
