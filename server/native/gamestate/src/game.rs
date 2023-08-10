@@ -1152,10 +1152,11 @@ impl GameState {
             tick_changes.uma_mirroring_affected_players.clear()
         }
 
-        // for (player_id, (_, attacked_player_id)) in tick_changes.projectile_affected_players.iter()
-        // {
-        //     self.update_killfeed(*player_id, );
-        // }
+        for (player_id, (_, attacked_players)) in tick_changes.projectile_affected_players.iter()
+        {
+            let attacked = attacked_players.clone()
+            self.update_killfeed(*player_id, attacked);
+        }
 
         self.world_tick_state.attack_mirrored_players(&players)?;
 
