@@ -8,7 +8,7 @@ It is use to initialize the skills once the character is selected,  it maps the 
 
 `ClearAnimator` 
 
-This method clear each skill parameter, setting all booleans to false
+This method clear each skill parameter, setting all booleans to false.
 
 `ChangeCharacterState`
 
@@ -26,3 +26,9 @@ This method implements the same logic as `StartFeedback` but for the parameters 
 `EndSkillFeedback`
 
 Changes the movement machine state to Idle and set the animation parameter to false. This is used in the `SkillAnimationEvents` to end the animations.
+
+## ExecuteFeedback flowchart
+
+![](./images/executeFeedback.png)
+
+### This flowchart does only have in count the animation part of the method

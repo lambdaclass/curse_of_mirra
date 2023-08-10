@@ -6,10 +6,10 @@ First of all , if your animations are inside a model ( character model ) copy th
 
 When you have all your animations in the folder, check one by one if they had the field loop time checked or not. This depends of what you want the animation to be looped or not. A good example of loop animations are Walking and Idle.
 
-Now make sure if you have a AnimatorController for your character , if dont create one in unity top bar do:
+Now make sure if you have a AnimatorController for your character , if don't create one in unity top bar do:
 `Assets > Create > AnimatorController` renamed and move it to the `Assets/Animations` folder.
 
-When you have all your animations set , open the animatorController and drag the entry animation ( Idle in our case ) it will automatly connect to the entry state.
+When you have all your animations set , open the animatorController and drag the entry animation (Idle in our case) it will automatly connect to the entry state.
 ![](./images/Entry.png)
 
 Then drag and drop in the animator the rest of the animations.Now we are ready to create the transitions 🤙.
