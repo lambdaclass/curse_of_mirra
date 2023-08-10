@@ -6,22 +6,22 @@ using TMPro;
 public class Errors : MonoBehaviour
 {
     [SerializeField]
-    public GameObject container;
+    public GameObject networkContainer;
 
     [SerializeField]
-    public TextMeshProUGUI error;
+    public GameObject reconnectContainer;
 
     [SerializeField]
-    public TextMeshProUGUI description;
+    public TextMeshProUGUI networkError;
 
     [SerializeField]
-    public GameObject yesButton;
+    public TextMeshProUGUI networkDescription;
 
     [SerializeField]
-    public GameObject noButton;
+    public TextMeshProUGUI reconnectError;
 
     [SerializeField]
-    public GameObject okButton;
+    public TextMeshProUGUI reconnectDescription;
 
     string ongoingGameTitle = "You have a game in progress";
     string ongoingGameDescription = "Do you want to reconnect to the game?";
@@ -30,9 +30,14 @@ public class Errors : MonoBehaviour
 
     void Update()
     {
-        if (LobbyConnection.Instance.errorConnection || LobbyConnection.Instance.errorOngoingGame)
+        if (LobbyConnection.Instance.errorConnection)
         {
-            container.SetActive(true);
+            networkContainer.SetActive(true);
+            HandleError();
+        }
+        if (LobbyConnection.Instance.errorOngoingGame)
+        {
+            reconnectContainer.SetActive(true);
             HandleError();
         }
     }
@@ -41,28 +46,25 @@ public class Errors : MonoBehaviour
     {
         if (LobbyConnection.Instance.errorConnection)
         {
-            error.text = connectionTitle;
-            description.text = connectionDescription;
-            okButton.SetActive(LobbyConnection.Instance.errorConnection);
+            networkError.text = connectionTitle;
+            networkDescription.text = connectionDescription;
         }
         if (LobbyConnection.Instance.errorOngoingGame)
         {
-            error.text = ongoingGameTitle;
-            description.text = ongoingGameDescription;
-            yesButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
-            noButton.SetActive(LobbyConnection.Instance.errorOngoingGame);
+            reconnectError.text = ongoingGameTitle;
+            reconnectDescription.text = ongoingGameDescription;
         }
     }
 
     public void HideConnectionError()
     {
-        container.SetActive(false);
+        networkContainer.SetActive(false);
         LobbyConnection.Instance.errorConnection = false;
     }
 
     public void HideOngoingGameError()
     {
-        container.SetActive(false);
+        reconnectContainer.SetActive(false);
         LobbyConnection.Instance.errorOngoingGame = false;
     }
 }
