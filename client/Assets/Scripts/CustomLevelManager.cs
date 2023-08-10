@@ -93,7 +93,7 @@ public class CustomLevelManager : LevelManager
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         MMSoundManager.Instance.FreeAllSounds();
-        MMSoundManagerSoundPlayEvent.Trigger(backgroundMusic.SoundClip, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position);
+        MMSoundManagerSoundPlayEvent.Trigger(backgroundMusic.SoundClip, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, true);
     }
 
     void Update()
