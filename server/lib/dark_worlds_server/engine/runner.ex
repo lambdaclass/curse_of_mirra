@@ -180,9 +180,6 @@ defmodule DarkWorldsServer.Engine.Runner do
         %{server_game_state: server_game_state} = gen_server_state
       )
       when action in [:basic_attack, :skill_1, :skill_2, :skill_3, :skill_4] do
-    # Logger.info("#{DateTime.utc_now()}")
-    # IO.inspect(server_game_state.game, pretty: true, label: Before)
-
     {:ok, game} = do_action(action, server_game_state.game, player_id, value)
 
     server_game_state = server_game_state |> Map.put(:game, game)

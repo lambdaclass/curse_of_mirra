@@ -1,6 +1,6 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::game::{GameState, KillEvent};
+use crate::game::{Direction, GameState, KillEvent};
 use crate::time_utils::{time_now, MillisTime};
 use crate::utils::cmp_float;
 use crate::{
@@ -84,7 +84,10 @@ impl MutablePlayer {
     fn update_cooldowns(&self, now: &MillisTime) {
         self.inner.borrow_mut().update_cooldowns(*now);
     }
-    fn update_effects_time_left(&self, now: &MillisTime) -> Result<Vec<Effect>, String> {
+    fn update_effects_time_left(
+        &self,
+        now: &MillisTime,
+    ) -> Result<Vec<(Effect, EffectData)>, String> {
         self.inner.borrow_mut().update_effects_time_left(now)
     }
     pub fn modify_health(&self, hp_points: i64) {
@@ -92,7 +95,10 @@ impl MutablePlayer {
     }
     /// World Tick Updates that should happen for every player,
     /// regardless of what the player is doing.
-    pub fn world_tick_updates(&self, now: &MillisTime) -> Result<Vec<Effect>, String> {
+    pub fn world_tick_updates(
+        &self,
+        now: &MillisTime,
+    ) -> Result<Vec<(Effect, EffectData)>, String> {
         // Clean each player actions
         self.set_action(&PlayerAction::NOTHING);
         // Keep only (de)buffs that have
@@ -293,7 +299,7 @@ impl TickChanges {
     pub fn accumulate_dashing_effects(
         &mut self,
         player: &MutablePlayer,
-        expired_effects: &[Effect],
+        expired_effects: &[(Effect, EffectData)],
         players: &MutablePlayers,
         board: &Board,
     ) -> Result<(), String> {
@@ -317,15 +323,30 @@ impl TickChanges {
                 }
             }
             Name::Muflus => {
-                if expired_effects.contains(&Effect::Leaping) {
-                    player.set_action(&PlayerAction::EXECUTINGSKILL3);
-                    self.leap_affected_players = GameState::affected_players(
-                        player.skill_3_damage() as i64,
-                        450.,
-                        players.clone().into_iter().map(Into::into).collect(),
-                        &player.position(),
-                        player.id(),
-                    );
+                if let Some((_, data)) = expired_effects
+                    .iter()
+                    .find_or_first(|(effect, _data)| effect == &Effect::Leaping)
+                {
+                    data.direction.map(|direction| -> Result<(), String> {
+                        player.set_action(&PlayerAction::EXECUTINGSKILL3);
+                        self.leap_affected_players = GameState::affected_players(
+                            player.skill_3_damage() as i64,
+                            450.,
+                            players.clone().into_iter().map(Into::into).collect(),
+                            &player.position(),
+                            player.id(),
+                        );
+                        GameState::move_with_dash(
+                            player.clone(),
+                            player.speed(),
+                            player.id(),
+                            players,
+                            &board,
+                            &mut self.leap_affected_players,
+                            &direction,
+                        );
+                        Ok(())
+                    });
                 }
             }
             _ => {}

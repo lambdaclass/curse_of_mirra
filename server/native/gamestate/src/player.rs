@@ -437,21 +437,23 @@ impl Player {
     }
     /// Update a player's current status effects,
     /// return the expired ones.
-    pub fn update_effects_time_left(&mut self, now: &MillisTime) -> Result<Vec<Effect>, String> {
+    pub fn update_effects_time_left(
+        &mut self,
+        now: &MillisTime,
+    ) -> Result<Vec<(Effect, EffectData)>, String> {
         let mut expired_effects = vec![];
-        self.effects.retain(
-            |effect,
-             EffectData {
-                 time_left, ends_at, ..
-             }| {
-                *time_left = sub_millis(*ends_at, now.clone());
-                let expires = millis_to_u128(*time_left) == 0;
-                if expires {
-                    expired_effects.push((*effect).clone());
-                }
-                !(expires)
-            },
-        );
+        self.effects.retain(|effect, data| {
+            let EffectData {
+                time_left, ends_at, ..
+            } = data;
+            *time_left = sub_millis(*ends_at, now.clone());
+            let expires = millis_to_u128(*time_left) == 0;
+            if expires {
+                let expired_with_data = ((*effect).clone(), data.clone());
+                expired_effects.push(expired_with_data);
+            }
+            !(expires)
+        });
 
         Ok(expired_effects)
     }
