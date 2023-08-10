@@ -16,7 +16,7 @@ Animation transitions allow the state machine to switch or blend from one animat
 
 Transitions have differents settings to setup deppending on what you want, these are the most important.
 
-- Has Exit Time: Determinates a fixed time for a animation. Ignores any kind of transition parameter.
+- Has Exit Time: Determinates a fixed time for an animation. Ignores any kind of transition parameter.
 - If the Fixed Duration box is checked, the transition time is interpreted in seconds. If the Fixed Duration box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.
 - Transition duration: This determinates how much will it took to transition to the next state.
 
@@ -30,7 +30,9 @@ We use a specific list of parameters for our transitions
 
 - `SkillBasic, Skill1, Skill2, Skill3, Skill4 ( Booleans )` We use them to change the state of the animation and make the transition happend.
 
-- `SkillBasic_start, Skill1c_start, Skill2c_start, Skill3c_start, Skill4c_start ( Booleans )` Not allways necessaries , we use them to concatenate animations.
+- `SkillBasic_start, Skill1c_start, Skill2c_start, Skill3c_start, Skill4c_start ( Booleans )` Not always necessary , we use them to concatenate animations. For example if a skill have 2 different animations that happends sequentially and we want to concatenate them to create the whole animation we can do something like this:
+
+![](./images/_startParams.png)
 
 - `SkillBasicSpeed, Skill1Speed, Skill2Speed, Skill3Speed, Skill4Speed ( Floats )` We use them to control the speed of the animation. To use them you have to set the animation to use multiplier parameter and choose the respective parameter.
 
@@ -42,11 +44,11 @@ We use a specific list of parameters for our transitions
 
 Lets deep into how we use the animations to match with our backend, the scripts we use and more. The main scripts that participate in the animation flow are:
 
-- `Skillinfo.cs` an ScriptableObject with the skill information, here what we care about are the fields `hasModelAnimation`, `startAnimationDuration`, `executeAnimationDuration` and `animationSpeedMultiplier` fields. Lets talk about them later, keep them in mind.
+- `Skillinfo.cs` a ScriptableObject with the skill information, here what we care about are the fields `hasModelAnimation`, `startAnimationDuration`, `executeAnimationDuration` and `animationSpeedMultiplier` fields. Lets talk about them later, keep them in mind.
 
 - `Skill.cs` This is a really importart script, here we control the complete flow of the animations ( Play, Stop, Block movements, etc )
 
-- `SkillAnimationEvents.cs` is in change of changing the active skill playing and end the animation playing.
+- `SkillAnimationEvents.cs` it is in charge of changing the active skill playing and end the animation playing.
 - `Battle.cs` Depending of the backend action executes the corresponding skill and start the flow of the animation system.
 - `CustomLevelManager.cs` Where the buttons and mapped with the respective skill.
 
