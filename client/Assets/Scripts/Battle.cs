@@ -860,11 +860,11 @@ public class Battle : MonoBehaviour
             && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
         )
         {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Poison", true);
         }
         else
         {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
+            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Poison", false);
         }
     }
 
@@ -875,11 +875,11 @@ public class Battle : MonoBehaviour
             && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
         )
         {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
+            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Slowed", true);
         }
         else
         {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Slowed", false);
         }
     }
 

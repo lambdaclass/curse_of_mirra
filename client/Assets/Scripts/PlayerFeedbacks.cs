@@ -62,13 +62,8 @@ public class PlayerFeedbacks : MonoBehaviour
         InputManager.ActivateDisarmEffect(disarmed);
     }
 
-    public void SetActivePoisonedFeedback(GameObject player, bool value)
+    public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
     {
-        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback("Poison", value);
-    }
-
-    public void SetActiveSlowedFeedback(GameObject player, bool value)
-    {
-        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback("Slowed", value);
+        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback(feedbackName, value);
     }
 }
