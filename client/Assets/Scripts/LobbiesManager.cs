@@ -36,7 +36,7 @@ public class LobbiesManager : LevelSelector
     {
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        MMSoundManager.Instance.FreeAllSounds();
+        //MMSoundManager.Instance.FreeAllSounds();
     }
 
     public void QuickGame()
