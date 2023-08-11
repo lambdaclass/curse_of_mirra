@@ -22,7 +22,15 @@ public class ToggleButton : MonoBehaviour
 
     void Start()
     {
-        GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically = false;
+        if (GetComponent<MMTouchButton>())
+        {
+            GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically = false;
+        }
+        if (transform.parent.GetComponent<MMTouchButton>())
+        {
+            transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
+                false;
+        }
     }
 
     public void ToggleClientPrediction()
@@ -84,6 +92,18 @@ public class ToggleButton : MonoBehaviour
         else
         {
             ToggleOff();
+        }
+    }
+
+    public void ToggleCamera(bool value)
+    {
+        if (value)
+        {
+            ToggleOff();
+        }
+        else
+        {
+            ToggleOn();
         }
     }
 

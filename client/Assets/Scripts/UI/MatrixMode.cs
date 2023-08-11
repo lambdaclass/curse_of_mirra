@@ -51,6 +51,6 @@ public class MatrixMode : MonoBehaviour
             mainCameraCM.transform.rotation = Quaternion.Euler(topView);
             mainCamera.orthographic = true;
         }
-        GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(cameraDefault);
+        GetComponent<ToggleButton>().ToggleCamera(cameraDefault);
     }
 }
