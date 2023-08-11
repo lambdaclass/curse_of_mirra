@@ -199,6 +199,8 @@ enum PlayerEffect {
     SLOWED = 12;
     FIERY_RAMPAGE = 13;
     BURNED = 14;
+    SCHERZO = 15;
+    DANSE_MACABRE = 16;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

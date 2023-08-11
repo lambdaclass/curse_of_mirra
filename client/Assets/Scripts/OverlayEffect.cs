@@ -12,13 +12,19 @@ public class OverlayEffect : MonoBehaviour
 
     [Header("Objects")]
     public GameObject objectToHighlight;
+    public GameObject weaponToHighlight;
 
     public void OnEnable()
     {
         objectToHighlight.GetComponentsInChildren(skinnedMeshFilter);
+
         foreach (var meshFilter in skinnedMeshFilter)
         {
             meshFilter.GetComponent<Renderer>().material.shader = shader;
+        }
+        if (weaponToHighlight)
+        {
+            weaponToHighlight.GetComponent<Renderer>().material.shader = shader;
         }
     }
 
@@ -28,6 +34,12 @@ public class OverlayEffect : MonoBehaviour
         foreach (var meshFilter in skinnedMeshFilter)
         {
             meshFilter.GetComponent<Renderer>().material.shader = Shader.Find(
+                "Universal Render Pipeline/Lit"
+            );
+        }
+        if (weaponToHighlight)
+        {
+            weaponToHighlight.GetComponent<Renderer>().material.shader = Shader.Find(
                 "Universal Render Pipeline/Lit"
             );
         }

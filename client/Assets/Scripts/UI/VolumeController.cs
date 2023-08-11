@@ -1,9 +1,12 @@
 using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
+    [SerializeField]
+    TextMeshProUGUI uiValue;
     private MMSoundManager soundManager;
     private Slider volumeSlider;
     private float unmutedVolume;
@@ -19,6 +22,7 @@ public class VolumeController : MonoBehaviour
         );
 
         unmutedVolume = volumeSlider.value;
+        uiValue.text = uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
     }
 
     public void ChangeMusicVolume()
@@ -33,6 +37,7 @@ public class VolumeController : MonoBehaviour
             MMSoundManager.MMSoundManagerTracks.Master,
             volumeSlider.value
         );
+        uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
     }
 
     private void Update()
