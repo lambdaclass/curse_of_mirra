@@ -10,3 +10,5 @@
 - [Fluid gameplay in an online environment](./fluid_gameplay.md)
 - [Simulating high latency](./simulating_latency.md)
 - [Common Pitfalls](./common_pitfalls.md)
+- [Client Player feedbacks](./client_feedbacks.md)
+    - [How to add new Feedbacks](./how_to_add_feedbacks.md)
