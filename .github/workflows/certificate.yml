@@ -1,10 +1,6 @@
 name: Cuse of Myrra Certificate Renewal
 
 on:
-  push:
-    branches:
-      - cert-renewal
-    
   schedule:
     - cron: '0 0 1 */2 *' # Running at 1st of the month, every two months.
 
