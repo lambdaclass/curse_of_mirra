@@ -73,7 +73,7 @@ public class LobbyManager : LevelSelector
     public void BackToLobbyFromGame()
     {
         Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
-        Back();
+        BackToLobbyAndCloseConnection();
     }
 
     public void SelectMap(string mapName)
