@@ -81,7 +81,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
 
   field(:PETRIFIED, 0)
   field(:DISARMED, 1)
-  field(:PIERCING, 2)
+  field(:DENIAL_OF_SERVICE, 2)
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
