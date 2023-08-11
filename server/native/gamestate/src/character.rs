@@ -21,7 +21,7 @@ pub enum Name {
 pub enum Faction {
     #[strum(serialize = "ara", serialize = "Araban", ascii_case_insensitive)]
     Araban,
-    #[strum(serialize = "kal", serialize = "Araban", ascii_case_insensitive)]
+    #[strum(serialize = "kal", serialize = "Kaline", ascii_case_insensitive)]
     Kaline,
     #[strum(serialize = "oto", serialize = "Otobi", ascii_case_insensitive)]
     Otobi,
