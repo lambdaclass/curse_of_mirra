@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # staging_brasil, staging_europe, testing_brasil, testing_europe
         HOST: [ europe-staging.curseofmyrra.com, brazil-staging.curseofmyrra.com, testing.dark-worlds.lambdaclass.com, aws-testing.dark-worlds.lambdaclass.com ]
 
     steps:
