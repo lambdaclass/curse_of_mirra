@@ -16,6 +16,7 @@ MonoBehaviour:
   description: "Target opponent can\u2019t use any skills for 2 seconds. Always a
     sneaky guy, he has mastered the art of impairing his foes using his slingshot."
   inputType: 2
+  indicatorType: 2
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -26,3 +27,6 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
+  skillCircleRadius: 12
+  skillConeAngle: 0
+  arrowWidth: 1.5

@@ -15,7 +15,7 @@ public class LobbyManager : LevelSelector
     GameObject playButton;
 
     [SerializeField]
-    GameObject mapList;
+    GameObject waitingText;
 
     public static string LevelSelected;
 
@@ -27,16 +27,17 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (playButton != null && mapList != null)
+        if (playButton != null && waitingText != null)
         {
-            if (LobbyConnection.Instance.playerId == 1)
+            if (LobbyConnection.Instance.isHost)
             {
                 playButton.SetActive(true);
+                waitingText.SetActive(false);
             }
             else
             {
                 playButton.SetActive(false);
-                mapList.SetActive(false);
+                waitingText.SetActive(true);
             }
         }
     }
@@ -87,12 +88,21 @@ public class LobbyManager : LevelSelector
     {
         if (
             !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && LobbyConnection.Instance.playerId != 1
+            && !LobbyConnection.Instance.isHost
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
+        }
+
+        if (this.playButton)
+        {
+            if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
+            {
+                this.playButton.SetActive(true);
+                this.waitingText.SetActive(false);
+            }
         }
     }
 }

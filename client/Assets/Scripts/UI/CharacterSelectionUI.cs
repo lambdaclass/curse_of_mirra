@@ -6,6 +6,7 @@ public class CharacterSelectionUI : MonoBehaviour
 {
     public bool updated = false;
     public string selectedCharacterName;
+    public string selectedPlayerCharacterName;
 
     public List<GameObject> GetAllChilds()
     {
@@ -54,7 +55,7 @@ public class CharacterSelectionUI : MonoBehaviour
             Action = Action.SelectCharacter,
             PlayerCharacter = characterSelected
         };
-
         SocketConnectionManager.Instance.SendAction(clientAction);
+        selectedPlayerCharacterName = characterSelected.CharacterName;
     }
 }
