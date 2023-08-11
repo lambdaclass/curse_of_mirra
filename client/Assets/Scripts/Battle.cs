@@ -631,8 +631,6 @@ public class Battle : MonoBehaviour
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
-        Text buttonText = GameObject.Find("ToggleClientPredictionText").GetComponent<Text>();
-        buttonText.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
             TurnOffClientPredictionGhost();
