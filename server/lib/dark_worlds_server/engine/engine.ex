@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Engine do
   """
   use DynamicSupervisor
 
+  alias DarkWorldsServer.Engine.PlayerTracker
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.Runner
 
@@ -18,6 +19,7 @@ defmodule DarkWorldsServer.Engine do
   @impl true
   def init(_opts) do
     RequestTracker.create_table()
+    PlayerTracker.create_table()
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 

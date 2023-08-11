@@ -6,42 +6,57 @@ use rustler::NifStruct;
 #[module = "DarkWorldsServer.Engine.Skill"]
 pub struct Skill {
     pub name: String,
-    pub do_func: u64,
-    pub button_type: String,
     pub cooldown_ms: u64,
     pub damage: u32,
-    pub status: String,
     pub duration: u64,
-    pub projectile: String,
-    pub minion: String,
     pub skill_range: f64,
+    pub par1: u32,
+    pub par1desc: String, // temp. See #764
+    pub par2: u32,
+    pub par2desc: String, // temp
+    pub par3: u32,
+    pub par3desc: String, // temp
+    pub par4: u32,
+    pub par4desc: String, // temp
+    pub par5: u32,
+    pub par5desc: String, // temp
     pub angle: u64,
 }
 
 impl Skill {
     pub fn from_config_map(config: &HashMap<String, String>) -> Result<Skill, String> {
         let name = get_skill_field(config, "Name")?;
-        let do_func = get_skill_field(config, "DoFunc")?;
-        let button_type = get_skill_field(config, "ButtonType")?;
         let cooldown_ms = get_skill_field(config, "Cooldown")?;
         let damage = get_skill_field(config, "Damage")?;
-        let status = get_skill_field(config, "Status")?;
         let duration = get_skill_field(config, "Duration")?;
-        let projectile = get_skill_field(config, "Projectile")?;
-        let minion = get_skill_field(config, "Minion")?;
         let skill_range = get_skill_field(config, "SkillRange")?;
+        let par1 = get_skill_field(config, "Par1")?;
+        let par1desc = get_skill_field(config, "Par1Desc")?;
+        let par2 = get_skill_field(config, "Par2")?;
+        let par2desc = get_skill_field(config, "Par2Desc")?;
+        let par3 = get_skill_field(config, "Par3")?;
+        let par3desc = get_skill_field(config, "Par3Desc")?;
+        let par4 = get_skill_field(config, "Par4")?;
+        let par4desc = get_skill_field(config, "Par4Desc")?;
+        let par5 = get_skill_field(config, "Par5")?;
+        let par5desc = get_skill_field(config, "Par5Desc")?;
         let angle = get_skill_field(config, "Angle")?;
         Ok(Self {
             name,
-            do_func,
-            button_type,
             cooldown_ms,
             damage,
-            status,
             duration,
-            projectile,
-            minion,
             skill_range,
+            par1,
+            par1desc,
+            par2,
+            par2desc,
+            par3,
+            par3desc,
+            par4,
+            par4desc,
+            par5,
+            par5desc,
             angle,
         })
     }
@@ -51,15 +66,20 @@ impl Default for Skill {
     fn default() -> Self {
         Skill {
             name: "Slingshot".to_string(),
-            do_func: 0,
-            button_type: "".to_string(),
             cooldown_ms: 1000,
             damage: 10,
-            status: "".to_string(),
             duration: 0,
-            projectile: "".to_string(),
-            minion: "".to_string(),
             skill_range: 100.0,
+            par1: 0,
+            par1desc: "".to_string(),
+            par2: 0,
+            par2desc: "".to_string(),
+            par3: 0,
+            par3desc: "".to_string(),
+            par4: 0,
+            par4desc: "".to_string(),
+            par5: 0,
+            par5desc: "".to_string(),
             angle: 10,
         }
     }
