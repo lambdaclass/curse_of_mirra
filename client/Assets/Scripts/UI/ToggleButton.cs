@@ -44,12 +44,10 @@ public class ToggleButton : MonoBehaviour
         if (battle.showClientPredictionGhost)
         {
             ToggleOn();
-            state.text = "On";
         }
         else
         {
             ToggleOff();
-            state.text = "Off";
         }
     }
 
