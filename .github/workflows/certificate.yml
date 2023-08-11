@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        IP: [ 54.94.12.50, ]
+        # staging_brasil, staging_europe, testing_brasil, testing_europe
+        IP: [ 54.94.12.50, 49.13.65.169, 54.207.194.197, 5.75.237.197]
 
     steps:
 
