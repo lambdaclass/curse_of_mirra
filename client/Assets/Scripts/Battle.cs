@@ -663,7 +663,7 @@ public class Battle : MonoBehaviour
 
     private void TurnOffClientPredictionGhost()
     {
-        if (showClientPredictionGhost && clientPredictionGhost != null)
+        if (!showClientPredictionGhost && clientPredictionGhost != null)
         {
             clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
             clientPredictionGhost.SetActive(false);
