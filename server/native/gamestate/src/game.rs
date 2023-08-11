@@ -1101,7 +1101,7 @@ impl GameState {
             player.dash_dmg().into(),
             200.,
             // TODO: Remove this if we ever use MutablePlayers
-            (players.clone()).into_iter().map(Into::into).collect(),
+            (players).iter().cloned().map(Into::into).collect(),
             &dashing_player_position,
             dashing_player_id,
         );
