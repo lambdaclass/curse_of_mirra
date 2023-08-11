@@ -113,8 +113,6 @@ message RelativePosition {
     - move_delta: movement direction
     - target: player id to autoattack
     - timestamp: client's time at the moment they send the action
-    - player_character:
-    - loot_id: ID of the loot taken by client
  */
 message ClientAction {
     Action action = 1;
@@ -124,7 +122,6 @@ message ClientAction {
     sint64 target = 5;
     int64 timestamp = 6;
     PlayerCharacter player_character = 7;
-    uint64 loot_id = 8;
 }
 
 /* Actions a client/player performs
@@ -138,7 +135,6 @@ message ClientAction {
     - BASIC_ATTACK, SKILL_{1, 2, 3, 4}: Player skills.
     - ENABLE_BOTS: Bots are enabled (move, attack, etc)
     - DISABLE_BOTS: Bots are disabled (stand still)
-    - TAKE_LOOT: Player takes loot
  */
 enum Action {
     ACTION_UNSPECIFIED = 0;
@@ -156,7 +152,6 @@ enum Action {
     SELECT_CHARACTER = 12;
     ENABLE_BOTS = 13;
     DISABLE_BOTS = 14;
-    TAKE_LOOT = 15;
 }
 
 /* Directions an action can happen in
@@ -252,6 +247,7 @@ message RunnerConfig {
     uint64 out_of_area_damage = 8;
     string use_proxy = 9;
     uint64 map_shrink_minimum_radius = 10;
+    uint64 spawn_loot_interval_ms = 11;
 }
 
 message GameConfig {

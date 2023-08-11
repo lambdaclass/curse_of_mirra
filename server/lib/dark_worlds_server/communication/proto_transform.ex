@@ -1,10 +1,10 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
-  alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.KillEvent
+  alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
@@ -84,7 +84,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
       map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy
+      use_proxy: use_proxy,
+      spawn_loot_interval_ms: spawn_loot_interval_ms
     } = runner_config
 
     runner_config = %RunnerConfig{
@@ -97,7 +98,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
       map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy
+      use_proxy: use_proxy,
+      spawn_loot_interval_ms: spawn_loot_interval_ms
     }
 
     character_config = %CharacterConfig{

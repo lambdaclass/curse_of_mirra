@@ -41,7 +41,6 @@ defmodule LoadTest.Communication.Proto.Action do
   field(:SELECT_CHARACTER, 12)
   field(:ENABLE_BOTS, 13)
   field(:DISABLE_BOTS, 14)
-  field(:TAKE_LOOT, 15)
 end
 
 defmodule LoadTest.Communication.Proto.Direction do
@@ -296,8 +295,6 @@ defmodule LoadTest.Communication.Proto.ClientAction do
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
-
-  field(:loot_id, 8, type: :uint64, json_name: "lootId")
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEvent do
@@ -365,6 +362,7 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
   field(:use_proxy, 9, type: :string, json_name: "useProxy")
   field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
+  field(:spawn_loot_interval_ms, 11, type: :uint64, json_name: "spawnLootIntervalMs")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do
