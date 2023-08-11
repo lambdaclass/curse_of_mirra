@@ -286,7 +286,9 @@ impl Player {
 
         return base_speed;
     }
-
+    pub fn dash_dmg(&self) -> u32 {
+        self.skill_3_damage()
+    }
     fn muflus_partial_immunity(&self, effect_to_apply: &Effect) -> bool {
         effect_to_apply.is_crowd_control()
             && self.has_active_effect(&Effect::Raged)

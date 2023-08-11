@@ -14,6 +14,7 @@ use std::collections::HashMap;
 use std::ops::Deref;
 use std::rc::Rc;
 pub type MutablePlayers = Vec<MutablePlayer>;
+#[derive(Debug)]
 pub struct MutablePlayer {
     inner: Rc<RefCell<Player>>,
 }
@@ -37,6 +38,9 @@ impl Clone for MutablePlayer {
 }
 impl MutablePlayer {
     // READ ONLY FUNCTIONS
+    pub fn dash_dmg(&self) -> u32 {
+        self.inner.borrow().skill_3_damage()
+    }
     pub fn position(&self) -> Position {
         self.inner.borrow().position
     }
@@ -290,7 +294,7 @@ impl TickChanges {
                 let attacked_player = players
                     .get((target_player_id - 1) as usize)
                     .expect("Player with invalid ID aborting!!!");
-                attacked_player.modify_health(-damage)
+                attacked_player.modify_health(-damage);
             }
         }
         self.attack_mirrored_players(players)?;
@@ -310,7 +314,7 @@ impl TickChanges {
                     effect.direction.map(|direction| -> Result<(), String> {
                         let speed = player.speed();
                         GameState::move_with_dash(
-                            player.clone(),
+                            player,
                             speed,
                             player.id(),
                             players,
@@ -323,6 +327,22 @@ impl TickChanges {
                 }
             }
             Name::Muflus => {
+                if let Some(effect_data) = player.fetch_effect(&Effect::Leaping) {
+                    effect_data
+                        .direction
+                        .map(|direction| -> Result<(), String> {
+                            GameState::move_with_dash(
+                                player,
+                                player.speed(),
+                                player.id(),
+                                players,
+                                &board,
+                                &mut self.leap_affected_players,
+                                &direction,
+                            )
+                        });
+                }
+
                 if let Some((_, data)) = expired_effects
                     .iter()
                     .find_or_first(|(effect, _data)| effect == &Effect::Leaping)
@@ -337,14 +357,14 @@ impl TickChanges {
                             player.id(),
                         );
                         GameState::move_with_dash(
-                            player.clone(),
+                            player,
                             player.speed(),
                             player.id(),
                             players,
                             &board,
                             &mut self.leap_affected_players,
                             &direction,
-                        );
+                        )?;
                         Ok(())
                     });
                 }

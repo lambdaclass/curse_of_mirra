@@ -931,7 +931,6 @@ impl GameState {
                 );
                 let distance = Position::distance_between(&attacking_player.position, &position);
                 let time = distance * attacking_player.character.base_speed as f64 / 48.;
-
                 attacking_player.action = PlayerAction::STARTINGSKILL3;
                 attacking_player.add_effect(
                     Effect::Leaping,
@@ -1082,7 +1081,7 @@ impl GameState {
 
     /// Move with a dash movement, mostly used on world tick.
     pub fn move_with_dash(
-        player: MutablePlayer,
+        player: &MutablePlayer,
         dashing_player_speed: u64,
         dashing_player_id: u64,
         players: &MutablePlayers,
@@ -1099,7 +1098,7 @@ impl GameState {
         )?;
         player.set_position(new_position);
         *affected_players = GameState::affected_players(
-            2,
+            player.dash_dmg().into(),
             200.,
             // TODO: Remove this if we ever use MutablePlayers
             (players.clone()).into_iter().map(Into::into).collect(),
@@ -1111,6 +1110,8 @@ impl GameState {
 
     pub fn world_tick(self: &mut Self, out_of_area_damage: i64) -> Result<(), String> {
         self.tick_changes = TickChanges::new();
+        //TODO:
+        // Remove this if we end up using mutableplayer
         let mut players = self
             .players
             .clone()
@@ -1167,6 +1168,8 @@ impl GameState {
         }
 
         self.tick_changes.attack_mirrored_players(&players)?;
+        //TODO:
+        // Remove this if we end up using mutableplayer
         self.players = players.into_iter().map(Into::into).collect_vec();
         self.check_and_damage_outside_playable(out_of_area_damage);
         self.check_and_damage_players(Effect::Poisoned);
