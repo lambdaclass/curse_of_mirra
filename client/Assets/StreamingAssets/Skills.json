@@ -237,7 +237,7 @@
     {
       "Name": "Neon Crash",
       "Cooldown": "5000",
-      "Damage": "10",
+      "Damage": "3",
       "Duration": "300",
       "SkillRange": "200",
       "Par1": "0",
