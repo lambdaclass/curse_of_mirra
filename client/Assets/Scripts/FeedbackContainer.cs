@@ -10,6 +10,11 @@ public class FeedbackContainer : MonoBehaviour
     public void SetActiveFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksPrefabs.Find(el => el.name == name);
-        feedbackToActivate.GetComponent<ParticleSystem>().gameObject.SetActive(active);
+        feedbackToActivate.SetActive(active);
+    }
+
+    public List<GameObject> GetFeedbackList()
+    {
+        return feedbacksPrefabs;
     }
 }

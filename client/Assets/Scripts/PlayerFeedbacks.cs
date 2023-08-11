@@ -66,4 +66,12 @@ public class PlayerFeedbacks : MonoBehaviour
     {
         player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback(feedbackName, value);
     }
+
+    public void ClearAllFeedbacks(GameObject player)
+    {
+        player
+            .GetComponentInChildren<FeedbackContainer>()
+            .GetFeedbackList()
+            .ForEach(el => el.SetActive(false));
+    }
 }

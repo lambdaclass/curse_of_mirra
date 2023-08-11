@@ -25,6 +25,12 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    private enum StateEffects
+    {
+        Poisoned = 11,
+        Slowed = 12,
+    }
+
     void Start()
     {
         InitBlockingStates();
@@ -782,8 +788,7 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
-        ManagePoisonedFeedback(player, playerUpdate);
-        ManageSlowedFeedback(player, playerUpdate);
+        ManageFeedbacks(player, playerUpdate);
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -853,33 +858,27 @@ public class Battle : MonoBehaviour
         return characterSpeed;
     }
 
-    private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
+    private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (
-            PlayerIsAlive(playerUpdate)
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-        )
+        if (playerUpdate.Effects.Keys.Count == 0)
         {
-            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Poison", true);
+            GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
         }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Poison", false);
-        }
-    }
 
-    private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
-    {
-        if (
-            PlayerIsAlive(playerUpdate)
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
-        )
+        foreach (ulong key in playerUpdate.Effects.Keys)
         {
-            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Slowed", true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, "Slowed", false);
+            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
+            {
+                string name = Enum.GetName(typeof(StateEffects), effect);
+                if (key == (ulong)effect && PlayerIsAlive(playerUpdate))
+                {
+                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, true);
+                }
+                else
+                {
+                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, false);
+                }
+            }
         }
     }
 
