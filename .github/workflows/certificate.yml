@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         # staging_brasil, staging_europe, testing_brasil, testing_europe
-        IP: [ 54.94.12.50, 49.13.65.169, 54.207.194.197, 5.75.237.197]
+        HOST: [ europe-staging.curseofmyrra.com, brazil-staging.curseofmyrra.com, testing.dark-worlds.lambdaclass.com, aws-testing.dark-worlds.lambdaclass.com ]
 
     steps:
 
@@ -30,7 +30,7 @@ jobs:
 
     - name: Renew certificates
       env:
-        HOST: ${{ matrix.IP }}
+        HOST: ${{ matrix.HOST }}
       run: |
           set -ex
           ssh -i id_ed25519 root@$HOST -o StrictHostKeyChecking=no certbot renew 
