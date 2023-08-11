@@ -3,14 +3,21 @@ defmodule DarkWorldsServerWeb.ConfigLive.Skills do
   @config_type :skills
   @default_keys [
     "Name",
-    "DoFunc",
-    "ButtonType",
     "Cooldown",
     "Damage",
-    "Status",
     "Duration",
-    "Projectile",
-    "Minion"
+    "SkillRange",
+    "Par1",
+    "Par1Desc",
+    "Par2",
+    "Par2Desc",
+    "Par3",
+    "Par3Desc",
+    "Par4",
+    "Par4Desc",
+    "Par5",
+    "Par5Desc",
+    "Angle",
   ]
 
   def mount(_params, _session, socket) do
