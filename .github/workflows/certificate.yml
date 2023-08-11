@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        HOST: [ europe-staging.curseofmyrra.com, brazil-staging.curseofmyrra.com, testing.dark-worlds.lambdaclass.com, aws-testing.dark-worlds.lambdaclass.com ]
+        HOST: [ europe-staging.curseofmyrra.com ] #, brazil-staging.curseofmyrra.com, testing.dark-worlds.lambdaclass.com, aws-testing.dark-worlds.lambdaclass.com ]
 
     steps:
 
@@ -24,7 +24,7 @@ jobs:
         SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
         set -ex
-        sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519
+        sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519_deploy
         chmod 400 id_ed25519
 
     - name: Renew certificates
@@ -32,5 +32,5 @@ jobs:
         HOST: ${{ matrix.HOST }}
       run: |
           set -ex
-          ssh -i id_ed25519 root@$HOST -o StrictHostKeyChecking=no certbot renew 
+          ssh -i id_ed25519_deploy root@$HOST -o StrictHostKeyChecking=no certbot renew 
           set +ex
