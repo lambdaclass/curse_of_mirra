@@ -25,7 +25,7 @@ jobs:
       run: |
         set -ex
         sed -E 's/(-+(BEGIN|END) OPENSSH PRIVATE KEY-+) *| +/\1\n/g' <<< "$SSH_KEY" > id_ed25519_deploy
-        chmod 400 id_ed25519
+        chmod 400 id_ed25519_deploy
 
     - name: Renew certificates
       env:
