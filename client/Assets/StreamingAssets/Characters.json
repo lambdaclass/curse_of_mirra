@@ -12,7 +12,7 @@
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
       "SkillUltimate": "Fiery Rampage",
-      "BodySize": "80"
+      "BodySize": "100"
     },
     {
       "Name": "Uma",
@@ -26,7 +26,7 @@
       "SkillActive2": "Xandas Mark",
       "SkillDash": "Shadowstep",
       "SkillUltimate": "Final Vengeance",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "H4ck",
@@ -40,7 +40,7 @@
       "SkillActive2": "Disarm",
       "SkillDash": "Neon Crash",
       "SkillUltimate": "Denial of Service",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "Valtimer",
@@ -54,7 +54,7 @@
       "SkillActive2": "Mirror Image",
       "SkillDash": "Blink",
       "SkillUltimate": "The Trickster",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "Otix",
@@ -68,7 +68,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "Uren",
@@ -82,7 +82,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "Kenzu",
@@ -96,7 +96,7 @@
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "60"
+      "BodySize": "80"
     },
     {
       "Name": "Dagna",
@@ -110,7 +110,7 @@
       "SkillActive2": "Band Recruit",
       "SkillDash": "Danse Macabre",
       "SkillUltimate": "Orchestra",
-      "BodySize": "60"
+      "BodySize": "80"
     }
   ]
 }
