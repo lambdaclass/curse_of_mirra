@@ -82,55 +82,57 @@ public static partial class MessagesReflection {
           "EhUKDVNraWxsVWx0aW1hdGUYCyABKAkSEAoIQm9keVNpemUYDCABKAkiNgoP",
           "Q2hhcmFjdGVyQ29uZmlnEiMKBUl0ZW1zGAEgAygLMhQuQ2hhcmFjdGVyQ29u",
           "ZmlnSXRlbSIvCgxTa2lsbHNDb25maWcSHwoFSXRlbXMYASADKAsyEC5Ta2ls",
-          "bENvbmZpZ0l0ZW0izgEKD1NraWxsQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJ",
-          "Eg4KBkRvRnVuYxgCIAEoCRISCgpCdXR0b25UeXBlGAMgASgJEhAKCENvb2xk",
-          "b3duGAQgASgJEg4KBkRhbWFnZRgFIAEoCRIOCgZTdGF0dXMYBiABKAkSEAoI",
-          "RHVyYXRpb24YByABKAkSEgoKUHJvamVjdGlsZRgIIAEoCRIOCgZNaW5pb24Y",
-          "CSABKAkSEgoKU2tpbGxSYW5nZRgKIAEoCRINCgVBbmdsZRgLIAEoCSKMAQoS",
-          "U2VydmVyR2FtZVNldHRpbmdzEiQKDXJ1bm5lcl9jb25maWcYASABKAsyDS5S",
-          "dW5uZXJDb25maWcSKgoQY2hhcmFjdGVyX2NvbmZpZxgCIAEoCzIQLkNoYXJh",
-          "Y3RlckNvbmZpZxIkCg1za2lsbHNfY29uZmlnGAMgASgLMg0uU2tpbGxzQ29u",
-          "ZmlnIrMCCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIg",
-          "ASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9uGAMgASgLMhEuUmVsYXRpdmVQ",
-          "b3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVyYW5nZRgFIAEoDRIRCglwbGF5",
-          "ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgNEhcKD3JlbWFpbmluZ190aWNr",
-          "cxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUYCSABKA4yDy5Qcm9qZWN0aWxl",
-          "VHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9qZWN0aWxlU3RhdHVzEh8KF2xh",
-          "c3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgEEg4KBnBpZXJjZRgMIAEoCCIn",
-          "CgpNaWxsaXNUaW1lEgwKBGhpZ2gYASABKAQSCwoDbG93GAIgASgEIlQKC0xv",
-          "b3RQYWNrYWdlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9z",
-          "aXRpb24SHAoJbG9vdF90eXBlGAMgASgOMgkuTG9vdFR5cGUqrgEKDUdhbWVF",
-          "dmVudFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIR",
-          "Cg1QTEFZRVJfSk9JTkVEEAISEQoNR0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJ",
-          "QUxfUE9TSVRJT05TEAQSHQoZU0VMRUNURURfQ0hBUkFDVEVSX1VQREFURRAF",
-          "Eh4KGkZJTklTSF9DSEFSQUNURVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkK",
-          "BUFMSVZFEAASCAoEREVBRBABKo4CCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BF",
-          "Q0lGSUVEEAASCgoGQVRUQUNLEAESDAoIVEVMRVBPUlQQAhIOCgpBVFRBQ0tf",
-          "QU9FEAMSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAQSCwoHQUREX0JPVBAFEg8K",
-          "C0FVVE9fQVRUQUNLEAYSEAoMQkFTSUNfQVRUQUNLEAcSCwoHU0tJTExfMRAI",
-          "EgsKB1NLSUxMXzIQCRILCgdTS0lMTF8zEAoSCwoHU0tJTExfNBALEhQKEFNF",
-          "TEVDVF9DSEFSQUNURVIQDBIPCgtFTkFCTEVfQk9UUxANEhAKDERJU0FCTEVf",
-          "Qk9UUxAOEg0KCVRBS0VfTE9PVBAPKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJ",
-          "T05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMS",
-          "CQoFUklHSFQQBCr9AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglB",
-          "VFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFAoQU1RBUlRJTkdfU0tJ",
-          "TExfMRADEhQKEFNUQVJUSU5HX1NLSUxMXzIQBBIUChBTVEFSVElOR19TS0lM",
-          "TF8zEAUSFAoQU1RBUlRJTkdfU0tJTExfNBAGEhUKEUVYRUNVVElOR19TS0lM",
-          "TF8xEAcSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQCBIVChFFWEVDVVRJTkdfU0tJ",
-          "TExfMxAJEhUKEUVYRUNVVElOR19TS0lMTF80EAoSCgoGTU9WSU5HEAsq9AEK",
-          "DFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBABEgwK",
-          "CFBJRVJDSU5HEAISCQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoH",
-          "TEVBUElORxAFEg8KC09VVF9PRl9BUkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4K",
-          "CllVR0VOX01BUksQCBIOCgpYQU5EQV9NQVJLEAkSFAoQWEFOREFfTUFSS19P",
-          "V05FUhAKEgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VEEAwSEQoNRklFUllfUkFN",
-          "UEFHRRANEgoKBkJVUk5FRBAOKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBF",
-          "X1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVE",
-          "EAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RB",
-          "UlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5",
-          "cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2pl",
-          "Y3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASo2CghMb290",
-          "VHlwZRIZChVMT09UX1RZUEVfVU5TUEVDSUZJRUQQABIPCgtMT09UX0hFQUxU",
-          "SBABYgZwcm90bzM="));
+          "bENvbmZpZ0l0ZW0iqgIKD1NraWxsQ29uZmlnSXRlbRIMCgROYW1lGAEgASgJ",
+          "EhAKCENvb2xkb3duGAIgASgJEg4KBkRhbWFnZRgDIAEoCRIQCghEdXJhdGlv",
+          "bhgEIAEoCRISCgpQcm9qZWN0aWxlGAUgASgJEhIKClNraWxsUmFuZ2UYBiAB",
+          "KAkSDAoEUGFyMRgHIAEoCRIQCghQYXIxRGVzYxgIIAEoCRIMCgRQYXIyGAkg",
+          "ASgJEhAKCFBhcjJEZXNjGAogASgJEgwKBFBhcjMYCyABKAkSEAoIUGFyM0Rl",
+          "c2MYDCABKAkSDAoEUGFyNBgNIAEoCRIQCghQYXI0RGVzYxgOIAEoCRIMCgRQ",
+          "YXI1GA8gASgJEhAKCFBhcjVEZXNjGBAgASgJEg0KBUFuZ2xlGBEgASgJIowB",
+          "ChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVyX2NvbmZpZxgBIAEoCzIN",
+          "LlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29uZmlnGAIgASgLMhAuQ2hh",
+          "cmFjdGVyQ29uZmlnEiQKDXNraWxsc19jb25maWcYAyABKAsyDS5Ta2lsbHND",
+          "b25maWciswIKClByb2plY3RpbGUSCgoCaWQYASABKAQSGwoIcG9zaXRpb24Y",
+          "AiABKAsyCS5Qb3NpdGlvbhIkCglkaXJlY3Rpb24YAyABKAsyES5SZWxhdGl2",
+          "ZVBvc2l0aW9uEg0KBXNwZWVkGAQgASgNEg0KBXJhbmdlGAUgASgNEhEKCXBs",
+          "YXllcl9pZBgGIAEoBBIOCgZkYW1hZ2UYByABKA0SFwoPcmVtYWluaW5nX3Rp",
+          "Y2tzGAggASgSEigKD3Byb2plY3RpbGVfdHlwZRgJIAEoDjIPLlByb2plY3Rp",
+          "bGVUeXBlEiEKBnN0YXR1cxgKIAEoDjIRLlByb2plY3RpbGVTdGF0dXMSHwoX",
+          "bGFzdF9hdHRhY2tlZF9wbGF5ZXJfaWQYCyABKAQSDgoGcGllcmNlGAwgASgI",
+          "IicKCk1pbGxpc1RpbWUSDAoEaGlnaBgBIAEoBBILCgNsb3cYAiABKAQiVAoL",
+          "TG9vdFBhY2thZ2USCgoCaWQYASABKAQSGwoIcG9zaXRpb24YAiABKAsyCS5Q",
+          "b3NpdGlvbhIcCglsb290X3R5cGUYAyABKA4yCS5Mb290VHlwZSquAQoNR2Ft",
+          "ZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRAB",
+          "EhEKDVBMQVlFUl9KT0lORUQQAhIRCg1HQU1FX0ZJTklTSEVEEAMSFQoRSU5J",
+          "VElBTF9QT1NJVElPTlMQBBIdChlTRUxFQ1RFRF9DSEFSQUNURVJfVVBEQVRF",
+          "EAUSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJT04QBiodCgZTdGF0dXMS",
+          "CQoFQUxJVkUQABIICgRERUFEEAEqjgIKBkFjdGlvbhIWChJBQ1RJT05fVU5T",
+          "UEVDSUZJRUQQABIKCgZBVFRBQ0sQARIMCghURUxFUE9SVBACEg4KCkFUVEFD",
+          "S19BT0UQAxIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBBILCgdBRERfQk9UEAUS",
+          "DwoLQVVUT19BVFRBQ0sQBhIQCgxCQVNJQ19BVFRBQ0sQBxILCgdTS0lMTF8x",
+          "EAgSCwoHU0tJTExfMhAJEgsKB1NLSUxMXzMQChILCgdTS0lMTF80EAsSFAoQ",
+          "U0VMRUNUX0NIQVJBQ1RFUhAMEg8KC0VOQUJMRV9CT1RTEA0SEAoMRElTQUJM",
+          "RV9CT1RTEA4SDQoJVEFLRV9MT09UEA8qTQoJRGlyZWN0aW9uEhkKFURJUkVD",
+          "VElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExFRlQQ",
+          "AxIJCgVSSUdIVBAEKv0BCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0K",
+          "CUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIUChBTVEFSVElOR19T",
+          "S0lMTF8xEAMSFAoQU1RBUlRJTkdfU0tJTExfMhAEEhQKEFNUQVJUSU5HX1NL",
+          "SUxMXzMQBRIUChBTVEFSVElOR19TS0lMTF80EAYSFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzEQBxIVChFFWEVDVVRJTkdfU0tJTExfMhAIEhUKEUVYRUNVVElOR19T",
+          "S0lMTF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQChIKCgZNT1ZJTkcQCyr0",
+          "AQoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAES",
+          "DAoIUElFUkNJTkcQAhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBBIL",
+          "CgdMRUFQSU5HEAUSDwoLT1VUX09GX0FSRUEQBhIOCgpFTE5BUl9NQVJLEAcS",
+          "DgoKWVVHRU5fTUFSSxAIEg4KClhBTkRBX01BUksQCRIUChBYQU5EQV9NQVJL",
+          "X09XTkVSEAoSDAoIUE9JU09ORUQQCxIKCgZTTE9XRUQQDBIRCg1GSUVSWV9S",
+          "QU1QQUdFEA0SCgoGQlVSTkVEEA4qjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZ",
+          "UEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURE",
+          "RUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpT",
+          "VEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxl",
+          "VHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJv",
+          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKjYKCExv",
+          "b3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xPT1RfSEVB",
+          "TFRIEAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -149,7 +151,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfigItem), global::CharacterConfigItem.Parser, new[]{ "Name", "Id", "Active", "Class", "Faction", "BaseSpeed", "SkillBasic", "SkillActive1", "SkillActive2", "SkillDash", "SkillUltimate", "BodySize" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CharacterConfig), global::CharacterConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "DoFunc", "ButtonType", "Cooldown", "Damage", "Status", "Duration", "Projectile", "Minion", "SkillRange", "Angle" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "Cooldown", "Damage", "Duration", "Projectile", "SkillRange", "Par1", "Par1Desc", "Par2", "Par2Desc", "Par3", "Par3Desc", "Par4", "Par4Desc", "Par5", "Par5Desc", "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null),
@@ -6012,15 +6014,21 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public SkillConfigItem(SkillConfigItem other) : this() {
     name_ = other.name_;
-    doFunc_ = other.doFunc_;
-    buttonType_ = other.buttonType_;
     cooldown_ = other.cooldown_;
     damage_ = other.damage_;
-    status_ = other.status_;
     duration_ = other.duration_;
     projectile_ = other.projectile_;
-    minion_ = other.minion_;
     skillRange_ = other.skillRange_;
+    par1_ = other.par1_;
+    par1Desc_ = other.par1Desc_;
+    par2_ = other.par2_;
+    par2Desc_ = other.par2Desc_;
+    par3_ = other.par3_;
+    par3Desc_ = other.par3Desc_;
+    par4_ = other.par4_;
+    par4Desc_ = other.par4Desc_;
+    par5_ = other.par5_;
+    par5Desc_ = other.par5Desc_;
     angle_ = other.angle_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -6043,32 +6051,8 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
-  /// <summary>Field number for the "DoFunc" field.</summary>
-  public const int DoFuncFieldNumber = 2;
-  private string doFunc_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string DoFunc {
-    get { return doFunc_; }
-    set {
-      doFunc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
-  /// <summary>Field number for the "ButtonType" field.</summary>
-  public const int ButtonTypeFieldNumber = 3;
-  private string buttonType_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string ButtonType {
-    get { return buttonType_; }
-    set {
-      buttonType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
   /// <summary>Field number for the "Cooldown" field.</summary>
-  public const int CooldownFieldNumber = 4;
+  public const int CooldownFieldNumber = 2;
   private string cooldown_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6080,7 +6064,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   }
 
   /// <summary>Field number for the "Damage" field.</summary>
-  public const int DamageFieldNumber = 5;
+  public const int DamageFieldNumber = 3;
   private string damage_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6091,20 +6075,8 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
-  /// <summary>Field number for the "Status" field.</summary>
-  public const int StatusFieldNumber = 6;
-  private string status_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Status {
-    get { return status_; }
-    set {
-      status_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
   /// <summary>Field number for the "Duration" field.</summary>
-  public const int DurationFieldNumber = 7;
+  public const int DurationFieldNumber = 4;
   private string duration_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6116,7 +6088,7 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   }
 
   /// <summary>Field number for the "Projectile" field.</summary>
-  public const int ProjectileFieldNumber = 8;
+  public const int ProjectileFieldNumber = 5;
   private string projectile_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6127,20 +6099,8 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
-  /// <summary>Field number for the "Minion" field.</summary>
-  public const int MinionFieldNumber = 9;
-  private string minion_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Minion {
-    get { return minion_; }
-    set {
-      minion_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
   /// <summary>Field number for the "SkillRange" field.</summary>
-  public const int SkillRangeFieldNumber = 10;
+  public const int SkillRangeFieldNumber = 6;
   private string skillRange_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6151,8 +6111,128 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     }
   }
 
+  /// <summary>Field number for the "Par1" field.</summary>
+  public const int Par1FieldNumber = 7;
+  private string par1_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par1 {
+    get { return par1_; }
+    set {
+      par1_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par1Desc" field.</summary>
+  public const int Par1DescFieldNumber = 8;
+  private string par1Desc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par1Desc {
+    get { return par1Desc_; }
+    set {
+      par1Desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par2" field.</summary>
+  public const int Par2FieldNumber = 9;
+  private string par2_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par2 {
+    get { return par2_; }
+    set {
+      par2_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par2Desc" field.</summary>
+  public const int Par2DescFieldNumber = 10;
+  private string par2Desc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par2Desc {
+    get { return par2Desc_; }
+    set {
+      par2Desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par3" field.</summary>
+  public const int Par3FieldNumber = 11;
+  private string par3_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par3 {
+    get { return par3_; }
+    set {
+      par3_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par3Desc" field.</summary>
+  public const int Par3DescFieldNumber = 12;
+  private string par3Desc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par3Desc {
+    get { return par3Desc_; }
+    set {
+      par3Desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par4" field.</summary>
+  public const int Par4FieldNumber = 13;
+  private string par4_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par4 {
+    get { return par4_; }
+    set {
+      par4_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par4Desc" field.</summary>
+  public const int Par4DescFieldNumber = 14;
+  private string par4Desc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par4Desc {
+    get { return par4Desc_; }
+    set {
+      par4Desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par5" field.</summary>
+  public const int Par5FieldNumber = 15;
+  private string par5_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par5 {
+    get { return par5_; }
+    set {
+      par5_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Par5Desc" field.</summary>
+  public const int Par5DescFieldNumber = 16;
+  private string par5Desc_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Par5Desc {
+    get { return par5Desc_; }
+    set {
+      par5Desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   /// <summary>Field number for the "Angle" field.</summary>
-  public const int AngleFieldNumber = 11;
+  public const int AngleFieldNumber = 17;
   private string angle_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6179,15 +6259,21 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       return true;
     }
     if (Name != other.Name) return false;
-    if (DoFunc != other.DoFunc) return false;
-    if (ButtonType != other.ButtonType) return false;
     if (Cooldown != other.Cooldown) return false;
     if (Damage != other.Damage) return false;
-    if (Status != other.Status) return false;
     if (Duration != other.Duration) return false;
     if (Projectile != other.Projectile) return false;
-    if (Minion != other.Minion) return false;
     if (SkillRange != other.SkillRange) return false;
+    if (Par1 != other.Par1) return false;
+    if (Par1Desc != other.Par1Desc) return false;
+    if (Par2 != other.Par2) return false;
+    if (Par2Desc != other.Par2Desc) return false;
+    if (Par3 != other.Par3) return false;
+    if (Par3Desc != other.Par3Desc) return false;
+    if (Par4 != other.Par4) return false;
+    if (Par4Desc != other.Par4Desc) return false;
+    if (Par5 != other.Par5) return false;
+    if (Par5Desc != other.Par5Desc) return false;
     if (Angle != other.Angle) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -6197,15 +6283,21 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (DoFunc.Length != 0) hash ^= DoFunc.GetHashCode();
-    if (ButtonType.Length != 0) hash ^= ButtonType.GetHashCode();
     if (Cooldown.Length != 0) hash ^= Cooldown.GetHashCode();
     if (Damage.Length != 0) hash ^= Damage.GetHashCode();
-    if (Status.Length != 0) hash ^= Status.GetHashCode();
     if (Duration.Length != 0) hash ^= Duration.GetHashCode();
     if (Projectile.Length != 0) hash ^= Projectile.GetHashCode();
-    if (Minion.Length != 0) hash ^= Minion.GetHashCode();
     if (SkillRange.Length != 0) hash ^= SkillRange.GetHashCode();
+    if (Par1.Length != 0) hash ^= Par1.GetHashCode();
+    if (Par1Desc.Length != 0) hash ^= Par1Desc.GetHashCode();
+    if (Par2.Length != 0) hash ^= Par2.GetHashCode();
+    if (Par2Desc.Length != 0) hash ^= Par2Desc.GetHashCode();
+    if (Par3.Length != 0) hash ^= Par3.GetHashCode();
+    if (Par3Desc.Length != 0) hash ^= Par3Desc.GetHashCode();
+    if (Par4.Length != 0) hash ^= Par4.GetHashCode();
+    if (Par4Desc.Length != 0) hash ^= Par4Desc.GetHashCode();
+    if (Par5.Length != 0) hash ^= Par5.GetHashCode();
+    if (Par5Desc.Length != 0) hash ^= Par5Desc.GetHashCode();
     if (Angle.Length != 0) hash ^= Angle.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -6229,44 +6321,68 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (DoFunc.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(DoFunc);
-    }
-    if (ButtonType.Length != 0) {
-      output.WriteRawTag(26);
-      output.WriteString(ButtonType);
-    }
     if (Cooldown.Length != 0) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(18);
       output.WriteString(Cooldown);
     }
     if (Damage.Length != 0) {
-      output.WriteRawTag(42);
+      output.WriteRawTag(26);
       output.WriteString(Damage);
     }
-    if (Status.Length != 0) {
-      output.WriteRawTag(50);
-      output.WriteString(Status);
-    }
     if (Duration.Length != 0) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(34);
       output.WriteString(Duration);
     }
     if (Projectile.Length != 0) {
-      output.WriteRawTag(66);
+      output.WriteRawTag(42);
       output.WriteString(Projectile);
     }
-    if (Minion.Length != 0) {
-      output.WriteRawTag(74);
-      output.WriteString(Minion);
-    }
     if (SkillRange.Length != 0) {
-      output.WriteRawTag(82);
+      output.WriteRawTag(50);
       output.WriteString(SkillRange);
     }
-    if (Angle.Length != 0) {
+    if (Par1.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Par1);
+    }
+    if (Par1Desc.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(Par1Desc);
+    }
+    if (Par2.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(Par2);
+    }
+    if (Par2Desc.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(Par2Desc);
+    }
+    if (Par3.Length != 0) {
       output.WriteRawTag(90);
+      output.WriteString(Par3);
+    }
+    if (Par3Desc.Length != 0) {
+      output.WriteRawTag(98);
+      output.WriteString(Par3Desc);
+    }
+    if (Par4.Length != 0) {
+      output.WriteRawTag(106);
+      output.WriteString(Par4);
+    }
+    if (Par4Desc.Length != 0) {
+      output.WriteRawTag(114);
+      output.WriteString(Par4Desc);
+    }
+    if (Par5.Length != 0) {
+      output.WriteRawTag(122);
+      output.WriteString(Par5);
+    }
+    if (Par5Desc.Length != 0) {
+      output.WriteRawTag(130, 1);
+      output.WriteString(Par5Desc);
+    }
+    if (Angle.Length != 0) {
+      output.WriteRawTag(138, 1);
       output.WriteString(Angle);
     }
     if (_unknownFields != null) {
@@ -6283,44 +6399,68 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (DoFunc.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(DoFunc);
-    }
-    if (ButtonType.Length != 0) {
-      output.WriteRawTag(26);
-      output.WriteString(ButtonType);
-    }
     if (Cooldown.Length != 0) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(18);
       output.WriteString(Cooldown);
     }
     if (Damage.Length != 0) {
-      output.WriteRawTag(42);
+      output.WriteRawTag(26);
       output.WriteString(Damage);
     }
-    if (Status.Length != 0) {
-      output.WriteRawTag(50);
-      output.WriteString(Status);
-    }
     if (Duration.Length != 0) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(34);
       output.WriteString(Duration);
     }
     if (Projectile.Length != 0) {
-      output.WriteRawTag(66);
+      output.WriteRawTag(42);
       output.WriteString(Projectile);
     }
-    if (Minion.Length != 0) {
-      output.WriteRawTag(74);
-      output.WriteString(Minion);
-    }
     if (SkillRange.Length != 0) {
-      output.WriteRawTag(82);
+      output.WriteRawTag(50);
       output.WriteString(SkillRange);
     }
-    if (Angle.Length != 0) {
+    if (Par1.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Par1);
+    }
+    if (Par1Desc.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(Par1Desc);
+    }
+    if (Par2.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(Par2);
+    }
+    if (Par2Desc.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(Par2Desc);
+    }
+    if (Par3.Length != 0) {
       output.WriteRawTag(90);
+      output.WriteString(Par3);
+    }
+    if (Par3Desc.Length != 0) {
+      output.WriteRawTag(98);
+      output.WriteString(Par3Desc);
+    }
+    if (Par4.Length != 0) {
+      output.WriteRawTag(106);
+      output.WriteString(Par4);
+    }
+    if (Par4Desc.Length != 0) {
+      output.WriteRawTag(114);
+      output.WriteString(Par4Desc);
+    }
+    if (Par5.Length != 0) {
+      output.WriteRawTag(122);
+      output.WriteString(Par5);
+    }
+    if (Par5Desc.Length != 0) {
+      output.WriteRawTag(130, 1);
+      output.WriteString(Par5Desc);
+    }
+    if (Angle.Length != 0) {
+      output.WriteRawTag(138, 1);
       output.WriteString(Angle);
     }
     if (_unknownFields != null) {
@@ -6336,20 +6476,11 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (DoFunc.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(DoFunc);
-    }
-    if (ButtonType.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(ButtonType);
-    }
     if (Cooldown.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Cooldown);
     }
     if (Damage.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Damage);
-    }
-    if (Status.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Status);
     }
     if (Duration.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Duration);
@@ -6357,14 +6488,41 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (Projectile.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Projectile);
     }
-    if (Minion.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Minion);
-    }
     if (SkillRange.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SkillRange);
     }
+    if (Par1.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par1);
+    }
+    if (Par1Desc.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par1Desc);
+    }
+    if (Par2.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par2);
+    }
+    if (Par2Desc.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par2Desc);
+    }
+    if (Par3.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par3);
+    }
+    if (Par3Desc.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par3Desc);
+    }
+    if (Par4.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par4);
+    }
+    if (Par4Desc.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par4Desc);
+    }
+    if (Par5.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Par5);
+    }
+    if (Par5Desc.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Par5Desc);
+    }
     if (Angle.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Angle);
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Angle);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -6381,20 +6539,11 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (other.Name.Length != 0) {
       Name = other.Name;
     }
-    if (other.DoFunc.Length != 0) {
-      DoFunc = other.DoFunc;
-    }
-    if (other.ButtonType.Length != 0) {
-      ButtonType = other.ButtonType;
-    }
     if (other.Cooldown.Length != 0) {
       Cooldown = other.Cooldown;
     }
     if (other.Damage.Length != 0) {
       Damage = other.Damage;
-    }
-    if (other.Status.Length != 0) {
-      Status = other.Status;
     }
     if (other.Duration.Length != 0) {
       Duration = other.Duration;
@@ -6402,11 +6551,38 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
     if (other.Projectile.Length != 0) {
       Projectile = other.Projectile;
     }
-    if (other.Minion.Length != 0) {
-      Minion = other.Minion;
-    }
     if (other.SkillRange.Length != 0) {
       SkillRange = other.SkillRange;
+    }
+    if (other.Par1.Length != 0) {
+      Par1 = other.Par1;
+    }
+    if (other.Par1Desc.Length != 0) {
+      Par1Desc = other.Par1Desc;
+    }
+    if (other.Par2.Length != 0) {
+      Par2 = other.Par2;
+    }
+    if (other.Par2Desc.Length != 0) {
+      Par2Desc = other.Par2Desc;
+    }
+    if (other.Par3.Length != 0) {
+      Par3 = other.Par3;
+    }
+    if (other.Par3Desc.Length != 0) {
+      Par3Desc = other.Par3Desc;
+    }
+    if (other.Par4.Length != 0) {
+      Par4 = other.Par4;
+    }
+    if (other.Par4Desc.Length != 0) {
+      Par4Desc = other.Par4Desc;
+    }
+    if (other.Par5.Length != 0) {
+      Par5 = other.Par5;
+    }
+    if (other.Par5Desc.Length != 0) {
+      Par5Desc = other.Par5Desc;
     }
     if (other.Angle.Length != 0) {
       Angle = other.Angle;
@@ -6431,42 +6607,66 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
           break;
         }
         case 18: {
-          DoFunc = input.ReadString();
-          break;
-        }
-        case 26: {
-          ButtonType = input.ReadString();
-          break;
-        }
-        case 34: {
           Cooldown = input.ReadString();
           break;
         }
-        case 42: {
+        case 26: {
           Damage = input.ReadString();
           break;
         }
-        case 50: {
-          Status = input.ReadString();
-          break;
-        }
-        case 58: {
+        case 34: {
           Duration = input.ReadString();
           break;
         }
-        case 66: {
+        case 42: {
           Projectile = input.ReadString();
           break;
         }
-        case 74: {
-          Minion = input.ReadString();
-          break;
-        }
-        case 82: {
+        case 50: {
           SkillRange = input.ReadString();
           break;
         }
+        case 58: {
+          Par1 = input.ReadString();
+          break;
+        }
+        case 66: {
+          Par1Desc = input.ReadString();
+          break;
+        }
+        case 74: {
+          Par2 = input.ReadString();
+          break;
+        }
+        case 82: {
+          Par2Desc = input.ReadString();
+          break;
+        }
         case 90: {
+          Par3 = input.ReadString();
+          break;
+        }
+        case 98: {
+          Par3Desc = input.ReadString();
+          break;
+        }
+        case 106: {
+          Par4 = input.ReadString();
+          break;
+        }
+        case 114: {
+          Par4Desc = input.ReadString();
+          break;
+        }
+        case 122: {
+          Par5 = input.ReadString();
+          break;
+        }
+        case 130: {
+          Par5Desc = input.ReadString();
+          break;
+        }
+        case 138: {
           Angle = input.ReadString();
           break;
         }
@@ -6490,42 +6690,66 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
           break;
         }
         case 18: {
-          DoFunc = input.ReadString();
-          break;
-        }
-        case 26: {
-          ButtonType = input.ReadString();
-          break;
-        }
-        case 34: {
           Cooldown = input.ReadString();
           break;
         }
-        case 42: {
+        case 26: {
           Damage = input.ReadString();
           break;
         }
-        case 50: {
-          Status = input.ReadString();
-          break;
-        }
-        case 58: {
+        case 34: {
           Duration = input.ReadString();
           break;
         }
-        case 66: {
+        case 42: {
           Projectile = input.ReadString();
           break;
         }
-        case 74: {
-          Minion = input.ReadString();
-          break;
-        }
-        case 82: {
+        case 50: {
           SkillRange = input.ReadString();
           break;
         }
+        case 58: {
+          Par1 = input.ReadString();
+          break;
+        }
+        case 66: {
+          Par1Desc = input.ReadString();
+          break;
+        }
+        case 74: {
+          Par2 = input.ReadString();
+          break;
+        }
+        case 82: {
+          Par2Desc = input.ReadString();
+          break;
+        }
         case 90: {
+          Par3 = input.ReadString();
+          break;
+        }
+        case 98: {
+          Par3Desc = input.ReadString();
+          break;
+        }
+        case 106: {
+          Par4 = input.ReadString();
+          break;
+        }
+        case 114: {
+          Par4Desc = input.ReadString();
+          break;
+        }
+        case 122: {
+          Par5 = input.ReadString();
+          break;
+        }
+        case 130: {
+          Par5Desc = input.ReadString();
+          break;
+        }
+        case 138: {
           Angle = input.ReadString();
           break;
         }
