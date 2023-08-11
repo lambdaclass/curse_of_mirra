@@ -25,10 +25,11 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
-        Poisoned = 11,
-        Slowed = 12,
+        Poisoned = PlayerEffect.Poisoned,
+        Slowed = PlayerEffect.Slowed,
     }
 
     void Start()
