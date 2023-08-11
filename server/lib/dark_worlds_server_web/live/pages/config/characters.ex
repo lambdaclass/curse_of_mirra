@@ -17,7 +17,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Characters do
   ]
 
   def mount(_params, _session, socket) do
-    config = Utils.Config.read_config(@config_type)
+    config = Utils.Config.read_config(@config_type) |> Map.new(&{&1["Name"], &1})
 
     {:ok,
      assign(socket, config: to_form(config), characters: Map.keys(config), new_character_name: "", new_key_name: "")}

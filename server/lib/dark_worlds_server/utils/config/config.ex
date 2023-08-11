@@ -1,18 +1,13 @@
 defmodule Utils.Config do
-  @streaming_assets_path "../client/Assets/StreamingAssets/"
+  @config_path "./priv/config/"
 
   @spec read_config(atom) :: map | {:error, term}
   def read_config(type) do
-    with path <- get_config_type_filepath(type),
+    with path <- get_config_type_filepath(type) |> IO.inspect(label: :filepath),
          {:ok, body} <- File.read(path),
          body <- remove_bom(body),
          {:ok, json} <- Jason.decode(body) do
-      if type == :game_settings do
-        json
-      else
-        json["Items"]
-        |> Map.new(&{&1["Name"], &1})
-      end
+      json |> IO.inspect(label: :json)
     else
       {:error, reason} ->
         {:error, reason}
@@ -21,8 +16,6 @@ defmodule Utils.Config do
 
   @spec write_config(list, atom) :: :ok | {:error, term}
   def write_config(config_list, type) do
-    config_list = if type == :game_settings, do: config_list, else: %{"Items" => config_list}
-
     case Jason.encode(config_list, pretty: true) do
       {:ok, json} ->
         type
@@ -34,9 +27,9 @@ defmodule Utils.Config do
     end
   end
 
-  defp get_config_type_filepath(:characters), do: Path.absname(@streaming_assets_path <> "Characters.json")
-  defp get_config_type_filepath(:game_settings), do: Path.absname(@streaming_assets_path <> "GameSettings.json")
-  defp get_config_type_filepath(:skills), do: Path.absname(@streaming_assets_path <> "Skills.json")
+  defp get_config_type_filepath(:characters), do: Path.absname(@config_path <> "Characters.json")
+  defp get_config_type_filepath(:game_settings), do: Path.absname(@config_path <> "GameSettings.json")
+  defp get_config_type_filepath(:skills), do: Path.absname(@config_path <> "Skills.json")
 
   defp remove_bom(str), do: String.replace_prefix(str, "\uFEFF", "")
 end

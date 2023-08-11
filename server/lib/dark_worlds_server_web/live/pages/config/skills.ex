@@ -21,7 +21,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Skills do
   ]
 
   def mount(_params, _session, socket) do
-    config = Utils.Config.read_config(@config_type)
+    config = Utils.Config.read_config(@config_type) |> Map.new(&{&1["Name"], &1})
     {:ok, assign(socket, config: to_form(config), skills: Map.keys(config), new_skill_name: "", new_key_name: "")}
   end
 

@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "Muflus",
+    "Id": "0",
+    "Active": "1",
+    "Class": "gua",
+    "Faction": "ara",
+    "BaseSpeed": "20",
+    "SkillBasic": "Bash",
+    "SkillActive1": "Barrel Roll",
+    "SkillActive2": "Rage",
+    "SkillDash": "Leap",
+    "SkillUltimate": "Fiery Rampage",
+    "BodySize": "200.0"
+  }
+]

@@ -183,19 +183,12 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(WaitLobbyCreated());
     }
 
-    public IEnumerator StartGame()
+    public void StartGame()
     {
-        yield return GameSettings.ParseSettingsCoroutine(settings =>
-        {
-            serverSettings = settings;
-        });
         LobbyEvent lobbyEvent = new LobbyEvent
         {
-            Type = LobbyEventType.StartGame,
-            GameConfig = serverSettings
+            Type = LobbyEventType.StartGame
         };
-
-        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
         using (var stream = new MemoryStream())
         {
@@ -220,7 +213,7 @@ public class LobbyConnection : MonoBehaviour
     private IEnumerator WaitLobbyCreated()
     {
         yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        yield return StartGame();
+        StartGame();
     }
 
     IEnumerator GetRequest(string uri)

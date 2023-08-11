@@ -274,14 +274,6 @@ message CharacterConfigItem {
     string BodySize = 12;
 }
 
-message CharacterConfig {
-    repeated CharacterConfigItem Items = 1;
-}
-
-message SkillsConfig {
-    repeated SkillConfigItem Items = 1;
-}
-
 message SkillConfigItem {
     string Name = 1;
     string Cooldown = 2;
@@ -304,8 +296,8 @@ message SkillConfigItem {
 
 message ServerGameSettings {
     RunnerConfig runner_config = 1;
-    CharacterConfig character_config = 2;
-    SkillsConfig skills_config = 3;
+    repeated CharacterConfigItem character_config = 2;
+    repeated SkillConfigItem skills_config = 3;
 }
 
 
