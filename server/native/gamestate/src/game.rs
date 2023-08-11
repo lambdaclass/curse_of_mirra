@@ -376,8 +376,9 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::ATTACKING;
         attacking_player.basic_skill_started_at = now;
-        attacking_player.basic_skill_cooldown_left =
-            attacking_player.character.cooldown_basic_skill();
+        attacking_player.basic_skill_cooldown_left = attacking_player.basic_skill_cooldown();
+        attacking_player.basic_skill_ends_at =
+            add_millis(now, attacking_player.basic_skill_cooldown_left);
         attacking_player.direction = *direction;
         let attack_range = attacking_player.basic_skill_range();
         let attack_angle = attacking_player.basic_skill_angle();
@@ -473,7 +474,7 @@ impl GameState {
         attack_angle: u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+            let piercing = attacking_player.has_active_effect(&Effect::DenialOfService);
 
             let projectile_direction = match Self::nearest_player(
                 players,
@@ -622,7 +623,8 @@ impl GameState {
 
         let now = time_now();
         attacking_player.skill_1_started_at = now;
-        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
+        attacking_player.skill_1_cooldown_left = attacking_player.skill_1_cooldown();
+        attacking_player.skill_1_ends_at = add_millis(now, attacking_player.skill_1_cooldown_left);
         attacking_player.direction = *direction;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
         let attack_angle = attacking_player.skill_1_angle();
@@ -702,7 +704,7 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+            let piercing = attacking_player.has_active_effect(&Effect::DenialOfService);
 
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
@@ -803,7 +805,8 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
         attacking_player.skill_2_started_at = now;
-        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
+        attacking_player.skill_2_cooldown_left = attacking_player.skill_2_cooldown();
+        attacking_player.skill_2_ends_at = add_millis(now, attacking_player.skill_2_cooldown_left);
         attacking_player.direction = *direction;
         let attack_angle = attacking_player.skill_2_angle();
 
@@ -913,7 +916,8 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
-        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
+        attacking_player.skill_3_cooldown_left = attacking_player.skill_3_cooldown();
+        attacking_player.skill_3_ends_at = add_millis(now, attacking_player.skill_3_cooldown_left);
         attacking_player.direction = *direction;
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
@@ -1015,13 +1019,14 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
         attacking_player.skill_4_started_at = now;
-        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_skill_4();
+        attacking_player.skill_4_cooldown_left = attacking_player.skill_4_cooldown();
+        attacking_player.skill_4_ends_at = add_millis(now, attacking_player.skill_4_cooldown_left);
         attacking_player.direction = *direction;
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
-                    Effect::Piercing,
+                    Effect::DenialOfService,
                     EffectData {
                         time_left: attacking_player.character.duration_skill_4(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
@@ -1033,6 +1038,22 @@ impl GameState {
                         caused_to: attacking_player.id,
                         damage: 0,
                     },
+                );
+                attacking_player.basic_skill_ends_at = add_millis(
+                    attacking_player.basic_skill_started_at,
+                    attacking_player.basic_skill_cooldown(),
+                );
+                attacking_player.skill_1_ends_at = add_millis(
+                    attacking_player.skill_1_started_at,
+                    attacking_player.skill_1_cooldown(),
+                );
+                attacking_player.skill_2_ends_at = add_millis(
+                    attacking_player.skill_2_started_at,
+                    attacking_player.skill_2_cooldown(),
+                );
+                attacking_player.skill_3_ends_at = add_millis(
+                    attacking_player.skill_3_started_at,
+                    attacking_player.skill_3_cooldown(),
                 );
                 Ok(Vec::new())
             }

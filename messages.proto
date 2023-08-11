@@ -186,7 +186,7 @@ enum PlayerAction {
 enum PlayerEffect {
     PETRIFIED = 0;
     DISARMED = 1;
-    PIERCING = 2;
+    DENIAL_OF_SERVICE = 2;
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
