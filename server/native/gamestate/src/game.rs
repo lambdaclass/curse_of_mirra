@@ -670,8 +670,9 @@ impl GameState {
                 Self::muflus_skill_1(players, attacking_player_id, now)
             }
             Name::DAgna => {
-                let players = &mut self.players;
-                Self::dagna_skill_1(players, attacking_player_id)
+                // let players = &mut self.players;
+                // Self::dagna_skill_1(players, attacking_player_id)
+                Ok(Vec::new())
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
