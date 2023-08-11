@@ -239,7 +239,7 @@
       "Cooldown": "5000",
       "Damage": "10",
       "Duration": "300",
-      "SkillRange": "0",
+      "SkillRange": "200",
       "Par1": "0",
       "Par1Desc": "",
       "Par2": "0",
