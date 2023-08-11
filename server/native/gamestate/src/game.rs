@@ -1,13 +1,13 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
-use crate::loot::{Loot, self};
+use crate::loot::{self, Loot, LootType};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
-use crate::utils::{angle_between_vectors, cmp_float, RelativePosition};
+use crate::utils::{self, angle_between_vectors, cmp_float, RelativePosition};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -240,6 +240,8 @@ impl GameState {
         )?;
         player.direction = direction;
 
+        Self::find_and_apply_loots(&mut self.loots, player);
+
         Ok(())
     }
 
@@ -271,6 +273,27 @@ impl GameState {
             .iter_mut()
             .find(|player| player.id == player_id)
             .ok_or(format!("Given id ({player_id}) is not valid"))
+    }
+
+    pub fn find_and_apply_loots(loots: &mut Vec<Loot>, player: &mut Player) {
+        let (loot_hit, loot_miss): (Vec<Loot>, Vec<Loot>) = loots.iter().partition(|loot| {
+            utils::hit_boxes_collide(
+                player.position,
+                loot.position,
+                player.character.body_size,
+                loot.size,
+            )
+        });
+        for loot in loot_hit {
+            match loot.loot_type {
+                // Cap health to a max of 100
+                LootType::Health(heal_amount) => {
+                    player.health = min(player.health + heal_amount as i64, 100)
+                }
+            }
+        }
+
+        *loots = loot_miss;
     }
 
     pub fn get_player(players: &Vec<Player>, player_id: u64) -> Result<&Player, String> {

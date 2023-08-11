@@ -130,7 +130,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       playable_radius: game_state.client_game_state.game.playable_radius,
       shrinking_center: game_state.client_game_state.game.shrinking_center,
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
-      loots: game_state.client_game_state.game.loots,
+      loots: game_state.client_game_state.game.loots
     }
 
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
