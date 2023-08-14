@@ -214,7 +214,6 @@ public class LobbyConnection : MonoBehaviour
 
     public void Reconnect()
     {
-        Debug.Log("reconect");
         this.reconnect = true;
         this.GameSession = this.reconnectGameId;
         this.playerId = this.reconnectPlayerId;
@@ -355,7 +354,7 @@ public class LobbyConnection : MonoBehaviour
         string url = makeWebsocketUrl("/matchmaking/" + session_id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnClose += onWebsocketClose;
+        ws.OnClose += OnWebsocketClose;
         ws.OnOpen += () =>
         {
             LobbySession = session_id;
@@ -419,7 +418,7 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private void onWebsocketClose(WebSocketCloseCode closeCode)
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
     {
         if (closeCode != WebSocketCloseCode.Normal)
         {
