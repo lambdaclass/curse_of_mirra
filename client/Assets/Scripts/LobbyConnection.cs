@@ -112,6 +112,9 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
+        this.server_ip = SelectServerIP.GetServerIp();
+        this.server_name = SelectServerIP.GetServerName();
+
         if (Instance != null)
         {
             if (this.ws != null)
@@ -119,12 +122,11 @@ public class LobbyConnection : MonoBehaviour
                 this.ws.Close();
             }
 
+
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
         this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
