@@ -4,7 +4,7 @@ Lets start by explaining the differents methods we have in this script, since th
 
 `SetSkill` 
 
-It is used to initialize the skills once the character is selected,  it maps the skill from the backend, the skill ScripteableObject, the animationEvent.
+It is used to initialize the skills once the character is selected,  it maps the skill from the backend, the skill ScriptableObject, the animationEvent.
 
 `ClearAnimator` 
 
@@ -16,7 +16,7 @@ Updates the current playing animation, changes the movement state machine to att
 
 `StartFeedback`
 
-This is in charge of beginning the start animations (parameters with "_start" in their name, ex: "Skill1_start"), calls the methods mentioned before `ClearAnimator` and `ChangeCharacterState` and finally starts a coroutine to end the animation depending of the `startAnimationDuration` time of the skill scripteableObject.
+This is in charge of beginning the start animations (parameters with "_start" in their name, ex: "Skill1_start"), calls the methods mentioned before `ClearAnimator` and `ChangeCharacterState` and finally starts a coroutine to end the animation depending of the `startAnimationDuration` time of the skill ScriptableObject.
 
 `ExecuteFeedback`
 

@@ -30,7 +30,7 @@ We use a specific list of parameters for our transitions
 
 - `SkillBasic, Skill1, Skill2, Skill3, Skill4 ( Booleans )` We use them to change the state of the animation and make the transition happend.
 
-- `SkillBasic_start, Skill1c_start, Skill2c_start, Skill3c_start, Skill4c_start ( Booleans )` Not always necessary , we use them to concatenate animations. For example if a skill have 2 different animations that happends sequentially and we want to concatenate them to create the whole animation we can do something like this:
+- `SkillBasic_start, Skill1c_start, Skill2c_start, Skill3c_start, Skill4c_start ( Booleans )` Not always necessary , we use them to concatenate animations. For example, if a skill has two different animations that happen sequentially and we want to concatenate them to create the whole animation we can do something like this:
 
 ![](./images/_startParams.png)
 
