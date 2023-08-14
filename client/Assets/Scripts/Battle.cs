@@ -612,6 +612,7 @@ public class Battle : MonoBehaviour
                 {
                     newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
                 }
+                player.transform.position = newPosition;
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
