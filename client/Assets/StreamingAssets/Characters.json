@@ -99,16 +99,16 @@
       "BodySize": "45.0"
     },
     {
-      "Name": "Dagna",
+      "Name": "DAgna",
       "Id": "7",
       "Active": "1",
       "Class": "hun",
       "Faction": "mer",
-      "BaseSpeed": "90",
+      "BaseSpeed": "30",
       "SkillBasic": "Scherzo",
-      "SkillActive1": "Pizzicato",
+      "SkillActive1": "Danse Macabre",
       "SkillActive2": "Band Recruit",
-      "SkillDash": "Danse Macabre",
+      "SkillDash": "Pizzicato",
       "SkillUltimate": "Orchestra",
       "BodySize": "45.0"
     }
