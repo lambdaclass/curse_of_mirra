@@ -5,7 +5,7 @@
 
 2. In the `FeedbackContainer` prefab add the new prefab you just created to the list of prefabs.
 
-3. Now you have to increase the new state to the `StateEffects` and use the value of PlayerEffect. It's better with an example, if we would like to add the Effect state `Freeze`:
+3. Now you have to add the new state to the `StateEffects` enum and use the value of `PlayerEffect`. It's better with an example, if we would like to add the Effect state `Freeze`:
 ``` 
     private enum StateEffects
     {
