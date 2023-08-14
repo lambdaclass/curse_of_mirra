@@ -1,4 +1,4 @@
-# How to add new states feedbacks
+# How we handle feedbacks in the client side
 
 #### Things to have in count before leraning how to implement new states feedback
 

@@ -1,4 +1,4 @@
-# How to add new Feedbacks
+# How to create a new feedback for State Effects
 ☝️🤓 Assuming we already have the feedback implemented in the backend
 
 1. First, create the new Feedback prefab with the particle system you want, then add it to the `Client/Asssets/Feedbacks/States` folder.
