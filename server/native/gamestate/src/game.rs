@@ -312,9 +312,9 @@ impl GameState {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
             .for_each(|player| {
-                // We're intersecting two circles, basically what we're doing is:
-                // Sum the character's radius body size and the projectile radius,
-                // Calculate the distance between the centers of both circles (character's body size center and projectile position)
+                // We're intersecting two circles, basically what we're doing is this:
+                // Sum the character's radius body size and the projectile's radius,
+                // Calculate the distance between the centers of both circles (player's position and projectile's position)
                 // And then we check if the sum of the radius is greater than the distance between
                 // centers, then the projectile hitted the target :)
                 let character_body_size = player.character.body_size;
