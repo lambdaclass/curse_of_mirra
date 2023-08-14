@@ -6,8 +6,9 @@ using UnityEngine.Rendering;
 
 public class OverlayEffect : MonoBehaviour
 {
-    public Shader shader;
-
+    public Shader DamageShader;
+    public Shader Healshader;
+    private Shader shader;
     List<SkinnedMeshRenderer> skinnedMeshFilter = new List<SkinnedMeshRenderer>();
 
     [Header("Objects")]
@@ -30,6 +31,19 @@ public class OverlayEffect : MonoBehaviour
             meshFilter.GetComponent<Renderer>().material.shader = Shader.Find(
                 "Universal Render Pipeline/Lit"
             );
+        }
+    }
+
+    public void SetShader(string effect)
+    {
+        switch (effect)
+        {
+            case "Heal":
+                shader = Healshader;
+                break;
+            case "Damage":
+                shader = DamageShader;
+                break;
         }
     }
 }

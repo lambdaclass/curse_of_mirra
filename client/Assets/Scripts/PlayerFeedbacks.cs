@@ -40,6 +40,14 @@ public class PlayerFeedbacks : MonoBehaviour
 
         if (auxHealth != playerHealth)
         {
+            if (playerHealth < auxHealth)
+            {
+                player.GetComponentInChildren<OverlayEffect>().SetShader("Damage");
+            }
+            if (playerHealth > auxHealth)
+            {
+                player.GetComponentInChildren<OverlayEffect>().SetShader("Heal");
+            }
             player.GetComponentInChildren<OverlayEffect>().enabled = true;
         }
         else
