@@ -13,8 +13,8 @@ pub enum Name {
     H4ck,
     #[strum(ascii_case_insensitive)]
     Muflus,
-    #[strum(serialize = "Dagna")]
-    Placeholder,
+    #[strum(serialize = "DAgna", serialize = "Dagna")]
+    DAgna,
 }
 
 #[derive(Debug, Clone, rustler::NifTaggedEnum, EnumString)]

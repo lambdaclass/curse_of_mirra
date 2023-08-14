@@ -9,46 +9,52 @@ public class ToggleAudio : MonoBehaviour
 
     [SerializeField]
     public Sprite unmutedSprite;
+
+    [SerializeField]
+    private Slider volumeSlider;
+
+    private float unmutedVolume;
+
     private MMSoundManager soundManager;
 
     private Image muteButtonImage;
 
     void Start()
     {
-        muteButtonImage = GetComponent<Image>();
+        muteButtonImage = GetComponentInChildren<Image>();
         soundManager = MMSoundManager.Instance;
+        unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
     }
 
     void Update()
     {
-        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        if (!soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
-            muteButtonImage.overrideSprite = mutedSprite;
+            muteButtonImage.overrideSprite = unmutedSprite;
         }
         else
         {
-            muteButtonImage.overrideSprite = unmutedSprite;
+            muteButtonImage.overrideSprite = mutedSprite;
         }
     }
 
     public void Toggle()
     {
-        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        if (soundManager.IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
-        {
-            SilenceSound();
-            muteButtonImage.overrideSprite = mutedSprite;
-        }
-        else
+        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
         {
             PlaySound();
             muteButtonImage.overrideSprite = unmutedSprite;
+        }
+        else
+        {
+            SilenceSound();
+            muteButtonImage.overrideSprite = mutedSprite;
         }
     }
 
     private void SilenceSound()
     {
+        unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
         soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
         soundManager.MuteMaster();
     }
@@ -56,7 +62,21 @@ public class ToggleAudio : MonoBehaviour
     private void PlaySound()
     {
         soundManager.UnmuteMaster();
-        soundManager.SetVolumeMaster(1);
+        SetVolume(unmutedVolume);
         soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
+    }
+
+    private void SetVolume(float newVolume)
+    {
+        if (volumeSlider != null)
+        {
+            soundManager.SetVolumeMaster(newVolume);
+        }
+    }
+
+    private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
+    {
+        // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
+        return !soundManager.IsMuted(track) || soundManager.GetTrackVolume(track, false) <= 0.0001f;
     }
 }
