@@ -534,7 +534,11 @@ public class Battle : MonoBehaviour
         {
             if (player.transform.position != frontendPosition)
             {
-                player.transform.position = frontendPosition;
+                player.transform.position = new Vector3(
+                    frontendPosition.x,
+                    player.transform.position.y,
+                    frontendPosition.z
+                );
             }
             mAnimator.SetBool("Walking", walking);
             return;
