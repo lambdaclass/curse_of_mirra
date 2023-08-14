@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
   - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
   - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
+  - {fileID: 11400000, guid: 49f1e22bf30394970a6da77c66930595, type: 2}
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}

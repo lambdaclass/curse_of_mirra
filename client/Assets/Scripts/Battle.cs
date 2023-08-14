@@ -638,8 +638,6 @@ public class Battle : MonoBehaviour
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
-        Text buttonText = GameObject.Find("ToggleClientPredictionText").GetComponent<Text>();
-        buttonText.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
             TurnOffClientPredictionGhost();
@@ -672,7 +670,7 @@ public class Battle : MonoBehaviour
 
     private void TurnOffClientPredictionGhost()
     {
-        if (showClientPredictionGhost && clientPredictionGhost != null)
+        if (!showClientPredictionGhost && clientPredictionGhost != null)
         {
             clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
             clientPredictionGhost.SetActive(false);
@@ -790,6 +788,11 @@ public class Battle : MonoBehaviour
     )
     {
         ManageFeedbacks(player, playerUpdate);
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
+        {
+            characterSpeed *= 0.5f;
+        }
 
         if (playerUpdate.CharacterName == "Muflus")
         {
