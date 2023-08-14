@@ -9,6 +9,9 @@ public class SkillInfo : ScriptableObject
     public new string name;
     public string description;
     public UIType inputType;
+
+    [MMEnumCondition("inputType", (int)UIType.Direction)]
+    public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
     public GameObject feedbackVfx;
     public float feedbackVfxDuration;

@@ -27,5 +27,7 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: d018a797cd1c94aeabf3e45f6ca33b2f, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
-  skillCircleRadius: 0
+  skillCircleRadius: 4.5
   skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 4.5

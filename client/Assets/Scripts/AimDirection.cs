@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectIndicator : MonoBehaviour
+public class AimDirection : MonoBehaviour
 {
     [SerializeField]
     public GameObject cone;
 
     [SerializeField]
     GameObject arrow;
+    GameObject newArrow;
 
     [SerializeField]
     GameObject area;
@@ -19,13 +20,40 @@ public class SelectIndicator : MonoBehaviour
     public int raycount = 50;
     public float angleInclease;
 
-    public void Start()
+    public void InitIndicator(Skill skill)
     {
-        CreateConeIndicator();
+        // TODO: Add the spread area (amgle) depeding of the skill.json
+        viewDistance = skill.GetSkillRadius();
+        fov = skill.GetIndicatorAngle();
+
+        if (skill.GetIndicatorType() == UIIndicatorType.Arrow)
+        {
+            float scaleX = skill.GetArroWidth();
+            float scaleY = skill.GetSkillRadius();
+            arrow.transform.localScale = new Vector3(scaleX, scaleY, 0.05f);
+            arrow.transform.localPosition = new Vector3(0, -scaleY / 2, 0);
+        }
     }
 
-    public void CreateConeIndicator()
+    public void Rotate(float x, float y, Skill skill)
     {
+        var result = Mathf.Atan(x / y) * Mathf.Rad2Deg;
+        if (y >= 0)
+        {
+            result += 180f;
+        }
+        transform.rotation = Quaternion.Euler(
+            90f,
+            result,
+            skill.GetIndicatorType() == UIIndicatorType.Cone
+                ? -(180 - skill.GetIndicatorAngle()) / 2
+                : 0
+        );
+    }
+
+    public void SetConeIndicator()
+    {
+        angle = 0;
         angleInclease = fov / raycount;
         Mesh mesh = new Mesh();
         Vector3 origin = Vector3.zero;
@@ -82,6 +110,22 @@ public class SelectIndicator : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(true);
+                break;
+        }
+    }
+
+    public void DeactivateIndicator(UIIndicatorType indicatorType)
+    {
+        switch (indicatorType)
+        {
+            case UIIndicatorType.Cone:
+                cone.SetActive(false);
+                break;
+            case UIIndicatorType.Arrow:
+                arrow.SetActive(false);
+                break;
+            case UIIndicatorType.Area:
+                area.SetActive(false);
                 break;
         }
     }

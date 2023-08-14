@@ -91,7 +91,7 @@ public class CustomInputManager : InputManager
     private GameObject areaWithAim;
     private GameObject area;
     private GameObject indicator;
-    private GameObject directionIndicator;
+    private AimDirection directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
     private bool disarmed = false;
@@ -222,28 +222,23 @@ public class CustomInputManager : InputManager
 
     private void MapTapInputEvents(CustomMMTouchButton button, Skill skill)
     {
+        button.skill = skill;
+
+        UnityEvent<Skill> aoeEvent = new UnityEvent<Skill>();
+        aoeEvent.AddListener(ShowSkillRange);
+        button.newPointerTapDown = aoeEvent;
+
         UnityEvent<Skill> tapRelease = new UnityEvent<Skill>();
         tapRelease.AddListener(ExecuteTapSkill);
-        button.skill = skill;
         button.newPointerTapUp = tapRelease;
     }
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
         GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        //Load the prefab
-        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
-        //Set the prefav as a player child
-        areaWithAim.transform.parent = _player.transform;
-        //Set its position to the player position
-        areaWithAim.transform.position = _player.transform.position;
-
-        //Set scales
-        area = areaWithAim.GetComponent<AimHandler>().area;
-        area.transform.localScale = area.transform.localScale * joystick.skill.GetSkillRadius();
 
         directionIndicator =
-            Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
+            Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as AimDirection;
         //Set the prefab as a player child
         directionIndicator.transform.parent = _player.transform;
 
@@ -252,9 +247,11 @@ public class CustomInputManager : InputManager
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
         directionIndicator
-            .GetComponent<SelectIndicator>()
+            .GetComponent<AimDirection>()
             .ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystick = joystick;
+
+        ShowSkillRange(joystick.skill);
     }
 
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
@@ -276,11 +273,13 @@ public class CustomInputManager : InputManager
         //Destroy attack animation after showing it
         Destroy(areaWithAim);
 
+        HideSkillRange();
+
         directionIndicator.transform.position =
             _player.transform.position
             + new Vector3(aoePosition.x * multiplier, 0f, aoePosition.y * multiplier);
         Destroy(directionIndicator, 0.01f);
-        directionIndicator.SetActive(false);
+        directionIndicator.gameObject.SetActive(false);
         activeJoystick = null;
         EnableButtons();
 
@@ -296,6 +295,8 @@ public class CustomInputManager : InputManager
         {
             skill.TryExecuteSkill();
         }
+
+        HideSkillRange();
     }
 
     private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
@@ -318,89 +319,65 @@ public class CustomInputManager : InputManager
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
         GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        directionIndicator = _player.transform.Find("AimDirection").GetComponent<AimDirection>();
 
-        areaWithAim = Instantiate(Resources.Load("AreaAim", typeof(GameObject))) as GameObject;
-        //Set the prefav as a player child
-        areaWithAim.transform.parent = _player.transform;
-        //Set its position to the player position
-        areaWithAim.transform.position = _player.transform.position;
+        directionIndicator.InitIndicator(joystick.skill);
 
-        //Set scales
-        area = areaWithAim.GetComponent<AimHandler>().area;
-        area.transform.localScale = area.transform.localScale * joystick.skill.GetSkillRadius();
-        area.GetComponent<SpriteRenderer>().maskInteraction =
-            SpriteMaskInteraction.VisibleOutsideMask;
-        //Load the prefab
-        directionIndicator =
-            Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as GameObject;
-        //Set the prefav as a player child
-        directionIndicator.transform.parent = _player.transform;
-        //Set its position to the player position
-        directionIndicator.transform.position = new Vector3(
-            _player.transform.position.x,
-            0.4f,
-            _player.transform.position.z
-        );
+        directionIndicator.SetConeIndicator();
 
-        // FIXME: Using harcoded value for testing, Value should be set dinamically
-        //TODO : Add the spread area (amgle) depeding of the skill.json
-        directionIndicator
-            .GetComponent<SelectIndicator>()
-            .ActivateIndicator(joystick.skill.GetIndicatorType());
-
-        directionIndicator.GetComponent<SelectIndicator>().viewDistance =
-            joystick.skill.GetSkillRadius();
-
-        directionIndicator.GetComponent<SelectIndicator>().fov = joystick.skill.GetIndicatorAngle();
-
-        var cone = directionIndicator.GetComponent<SelectIndicator>().cone;
-
-        float scaleX = directionIndicator.transform.localScale.x * joystick.skill.GetArroWidth();
-
-        float scaleY = (3.45f * joystick.skill.GetSkillRadius()) / 12;
-
-        if (joystick.skill.GetIndicatorType() == UIIndicatorType.Arrow)
+        if (joystick.skill.ExecutesOnQuickTap())
         {
-            directionIndicator.transform.localScale = new Vector3(
-                scaleX,
-                scaleY,
-                directionIndicator.transform.localScale.z
+            CharacterOrientation3D characterOrientation =
+                _player.GetComponent<CharacterOrientation3D>();
+            directionIndicator.Rotate(
+                characterOrientation.ForcedRotationDirection.x,
+                characterOrientation.ForcedRotationDirection.z,
+                joystick.skill
             );
+            directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         }
-        directionIndicator.SetActive(false);
 
+        ShowSkillRange(joystick.skill);
         activeJoystick = joystick;
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
-        bool isCone = joystick.skill.GetIndicatorType() == UIIndicatorType.Cone;
-        var result = Mathf.Atan(direction.x / direction.y) * Mathf.Rad2Deg;
-        if (direction.y > 0)
-        {
-            result += 180f;
-        }
-        directionIndicator.transform.rotation = Quaternion.Euler(
-            90f,
-            result,
-            isCone ? -(180 - joystick.skill.GetIndicatorAngle()) / 2 : 0
-        );
-        directionIndicator.SetActive(true);
+        directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
+        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystickStatus = canceled;
     }
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
         Destroy(areaWithAim);
-        Destroy(directionIndicator);
+        directionIndicator.DeactivateIndicator(skill.GetIndicatorType());
+
+        HideSkillRange();
 
         activeJoystick = null;
         EnableButtons();
+
+        if (direction.x == 0 && direction.y == 0 && skill.ExecutesOnQuickTap())
+        {
+            direction = GetPlayerOrientation();
+        }
 
         if (!activeJoystickStatus)
         {
             skill.TryExecuteSkill(direction);
         }
+    }
+
+    private Vector2 GetPlayerOrientation()
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        CharacterOrientation3D characterOrientation =
+            _player.GetComponent<CharacterOrientation3D>();
+        return new Vector2(
+            characterOrientation.ForcedRotationDirection.x,
+            characterOrientation.ForcedRotationDirection.z
+        );
     }
 
     public void CheckSkillCooldown(UIControls control, float cooldown)
@@ -426,6 +403,24 @@ public class CustomInputManager : InputManager
             button.EnableButton();
             cooldownText.gameObject.SetActive(false);
         }
+    }
+
+    // TODO: Reactor: avoid fetching player and SkillRange on every use
+    public void ShowSkillRange(Skill skill)
+    {
+        float range = skill.GetSkillRadius();
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        Transform skillRange = _player.transform.Find("SkillRange");
+        skillRange.localScale = new Vector3(range, skillRange.localScale.y, range);
+    }
+
+    public void HideSkillRange()
+    {
+        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+
+        Transform skillRange = _player.transform.Find("SkillRange");
+        skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
     private void DisableButtons()
