@@ -36,7 +36,6 @@ public class LobbiesManager : LevelSelector
     {
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        MMSoundManager.Instance.FreeAllSounds();
     }
 
     public void QuickGame()
@@ -54,6 +53,12 @@ public class LobbiesManager : LevelSelector
                 && LobbyConnection.Instance.playerId != UInt64.MaxValue
         );
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void Reconnect()
+    {
+        LobbyConnection.Instance.Reconnect();
+        SceneManager.LoadScene("CharacterSelection");
     }
 
     public IEnumerator WaitForLobbyJoin()

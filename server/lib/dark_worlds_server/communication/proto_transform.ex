@@ -501,7 +501,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp effect_encode({:petrified, %{ends_at: ends_at}}), do: {0, ends_at}
   defp effect_encode({:disarmed, %{ends_at: ends_at}}), do: {1, ends_at}
-  defp effect_encode({:piercing, %{ends_at: ends_at}}), do: {2, ends_at}
+  defp effect_encode({:denial_of_service, %{ends_at: ends_at}}), do: {2, ends_at}
   defp effect_encode({:raged, %{ends_at: ends_at}}), do: {3, ends_at}
   defp effect_encode({:neon_crashing, %{ends_at: ends_at}}), do: {4, ends_at}
   defp effect_encode({:leaping, %{ends_at: ends_at}}), do: {5, ends_at}
@@ -514,5 +514,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:slowed, %{ends_at: ends_at}}), do: {12, ends_at}
   defp effect_encode({:fiery_rampage, %{ends_at: ends_at}}), do: {13, ends_at}
   defp effect_encode({:burned, %{ends_at: ends_at}}), do: {14, ends_at}
-  defp effect_encode({:paralyzed, %{ends_at: ends_at}}), do: {15, ends_at}
+  defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {15, ends_at}
+  defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {16, ends_at}
+  defp effect_encode({:paralyzed, %{ends_at: ends_at}}), do: {17, ends_at}
 end

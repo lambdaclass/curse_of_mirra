@@ -8,6 +8,7 @@ public class SpawnBot : MonoBehaviour
     GameObject playerPrefab;
 
     private bool pendingSpawn = false;
+    private bool botsActive = true;
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
     private string botId;
 
@@ -28,7 +29,9 @@ public class SpawnBot : MonoBehaviour
 
     public void ToggleBots()
     {
+        botsActive = !botsActive;
         SocketConnectionManager.Instance.ToggleBots();
+        GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(botsActive);
     }
 
     public void Spawn(Player player)
