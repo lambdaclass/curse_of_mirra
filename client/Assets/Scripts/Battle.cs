@@ -195,7 +195,15 @@ public class Battle : MonoBehaviour
 
             if (actualPlayer.activeSelf)
             {
-                updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                {
+                    updatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                }
+                else
+                {
+                    updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                }
+
                 if (
                     !buffer.timestampAlreadySeen(
                         SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -522,6 +530,16 @@ public class Battle : MonoBehaviour
 
         bool walking = false;
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            if (player.transform.position != frontendPosition)
+            {
+                player.transform.position = frontendPosition;
+            }
+            mAnimator.SetBool("Walking", walking);
+            return;
+        }
+
         if (useClientPrediction)
         {
             walking =
@@ -594,8 +612,6 @@ public class Battle : MonoBehaviour
                 {
                     newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
                 }
-
-                player.transform.position = newPosition;
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
