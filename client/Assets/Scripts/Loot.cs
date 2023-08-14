@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class Loot : MonoBehaviour
@@ -11,13 +12,39 @@ public class Loot : MonoBehaviour
 
     private Dictionary<ulong, GameObject> loots = new Dictionary<ulong, GameObject>();
 
+    MMSimpleObjectPooler objectPooler;
+
+    void Start()
+    {
+        this.objectPooler = Utils.SimpleObjectPooler(
+            "LootPool",
+            transform.parent.parent,
+            "LootBox"
+        );
+    }
+
+    void Update()
+    {
+        UpdateLoots();
+    }
+
     public void MaybeAddLoot(LootPackage loot)
     {
         if (!loots.ContainsKey(loot.Id))
         {
             var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
-            GameObject lootObject = Instantiate(this.healthLootObject, position, Quaternion.identity);
-            loots.Add(loot.Id, lootObject);
+            // GameObject lootObject = Instantiate(
+            //     this.healthLootObject,
+            //     position,
+            //     Quaternion.identity
+            // );
+            GameObject lootPoolObj = objectPooler.GetPooledGameObject();
+            // lootPoolObj
+            lootPoolObj.transform.position = position;
+            lootPoolObj.name = loot.Id.ToString();
+            lootPoolObj.transform.rotation = Quaternion.identity;
+            lootPoolObj.SetActive(true);
+            loots.Add(loot.Id, lootPoolObj);
         }
     }
 
@@ -31,15 +58,24 @@ public class Loot : MonoBehaviour
     {
         switch (lootType)
         {
-            case LootType.LootHealth: return this.healthLootObject;
-            default: throw new ArgumentException("Type for loot ");
+            case LootType.LootHealth:
+                return this.healthLootObject;
+            default:
+                throw new ArgumentException("Type for loot ");
         }
     }
 
     private void RemoveLoot(ulong id)
     {
         GameObject lootObject = loots[id];
-        Destroy(lootObject);
+        lootObject.SetActive(false);
         loots.Remove(id);
+    }
+
+    private void UpdateLoots()
+    {
+        List<LootPackage> updatedLoots = SocketConnectionManager.Instance.updatedLoots;
+        RemoveLoots(updatedLoots);
+        updatedLoots.ForEach(MaybeAddLoot);
     }
 }

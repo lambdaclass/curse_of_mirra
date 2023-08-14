@@ -340,6 +340,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8472880969195610299}
     m_Modifications:
+    - target: {fileID: 1739130193326024266, guid: 5167513a201f64406a626d8650f6623c,
+        type: 3}
+      propertyPath: healthLootObject
+      value: 
+      objectReference: {fileID: 6444456623425687815, guid: f8b8367f45eb44faa8497f614c9a0204,
+        type: 3}
     - target: {fileID: 7090107403194157410, guid: 5167513a201f64406a626d8650f6623c,
         type: 3}
       propertyPath: m_Name

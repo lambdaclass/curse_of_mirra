@@ -44,6 +44,7 @@ public class SocketConnectionManager : MonoBehaviour
     public Position shrinkingCenter;
 
     public List<Player> alivePlayers = new List<Player>();
+    public List<LootPackage> updatedLoots = new List<LootPackage>();
 
     WebSocket ws;
 
@@ -82,7 +83,8 @@ public class SocketConnectionManager : MonoBehaviour
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
-            if (this.reconnect) {
+            if (this.reconnect)
+            {
                 this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
                 this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
             }
@@ -154,7 +156,8 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     alivePlayers = game_event.Players.ToList().FindAll(el => el.Health > 0);
-                    updateLoots(game_event.Loots.ToList());
+                    // updateLoots(game_event.Loots.ToList());
+                    updatedLoots = game_event.Loots.ToList();
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)game_event.Latency;
@@ -325,14 +328,5 @@ public class SocketConnectionManager : MonoBehaviour
     public bool isConnectionOpen()
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
-    }
-
-    private void updateLoots(List<LootPackage> updatedLoots)
-    {
-        GameObject battleManager = GameObject.Find("BattleManager");
-        Loot lootScript = battleManager.GetComponent<Loot>();
-
-        lootScript.RemoveLoots(updatedLoots);
-        updatedLoots.ForEach(lootScript.MaybeAddLoot);
     }
 }
