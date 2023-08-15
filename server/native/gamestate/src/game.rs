@@ -300,19 +300,11 @@ impl GameState {
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
         players: &Vec<Player>,
-        previous_position: Position,
-        next_position: Position,
+        projectile_position: Position,
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
         let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
-
-        let (p1, p2) = match previous_position.x < next_position.x {
-            true => (previous_position, next_position),
-            false if previous_position.x > next_position.x => (next_position, previous_position),
-            false if previous_position.y < next_position.y => (previous_position, next_position),
-            _ => (next_position, previous_position),
-        };
 
         players
             .iter()
@@ -320,41 +312,18 @@ impl GameState {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
             .for_each(|player| {
-                let radius = player.character.body_size;
+                // We're intersecting two circles, basically what we're doing is this:
+                // Sum the character's radius body size and the projectile's radius,
+                // Calculate the distance between the centers of both circles (player's position and projectile's position)
+                // And then we check if the sum of the radius is greater than the distance between
+                // centers, then the projectile hitted the target :)
+                let character_body_size = player.character.body_size;
+                let projectile_radius = 10.;
 
-                let player_attacked = match p2.y == p1.y {
-                    true => {
-                        // The projectile is moving vertically
-                        let intersection = Position::new(player.position.x, p1.y);
-
-                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    false if p2.x == p1.x => {
-                        // The projectile is moving horizontally
-                        let intersection = Position::new(p1.x, player.position.y);
-
-                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    _ => {
-                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
-                        let perpendicular_slope = -1f32 / slope;
-                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
-                        let perpendicular_intercept = player.position.y as f32
-                            - (perpendicular_slope as f32 * player.position.x as f32);
-
-                        let x =
-                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
-                        let y = slope * x + intercept;
-                        let intersection = Position::new(x as usize, y as usize);
-
-                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                };
-
-                if player_attacked {
+                let centers_distance =
+                    distance_between_positions(&projectile_position, &player.position);
+                let radiuses_sum = character_body_size + projectile_radius;
+                if radiuses_sum >= centers_distance {
                     affected_players.insert(
                         player.id,
                         distance_to_center(attacking_player, &player.position),
@@ -495,7 +464,7 @@ impl GameState {
                 None => *direction,
             };
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_basic_skill() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -750,7 +719,7 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_skill_1() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -1343,7 +1312,6 @@ impl GameState {
                     GameState::players_in_projectile_movement(
                         projectile.player_id,
                         &self.players,
-                        projectile.prev_position,
                         projectile.position,
                     )
                     .into_iter()
@@ -1351,10 +1319,6 @@ impl GameState {
                         id != projectile.player_id && id != projectile.last_attacked_player_id
                     })
                     .collect();
-
-                if affected_players.len() > 0 && !projectile.pierce {
-                    projectile.status = ProjectileStatus::EXPLODED;
-                }
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
@@ -1364,10 +1328,12 @@ impl GameState {
                         .iter()
                         .min_by(|a, b| cmp_float(*a.1, *b.1))
                         .unwrap();
-
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
-
+                    if !projectile.pierce {
+                        projectile.status = ProjectileStatus::EXPLODED;
+                        projectile.position = attacked_player.position;
+                    }
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(

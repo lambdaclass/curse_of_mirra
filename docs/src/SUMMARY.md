@@ -13,3 +13,4 @@
 - [Unity Animations](./animations.md)
   - [Skill animations](./skill.md)
   - [How to map the animations](./how_to_add_anim.md)
+- [How to add documentation](./add_documentation.md)

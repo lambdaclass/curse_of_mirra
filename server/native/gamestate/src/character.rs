@@ -176,6 +176,22 @@ impl Character {
     pub fn duration_skill_4(&self) -> MillisTime {
         u128_to_millis(self.skill_4.duration as u128)
     }
+
+    pub fn par_1_basic_skill(&self) -> u32 {
+        self.skill_basic.par1
+    }
+    pub fn par_1_skill_1(&self) -> u32 {
+        self.skill_1.par1
+    }
+    pub fn par_1_skill_2(&self) -> u32 {
+        self.skill_2.par1
+    }
+    pub fn par_1_skill_3(&self) -> u32 {
+        self.skill_3.par1
+    }
+    pub fn par_1_skill_4(&self) -> u32 {
+        self.skill_4.par1
+    }
 }
 
 //TODO: This character is broken, it has basic skill as all skills
