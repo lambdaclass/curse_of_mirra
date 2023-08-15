@@ -12,3 +12,4 @@
 - [Common Pitfalls](./common_pitfalls.md)
 - [Client Player feedbacks](./client_feedbacks.md)
     - [How to add new Feedbacks](./how_to_add_feedbacks.md)
+- [How to add documentation](./add_documentation.md)
