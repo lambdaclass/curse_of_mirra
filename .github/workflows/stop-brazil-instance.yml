@@ -1,10 +1,10 @@
-name: "Stop Brazil instance"
+name: "Stop Brazil instances: testing and staging"
 on:
   workflow_dispatch:
 
 jobs:
   stop-brazil-instance:
-    name: "Stop Brazil instance (54.207.194.197)"
+    name: "Stop Brazil instances: aws-testing.dark-worlds.lambdaclass.com and brazil-staging.curseofmyrra.com"
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_BRAZIL_INSTANCE }}
@@ -14,4 +14,8 @@ jobs:
     steps:
       - name: Stop Brazil instance
         run: |
+          set -ex
+          # Stop testing instance
           aws ec2 stop-instances --instance-ids i-0a6c828181e221c1e
+          # Stop staging instance
+          aws ec2 stop-instances --instance-ids i-03e46e6efd009a6ce
