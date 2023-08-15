@@ -4,7 +4,7 @@
 
 #### The animator
 
-The animator is the interface to control the [Mecanim animation system](https://docs.unity3d.com/462/Documentation/Manual/MecanimAnimationSystem.html). We use it to add the animations and create a flow within them.
+The animator is the interface to control the [Animation System Overview](https://docs.unity3d.com/Manual/AnimationOverview.html). We use it to add the animations and create a flow within them.
 
 #### Animation
 
