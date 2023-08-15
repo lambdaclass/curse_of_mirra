@@ -82,7 +82,8 @@ public class SocketConnectionManager : MonoBehaviour
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
-            if (this.reconnect) {
+            if (this.reconnect)
+            {
                 this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
                 this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
             }
@@ -212,6 +213,8 @@ public class SocketConnectionManager : MonoBehaviour
         {
             LobbyConnection.Instance.errorConnection = true;
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
+            this.Init();
+            LobbyConnection.Instance.Init();
         }
     }
 
