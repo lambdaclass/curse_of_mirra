@@ -1,10 +1,10 @@
-name: "Start Brazil instance"
+name: "Start Brazil instances: testing and staging"
 on:
   workflow_dispatch:
 
 jobs:
   start-brazil-instance:
-    name: "Start Brazil instance (54.207.194.197)"
+    name: "Start Brazil instances: aws-testing.dark-worlds.lambdaclass.com and brazil-staging.curseofmyrra.com"
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_BRAZIL_INSTANCE }}
@@ -14,4 +14,8 @@ jobs:
     steps:
       - name: Start Brazil instance
         run: |
+          set -ex
+          # Start testing instance
           aws ec2 start-instances --instance-ids i-0a6c828181e221c1e
+          # Start staging instance
+          aws ec2 start-instances --instance-ids i-03e46e6efd009a6ce
