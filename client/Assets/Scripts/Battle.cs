@@ -876,14 +876,6 @@ public class Battle : MonoBehaviour
                 string name = Enum.GetName(typeof(StateEffects), effect);
                 bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
                 GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
-                // if (key == (ulong)effect && PlayerIsAlive(playerUpdate))
-                // {
-                //     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, true);
-                // }
-                // else
-                // {
-                //     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, false);
-                // }
             }
         }
     }
