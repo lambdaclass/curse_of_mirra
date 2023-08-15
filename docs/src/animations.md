@@ -20,7 +20,7 @@ Transitions have differents settings to setup deppending on what you want, these
 - If the Fixed Duration box is checked, the transition time is interpreted in seconds. If the Fixed Duration box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.
 - Transition duration: This determinates how much will it took to transition to the next state.
 
-We need The Animator, the animations and transitions to create solid animations with correct flow and states. Drag the animations inside the animator and create transition (right click in the state) between them to start using your animations.
+We need the Animator, the animations and transitions to create solid animations with correct flow and states. Drag the animations inside the animator and create transition (right click in the state) between them to start using your animations.
 
 ## How we handle animations
 
@@ -54,11 +54,15 @@ Lets deep into how we use the animations to match with our backend, the scripts 
 
 ### SkillInfo fields
 
-- `hasModelAnimation`: (``boolean``) Allows the animation to start and execute. If this is not true you would have to start the animation manually. It can be useful to have it false with animations like walking where you want them to play constantly.
+Tiempo maximo de duracion para hacer un eject para ambas
+
 
 - `executeAnimationDuration`: (``float``) Determinates the time that the animation will be played.
 
 - `startAnimationDuration`: (``float``) Determinates the time to start the animation.
+
+- `startAnimationDuration`: (``float``) and `executeAnimationDuration`: (``float``) These methods represent the maxinum duration time to eject the skill animation
+
 - `animationSpeedMultiplier`: (``float``) Determinate the play speed of the animation (used in the transition parameters if it is set).
 
 ### Skill.cs
