@@ -54,11 +54,6 @@ Lets deep into how we use the animations to match with our backend, the scripts 
 
 ### SkillInfo fields
 
-
-- `executeAnimationDuration`: (``float``) Determines the time that the animation will be played.
-
-- `startAnimationDuration`: (``float``) Determines the time to start the animation.
-
 - `startAnimationDuration`: (``float``) and `executeAnimationDuration`: (``float``) These methods represent the maximum duration time to eject the skill animation
 
 - `animationSpeedMultiplier`: (``float``) Determine the play speed of the animation (used in the transition parameters if it is set).
