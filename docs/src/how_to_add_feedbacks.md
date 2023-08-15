@@ -1,10 +1,7 @@
 # How to create a new feedback for State Effects
 ☝️🤓 Assuming we already have the feedback implemented in the backend
 
-
-1. Create the prefab asset with the particle system you desire
-    
-2. First, create the new Feedback prefab with the particle system you want, then add it to the `Client/Asssets/Feedbacks/States` folder.
+1. First, create the new Feedback prefab with the particle system you want, then add it to the `Client/Asssets/Feedbacks/States` folder.
 
 3. Inside the `FeedbackContainer` prefab you have to add the new prefab as a child and then add it to the list in the script component.
 

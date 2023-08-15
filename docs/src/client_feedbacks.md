@@ -9,7 +9,7 @@ Unity GameObject prefabs with a particle system component to show the particles 
 `FeedbackContainer`
 
 You can find this prefab inside each character prefab; it contains a script with the same name with a list of the Feedback Prefabs to activate. You have to set each prefab in the unity editor to the list. The methods we have here are:
-- `SetActiveFeedback(string name, bool activate)` Activate or deactivate the feedback that that matches the name parameter depending on the boolean activate
+- `SetActiveFeedback(string name, bool activate)` Activate or deactivate the feedback that matches the name parameter depending on the boolean activate
 
 - `GetFeedbackList()` Return the feedback prefabs list.
 
