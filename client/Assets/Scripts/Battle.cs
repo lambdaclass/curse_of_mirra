@@ -622,18 +622,13 @@ public class Battle : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = getPlayerDirection(playerUpdate);
 
-                if (
-                    PlayerMovementAuthorized(player.GetComponent<Character>())
-                    && !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed)
-                )
+                if (PlayerMovementAuthorized(player.GetComponent<Character>()))
                 {
                     rotatePlayer(player, direction);
                 }
             }
             walking = true;
         }
-
-        walking = walking && !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed);
 
         mAnimator.SetBool("Walking", walking);
     }
