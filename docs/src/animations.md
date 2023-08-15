@@ -12,15 +12,15 @@ The animation component is used to play animation clips, which are movement keyf
 
 #### Transitions
 
-Animation transitions allow the state machine to switch or blend from one animation state to another. We can use differents parameters to make a transition happend. Such as booleans, floats, etc.
+Animation transitions allow the state machine to switch or blend from one animation state to another. We can use different parameters to make a transition happen. Such as booleans, floats, etc.
 
-Transitions have differents settings to setup deppending on what you want, these are the most important.
+Transitions have different settings to setup deppending on what you want, these are the most important.
 
-- Has Exit Time: Determinates a fixed time for an animation. Ignores any kind of transition parameter.
+- Has Exit Time: Determines a fixed time for an animation. Ignores any kind of transition parameter.
 - If the Fixed Duration box is checked, the transition time is interpreted in seconds. If the Fixed Duration box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.
-- Transition duration: This determinates how much will it took to transition to the next state.
+- Transition duration: This Determines how much will it take to transition to the next state.
 
-We need the Animator, the animations and transitions to create solid animations with correct flow and states. Drag the animations inside the animator and create transition (right click in the state) between them to start using your animations.
+We need the Animator, animations and transitions to create solid animations with correct flow and states. Drag the animations inside the animator and create transition (right click in the state) between them to start using your animations.
 
 ## How we handle animations
 
@@ -28,7 +28,7 @@ We need the Animator, the animations and transitions to create solid animations 
 
 We use a specific list of parameters for our transitions
 
-- `SkillBasic, Skill1, Skill2, Skill3, Skill4 ( Booleans )` We use them to change the state of the animation and make the transition happend.
+- `SkillBasic, Skill1, Skill2, Skill3, Skill4 ( Booleans )` We use them to change the state of the animation and make the transition happen.
 
 - `SkillBasic_start, Skill1c_start, Skill2c_start, Skill3c_start, Skill4c_start ( Booleans )` Not always necessary , we use them to concatenate animations. For example, if a skill has two different animations that happen sequentially and we want to concatenate them to create the whole animation we can do something like this:
 
@@ -54,16 +54,14 @@ Lets deep into how we use the animations to match with our backend, the scripts 
 
 ### SkillInfo fields
 
-Tiempo maximo de duracion para hacer un eject para ambas
 
+- `executeAnimationDuration`: (``float``) Determines the time that the animation will be played.
 
-- `executeAnimationDuration`: (``float``) Determinates the time that the animation will be played.
+- `startAnimationDuration`: (``float``) Determines the time to start the animation.
 
-- `startAnimationDuration`: (``float``) Determinates the time to start the animation.
+- `startAnimationDuration`: (``float``) and `executeAnimationDuration`: (``float``) These methods represent the maximum duration time to eject the skill animation
 
-- `startAnimationDuration`: (``float``) and `executeAnimationDuration`: (``float``) These methods represent the maxinum duration time to eject the skill animation
-
-- `animationSpeedMultiplier`: (``float``) Determinate the play speed of the animation (used in the transition parameters if it is set).
+- `animationSpeedMultiplier`: (``float``) Determine the play speed of the animation (used in the transition parameters if it is set).
 
 ### Skill.cs
 

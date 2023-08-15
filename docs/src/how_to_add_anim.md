@@ -12,17 +12,18 @@ Now make sure if you have a AnimatorController for your character , if don't cre
 When you have all your animations set , open the animatorController and drag the entry animation (Idle in our case) it will automatically connect it to the entry state.
 ![](./images/Entry.png)
 
-Then drag and drop into the animator the rest of the animations.Now we are ready to create the transitions 🤙.
+Then drag and drop the rest of the animations into the animator.Now we are ready to create the transitions 🤙.
 ![](./images/Drag_drop.png)
 
-Have in mind what we learned in the [Parameters](./animations.md) and create the respective parameters for each skill , in my case are `Walking`, `Skill1` and `Skill1Speed`.
+
+Take into account what we learned in the [Parameters](./animations.md) and create the respective parameters for each skill, in my case are `Walking`, `Skill1` and `Skill1Speed`.
 ![](./images/Parameters.png)
 
 Now create the transitions between states
 ![](./videos/transitions.gif)
 
-Select the transition, add the parameters conditions and Tweek the transition config with what you need ( Transition duration, Has Exit Time, etc), having in count what we learned in [Transitions](./animations.md).
+Select the transition, add the parameters conditions and Tweek the transition config with what you need ( Transition duration, Has Exit Time, etc), taking into account what we learned in [Transitions](./animations.md).
 
-Also have in mind to Tweek the values of `executeAnimationDuration`,`startAnimationDuration`,`animationSpeedMultiplier` in the respective scripteableObject of the skill.
+Bear in mind to Tweek the values of `executeAnimationDuration`,`startAnimationDuration` and `animationSpeedMultiplier` in the respective scripteableObject of the skill.
 
 To use the `animationSpeedMultiplier` set to use the Multiplier parameter checkbox in speed section of the animation.
