@@ -8,7 +8,7 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
     [SerializeField]
-    GameObject healthLootObject;
+    LooteableList lootsList;
 
     private Dictionary<ulong, GameObject> loots = new Dictionary<ulong, GameObject>();
 
@@ -33,13 +33,7 @@ public class Loot : MonoBehaviour
         if (!loots.ContainsKey(loot.Id))
         {
             var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
-            // GameObject lootObject = Instantiate(
-            //     this.healthLootObject,
-            //     position,
-            //     Quaternion.identity
-            // );
             GameObject lootPoolObj = objectPooler.GetPooledGameObject();
-            // lootPoolObj
             lootPoolObj.transform.position = position;
             lootPoolObj.name = loot.Id.ToString();
             lootPoolObj.transform.rotation = Quaternion.identity;
@@ -59,7 +53,7 @@ public class Loot : MonoBehaviour
         switch (lootType)
         {
             case LootType.LootHealth:
-                return this.healthLootObject;
+                return this.lootsList.healthLoot.lootPrefab;
             default:
                 throw new ArgumentException("Type for loot ");
         }

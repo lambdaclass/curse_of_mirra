@@ -96,4 +96,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16e62aa7cb94473f980ab1614fbf0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLootObject: {fileID: 100000, guid: 391ea11e900bba74983c3cf4f53c27c7, type: 3}
+  healthLootObject: {fileID: 6444456623425687815, guid: f8b8367f45eb44faa8497f614c9a0204,
+    type: 3}
