@@ -874,14 +874,16 @@ public class Battle : MonoBehaviour
             foreach (int effect in Enum.GetValues(typeof(StateEffects)))
             {
                 string name = Enum.GetName(typeof(StateEffects), effect);
-                if (key == (ulong)effect && PlayerIsAlive(playerUpdate))
-                {
-                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, true);
-                }
-                else
-                {
-                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, false);
-                }
+                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
+                GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                // if (key == (ulong)effect && PlayerIsAlive(playerUpdate))
+                // {
+                //     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, true);
+                // }
+                // else
+                // {
+                //     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, false);
+                // }
             }
         }
     }
