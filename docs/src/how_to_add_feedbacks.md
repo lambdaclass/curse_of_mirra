@@ -1,17 +1,24 @@
 # How to create a new feedback for State Effects
 ☝️🤓 Assuming we already have the feedback implemented in the backend
 
-1. First, create the new Feedback prefab with the particle system you want, then add it to the `Client/Asssets/Feedbacks/States` folder.
 
-2. In the `FeedbackContainer` prefab add the new prefab you just created to the list of prefabs.
+1. Create the prefab asset with the particle system you desire
+    
+2. First, create the new Feedback prefab with the particle system you want, then add it to the `Client/Asssets/Feedbacks/States` folder.
 
-3. Now you have to add the new state to the `StateEffects` enum and use the value of `PlayerEffect`. It's better with an example, if we would like to add the Effect state `Freeze`:
+3. Inside the `FeedbackContainer` prefab you have to add the new prefab as a child and then add it to the list in the script component.
+
+![](./images/feedbacks_step2.png)
+
+4. In the `Battle.cs` script there is a Enum called `StateEffects` which only constains the states effects from the backend (Because we dont want the others effects such as rage, disarm, etc), you have to add the effect you want to display and match it with the `PlayerEffect` enum that comes fron the backend.
 ``` 
     private enum StateEffects
     {
         Poisoned = PlayerEffect.Poisoned,
         Slowed = PlayerEffect.Slowed,
-        Freeze = PlayerEffect.Freeze,
+        Freeze = PlayerEffect.Freeze, // New effect added, with the same value as the backend version
     }
 ```
+ We store only these states to simplifly the search iterations in the `ManageFeedbacks` method.
+
 4. And now you are ready to go! Test it and enjoy the new feedback.🤩
