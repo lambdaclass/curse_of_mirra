@@ -1147,11 +1147,12 @@ impl GameState {
             player.action();
             // Check if this player is dashing and register
             // the dash effects on the game.
-            self.tick_changes.accumulate_dashing_effects(
+            self.tick_changes.apply_dashing_effects(
                 player,
                 &expired_effects,
                 &players,
                 &self.board,
+                &player.dash_effect()
             )?;
         }
         // Neon Crash Attack

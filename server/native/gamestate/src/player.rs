@@ -322,6 +322,17 @@ impl Player {
 
         return base_speed;
     }
+
+    /// Return the corresponding dash effect for a certain player.
+    // TODO: This sould be a character function.
+    pub fn dash_effect(&self) -> Effect {
+        match self.character.name {
+            Name::H4ck => Effect::NeonCrashing,
+            Name::Muflus => Effect::Leaping,
+            _ => todo!("Dash effect not implemented for {}", self.character.name)
+        }
+    }
+
     pub fn dash_dmg(&self) -> u32 {
         self.skill_3_damage()
     }

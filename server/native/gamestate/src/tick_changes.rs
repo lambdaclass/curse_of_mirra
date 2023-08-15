@@ -1,3 +1,4 @@
+use crate::effect_affected_players;
 use crate::board::Board;
 use crate::character::{Character, Name};
 use crate::game::{Direction, GameState, KillEvent};
@@ -77,6 +78,9 @@ impl MutablePlayer {
     }
     pub fn is_alive(&self) -> bool {
         self.inner.borrow().is_alive()
+    }
+    pub fn dash_effect(&self) -> Effect {
+        self.inner.borrow().dash_effect()
     }
     // PLAYER MUTATING FUNCTIONS
     pub fn set_action(&self, action: &PlayerAction) {
@@ -300,78 +304,64 @@ impl TickChanges {
         self.attack_mirrored_players(players)?;
         Ok(())
     }
-    pub fn accumulate_dashing_effects(
+    /// Apply dashing effects from a player
+    /// to the current tick changes.
+    pub fn apply_dashing_effects(
         &mut self,
         player: &MutablePlayer,
         expired_effects: &[(Effect, EffectData)],
         players: &MutablePlayers,
         board: &Board,
+        effect_to_apply: &Effect,
     ) -> Result<(), String> {
-        match player.character().name {
-            Name::H4ck => {
-                let effect = player.fetch_effect(&Effect::NeonCrashing);
-                if let Some(effect) = effect {
-                    effect.direction.map(|direction| -> Result<(), String> {
-                        let speed = player.speed();
-                        GameState::move_with_dash(
-                            player,
-                            speed,
-                            player.id(),
-                            players,
-                            &board,
-                            &mut self.neon_crash_affected_players,
-                            &direction,
-                        )?;
-                        Ok(())
-                    });
-                }
-            }
-            Name::Muflus => {
-                if let Some(effect_data) = player.fetch_effect(&Effect::Leaping) {
-                    effect_data
-                        .direction
-                        .map(|direction| -> Result<(), String> {
-                            GameState::move_with_dash(
-                                player,
-                                player.speed(),
-                                player.id(),
-                                players,
-                                &board,
-                                &mut self.leap_affected_players,
-                                &direction,
-                            )
-                        });
-                }
-
-                if let Some((_, data)) = expired_effects
-                    .iter()
-                    .find_or_first(|(effect, _data)| effect == &Effect::Leaping)
-                {
-                    data.direction.map(|direction| -> Result<(), String> {
-                        player.set_action(&PlayerAction::EXECUTINGSKILL3);
-                        self.leap_affected_players = GameState::affected_players(
-                            player.skill_3_damage() as i64,
-                            450.,
-                            players.clone().into_iter().map(Into::into).collect(),
-                            &player.position(),
-                            player.id(),
-                        );
-                        GameState::move_with_dash(
-                            player,
-                            player.speed(),
-                            player.id(),
-                            players,
-                            &board,
-                            &mut self.leap_affected_players,
-                            &direction,
-                        )?;
-                        Ok(())
-                    });
-                }
-            }
-            _ => {}
+        let to_affect = effect_affected_players!(effect_to_apply, self);
+        // If the effect is something active, we apply that.
+        if let Some(effect) = player.fetch_effect(effect_to_apply) {
+            effect.direction.map(|direction| -> Result<(), String> {
+                GameState::move_with_dash(
+                    player,
+                    player.speed(),
+                    player.id(),
+                    players,
+                    &board,
+                    to_affect,
+                    &direction,
+                )?;
+                Ok(())
+            });
+            return Ok(());
         }
-
+        // If the effect is something that expires, like
+        // muflus' leap, then we apply that.
+        if let Some((_, data)) = expired_effects
+            .iter()
+            .find_or_first(|(effect, _data)| effect == effect_to_apply)
+        {
+            data.direction.map(|direction| -> Result<(), String> {
+                player.set_action(&PlayerAction::EXECUTINGSKILL3);
+                GameState::move_with_dash(
+                    player,
+                    player.speed(),
+                    player.id(),
+                    players,
+                    &board,
+                    to_affect,
+                    &direction,
+                )?;
+                Ok(())
+            });
+            return Ok(());
+        }
         Ok(())
     }
+}
+#[macro_export]
+macro_rules! effect_affected_players {
+    ($effect:expr, $self:ident) => {
+        match $effect {
+            Effect::NeonCrashing => &mut $self.neon_crash_affected_players,
+            Effect::Leaping => &mut $self.leap_affected_players,
+            _ => todo!("Missing container for this effect: {:?}", $effect),
+        }
+    };
 }
