@@ -5,14 +5,24 @@ using UnityEngine;
 public class AimDirection : MonoBehaviour
 {
     [SerializeField]
+    Color32 characterFeedbackColor = new Color32(255, 255, 255, 255);
+
+    [SerializeField]
     public GameObject cone;
 
     [SerializeField]
     GameObject arrow;
-    GameObject newArrow;
+
+    [SerializeField]
+    GameObject arrowHead;
 
     [SerializeField]
     GameObject area;
+
+    [SerializeField]
+    GameObject surface;
+
+    UIIndicatorType activeIndicator = UIIndicatorType.None;
 
     public float fov = 90f;
     public float angle = 0f;
@@ -20,11 +30,15 @@ public class AimDirection : MonoBehaviour
     public int raycount = 50;
     public float angleInclease;
 
-    public void InitIndicator(Skill skill)
+    public void InitIndicator(Skill skill, Color32 color)
     {
         // TODO: Add the spread area (amgle) depeding of the skill.json
         viewDistance = skill.GetSkillRadius();
         fov = skill.GetIndicatorAngle();
+        activeIndicator = skill.GetIndicatorType();
+        characterFeedbackColor = color;
+
+        SetColor(color);
 
         if (skill.GetIndicatorType() == UIIndicatorType.Arrow)
         {
@@ -33,6 +47,10 @@ public class AimDirection : MonoBehaviour
             arrow.transform.localScale = new Vector3(scaleX, scaleY, 0.05f);
             arrow.transform.localPosition = new Vector3(0, -scaleY / 2, 0);
         }
+
+        surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, 0.05f);
+        surface.GetComponent<Renderer>().material.color = new Color32(0, 255, 0, 60);
+        surface.SetActive(skill.isSelfTargeted());
     }
 
     public void Rotate(float x, float y, Skill skill)
@@ -114,9 +132,11 @@ public class AimDirection : MonoBehaviour
         }
     }
 
-    public void DeactivateIndicator(UIIndicatorType indicatorType)
+    public void DeactivateIndicator()
     {
-        switch (indicatorType)
+        surface.SetActive(false);
+
+        switch (activeIndicator)
         {
             case UIIndicatorType.Cone:
                 cone.SetActive(false);
@@ -126,6 +146,33 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(false);
+                break;
+        }
+    }
+
+    public void CancelableFeedback(bool cancelable)
+    {
+        Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterFeedbackColor;
+        SetColor(newColor);
+
+        newColor.a = 60;
+        surface.GetComponent<Renderer>().material.color = newColor;
+    }
+
+    public void SetColor(Color32 color)
+    {
+        switch (activeIndicator)
+        {
+            case UIIndicatorType.Cone:
+                color.a = 60;
+                cone.GetComponent<Renderer>().sharedMaterial.SetColor("_TopColor", color);
+                break;
+            case UIIndicatorType.Arrow:
+                arrow.GetComponent<Renderer>().material.color = color;
+                arrowHead.GetComponent<Renderer>().material.color = color;
+                break;
+            case UIIndicatorType.Area:
+                area.GetComponent<Renderer>().material.color = color;
                 break;
         }
     }

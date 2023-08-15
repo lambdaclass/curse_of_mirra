@@ -25,4 +25,5 @@ public class CoMCharacter : ScriptableObject
     public List<Sprite> selectedSkills;
     public List<Sprite> notSelectedSkills;
     public List<SkillInfo> skillsInfo;
+    public Color32 InputFeedbackColor;
 }

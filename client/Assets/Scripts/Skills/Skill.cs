@@ -8,7 +8,7 @@ using UnityEngine;
 public class Skill : CharacterAbility
 {
     const float MAX_RANGE = 50f;
-    const float INNER_RANGE = 2f;
+    const float INNER_RANGE = 2.5f;
 
     [SerializeField]
     public string skillId;
@@ -348,5 +348,9 @@ public class Skill : CharacterAbility
 
     public bool ExecutesOnQuickTap(){
         return skillInfo.executeOnQuickTap;
+    }
+
+    public bool isSelfTargeted(){
+        return skillInfo.skillCircleRadius == -1;
     }
 }

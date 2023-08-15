@@ -28,21 +28,6 @@ MonoBehaviour:
   skill2Sprite: {fileID: 21300000, guid: 3b961129105594fd8a47cba07332bb0a, type: 3}
   skill3Sprite: {fileID: 21300000, guid: 7ace4db523322437c810c82678f0680f, type: 3}
   skill4Sprite: {fileID: 21300000, guid: d19e1e4711fa645539bce8af849e0e78, type: 3}
-  notSelectedSkillBasicSprite: {fileID: 0}
-  notSelectedSkill1Sprite: {fileID: 0}
-  notSelectedSkill2Sprite: {fileID: 0}
-  notSelectedSkill3Sprite: {fileID: 0}
-  notSelectedSkill4Sprite: {fileID: 0}
-  selectedSkillBasicSprite: {fileID: 21300000, guid: 4fb41a8fd5aa14e7b9dc6b80bc4ef918,
-    type: 3}
-  selectedSkill1Sprite: {fileID: 21300000, guid: 7d73c1279f2c449d58542ffb421ba488,
-    type: 3}
-  selectedSkill2Sprite: {fileID: 21300000, guid: ade6405e69e324e35b3098b2089472be,
-    type: 3}
-  selectedSkill3Sprite: {fileID: 21300000, guid: de52ef4c6d6c343ffad96c0d4e163447,
-    type: 3}
-  selectedSkill4Sprite: {fileID: 21300000, guid: 5dbcbc7f5edb94cbcb7d824756a4cb78,
-    type: 3}
   skillBackground: {fileID: 21300000, guid: a3a6ee393ec9f494bb2b2f4aea4a12de, type: 3}
   selectedSkills:
   - {fileID: 21300000, guid: 4fb41a8fd5aa14e7b9dc6b80bc4ef918, type: 3}
@@ -62,3 +47,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6e1b4c6729c554e248b46a54a5319a0a, type: 2}
   - {fileID: 11400000, guid: 1174f220c8d564f2da1089e2e0107211, type: 2}
   - {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 4278234390

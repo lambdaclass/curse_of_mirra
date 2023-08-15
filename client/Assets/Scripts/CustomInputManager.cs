@@ -88,9 +88,6 @@ public class CustomInputManager : InputManager
 
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
     Dictionary<UIControls, TMP_Text> buttonsCooldown;
-    private GameObject areaWithAim;
-    private GameObject area;
-    private GameObject indicator;
     private AimDirection directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
@@ -99,7 +96,10 @@ public class CustomInputManager : InputManager
     private float currentSkillRadius = 0;
     private bool activeJoystickStatus = false;
 
-    public bool canceled = false;
+    private bool canceled = false;
+    private GameObject _player;
+
+    Color32 characterSkillColor;
 
     protected override void Start()
     {
@@ -122,6 +122,12 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
+    }
+
+    public void Setup()
+    {
+        _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        directionIndicator = _player.transform.Find("AimDirection").GetComponent<AimDirection>();
     }
 
     // void Update()
@@ -158,6 +164,7 @@ public class CustomInputManager : InputManager
         Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
         Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
         Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
+        characterSkillColor = characterInfo.InputFeedbackColor;
     }
 
     public IEnumerator ShowInputs()
@@ -225,7 +232,7 @@ public class CustomInputManager : InputManager
         button.skill = skill;
 
         UnityEvent<Skill> aoeEvent = new UnityEvent<Skill>();
-        aoeEvent.AddListener(ShowSkillRange);
+        aoeEvent.AddListener(ShowTapSkill);
         button.newPointerTapDown = aoeEvent;
 
         UnityEvent<Skill> tapRelease = new UnityEvent<Skill>();
@@ -233,16 +240,15 @@ public class CustomInputManager : InputManager
         button.newPointerTapUp = tapRelease;
     }
 
+    public void ShowTapSkill(Skill skill)
+    {
+        ShowSkillRange(skill);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
+    }
+
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-
-        directionIndicator =
-            Instantiate(Resources.Load("AttackDirection", typeof(GameObject))) as AimDirection;
-        //Set the prefab as a player child
-        directionIndicator.transform.parent = _player.transform;
-
-        directionIndicator.transform.localScale *= 5;
+        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
@@ -256,30 +262,22 @@ public class CustomInputManager : InputManager
 
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-
         //Multiply vector values according to the scale of the animation (in this case 12)
         float multiplier = joystick.skill.GetSkillRadius();
-        directionIndicator.transform.position =
-            _player.transform.position
-            + new Vector3(aoePosition.x * multiplier, 0f, aoePosition.y * multiplier);
+        directionIndicator.transform.localPosition = new Vector3(
+            aoePosition.x * multiplier,
+            0f,
+            aoePosition.y * multiplier
+        );
         activeJoystickStatus = canceled;
     }
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        float multiplier = skill.GetSkillRadius();
-        //Destroy attack animation after showing it
-        Destroy(areaWithAim);
+        directionIndicator.DeactivateIndicator();
 
         HideSkillRange();
 
-        directionIndicator.transform.position =
-            _player.transform.position
-            + new Vector3(aoePosition.x * multiplier, 0f, aoePosition.y * multiplier);
-        Destroy(directionIndicator, 0.01f);
-        directionIndicator.gameObject.SetActive(false);
         activeJoystick = null;
         EnableButtons();
 
@@ -296,6 +294,7 @@ public class CustomInputManager : InputManager
             skill.TryExecuteSkill();
         }
 
+        directionIndicator.DeactivateIndicator();
         HideSkillRange();
     }
 
@@ -318,10 +317,7 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        directionIndicator = _player.transform.Find("AimDirection").GetComponent<AimDirection>();
-
-        directionIndicator.InitIndicator(joystick.skill);
+        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         directionIndicator.SetConeIndicator();
 
@@ -350,8 +346,7 @@ public class CustomInputManager : InputManager
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
-        Destroy(areaWithAim);
-        directionIndicator.DeactivateIndicator(skill.GetIndicatorType());
+        directionIndicator.DeactivateIndicator();
 
         HideSkillRange();
 
@@ -371,7 +366,6 @@ public class CustomInputManager : InputManager
 
     private Vector2 GetPlayerOrientation()
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         CharacterOrientation3D characterOrientation =
             _player.GetComponent<CharacterOrientation3D>();
         return new Vector2(
@@ -409,18 +403,35 @@ public class CustomInputManager : InputManager
     public void ShowSkillRange(Skill skill)
     {
         float range = skill.GetSkillRadius();
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         Transform skillRange = _player.transform.Find("SkillRange");
         skillRange.localScale = new Vector3(range, skillRange.localScale.y, range);
+
+        if (skill.isSelfTargeted())
+        {
+            skillRange
+                .GetComponent<Renderer>()
+                .sharedMaterial.SetColor("_Color", new Color32(0, 255, 0, 255));
+        }
+        else
+        {
+            skillRange
+                .GetComponent<Renderer>()
+                .sharedMaterial.SetColor("_Color", characterSkillColor);
+        }
     }
 
     public void HideSkillRange()
     {
-        GameObject _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-
         Transform skillRange = _player.transform.Find("SkillRange");
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
+    }
+
+    public void SetSkillRangeCancelable(bool cancelable)
+    {
+        Transform skillRange = _player.transform.Find("SkillRange");
+        Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
+        skillRange.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", newColor);
     }
 
     private void DisableButtons()
@@ -455,6 +466,11 @@ public class CustomInputManager : InputManager
     public void SetCanceled(bool value)
     {
         canceled = value;
+        if (directionIndicator)
+        {
+            directionIndicator.CancelableFeedback(value);
+        }
+        SetSkillRangeCancelable(value);
     }
 
     public void ToggleCanceled(bool value)

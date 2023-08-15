@@ -28,26 +28,6 @@ MonoBehaviour:
   skill2Sprite: {fileID: 21300000, guid: f2ca93608b36b427cae7555dba7ee47b, type: 3}
   skill3Sprite: {fileID: 21300000, guid: b8272e15bb2a648ada8297f392db3421, type: 3}
   skill4Sprite: {fileID: 21300000, guid: 11497421eb93a43f6bc5dfd16df83d2e, type: 3}
-  notSelectedSkillBasicSprite: {fileID: 21300000, guid: 89863c313edd04b5da9c96ab685eaff6,
-    type: 3}
-  notSelectedSkill1Sprite: {fileID: 21300000, guid: c7a0c138ae12b47de852eb4bcfa3ac8b,
-    type: 3}
-  notSelectedSkill2Sprite: {fileID: 21300000, guid: 09374ffa89aea487b9419beb6c1d70d5,
-    type: 3}
-  notSelectedSkill3Sprite: {fileID: 21300000, guid: 9b1d976eb383a456cb0ce33e1dc3a173,
-    type: 3}
-  notSelectedSkill4Sprite: {fileID: 21300000, guid: 239121244f4a9450098846972e4d110a,
-    type: 3}
-  selectedSkillBasicSprite: {fileID: 21300000, guid: e59baca6c659645ab9dcbccda3f3b56d,
-    type: 3}
-  selectedSkill1Sprite: {fileID: 21300000, guid: c8a4b857c35324e40bad14b465f3a18c,
-    type: 3}
-  selectedSkill2Sprite: {fileID: 21300000, guid: dc89c2aecc4dc4a8aa26b1dea3faee02,
-    type: 3}
-  selectedSkill3Sprite: {fileID: 21300000, guid: f2da8d33cf092414b9664eee45f4efcf,
-    type: 3}
-  selectedSkill4Sprite: {fileID: 21300000, guid: e28d6d43acbb643219f5919d1aa4f1f3,
-    type: 3}
   skillBackground: {fileID: 21300000, guid: f250f50d2462c498d9fd214bb4e96654, type: 3}
   selectedSkills:
   - {fileID: 21300000, guid: e59baca6c659645ab9dcbccda3f3b56d, type: 3}
@@ -67,3 +47,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 263aaa19f13b4489aaf19f696fb7d35d, type: 2}
   - {fileID: 11400000, guid: e841eb00100c44ee7a3b264d60e30e7f, type: 2}
   - {fileID: 11400000, guid: 275be5c874b674ef3b672edf201b0b5b, type: 2}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 4294920189

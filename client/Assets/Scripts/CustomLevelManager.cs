@@ -173,6 +173,8 @@ public class CustomLevelManager : LevelManager
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
+        inputManager.Setup();
+
         List<Skill> skillList = new List<Skill>();
         foreach (Character player in this.PlayerPrefabs)
         {

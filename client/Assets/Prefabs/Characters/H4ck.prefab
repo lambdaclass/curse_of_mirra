@@ -5235,21 +5235,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AimDirection
       objectReference: {fileID: 0}
-    - target: {fileID: 3979602892529043405, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_Name
-      value: Cone
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979602892529043405, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5876139672530631782, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6787156628499368461, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
       propertyPath: m_RootOrder
@@ -5303,11 +5288,6 @@ PrefabInstance:
     - target: {fileID: 6787156628499368461, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797420365422451984, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
