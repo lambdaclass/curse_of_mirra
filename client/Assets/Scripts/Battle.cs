@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    // TODO instead of using this gameobject, its name should be accesible from backend
+    // TODO: instead of using this gameobject, the resource name should be accesible from each skill given by backend
     [SerializeField]
     GameObject projectilePrefab;
 
@@ -57,7 +57,7 @@ public class Battle : MonoBehaviour
     {
         projectilePrefab
             .GetComponent<ProjectileHandler>()
-            .SetProjectilePrefab(projectilePrefab.name, this.transform);
+            .SetProjectilePrefab(this.transform, projectilePrefab.name);
     }
 
     void Update()

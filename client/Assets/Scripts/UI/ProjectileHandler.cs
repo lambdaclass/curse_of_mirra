@@ -7,10 +7,9 @@ public class ProjectileHandler : MonoBehaviour
 {
     MMSimpleObjectPooler objectPooler;
 
-    public void SetProjectilePrefab(string resourceName, Transform position)
+    public void SetProjectilePrefab(Transform position, string resourceName)
     {
         objectPooler = Utils.SimpleObjectPooler("ShootPooler", position, resourceName);
-        Debug.Log(resourceName + " set to " + position);
     }
 
     public GameObject InstanceShoot(float direction)
