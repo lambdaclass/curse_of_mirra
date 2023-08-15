@@ -18,7 +18,7 @@ Transitions have different settings to setup deppending on what you want, these 
 
 - Has Exit Time: Determines a fixed time for an animation. Ignores any kind of transition parameter.
 - If the Fixed Duration box is checked, the transition time is interpreted in seconds. If the Fixed Duration box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.
-- Transition duration: This Determines how much will it take to transition to the next state.
+- Transition duration: This determines how much will it take to transition to the next state.
 
 We need the Animator, animations and transitions to create solid animations with correct flow and states. Drag the animations inside the animator and create transition (right click in the state) between them to start using your animations.
 
