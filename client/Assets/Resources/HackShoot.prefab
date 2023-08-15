@@ -5197,6 +5197,7 @@ GameObject:
   - component: {fileID: 5269552939558784491}
   - component: {fileID: 8534788552228133769}
   - component: {fileID: 1164831827556292231}
+  - component: {fileID: 3441327160709060692}
   m_Layer: 0
   m_Name: HackShoot
   m_TagString: Untagged
@@ -5287,6 +5288,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   element: {fileID: 6909292754525633119}
   effect: {fileID: 3448428655516807027}
+--- !u!114 &3441327160709060692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269552939558784490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673d5fc2283ed4d34856820843595f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
 --- !u!1 &6909292754525633119
 GameObject:
   m_ObjectHideFlags: 0

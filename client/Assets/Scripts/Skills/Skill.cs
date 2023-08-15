@@ -42,7 +42,6 @@ public class Skill : CharacterAbility
     protected override void Start()
     {
         base.Start();
-
         if (blocksMovementOnExecute)
         {
             BlockingMovementStates = new CharacterStates.MovementStates[1];
@@ -328,5 +327,10 @@ public class Skill : CharacterAbility
     public String GetSkillName()
     {
         return skillInfo.name;
+    }
+
+    public GameObject GetProjectile()
+    {
+        return skillInfo.projectile;
     }
 }

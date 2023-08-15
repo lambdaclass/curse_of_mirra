@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
+    // TODO instead of using this gameobject, its name should be accesible from backend
+    [SerializeField]
+    GameObject projectilePrefab;
+
     [SerializeField]
     MMTouchJoystick joystickL;
 
@@ -31,6 +35,7 @@ public class Battle : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
+        SetInitialProjectile();
     }
 
     private void InitBlockingStates()
@@ -46,6 +51,13 @@ public class Battle : MonoBehaviour
         accumulatedTime = 0;
         showClientPredictionGhost = false;
         showInterpolationGhosts = false;
+    }
+
+    void SetInitialProjectile()
+    {
+        projectilePrefab
+            .GetComponent<ProjectileHandler>()
+            .SetProjectilePrefab(projectilePrefab.name, this.transform);
     }
 
     void Update()
@@ -316,8 +328,7 @@ public class Battle : MonoBehaviour
         foreach (var key in toDelete)
         {
             // TODO unbind projectile destroy from player
-            GameObject player = SocketConnectionManager.Instance.players[0];
-            player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
+            projectilePrefab.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
         }
 
@@ -363,8 +374,8 @@ public class Battle : MonoBehaviour
                 GameObject player = SocketConnectionManager.Instance.players[
                     (int)gameProjectiles[i].PlayerId - 1
                 ];
-                player
-                    .GetComponent<MainAttack>()
+                projectilePrefab
+                    .GetComponent<ProjectileHandler>()
                     .ShootLaser(
                         projectile,
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
@@ -384,7 +395,9 @@ public class Battle : MonoBehaviour
                 GameObject player = SocketConnectionManager.Instance.players[
                     (int)gameProjectiles[i].PlayerId - 1
                 ];
-                GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);
+                GameObject newProjectile = projectilePrefab
+                    .GetComponent<ProjectileHandler>()
+                    .InstanceShoot(angle);
 
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
@@ -402,8 +415,7 @@ public class Battle : MonoBehaviour
         foreach (var key in toExplode)
         {
             // TODO unbind projectile destroy from player
-            GameObject player = SocketConnectionManager.Instance.players[0];
-            player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
+            projectilePrefab.GetComponent<ProjectileHandler>().LaserCollision(projectiles[key]);
             projectiles.Remove(key);
         }
     }
