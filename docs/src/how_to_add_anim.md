@@ -12,9 +12,8 @@ Now make sure if you have a AnimatorController for your character , if don't cre
 When you have all your animations set , open the animatorController and drag the entry animation (Idle in our case) it will automatically connect it to the entry state.
 ![](./images/Entry.png)
 
-Then drag and drop the rest of the animations into the animator.Now we are ready to create the transitions 🤙.
+Then drag and drop the rest of the animations into the animator. Now we are ready to create the transitions 🤙.
 ![](./images/Drag_drop.png)
-
 
 Take into account what we learned in the [Parameters](./animations.md) and create the respective parameters for each skill, in my case are `Walking`, `Skill1` and `Skill1Speed`.
 ![](./images/Parameters.png)
