@@ -1,5 +1,8 @@
 name: "Stop Brazil instances: testing and staging"
 on:
+  schedule:
+    # Runs at 23:00 UTC, Monday through Friday
+    - cron: "0 23 * * 1-5"
   workflow_dispatch:
 
 jobs:
