@@ -10,7 +10,7 @@ This file contains the information and base stats from characters in the game
 - **Name:** defines the internal name for a character
 - **Id:** unique numeric ID to identify the character
 - **Active:** boolean. Defines if the class is currently playable
-- **Class:** character class (gua, hun, ass, wiz)
+- **Class:** character class (war, hun, ass, wiz)
 - **Faction:** their origin (oto, mer, ara, kal)
 - **BaseSpeed:** defines a numeric value for the character's base movement speed
 - **SkillBasic:** lookup field to Skills.json for the character's basic skill
