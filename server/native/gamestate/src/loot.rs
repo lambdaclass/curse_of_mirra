@@ -28,7 +28,8 @@ pub fn spawn_random_loot(id: u64, max_x: usize, max_y: usize) -> Loot {
 }
 
 fn random_health_loot(id: u64, position: Position, rng: &mut ThreadRng) -> Loot {
-    let value: u64 = rng.gen_range(25..75);
+    // let value: u64 = rng.gen_range(25..75);
+    let value: u64 = 30;
     let loot_type = LootType::Health(value);
     Loot {
         id,
