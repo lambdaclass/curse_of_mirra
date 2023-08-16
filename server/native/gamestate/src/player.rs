@@ -1,5 +1,5 @@
 use crate::character::{Character, Name};
-use crate::time_utils::{add_millis, millis_to_u128, sub_millis, MillisTime};
+use crate::time_utils::{millis_to_u128, sub_millis, u128_to_millis, MillisTime};
 use crate::utils::RelativePosition;
 use rand::Rng;
 use rustler::NifStruct;
@@ -26,7 +26,7 @@ pub type StatusEffects = HashMap<Effect, EffectData>;
 pub enum Effect {
     Petrified,
     Disarmed,
-    Piercing,
+    DenialOfService,
     Raged,
     NeonCrashing,
     Leaping,
@@ -39,6 +39,9 @@ pub enum Effect {
     Slowed,
     FieryRampage,
     Burned,
+    Scherzo,
+    DanseMacabre,
+    Paralyzed,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -80,6 +83,11 @@ pub struct Player {
     pub skill_2_started_at: MillisTime,
     pub skill_3_started_at: MillisTime,
     pub skill_4_started_at: MillisTime,
+    pub basic_skill_ends_at: MillisTime,
+    pub skill_1_ends_at: MillisTime,
+    pub skill_2_ends_at: MillisTime,
+    pub skill_3_ends_at: MillisTime,
+    pub skill_4_ends_at: MillisTime,
     // This field is redundant given that
     // we have the Character filed, this his
     // hopefully temporary and to tell
@@ -144,6 +152,11 @@ impl Player {
             skill_2_started_at: MillisTime { high: 0, low: 0 },
             skill_3_started_at: MillisTime { high: 0, low: 0 },
             skill_4_started_at: MillisTime { high: 0, low: 0 },
+            basic_skill_ends_at: MillisTime { high: 0, low: 0 },
+            skill_1_ends_at: MillisTime { high: 0, low: 0 },
+            skill_2_ends_at: MillisTime { high: 0, low: 0 },
+            skill_3_ends_at: MillisTime { high: 0, low: 0 },
+            skill_4_ends_at: MillisTime { high: 0, low: 0 },
             effects: HashMap::new(),
             direction: RelativePosition::new(0., 0.),
         }
@@ -242,6 +255,32 @@ impl Player {
         self.character.skill_4.angle
     }
 
+    pub fn basic_skill_cooldown(&self) -> MillisTime {
+        self.modify_cooldown(self.character.cooldown_basic_skill())
+    }
+    pub fn skill_1_cooldown(&self) -> MillisTime {
+        self.modify_cooldown(self.character.cooldown_skill_1())
+    }
+    pub fn skill_2_cooldown(&self) -> MillisTime {
+        self.modify_cooldown(self.character.cooldown_skill_2())
+    }
+    pub fn skill_3_cooldown(&self) -> MillisTime {
+        self.modify_cooldown(self.character.cooldown_skill_3())
+    }
+    pub fn skill_4_cooldown(&self) -> MillisTime {
+        self.character.cooldown_skill_4()
+    }
+
+    pub fn modify_cooldown(&self, cooldown: MillisTime) -> MillisTime {
+        let mut new_cooldown = millis_to_u128(cooldown);
+
+        if self.has_active_effect(&Effect::DenialOfService) {
+            new_cooldown = new_cooldown * 3 / 4;
+        }
+
+        u128_to_millis(new_cooldown)
+    }
+
     #[inline]
     pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
         if !self.effects.contains_key(&e) {
@@ -277,7 +316,9 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
-
+        if self.has_active_effect(&Effect::Scherzo) {
+            return ((base_speed as f64) * 0.5).ceil() as u64;
+        }
         return base_speed;
     }
 
@@ -352,6 +393,7 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+            && !self.has_active_effect(&Effect::Paralyzed)
     }
 
     pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {
@@ -380,33 +422,15 @@ impl Player {
         // Time left of a cooldown = (start + left) - now
         // if (start) - left < now simply reset
         // the value as 0.
-        self.basic_skill_cooldown_left = sub_millis(
-            add_millis(
-                self.basic_skill_started_at,
-                self.character.cooldown_basic_skill(),
-            ),
-            now,
-        );
+        self.basic_skill_cooldown_left = sub_millis(self.basic_skill_ends_at, now);
 
-        self.skill_1_cooldown_left = sub_millis(
-            add_millis(self.skill_1_started_at, self.character.cooldown_skill_1()),
-            now,
-        );
+        self.skill_1_cooldown_left = sub_millis(self.skill_1_ends_at, now);
 
-        self.skill_2_cooldown_left = sub_millis(
-            add_millis(self.skill_2_started_at, self.character.cooldown_skill_2()),
-            now,
-        );
+        self.skill_2_cooldown_left = sub_millis(self.skill_2_ends_at, now);
 
-        self.skill_3_cooldown_left = sub_millis(
-            add_millis(self.skill_3_started_at, self.character.cooldown_skill_3()),
-            now,
-        );
+        self.skill_3_cooldown_left = sub_millis(self.skill_3_ends_at, now);
 
-        self.skill_4_cooldown_left = sub_millis(
-            add_millis(self.skill_4_started_at, self.character.cooldown_skill_4()),
-            now,
-        );
+        self.skill_4_cooldown_left = sub_millis(self.skill_4_ends_at, now);
     }
 
     // This ill be helpful once the deathmatch mode starts its development

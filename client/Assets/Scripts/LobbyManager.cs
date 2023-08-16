@@ -10,6 +10,7 @@ public class LobbyManager : LevelSelector
     private const string CHARACTER_SELECTION_SCENE_NAME = "CharacterSelection";
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string LOBBIES_SCENE_NAME = "Lobbies";
+    private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
 
     [SerializeField]
     GameObject playButton;
@@ -63,10 +64,16 @@ public class LobbyManager : LevelSelector
 
     public void BackToLobbyAndCloseConnection()
     {
-        SocketConnectionManager.Instance.closeConnection();
+        // Websocket connection is closed as part of Init() destroy;
         SocketConnectionManager.Instance.Init();
         DestroySingletonInstances();
         Back();
+    }
+
+    public void BackToLobbyFromGame()
+    {
+        Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
+        BackToLobbyAndCloseConnection();
     }
 
     public void SelectMap(string mapName)
@@ -80,7 +87,6 @@ public class LobbyManager : LevelSelector
         if (GameManager.Instance != null)
         {
             Destroy(GameManager.Instance.gameObject);
-            Destroy(MMSoundManager.Instance.gameObject);
         }
     }
 
