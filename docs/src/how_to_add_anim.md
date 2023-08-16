@@ -9,7 +9,7 @@ When you have all your animations in the folder, check one by one if they had th
 Now make sure if you have a AnimatorController for your character , if don't create one in unity top bar do:
 `Assets > Create > AnimatorController` renamed and move it to the `Assets/Animations` folder.
 
-When you have all your animations set , open the animatorController and drag the entry animation (Idle in our case) it will automatically connect it to the entry state.
+When you have all your animations set, open the AnimatorController and drag the entry animation (Idle in our case) it will automatically connect it to the entry state.
 ![](./images/Entry.png)
 
 Then drag and drop the rest of the animations into the animator. Now we are ready to create the transitions 🤙.
