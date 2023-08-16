@@ -50,7 +50,7 @@ Let's dive into how we use the animations to match with our backend, the scripts
 
 - `SkillAnimationEvents.cs` is in charge of changing the active skill playing and end the animation playing.
 - `Battle.cs` Depending on the backend action, executes the corresponding skill and starts the flow of the animation system.
-- `CustomLevelManager.cs` Where the buttons and mapped with the respective skill.
+- `CustomLevelManager.cs` Where the buttons are mapped with the respective skill.
 
 ### SkillInfo fields
 

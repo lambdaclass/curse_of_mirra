@@ -1,10 +1,10 @@
 # Skill.cs Animations
 
-Lets start by explaining the differents methods we have in this script, since this script handles more things than just animations, lets focus only in the methods and flow of the animations.
+Let's start by explaining the different methods we have in this script, since it handles more things than just animations, let's focus only in the methods and flow of the animations.
 
 `SetSkill` 
 
-It is used to initialize the skills once the character is selected,  it maps the skill from the backend, the skill ScriptableObject, the animationEvent.
+It is used to initialize the skills once the character is selected, it maps the skill from the backend, the skill ScriptableObject and the animationEvent.
 
 `ClearAnimator` 
 
@@ -20,15 +20,15 @@ This is in charge of beginning the start animations (parameters with "_start" in
 
 `ExecuteFeedback`
 
-#### This method is very importart because its the one which controls all the flow of the Skill animations.
-This method implements the same logic as `StartFeedback` but for the parameters of all the skills without the "_start" in their name (ex: Skill1) and also use `executeAnimationDuration` instead of the `startAnimationDuration` to end the animation.
+#### This method is very important because it controls all the flow of the Skill animations.
+This method implements the same logic as `StartFeedback` but for the parameters of all the skills without the "_start" in their name (ex: Skill1). It also uses `executeAnimationDuration` instead of `startAnimationDuration` to end the animation.
 
 `EndSkillFeedback`
 
-Changes the movement machine state to Idle and set the animation parameter to false. This is used in the `SkillAnimationEvents` to end the animations.
+Changes the movement machine state to Idle and sets the animation parameter to false. This is used in the `SkillAnimationEvents` to end the animations.
 
 ## ExecuteFeedback flowchart
 
 ![](./images/executeFeedback.png)
 
-### This flowchart does only have in count the animation part of the method
+### This flowchart only takes into account the animation part of the method
