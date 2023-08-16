@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
@@ -8,9 +9,12 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    // TODO: instead of using this gameobject, the resource name should be accesible from each skill given by backend
-    [SerializeField]
-    GameObject projectilePrefab;
+    // I am getting this information from the scriptable object (h4ck's basicSkill)
+    // TODO: the resource name should be accesible from each skill given by backend
+    public GameObject BasicProjectile;
+    public GameObject ProjectileFeedback;
+
+    //public string ProjectileFeedback = "HackShootFeedback";
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -35,7 +39,7 @@ public class Battle : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
-        SetInitialProjectile();
+        StartCoroutine(InitializeProjectiles());
     }
 
     private void InitBlockingStates()
@@ -53,11 +57,25 @@ public class Battle : MonoBehaviour
         showInterpolationGhosts = false;
     }
 
+    private IEnumerator InitializeProjectiles()
+    {
+        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        SetInitialProjectile();
+    }
+
     void SetInitialProjectile()
     {
-        projectilePrefab
-            .GetComponent<ProjectileHandler>()
-            .SetProjectilePrefab(this.transform, projectilePrefab.name);
+        foreach (GameObject player in SocketConnectionManager.Instance.players)
+        {
+            // Now: we can access any skill from each player and choose the projectile this skill was assigned
+            // Problem: Instead of only using one skill to set all, we should be able to make a pool for each skill if they have different projectiles
+            // TODO: make it so that each skill has its own projectile
+            // for this, I need to keep on working in both this and ProjectileHandler scripts
+            BasicProjectile = player.GetComponent<SkillBasic>().GetProjectileFromSkill();
+            Debug.Log(BasicProjectile.name);
+            ProjectileHandler projectile = BasicProjectile.GetComponent<ProjectileHandler>();
+            projectile.SetProjectilePrefab();
+        }
     }
 
     void Update()
@@ -327,8 +345,7 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toDelete)
         {
-            // TODO unbind projectile destroy from player
-            projectilePrefab.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
+            BasicProjectile.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
         }
 
@@ -371,10 +388,7 @@ public class Battle : MonoBehaviour
                 //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
                 // }
 
-                GameObject player = SocketConnectionManager.Instance.players[
-                    (int)gameProjectiles[i].PlayerId - 1
-                ];
-                projectilePrefab
+                BasicProjectile
                     .GetComponent<ProjectileHandler>()
                     .ShootLaser(
                         projectile,
@@ -392,10 +406,7 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                GameObject player = SocketConnectionManager.Instance.players[
-                    (int)gameProjectiles[i].PlayerId - 1
-                ];
-                GameObject newProjectile = projectilePrefab
+                GameObject newProjectile = BasicProjectile
                     .GetComponent<ProjectileHandler>()
                     .InstanceShoot(angle);
 
@@ -414,8 +425,9 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toExplode)
         {
-            // TODO unbind projectile destroy from player
-            projectilePrefab.GetComponent<ProjectileHandler>().LaserCollision(projectiles[key]);
+            BasicProjectile
+                .GetComponent<ProjectileHandler>()
+                .LaserCollision(projectiles[key], ProjectileFeedback.name);
             projectiles.Remove(key);
         }
     }

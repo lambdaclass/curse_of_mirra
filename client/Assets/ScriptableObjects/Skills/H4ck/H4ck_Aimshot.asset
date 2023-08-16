@@ -17,6 +17,10 @@ MonoBehaviour:
     sneaky guy, he has mastered the art of impairing his foes using his slingshot."
   inputType: 2
   indicatorType: 2
+  projectileAmount: 1
+  projectile: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
+    type: 3}
+  projectileFeedback: {fileID: 0}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -30,3 +34,4 @@ MonoBehaviour:
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 1.5
+  skillAreaRadius: 3.5

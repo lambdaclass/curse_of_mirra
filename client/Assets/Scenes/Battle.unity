@@ -1022,6 +1022,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5269552939558784490, guid: 80e8c347e1d344c8d904d75ece7493dc,
         type: 3}
+    - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: ProjectileFeedback
+      value: 
+      objectReference: {fileID: 8043723714843131183, guid: 1276908f1d1cc4ad195d1f4759ef2cad,
+        type: 3}
+    - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: altProjectilePrefab
+      value: 
+      objectReference: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
+        type: 3}
+    - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: hackProjectileFeedback
+      value: 
+      objectReference: {fileID: 8043723714843131183, guid: 1276908f1d1cc4ad195d1f4759ef2cad,
+        type: 3}
     - target: {fileID: 8472880968890490909, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: InputManager

@@ -106,6 +106,18 @@ public class Skill : CharacterAbility
         }
     }
 
+    public GameObject GetProjectileFromSkill()
+    {
+        if (skillInfo.projectile)
+        {
+            return skillInfo.projectile;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public void TryExecuteSkill()
     {
         if (AbilityAuthorized)

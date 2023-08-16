@@ -7,9 +7,10 @@ public class ProjectileHandler : MonoBehaviour
 {
     MMSimpleObjectPooler objectPooler;
 
-    public void SetProjectilePrefab(Transform position, string resourceName)
+    public void SetProjectilePrefab()
     {
-        objectPooler = Utils.SimpleObjectPooler("ShootPooler", position, resourceName);
+        objectPooler = Utils.SimpleObjectPooler("ShootPooler", transform.parent, gameObject.name);
+        Debug.Log(transform.name);
     }
 
     public GameObject InstanceShoot(float direction)
@@ -27,11 +28,11 @@ public class ProjectileHandler : MonoBehaviour
         projectile.transform.position = position;
     }
 
-    public void LaserCollision(GameObject projectileToDestroy)
+    public void LaserCollision(GameObject projectileToDestroy, string resourceName)
     {
         projectileToDestroy.SetActive(false);
         GameObject ShootFeedback =
-            Instantiate(Resources.Load("HackShootFeedback", typeof(GameObject))) as GameObject;
+            Instantiate(Resources.Load(resourceName, typeof(GameObject))) as GameObject;
         Destroy(ShootFeedback, 1f);
         ShootFeedback.transform.position = projectileToDestroy.transform.position;
     }
