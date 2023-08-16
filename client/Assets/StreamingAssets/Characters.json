@@ -6,13 +6,13 @@
       "Active": "1",
       "Class": "gua",
       "Faction": "ara",
-      "BaseSpeed": "20",
+      "BaseSpeed": "21",
       "SkillBasic": "Bash",
       "SkillActive1": "Barrel Roll",
       "SkillActive2": "Rage",
       "SkillDash": "Leap",
       "SkillUltimate": "Fiery Rampage",
-      "BodySize": "200.0"
+      "BodySize": "100"
     },
     {
       "Name": "Uma",
@@ -20,13 +20,13 @@
       "Active": "0",
       "Class": "ass",
       "Faction": "kal",
-      "BaseSpeed": "40",
+      "BaseSpeed": "25",
       "SkillBasic": "Elnars Mark",
       "SkillActive1": "Yugens Mark",
       "SkillActive2": "Xandas Mark",
       "SkillDash": "Shadowstep",
       "SkillUltimate": "Final Vengeance",
-      "BodySize": "50.0"
+      "BodySize": "80"
     },
     {
       "Name": "H4ck",
@@ -34,13 +34,13 @@
       "Active": "1",
       "Class": "hun",
       "Faction": "oto",
-      "BaseSpeed": "30",
+      "BaseSpeed": "25",
       "SkillBasic": "Slingshot",
       "SkillActive1": "Multishot",
       "SkillActive2": "Disarm",
       "SkillDash": "Neon Crash",
       "SkillUltimate": "Denial of Service",
-      "BodySize": "50.0"
+      "BodySize": "80"
     },
     {
       "Name": "Valtimer",
@@ -48,13 +48,13 @@
       "Active": "0",
       "Class": "wiz",
       "Faction": "mer",
-      "BaseSpeed": "80",
+      "BaseSpeed": "23",
       "SkillBasic": "Void Blast",
       "SkillActive1": "Shadow Pulse",
       "SkillActive2": "Mirror Image",
       "SkillDash": "Blink",
       "SkillUltimate": "The Trickster",
-      "BodySize": "40.0"
+      "BodySize": "80"
     },
     {
       "Name": "Otix",
@@ -62,13 +62,13 @@
       "Active": "0",
       "Class": "ass",
       "Faction": "ara",
-      "BaseSpeed": "",
+      "BaseSpeed": "25",
       "SkillBasic": "",
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "50.0"
+      "BodySize": "80"
     },
     {
       "Name": "Uren",
@@ -76,13 +76,13 @@
       "Active": "0",
       "Class": "wiz",
       "Faction": "kal",
-      "BaseSpeed": "",
+      "BaseSpeed": "23",
       "SkillBasic": "",
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "45.0"
+      "BodySize": "80"
     },
     {
       "Name": "Kenzu",
@@ -90,13 +90,13 @@
       "Active": "0",
       "Class": "gua",
       "Faction": "oto",
-      "BaseSpeed": "",
+      "BaseSpeed": "26",
       "SkillBasic": "",
       "SkillActive1": "",
       "SkillActive2": "",
       "SkillDash": "",
       "SkillUltimate": "",
-      "BodySize": "45.0"
+      "BodySize": "80"
     },
     {
       "Name": "DAgna",
@@ -104,13 +104,13 @@
       "Active": "1",
       "Class": "hun",
       "Faction": "mer",
-      "BaseSpeed": "30",
+      "BaseSpeed": "25",
       "SkillBasic": "Scherzo",
       "SkillActive1": "Danse Macabre",
       "SkillActive2": "Band Recruit",
       "SkillDash": "Pizzicato",
       "SkillUltimate": "Orchestra",
-      "BodySize": "45.0"
+      "BodySize": "80"
     }
   ]
 }

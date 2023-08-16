@@ -300,19 +300,11 @@ impl GameState {
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
         players: &Vec<Player>,
-        previous_position: Position,
-        next_position: Position,
+        projectile_position: Position,
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
         let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
-
-        let (p1, p2) = match previous_position.x < next_position.x {
-            true => (previous_position, next_position),
-            false if previous_position.x > next_position.x => (next_position, previous_position),
-            false if previous_position.y < next_position.y => (previous_position, next_position),
-            _ => (next_position, previous_position),
-        };
 
         players
             .iter()
@@ -320,41 +312,18 @@ impl GameState {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
             .for_each(|player| {
-                let radius = player.character.body_size;
+                // We're intersecting two circles, basically what we're doing is this:
+                // Sum the character's radius body size and the projectile's radius,
+                // Calculate the distance between the centers of both circles (player's position and projectile's position)
+                // And then we check if the sum of the radius is greater than the distance between
+                // centers, then the projectile hitted the target :)
+                let character_body_size = player.character.body_size;
+                let projectile_radius = 10.;
 
-                let player_attacked = match p2.y == p1.y {
-                    true => {
-                        // The projectile is moving vertically
-                        let intersection = Position::new(player.position.x, p1.y);
-
-                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    false if p2.x == p1.x => {
-                        // The projectile is moving horizontally
-                        let intersection = Position::new(p1.x, player.position.y);
-
-                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    _ => {
-                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
-                        let perpendicular_slope = -1f32 / slope;
-                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
-                        let perpendicular_intercept = player.position.y as f32
-                            - (perpendicular_slope as f32 * player.position.x as f32);
-
-                        let x =
-                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
-                        let y = slope * x + intercept;
-                        let intersection = Position::new(x as usize, y as usize);
-
-                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                };
-
-                if player_attacked {
+                let centers_distance =
+                    distance_between_positions(&projectile_position, &player.position);
+                let radiuses_sum = character_body_size + projectile_radius;
+                if radiuses_sum >= centers_distance {
                     affected_players.insert(
                         player.id,
                         distance_to_center(attacking_player, &player.position),
@@ -380,8 +349,9 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::ATTACKING;
         attacking_player.basic_skill_started_at = now;
-        attacking_player.basic_skill_cooldown_left =
-            attacking_player.character.cooldown_basic_skill();
+        attacking_player.basic_skill_cooldown_left = attacking_player.basic_skill_cooldown();
+        attacking_player.basic_skill_ends_at =
+            add_millis(now, attacking_player.basic_skill_cooldown_left);
         attacking_player.direction = *direction;
         let attack_range = attacking_player.basic_skill_range();
         let attack_angle = attacking_player.basic_skill_angle();
@@ -477,7 +447,7 @@ impl GameState {
         attack_angle: u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+            let piercing = attacking_player.has_active_effect(&Effect::DenialOfService);
 
             let projectile_direction = match Self::nearest_player(
                 players,
@@ -494,7 +464,7 @@ impl GameState {
                 None => *direction,
             };
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_basic_skill() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -653,7 +623,8 @@ impl GameState {
 
         let now = time_now();
         attacking_player.skill_1_started_at = now;
-        attacking_player.skill_1_cooldown_left = attacking_player.character.cooldown_skill_1();
+        attacking_player.skill_1_cooldown_left = attacking_player.skill_1_cooldown();
+        attacking_player.skill_1_ends_at = add_millis(now, attacking_player.skill_1_cooldown_left);
         attacking_player.direction = *direction;
         attacking_player.action = PlayerAction::EXECUTINGSKILL1;
         let attack_angle = attacking_player.skill_1_angle();
@@ -670,8 +641,9 @@ impl GameState {
                 Self::muflus_skill_1(players, attacking_player_id, now)
             }
             Name::DAgna => {
-                let players = &mut self.players;
-                Self::dagna_skill_1(players, attacking_player_id)
+                // let players = &mut self.players;
+                // Self::dagna_skill_1(players, attacking_player_id)
+                Ok(Vec::new())
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
@@ -736,7 +708,7 @@ impl GameState {
         next_projectile_id: &mut u64,
     ) -> Result<Vec<u64>, String> {
         if direction.x != 0f32 || direction.y != 0f32 {
-            let piercing = attacking_player.has_active_effect(&Effect::Piercing);
+            let piercing = attacking_player.has_active_effect(&Effect::DenialOfService);
 
             let angle = (direction.y as f32).atan2(direction.x as f32); // Calculates the angle in radians.
             let angle_positive = if angle < 0.0 {
@@ -747,7 +719,7 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_skill_1() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -881,7 +853,8 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL2;
         attacking_player.skill_2_started_at = now;
-        attacking_player.skill_2_cooldown_left = attacking_player.character.cooldown_skill_2();
+        attacking_player.skill_2_cooldown_left = attacking_player.skill_2_cooldown();
+        attacking_player.skill_2_ends_at = add_millis(now, attacking_player.skill_2_cooldown_left);
         attacking_player.direction = *direction;
         let attack_angle = attacking_player.skill_2_angle();
 
@@ -988,10 +961,18 @@ impl GameState {
             return Ok(());
         }
 
+        if attacking_player.has_active_effect(&Effect::Paralyzed)
+            && (attacking_player.character.name == Name::H4ck
+                || attacking_player.character.name == Name::Muflus)
+        {
+            return Ok(());
+        }
+
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
-        attacking_player.skill_3_cooldown_left = attacking_player.character.cooldown_skill_3();
+        attacking_player.skill_3_cooldown_left = attacking_player.skill_3_cooldown();
+        attacking_player.skill_3_ends_at = add_millis(now, attacking_player.skill_3_cooldown_left);
         attacking_player.direction = *direction;
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
@@ -1093,13 +1074,14 @@ impl GameState {
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL4;
         attacking_player.skill_4_started_at = now;
-        attacking_player.skill_4_cooldown_left = attacking_player.character.cooldown_skill_4();
+        attacking_player.skill_4_cooldown_left = attacking_player.skill_4_cooldown();
+        attacking_player.skill_4_ends_at = add_millis(now, attacking_player.skill_4_cooldown_left);
         attacking_player.direction = *direction;
 
         let attacked_player_ids: Result<Vec<u64>, String> = match attacking_player.character.name {
             Name::H4ck => {
                 attacking_player.add_effect(
-                    Effect::Piercing,
+                    Effect::DenialOfService,
                     EffectData {
                         time_left: attacking_player.character.duration_skill_4(),
                         ends_at: add_millis(now, attacking_player.character.duration_skill_4()),
@@ -1111,6 +1093,22 @@ impl GameState {
                         caused_to: attacking_player.id,
                         damage: 0,
                     },
+                );
+                attacking_player.basic_skill_ends_at = add_millis(
+                    attacking_player.basic_skill_started_at,
+                    attacking_player.basic_skill_cooldown(),
+                );
+                attacking_player.skill_1_ends_at = add_millis(
+                    attacking_player.skill_1_started_at,
+                    attacking_player.skill_1_cooldown(),
+                );
+                attacking_player.skill_2_ends_at = add_millis(
+                    attacking_player.skill_2_started_at,
+                    attacking_player.skill_2_cooldown(),
+                );
+                attacking_player.skill_3_ends_at = add_millis(
+                    attacking_player.skill_3_started_at,
+                    attacking_player.skill_3_cooldown(),
                 );
                 Ok(Vec::new())
             }
@@ -1321,7 +1319,6 @@ impl GameState {
                     GameState::players_in_projectile_movement(
                         projectile.player_id,
                         &self.players,
-                        projectile.prev_position,
                         projectile.position,
                     )
                     .into_iter()
@@ -1329,10 +1326,6 @@ impl GameState {
                         id != projectile.player_id && id != projectile.last_attacked_player_id
                     })
                     .collect();
-
-                if affected_players.len() > 0 && !projectile.pierce {
-                    projectile.status = ProjectileStatus::EXPLODED;
-                }
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
@@ -1342,14 +1335,16 @@ impl GameState {
                         .iter()
                         .min_by(|a, b| cmp_float(*a.1, *b.1))
                         .unwrap();
-
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
-
+                    if !projectile.pierce {
+                        projectile.status = ProjectileStatus::EXPLODED;
+                        projectile.position = attacked_player.position;
+                    }
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(
-                                Effect::Disarmed,
+                                Effect::Paralyzed,
                                 EffectData {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),

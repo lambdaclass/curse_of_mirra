@@ -81,7 +81,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
 
   field(:PETRIFIED, 0)
   field(:DISARMED, 1)
-  field(:PIERCING, 2)
+  field(:DENIAL_OF_SERVICE, 2)
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
@@ -96,6 +96,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:BURNED, 14)
   field(:SCHERZO, 15)
   field(:DANSE_MACABRE, 16)
+  field(:PARALYZED, 17)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do

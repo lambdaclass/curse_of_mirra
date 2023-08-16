@@ -186,7 +186,7 @@ enum PlayerAction {
 enum PlayerEffect {
     PETRIFIED = 0;
     DISARMED = 1;
-    PIERCING = 2;
+    DENIAL_OF_SERVICE = 2;
     RAGED = 3;
     NEON_CRASHING = 4;
     LEAPING = 5;
@@ -201,6 +201,7 @@ enum PlayerEffect {
     BURNED = 14;
     SCHERZO = 15;
     DANSE_MACABRE = 16;
+    PARALYZED = 17;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server
