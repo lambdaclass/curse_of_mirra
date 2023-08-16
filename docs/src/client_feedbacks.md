@@ -1,10 +1,10 @@
 # How we handle feedbacks in the client side
 
-#### Things to have in count before leraning how to implement new states feedback
+#### Things to have in mind before learning how to implement new states feedback
 
 `Feedback prefabs` 
 
-Unity GameObject prefabs with a particle system component to show the particles effect of the state to display. You can find them in `Client/Asssets/Feedbacks/States`
+Unity GameObject prefabs with a particle system component to show the particles effect of the state to display. You can find them in `Client/Assets/Feedbacks/States`
 
 `FeedbackContainer`
 
@@ -16,7 +16,7 @@ You can find this prefab inside each character prefab; it contains a script with
 `PlayerFeedbacks`
 
 
-You can find this prefab inside the `BattleManager` prefab, it serves as a connection between `Battle.cs` and `FeedbackContainer`. It implements a lot of methods for the Feedbacks, but the ones to handle the feedback states are:
+You can find this prefab inside the `BattleManager` prefab, it serves as a connection between `Battle.cs` and `FeedbackContainer`. It implements a lot of methods for the feedbacks, but the ones to handle the feedback states are:
 
 - `SetActiveFeedback(GameObject player, string feedbackName, bool value)` This is in charge of connecting the `Battle.cs` and `FeedbackContainer` setting the feedback depending on the name and value.
 
@@ -25,7 +25,7 @@ You can find this prefab inside the `BattleManager` prefab, it serves as a conne
 
 `Battle.cs`
 
-In this script is where we map the backend effects to the client effects. This script is huge! Fortunately, we only care about a couple of things here:
+In this script we map the backend effects to the client effects. This script is huge! Fortunately, we only care about a couple of things here:
 
 - `StateEffects` 
 An Enum that stores the PlayerEffect states.
@@ -39,7 +39,7 @@ This method is pretty simple. Returns if the player is alive or not. We want to 
 
 - `void ManageFeedbacks(GameObject player, Player playerUpdate)`
 This method is where we combine everything we've talked about so far. Activates the feedback's effects depending on the `playerUpdates.Effects` and calls `PlayerFeedbacks>().SetActiveFeedback` to activate or deactivate the feedback. Also, it clears all active effects `if(playerUpdates.Effects.Keys.Count == 0)`
-In a nutshell, this method control all the flow of the feedback states.
+In a nutshell, this method controls the complete flow of the feedback states.
 
 Check out this flowchart for a better understanding of the flow.
 
