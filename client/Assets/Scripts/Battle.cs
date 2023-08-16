@@ -450,14 +450,6 @@ public class Battle : MonoBehaviour
         Animator mAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        // {
-        //     GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
-        // }
-        // else
-        // {
-        //     GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-        // }
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
@@ -842,11 +834,6 @@ public class Battle : MonoBehaviour
             }
         }
 
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
-        // {
-        //     characterSpeed *= 0.5f;
-        // }
-
         // TODO: Temporary out of area feedback. Refactor!
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
         {
@@ -886,7 +873,6 @@ public class Battle : MonoBehaviour
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
         {
             characterSpeed *= 0.5f;
-            print("slowed");
         }
         else if (
             playerUpdate.CharacterName == "H4ck"
