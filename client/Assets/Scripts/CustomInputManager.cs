@@ -405,18 +405,18 @@ public class CustomInputManager : InputManager
         float range = skill.GetSkillRadius();
 
         Transform skillRange = _player.transform.Find("SkillRange");
-        skillRange.localScale = new Vector3(range, skillRange.localScale.y, range);
+        skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
 
         if (skill.isSelfTargeted())
         {
             skillRange
-                .GetComponent<Renderer>()
-                .sharedMaterial.SetColor("_Color", new Color32(0, 255, 0, 255));
+                .GetComponentInChildren<MeshRenderer>()
+                .sharedMaterial.SetColor("_Color", new Color32(255, 255, 255, 200));
         }
         else
         {
             skillRange
-                .GetComponent<Renderer>()
+                .GetComponentInChildren<MeshRenderer>()
                 .sharedMaterial.SetColor("_Color", characterSkillColor);
         }
     }
@@ -431,7 +431,9 @@ public class CustomInputManager : InputManager
     {
         Transform skillRange = _player.transform.Find("SkillRange");
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
-        skillRange.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", newColor);
+        skillRange
+            .GetComponentInChildren<MeshRenderer>()
+            .sharedMaterial.SetColor("_Color", newColor);
     }
 
     private void DisableButtons()

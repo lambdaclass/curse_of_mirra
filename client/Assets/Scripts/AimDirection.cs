@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class AimDirection : MonoBehaviour
 
     [SerializeField]
     GameObject surface;
+    private Vector3 initialPosition;
 
     UIIndicatorType activeIndicator = UIIndicatorType.None;
 
@@ -37,6 +39,7 @@ public class AimDirection : MonoBehaviour
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
         characterFeedbackColor = color;
+        initialPosition = transform.localPosition;
 
         SetColor(color);
 
@@ -49,7 +52,7 @@ public class AimDirection : MonoBehaviour
         }
 
         surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, 0.05f);
-        surface.GetComponent<Renderer>().material.color = new Color32(0, 255, 0, 60);
+        surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 100);
         surface.SetActive(skill.isSelfTargeted());
     }
 
@@ -148,6 +151,12 @@ public class AimDirection : MonoBehaviour
                 area.SetActive(false);
                 break;
         }
+        Reset();
+    }
+
+    private void Reset()
+    {
+        transform.localPosition = initialPosition;
     }
 
     public void CancelableFeedback(bool cancelable)
@@ -156,7 +165,7 @@ public class AimDirection : MonoBehaviour
         SetColor(newColor);
 
         newColor.a = 60;
-        surface.GetComponent<Renderer>().material.color = newColor;
+        surface.GetComponentInChildren<Renderer>().material.color = newColor;
     }
 
     public void SetColor(Color32 color)
