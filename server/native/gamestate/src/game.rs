@@ -961,6 +961,13 @@ impl GameState {
             return Ok(());
         }
 
+        if attacking_player.has_active_effect(&Effect::Paralyzed)
+            && (attacking_player.character.name == Name::H4ck
+                || attacking_player.character.name == Name::Muflus)
+        {
+            return Ok(());
+        }
+
         let now = time_now();
         attacking_player.action = PlayerAction::EXECUTINGSKILL3;
         attacking_player.skill_3_started_at = now;
@@ -1337,7 +1344,7 @@ impl GameState {
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(
-                                Effect::Disarmed,
+                                Effect::Paralyzed,
                                 EffectData {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),

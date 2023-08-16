@@ -64,7 +64,7 @@ public class LobbyManager : LevelSelector
 
     public void BackToLobbyAndCloseConnection()
     {
-        SocketConnectionManager.Instance.closeConnection();
+        // Websocket connection is closed as part of Init() destroy;
         SocketConnectionManager.Instance.Init();
         DestroySingletonInstances();
         Back();

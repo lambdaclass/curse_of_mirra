@@ -96,6 +96,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:BURNED, 14)
   field(:SCHERZO, 15)
   field(:DANSE_MACABRE, 16)
+  field(:PARALYZED, 17)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

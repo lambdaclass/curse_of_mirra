@@ -82,7 +82,8 @@ public class SocketConnectionManager : MonoBehaviour
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
-            if (this.reconnect) {
+            if (this.reconnect)
+            {
                 this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
                 this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
             }
@@ -114,6 +115,7 @@ public class SocketConnectionManager : MonoBehaviour
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
         ws.OnMessage += OnWebSocketMessage;
+        ws.OnClose += onWebsocketClose;
         ws.OnError += (e) =>
         {
             Debug.Log("Received error: " + e);
@@ -202,6 +204,17 @@ public class SocketConnectionManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
+        }
+    }
+
+    private void onWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            LobbyConnection.Instance.errorConnection = true;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
+            this.Init();
+            LobbyConnection.Instance.Init();
         }
     }
 

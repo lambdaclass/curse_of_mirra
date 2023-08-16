@@ -516,4 +516,5 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:burned, %{ends_at: ends_at}}), do: {14, ends_at}
   defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {15, ends_at}
   defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {16, ends_at}
+  defp effect_encode({:paralyzed, %{ends_at: ends_at}}), do: {17, ends_at}
 end
