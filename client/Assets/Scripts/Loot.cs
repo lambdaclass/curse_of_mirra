@@ -33,6 +33,7 @@ public class Loot : MonoBehaviour
         if (!loots.ContainsKey(loot.Id))
         {
             var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
+            position.y = 0;
             GameObject lootPoolObj = objectPooler.GetPooledGameObject();
             lootPoolObj.transform.position = position;
             lootPoolObj.name = loot.Id.ToString();
