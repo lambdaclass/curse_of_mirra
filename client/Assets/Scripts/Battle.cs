@@ -842,10 +842,10 @@ public class Battle : MonoBehaviour
             }
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
-        {
-            characterSpeed *= 0.5f;
-        }
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
+        // {
+        //     characterSpeed *= 0.5f;
+        // }
 
         // TODO: Temporary out of area feedback. Refactor!
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
