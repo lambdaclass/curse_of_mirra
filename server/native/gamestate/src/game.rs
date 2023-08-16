@@ -230,8 +230,13 @@ impl GameState {
 
         player.action = PlayerAction::MOVING;
 
+        let direction = match player.has_active_effect(&Effect::DanseMacabre) {
+            true => RelativePosition { x: y, y: -x },
+            false => RelativePosition { x, y },
+        };
+
         let speed = player.speed() as i64;
-        let direction = RelativePosition { x, y };
+
         GameState::move_player_to_direction(
             &mut self.board,
             &mut player.position,
@@ -307,13 +312,12 @@ impl GameState {
         players: &Vec<Player>,
         attacking_position: &Position,
         range: f64,
-    ) -> Vec<u64> {
-        let mut players_in_range: Vec<u64> = vec![];
+    ) -> Vec<(u64, f64)> {
+        let mut players_in_range: Vec<(u64, f64)> = vec![];
         for player in players {
-            if distance_between_positions(&player.position, attacking_position) <= range
-                && !matches!(player.status, Status::DEAD)
-            {
-                players_in_range.push(player.id);
+            let distance = distance_between_positions(&player.position, attacking_position);
+            if distance <= range && !matches!(player.status, Status::DEAD) {
+                players_in_range.push((player.id, distance));
             }
         }
         players_in_range
@@ -322,19 +326,11 @@ impl GameState {
     pub fn players_in_projectile_movement(
         attacking_player_id: u64,
         players: &Vec<Player>,
-        previous_position: Position,
-        next_position: Position,
+        projectile_position: Position,
     ) -> HashMap<u64, f64> {
         let mut affected_players: HashMap<u64, f64> = HashMap::new();
 
         let attacking_player = GameState::get_player(players, attacking_player_id).unwrap();
-
-        let (p1, p2) = match previous_position.x < next_position.x {
-            true => (previous_position, next_position),
-            false if previous_position.x > next_position.x => (next_position, previous_position),
-            false if previous_position.y < next_position.y => (previous_position, next_position),
-            _ => (next_position, previous_position),
-        };
 
         players
             .iter()
@@ -342,41 +338,18 @@ impl GameState {
                 matches!(player.status, Status::ALIVE) && player.id != attacking_player_id
             })
             .for_each(|player| {
-                let radius = player.character.body_size;
+                // We're intersecting two circles, basically what we're doing is this:
+                // Sum the character's radius body size and the projectile's radius,
+                // Calculate the distance between the centers of both circles (player's position and projectile's position)
+                // And then we check if the sum of the radius is greater than the distance between
+                // centers, then the projectile hitted the target :)
+                let character_body_size = player.character.body_size;
+                let projectile_radius = 10.;
 
-                let player_attacked = match p2.y == p1.y {
-                    true => {
-                        // The projectile is moving vertically
-                        let intersection = Position::new(player.position.x, p1.y);
-
-                        intersection.x >= p1.x && intersection.x <= p2.x && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    false if p2.x == p1.x => {
-                        // The projectile is moving horizontally
-                        let intersection = Position::new(p1.x, player.position.y);
-
-                        intersection.y >= p1.y && intersection.y <= p2.y && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                    _ => {
-                        let slope = (p2.y as f32 - p1.y as f32) / (p2.x as f32 - p1.x as f32);
-                        let perpendicular_slope = -1f32 / slope;
-                        let intercept = p1.y as f32 - (slope as f32 * p1.x as f32);
-                        let perpendicular_intercept = player.position.y as f32
-                            - (perpendicular_slope as f32 * player.position.x as f32);
-
-                        let x =
-                            (perpendicular_intercept - intercept) / (slope - perpendicular_slope);
-                        let y = slope * x + intercept;
-                        let intersection = Position::new(x as usize, y as usize);
-
-                        x >= p1.x as f32 && x <= p2.x as f32 && // The player is in the projectile's segment
-                        (distance_to_center(&player, &intersection) <= radius) // The player is near the intersection
-                    }
-                };
-
-                if player_attacked {
+                let centers_distance =
+                    distance_between_positions(&projectile_position, &player.position);
+                let radiuses_sum = character_body_size + projectile_radius;
+                if radiuses_sum >= centers_distance {
                     affected_players.insert(
                         player.id,
                         distance_to_center(attacking_player, &player.position),
@@ -429,6 +402,7 @@ impl GameState {
                     extra_effect,
                 )
             }
+            Name::DAgna => Self::dagna_basic_attack(attacking_player),
             Name::Uma => {
                 let players = &self.players.clone();
                 let attacking_player = GameState::get_player(players, attacking_player_id)?;
@@ -463,7 +437,6 @@ impl GameState {
                 }
                 Ok(attacked_players_ids)
             }
-            _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
@@ -517,7 +490,7 @@ impl GameState {
                 None => *direction,
             };
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_basic_skill() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -635,6 +608,33 @@ impl GameState {
         Ok(attacked_players)
     }
 
+    pub fn dagna_basic_attack(attacking_player: &mut Player) -> Result<Vec<u64>, String> {
+        match attacking_player.effects.get(&Effect::Scherzo) {
+            Some(_) => {
+                attacking_player.effects.remove(&Effect::Scherzo);
+            }
+            None => {
+                let now = time_now();
+                attacking_player.add_effect(
+                    Effect::Scherzo.clone(),
+                    EffectData {
+                        time_left: attacking_player.character.duration_basic_skill(),
+                        ends_at: add_millis(now, attacking_player.character.duration_basic_skill()),
+                        duration: attacking_player.character.duration_basic_skill(),
+                        direction: None,
+                        position: None,
+                        triggered_at: u128_to_millis(0),
+                        caused_by: attacking_player.id,
+                        caused_to: attacking_player.id,
+                        damage: attacking_player.character.attack_dmg_basic_skill(),
+                    },
+                );
+            }
+        }
+
+        Ok(Vec::new())
+    }
+
     pub fn skill_1(
         self: &mut Self,
         attacking_player_id: u64,
@@ -665,6 +665,11 @@ impl GameState {
             Name::Muflus => {
                 let players = &mut self.players;
                 Self::muflus_skill_1(players, attacking_player_id, now)
+            }
+            Name::DAgna => {
+                // let players = &mut self.players;
+                // Self::dagna_skill_1(players, attacking_player_id)
+                Ok(Vec::new())
             }
             Name::Uma => {
                 let attacking_player = GameState::get_player(&self.players, attacking_player_id)?;
@@ -716,7 +721,6 @@ impl GameState {
                     None => Ok(Vec::new()),
                 }
             }
-            _ => Ok(Vec::new()),
         };
 
         self.update_killfeed(attacking_player_id, attacked_player_ids?);
@@ -741,7 +745,7 @@ impl GameState {
 
             let angle_modifiers = [-20f32, -10f32, 0f32, 10f32, 20f32];
 
-            let mut speed = 100.;
+            let mut speed = attacking_player.character.par_1_skill_1() as f32;
             if piercing {
                 speed *= 1.25;
             }
@@ -788,7 +792,8 @@ impl GameState {
         let mut affected_players: Vec<u64> =
             GameState::players_in_range(&pys, &attacking_player.position, attack_range)
                 .into_iter()
-                .filter(|&id| id != attacking_player_id)
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| id)
                 .collect();
 
         for target_player_id in affected_players.iter_mut() {
@@ -812,6 +817,49 @@ impl GameState {
                 }
                 _ => continue,
             }
+        }
+        Ok(affected_players)
+    }
+
+    pub fn dagna_skill_1(
+        players: &mut Vec<Player>,
+        attacking_player_id: u64,
+    ) -> Result<Vec<u64>, String> {
+        let pys = players.clone();
+        let attacking_player = GameState::get_player_mut(players, attacking_player_id)?;
+        let duration = attacking_player.character.duration_skill_1();
+        let damage = attacking_player.skill_1_damage();
+
+        let now = time_now();
+
+        // TODO: This should be a config of the attack
+        let attack_range = 1000.;
+
+        let mut affected_players: Vec<u64> =
+            GameState::players_in_range(&pys, &attacking_player.position, attack_range)
+                .into_iter()
+                .filter(|&(id, _distance)| id != attacking_player_id)
+                .map(|(id, _distance)| id)
+                .collect();
+
+        for target_player_id in affected_players.iter_mut() {
+            // FIXME: This is not ok, we should save referencies to the Game Players this is redundant
+            let attacked_player = GameState::get_player_mut(players, *target_player_id)?;
+
+            attacked_player.add_effect(
+                Effect::DanseMacabre.clone(),
+                EffectData {
+                    time_left: duration,
+                    ends_at: add_millis(now, duration),
+                    duration: duration,
+                    direction: None,
+                    position: None,
+                    triggered_at: now,
+                    caused_by: attacking_player_id,
+                    caused_to: attacked_player.id,
+                    damage: damage,
+                },
+            )
         }
         Ok(affected_players)
     }
@@ -936,6 +984,13 @@ impl GameState {
         let attacking_player = GameState::get_player_mut(&mut self.players, attacking_player_id)?;
 
         if !attacking_player.can_attack(attacking_player.skill_3_cooldown_left, false) {
+            return Ok(());
+        }
+
+        if attacking_player.has_active_effect(&Effect::Paralyzed)
+            && (attacking_player.character.name == Name::H4ck
+                || attacking_player.character.name == Name::Muflus)
+        {
             return Ok(());
         }
 
@@ -1145,11 +1200,17 @@ impl GameState {
         let pys = self.players.clone();
         let mut neon_crash_affected_players: HashMap<
             u64,
-            (i64, Vec<u64>, Option<(Effect, MillisTime)>),
+            (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
         > = HashMap::new();
-        let mut leap_affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)> =
-            HashMap::new();
+        let mut leap_affected_players: HashMap<
+            u64,
+            (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
+        > = HashMap::new();
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
+        let mut scherzo_affected_players: HashMap<
+            u64,
+            (Vec<(u64, i64)>, Option<(Effect, MillisTime)>),
+        > = HashMap::new();
         let mut projectile_affected_players: HashMap<u64, (i64, Vec<u64>)> = HashMap::new();
 
         self.players.iter_mut().for_each(|player| {
@@ -1173,6 +1234,7 @@ impl GameState {
                     {
                         player.action = PlayerAction::EXECUTINGSKILL3;
                         let af_pl = GameState::affected_players(
+                            damage,
                             attack_range,
                             &pys,
                             &player.position,
@@ -1180,8 +1242,7 @@ impl GameState {
                         );
                         let effect = Effect::Slowed;
                         let duration = player.character.duration_skill_3();
-                        leap_affected_players
-                            .insert(player.id, (damage, af_pl, Some((effect, duration))));
+                        leap_affected_players.insert(player.id, (af_pl, Some((effect, duration))));
                     }
                     millis_to_u128(*time_left) > 0
                 },
@@ -1206,13 +1267,13 @@ impl GameState {
                         let range_neon_crash = player.skill_3_range() as f64;
 
                         let af_pl = GameState::affected_players(
+                            damage_neon_crash,
                             range_neon_crash,
                             &pys,
                             &player.position,
                             player.id,
                         );
-                        neon_crash_affected_players
-                            .insert(player.id, (damage_neon_crash, af_pl, None));
+                        neon_crash_affected_players.insert(player.id, (af_pl, None));
                     }
                     _ => {}
                 }
@@ -1236,6 +1297,29 @@ impl GameState {
                     _ => {}
                 }
             }
+
+            if player.character.name == Name::DAgna {
+                match player.effects.get(&Effect::Scherzo) {
+                    Some(data) => {
+                        let mut effect_data = data.clone();
+                        if millis_to_u128(sub_millis(now, effect_data.triggered_at)) > 1000 as u128
+                        {
+                            let af_pl = GameState::affected_players_gradient(
+                                effect_data.damage as i64,
+                                1000.,
+                                &pys,
+                                &player.position,
+                                player.id,
+                            );
+                            scherzo_affected_players.insert(player.id, (af_pl, None));
+                            effect_data.triggered_at = now;
+                        }
+
+                        player.effects.insert(Effect::Scherzo, effect_data);
+                    }
+                    None => {}
+                };
+            }
         });
 
         // Neon Crash Attack
@@ -1245,6 +1329,10 @@ impl GameState {
         // Leap Attack
         // We can have more than one muflus attacking
         self.attack_players_with_effect(leap_affected_players, now)?;
+
+        // Scherzo Attack
+        // We can have more than one D'Agna attacking
+        self.attack_players_with_effect(scherzo_affected_players, now)?;
 
         // Update projectiles
         // - Retain active projectiles
@@ -1257,7 +1345,6 @@ impl GameState {
                     GameState::players_in_projectile_movement(
                         projectile.player_id,
                         &self.players,
-                        projectile.prev_position,
                         projectile.position,
                     )
                     .into_iter()
@@ -1265,10 +1352,6 @@ impl GameState {
                         id != projectile.player_id && id != projectile.last_attacked_player_id
                     })
                     .collect();
-
-                if affected_players.len() > 0 && !projectile.pierce {
-                    projectile.status = ProjectileStatus::EXPLODED;
-                }
 
                 // A projectile should attack only one player per tick
                 if affected_players.len() > 0 {
@@ -1278,14 +1361,16 @@ impl GameState {
                         .iter()
                         .min_by(|a, b| cmp_float(*a.1, *b.1))
                         .unwrap();
-
                     let attacked_player =
                         GameState::get_player_mut(&mut self.players, *attacked_player_id)?;
-
+                    if !projectile.pierce {
+                        projectile.status = ProjectileStatus::EXPLODED;
+                        projectile.position = attacked_player.position;
+                    }
                     match projectile.projectile_type {
                         ProjectileType::DISARMINGBULLET => {
                             attacked_player.add_effect(
-                                Effect::Disarmed,
+                                Effect::Paralyzed,
                                 EffectData {
                                     time_left: MillisTime { high: 0, low: 5000 },
                                     ends_at: add_millis(now, MillisTime { high: 0, low: 5000 }),
@@ -1390,12 +1475,12 @@ impl GameState {
 
     fn attack_players_with_effect(
         self: &mut Self,
-        affected_players: HashMap<u64, (i64, Vec<u64>, Option<(Effect, MillisTime)>)>,
+        affected_players: HashMap<u64, (Vec<(u64, i64)>, Option<(Effect, MillisTime)>)>,
         now: MillisTime,
     ) -> Result<(), String> {
         let mut uma_mirroring_affected_players: HashMap<u64, (i64, u64)> = HashMap::new();
-        for (player_id, (damage, attacked_players, effect)) in affected_players.iter() {
-            for target_player_id in attacked_players.iter() {
+        for (player_id, (attacked_players, effect)) in affected_players.iter() {
+            for (target_player_id, damage) in attacked_players.iter() {
                 let attacked_player = self
                     .players
                     .iter_mut()
@@ -1429,7 +1514,7 @@ impl GameState {
                     _ => continue,
                 }
             }
-            let attacked = attacked_players.clone();
+            let attacked = attacked_players.iter().map(|&(id, _damage)| id).collect();
             self.update_killfeed(*player_id, attacked);
         }
         self.attack_mirrored_player(uma_mirroring_affected_players)?;
@@ -1453,14 +1538,36 @@ impl GameState {
     }
 
     fn affected_players(
+        attack_damage: i64,
         attack_range: f64,
         players: &Vec<Player>,
         attacking_player_position: &Position,
         attacking_player_id: u64,
-    ) -> Vec<u64> {
+    ) -> Vec<(u64, i64)> {
         GameState::players_in_range(players, attacking_player_position, attack_range)
             .into_iter()
-            .filter(|&id| id != attacking_player_id)
+            .filter(|&(id, _distance)| id != attacking_player_id)
+            .map(|(id, _distance)| (id, attack_damage))
+            .collect()
+    }
+
+    fn affected_players_gradient(
+        max_attack_damage: i64,
+        attack_range: f64,
+        players: &Vec<Player>,
+        attacking_player_position: &Position,
+        attacking_player_id: u64,
+    ) -> Vec<(u64, i64)> {
+        GameState::players_in_range(players, attacking_player_position, attack_range)
+            .into_iter()
+            .filter(|&(id, _distance)| id != attacking_player_id)
+            .map(|(id, distance)| {
+                (
+                    id,
+                    (max_attack_damage as f64 - max_attack_damage as f64 * distance / attack_range)
+                        as i64,
+                )
+            })
             .collect()
     }
 
@@ -1518,11 +1625,14 @@ impl GameState {
         let time_left = u128_to_millis(3_600_000); // 1 hour
         let duration = u128_to_millis(3_600_000); // 1 hour
         let ends_at = add_millis(now, time_left);
-        let player_ids_in_playable = GameState::players_in_range(
+        let player_ids_in_playable: Vec<u64> = GameState::players_in_range(
             &self.players,
             &self.shrinking_center,
             self.playable_radius as f64,
-        );
+        )
+        .into_iter()
+        .map(|(id, _distance)| id)
+        .collect();
 
         self.players.iter_mut().for_each(|player| {
             if player_ids_in_playable.contains(&player.id) {

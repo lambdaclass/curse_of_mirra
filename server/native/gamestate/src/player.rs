@@ -39,6 +39,9 @@ pub enum Effect {
     Slowed,
     FieryRampage,
     Burned,
+    Scherzo,
+    DanseMacabre,
+    Paralyzed,
 }
 impl Effect {
     pub fn is_crowd_control(&self) -> bool {
@@ -313,7 +316,9 @@ impl Player {
         if self.has_active_effect(&Effect::Raged) {
             return ((base_speed as f64) * 1.5).ceil() as u64;
         }
-
+        if self.has_active_effect(&Effect::Scherzo) {
+            return ((base_speed as f64) * 0.5).ceil() as u64;
+        }
         return base_speed;
     }
 
@@ -388,6 +393,7 @@ impl Player {
         !self.has_active_effect(&Effect::Leaping)
             && !self.has_active_effect(&Effect::Petrified)
             && !self.has_active_effect(&Effect::NeonCrashing)
+            && !self.has_active_effect(&Effect::Paralyzed)
     }
 
     pub fn marks_per_player(self: &Self, attacking_player_id: u64) -> u64 {

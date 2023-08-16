@@ -521,6 +521,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:slowed, %{ends_at: ends_at}}), do: {12, ends_at}
   defp effect_encode({:fiery_rampage, %{ends_at: ends_at}}), do: {13, ends_at}
   defp effect_encode({:burned, %{ends_at: ends_at}}), do: {14, ends_at}
+  defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {15, ends_at}
+  defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {16, ends_at}
+  defp effect_encode({:paralyzed, %{ends_at: ends_at}}), do: {17, ends_at}
 
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
 end
