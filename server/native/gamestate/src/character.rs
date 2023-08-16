@@ -33,10 +33,12 @@ pub enum Faction {
 pub enum Class {
     #[strum(serialize = "hun", serialize = "Hunter", ascii_case_insensitive)]
     Hunter,
-    #[strum(serialize = "gua", serialize = "Guardian", ascii_case_insensitive)]
-    Guardian,
+    #[strum(serialize = "war", serialize = "Warrior", ascii_case_insensitive)]
+    Warrior,
     #[strum(serialize = "ass", serialize = "Assassin", ascii_case_insensitive)]
     Assassin,
+    #[strum(serialize = "wiz", serialize = "Wizard", ascii_case_insensitive)]
+    Wizard,
 }
 
 #[derive(Debug, Clone, rustler::NifStruct)]
