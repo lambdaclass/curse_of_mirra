@@ -2,9 +2,9 @@
 
 Curse of Myrra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and eventually sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
 
-Below we go over the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. This section is going to be long, full of explanations and videos showing different issues that arise from playing through a network. I HIGHLY encourage anyone reading this to actually try this stuff out by themselves. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that is the only metric that matters here.
+Here we'll address the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. I HIGHLY encourage anyone reading this to actually try this stuff out by themselves. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that's the only metric that matters here.
 
-The main thing we will discuss is *movement*, as it is the most basic element of the game that needs to render smoothly. Constant jitters/stutters in movement are the hallmark of code that is not robust enough to handle multiplayer gameplay.
+The main thing we'll discuss is *movement*, as it is the most basic element of the game that needs to render smoothly. Constant jitters/stutters in movement are the hallmark of code that is not robust enough to handle multiplayer gameplay.
 
 Most of the ideas presented here are not new, and were taken primarily from the following articles:
 
@@ -47,7 +47,7 @@ This last "every so often" is the tick rate. We usually refer to it in milliseco
 
 You can think of tick rate as the rate at which we sample the gameplay. A higher tick rate means we sample more frequently, and thus converge to a more continuous experience, while a lower one can make the game look like a slideshow.
 
-Note that we are making tick rate the same for every player, that is, players all receive updates at the same rate. This is not the only way to do things. `Valve`, for example, makes it possible for you to set (within a range) how many ticks you get per second. Typically, you want to set it as high as possible for a more accurate experience, but if your network or computer can't handle a high tick rate, lowering it can help.
+Note that we are making tick rate the same for every player, that is, all players receive updates at the same rate. This is not the only way to do things. `Valve`, for example, makes it possible for you to set (within a range) how many ticks you get per second. Typically, you want to set it as high as possible for a more accurate experience, but if your network or computer can't handle a high tick rate, lowering it can help.
 
 These days, computers and internet providers are fast enough that almost nobody would need to lower it, so we don't bother allowing for a variable tick rate.
 
@@ -209,23 +209,23 @@ For this topic, lets set up our scenario:
 
 - We have two players in the game (Player 1 and 2)
 
-Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and supposing we receive an update every 20ms, we are receiving 50 game updates times per second.
+Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and supposing we receive an update every 20ms, we are receiving 50 game updates per second.
 
 Now, let's see Player 2's movement:
 
 ![](./videos/Interpolation_at_0ms.gif)
 
-As you can see, our player's movement feels that sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based on the updates sent by the server. How can we solve this?. Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
+As you can see, his movement feels that sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based on the updates sent by the server. How can we solve this? Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
 
-Theory behind Interpolation is that we render an X amount of time in the past what other player are doing, and that allows us to interpolate the movement, that means we're somehow predicting what the player is going to do (It is later explained how we're doing that). Let's suppose we're interpolating 100ms in the past, player's movement would like this
+Theory behind Interpolation is that we render an X amount of time in the past what other players are doing, and that allows us to interpolate the movement, that means we're somehow predicting what the players are going to do. Let's suppose we're interpolating 100ms in the past, a player's movement would look like this
 
 ![](./videos/Interpolation_at_100ms.gif)
 
-Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allow us to see what exactly Interpolation is attacking
+Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allow us to see what exactly Interpolation is doing
 
 ![](./videos/Interpolation_with_ghost.gif)
 
-The Player 2 that's behind is the one you're really seeing when you're playing, and the one that's in front it is showing the latest update you received from the server, as we saw, it looks choppy and sometimes jitters.
+The Player 2 that's behind is the one you're really seeing when you're playing, and the one that's in front is showing the latest update you received from the server. As we can see, this looks choppy and sometimes jitters.
 
 How did we achieve this?. Basically we're doing a few things:
 1. We keep track of time that has passed since the first update
@@ -236,8 +236,7 @@ All of this code is in the `EventsBuffer.cs`. Where you can change the delta int
 
 ## Action rate, hacky solution
 
-As we said in the previous topic, we keep track of the accumulated time since we received the first update from the server to interpolate the movement. Well, that seemed to work as intended...
-but it wasn't at all. There were times where the interpolation ghosts, differed too much from the server, but a lot, it didn't make sense. After a bit of research, we discovered that the problem was with using the [`Time.deltaTime`](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html) that belongs to Unity. That amount of time is how much time has passed since the last frame to the current one, that sounds okay but the problem is that the game editor/android build/ios build should be active in the screen, if you change tabs or let the game run in the background the `Time.DeltaTime` stops but the server doesn't and because of that all the operations messes up. In order to solve this, we just change it for Unix time in milliseconds.
+As we said in the previous topic, we keep track of the accumulated time since we received the first update from the server to interpolate the movement. The theory behind this should work, but we found that there were times where the interpolation ghosts differed too way much from the server. After a bit of research, we discovered that the problem was with using the [`Time.deltaTime`](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html) that belongs to Unity. That amount of time is how much time has passed since the last frame to the current one, that sounds okay but the problem is that the game editor/android build/ios build should be active in the screen, if you change tabs or let the game run in the background the `Time.DeltaTime` stops but the server doesn't and because of that all the operations get messed up. In order to solve this, we just change it for Unix time in milliseconds.
 
 ```csharp
     if (firstTimestamp == 0)
@@ -248,5 +247,5 @@ but it wasn't at all. There were times where the interpolation ghosts, differed 
     accumulatedTime = (currentTimestamp - firstTimestamp);
 ```
 
-And now that we deattached the time from Unity, at the moment, everything seemed to work as intended.
+And now that we deattached the time from Unity, at the moment, everything works as intended.
 
