@@ -25,6 +25,8 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    public ColorPalette colorPalette;
+
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
@@ -251,7 +253,7 @@ public class Battle : MonoBehaviour
             {
                 // TODO: Refactor: create a script/reference.
                 actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
-                    new Color(1, 0, 0, .5f);
+                    colorPalette.red50;
             }
 
             Transform hitbox = actualPlayer.transform.Find("Hitbox");

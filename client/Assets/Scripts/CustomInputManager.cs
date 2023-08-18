@@ -101,6 +101,8 @@ public class CustomInputManager : InputManager
 
     public bool canceled = false;
 
+    public ColorPalette colorPalette;
+
     protected override void Start()
     {
         base.Start();
@@ -449,12 +451,12 @@ public class CustomInputManager : InputManager
 
     public void SetOpacity()
     {
-        joystickL.color = new Color(255, 255, 255, 0.25f);
+      joystickL.color = colorPalette.white25;
     }
 
     public void UnsetOpacity()
     {
-        joystickL.color = new Color(255, 255, 255, 1);
+        joystickL.color = colorPalette.white;
     }
 
     public void SetCanceled(bool value)

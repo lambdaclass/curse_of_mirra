@@ -24,6 +24,8 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
     public ulong id;
     public string characterName;
 
+    public ColorPalette colorPalette;
+
     public ulong GetId()
     {
         return id;
@@ -54,7 +56,7 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
         }
         if (LobbyConnection.Instance.playerId == id)
         {
-            this.background.color = new Color32(255, 255, 255, 255);
+            this.background.color = colorPalette.white;
             this.background.sprite = playerBackground;
         }
     }
