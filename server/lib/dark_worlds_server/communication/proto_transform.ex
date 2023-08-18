@@ -16,8 +16,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.SkillConfigItem
   alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Communication.Proto.Status
-  alias DarkWorldsServer.Communication.Proto.LobbyEvent
-  alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
   alias DarkWorldsServer.Engine.Position, as: EnginePosition
@@ -29,14 +27,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # ENCODES #
   ###########
-
-  def encode(lobby_event, LobbyEvent) do
-    IO.inspect(lobby_event)
-  end
-
-  def encode(game_settings, GameSettings) do
-    IO.inspect(game_settings)
-  end
 
   def encode(status, Status) do
     status

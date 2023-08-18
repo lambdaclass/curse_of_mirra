@@ -51,7 +51,6 @@ defmodule DarkWorldsServer.Communication do
 
     %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config, server_hash: server_hash}
     |> LobbyEvent.encode()
-    |> IO.inspect(label: :encode)
   end
 
   def game_update!(%{

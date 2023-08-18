@@ -3,7 +3,7 @@ defmodule Utils.Config do
 
   @spec read_config(atom) :: map | {:error, term}
   def read_config(type) do
-    with path <- get_config_type_filepath(type) |> IO.inspect(label: :filepath),
+    with path <- get_config_type_filepath(type),
          {:ok, body} <- File.read(path),
          body <- remove_bom(body),
          {:ok, json} <- Jason.decode(body) do
