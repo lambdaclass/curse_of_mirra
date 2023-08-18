@@ -459,8 +459,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   defp create_new_game(
          %{
            runner_config: rg,
-           character_config: %{Items: characters_info},
-           skills_config: %{Items: skills_info}
+           character_config: characters_info,
+           skills_config: skills_info
          },
          players,
          selected_players
