@@ -17,7 +17,7 @@ defmodule DarkWorldsServerWeb.ConfigLive.Skills do
     "Par4Desc",
     "Par5",
     "Par5Desc",
-    "Angle",
+    "Angle"
   ]
 
   def mount(_params, _session, socket) do

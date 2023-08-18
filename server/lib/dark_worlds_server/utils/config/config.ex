@@ -7,10 +7,18 @@ defmodule Utils.Config do
          {:ok, body} <- File.read(path),
          body <- remove_bom(body),
          {:ok, json} <- Jason.decode(body) do
-      json |> IO.inspect(label: :json)
+      json
     else
       {:error, reason} ->
         {:error, reason}
+    end
+  end
+
+  @spec read_config_for_client(atom) :: map | {:error, term}
+  def read_config_for_client(type) do
+    case read_config(type) do
+      {:error, reason} -> {:error, reason}
+      json -> keys_to_atom(json)
     end
   end
 
@@ -32,4 +40,15 @@ defmodule Utils.Config do
   defp get_config_type_filepath(:skills), do: Path.absname(@config_path <> "Skills.json")
 
   defp remove_bom(str), do: String.replace_prefix(str, "\uFEFF", "")
+
+  defp keys_to_atom(map_list) when is_list(map_list) do
+    Enum.map(map_list, &keys_to_atom/1)
+  end
+
+  defp keys_to_atom(map) when is_map(map) do
+    Map.new(map, fn
+      map when is_map(map) -> keys_to_atom(map)
+      {k, v} -> {String.to_atom(k), v}
+    end)
+  end
 end

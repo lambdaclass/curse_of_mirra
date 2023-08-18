@@ -95,9 +95,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   @impl GenServer
   def handle_cast(:start_game, state) do
     game_config = %{
-        runner_config: Utils.Config.read_config(:game_settings),
-        character_config: Utils.Config.read_config(:characters),
-        skills_config: Utils.Config.read_config(:skills)
+      runner_config: Utils.Config.read_config_for_client(:game_settings),
+      character_config: Utils.Config.read_config_for_client(:characters),
+      skills_config: Utils.Config.read_config_for_client(:skills)
     }
 
     {:ok, game_pid} = Engine.start_child(%{players: Map.keys(state.players), game_config: game_config})
