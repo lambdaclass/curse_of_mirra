@@ -49,7 +49,7 @@ public class Loot : MonoBehaviour
         idsToRemove.ForEach(RemoveLoot);
     }
 
-    private GameObject getLootObject(LootType lootType)
+    private GameObject GetLootObject(LootType lootType)
     {
         switch (lootType)
         {

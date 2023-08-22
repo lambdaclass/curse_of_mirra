@@ -157,7 +157,6 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(game_event);
                     this.gameProjectiles = game_event.Projectiles.ToList();
                     alivePlayers = game_event.Players.ToList().FindAll(el => el.Health > 0);
-                    // updateLoots(game_event.Loots.ToList());
                     updatedLoots = game_event.Loots.ToList();
                     break;
                 case GameEventType.PingUpdate:
