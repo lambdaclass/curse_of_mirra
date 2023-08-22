@@ -91,45 +91,44 @@ public static partial class MessagesReflection {
           "ElNlcnZlckdhbWVTZXR0aW5ncxIkCg1ydW5uZXJfY29uZmlnGAEgASgLMg0u",
           "UnVubmVyQ29uZmlnEioKEGNoYXJhY3Rlcl9jb25maWcYAiABKAsyEC5DaGFy",
           "YWN0ZXJDb25maWcSJAoNc2tpbGxzX2NvbmZpZxgDIAEoCzINLlNraWxsc0Nv",
-          "bmZpZyLuAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgC",
+          "bmZpZyLMAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoBBIbCghwb3NpdGlvbhgC",
           "IAEoCzIJLlBvc2l0aW9uEiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJlbGF0aXZl",
           "UG9zaXRpb24SDQoFc3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJcGxh",
           "eWVyX2lkGAYgASgEEg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdfdGlj",
           "a3MYCCABKBISKAoPcHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVjdGls",
           "ZVR5cGUSIQoGc3RhdHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1cxIfChds",
           "YXN0X2F0dGFja2VkX3BsYXllcl9pZBgLIAEoBBIOCgZwaWVyY2UYDCABKAgS",
-          "FwoPcHJvamVjdGlsZV9uYW1lGA0gASgJEiAKGHByb2plY3RpbGVfZmVlZGJh",
-          "Y2tfbmFtZRgOIAEoCSInCgpNaWxsaXNUaW1lEgwKBGhpZ2gYASABKAQSCwoD",
-          "bG93GAIgASgEKq4BCg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRFX1VQREFURRAA",
-          "Eg8KC1BJTkdfVVBEQVRFEAESEQoNUExBWUVSX0pPSU5FRBACEhEKDUdBTUVf",
-          "RklOSVNIRUQQAxIVChFJTklUSUFMX1BPU0lUSU9OUxAEEh0KGVNFTEVDVEVE",
-          "X0NIQVJBQ1RFUl9VUERBVEUQBRIeChpGSU5JU0hfQ0hBUkFDVEVSX1NFTEVD",
-          "VElPThAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQASr/AQoGQWN0",
-          "aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEgoKBkFUVEFDSxABEgwKCFRF",
-          "TEVQT1JUEAISDgoKQVRUQUNLX0FPRRADEhYKEk1PVkVfV0lUSF9KT1lTVElD",
-          "SxAEEgsKB0FERF9CT1QQBRIPCgtBVVRPX0FUVEFDSxAGEhAKDEJBU0lDX0FU",
-          "VEFDSxAHEgsKB1NLSUxMXzEQCBILCgdTS0lMTF8yEAkSCwoHU0tJTExfMxAK",
-          "EgsKB1NLSUxMXzQQCxIUChBTRUxFQ1RfQ0hBUkFDVEVSEAwSDwoLRU5BQkxF",
-          "X0JPVFMQDRIQCgxESVNBQkxFX0JPVFMQDipNCglEaXJlY3Rpb24SGQoVRElS",
-          "RUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dOEAISCAoETEVG",
-          "VBADEgkKBVJJR0hUEAQq/QEKDFBsYXllckFjdGlvbhILCgdOT1RISU5HEAAS",
-          "DQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACEhQKEFNUQVJUSU5H",
-          "X1NLSUxMXzEQAxIUChBTVEFSVElOR19TS0lMTF8yEAQSFAoQU1RBUlRJTkdf",
-          "U0tJTExfMxAFEhQKEFNUQVJUSU5HX1NLSUxMXzQQBhIVChFFWEVDVVRJTkdf",
-          "U0tJTExfMRAHEhUKEUVYRUNVVElOR19TS0lMTF8yEAgSFQoRRVhFQ1VUSU5H",
-          "X1NLSUxMXzMQCRIVChFFWEVDVVRJTkdfU0tJTExfNBAKEgoKBk1PVklORxAL",
-          "KvQBCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVEEAASDAoIRElTQVJNRUQQ",
-          "ARIMCghQSUVSQ0lORxACEgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElORxAE",
-          "EgsKB0xFQVBJTkcQBRIPCgtPVVRfT0ZfQVJFQRAGEg4KCkVMTkFSX01BUksQ",
-          "BxIOCgpZVUdFTl9NQVJLEAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01B",
-          "UktfT1dORVIQChIMCghQT0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZ",
-          "X1JBTVBBR0UQDRIKCgZCVVJORUQQDiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQ",
-          "VFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9B",
-          "RERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4K",
-          "ClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3Rp",
-          "bGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQ",
-          "cm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAFiBnBy",
-          "b3RvMw=="));
+          "FwoPcHJvamVjdGlsZV9uYW1lGA0gASgJIicKCk1pbGxpc1RpbWUSDAoEaGln",
+          "aBgBIAEoBBILCgNsb3cYAiABKAQqrgEKDUdhbWVFdmVudFR5cGUSEAoMU1RB",
+          "VEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVE",
+          "EAISEQoNR0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJQUxfUE9TSVRJT05TEAQS",
+          "HQoZU0VMRUNURURfQ0hBUkFDVEVSX1VQREFURRAFEh4KGkZJTklTSF9DSEFS",
+          "QUNURVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVB",
+          "RBABKv8BCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCgoGQVRU",
+          "QUNLEAESDAoIVEVMRVBPUlQQAhIOCgpBVFRBQ0tfQU9FEAMSFgoSTU9WRV9X",
+          "SVRIX0pPWVNUSUNLEAQSCwoHQUREX0JPVBAFEg8KC0FVVE9fQVRUQUNLEAYS",
+          "EAoMQkFTSUNfQVRUQUNLEAcSCwoHU0tJTExfMRAIEgsKB1NLSUxMXzIQCRIL",
+          "CgdTS0lMTF8zEAoSCwoHU0tJTExfNBALEhQKEFNFTEVDVF9DSEFSQUNURVIQ",
+          "DBIPCgtFTkFCTEVfQk9UUxANEhAKDERJU0FCTEVfQk9UUxAOKk0KCURpcmVj",
+          "dGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERP",
+          "V04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCr9AQoMUGxheWVyQWN0aW9uEgsK",
+          "B05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAIS",
+          "FAoQU1RBUlRJTkdfU0tJTExfMRADEhQKEFNUQVJUSU5HX1NLSUxMXzIQBBIU",
+          "ChBTVEFSVElOR19TS0lMTF8zEAUSFAoQU1RBUlRJTkdfU0tJTExfNBAGEhUK",
+          "EUVYRUNVVElOR19TS0lMTF8xEAcSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQCBIV",
+          "ChFFWEVDVVRJTkdfU0tJTExfMxAJEhUKEUVYRUNVVElOR19TS0lMTF80EAoS",
+          "CgoGTU9WSU5HEAsq9AEKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIM",
+          "CghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFHRUQQAxIRCg1ORU9O",
+          "X0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9PRl9BUkVBEAYSDgoK",
+          "RUxOQVJfTUFSSxAHEg4KCllVR0VOX01BUksQCBIOCgpYQU5EQV9NQVJLEAkS",
+          "FAoQWEFOREFfTUFSS19PV05FUhAKEgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VE",
+          "EAwSEQoNRklFUllfUkFNUEFHRRANEgoKBkJVUk5FRBAOKo8BCg5Mb2JieUV2",
+          "ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAES",
+          "EAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVS",
+          "X0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYq",
+          "MgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JV",
+          "TExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
+          "TE9ERUQQAWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -150,7 +149,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "Cooldown", "Damage", "Duration", "Projectile", "SkillRange", "Par1", "Par1Desc", "Par2", "Par2Desc", "Par3", "Par3Desc", "Par4", "Par4Desc", "Par5", "Par5Desc", "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce", "ProjectileName", "ProjectileFeedbackName" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce", "ProjectileName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null)
         }));
   }
@@ -7028,7 +7027,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     lastAttackedPlayerId_ = other.lastAttackedPlayerId_;
     pierce_ = other.pierce_;
     projectileName_ = other.projectileName_;
-    projectileFeedbackName_ = other.projectileFeedbackName_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -7194,18 +7192,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
   }
 
-  /// <summary>Field number for the "projectile_feedback_name" field.</summary>
-  public const int ProjectileFeedbackNameFieldNumber = 14;
-  private string projectileFeedbackName_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string ProjectileFeedbackName {
-    get { return projectileFeedbackName_; }
-    set {
-      projectileFeedbackName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -7234,7 +7220,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (LastAttackedPlayerId != other.LastAttackedPlayerId) return false;
     if (Pierce != other.Pierce) return false;
     if (ProjectileName != other.ProjectileName) return false;
-    if (ProjectileFeedbackName != other.ProjectileFeedbackName) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -7255,7 +7240,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (LastAttackedPlayerId != 0UL) hash ^= LastAttackedPlayerId.GetHashCode();
     if (Pierce != false) hash ^= Pierce.GetHashCode();
     if (ProjectileName.Length != 0) hash ^= ProjectileName.GetHashCode();
-    if (ProjectileFeedbackName.Length != 0) hash ^= ProjectileFeedbackName.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -7326,10 +7310,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(106);
       output.WriteString(ProjectileName);
     }
-    if (ProjectileFeedbackName.Length != 0) {
-      output.WriteRawTag(114);
-      output.WriteString(ProjectileFeedbackName);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -7392,10 +7372,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(106);
       output.WriteString(ProjectileName);
     }
-    if (ProjectileFeedbackName.Length != 0) {
-      output.WriteRawTag(114);
-      output.WriteString(ProjectileFeedbackName);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -7444,9 +7420,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (ProjectileName.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectileName);
-    }
-    if (ProjectileFeedbackName.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectileFeedbackName);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -7504,9 +7477,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (other.ProjectileName.Length != 0) {
       ProjectileName = other.ProjectileName;
-    }
-    if (other.ProjectileFeedbackName.Length != 0) {
-      ProjectileFeedbackName = other.ProjectileFeedbackName;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -7581,10 +7551,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           ProjectileName = input.ReadString();
           break;
         }
-        case 114: {
-          ProjectileFeedbackName = input.ReadString();
-          break;
-        }
       }
     }
   #endif
@@ -7656,10 +7622,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 106: {
           ProjectileName = input.ReadString();
-          break;
-        }
-        case 114: {
-          ProjectileFeedbackName = input.ReadString();
           break;
         }
       }

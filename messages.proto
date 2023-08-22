@@ -368,7 +368,6 @@ message Projectile {
     uint64 last_attacked_player_id = 11;
     bool pierce = 12;
     string projectile_name = 13;
-    string projectile_feedback_name = 14;
 }
 
 /*
