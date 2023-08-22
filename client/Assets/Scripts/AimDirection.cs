@@ -32,6 +32,8 @@ public class AimDirection : MonoBehaviour
     public int rayCount = 50;
     public float angleIncrease;
 
+    private float scaleZ = 0.05f;
+
     public void InitIndicator(Skill skill, Color32 color)
     {
         // TODO: Add the spread area (angle) depending of the skill.json
@@ -47,11 +49,11 @@ public class AimDirection : MonoBehaviour
         {
             float scaleX = skill.GetArroWidth();
             float scaleY = skill.GetSkillRadius();
-            arrow.transform.localScale = new Vector3(scaleX, scaleY, 0.05f);
+            arrow.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             arrow.transform.localPosition = new Vector3(0, -scaleY / 2, 0);
         }
 
-        surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, 0.05f);
+        surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, scaleZ);
         surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 100);
         surface.SetActive(skill.isSelfTargeted());
     }
