@@ -9,11 +9,10 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    public IEnumerable<GameObject> skillProjectiles;
-    public GameObject ProjectileFeedback;
+    public IEnumerable<ProjectileInfo> skillProjectiles;
 
     public GameObject newProjectile;
-    public GameObject projectileUsed;
+    public ProjectileInfo projectileUsed;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -74,10 +73,10 @@ public class Battle : MonoBehaviour
                 .GetComponents<Skill>()
                 .Select(p => p.GetProjectileFromSkill())
                 .Where(p => p != null);
-            foreach (GameObject skillProjectile in skillProjectiles)
+            foreach (ProjectileInfo skillProjectile in skillProjectiles)
             {
                 ProjectileHandler projectileFromSkill =
-                    skillProjectile.GetComponent<ProjectileHandler>();
+                    skillProjectile.projectile.GetComponent<ProjectileHandler>();
                 projectileFromSkill.SetProjectilePrefab();
             }
         }
@@ -350,7 +349,9 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toDelete)
         {
-            projectileUsed.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
+            projectileUsed.projectile
+                .GetComponent<ProjectileHandler>()
+                .LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
         }
 
@@ -392,7 +393,7 @@ public class Battle : MonoBehaviour
                 // {
                 //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
                 // }
-                projectileUsed
+                projectileUsed.projectile
                     .GetComponent<ProjectileHandler>()
                     .ShootLaser(
                         projectile,
@@ -411,9 +412,9 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
                 projectileUsed = skillProjectiles
-                    .Where(obj => obj.name == gameProjectiles[i].ProjectileName)
-                    .SingleOrDefault();
-                newProjectile = projectileUsed
+                    .Where(obj => obj.projectile.name == gameProjectiles[i].ProjectileName)
+                    .FirstOrDefault();
+                newProjectile = projectileUsed.projectile
                     .GetComponent<ProjectileHandler>()
                     .InstanceShoot(angle);
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
@@ -431,9 +432,9 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toExplode)
         {
-            projectileUsed
+            projectileUsed.projectile
                 .GetComponent<ProjectileHandler>()
-                .LaserCollision(projectiles[key], ProjectileFeedback.name);
+                .LaserCollision(projectiles[key], projectileUsed.projectileFeedback.name);
             projectiles.Remove(key);
         }
     }

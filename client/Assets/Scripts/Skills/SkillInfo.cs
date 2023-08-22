@@ -10,8 +10,7 @@ public class SkillInfo : ScriptableObject
     public string description;
     public UIType inputType;
     public UIIndicatorType indicatorType;
-    public GameObject projectile;
-    public GameObject projectileFeedback;
+    public ProjectileInfo projectileInfo;
     public GameObject feedbackVfx;
     public float feedbackVfxDuration;
     public GameObject startFeedbackVfx;

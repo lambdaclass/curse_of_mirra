@@ -106,11 +106,11 @@ public class Skill : CharacterAbility
         }
     }
 
-    public GameObject GetProjectileFromSkill()
+    public ProjectileInfo GetProjectileFromSkill()
     {
-        if (skillInfo.projectile)
+        if (skillInfo.projectileInfo)
         {
-            return skillInfo.projectile;
+            return skillInfo.projectileInfo;
         }
         else
         {
@@ -339,10 +339,5 @@ public class Skill : CharacterAbility
     public String GetSkillName()
     {
         return skillInfo.name;
-    }
-
-    public GameObject GetProjectile()
-    {
-        return skillInfo.projectile;
     }
 }
