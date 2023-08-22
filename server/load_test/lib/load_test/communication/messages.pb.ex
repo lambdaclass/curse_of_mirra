@@ -475,6 +475,8 @@ defmodule LoadTest.Communication.Proto.Projectile do
   field(:status, 10, type: LoadTest.Communication.Proto.ProjectileStatus, enum: true)
   field(:last_attacked_player_id, 11, type: :uint64, json_name: "lastAttackedPlayerId")
   field(:pierce, 12, type: :bool)
+  field(:projectile_name, 13, type: :string, json_name: "projectileName")
+  field(:projectile_feedback_name, 14, type: :string, json_name: "projectileFeedbackName")
 end
 
 defmodule LoadTest.Communication.Proto.MillisTime do
