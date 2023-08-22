@@ -9,10 +9,6 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    // I am getting this information from the scriptable object (h4ck's basicSkill)
-    // TODO: the resource name should be accesible from each skill given by backend
-    // public string backendProjectile;
-
     public IEnumerable<GameObject> skillProjectiles;
     public GameObject ProjectileFeedback;
 
@@ -414,9 +410,8 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                var backendProjectile = gameProjectiles[i].ProjectileName;
                 projectileUsed = skillProjectiles
-                    .Where(obj => obj.name == backendProjectile)
+                    .Where(obj => obj.name == gameProjectiles[i].ProjectileName)
                     .SingleOrDefault();
                 newProjectile = projectileUsed
                     .GetComponent<ProjectileHandler>()
