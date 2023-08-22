@@ -384,10 +384,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5495881793934213699}
     m_Modifications:
+    - target: {fileID: 77179666554997601, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 77179666554997604, guid: de3facfaf9b5e488cb14caaca68149a9,
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 77179666554997607, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 77179666554997607, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 77179666554997607, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 77179666554997607, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: VelocityModule.speedModifier.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 77179666554997607, guid: de3facfaf9b5e488cb14caaca68149a9,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 77179666780178385, guid: de3facfaf9b5e488cb14caaca68149a9,
         type: 3}
