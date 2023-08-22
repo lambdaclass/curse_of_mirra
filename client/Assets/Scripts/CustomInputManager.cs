@@ -127,7 +127,7 @@ public class CustomInputManager : InputManager
     public void Setup()
     {
         _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-_player.GetComponentInChildren<AimDirection>();
+        directionIndicator = _player.GetComponentInChildren<AimDirection>();
     }
 
     // void Update()
@@ -252,8 +252,7 @@ _player.GetComponentInChildren<AimDirection>();
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
-        directionIndicator
-            .ActivateIndicator(joystick.skill.GetIndicatorType());
+        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystick = joystick;
 
         ShowSkillRange(joystick.skill);
