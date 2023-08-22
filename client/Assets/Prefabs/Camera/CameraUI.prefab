@@ -357,6 +357,9 @@ MonoBehaviour:
   newPointerTapUp:
     m_PersistentCalls:
       m_Calls: []
+  newPointerTapDown:
+    m_PersistentCalls:
+      m_Calls: []
   skill: {fileID: 0}
 --- !u!114 &294850373
 MonoBehaviour:
@@ -4191,6 +4194,9 @@ MonoBehaviour:
   newPointerTapUp:
     m_PersistentCalls:
       m_Calls: []
+  newPointerTapDown:
+    m_PersistentCalls:
+      m_Calls: []
   skill: {fileID: 0}
 --- !u!114 &6593141468661040779
 MonoBehaviour:
@@ -5845,6 +5851,9 @@ MonoBehaviour:
   newPointerTapUp:
     m_PersistentCalls:
       m_Calls: []
+  newPointerTapDown:
+    m_PersistentCalls:
+      m_Calls: []
   skill: {fileID: 0}
 --- !u!114 &4218293920061336452
 MonoBehaviour:
@@ -6803,6 +6812,9 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 0
   newPointerTapUp:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerTapDown:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
@@ -11682,6 +11694,9 @@ MonoBehaviour:
   newPointerTapUp:
     m_PersistentCalls:
       m_Calls: []
+  newPointerTapDown:
+    m_PersistentCalls:
+      m_Calls: []
   skill: {fileID: 0}
 --- !u!114 &2973894418886823644
 MonoBehaviour:
@@ -13729,6 +13744,9 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   newPointerTapUp:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerTapDown:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
