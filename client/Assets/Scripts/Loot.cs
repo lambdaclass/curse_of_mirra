@@ -8,7 +8,7 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
     [SerializeField]
-    LooteableList lootsList;
+    LootableList lootsList;
 
     private Dictionary<ulong, GameObject> loots = new Dictionary<ulong, GameObject>();
 
