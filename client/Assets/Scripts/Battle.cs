@@ -11,10 +11,13 @@ public class Battle : MonoBehaviour
 {
     // I am getting this information from the scriptable object (h4ck's basicSkill)
     // TODO: the resource name should be accesible from each skill given by backend
-    public GameObject BasicProjectile;
+    public string backendProjectile;
+
+    public IEnumerable<GameObject> skillProjectiles;
     public GameObject ProjectileFeedback;
 
-    //public string ProjectileFeedback = "HackShootFeedback";
+    public GameObject newProjectile;
+    public GameObject projectileUsed;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -71,10 +74,16 @@ public class Battle : MonoBehaviour
             // Problem: Instead of only using one skill to set all, we should be able to make a pool for each skill if they have different projectiles
             // TODO: make it so that each skill has its own projectile
             // for this, I need to keep on working in both this and ProjectileHandler scripts
-            BasicProjectile = player.GetComponent<SkillBasic>().GetProjectileFromSkill();
-            Debug.Log(BasicProjectile.name);
-            ProjectileHandler projectile = BasicProjectile.GetComponent<ProjectileHandler>();
-            projectile.SetProjectilePrefab();
+            skillProjectiles = player
+                .GetComponents<Skill>()
+                .Select(p => p.GetProjectileFromSkill())
+                .Where(p => p != null);
+            foreach (GameObject skillProjectile in skillProjectiles)
+            {
+                ProjectileHandler projectileFromSkill =
+                    skillProjectile.GetComponent<ProjectileHandler>();
+                projectileFromSkill.SetProjectilePrefab();
+            }
         }
     }
 
@@ -88,7 +97,7 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdatePlayerActions();
-            UpdateProyectileActions();
+            UpdateProjectileActions();
         }
     }
 
@@ -328,7 +337,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void UpdateProyectileActions()
+    void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
@@ -345,7 +354,7 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toDelete)
         {
-            BasicProjectile.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
+            projectileUsed.GetComponent<ProjectileHandler>().LaserDisappear(projectiles[key]);
             projectiles.Remove(key);
         }
 
@@ -387,8 +396,7 @@ public class Battle : MonoBehaviour
                 // {
                 //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
                 // }
-
-                BasicProjectile
+                projectileUsed
                     .GetComponent<ProjectileHandler>()
                     .ShootLaser(
                         projectile,
@@ -406,10 +414,12 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                GameObject newProjectile = BasicProjectile
+                projectileUsed = skillProjectiles
+                    .Where(obj => obj.name == backendProjectile)
+                    .SingleOrDefault();
+                newProjectile = projectileUsed
                     .GetComponent<ProjectileHandler>()
                     .InstanceShoot(angle);
-
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
         }
@@ -425,7 +435,7 @@ public class Battle : MonoBehaviour
 
         foreach (var key in toExplode)
         {
-            BasicProjectile
+            projectileUsed
                 .GetComponent<ProjectileHandler>()
                 .LaserCollision(projectiles[key], ProjectileFeedback.name);
             projectiles.Remove(key);

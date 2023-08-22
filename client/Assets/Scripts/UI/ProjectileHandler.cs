@@ -10,7 +10,6 @@ public class ProjectileHandler : MonoBehaviour
     public void SetProjectilePrefab()
     {
         objectPooler = Utils.SimpleObjectPooler("ShootPooler", transform.parent, gameObject.name);
-        Debug.Log(transform.name);
     }
 
     public GameObject InstanceShoot(float direction)
