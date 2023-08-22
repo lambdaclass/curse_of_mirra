@@ -31,3 +31,5 @@ MonoBehaviour:
   executeAnimationDuration: 1
   skillCircleRadius: 12
   skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 0
