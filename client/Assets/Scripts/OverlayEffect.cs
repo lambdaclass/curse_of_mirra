@@ -7,7 +7,6 @@ using UnityEngine.Rendering;
 public class OverlayEffect : MonoBehaviour
 {
     public Shader DamageShader;
-    public Shader Healshader;
     private Shader shader;
     List<SkinnedMeshRenderer> skinnedMeshFilter = new List<SkinnedMeshRenderer>();
 
@@ -50,9 +49,6 @@ public class OverlayEffect : MonoBehaviour
     {
         switch (effect)
         {
-            case "Heal":
-                shader = Healshader;
-                break;
             case "Damage":
                 shader = DamageShader;
                 break;

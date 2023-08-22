@@ -35,18 +35,22 @@ public class PlayerFeedbacks : MonoBehaviour
         }
     }
 
-    public void ChangePlayerTextureOnDamage(GameObject player, float auxHealth, float playerHealth)
+    public void ChangePlayerTextureOnDamage(
+        GameObject player,
+        float clientHealth,
+        float playerHealth
+    )
     {
         // player.GetComponentInChildren<OverlayEffect>().enabled = true;
 
-        if (auxHealth != playerHealth)
+        if (clientHealth != playerHealth)
         {
-            if (playerHealth < auxHealth)
+            if (playerHealth < clientHealth)
             {
                 player.GetComponentInChildren<OverlayEffect>().SetShader("Damage");
                 player.GetComponentInChildren<OverlayEffect>().enabled = true;
             }
-            if (playerHealth > auxHealth)
+            if (playerHealth > clientHealth)
             {
                 GameObject healFeedback = player
                     .GetComponentInChildren<FeedbackContainer>()
