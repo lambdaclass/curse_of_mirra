@@ -29,7 +29,7 @@ public class AimDirection : MonoBehaviour
     public float fov = 90f;
     public float angle = 0f;
     public float viewDistance = 50f;
-    public int raycount = 50;
+    public int rayCount = 50;
     public float angleInclease;
 
     public void InitIndicator(Skill skill, Color32 color)
