@@ -30,11 +30,11 @@ public class AimDirection : MonoBehaviour
     public float angle = 0f;
     public float viewDistance = 50f;
     public int rayCount = 50;
-    public float angleInclease;
+    public float angleIncrease;
 
     public void InitIndicator(Skill skill, Color32 color)
     {
-        // TODO: Add the spread area (amgle) depeding of the skill.json
+        // TODO: Add the spread area (angle) depending of the skill.json
         viewDistance = skill.GetSkillRadius();
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
@@ -75,19 +75,19 @@ public class AimDirection : MonoBehaviour
     public void SetConeIndicator()
     {
         angle = 0;
-        angleInclease = fov / raycount;
+        angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
         Vector3 origin = Vector3.zero;
 
-        Vector3[] vertices = new Vector3[raycount + 1 + 1];
+        Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
-        int[] triangles = new int[raycount * 3];
+        int[] triangles = new int[rayCount * 3];
 
         vertices[0] = origin;
         int vertexIndex = 1;
         int trianglesIndex = 0;
 
-        for (int i = 0; i < raycount; i++)
+        for (int i = 0; i < rayCount; i++)
         {
             Vector3 vertex = origin + GetVectorFromAngle(angle) * viewDistance;
             vertices[vertexIndex] = vertex;
@@ -100,7 +100,7 @@ public class AimDirection : MonoBehaviour
                 trianglesIndex += 3;
             }
             vertexIndex++;
-            angle -= angleInclease;
+            angle -= angleIncrease;
         }
 
         triangles[0] = 0;
