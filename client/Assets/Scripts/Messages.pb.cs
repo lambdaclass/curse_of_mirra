@@ -117,18 +117,19 @@ public static partial class MessagesReflection {
           "ChBTVEFSVElOR19TS0lMTF8zEAUSFAoQU1RBUlRJTkdfU0tJTExfNBAGEhUK",
           "EUVYRUNVVElOR19TS0lMTF8xEAcSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQCBIV",
           "ChFFWEVDVVRJTkdfU0tJTExfMxAJEhUKEUVYRUNVVElOR19TS0lMTF80EAoS",
-          "CgoGTU9WSU5HEAsq9AEKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIM",
-          "CghESVNBUk1FRBABEgwKCFBJRVJDSU5HEAISCQoFUkFHRUQQAxIRCg1ORU9O",
-          "X0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9PRl9BUkVBEAYSDgoK",
-          "RUxOQVJfTUFSSxAHEg4KCllVR0VOX01BUksQCBIOCgpYQU5EQV9NQVJLEAkS",
-          "FAoQWEFOREFfTUFSS19PV05FUhAKEgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VE",
-          "EAwSEQoNRklFUllfUkFNUEFHRRANEgoKBkJVUk5FRBAOKo8BCg5Mb2JieUV2",
-          "ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAES",
-          "EAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVS",
-          "X0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYq",
-          "MgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JV",
-          "TExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQ",
-          "TE9ERUQQAWIGcHJvdG8z"));
+          "CgoGTU9WSU5HEAsqrAIKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIM",
+          "CghESVNBUk1FRBABEhUKEURFTklBTF9PRl9TRVJWSUNFEAISCQoFUkFHRUQQ",
+          "AxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9PRl9B",
+          "UkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4KCllVR0VOX01BUksQCBIOCgpYQU5E",
+          "QV9NQVJLEAkSFAoQWEFOREFfTUFSS19PV05FUhAKEgwKCFBPSVNPTkVEEAsS",
+          "CgoGU0xPV0VEEAwSEQoNRklFUllfUkFNUEFHRRANEgoKBkJVUk5FRBAOEgsK",
+          "B1NDSEVSWk8QDxIRCg1EQU5TRV9NQUNBQlJFEBASDQoJUEFSQUxZWkVEEBEq",
+          "jwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglD",
+          "T05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQAhIQCgxHQU1FX1NUQVJURUQQ",
+          "AxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFSVF9HQU1FEAUSEgoOUExBWUVS",
+          "X1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlwZRIKCgZCVUxMRVQQABIUChBE",
+          "SVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJ",
+          "VkUQABIMCghFWFBMT0RFRBABYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -251,7 +252,7 @@ public enum PlayerAction {
 public enum PlayerEffect {
   [pbr::OriginalName("PETRIFIED")] Petrified = 0,
   [pbr::OriginalName("DISARMED")] Disarmed = 1,
-  [pbr::OriginalName("PIERCING")] Piercing = 2,
+  [pbr::OriginalName("DENIAL_OF_SERVICE")] DenialOfService = 2,
   [pbr::OriginalName("RAGED")] Raged = 3,
   [pbr::OriginalName("NEON_CRASHING")] NeonCrashing = 4,
   [pbr::OriginalName("LEAPING")] Leaping = 5,
@@ -264,6 +265,9 @@ public enum PlayerEffect {
   [pbr::OriginalName("SLOWED")] Slowed = 12,
   [pbr::OriginalName("FIERY_RAMPAGE")] FieryRampage = 13,
   [pbr::OriginalName("BURNED")] Burned = 14,
+  [pbr::OriginalName("SCHERZO")] Scherzo = 15,
+  [pbr::OriginalName("DANSE_MACABRE")] DanseMacabre = 16,
+  [pbr::OriginalName("PARALYZED")] Paralyzed = 17,
 }
 
 /// <summary>

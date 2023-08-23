@@ -81,7 +81,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
 
   field(:PETRIFIED, 0)
   field(:DISARMED, 1)
-  field(:PIERCING, 2)
+  field(:DENIAL_OF_SERVICE, 2)
   field(:RAGED, 3)
   field(:NEON_CRASHING, 4)
   field(:LEAPING, 5)
@@ -94,6 +94,9 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:SLOWED, 12)
   field(:FIERY_RAMPAGE, 13)
   field(:BURNED, 14)
+  field(:SCHERZO, 15)
+  field(:DANSE_MACABRE, 16)
+  field(:PARALYZED, 17)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do

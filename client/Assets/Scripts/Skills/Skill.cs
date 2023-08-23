@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class Skill : CharacterAbility
 {
+    const float MAX_RANGE = 50f;
+    const float INNER_RANGE = 2.5f;
+
     [SerializeField]
     public string skillId;
 
@@ -308,7 +311,20 @@ public class Skill : CharacterAbility
 
     public float GetSkillRadius()
     {
-        return skillInfo.skillCircleRadius;
+        float radius;
+        switch (skillInfo.skillCircleRadius)
+        {
+            case 0:
+                radius = MAX_RANGE;
+                break;
+            case -1:
+                radius = INNER_RANGE;
+                break;
+            default:
+                radius = skillInfo.skillCircleRadius;
+                break;
+        }
+        return radius;
     }
 
     public void SetSkillRadius(float radius)
@@ -339,5 +355,13 @@ public class Skill : CharacterAbility
     public String GetSkillName()
     {
         return skillInfo.name;
+    }
+
+    public bool ExecutesOnQuickTap(){
+        return skillInfo.executeOnQuickTap;
+    }
+
+    public bool isSelfTargeted(){
+        return skillInfo.skillCircleRadius == -1;
     }
 }

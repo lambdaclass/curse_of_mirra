@@ -47,3 +47,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ed5f9bcdfd56a484ab25ece7481cf63a, type: 2}
   - {fileID: 11400000, guid: 0038c4c9c899e4be8bfed87f2c5317f0, type: 2}
   - {fileID: 11400000, guid: 0ca7b1f6438664a78a478615b9e38db2, type: 2}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 4278227711

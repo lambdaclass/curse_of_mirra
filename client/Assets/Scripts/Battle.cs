@@ -31,6 +31,13 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    // We do this to only have the state effects in the enum instead of all the effects
+    private enum StateEffects
+    {
+        Poisoned = PlayerEffect.Poisoned,
+        Slowed = PlayerEffect.Slowed,
+    }
+
     void Start()
     {
         InitBlockingStates();
@@ -229,7 +236,15 @@ public class Battle : MonoBehaviour
 
             if (actualPlayer.activeSelf)
             {
-                updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                {
+                    updatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                }
+                else
+                {
+                    updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                }
+
                 if (
                     !buffer.timestampAlreadySeen(
                         SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -551,9 +566,21 @@ public class Battle : MonoBehaviour
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
 
-        // var inputFromVirtualJoystick = joystickL is not null;
-
         bool walking = false;
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            if (player.transform.position != frontendPosition)
+            {
+                player.transform.position = new Vector3(
+                    frontendPosition.x,
+                    player.transform.position.y,
+                    frontendPosition.z
+                );
+            }
+            mAnimator.SetBool("Walking", walking);
+            return;
+        }
 
         if (useClientPrediction)
         {
@@ -627,7 +654,6 @@ public class Battle : MonoBehaviour
                 {
                     newPosition.z = Math.Max(frontendPosition.z, newPosition.z);
                 }
-
                 player.transform.position = newPosition;
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
@@ -641,6 +667,7 @@ public class Battle : MonoBehaviour
             }
             walking = true;
         }
+
         mAnimator.SetBool("Walking", walking);
     }
 
@@ -662,8 +689,6 @@ public class Battle : MonoBehaviour
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
-        Text buttonText = GameObject.Find("ToggleClientPredictionText").GetComponent<Text>();
-        buttonText.text = $"Client Prediction {(useClientPrediction ? "On" : "Off")}";
         if (!useClientPrediction)
         {
             TurnOffClientPredictionGhost();
@@ -696,7 +721,7 @@ public class Battle : MonoBehaviour
 
     private void TurnOffClientPredictionGhost()
     {
-        if (showClientPredictionGhost && clientPredictionGhost != null)
+        if (!showClientPredictionGhost && clientPredictionGhost != null)
         {
             clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
             clientPredictionGhost.SetActive(false);
@@ -813,8 +838,12 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
-        ManagePoisonedFeedback(player, playerUpdate);
-        ManageSlowedFeedback(player, playerUpdate);
+        ManageFeedbacks(player, playerUpdate);
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
+        {
+            characterSpeed *= 0.5f;
+        }
 
         if (playerUpdate.CharacterName == "Muflus")
         {
@@ -881,36 +910,29 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            characterSpeed = 0f;
+        }
+
         return characterSpeed;
     }
 
-    private void ManagePoisonedFeedback(GameObject player, Player playerUpdate)
+    private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (
-            PlayerIsAlive(playerUpdate)
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-        )
+        if (playerUpdate.Effects.Keys.Count == 0)
         {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, true);
+            GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
         }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActivePoisonedFeedback(player, false);
-        }
-    }
 
-    private void ManageSlowedFeedback(GameObject player, Player playerUpdate)
-    {
-        if (
-            PlayerIsAlive(playerUpdate)
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed)
-        )
+        foreach (ulong key in playerUpdate.Effects.Keys)
         {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, true);
-        }
-        else
-        {
-            GetComponent<PlayerFeedbacks>().SetActiveSlowedFeedback(player, false);
+            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
+            {
+                string name = Enum.GetName(typeof(StateEffects), effect);
+                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
+                GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+            }
         }
     }
 

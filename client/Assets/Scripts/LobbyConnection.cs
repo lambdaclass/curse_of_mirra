@@ -28,8 +28,8 @@ public class LobbyConnection : MonoBehaviour
     public ServerGameSettings serverSettings;
 
     public bool gameStarted = false;
-    public bool errorConnection = false;
     public bool errorOngoingGame = false;
+    public bool errorConnection = false;
     public string clientId;
     public bool reconnect = false;
     public bool reconnectPossible = false;
@@ -40,6 +40,11 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
+
+    public string ongoingGameTitle = "You have a game in progress";
+    public string ongoingGameDescription = "Do you want to reconnect to the game?";
+    public string connectionTitle = "Error";
+    public string connectionDescription = "Your connection to the server has been lost.";
 
     WebSocket ws;
 
@@ -107,6 +112,9 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
+        this.server_ip = SelectServerIP.GetServerIp();
+        this.server_name = SelectServerIP.GetServerName();
+
         if (Instance != null)
         {
             if (this.ws != null)
@@ -114,12 +122,11 @@ public class LobbyConnection : MonoBehaviour
                 this.ws.Close();
             }
 
+
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
         this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
@@ -233,16 +240,15 @@ public class LobbyConnection : MonoBehaviour
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
             {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
                 case UnityWebRequest.Result.Success:
                     Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
                     Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
                     ConnectToSession(session.lobby_id);
+                    break;
+                default:
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -259,15 +265,14 @@ public class LobbyConnection : MonoBehaviour
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
             {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                case UnityWebRequest.Result.ProtocolError:
-                    break;
                 case UnityWebRequest.Result.Success:
                     var response = JsonUtility.FromJson<LobbiesResponse>(
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
+                    break;
+                default:
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -292,6 +297,7 @@ public class LobbyConnection : MonoBehaviour
                     gamesList = response.current_games;
                     break;
                 default:
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -331,7 +337,10 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectServerSettings = parseReconnectServerSettings(
                             response.game_config
                         );
-                        this.errorOngoingGame = true;
+                        Errors.Instance.HandleReconnectError(
+                            ongoingGameTitle,
+                            ongoingGameDescription
+                        );
                     }
                     break;
                 default:
@@ -345,10 +354,7 @@ public class LobbyConnection : MonoBehaviour
         string url = makeWebsocketUrl("/matchmaking/" + session_id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        ws.OnError += (e) =>
-        {
-            Debug.Log("Error received: " + e);
-        };
+        ws.OnClose += OnWebsocketClose;
         ws.OnOpen += () =>
         {
             LobbySession = session_id;
@@ -409,6 +415,15 @@ public class LobbyConnection : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
+        }
+    }
+
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 

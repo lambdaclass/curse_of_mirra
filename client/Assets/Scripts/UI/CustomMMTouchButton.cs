@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class CustomMMTouchButton : MMTouchButton
 {
     public UnityEvent<Skill> newPointerTapUp;
+    public UnityEvent<Skill> newPointerTapDown;
 
     public Skill skill;
 
@@ -28,5 +29,11 @@ public class CustomMMTouchButton : MMTouchButton
     {
         newPointerTapUp.Invoke(skill);
         base.OnPointerUp(data);
+    }
+
+    public override void OnPointerPressed()
+    {
+        newPointerTapDown.Invoke(skill);
+        base.OnPointerPressed();
     }
 }

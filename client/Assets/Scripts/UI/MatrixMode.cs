@@ -6,12 +6,12 @@ public class MatrixMode : MonoBehaviour
 {
     [SerializeField]
     bool isActive;
+    private bool cameraDefault = true;
     GameObject grid;
     private Camera mainCamera;
     private GameObject mainCameraCM;
     private Vector3 defaultCameraRotation;
     private Vector3 topView = new Vector3(90, 0, 0);
-    private bool cameraDefault = true;
 
     void Start()
     {
@@ -35,6 +35,7 @@ public class MatrixMode : MonoBehaviour
         {
             hitbox.transform.GetChild(0).gameObject.SetActive(isActive);
         }
+        GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(isActive);
     }
 
     public void ToggleCamera()
@@ -50,5 +51,6 @@ public class MatrixMode : MonoBehaviour
             mainCameraCM.transform.rotation = Quaternion.Euler(topView);
             mainCamera.orthographic = true;
         }
+        GetComponent<ToggleButton>().ToggleCamera(cameraDefault);
     }
 }

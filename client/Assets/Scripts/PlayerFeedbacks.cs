@@ -62,13 +62,16 @@ public class PlayerFeedbacks : MonoBehaviour
         InputManager.ActivateDisarmEffect(disarmed);
     }
 
-    public void SetActivePoisonedFeedback(GameObject player, bool value)
+    public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
     {
-        player.transform.Find("Poison").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback(feedbackName, value);
     }
 
-    public void SetActiveSlowedFeedback(GameObject player, bool value)
+    public void ClearAllFeedbacks(GameObject player)
     {
-        player.transform.Find("Slowed").GetComponent<ParticleSystem>().gameObject.SetActive(value);
+        player
+            .GetComponentInChildren<FeedbackContainer>()
+            .GetFeedbackList()
+            .ForEach(el => el.SetActive(false));
     }
 }
