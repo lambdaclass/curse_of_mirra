@@ -72,10 +72,6 @@ public class Battle : MonoBehaviour
     {
         foreach (GameObject player in SocketConnectionManager.Instance.players)
         {
-            // Now: we can access any skill from each player and choose the projectile this skill was assigned
-            // Problem: Instead of only using one skill to set all, we should be able to make a pool for each skill if they have different projectiles
-            // TODO: make it so that each skill has its own projectile
-            // for this, I need to keep on working in both this and ProjectileHandler scripts
             skillProjectiles = player
                 .GetComponents<Skill>()
                 .Select(skill => skill.GetProjectileFromSkill())
