@@ -111,14 +111,8 @@ public class Skill : CharacterAbility
 
     public ProjectileInfo GetProjectileFromSkill()
     {
-        if (skillInfo.projectileInfo)
-        {
-            return skillInfo.projectileInfo;
-        }
-        else
-        {
-            return null;
-        }
+           return skillInfo.projectileInfo ? skillInfo.projectileInfo : null;
+
     }
 
     public void TryExecuteSkill()
