@@ -22,7 +22,7 @@ pub struct Projectile {
     pub status: ProjectileStatus,
     pub last_attacked_player_id: u64,
     pub pierce: bool,
-    pub projectile_name: String,
+    pub projectile_model_name: String,
 }
 
 #[derive(Debug, Clone, NifUnitEnum)]
@@ -51,7 +51,7 @@ impl Projectile {
         status: ProjectileStatus,
         last_attacked_player_id: u64,
         pierce: bool,
-        projectile_name: String,
+        projectile_model_name: String,
     ) -> Self {
         Self {
             id,
@@ -67,7 +67,7 @@ impl Projectile {
             status,
             last_attacked_player_id,
             pierce,
-            projectile_name,
+            projectile_model_name,
         }
     }
     pub fn move_or_explode_if_out_of_board(&mut self, board_height: usize, board_width: usize) {

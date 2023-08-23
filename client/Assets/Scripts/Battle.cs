@@ -423,7 +423,7 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
                 projectileUsed = skillProjectiles
-                    .Where(obj => obj.projectile.name == gameProjectiles[i].ProjectileName)
+                    .Where(obj => obj.projectile.name == gameProjectiles[i].ProjectileModelName)
                     .FirstOrDefault();
                 newProjectile = projectileUsed.projectile
                     .GetComponent<ProjectileHandler>()
