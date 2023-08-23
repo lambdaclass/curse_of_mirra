@@ -482,7 +482,7 @@ impl GameState {
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
                 piercing,
-                "HackShoot".to_string(),
+                "HackSingleshot".to_string(),
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
@@ -742,7 +742,7 @@ impl GameState {
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
                     piercing,
-                    "HackShoot".to_string(),
+                    "HackMultishot".to_string(),
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
@@ -945,7 +945,7 @@ impl GameState {
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
                 false,
-                "ShootAlt".to_string(),
+                "HackAimshot".to_string(),
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
