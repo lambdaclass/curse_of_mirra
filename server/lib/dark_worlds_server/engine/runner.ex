@@ -83,6 +83,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :all_characters_set?, @character_selection_check_ms)
     Process.send_after(self(), :character_selection_time_out, @character_selection_timeout_ms)
     Process.send_after(self(), :check_player_amount, @player_check)
+    Process.send_after(self(), :shrink_map, @map_shrink_wait_ms)
 
     {:ok,
      %{

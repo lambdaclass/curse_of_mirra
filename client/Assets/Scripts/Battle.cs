@@ -474,6 +474,9 @@ public class Battle : MonoBehaviour
         */
         Character character = player.GetComponent<Character>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        Animator modelAnimator = player
+            .GetComponent<Character>()
+            .CharacterModel.GetComponent<Animator>();
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
@@ -558,7 +561,7 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        Animator mAnimator = player
+        Animator modelAnimator = player
             .GetComponent<Character>()
             .CharacterModel.GetComponent<Animator>();
 
@@ -574,7 +577,7 @@ public class Battle : MonoBehaviour
                     frontendPosition.z
                 );
             }
-            mAnimator.SetBool("Walking", walking);
+            modelAnimator.SetBool("Walking", walking);
             return;
         }
 
@@ -664,7 +667,7 @@ public class Battle : MonoBehaviour
             walking = true;
         }
 
-        mAnimator.SetBool("Walking", walking);
+        modelAnimator.SetBool("Walking", walking);
     }
 
     public void SetPlayerDead(Character playerCharacter)
