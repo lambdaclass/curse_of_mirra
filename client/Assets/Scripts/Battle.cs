@@ -78,7 +78,7 @@ public class Battle : MonoBehaviour
             // for this, I need to keep on working in both this and ProjectileHandler scripts
             skillProjectiles = player
                 .GetComponents<Skill>()
-                .Select(p => p.GetProjectileFromSkill())
+                .Select(skill => skill.GetProjectileFromSkill())
                 .Where(p => p != null);
             foreach (ProjectileInfo skillProjectile in skillProjectiles)
             {
