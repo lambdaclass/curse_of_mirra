@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7936224725561424473
+--- !u!114 &-6890108450612821231
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,15 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TrailsSimple_Trail_01_Example
-  m_Shader: {fileID: -6465566751694194690, guid: c7e28235b80d40a4aa279be316006caf,
+  m_Name: MetalBall
+  m_Shader: {fileID: -6465566751694194690, guid: 4e11911a9b9313346925170bf2b846c5,
     type: 3}
   m_ValidKeywords:
-  - _RAMPENABLED_ON
-  m_InvalidKeywords:
-  - _DISSOLVETEXTUREFLIP_ON
-  - _RAMPAFFECTEDBYVERTEXCOLOR_ON
-  m_LightmapFlags: 0
+  - _RIMEMISSIONENABLED_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -37,6 +35,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlbedoDecalMask:
+        m_Texture: {fileID: 2800000, guid: 6e2f2a3a8d74a9f4c9f83fa3ed1a394f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -53,8 +55,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DissolveDirectionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DissolveTexture:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: 4a0283a562862ec4a83d7f636c6ca353, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -62,11 +72,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 249b6de7cb5f42af8ce8f55ecae80a5c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 5fa795c836d026a4aba6568c001b7375, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 930bccd28f7d09c4888931974a417a6b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -77,15 +95,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Ramp:
-        m_Texture: {fileID: 2800000, guid: 305b0879b1924fa8a4599d9ce4e73155, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _tex4coord:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _tex4coord2:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -107,32 +117,39 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlbedoDecalNegate: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DISSOLVETEXTUREFLIP: 1
+    - _DISSOLVEDIRECTIONMASKFLIP: 0
+    - _DISSOLVEMANUALCONTROL: 0
+    - _DISSOLVETEXTUREFLIP: 0
     - _DetailNormalMapScale: 1
-    - _DissolveExp: 2
-    - _DissolveExpReversed: 2
-    - _DissolveTextureScale: 1
+    - _DissolveDirectionScale: 1
+    - _DissolveEmissionExp: 1
+    - _DissolveEmissionOffset: 0
+    - _DissolveEmissionPower: 1
+    - _DissolveEmissionRemapMax: 0.25
+    - _DissolveManualProgress: 0
+    - _DissolveTextureScaleU: 1
+    - _DissolveTextureScaleV: 1
     - _DstBlend: 0
-    - _FinalOpacityPower: 1
-    - _FinalPower: 10
-    - _FlipbookColums: 1
-    - _FlipbookRows: 1
+    - _EMISSIONVSCONTROLENABLED: 0
+    - _EmissionPower: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MainTexRotation: 0
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RAMPAFFECTEDBYVERTEXCOLOR: 1
-    - _RAMPENABLED: 1
-    - _RampAffectedByDynamics: 1
-    - _RampOffsetExp: 1
+    - _RIMEMISSIONAFFECTSMASK: 0
+    - _RIMEMISSIONENABLED: 1
+    - _RimEmissionExp: 4
+    - _RimEmissionNormal: 1
+    - _RimEmissionPower: 16
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -140,9 +157,10 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _AlbedoColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoDecalColor: {r: 0, g: 0.75443625, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveEmissionColor: {r: 0, g: 0.75843525, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
-    - _RampColorTint: {r: 1, g: 0.1921567, b: 0.1921567, a: 1}
+    - _RimEmissionColor: {r: 0.0357399, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []

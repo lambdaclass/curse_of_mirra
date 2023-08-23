@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StormBeacon_LightningStrike_01
+  m_Name: LightningStrike
   m_Shader: {fileID: -6465566751694194690, guid: d641899987d8f764da5c95549691ab93,
     type: 3}
   m_ValidKeywords:
@@ -209,7 +209,7 @@ Material:
     - _Noise01ScrollSpeedV: -0.15
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RAMPAFFECTEDBYVERTEXCOLOR: 0
+    - _RAMPAFFECTEDBYVERTEXCOLOR: 1
     - _RAMPENABLED: 1
     - _RadialDistortionNoisePower: 0
     - _RampAffectedByDynamics: 1
@@ -228,12 +228,12 @@ Material:
     m_Colors:
     - _CustomColorMaskChannels: {r: 1, g: 0, b: 0, a: 0}
     - _FBMainMaskChannelsMultiply: {r: 1, g: 0, b: 0, a: 0}
-    - _FinalColor: {r: 1, g: 0.70005554, b: 0.4575472, a: 1}
+    - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
     - _MVMainMaskChannels: {r: 1, g: 0, b: 0, a: 0}
     - _MVMainMaskChannelsMultiply: {r: 1, g: 0, b: 0, a: 0}
     - _MainMaskChannelsMultiply: {r: 1, g: 1, b: 1, a: 0}
     - _Noise01ScrollSpeedUV: {r: 1, g: 1, b: 0, a: 0}
-    - _RampColorTint: {r: 0.41037738, g: 0.8197727, b: 1, a: 1}
+    - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7132501872871351479
 MonoBehaviour:
