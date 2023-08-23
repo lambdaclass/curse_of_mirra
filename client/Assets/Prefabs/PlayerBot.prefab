@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 1787465996332106806}
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 422279601644613764}
-  - component: {fileID: 7082106210044654820}
   m_Layer: 10
   m_Name: PlayerBot
   m_TagString: Player
@@ -522,27 +521,6 @@ MonoBehaviour:
   AbilityStartFeedbacks: {fileID: 0}
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 0
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
---- !u!114 &7082106210044654820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f642f40564f9404a8e066e25a3e16a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
@@ -1265,6 +1243,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1787465996332106948}
     m_Modifications:
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
+        type: 3}
+      propertyPath: weaponToHighlight
+      value: 
+      objectReference: {fileID: 4060671328190216528}
     - target: {fileID: 1518730323411224541, guid: 2dbdd743c87404d0787e7d0764d32739,
         type: 3}
       propertyPath: m_Name
@@ -1275,11 +1258,6 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5450023447993379102}
-    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
-        type: 3}
-      propertyPath: weaponToHighlight
-      value: 
-      objectReference: {fileID: 4060671328190216528}
     - target: {fileID: 5495881793934213699, guid: 2dbdd743c87404d0787e7d0764d32739,
         type: 3}
       propertyPath: m_RootOrder
