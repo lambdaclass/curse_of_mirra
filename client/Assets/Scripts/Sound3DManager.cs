@@ -5,13 +5,24 @@ using UnityEngine;
 
 public class Sound3DManager : MonoBehaviour
 {
+    private MMF_Player mmf_player;
+
+    void Start()
+    {
+        mmf_player = GetComponent<MMF_Player>();
+    }
+
     public void SetSfxSound(AudioClip sfx)
     {
-        GetComponent<MMF_Player>().GetFeedbackOfType<MMF_MMSoundManagerSound>().Sfx = sfx;
+        mmf_player.GetFeedbackOfType<MMF_MMSoundManagerSound>().Sfx = sfx;
     }
 
     public void PlaySfxSound()
     {
-        GetComponent<MMF_Player>().PlayFeedbacks();
+        AudioClip sfx = mmf_player.GetFeedbackOfType<MMF_MMSoundManagerSound>().Sfx;
+        if (sfx)
+        {
+            mmf_player.PlayFeedbacks();
+        }
     }
 }
