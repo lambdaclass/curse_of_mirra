@@ -496,7 +496,7 @@ public class CustomInputManager : InputManager
 
         SocketConnectionManager.Instance.players.ForEach(p =>
         {
-            if (PlayerCanBeDamagedBySkill(p, skill))
+            if (PlayerIsInSkillRange(p, skill))
             {
                 inRangeTargets.Add(p);
             }
@@ -517,7 +517,7 @@ public class CustomInputManager : InputManager
         return 0f;
     }
 
-    private bool PlayerCanBeDamagedBySkill(GameObject p, Skill skill)
+    private bool PlayerIsInSkillRange(GameObject p, Skill skill)
     {
         float distance = Vector3.Distance(_player.transform.position, p.transform.position);
         float rangeOfAttack = skill.GetSkillRadius();
