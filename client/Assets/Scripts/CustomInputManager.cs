@@ -492,16 +492,16 @@ public class CustomInputManager : InputManager
 
     private List<GameObject> GetTargetsInSkillRange(Skill skill)
     {
-        List<GameObject> nearestTargets = new List<GameObject>();
+        List<GameObject> inRangeTargets = new List<GameObject>();
 
         SocketConnectionManager.Instance.players.ForEach(p =>
         {
             if (PlayerCanBeDamagedBySkill(p, skill))
             {
-                nearestTargets.Add(p);
+                inRangeTargets.Add(p);
             }
         });
-        return nearestTargets;
+        return inRangeTargets;
     }
 
     private float GetSkillAngle(Skill skill)
