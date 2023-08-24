@@ -491,16 +491,20 @@ public class CustomInputManager : InputManager
 
     private List<GameObject> GetTargetsInSkillRange(Skill skill)
     {
-        float rangeOfAttack = skill.GetSkillRadius();
-        List<GameObject> nearestTargets = new List<GameObject>();
-        SocketConnectionManager.Instance.players.ForEach(p =>
+        if (skill.GetType() == typeof(SkillBasic))
         {
-            float distance = Vector3.Distance(transform.position, p.transform.position);
-            if (distance <= rangeOfAttack)
+            float rangeOfAttack = skill.GetSkillRadius();
+            List<GameObject> nearestTargets = new List<GameObject>();
+            SocketConnectionManager.Instance.players.ForEach(p =>
             {
-                nearestTargets.Add(p);
-            }
-        });
-        return nearestTargets;
+                float distance = Vector3.Distance(_player.transform.position, p.transform.position);
+                if (p.name != _player.name && distance <= rangeOfAttack)
+                {
+                    nearestTargets.Add(p);
+                }
+            });
+            return nearestTargets;
+        }
+        return new List<GameObject>();
     }
 }
