@@ -10,6 +10,13 @@ public class LobbiesManager : LevelSelector
     [SerializeField]
     LobbiesListItem listItem;
 
+    public static LobbiesManager Instance;
+
+    void Start()
+    {
+        Instance = this;
+    }
+
     public override void GoToLevel()
     {
         base.GoToLevel();
@@ -21,9 +28,9 @@ public class LobbiesManager : LevelSelector
         StartCoroutine(WaitForLobbyCreation());
     }
 
-    public void ConnectToLobby()
+    public void ConnectToLobby(string idHash)
     {
-        StartCoroutine(WaitForLobbyJoin());
+        StartCoroutine(WaitForLobbyJoin(idHash));
     }
 
     public void Back()
@@ -61,9 +68,9 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene("CharacterSelection");
     }
 
-    public IEnumerator WaitForLobbyJoin()
+    public IEnumerator WaitForLobbyJoin(string idHash)
     {
-        LobbyConnection.Instance.ConnectToLobby(listItem.idHash);
+        LobbyConnection.Instance.ConnectToLobby(idHash);
         yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
