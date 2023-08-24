@@ -419,7 +419,7 @@ public class CustomInputManager : InputManager
         }
     }
 
-    public void ShowTargetsInSkillRange(Skill skill)
+    private void ShowTargetsInSkillRange(Skill skill)
     {
         if (skill.GetType() == typeof(SkillBasic))
         {
