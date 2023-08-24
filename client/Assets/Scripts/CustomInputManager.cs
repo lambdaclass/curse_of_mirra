@@ -510,13 +510,25 @@ public class CustomInputManager : InputManager
             .GetComponent<CharacterOrientation3D>()
             .ForcedRotationDirection;
 
+        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        float skillAngle = 0f;
+        foreach (var s in skills)
+        {
+            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
+            {
+                skillAngle = float.Parse(s.Angle);
+            }
+        }
+
+        Debug.Log("Skill angle: " + skillAngle);
+
         SocketConnectionManager.Instance.players.ForEach(p =>
         {
             float distance = Vector3.Distance(_player.transform.position, p.transform.position);
             Vector3 targetDirection = p.transform.position - _player.transform.position;
             float angle = Vector3.Angle(attackDirection, targetDirection);
 
-            if (p.name != _player.name && distance <= rangeOfAttack && angle <= 70)
+            if (p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2)
             {
                 nearestTargets.Add(p);
             }
