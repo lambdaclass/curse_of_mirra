@@ -1,12 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using MoreMountains.TopDownEngine;
-using System;
-using System.Collections.Generic;
-using TMPro;
-using System.Collections;
 
 public enum UIControls
 {
@@ -243,6 +243,7 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -419,6 +420,16 @@ public class CustomInputManager : InputManager
         }
     }
 
+    public void ShowTargetsInSkillRange(Skill skill)
+    {
+        Debug.Log("Targets in range");
+        GetTargetsInSkillRange(skill)
+            .ForEach(p =>
+            {
+                Debug.Log("Target: " + p);
+            });
+    }
+
     public void HideSkillRange()
     {
         Transform skillRange = _player.transform.Find("SkillRange");
@@ -476,5 +487,20 @@ public class CustomInputManager : InputManager
     public void ToggleCanceled(bool value)
     {
         cancelButton.SetActive(value);
+    }
+
+    private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    {
+        float rangeOfAttack = skill.GetSkillRadius();
+        List<GameObject> nearestTargets = new List<GameObject>();
+        SocketConnectionManager.Instance.players.ForEach(p =>
+        {
+            float distance = Vector3.Distance(transform.position, p.transform.position);
+            if (distance <= rangeOfAttack)
+            {
+                nearestTargets.Add(p);
+            }
+        });
+        return nearestTargets;
     }
 }
