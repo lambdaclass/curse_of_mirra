@@ -494,34 +494,40 @@ public class CustomInputManager : InputManager
     {
         List<GameObject> nearestTargets = new List<GameObject>();
 
-        float rangeOfAttack = skill.GetSkillRadius();
-        Vector3 attackDirection = _player
-            .GetComponent<CharacterOrientation3D>()
-            .ForcedRotationDirection;
-
-        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
-        float skillAngle = 0f;
-        foreach (var s in skills)
-        {
-            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
-            {
-                skillAngle = float.Parse(s.Angle);
-            }
-        }
-
-        Debug.Log("Skill angle: " + skillAngle);
-
         SocketConnectionManager.Instance.players.ForEach(p =>
         {
-            float distance = Vector3.Distance(_player.transform.position, p.transform.position);
-            Vector3 targetDirection = p.transform.position - _player.transform.position;
-            float angle = Vector3.Angle(attackDirection, targetDirection);
-
-            if (p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2)
+            if (PlayerCanBeDamagedBySkill(p, skill))
             {
                 nearestTargets.Add(p);
             }
         });
         return nearestTargets;
+    }
+
+    private float GetSkillAngle(Skill skill)
+    {
+        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        foreach (var s in skills)
+        {
+            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
+            {
+                return float.Parse(s.Angle);
+            }
+        }
+        return 0f;
+    }
+
+    private bool PlayerCanBeDamagedBySkill(GameObject p, Skill skill)
+    {
+        float distance = Vector3.Distance(_player.transform.position, p.transform.position);
+        float rangeOfAttack = skill.GetSkillRadius();
+        float skillAngle = GetSkillAngle(skill);
+        Vector3 targetDirection = p.transform.position - _player.transform.position;
+        Vector3 attackDirection = _player
+            .GetComponent<CharacterOrientation3D>()
+            .ForcedRotationDirection;
+        float angle = Vector3.Angle(attackDirection, targetDirection);
+
+        return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
     }
 }
