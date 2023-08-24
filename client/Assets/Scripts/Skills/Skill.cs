@@ -204,8 +204,6 @@ public class Skill : CharacterAbility
 
             GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
             GetComponentInChildren<Sound3DManager>().PlaySfxSound();
-
-            // this.PlayAbilityStartSfx();
         }
 
         if (skillInfo.feedbackVfx)
