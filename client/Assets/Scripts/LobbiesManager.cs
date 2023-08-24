@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class LobbiesManager : LevelSelector
 {
-    [SerializeField]
-    LobbiesListItem listItem;
-
     public static LobbiesManager Instance;
 
     void Start()
