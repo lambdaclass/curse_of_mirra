@@ -202,7 +202,10 @@ public class Skill : CharacterAbility
                 );
             }
 
-            PlayAbilityStartSfx();
+            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
+
+            // this.PlayAbilityStartSfx();
         }
 
         if (skillInfo.feedbackVfx)
@@ -346,11 +349,13 @@ public class Skill : CharacterAbility
         return skillInfo.name;
     }
 
-    public bool ExecutesOnQuickTap(){
+    public bool ExecutesOnQuickTap()
+    {
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted(){
+    public bool isSelfTargeted()
+    {
         return skillInfo.skillCircleRadius == -1;
     }
 }
