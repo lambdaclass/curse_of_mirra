@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
@@ -427,17 +426,7 @@ public class CustomInputManager : InputManager
             var targetsInRange = GetTargetsInSkillRange(skill);
             targetsInRange.ForEach(p =>
             {
-                Character character = p.GetComponent<Character>();
-                for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-                {
-                    Renderer renderer = character.CharacterModel.transform
-                        .GetChild(i)
-                        .GetComponent<Renderer>();
-                    if (renderer)
-                    {
-                        renderer.material.color = Color.yellow;
-                    }
-                }
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.yellow);
             });
         }
     }
