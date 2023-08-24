@@ -422,12 +422,26 @@ public class CustomInputManager : InputManager
 
     public void ShowTargetsInSkillRange(Skill skill)
     {
-        Debug.Log("Targets in range");
-        GetTargetsInSkillRange(skill)
-            .ForEach(p =>
+        if (skill.GetType() == typeof(SkillBasic))
+        {
+            Debug.Log("Targets in range");
+            var targetsInRange = GetTargetsInSkillRange(skill);
+            targetsInRange.ForEach(p =>
             {
                 Debug.Log("Target: " + p);
+                Character character = p.GetComponent<Character>();
+                for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
+                {
+                    Renderer renderer = character.CharacterModel.transform
+                        .GetChild(i)
+                        .GetComponent<Renderer>();
+                    if (renderer)
+                    {
+                        renderer.material.color = Color.yellow;
+                    }
+                }
             });
+        }
     }
 
     public void HideSkillRange()
@@ -491,20 +505,16 @@ public class CustomInputManager : InputManager
 
     private List<GameObject> GetTargetsInSkillRange(Skill skill)
     {
-        if (skill.GetType() == typeof(SkillBasic))
+        float rangeOfAttack = skill.GetSkillRadius();
+        List<GameObject> nearestTargets = new List<GameObject>();
+        SocketConnectionManager.Instance.players.ForEach(p =>
         {
-            float rangeOfAttack = skill.GetSkillRadius();
-            List<GameObject> nearestTargets = new List<GameObject>();
-            SocketConnectionManager.Instance.players.ForEach(p =>
+            float distance = Vector3.Distance(_player.transform.position, p.transform.position);
+            if (p.name != _player.name && distance <= rangeOfAttack)
             {
-                float distance = Vector3.Distance(_player.transform.position, p.transform.position);
-                if (p.name != _player.name && distance <= rangeOfAttack)
-                {
-                    nearestTargets.Add(p);
-                }
-            });
-            return nearestTargets;
-        }
-        return new List<GameObject>();
+                nearestTargets.Add(p);
+            }
+        });
+        return nearestTargets;
     }
 }
