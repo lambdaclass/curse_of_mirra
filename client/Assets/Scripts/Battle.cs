@@ -237,15 +237,6 @@ public class Battle : MonoBehaviour
             {
                 SetPlayerDead(playerCharacter);
             }
-            else if (
-                (
-                    playerCharacter.ConditionState.CurrentState
-                    == CharacterStates.CharacterConditions.Dead
-                ) && (serverPlayerUpdate.Health == 100)
-            )
-            {
-                SetPlayerAlive(playerCharacter);
-            }
 
             if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
             {
@@ -512,7 +503,7 @@ public class Battle : MonoBehaviour
             healthComponent.SetHealth(playerUpdate.Health);
         }
 
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
+        // GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
     }
 
     private void HandleMovement(
@@ -645,6 +636,7 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(Character playerCharacter)
     {
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
