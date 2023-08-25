@@ -421,7 +421,7 @@ public class CustomInputManager : InputManager
 
     private void ShowTargetsInSkillRange(Skill skill)
     {
-        if (skill.GetType() == typeof(SkillBasic))
+        if (ShouldShowTargetsInSkillRange(skill))
         {
             var targetsInRange = GetTargetsInSkillRange(skill);
             targetsInRange.ForEach(p =>
@@ -527,7 +527,13 @@ public class CustomInputManager : InputManager
             .GetComponent<CharacterOrientation3D>()
             .ForcedRotationDirection;
         float angle = Vector3.Angle(attackDirection, targetDirection);
-
+        Debug.Log("Skill Angle" + skillAngle);
+        Debug.Log("Angle" + angle);
         return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
+    }
+
+    private bool ShouldShowTargetsInSkillRange(Skill skill)
+    {
+        return skill.GetType() == typeof(SkillBasic) || skill.GetSkillName() == "BARREL ROLL";
     }
 }
