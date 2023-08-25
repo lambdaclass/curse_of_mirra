@@ -58,6 +58,7 @@ public class LobbyConnection : MonoBehaviour
     public class LobbiesResponse
     {
         public List<string> lobbies;
+        public string server_version;
     }
 
     [Serializable]
@@ -122,7 +123,6 @@ public class LobbyConnection : MonoBehaviour
                 this.ws.Close();
             }
 
-
             Destroy(gameObject);
             return;
         }
@@ -172,6 +172,10 @@ public class LobbyConnection : MonoBehaviour
 
     public void ConnectToLobby(string matchmaking_id)
     {
+        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
+        {
+            print("versions do not match!");
+        }
         ConnectToSession(matchmaking_id);
         LobbySession = matchmaking_id;
     }
@@ -270,6 +274,7 @@ public class LobbyConnection : MonoBehaviour
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
+                    serverHash = response.server_version;
                     break;
                 default:
                     Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
