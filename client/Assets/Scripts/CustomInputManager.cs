@@ -527,8 +527,6 @@ public class CustomInputManager : InputManager
             .GetComponent<CharacterOrientation3D>()
             .ForcedRotationDirection;
         float angle = Vector3.Angle(attackDirection, targetDirection);
-        Debug.Log("Skill Angle" + skillAngle);
-        Debug.Log("Angle" + angle);
         return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
     }
 
