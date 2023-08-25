@@ -1,5 +1,4 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
-  alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
@@ -14,7 +13,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.RunnerConfig
   alias DarkWorldsServer.Communication.Proto.ServerGameSettings
   alias DarkWorldsServer.Communication.Proto.SkillConfigItem
-  alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias DarkWorldsServer.Engine.Player, as: EnginePlayer
@@ -44,20 +42,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     millis_time
   end
 
-  def encode(skill_config, SkillsConfig) do
-    skill_config
-  end
-
   def encode(skill_config_item, SkillConfigItem) do
     skill_config_item
   end
 
   def encode(runner_config, RunnerConfig) do
     runner_config
-  end
-
-  def encode(character_config, CharacterConfig) do
-    character_config
   end
 
   def encode(character_config_item, CharacterConfigItem) do
@@ -99,13 +89,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       use_proxy: use_proxy
     }
 
-    character_config = %CharacterConfig{
-      Items: character_config[:Items]
-    }
-
-    skills_config = %SkillsConfig{
-      Items: skills_config[:Items]
-    }
+    character_config = Enum.map(character_config, & struct!(CharacterConfigItem, &1))
+    skills_config = Enum.map(skills_config, & struct!(SkillConfigItem, &1))
 
     %ServerGameSettings{
       runner_config: runner_config,

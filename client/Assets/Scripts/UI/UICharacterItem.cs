@@ -40,7 +40,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public bool isActive()
     {
-        var charactersList = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        var charactersList = LobbyConnection.Instance.serverSettings.CharacterConfig;
         foreach (var character in charactersList)
         {
             if (comCharacter.name == character.Name)

@@ -353,16 +353,6 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
 end
 
-defmodule LoadTest.Communication.Proto.GameConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:board_size, 1, type: LoadTest.Communication.Proto.BoardSize, json_name: "boardSize")
-  field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
-  field(:game_timeout_ms, 3, type: :uint64, json_name: "gameTimeoutMs")
-end
-
 defmodule LoadTest.Communication.Proto.BoardSize do
   @moduledoc false
 
@@ -389,22 +379,6 @@ defmodule LoadTest.Communication.Proto.CharacterConfigItem do
   field(:SkillDash, 10, type: :string)
   field(:SkillUltimate, 11, type: :string)
   field(:BodySize, 12, type: :string)
-end
-
-defmodule LoadTest.Communication.Proto.CharacterConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.CharacterConfigItem)
-end
-
-defmodule LoadTest.Communication.Proto.SkillsConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.SkillConfigItem)
 end
 
 defmodule LoadTest.Communication.Proto.SkillConfigItem do
@@ -442,12 +416,14 @@ defmodule LoadTest.Communication.Proto.ServerGameSettings do
   )
 
   field(:character_config, 2,
-    type: LoadTest.Communication.Proto.CharacterConfig,
+    repeated: true,
+    type: LoadTest.Communication.Proto.CharacterConfigItem,
     json_name: "characterConfig"
   )
 
   field(:skills_config, 3,
-    type: LoadTest.Communication.Proto.SkillsConfig,
+    repeated: true,
+    type: LoadTest.Communication.Proto.SkillConfigItem,
     json_name: "skillsConfig"
   )
 end

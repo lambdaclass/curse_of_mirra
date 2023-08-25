@@ -321,9 +321,9 @@ public class LobbyConnection : MonoBehaviour
                             player => this.reconnectPlayers.Add(player.id, player.character_name)
                         );
 
-                        this.reconnectServerSettings = parseReconnectServerSettings(
-                            response.game_config
-                        );
+                        // this.reconnectServerSettings = parseReconnectServerSettings(
+                        //     response.game_config
+                        // );
                         this.errorOngoingGame = true;
                     }
                     break;
@@ -442,23 +442,23 @@ public class LobbyConnection : MonoBehaviour
         return ws.State == NativeWebSocket.WebSocketState.Open;
     }
 
-    private ServerGameSettings parseReconnectServerSettings(CurrentGameResponse.Configs configs)
-    {
-        JsonParser parser = new JsonParser(new JsonParser.Settings(100000)); //GameSettings
+//     private ServerGameSettings parseReconnectServerSettings(CurrentGameResponse.Configs configs)
+//     {
+//         JsonParser parser = new JsonParser(new JsonParser.Settings(100000)); //GameSettings
 
-        RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
-            configs.runner_config.TrimStart('\uFEFF')
-        );
-        CharacterConfig characters = parser.Parse<CharacterConfig>(
-            configs.character_config.TrimStart('\uFEFF')
-        );
-        SkillsConfig skills = parser.Parse<SkillsConfig>(configs.skills_config.TrimStart('\uFEFF'));
+//         RunnerConfig parsedRunner = parser.Parse<RunnerConfig>(
+//             configs.runner_config.TrimStart('\uFEFF')
+//         );
+//         CharacterConfig characters = parser.Parse<CharacterConfig>(
+//             configs.character_config.TrimStart('\uFEFF')
+//         );
+//         SkillsConfig skills = parser.Parse<SkillsConfig>(configs.skills_config.TrimStart('\uFEFF'));
 
-        return new ServerGameSettings
-        {
-            RunnerConfig = parsedRunner,
-            CharacterConfig = characters,
-            SkillsConfig = skills,
-        };
-    }
+//         return new ServerGameSettings
+//         {
+//             RunnerConfig = parsedRunner,
+//             CharacterConfig = characters,
+//             SkillsConfig = skills,
+//         };
+//     }
 }

@@ -248,12 +248,6 @@ message RunnerConfig {
     uint64 map_shrink_minimum_radius = 10;
 }
 
-message GameConfig {
-    BoardSize board_size = 1;
-    uint64 server_tickrate_ms = 2;
-    uint64 game_timeout_ms = 3;
-}
-
 message BoardSize {
     uint64 width = 1;
     uint64 height = 2;

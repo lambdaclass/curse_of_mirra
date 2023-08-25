@@ -60,7 +60,7 @@ public class PlayerControls : MonoBehaviour
         if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
         {
             var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig;
 
             foreach (var character in chars)
             {

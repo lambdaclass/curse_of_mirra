@@ -386,22 +386,6 @@ defmodule DarkWorldsServer.Communication.Proto.RunnerConfig do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.GameConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:board_size, 1,
-    type: DarkWorldsServer.Communication.Proto.BoardSize,
-    json_name: "boardSize"
-  )
-
-  field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
-  field(:game_timeout_ms, 3, type: :uint64, json_name: "gameTimeoutMs")
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
 defmodule DarkWorldsServer.Communication.Proto.BoardSize do
   @moduledoc false
 
@@ -430,26 +414,6 @@ defmodule DarkWorldsServer.Communication.Proto.CharacterConfigItem do
   field(:SkillDash, 10, type: :string)
   field(:SkillUltimate, 11, type: :string)
   field(:BodySize, 12, type: :string)
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
-defmodule DarkWorldsServer.Communication.Proto.CharacterConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:Items, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.CharacterConfigItem)
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
-defmodule DarkWorldsServer.Communication.Proto.SkillsConfig do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field(:Items, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.SkillConfigItem)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -491,12 +455,14 @@ defmodule DarkWorldsServer.Communication.Proto.ServerGameSettings do
   )
 
   field(:character_config, 2,
-    type: DarkWorldsServer.Communication.Proto.CharacterConfig,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.CharacterConfigItem,
     json_name: "characterConfig"
   )
 
   field(:skills_config, 3,
-    type: DarkWorldsServer.Communication.Proto.SkillsConfig,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.SkillConfigItem,
     json_name: "skillsConfig"
   )
 
