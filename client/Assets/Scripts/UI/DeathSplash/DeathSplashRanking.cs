@@ -6,7 +6,7 @@ public class DeathSplashRanking : MonoBehaviour
     private void OnEnable()
     {
         var ranking = GetRanking();
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = ranking.ToString();
+        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "# " + ranking.ToString();
     }
 
     private int GetRanking()
