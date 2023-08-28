@@ -39,8 +39,9 @@ jobs:
           SCRIPT_DEST: "/root/deploy-script/"
         run: |
           set -ex
-          scp -o StrictHostKeyChecking=no \
-              -i id_ed25519_testing \
+          mkdir -p ~/.ssh/
+          ssh-keyscan $HOST >> ~/.ssh/known_hosts
+          scp -i id_ed25519_testing \
               -P ${SSH_PORT} \
               ${SCRIPT_SRC} \
               ${SSH_USERNAME}@${SSH_HOST}:${SCRIPT_DEST}
@@ -63,8 +64,9 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           set -ex
-          ssh -o StrictHostKeyChecking=no \
-              -i id_ed25519_testing \
+          mkdir -p ~/.ssh/
+          ssh-keyscan $HOST >> ~/.ssh/known_hosts
+          ssh -i id_ed25519_testing \
               -p ${SSH_PORT} \
               ${SSH_USERNAME}@${SSH_HOST} \
                 BRANCH_NAME=${BRANCH_NAME} \
