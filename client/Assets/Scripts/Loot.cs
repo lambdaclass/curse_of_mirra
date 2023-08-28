@@ -23,11 +23,6 @@ public class Loot : MonoBehaviour
         );
     }
 
-    void Update()
-    {
-        UpdateLoots();
-    }
-
     public void MaybeAddLoot(LootPackage loot)
     {
         if (!loots.ContainsKey(loot.Id))
@@ -67,7 +62,7 @@ public class Loot : MonoBehaviour
         loots.Remove(id);
     }
 
-    private void UpdateLoots()
+    public void UpdateLoots()
     {
         List<LootPackage> updatedLoots = SocketConnectionManager.Instance.updatedLoots;
         RemoveLoots(updatedLoots);
