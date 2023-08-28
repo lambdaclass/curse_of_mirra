@@ -23,7 +23,7 @@ public class Loot : MonoBehaviour
         );
     }
 
-    public void MaybeAddLoot(LootPackage loot)
+    private void MaybeAddLoot(LootPackage loot)
     {
         if (!loots.ContainsKey(loot.Id))
         {
@@ -38,7 +38,7 @@ public class Loot : MonoBehaviour
         }
     }
 
-    public void RemoveLoots(List<LootPackage> updatedLoots)
+    private void RemoveLoots(List<LootPackage> updatedLoots)
     {
         var idsToRemove = this.loots.Keys.Except(updatedLoots.Select(loot => loot.Id)).ToList();
         idsToRemove.ForEach(RemoveLoot);
