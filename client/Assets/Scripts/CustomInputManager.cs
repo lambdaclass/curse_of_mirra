@@ -1,12 +1,11 @@
-using MoreMountains.Tools;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using MoreMountains.TopDownEngine;
-using System;
-using System.Collections.Generic;
-using TMPro;
-using System.Collections;
 
 public enum UIControls
 {
@@ -243,6 +242,7 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -419,6 +419,18 @@ public class CustomInputManager : InputManager
         }
     }
 
+    private void ShowTargetsInSkillRange(Skill skill)
+    {
+        if (ShouldShowTargetsInSkillRange(skill))
+        {
+            var targetsInRange = GetTargetsInSkillRange(skill);
+            targetsInRange.ForEach(p =>
+            {
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.yellow);
+            });
+        }
+    }
+
     public void HideSkillRange()
     {
         Transform skillRange = _player.transform.Find("SkillRange");
@@ -476,5 +488,50 @@ public class CustomInputManager : InputManager
     public void ToggleCanceled(bool value)
     {
         cancelButton.SetActive(value);
+    }
+
+    private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    {
+        List<GameObject> inRangeTargets = new List<GameObject>();
+
+        SocketConnectionManager.Instance.players.ForEach(p =>
+        {
+            if (PlayerIsInSkillRange(p, skill))
+            {
+                inRangeTargets.Add(p);
+            }
+        });
+        return inRangeTargets;
+    }
+
+    private float GetSkillAngle(Skill skill)
+    {
+        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        foreach (var s in skills)
+        {
+            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
+            {
+                return float.Parse(s.Angle);
+            }
+        }
+        return 0f;
+    }
+
+    private bool PlayerIsInSkillRange(GameObject p, Skill skill)
+    {
+        float distance = Vector3.Distance(_player.transform.position, p.transform.position);
+        float rangeOfAttack = skill.GetSkillRadius();
+        float skillAngle = GetSkillAngle(skill);
+        Vector3 targetDirection = p.transform.position - _player.transform.position;
+        Vector3 attackDirection = _player
+            .GetComponent<CharacterOrientation3D>()
+            .ForcedRotationDirection;
+        float angle = Vector3.Angle(attackDirection, targetDirection);
+        return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
+    }
+
+    private bool ShouldShowTargetsInSkillRange(Skill skill)
+    {
+        return skill.GetType() == typeof(SkillBasic) || skill.GetSkillName() == "BARREL ROLL";
     }
 }

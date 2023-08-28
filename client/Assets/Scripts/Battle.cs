@@ -835,32 +835,10 @@ public class Battle : MonoBehaviour
         }
 
         // TODO: Temporary out of area feedback. Refactor!
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
-        {
-            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-            {
-                Renderer renderer = character.CharacterModel.transform
-                    .GetChild(i)
-                    .GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.color = Color.magenta;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-            {
-                Renderer renderer = character.CharacterModel.transform
-                    .GetChild(i)
-                    .GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.color = Color.white;
-                }
-            }
-        }
+        Color color = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea)
+            ? Color.magenta
+            : Color.white;
+        Utils.ChangeCharacterMaterialColor(character, color);
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
