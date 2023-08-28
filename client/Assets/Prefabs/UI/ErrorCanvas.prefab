@@ -2520,7 +2520,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8527848005455240905}
         m_TargetAssemblyTypeName: Errors, Assembly-CSharp
-        m_MethodName: HideConnectionError
+        m_MethodName: HideVersionHashesError
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
