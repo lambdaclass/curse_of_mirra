@@ -45,6 +45,8 @@ public class LobbyConnection : MonoBehaviour
     public string ongoingGameDescription = "Do you want to reconnect to the game?";
     public string connectionTitle = "Error";
     public string connectionDescription = "Your connection to the server has been lost.";
+    public string versionHashesTitle = "Warning";
+    public string versionHashesDescription = "Client and Server version hashes do not match.";
 
     WebSocket ws;
 
@@ -167,17 +169,23 @@ public class LobbyConnection : MonoBehaviour
 
     public void CreateLobby()
     {
+        ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
     {
-        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
-        {
-            print("versions do not match!");
-        }
+        ValidateVersionHashes();
         ConnectToSession(matchmaking_id);
         LobbySession = matchmaking_id;
+    }
+
+    private void ValidateVersionHashes()
+    {
+        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
+        {
+            Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
+        }
     }
 
     public void Refresh()
@@ -190,6 +198,7 @@ public class LobbyConnection : MonoBehaviour
 
     public void QuickGame()
     {
+        ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
         StartCoroutine(WaitLobbyCreated());
     }
