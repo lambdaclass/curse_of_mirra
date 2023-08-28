@@ -484,14 +484,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkContainer: {fileID: 8267120923094508676}
   reconnectContainer: {fileID: 1363157890069194910}
-  versionHashesContainer: {fileID: 0}
+  versionHashesContainer: {fileID: 1110838960303246881}
   networkError: {fileID: 616493643117480772}
   networkDescription: {fileID: 7972956687184492834}
   reconnectError: {fileID: 229831299558115702}
   reconnectDescription: {fileID: 6855265142506033742}
   yesButton: {fileID: 8357837723953142230}
-  versionHashesWarning: {fileID: 0}
-  versionHashesDescription: {fileID: 0}
+  versionHashesWarning: {fileID: 5315715249132799385}
+  versionHashesDescription: {fileID: 5189096576004997166}
 --- !u!1 &2373502916361808161
 GameObject:
   m_ObjectHideFlags: 0
