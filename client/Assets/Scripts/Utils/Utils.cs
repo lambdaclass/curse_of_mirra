@@ -38,14 +38,12 @@ public class Utils
     public static Player GetGamePlayer(ulong id)
     {
         Player player = null;
+        if (
+            SocketConnectionManager.Instance.gamePlayers != null
+            && SocketConnectionManager.Instance.gamePlayers.Count > 0
+        )
         {
-            if (
-                SocketConnectionManager.Instance.gamePlayers != null
-                && SocketConnectionManager.Instance.gamePlayers.Count > 0
-            )
-            {
-                player = SocketConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
-            }
+            player = SocketConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
         }
         return player;
     }
