@@ -115,6 +115,36 @@ public class AimDirection : MonoBehaviour
         cone.GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    private Vector3 GetBisectorDirection()
+    {
+        Vector3[] coneVertices = cone.GetComponent<MeshFilter>().mesh.vertices;
+
+        Vector3 bisectorDirection = Vector3.zero;
+
+        foreach (Vector3 vertex in coneVertices)
+        {
+            Vector3 worldVertex = cone.transform.TransformPoint(vertex);
+            bisectorDirection += worldVertex.normalized;
+        }
+
+        bisectorDirection.Normalize();
+
+        return bisectorDirection;
+    }
+
+    public bool isInsideCone(GameObject player)
+    {
+        Vector3 bisectorDirection = GetBisectorDirection();
+        Vector3 playerDirection = player.transform.position - cone.transform.position;
+        print("player: " + player.transform.position);
+        print("cone: " + cone.transform.position);
+        print("playerDirection: " + playerDirection);
+        float angle = Vector3.Angle(playerDirection, bisectorDirection);
+        print("angle: " + angle);
+        print("fov: " + fov);
+        return angle <= fov / 2;
+    }
+
     public Vector3 GetVectorFromAngle(float angle)
     {
         float angleRad = angle * (Mathf.PI / 180f);

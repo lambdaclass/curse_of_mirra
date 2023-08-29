@@ -325,7 +325,6 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        print("ShowAimDirectionSkill");
         directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         directionIndicator.SetConeIndicator();
@@ -347,7 +346,6 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
-        print("ShowAimDirectionTargetsSkill");
         ShowSkillRange(skill);
         ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
@@ -355,7 +353,6 @@ public class CustomInputManager : InputManager
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
-        print("AimDirectionSkill");
         directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
         directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystickStatus = canceled;
@@ -363,7 +360,6 @@ public class CustomInputManager : InputManager
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
-        print("ExecuteDirectionSkill");
         directionIndicator.DeactivateIndicator();
 
         HideSkillRange();
@@ -444,10 +440,6 @@ public class CustomInputManager : InputManager
         if (ShouldShowTargetsInSkillRange(skill))
         {
             var targetsInRange = GetTargetsInSkillRange(skill);
-            if (targetsInRange.Count > 0)
-            {
-                print("TARGET DETECTED");
-            }
             targetsInRange.ForEach(p =>
             {
                 Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.red);
@@ -535,7 +527,6 @@ public class CustomInputManager : InputManager
         {
             if (s.Name.ToLower() == skill.GetSkillName().ToLower())
             {
-                print("SKILL FOUND: " + s.Name + " " + s.Angle);
                 return float.Parse(s.Angle);
             }
         }
@@ -543,6 +534,15 @@ public class CustomInputManager : InputManager
     }
 
     private bool PlayerIsInSkillRange(GameObject p, Skill skill)
+    {
+        if (skill.GetSkillName() == "MULTISHOT")
+        {
+            return PlayerIsInSkillDirectionRange(p, skill);
+        }
+        return PlayerIsInSkillProximityRange(p, skill);
+    }
+
+    private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
     {
         float distance = Vector3.Distance(_player.transform.position, p.transform.position);
         float rangeOfAttack = skill.GetSkillRadius();
@@ -553,11 +553,12 @@ public class CustomInputManager : InputManager
             .ForcedRotationDirection;
         float angle = Vector3.Angle(attackDirection, targetDirection);
 
-        print("distance: " + distance);
-        print("rangeOfAttack: " + rangeOfAttack);
-        print("skillAngle: " + skillAngle);
-        print("angle: " + angle);
         return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
+    }
+
+    private bool PlayerIsInSkillDirectionRange(GameObject p, Skill skill)
+    {
+        return p.name != _player.name && directionIndicator.isInsideCone(p);
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)
