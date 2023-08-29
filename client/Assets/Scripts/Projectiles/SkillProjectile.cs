@@ -10,7 +10,7 @@ public class SkillProjectile : MonoBehaviour
     [SerializeField]
     public ProjectileInfo projectileInfo;
 
-    public void SetProjectilePooler()
+    public void CreateProjectilePooler()
     {
         objectPooler = Utils.SimpleObjectPooler(
             gameObject.name + "Pooler",
@@ -34,16 +34,18 @@ public class SkillProjectile : MonoBehaviour
         transform.position = position;
     }
 
-    public void ProjectileCollision(string resourceName)
+    public void ProcessProjectilesCollision(GameObject projectileFeedback)
     {
         gameObject.SetActive(false);
-        GameObject projectileFeedback =
-            Instantiate(Resources.Load(resourceName, typeof(GameObject))) as GameObject;
-        Destroy(projectileFeedback, 1f);
-        projectileFeedback.transform.position = transform.position;
+        GameObject feedback = Instantiate(
+            projectileFeedback,
+            transform.position,
+            Quaternion.identity
+        );
+        Destroy(feedback, 1f);
     }
 
-    public void ProjectileDisappear()
+    public void ClearProjectiles()
     {
         gameObject.SetActive(false);
     }

@@ -80,7 +80,7 @@ public class Battle : MonoBehaviour
             {
                 SkillProjectile projectileFromSkill =
                     skillProjectile.GetComponent<SkillProjectile>();
-                projectileFromSkill.SetProjectilePooler();
+                projectileFromSkill.CreateProjectilePooler();
             }
         }
     }
@@ -348,12 +348,15 @@ public class Battle : MonoBehaviour
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
-        ProjectileDisappear(projectiles, gameProjectiles);
-        ProjectileCollision(projectiles, gameProjectiles);
-        CreateProjectile(projectiles, gameProjectiles);
+        ClearProjectiles(projectiles, gameProjectiles);
+        ProcessProjectilesCollision(projectiles, gameProjectiles);
+        UpdateProjectiles(projectiles, gameProjectiles);
     }
 
-    void CreateProjectile(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    void UpdateProjectiles(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
     {
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
@@ -399,28 +402,19 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void ProjectileDisappear(
-        Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
-    )
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
     {
-        var toDelete = new List<int>();
-        foreach (var pr in projectiles)
+        foreach (var pr in projectiles.ToList())
         {
             if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
-                toDelete.Add(pr.Key);
+                projectiles[pr.Key].GetComponent<SkillProjectile>().ClearProjectiles();
+                projectiles.Remove(pr.Key);
             }
-        }
-
-        foreach (var key in toDelete)
-        {
-            projectiles[key].GetComponent<SkillProjectile>().ProjectileDisappear();
-            projectiles.Remove(key);
         }
     }
 
-    void ProjectileCollision(
+    void ProcessProjectilesCollision(
         Dictionary<int, GameObject> projectiles,
         List<Projectile> gameProjectiles
     )
@@ -436,7 +430,7 @@ public class Battle : MonoBehaviour
                     .GetComponent<SkillProjectile>();
                 pr.Value
                     .GetComponent<SkillProjectile>()
-                    .ProjectileCollision(skillProjectile.projectileInfo.projectileFeedback.name);
+                    .ProcessProjectilesCollision(skillProjectile.projectileInfo.projectileFeedback);
                 projectiles.Remove(pr.Key);
             }
         }
