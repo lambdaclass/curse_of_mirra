@@ -64,11 +64,8 @@ public class Loot : MonoBehaviour
 
     public void UpdateLoots()
     {
-        if (Time.frameCount % 60 == 0) // Only update every 60 frames
-        {
-            List<LootPackage> updatedLoots = SocketConnectionManager.Instance.updatedLoots;
-            RemoveLoots(updatedLoots);
-            updatedLoots.ForEach(MaybeAddLoot);
-        }
+        List<LootPackage> updatedLoots = SocketConnectionManager.Instance.updatedLoots;
+        RemoveLoots(updatedLoots);
+        updatedLoots.ForEach(MaybeAddLoot);
     }
 }
