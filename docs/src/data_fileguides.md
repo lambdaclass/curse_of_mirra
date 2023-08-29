@@ -10,7 +10,7 @@ This file contains the information and base stats from characters in the game
 - **Name:** defines the internal name for a character
 - **Id:** unique numeric ID to identify the character
 - **Active:** boolean. Defines if the class is currently playable
-- **Class:** character class (gua, hun, ass, wiz)
+- **Class:** character class (war, hun, ass, wiz)
 - **Faction:** their origin (oto, mer, ara, kal)
 - **BaseSpeed:** defines a numeric value for the character's base movement speed
 - **SkillBasic:** lookup field to Skills.json for the character's basic skill
@@ -36,6 +36,7 @@ This file contains various settings used by the game
 - **map_shrink_interval:** It's the interval time between shrinks
 - **map_shrink_minimum_radius:** Mininum radius for the playable area, how small can the playable zone can get
 - **out_of_area_damage:** Represents the damage the area does
+- **spawn_loot_interval_ms**: Interval in milliseconds for spawning loot crates
 
 ## Skills.json
 ### Overview

@@ -417,7 +417,6 @@ GameObject:
   - component: {fileID: 7158739655978231132}
   - component: {fileID: 973697423679670818}
   - component: {fileID: 128906090582597004}
-  - component: {fileID: 7803031921548610432}
   m_Layer: 5
   m_Name: LobbyItem
   m_TagString: Untagged
@@ -512,8 +511,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7803031921548610432}
-        m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
+      - m_Target: {fileID: 7158739655978231132}
+        m_TargetAssemblyTypeName: LobbiesListItem, Assembly-CSharp
         m_MethodName: ConnectToLobby
         m_Mode: 1
         m_Arguments:
@@ -550,22 +549,6 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
---- !u!114 &7803031921548610432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6431237631302165411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610e661a176e54d3793b92ad9640aa97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: Lobby
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
-  listItem: {fileID: 7158739655978231132}
 --- !u!1 &7198850815985712903
 GameObject:
   m_ObjectHideFlags: 0

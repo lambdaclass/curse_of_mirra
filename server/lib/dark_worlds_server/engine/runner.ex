@@ -24,6 +24,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   @map_shrink_wait_ms 60_000
   # Amount of time between map shrinking
   @map_shrink_interval_ms 100
+  # Amount of time between loot spawn
+  @spawn_loot_interval_ms 20_000
 
   case Mix.env() do
     :test ->
@@ -322,9 +324,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     )
 
     map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+    spawn_loot_interval_ms = Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
+    Process.send_after(self(), :spawn_loot, spawn_loot_interval_ms)
 
     gen_server_state =
       gen_server_state
@@ -393,6 +397,18 @@ defmodule DarkWorldsServer.Engine.Runner do
     Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
     {:ok, game} = Game.shrink_map(server_game_state.game, map_shrink_minimum_radius)
+    gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
+
+    {:noreply, gen_server_state}
+  end
+
+  def handle_info(:spawn_loot, %{server_game_state: server_game_state} = gen_server_state) do
+    spawn_loot_interval_ms =
+      Map.get(gen_server_state.opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+
+    Process.send_after(self(), :spawn_loot, spawn_loot_interval_ms)
+
+    {:ok, game} = Game.spawn_loot(server_game_state.game)
     gen_server_state = put_in(gen_server_state, [:server_game_state, :game], game)
 
     {:noreply, gen_server_state}
