@@ -140,6 +140,7 @@ public class Battle : MonoBehaviour
     {
         long currentTime;
         long pastTime;
+        GameObject interpolationGhost = null;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
@@ -153,9 +154,13 @@ public class Battle : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            GameObject interpolationGhost = FindGhostPlayer(
-                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
-            );
+            if (showInterpolationGhosts)
+            {
+                interpolationGhost = FindGhostPlayer(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+                );
+            }
+
             if (
                 useInterpolation
                 && (
