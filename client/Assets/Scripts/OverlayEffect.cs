@@ -6,8 +6,8 @@ using UnityEngine.Rendering;
 
 public class OverlayEffect : MonoBehaviour
 {
-    public Shader shader;
-
+    public Shader DamageShader;
+    private Shader shader;
     List<SkinnedMeshRenderer> skinnedMeshFilter = new List<SkinnedMeshRenderer>();
 
     [Header("Objects")]
@@ -42,6 +42,16 @@ public class OverlayEffect : MonoBehaviour
             weaponToHighlight.GetComponent<Renderer>().material.shader = Shader.Find(
                 "Universal Render Pipeline/Lit"
             );
+        }
+    }
+
+    public void SetShader(string effect)
+    {
+        switch (effect)
+        {
+            case "Damage":
+                shader = DamageShader;
+                break;
         }
     }
 }

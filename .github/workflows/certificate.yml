@@ -28,5 +28,7 @@ jobs:
         HOST: ${{ matrix.HOST }}
       run: |
           set -ex
-          ssh -i id_ed25519_deploy root@$HOST -o StrictHostKeyChecking=no certbot renew 
+          mkdir -p ~/.ssh/
+          ssh-keyscan $HOST >> ~/.ssh/known_hosts
+          ssh -i id_ed25519_deploy root@$HOST certbot renew 
           set +ex
