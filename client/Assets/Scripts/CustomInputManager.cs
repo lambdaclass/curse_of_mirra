@@ -204,7 +204,7 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapDirectionInputEvents(joystick, skill);
+                MapDirectionInputEvents(button, joystick, skill);
                 break;
         }
     }
@@ -296,7 +296,11 @@ public class CustomInputManager : InputManager
         HideSkillRange();
     }
 
-    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
+    private void MapDirectionInputEvents(
+        CustomMMTouchButton button,
+        CustomMMTouchJoystick joystick,
+        Skill skill
+    )
     {
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
         directionEvent.AddListener(ShowAimDirectionSkill);
@@ -311,10 +315,17 @@ public class CustomInputManager : InputManager
         directionRelease.AddListener(ExecuteDirectionSkill);
         joystick.skill = skill;
         joystick.newPointerUpEvent = directionRelease;
+
+        button.skill = skill;
+
+        UnityEvent<Skill> aoeEvent = new UnityEvent<Skill>();
+        aoeEvent.AddListener(ShowAimDirectionTargetsSkill);
+        button.newPointerTapDown = aoeEvent;
     }
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
+        print("ShowAimDirectionSkill");
         directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         directionIndicator.SetConeIndicator();
@@ -331,12 +342,20 @@ public class CustomInputManager : InputManager
             directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         }
 
-        ShowSkillRange(joystick.skill);
         activeJoystick = joystick;
+    }
+
+    private void ShowAimDirectionTargetsSkill(Skill skill)
+    {
+        print("ShowAimDirectionTargetsSkill");
+        ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
+        print("AimDirectionSkill");
         directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
         directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystickStatus = canceled;
@@ -344,6 +363,7 @@ public class CustomInputManager : InputManager
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
     {
+        print("ExecuteDirectionSkill");
         directionIndicator.DeactivateIndicator();
 
         HideSkillRange();
@@ -424,9 +444,13 @@ public class CustomInputManager : InputManager
         if (ShouldShowTargetsInSkillRange(skill))
         {
             var targetsInRange = GetTargetsInSkillRange(skill);
+            if (targetsInRange.Count > 0)
+            {
+                print("TARGET DETECTED");
+            }
             targetsInRange.ForEach(p =>
             {
-                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.yellow);
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.red);
             });
         }
     }
@@ -511,6 +535,7 @@ public class CustomInputManager : InputManager
         {
             if (s.Name.ToLower() == skill.GetSkillName().ToLower())
             {
+                print("SKILL FOUND: " + s.Name + " " + s.Angle);
                 return float.Parse(s.Angle);
             }
         }
@@ -527,11 +552,18 @@ public class CustomInputManager : InputManager
             .GetComponent<CharacterOrientation3D>()
             .ForcedRotationDirection;
         float angle = Vector3.Angle(attackDirection, targetDirection);
+
+        print("distance: " + distance);
+        print("rangeOfAttack: " + rangeOfAttack);
+        print("skillAngle: " + skillAngle);
+        print("angle: " + angle);
         return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)
     {
-        return skill.GetType() == typeof(SkillBasic) || skill.GetSkillName() == "BARREL ROLL";
+        return skill.GetType() == typeof(SkillBasic)
+            || skill.GetSkillName() == "BARREL ROLL"
+            || skill.GetSkillName() == "MULTISHOT";
     }
 }
