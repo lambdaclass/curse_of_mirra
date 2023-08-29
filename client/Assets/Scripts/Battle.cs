@@ -507,8 +507,6 @@ public class Battle : MonoBehaviour
         {
             healthComponent.SetHealth(playerUpdate.Health);
         }
-
-        // GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
     }
 
     private void HandleMovement(
