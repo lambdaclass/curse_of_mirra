@@ -11,8 +11,6 @@ public class Battle : MonoBehaviour
 {
     public IEnumerable<GameObject> skillProjectiles;
 
-    public GameObject newProjectile;
-
     [SerializeField]
     MMTouchJoystick joystickL;
 
@@ -393,9 +391,7 @@ public class Battle : MonoBehaviour
                     .Where(obj => obj.name == gameProjectiles[i].ProjectileModelName)
                     .First();
 
-                Debug.Log("add: " + skillProjectile);
-
-                newProjectile = skillProjectile
+                GameObject newProjectile = skillProjectile
                     .GetComponent<SkillProjectile>()
                     .InstanceProjectile(angle);
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
