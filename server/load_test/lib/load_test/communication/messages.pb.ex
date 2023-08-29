@@ -131,6 +131,15 @@ defmodule LoadTest.Communication.Proto.ProjectileStatus do
   field(:EXPLODED, 1)
 end
 
+defmodule LoadTest.Communication.Proto.LootType do
+  @moduledoc false
+
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:LOOT_TYPE_UNSPECIFIED, 0)
+  field(:LOOT_HEALTH, 1)
+end
+
 defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
@@ -168,6 +177,8 @@ defmodule LoadTest.Communication.Proto.GameEvent do
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
+
+  field(:loots, 13, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
@@ -354,6 +365,7 @@ defmodule LoadTest.Communication.Proto.RunnerConfig do
   field(:out_of_area_damage, 8, type: :uint64, json_name: "outOfAreaDamage")
   field(:use_proxy, 9, type: :string, json_name: "useProxy")
   field(:map_shrink_minimum_radius, 10, type: :uint64, json_name: "mapShrinkMinimumRadius")
+  field(:spawn_loot_interval_ms, 11, type: :uint64, json_name: "spawnLootIntervalMs")
 end
 
 defmodule LoadTest.Communication.Proto.GameConfig do
@@ -487,4 +499,19 @@ defmodule LoadTest.Communication.Proto.MillisTime do
 
   field(:high, 1, type: :uint64)
   field(:low, 2, type: :uint64)
+end
+
+defmodule LoadTest.Communication.Proto.LootPackage do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:id, 1, type: :uint64)
+  field(:position, 2, type: LoadTest.Communication.Proto.Position)
+
+  field(:loot_type, 3,
+    type: LoadTest.Communication.Proto.LootType,
+    json_name: "lootType",
+    enum: true
+  )
 end

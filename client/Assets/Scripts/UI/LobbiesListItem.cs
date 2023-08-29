@@ -28,4 +28,9 @@ public class LobbiesListItem : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GetComponent<MMTouchButton>().EnableButton();
     }
+
+    public void ConnectToLobby()
+    {
+        LobbiesManager.Instance.ConnectToLobby(idHash);
+    }
 }

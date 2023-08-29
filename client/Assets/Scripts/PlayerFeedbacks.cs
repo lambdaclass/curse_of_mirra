@@ -1,4 +1,5 @@
 using System.Collections;
+using MoreMountains.Feedbacks;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -34,13 +35,30 @@ public class PlayerFeedbacks : MonoBehaviour
         }
     }
 
-    public void ChangePlayerTextureOnDamage(GameObject player, float auxHealth, float playerHealth)
+    public void ChangePlayerTextureOnDamage(
+        GameObject player,
+        float clientHealth,
+        float playerHealth
+    )
     {
         // player.GetComponentInChildren<OverlayEffect>().enabled = true;
 
-        if (auxHealth != playerHealth)
+        if (clientHealth != playerHealth)
         {
-            player.GetComponentInChildren<OverlayEffect>().enabled = true;
+            if (playerHealth < clientHealth)
+            {
+                player.GetComponentInChildren<OverlayEffect>().SetShader("Damage");
+                player.GetComponentInChildren<OverlayEffect>().enabled = true;
+            }
+            if (playerHealth > clientHealth)
+            {
+                GameObject healFeedback = player
+                    .GetComponentInChildren<FeedbackContainer>()
+                    .GetFeedback("HealFeedback");
+
+                healFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
+                player.GetComponentInChildren<OverlayEffect>().enabled = false;
+            }
         }
         else
         {
@@ -64,14 +82,16 @@ public class PlayerFeedbacks : MonoBehaviour
 
     public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
     {
-        player.GetComponentInChildren<FeedbackContainer>().SetActiveFeedback(feedbackName, value);
+        player
+            .GetComponentInChildren<FeedbackContainer>()
+            .SetActiveStateFeedback(feedbackName, value);
     }
 
     public void ClearAllFeedbacks(GameObject player)
     {
         player
             .GetComponentInChildren<FeedbackContainer>()
-            .GetFeedbackList()
+            .GetFeedbackStateList()
             .ForEach(el => el.SetActive(false));
     }
 }

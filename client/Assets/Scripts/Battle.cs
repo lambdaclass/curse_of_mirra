@@ -25,6 +25,8 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    private Loot loot;
+
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
@@ -38,6 +40,7 @@ public class Battle : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
+        loot = GetComponent<Loot>();
     }
 
     private void InitBlockingStates()
@@ -66,6 +69,7 @@ public class Battle : MonoBehaviour
             SetAccumulatedTime();
             UpdatePlayerActions();
             UpdateProyectileActions();
+            loot.UpdateLoots();
         }
     }
 

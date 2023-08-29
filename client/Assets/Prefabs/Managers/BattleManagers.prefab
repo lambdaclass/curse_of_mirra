@@ -88,6 +88,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8472880969195610299}
     m_Modifications:
+    - target: {fileID: 1739130193326024266, guid: 5167513a201f64406a626d8650f6623c,
+        type: 3}
+      propertyPath: lootsList
+      value: 
+      objectReference: {fileID: 11400000, guid: a1c4d8ce5d9164c2f933da8b9abe091f,
+        type: 2}
+    - target: {fileID: 1739130193326024266, guid: 5167513a201f64406a626d8650f6623c,
+        type: 3}
+      propertyPath: healthLootObject
+      value: 
+      objectReference: {fileID: 11400000, guid: ccd4c24b2cc3147699c9bf72106b0455,
+        type: 2}
     - target: {fileID: 7090107403194157410, guid: 5167513a201f64406a626d8650f6623c,
         type: 3}
       propertyPath: m_Name
