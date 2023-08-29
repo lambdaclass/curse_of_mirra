@@ -109,10 +109,9 @@ public class Skill : CharacterAbility
         }
     }
 
-    public ProjectileInfo GetProjectileFromSkill()
+    public GameObject GetProjectileFromSkill()
     {
-           return skillInfo.projectileInfo ? skillInfo.projectileInfo : null;
-
+        return skillInfo?.projectilePrefab;
     }
 
     public void TryExecuteSkill()
@@ -351,11 +350,13 @@ public class Skill : CharacterAbility
         return skillInfo.name;
     }
 
-    public bool ExecutesOnQuickTap(){
+    public bool ExecutesOnQuickTap()
+    {
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted(){
+    public bool isSelfTargeted()
+    {
         return skillInfo.skillCircleRadius == -1;
     }
 }

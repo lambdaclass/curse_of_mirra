@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee07437c157d4170adf25e9751c80e5, type: 3}
   m_Name: HackAimshot
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5269552939558784490, guid: e401f90204eb843c385dd95a19b84e24,
-    type: 3}
-  projectileFeedback: {fileID: 8043723714843131183, guid: 1276908f1d1cc4ad195d1f4759ef2cad,
+  projectileFeedback: {fileID: 8043723714843131183, guid: e66c9a82463644d129f7caf80a41676e,
     type: 3}

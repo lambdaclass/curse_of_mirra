@@ -5,6 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Projectile Info", menuName = "Projectile Info")]
 public class ProjectileInfo : ScriptableObject
 {
-    public GameObject projectile;
     public GameObject projectileFeedback;
 }

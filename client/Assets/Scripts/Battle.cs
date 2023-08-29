@@ -9,10 +9,9 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    public IEnumerable<ProjectileInfo> skillProjectiles;
+    public IEnumerable<GameObject> skillProjectiles;
 
     public GameObject newProjectile;
-    public ProjectileInfo projectileUsed;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -65,10 +64,10 @@ public class Battle : MonoBehaviour
     private IEnumerator InitializeProjectiles()
     {
         yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
-        SetInitialProjectile();
+        CreateProjectilesPooler();
     }
 
-    void SetInitialProjectile()
+    void CreateProjectilesPooler()
     {
         foreach (GameObject player in SocketConnectionManager.Instance.players)
         {
@@ -76,11 +75,11 @@ public class Battle : MonoBehaviour
                 .GetComponents<Skill>()
                 .Select(skill => skill.GetProjectileFromSkill())
                 .Where(projectile => projectile != null);
-            foreach (ProjectileInfo skillProjectile in skillProjectiles)
+            foreach (GameObject skillProjectile in skillProjectiles)
             {
-                ProjectileHandler projectileFromSkill =
-                    skillProjectile.projectile.GetComponent<ProjectileHandler>();
-                projectileFromSkill.SetProjectilePrefab();
+                SkillProjectile projectileFromSkill =
+                    skillProjectile.GetComponent<SkillProjectile>();
+                projectileFromSkill.SetProjectilePooler();
             }
         }
     }
@@ -347,25 +346,14 @@ public class Battle : MonoBehaviour
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
+        ProjectileDisappear(projectiles, gameProjectiles);
+        ProjectileCollision(projectiles, gameProjectiles);
+        CreateProjectile(projectiles, gameProjectiles);
+    }
+
+    void CreateProjectile(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    {
         GameObject projectile;
-
-        var toDelete = new List<int>();
-        foreach (var pr in projectiles)
-        {
-            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
-            {
-                toDelete.Add(pr.Key);
-            }
-        }
-
-        foreach (var key in toDelete)
-        {
-            projectileUsed.projectile
-                .GetComponent<ProjectileHandler>()
-                .LaserDisappear(projectiles[key]);
-            projectiles.Remove(key);
-        }
-
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
@@ -379,35 +367,9 @@ public class Battle : MonoBehaviour
                     gameProjectiles[i].Position
                 );
 
-                // TODO: We need to figure out how to use this. To make the movemete more fluid.
-                // float xChange = backToFrontPosition.x - projectile.transform.position.x;
-                // float yChange = backToFrontPosition.z - projectile.transform.position.z;
-
-                // Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                // movementDirection.Normalize();
-
-                // Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
-                // if (movementDirection.x > 0)
-                // {
-                //     newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
-                // }
-                // else
-                // {
-                //     newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
-                // }
-
-                // if (movementDirection.z > 0)
-                // {
-                //     newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
-                // }
-                // else
-                // {
-                //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
-                // }
-                projectileUsed.projectile
-                    .GetComponent<ProjectileHandler>()
-                    .ShootLaser(
-                        projectile,
+                projectile
+                    .GetComponent<SkillProjectile>()
+                    .UpdateProjectilePosition(
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
@@ -422,31 +384,61 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                projectileUsed = skillProjectiles
-                    .Where(obj => obj.projectile.name == gameProjectiles[i].ProjectileModelName)
-                    .FirstOrDefault();
-                newProjectile = projectileUsed.projectile
-                    .GetComponent<ProjectileHandler>()
-                    .InstanceShoot(angle);
+
+                GameObject skillProjectile = skillProjectiles
+                    .Where(obj => obj.name == gameProjectiles[i].ProjectileModelName)
+                    .First();
+
+                Debug.Log("add: " + skillProjectile);
+
+                newProjectile = skillProjectile
+                    .GetComponent<SkillProjectile>()
+                    .InstanceProjectile(angle);
                 projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
             }
         }
+    }
 
-        var toExplode = new List<int>();
+    void ProjectileDisappear(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
+    {
+        var toDelete = new List<int>();
         foreach (var pr in projectiles)
         {
-            if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
-                toExplode.Add(pr.Key);
+                toDelete.Add(pr.Key);
             }
         }
 
-        foreach (var key in toExplode)
+        foreach (var key in toDelete)
         {
-            projectileUsed.projectile
-                .GetComponent<ProjectileHandler>()
-                .LaserCollision(projectiles[key], projectileUsed.projectileFeedback.name);
+            projectiles[key].GetComponent<SkillProjectile>().ProjectileDisappear();
             projectiles.Remove(key);
+        }
+    }
+
+    void ProjectileCollision(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
+    {
+        foreach (var pr in projectiles.ToList())
+        {
+            Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            if (gameProjectile.Status == ProjectileStatus.Exploded)
+            {
+                SkillProjectile skillProjectile = skillProjectiles
+                    .Where(obj => obj.name == gameProjectile.ProjectileModelName)
+                    .First()
+                    .GetComponent<SkillProjectile>();
+                pr.Value
+                    .GetComponent<SkillProjectile>()
+                    .ProjectileCollision(skillProjectile.projectileInfo.projectileFeedback.name);
+                projectiles.Remove(pr.Key);
+            }
         }
     }
 
