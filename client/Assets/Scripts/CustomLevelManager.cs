@@ -145,14 +145,14 @@ public class CustomLevelManager : LevelManager
             if (LobbyConnection.Instance.playerId == i + 1)
             {
                 // Player1 is the ID to match with the client InputManager
-                prefab.GetComponent<Character>().PlayerID = "Player1";
+                prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
             }
             else
             {
-                prefab.GetComponent<Character>().PlayerID = "";
+                prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
-            Character newPlayer = Instantiate(
-                prefab.GetComponent<Character>(),
+            CustomCharacter newPlayer = Instantiate(
+                prefab.GetComponent<CustomCharacter>(),
                 Utils.transformBackendPositionToFrontendPosition(gamePlayers[(int)i].Position),
                 Quaternion.identity
             );
@@ -167,7 +167,7 @@ public class CustomLevelManager : LevelManager
 
     private void setCameraToPlayer(ulong playerID)
     {
-        foreach (Character player in this.PlayerPrefabs)
+        foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
@@ -183,7 +183,7 @@ public class CustomLevelManager : LevelManager
         inputManager.Setup();
 
         List<Skill> skillList = new List<Skill>();
-        foreach (Character player in this.PlayerPrefabs)
+        foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();

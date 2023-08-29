@@ -12,7 +12,7 @@ public class PlayerFeedbacks : MonoBehaviour
     {
         if (
             healthComponent.CurrentHealth <= 0
-            && player.GetComponent<Character>().CharacterModel.activeSelf == true
+            && player.GetComponent<CustomCharacter>().CharacterModel.activeSelf == true
         )
         {
             healthComponent.DeathMMFeedbacks.PlayFeedbacks();

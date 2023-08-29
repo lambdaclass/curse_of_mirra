@@ -120,7 +120,7 @@ public class Battle : MonoBehaviour
 
         if (player)
         {
-            Character character = player.GetComponent<Character>();
+            CustomCharacter character = player.GetComponent<CustomCharacter>();
             if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
@@ -235,7 +235,7 @@ public class Battle : MonoBehaviour
             }
 
             // TODO: try to optimize GetComponent calls
-            Character playerCharacter = actualPlayer.GetComponent<Character>();
+            CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
 
             if (serverPlayerUpdate.Health <= 0)
             {
@@ -254,11 +254,15 @@ public class Battle : MonoBehaviour
             if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
             {
                 // TODO: Refactor: create a script/reference.
-                actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
-                    new Color(1, 0, 0, .5f);
+                actualPlayer
+                    .GetComponent<CustomCharacter>()
+                    .characterBase.Position.GetComponent<Renderer>()
+                    .material.color = new Color(1, 0, 0, .5f);
             }
 
-            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+            Transform hitbox = actualPlayer
+                .GetComponent<CustomCharacter>()
+                .characterBase.Hitbox.transform;
 
             float hitboxSize = serverPlayerUpdate.BodySize / 50f;
             hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
@@ -449,10 +453,10 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        Character character = player.GetComponent<Character>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
         Animator modelAnimator = player
-            .GetComponent<Character>()
+            .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
@@ -539,7 +543,7 @@ public class Battle : MonoBehaviour
         float yChange = frontendPosition.z - player.transform.position.z;
 
         Animator modelAnimator = player
-            .GetComponent<Character>()
+            .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
@@ -636,7 +640,7 @@ public class Battle : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = getPlayerDirection(playerUpdate);
 
-                if (PlayerMovementAuthorized(player.GetComponent<Character>()))
+                if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
                 {
                     rotatePlayer(player, direction);
                 }
@@ -647,15 +651,15 @@ public class Battle : MonoBehaviour
         modelAnimator.SetBool("Walking", walking);
     }
 
-    public void SetPlayerDead(Character playerCharacter)
+    public void SetPlayerDead(CustomCharacter playerCharacter)
     {
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
-        playerCharacter.transform.Find("Position").gameObject.SetActive(false);
+        playerCharacter.characterBase.Hitbox.SetActive(false);
+        playerCharacter.characterBase.Position.SetActive(false);
     }
 
-    public void SetPlayerAlive(Character playerCharacter)
+    public void SetPlayerAlive(CustomCharacter playerCharacter)
     {
         playerCharacter.CharacterModel.SetActive(true);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
@@ -688,9 +692,9 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<Character>().PlayerID =
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
             SocketConnectionManager.Instance.playerId.ToString();
-        clientPredictionGhost.GetComponent<Character>().name =
+        clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
     }
@@ -699,7 +703,10 @@ public class Battle : MonoBehaviour
     {
         if (!showClientPredictionGhost && clientPredictionGhost != null)
         {
-            clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            clientPredictionGhost
+                .GetComponent<CustomCharacter>()
+                .GetComponent<Health>()
+                .SetHealth(0);
             clientPredictionGhost.SetActive(false);
             Destroy(clientPredictionGhost);
             clientPredictionGhost = null;
@@ -731,10 +738,10 @@ public class Battle : MonoBehaviour
                 player.transform.position,
                 Quaternion.identity
             );
-            interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
+            interpolationGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
                 .Instance
                 .gamePlayers[i].Id.ToString();
-            interpolationGhost.GetComponent<Character>().name =
+            interpolationGhost.GetComponent<CustomCharacter>().name =
                 $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
 
             InterpolationGhosts.Add(interpolationGhost);
@@ -745,7 +752,7 @@ public class Battle : MonoBehaviour
     {
         foreach (GameObject interpolationGhost in InterpolationGhosts)
         {
-            interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.GetComponent<CustomCharacter>().GetComponent<Health>().SetHealth(0);
             interpolationGhost.SetActive(false);
             Destroy(interpolationGhost);
         }
@@ -804,13 +811,15 @@ public class Battle : MonoBehaviour
 
     private GameObject findGhostPlayer(string playerId)
     {
-        return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
+        return InterpolationGhosts.Find(
+            g => g.GetComponent<CustomCharacter>().PlayerID == playerId
+        );
     }
 
     private float ManageStateFeedbacks(
         GameObject player,
         Player playerUpdate,
-        Character character,
+        CustomCharacter character,
         float characterSpeed
     )
     {
