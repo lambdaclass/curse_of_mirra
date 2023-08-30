@@ -229,7 +229,7 @@ The Player 2 that's behind is the one you're really seeing when you're playing, 
 
 How did we achieve this?. Basically we're doing a few things:
 1. We keep track of the time that has passed since the first update.
-2. We store the last 20 updates sent by the server
+2. We store the last 20 updates sent by the server.
 3. We're *Interpolating* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
 
 All of this code is in the `EventsBuffer.cs`, where you can change the delta interpolation time as you please. Remember, the delta interpolation time is how much time in the past you will render, if it's too high, you'll be lying too much to your players.
