@@ -221,7 +221,7 @@ The theory behind Interpolation is that we save the events returned by our serve
 
 ![](./videos/Interpolation_at_100ms.gif)
 
-Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allow us to see what exactly Interpolation is doing
+Looks smoother now, doesn't it? Well, let's increase that interpolation time and turn on the server's ghost, this will allow us to see what exactly Interpolation is doing.
 
 ![](./videos/Interpolation_with_ghost.gif)
 
