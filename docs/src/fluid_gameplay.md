@@ -228,7 +228,7 @@ Looks smoother now, doesn't it? Well, let's increase that interpolation time and
 The Player 2 that's behind is the one you're really seeing when you're playing, and the one that's in front is showing the latest update you received from the server. As we can see, this looks choppy and sometimes jitters.
 
 How did we achieve this?. Basically we're doing a few things:
-1. We keep track of time that has passed since the first update
+1. We keep track of the time that has passed since the first update.
 2. We store the last 20 updates sent by the server
 3. We're *Interpolating* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
 
