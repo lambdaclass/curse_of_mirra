@@ -45,7 +45,6 @@ public class Skill : CharacterAbility
     protected override void Start()
     {
         base.Start();
-
         if (blocksMovementOnExecute)
         {
             BlockingMovementStates = new CharacterStates.MovementStates[1];
@@ -108,6 +107,11 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
+    }
+
+    public GameObject GetProjectileFromSkill()
+    {
+        return skillInfo?.projectilePrefab;
     }
 
     public void TryExecuteSkill()
@@ -346,11 +350,13 @@ public class Skill : CharacterAbility
         return skillInfo.name;
     }
 
-    public bool ExecutesOnQuickTap(){
+    public bool ExecutesOnQuickTap()
+    {
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted(){
+    public bool isSelfTargeted()
+    {
         return skillInfo.skillCircleRadius == -1;
     }
 }

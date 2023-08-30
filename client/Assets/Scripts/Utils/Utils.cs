@@ -58,7 +58,7 @@ public class Utils
     public static MMSimpleObjectPooler SimpleObjectPooler(
         string name,
         Transform parentTransform,
-        string resource
+        GameObject objectToPool
     )
     {
         GameObject objectPoolerGameObject = new GameObject();
@@ -66,12 +66,13 @@ public class Utils
         objectPoolerGameObject.transform.parent = parentTransform;
         MMSimpleObjectPooler objectPooler =
             objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
-        objectPooler.GameObjectToPool = Resources.Load(resource, typeof(GameObject)) as GameObject;
+        objectPooler.GameObjectToPool = objectToPool;
         objectPooler.PoolSize = 10;
         objectPooler.NestWaitingPool = true;
         objectPooler.MutualizeWaitingPools = true;
         objectPooler.PoolCanExpand = true;
         objectPooler.FillObjectPool();
+        Object.Destroy(objectPoolerGameObject);
         return objectPooler;
     }
 }

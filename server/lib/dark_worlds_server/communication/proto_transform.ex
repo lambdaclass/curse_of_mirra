@@ -182,7 +182,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       projectile_type: projectile_type,
       status: status,
       last_attacked_player_id: last_attacked_player_id,
-      pierce: pierce
+      pierce: pierce,
+      projectile_model_name: projectile_model_name
     } = projectile
 
     %ProtoProjectile{
@@ -197,7 +198,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       projectile_type: projectile_encode(projectile_type),
       status: projectile_status_encode(status),
       last_attacked_player_id: last_attacked_player_id,
-      pierce: pierce
+      pierce: pierce,
+      projectile_model_name: projectile_model_name
     }
   end
 
@@ -333,7 +335,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       projectile_type: projectile_type,
       status: status,
       last_attacked_player_id: last_attacked_player_id,
-      pierce: pierce
+      pierce: pierce,
+      projectile_model_name: projectile_model_name
     } = projectile
 
     %EngineProjectile{
@@ -348,7 +351,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       projectile_type: projectile_decode(projectile_type),
       status: projectile_status_decode(status),
       last_attacked_player_id: last_attacked_player_id,
-      pierce: pierce
+      pierce: pierce,
+      projectile_model_name: projectile_model_name
     }
   end
 

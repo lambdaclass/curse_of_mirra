@@ -92,48 +92,49 @@ public static partial class MessagesReflection {
           "BUFuZ2xlGBEgASgJIowBChJTZXJ2ZXJHYW1lU2V0dGluZ3MSJAoNcnVubmVy",
           "X2NvbmZpZxgBIAEoCzINLlJ1bm5lckNvbmZpZxIqChBjaGFyYWN0ZXJfY29u",
           "ZmlnGAIgASgLMhAuQ2hhcmFjdGVyQ29uZmlnEiQKDXNraWxsc19jb25maWcY",
-          "AyABKAsyDS5Ta2lsbHNDb25maWciswIKClByb2plY3RpbGUSCgoCaWQYASAB",
+          "AyABKAsyDS5Ta2lsbHNDb25maWci0gIKClByb2plY3RpbGUSCgoCaWQYASAB",
           "KAQSGwoIcG9zaXRpb24YAiABKAsyCS5Qb3NpdGlvbhIkCglkaXJlY3Rpb24Y",
           "AyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg0KBXNwZWVkGAQgASgNEg0KBXJh",
           "bmdlGAUgASgNEhEKCXBsYXllcl9pZBgGIAEoBBIOCgZkYW1hZ2UYByABKA0S",
           "FwoPcmVtYWluaW5nX3RpY2tzGAggASgSEigKD3Byb2plY3RpbGVfdHlwZRgJ",
           "IAEoDjIPLlByb2plY3RpbGVUeXBlEiEKBnN0YXR1cxgKIAEoDjIRLlByb2pl",
           "Y3RpbGVTdGF0dXMSHwoXbGFzdF9hdHRhY2tlZF9wbGF5ZXJfaWQYCyABKAQS",
-          "DgoGcGllcmNlGAwgASgIIicKCk1pbGxpc1RpbWUSDAoEaGlnaBgBIAEoBBIL",
-          "CgNsb3cYAiABKAQiVAoLTG9vdFBhY2thZ2USCgoCaWQYASABKAQSGwoIcG9z",
-          "aXRpb24YAiABKAsyCS5Qb3NpdGlvbhIcCglsb290X3R5cGUYAyABKA4yCS5M",
-          "b290VHlwZSquAQoNR2FtZUV2ZW50VHlwZRIQCgxTVEFURV9VUERBVEUQABIP",
-          "CgtQSU5HX1VQREFURRABEhEKDVBMQVlFUl9KT0lORUQQAhIRCg1HQU1FX0ZJ",
-          "TklTSEVEEAMSFQoRSU5JVElBTF9QT1NJVElPTlMQBBIdChlTRUxFQ1RFRF9D",
-          "SEFSQUNURVJfVVBEQVRFEAUSHgoaRklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJ",
-          "T04QBiodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq/wEKBkFjdGlv",
-          "bhIWChJBQ1RJT05fVU5TUEVDSUZJRUQQABIKCgZBVFRBQ0sQARIMCghURUxF",
-          "UE9SVBACEg4KCkFUVEFDS19BT0UQAxIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQ",
-          "BBILCgdBRERfQk9UEAUSDwoLQVVUT19BVFRBQ0sQBhIQCgxCQVNJQ19BVFRB",
-          "Q0sQBxILCgdTS0lMTF8xEAgSCwoHU0tJTExfMhAJEgsKB1NLSUxMXzMQChIL",
-          "CgdTS0lMTF80EAsSFAoQU0VMRUNUX0NIQVJBQ1RFUhAMEg8KC0VOQUJMRV9C",
-          "T1RTEA0SEAoMRElTQUJMRV9CT1RTEA4qTQoJRGlyZWN0aW9uEhkKFURJUkVD",
-          "VElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExFRlQQ",
-          "AxIJCgVSSUdIVBAEKv0BCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0K",
-          "CUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIUChBTVEFSVElOR19T",
-          "S0lMTF8xEAMSFAoQU1RBUlRJTkdfU0tJTExfMhAEEhQKEFNUQVJUSU5HX1NL",
-          "SUxMXzMQBRIUChBTVEFSVElOR19TS0lMTF80EAYSFQoRRVhFQ1VUSU5HX1NL",
-          "SUxMXzEQBxIVChFFWEVDVVRJTkdfU0tJTExfMhAIEhUKEUVYRUNVVElOR19T",
-          "S0lMTF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQChIKCgZNT1ZJTkcQCyqs",
-          "AgoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAES",
-          "FQoRREVOSUFMX09GX1NFUlZJQ0UQAhIJCgVSQUdFRBADEhEKDU5FT05fQ1JB",
-          "U0hJTkcQBBILCgdMRUFQSU5HEAUSDwoLT1VUX09GX0FSRUEQBhIOCgpFTE5B",
-          "Ul9NQVJLEAcSDgoKWVVHRU5fTUFSSxAIEg4KClhBTkRBX01BUksQCRIUChBY",
-          "QU5EQV9NQVJLX09XTkVSEAoSDAoIUE9JU09ORUQQCxIKCgZTTE9XRUQQDBIR",
-          "Cg1GSUVSWV9SQU1QQUdFEA0SCgoGQlVSTkVEEA4SCwoHU0NIRVJaTxAPEhEK",
-          "DURBTlNFX01BQ0FCUkUQEBINCglQQVJBTFlaRUQQESqPAQoOTG9iYnlFdmVu",
-          "dFR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAK",
-          "DFBMQVlFUl9BRERFRBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9D",
-          "T1VOVBAEEg4KClNUQVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIK",
-          "DlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxM",
-          "RVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExP",
-          "REVEEAEqNgoITG9vdFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
-          "DwoLTE9PVF9IRUFMVEgQAWIGcHJvdG8z"));
+          "DgoGcGllcmNlGAwgASgIEh0KFXByb2plY3RpbGVfbW9kZWxfbmFtZRgNIAEo",
+          "CSInCgpNaWxsaXNUaW1lEgwKBGhpZ2gYASABKAQSCwoDbG93GAIgASgEIlQK",
+          "C0xvb3RQYWNrYWdlEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgLMgku",
+          "UG9zaXRpb24SHAoJbG9vdF90eXBlGAMgASgOMgkuTG9vdFR5cGUqrgEKDUdh",
+          "bWVFdmVudFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQ",
+          "ARIRCg1QTEFZRVJfSk9JTkVEEAISEQoNR0FNRV9GSU5JU0hFRBADEhUKEUlO",
+          "SVRJQUxfUE9TSVRJT05TEAQSHQoZU0VMRUNURURfQ0hBUkFDVEVSX1VQREFU",
+          "RRAFEh4KGkZJTklTSF9DSEFSQUNURVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVz",
+          "EgkKBUFMSVZFEAASCAoEREVBRBABKv8BCgZBY3Rpb24SFgoSQUNUSU9OX1VO",
+          "U1BFQ0lGSUVEEAASCgoGQVRUQUNLEAESDAoIVEVMRVBPUlQQAhIOCgpBVFRB",
+          "Q0tfQU9FEAMSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAQSCwoHQUREX0JPVBAF",
+          "Eg8KC0FVVE9fQVRUQUNLEAYSEAoMQkFTSUNfQVRUQUNLEAcSCwoHU0tJTExf",
+          "MRAIEgsKB1NLSUxMXzIQCRILCgdTS0lMTF8zEAoSCwoHU0tJTExfNBALEhQK",
+          "EFNFTEVDVF9DSEFSQUNURVIQDBIPCgtFTkFCTEVfQk9UUxANEhAKDERJU0FC",
+          "TEVfQk9UUxAOKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJ",
+          "RUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCr9",
+          "AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIR",
+          "Cg1BVFRBQ0tJTkdfQU9FEAISFAoQU1RBUlRJTkdfU0tJTExfMRADEhQKEFNU",
+          "QVJUSU5HX1NLSUxMXzIQBBIUChBTVEFSVElOR19TS0lMTF8zEAUSFAoQU1RB",
+          "UlRJTkdfU0tJTExfNBAGEhUKEUVYRUNVVElOR19TS0lMTF8xEAcSFQoRRVhF",
+          "Q1VUSU5HX1NLSUxMXzIQCBIVChFFWEVDVVRJTkdfU0tJTExfMxAJEhUKEUVY",
+          "RUNVVElOR19TS0lMTF80EAoSCgoGTU9WSU5HEAsqrAIKDFBsYXllckVmZmVj",
+          "dBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBABEhUKEURFTklBTF9PRl9T",
+          "RVJWSUNFEAISCQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVB",
+          "UElORxAFEg8KC09VVF9PRl9BUkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4KCllV",
+          "R0VOX01BUksQCBIOCgpYQU5EQV9NQVJLEAkSFAoQWEFOREFfTUFSS19PV05F",
+          "UhAKEgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VEEAwSEQoNRklFUllfUkFNUEFH",
+          "RRANEgoKBkJVUk5FRBAOEgsKB1NDSEVSWk8QDxIRCg1EQU5TRV9NQUNBQlJF",
+          "EBASDQoJUEFSQUxZWkVEEBEqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVf",
+          "VU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQ",
+          "AhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpTVEFS",
+          "VF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxlVHlw",
+          "ZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJvamVj",
+          "dGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKjYKCExvb3RU",
+          "eXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xPT1RfSEVBTFRI",
+          "EAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -154,7 +155,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillsConfig), global::SkillsConfig.Parser, new[]{ "Items" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::SkillConfigItem), global::SkillConfigItem.Parser, new[]{ "Name", "Cooldown", "Damage", "Duration", "Projectile", "SkillRange", "Par1", "Par1Desc", "Par2", "Par2Desc", "Par3", "Par3Desc", "Par4", "Par4Desc", "Par5", "Par5Desc", "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ServerGameSettings), global::ServerGameSettings.Parser, new[]{ "RunnerConfig", "CharacterConfig", "SkillsConfig" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Id", "Position", "Direction", "Speed", "Range", "PlayerId", "Damage", "RemainingTicks", "ProjectileType", "Status", "LastAttackedPlayerId", "Pierce", "ProjectileModelName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LootPackage), global::LootPackage.Parser, new[]{ "Id", "Position", "LootType" }, null, null, null, null)
         }));
@@ -757,7 +758,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1777,7 +1778,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.Add(other.effects_);
+    effects_.MergeFrom(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();
@@ -7107,6 +7108,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     status_ = other.status_;
     lastAttackedPlayerId_ = other.lastAttackedPlayerId_;
     pierce_ = other.pierce_;
+    projectileModelName_ = other.projectileModelName_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -7260,6 +7262,18 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
   }
 
+  /// <summary>Field number for the "projectile_model_name" field.</summary>
+  public const int ProjectileModelNameFieldNumber = 13;
+  private string projectileModelName_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ProjectileModelName {
+    get { return projectileModelName_; }
+    set {
+      projectileModelName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -7287,6 +7301,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Status != other.Status) return false;
     if (LastAttackedPlayerId != other.LastAttackedPlayerId) return false;
     if (Pierce != other.Pierce) return false;
+    if (ProjectileModelName != other.ProjectileModelName) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -7306,6 +7321,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Status != global::ProjectileStatus.Active) hash ^= Status.GetHashCode();
     if (LastAttackedPlayerId != 0UL) hash ^= LastAttackedPlayerId.GetHashCode();
     if (Pierce != false) hash ^= Pierce.GetHashCode();
+    if (ProjectileModelName.Length != 0) hash ^= ProjectileModelName.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -7372,6 +7388,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(96);
       output.WriteBool(Pierce);
     }
+    if (ProjectileModelName.Length != 0) {
+      output.WriteRawTag(106);
+      output.WriteString(ProjectileModelName);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -7430,6 +7450,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(96);
       output.WriteBool(Pierce);
     }
+    if (ProjectileModelName.Length != 0) {
+      output.WriteRawTag(106);
+      output.WriteString(ProjectileModelName);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -7475,6 +7499,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (Pierce != false) {
       size += 1 + 1;
+    }
+    if (ProjectileModelName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectileModelName);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -7529,6 +7556,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (other.Pierce != false) {
       Pierce = other.Pierce;
+    }
+    if (other.ProjectileModelName.Length != 0) {
+      ProjectileModelName = other.ProjectileModelName;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -7599,6 +7629,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           Pierce = input.ReadBool();
           break;
         }
+        case 106: {
+          ProjectileModelName = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -7666,6 +7700,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 96: {
           Pierce = input.ReadBool();
+          break;
+        }
+        case 106: {
+          ProjectileModelName = input.ReadString();
           break;
         }
       }

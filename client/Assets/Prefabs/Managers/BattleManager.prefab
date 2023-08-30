@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f873a947f374623ad960f283bba9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 5269552939558784490, guid: 80e8c347e1d344c8d904d75ece7493dc,
+    type: 3}
   joystickL: {fileID: 0}
   InputManager: {fileID: 0}
   showClientPredictionGhost: 0

@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "CoM Lootable List", fileName = "Lootable List")]
 public class LootableList : ScriptableObject
 {
-    public Lootable healthLoot;
+    public List<Lootable> LootList;
 }
