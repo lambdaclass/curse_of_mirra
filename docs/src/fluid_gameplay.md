@@ -205,7 +205,7 @@ To avoid both these things, the speed used by the client needs to exactly match 
 
 ## Entity interpolation
 We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough. There's still one thing to do, and that is *Entity Interpolation*.
-For this topic, lets set up our scenario:
+For this topic, let's set up our scenario:
 
 - We have two players in the game (Player 1 and 2)
 
