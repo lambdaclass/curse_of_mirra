@@ -217,7 +217,7 @@ Now, let's see Player 2's movement:
 
 As you can see, Player 2's movement feels that sometimes it suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement based on the updates sent by the server. How can we solve this? Well, here's where Entity Interpolation comes to the battleground. From now on, we'll be calling it just *Interpolation*.
 
-The theory behind Interpolation is that we save the events returned by our server, allowing us to render movements that have already happened. In addition, we are able to predict the movement of the following events. Let's suppose we're interpolating 100ms in the past, a player's movement would look like this
+The theory behind Interpolation is that we save the events returned by our server, allowing us to render movements that have already happened. In addition, we are able to predict the movement of the following events. Let's suppose we're interpolating 100ms in the past, a player's movement would look like this:
 
 ![](./videos/Interpolation_at_100ms.gif)
 
