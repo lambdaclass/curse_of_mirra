@@ -444,7 +444,7 @@ public class CustomInputManager : InputManager
             var targetsInRange = GetTargetsInSkillRange(skill);
             targetsInRange.ForEach(p =>
             {
-                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.red);
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<CustomCharacter>(), Color.red);
             });
         }
     }
