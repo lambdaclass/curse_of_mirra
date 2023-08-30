@@ -130,7 +130,7 @@ public class AimDirection : MonoBehaviour
         return (sideAB.normalized + sideAC.normalized).normalized;
     }
 
-    public bool isInsideCone(GameObject player)
+    public bool IsInsideCone(GameObject player)
     {
         Vector3 bisectorDirection = GetBisectorDirection();
         Vector3 playerDirection = player.transform.position - cone.transform.position;

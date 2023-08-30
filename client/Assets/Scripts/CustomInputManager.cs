@@ -558,7 +558,7 @@ public class CustomInputManager : InputManager
 
     private bool PlayerIsInSkillDirectionRange(GameObject p, Skill skill)
     {
-        return p.name != _player.name && directionIndicator.isInsideCone(p);
+        return p.name != _player.name && directionIndicator.IsInsideCone(p);
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)
