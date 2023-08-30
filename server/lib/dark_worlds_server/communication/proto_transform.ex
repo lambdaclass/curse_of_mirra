@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.KillEvent
+  alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
@@ -83,7 +84,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
       map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy
+      use_proxy: use_proxy,
+      spawn_loot_interval_ms: spawn_loot_interval_ms
     } = runner_config
 
     runner_config = %RunnerConfig{
@@ -96,7 +98,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       map_shrink_interval: map_shrink_interval,
       out_of_area_damage: out_of_area_damage,
       map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy
+      use_proxy: use_proxy,
+      spawn_loot_interval_ms: spawn_loot_interval_ms
     }
 
     character_config = %CharacterConfig{
@@ -246,6 +249,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(%ProtoPlayerInformation{} = player_information, ProtoPlayerInformation) do
     player_information
+  end
+
+  def encode(loot, LootPackage) do
+    %LootPackage{id: loot.id, loot_type: loot_type_encode(loot.loot_type), position: loot.position}
   end
 
   ###########
@@ -517,4 +524,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp effect_encode({:scherzo, %{ends_at: ends_at}}), do: {15, ends_at}
   defp effect_encode({:danse_macabre, %{ends_at: ends_at}}), do: {16, ends_at}
   defp effect_encode({:paralyzed, %{ends_at: ends_at}}), do: {17, ends_at}
+
+  defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
 end

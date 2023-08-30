@@ -20,6 +20,7 @@ message GameEvent {
     repeated KillEvent killfeed = 10;
     uint64 playable_radius = 11;
     Position shrinking_center = 12;
+    repeated LootPackage loots = 13;
 }
 
 /* Type of game events
@@ -249,6 +250,7 @@ message RunnerConfig {
     uint64 out_of_area_damage = 8;
     string use_proxy = 9;
     uint64 map_shrink_minimum_radius = 10;
+    uint64 spawn_loot_interval_ms = 11;
 }
 
 message GameConfig {
@@ -384,4 +386,24 @@ message Projectile {
 message MillisTime {
     uint64 high = 1;
     uint64 low = 2;
+}
+
+/*
+    - id: Unique identifier for the loot
+    - position: Position of the loot
+    - loot_type: Type of loot
+ */
+message LootPackage {
+
+    uint64 id = 1;
+    Position position = 2;
+    LootType loot_type = 3;
+}
+
+/*
+   - LOOT_HEALTH: Gives health instantly
+ */
+enum LootType {
+    LOOT_TYPE_UNSPECIFIED = 0;
+    LOOT_HEALTH = 1;
 }

@@ -18,8 +18,8 @@ public class Utils
 
     public static Vector3 transformBackendPositionToFrontendPosition(Position position)
     {
-        var x = (long)position.Y / 100f - 50.0f;
-        var y = (-((long)position.X)) / 100f + 50.0f;
+        var x = (long)position?.Y / 100f - 50.0f;
+        var y = (-((long)position?.X)) / 100f + 50.0f;
         return new Vector3(x, 1f, y);
     }
 
@@ -37,7 +37,15 @@ public class Utils
 
     public static Player GetGamePlayer(ulong id)
     {
-        return SocketConnectionManager.Instance.gamePlayers.Find(el => el.Id == id);
+        Player player = null;
+        if (
+            SocketConnectionManager.Instance.gamePlayers != null
+            && SocketConnectionManager.Instance.gamePlayers.Count > 0
+        )
+        {
+            player = SocketConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
+        }
+        return player;
     }
 
     public static IEnumerable<Player> GetAlivePlayers()

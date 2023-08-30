@@ -44,9 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0cb2979601724a95a5b0bede032fa22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: -6465566751694194690, guid: 65b762670eb1b4985b173e753a58d807, type: 3}
-  material: {fileID: 0}
-  camera: {fileID: 0}
-  cameraEvent: 18
-  selectedGroupID: 1
+  DamageShader: {fileID: -6465566751694194690, guid: 65b762670eb1b4985b173e753a58d807,
+    type: 3}
+  Healshader: {fileID: -6465566751694194690, guid: 409dac1dabc0447a291d4f462521ecfe,
+    type: 3}
   objectToHighlight: {fileID: 0}
