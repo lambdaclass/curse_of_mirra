@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AimDirection : MonoBehaviour
@@ -113,6 +110,33 @@ public class AimDirection : MonoBehaviour
         mesh.uv = uv;
         mesh.triangles = triangles;
         cone.GetComponent<MeshFilter>().mesh = mesh;
+    }
+
+    private Vector3 GetBisectorDirection()
+    {
+        Mesh coneMesh = cone.GetComponent<MeshFilter>().mesh;
+        Vector3[] coneVertices = coneMesh.vertices;
+
+        // Calculate the vertices of the triangle
+        Vector3 vertexA = cone.transform.TransformPoint(coneVertices[0]);
+        Vector3 vertexB = cone.transform.TransformPoint(coneVertices[1]);
+        Vector3 vertexC = cone.transform.TransformPoint(coneVertices[coneVertices.Length - 2]); // That is the last vertex
+
+        // Calculate the sides of the triangle
+        Vector3 sideAB = vertexB - vertexA;
+        Vector3 sideAC = vertexC - vertexA;
+
+        // return the bisector direction of the triangle's vertex angle
+        return (sideAB.normalized + sideAC.normalized).normalized;
+    }
+
+    public bool isInsideCone(GameObject player)
+    {
+        Vector3 bisectorDirection = GetBisectorDirection();
+        Vector3 playerDirection = player.transform.position - cone.transform.position;
+        playerDirection = new Vector3(playerDirection.x, 1.2f, playerDirection.z);
+        float angle = Vector3.Angle(playerDirection, bisectorDirection);
+        return angle <= fov / 2;
     }
 
     public Vector3 GetVectorFromAngle(float angle)

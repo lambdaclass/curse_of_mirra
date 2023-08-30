@@ -1,12 +1,11 @@
-using MoreMountains.Tools;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using MoreMountains.TopDownEngine;
-using System;
-using System.Collections.Generic;
-using TMPro;
-using System.Collections;
 
 public enum UIControls
 {
@@ -205,7 +204,7 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapDirectionInputEvents(joystick, skill);
+                MapDirectionInputEvents(button, joystick, skill);
                 break;
         }
     }
@@ -243,6 +242,7 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -296,7 +296,11 @@ public class CustomInputManager : InputManager
         HideSkillRange();
     }
 
-    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
+    private void MapDirectionInputEvents(
+        CustomMMTouchButton button,
+        CustomMMTouchJoystick joystick,
+        Skill skill
+    )
     {
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
         directionEvent.AddListener(ShowAimDirectionSkill);
@@ -311,6 +315,12 @@ public class CustomInputManager : InputManager
         directionRelease.AddListener(ExecuteDirectionSkill);
         joystick.skill = skill;
         joystick.newPointerUpEvent = directionRelease;
+
+        button.skill = skill;
+
+        UnityEvent<Skill> aoeEvent = new UnityEvent<Skill>();
+        aoeEvent.AddListener(ShowAimDirectionTargetsSkill);
+        button.newPointerTapDown = aoeEvent;
     }
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
@@ -331,8 +341,14 @@ public class CustomInputManager : InputManager
             directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         }
 
-        ShowSkillRange(joystick.skill);
         activeJoystick = joystick;
+    }
+
+    private void ShowAimDirectionTargetsSkill(Skill skill)
+    {
+        ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
@@ -419,6 +435,18 @@ public class CustomInputManager : InputManager
         }
     }
 
+    private void ShowTargetsInSkillRange(Skill skill)
+    {
+        if (ShouldShowTargetsInSkillRange(skill))
+        {
+            var targetsInRange = GetTargetsInSkillRange(skill);
+            targetsInRange.ForEach(p =>
+            {
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<Character>(), Color.red);
+            });
+        }
+    }
+
     public void HideSkillRange()
     {
         Transform skillRange = _player.transform.Find("SkillRange");
@@ -476,5 +504,67 @@ public class CustomInputManager : InputManager
     public void ToggleCanceled(bool value)
     {
         cancelButton.SetActive(value);
+    }
+
+    private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    {
+        List<GameObject> inRangeTargets = new List<GameObject>();
+
+        SocketConnectionManager.Instance.players.ForEach(p =>
+        {
+            if (PlayerIsInSkillRange(p, skill))
+            {
+                inRangeTargets.Add(p);
+            }
+        });
+        return inRangeTargets;
+    }
+
+    private float GetSkillAngle(Skill skill)
+    {
+        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        foreach (var s in skills)
+        {
+            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
+            {
+                return float.Parse(s.Angle);
+            }
+        }
+        return 0f;
+    }
+
+    private bool PlayerIsInSkillRange(GameObject p, Skill skill)
+    {
+        if (skill.GetSkillName() == "MULTISHOT")
+        {
+            return PlayerIsInSkillDirectionRange(p, skill);
+        }
+        return PlayerIsInSkillProximityRange(p, skill);
+    }
+
+    private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
+    {
+        float distance = Vector3.Distance(_player.transform.position, p.transform.position);
+        float rangeOfAttack = skill.GetSkillRadius();
+        float skillAngle = GetSkillAngle(skill);
+        Vector3 targetDirection = p.transform.position - _player.transform.position;
+        Vector3 attackDirection = _player
+            .GetComponent<CharacterOrientation3D>()
+            .ForcedRotationDirection;
+        float angle = Vector3.Angle(attackDirection, targetDirection);
+
+        return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
+    }
+
+    private bool PlayerIsInSkillDirectionRange(GameObject p, Skill skill)
+    {
+        return p.name != _player.name && directionIndicator.isInsideCone(p);
+    }
+
+    private bool ShouldShowTargetsInSkillRange(Skill skill)
+    {
+        return skill.GetType() == typeof(SkillBasic)
+            || skill.GetSkillName() == "BARREL ROLL"
+            || skill.GetSkillName() == "MULTISHOT";
     }
 }
