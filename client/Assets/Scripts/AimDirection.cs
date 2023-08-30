@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AimDirection : MonoBehaviour
@@ -117,31 +114,28 @@ public class AimDirection : MonoBehaviour
 
     private Vector3 GetBisectorDirection()
     {
-        Vector3[] coneVertices = cone.GetComponent<MeshFilter>().mesh.vertices;
+        Mesh coneMesh = cone.GetComponent<MeshFilter>().mesh;
+        Vector3[] coneVertices = coneMesh.vertices;
 
-        Vector3 bisectorDirection = Vector3.zero;
+        // Calculate the vertices of the triangle
+        Vector3 vertexA = cone.transform.TransformPoint(coneVertices[0]);
+        Vector3 vertexB = cone.transform.TransformPoint(coneVertices[1]);
+        Vector3 vertexC = cone.transform.TransformPoint(coneVertices[coneVertices.Length - 2]); // That is the last vertex
 
-        foreach (Vector3 vertex in coneVertices)
-        {
-            Vector3 worldVertex = cone.transform.TransformPoint(vertex);
-            bisectorDirection += worldVertex.normalized;
-        }
+        // Calculate the sides of the triangle
+        Vector3 sideAB = vertexB - vertexA;
+        Vector3 sideAC = vertexC - vertexA;
 
-        bisectorDirection.Normalize();
-
-        return bisectorDirection;
+        // return the bisector direction of the triangle's vertex angle
+        return (sideAB.normalized + sideAC.normalized).normalized;
     }
 
     public bool isInsideCone(GameObject player)
     {
         Vector3 bisectorDirection = GetBisectorDirection();
         Vector3 playerDirection = player.transform.position - cone.transform.position;
-        print("player: " + player.transform.position);
-        print("cone: " + cone.transform.position);
-        print("playerDirection: " + playerDirection);
+        playerDirection = new Vector3(playerDirection.x, 1.2f, playerDirection.z);
         float angle = Vector3.Angle(playerDirection, bisectorDirection);
-        print("angle: " + angle);
-        print("fov: " + fov);
         return angle <= fov / 2;
     }
 
