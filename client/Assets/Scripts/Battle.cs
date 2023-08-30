@@ -392,12 +392,10 @@ public class Battle : MonoBehaviour
 
                 GameObject skillProjectile = skillProjectiles
                     .Where(obj => obj.name == gameProjectiles[i].ProjectileModelName)
-                    .First();
-
-                GameObject newProjectile = skillProjectile
+                    .First()
                     .GetComponent<SkillProjectile>()
                     .InstanceProjectile(angle);
-                projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
+                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
         }
     }

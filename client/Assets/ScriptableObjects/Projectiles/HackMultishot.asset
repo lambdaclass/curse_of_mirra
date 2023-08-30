@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee07437c157d4170adf25e9751c80e5, type: 3}
   m_Name: HackMultishot
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
-    type: 3}
-  projectileFeedback: {fileID: 8043723714843131183, guid: 1276908f1d1cc4ad195d1f4759ef2cad,
+  projectileFeedback: {fileID: 8043723714843131183, guid: 8d4acba3478f3463cad42c22fea9f4d6,
     type: 3}

@@ -15,18 +15,18 @@ public class SkillProjectile : MonoBehaviour
         objectPooler = Utils.SimpleObjectPooler(
             gameObject.name + "Pooler",
             transform.parent,
-            gameObject.name
+            gameObject
         );
     }
 
     public GameObject InstanceProjectile(float direction)
     {
-        GameObject projectile = objectPooler.GetPooledGameObject();
-        projectile.SetActive(true);
-        projectile.transform.position = transform.position;
-        projectile.transform.rotation = Quaternion.Euler(0, direction, 0);
+        GameObject projectileFromPooler = objectPooler.GetPooledGameObject();
+        projectileFromPooler.SetActive(true);
+        projectileFromPooler.transform.position = transform.position;
+        projectileFromPooler.transform.rotation = Quaternion.Euler(0, direction, 0);
 
-        return projectile;
+        return projectileFromPooler;
     }
 
     public void UpdateProjectilePosition(Vector3 position)
