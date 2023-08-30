@@ -45,10 +45,10 @@ public class SpawnBot : MonoBehaviour
     {
         if (pendingSpawn)
         {
-            playerPrefab.GetComponent<Character>().PlayerID = "";
+            playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
 
-            Character newPlayer = Instantiate(
-                playerPrefab.GetComponent<Character>(),
+            CustomCharacter newPlayer = Instantiate(
+                playerPrefab.GetComponent<CustomCharacter>(),
                 spawnPosition,
                 Quaternion.identity
             );
