@@ -209,7 +209,7 @@ For this topic, let's set up our scenario:
 
 - We have two players in the game (Player 1 and 2)
 
-Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and supposing we receive an update every 20ms, we are receiving 50 game updates per second.
+Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and, supposing we receive an update every 20ms, we are receiving 50 game updates per second.
 
 Now, let's see Player 2's movement:
 
