@@ -1,12 +1,14 @@
 # Fluid Gameplay in an Online Environment
 
-Curse of Myrra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and eventually sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
+Curse of Myrra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
 
-Below we go over the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. This section is going to be long, full of explanations and videos showing different issues that arise from playing through a network. I HIGHLY encourage anyone reading this to actually try this stuff out by themselves. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that is the only metric that matters here.
+Here we'll go over the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that's the only metric that matters here.
 
 The main thing we will discuss is *movement*, as it is the most basic element of the game that needs to render smoothly. Constant jitters/stutters in movement are the hallmark of code that is not robust enough to handle multiplayer gameplay.
 
-Most of the ideas presented here are not new, and were taken primarily from the following articles:
+Most of the ideas presented here are not new.
+
+We recommend reading the articles below for an introduction to common problems caused by latency, standard solutions and examples of implementations, which will aid in understanding our specific implementation.
 
 - [Gabriel Gambetta's Series on Client-Server Game Architecture](https://www.gabrielgambetta.com/client-server-game-architecture.html)
 - [Valve's article on Source multiplayer networking](https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking)
@@ -18,7 +20,7 @@ Before continuing, we need to talk about three extremely important concepts.
 
 ### Framerate
 
-`Framerate`, sometimes called `FPS` (for `frames per second`), is how many `frames` the game (unity) renders each second. Let's go into this in more detail. As complex as games can be, they can all ultimately be reduced to the following high level code:
+`Framerate`, sometimes called `FPS` (for `frames per second`), is how many `frames` the game (Unity) renders each second. Let's go into this in more detail. As complex as games can be, they can all ultimately be reduced to the following high level code:
 ```
 while true {
     get_user_inputs();
@@ -27,11 +29,11 @@ while true {
 }
 ```
 
-This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is one iteration of this loop. Our game is multiplayer, so this loop looks slightly different; clients are not the ones updating game state, they get those updates from the server. The general idea still applies however.
+This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is the result of one iteration of this loop. In multiplayer games, such as ours, this loop looks slightly different: clients are not the ones updating game state, they get those updates from the server. The general idea still applies however.
  
-Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom left corner of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS`.
+Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom left corner of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
 
-Myrra does not cap framerate, which means it can go up to `300`. This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
+Myrra does not cap framerate, which means it can go beyond `300` (you won't be able to see this in Unity though, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
 
 It's very important to understand that framerate is a property of the client; the server does not know about it at all. This will matter later on.
 
