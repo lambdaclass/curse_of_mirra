@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    public List<SkillInfo> listSkillInfo;
+    public HashSet<SkillInfo> listSkillInfo;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -70,10 +70,10 @@ public class Battle : MonoBehaviour
 
     void CreateProjectilesPooler()
     {
-        listSkillInfo = new List<SkillInfo>();
+        listSkillInfo = new HashSet<SkillInfo>();
         foreach (GameObject player in SocketConnectionManager.Instance.players)
         {
-            listSkillInfo.AddRange(
+            listSkillInfo.UnionWith(
                 player
                     .GetComponents<Skill>()
                     .Select(skill => skill.GetSkillInfo())
@@ -389,8 +389,7 @@ public class Battle : MonoBehaviour
                 );
 
                 GameObject skillProjectile = listSkillInfo
-                    .Where(obj => obj.name == gameProjectiles[i].SkillName)
-                    .First()
+                    .Single(obj => obj.name == gameProjectiles[i].SkillName)
                     .projectilePrefab.GetComponent<SkillProjectile>()
                     .InstanceProjectile(angle);
 
