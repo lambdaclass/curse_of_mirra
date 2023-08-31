@@ -508,7 +508,7 @@ impl GameState {
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
                 piercing,
-                "Slingshot".to_string(),
+                "SLINGSHOT".to_string(),
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
@@ -768,7 +768,7 @@ impl GameState {
                     ProjectileStatus::ACTIVE,
                     attacking_player.id,
                     piercing,
-                    "Multishot".to_string(),
+                    "MULTISHOT".to_string(),
                 );
                 projectiles.push(projectile);
                 (*next_projectile_id) += 1;
@@ -971,7 +971,7 @@ impl GameState {
                 ProjectileStatus::ACTIVE,
                 attacking_player.id,
                 false,
-                "Disarm".to_string(),
+                "DISARM".to_string(),
             );
             projectiles.push(projectile);
             (*next_projectile_id) += 1;
