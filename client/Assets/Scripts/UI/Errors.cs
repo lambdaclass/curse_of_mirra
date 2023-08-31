@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Errors : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class Errors : MonoBehaviour
 
     [SerializeField]
     public GameObject reconnectContainer;
+
+    [SerializeField]
+    public GameObject versionHashesContainer;
 
     [SerializeField]
     public TextMeshProUGUI networkError;
@@ -30,6 +33,12 @@ public class Errors : MonoBehaviour
 
     [SerializeField]
     public MMTouchButton yesButton;
+
+    [SerializeField]
+    public TextMeshProUGUI versionHashesWarning;
+
+    [SerializeField]
+    public TextMeshProUGUI versionHashesDescription;
 
     public static Errors Instance;
 
@@ -80,5 +89,17 @@ public class Errors : MonoBehaviour
     public void HideConnectionError()
     {
         networkContainer.SetActive(false);
+    }
+
+    public void HandleVersionHashesError(string title, string description)
+    {
+        versionHashesContainer.SetActive(true);
+        versionHashesWarning.text = title;
+        versionHashesDescription.text = description;
+    }
+
+    public void HideVersionHashesError()
+    {
+        versionHashesContainer.SetActive(false);
     }
 }
