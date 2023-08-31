@@ -352,7 +352,7 @@ public class Skill : CharacterAbility
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted()
+    public bool IsSelfTargeted()
     {
         return skillInfo.skillCircleRadius == -1;
     }
