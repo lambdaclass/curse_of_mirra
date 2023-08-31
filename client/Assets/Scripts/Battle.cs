@@ -404,12 +404,12 @@ public class Battle : MonoBehaviour
 
     void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
     {
-        foreach (var pr in projectiles.ToList())
+        foreach (int projKey in projectiles.Keys.ToList())
         {
-            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
+            if (!gameProjectiles.Exists(x => (int)x.Id == projKey))
             {
-                projectiles[pr.Key].GetComponent<SkillProjectile>().ClearProjectiles();
-                projectiles.Remove(pr.Key);
+                projectiles[projKey].GetComponent<SkillProjectile>().ClearProjectiles();
+                projectiles.Remove(projKey);
             }
         }
     }
