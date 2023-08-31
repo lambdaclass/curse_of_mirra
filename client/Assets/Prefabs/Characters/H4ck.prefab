@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1787465996332106948}
   - component: {fileID: 7067085905496623633}
-  - component: {fileID: 1787465996332106811}
   - component: {fileID: 1787465996332106810}
   - component: {fileID: 1787465996332106809}
   - component: {fileID: 1787465996332106808}
@@ -70,31 +69,6 @@ MonoBehaviour:
   CharacterBrain: {fileID: 0}
   OptimizeForMobile: 1
   characterBase: {fileID: 8699783014714598281}
---- !u!114 &1787465996332106811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe81ad80cb743b408fa90b048ad597f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterDimension: 0
-  CharacterType: 0
-  PlayerID: Player1
-  CharacterAnimator: {fileID: 1176938118362079851}
-  UseDefaultMecanim: 1
-  RunAnimatorSanityChecks: 0
-  DisableAnimatorLogs: 1
-  CharacterModel: {fileID: 5603193989365964841}
-  CharacterHealth: {fileID: 1787465996332106806}
-  SendStateChangeEvents: 1
-  AdditionalAbilityNodes: []
-  CharacterBrain: {fileID: 0}
-  OptimizeForMobile: 1
 --- !u!143 &1787465996332106810
 CharacterController:
   m_ObjectHideFlags: 0
