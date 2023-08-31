@@ -109,6 +109,11 @@ public class Skill : CharacterAbility
         }
     }
 
+    public SkillInfo GetSkillInfo()
+    {
+        return skillInfo;
+    }
+
     public GameObject GetProjectileFromSkill()
     {
         return skillInfo?.projectilePrefab;

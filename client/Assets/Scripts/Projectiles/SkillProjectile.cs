@@ -34,11 +34,11 @@ public class SkillProjectile : MonoBehaviour
         transform.position = position;
     }
 
-    public void ProcessProjectilesCollision(GameObject projectileFeedback)
+    public void ProcessProjectilesCollision()
     {
         gameObject.SetActive(false);
         GameObject feedback = Instantiate(
-            projectileFeedback,
+            projectileInfo.projectileFeedback,
             transform.position,
             Quaternion.identity
         );
