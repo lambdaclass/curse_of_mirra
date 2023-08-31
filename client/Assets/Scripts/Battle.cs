@@ -393,7 +393,8 @@ public class Battle : MonoBehaviour
                 );
 
                 GameObject skillProjectile = listSkillInfo
-                    .Single(obj => obj.name == gameProjectiles[i].SkillName)
+                    .Where(obj => obj.name == gameProjectiles[i].SkillName)
+                    .First()
                     .projectilePrefab.GetComponent<SkillProjectile>()
                     .InstanceProjectile(angle);
 
