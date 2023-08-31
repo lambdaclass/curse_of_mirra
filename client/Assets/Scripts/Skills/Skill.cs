@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -360,7 +359,7 @@ public class Skill : CharacterAbility
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted()
+    public bool IsSelfTargeted()
     {
         return skillInfo.skillCircleRadius == -1;
     }
