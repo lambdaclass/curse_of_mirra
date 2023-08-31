@@ -17,12 +17,12 @@ public class SkillProjectile : MonoBehaviour
         );
     }
 
-    public GameObject InstanceProjectile(float direction)
+    public GameObject InstanceProjectile(float angle)
     {
         GameObject projectileFromPooler = objectPooler.GetPooledGameObject();
         projectileFromPooler.SetActive(true);
         projectileFromPooler.transform.position = transform.position;
-        projectileFromPooler.transform.rotation = Quaternion.Euler(0, direction, 0);
+        projectileFromPooler.transform.rotation = Quaternion.Euler(0, angle, 0);
 
         return projectileFromPooler;
     }
