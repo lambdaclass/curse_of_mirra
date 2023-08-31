@@ -40,7 +40,7 @@ jobs:
         run: |
           set -ex
           mkdir -p ~/.ssh/
-          ssh-keyscan $HOST >> ~/.ssh/known_hosts
+          ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
           scp -i id_ed25519_testing \
               -P ${SSH_PORT} \
               ${SCRIPT_SRC} \
@@ -65,7 +65,7 @@ jobs:
         run: |
           set -ex
           mkdir -p ~/.ssh/
-          ssh-keyscan $HOST >> ~/.ssh/known_hosts
+          ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
           ssh -i id_ed25519_testing \
               -p ${SSH_PORT} \
               ${SSH_USERNAME}@${SSH_HOST} \
