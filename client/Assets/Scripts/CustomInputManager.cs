@@ -523,23 +523,23 @@ public class CustomInputManager : InputManager
     private float GetSkillAngle(Skill skill)
     {
         var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        var angle = 0.0f;
         foreach (var s in skills)
         {
             if (s.Name.ToLower() == skill.GetSkillName().ToLower())
             {
-                return float.Parse(s.Angle);
+                angle = float.Parse(s.Angle);
             }
         }
-        return 0f;
+        return angle;
     }
 
     private bool PlayerIsInSkillRange(GameObject p, Skill skill)
     {
-        if (skill.GetSkillName() == "MULTISHOT")
-        {
-            return PlayerIsInSkillDirectionRange(p, skill);
-        }
-        return PlayerIsInSkillProximityRange(p, skill);
+        bool isMultiShot = skill.GetSkillName() == "MULTISHOT";
+        return isMultiShot
+            ? PlayerIsInSkillDirectionRange(p, skill)
+            : PlayerIsInSkillProximityRange(p, skill);
     }
 
     private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
