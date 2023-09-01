@@ -894,10 +894,11 @@ public class Battle : MonoBehaviour
         {
             foreach (int effect in Enum.GetValues(typeof(StateEffects)))
             {
-                string name = Enum.GetName(typeof(StateEffects), effect);
-                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                if (isActive)
+                if (playerUpdate.Effects.ContainsKey((ulong)effect))
                 {
+                    string name = Enum.GetName(typeof(StateEffects), effect);
+                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
+                    print(name + " " + isActive);
                     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
                 }
             }
