@@ -36,7 +36,7 @@ jobs:
         run: |
           set -ex
           mkdir -p ~/.ssh/
-          ssk-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+          ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
           scp -i id_ed25519_staging \
               -P ${SSH_PORT} \
               ${SCRIPT_SRC} \
@@ -58,7 +58,7 @@ jobs:
         run: |
           set -ex
           mkdir -p ~/.ssh/
-          ssk-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+          ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
           ssh -i id_ed25519_staging \
               -p ${SSH_PORT} \
               ${SSH_USERNAME}@${SSH_HOST} \

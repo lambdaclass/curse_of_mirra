@@ -407,7 +407,7 @@ public class CustomInputManager : InputManager
             .characterBase.SkillRange.transform;
         skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
 
-        if (skill.isSelfTargeted())
+        if (skill.IsSelfTargeted())
         {
             skillRange
                 .GetComponentInChildren<MeshRenderer>()
