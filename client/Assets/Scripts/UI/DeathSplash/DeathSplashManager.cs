@@ -7,13 +7,28 @@ using System.Linq;
 public class DeathSplashManager : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI amountOfKills;
+    TextMeshProUGUI rankingText;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    TextMeshProUGUI messageText;
+
+    [SerializeField]
+    TextMeshProUGUI amountOfKillsText;
+    private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
+    private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
+
+    void OnEnable()
     {
+        // Ranking
         var ranking = GetRanking();
-        amountOfKills.text = "# " + ranking.ToString();
+        rankingText.text = "# " + ranking.ToString();
+        // Message
+        var endGameMessage = PlayerIsWinner() ? WINNER_MESSAGE : LOSER_MESSAGE;
+        messageText.text = endGameMessage;
+        // Kill count
+        var killCount = GetKillCount();
+        var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
+        amountOfKillsText.text = killCount.ToString() + killCountMessage;
     }
 
     private int GetRanking()
@@ -22,10 +37,7 @@ public class DeathSplashManager : MonoBehaviour
         {
             return 1;
         }
-        else
-        {
-            return Utils.GetAlivePlayers().Count() + 1;
-        }
+        return Utils.GetAlivePlayers().Count() + 1;
     }
 
     private bool PlayerIsWinner()
@@ -33,5 +45,12 @@ public class DeathSplashManager : MonoBehaviour
         return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
             && SocketConnectionManager.Instance.winnerPlayer.Item1.Id
                 == LobbyConnection.Instance.playerId;
+    }
+
+    private ulong GetKillCount()
+    {
+        var playerId = LobbyConnection.Instance.playerId;
+        var gamePlayer = Utils.GetGamePlayer(playerId);
+        return gamePlayer.KillCount;
     }
 }
