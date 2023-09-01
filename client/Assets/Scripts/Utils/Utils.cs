@@ -61,18 +61,18 @@ public class Utils
         GameObject objectToPool
     )
     {
-        GameObject objectPoolerGameObject = new GameObject();
-        objectPoolerGameObject.name = name;
-        objectPoolerGameObject.transform.parent = parentTransform;
+        GameObject objectPoolerBuilder = new GameObject();
+        objectPoolerBuilder.name = name;
+        objectPoolerBuilder.transform.parent = parentTransform;
         MMSimpleObjectPooler objectPooler =
-            objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
+            objectPoolerBuilder.AddComponent<MMSimpleObjectPooler>();
         objectPooler.GameObjectToPool = objectToPool;
         objectPooler.PoolSize = 10;
         objectPooler.NestWaitingPool = true;
         objectPooler.MutualizeWaitingPools = true;
         objectPooler.PoolCanExpand = true;
         objectPooler.FillObjectPool();
-        Object.Destroy(objectPoolerGameObject);
+        Object.Destroy(objectPoolerBuilder);
         return objectPooler;
     }
 }
