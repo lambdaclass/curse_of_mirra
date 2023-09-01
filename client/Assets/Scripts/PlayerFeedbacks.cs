@@ -38,32 +38,32 @@ public class PlayerFeedbacks : MonoBehaviour
         float playerHealth
     )
     {
-        // player.GetComponentInChildren<OverlayEffect>().enabled = true;
+        player.GetComponentInChildren<OverlayEffect>().enabled = true;
 
-        // if (clientHealth != playerHealth)
-        // {
-        //     if (playerHealth < clientHealth)
-        //     {
-        //         player.GetComponentInChildren<OverlayEffect>().SetShader("Damage");
-        //         player.GetComponentInChildren<OverlayEffect>().enabled = true;
-        //     }
-        //     if (playerHealth > clientHealth)
-        //     {
-        //         GameObject healFeedback = player
-        //             .GetComponentInChildren<FeedbackContainer>()
-        //             .GetFeedback("HealFeedback");
+        if (clientHealth != playerHealth)
+        {
+            if (playerHealth < clientHealth)
+            {
+                player.GetComponentInChildren<OverlayEffect>().SetShader("Damage");
+                player.GetComponentInChildren<OverlayEffect>().enabled = true;
+            }
+            if (playerHealth > clientHealth)
+            {
+                GameObject healFeedback = player
+                    .GetComponentInChildren<FeedbackContainer>()
+                    .GetFeedback("HealFeedback");
 
-        //         healFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-        //         player.GetComponentInChildren<OverlayEffect>().enabled = false;
-        //     }
-        // }
-        // else
-        // {
-        //     if (player.GetComponentInChildren<OverlayEffect>().enabled)
-        //     {
-        //         StartCoroutine(WaitToRemoveShader(player));
-        //     }
-        // }
+                healFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
+                player.GetComponentInChildren<OverlayEffect>().enabled = false;
+            }
+        }
+        else
+        {
+            if (player.GetComponentInChildren<OverlayEffect>().enabled)
+            {
+                StartCoroutine(WaitToRemoveShader(player));
+            }
+        }
     }
 
     IEnumerator WaitToRemoveShader(GameObject player)
