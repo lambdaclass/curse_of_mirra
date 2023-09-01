@@ -4,7 +4,7 @@
 
 `Feedback prefabs` 
 
-Unity GameObject prefabs with a particle system component to show the particles effect of the state to display. You can find them in `Client/Assets/Feedbacks/States`
+Unity GameObject prefabs with a particle system component to show the particles effect of the state to display. You can find them in `Client/Assets/Prefabs/Feedbacks/States`
 
 `FeedbackContainer`
 
