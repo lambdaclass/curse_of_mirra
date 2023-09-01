@@ -873,9 +873,31 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
+        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
         {
             characterSpeed = 0f;
+            healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
+        }
+        else
+        {
+            if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
+            {
+                healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
+            }
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
+            healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
+        }
+        else
+        {
+            if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
+            {
+                healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
+            }
         }
 
         return characterSpeed;
@@ -902,5 +924,22 @@ public class Battle : MonoBehaviour
     private bool PlayerIsAlive(Player playerUpdate)
     {
         return playerUpdate.Status == Status.Alive;
+    }
+
+    private Gradient GetHealthBarGradient(Color color)
+    {
+        return new Gradient()
+        {
+            colorKeys = new GradientColorKey[2]
+            {
+                new GradientColorKey(color, 0),
+                new GradientColorKey(color, 1f)
+            },
+            alphaKeys = new GradientAlphaKey[2]
+            {
+                new GradientAlphaKey(1, 0),
+                new GradientAlphaKey(1, 1)
+            }
+        };
     }
 }
