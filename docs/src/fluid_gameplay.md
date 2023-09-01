@@ -8,7 +8,7 @@ The main thing we will discuss is *movement*, as it is the most basic element of
 
 Most of the ideas presented here are not new.
 
-We recommend reading the articles below for an introduction to common problems caused by latency, standard solutions and examples of implementations, which will aid in understanding our specific implementation.
+We recommend reading the articles below for an introduction to common problems caused by latency, standard solutions like client prediction and interpolation and examples of implementations, which will aid in understanding our specific implementation.
 
 - [Gabriel Gambetta's Series on Client-Server Game Architecture](https://www.gabrielgambetta.com/client-server-game-architecture.html)
 - [Valve's article on Source multiplayer networking](https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking)
@@ -33,7 +33,7 @@ This mental model is so common in games that it has a name; this is the `game lo
  
 Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom left corner of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
 
-Myrra does not cap framerate, which means it can go beyond `300` (you won't be able to see this in Unity though, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
+Myrra does not cap framerate, which means it can go beyond `300` (although you won't be able to see this in Unity, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
 
 It's very important to understand that framerate is a property of the client; the server does not know about it at all. This will matter later on.
 
@@ -47,19 +47,18 @@ The `Tick Rate` is the rate at which the server sends game updates to every clie
 
 This last "every so often" is the tick rate. We usually refer to it in milliseconds, so if we say the tick rate is `50ms`, what we are saying is every 50 milliseconds, the backend will send the current state to clients.
 
-You can think of tick rate as the rate at which we sample the gameplay. A higher tick rate means we sample more frequently, and thus converge to a more continuous experience, while a lower one can make the game look like a slideshow.
+You can think of tick rate as the rate at which the client(CHECK: used to say "we") samples the gameplay. A higher tick rate means the client(CHECK) samples more frequently, and thus converge to a more continuous experience, while a lower one can make the game look like a slideshow.
+//CHECK this might be one of the misunderstandings. slideshow is more comparable to FPS. 
 
-Note that we are making tick rate the same for every player, that is, players all receive updates at the same rate. This is not the only way to do things. `Valve`, for example, makes it possible for you to set (within a range) how many ticks you get per second. Typically, you want to set it as high as possible for a more accurate experience, but if your network or computer can't handle a high tick rate, lowering it can help.
-
-These days, computers and internet providers are fast enough that almost nobody would need to lower it, so we don't bother allowing for a variable tick rate.
+Note that in our design the tick rate is the same for every player, that is, players all receive updates at the same rate. This is not the only way to do things. `Valve`, for example, makes it possible for the player to set (within a range) how many ticks they get per second. Typically, players want to set it as high as possible for a more accurate experience, but if the network or computer can't handle a high tick rate, lowering it can help.
 
 ### Action/Command Rate
 
-The `Action` or `Command` rate is the rate at which the client sends movement commands to the server. It's important to understand that this applies ONLY to movement. Commands related to using abilities do not have this restriction, and can be sent at any moment, at any frequency. This is an unusual choice. The way we handle input in general is unusual, so let's explain it in more detail.
+The `Action` or `Command` rate is the rate at which the client sends movement commands to the server. It's important to understand that this applies ONLY to movement. Commands related to using abilities do not have this restriction, and can be sent in any moment, at any frequency. This is an unusual choice. The way we handle input in general is unusual, so let's explain it in more detail.
 
-The main reason to introduce an action rate is to reduce pressure on the network, both on the server and the client. It usually works like this:
+Usually, the main reason to introduce an action rate is to reduce pressure on the network, both on the server and the client. The standard way to do this is:
 
-- Whenever the player presses a key, its associated command is saved into a list/buffer.
+- Whenever the player performs a movement or action, it is saved into a list/buffer.
 - When the action rate time has passed, the client bundles up all the commands and sends them together to the server.
 
 We don't do this. What we do instead is the following:
@@ -67,13 +66,13 @@ We don't do this. What we do instead is the following:
 - For non-movement commands, whenever the player issues them, we immediately send the command to the server.
 - For movement commands, every `ActionRate` milliseconds, we check for input on the movement keys/joystick. We then send the appropriate command to the server (move left, move right, etc).
 
-The reason we do this has nothing to do with reducing pressure on the network. It's a consequence of what movement commands look like in our game. When someone sends a "move right" command, the server will move them a fixed amount to the right. What this means is the more "move right" commands you can send per unit of time, the faster you will move. This is a problem, which we fixed in the hackiest way possible. We introduced the action rate to fix the move commands frequency, and thus fix movement speeds.
+The reason we do this has nothing to do with reducing pressure on the network. It's a consequence of what movement commands look like in our game. When someone sends a "move right" command, the server will move them a fixed amount to the right. If players were able to send more than one "move right" command in one ActionRate unit, they'd move faster the more they sent. This is a problem, which we fixed in the hackiest way possible. We introduced the action rate to fix the move commands frequency, and thus fix movement speeds.
 
 Keep in mind this isn't final. We may and probably will change this at some point in the future. For now, however, this is how it works. Of course, people could cheat by unlocking their action rate, which is something we will have to address if this is the solution we keep.
 
-The less hacky solution to this is to make move commands tell the server where you are now. Players know their own speed so they can do the math themselves and just tell the server "now I'm here" or "I moved this many units to the right". This allows clients to send as many movement commands as they want. You still have to solve cheating, however, as clients could lie to the server, but we won't concern ourselves with that here.
+The less hacky solution to this is to make move commands tell the server where you are now. Players know their own speed (CHECK: Who is the real agent in this sentence? Clients know their character speed? their frame rate?) so they can do the math themselves and just tell the server "now I'm here" or "I moved this many units to the right". This allows clients to send as many movement commands as they want. (CHECK: I feel there's something missing here, regarding frequency of updates) You still have to prevent cheating, however, as clients could lie to the server, but we won't concern ourselves with that here.
 
-In Myrra, the action rate is set to be the same as the tick rate. This way, we get one movement per tick. The immediate problem caused by this is that speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
+In Myrra, the action rate is set to be the same as the tick rate. This way, we get one movement per tick. The immediate problem caused by this is that game speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
 
 ## Networks are unreliable
 
@@ -81,11 +80,12 @@ There are two main problems we are trying to solve. They are:
 
 - *Input lag*: Players feel a delay between when they press a button and when the corresponding action happens in-game.
 - *Choppy movement*: Character movement does not look fluid. Sometimes movement stops in-place and then starts again, when it should have been continuous the whole time.
+(CHECK: Are this problems current bugs/issues? or hypothetical?)
 
 Both of these things are the result of playing over the network:
 
 - The first one happens because every action the player submits has to go the server and then back to the client before it gets applied. This round trip time is what we call the player's `ping`. The higher the ping, the higher the input lag.
-- The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), and we assume clients get them at that same frequency. This assumption is _wrong_. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Weboscket`, which uses `tcp` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
+- The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), and we (CHECK: WHO IS WE?)assume clients get them at that same frequency. This assumption is _wrong_. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Weboscket`, which uses `tcp` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
 
 Before going over how we solve these issues, a very important fact needs to be stressed out: __networks are unreliable__. This is especially important for the second item. Ping can be lowered by having servers close to players, but the network will still be unpredictable.
 
@@ -112,7 +112,7 @@ Input lag was the first issue we tackled, even though in hindsight it's clearly 
 
 This is called `Client Prediction`, because it's the client predicting what the server update is going to look like in the future, once it processes the movement command. Instead of waiting for confirmation, the client immediately applies the update, and input lag disappears.
 
-Notice that, by doing this, we are lying to the player. When they move in a direction, they immediately see themselves forward, but that's not where they actually are; the server still needs to process that command. The higher the ping, the more we lie. This is a tradeoff. The game feels better to play with prediction on, but lie to players too much and they might notice. They may see shots that look like they should miss hit them, because they are not seeing their character where it actually is.
+Notice that, by doing this, we are "lying" to the player. When they move in a direction, they immediately see themselves forward, but that's not where they actually are; the server, which is the source of truth of the gamestate, still needs to process that comman and send it out to every player. The higher the ping, the further the gamestate will differ from what the player sees on their screen. This is a tradeoff. The game feels better to play with prediction on, but lie to players too much and they might notice. They may see shots that look like they should miss hit them, because they are not seeing their character where it actually is.
 
 ### Implementation
 
@@ -124,7 +124,7 @@ Our implementation, located in the `ClientPrediction` class, works like this:
 
 So how do we know which inputs were applied by the server? The client attaches a timestamp to every action they send. When the server sends a new update to a client, it attaches to it the last timestamp they processed from said client. The client can therefore consider all actions before that timestamp as applied. In reality, it doesn't need to be a timestamp. Any ID that's auto-incremented suffices.
 
-Note that, for this to be accurate, the client's movement code has to be _exactly the same_ as the one the backend uses, otherwise prediction will go wrong. Valve solves this by having shared movement code that both the client and the server use. We don't have that luxury, because our backend is in `Rust`, while the client is in `C#`. This means we have duplicated code; if the movement logic ever changes on the backend we have to update the client as well to match it.
+Note that, for this to be accurate, the client's movement code has to be _exactly the same_ as the one the backend uses, otherwise prediction will go wrong. [Valve](https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization) solves this by having shared movement code that both the client and the server use. We don't have that luxury, because our backend is in `Rust`, while the client is in `C#`. This means we have duplicated code; if the movement logic ever changes on the backend we have to update the client as well to match it.
 
 ### Ghost
 
@@ -170,9 +170,9 @@ As expected, movement now looks fluid. This is not an ideal solution, however, b
 
 ## Less Naive implementation: Interpolation
 
-Our naive implementation is not good enough. We need to move characters on every frame, regardless of whether there's a new update from the server or not. For this to make sense, characters have to be moved on each frame proportionally to how much time has passed, so if there's six frames per tick they should go from their previous position to their current one smoothly along those six frames.
+Our naive implementation is not good enough. We need to move characters on every frame, regardless of whether there's a new update from the server or not. For this to make sense, characters have to be moved on each frame proportionally to how much time has passed, so if there's six frames per tick they should go from their previous position to their current one smoothly along those six frames. This only happens for the characters the player is not controlling, as we use client prediction for that one.
 
-More precisely, what we do to fix the jitter above for our character is the following:
+More precisely, what we do to fix the jitter is the following:
 
 - On each frame, we take the latest position the server tells us we should be at.
 - We then calculate how much time has passed since the last frame (in Unity this is `Time.deltaTime`) and move towards that latest position at our character's velocity for that amount of time. In code this looks something like this:
@@ -181,7 +181,7 @@ More precisely, what we do to fix the jitter above for our character is the foll
     ```
     where `movementDirection` is the vector of length `1` pointing towards the position the server tells us we should be at.
 
-In other words, what we are doing is making characters chase the server's latest position at their corresponding speed, showing movement gradually over the course of however many frames happen between each tick. When we get a new updated position from the server, instead of immediately placing them there, we move characters smoothly from where they are up to where they need to be. This process of taking two discrete points and smoothing out the movement between them is sometimes called `interpolation`, `linear` `interpolation` or `lerp` for short.
+In other words, what we are doing is making characters chase the server's latest position at their corresponding speed, showing movement gradually over the course of however many frames happen between each tick. When we get a new updated position from the server, instead of immediately placing them there, we move characters smoothly from where they are up to where they need to be. This process of taking two discrete points and smoothing out the movement between them is sometimes called `interpolation`, `linear interpolation` or `lerp` for short.
 
 Note that, as with client prediction, this is a lie. In our backend, the command "move right" will immediately place you `n` units to the right; you do not smoothly travel that distance. On the client, however, if your framerate is higher than the tick rate (which it will almost always be, as our default tick rate is `30` `ms`), the game will show that movement happen more continuously, as if you actually pass through the segment in between. This lie is pretty much unnoticeable though; both the time and space windows are very small.
 
