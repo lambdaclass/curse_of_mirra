@@ -4,7 +4,6 @@ using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
@@ -30,7 +29,6 @@ public class Battle : MonoBehaviour
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
-        Poisoned = PlayerEffect.Poisoned,
         Slowed = PlayerEffect.Slowed,
     }
 
