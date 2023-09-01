@@ -1651,6 +1651,7 @@ GameObject:
   - component: {fileID: 224720080810065248}
   - component: {fileID: 222782597304187778}
   - component: {fileID: 114359911145374542}
+  - component: {fileID: 8300635901488261403}
   m_Layer: 5
   m_Name: DeathSplash
   m_TagString: Untagged
@@ -1718,6 +1719,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8300635901488261403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041692957302306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901a5baf0824440c9b5f6ff8f8b49303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfKills: {fileID: 2458319138069093442}
 --- !u!1 &1097686793990480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9508,7 +9522,6 @@ GameObject:
   - component: {fileID: 2623173264025597367}
   - component: {fileID: 9206874155829743536}
   - component: {fileID: 2458319138069093442}
-  - component: {fileID: 1632637606963085511}
   m_Layer: 5
   m_Name: TextRanking
   m_TagString: Untagged
@@ -9634,18 +9647,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1632637606963085511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3271044004262025419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20d4c7d0716648af929976b3184e9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3283169834927724689
 GameObject:
   m_ObjectHideFlags: 0
