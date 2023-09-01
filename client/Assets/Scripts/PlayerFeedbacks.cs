@@ -38,7 +38,7 @@ public class PlayerFeedbacks : MonoBehaviour
         float playerHealth
     )
     {
-        player.GetComponentInChildren<OverlayEffect>().enabled = true;
+        // player.GetComponentInChildren<OverlayEffect>().enabled = true;
 
         if (clientHealth != playerHealth)
         {
