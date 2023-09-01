@@ -873,12 +873,15 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
-        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
         {
-            print("PARALYZED");
             characterSpeed = 0f;
+        }
+
+        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        {
             healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
         }
         else
@@ -888,18 +891,6 @@ public class Battle : MonoBehaviour
                 healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
             }
         }
-
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        // {
-        //     healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
-        // }
-        // else
-        // {
-        //     if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
-        //     {
-        //         healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
-        //     }
-        // }
 
         return characterSpeed;
     }
