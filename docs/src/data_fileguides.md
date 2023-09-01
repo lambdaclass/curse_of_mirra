@@ -36,6 +36,7 @@ This file contains various settings used by the game
 - **map_shrink_interval:** It's the interval time between shrinks
 - **map_shrink_minimum_radius:** Mininum radius for the playable area, how small can the playable zone can get
 - **out_of_area_damage:** Represents the damage the area does
+- **spawn_loot_interval_ms**: Interval in milliseconds for spawning loot crates
 
 ## Skills.json
 ### Overview

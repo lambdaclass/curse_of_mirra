@@ -1265,12 +1265,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1787465996332106948}
     m_Modifications:
-    - target: {fileID: 1518730323411224541, guid: 2dbdd743c87404d0787e7d0764d32739,
-        type: 3}
-      propertyPath: m_Name
-      value: FeedbackContainer
-      objectReference: {fileID: 0}
-    - target: {fileID: 3050389792539283500, guid: 2dbdd743c87404d0787e7d0764d32739,
+    - target: {fileID: 8881652260837056409, guid: c2e92d8d7ec3b4591bf0ad54ad743256,
         type: 3}
       propertyPath: objectToHighlight
       value: 
@@ -1280,6 +1275,11 @@ PrefabInstance:
       propertyPath: weaponToHighlight
       value: 
       objectReference: {fileID: 4060671328190216528}
+    - target: {fileID: 3050389792539283500, guid: 2dbdd743c87404d0787e7d0764d32739,
+        type: 3}
+      propertyPath: objectToHighlight
+      value: 
+      objectReference: {fileID: 5450023447993379102}
     - target: {fileID: 5495881793934213699, guid: 2dbdd743c87404d0787e7d0764d32739,
         type: 3}
       propertyPath: m_RootOrder

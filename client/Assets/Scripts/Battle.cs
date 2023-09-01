@@ -25,6 +25,8 @@ public class Battle : MonoBehaviour
     public long accumulatedTime;
     public long firstTimestamp;
 
+    private Loot loot;
+
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
@@ -38,6 +40,7 @@ public class Battle : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
+        loot = GetComponent<Loot>();
     }
 
     private void InitBlockingStates()
@@ -66,6 +69,7 @@ public class Battle : MonoBehaviour
             SetAccumulatedTime();
             UpdatePlayerActions();
             UpdateProyectileActions();
+            loot.UpdateLoots();
         }
     }
 
@@ -140,6 +144,7 @@ public class Battle : MonoBehaviour
     {
         long currentTime;
         long pastTime;
+        GameObject interpolationGhost = null;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
@@ -153,9 +158,13 @@ public class Battle : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            GameObject interpolationGhost = findGhostPlayer(
-                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
-            );
+            if (showInterpolationGhosts)
+            {
+                interpolationGhost = FindGhostPlayer(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+                );
+            }
+
             if (
                 useInterpolation
                 && (
@@ -185,7 +194,7 @@ public class Battle : MonoBehaviour
                 // the last server update.
                 if (clientPredictionGhost != null)
                 {
-                    updatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                 }
                 SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                     serverPlayerUpdate,
@@ -195,7 +204,7 @@ public class Battle : MonoBehaviour
 
             if (interpolationGhost != null)
             {
-                updatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -204,11 +213,11 @@ public class Battle : MonoBehaviour
             {
                 if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
                 {
-                    updatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                    UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
                 }
                 else
                 {
-                    updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
                 }
 
                 if (
@@ -236,15 +245,6 @@ public class Battle : MonoBehaviour
             if (serverPlayerUpdate.Health <= 0)
             {
                 SetPlayerDead(playerCharacter);
-            }
-            else if (
-                (
-                    playerCharacter.ConditionState.CurrentState
-                    == CharacterStates.CharacterConditions.Dead
-                ) && (serverPlayerUpdate.Health == 100)
-            )
-            {
-                SetPlayerAlive(playerCharacter);
             }
 
             if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
@@ -432,7 +432,7 @@ public class Battle : MonoBehaviour
         characterOrientation.ForcedRotationDirection = movementDirection;
     }
 
-    private void updatePlayer(GameObject player, Player playerUpdate, long pastTime)
+    private void UpdatePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -511,8 +511,6 @@ public class Battle : MonoBehaviour
         {
             healthComponent.SetHealth(playerUpdate.Health);
         }
-
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
     }
 
     private void HandleMovement(
@@ -558,7 +556,7 @@ public class Battle : MonoBehaviour
         {
             walking =
                 playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                    ? inputsAreBeingUsed()
+                    ? InputsAreBeingUsed()
                     : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
                         playerUpdate.Id,
                         (long)pastTime
@@ -630,7 +628,7 @@ public class Battle : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                RelativePosition direction = getPlayerDirection(playerUpdate);
+                RelativePosition direction = GetPlayerDirection(playerUpdate);
 
                 if (PlayerMovementAuthorized(player.GetComponent<Character>()))
                 {
@@ -645,19 +643,14 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(Character playerCharacter)
     {
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
         playerCharacter.transform.Find("Position").gameObject.SetActive(false);
     }
 
-    public void SetPlayerAlive(Character playerCharacter)
-    {
-        playerCharacter.CharacterModel.SetActive(true);
-        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-    }
-
-    // CLIENT PREDICTION UTILITY FUNCTIONS
+    // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
@@ -702,7 +695,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    // ENTITY INTERPOLATION UTILITY FUNCTIONS
+    // ENTITY INTERPOLATION UTILITY FUNCTIONS, WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleInterpolationGhosts()
     {
         showInterpolationGhosts = !showInterpolationGhosts;
@@ -748,7 +741,7 @@ public class Battle : MonoBehaviour
         InterpolationGhosts = new List<GameObject>();
     }
 
-    public bool inputsAreBeingUsed()
+    public bool InputsAreBeingUsed()
     {
         var inputFromVirtualJoystick = joystickL is not null;
 
@@ -763,7 +756,7 @@ public class Battle : MonoBehaviour
             );
     }
 
-    public RelativePosition getPlayerDirection(Player playerUpdate)
+    public RelativePosition GetPlayerDirection(Player playerUpdate)
     {
         if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
@@ -798,7 +791,7 @@ public class Battle : MonoBehaviour
         return direction;
     }
 
-    private GameObject findGhostPlayer(string playerId)
+    private GameObject FindGhostPlayer(string playerId)
     {
         return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
     }

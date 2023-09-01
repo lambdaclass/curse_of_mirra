@@ -8,5 +8,6 @@
   "map_shrink_interval": "40",
   "map_shrink_minimum_radius": "1800",
   "out_of_area_damage": "10",
-  "use_proxy": "false"
+  "use_proxy": "false",
+  "spawn_loot_interval_ms": "15000"
 }

@@ -2,6 +2,8 @@ use std::cmp::Ordering;
 
 use rustler::NifStruct;
 
+use crate::player::Position;
+
 #[derive(Debug, Clone, Copy, NifStruct, PartialEq)]
 #[module = "DarkWorldsServer.Engine.RelativePosition"]
 pub struct RelativePosition {
@@ -36,4 +38,12 @@ pub fn angle_between_vectors(v1: RelativePosition, v2: RelativePosition) -> u64 
         angle_diff += 360.;
     }
     angle_diff.abs() as u64 % 360
+}
+
+pub fn hit_boxes_collide(center1: Position, center2: Position, radius1: f64, radius2: f64) -> bool {
+    let squared_x = (center1.x - center2.x).pow(2) as f64;
+    let squared_y = (center1.y - center2.y).pow(2) as f64;
+    let centers_distance = (squared_x + squared_y).sqrt();
+    let collision_distance = radius1 + radius2;
+    centers_distance <= collision_distance
 }

@@ -1,12 +1,13 @@
 use crate::board::Board;
 use crate::character::{Character, Name};
+use crate::loot::{self, Loot, LootType};
 use crate::player::{Effect, EffectData, Player, PlayerAction, Position, Status};
 use crate::projectile::{Projectile, ProjectileStatus, ProjectileType};
 use crate::skills::{self, Skill};
 use crate::time_utils::{
     add_millis, millis_to_u128, sub_millis, time_now, u128_to_millis, MillisTime,
 };
-use crate::utils::{angle_between_vectors, cmp_float, RelativePosition};
+use crate::utils::{self, angle_between_vectors, cmp_float, RelativePosition};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
 use rustler::{NifStruct, NifTuple, NifUnitEnum};
@@ -27,6 +28,8 @@ pub struct GameState {
     pub next_projectile_id: u64,
     pub playable_radius: u64,
     pub shrinking_center: Position,
+    pub loots: Vec<Loot>,
+    pub next_loot_id: u64,
 }
 
 #[derive(Clone, NifTuple)]
@@ -96,8 +99,6 @@ impl GameState {
 
         let board = Board::new(board_width, board_height);
 
-        let projectiles = Vec::new();
-
         let rng = &mut thread_rng();
         let shrinking_center_x_coordinate: usize = rng.gen_range(0..board_width);
         let shrinking_center_y_coordinate: usize = rng.gen_range(0..board_height);
@@ -112,10 +113,12 @@ impl GameState {
             board,
             next_killfeed: Vec::new(),
             killfeed: Vec::new(),
-            projectiles,
+            projectiles: Vec::new(),
             next_projectile_id: 0,
             playable_radius: playable_radius,
             shrinking_center,
+            loots: Vec::new(),
+            next_loot_id: 0,
         })
     }
 
@@ -242,6 +245,8 @@ impl GameState {
         )?;
         player.direction = direction;
 
+        Self::find_and_apply_loots(&mut self.loots, player);
+
         Ok(())
     }
 
@@ -273,6 +278,27 @@ impl GameState {
             .iter_mut()
             .find(|player| player.id == player_id)
             .ok_or(format!("Given id ({player_id}) is not valid"))
+    }
+
+    pub fn find_and_apply_loots(loots: &mut Vec<Loot>, player: &mut Player) {
+        let (loot_hit, loot_miss): (Vec<Loot>, Vec<Loot>) = loots.iter().partition(|loot| {
+            utils::hit_boxes_collide(
+                player.position,
+                loot.position,
+                player.character.body_size,
+                loot.size,
+            )
+        });
+        for loot in loot_hit {
+            match loot.loot_type {
+                // Cap health to a max of 100
+                LootType::Health(heal_amount) => {
+                    player.health = min(player.health + heal_amount as i64, 100)
+                }
+            }
+        }
+
+        *loots = loot_miss;
     }
 
     pub fn get_player(players: &Vec<Player>, player_id: u64) -> Result<&Player, String> {
@@ -1558,6 +1584,14 @@ impl GameState {
     pub fn shrink_map(self: &mut Self, map_shrink_minimum_radius: u64) {
         let new_radius = self.playable_radius - 10; // self.playable_radius.mul(1).div(100).div(5);
         self.playable_radius = new_radius.max(map_shrink_minimum_radius);
+    }
+
+    pub fn spawn_loot(self: &mut Self) {
+        let id = self.next_loot_id;
+        self.next_loot_id += 1;
+
+        let loot = loot::spawn_random_loot(id, self.board.height, self.board.width);
+        self.loots.push(loot);
     }
 
     fn update_killfeed(self: &mut Self, attacking_player_id: u64, attacked_player_ids: Vec<u64>) {
