@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
@@ -14,6 +15,21 @@ public class DeathSplashManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI amountOfKillsText;
+
+    [SerializeField]
+    GameObject defeatedByContainer;
+
+    [SerializeField]
+    TextMeshProUGUI defeater;
+
+    [SerializeField]
+    Image defeaterImage;
+
+    [SerializeField]
+    TextMeshProUGUI defeaterName;
+
+    [SerializeField]
+    TextMeshProUGUI defeaterAbility;
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
 
@@ -29,6 +45,19 @@ public class DeathSplashManager : MonoBehaviour
         var killCount = GetKillCount();
         var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
         amountOfKillsText.text = killCount.ToString() + killCountMessage;
+        // This conditional should be activated when the info needed is ready
+        /* if (!PlayerIsWinner())
+        {
+            defeatedByContainer.SetActive(true);
+        } */
+        // Defeated By
+        defeater.text = GetDefeater();
+        // Defeated By Image
+        defeaterImage.sprite = GetDefeaterSprite();
+        // Defeated By Name
+        defeaterName.text = GetDefeaterCharacter();
+        // Defeated By Ability
+        defeaterAbility.text = GetDefeaterAbility();
     }
 
     private int GetRanking()
@@ -52,5 +81,29 @@ public class DeathSplashManager : MonoBehaviour
         var playerId = LobbyConnection.Instance.playerId;
         var gamePlayer = Utils.GetGamePlayer(playerId);
         return gamePlayer.KillCount;
+    }
+
+    private string GetDefeater()
+    {
+        // TODO: get Defeater
+        return "-";
+    }
+
+    private Sprite GetDefeaterSprite()
+    {
+        // TODO: get defeater sprite
+        return null;
+    }
+
+    private string GetDefeaterCharacter()
+    {
+        // TODO: get defeater character
+        return "-";
+    }
+
+    private string GetDefeaterAbility()
+    {
+        // TODO: get defeater ability
+        return "-";
     }
 }
