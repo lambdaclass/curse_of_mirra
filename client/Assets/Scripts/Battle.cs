@@ -877,6 +877,7 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
         {
+            print("PARALYZED");
             characterSpeed = 0f;
             healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
         }
@@ -888,17 +889,17 @@ public class Battle : MonoBehaviour
             }
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        {
-            healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
-        }
-        else
-        {
-            if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
-            {
-                healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
-            }
-        }
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
+        // {
+        //     healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
+        // }
+        // else
+        // {
+        //     if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
+        //     {
+        //         healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
+        //     }
+        // }
 
         return characterSpeed;
     }
