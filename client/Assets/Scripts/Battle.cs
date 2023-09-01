@@ -885,7 +885,7 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0)
+        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
             GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
         }
@@ -896,7 +896,10 @@ public class Battle : MonoBehaviour
             {
                 string name = Enum.GetName(typeof(StateEffects), effect);
                 bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                if (isActive)
+                {
+                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                }
             }
         }
     }
