@@ -286,9 +286,11 @@ public class CustomLevelManager : LevelManager
     private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
-        playerToFollow = alivePlayers.ElementAt(0);
-
-        setCameraToPlayer(playerToFollow.Id);
+        if (alivePlayers.Count() > 0)
+        {
+            playerToFollow = alivePlayers.ElementAt(0);
+            setCameraToPlayer(playerToFollow.Id);
+        }
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
