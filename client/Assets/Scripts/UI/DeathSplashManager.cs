@@ -45,7 +45,11 @@ public class DeathSplashManager : MonoBehaviour
         var ranking = GetRanking();
         rankingText.text = "# " + ranking.ToString();
         // Message
-        var endGameMessage = PlayerIsWinner() ? WINNER_MESSAGE : LOSER_MESSAGE;
+        var endGameMessage = SocketConnectionManager.Instance.PlayerIsWinner(
+            LobbyConnection.Instance.playerId
+        )
+            ? WINNER_MESSAGE
+            : LOSER_MESSAGE;
         messageText.text = endGameMessage;
         // Kill count
         var killCount = GetKillCount();
@@ -70,18 +74,11 @@ public class DeathSplashManager : MonoBehaviour
 
     private int GetRanking()
     {
-        if (PlayerIsWinner())
+        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
         {
             return 1;
         }
         return Utils.GetAlivePlayers().Count() + 1;
-    }
-
-    private bool PlayerIsWinner()
-    {
-        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
-            && SocketConnectionManager.Instance.winnerPlayer.Item1.Id
-                == LobbyConnection.Instance.playerId;
     }
 
     private ulong GetKillCount()
@@ -141,7 +138,7 @@ public class DeathSplashManager : MonoBehaviour
             {
                 playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             }
-            if (PlayerIsWinner())
+            if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
             {
                 playerModel.GetComponent<Animator>().SetBool("Victory", true);
             }
