@@ -209,31 +209,34 @@ public class Battle : MonoBehaviour
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
-            if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+            if (actualPlayer.activeSelf)
             {
-                UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
-            }
-            else
-            {
-                UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-            }
+                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                {
+                    UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                }
+                else
+                {
+                    UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                }
 
-            if (
-                !buffer.timestampAlreadySeen(
-                    SocketConnectionManager.Instance.gamePlayers[i].Id,
-                    gameEvent.ServerTimestamp
+                if (
+                    !buffer.timestampAlreadySeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    )
                 )
-            )
-            {
-                executeSkillFeedback(
-                    actualPlayer,
-                    serverPlayerUpdate.Action,
-                    serverPlayerUpdate.Direction
-                );
-                buffer.setLastTimestampSeen(
-                    SocketConnectionManager.Instance.gamePlayers[i].Id,
-                    gameEvent.ServerTimestamp
-                );
+                {
+                    executeSkillFeedback(
+                        actualPlayer,
+                        serverPlayerUpdate.Action,
+                        serverPlayerUpdate.Direction
+                    );
+                    buffer.setLastTimestampSeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    );
+                }
             }
 
             // TODO: try to optimize GetComponent calls
@@ -450,14 +453,7 @@ public class Battle : MonoBehaviour
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
-        if (!SocketConnectionManager.Instance.GameHasEnded())
-        {
-            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
-        }
-        else
-        {
-            modelAnimator.SetBool("Walking", false);
-        }
+        HandleMovement(player, playerUpdate, pastTime, characterSpeed);
 
         HandlePlayerHealth(player, playerUpdate);
 
