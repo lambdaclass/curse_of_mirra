@@ -453,8 +453,14 @@ public class Battle : MonoBehaviour
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
-        HandleMovement(player, playerUpdate, pastTime, characterSpeed);
-
+        if (!SocketConnectionManager.Instance.GameHasEnded())
+        {
+            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+        }
+        else
+        {
+            modelAnimator.SetBool("Walking", false);
+        }
         HandlePlayerHealth(player, playerUpdate);
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
