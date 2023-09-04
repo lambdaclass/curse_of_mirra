@@ -8,14 +8,11 @@ public class DeathSplashEndMessage : MonoBehaviour
 
     private void OnEnable()
     {
-        var endMessage = ThisPlayerIsWinner() ? WINNER_MESSAGE : LOSER_MESSAGE;
+        var endMessage = SocketConnectionManager.Instance.PlayerIsWinner(
+            LobbyConnection.Instance.playerId
+        )
+            ? WINNER_MESSAGE
+            : LOSER_MESSAGE;
         gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = endMessage;
-    }
-
-    private bool ThisPlayerIsWinner()
-    {
-        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
-            && SocketConnectionManager.Instance.winnerPlayer.Item1.Id
-                == LobbyConnection.Instance.playerId;
     }
 }

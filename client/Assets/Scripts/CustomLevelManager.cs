@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -295,7 +294,7 @@ public class CustomLevelManager : LevelManager
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
     {
-        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
+        return SocketConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == Status.Dead);
     }
 }

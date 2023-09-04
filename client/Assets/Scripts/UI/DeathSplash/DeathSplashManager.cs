@@ -18,7 +18,7 @@ public class DeathSplashManager : MonoBehaviour
 
     private int GetRanking()
     {
-        if (PlayerIsWinner())
+        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
         {
             return 1;
         }
@@ -26,12 +26,5 @@ public class DeathSplashManager : MonoBehaviour
         {
             return Utils.GetAlivePlayers().Count() + 1;
         }
-    }
-
-    private bool PlayerIsWinner()
-    {
-        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
-            && SocketConnectionManager.Instance.winnerPlayer.Item1.Id
-                == LobbyConnection.Instance.playerId;
     }
 }
