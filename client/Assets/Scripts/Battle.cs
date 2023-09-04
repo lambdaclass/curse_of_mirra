@@ -644,6 +644,16 @@ public class Battle : MonoBehaviour
     public void SetPlayerDead(Character playerCharacter)
     {
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
+        for (int i = 0; i < playerCharacter.CharacterModel.transform.childCount; i++)
+        {
+            Renderer renderer = playerCharacter.CharacterModel.transform
+                .GetChild(i)
+                .GetComponent<Renderer>();
+            if (renderer)
+            {
+                renderer.material.color = Color.white;
+            }
+        }
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);

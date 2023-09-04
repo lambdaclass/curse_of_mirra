@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 
 public class DeathSplashManager : MonoBehaviour
 {
@@ -30,6 +32,10 @@ public class DeathSplashManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI defeaterAbility;
+
+    [SerializeField]
+    GameObject playerModelContainer;
+
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
 
@@ -58,6 +64,8 @@ public class DeathSplashManager : MonoBehaviour
         defeaterName.text = GetDefeaterCharacter();
         // Defeated By Ability
         defeaterAbility.text = GetDefeaterAbility();
+        // Player model
+        SetPlayerPrefab();
     }
 
     private int GetRanking()
@@ -105,5 +113,42 @@ public class DeathSplashManager : MonoBehaviour
     {
         // TODO: get defeater ability
         return "-";
+    }
+
+    private void SetPlayerPrefab()
+    {
+        GameObject player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        if (player)
+        {
+            GameObject model = player.GetComponent<Character>().CharacterModel;
+
+            GameObject playerModel = Instantiate(
+                model,
+                playerModelContainer.transform.position,
+                playerModelContainer.transform.rotation,
+                playerModelContainer.transform
+            );
+            // TODO: get model sizes to make then look the same
+            if (playerModel.name.Contains("H4ck"))
+            {
+                playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            }
+            if (playerModel.name.Contains("Muflus"))
+            {
+                playerModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            }
+            if (playerModel.name.Contains("Dagna"))
+            {
+                playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            }
+            if (PlayerIsWinner())
+            {
+                playerModel.GetComponent<Animator>().SetBool("Victory", true);
+            }
+            else
+            {
+                playerModel.GetComponent<Animator>().SetBool("Defeat", true);
+            }
+        }
     }
 }
