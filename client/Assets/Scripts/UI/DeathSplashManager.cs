@@ -50,19 +50,58 @@ public class DeathSplashManager : MonoBehaviour
 
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
+    GameObject player;
+    GameObject playerModel;
+    GameObject modelClone;
+
+    public void SetDeathSplashPlayer()
+    {
+        player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        GameObject playerModel = player.GetComponent<Character>().CharacterModel;
+        modelClone = Instantiate(
+            playerModel,
+            playerModelContainer.transform.position,
+            playerModelContainer.transform.rotation,
+            playerModelContainer.transform
+        );
+    }
 
     void OnEnable()
     {
-        // Ranking
+        ShowRankingDisplay();
+        ShowMessage();
+        ShowMatchInfo();
+        ShowPlayerAnimation();
+        ShowEndGameScreen();
+    }
+
+    void ShowRankingDisplay()
+    {
         var ranking = GetRanking();
         rankingText.text = "# " + ranking.ToString();
-        // Message
+    }
+
+    private int GetRanking()
+    {
+        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
+        {
+            return 1;
+        }
+        return Utils.GetAlivePlayers().Count() + 1;
+    }
+
+    void ShowMessage()
+    {
         var endGameMessage = SocketConnectionManager.Instance.PlayerIsWinner(
             LobbyConnection.Instance.playerId
         )
             ? WINNER_MESSAGE
             : LOSER_MESSAGE;
         messageText.text = endGameMessage;
+    }
+
+    void ShowMatchInfo()
+    {
         // Kill count
         var killCount = GetKillCount();
         var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
@@ -80,19 +119,6 @@ public class DeathSplashManager : MonoBehaviour
         defeaterName.text = GetDefeaterCharacter();
         // Defeated By Ability
         defeaterAbility.text = GetDefeaterAbility();
-        // Player model
-        SetPlayerPrefab();
-        // Victory
-        EndGameBackground();
-    }
-
-    private int GetRanking()
-    {
-        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
-        {
-            return 1;
-        }
-        return Utils.GetAlivePlayers().Count() + 1;
     }
 
     private ulong GetKillCount()
@@ -126,44 +152,51 @@ public class DeathSplashManager : MonoBehaviour
         return "-";
     }
 
-    private void SetPlayerPrefab()
+    private void ShowPlayerAnimation()
     {
-        GameObject player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
         if (player)
         {
-            GameObject model = player.GetComponent<Character>().CharacterModel;
-
-            GameObject playerModel = Instantiate(
-                model,
-                playerModelContainer.transform.position,
-                playerModelContainer.transform.rotation,
-                playerModelContainer.transform
-            );
+            List<SkinnedMeshRenderer> skinnedMeshFilter = new List<SkinnedMeshRenderer>();
+            modelClone.GetComponentsInChildren(skinnedMeshFilter);
+            foreach (var meshFilter in skinnedMeshFilter)
+            {
+                meshFilter.GetComponent<Renderer>().material.shader = Shader.Find(
+                    "Universal Render Pipeline/Lit"
+                );
+            }
+            for (int i = 0; i < modelClone.transform.childCount; i++)
+            {
+                Renderer renderer = modelClone.transform.GetChild(i).GetComponent<Renderer>();
+                if (renderer)
+                {
+                    renderer.material.color = Color.white;
+                }
+            }
             // TODO: get model sizes to make them look the same
-            if (playerModel.name.Contains("H4ck"))
+            if (modelClone.name.Contains("H4ck"))
             {
-                playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                modelClone.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             }
-            if (playerModel.name.Contains("Muflus"))
+            if (modelClone.name.Contains("Muflus"))
             {
-                playerModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                modelClone.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             }
-            if (playerModel.name.Contains("Dagna"))
+            if (modelClone.name.Contains("Dagna"))
             {
-                playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                modelClone.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             }
             if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
             {
-                playerModel.GetComponent<Animator>().SetBool("Victory", true);
+                modelClone.GetComponent<Animator>().SetBool("Victory", true);
             }
             else
             {
-                playerModel.GetComponent<Animator>().SetBool("Defeat", true);
+                modelClone.GetComponent<Animator>().SetBool("Defeat", true);
             }
         }
     }
 
-    private void EndGameBackground()
+    private void ShowEndGameScreen()
     {
         // TODO: get image from lobby
         if (SocketConnectionManager.Instance.GameHasEnded())

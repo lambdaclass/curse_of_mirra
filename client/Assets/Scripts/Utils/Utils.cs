@@ -50,9 +50,11 @@ public class Utils
 
     public static IEnumerable<Player> GetAlivePlayers()
     {
-        return SocketConnectionManager.Instance.gamePlayers.Where(
-            player => player.Status == Status.Alive
-        );
+        return SocketConnectionManager.Instance.gamePlayers.Count == 0
+            ? SocketConnectionManager.Instance.gamePlayers
+            : SocketConnectionManager.Instance.gamePlayers.Where(
+                player => player.Status == Status.Alive
+            );
     }
 
     public static MMSimpleObjectPooler SimpleObjectPooler(
