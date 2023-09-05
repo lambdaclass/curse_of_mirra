@@ -873,24 +873,16 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-        {
-            characterSpeed = 0f;
-        }
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        // {
+        //     characterSpeed = 0f;
+        // }
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned))
-        {
-            healthBar.ForegroundColor = GetHealthBarGradient(MMColors.Green);
-        }
-        else
-        {
-            if (healthBar.ForegroundColor.Equals(GetHealthBarGradient(MMColors.Green)))
-            {
-                healthBar.ForegroundColor = GetHealthBarGradient(MMColors.BestRed);
-            }
-        }
+        healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed)
+            ? GetHealthBarGradient(MMColors.Green)
+            : GetHealthBarGradient(MMColors.BestRed);
 
         return characterSpeed;
     }
