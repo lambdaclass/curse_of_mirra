@@ -74,19 +74,20 @@ public class Battle : MonoBehaviour
             }
             else
             {
+                // TODO: turn off all animations
                 for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
                 {
                     GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
                     Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
                     GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
-                    player
-                        .GetComponent<Character>()
-                        .CharacterModel.GetComponent<Animator>()
-                        .enabled = false;
-                    // Animator modelAnimator = player
+                    // player
                     //     .GetComponent<Character>()
-                    //     .CharacterModel.GetComponent<Animator>();
-                    // modelAnimator.SetBool("Walking", false);
+                    //     .CharacterModel.GetComponent<Animator>()
+                    //     .enabled = false;
+                    Animator modelAnimator = player
+                        .GetComponent<Character>()
+                        .CharacterModel.GetComponent<Animator>();
+                    modelAnimator.SetBool("Walking", false);
                 }
             }
         }
