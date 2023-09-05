@@ -881,8 +881,8 @@ public class Battle : MonoBehaviour
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
 
         healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed)
-            ? GetHealthBarGradient(MMColors.Green)
-            : GetHealthBarGradient(MMColors.BestRed);
+            ? Utils.GetHealthBarGradient(MMColors.Green)
+            : Utils.GetHealthBarGradient(MMColors.BestRed);
 
         return characterSpeed;
     }
@@ -908,22 +908,5 @@ public class Battle : MonoBehaviour
     private bool PlayerIsAlive(Player playerUpdate)
     {
         return playerUpdate.Status == Status.Alive;
-    }
-
-    private Gradient GetHealthBarGradient(Color color)
-    {
-        return new Gradient()
-        {
-            colorKeys = new GradientColorKey[2]
-            {
-                new GradientColorKey(color, 0),
-                new GradientColorKey(color, 1f)
-            },
-            alphaKeys = new GradientAlphaKey[2]
-            {
-                new GradientAlphaKey(1, 0),
-                new GradientAlphaKey(1, 1)
-            }
-        };
     }
 }
