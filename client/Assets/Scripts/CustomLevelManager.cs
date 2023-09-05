@@ -279,16 +279,13 @@ public class CustomLevelManager : LevelManager
 
     private void ShowDeathSplash()
     {
-        print("Showing deathsplash");
         deathSplash.SetActive(true);
         UiControls.SetActive(false);
         if (SocketConnectionManager.Instance.GameHasEnded())
         {
-            print("Game has ended");
             var whiteBandImage = deathSplash.transform.GetChild(1).gameObject.GetComponent<Image>();
             if (!fading)
             {
-                print("Fading");
                 fading = true;
                 StartCoroutine(FadeTo(whiteBandImage, 0.9f, 1f));
             }
@@ -300,7 +297,6 @@ public class CustomLevelManager : LevelManager
         float alpha = image.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / duration)
         {
-            print("Lerp: " + Mathf.Lerp(alpha, targetAlpha, t));
             Color newColor = new Color(
                 image.color.r,
                 image.color.g,

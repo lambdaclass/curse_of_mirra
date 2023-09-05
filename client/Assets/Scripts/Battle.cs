@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
@@ -25,6 +26,7 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
+    private bool shouldExecuteOneLastFrame = true;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -74,20 +76,32 @@ public class Battle : MonoBehaviour
             }
             else
             {
-                // TODO: turn off all animations
-                for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+                if (shouldExecuteOneLastFrame)
                 {
-                    GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-                    Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-                    GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
-                    // player
-                    //     .GetComponent<Character>()
-                    //     .CharacterModel.GetComponent<Animator>()
-                    //     .enabled = false;
-                    Animator modelAnimator = player
-                        .GetComponent<Character>()
-                        .CharacterModel.GetComponent<Animator>();
-                    modelAnimator.SetBool("Walking", false);
+                    UpdatePlayerActions();
+                    UpdateProyectileActions();
+                    loot.UpdateLoots();
+                    shouldExecuteOneLastFrame = false;
+                    new WaitForSeconds(1f);
+                }
+                else
+                {
+                    // TODO: turn off all animations
+                    for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+                    {
+                        GameEvent gameEvent =
+                            SocketConnectionManager.Instance.eventsBuffer.lastEvent();
+                        Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                        GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
+                        // player
+                        //     .GetComponent<Character>()
+                        //     .CharacterModel.GetComponent<Animator>()
+                        //     .enabled = false;
+                        Animator modelAnimator = player
+                            .GetComponent<Character>()
+                            .CharacterModel.GetComponent<Animator>();
+                        modelAnimator.SetBool("Walking", false);
+                    }
                 }
             }
         }
@@ -669,6 +683,7 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(Character playerCharacter)
     {
+        print("Set player dead");
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
         for (int i = 0; i < playerCharacter.CharacterModel.transform.childCount; i++)
         {
