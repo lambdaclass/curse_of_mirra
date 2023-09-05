@@ -55,7 +55,7 @@ public class AimDirection : MonoBehaviour
 
         surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, scaleZ);
         surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 100);
-        surface.SetActive(skill.isSelfTargeted());
+        surface.SetActive(skill.IsSelfTargeted());
     }
 
     public void Rotate(float x, float y, Skill skill)
