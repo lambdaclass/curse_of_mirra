@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 
 public class DeathSplashManager : MonoBehaviour
@@ -163,7 +160,7 @@ public class DeathSplashManager : MonoBehaviour
         }
     }
 
-    private void EndGameBackground()
+    public void EndGameBackground()
     {
         // TODO: get image from lobby
         if (SocketConnectionManager.Instance.GameHasEnded())

@@ -280,32 +280,8 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
+        deathSplash.GetComponent<DeathSplashManager>().EndGameBackground();
         UiControls.SetActive(false);
-        if (SocketConnectionManager.Instance.GameHasEnded())
-        {
-            var whiteBandImage = deathSplash.transform.GetChild(1).gameObject.GetComponent<Image>();
-            if (!fading)
-            {
-                fading = true;
-                StartCoroutine(FadeTo(whiteBandImage, 0.9f, 1f));
-            }
-        }
-    }
-
-    private IEnumerator FadeTo(Image image, float targetAlpha, float duration)
-    {
-        float alpha = image.color.a;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / duration)
-        {
-            Color newColor = new Color(
-                image.color.r,
-                image.color.g,
-                image.color.b,
-                Mathf.Lerp(alpha, targetAlpha, t)
-            );
-            image.color = newColor;
-            yield return null;
-        }
     }
 
     private void SetCameraToAlivePlayer()

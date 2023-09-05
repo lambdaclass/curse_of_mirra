@@ -26,7 +26,7 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
-    private bool shouldExecuteOneLastFrame = true;
+    private int acc = 0;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -76,13 +76,12 @@ public class Battle : MonoBehaviour
             }
             else
             {
-                if (shouldExecuteOneLastFrame)
+                if (acc < 200)
                 {
                     UpdatePlayerActions();
                     UpdateProyectileActions();
                     loot.UpdateLoots();
-                    shouldExecuteOneLastFrame = false;
-                    new WaitForSeconds(1f);
+                    acc++;
                 }
                 else
                 {
