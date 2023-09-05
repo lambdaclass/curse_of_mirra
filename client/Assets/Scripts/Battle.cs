@@ -26,7 +26,7 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
-    private int acc = 0;
+    private bool endGameStateIsPending = true;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -70,40 +70,42 @@ public class Battle : MonoBehaviour
             SetAccumulatedTime();
             if (!SocketConnectionManager.Instance.GameHasEnded())
             {
-                UpdatePlayerActions();
-                UpdateProyectileActions();
-                loot.UpdateLoots();
+                UpdateBattleState();
             }
             else
             {
-                if (acc < 200)
+                if (endGameStateIsPending)
                 {
-                    UpdatePlayerActions();
-                    UpdateProyectileActions();
-                    loot.UpdateLoots();
-                    acc++;
+                    StartCoroutine(EndBattle());
+                    endGameStateIsPending = false;
                 }
-                else
+
+                // TODO: turn off all animations
+                for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
                 {
-                    // TODO: turn off all animations
-                    for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
-                    {
-                        GameEvent gameEvent =
-                            SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-                        Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-                        GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
-                        // player
-                        //     .GetComponent<Character>()
-                        //     .CharacterModel.GetComponent<Animator>()
-                        //     .enabled = false;
-                        Animator modelAnimator = player
-                            .GetComponent<Character>()
-                            .CharacterModel.GetComponent<Animator>();
-                        modelAnimator.SetBool("Walking", false);
-                    }
+                    GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
+                    Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                    GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
+                    Animator modelAnimator = player
+                        .GetComponent<Character>()
+                        .CharacterModel.GetComponent<Animator>();
+                    modelAnimator.SetBool("Walking", false);
                 }
             }
         }
+    }
+
+    private void UpdateBattleState()
+    {
+        UpdatePlayerActions();
+        UpdateProyectileActions();
+        loot.UpdateLoots();
+    }
+
+    private IEnumerator EndBattle()
+    {
+        UpdateBattleState();
+        yield return new WaitForSeconds(1);
     }
 
     private void SetAccumulatedTime()
