@@ -10,6 +10,18 @@ using MoreMountains.TopDownEngine;
 public class DeathSplashManager : MonoBehaviour
 {
     [SerializeField]
+    GameObject backgroundEndGame;
+
+    [SerializeField]
+    TextMeshProUGUI title;
+
+    [SerializeField]
+    TextMeshProUGUI winnerName;
+
+    [SerializeField]
+    TextMeshProUGUI winnerCharacter;
+
+    [SerializeField]
     TextMeshProUGUI rankingText;
 
     [SerializeField]
@@ -70,6 +82,8 @@ public class DeathSplashManager : MonoBehaviour
         defeaterAbility.text = GetDefeaterAbility();
         // Player model
         SetPlayerPrefab();
+        // Victory
+        EndGameBackground();
     }
 
     private int GetRanking()
@@ -125,7 +139,7 @@ public class DeathSplashManager : MonoBehaviour
                 playerModelContainer.transform.rotation,
                 playerModelContainer.transform
             );
-            // TODO: get model sizes to make then look the same
+            // TODO: get model sizes to make them look the same
             if (playerModel.name.Contains("H4ck"))
             {
                 playerModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -146,6 +160,35 @@ public class DeathSplashManager : MonoBehaviour
             {
                 playerModel.GetComponent<Animator>().SetBool("Defeat", true);
             }
+        }
+    }
+
+    private void EndGameBackground()
+    {
+        // TODO: get image from lobby
+        if (SocketConnectionManager.Instance.GameHasEnded())
+        {
+            backgroundEndGame.SetActive(true);
+            // TODO: get player name
+            winnerName.text =
+                "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
+            winnerCharacter.text = SocketConnectionManager
+                .Instance
+                .winnerPlayer
+                .Item1
+                .CharacterName;
+            if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
+            {
+                title.text = "Victory";
+            }
+            else
+            {
+                title.text = "Defeat";
+            }
+        }
+        else
+        {
+            backgroundEndGame.SetActive(false);
         }
     }
 }
