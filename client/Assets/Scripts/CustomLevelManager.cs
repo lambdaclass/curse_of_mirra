@@ -281,7 +281,7 @@ public class CustomLevelManager : LevelManager
     private void ShowDeathSplash()
     {
         deathSplash.SetActive(true);
-        deathSplash.GetComponent<DeathSplashManager>().EndGameBackground();
+        deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         UiControls.SetActive(false);
     }
 

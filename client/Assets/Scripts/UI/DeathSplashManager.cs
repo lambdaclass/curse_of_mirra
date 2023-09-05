@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using MoreMountains.TopDownEngine;
+using System.Collections.Generic;
 
 public class DeathSplashManager : MonoBehaviour
 {
@@ -193,7 +194,7 @@ public class DeathSplashManager : MonoBehaviour
         }
     }
 
-    private void ShowEndGameScreen()
+    public void ShowEndGameScreen()
     {
         // TODO: get image from lobby
         if (SocketConnectionManager.Instance.GameHasEnded())
