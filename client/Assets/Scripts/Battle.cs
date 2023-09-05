@@ -873,14 +873,14 @@ public class Battle : MonoBehaviour
             characterSpeed *= 4f;
         }
 
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-        // {
-        //     characterSpeed = 0f;
-        // }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            characterSpeed = 0f;
+        }
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
 
-        healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed)
+        healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
             ? Utils.GetHealthBarGradient(MMColors.Green)
             : Utils.GetHealthBarGradient(MMColors.BestRed);
 
