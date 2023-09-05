@@ -19,11 +19,14 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
+    private ulong SFX_VOLUME = 3;
+
     void Start()
     {
         muteButtonImage = GetComponentInChildren<Image>();
         soundManager = MMSoundManager.Instance;
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
+        soundManager.SetVolumeSfx(SFX_VOLUME);
     }
 
     void Update()
