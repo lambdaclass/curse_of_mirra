@@ -248,7 +248,6 @@ public class Battle : MonoBehaviour
 
             if (serverPlayerUpdate.Health <= 0)
             {
-                print("setting player dead");
                 SetPlayerDead(playerCharacter);
             }
 
@@ -470,6 +469,7 @@ public class Battle : MonoBehaviour
         {
             modelAnimator.SetBool("Walking", false);
         }
+
         HandlePlayerHealth(player, playerUpdate);
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)

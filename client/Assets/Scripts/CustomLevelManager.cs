@@ -49,7 +49,6 @@ public class CustomLevelManager : LevelManager
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-    private bool fading = false;
 
     protected override void Awake()
     {
