@@ -26,7 +26,6 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
-    private bool endGameStateIsPending = true;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -68,34 +67,11 @@ public class Battle : MonoBehaviour
         )
         {
             SetAccumulatedTime();
-            if (!SocketConnectionManager.Instance.GameHasEnded())
-            {
-                UpdateBattleState();
-            }
-            else
-            {
-                if (endGameStateIsPending)
-                {
-                    UpdateBattleState();
-                    endGameStateIsPending = false;
-                }
-
-                // TODO: turn off all animations
-                // for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
-                // {
-                //     GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-                //     Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-                //     GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
-                //     Animator modelAnimator = player
-                //         .GetComponent<Character>()
-                //         .CharacterModel.GetComponent<Animator>();
-                //     modelAnimator.SetBool("Walking", false);
-                // }
-            }
+            UpdateBattleState();
         }
     }
 
-    private void UpdateBattleState()
+    void UpdateBattleState()
     {
         UpdatePlayerActions();
         UpdateProyectileActions();

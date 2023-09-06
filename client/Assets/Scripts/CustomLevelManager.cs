@@ -293,11 +293,6 @@ public class CustomLevelManager : LevelManager
         UiControls.SetActive(false);
     }
 
-    private IEnumerator WaitForFeedback(MMFeedbacks feedback, bool isPlaying)
-    {
-        yield return new WaitUntil(() => feedback.IsPlaying == isPlaying);
-    }
-
     private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
