@@ -76,21 +76,21 @@ public class Battle : MonoBehaviour
             {
                 if (endGameStateIsPending)
                 {
-                    EndBattle();
+                    UpdateBattleState();
                     endGameStateIsPending = false;
                 }
 
                 // TODO: turn off all animations
-                for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
-                {
-                    GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-                    Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-                    GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
-                    Animator modelAnimator = player
-                        .GetComponent<Character>()
-                        .CharacterModel.GetComponent<Animator>();
-                    modelAnimator.SetBool("Walking", false);
-                }
+                // for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+                // {
+                //     GameEvent gameEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
+                //     Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                //     GameObject player = Utils.GetPlayer(serverPlayerUpdate.Id);
+                //     Animator modelAnimator = player
+                //         .GetComponent<Character>()
+                //         .CharacterModel.GetComponent<Animator>();
+                //     modelAnimator.SetBool("Walking", false);
+                // }
             }
         }
     }
@@ -100,12 +100,6 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProyectileActions();
         loot.UpdateLoots();
-    }
-
-    private void EndBattle()
-    {
-        UpdateBattleState();
-        //yield return new WaitForSeconds(1);
     }
 
     private void SetAccumulatedTime()
@@ -279,6 +273,7 @@ public class Battle : MonoBehaviour
 
             if (serverPlayerUpdate.Health <= 0)
             {
+                print("setting player dead");
                 SetPlayerDead(playerCharacter);
             }
 
