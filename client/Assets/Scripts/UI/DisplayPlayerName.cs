@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class DisplayPlayerName : MonoBehaviour
 {
-    [SerializeField] Character character;
+    [SerializeField]
+    CustomCharacter character;
+
     void Start()
     {
         GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
