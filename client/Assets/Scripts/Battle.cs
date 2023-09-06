@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    public HashSet<SkillInfo> listSkillInfo;
+    public HashSet<SkillInfo> skillInfoSet;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -70,21 +70,17 @@ public class Battle : MonoBehaviour
 
     void CreateProjectilesPooler()
     {
-        listSkillInfo = new HashSet<SkillInfo>();
+        skillInfoSet = new HashSet<SkillInfo>();
         foreach (GameObject player in SocketConnectionManager.Instance.players)
         {
-            listSkillInfo.UnionWith(
+            skillInfoSet.UnionWith(
                 player
                     .GetComponents<Skill>()
                     .Select(skill => skill.GetSkillInfo())
                     .Where(skill => skill.projectilePrefab != null)
             );
         }
-        foreach (SkillInfo skillInfo in listSkillInfo)
-        {
-            GameObject projectileFromSkill = skillInfo.projectilePrefab;
-            projectileFromSkill.GetComponent<SkillProjectile>().CreateProjectilePooler();
-        }
+        GetComponent<ProjectileHandler>().CreateProjectilePooler(skillInfoSet);
     }
 
     void Update()
@@ -391,11 +387,8 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-
-                GameObject skillProjectile = listSkillInfo
-                    .Single(obj => obj.name == gameProjectiles[i].SkillName)
-                    .projectilePrefab.GetComponent<SkillProjectile>()
-                    .InstanceProjectile(angle);
+                GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                    .InstanceProjectile(skillInfoSet, gameProjectiles[i].SkillName, angle);
 
                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
@@ -408,7 +401,7 @@ public class Battle : MonoBehaviour
         {
             if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
             {
-                projectiles[pr.Key].GetComponent<SkillProjectile>().ClearProjectiles();
+                projectiles[pr.Key].GetComponent<SkillProjectile>().ClearProjectile();
                 projectiles.Remove(pr.Key);
             }
         }
@@ -424,7 +417,7 @@ public class Battle : MonoBehaviour
             Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
             if (gameProjectile.Status == ProjectileStatus.Exploded)
             {
-                pr.Value.GetComponent<SkillProjectile>().ProcessProjectilesCollision();
+                pr.Value.GetComponent<SkillProjectile>().ProcessProjectileCollision();
                 projectiles.Remove(pr.Key);
             }
         }

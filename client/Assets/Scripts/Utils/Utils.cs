@@ -72,7 +72,6 @@ public class Utils
         objectPooler.MutualizeWaitingPools = true;
         objectPooler.PoolCanExpand = true;
         objectPooler.FillObjectPool();
-        Object.Destroy(objectPoolerGameObject);
         return objectPooler;
     }
 }
