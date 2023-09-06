@@ -8,14 +8,11 @@ public class PlayerFeedbacks : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
-    public void PlayDeathFeedback(GameObject player, Health healthComponent)
+    public void PlayDeathFeedback(Character player)
     {
-        if (
-            healthComponent.CurrentHealth <= 0
-            && player.GetComponent<Character>().CharacterModel.activeSelf == true
-        )
+        if (player.CharacterModel.activeSelf == true)
         {
-            healthComponent.DeathMMFeedbacks.PlayFeedbacks();
+            player.GetComponent<Health>().DeathMMFeedbacks.PlayFeedbacks();
         }
     }
 
@@ -84,7 +81,7 @@ public class PlayerFeedbacks : MonoBehaviour
     {
         player
             .GetComponentInChildren<FeedbackContainer>()
-            .SetActiveStateFeedback(feedbackName, value);
+            .SetActiveStateFeedback(feedbackName, true);
     }
 
     public void ClearAllFeedbacks(GameObject player)

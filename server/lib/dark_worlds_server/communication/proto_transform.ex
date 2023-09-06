@@ -183,7 +183,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       status: status,
       last_attacked_player_id: last_attacked_player_id,
       pierce: pierce,
-      projectile_model_name: projectile_model_name
+      skill_name: skill_name
     } = projectile
 
     %ProtoProjectile{
@@ -199,7 +199,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       status: projectile_status_encode(status),
       last_attacked_player_id: last_attacked_player_id,
       pierce: pierce,
-      projectile_model_name: projectile_model_name
+      skill_name: skill_name
     }
   end
 
@@ -254,7 +254,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(loot, LootPackage) do
-    %LootPackage{id: loot.id, loot_type: loot_type_encode(loot.loot_type), position: loot.position}
+    %LootPackage{
+      id: loot.id,
+      loot_type: loot_type_encode(loot.loot_type),
+      position: loot.position
+    }
   end
 
   ###########
@@ -336,7 +340,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       status: status,
       last_attacked_player_id: last_attacked_player_id,
       pierce: pierce,
-      projectile_model_name: projectile_model_name
+      skill_name: skill_name
     } = projectile
 
     %EngineProjectile{
@@ -352,7 +356,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       status: projectile_status_decode(status),
       last_attacked_player_id: last_attacked_player_id,
       pierce: pierce,
-      projectile_model_name: projectile_model_name
+      skill_name: skill_name
     }
   end
 

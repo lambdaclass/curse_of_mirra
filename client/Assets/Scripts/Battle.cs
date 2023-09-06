@@ -5,11 +5,10 @@ using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    public IEnumerable<GameObject> skillProjectiles;
+    public HashSet<SkillInfo> skillInfoSet;
 
     [SerializeField]
     MMTouchJoystick joystickL;
@@ -70,19 +69,17 @@ public class Battle : MonoBehaviour
 
     void CreateProjectilesPooler()
     {
+        skillInfoSet = new HashSet<SkillInfo>();
         foreach (GameObject player in SocketConnectionManager.Instance.players)
         {
-            skillProjectiles = player
-                .GetComponents<Skill>()
-                .Select(skill => skill.GetProjectileFromSkill())
-                .Where(projectile => projectile != null);
-            foreach (GameObject skillProjectile in skillProjectiles)
-            {
-                SkillProjectile projectileFromSkill =
-                    skillProjectile.GetComponent<SkillProjectile>();
-                projectileFromSkill.SetProjectilePooler();
-            }
+            skillInfoSet.UnionWith(
+                player
+                    .GetComponents<Skill>()
+                    .Select(skill => skill.GetSkillInfo())
+                    .Where(skill => skill.projectilePrefab != null)
+            );
         }
+        GetComponent<ProjectileHandler>().CreateProjectilePooler(skillInfoSet);
     }
 
     void Update()
@@ -147,7 +144,7 @@ public class Battle : MonoBehaviour
 
         if (player)
         {
-            Character character = player.GetComponent<Character>();
+            CustomCharacter character = player.GetComponent<CustomCharacter>();
             if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
@@ -171,6 +168,7 @@ public class Battle : MonoBehaviour
     {
         long currentTime;
         long pastTime;
+        GameObject interpolationGhost = null;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
         GameEvent gameEvent;
 
@@ -184,9 +182,13 @@ public class Battle : MonoBehaviour
 
         for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            GameObject interpolationGhost = findGhostPlayer(
-                SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
-            );
+            if (showInterpolationGhosts)
+            {
+                interpolationGhost = FindGhostPlayer(
+                    SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+                );
+            }
+
             if (
                 useInterpolation
                 && (
@@ -216,7 +218,7 @@ public class Battle : MonoBehaviour
                 // the last server update.
                 if (clientPredictionGhost != null)
                 {
-                    updatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                 }
                 SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                     serverPlayerUpdate,
@@ -226,7 +228,7 @@ public class Battle : MonoBehaviour
 
             if (interpolationGhost != null)
             {
-                updatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
             }
 
             GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -235,11 +237,11 @@ public class Battle : MonoBehaviour
             {
                 if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
                 {
-                    updatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                    UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
                 }
                 else
                 {
-                    updatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
                 }
 
                 if (
@@ -262,30 +264,25 @@ public class Battle : MonoBehaviour
             }
 
             // TODO: try to optimize GetComponent calls
-            Character playerCharacter = actualPlayer.GetComponent<Character>();
+            CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
 
             if (serverPlayerUpdate.Health <= 0)
             {
                 SetPlayerDead(playerCharacter);
             }
-            else if (
-                (
-                    playerCharacter.ConditionState.CurrentState
-                    == CharacterStates.CharacterConditions.Dead
-                ) && (serverPlayerUpdate.Health == 100)
-            )
-            {
-                SetPlayerAlive(playerCharacter);
-            }
 
             if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
             {
                 // TODO: Refactor: create a script/reference.
-                actualPlayer.transform.Find("Position").GetComponent<Renderer>().material.color =
-                    new Color(1, 0, 0, .5f);
+                actualPlayer
+                    .GetComponent<CustomCharacter>()
+                    .characterBase.Position.GetComponent<Renderer>()
+                    .material.color = new Color(1, 0, 0, .5f);
             }
 
-            Transform hitbox = actualPlayer.transform.Find("Hitbox");
+            Transform hitbox = actualPlayer
+                .GetComponent<CustomCharacter>()
+                .characterBase.Hitbox.transform;
 
             float hitboxSize = serverPlayerUpdate.BodySize / 50f;
             hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
@@ -348,12 +345,15 @@ public class Battle : MonoBehaviour
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
-        ProjectileDisappear(projectiles, gameProjectiles);
-        ProjectileCollision(projectiles, gameProjectiles);
-        CreateProjectile(projectiles, gameProjectiles);
+        ClearProjectiles(projectiles, gameProjectiles);
+        ProcessProjectilesCollision(projectiles, gameProjectiles);
+        UpdateProjectiles(projectiles, gameProjectiles);
     }
 
-    void CreateProjectile(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    void UpdateProjectiles(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
     {
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
@@ -386,41 +386,27 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
+                GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                    .InstanceProjectile(skillInfoSet, gameProjectiles[i].SkillName, angle);
 
-                GameObject skillProjectile = skillProjectiles
-                    .Where(obj => obj.name == gameProjectiles[i].ProjectileModelName)
-                    .First();
-
-                GameObject newProjectile = skillProjectile
-                    .GetComponent<SkillProjectile>()
-                    .InstanceProjectile(angle);
-                projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
+                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
         }
     }
 
-    void ProjectileDisappear(
-        Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
-    )
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
     {
-        var toDelete = new List<int>();
-        foreach (var pr in projectiles)
+        foreach (int projectileId in projectiles.Keys.ToList())
         {
-            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
+            if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
             {
-                toDelete.Add(pr.Key);
+                projectiles[projectileId].GetComponent<SkillProjectile>().ClearProjectile();
+                projectiles.Remove(projectileId);
             }
-        }
-
-        foreach (var key in toDelete)
-        {
-            projectiles[key].GetComponent<SkillProjectile>().ProjectileDisappear();
-            projectiles.Remove(key);
         }
     }
 
-    void ProjectileCollision(
+    void ProcessProjectilesCollision(
         Dictionary<int, GameObject> projectiles,
         List<Projectile> gameProjectiles
     )
@@ -430,13 +416,7 @@ public class Battle : MonoBehaviour
             Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
             if (gameProjectile.Status == ProjectileStatus.Exploded)
             {
-                SkillProjectile skillProjectile = skillProjectiles
-                    .Where(obj => obj.name == gameProjectile.ProjectileModelName)
-                    .First()
-                    .GetComponent<SkillProjectile>();
-                pr.Value
-                    .GetComponent<SkillProjectile>()
-                    .ProjectileCollision(skillProjectile.projectileInfo.projectileFeedback.name);
+                pr.Value.GetComponent<SkillProjectile>().ProcessProjectileCollision();
                 projectiles.Remove(pr.Key);
             }
         }
@@ -451,7 +431,7 @@ public class Battle : MonoBehaviour
         characterOrientation.ForcedRotationDirection = movementDirection;
     }
 
-    private void updatePlayer(GameObject player, Player playerUpdate, long pastTime)
+    private void UpdatePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -464,10 +444,10 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        Character character = player.GetComponent<Character>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
         Animator modelAnimator = player
-            .GetComponent<Character>()
+            .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
@@ -530,8 +510,6 @@ public class Battle : MonoBehaviour
         {
             healthComponent.SetHealth(playerUpdate.Health);
         }
-
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(player, healthComponent);
     }
 
     private void HandleMovement(
@@ -554,7 +532,7 @@ public class Battle : MonoBehaviour
         float yChange = frontendPosition.z - player.transform.position.z;
 
         Animator modelAnimator = player
-            .GetComponent<Character>()
+            .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
@@ -577,7 +555,7 @@ public class Battle : MonoBehaviour
         {
             walking =
                 playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                    ? inputsAreBeingUsed()
+                    ? InputsAreBeingUsed()
                     : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
                         playerUpdate.Id,
                         (long)pastTime
@@ -649,9 +627,9 @@ public class Battle : MonoBehaviour
 
                 // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
                 // if the player is in attacking state, movement rotation from movement should be ignored
-                RelativePosition direction = getPlayerDirection(playerUpdate);
+                RelativePosition direction = GetPlayerDirection(playerUpdate);
 
-                if (PlayerMovementAuthorized(player.GetComponent<Character>()))
+                if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
                 {
                     rotatePlayer(player, direction);
                 }
@@ -662,21 +640,16 @@ public class Battle : MonoBehaviour
         modelAnimator.SetBool("Walking", walking);
     }
 
-    public void SetPlayerDead(Character playerCharacter)
+    public void SetPlayerDead(CustomCharacter playerCharacter)
     {
+        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        playerCharacter.transform.Find("Hitbox").gameObject.SetActive(false);
-        playerCharacter.transform.Find("Position").gameObject.SetActive(false);
+        playerCharacter.characterBase.Hitbox.SetActive(false);
+        playerCharacter.characterBase.Position.SetActive(false);
     }
 
-    public void SetPlayerAlive(Character playerCharacter)
-    {
-        playerCharacter.CharacterModel.SetActive(true);
-        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-    }
-
-    // CLIENT PREDICTION UTILITY FUNCTIONS
+    // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleClientPrediction()
     {
         useClientPrediction = !useClientPrediction;
@@ -703,9 +676,9 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<Character>().PlayerID =
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
             SocketConnectionManager.Instance.playerId.ToString();
-        clientPredictionGhost.GetComponent<Character>().name =
+        clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
     }
@@ -714,14 +687,17 @@ public class Battle : MonoBehaviour
     {
         if (!showClientPredictionGhost && clientPredictionGhost != null)
         {
-            clientPredictionGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            clientPredictionGhost
+                .GetComponent<CustomCharacter>()
+                .GetComponent<Health>()
+                .SetHealth(0);
             clientPredictionGhost.SetActive(false);
             Destroy(clientPredictionGhost);
             clientPredictionGhost = null;
         }
     }
 
-    // ENTITY INTERPOLATION UTILITY FUNCTIONS
+    // ENTITY INTERPOLATION UTILITY FUNCTIONS, WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleInterpolationGhosts()
     {
         showInterpolationGhosts = !showInterpolationGhosts;
@@ -746,10 +722,10 @@ public class Battle : MonoBehaviour
                 player.transform.position,
                 Quaternion.identity
             );
-            interpolationGhost.GetComponent<Character>().PlayerID = SocketConnectionManager
+            interpolationGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
                 .Instance
                 .gamePlayers[i].Id.ToString();
-            interpolationGhost.GetComponent<Character>().name =
+            interpolationGhost.GetComponent<CustomCharacter>().name =
                 $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
 
             InterpolationGhosts.Add(interpolationGhost);
@@ -760,14 +736,14 @@ public class Battle : MonoBehaviour
     {
         foreach (GameObject interpolationGhost in InterpolationGhosts)
         {
-            interpolationGhost.GetComponent<Character>().GetComponent<Health>().SetHealth(0);
+            interpolationGhost.GetComponent<CustomCharacter>().GetComponent<Health>().SetHealth(0);
             interpolationGhost.SetActive(false);
             Destroy(interpolationGhost);
         }
         InterpolationGhosts = new List<GameObject>();
     }
 
-    public bool inputsAreBeingUsed()
+    public bool InputsAreBeingUsed()
     {
         var inputFromVirtualJoystick = joystickL is not null;
 
@@ -782,7 +758,7 @@ public class Battle : MonoBehaviour
             );
     }
 
-    public RelativePosition getPlayerDirection(Player playerUpdate)
+    public RelativePosition GetPlayerDirection(Player playerUpdate)
     {
         if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
@@ -817,15 +793,17 @@ public class Battle : MonoBehaviour
         return direction;
     }
 
-    private GameObject findGhostPlayer(string playerId)
+    private GameObject FindGhostPlayer(string playerId)
     {
-        return InterpolationGhosts.Find(g => g.GetComponent<Character>().PlayerID == playerId);
+        return InterpolationGhosts.Find(
+            g => g.GetComponent<CustomCharacter>().PlayerID == playerId
+        );
     }
 
     private float ManageStateFeedbacks(
         GameObject player,
         Player playerUpdate,
-        Character character,
+        CustomCharacter character,
         float characterSpeed
     )
     {
@@ -911,7 +889,7 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0)
+        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
             GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
         }
@@ -920,9 +898,13 @@ public class Battle : MonoBehaviour
         {
             foreach (int effect in Enum.GetValues(typeof(StateEffects)))
             {
-                string name = Enum.GetName(typeof(StateEffects), effect);
-                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                if (playerUpdate.Effects.ContainsKey((ulong)effect))
+                {
+                    string name = Enum.GetName(typeof(StateEffects), effect);
+                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
+                    print(name + " " + isActive);
+                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                }
             }
         }
     }

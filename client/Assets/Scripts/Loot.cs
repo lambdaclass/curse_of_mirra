@@ -16,11 +16,14 @@ public class Loot : MonoBehaviour
 
     void Start()
     {
-        this.objectPooler = Utils.SimpleObjectPooler(
-            "LootPool",
-            transform.parent.parent,
-            "LootBox"
-        );
+        for (int i = 0; i < lootsList.LootList.Count; i++)
+        {
+            this.objectPooler = Utils.SimpleObjectPooler(
+                "LootPool",
+                transform.parent.parent,
+                lootsList.LootList[i].lootPrefab
+            );
+        }
     }
 
     private void MaybeAddLoot(LootPackage loot)
@@ -44,16 +47,17 @@ public class Loot : MonoBehaviour
         idsToRemove.ForEach(RemoveLoot);
     }
 
-    private GameObject GetLootObject(LootType lootType)
-    {
-        switch (lootType)
+    /*
+        private GameObject GetLootObject(LootType lootType)
         {
-            case LootType.LootHealth:
-                return this.lootsList.healthLoot.lootPrefab;
-            default:
-                throw new ArgumentException("Type for loot ");
-        }
-    }
+            switch (lootType)
+            {
+                case LootType.LootHealth:
+                    return this.lootsList.healthLoot.lootPrefab;
+                default:
+                    throw new ArgumentException("Type for loot ");
+            }
+        } */
 
     private void RemoveLoot(ulong id)
     {

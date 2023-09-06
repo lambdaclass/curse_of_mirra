@@ -37,7 +37,7 @@ public class MatchStatsController : MonoBehaviour
         alivePlayers.text = SocketConnectionManager.Instance.alivePlayers.Count().ToString();
         killCount.text = Utils
             .GetGamePlayer(SocketConnectionManager.Instance.playerId)
-            .KillCount.ToString();
+            ?.KillCount.ToString();
 
         time += Time.deltaTime;
 
