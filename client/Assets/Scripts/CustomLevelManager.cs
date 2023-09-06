@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
-    private const float DEATH_FEEDBACK_DURATION = 2.2f;
+    private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
