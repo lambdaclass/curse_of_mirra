@@ -684,7 +684,6 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(Character playerCharacter)
     {
-        print("Set player dead");
         GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
