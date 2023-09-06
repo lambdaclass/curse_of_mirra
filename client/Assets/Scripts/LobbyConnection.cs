@@ -41,10 +41,13 @@ public class LobbyConnection : MonoBehaviour
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
-    public string ongoingGameTitle = "You have a game in progress";
-    public string ongoingGameDescription = "Do you want to reconnect to the game?";
-    public string connectionTitle = "Error";
-    public string connectionDescription = "Your connection to the server has been lost.";
+    private const string ongoingGameTitle = "You have a game in progress";
+    private const string ongoingGameDescription = "Do you want to reconnect to the game?";
+    private const string connectionTitle = "Error";
+    private const string connectionDescription = "Your connection to the server has been lost.";
+    private const string versionHashesTitle = "Warning";
+    private const string versionHashesDescription =
+        "Client and Server version hashes do not match.";
 
     WebSocket ws;
 
@@ -58,6 +61,7 @@ public class LobbyConnection : MonoBehaviour
     public class LobbiesResponse
     {
         public List<string> lobbies;
+        public string server_version;
     }
 
     [Serializable]
@@ -122,7 +126,6 @@ public class LobbyConnection : MonoBehaviour
                 this.ws.Close();
             }
 
-
             Destroy(gameObject);
             return;
         }
@@ -167,13 +170,23 @@ public class LobbyConnection : MonoBehaviour
 
     public void CreateLobby()
     {
+        ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
     {
+        ValidateVersionHashes();
         ConnectToSession(matchmaking_id);
         LobbySession = matchmaking_id;
+    }
+
+    private void ValidateVersionHashes()
+    {
+        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
+        {
+            Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
+        }
     }
 
     public void Refresh()
@@ -186,6 +199,7 @@ public class LobbyConnection : MonoBehaviour
 
     public void QuickGame()
     {
+        ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
         StartCoroutine(WaitLobbyCreated());
     }
@@ -270,6 +284,7 @@ public class LobbyConnection : MonoBehaviour
                         webRequest.downloadHandler.text
                     );
                     lobbiesList = response.lobbies;
+                    serverHash = response.server_version;
                     break;
                 default:
                     Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);

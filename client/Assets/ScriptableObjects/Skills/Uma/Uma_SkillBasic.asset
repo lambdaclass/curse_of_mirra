@@ -18,7 +18,19 @@ MonoBehaviour:
     stack, but they reset the duration. Taints her enemy preparing it for the kill.
     The first mark is named before her husband. "
   inputType: 0
-  feedbackAnimation: {fileID: 0}
+  executeOnQuickTap: 0
+  indicatorType: 3
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
+  startAnimationDuration: 0
+  executeAnimationDuration: 0.3
+  skillCircleRadius: 0
+  skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 0

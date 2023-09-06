@@ -402,7 +402,9 @@ public class CustomInputManager : InputManager
     {
         float range = skill.GetSkillRadius();
 
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
 
         if (skill.IsSelfTargeted())
@@ -421,13 +423,17 @@ public class CustomInputManager : InputManager
 
     public void HideSkillRange()
     {
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
     public void SetSkillRangeCancelable(bool cancelable)
     {
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
         skillRange
             .GetComponentInChildren<MeshRenderer>()
