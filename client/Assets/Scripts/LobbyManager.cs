@@ -26,11 +26,6 @@ public class LobbyManager : LevelSelector
         gameObject.GetComponent<MMTouchButton>().DisableButton();
     }
 
-    private void Awake()
-    {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-    }
-
     void Start()
     {
         if (playButton != null && waitingText != null)
