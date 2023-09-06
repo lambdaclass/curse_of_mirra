@@ -283,7 +283,7 @@ public class CustomLevelManager : LevelManager
     private IEnumerator ShowDeathSplash(GameObject player)
     {
         MMFeedbacks deathFeedback = player
-            .GetComponent<Character>()
+            .GetComponent<CustomCharacter>()
             .GetComponent<Health>()
             .DeathMMFeedbacks;
         yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);

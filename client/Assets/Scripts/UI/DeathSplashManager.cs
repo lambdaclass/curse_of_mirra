@@ -55,7 +55,7 @@ public class DeathSplashManager : MonoBehaviour
     public void SetDeathSplashPlayer()
     {
         player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
-        GameObject playerModel = player.GetComponent<Character>().CharacterModel;
+        GameObject playerModel = player.GetComponent<CustomCharacter>().CharacterModel;
         modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
