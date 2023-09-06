@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+
 namespace MoreMountains.TopDownEngine // you might want to use your own namespace here
 {
     /// <summary>
@@ -9,6 +10,7 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
     public class AttackController : CharacterAbility
     {
         Animator animator;
+
         protected override void Initialization()
         {
             base.Initialization();
@@ -29,12 +31,13 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         {
             // here as an example we check if we're pressing down
             // on our main stick/direction pad/keyboard
-            if (_inputManager.SecondaryMovement.y < -_inputManager.Threshold.y ||
-             _inputManager.SecondaryMovement.y > -_inputManager.Threshold.y)
+            if (
+                _inputManager.SecondaryMovement.y < -_inputManager.Threshold.y
+                || _inputManager.SecondaryMovement.y > -_inputManager.Threshold.y
+            )
             {
                 //SwordAttack();
             }
-
         }
 
         /// <summary>
@@ -42,13 +45,15 @@ namespace MoreMountains.TopDownEngine // you might want to use your own namespac
         /// </summary>
         public virtual void SwordAttack(bool approvedAction)
         {
-            animator = this.GetComponent<Character>().CharacterModel.GetComponent<Animator>();
+            animator = this.GetComponent<CustomCharacter>().CharacterModel.GetComponent<Animator>();
             // if the ability is not permitted
-            if (!AbilityPermitted
+            if (
+                !AbilityPermitted
                 // or if we're not in our normal stance
                 || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal)
                 // or if we're grounded
-                || (!_controller.Grounded))
+                || (!_controller.Grounded)
+            )
             {
                 // we do nothing and exit
                 //print("no");

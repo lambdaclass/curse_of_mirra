@@ -31,7 +31,7 @@ public class Utils
     public static GameObject GetPlayer(ulong id)
     {
         return SocketConnectionManager.Instance.players.Find(
-            el => el.GetComponent<Character>().PlayerID == id.ToString()
+            el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString()
         );
     }
 
