@@ -360,11 +360,6 @@ public class Battle : MonoBehaviour
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
-
-                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-                float velocity = tickRate * projectileSpeed;
-
                 Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
                     gameProjectiles[i].Position
                 );

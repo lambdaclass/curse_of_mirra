@@ -47,18 +47,6 @@ public class Loot : MonoBehaviour
         idsToRemove.ForEach(RemoveLoot);
     }
 
-    /*
-        private GameObject GetLootObject(LootType lootType)
-        {
-            switch (lootType)
-            {
-                case LootType.LootHealth:
-                    return this.lootsList.healthLoot.lootPrefab;
-                default:
-                    throw new ArgumentException("Type for loot ");
-            }
-        } */
-
     private void RemoveLoot(ulong id)
     {
         GameObject lootObject = loots[id];
