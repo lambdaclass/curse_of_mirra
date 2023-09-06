@@ -270,7 +270,7 @@ MonoBehaviour:
   MaximumHealth: 100
   ResetHealthOnEnable: 1
   ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 0}
+  DamageMMFeedbacks: {fileID: 7672016498210795023}
   FeedbackIsProportionalToDamage: 0
   PreventTakeSelfDamage: 0
   ImmuneToKnockback: 0
@@ -644,6 +644,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: objectToHighlight
+      value: 
+      objectReference: {fileID: 6654064558568213617}
     - target: {fileID: 5078939182839101359, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -745,6 +755,18 @@ Transform:
 --- !u!114 &6237425242110930228 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7978449564968484819, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7672016498210795023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5930843739001535720, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 4050685148264616679}
   m_PrefabAsset: {fileID: 0}

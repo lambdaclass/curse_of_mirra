@@ -173,7 +173,7 @@ public class DeathSplashManager : MonoBehaviour
             // TODO: get model sizes to make them look the same
             if (modelClone.name.Contains("H4ck"))
             {
-                modelClone.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                modelClone.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
             }
             if (modelClone.name.Contains("Muflus"))
             {
@@ -181,7 +181,11 @@ public class DeathSplashManager : MonoBehaviour
             }
             if (modelClone.name.Contains("Dagna"))
             {
-                modelClone.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                modelClone.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+            if (modelClone.name.Contains("Uma"))
+            {
+                modelClone.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
             }
             if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
             {
