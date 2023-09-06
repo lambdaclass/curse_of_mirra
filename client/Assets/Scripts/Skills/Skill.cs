@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -211,7 +210,8 @@ public class Skill : CharacterAbility
                 );
             }
 
-            PlayAbilityStartSfx();
+            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
         }
 
         if (skillInfo.feedbackVfx)
@@ -360,7 +360,7 @@ public class Skill : CharacterAbility
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted()
+    public bool IsSelfTargeted()
     {
         return skillInfo.skillCircleRadius == -1;
     }
