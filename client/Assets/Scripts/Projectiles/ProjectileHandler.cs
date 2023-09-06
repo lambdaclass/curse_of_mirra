@@ -30,7 +30,7 @@ public class ProjectileHandler : MonoBehaviour
     )
     {
         GameObject skillProjectile = skillInfoSet
-            .Single(obj => obj.name == projectileSkillName)
+            .Single(skill => skill.name == projectileSkillName)
             .projectilePrefab;
         MMSimpleObjectPooler projectileFromPooler = objectPoolerList
             .Find(objectPooler => objectPooler.name.Contains(skillProjectile.name));
