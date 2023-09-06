@@ -76,7 +76,7 @@ public class Battle : MonoBehaviour
             {
                 if (endGameStateIsPending)
                 {
-                    StartCoroutine(EndBattle());
+                    EndBattle();
                     endGameStateIsPending = false;
                 }
 
@@ -102,10 +102,10 @@ public class Battle : MonoBehaviour
         loot.UpdateLoots();
     }
 
-    private IEnumerator EndBattle()
+    private void EndBattle()
     {
         UpdateBattleState();
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
     }
 
     private void SetAccumulatedTime()
