@@ -1,13 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
+    public HashSet<SkillInfo> skillInfoSet;
+
     [SerializeField]
     MMTouchJoystick joystickL;
 
@@ -40,6 +42,7 @@ public class Battle : MonoBehaviour
         float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
+        StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
     }
 
@@ -58,6 +61,27 @@ public class Battle : MonoBehaviour
         showInterpolationGhosts = false;
     }
 
+    private IEnumerator InitializeProjectiles()
+    {
+        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        CreateProjectilesPoolers();
+    }
+
+    void CreateProjectilesPoolers()
+    {
+        skillInfoSet = new HashSet<SkillInfo>();
+        foreach (GameObject player in SocketConnectionManager.Instance.players)
+        {
+            skillInfoSet.UnionWith(
+                player
+                    .GetComponents<Skill>()
+                    .Select(skill => skill.GetSkillInfo())
+                    .Where(skill => skill.projectilePrefab != null)
+            );
+        }
+        GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
+    }
+
     void Update()
     {
         if (
@@ -68,7 +92,7 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdatePlayerActions();
-            UpdateProyectileActions();
+            UpdateProjectileActions();
             loot.UpdateLoots();
         }
     }
@@ -317,75 +341,32 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void UpdateProyectileActions()
+    void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
         List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
+        ClearProjectiles(projectiles, gameProjectiles);
+        ProcessProjectilesCollision(projectiles, gameProjectiles);
+        UpdateProjectiles(projectiles, gameProjectiles);
+    }
+
+    void UpdateProjectiles(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
+    {
         GameObject projectile;
-
-        var toDelete = new List<int>();
-        foreach (var pr in projectiles)
-        {
-            if (!gameProjectiles.Exists(x => (int)x.Id == pr.Key))
-            {
-                toDelete.Add(pr.Key);
-            }
-        }
-
-        foreach (var key in toDelete)
-        {
-            // TODO unbind projectile destroy from player
-            GameObject player = SocketConnectionManager.Instance.players[0];
-            player.GetComponent<MainAttack>().LaserDisappear(projectiles[key]);
-            projectiles.Remove(key);
-        }
-
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
-
-                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-                float velocity = tickRate * projectileSpeed;
-
                 Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
                     gameProjectiles[i].Position
                 );
 
-                // TODO: We need to figure out how to use this. To make the movemete more fluid.
-                // float xChange = backToFrontPosition.x - projectile.transform.position.x;
-                // float yChange = backToFrontPosition.z - projectile.transform.position.z;
-
-                // Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
-                // movementDirection.Normalize();
-
-                // Vector3 newPosition = projectile.transform.position + movementDirection * velocity * Time.deltaTime;
-                // if (movementDirection.x > 0)
-                // {
-                //     newPosition.x = Math.Min(backToFrontPosition.x, newPosition.x);
-                // }
-                // else
-                // {
-                //     newPosition.x = Math.Max(backToFrontPosition.x, newPosition.x);
-                // }
-
-                // if (movementDirection.z > 0)
-                // {
-                //     newPosition.z = Math.Min(backToFrontPosition.z, newPosition.z);
-                // }
-                // else
-                // {
-                //     newPosition.z = Math.Max(backToFrontPosition.z, newPosition.z);
-                // }
-
-                GameObject player = SocketConnectionManager.Instance.players[
-                    (int)gameProjectiles[i].PlayerId - 1
-                ];
-                player
-                    .GetComponent<MainAttack>()
-                    .ShootLaser(
-                        projectile,
+                projectile
+                    .GetComponent<SkillProjectile>()
+                    .UpdatePosition(
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
@@ -400,30 +381,42 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                GameObject player = SocketConnectionManager.Instance.players[
-                    (int)gameProjectiles[i].PlayerId - 1
-                ];
-                GameObject newProjectile = player.GetComponent<MainAttack>().InstanceShoot(angle);
+                GameObject projectileFromSkill = skillInfoSet
+                    .Single(skill => skill.name == gameProjectiles[i].SkillName)
+                    .projectilePrefab;
+                GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                    .InstanceProjectile(projectileFromSkill, angle);
 
-                projectiles.Add((int)gameProjectiles[i].Id, newProjectile);
+                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
         }
+    }
 
-        var toExplode = new List<int>();
-        foreach (var pr in projectiles)
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    {
+        foreach (int projectileId in projectiles.Keys.ToList())
         {
-            if (gameProjectiles.Find(x => (int)x.Id == pr.Key).Status == ProjectileStatus.Exploded)
+            if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
             {
-                toExplode.Add(pr.Key);
+                projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
+                projectiles.Remove(projectileId);
             }
         }
+    }
 
-        foreach (var key in toExplode)
+    void ProcessProjectilesCollision(
+        Dictionary<int, GameObject> projectiles,
+        List<Projectile> gameProjectiles
+    )
+    {
+        foreach (var pr in projectiles.ToList())
         {
-            // TODO unbind projectile destroy from player
-            GameObject player = SocketConnectionManager.Instance.players[0];
-            player.GetComponent<MainAttack>().LaserCollision(projectiles[key]);
-            projectiles.Remove(key);
+            Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            if (gameProjectile.Status == ProjectileStatus.Exploded)
+            {
+                pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
+                projectiles.Remove(pr.Key);
+            }
         }
     }
 

@@ -19,6 +19,8 @@ MonoBehaviour:
   inputType: 2
   executeOnQuickTap: 1
   indicatorType: 0
+  projectilePrefab: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
+    type: 3}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
