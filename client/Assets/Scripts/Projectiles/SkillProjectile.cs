@@ -6,12 +6,12 @@ public class SkillProjectile : MonoBehaviour
     [SerializeField]
     public ProjectileInfo projectileInfo;
 
-    public void UpdateProjectilePosition(Vector3 position)
+    public void UpdatePosition(Vector3 position)
     {
         transform.position = position;
     }
 
-    public void ProcessProjectileCollision()
+    public void ProcessCollision()
     {
         gameObject.SetActive(false);
         GameObject feedback = Instantiate(
@@ -22,7 +22,7 @@ public class SkillProjectile : MonoBehaviour
         Destroy(feedback, 1f);
     }
 
-    public void ClearProjectile()
+    public void Remove()
     {
         gameObject.SetActive(false);
     }
