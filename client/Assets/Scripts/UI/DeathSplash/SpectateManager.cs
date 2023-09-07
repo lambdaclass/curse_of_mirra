@@ -15,7 +15,7 @@ public class SpectateManager : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     GameObject spectateTextIndicator;
 
-    void Update()
+    public void UnsetSpectateMode()
     {
         if (SocketConnectionManager.Instance.GameHasEnded())
         {

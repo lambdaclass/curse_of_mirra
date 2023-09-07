@@ -11,6 +11,9 @@ public class DeathSplashManager : MonoBehaviour
     GameObject backgroundEndGame;
 
     [SerializeField]
+    SpectateManager spectateManager;
+
+    [SerializeField]
     TextMeshProUGUI title;
 
     [SerializeField]
@@ -204,6 +207,7 @@ public class DeathSplashManager : MonoBehaviour
         if (SocketConnectionManager.Instance.GameHasEnded())
         {
             backgroundEndGame.SetActive(true);
+            spectateManager.UnsetSpectateMode();
             // TODO: get player name
             winnerName.text =
                 "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
