@@ -64,10 +64,10 @@ public class Battle : MonoBehaviour
     private IEnumerator InitializeProjectiles()
     {
         yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
-        CreateProjectilesPooler();
+        CreateProjectilesPoolers();
     }
 
-    void CreateProjectilesPooler()
+    void CreateProjectilesPoolers()
     {
         skillInfoSet = new HashSet<SkillInfo>();
         foreach (GameObject player in SocketConnectionManager.Instance.players)
@@ -79,7 +79,7 @@ public class Battle : MonoBehaviour
                     .Where(skill => skill.projectilePrefab != null)
             );
         }
-        GetComponent<ProjectileHandler>().CreateProjectilePooler(skillInfoSet);
+        GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
     }
 
     void Update()
@@ -360,18 +360,13 @@ public class Battle : MonoBehaviour
         {
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                float projectileSpeed = gameProjectiles[i].Speed / 10f;
-
-                float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-                float velocity = tickRate * projectileSpeed;
-
                 Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
                     gameProjectiles[i].Position
                 );
 
                 projectile
                     .GetComponent<SkillProjectile>()
-                    .UpdateProjectilePosition(
+                    .UpdatePosition(
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
@@ -386,8 +381,11 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
+                GameObject projectileFromSkill = skillInfoSet
+                    .Single(skill => skill.name == gameProjectiles[i].SkillName)
+                    .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-                    .InstanceProjectile(skillInfoSet, gameProjectiles[i].SkillName, angle);
+                    .InstanceProjectile(projectileFromSkill, angle);
 
                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
@@ -400,7 +398,7 @@ public class Battle : MonoBehaviour
         {
             if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
             {
-                projectiles[projectileId].GetComponent<SkillProjectile>().ClearProjectile();
+                projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
                 projectiles.Remove(projectileId);
             }
         }
@@ -416,7 +414,7 @@ public class Battle : MonoBehaviour
             Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
             if (gameProjectile.Status == ProjectileStatus.Exploded)
             {
-                pr.Value.GetComponent<SkillProjectile>().ProcessProjectileCollision();
+                pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
                 projectiles.Remove(pr.Key);
             }
         }

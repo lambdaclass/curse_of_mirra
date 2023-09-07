@@ -8,7 +8,7 @@ public class ProjectileHandler : MonoBehaviour
 {
     public List<MMSimpleObjectPooler> objectPoolerList;
 
-    public void CreateProjectilePooler(HashSet<SkillInfo> skillInfoSet)
+    public void CreateProjectilesPoolers(HashSet<SkillInfo> skillInfoSet)
     {
         objectPoolerList = new List<MMSimpleObjectPooler>();
         foreach (SkillInfo skillInfo in skillInfoSet)
@@ -23,17 +23,11 @@ public class ProjectileHandler : MonoBehaviour
         }
     }
 
-    public GameObject InstanceProjectile(
-        HashSet<SkillInfo> skillInfoSet,
-        string projectileSkillName,
-        float direction
-    )
+    public GameObject InstanceProjectile(GameObject skillProjectile, float direction)
     {
-        GameObject skillProjectile = skillInfoSet
-            .Single(skill => skill.name == projectileSkillName)
-            .projectilePrefab;
-        MMSimpleObjectPooler projectileFromPooler = objectPoolerList
-            .Find(objectPooler => objectPooler.name.Contains(skillProjectile.name));
+        MMSimpleObjectPooler projectileFromPooler = objectPoolerList.Find(
+            objectPooler => objectPooler.name.Contains(skillProjectile.name)
+        );
         GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
         pooledGameObject.SetActive(true);
         pooledGameObject.transform.position = transform.position;
