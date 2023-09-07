@@ -13,7 +13,8 @@ defmodule DarkWorldsServer.Engine.Projectile do
     :projectile_type,
     :status,
     :last_attacked_player_id,
-    :pierce
+    :pierce,
+    :skill_name
   ]
   defstruct [
     :id,
@@ -27,6 +28,7 @@ defmodule DarkWorldsServer.Engine.Projectile do
     :projectile_type,
     :status,
     :last_attacked_player_id,
-    :pierce
+    :pierce,
+    :skill_name
   ]
 end
