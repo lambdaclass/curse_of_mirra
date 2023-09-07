@@ -542,10 +542,15 @@ public class CustomInputManager : InputManager
 
     private bool PlayerIsInSkillRange(GameObject p, Skill skill)
     {
-        bool isMultiShot = skill.GetSkillName() == "MULTISHOT";
-        return isMultiShot
-            ? PlayerIsInSkillDirectionRange(p, skill)
-            : PlayerIsInSkillProximityRange(p, skill);
+        switch (skill.GetSkillName())
+        {
+            case "MULTISHOT":
+                return PlayerIsInSkillDirectionConeRange(p, skill);
+            case "DISARM":
+                return PlayerIsInSkillDirectionArrowRange(p, skill);
+            default:
+                return PlayerIsInSkillProximityRange(p, skill);
+        }
     }
 
     private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
@@ -562,15 +567,21 @@ public class CustomInputManager : InputManager
         return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
     }
 
-    private bool PlayerIsInSkillDirectionRange(GameObject p, Skill skill)
+    private bool PlayerIsInSkillDirectionConeRange(GameObject p, Skill skill)
     {
         return p.name != _player.name && directionIndicator.IsInsideCone(p);
+    }
+
+    private bool PlayerIsInSkillDirectionArrowRange(GameObject p, Skill skill)
+    {
+        return p.name != _player.name && directionIndicator.IsInArrowLine(p);
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)
     {
         return skill.GetType() == typeof(SkillBasic)
             || skill.GetSkillName() == "BARREL ROLL"
-            || skill.GetSkillName() == "MULTISHOT";
+            || skill.GetSkillName() == "MULTISHOT"
+            || skill.GetSkillName() == "DISARM";
     }
 }

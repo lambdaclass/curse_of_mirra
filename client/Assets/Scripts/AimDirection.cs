@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AimDirection : MonoBehaviour
 {
+    private const float AIMSHOT_AMPLITUDE = 10f;
+
     [SerializeField]
     Color32 characterFeedbackColor = new Color32(255, 255, 255, 255);
 
@@ -137,6 +139,21 @@ public class AimDirection : MonoBehaviour
         playerDirection = new Vector3(playerDirection.x, 1.2f, playerDirection.z);
         float angle = Vector3.Angle(playerDirection, bisectorDirection);
         return angle <= fov / 2;
+    }
+
+    public bool IsInArrowLine(GameObject player)
+    {
+        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+
+        Vector3 arrowDirection = arrow.transform.position - currentPlayer.transform.position;
+        arrowDirection = new Vector3(arrowDirection.x, 0f, arrowDirection.z);
+
+        Vector3 playerDirection = player.transform.position - currentPlayer.transform.position;
+        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
+
+        float angle = Vector3.Angle(arrowDirection, playerDirection);
+
+        return angle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
     }
 
     public Vector3 GetVectorFromAngle(float angle)

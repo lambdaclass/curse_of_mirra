@@ -31,4 +31,4 @@ MonoBehaviour:
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 1.5
-  skillAreaRadius: 3.5
+  skillAreaRadius: 0
