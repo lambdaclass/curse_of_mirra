@@ -461,6 +461,8 @@ public class Battle : MonoBehaviour
 
         HandlePlayerHealth(player, playerUpdate);
 
+        HandlePlayersInSight(player, playerUpdate);
+
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
             /*
@@ -514,6 +516,42 @@ public class Battle : MonoBehaviour
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
             healthComponent.SetHealth(playerUpdate.Health);
+        }
+    }
+
+    private void HandlePlayersInSight(GameObject player, Player playerUpdate)
+    {
+        print("Handling players in sight");
+        CustomCharacter playerCharacter = player.GetComponent<CustomCharacter>();
+        // TODO: if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Hidden))
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+        {
+            print("Player is hidden");
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                print("Player is hidden and is not you");
+                Color currentColor = playerCharacter.CharacterModel
+                    .GetComponent<Renderer>()
+                    .material.color;
+                playerCharacter.CharacterModel.GetComponent<Renderer>().material.color = new Color(
+                    currentColor.r,
+                    currentColor.g,
+                    currentColor.b,
+                    currentColor.a * 0.25f
+                );
+            }
+            else
+            {
+                print("Player is hidden and is not you");
+                playerCharacter.CharacterModel.SetActive(false);
+                playerCharacter.characterBase.Hitbox.SetActive(false);
+                playerCharacter.characterBase.Position.SetActive(false);
+                playerCharacter.GetComponent<Health>().gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            player.gameObject.SetActive(true);
         }
     }
 
