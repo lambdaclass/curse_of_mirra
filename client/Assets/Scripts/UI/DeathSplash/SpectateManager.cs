@@ -15,6 +15,17 @@ public class SpectateManager : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     GameObject spectateTextIndicator;
 
+    void Update()
+    {
+        if (SocketConnectionManager.Instance.GameHasEnded())
+        {
+            dataSplashContainer.SetActive(true);
+            exitButton.SetActive(false);
+            spectateTextIndicator.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         dataSplashContainer.SetActive(false);
