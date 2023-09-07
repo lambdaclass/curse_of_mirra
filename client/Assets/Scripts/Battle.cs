@@ -529,15 +529,18 @@ public class Battle : MonoBehaviour
             print("Player is hidden");
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                print("Player is hidden and is not you");
-                Color currentColor = playerCharacter.CharacterModel
+                print("Player is hidden and is you");
+                Color currentColor = playerCharacter.characterBase.Position
                     .GetComponent<Renderer>()
                     .material.color;
-                playerCharacter.CharacterModel.GetComponent<Renderer>().material.color = new Color(
-                    currentColor.r,
-                    currentColor.g,
-                    currentColor.b,
-                    currentColor.a * 0.25f
+                Utils.ChangeCharacterMaterialColor(
+                    playerCharacter,
+                    new Color(
+                        currentColor.r,
+                        currentColor.g,
+                        currentColor.b,
+                        currentColor.a * 0.25f
+                    )
                 );
             }
             else
