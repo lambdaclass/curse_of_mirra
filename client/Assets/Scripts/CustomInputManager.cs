@@ -376,7 +376,6 @@ public class CustomInputManager : InputManager
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
-        Debug.Log(showCooldown);
         if (showCooldown)
         {
             if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
