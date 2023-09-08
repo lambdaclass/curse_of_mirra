@@ -521,41 +521,41 @@ public class Battle : MonoBehaviour
 
     private void HandlePlayersInSight(GameObject player, Player playerUpdate)
     {
-        print("Handling players in sight");
         CustomCharacter playerCharacter = player.GetComponent<CustomCharacter>();
         // TODO: if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Hidden))
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
         {
-            print("Player is hidden");
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                print("Player is hidden and is you");
-                Color currentColor = playerCharacter.characterBase.Position
-                    .GetComponent<Renderer>()
-                    .material.color;
-                Utils.ChangeCharacterMaterialColor(
-                    playerCharacter,
-                    new Color(
-                        currentColor.r,
-                        currentColor.g,
-                        currentColor.b,
-                        currentColor.a * 0.25f
-                    )
-                );
+                SetPlayerOpacity(playerCharacter, 0.5f);
             }
             else
             {
-                print("Player is hidden and is not you");
-                playerCharacter.CharacterModel.SetActive(false);
+                SetPlayerOpacity(playerCharacter, 0f);
                 playerCharacter.characterBase.Hitbox.SetActive(false);
                 playerCharacter.characterBase.Position.SetActive(false);
-                playerCharacter.GetComponent<Health>().gameObject.SetActive(false);
+                player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, false);
             }
         }
         else
         {
-            player.gameObject.SetActive(true);
+            SetPlayerOpacity(playerCharacter, 1f);
+            playerCharacter.characterBase.Hitbox.SetActive(true);
+            playerCharacter.characterBase.Position.SetActive(true);
+            player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, true);
         }
+    }
+
+    private void SetPlayerOpacity(CustomCharacter playerCharacter, float opacity)
+    {
+        print("Setting player opacity to: " + opacity);
+        Renderer[] playerCharacterMaterials =
+            playerCharacter.CharacterModel.GetComponentsInChildren<Renderer>();
+
+        playerCharacterMaterials
+            .Select(pcm => pcm.sharedMaterial)
+            .ToList()
+            .ForEach(material => material.SetFloat("_Opacity", opacity));
     }
 
     private void HandleMovement(
