@@ -1,4 +1,5 @@
 using UnityEngine;
+using MoreMountains.TopDownEngine;
 
 public class AimDirection : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class AimDirection : MonoBehaviour
     UIIndicatorType activeIndicator = UIIndicatorType.None;
 
     public float fov = 90f;
-    public float angle = 0f;
+    public float skillAngle = 0f;
     public float viewDistance = 50f;
     public int rayCount = 50;
     public float angleIncrease;
@@ -37,6 +38,7 @@ public class AimDirection : MonoBehaviour
     {
         // TODO: Add the spread area (angle) depending of the skill.json
         viewDistance = skill.GetSkillRadius();
+        skillAngle = skill.GetAngle();
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
         characterFeedbackColor = color;
@@ -75,7 +77,7 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
-        angle = 0;
+        float angle = 0;
         angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
         Vector3 origin = Vector3.zero;
@@ -130,6 +132,18 @@ public class AimDirection : MonoBehaviour
 
         // return the bisector direction of the triangle's vertex angle
         return (sideAB.normalized + sideAC.normalized).normalized;
+    }
+
+    public bool IsInProximityRange(GameObject player){
+        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        float distance = Vector3.Distance(currentPlayer.transform.position, player.transform.position);
+        Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
+        Vector3 attackDirection = currentPlayer
+            .GetComponent<CharacterOrientation3D>()
+            .ForcedRotationDirection;
+        float angle = Vector3.Angle(attackDirection, targetDirection);
+
+        return distance <= viewDistance && angle <= skillAngle / 2;
     }
 
     public bool IsInsideCone(GameObject player)

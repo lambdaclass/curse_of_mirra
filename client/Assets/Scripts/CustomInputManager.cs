@@ -526,19 +526,6 @@ public class CustomInputManager : InputManager
         return inRangeTargets;
     }
 
-    private float GetSkillAngle(Skill skill)
-    {
-        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
-        var angle = 0.0f;
-        foreach (var s in skills)
-        {
-            if (s.Name.ToLower() == skill.GetSkillName().ToLower())
-            {
-                angle = float.Parse(s.Angle);
-            }
-        }
-        return angle;
-    }
 
     private bool PlayerIsInSkillRange(GameObject p, Skill skill)
     {
@@ -555,26 +542,21 @@ public class CustomInputManager : InputManager
 
     private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
     {
-        float distance = Vector3.Distance(_player.transform.position, p.transform.position);
-        float rangeOfAttack = skill.GetSkillRadius();
-        float skillAngle = GetSkillAngle(skill);
-        Vector3 targetDirection = p.transform.position - _player.transform.position;
-        Vector3 attackDirection = _player
-            .GetComponent<CharacterOrientation3D>()
-            .ForcedRotationDirection;
-        float angle = Vector3.Angle(attackDirection, targetDirection);
-
-        return p.name != _player.name && distance <= rangeOfAttack && angle <= skillAngle / 2;
+        return !IsSamePlayer(p) && directionIndicator.IsInProximityRange(p);
     }
 
     private bool PlayerIsInSkillDirectionConeRange(GameObject p, Skill skill)
     {
-        return p.name != _player.name && directionIndicator.IsInsideCone(p);
+        return !IsSamePlayer(p) && directionIndicator.IsInsideCone(p);
     }
 
     private bool PlayerIsInSkillDirectionArrowRange(GameObject p, Skill skill)
     {
-        return p.name != _player.name && directionIndicator.IsInArrowLine(p);
+        return !IsSamePlayer(p) && directionIndicator.IsInArrowLine(p);
+    }
+
+    private bool IsSamePlayer(GameObject p){
+        return p.name == _player.name;
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)

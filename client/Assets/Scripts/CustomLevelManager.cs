@@ -177,6 +177,27 @@ public class CustomLevelManager : LevelManager
         }
     }
 
+    private void SetSkillAngles(CoMCharacter characterInfo){
+        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+       
+        List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
+
+        float basicSkillInfoAngle = jsonSkills.Exists(skill => characterInfo.skillBasicInfo.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle) : 0;
+        characterInfo.skillBasicInfo.angle = basicSkillInfoAngle;
+
+        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle) : 0;
+        characterInfo.skill1Info.angle = skill1InfoAngle;
+
+        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle) : 0;
+        characterInfo.skill2Info.angle = skill2InfoAngle;
+
+        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle) : 0;
+        characterInfo.skill3Info.angle = skill3InfoAngle;
+
+        float skill4InfoAngle = jsonSkills.Exists(skill => characterInfo.skill4Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill4Info.Equals(skill)).Angle) : 0;
+        characterInfo.skill4Info.angle = skill4InfoAngle;
+    }
+    
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
@@ -203,6 +224,8 @@ public class CustomLevelManager : LevelManager
             CoMCharacter characterInfo = charactersInfo.Find(el => el.name == selectedCharacter);
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
+
+            SetSkillAngles(characterInfo);
 
             skillBasic.SetSkill(
                 Action.BasicAttack,

@@ -5,6 +5,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Google.Protobuf.Collections;
 
 public class Utils
 {
@@ -87,5 +88,15 @@ public class Utils
                 renderer.material.color = color;
             }
         }
+    }
+
+    public static List<T> ToList<T>(RepeatedField<T> repeatedField)
+    {
+        var list = new List<T>();
+        foreach (var item in repeatedField)
+        {
+            list.Add(item);
+        }
+        return list;
     }
 }
