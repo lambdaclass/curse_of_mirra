@@ -18,6 +18,9 @@ MonoBehaviour:
     he was a child so he excells on this.
   inputType: 0
   indicatorType: 3
+  projectileAmount: 0
+  projectile: {fileID: 0}
+  projectileFeedback: {fileID: 0}
   feedbackVfx: {fileID: 7017218312715976829, guid: 4fc144b63d69c4811ae710e9c3a2b968,
     type: 3}
   feedbackVfxDuration: 0.6

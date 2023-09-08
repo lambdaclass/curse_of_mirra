@@ -17,6 +17,9 @@ MonoBehaviour:
     H4ck has a lotofupgrades under his sleave.
   inputType: 0
   indicatorType: 3
+  projectileAmount: 0
+  projectile: {fileID: 0}
+  projectileFeedback: {fileID: 0}
   feedbackVfx: {fileID: 5680458291943351323, guid: dbbd50ca956aa4dda8bec377c198f728,
     type: 3}
   feedbackVfxDuration: 6

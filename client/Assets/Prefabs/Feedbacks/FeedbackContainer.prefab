@@ -148,10 +148,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5495881793934213699}
     m_Modifications:
+    - target: {fileID: 7761600405059392735, guid: 29e7f16c2b9b94618ba5af0d70838c5e,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7761600405078389437, guid: 29e7f16c2b9b94618ba5af0d70838c5e,
         type: 3}
       propertyPath: m_Name
       value: Poisoned
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761600405078389437, guid: 29e7f16c2b9b94618ba5af0d70838c5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7761600405078732599, guid: 29e7f16c2b9b94618ba5af0d70838c5e,
         type: 3}

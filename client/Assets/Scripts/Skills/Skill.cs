@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -45,7 +44,6 @@ public class Skill : CharacterAbility
     protected override void Start()
     {
         base.Start();
-
         if (blocksMovementOnExecute)
         {
             BlockingMovementStates = new CharacterStates.MovementStates[1];
@@ -108,6 +106,16 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
+    }
+
+    public SkillInfo GetSkillInfo()
+    {
+        return skillInfo;
+    }
+
+    public GameObject GetProjectileFromSkill()
+    {
+        return skillInfo?.projectilePrefab;
     }
 
     public void TryExecuteSkill()
@@ -202,7 +210,8 @@ public class Skill : CharacterAbility
                 );
             }
 
-            PlayAbilityStartSfx();
+            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
         }
 
         if (skillInfo.feedbackVfx)
@@ -346,11 +355,13 @@ public class Skill : CharacterAbility
         return skillInfo.name;
     }
 
-    public bool ExecutesOnQuickTap(){
+    public bool ExecutesOnQuickTap()
+    {
         return skillInfo.executeOnQuickTap;
     }
 
-    public bool isSelfTargeted(){
+    public bool IsSelfTargeted()
+    {
         return skillInfo.skillCircleRadius == -1;
     }
 }
