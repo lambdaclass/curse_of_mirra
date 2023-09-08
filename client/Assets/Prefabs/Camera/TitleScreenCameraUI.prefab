@@ -801,6 +801,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playNowButton: {fileID: 1153961457488821272}
   logoImage: {fileID: 5972543162918846898}
+  logoReference:
+    m_LabelString: logo
 --- !u!1 &8698646874418173937
 GameObject:
   m_ObjectHideFlags: 0

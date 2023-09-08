@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 4900ba75a16aa4edbb73129a2a725d34
+  - enabled: 1
     path: Assets/Scenes/Lobbies.unity
     guid: 779f20ac506a141c187e03f3027d80d1
   - enabled: 1
@@ -20,9 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 05fef88649e8f4e679906112b77aba2f
-  - enabled: 0
-    path: Assets/Scenes/Araban.unity
-    guid: f7257da6c15c24d0fa08ed1ebc2b5a24
   - enabled: 0
     path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/MMAdditiveLoadingScreen.unity
     guid: d89b77a7a68c1844280c6ff2e49f95b8
@@ -99,9 +99,6 @@ EditorBuildSettings:
     path: Assets/ThirdParty/TopDownEngine/Demos/Minimal3D/MinimalSandbox3D.unity
     guid: f7c701f79b6cb6b44b4fd656eda8e473
   - enabled: 0
-    path: Assets/Scenes/TestScene.unity
-    guid: 7dd4341e6eb3f384daaf23d76ce07ee2
-  - enabled: 0
     path: Assets/ThirdParty/TopDownEngine/Demos/Minimal3D/MinimalSword3D.unity
     guid: a8bba52c06984564fbf26a7cfc873e39
   - enabled: 0
@@ -152,13 +149,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Demos/MMSceneLoading/MMSceneLoadingDemoSceneB.unity
     guid: 352d34cac2435634fb99618d19a3929c
-  - enabled: 0
-    path: Assets/Scenes/MainScene.unity
-    guid: 96c8e7426cc33467f84ad9ab532a5c29
-  - enabled: 0
-    path: Assets/Scenes/Araban.unity
-    guid: f7257da6c15c24d0fa08ed1ebc2b5a24
   - enabled: 1
     path: Assets/Scenes/CharacterSelection.unity
     guid: c796279466b2c48518d16be8290b7f99
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: a27360e4a444e4a989e7c53dafcb4902,
+      type: 2}

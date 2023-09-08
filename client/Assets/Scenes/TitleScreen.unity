@@ -130,6 +130,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3423845015464949587, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: reference.m_AssetGUID
+      value: 2b29af696cd524e4a87e4f43410bd1bd
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423845015464949587, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: logoReference.m_LabelString
+      value: logo
+      objectReference: {fileID: 0}
     - target: {fileID: 5393381855249456355, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: m_RootOrder
