@@ -175,10 +175,9 @@ public class CustomInputManager : InputManager
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
-        CustomMMTouchJoystick joystick = mobileButtons[
-            trigger
-        ].GetComponent<CustomMMTouchJoystick>();
-        CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
+        CustomMMTouchButton button = mobileButtons[trigger];
+        CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
+        //CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
         {
@@ -204,7 +203,7 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapDirectionInputEvents(button, joystick, skill);
+                MapDirectionInputEvents(button, skill);
                 break;
         }
     }
@@ -298,10 +297,10 @@ public class CustomInputManager : InputManager
 
     private void MapDirectionInputEvents(
         CustomMMTouchButton button,
-        CustomMMTouchJoystick joystick,
         Skill skill
     )
     {
+        CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
         directionEvent.AddListener(ShowAimDirectionSkill);
         joystick.newPointerDownEvent = directionEvent;
@@ -527,36 +526,36 @@ public class CustomInputManager : InputManager
     }
 
 
-    private bool PlayerIsInSkillRange(GameObject p, Skill skill)
+    private bool PlayerIsInSkillRange(GameObject player, Skill skill)
     {
         switch (skill.GetSkillName())
         {
             case "MULTISHOT":
-                return PlayerIsInSkillDirectionConeRange(p, skill);
+                return PlayerIsInSkillDirectionConeRange(player, skill);
             case "DISARM":
-                return PlayerIsInSkillDirectionArrowRange(p, skill);
+                return PlayerIsInSkillDirectionArrowRange(player, skill);
             default:
-                return PlayerIsInSkillProximityRange(p, skill);
+                return PlayerIsInSkillProximityRange(player, skill);
         }
     }
 
-    private bool PlayerIsInSkillProximityRange(GameObject p, Skill skill)
+    private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
     {
-        return !IsSamePlayer(p) && directionIndicator.IsInProximityRange(p);
+        return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
     }
 
-    private bool PlayerIsInSkillDirectionConeRange(GameObject p, Skill skill)
+    private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
     {
-        return !IsSamePlayer(p) && directionIndicator.IsInsideCone(p);
+        return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
     }
 
-    private bool PlayerIsInSkillDirectionArrowRange(GameObject p, Skill skill)
+    private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
     {
-        return !IsSamePlayer(p) && directionIndicator.IsInArrowLine(p);
+        return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
     }
 
-    private bool IsSamePlayer(GameObject p){
-        return p.name == _player.name;
+    private bool IsSamePlayer(GameObject player){
+        return player.name == _player.name;
     }
 
     private bool ShouldShowTargetsInSkillRange(Skill skill)
