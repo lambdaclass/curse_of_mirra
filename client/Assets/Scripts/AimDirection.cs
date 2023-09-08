@@ -77,7 +77,7 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
-        float angle = 0;
+        float coneIndicatorAngle = 0;
         angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
         Vector3 origin = Vector3.zero;
@@ -92,7 +92,7 @@ public class AimDirection : MonoBehaviour
 
         for (int i = 0; i < rayCount; i++)
         {
-            Vector3 vertex = origin + GetVectorFromAngle(angle) * viewDistance;
+            Vector3 vertex = origin + GetVectorFromAngle(coneIndicatorAngle) * viewDistance;
             vertices[vertexIndex] = vertex;
 
             if (i > 0)
@@ -103,7 +103,7 @@ public class AimDirection : MonoBehaviour
                 trianglesIndex += 3;
             }
             vertexIndex++;
-            angle -= angleIncrease;
+            coneIndicatorAngle -= angleIncrease;
         }
 
         triangles[0] = 0;
@@ -134,16 +134,20 @@ public class AimDirection : MonoBehaviour
         return (sideAB.normalized + sideAC.normalized).normalized;
     }
 
-    public bool IsInProximityRange(GameObject player){
+    public bool IsInProximityRange(GameObject player)
+    {
         GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
-        float distance = Vector3.Distance(currentPlayer.transform.position, player.transform.position);
+        float distance = Vector3.Distance(
+            currentPlayer.transform.position,
+            player.transform.position
+        );
         Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
         Vector3 attackDirection = currentPlayer
             .GetComponent<CharacterOrientation3D>()
             .ForcedRotationDirection;
-        float angle = Vector3.Angle(attackDirection, targetDirection);
+        float playersAngle = Vector3.Angle(attackDirection, targetDirection);
 
-        return distance <= viewDistance && angle <= skillAngle / 2;
+        return distance <= viewDistance && playersAngle <= skillAngle / 2;
     }
 
     public bool IsInsideCone(GameObject player)
@@ -151,8 +155,8 @@ public class AimDirection : MonoBehaviour
         Vector3 bisectorDirection = GetBisectorDirection();
         Vector3 playerDirection = player.transform.position - cone.transform.position;
         playerDirection = new Vector3(playerDirection.x, 1.2f, playerDirection.z);
-        float angle = Vector3.Angle(playerDirection, bisectorDirection);
-        return angle <= fov / 2;
+        float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
+        return playerBisectorAngle <= fov / 2;
     }
 
     public bool IsInArrowLine(GameObject player)
@@ -165,9 +169,9 @@ public class AimDirection : MonoBehaviour
         Vector3 playerDirection = player.transform.position - currentPlayer.transform.position;
         playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
 
-        float angle = Vector3.Angle(arrowDirection, playerDirection);
+        float playerArrowAngle = Vector3.Angle(arrowDirection, playerDirection);
 
-        return angle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
+        return playerArrowAngle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
     }
 
     public Vector3 GetVectorFromAngle(float angle)
