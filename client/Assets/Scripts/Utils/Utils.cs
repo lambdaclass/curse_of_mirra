@@ -99,4 +99,21 @@ public class Utils
         }
         return list;
     }
+  
+      public static Gradient GetHealthBarGradient(Color color)
+    {
+        return new Gradient()
+        {
+            colorKeys = new GradientColorKey[2]
+            {
+                new GradientColorKey(color, 0),
+                new GradientColorKey(color, 1f)
+            },
+            alphaKeys = new GradientAlphaKey[2]
+            {
+                new GradientAlphaKey(1, 0),
+                new GradientAlphaKey(1, 1)
+            }
+        };
+      }    
 }
