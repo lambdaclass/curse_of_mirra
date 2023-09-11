@@ -9,6 +9,8 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
 {
     float positionX;
     float positionY;
+    float initialJoystickOpacity = 0.3f;
+    float pressedJoystickOpacity = 0.4f;
 
     protected override void Start()
     {
@@ -50,14 +52,9 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
         return _newPosition;
     }
 
-    public void SetOpacity()
+    public void SetOpacity(float opacity)
     {
-        BackgroundCanvasGroup.alpha = 0.3f;
-    }
-
-    public void UnsetOpacity()
-    {
-        BackgroundCanvasGroup.alpha = 0.4f;
+        BackgroundCanvasGroup.alpha = opacity;
     }
 
     public override void OnPointerDown(PointerEventData eventData)
@@ -67,7 +64,7 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
         BackgroundCanvasGroup.transform.position = _newPosition;
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_newPosition);
         KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerDown(eventData);
-        UnsetOpacity();
+        SetOpacity(pressedJoystickOpacity);
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -85,6 +82,6 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_initialPosition);
             KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerUp(eventData);
         }
-        SetOpacity();
+        SetOpacity(initialJoystickOpacity);
     }
 }
