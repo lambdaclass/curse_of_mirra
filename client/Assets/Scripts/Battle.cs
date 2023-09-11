@@ -546,10 +546,14 @@ public class Battle : MonoBehaviour
         Renderer[] playerCharacterMaterials =
             playerCharacter.CharacterModel.GetComponentsInChildren<Renderer>();
 
-        playerCharacterMaterials
-            .Select(pcm => pcm.sharedMaterial)
-            .ToList()
-            .ForEach(material => material.SetFloat("_Opacity", opacity));
+        foreach (Renderer renderer in playerCharacterMaterials)
+        {
+            renderer.sharedMaterial.SetFloat("_Opacity", opacity);
+            renderer.shadowCastingMode =
+                opacity < 1
+                    ? UnityEngine.Rendering.ShadowCastingMode.Off
+                    : UnityEngine.Rendering.ShadowCastingMode.On;
+        }
     }
 
     private void HandleMovement(
