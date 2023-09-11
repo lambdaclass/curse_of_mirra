@@ -24,6 +24,9 @@ public class SocketConnectionManager : MonoBehaviour
     public GameEvent gameEvent;
     public List<Projectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
+
+    // TODO: review this after implementing the Hidden effect in the backend.
+    public Dictionary<GameObject, ulong> hiddenCharacters = new Dictionary<GameObject, ulong>();
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;

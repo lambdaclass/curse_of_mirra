@@ -517,7 +517,12 @@ public class Battle : MonoBehaviour
         // TODO: if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Hidden))
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
         {
-            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            // TODO: this line is just for testing purposes, it will be removed as soon as the backend implements the Hidden effect
+            SocketConnectionManager.Instance.hiddenCharacters.Add(player, 1L);
+            if (
+                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                || SocketConnectionManager.Instance.hiddenCharacters.ContainsKey(player)
+            )
             {
                 SetPlayerOpacity(playerCharacter, 0.5f);
             }
@@ -526,8 +531,7 @@ public class Battle : MonoBehaviour
                 SetPlayerOpacity(playerCharacter, 0f);
                 playerCharacter.characterBase.Hitbox.SetActive(false);
                 playerCharacter.characterBase.Position.SetActive(false);
-                // TODO: get health bar real values
-                player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, false);
+                // TODO: Disable health bar
             }
         }
         else
@@ -535,8 +539,6 @@ public class Battle : MonoBehaviour
             SetPlayerOpacity(playerCharacter, 1f);
             playerCharacter.characterBase.Hitbox.SetActive(true);
             playerCharacter.characterBase.Position.SetActive(true);
-            // TODO: get health bar real values
-            player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, true);
         }
     }
 
