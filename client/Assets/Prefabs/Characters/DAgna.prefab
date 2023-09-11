@@ -792,6 +792,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dagna
       objectReference: {fileID: 0}
+    - target: {fileID: 1615388069639660128, guid: 8ecdd3d5e3af44c8a98e90f055ce4832,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 83ce01f01b3d04ec5b9fb11bef602c3e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ecdd3d5e3af44c8a98e90f055ce4832, type: 3}
 --- !u!4 &3012087189819793670 stripped
@@ -937,7 +942,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 985894b98fd6d4fceacda6eef4741213, type: 2}
+      objectReference: {fileID: 2100000, guid: 204ba9c31184243e785e9822145ed453, type: 2}
     - target: {fileID: 919132149155446097, guid: fcd10a2b21f924b5cb1d3b886a91bf9d,
         type: 3}
       propertyPath: m_Name
