@@ -15,7 +15,10 @@ MonoBehaviour:
   name: SLINGSHOT
   description: High speed ranged attack, can bounce off walls, like a pinball machine.
   inputType: 0
+  executeOnQuickTap: 0
   indicatorType: 3
+  projectilePrefab: {fileID: 5269552939558784490, guid: 80e8c347e1d344c8d904d75ece7493dc,
+    type: 3}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
