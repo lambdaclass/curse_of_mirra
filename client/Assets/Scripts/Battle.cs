@@ -32,7 +32,6 @@ public class Battle : MonoBehaviour
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
-        Poisoned = PlayerEffect.Poisoned,
         Slowed = PlayerEffect.Slowed,
     }
 
@@ -881,6 +880,12 @@ public class Battle : MonoBehaviour
         {
             characterSpeed = 0f;
         }
+
+        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+
+        healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            ? Utils.GetHealthBarGradient(MMColors.Green)
+            : Utils.GetHealthBarGradient(MMColors.BestRed);
 
         return characterSpeed;
     }
