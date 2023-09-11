@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class LobbyInfo : MonoBehaviour
@@ -16,9 +17,14 @@ public class LobbyInfo : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI mapName;
 
+    [SerializeField]
+    private AssetReference reference;
+
     // Start is called before the first frame update
     void Start()
     {
+        var sprite = Addressables.LoadAssetAsync<Sprite>(reference).Result;
+        print(sprite);
         string id = LobbyConnection.Instance.LobbySession.ToString();
         lobbyID.text = "# " + id.Substring(id.Length - 5);
 

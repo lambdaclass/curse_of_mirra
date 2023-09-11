@@ -386,12 +386,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5393381854947077796}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5393381855419559496}
+  m_Father: {fileID: 469380976608954624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -588,7 +588,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5393381854947077795}
   - {fileID: 469380976608954624}
   m_Father: {fileID: 5393381855249456355}
   m_RootOrder: 0
@@ -691,7 +690,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 469380976608954624}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -777,10 +776,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5393381854947077795}
   - {fileID: 1709356345853351885}
   - {fileID: 291301336174288013}
   m_Father: {fileID: 5393381855419559496}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -801,8 +801,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playNowButton: {fileID: 1153961457488821272}
   logoImage: {fileID: 5972543162918846898}
-  logoReference:
-    m_LabelString: logo
+  reference:
+    m_AssetGUID: 8a535041520a743b3989a37dbc7ab231
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &8698646874418173937
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +837,7 @@ RectTransform:
   m_Children:
   - {fileID: 1321099523064034275}
   m_Father: {fileID: 469380976608954624}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

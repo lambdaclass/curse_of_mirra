@@ -7,6 +7,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using System;
 using UnityEngine.Networking;
+using System.Collections.Generic;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 public class TitleScreenController : MonoBehaviour
 {
@@ -19,20 +21,19 @@ public class TitleScreenController : MonoBehaviour
     public Image logoImage;
 
     [SerializeField]
-    private AssetLabelReference logoReference;
-
-    [SerializeField]
     private AssetReference reference;
 
     void Start()
     {
         bool success = Caching.ClearCache();
+        // logoImage.sprite = CustomSceneLoader.logoImage;
+        logoImage.sprite = Addressables.LoadAssetAsync<Sprite>(reference).Result;
+        print(reference.RuntimeKey);
         if (success)
         {
             // print("UNABLE TO CLEAR");
             print(logoImage.sprite.texture.name);
         }
-        Addressables.InitializeAsync().Completed += Addressables_Completed;
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(playNowButton, .3f, 1.2f));
     }
@@ -54,24 +55,5 @@ public class TitleScreenController : MonoBehaviour
                 yield return null;
             }
         }
-    }
-
-    private void Addressables_Completed(AsyncOperationHandle<IResourceLocator> handle)
-    {
-        Addressables.LoadAssetAsync<Sprite>(reference).Completed += (asyncOperationHandle) =>
-        {
-            Sprite sprite = asyncOperationHandle.Result;
-            logoImage.sprite = sprite;
-            print("Asset loaded successfully");
-            print("Height " + sprite.texture.height);
-        };
-
-        // Addressables.LoadAssetAsync<Sprite>(logoReference).Completed += (asyncOperationHandle) =>
-        // {
-        //     Sprite logoSprite = asyncOperationHandle.Result;
-        //     print("Loading Scene...");
-        //     print(logoSprite.texture.height);
-        //     logoImage.sprite = logoSprite;
-        // };
     }
 }

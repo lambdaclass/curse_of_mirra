@@ -77,7 +77,7 @@ MonoBehaviour:
       - m_Id: 027d1deb802f04f5dbf1c518acb61595
         m_Value: ServerData/[BuildTarget]/[UnityEngine.Application.unityVersion]
       - m_Id: 7607241b1758841f482b400ecf9374aa
-        m_Value: https://8e3be7e6-7dd4-4941-a548-f0c78bbada17.client-api.unity3dusercontent.com/client_api/v1/environments/development/buckets/230de042-d01c-4fa2-b8c7-d885fed6d73d/release_by_badge/latest/entry_by_path/content/?path=
+        m_Value: https://storage.googleapis.com/addressable_berto_test/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: 4ee6919a5384040eab02ac79218b2a7f
       m_Name: BuildTarget
@@ -99,6 +99,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - logo
+    - minion
+    - lobby
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: cb70730cc63234eb49f51b86883feffc, type: 2}

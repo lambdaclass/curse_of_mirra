@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,11 +17,17 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject noLobbiesText;
 
+    [SerializeField]
+    private AssetReference reference;
+
     bool lobbiesEmpty = true;
     bool gamesEmpty = true;
 
     void Start()
     {
+        noLobbiesText.transform.GetChild(0).GetComponent<Image>().sprite = Addressables
+            .LoadAssetAsync<Sprite>(reference)
+            .Result;
         noLobbiesText.SetActive(lobbiesEmpty);
     }
 
