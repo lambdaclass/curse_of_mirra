@@ -1,5 +1,5 @@
-using UnityEngine;
 using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class AimDirection : MonoBehaviour
 {
@@ -154,7 +154,7 @@ public class AimDirection : MonoBehaviour
     {
         Vector3 bisectorDirection = GetBisectorDirection();
         Vector3 playerDirection = player.transform.position - cone.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 1.2f, playerDirection.z);
+        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
         float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
         return playerBisectorAngle <= fov / 2;
     }
