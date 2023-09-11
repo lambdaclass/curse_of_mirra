@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7753008478644549c1674f5909a48e, type: 3}
   m_Name: Lootable List
   m_EditorClassIdentifier: 
-  healthLoot: {fileID: 11400000, guid: ccd4c24b2cc3147699c9bf72106b0455, type: 2}
+  LootList:
+  - {fileID: 11400000, guid: ccd4c24b2cc3147699c9bf72106b0455, type: 2}

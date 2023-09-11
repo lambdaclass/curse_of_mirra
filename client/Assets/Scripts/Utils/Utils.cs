@@ -58,15 +58,15 @@ public class Utils
     public static MMSimpleObjectPooler SimpleObjectPooler(
         string name,
         Transform parentTransform,
-        string resource
+        GameObject objectToPool
     )
     {
-        GameObject objectPoolerGameObject = new GameObject();
-        objectPoolerGameObject.name = name;
-        objectPoolerGameObject.transform.parent = parentTransform;
+        GameObject objectPoolerBuilder = new GameObject();
+        objectPoolerBuilder.name = name;
+        objectPoolerBuilder.transform.parent = parentTransform;
         MMSimpleObjectPooler objectPooler =
-            objectPoolerGameObject.AddComponent<MMSimpleObjectPooler>();
-        objectPooler.GameObjectToPool = Resources.Load(resource, typeof(GameObject)) as GameObject;
+            objectPoolerBuilder.AddComponent<MMSimpleObjectPooler>();
+        objectPooler.GameObjectToPool = objectToPool;
         objectPooler.PoolSize = 10;
         objectPooler.NestWaitingPool = true;
         objectPooler.MutualizeWaitingPools = true;
@@ -87,5 +87,22 @@ public class Utils
                 renderer.material.color = color;
             }
         }
+    }
+
+    public static Gradient GetHealthBarGradient(Color color)
+    {
+        return new Gradient()
+        {
+            colorKeys = new GradientColorKey[2]
+            {
+                new GradientColorKey(color, 0),
+                new GradientColorKey(color, 1f)
+            },
+            alphaKeys = new GradientAlphaKey[2]
+            {
+                new GradientAlphaKey(1, 0),
+                new GradientAlphaKey(1, 1)
+            }
+        };
     }
 }

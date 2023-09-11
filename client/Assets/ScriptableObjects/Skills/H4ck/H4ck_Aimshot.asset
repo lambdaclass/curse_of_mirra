@@ -18,6 +18,8 @@ MonoBehaviour:
   inputType: 2
   executeOnQuickTap: 0
   indicatorType: 2
+  projectilePrefab: {fileID: 5269552939558784490, guid: e401f90204eb843c385dd95a19b84e24,
+    type: 3}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -31,4 +33,4 @@ MonoBehaviour:
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 1.5
-  skillAreaRadius: 3.5
+  skillAreaRadius: 0
