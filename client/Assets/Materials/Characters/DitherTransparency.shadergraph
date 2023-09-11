@@ -2302,7 +2302,7 @@
         "m_Id": "61d25dc3a9d5488ab87b73f3ddd60100"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,

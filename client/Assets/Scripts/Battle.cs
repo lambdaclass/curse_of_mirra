@@ -534,6 +534,7 @@ public class Battle : MonoBehaviour
                 SetPlayerOpacity(playerCharacter, 0f);
                 playerCharacter.characterBase.Hitbox.SetActive(false);
                 playerCharacter.characterBase.Position.SetActive(false);
+                // TODO: get health bar real values
                 player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, false);
             }
         }
@@ -542,6 +543,7 @@ public class Battle : MonoBehaviour
             SetPlayerOpacity(playerCharacter, 1f);
             playerCharacter.characterBase.Hitbox.SetActive(true);
             playerCharacter.characterBase.Position.SetActive(true);
+            // TODO: get health bar real values
             player.GetComponent<MMHealthBar>().UpdateBar(1f, 0f, 1f, true);
         }
     }
