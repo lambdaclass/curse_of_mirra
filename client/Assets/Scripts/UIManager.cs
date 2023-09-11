@@ -16,32 +16,48 @@ public class UIManager : MonoBehaviour
     GameObject noLobbiesText;
 
     bool lobbiesEmpty = true;
-    bool gamesEmpty = true;
+    public List<string> lobbiesList;
+    private IEnumerator init;
 
     void Start()
     {
         noLobbiesText.SetActive(lobbiesEmpty);
+        init = InitializeList();
+        StartCoroutine(init);
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator InitializeList()
     {
-        if (lobbiesEmpty && LobbyConnection.Instance.lobbiesList.Count > 0)
-        {
-            noLobbiesText.SetActive(false);
-            GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
-            lobbiesEmpty = false;
-        }
+        yield return new WaitUntil(() => LobbyConnection.Instance.lobbiesList.Count > 0);
+        GenerateList();
+        Debug.Log("hi");
     }
 
-    public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
+    void GenerateList()
     {
-        itemList.Reverse();
-        itemList.ForEach(el =>
+        lobbiesList = new List<string>();
+        lobbiesList = LobbyConnection.Instance.lobbiesList;
+
+        noLobbiesText.SetActive(false);
+        lobbiesList.Reverse();
+        lobbiesList.ForEach(el =>
         {
-            GameObject item = (GameObject)Instantiate(itemPrefab, container);
+            GameObject item = (GameObject)Instantiate(lobbyItemPrefab, lobbiesContainer);
             string lastCharactersInID = el.Substring(el.Length - 5);
             item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
+        });
+        lobbiesEmpty = false;
+    }
+
+    public void RefreshLobbiesList()
+    {
+        init = InitializeList();
+        StartCoroutine(init);
+        List<LobbiesListItem> lobbyItems = new List<LobbiesListItem>();
+        lobbyItems.AddRange(lobbiesContainer.GetComponentsInChildren<LobbiesListItem>());
+        lobbyItems.ForEach(lobbyItem =>
+        {
+            Destroy(lobbyItem.gameObject);
         });
     }
 }
