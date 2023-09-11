@@ -129,12 +129,6 @@ public class CustomInputManager : InputManager
         directionIndicator = _player.GetComponentInChildren<AimDirection>();
     }
 
-    // void Update()
-    // {
-    //     activeJoystickStatus = activeJoystick != null ? true : false;
-    //     cancelButton.SetActive(activeJoystickStatus);
-    // }
-
     public void ActivateDisarmEffect(bool isDisarmed)
     {
         if (disarmed != isDisarmed)
@@ -177,7 +171,6 @@ public class CustomInputManager : InputManager
     {
         CustomMMTouchButton button = mobileButtons[trigger];
         CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
-        //CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
 
         switch (triggerType)
         {
@@ -295,10 +288,7 @@ public class CustomInputManager : InputManager
         HideSkillRange();
     }
 
-    private void MapDirectionInputEvents(
-        CustomMMTouchButton button,
-        Skill skill
-    )
+    private void MapDirectionInputEvents(CustomMMTouchButton button, Skill skill)
     {
         CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
@@ -525,7 +515,6 @@ public class CustomInputManager : InputManager
         return inRangeTargets;
     }
 
-
     private bool PlayerIsInSkillRange(GameObject player, Skill skill)
     {
         switch (skill.GetSkillName())
@@ -554,7 +543,8 @@ public class CustomInputManager : InputManager
         return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
     }
 
-    private bool IsSamePlayer(GameObject player){
+    private bool IsSamePlayer(GameObject player)
+    {
         return player.name == _player.name;
     }
 
