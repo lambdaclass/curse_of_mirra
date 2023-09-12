@@ -36,9 +36,6 @@ public enum UIType
 public class CustomInputManager : InputManager
 {
     [SerializeField]
-    Image joystickL;
-
-    [SerializeField]
     CustomMMTouchButton SkillBasic;
 
     [SerializeField]
@@ -464,16 +461,6 @@ public class CustomInputManager : InputManager
         {
             button.GetComponent<CustomMMTouchButton>().Interactable = true;
         }
-    }
-
-    public void SetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 0.25f);
-    }
-
-    public void UnsetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 1);
     }
 
     public void SetCanceled(bool value)
