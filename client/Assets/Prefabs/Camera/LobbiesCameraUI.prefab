@@ -2697,6 +2697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7844609706619734572}
   - component: {fileID: 580734115480870141}
+  - component: {fileID: 6681311028336639718}
   m_Layer: 5
   m_Name: OptionsContainer
   m_TagString: Untagged
@@ -2743,6 +2744,22 @@ MonoBehaviour:
   LevelName: CharacterSelection
   DoNotUseLevelManager: 0
   DestroyPersistentCharacter: 0
+--- !u!114 &6681311028336639718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461370457626985535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a906a3ed6f6416fbb0d5bd4e2bd1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbiesContainer: {fileID: 2269567885505166013}
+  lobbyItemPrefab: {fileID: 6431237631302165411, guid: 13e64695dc3a44037a7a7568727079c6,
+    type: 3}
+  noLobbiesText: {fileID: 8723296149733053187}
 --- !u!1 &2734577476813917642
 GameObject:
   m_ObjectHideFlags: 0
@@ -7124,18 +7141,6 @@ MonoBehaviour:
       - m_Target: {fileID: 580734115480870141}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: Refresh
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7258747061359327656}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: RefreshLobbiesList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

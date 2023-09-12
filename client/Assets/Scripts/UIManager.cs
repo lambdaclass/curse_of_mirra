@@ -14,31 +14,41 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject noLobbiesText;
-
-    bool lobbiesEmpty = true;
-    public List<string> lobbiesList;
-    private IEnumerator init;
+    List<string> lobbiesList;
 
     void Start()
     {
-        noLobbiesText.SetActive(lobbiesEmpty);
-        init = InitializeList();
-        StartCoroutine(init);
+        SetEmptyListIndicator(true);
+        StartCoroutine(InitializeList());
     }
 
     private IEnumerator InitializeList()
     {
-        yield return new WaitUntil(() => LobbyConnection.Instance.lobbiesList.Count > 0);
+        yield return new WaitForSeconds(0.5f);
+        SetEmptyListIndicator(LobbyConnection.Instance.lobbiesList.Count == 0);
+        EmptyList();
         GenerateList();
-        Debug.Log("hi");
+    }
+
+    void SetEmptyListIndicator(bool state)
+    {
+        noLobbiesText.SetActive(state);
+    }
+
+    void EmptyList()
+    {
+        List<LobbiesListItem> lobbyItems = new List<LobbiesListItem>();
+        lobbyItems.AddRange(lobbiesContainer.GetComponentsInChildren<LobbiesListItem>());
+        lobbyItems.ForEach(lobbyItem =>
+        {
+            Destroy(lobbyItem.gameObject);
+        });
     }
 
     void GenerateList()
     {
         lobbiesList = new List<string>();
         lobbiesList = LobbyConnection.Instance.lobbiesList;
-
-        noLobbiesText.SetActive(false);
         lobbiesList.Reverse();
         lobbiesList.ForEach(el =>
         {
@@ -46,18 +56,10 @@ public class UIManager : MonoBehaviour
             string lastCharactersInID = el.Substring(el.Length - 5);
             item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
-        lobbiesEmpty = false;
     }
 
     public void RefreshLobbiesList()
     {
-        init = InitializeList();
-        StartCoroutine(init);
-        List<LobbiesListItem> lobbyItems = new List<LobbiesListItem>();
-        lobbyItems.AddRange(lobbiesContainer.GetComponentsInChildren<LobbiesListItem>());
-        lobbyItems.ForEach(lobbyItem =>
-        {
-            Destroy(lobbyItem.gameObject);
-        });
+        StartCoroutine(InitializeList());
     }
 }
