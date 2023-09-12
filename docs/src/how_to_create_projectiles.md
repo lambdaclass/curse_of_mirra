@@ -10,4 +10,4 @@ Now that we have a scriptable object with the information required by our projec
 
 At this point, our projectile should be good to go. The only step left is to assign our projectile to the skill desired. Each `SkillInfo.cs` has a reference for a **projectilePrefab**. Therefore, in the sibling folder, `ScriptableObjects > Skills` choose which skill, within each character, you would like to assign a projectile to and click on it. Once you do that, drag your projectile scriptable object to the **Projectile Prefab** input in that skill.
 
-On the other hand, `game.rs` sets each projectile behaviour. In that file, you should set the projectile's behaviour, to which skill it and to which skill it belongs to.
+On the other hand, `game.rs` sets each projectile behaviour. In that file, you should set the projectile's behaviour and to which skill it belongs to.
