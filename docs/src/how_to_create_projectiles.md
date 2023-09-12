@@ -6,7 +6,7 @@ First of all, you should create a projectile prefab. The vital thing is to add a
 
 In the `ScriptableObjects > Projectiles` folder, create a scriptable object by selecting `Projectile Info`. You have to assign your projectile's feedback to it's reference.
 
-Now that we have a scriptable object with the information required by our projectile prefab we should attach one to the other. You should assign this scriptable object to it's reference in `SkillProjectile.cs` within the projectile prefab.
+Now that we have a scriptable object with the information required by our projectile prefab, we should attach one to the other. You should assign this scriptable object to its reference in `SkillProjectile.cs` within the projectile prefab.
 
 At this point, our projectile should be good to go. The only step left is to assign our projectile to the skill desired. Each `SkillInfo.cs` has a reference for a **projectilePrefab**. Therefore, in the sibling folder, `ScriptableObjects > Skills` choose which skill, within each character, you would like to assign a projectile to and click on it. Once you do that, drag your projectile scriptable object to the **Projectile Prefab** input in that skill.
 
