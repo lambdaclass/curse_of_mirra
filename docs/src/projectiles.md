@@ -30,4 +30,4 @@ public HashSet<SkillInfo> skillInfoSet;
 
 In `InitializeProjectiles()` we wait for the players to be loaded and check for each player, all their skills and save in the HashSet only the ones with a projectile prefab assigned.
 
-In `UpdateProjectileActions()`, called in `Update()`, if a gameProjectile status is active, we compare the skill triggered with the skills in the HashSet. This is how we determine which skill is being used and get their projectile. Once we know which that we are able to call all the functions needed within the `SkillProjectile.cs` such as `InstanceShoot()`, `ShootLaser()`, `LaserCollision`, `LaserDisappear()`, etc.
+In `UpdateProjectileActions()`, called in `Update()`, if a gameProjectile status is active, we compare the skill triggered with the skills in the HashSet. This is how we determine which skill is being used and get their projectile. Once we know that, we are able to call all the methods implemented by `SkillProjectile.cs` such as `InstanceShoot()`, `ShootLaser()`, `LaserCollision`, `LaserDisappear()`, etc.
