@@ -372,28 +372,35 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
-
-        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+        if (showCooldown)
         {
-            button.DisableButton();
-            cooldownText.gameObject.SetActive(true);
-            if (cooldown < 1f && cooldown > 0f)
+            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
             {
-                cooldownText.text = String.Format("{0:0.0}", cooldown);
+                button.DisableButton();
+                cooldownText.gameObject.SetActive(true);
+                if (cooldown < 1f && cooldown > 0f)
+                {
+                    cooldownText.text = String.Format("{0:0.0}", cooldown);
+                }
+                else
+                {
+                    cooldownText.text = ((ulong)cooldown + 1).ToString();
+                }
             }
             else
             {
-                cooldownText.text = ((ulong)cooldown + 1).ToString();
+                button.EnableButton();
+                cooldownText.gameObject.SetActive(false);
             }
         }
         else
         {
-            button.EnableButton();
             cooldownText.gameObject.SetActive(false);
+            button.EnableButton();
         }
     }
 
