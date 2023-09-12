@@ -62,26 +62,35 @@ public class EventsBuffer
         int previousIndex;
         int nextIndex;
 
-        if (index == 0) {
+        if (index == 0)
+        {
             previousIndex = 0;
-        } else {
+        }
+        else
+        {
             previousIndex = index - 1;
         }
 
-        if (index == (updatesBuffer.Count - 1)) {
+        if (index == (updatesBuffer.Count - 1))
+        {
             nextIndex = updatesBuffer.Count - 1;
-        } else {
+        }
+        else
+        {
             nextIndex = index + 1;
         }
-        
+
         GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
         GameEvent followingEventToRender = updatesBuffer[nextIndex];
 
-        count +=
-            (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
-            == PlayerAction.Moving
-                ? 1
-                : 0;
+        var xxx = previousRenderedEvent.Players;
+        foreach (var p in xxx)
+        {
+            Debug.Log("p.Id = " + p.Id + " playerId = " + playerId);
+        }
+        var xxy = xxx.ToList().Find(p => p.Id == playerId);
+        var yyy = xxy.Action == PlayerAction.Moving;
+        count += yyy ? 1 : 0;
         count +=
             (currentEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
             == PlayerAction.Moving
