@@ -9,8 +9,8 @@ public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
 {
     float positionX;
     float positionY;
-    float initialJoystickOpacity = 0.3f;
-    float pressedJoystickOpacity = 0.4f;
+    const float initialJoystickOpacity = 0.3f;
+    const float pressedJoystickOpacity = 0.4f;
 
     protected override void Start()
     {
