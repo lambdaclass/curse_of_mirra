@@ -34,4 +34,5 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
+    public bool showCooldown;
 }
