@@ -9,7 +9,7 @@ public class SkillInfo : ScriptableObject
     public new string name;
     public string description;
     public UIType inputType;
-    
+
     public float angle;
 
     [MMEnumCondition("inputType", (int)UIType.Direction)]
@@ -28,7 +28,6 @@ public class SkillInfo : ScriptableObject
     public float executeAnimationDuration;
     public float skillCircleRadius;
 
-
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]
     public float skillConeAngle;
 
@@ -37,12 +36,10 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
-    
+    public bool showCooldown;
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {
         return this.name.ToLower() == skillConfigItem.Name.ToLower();
     }
-    
-
 }

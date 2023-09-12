@@ -466,23 +466,28 @@ public class Battle : MonoBehaviour
             */
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
+                player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
-                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
-                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
-                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
             );
         }
     }

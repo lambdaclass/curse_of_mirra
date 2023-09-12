@@ -17,7 +17,9 @@ MonoBehaviour:
     nearly instantly in the area. When enraged Muflus has the ability to wield aggressively
     his chainsaw tipped club.
   inputType: 0
+  executeOnQuickTap: 0
   indicatorType: 3
+  projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 5318754383943643802, guid: e82539d5a6925411bb4e49908d74e9ac,
     type: 3}
   feedbackVfxDuration: 0.2
@@ -33,3 +35,4 @@ MonoBehaviour:
   skillConeAngle: 0
   arrowWidth: 0
   skillAreaRadius: 4.5
+  showCooldown: 1
