@@ -494,8 +494,8 @@ MonoBehaviour:
   Billboard: 0
   InstantiatedOnDeath: {fileID: 0}
   HealthBarOffset: {x: 0, y: 3.6, z: 0}
-  AlwaysVisible: 1
-  DisplayDurationOnHit: 1
+  AlwaysVisible: 0
+  DisplayDurationOnHit: 0
   HideBarAtZero: 1
   HideBarAtZeroDelay: 0
 --- !u!114 &1826878300138968485
@@ -526,11 +526,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1787465996332106948}
     m_Modifications:
-    - target: {fileID: 6478395459742873813, guid: 2dbdd743c87404d0787e7d0764d32739,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 178418404827298802, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: character
@@ -600,6 +595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CharacterBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 6478395459742873813, guid: 2dbdd743c87404d0787e7d0764d32739,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}

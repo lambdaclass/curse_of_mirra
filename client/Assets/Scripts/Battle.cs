@@ -530,28 +530,31 @@ public class Battle : MonoBehaviour
             )
             {
                 SetPlayerOpacity(playerCharacter, 0.5f);
+                playerCharacter.CharacterHealth.UpdateHealthBar(true);
             }
             else
             {
                 SetPlayerOpacity(playerCharacter, 0f);
-                playerCharacter.characterBase.Hitbox.SetActive(false);
-                playerCharacter.characterBase.Position.SetActive(false);
-                playerCharacter.characterBase.PlayerName.SetActive(false);
-                // TODO: Disable health bar
+                ShowPlayerOnScreen(playerCharacter, false);
             }
         }
         else
         {
             SetPlayerOpacity(playerCharacter, 1f);
-            playerCharacter.characterBase.Hitbox.SetActive(true);
-            playerCharacter.characterBase.Position.SetActive(true);
-            playerCharacter.characterBase.PlayerName.SetActive(true);
+            ShowPlayerOnScreen(playerCharacter, true);
         }
+    }
+
+    private void ShowPlayerOnScreen(CustomCharacter playerCharacter, bool show)
+    {
+        playerCharacter.characterBase.Hitbox.SetActive(show);
+        playerCharacter.characterBase.Position.SetActive(show);
+        playerCharacter.characterBase.PlayerName.SetActive(show);
+        playerCharacter.CharacterHealth.UpdateHealthBar(show);
     }
 
     private void SetPlayerOpacity(CustomCharacter playerCharacter, float opacity)
     {
-        print("Setting player opacity to: " + opacity);
         Renderer[] playerCharacterMaterials =
             playerCharacter.CharacterModel.GetComponentsInChildren<Renderer>();
 
