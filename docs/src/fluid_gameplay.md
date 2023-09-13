@@ -73,6 +73,21 @@ The less hacky solution to this is to make `move` commands tell the server where
 
 In Myrra, the action rate is set to be the same as the tick rate. This way, we get one movement command per tick. The immediate problem caused by this is that game speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
 
+### Implementation
+
+We found that there were times where the interpolation ghosts [see below: Ghost] differed too way much from the server. After a bit of research, we discovered that the problem had to do with using the [`Time.deltaTime`](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html) that belongs to Unity. That amount of time is how much time has passed since the last frame to the current one. That sounds okay, but the problem is that the game editor/Android build/iOS build should be active in the screen, if you change tabs or let the game run in the background the `Time.DeltaTime` stops but the server doesn't and because of that all the operations get messed up. In order to solve this, we just changed it for Unix time in milliseconds.
+
+```csharp
+    if (firstTimestamp == 0)
+    {
+        firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    }
+    var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    accumulatedTime = (currentTimestamp - firstTimestamp);
+```
+
+And now that we detached the time from Unity, at the moment, everything works as intended.
+
 
 ## Networks are unreliable
 
@@ -90,25 +105,9 @@ Before going over how we solve these issues, a very important fact needs to be s
 
 This problem is inescapable. We won't solve it, we will just find clever ways to hide it from players. Our solutions will involve tradeoffs and will not (and cannot) be perfect.
 
-### Implementation
-
-We found that there were times where the interpolation ghosts [see below: Ghost] differed too way much from the server. After a bit of research, we discovered that the problem had to do with using the [`Time.deltaTime`](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html) that belongs to Unity. That amount of time is how much time has passed since the last frame to the current one. That sounds okay, but the problem is that the game editor/Android build/iOS build should be active in the screen, if you change tabs or let the game run in the background the `Time.DeltaTime` stops but the server doesn't and because of that all the operations get messed up. In order to solve this, we just changed it for Unix time in milliseconds.
-
-```csharp
-    if (firstTimestamp == 0)
-    {
-        firstTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-    }
-    var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-    accumulatedTime = (currentTimestamp - firstTimestamp);
-```
-
-And now that we detached the time from Unity, at the moment, everything works as intended.
-
-
 ## High ping vs high ping *Variance*
 
-As we said, input lag is directly correlated with high ping, as ping tells us how long messages (and thus user input) take going to the server and then back to the client. In general, any ping value below `50ms` will make input lag barely noticeable, while going above `100ms` it becomes apparent. Values over `300ms` are borderline unplayable.
+As we said, input lag is directly correlated with high ping, as ping is the measure of how long it takes for messages (and thus user input) to go from client to server and back. In general, a ping value below `50ms` will make input lag barely noticeable, while going above `100ms` it becomes apparent. Values over `300ms` are borderline unplayable.
 
 We can measure input lag, but how do we measure network instability/packets arriving irregularly? This is not so easy, but a decent proxy to it is ping *variance*. If your current ping is `100ms` and it suddenly jumps to `180ms`, then it's likely there was a hiccup in the network. A packet that only an instant before took `100ms` to do the round trip to the server suddenly takes an extra `80` milliseconds. Keep in mind this metric is not perfect; we have no idea what's happening to each individual packet or what's happening underneath in the slightest. A million different things could be going wrong to make ping jump like that, some of them not even related to the network itself.
 
@@ -167,7 +166,7 @@ Recall that, our game being online, each player's position is updated and given 
 
 - On each frame, take the last game state we have from the server, then set each player's position to be the position that's on said state.
 
-If the tick rate is low enough, these jumps in position should not be noticeable and movement should look smooth. This makes sense, but when implemented, the movement of all the characters we are not controlling (remember we have client prediction for that one) looks like this:
+If the tick rate is low enough, these jumps in position should not be noticeable and movement should look smooth. This makes sense, but when implemented, it looks like this:
 
 ![](./videos/naive_movement_uncapped_framerate.gif)
 
@@ -183,11 +182,11 @@ We can test this. If the above is correct, then setting framerate to coincide wi
 
 As expected, movement now looks fluid. This is not an ideal solution, however, because we said at the beginning that we would not cap framerate. Even if we did, if we ever change tick rates on our backend we would have to change the framerate cap to a new one. Also, framerate is not flat, even when capped. A slight dip in framerate from `50` to `49` could immediately make movement look jittery again. This is not just conjecture, if you play around like this for a while you will see it happen.
 
-## Less Naive implementation: Interpolation
+## Less Naive implementation: Animation Interpolation
 
-Our naive implementation is not good enough. We need to move characters on every frame, regardless of whether there's a new update from the server or not. For this to make sense, characters have to be moved on each frame proportionally to how much time has passed, so if there's six frames per tick they should go from their previous position to their current one smoothly along those six frames.
+Our naive implementation is not good enough. On the server side, characters move discretely (like pieces on a chessboard), on the frontend we need to show characters continuously on every frame in between server updates. Characters have to be moved on each frame proportionally to how much time has passed, so if there's six frames per tick they should go from their previous position to their current one smoothly along those six frames.
 
-More precisely, what we do to fix the jitter is the following. The code can be found in `EventsBuffer.cs`:
+More precisely, what we do to fix the jitter is the following:
 
 - On each frame, we take the latest position the server tells us we should be at.
 - We then calculate how much time has passed since the last frame (in Unity this is `Time.deltaTime`) and move towards that latest position at our character's velocity for that amount of time. In code this looks something like this:
@@ -196,7 +195,7 @@ More precisely, what we do to fix the jitter is the following. The code can be f
     ```
     where `movementDirection` is the vector of length `1` pointing towards the position the server tells us we should be at.
 
-In other words, what we are doing is making characters chase the server's latest position at their corresponding speed, showing movement gradually over the course of however many frames happen between each tick. When we get a new updated position from the server, instead of immediately placing them there, we move characters smoothly from where they are up to where they need to be. This process of taking two discrete points and smoothing out the movement between them is sometimes called `interpolation`, `linear interpolation` or `lerp` for short.
+In other words, what we are doing is making evey character chase the server's latest position at their corresponding speed, showing movement gradually over the course of however many frames happen between each tick. When we get a new updated position from the server, instead of immediately placing them there, we move characters smoothly from where they are up to where they need to be. This process of taking two discrete points and smoothing out the movement between them is sometimes called `interpolation`, `linear interpolation` or `lerp` for short.
 
 Note that, as with client prediction, this is a lie. In our backend, the command "move right" will immediately place you `n` units to the right; you do not smoothly travel that distance. On the client, however, if your framerate is higher than the tick rate (which it will almost always be, as our default tick rate is `30` `ms`), the game will show that movement happen more continuously, as if you actually pass through the segment in between. This lie is pretty much unnoticeable though; both the time and space windows are very small.
 
@@ -220,5 +219,40 @@ If we go too fast, we will stop in our tracks for a little while, waiting for th
 
 To avoid both these things, the speed used by the client needs to exactly match the one used by the server.
 
+## Entity interpolation
+We have made movement look smooth when playing over `localhost`. When moving to actual remote servers, however, our code so far is still not robust enough. There's still one thing to do, and that is *Entity Interpolation*.
+For this topic, let's set up our scenario:
 
+- We have two players in the game (Player 1 and 2)
 
+Our movement feels pretty smooth now, but what about Player 2?. His movement only updates every time we receive an update from the server and, supposing we receive an update every 20ms, we are receiving 50 game updates per second.
+
+Now, let's see Player 2's movement:
+
+![](./videos/Interpolation_at_0ms.gif)
+
+As you can see, Player 2's movement sometimes suddenly stops and that's not because Player 2 decided to stop, it is because we're updating their movement in real time each time we receive an update from the server. So an increase in ping variance can cause a halt in movement, because the next tick takes too long to arrive. How can we solve this? Well, here's where entity interpolation comes to the battleground.
+
+The theory behind entity interpolation is that we save the events returned by our server, and render movements that are few ticks behind, so that we are guaranteed to always have the next tick info available when the current tick passes. We do this only for the characters not controlled by the client. Let's suppose we're interpolating 100ms in the past, a player's movement would look like this:
+
+![](./videos/Interpolation_at_100ms.gif)
+
+Looks smoother now, doesn't it? Well, let's increase that entity interpolation time and turn on the server's ghost, this will allow us to see what exactly entity Interpolation is doing.
+
+![](./videos/Interpolation_with_ghost.gif)
+
+The Player 2 that's behind is the one you're really seeing when you're playing, and the one that's in front is showing the latest update you received from the server. As we can see, this looks choppy and sometimes jitters.
+
+### Our implementation
+
+Entity interpolation is a standard solution across the industry, but our implementation is a bit particular due to the way we solved the action rate problem (see the [Command Rate](###-Action-Command-Rate)
+section). 
+
+The server gets all movement inputs, but in sending them to the client there's not always a consistency of 1 command per tick. Sometimes a tick sends 0 commands and the next one sends 2. To solve this, the client looks for movement in chunks of three consecutive ticks.
+
+How did we achieve this?. Basically we're doing a few things:
+1. We keep track of the time that has passed since the first update.
+2. We store the last 20 updates sent by the server.
+3. We're *interpolating* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
+
+All of this code is in the `EventsBuffer.cs`, where you can change the delta interpolation time as you please. Remember, the delta interpolation time is how much time in the past you will render, if it's too high, you'll be lying too much to your players.
