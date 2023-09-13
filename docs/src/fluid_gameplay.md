@@ -248,11 +248,10 @@ The Player 2 that's behind is the one you're really seeing when you're playing, 
 Entity interpolation is a standard solution across the industry, but our implementation is a bit particular due to the way we solved the action rate problem (see the [Command Rate](###-Action-Command-Rate)
 section). 
 
-The server gets all movement inputs, but in sending them to the client there's not always a consistency of 1 command per tick. Sometimes a tick sends 0 commands and the next one sends 2. To solve this, the client looks for movement in chunks of three consecutive ticks.
+The server gets all movement inputs, but in sending them to the client there's not always a consistency of 1 command per tick. Sometimes a tick sends 0 commands and the next one sends 2. To solve this, the client looks for movement in chunks of three consecutive ticks:
 
-How did we achieve this?. Basically we're doing a few things:
 1. We keep track of the time that has passed since the first update.
 2. We store the last 20 updates sent by the server.
-3. We're *interpolating* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
+3. We *interpolate* the movement of other players by checking what they did in a previous update, what they're doing in the current update and what he will do in the next update. 
 
 All of this code is in the `EventsBuffer.cs`, where you can change the delta interpolation time as you please. Remember, the delta interpolation time is how much time in the past you will render, if it's too high, you'll be lying too much to your players.
