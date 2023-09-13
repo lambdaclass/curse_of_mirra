@@ -27,12 +27,6 @@ public class CustomSceneLoader : MMSceneLoadingManager
     public static CustomSceneLoader Instance;
     uint done = 0;
 
-    // private void Update()
-    // {
-    //     Instance = this;
-    //     DontDestroyOnLoad(t);
-    // }
-
     protected override void Start()
     {
         Addressables.InitializeAsync().Completed += Addressables_Completed;
@@ -42,32 +36,27 @@ public class CustomSceneLoader : MMSceneLoadingManager
 
     private void Addressables_Completed(AsyncOperationHandle<IResourceLocator> handle)
     {
-        keys.ForEach(
-            (keyLabel) =>
+        labels.ForEach(
+            (assetLabel) =>
             {
-                Addressables.LoadAssetAsync<Sprite>(keyLabel).Completed += (asyncOperationHandle) =>
+                Addressables.LoadAssetAsync<Sprite>(assetLabel).Completed += (
+                    asyncOperationHandle
+                ) =>
                 {
                     if (asyncOperationHandle.IsDone)
                     {
-                        print(asyncOperationHandle.Result + "Loaded successfully ");
+                        print(asyncOperationHandle.Result + " Loaded successfully ");
+                        print("height " + asyncOperationHandle.Result.rect.height);
                         done++;
                     }
                 };
             }
         );
-
-        // Addressables.LoadAssetAsync<Sprite>(logoReference).Completed += (asyncOperationHandle) =>
-        // {
-        //     Sprite sprite = asyncOperationHandle.Result;
-        //     logoImage = sprite;
-        //     print("Asset loaded successfully");
-        //     print("Height " + sprite.texture.height);
-        // };
     }
 
     private IEnumerator LoadAssets()
     {
-        yield return new WaitUntil(() => done == keys.Count);
+        yield return new WaitUntil(() => done == labels.Count);
         UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScreen");
     }
 }
