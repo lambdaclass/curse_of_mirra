@@ -204,87 +204,91 @@ public class Battle : MonoBehaviour
                 gameEvent = buffer.lastEvent();
             }
 
-            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-            // prediction will modify the player in place, which is not what we want.
-            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-
-            if (
-                serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
-                && useClientPrediction
-            )
+            // There are a few frames during which this is outdated and produces an error
+            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
             {
-                // Move the ghost BEFORE client prediction kicks in, so it only moves up until
-                // the last server update.
-                if (clientPredictionGhost != null)
-                {
-                    UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
-                }
-                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                    serverPlayerUpdate,
-                    gameEvent.PlayerTimestamp
-                );
-            }
-
-            if (interpolationGhost != null)
-            {
-                UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
-            }
-
-            GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-
-            if (actualPlayer.activeSelf)
-            {
-                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-                {
-                    UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
-                }
-                else
-                {
-                    UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-                }
+                // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+                // prediction will modify the player in place, which is not what we want.
+                Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
                 if (
-                    !buffer.timestampAlreadySeen(
-                        SocketConnectionManager.Instance.gamePlayers[i].Id,
-                        gameEvent.ServerTimestamp
-                    )
+                    serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                    && useClientPrediction
                 )
                 {
-                    executeSkillFeedback(
-                        actualPlayer,
-                        serverPlayerUpdate.Action,
-                        serverPlayerUpdate.Direction
-                    );
-                    buffer.setLastTimestampSeen(
-                        SocketConnectionManager.Instance.gamePlayers[i].Id,
-                        gameEvent.ServerTimestamp
+                    // Move the ghost BEFORE client prediction kicks in, so it only moves up until
+                    // the last server update.
+                    if (clientPredictionGhost != null)
+                    {
+                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                    }
+                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                        serverPlayerUpdate,
+                        gameEvent.PlayerTimestamp
                     );
                 }
-            }
 
-            // TODO: try to optimize GetComponent calls
-            CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
+                if (interpolationGhost != null)
+                {
+                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                }
 
-            if (serverPlayerUpdate.Health <= 0)
-            {
-                SetPlayerDead(playerCharacter);
-            }
+                GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
-            if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
-            {
-                // TODO: Refactor: create a script/reference.
-                actualPlayer
+                if (actualPlayer.activeSelf)
+                {
+                    if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                    {
+                        UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                    }
+                    else
+                    {
+                        UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                    }
+
+                    if (
+                        !buffer.timestampAlreadySeen(
+                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            gameEvent.ServerTimestamp
+                        )
+                    )
+                    {
+                        executeSkillFeedback(
+                            actualPlayer,
+                            serverPlayerUpdate.Action,
+                            serverPlayerUpdate.Direction
+                        );
+                        buffer.setLastTimestampSeen(
+                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            gameEvent.ServerTimestamp
+                        );
+                    }
+                }
+
+                // TODO: try to optimize GetComponent calls
+                CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
+
+                if (serverPlayerUpdate.Health <= 0)
+                {
+                    SetPlayerDead(playerCharacter);
+                }
+
+                if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
+                {
+                    // TODO: Refactor: create a script/reference.
+                    actualPlayer
+                        .GetComponent<CustomCharacter>()
+                        .characterBase.Position.GetComponent<Renderer>()
+                        .material.color = new Color(1, 0, 0, .5f);
+                }
+
+                Transform hitbox = actualPlayer
                     .GetComponent<CustomCharacter>()
-                    .characterBase.Position.GetComponent<Renderer>()
-                    .material.color = new Color(1, 0, 0, .5f);
+                    .characterBase.Hitbox.transform;
+
+                float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+                hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
-
-            Transform hitbox = actualPlayer
-                .GetComponent<CustomCharacter>()
-                .characterBase.Hitbox.transform;
-
-            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
-            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 

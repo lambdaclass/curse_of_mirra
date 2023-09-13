@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class EventsBuffer
 {
@@ -62,23 +61,33 @@ public class EventsBuffer
         int previousIndex;
         int nextIndex;
 
-        if (index == 0) {
+        if (index == 0)
+        {
             previousIndex = 0;
-        } else {
+        }
+        else
+        {
             previousIndex = index - 1;
         }
 
-        if (index == (updatesBuffer.Count - 1)) {
+        if (index == (updatesBuffer.Count - 1))
+        {
             nextIndex = updatesBuffer.Count - 1;
-        } else {
+        }
+        else
+        {
             nextIndex = index + 1;
         }
-        
+
         GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
         GameEvent followingEventToRender = updatesBuffer[nextIndex];
-        
+
         // There are a few frames during which this is outdated and produces an error
-        if (previousRenderedEvent.Players.Count == SocketConnectionManager.Instance.gamePlayers.Count) {
+        if (
+            previousRenderedEvent.Players.Count
+            == SocketConnectionManager.Instance.gamePlayers.Count
+        )
+        {
             count +=
                 (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
                 == PlayerAction.Moving
