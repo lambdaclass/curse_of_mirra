@@ -39,7 +39,6 @@ public class SpawnBot : MonoBehaviour
         pendingSpawn = true;
         spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
         botId = player.Id.ToString();
-        print("Bot id: " + botId);
     }
 
     public void Update()
