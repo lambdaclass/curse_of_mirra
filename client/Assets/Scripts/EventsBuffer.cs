@@ -76,22 +76,25 @@ public class EventsBuffer
         
         GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
         GameEvent followingEventToRender = updatesBuffer[nextIndex];
-
-        count +=
-            (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
-            == PlayerAction.Moving
-                ? 1
-                : 0;
-        count +=
-            (currentEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
-            == PlayerAction.Moving
-                ? 1
-                : 0;
-        count +=
-            (followingEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
-            == PlayerAction.Moving
-                ? 1
-                : 0;
+        
+        // There are a few frames during which this is outdated and produces an error
+        if (previousRenderedEvent.Players.Count == SocketConnectionManager.Instance.gamePlayers.Count) {
+            count +=
+                (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
+                == PlayerAction.Moving
+                    ? 1
+                    : 0;
+            count +=
+                (currentEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
+                == PlayerAction.Moving
+                    ? 1
+                    : 0;
+            count +=
+                (followingEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
+                == PlayerAction.Moving
+                    ? 1
+                    : 0;
+        }
 
         return count >= 1;
     }
