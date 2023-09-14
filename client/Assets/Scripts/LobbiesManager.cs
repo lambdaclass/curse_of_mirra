@@ -4,6 +4,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
 
 public class LobbiesManager : LevelSelector
 {
@@ -12,6 +13,7 @@ public class LobbiesManager : LevelSelector
     void Start()
     {
         Instance = this;
+        StartCoroutine(CustomSceneLoader.CheckForUpdates());
     }
 
     public override void GoToLevel()

@@ -29,6 +29,7 @@ public class CustomSceneLoader : MMSceneLoadingManager
 
     protected override void Start()
     {
+        StartCoroutine(CheckForUpdates());
         Addressables.InitializeAsync().Completed += Addressables_Completed;
         StartCoroutine(LoadAssets());
         base.Start();
@@ -52,6 +53,40 @@ public class CustomSceneLoader : MMSceneLoadingManager
                 };
             }
         );
+    }
+
+    public static IEnumerator CheckForUpdates()
+    {
+        print("Checking for updates...");
+        List<string> catalogsToUpdate = new List<string>();
+        AsyncOperationHandle<List<string>> checkForUpdateHandle =
+            Addressables.CheckForCatalogUpdates();
+        checkForUpdateHandle.Completed += op =>
+        {
+            catalogsToUpdate.AddRange(op.Result);
+        };
+
+        yield return checkForUpdateHandle;
+
+        if (catalogsToUpdate.Count > 0)
+        {
+            print("Updating catalogs..");
+            AsyncOperationHandle<List<IResourceLocator>> updateHandle = Addressables.UpdateCatalogs(
+                catalogsToUpdate
+            );
+            yield return updateHandle;
+            Addressables.Release(updateHandle);
+        }
+        else
+        {
+            print("No catalogs to update");
+        }
+
+        if (checkForUpdateHandle.IsValid())
+        {
+            print("is valid: " + checkForUpdateHandle);
+            Addressables.Release(checkForUpdateHandle);
+        }
     }
 
     private IEnumerator LoadAssets()
