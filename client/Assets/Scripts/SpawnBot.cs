@@ -55,8 +55,6 @@ public class SpawnBot : MonoBehaviour
             newPlayer.PlayerID = botId.ToString();
             newPlayer.name = "BOT" + botId;
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
-            print("SPAWNED");
-            print(newPlayer.PlayerID);
 
             pendingSpawn = false;
         }
