@@ -181,7 +181,8 @@ public class DeathSplashManager : MonoBehaviour
             }
             if (modelClone.name.Contains("Muflus"))
             {
-                modelClone.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                modelClone.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+                modelClone.transform.localPosition = new Vector3(0f, -0.1f, 0f);
             }
             if (modelClone.name.Contains("Dagna"))
             {
@@ -189,7 +190,8 @@ public class DeathSplashManager : MonoBehaviour
             }
             if (modelClone.name.Contains("Uma"))
             {
-                modelClone.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
+                modelClone.transform.localScale = new Vector3(1.45f, 1.45f, 1.45f);
+                modelClone.transform.localPosition = new Vector3(0f, 0.14f, 0f);
             }
             if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
             {
