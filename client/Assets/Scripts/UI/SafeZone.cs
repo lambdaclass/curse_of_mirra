@@ -18,9 +18,9 @@ public class SafeZone : MonoBehaviour
             SocketConnectionManager.Instance.shrinkingCenter
         );
 
-        Material mapShaderMat = map.GetComponent<Renderer>().sharedMaterial;
-        mapShaderMat.SetVector("_Center", center);
-        mapShaderMat.SetFloat("_Distance", radius / 2);
+        Material mapMaterial = map.GetComponent<Renderer>().material;
+        mapMaterial.SetVector("_Center", center);
+        mapMaterial.SetFloat("_Distance", radius / 2);
 
         float radiusCorrected = radius + radius * .007f;
         zoneLimit.transform.position = new Vector3(center.x, 42f, center.z);

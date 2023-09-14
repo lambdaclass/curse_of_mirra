@@ -176,7 +176,7 @@ public class AimDirection : MonoBehaviour
         {
             case UIIndicatorType.Cone:
                 color.a = 60;
-                cone.GetComponent<Renderer>().sharedMaterial.SetColor("_TopColor", color);
+                cone.GetComponent<Renderer>().material.SetColor("_TopColor", color);
                 break;
             case UIIndicatorType.Arrow:
                 arrow.GetComponent<Renderer>().material.color = color;

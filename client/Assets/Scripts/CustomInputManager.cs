@@ -98,6 +98,8 @@ public class CustomInputManager : InputManager
 
     Color32 characterSkillColor;
 
+    public Material material;
+
     protected override void Start()
     {
         base.Start();
@@ -413,15 +415,13 @@ public class CustomInputManager : InputManager
 
         if (skill.IsSelfTargeted())
         {
-            skillRange
-                .GetComponentInChildren<MeshRenderer>()
-                .sharedMaterial.SetColor("_Color", new Color32(255, 255, 255, 200));
+            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+            material.SetColor("_Color", new Color32(255, 255, 255, 200));
         }
         else
         {
-            skillRange
-                .GetComponentInChildren<MeshRenderer>()
-                .sharedMaterial.SetColor("_Color", characterSkillColor);
+            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+            material.SetColor("_Color", characterSkillColor);
         }
     }
 
@@ -439,9 +439,8 @@ public class CustomInputManager : InputManager
             .GetComponent<CustomCharacter>()
             .characterBase.SkillRange.transform;
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
-        skillRange
-            .GetComponentInChildren<MeshRenderer>()
-            .sharedMaterial.SetColor("_Color", newColor);
+        material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+        material.SetColor("_Color", newColor);
     }
 
     private void DisableButtons()
