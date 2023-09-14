@@ -14,7 +14,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject noLobbiesText;
-    List<string> lobbiesList;
 
     void Start()
     {
@@ -47,8 +46,7 @@ public class UIManager : MonoBehaviour
 
     void GenerateList()
     {
-        lobbiesList = new List<string>();
-        lobbiesList = LobbyConnection.Instance.lobbiesList;
+        List<string> lobbiesList = LobbyConnection.Instance.lobbiesList;
         lobbiesList.Reverse();
         lobbiesList.ForEach(el =>
         {
