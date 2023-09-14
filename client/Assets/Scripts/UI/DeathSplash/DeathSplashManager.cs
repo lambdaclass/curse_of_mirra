@@ -181,7 +181,7 @@ public class DeathSplashManager : MonoBehaviour
             }
             if (modelClone.name.Contains("Muflus"))
             {
-                modelClone.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+                modelClone.transform.localScale = new Vector3(0.34f, 0.34f, 0.34f);
                 modelClone.transform.localPosition = new Vector3(0f, -0.1f, 0f);
             }
             if (modelClone.name.Contains("Dagna"))
