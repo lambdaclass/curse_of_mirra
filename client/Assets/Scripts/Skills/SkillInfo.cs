@@ -13,6 +13,7 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("inputType", (int)UIType.Direction)]
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
+    public GameObject projectilePrefab;
     public GameObject feedbackVfx;
     public float feedbackVfxDuration;
     public GameObject startFeedbackVfx;
@@ -33,4 +34,5 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
+    public bool showCooldown;
 }

@@ -12,6 +12,7 @@ public class LobbiesManager : LevelSelector
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instance = this;
         StartCoroutine(CustomSceneLoader.CheckForUpdates());
     }

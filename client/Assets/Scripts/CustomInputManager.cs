@@ -36,9 +36,6 @@ public enum UIType
 public class CustomInputManager : InputManager
 {
     [SerializeField]
-    Image joystickL;
-
-    [SerializeField]
     CustomMMTouchButton SkillBasic;
 
     [SerializeField]
@@ -372,28 +369,35 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
-
-        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+        if (showCooldown)
         {
-            button.DisableButton();
-            cooldownText.gameObject.SetActive(true);
-            if (cooldown < 1f && cooldown > 0f)
+            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
             {
-                cooldownText.text = String.Format("{0:0.0}", cooldown);
+                button.DisableButton();
+                cooldownText.gameObject.SetActive(true);
+                if (cooldown < 1f && cooldown > 0f)
+                {
+                    cooldownText.text = String.Format("{0:0.0}", cooldown);
+                }
+                else
+                {
+                    cooldownText.text = ((ulong)cooldown + 1).ToString();
+                }
             }
             else
             {
-                cooldownText.text = ((ulong)cooldown + 1).ToString();
+                button.EnableButton();
+                cooldownText.gameObject.SetActive(false);
             }
         }
         else
         {
-            button.EnableButton();
             cooldownText.gameObject.SetActive(false);
+            button.EnableButton();
         }
     }
 
@@ -402,7 +406,9 @@ public class CustomInputManager : InputManager
     {
         float range = skill.GetSkillRadius();
 
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
 
         if (skill.IsSelfTargeted())
@@ -421,13 +427,17 @@ public class CustomInputManager : InputManager
 
     public void HideSkillRange()
     {
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
     public void SetSkillRangeCancelable(bool cancelable)
     {
-        Transform skillRange = _player.transform.Find("SkillRange");
+        Transform skillRange = _player
+            .GetComponent<CustomCharacter>()
+            .characterBase.SkillRange.transform;
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
         skillRange
             .GetComponentInChildren<MeshRenderer>()
@@ -451,16 +461,6 @@ public class CustomInputManager : InputManager
         {
             button.GetComponent<CustomMMTouchButton>().Interactable = true;
         }
-    }
-
-    public void SetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 0.25f);
-    }
-
-    public void UnsetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 1);
     }
 
     public void SetCanceled(bool value)

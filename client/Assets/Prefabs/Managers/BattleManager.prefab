@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7090107403194157422}
   - component: {fileID: 7090107403194157423}
   - component: {fileID: 1739130193326024266}
+  - component: {fileID: 6769759324922387623}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -96,5 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16e62aa7cb94473f980ab1614fbf0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLootObject: {fileID: 6444456623425687815, guid: f8b8367f45eb44faa8497f614c9a0204,
-    type: 3}
+  lootsList: {fileID: 0}
+--- !u!114 &6769759324922387623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090107403194157410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08bba1949792949a5b9e1a5d1efaa7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

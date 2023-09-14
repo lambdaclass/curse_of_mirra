@@ -372,6 +372,7 @@ message Projectile {
     ProjectileStatus status = 10;
     uint64 last_attacked_player_id = 11;
     bool pierce = 12;
+    string skill_name = 13;
 }
 
 /*

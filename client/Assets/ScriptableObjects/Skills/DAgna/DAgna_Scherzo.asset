@@ -18,7 +18,9 @@ MonoBehaviour:
     less damage it deals. Being a music virtuoso Myrra granted her music the the
     power to damage everyone that hears it."
   inputType: 0
+  executeOnQuickTap: 0
   indicatorType: 0
+  projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -32,3 +34,5 @@ MonoBehaviour:
   skillCircleRadius: 0
   skillConeAngle: 0
   arrowWidth: 0
+  skillAreaRadius: 0
+  showCooldown: 0
