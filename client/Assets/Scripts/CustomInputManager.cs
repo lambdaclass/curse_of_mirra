@@ -36,9 +36,6 @@ public enum UIType
 public class CustomInputManager : InputManager
 {
     [SerializeField]
-    Image joystickL;
-
-    [SerializeField]
     CustomMMTouchButton SkillBasic;
 
     [SerializeField]
@@ -372,28 +369,35 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
-
-        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+        if (showCooldown)
         {
-            button.DisableButton();
-            cooldownText.gameObject.SetActive(true);
-            if (cooldown < 1f && cooldown > 0f)
+            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
             {
-                cooldownText.text = String.Format("{0:0.0}", cooldown);
+                button.DisableButton();
+                cooldownText.gameObject.SetActive(true);
+                if (cooldown < 1f && cooldown > 0f)
+                {
+                    cooldownText.text = String.Format("{0:0.0}", cooldown);
+                }
+                else
+                {
+                    cooldownText.text = ((ulong)cooldown + 1).ToString();
+                }
             }
             else
             {
-                cooldownText.text = ((ulong)cooldown + 1).ToString();
+                button.EnableButton();
+                cooldownText.gameObject.SetActive(false);
             }
         }
         else
         {
-            button.EnableButton();
             cooldownText.gameObject.SetActive(false);
+            button.EnableButton();
         }
     }
 
@@ -457,16 +461,6 @@ public class CustomInputManager : InputManager
         {
             button.GetComponent<CustomMMTouchButton>().Interactable = true;
         }
-    }
-
-    public void SetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 0.25f);
-    }
-
-    public void UnsetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 1);
     }
 
     public void SetCanceled(bool value)

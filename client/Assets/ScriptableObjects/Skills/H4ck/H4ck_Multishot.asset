@@ -35,3 +35,4 @@ MonoBehaviour:
   skillConeAngle: 45
   arrowWidth: 0
   skillAreaRadius: 0
+  showCooldown: 1
