@@ -107,7 +107,7 @@ public class CustomLevelManager : LevelManager
     {
         Player gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
-        if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplash.activeSelf)
+        if (GameHasEndedOrPlayerHasDied(gamePlayer))
         {
             StartCoroutine(ShowDeathSplash(player));
         }
