@@ -13,18 +13,8 @@ public class CustomSceneLoader : MMSceneLoadingManager
     [SerializeField]
     private AssetLabelReference labelReference;
 
-    public List<string> keys = new List<string>() { "logo", "minion", "lobby" };
-
     public List<AssetLabelReference> labels = new List<AssetLabelReference>();
 
-    // Operation handle used to load and release assets
-    AsyncOperationHandle<IList<GameObject>> loadHandle;
-
-    public static Sprite logoImage;
-
-    public static Sprite minionImage;
-
-    public static CustomSceneLoader Instance;
     uint done = 0;
 
     protected override void Start()

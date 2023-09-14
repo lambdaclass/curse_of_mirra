@@ -26,9 +26,7 @@ public class TitleScreenController : MonoBehaviour
     void Start()
     {
         bool success = Caching.ClearCache();
-        // logoImage.sprite = CustomSceneLoader.logoImage;
         logoImage.sprite = Addressables.LoadAssetAsync<Sprite>(reference).Result;
-        print(reference.RuntimeKey);
         if (success)
         {
             // print("UNABLE TO CLEAR");

@@ -24,7 +24,6 @@ public class LobbyInfo : MonoBehaviour
     void Start()
     {
         var sprite = Addressables.LoadAssetAsync<Sprite>(reference).Result;
-        print(sprite);
         string id = LobbyConnection.Instance.LobbySession.ToString();
         lobbyID.text = "# " + id.Substring(id.Length - 5);
 
