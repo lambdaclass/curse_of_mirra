@@ -49,6 +49,7 @@ public class DeathSplashManager : MonoBehaviour
     [SerializeField]
     GameObject playerModelContainer;
 
+    private const int WINNER_POS = 1;
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
     GameObject player;
@@ -84,11 +85,11 @@ public class DeathSplashManager : MonoBehaviour
 
     private int GetRanking()
     {
-        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
-        {
-            return 1;
-        }
-        return Utils.GetAlivePlayers().Count() + 1;
+        bool isWinner = SocketConnectionManager.Instance.PlayerIsWinner(
+            LobbyConnection.Instance.playerId
+        );
+
+        return isWinner ? WINNER_POS : Utils.GetAlivePlayers().Count() + 1;
     }
 
     void ShowMessage()
