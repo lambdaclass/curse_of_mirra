@@ -17,17 +17,13 @@ public class VolumeController : MonoBehaviour
 
     void Awake()
     {
-        // channelToUse = GetChannel();
         soundManager = MMSoundManager.Instance;
-
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
     }
 
     void Start()
     {
         volumeSlider = GetComponent<Slider>();
-        // volumeSlider.value = soundManager.GetTrackVolume(channelToUse, false);
-
         unmutedVolume = volumeSlider.value;
         uiValue.text = uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
     }

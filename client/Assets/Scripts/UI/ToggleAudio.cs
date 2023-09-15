@@ -21,15 +21,8 @@ public class ToggleAudio : MonoBehaviour
 
     private ulong SFX_VOLUME = 3;
 
-    private float initialVolume = 0.5f;
-
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channel;
-
-    void Awake()
-    {
-        print(channel);
-    }
 
     void Start()
     {
@@ -37,18 +30,6 @@ public class ToggleAudio : MonoBehaviour
         soundManager = MMSoundManager.Instance;
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
         soundManager.SetVolumeSfx(SFX_VOLUME);
-    }
-
-    void Update()
-    {
-        // if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
-        // {
-        //     muteButtonImage.overrideSprite = unmutedSprite;
-        // }
-        // else
-        // {
-        //     muteButtonImage.overrideSprite = mutedSprite;
-        // }
     }
 
     public void Toggle()
