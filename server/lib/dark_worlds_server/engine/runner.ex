@@ -224,6 +224,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        gen_server_state
        | server_game_state: %{game_state | game: new_game},
          current_players: gen_server_state.current_players + 1,
+         max_players: gen_server_state.max_players + 1,
          selected_characters: selected_characters,
          bot_handler_pid: bot_handler_pid
      }}
