@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class CustomLevelManager : LevelManager
 {
+    private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
@@ -92,6 +93,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
         MMSoundManagerSoundPlayEvent.Trigger(
             backgroundMusic.SoundClip,
@@ -103,10 +105,11 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        var gamePlayer = Utils.GetGamePlayer(playerId);
+        Player gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer))
         {
-            ShowDeathSplash();
+            StartCoroutine(ShowDeathSplash(player));
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -300,23 +303,31 @@ public class CustomLevelManager : LevelManager
         roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     }
 
-    private void ShowDeathSplash()
+    private IEnumerator ShowDeathSplash(GameObject player)
     {
+        MMFeedbacks deathFeedback = player
+            .GetComponent<CustomCharacter>()
+            .GetComponent<Health>()
+            .DeathMMFeedbacks;
+        yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
         deathSplash.SetActive(true);
+        deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         UiControls.SetActive(false);
     }
 
     private void SetCameraToAlivePlayer()
     {
         var alivePlayers = Utils.GetAlivePlayers();
-        playerToFollow = alivePlayers.ElementAt(0);
-
-        setCameraToPlayer(playerToFollow.Id);
+        if (alivePlayers.Count() > 0)
+        {
+            playerToFollow = alivePlayers.ElementAt(0);
+            setCameraToPlayer(playerToFollow.Id);
+        }
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
     {
-        return SocketConnectionManager.Instance.winnerPlayer.Item1 != null
+        return SocketConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == Status.Dead);
     }
 }

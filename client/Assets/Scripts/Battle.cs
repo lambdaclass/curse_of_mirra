@@ -94,10 +94,15 @@ public class Battle : MonoBehaviour
         )
         {
             SetAccumulatedTime();
-            UpdatePlayerActions();
-            UpdateProjectileActions();
-            loot.UpdateLoots();
+            UpdateBattleState();
         }
+    }
+
+    void UpdateBattleState()
+    {
+        UpdatePlayerActions();
+        UpdateProjectileActions();
+        loot.UpdateLoots();
     }
 
     private void SetAccumulatedTime()
@@ -237,17 +242,17 @@ public class Battle : MonoBehaviour
                     UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
                 }
 
-                GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+                GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
 
-                if (actualPlayer.activeSelf)
+                if (currentPlayer.activeSelf)
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
                     {
-                        UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
+                        UpdatePlayer(currentPlayer, buffer.lastEvent().Players[i], pastTime);
                     }
                     else
                     {
-                        UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
+                        UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
                     }
 
                     if (
@@ -258,7 +263,7 @@ public class Battle : MonoBehaviour
                     )
                     {
                         executeSkillFeedback(
-                            actualPlayer,
+                            currentPlayer,
                             serverPlayerUpdate.Action,
                             serverPlayerUpdate.Direction
                         );
@@ -270,7 +275,7 @@ public class Battle : MonoBehaviour
                 }
 
                 // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
+                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
 
                 if (serverPlayerUpdate.Health <= 0)
                 {
@@ -280,13 +285,13 @@ public class Battle : MonoBehaviour
                 if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
                 {
                     // TODO: Refactor: create a script/reference.
-                    actualPlayer
+                    currentPlayer
                         .GetComponent<CustomCharacter>()
                         .characterBase.Position.GetComponent<Renderer>()
                         .material.color = new Color(1, 0, 0, .5f);
                 }
 
-                Transform hitbox = actualPlayer
+                Transform hitbox = currentPlayer
                     .GetComponent<CustomCharacter>()
                     .characterBase.Hitbox.transform;
 
@@ -297,12 +302,12 @@ public class Battle : MonoBehaviour
     }
 
     private void executeSkillFeedback(
-        GameObject actualPlayer,
+        GameObject currentPlayer,
         PlayerAction playerAction,
         RelativePosition direction
     )
     {
-        if (actualPlayer.name.Contains("BOT"))
+        if (currentPlayer.name.Contains("BOT"))
         {
             return;
         }
@@ -310,40 +315,40 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case PlayerAction.Attacking:
-                actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
-                actualPlayer.GetComponent<Skill1>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
-                actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                actualPlayer.GetComponent<Skill2>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
-                actualPlayer.GetComponent<Skill3>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill3>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
-                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
-                actualPlayer.GetComponent<Skill4>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill4>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
-                actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
         }
     }
@@ -457,7 +462,14 @@ public class Battle : MonoBehaviour
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
-        HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+        if (!SocketConnectionManager.Instance.GameHasEnded())
+        {
+            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+        }
+        else
+        {
+            modelAnimator.SetBool("Walking", false);
+        }
 
         HandlePlayerHealth(player, playerUpdate);
 
