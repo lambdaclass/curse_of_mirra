@@ -261,12 +261,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(data, to) do
-    IO.inspect(data, label: "data")
-    IO.inspect(to, label: "to")
-    raise("error here")
-  end
-
   ###########
   # DECODES #
   ###########
