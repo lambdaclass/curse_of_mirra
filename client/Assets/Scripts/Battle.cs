@@ -848,6 +848,11 @@ public class Battle : MonoBehaviour
                 .GetChild(0)
                 .GetComponent<Renderer>();
 
+            if (renderer == null)
+            {
+                renderer = character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>();
+            }
+
             if (renderer.material.shader.name != "Shader Graphs/OverlayDamageShader")
             {
                 if (renderer.material.color != Color.magenta)
