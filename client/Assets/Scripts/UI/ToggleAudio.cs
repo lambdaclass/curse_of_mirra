@@ -21,6 +21,16 @@ public class ToggleAudio : MonoBehaviour
 
     private ulong SFX_VOLUME = 3;
 
+    private float initialVolume = 0.5f;
+
+    [SerializeField]
+    private MMSoundManager.MMSoundManagerTracks channel;
+
+    void Awake()
+    {
+        print(channel);
+    }
+
     void Start()
     {
         muteButtonImage = GetComponentInChildren<Image>();
@@ -31,19 +41,19 @@ public class ToggleAudio : MonoBehaviour
 
     void Update()
     {
-        if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
-        {
-            muteButtonImage.overrideSprite = unmutedSprite;
-        }
-        else
-        {
-            muteButtonImage.overrideSprite = mutedSprite;
-        }
+        // if (!IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        // {
+        //     muteButtonImage.overrideSprite = unmutedSprite;
+        // }
+        // else
+        // {
+        //     muteButtonImage.overrideSprite = mutedSprite;
+        // }
     }
 
     public void Toggle()
     {
-        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (IsMuted(channel))
         {
             PlaySound();
             muteButtonImage.overrideSprite = unmutedSprite;
@@ -55,25 +65,65 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
+    public void ToggleMusicChannel()
+    {
+        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Music))
+        {
+            PlaySound();
+            muteButtonImage.overrideSprite = unmutedSprite;
+        }
+        else
+        {
+            SilenceSound();
+            muteButtonImage.overrideSprite = unmutedSprite;
+        }
+    }
+
     private void SilenceSound()
     {
-        unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
-        soundManager.PauseTrack(MMSoundManager.MMSoundManagerTracks.Music);
-        soundManager.MuteMaster();
+        unmutedVolume = volumeSlider.value;
+        switch (channel)
+        {
+            case MMSoundManager.MMSoundManagerTracks.Music:
+                soundManager.UnmuteMusic();
+                soundManager.PauseTrack(channel);
+                soundManager.MuteMusic();
+                break;
+            case MMSoundManager.MMSoundManagerTracks.Sfx:
+                soundManager.UnmuteSfx();
+                soundManager.PauseTrack(channel);
+                soundManager.MuteSfx();
+                break;
+        }
     }
 
     private void PlaySound()
     {
-        soundManager.UnmuteMaster();
+        // SetVolume(unmutedVolume);
+        switch (channel)
+        {
+            case MMSoundManager.MMSoundManagerTracks.Music:
+                soundManager.UnmuteMusic();
+                soundManager.PlayTrack(channel);
+                break;
+            case MMSoundManager.MMSoundManagerTracks.Sfx:
+                soundManager.UnmuteSfx();
+                soundManager.PlayTrack(channel);
+                break;
+        }
         SetVolume(unmutedVolume);
-        soundManager.PlayTrack(MMSoundManager.MMSoundManagerTracks.Music);
     }
 
     private void SetVolume(float newVolume)
     {
-        if (volumeSlider != null)
+        switch (channel)
         {
-            soundManager.SetVolumeMaster(newVolume);
+            case MMSoundManager.MMSoundManagerTracks.Music:
+                soundManager.SetVolumeMusic(newVolume);
+                break;
+            case MMSoundManager.MMSoundManagerTracks.Sfx:
+                soundManager.SetVolumeSfx(newVolume);
+                break;
         }
     }
 

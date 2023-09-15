@@ -17,6 +17,7 @@ MonoBehaviour:
     the dash path. H4ck has been using his roller skates to escape from trouble since    
     he was a child so he excells on this.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -28,7 +29,7 @@ MonoBehaviour:
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 0}
+  abilityStartSfx: {fileID: 8300000, guid: 2eeda0e3e1ea741288bd58f5b7f4e202, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: -1
