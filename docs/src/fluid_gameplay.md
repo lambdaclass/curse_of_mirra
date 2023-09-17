@@ -31,7 +31,7 @@ while true {
 
 This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is the result of one iteration of this loop. In multiplayer games, such as ours, this loop looks slightly different: clients are not the ones updating game state, they get those updates from the server. The general idea still applies however.
  
-Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom left corner of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
+Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
 
 Myrra does not cap framerate, which means it can go beyond `300` (although you won't be able to see this in Unity, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
 
