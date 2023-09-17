@@ -99,7 +99,7 @@ There are two main problems we are trying to prevent. They are:
 Both of these things are the result of playing over the network:
 
 - The first one happens because every action the player submits has to go the server and then back to the client before it gets applied. This round trip time is what we call the player's `ping`. The higher the ping, the higher the input lag.
-- The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), but it would be wrong to assume clients get them at that same frequency. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Weboscket`, which uses `tcp` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
+- The second one is the result of network instability. Servers send game updates at a fixed frequency (the `tick rate`), but it would be wrong to assume clients get them at that same frequency. Sometimes network packets/frames take longer than expected, sometimes they get lost and have to be retransmitted (we use `Websocket`, which uses `TCP` underneath). This means clients may not get any update from the server for a little while, only to then get a few of them all at once.
 
 Before going over how we solve these issues, a very important fact needs to be stressed out: __networks are unreliable__. This is especially important for the second item. Ping can be lowered by having servers close to players, but the network will still be unpredictable.
 
