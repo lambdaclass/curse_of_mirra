@@ -126,7 +126,7 @@ Input lag was the first issue we tackled, even though in hindsight it's clearly 
 
 This is called `Client Prediction`, because it's the client predicting what the server update is going to look like in the future, once it processes the movement command. Instead of waiting for confirmation, the client immediately applies the update, and input lag disappears.
 
-Notice that, by doing this, we are "lying" to the player. When they move in a direction, they immediately see themselves forward, but that's not where they actually are; the server, which is the source of truth of the gamestate, still needs to process that comman and send it out to every player. The higher the ping, the further the gamestate will differ from what the player sees on their screen. This is a tradeoff. The game feels better to play with prediction on, but lie to players too much and they might notice. They may see shots that look like they should miss hit them, because they are not seeing their character where it actually is.
+Notice that, by doing this, we are "lying" to the player. When they move in a direction, they immediately see themselves forward, but that's not where they actually are; the server, which is the source of truth of the gamestate, still needs to process that command and send it out to every player. The higher the ping, the further the gamestate will differ from what the player sees on their screen. This is a tradeoff. The game feels better to play with prediction on, but lie to players too much and they might notice. They may see shots that look like they should miss hit them, because they are not seeing their character where it actually is.
 
 ### Implementation
 
