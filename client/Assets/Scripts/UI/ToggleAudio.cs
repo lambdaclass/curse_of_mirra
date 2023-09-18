@@ -60,20 +60,6 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
-    public void ToggleMusicChannel()
-    {
-        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Music))
-        {
-            PlaySound();
-            muteButtonImage.overrideSprite = unmutedSprite;
-        }
-        else
-        {
-            SilenceSound();
-            muteButtonImage.overrideSprite = unmutedSprite;
-        }
-    }
-
     private void SilenceSound()
     {
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
