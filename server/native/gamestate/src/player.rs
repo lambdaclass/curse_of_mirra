@@ -282,16 +282,22 @@ impl Player {
     }
 
     #[inline]
-    pub fn add_effect(&mut self, e: Effect, ed: EffectData) {
-        if !self.effects.contains_key(&e) {
-            match self.character.name {
-                Name::Muflus => {
-                    if !(self.muflus_partial_immunity(&e)) {
-                        self.effects.insert(e, ed);
+    // use reset_countdown if re-applying this effect
+    pub fn add_effect(&mut self, effect: Effect, reset_countdown: bool, effect_data: EffectData) {
+        if reset_countdown == true {
+            self.effects.insert(effect, effect_data);
+        }
+        else {
+            if !self.effects.contains_key(&effect) {
+                match self.character.name {
+                    Name::Muflus => {
+                        if !(self.muflus_partial_immunity(&effect)) {
+                            self.effects.insert(effect, effect_data);
+                        }
                     }
-                }
-                _ => {
-                    self.effects.insert(e, ed);
+                    _ => {
+                        self.effects.insert(effect, effect_data);
+                    }
                 }
             }
         }
@@ -402,7 +408,7 @@ impl Player {
             + self.has_mark(&Effect::XandaMark, attacking_player_id)
     }
 
-    fn has_mark(self: &Self, e: &Effect, attacking_player_id: u64) -> u64 {
+    pub fn has_mark(self: &Self, e: &Effect, attacking_player_id: u64) -> u64 {
         let mark = self.effects.get(e);
         return if matches!(
             mark,
