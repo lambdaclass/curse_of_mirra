@@ -47,7 +47,6 @@ public class VolumeController : MonoBehaviour
         {
             MuteChannel();
         }
-
         MMSoundManagerTrackEvent.Trigger(
             MMSoundManagerTrackEventTypes.SetVolumeTrack,
             channelToUse,

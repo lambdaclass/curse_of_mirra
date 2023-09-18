@@ -32,8 +32,17 @@ public class ToggleAudio : MonoBehaviour
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
         soundManager.SetVolumeSfx(SFX_VOLUME);
         muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
-        print("start " + IsMuted(channel));
-        print(channel);
+    }
+
+    void Update()
+    {
+        if (
+            (IsMuted(channel) && unmutedVolume != volumeSlider.value)
+            && volumeSlider.value > 0.0001f
+        )
+        {
+            unmutedVolume = volumeSlider.value;
+        }
     }
 
     public void Toggle()
@@ -70,11 +79,9 @@ public class ToggleAudio : MonoBehaviour
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
-                soundManager.UnmuteMusic();
                 soundManager.MuteMusic();
                 break;
             case MMSoundManager.MMSoundManagerTracks.Sfx:
-                soundManager.UnmuteSfx();
                 soundManager.MuteSfx();
                 break;
         }
@@ -92,8 +99,8 @@ public class ToggleAudio : MonoBehaviour
                 soundManager.UnmuteSfx();
                 break;
         }
-        soundManager.PlayTrack(channel);
         SetVolume(unmutedVolume);
+        soundManager.PlayTrack(channel);
     }
 
     private void SetVolume(float newVolume)
