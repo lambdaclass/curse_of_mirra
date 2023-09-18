@@ -917,6 +917,21 @@ public class Battle : MonoBehaviour
             healthBarColorChanged = false;
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
+        {
+            player
+                .GetComponent<CustomCharacter>()
+                .characterBase.GetComponent<CharacterFeedbackManager>()
+                .DisplayUmaMarks(1);
+        }
+        else
+        {
+            player
+                .GetComponent<CustomCharacter>()
+                .characterBase.GetComponent<CharacterFeedbackManager>()
+                .RemoveMarks(1);
+        }
+
         return characterSpeed;
     }
 
@@ -935,7 +950,6 @@ public class Battle : MonoBehaviour
                 {
                     string name = Enum.GetName(typeof(StateEffects), effect);
                     bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    print(name + " " + isActive);
                     GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
                 }
             }
