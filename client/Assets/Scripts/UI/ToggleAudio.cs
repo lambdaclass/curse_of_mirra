@@ -37,7 +37,8 @@ public class ToggleAudio : MonoBehaviour
     void Update()
     {
         if (
-            (IsMuted(channel) && unmutedVolume != volumeSlider.value)
+            volumeSlider
+            && (IsMuted(channel) && unmutedVolume != volumeSlider.value)
             && volumeSlider.value > 0.0001f
         )
         {
