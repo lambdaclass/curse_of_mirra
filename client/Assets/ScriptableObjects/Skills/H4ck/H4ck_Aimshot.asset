@@ -16,6 +16,7 @@ MonoBehaviour:
   description: "Target opponent can\u2019t use any skills for 2 seconds. Always a
     sneaky guy, he has mastered the art of impairing his foes using his slingshot."
   inputType: 2
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 2
   projectilePrefab: {fileID: 5269552939558784490, guid: e401f90204eb843c385dd95a19b84e24,
@@ -35,3 +36,6 @@ MonoBehaviour:
   arrowWidth: 1.5
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: 09374ffa89aea487b9419beb6c1d70d5, type: 3}
+  - {fileID: 21300000, guid: dc89c2aecc4dc4a8aa26b1dea3faee02, type: 3}

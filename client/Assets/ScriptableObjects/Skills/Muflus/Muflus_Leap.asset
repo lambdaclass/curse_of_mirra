@@ -17,6 +17,7 @@ MonoBehaviour:
     upon arrival. His powerful legs give him the ability to leap to prodigious heights
     and destroy the floor when he lands.
   inputType: 1
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
   projectilePrefab: {fileID: 0}
@@ -36,3 +37,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: c3e62d31e3ede4ca5b79acf8489f9df6, type: 3}
+  - {fileID: 21300000, guid: 21a302202d38a42a2aa2cf569b81f59f, type: 3}

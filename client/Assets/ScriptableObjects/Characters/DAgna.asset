@@ -34,16 +34,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d67b4829cd22749c9b52a91feb298a00, type: 3}
   - {fileID: 21300000, guid: 55d9abeaaa78b4857b5806ce739c5a8c, type: 3}
   - {fileID: 21300000, guid: 7e27eab179581419e970f8c191655b92, type: 3}
-  - {fileID: 21300000, guid: 30e20f0cd82cd47558b05e0647a770e5, type: 3}
   notSelectedSkills:
   - {fileID: 21300000, guid: 64fe92c6a5bb745ff97dc222c69217cd, type: 3}
   - {fileID: 21300000, guid: 36bd0753904554ade88ca13533e89d70, type: 3}
   - {fileID: 21300000, guid: b02b1a955eb3e4506b8681ba0eeba59d, type: 3}
   - {fileID: 21300000, guid: ef92382865d094a359c7f1a0d85dc1d8, type: 3}
-  - {fileID: 21300000, guid: 1e1cd4407570944868be5c0afd1b2337, type: 3}
   skillsInfo:
   - {fileID: 11400000, guid: 006e5c754d1fb4f2fa147355f5705123, type: 2}
   - {fileID: 11400000, guid: dc37d4787c07e4b8d81224bb2e0592f5, type: 2}
   - {fileID: 11400000, guid: 1784299165adc474f8aaa980903baed9, type: 2}
   - {fileID: 11400000, guid: d49f342c1917646068b7af707681705d, type: 2}
-  - {fileID: 11400000, guid: 5e8a72e5044d34e72a26762a5911fef6, type: 2}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 0

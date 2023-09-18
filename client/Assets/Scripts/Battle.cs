@@ -342,14 +342,6 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.StartingSkill4:
-                currentPlayer.GetComponent<Skill4>().StartFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerAction.ExecutingSkill4:
-                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
         }
     }
 
@@ -503,11 +495,6 @@ public class Battle : MonoBehaviour
                 UIControls.Skill3,
                 (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill3>().GetSkillInfo().showCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
             );
         }
     }

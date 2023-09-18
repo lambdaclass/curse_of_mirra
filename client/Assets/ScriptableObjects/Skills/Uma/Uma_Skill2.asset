@@ -17,6 +17,7 @@ MonoBehaviour:
     poisons the enemy, dealing damage over time. Taints her enemy preparing it for
     the kill. This mark is named before her first born. '
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -35,3 +36,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: 50c898f99c4be4c0b82c96f689460513, type: 3}
+  - {fileID: 21300000, guid: ade6405e69e324e35b3098b2089472be, type: 3}

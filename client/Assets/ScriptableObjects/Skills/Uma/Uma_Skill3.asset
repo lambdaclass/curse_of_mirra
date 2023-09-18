@@ -18,6 +18,7 @@ MonoBehaviour:
     target cursed by this Mark. Taints her enemy preparing it for the kill. This
     mark is named before her second born.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -36,3 +37,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: 80b979e068bdd494fbeb983d7924dcf3, type: 3}
+  - {fileID: 21300000, guid: de52ef4c6d6c343ffad96c0d4e163447, type: 3}

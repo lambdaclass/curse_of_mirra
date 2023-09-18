@@ -12,7 +12,6 @@ public enum UIControls
     Skill1,
     Skill2,
     Skill3,
-    Skill4,
     SkillBasic
 }
 
@@ -47,9 +46,6 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton Skill3;
 
     [SerializeField]
-    CustomMMTouchButton Skill4;
-
-    [SerializeField]
     TMP_Text SkillBasicCooldown;
 
     [SerializeField]
@@ -62,9 +58,6 @@ public class CustomInputManager : InputManager
     TMP_Text Skill3Cooldown;
 
     [SerializeField]
-    TMP_Text Skill4Cooldown;
-
-    [SerializeField]
     GameObject disarmObjectSkill1;
 
     [SerializeField]
@@ -72,9 +65,6 @@ public class CustomInputManager : InputManager
 
     [SerializeField]
     GameObject disarmObjectSkill3;
-
-    [SerializeField]
-    GameObject disarmObjectSkill4;
 
     [SerializeField]
     GameObject cancelButton;
@@ -107,7 +97,6 @@ public class CustomInputManager : InputManager
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
         mobileButtons.Add(UIControls.Skill3, Skill3);
-        mobileButtons.Add(UIControls.Skill4, Skill4);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
@@ -116,7 +105,6 @@ public class CustomInputManager : InputManager
         buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
         buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
         buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
-        buttonsCooldown.Add(UIControls.Skill4, Skill4Cooldown);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
@@ -144,7 +132,6 @@ public class CustomInputManager : InputManager
             disarmObjectSkill1.SetActive(isDisarmed);
             disarmObjectSkill2.SetActive(isDisarmed);
             disarmObjectSkill3.SetActive(isDisarmed);
-            disarmObjectSkill4.SetActive(isDisarmed);
             disarmed = isDisarmed;
         }
     }
@@ -155,7 +142,6 @@ public class CustomInputManager : InputManager
         Skill1.SetInitialSprite(characterInfo.skill1Sprite, characterInfo.skillBackground);
         Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
         Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
-        Skill4.SetInitialSprite(characterInfo.skill4Sprite, characterInfo.skillBackground);
         characterSkillColor = characterInfo.InputFeedbackColor;
     }
 

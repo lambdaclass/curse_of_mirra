@@ -17,6 +17,7 @@ MonoBehaviour:
     for a short time. Uma is a wraith like spirit of vengeance, that grants her limited
     intangibility.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -35,3 +36,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: 182f1e310174b439898fc8031d45b24e, type: 3}
+  - {fileID: 21300000, guid: 7d73c1279f2c449d58542ffb421ba488, type: 3}

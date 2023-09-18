@@ -18,6 +18,7 @@ MonoBehaviour:
     the bulls with a PED that has unleashed the full aggressive potential of their
     bodies.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -37,3 +38,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  uiSelect:
+  - {fileID: 21300000, guid: 5b15c8d3a5e09404f988f5d65aa2a741, type: 3}
+  - {fileID: 21300000, guid: 625f4535b9c0c405cb9888dbafe878d1, type: 3}
