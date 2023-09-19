@@ -16,8 +16,9 @@ MonoBehaviour:
   description: 'Target a nearby enemy, inflicting a Mark for a short period which
     poisons the enemy, dealing damage over time. Taints her enemy preparing it for
     the kill. This mark is named before her first born. '
-  inputType: 0
-  executeOnQuickTap: 0
+  inputType: 2
+  angle: 0
+  executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
@@ -31,7 +32,7 @@ MonoBehaviour:
   startAnimationDuration: 0
   executeAnimationDuration: 0
   skillCircleRadius: 0
-  skillConeAngle: 0
+  skillConeAngle: 45
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
