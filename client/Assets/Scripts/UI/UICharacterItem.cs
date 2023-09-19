@@ -21,14 +21,14 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public GameObject characterDescription;
 
     [SerializeField]
-    public SkillsDetailHandler skillList;
+    public SkillsDetailHandler skillContainer;
 
     [SerializeField]
     public ConfirmButtonHandler confirmButton;
 
     void Start()
     {
-        if (isActive())
+        if (IsActive())
         {
             artWork.sprite = comCharacter.artWork;
         }
@@ -38,7 +38,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public bool isActive()
+    public bool IsActive()
     {
         var charactersList = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
         foreach (var character in charactersList)
@@ -55,7 +55,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     {
         if (SocketConnectionManager.Instance.isConnectionOpen())
         {
-            if (isActive())
+            if (IsActive())
             {
                 characterDescription.SetActive(true);
                 selected = true;
@@ -63,16 +63,18 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-                skillList.list.ForEach(el =>
-                {
-                    var skill = skillList.list.IndexOf(el);
-                    el.GetComponent<SkillDescription>()
-                        .SetSkillDescription(
-                            comCharacter.skillsInfo[skill],
-                            comCharacter.notSelectedSkills[skill],
-                            comCharacter.selectedSkills[skill]
-                        );
-                });
+                skillContainer.list[(int)UIControls.SkillBasic].SetSkillDescription(
+                    comCharacter.skillBasicInfo
+                );
+                skillContainer.list[(int)UIControls.Skill1].SetSkillDescription(
+                    comCharacter.skill1Info
+                );
+                skillContainer.list[(int)UIControls.Skill2].SetSkillDescription(
+                    comCharacter.skill2Info
+                );
+                skillContainer.list[(int)UIControls.Skill3].SetSkillDescription(
+                    comCharacter.skill3Info
+                );
                 transform.parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);

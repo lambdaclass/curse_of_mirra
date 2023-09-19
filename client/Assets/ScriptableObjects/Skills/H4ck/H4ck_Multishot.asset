@@ -17,7 +17,7 @@ MonoBehaviour:
     can hit one same target. H4ck stores various kinds of munitions in his fanny
     pack.
   inputType: 2
-  angle: 0
+  angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
@@ -37,6 +37,6 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
-  uiSelect:
-  - {fileID: 21300000, guid: c7a0c138ae12b47de852eb4bcfa3ac8b, type: 3}
-  - {fileID: 21300000, guid: c8a4b857c35324e40bad14b465f3a18c, type: 3}
+  skillSprites:
+  - {fileID: 21300000, guid: b9235b88acabf41f8b72d06a4b2faa4c, type: 3}
+  - {fileID: 21300000, guid: b9235b88acabf41f8b72d06a4b2faa4c, type: 3}

@@ -15,13 +15,6 @@ public class CoMCharacter : ScriptableObject
     public SkillInfo skill1Info;
     public SkillInfo skill2Info;
     public SkillInfo skill3Info;
-    public Sprite skillBasicSprite;
-    public Sprite skill1Sprite;
-    public Sprite skill2Sprite;
-    public Sprite skill3Sprite;
     public Sprite skillBackground;
-    public List<Sprite> selectedSkills;
-    public List<Sprite> notSelectedSkills;
-    public List<SkillInfo> skillsInfo;
     public Color32 InputFeedbackColor;
 }

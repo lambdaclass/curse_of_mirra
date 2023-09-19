@@ -36,7 +36,7 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
     public bool showCooldown;
-    public List<Sprite> uiSelect;
+    public List<Sprite> skillSprites;
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {

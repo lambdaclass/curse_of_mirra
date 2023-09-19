@@ -138,10 +138,19 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillBasicSprite, null);
-        Skill1.SetInitialSprite(characterInfo.skill1Sprite, characterInfo.skillBackground);
-        Skill2.SetInitialSprite(characterInfo.skill2Sprite, characterInfo.skillBackground);
-        Skill3.SetInitialSprite(characterInfo.skill3Sprite, characterInfo.skillBackground);
+        SkillBasic.SetInitialSprite(characterInfo.skillBasicInfo.skillSprites[0], null);
+        Skill1.SetInitialSprite(
+            characterInfo.skill1Info.skillSprites[0],
+            characterInfo.skillBackground
+        );
+        Skill2.SetInitialSprite(
+            characterInfo.skill2Info.skillSprites[0],
+            characterInfo.skillBackground
+        );
+        Skill3.SetInitialSprite(
+            characterInfo.skill3Info.skillSprites[0],
+            characterInfo.skillBackground
+        );
         characterSkillColor = characterInfo.InputFeedbackColor;
     }
 

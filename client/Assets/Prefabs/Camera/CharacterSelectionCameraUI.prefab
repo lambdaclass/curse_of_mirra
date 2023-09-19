@@ -3282,6 +3282,11 @@ PrefabInstance:
       objectReference: {fileID: 7149123901655631209}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillsContainer
       value: 
       objectReference: {fileID: 1534130646940272441}
@@ -3538,6 +3543,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 7149123901655631209}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillsContainer
@@ -3798,6 +3808,11 @@ PrefabInstance:
       objectReference: {fileID: 7149123901655631209}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillsContainer
       value: 
       objectReference: {fileID: 1534130646940272441}
@@ -4056,6 +4071,11 @@ PrefabInstance:
       objectReference: {fileID: 7149123901655631209}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
       propertyPath: skillsContainer
       value: 
       objectReference: {fileID: 1534130646940272441}
@@ -4312,6 +4332,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 7149123901655631209}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillsContainer
@@ -4581,6 +4606,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 7149123901655631209}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillsContainer
@@ -4854,6 +4884,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 7149123901655631209}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillsContainer
@@ -5300,6 +5335,11 @@ PrefabInstance:
       propertyPath: confirmButton
       value: 
       objectReference: {fileID: 7149123901655631209}
+    - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
+        type: 3}
+      propertyPath: skillContainer
+      value: 
+      objectReference: {fileID: 4760535875643805996}
     - target: {fileID: 2631301374082731731, guid: 91cc569c19fb6492d985a54c8122b566,
         type: 3}
       propertyPath: skillsContainer

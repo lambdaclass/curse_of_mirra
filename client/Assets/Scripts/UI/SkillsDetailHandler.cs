@@ -8,7 +8,7 @@ public class SkillsDetailHandler : MonoBehaviour
 {
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
-    public List<GameObject> list;
+    public List<SkillDescription> list;
 
     void Awake()
     {
@@ -17,10 +17,7 @@ public class SkillsDetailHandler : MonoBehaviour
 
     public void SetSkillsList()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            list.Add(transform.GetChild(i).gameObject);
-        }
+        list.AddRange(GetComponentsInChildren<SkillDescription>());
     }
 
     public void SetSkillDetaill(string setSkillName, string setSkillDescription)

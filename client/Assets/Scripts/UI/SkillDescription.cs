@@ -8,18 +8,23 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     SkillInfo skillData;
     public Sprite skillSprite;
     public Sprite selectedSkillSprite;
+    SkillsDetailHandler skillsDetailHandler;
 
-    public void SetSkillDescription(SkillInfo skillInfo, Sprite skill, Sprite selectedSkill)
+    public void SetSkillDescription(SkillInfo skillInfo)
     {
         skillData = skillInfo;
-        skillSprite = skill;
-        selectedSkillSprite = selectedSkill;
+        skillSprite = skillInfo.skillSprites[0];
+        selectedSkillSprite = skillInfo.skillSprites[1];
 
         // The first list element always starts with a selected display
-        GameObject firstGameObject = transform.parent.GetComponent<SkillsDetailHandler>().list[0];
+        GameObject firstGameObject = transform.parent.GetComponent<SkillsDetailHandler>().list[
+            0
+        ].gameObject;
         if (this.gameObject == firstGameObject)
         {
             GetComponent<Image>().sprite = selectedSkillSprite;
+            skillsDetailHandler = transform.parent.GetComponent<SkillsDetailHandler>();
+            skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
         }
         else
         {
@@ -29,8 +34,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        SkillsDetailHandler skillsDetailHandler =
-            transform.parent.GetComponent<SkillsDetailHandler>();
+        skillsDetailHandler = transform.parent.GetComponent<SkillsDetailHandler>();
         skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
         skillsDetailHandler.SetSkillIcon(skillSprite, selectedSkillSprite);
     }
