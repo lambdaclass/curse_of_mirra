@@ -112,6 +112,7 @@ public class Skill : CharacterAbility
     {
         return skillInfo;
     }
+
     public GameObject GetProjectileFromSkill()
     {
         return skillInfo?.projectilePrefab;
@@ -146,6 +147,8 @@ public class Skill : CharacterAbility
             feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(relativePosition);
         }
+        print("Damage of this skill is " + skillInfo.damage);
+        print("Angle of this skill is " + skillInfo.angle);
     }
 
     private void ExecuteSkill(RelativePosition relativePosition)
@@ -306,7 +309,8 @@ public class Skill : CharacterAbility
         AbilityStopFeedbacks?.StopFeedbacks();
     }
 
-    public float GetAngle(){
+    public float GetAngle()
+    {
         return this.skillInfo.angle;
     }
 

@@ -50,6 +50,8 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    private bool deathSplashIsShown = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -107,9 +109,11 @@ public class CustomLevelManager : LevelManager
     {
         Player gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
-        if (GameHasEndedOrPlayerHasDied(gamePlayer))
+        if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
             StartCoroutine(ShowDeathSplash(player));
+            deathSplashIsShown = true;
+            DestroySkillsClone(player);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -180,27 +184,64 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(CoMCharacter characterInfo){
+    private void SetSkillAngles(List<SkillInfo> skillsClone)
+    {
         var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
-       
+
         List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        float basicSkillInfoAngle = jsonSkills.Exists(skill => characterInfo.skillBasicInfo.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle) : 0;
-        characterInfo.skillBasicInfo.angle = basicSkillInfoAngle;
+        float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Angle)
+            : 0;
+        skillsClone[0].angle = basicSkillInfoAngle;
+        skillsClone[0].skillConeAngle = basicSkillInfoAngle;
 
-        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle) : 0;
-        characterInfo.skill1Info.angle = skill1InfoAngle;
+        float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
+            : 0;
+        skillsClone[1].angle = skill1InfoAngle;
+        skillsClone[1].skillConeAngle = skill1InfoAngle;
 
-        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle) : 0;
-        characterInfo.skill2Info.angle = skill2InfoAngle;
+        float skill2InfoAngle = jsonSkills.Exists(skill => skillsClone[2].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[2].Equals(skill)).Angle)
+            : 0;
+        skillsClone[2].angle = skill2InfoAngle;
+        skillsClone[2].skillConeAngle = skill2InfoAngle;
 
-        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle) : 0;
-        characterInfo.skill3Info.angle = skill3InfoAngle;
+        float skill3InfoAngle = jsonSkills.Exists(skill => skillsClone[3].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[3].Equals(skill)).Angle)
+            : 0;
+        skillsClone[3].angle = skill3InfoAngle;
+        skillsClone[3].skillConeAngle = skill3InfoAngle;
 
-        float skill4InfoAngle = jsonSkills.Exists(skill => characterInfo.skill4Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill4Info.Equals(skill)).Angle) : 0;
-        characterInfo.skill4Info.angle = skill4InfoAngle;
+        float skill4InfoAngle = jsonSkills.Exists(skill => skillsClone[4].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[4].Equals(skill)).Angle)
+            : 0;
+        skillsClone[4].angle = skill4InfoAngle;
+        skillsClone[4].skillConeAngle = skill4InfoAngle;
     }
-    
+
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
+    {
+        List<SkillInfo> skills = new List<SkillInfo>();
+        characterInfo.skills.ForEach(skill =>
+        {
+            SkillInfo skillClone = Instantiate(skill);
+            skillClone.InitWithBackend();
+            skills.Add(skillClone);
+        });
+
+        return skills;
+    }
+
+    private void DestroySkillsClone(GameObject player)
+    {
+        player
+            .GetComponentsInChildren<Skill>()
+            .ToList()
+            .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
+    }
+
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
@@ -228,17 +269,14 @@ public class CustomLevelManager : LevelManager
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
-            SetSkillAngles(characterInfo);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(
-                Action.BasicAttack,
-                characterInfo.skillBasicInfo,
-                skillsAnimationEvent
-            );
-            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info, skillsAnimationEvent);
-            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
-            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
-            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
+            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            skill2.SetSkill(Action.Skill2, skillInfoClone[2], skillsAnimationEvent);
+            skill3.SetSkill(Action.Skill3, skillInfoClone[3], skillsAnimationEvent);
+            skill4.SetSkill(Action.Skill4, skillInfoClone[4], skillsAnimationEvent);
 
             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
@@ -260,27 +298,27 @@ public class CustomLevelManager : LevelManager
                 inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(
                     UIControls.SkillBasic,
-                    characterInfo.skillBasicInfo.inputType,
+                    skillInfoClone[0].inputType,
                     skillBasic
                 );
                 inputManager.AssignSkillToInput(
                     UIControls.Skill1,
-                    characterInfo.skill1Info.inputType,
+                    skillInfoClone[1].inputType,
                     skill1
                 );
                 inputManager.AssignSkillToInput(
                     UIControls.Skill2,
-                    characterInfo.skill2Info.inputType,
+                    skillInfoClone[2].inputType,
                     skill2
                 );
                 inputManager.AssignSkillToInput(
                     UIControls.Skill3,
-                    characterInfo.skill3Info.inputType,
+                    skillInfoClone[3].inputType,
                     skill3
                 );
                 inputManager.AssignSkillToInput(
                     UIControls.Skill4,
-                    characterInfo.skill4Info.inputType,
+                    skillInfoClone[4].inputType,
                     skill4
                 );
             }

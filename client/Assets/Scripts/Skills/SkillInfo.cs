@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 public class SkillInfo : ScriptableObject
 {
     public new string name;
-    public new string jsonName;
     public string description;
     public UIType inputType;
 
@@ -41,14 +40,14 @@ public class SkillInfo : ScriptableObject
     public bool showCooldown;
     public float damage;
     public float cooldown;
-    public ulong duration;
+    public float skillRange;
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {
         return this.name.ToLower() == skillConfigItem.Name.ToLower();
     }
 
-    void OnEnable()
+    public void InitWithBackend()
     {
         if (LobbyConnection.Instance != null)
         {
@@ -59,8 +58,7 @@ public class SkillInfo : ScriptableObject
                 {
                     this.damage = float.Parse(skill.Damage);
                     this.cooldown = float.Parse(skill.Cooldown);
-                    this.jsonName = skill.Name;
-                    this.duration = ulong.Parse(skill.Duration);
+                    this.skillRange = float.Parse(skill.SkillRange);
                 }
             }
         }
