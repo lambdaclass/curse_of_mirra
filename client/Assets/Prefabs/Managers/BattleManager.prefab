@@ -60,6 +60,7 @@ MonoBehaviour:
   BlockingConditionStates: 
   accumulatedTime: 0
   firstTimestamp: 0
+  playerFeedbacks: {fileID: 7090107403194157423}
 --- !u!114 &7090107403194157422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bba1949792949a5b9e1a5d1efaa7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPoolerList: []

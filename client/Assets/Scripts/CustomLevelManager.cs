@@ -180,27 +180,42 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(CoMCharacter characterInfo){
+    private void SetSkillAngles(CoMCharacter characterInfo)
+    {
         var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
-       
+
         List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        float basicSkillInfoAngle = jsonSkills.Exists(skill => characterInfo.skillBasicInfo.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle) : 0;
+        float basicSkillInfoAngle = jsonSkills.Exists(
+            skill => characterInfo.skillBasicInfo.Equals(skill)
+        )
+            ? float.Parse(
+                jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle
+            )
+            : 0;
         characterInfo.skillBasicInfo.angle = basicSkillInfoAngle;
 
-        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle) : 0;
+        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill1Info.angle = skill1InfoAngle;
 
-        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle) : 0;
+        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill2Info.angle = skill2InfoAngle;
 
-        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle) : 0;
+        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill3Info.angle = skill3InfoAngle;
 
-        float skill4InfoAngle = jsonSkills.Exists(skill => characterInfo.skill4Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill4Info.Equals(skill)).Angle) : 0;
+        float skill4InfoAngle = jsonSkills.Exists(skill => characterInfo.skill4Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill4Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill4Info.angle = skill4InfoAngle;
     }
-    
+
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
@@ -214,6 +229,12 @@ public class CustomLevelManager : LevelManager
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
             Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
+
+            player.skillBasic = skillBasic;
+            player.skill1 = skill1;
+            player.skill2 = skill2;
+            player.skill3 = skill3;
+            player.skill4 = skill4;
 
             skillList.Add(skillBasic);
             skillList.Add(skill1);

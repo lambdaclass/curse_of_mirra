@@ -5,6 +5,7 @@ using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class Battle : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class Battle : MonoBehaviour
     private Loot loot;
     private bool playerMaterialColorChanged;
     private bool healthBarColorChanged;
+
+    [SerializeField]
+    private PlayerFeedbacks playerFeedbacks;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -174,6 +178,7 @@ public class Battle : MonoBehaviour
 
     void UpdatePlayerActions()
     {
+        Profiler.BeginSample("UpdatePlayerActions");
         long currentTime;
         long pastTime;
         GameObject interpolationGhost = null;
@@ -243,6 +248,7 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
 
                 if (currentPlayer.activeSelf)
                 {
@@ -263,7 +269,7 @@ public class Battle : MonoBehaviour
                     )
                     {
                         executeSkillFeedback(
-                            currentPlayer,
+                            playerCharacter,
                             serverPlayerUpdate.Action,
                             serverPlayerUpdate.Direction
                         );
@@ -275,7 +281,6 @@ public class Battle : MonoBehaviour
                 }
 
                 // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
 
                 if (serverPlayerUpdate.Health <= 0)
                 {
@@ -285,24 +290,22 @@ public class Battle : MonoBehaviour
                 if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
                 {
                     // TODO: Refactor: create a script/reference.
-                    currentPlayer
-                        .GetComponent<CustomCharacter>()
-                        .characterBase.Position.GetComponent<Renderer>()
+                    playerCharacter.characterBase.Position
+                        .GetComponent<Renderer>()
                         .material.color = new Color(1, 0, 0, .5f);
                 }
 
-                Transform hitbox = currentPlayer
-                    .GetComponent<CustomCharacter>()
-                    .characterBase.Hitbox.transform;
+                Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
                 float hitboxSize = serverPlayerUpdate.BodySize / 50f;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
         }
+        Profiler.EndSample();
     }
 
     private void executeSkillFeedback(
-        GameObject currentPlayer,
+        CustomCharacter currentPlayer,
         PlayerAction playerAction,
         RelativePosition direction
     )
@@ -315,39 +318,39 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case PlayerAction.Attacking:
-                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                currentPlayer.skillBasic.ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                currentPlayer.skill1.StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                currentPlayer.skill1.ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                currentPlayer.skill2.StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                currentPlayer.skill2.ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
-                currentPlayer.GetComponent<Skill3>().StartFeedback();
+                currentPlayer.skill3.StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                currentPlayer.skill3.ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
-                currentPlayer.GetComponent<Skill4>().StartFeedback();
+                currentPlayer.skill4.StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
-                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                currentPlayer.skill4.ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
         }
@@ -432,7 +435,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void rotatePlayer(GameObject player, RelativePosition direction)
+    private void rotatePlayer(CustomCharacter player, RelativePosition direction)
     {
         CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
         characterOrientation.ForcedRotation = true;
@@ -443,6 +446,7 @@ public class Battle : MonoBehaviour
 
     private void UpdatePlayer(GameObject player, Player playerUpdate, long pastTime)
     {
+        Profiler.BeginSample("UpdatePlater");
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
         There are 50 ticks per second. A player's velocity is 50 * 0.3f
@@ -456,9 +460,7 @@ public class Battle : MonoBehaviour
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel.GetComponent<Animator>();
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
@@ -487,29 +489,30 @@ public class Battle : MonoBehaviour
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
-                player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
+                character.skillBasic.GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+                character.skill1.GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
                 (float)playerUpdate.Skill2CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+                character.skill2.GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
                 (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
+                character.skill3.GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill4,
                 (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
+                character.skill4.GetSkillInfo().showCooldown
             );
         }
+        Profiler.EndSample();
     }
 
     private void HandlePlayerHealth(GameObject player, Player playerUpdate)
@@ -517,16 +520,19 @@ public class Battle : MonoBehaviour
         Health healthComponent = player.GetComponent<Health>();
 
         // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>()
-            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
+        playerFeedbacks.DisplayDamageRecieved(
+            player,
+            healthComponent,
+            playerUpdate.Health,
+            playerUpdate.Id
+        );
 
         // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>()
-            .ChangePlayerTextureOnDamage(
-                player,
-                healthComponent.CurrentHealth,
-                playerUpdate.Health
-            );
+        playerFeedbacks.ChangePlayerTextureOnDamage(
+            player,
+            healthComponent.CurrentHealth,
+            playerUpdate.Health
+        );
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -553,9 +559,8 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel.GetComponent<Animator>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
 
@@ -651,9 +656,9 @@ public class Battle : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = GetPlayerDirection(playerUpdate);
 
-                if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
+                if (PlayerMovementAuthorized(character))
                 {
-                    rotatePlayer(player, direction);
+                    rotatePlayer(character, direction);
                 }
             }
             walking = true;
@@ -664,7 +669,7 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
     {
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
+        playerFeedbacks.PlayDeathFeedback(playerCharacter);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
@@ -880,10 +885,9 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            GetComponent<PlayerFeedbacks>()
-                .ExecuteH4ckDisarmFeedback(
-                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
-                );
+            playerFeedbacks.ExecuteH4ckDisarmFeedback(
+                playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
+            );
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
@@ -924,7 +928,7 @@ public class Battle : MonoBehaviour
     {
         if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
-            GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
+            playerFeedbacks.ClearAllFeedbacks(player);
         }
 
         foreach (ulong key in playerUpdate.Effects.Keys)
@@ -935,8 +939,7 @@ public class Battle : MonoBehaviour
                 {
                     string name = Enum.GetName(typeof(StateEffects), effect);
                     bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    print(name + " " + isActive);
-                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                    playerFeedbacks.SetActiveFeedback(player, name, isActive);
                 }
             }
         }
