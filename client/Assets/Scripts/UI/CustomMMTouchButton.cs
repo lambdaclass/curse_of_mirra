@@ -13,14 +13,16 @@ public class CustomMMTouchButton : MMTouchButton
 
     public void SetInitialSprite(Sprite newSprite, Sprite backgroundSprite)
     {
-        GameObject parent1 = gameObject.transform.parent.gameObject;
-        parent1.SetActive(true);
-        this._initialSprite = newSprite;
+        GameObject parent = gameObject.transform.parent.gameObject;
+        parent.SetActive(true);
+        Debug.Log(newSprite.name);
+        /* this._initialSprite = newSprite;
         this.DisabledSprite = newSprite;
-        this.PressedSprite = newSprite;
+        this.PressedSprite = newSprite; */
+        GetComponentInChildren<Image>().sprite = newSprite;
         if (backgroundSprite)
         {
-            Image bg = parent1.GetComponent<Image>();
+            Image bg = parent.GetComponent<Image>();
             bg.sprite = backgroundSprite;
         }
     }
