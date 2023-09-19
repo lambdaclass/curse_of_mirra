@@ -854,18 +854,28 @@ public class Battle : MonoBehaviour
         }
 
         // TODO: Temporary out of area feedback. Refactor!
-        if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea)
-            && !playerMaterialColorChanged
-        )
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
         {
-            Utils.ChangeCharacterMaterialColor(character, Color.magenta);
-            playerMaterialColorChanged = true;
+            Renderer renderer = character.CharacterModel.transform
+                .GetChild(0)
+                .GetComponent<Renderer>();
+
+            if (renderer == null)
+            {
+                renderer = character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>();
+            }
+
+            if (renderer.material.shader.name != "Shader Graphs/OverlayDamageShader")
+            {
+                if (renderer.material.color != Color.magenta)
+                {
+                    Utils.ChangeCharacterMaterialColor(character, Color.magenta);
+                }
+            }
         }
         else
         {
             Utils.ChangeCharacterMaterialColor(character, Color.white);
-            playerMaterialColorChanged = false;
         }
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
