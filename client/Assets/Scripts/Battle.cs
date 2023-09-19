@@ -31,6 +31,8 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
+    private bool playerMaterialColorChanged;
+    private bool healthBarColorChanged;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -46,6 +48,8 @@ public class Battle : MonoBehaviour
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
+        playerMaterialColorChanged = false;
+        healthBarColorChanged = false;
     }
 
     private void InitBlockingStates()
@@ -93,10 +97,15 @@ public class Battle : MonoBehaviour
         )
         {
             SetAccumulatedTime();
-            UpdatePlayerActions();
-            UpdateProjectileActions();
-            loot.UpdateLoots();
+            UpdateBattleState();
         }
+    }
+
+    void UpdateBattleState()
+    {
+        UpdatePlayerActions();
+        UpdateProjectileActions();
+        loot.UpdateLoots();
     }
 
     private void SetAccumulatedTime()
@@ -207,88 +216,92 @@ public class Battle : MonoBehaviour
                 gameEvent = buffer.lastEvent();
             }
 
-            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-            // prediction will modify the player in place, which is not what we want.
-            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-
-            if (
-                serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
-                && useClientPrediction
-            )
+            // There are a few frames during which this is outdated and produces an error
+            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
             {
-                // Move the ghost BEFORE client prediction kicks in, so it only moves up until
-                // the last server update.
-                if (clientPredictionGhost != null)
-                {
-                    UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
-                }
-                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                    serverPlayerUpdate,
-                    gameEvent.PlayerTimestamp
-                );
-            }
-
-            if (interpolationGhost != null)
-            {
-                UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
-            }
-
-            GameObject actualPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-
-            if (actualPlayer.activeSelf)
-            {
-                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-                {
-                    UpdatePlayer(actualPlayer, buffer.lastEvent().Players[i], pastTime);
-                }
-                else
-                {
-                    UpdatePlayer(actualPlayer, serverPlayerUpdate, pastTime);
-                }
+                // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+                // prediction will modify the player in place, which is not what we want.
+                Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
 
                 if (
-                    !buffer.timestampAlreadySeen(
-                        SocketConnectionManager.Instance.gamePlayers[i].Id,
-                        gameEvent.ServerTimestamp
-                    )
+                    serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                    && useClientPrediction
                 )
                 {
-                    executeSkillFeedback(
-                        actualPlayer,
-                        serverPlayerUpdate.Action,
-                        serverPlayerUpdate.Direction
-                    );
-                    buffer.setLastTimestampSeen(
-                        SocketConnectionManager.Instance.gamePlayers[i].Id,
-                        gameEvent.ServerTimestamp
+                    // Move the ghost BEFORE client prediction kicks in, so it only moves up until
+                    // the last server update.
+                    if (clientPredictionGhost != null)
+                    {
+                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                    }
+                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                        serverPlayerUpdate,
+                        gameEvent.PlayerTimestamp
                     );
                 }
+
+                if (interpolationGhost != null)
+                {
+                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                }
+
+                GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+
+                if (currentPlayer.activeSelf)
+                {
+                    if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                    {
+                        UpdatePlayer(currentPlayer, buffer.lastEvent().Players[i], pastTime);
+                    }
+                    else
+                    {
+                        UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
+                    }
+
+                    if (
+                        !buffer.timestampAlreadySeen(
+                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            gameEvent.ServerTimestamp
+                        )
+                    )
+                    {
+                        executeSkillFeedback(
+                            currentPlayer,
+                            serverPlayerUpdate.Action,
+                            serverPlayerUpdate.Direction
+                        );
+                        buffer.setLastTimestampSeen(
+                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            gameEvent.ServerTimestamp
+                        );
+                    }
+                }
+
+                // TODO: try to optimize GetComponent calls
+                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
+
+                if (serverPlayerUpdate.Health <= 0)
+                {
+                    SetPlayerDead(playerCharacter);
+                }
+
+                Transform hitbox = currentPlayer
+                    .GetComponent<CustomCharacter>()
+                    .characterBase.Hitbox.transform;
+
+                float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+                hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
-
-            // TODO: try to optimize GetComponent calls
-            CustomCharacter playerCharacter = actualPlayer.GetComponent<CustomCharacter>();
-
-            if (serverPlayerUpdate.Health <= 0)
-            {
-                SetPlayerDead(playerCharacter);
-            }
-
-            Transform hitbox = actualPlayer
-                .GetComponent<CustomCharacter>()
-                .characterBase.Hitbox.transform;
-
-            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
-            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
     private void executeSkillFeedback(
-        GameObject actualPlayer,
+        GameObject currentPlayer,
         PlayerAction playerAction,
         RelativePosition direction
     )
     {
-        if (actualPlayer.name.Contains("BOT"))
+        if (currentPlayer.name.Contains("BOT"))
         {
             return;
         }
@@ -296,40 +309,40 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case PlayerAction.Attacking:
-                actualPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
-                actualPlayer.GetComponent<Skill1>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
-                actualPlayer.GetComponent<Skill1>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                actualPlayer.GetComponent<Skill2>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                actualPlayer.GetComponent<Skill2>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
-                actualPlayer.GetComponent<Skill3>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill3>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill3:
-                actualPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill4:
-                actualPlayer.GetComponent<Skill4>().StartFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill4>().StartFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill4:
-                actualPlayer.GetComponent<Skill4>().ExecuteFeedback();
-                rotatePlayer(actualPlayer, direction);
+                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
+                rotatePlayer(currentPlayer, direction);
                 break;
         }
     }
@@ -443,7 +456,14 @@ public class Battle : MonoBehaviour
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
-        HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+        if (!SocketConnectionManager.Instance.GameHasEnded())
+        {
+            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+        }
+        else
+        {
+            modelAnimator.SetBool("Walking", false);
+        }
 
         HandlePlayerHealth(player, playerUpdate);
 
@@ -460,23 +480,28 @@ public class Battle : MonoBehaviour
             */
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
-                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f
+                (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
+                player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
-                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
-                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
-                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f
+                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
             );
         }
     }
@@ -841,10 +866,18 @@ public class Battle : MonoBehaviour
         }
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-
-        healthBar.ForegroundColor = playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            ? Utils.GetHealthBarGradient(MMColors.Green)
-            : Utils.GetHealthBarGradient(MMColors.BestRed);
+        if (
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned) && !healthBarColorChanged
+        )
+        {
+            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
+            healthBarColorChanged = true;
+        }
+        else
+        {
+            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
+            healthBarColorChanged = false;
+        }
 
         return characterSpeed;
     }

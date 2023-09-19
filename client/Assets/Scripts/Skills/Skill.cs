@@ -112,7 +112,6 @@ public class Skill : CharacterAbility
     {
         return skillInfo;
     }
-
     public GameObject GetProjectileFromSkill()
     {
         return skillInfo?.projectilePrefab;
@@ -305,6 +304,10 @@ public class Skill : CharacterAbility
     public virtual void StopAbilityStopFeedbacks()
     {
         AbilityStopFeedbacks?.StopFeedbacks();
+    }
+
+    public float GetAngle(){
+        return this.skillInfo.angle;
     }
 
     public float GetSkillRadius()

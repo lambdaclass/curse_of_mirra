@@ -487,6 +487,9 @@ MonoBehaviour:
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
+  healOverlayColor:
+    serializedVersion: 2
+    rgba: 4282690884
 --- !u!1001 &3426755726173006851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -559,6 +562,11 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5603193989365964841}
+    - target: {fileID: 5694839354157769067, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name

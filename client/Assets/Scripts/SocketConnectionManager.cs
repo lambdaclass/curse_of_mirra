@@ -340,4 +340,14 @@ public class SocketConnectionManager : MonoBehaviour
     {
         return ws.State == NativeWebSocket.WebSocketState.Open;
     }
+
+    public bool GameHasEnded()
+    {
+        return winnerPlayer.Item1 != null;
+    }
+
+    public bool PlayerIsWinner(ulong playerId)
+    {
+        return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
+    }
 }

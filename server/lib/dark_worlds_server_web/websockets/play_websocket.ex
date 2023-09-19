@@ -53,10 +53,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       {:ok, web_socket_state}
     else
       false ->
-        {:stop, %{}}
+        {:stop, :no_runner}
 
-      {:error, _reason} ->
-        {:stop, %{}}
+      {:error, reason} ->
+        {:stop, reason}
     end
   end
 
@@ -69,6 +69,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def terminate(:stop, _req, :version_mismatch) do
     Logger.info("#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch")
+    :ok
+  end
+
+  def terminate(:stop, _req, reason) do
+    log_termination(reason)
     :ok
   end
 

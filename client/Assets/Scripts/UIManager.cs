@@ -15,33 +15,49 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject noLobbiesText;
 
-    bool lobbiesEmpty = true;
-    bool gamesEmpty = true;
-
     void Start()
     {
-        noLobbiesText.SetActive(lobbiesEmpty);
+        SetEmptyListIndicator(true);
+        StartCoroutine(InitializeList());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator InitializeList()
     {
-        if (lobbiesEmpty && LobbyConnection.Instance.lobbiesList.Count > 0)
-        {
-            noLobbiesText.SetActive(false);
-            GenerateList(LobbyConnection.Instance.lobbiesList, lobbyItemPrefab, lobbiesContainer);
-            lobbiesEmpty = false;
-        }
+        yield return new WaitForSeconds(0.5f);
+        SetEmptyListIndicator(LobbyConnection.Instance.lobbiesList.Count == 0);
+        EmptyList();
+        GenerateList();
     }
 
-    public void GenerateList(List<string> itemList, Object itemPrefab, Transform container)
+    void SetEmptyListIndicator(bool state)
     {
-        itemList.Reverse();
-        itemList.ForEach(el =>
+        noLobbiesText.SetActive(state);
+    }
+
+    void EmptyList()
+    {
+        List<LobbiesListItem> lobbyItems = new List<LobbiesListItem>();
+        lobbyItems.AddRange(lobbiesContainer.GetComponentsInChildren<LobbiesListItem>());
+        lobbyItems.ForEach(lobbyItem =>
         {
-            GameObject item = (GameObject)Instantiate(itemPrefab, container);
+            Destroy(lobbyItem.gameObject);
+        });
+    }
+
+    void GenerateList()
+    {
+        List<string> lobbiesList = LobbyConnection.Instance.lobbiesList;
+        lobbiesList.Reverse();
+        lobbiesList.ForEach(el =>
+        {
+            GameObject item = (GameObject)Instantiate(lobbyItemPrefab, lobbiesContainer);
             string lastCharactersInID = el.Substring(el.Length - 5);
             item.GetComponent<LobbiesListItem>().setId(el, lastCharactersInID);
         });
+    }
+
+    public void RefreshLobbiesList()
+    {
+        StartCoroutine(InitializeList());
     }
 }

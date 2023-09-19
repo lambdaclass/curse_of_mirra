@@ -18,7 +18,9 @@ MonoBehaviour:
     will be randomized. D\u2019agna plays her guitar and makes the ones who hear
     her to dance uncontrollably."
   inputType: 0
+  executeOnQuickTap: 0
   indicatorType: 0
+  projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
   startFeedbackVfx: {fileID: 0}
@@ -33,3 +35,4 @@ MonoBehaviour:
   skillConeAngle: 0
   arrowWidth: 0
   skillAreaRadius: 3.5
+  showCooldown: 1

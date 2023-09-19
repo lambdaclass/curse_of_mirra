@@ -10,6 +10,8 @@ public class SkillInfo : ScriptableObject
     public string description;
     public UIType inputType;
 
+    public float angle;
+
     [MMEnumCondition("inputType", (int)UIType.Direction)]
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
@@ -34,4 +36,10 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
+    public bool showCooldown;
+
+    public bool Equals(SkillConfigItem skillConfigItem)
+    {
+        return this.name.ToLower() == skillConfigItem.Name.ToLower();
+    }
 }

@@ -40,7 +40,7 @@ public class LobbiesManager : LevelSelector
     public void Refresh()
     {
         LobbyConnection.Instance.Refresh();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        this.GetComponent<UIManager>().RefreshLobbiesList();
     }
 
     public void QuickGame()

@@ -34,7 +34,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "0"
+      "Angle": "360"
     },
     {
       "Name": "Rage",
@@ -214,7 +214,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "0"
+      "Angle": "45"
     },
     {
       "Name": "Disarm",

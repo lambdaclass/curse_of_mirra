@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class AimDirection : MonoBehaviour
 {
+    private const float AIMSHOT_AMPLITUDE = 10f;
+
     [SerializeField]
     Color32 characterFeedbackColor = new Color32(255, 255, 255, 255);
 
@@ -27,7 +27,7 @@ public class AimDirection : MonoBehaviour
     UIIndicatorType activeIndicator = UIIndicatorType.None;
 
     public float fov = 90f;
-    public float angle = 0f;
+    public float skillAngle = 0f;
     public float viewDistance = 50f;
     public int rayCount = 50;
     public float angleIncrease;
@@ -38,6 +38,7 @@ public class AimDirection : MonoBehaviour
     {
         // TODO: Add the spread area (angle) depending of the skill.json
         viewDistance = skill.GetSkillRadius();
+        skillAngle = skill.GetAngle();
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
         characterFeedbackColor = color;
@@ -76,7 +77,7 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
-        angle = 0;
+        float coneIndicatorAngle = 0;
         angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
         Vector3 origin = Vector3.zero;
@@ -91,7 +92,7 @@ public class AimDirection : MonoBehaviour
 
         for (int i = 0; i < rayCount; i++)
         {
-            Vector3 vertex = origin + GetVectorFromAngle(angle) * viewDistance;
+            Vector3 vertex = origin + GetVectorFromAngle(coneIndicatorAngle) * viewDistance;
             vertices[vertexIndex] = vertex;
 
             if (i > 0)
@@ -102,7 +103,7 @@ public class AimDirection : MonoBehaviour
                 trianglesIndex += 3;
             }
             vertexIndex++;
-            angle -= angleIncrease;
+            coneIndicatorAngle -= angleIncrease;
         }
 
         triangles[0] = 0;
@@ -113,6 +114,64 @@ public class AimDirection : MonoBehaviour
         mesh.uv = uv;
         mesh.triangles = triangles;
         cone.GetComponent<MeshFilter>().mesh = mesh;
+    }
+
+    private Vector3 GetBisectorDirection()
+    {
+        Mesh coneMesh = cone.GetComponent<MeshFilter>().mesh;
+        Vector3[] coneVertices = coneMesh.vertices;
+
+        // Calculate the vertices of the triangle
+        Vector3 vertexA = cone.transform.TransformPoint(coneVertices[0]);
+        Vector3 vertexB = cone.transform.TransformPoint(coneVertices[1]);
+        Vector3 vertexC = cone.transform.TransformPoint(coneVertices[coneVertices.Length - 2]); // That is the last vertex
+
+        // Calculate the sides of the triangle
+        Vector3 sideAB = vertexB - vertexA;
+        Vector3 sideAC = vertexC - vertexA;
+
+        // return the bisector direction of the triangle's vertex angle
+        return (sideAB.normalized + sideAC.normalized).normalized;
+    }
+
+    public bool IsInProximityRange(GameObject player)
+    {
+        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        float distance = Vector3.Distance(
+            currentPlayer.transform.position,
+            player.transform.position
+        );
+        Vector3 targetDirection = player.transform.position - currentPlayer.transform.position;
+        Vector3 attackDirection = currentPlayer
+            .GetComponent<CharacterOrientation3D>()
+            .ForcedRotationDirection;
+        float playersAngle = Vector3.Angle(attackDirection, targetDirection);
+
+        return distance <= viewDistance && playersAngle <= skillAngle / 2;
+    }
+
+    public bool IsInsideCone(GameObject player)
+    {
+        Vector3 bisectorDirection = GetBisectorDirection();
+        Vector3 playerDirection = player.transform.position - cone.transform.position;
+        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
+        float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
+        return playerBisectorAngle <= fov / 2;
+    }
+
+    public bool IsInArrowLine(GameObject player)
+    {
+        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+
+        Vector3 arrowDirection = arrow.transform.position - currentPlayer.transform.position;
+        arrowDirection = new Vector3(arrowDirection.x, 0f, arrowDirection.z);
+
+        Vector3 playerDirection = player.transform.position - currentPlayer.transform.position;
+        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
+
+        float playerArrowAngle = Vector3.Angle(arrowDirection, playerDirection);
+
+        return playerArrowAngle <= AIMSHOT_AMPLITUDE && playerDirection.magnitude <= viewDistance;
     }
 
     public Vector3 GetVectorFromAngle(float angle)
@@ -176,7 +235,7 @@ public class AimDirection : MonoBehaviour
         {
             case UIIndicatorType.Cone:
                 color.a = 60;
-                cone.GetComponent<Renderer>().sharedMaterial.SetColor("_TopColor", color);
+                cone.GetComponent<Renderer>().material.SetColor("_TopColor", color);
                 break;
             case UIIndicatorType.Arrow:
                 arrow.GetComponent<Renderer>().material.color = color;

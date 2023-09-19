@@ -1,12 +1,11 @@
-using MoreMountains.Tools;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using MoreMountains.TopDownEngine;
-using System;
-using System.Collections.Generic;
-using TMPro;
-using System.Collections;
 
 public enum UIControls
 {
@@ -35,9 +34,6 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
-    [SerializeField]
-    Image joystickL;
-
     [SerializeField]
     CustomMMTouchButton SkillBasic;
 
@@ -101,6 +97,8 @@ public class CustomInputManager : InputManager
 
     Color32 characterSkillColor;
 
+    public Material material;
+
     protected override void Start()
     {
         base.Start();
@@ -129,12 +127,6 @@ public class CustomInputManager : InputManager
         _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         directionIndicator = _player.GetComponentInChildren<AimDirection>();
     }
-
-    // void Update()
-    // {
-    //     activeJoystickStatus = activeJoystick != null ? true : false;
-    //     cancelButton.SetActive(activeJoystickStatus);
-    // }
 
     public void ActivateDisarmEffect(bool isDisarmed)
     {
@@ -176,10 +168,8 @@ public class CustomInputManager : InputManager
 
     public void AssignSkillToInput(UIControls trigger, UIType triggerType, Skill skill)
     {
-        CustomMMTouchJoystick joystick = mobileButtons[
-            trigger
-        ].GetComponent<CustomMMTouchJoystick>();
-        CustomMMTouchButton button = mobileButtons[trigger].GetComponent<CustomMMTouchButton>();
+        CustomMMTouchButton button = mobileButtons[trigger];
+        CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
 
         switch (triggerType)
         {
@@ -205,7 +195,7 @@ public class CustomInputManager : InputManager
                 {
                     joystick.enabled = true;
                 }
-                MapDirectionInputEvents(joystick, skill);
+                MapDirectionInputEvents(button, skill);
                 break;
         }
     }
@@ -243,6 +233,7 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -296,8 +287,9 @@ public class CustomInputManager : InputManager
         HideSkillRange();
     }
 
-    private void MapDirectionInputEvents(CustomMMTouchJoystick joystick, Skill skill)
+    private void MapDirectionInputEvents(CustomMMTouchButton button, Skill skill)
     {
+        CustomMMTouchJoystick joystick = button.GetComponent<CustomMMTouchJoystick>();
         UnityEvent<CustomMMTouchJoystick> directionEvent = new UnityEvent<CustomMMTouchJoystick>();
         directionEvent.AddListener(ShowAimDirectionSkill);
         joystick.newPointerDownEvent = directionEvent;
@@ -311,6 +303,12 @@ public class CustomInputManager : InputManager
         directionRelease.AddListener(ExecuteDirectionSkill);
         joystick.skill = skill;
         joystick.newPointerUpEvent = directionRelease;
+
+        button.skill = skill;
+
+        UnityEvent<Skill> aoeEvent = new UnityEvent<Skill>();
+        aoeEvent.AddListener(ShowAimDirectionTargetsSkill);
+        button.newPointerTapDown = aoeEvent;
     }
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
@@ -331,8 +329,14 @@ public class CustomInputManager : InputManager
             directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         }
 
-        ShowSkillRange(joystick.skill);
         activeJoystick = joystick;
+    }
+
+    private void ShowAimDirectionTargetsSkill(Skill skill)
+    {
+        ShowSkillRange(skill);
+        ShowTargetsInSkillRange(skill);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
@@ -372,28 +376,35 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         TMP_Text cooldownText = buttonsCooldown[control];
-
-        if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+        if (showCooldown)
         {
-            button.DisableButton();
-            cooldownText.gameObject.SetActive(true);
-            if (cooldown < 1f && cooldown > 0f)
+            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
             {
-                cooldownText.text = String.Format("{0:0.0}", cooldown);
+                button.DisableButton();
+                cooldownText.gameObject.SetActive(true);
+                if (cooldown < 1f && cooldown > 0f)
+                {
+                    cooldownText.text = String.Format("{0:0.0}", cooldown);
+                }
+                else
+                {
+                    cooldownText.text = ((ulong)cooldown + 1).ToString();
+                }
             }
             else
             {
-                cooldownText.text = ((ulong)cooldown + 1).ToString();
+                button.EnableButton();
+                cooldownText.gameObject.SetActive(false);
             }
         }
         else
         {
-            button.EnableButton();
             cooldownText.gameObject.SetActive(false);
+            button.EnableButton();
         }
     }
 
@@ -409,15 +420,25 @@ public class CustomInputManager : InputManager
 
         if (skill.IsSelfTargeted())
         {
-            skillRange
-                .GetComponentInChildren<MeshRenderer>()
-                .sharedMaterial.SetColor("_Color", new Color32(255, 255, 255, 200));
+            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+            material.SetColor("_Color", new Color32(255, 255, 255, 200));
         }
         else
         {
-            skillRange
-                .GetComponentInChildren<MeshRenderer>()
-                .sharedMaterial.SetColor("_Color", characterSkillColor);
+            material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+            material.SetColor("_Color", characterSkillColor);
+        }
+    }
+
+    private void ShowTargetsInSkillRange(Skill skill)
+    {
+        if (ShouldShowTargetsInSkillRange(skill))
+        {
+            var targetsInRange = GetTargetsInSkillRange(skill);
+            targetsInRange.ForEach(p =>
+            {
+                Utils.ChangeCharacterMaterialColor(p.GetComponent<CustomCharacter>(), Color.red);
+            });
         }
     }
 
@@ -435,9 +456,8 @@ public class CustomInputManager : InputManager
             .GetComponent<CustomCharacter>()
             .characterBase.SkillRange.transform;
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
-        skillRange
-            .GetComponentInChildren<MeshRenderer>()
-            .sharedMaterial.SetColor("_Color", newColor);
+        material = skillRange.GetComponentInChildren<MeshRenderer>().material;
+        material.SetColor("_Color", newColor);
     }
 
     private void DisableButtons()
@@ -459,16 +479,6 @@ public class CustomInputManager : InputManager
         }
     }
 
-    public void SetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 0.25f);
-    }
-
-    public void UnsetOpacity()
-    {
-        joystickL.color = new Color(255, 255, 255, 1);
-    }
-
     public void SetCanceled(bool value)
     {
         canceled = value;
@@ -482,5 +492,60 @@ public class CustomInputManager : InputManager
     public void ToggleCanceled(bool value)
     {
         cancelButton.SetActive(value);
+    }
+
+    private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    {
+        List<GameObject> inRangeTargets = new List<GameObject>();
+
+        SocketConnectionManager.Instance.players.ForEach(p =>
+        {
+            if (PlayerIsInSkillRange(p, skill))
+            {
+                inRangeTargets.Add(p);
+            }
+        });
+        return inRangeTargets;
+    }
+
+    private bool PlayerIsInSkillRange(GameObject player, Skill skill)
+    {
+        switch (skill.GetSkillName())
+        {
+            case "MULTISHOT":
+                return PlayerIsInSkillDirectionConeRange(player, skill);
+            case "DISARM":
+                return PlayerIsInSkillDirectionArrowRange(player, skill);
+            default:
+                return PlayerIsInSkillProximityRange(player, skill);
+        }
+    }
+
+    private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
+    {
+        return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
+    }
+
+    private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
+    {
+        return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
+    }
+
+    private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
+    {
+        return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
+    }
+
+    private bool IsSamePlayer(GameObject player)
+    {
+        return player.name == _player.name;
+    }
+
+    private bool ShouldShowTargetsInSkillRange(Skill skill)
+    {
+        return skill.GetType() == typeof(SkillBasic)
+            || skill.GetSkillName() == "BARREL ROLL"
+            || skill.GetSkillName() == "MULTISHOT"
+            || skill.GetSkillName() == "DISARM";
     }
 }

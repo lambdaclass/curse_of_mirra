@@ -16,10 +16,9 @@ MonoBehaviour:
   description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
     H4ck has a lotofupgrades under his sleave.
   inputType: 0
+  executeOnQuickTap: 0
   indicatorType: 3
-  projectileAmount: 0
-  projectile: {fileID: 0}
-  projectileFeedback: {fileID: 0}
+  projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 5680458291943351323, guid: dbbd50ca956aa4dda8bec377c198f728,
     type: 3}
   feedbackVfxDuration: 6
@@ -34,4 +33,5 @@ MonoBehaviour:
   skillCircleRadius: -1
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 3.5
+  skillAreaRadius: 0
+  showCooldown: 1
