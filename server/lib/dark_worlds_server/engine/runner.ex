@@ -163,7 +163,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
+        {:play, player_id,
+         %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
         %{next_state: next_state} = gen_server_state
       ) do
     game =
@@ -257,7 +258,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
 
-    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply,
+     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_cast(
@@ -267,7 +269,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
 
-    {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
+    {:noreply,
+     %{gen_server_state | current_players: current, selected_characters: selected_characters}}
   end
 
   def handle_call({:join, client_id, player_id}, _, gen_server_state) do
@@ -275,7 +278,8 @@ defmodule DarkWorldsServer.Engine.Runner do
       broadcast_to_darkworlds_server({:player_joined, player_id})
       PlayerTracker.add_player_game(client_id, player_id, self())
 
-      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
+      {:reply, {:ok, player_id},
+       %{gen_server_state | current_players: gen_server_state.current_players + 1}}
     else
       {:reply, {:error, :game_full}, gen_server_state}
     end
@@ -295,8 +299,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_call(:get_state, _from, gen_server_state) do
     {:reply,
-     {gen_server_state.game_status, gen_server_state.current_players, gen_server_state.selected_characters,
-      gen_server_state.opts}, gen_server_state}
+     {gen_server_state.game_status, gen_server_state.current_players,
+      gen_server_state.selected_characters, gen_server_state.opts}, gen_server_state}
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
@@ -311,7 +315,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} =
+      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
@@ -324,8 +329,11 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
-    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
-    spawn_loot_interval_ms = Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+    map_shrink_wait_ms =
+      Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+
+    spawn_loot_interval_ms =
+      Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
@@ -340,7 +348,8 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
+      {:finish_character_selection, selected_players,
+       gen_server_state.client_game_state.game.players}
     )
 
     {:noreply, gen_server_state}
@@ -369,7 +378,9 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    game_status =
+      has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+
     out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
     game =
@@ -390,10 +401,15 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
-    map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
+    map_shrink_minimum_radius =
+      gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
 
     map_shrink_interval_ms =
-      Map.get(gen_server_state.opts.game_config.runner_config, :map_shrink_interval, @map_shrink_interval_ms)
+      Map.get(
+        gen_server_state.opts.game_config.runner_config,
+        :map_shrink_interval,
+        @map_shrink_interval_ms
+      )
 
     Process.send_after(self(), :shrink_map, map_shrink_interval_ms)
 
@@ -405,7 +421,11 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_info(:spawn_loot, %{server_game_state: server_game_state} = gen_server_state) do
     spawn_loot_interval_ms =
-      Map.get(gen_server_state.opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+      Map.get(
+        gen_server_state.opts.game_config.runner_config,
+        :spawn_loot_interval_ms,
+        @spawn_loot_interval_ms
+      )
 
     Process.send_after(self(), :spawn_loot, spawn_loot_interval_ms)
 
@@ -521,7 +541,8 @@ defmodule DarkWorldsServer.Engine.Runner do
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-        players_with_character = Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
+        players_with_character =
+          Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
 
         players_without_character =
           Enum.filter(state[:players], fn player_id ->

@@ -286,8 +286,7 @@ impl Player {
     pub fn add_effect(&mut self, effect: Effect, reset_countdown: bool, effect_data: EffectData) {
         if reset_countdown == true {
             self.effects.insert(effect, effect_data);
-        }
-        else {
+        } else {
             if !self.effects.contains_key(&effect) {
                 match self.character.name {
                     Name::Muflus => {
