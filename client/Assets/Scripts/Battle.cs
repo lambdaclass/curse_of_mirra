@@ -31,6 +31,9 @@ public class Battle : MonoBehaviour
     private bool playerMaterialColorChanged;
     private bool healthBarColorChanged;
 
+    [SerializeField]
+    private CustomLevelManager levelManager;
+
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
@@ -669,6 +672,8 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         playerCharacter.characterBase.Position.SetActive(false);
+        print(playerCharacter.name);
+        levelManager.DestroySkillsClone(playerCharacter);
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH

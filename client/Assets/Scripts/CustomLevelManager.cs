@@ -113,7 +113,6 @@ public class CustomLevelManager : LevelManager
         {
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
-            DestroySkillsClone(player);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -234,7 +233,7 @@ public class CustomLevelManager : LevelManager
         return skills;
     }
 
-    private void DestroySkillsClone(GameObject player)
+    public void DestroySkillsClone(CustomCharacter player)
     {
         player
             .GetComponentsInChildren<Skill>()
