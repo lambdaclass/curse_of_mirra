@@ -147,8 +147,6 @@ public class Skill : CharacterAbility
             feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(relativePosition);
         }
-        print("Damage of this skill is " + skillInfo.damage);
-        print("Angle of this skill is " + skillInfo.angle);
     }
 
     private void ExecuteSkill(RelativePosition relativePosition)
