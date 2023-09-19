@@ -513,6 +513,7 @@ public class CustomInputManager : InputManager
         switch (skill.GetSkillName())
         {
             case "MULTISHOT":
+            case "YUGEN'S MARK":
                 return PlayerIsInSkillDirectionConeRange(player, skill);
             case "DISARM":
                 return PlayerIsInSkillDirectionArrowRange(player, skill);
@@ -546,6 +547,7 @@ public class CustomInputManager : InputManager
         return skill.GetType() == typeof(SkillBasic)
             || skill.GetSkillName() == "BARREL ROLL"
             || skill.GetSkillName() == "MULTISHOT"
-            || skill.GetSkillName() == "DISARM";
+            || skill.GetSkillName() == "DISARM"
+            || skill.GetSkillName() == "YUGEN'S MARK";
     }
 }

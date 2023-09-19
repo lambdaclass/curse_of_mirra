@@ -110,9 +110,9 @@
     },
     {
       "Name": "Yugens Mark",
-      "Cooldown": "5000",
+      "Cooldown": "4500",
       "Damage": "20",
-      "Duration": "5000",
+      "Duration": "6000",
       "SkillRange": "450",
       "Par1": "0",
       "Par1Desc": "",
