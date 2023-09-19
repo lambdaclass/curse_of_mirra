@@ -11,7 +11,6 @@ public class CoMCharacter : ScriptableObject
     public Sprite blockArtwork;
     public Sprite characterPlayer;
     public GameObject prefab;
-    public List<SkillInfo> skills;
     public SkillInfo skillBasicInfo;
     public Sprite skillBasicSprite;
     public Sprite skill1Sprite;

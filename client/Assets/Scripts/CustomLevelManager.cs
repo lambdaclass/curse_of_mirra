@@ -224,7 +224,7 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo.skills.ForEach(skill =>
+        characterInfo.skillsInfo.ForEach(skill =>
         {
             SkillInfo skillClone = Instantiate(skill);
             skillClone.InitWithBackend();
