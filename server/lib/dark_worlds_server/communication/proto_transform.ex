@@ -8,6 +8,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
+  alias DarkWorldsServer.Communication.Proto.EffectInfo
   alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
@@ -35,6 +36,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def encode(effect, EffectsEntry) do
     effect_encode(effect)
+  end
+
+  def encode(effectInfo, EffectInfo) do
+    effectInfo
   end
 
   def encode(entry, SelectedCharactersEntry) do
@@ -567,10 +572,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp effect_encode({:paralyzed, %{ends_at: ends_at, caused_by: caused_by}}),
     do: {17, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode(arg) do
-    IO.inspect(arg, label: "effect encode")
-  end
 
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
 end
