@@ -282,11 +282,16 @@ impl Player {
     }
 
     #[inline]
-    // use reset_countdown if re-applying this effect
     pub fn add_effect(&mut self, effect: Effect, reset_countdown: bool, effect_data: EffectData) {
+        // Only resets effect countdown if both effects were caused by the same attacking player
+        // TODO: reset_countdown should probably be another field in the EffectData struct
         if reset_countdown == true {
-            self.effects.insert(effect, effect_data);
-        } else {
+            if effect_data.caused_by == (self.effects.get(&effect)).unwrap().caused_by {
+                self.effects.insert(effect, effect_data); // resets countdown
+            }
+        }
+        else {
+>>>>>>> 5ff3b8ce (saving attacking_player info along with the status effect)
             if !self.effects.contains_key(&effect) {
                 match self.character.name {
                     Name::Muflus => {
@@ -300,6 +305,7 @@ impl Player {
                 }
             }
         }
+        println!("{:?}", self.effects);
     }
 
     #[inline]
