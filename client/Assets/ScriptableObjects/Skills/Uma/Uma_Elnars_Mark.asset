@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: Uma_SkillBasic
+  m_Name: Uma_Elnars_Mark
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: "ELNAR\u2019S MARK"
   description: "Melee attack that deals high damage and inflicts a Mark on the enemy
