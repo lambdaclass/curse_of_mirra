@@ -838,14 +838,16 @@ public class Battle : MonoBehaviour
             }
         }
 
-        // TODO: Temporary out of area feedback. Refactor!
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
         {
-            CustomGUIManager.DisplayZoneDamageFeedback(true);
-        }
-        else
-        {
-            CustomGUIManager.DisplayZoneDamageFeedback(false);
+            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+            {
+                CustomGUIManager.DisplayZoneDamageFeedback(true);
+            }
+            else
+            {
+                CustomGUIManager.DisplayZoneDamageFeedback(false);
+            }
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
