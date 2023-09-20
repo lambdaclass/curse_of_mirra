@@ -7,6 +7,9 @@ public class CharacterFeedbackManager : MonoBehaviour
     [SerializeField]
     public GameObject umaMarks;
 
+    [SerializeField]
+    public UmaMarks umaMarksScript;
+
     public ulong currentMark = 0;
 
     List<ulong> marksApplied = new List<ulong>();
@@ -41,6 +44,6 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     private void UpdateMarkImage(int markCount)
     {
-        umaMarks.GetComponent<UmaMarks>().SetImage(markCount);
+        umaMarksScript.SetImage(markCount);
     }
 }
