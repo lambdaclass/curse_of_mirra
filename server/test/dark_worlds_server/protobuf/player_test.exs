@@ -3,9 +3,9 @@ defmodule DarkWorldsServer.ProtoBufTest.Player do
   use ExUnit.Case, async: true
 
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
-  alias DarkWorldsServer.Engine.Player
-  alias DarkWorldsServer.Engine.Position
-  alias DarkWorldsServer.Engine.RelativePosition
+  alias LambdaGameEngine.MyrraEngine.Player
+  alias LambdaGameEngine.MyrraEngine.Position
+  alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   describe "Player encoding and decoding" do
     test "Health below 0 is encodable" do

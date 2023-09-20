@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        elixir: [1.14.2]
-        otp: [24.1.7]
+        elixir: [1.15.4]
+        otp: [26.0.2]
     services:
       db:
         image: postgres:15-alpine
