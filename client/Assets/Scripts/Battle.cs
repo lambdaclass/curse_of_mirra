@@ -672,7 +672,6 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         playerCharacter.characterBase.Position.SetActive(false);
-        print(playerCharacter.name);
         levelManager.DestroySkillsClone(playerCharacter);
     }
 
