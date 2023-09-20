@@ -291,7 +291,6 @@ impl Player {
             }
         }
         else {
->>>>>>> 5ff3b8ce (saving attacking_player info along with the status effect)
             if !self.effects.contains_key(&effect) {
                 match self.character.name {
                     Name::Muflus => {
