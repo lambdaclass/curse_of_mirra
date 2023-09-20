@@ -5,7 +5,7 @@ defmodule DarkWorldsServer.MixProject do
     [
       app: :dark_worlds_server,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -55,7 +55,6 @@ defmodule DarkWorldsServer.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:nx, "~> 0.5"},
-      {:rustler, "~> 0.27.0"},
       {:exbase58, "~> 1.0.2"},
       {:websockex, "~> 0.4.3"},
       {:protobuf, "~> 0.10.0"},
@@ -67,7 +66,8 @@ defmodule DarkWorldsServer.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:cors_plug, "~> 3.0"},
       {:tesla, "~> 1.4", override: true},
-      {:toxiproxy_ex, "~> 1.0.0"}
+      {:toxiproxy_ex, "~> 1.0.0"},
+      {:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}
     ]
   end
 

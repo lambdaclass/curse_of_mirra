@@ -3,8 +3,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
-  alias DarkWorldsServer.Engine.RelativePosition
   alias DarkWorldsServer.Engine.Runner
+  alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   #######
   # API #
