@@ -713,6 +713,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Uma
       objectReference: {fileID: 0}
+    - target: {fileID: 5095123456714485661, guid: 27c9ddb18b52c400984073b4a7cf8d42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 03da282fc65c2484b8116cad1db1702c, type: 2}
+    - target: {fileID: 5095123456714485661, guid: 27c9ddb18b52c400984073b4a7cf8d42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f90208230ad44f7b2c7c27d17fb32d, type: 2}
+    - target: {fileID: 7583867588322820214, guid: 27c9ddb18b52c400984073b4a7cf8d42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f90208230ad44f7b2c7c27d17fb32d, type: 2}
+    - target: {fileID: 7583867588322820214, guid: 27c9ddb18b52c400984073b4a7cf8d42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b68ceec6f66f48c7a4cbe675f98e493, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27c9ddb18b52c400984073b4a7cf8d42, type: 3}
 --- !u!4 &6276941297866102475 stripped
