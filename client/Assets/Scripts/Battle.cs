@@ -919,17 +919,22 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            player
-                .GetComponent<CustomCharacter>()
-                .characterBase.GetComponent<CharacterFeedbackManager>()
-                .DisplayUmaMarks(1);
+            ulong attackerId = playerUpdate.Effects[(ulong)PlayerEffect.ElnarMark].CausedBy;
+            if (
+                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                || attackerId == SocketConnectionManager.Instance.playerId
+            )
+                player
+                    .GetComponent<CustomCharacter>()
+                    .characterBase.GetComponent<CharacterFeedbackManager>()
+                    .DisplayUmaMarks(playerUpdate.Id);
         }
         else
         {
             player
                 .GetComponent<CustomCharacter>()
                 .characterBase.GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(1);
+                .RemoveMarks(playerUpdate.Id);
         }
 
         return characterSpeed;
