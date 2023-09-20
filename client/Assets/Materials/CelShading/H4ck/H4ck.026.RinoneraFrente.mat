@@ -117,8 +117,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rim_Brightness: 11.39
-    - _Rim_Power: 1.4
+    - _Rim_Brightness: 0
+    - _Rim_Power: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -134,6 +134,7 @@ Material:
     - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Overlay_Color: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Toon_Ramp_Tinting: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 0}
   m_BuildTextureStacks: []
