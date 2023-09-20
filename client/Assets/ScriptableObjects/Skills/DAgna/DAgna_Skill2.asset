@@ -18,6 +18,7 @@ MonoBehaviour:
     it is to the target. Being a music virtuoso Myrra granted her atonal music the
     the power to damage everyone that hears it.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -28,11 +29,11 @@ MonoBehaviour:
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 0}
+  abilityStartSfx: {fileID: 8300000, guid: 9d78061340ddb41b1a441caee93f30a6, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 0.5
   skillCircleRadius: 0
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 3.5
+  skillAreaRadius: 0
   showCooldown: 1
