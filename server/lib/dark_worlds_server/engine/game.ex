@@ -1,49 +1,32 @@
 defmodule DarkWorldsServer.Engine.Game do
-  use Rustler, otp_app: :dark_worlds_server, crate: "gamestate", default_features: true
+  # use Rustler, otp_app: :dark_worlds_server, crate: "gamestate", default_features: true
   use DarkWorldsServer.Communication.Encoder
 
   @enforce_keys [:players, :board]
   defstruct [:players, :board]
 
-  def new(%{
-        selected_players: selected_players,
-        number_of_players: number_of_players,
-        board: {width, height},
-        build_walls: build_walls,
-        characters: character_info,
-        skills: skills_info
-      })
-      when is_list(character_info) do
-    new_game(selected_players, number_of_players, width, height, build_walls, character_info, skills_info)
+  def new(config) do
+    LambdaGameEngine.new(config)
   end
 
-  def new_game(
-        _selected_players,
-        _num_of_players,
-        _width,
-        _height,
-        _build_walls,
-        _characters_config_list,
-        _skills_config_list
-      ),
-      do: :erlang.nif_error(:nif_not_loaded)
+  def move_player(a, b, c), do: LambdaGameEngine.move_player(a, b, c)
 
-  def move_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
+  def move_player_to_relative_position(game_state, player_id, relative_position),
+    do: LambdaGameEngine.move_player_to_relative_position(game_state, player_id, relative_position)
 
-  def move_player_to_relative_position(_game_state, _player_id, _relative_position),
-    do: :erlang.nif_error(:nif_not_loaded)
+  def move_with_joystick(game_state, player_id, x, y),
+    do: LambdaGameEngine.move_with_joystick(game_state, player_id, x, y)
 
-  def move_with_joystick(_game_state, _player_id, _x, _y), do: :erlang.nif_error(:nif_not_loaded)
-  def auto_attack(_game_state, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def attack_player(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def skill_1(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def skill_2(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def skill_3(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def skill_4(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def basic_attack(_a, _b, _c), do: :erlang.nif_error(:nif_not_loaded)
-  def world_tick(_game_state, _out_of_area_damage), do: :erlang.nif_error(:nif_not_loaded)
-  def disconnect(_game, _id), do: :erlang.nif_error(:nif_not_loaded)
-  def spawn_player(_game, _player_id), do: :erlang.nif_error(:nif_not_loaded)
-  def shrink_map(_game, _map_shrink_minimum_radius), do: :erlang.nif_error(:nif_not_loaded)
-  def spawn_loot(_game), do: :erlang.nif_error(:nif_not_loaded)
+  def auto_attack(game_state, b, c), do: LambdaGameEngine.auto_attack(game_state, b, c)
+  def attack_player(a, b, c), do: LambdaGameEngine.attack_player(a, b, c)
+  def skill_1(a, b, c), do: LambdaGameEngine.skill_1(a, b, c)
+  def skill_2(a, b, c), do: LambdaGameEngine.skill_2(a, b, c)
+  def skill_3(a, b, c), do: LambdaGameEngine.skill_3(a, b, c)
+  def skill_4(a, b, c), do: LambdaGameEngine.skill_4(a, b, c)
+  def basic_attack(a, b, c), do: LambdaGameEngine.basic_attack(a, b, c)
+  def world_tick(game_state, out_of_area_damage), do: LambdaGameEngine.world_tick(game_state, out_of_area_damage)
+  def disconnect(game, id), do: LambdaGameEngine.disconnect(game, id)
+  def spawn_player(game, player_id), do: LambdaGameEngine.spawn_player(game, player_id)
+  def shrink_map(game, map_shrink_minimum_radius), do: LambdaGameEngine.shrink_map(game, map_shrink_minimum_radius)
+  def spawn_loot(game), do: LambdaGameEngine.spawn_loot(game)
 end
