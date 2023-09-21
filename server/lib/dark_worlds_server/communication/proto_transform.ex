@@ -18,10 +18,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Communication.Proto.Status
   alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
-  alias DarkWorldsServer.Engine.Player, as: EnginePlayer
-  alias DarkWorldsServer.Engine.Position, as: EnginePosition
-  alias DarkWorldsServer.Engine.Projectile, as: EngineProjectile
-  alias DarkWorldsServer.Engine.RelativePosition, as: EngineRelativePosition
+  alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
+  alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
+  alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
+  alias LambdaGameEngine.MyrraEngine.RelativePosition, as: EngineRelativePosition
 
   @behaviour Protobuf.TransformModule
 
