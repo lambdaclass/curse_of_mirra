@@ -921,16 +921,14 @@ public class Battle : MonoBehaviour
         {
             ulong attackerId = GetEffectCausedBy(playerUpdate, PlayerEffect.ElnarMark);
             if (PlayerCanSeeElnarsMark(playerUpdate))
-                player
-                    .GetComponent<CustomCharacter>()
-                    .characterBase.GetComponent<CharacterFeedbackManager>()
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
                     .DisplayUmaMarks(playerUpdate.Id);
         }
         else
         {
-            player
-                .GetComponent<CustomCharacter>()
-                .characterBase.GetComponent<CharacterFeedbackManager>()
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
                 .RemoveMarks(playerUpdate.Id);
         }
 
