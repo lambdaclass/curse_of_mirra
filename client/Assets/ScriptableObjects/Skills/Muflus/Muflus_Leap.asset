@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: LEAP
   description: Jump to a location, dealing damages and slowing enemies near area
-    upon arrival. His powerful legs give him the ability to leap to prodigious heights
-    and destroy the floor when he lands.
+    upon arrival.
   inputType: 1
   angle: 0
   executeOnQuickTap: 0

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SHADOWSTEP
   description: While active, grants a high dodge chance and movement speed bonus
-    for a short time. Uma is a wraith like spirit of vengeance, that grants her limited
-    intangibility.
+    for a short time.
   inputType: 0
   angle: 0
   executeOnQuickTap: 0

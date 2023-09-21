@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Uma_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: "YUGEN\u2019S MARK"
-  description: 'Target a nearby enemy, inflicting a Mark for a short period which
-    poisons the enemy, dealing damage over time. Taints her enemy preparing it for
-    the kill. This mark is named before her first born. '
+  description: Target a nearby enemy, inflicting a Mark for a short period which
+    poisons the enemy, dealing damage over time.
   inputType: 0
   angle: 0
   executeOnQuickTap: 0

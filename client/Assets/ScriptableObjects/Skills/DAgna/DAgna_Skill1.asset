@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: DAgna_Skill1
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Danse Macabre
-  description: "Nearby enemies are cursed and start dancing uncontrollably for a
-    short period. While cursed, they are unable to attack, and their movement direction
-    will be randomized. D\u2019agna plays her guitar and makes the ones who hear
-    her to dance uncontrollably."
+  description: ' While cursed, they are unable to attack, and their movement direction
+    will be randomized.'
   inputType: 0
   angle: 0
   executeOnQuickTap: 0

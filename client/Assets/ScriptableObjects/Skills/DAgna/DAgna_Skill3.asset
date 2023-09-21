@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Band Recruit
   description: "Spawns a decoy looking like D\u2019Agna which acts as a decoy and
-    casts Pizzicato when destroyed. Myrra granted her the ability to use her music
-    to create illusions of herself."
+    casts Pizzicato when destroyed."
   inputType: 0
   angle: 0
   executeOnQuickTap: 0
