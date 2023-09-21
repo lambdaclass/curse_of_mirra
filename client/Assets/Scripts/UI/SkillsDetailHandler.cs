@@ -26,21 +26,11 @@ public class SkillsDetailHandler : MonoBehaviour
         skillDescription.text = setSkillDescription;
     }
 
-    public void SetSkillIcon(Sprite skillIcon, Sprite selectedSkillIcon)
+    public void ResetSelectSkill(Sprite skillIcon, Color color)
     {
         list.ForEach(el =>
         {
-            if (
-                el.GetComponent<Image>().sprite == skillIcon
-                || el.GetComponent<Image>().sprite == selectedSkillIcon
-            )
-            {
-                el.GetComponent<Image>().sprite = selectedSkillIcon;
-            }
-            else
-            {
-                el.GetComponent<Image>().sprite = el.GetComponent<SkillDescription>().skillSprite;
-            }
+            el.GetComponent<Image>().color = color;
         });
     }
 }

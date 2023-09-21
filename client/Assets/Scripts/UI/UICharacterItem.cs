@@ -28,13 +28,12 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
-        if (IsActive())
+        artWork.sprite = comCharacter.artWork;
+        if (!IsActive())
         {
-            artWork.sprite = comCharacter.artWork;
-        }
-        else
-        {
-            artWork.sprite = comCharacter.blockArtwork;
+            Color newColor = new Color(0.3f, 0.4f, 0.6f);
+            float grayscale = newColor.grayscale;
+            artWork.color = new Color(grayscale, grayscale, grayscale);
         }
     }
 

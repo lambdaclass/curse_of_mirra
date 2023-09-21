@@ -15,10 +15,8 @@ public class CustomMMTouchButton : MMTouchButton
     {
         GameObject parent = gameObject.transform.parent.gameObject;
         parent.SetActive(true);
-        Debug.Log(newSprite.name);
-        /* this._initialSprite = newSprite;
-        this.DisabledSprite = newSprite;
-        this.PressedSprite = newSprite; */
+        // TODO: get component in children will get the first child with image
+        // if the order were to change this would to (altough they should never change)
         GetComponentInChildren<Image>().sprite = newSprite;
         if (backgroundSprite)
         {

@@ -46,6 +46,18 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton Skill3;
 
     [SerializeField]
+    Image SkillBasicIcon;
+
+    [SerializeField]
+    Image Skill1Icon;
+
+    [SerializeField]
+    Image Skill2Icon;
+
+    [SerializeField]
+    Image Skill3Icon;
+
+    [SerializeField]
     TMP_Text SkillBasicCooldown;
 
     [SerializeField]
@@ -138,17 +150,17 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprites[0], null);
+        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, null);
         Skill1.SetInitialSprite(
-            characterInfo.skillsInfo[1].skillSprites[0],
+            characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
         );
         Skill2.SetInitialSprite(
-            characterInfo.skillsInfo[2].skillSprites[0],
+            characterInfo.skillsInfo[2].skillSprite,
             characterInfo.skillBackground
         );
         Skill3.SetInitialSprite(
-            characterInfo.skillsInfo[3].skillSprites[0],
+            characterInfo.skillsInfo[3].skillSprite,
             characterInfo.skillBackground
         );
         characterSkillColor = characterInfo.InputFeedbackColor;

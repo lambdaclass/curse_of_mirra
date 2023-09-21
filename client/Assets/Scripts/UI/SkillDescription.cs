@@ -7,14 +7,14 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
 {
     SkillInfo skillData;
     public Sprite skillSprite;
-    public Sprite selectedSkillSprite;
     SkillsDetailHandler skillsDetailHandler;
 
     public void SetSkillDescription(SkillInfo skillInfo)
     {
         skillData = skillInfo;
-        skillSprite = skillInfo.skillSprites[0];
-        selectedSkillSprite = skillInfo.skillSprites[1];
+        skillSprite = skillInfo.skillSprite;
+
+        GetComponent<Image>().sprite = skillSprite;
 
         // The first list element always starts with a selected display
         GameObject firstGameObject = transform.parent.GetComponent<SkillsDetailHandler>().list[
@@ -22,13 +22,13 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
         ].gameObject;
         if (this.gameObject == firstGameObject)
         {
-            GetComponent<Image>().sprite = selectedSkillSprite;
+            GetComponent<Image>().color = new Color(255, 255, 255);
             skillsDetailHandler = transform.parent.GetComponent<SkillsDetailHandler>();
             skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
         }
         else
         {
-            GetComponent<Image>().sprite = skillSprite;
+            GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
         }
     }
 
@@ -36,6 +36,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     {
         skillsDetailHandler = transform.parent.GetComponent<SkillsDetailHandler>();
         skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
-        skillsDetailHandler.SetSkillIcon(skillSprite, selectedSkillSprite);
+        skillsDetailHandler.ResetSelectSkill(skillSprite, new Color(0.1f, 0.1f, 0.1f));
+        GetComponent<Image>().color = new Color(255f, 255f, 255f);
     }
 }

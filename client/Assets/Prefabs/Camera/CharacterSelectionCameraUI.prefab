@@ -498,7 +498,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 0}
-  selectedSkillSprite: {fileID: 0}
 --- !u!1 &3031970256918495232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1611,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 0}
-  selectedSkillSprite: {fileID: 0}
 --- !u!1 &5946239845349413507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,7 +1748,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 0}
-  selectedSkillSprite: {fileID: 0}
 --- !u!1 &6676200538747965701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2037,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 0}
-  selectedSkillSprite: {fileID: 0}
 --- !u!1 &7644384234179708966
 GameObject:
   m_ObjectHideFlags: 0
