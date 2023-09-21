@@ -128,9 +128,9 @@
     },
     {
       "Name": "Xandas Mark",
-      "Cooldown": "500",
+      "Cooldown": "9000",
       "Damage": "0",
-      "Duration": "5000",
+      "Duration": "8000",
       "SkillRange": "450",
       "Par1": "0",
       "Par1Desc": "",
