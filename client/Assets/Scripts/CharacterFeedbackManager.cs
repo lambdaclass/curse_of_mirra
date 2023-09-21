@@ -5,10 +5,7 @@ using UnityEngine;
 public class CharacterFeedbackManager : MonoBehaviour
 {
     [SerializeField]
-    public GameObject umaMarks;
-
-    [SerializeField]
-    public UmaMarks umaMarksScript;
+    public UmaMarks umaMarks;
 
     public ulong currentMark = 0;
 
@@ -16,7 +13,7 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void DisplayUmaMarks(ulong markId)
     {
-        umaMarks.SetActive(true);
+        umaMarks.gameObject.SetActive(true);
         if (!marksApplied.Contains(markId))
         {
             marksApplied.Add(markId);
@@ -37,13 +34,13 @@ public class CharacterFeedbackManager : MonoBehaviour
         }
         if (marksApplied.Count == 0 && currentMark != 0)
         {
-            umaMarks.SetActive(false);
+            umaMarks.gameObject.SetActive(false);
             marksApplied.Clear();
         }
     }
 
     private void UpdateMarkImage(int markCount)
     {
-        umaMarksScript.SetImage(markCount);
+        umaMarks.SetImage(markCount);
     }
 }

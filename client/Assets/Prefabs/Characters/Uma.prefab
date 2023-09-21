@@ -589,6 +589,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: umaMarks
+      value: 
+      objectReference: {fileID: 696012663161361041}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: umaMarksScript
       value: 
       objectReference: {fileID: 696012663161361041}
