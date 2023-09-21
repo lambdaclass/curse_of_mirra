@@ -152,7 +152,6 @@ public class AimDirection : MonoBehaviour
 
     public bool IsInsideCone(GameObject player)
     {
-        print("paso por acá");
         Vector3 bisectorDirection = GetBisectorDirection();
         Vector3 playerDirection = player.transform.position - cone.transform.position;
         playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);

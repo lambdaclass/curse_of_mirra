@@ -180,15 +180,6 @@ impl Player {
         if self.has_active_effect(&Effect::FieryRampage) {
             damage = damage * 3 / 4;
         }
-        if self.has_active_effect(&Effect::Poisoned) {
-            if damage >= self.health {
-                if self.health > 1 {
-                    damage = self.health - 1;
-                } else {
-                    damage = 0;
-                }
-            }
-        }
         damage
     }
 
