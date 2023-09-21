@@ -8,7 +8,10 @@ public class SkillsDetailHandler : MonoBehaviour
 {
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
-    public List<SkillDescription> list;
+    public Sprite selectedBorder;
+    public Sprite notSelectedBorder;
+    public List<SkillDescription> skillsList;
+    public List<Image> bordersList;
 
     void Awake()
     {
@@ -17,7 +20,14 @@ public class SkillsDetailHandler : MonoBehaviour
 
     public void SetSkillsList()
     {
-        list.AddRange(GetComponentsInChildren<SkillDescription>());
+        skillsList.AddRange(GetComponentsInChildren<SkillDescription>());
+        foreach (Image border in transform.parent.transform.parent.GetComponentsInChildren<Image>())
+        {
+            if (border.GetComponent<SkillDescription>() == null)
+            {
+                bordersList.Add(border);
+            }
+        }
     }
 
     public void SetSkillDetaill(string setSkillName, string setSkillDescription)
@@ -26,11 +36,13 @@ public class SkillsDetailHandler : MonoBehaviour
         skillDescription.text = setSkillDescription;
     }
 
-    public void ResetSelectSkill(Sprite skillIcon, Color color)
+    public void ResetSelectSkill(SkillDescription selectedSkill)
     {
-        list.ForEach(el =>
+        skillsList.ForEach(el =>
         {
-            el.GetComponent<Image>().color = color;
+            el.GetComponent<SkillDescription>().skillBorder.sprite = notSelectedBorder;
         });
+        selectedSkill.skillBorder.sprite = selectedBorder;
+        Debug.Log("click");
     }
 }

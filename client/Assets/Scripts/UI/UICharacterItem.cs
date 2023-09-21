@@ -28,12 +28,13 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
-        artWork.sprite = comCharacter.artWork;
-        if (!IsActive())
+        if (IsActive())
         {
-            Color newColor = new Color(0.3f, 0.4f, 0.6f);
-            float grayscale = newColor.grayscale;
-            artWork.color = new Color(grayscale, grayscale, grayscale);
+            artWork.sprite = comCharacter.artWork;
+        }
+        else
+        {
+            artWork.sprite = comCharacter.blockArtwork;
         }
     }
 
@@ -62,16 +63,16 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-                skillContainer.list[(int)UIControls.SkillBasic].SetSkillDescription(
+                skillContainer.skillsList[(int)UIControls.SkillBasic].SetSkillDescription(
                     comCharacter.skillsInfo[0]
                 );
-                skillContainer.list[(int)UIControls.Skill1].SetSkillDescription(
+                skillContainer.skillsList[(int)UIControls.Skill1].SetSkillDescription(
                     comCharacter.skillsInfo[1]
                 );
-                skillContainer.list[(int)UIControls.Skill2].SetSkillDescription(
+                skillContainer.skillsList[(int)UIControls.Skill2].SetSkillDescription(
                     comCharacter.skillsInfo[2]
                 );
-                skillContainer.list[(int)UIControls.Skill3].SetSkillDescription(
+                skillContainer.skillsList[(int)UIControls.Skill3].SetSkillDescription(
                     comCharacter.skillsInfo[3]
                 );
                 transform.parent

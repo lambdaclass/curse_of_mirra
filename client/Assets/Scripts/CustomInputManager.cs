@@ -46,28 +46,16 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton Skill3;
 
     [SerializeField]
-    Image SkillBasicIcon;
+    GameObject SkillBasicCooldownContainer;
 
     [SerializeField]
-    Image Skill1Icon;
+    GameObject Skill1CooldownContainer;
 
     [SerializeField]
-    Image Skill2Icon;
+    GameObject Skill2CooldownContainer;
 
     [SerializeField]
-    Image Skill3Icon;
-
-    [SerializeField]
-    TMP_Text SkillBasicCooldown;
-
-    [SerializeField]
-    TMP_Text Skill1Cooldown;
-
-    [SerializeField]
-    TMP_Text Skill2Cooldown;
-
-    [SerializeField]
-    TMP_Text Skill3Cooldown;
+    GameObject Skill3CooldownContainer;
 
     [SerializeField]
     GameObject disarmObjectSkill1;
@@ -85,7 +73,7 @@ public class CustomInputManager : InputManager
     GameObject UIControlsWrapper;
 
     Dictionary<UIControls, CustomMMTouchButton> mobileButtons;
-    Dictionary<UIControls, TMP_Text> buttonsCooldown;
+    Dictionary<UIControls, GameObject> buttonsCooldown;
     private AimDirection directionIndicator;
     private CustomMMTouchJoystick activeJoystick;
     private Vector3 initialLeftJoystickPosition;
@@ -104,7 +92,6 @@ public class CustomInputManager : InputManager
     protected override void Start()
     {
         base.Start();
-
         mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
@@ -113,11 +100,11 @@ public class CustomInputManager : InputManager
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
         // or extending CustomMMTouchButton and linking its cooldown text
-        buttonsCooldown = new Dictionary<UIControls, TMP_Text>();
-        buttonsCooldown.Add(UIControls.Skill1, Skill1Cooldown);
-        buttonsCooldown.Add(UIControls.Skill2, Skill2Cooldown);
-        buttonsCooldown.Add(UIControls.Skill3, Skill3Cooldown);
-        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldown);
+        buttonsCooldown = new Dictionary<UIControls, GameObject>();
+        buttonsCooldown.Add(UIControls.Skill1, Skill1CooldownContainer);
+        buttonsCooldown.Add(UIControls.Skill2, Skill2CooldownContainer);
+        buttonsCooldown.Add(UIControls.Skill3, Skill3CooldownContainer);
+        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldownContainer);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
     }
@@ -386,13 +373,14 @@ public class CustomInputManager : InputManager
     public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
-        TMP_Text cooldownText = buttonsCooldown[control];
+        GameObject cooldownContainer = buttonsCooldown[control];
+        TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
         if (showCooldown)
         {
             if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
             {
                 button.DisableButton();
-                cooldownText.gameObject.SetActive(true);
+                cooldownContainer.SetActive(true);
                 if (cooldown < 1f && cooldown > 0f)
                 {
                     cooldownText.text = String.Format("{0:0.0}", cooldown);
@@ -405,12 +393,12 @@ public class CustomInputManager : InputManager
             else
             {
                 button.EnableButton();
-                cooldownText.gameObject.SetActive(false);
+                cooldownContainer.SetActive(false);
             }
         }
         else
         {
-            cooldownText.gameObject.SetActive(false);
+            cooldownContainer.gameObject.SetActive(false);
             button.EnableButton();
         }
     }
