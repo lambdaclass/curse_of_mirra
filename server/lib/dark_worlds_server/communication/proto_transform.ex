@@ -38,7 +38,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     effect_encode(effect)
   end
 
-  def encode(effectInfo, EffectInfo) do
+  def encode(effect_info, EffectInfo) do
     effectInfo
   end
 
