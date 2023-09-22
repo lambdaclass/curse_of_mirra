@@ -12,6 +12,7 @@ public enum UIControls
     Skill1,
     Skill2,
     Skill3,
+    Skill4,
     SkillBasic
 }
 

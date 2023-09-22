@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
+  m_Name: DAgna_Skill4
+  m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
+  name: Orchestra
+  description: Revives all recruits that spawned since the last use of this ultimate.
+    But they all use Scherzo now! Myrra granted her the ability to use her music
+    to create illusions of herself.
+  inputType: 0
+  angle: 0
+  executeOnQuickTap: 0
+  indicatorType: 0
+  projectilePrefab: {fileID: 0}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  instantiateVfxOnModel: 0
+  animationSpeedMultiplier: 1
+  hasModelAnimation: 1
+  abilityStartSfx: {fileID: 0}
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
+  skillCircleRadius: 0
+  skillConeAngle: 0
+  arrowWidth: 0
+  skillAreaRadius: 0
+  showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 8dc1619544e3649cbae4eb260f1897a3, type: 3}
