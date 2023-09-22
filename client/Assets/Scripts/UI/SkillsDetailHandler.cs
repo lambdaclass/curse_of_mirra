@@ -43,6 +43,5 @@ public class SkillsDetailHandler : MonoBehaviour
             el.GetComponent<SkillDescription>().skillBorder.sprite = notSelectedBorder;
         });
         selectedSkill.skillBorder.sprite = selectedBorder;
-        Debug.Log("click");
     }
 }
