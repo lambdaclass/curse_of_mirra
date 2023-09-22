@@ -39,7 +39,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(effect_info, EffectInfo) do
-    effectInfo
+    effect_info
   end
 
   def encode(entry, SelectedCharactersEntry) do
