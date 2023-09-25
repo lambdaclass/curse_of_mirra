@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1787465996332106803}
   - component: {fileID: 1787465996332106806}
   - component: {fileID: 2784822964762187919}
-  - component: {fileID: 422279601644613764}
+  - component: {fileID: 3361596887280373595}
   m_Layer: 10
   m_Name: PlayerBot
   m_TagString: Player
@@ -501,7 +501,7 @@ MonoBehaviour:
   DisplayDurationOnHit: 1
   HideBarAtZero: 1
   HideBarAtZeroDelay: 0
---- !u!114 &422279601644613764
+--- !u!114 &3361596887280373595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -510,18 +510,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1787465996332106805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e95dac5aa010e4c82b9722e48259133e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 0
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
+  characterModel: {fileID: 5450023447993378974}
+  weaponModel: {fileID: 0}
+  feedbacksStatesPrefabs:
+  - {fileID: 1214908588437706415}
+  feedbacksPrefabs:
+  - {fileID: 5170985737378874173}
+  damageOverlayColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  healOverlayColor:
+    serializedVersion: 2
+    rgba: 4282690884
 --- !u!1001 &2371788534584169767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -547,7 +550,7 @@ PrefabInstance:
     - target: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -594,6 +597,11 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5450023447993379102}
+    - target: {fileID: 3474089471427560328, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5694839354157769067, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -634,6 +642,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 35.727
       objectReference: {fileID: 0}
+    - target: {fileID: 6358736928028733582, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.56
+      objectReference: {fileID: 0}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name
@@ -641,9 +654,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
+--- !u!1 &1214908588437706415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3474089471427560328, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2371788534584169767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3744464812312275302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2371788534584169767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5170985737378874173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7433544379751437850, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 2371788534584169767}
   m_PrefabAsset: {fileID: 0}
@@ -726,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.861
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}

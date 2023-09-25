@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 1787465996332106809}
   - component: {fileID: 1787465996332106808}
   - component: {fileID: 1787465996332106815}
-  - component: {fileID: 1787465996332106800}
   - component: {fileID: 1787465996332106806}
   - component: {fileID: 2784822964762187919}
-  - component: {fileID: 1826878300138968485}
+  - component: {fileID: 3975715648245094208}
   m_Layer: 10
   m_Name: Muflus
   m_TagString: Player
@@ -219,37 +218,6 @@ MonoBehaviour:
   RotationOffsetSmoothSpeed: 1
   ForcedRotation: 0
   ForcedRotationDirection: {x: 0, y: 0, z: 0}
---- !u!114 &1787465996332106800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c5cde4f9ad2514f8f7c0dcdbb02e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  MuteSfxTrackSounds: 1
-  MuteUITrackSounds: 0
-  MuteMusicTrackSounds: 0
-  MuteMasterTrackSounds: 0
-  OnPause:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnpause:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1787465996332106806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +237,7 @@ MonoBehaviour:
   MaximumHealth: 100
   ResetHealthOnEnable: 1
   ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 2428607735868235939}
+  DamageMMFeedbacks: {fileID: 0}
   FeedbackIsProportionalToDamage: 0
   PreventTakeSelfDamage: 0
   ImmuneToKnockback: 0
@@ -498,7 +466,7 @@ MonoBehaviour:
   DisplayDurationOnHit: 1
   HideBarAtZero: 1
   HideBarAtZeroDelay: 0
---- !u!114 &1826878300138968485
+--- !u!114 &3975715648245094208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,19 +475,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1787465996332106805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e95dac5aa010e4c82b9722e48259133e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aad69d9b41024b9e8f313a6dce47cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 3761562668922342450, guid: d1aa7547c425a44b8acc728041634177,
-    type: 3}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
+  characterModel: {fileID: 5290299890111301528}
+  weaponModel: {fileID: 0}
+  feedbacksStatesPrefabs:
+  - {fileID: 4885493949242105795}
+  feedbacksPrefabs:
+  - {fileID: 1500809259625450065}
+  damageOverlayColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  healOverlayColor:
+    serializedVersion: 2
+    rgba: 4281637428
 --- !u!1001 &5020249598951848649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -602,6 +572,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -607056918500283681, guid: aa1f69145f51142e5b7d9afd969338d5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d2a699e151d1b433092767dc7edae188, type: 2}
     - target: {fileID: 919132149155446097, guid: aa1f69145f51142e5b7d9afd969338d5,
         type: 3}
       propertyPath: m_Name
@@ -834,21 +809,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
---- !u!114 &2108694737105511320 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7978449564968484819, guid: 9468612907e8942b49712f4e342b630c,
+--- !u!1 &1500809259625450065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7433544379751437850, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2428607735868235939 stripped
+--- !u!114 &2108694737105511320 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5930843739001535720, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 7978449564968484819, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
@@ -870,6 +839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b32352ba4b34ff688fd08f29fbcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4885493949242105795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3474089471427560328, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6982823353980641290 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,

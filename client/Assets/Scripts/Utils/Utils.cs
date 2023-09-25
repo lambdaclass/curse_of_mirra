@@ -76,20 +76,6 @@ public class Utils
         return objectPooler;
     }
 
-    public static void ChangeCharacterMaterialColor(Character character, Color color)
-    {
-        for (int i = 0; i < character.CharacterModel.transform.childCount; i++)
-        {
-            Renderer renderer = character.CharacterModel.transform
-                .GetChild(i)
-                .GetComponent<Renderer>();
-            if (renderer)
-            {
-                renderer.material.color = color;
-            }
-        }
-    }
-
     public static List<T> ToList<T>(RepeatedField<T> repeatedField)
     {
         var list = new List<T>();
@@ -99,8 +85,8 @@ public class Utils
         }
         return list;
     }
-  
-      public static Gradient GetHealthBarGradient(Color color)
+
+    public static Gradient GetHealthBarGradient(Color color)
     {
         return new Gradient()
         {
@@ -115,5 +101,5 @@ public class Utils
                 new GradientAlphaKey(1, 1)
             }
         };
-      }    
+    }
 }
