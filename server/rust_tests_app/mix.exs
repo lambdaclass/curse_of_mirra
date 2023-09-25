@@ -5,7 +5,7 @@ defmodule RustTests.MixProject do
     [
       app: :rust_tests,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -21,7 +21,7 @@ defmodule RustTests.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.27.0"}
+      {:rustler, "~> 0.29.1"}
     ]
   end
 end
