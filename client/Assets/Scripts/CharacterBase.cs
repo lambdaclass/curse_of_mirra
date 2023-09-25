@@ -11,9 +11,6 @@ public class CharacterBase : MonoBehaviour
     public GameObject Hitbox;
 
     [SerializeField]
-    public GameObject Position;
-
-    [SerializeField]
     public GameObject FeedbackContainer;
 
     [SerializeField]

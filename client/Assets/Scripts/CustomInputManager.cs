@@ -228,7 +228,6 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -330,7 +329,6 @@ public class CustomInputManager : InputManager
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -423,18 +421,6 @@ public class CustomInputManager : InputManager
         {
             material = skillRange.GetComponentInChildren<MeshRenderer>().material;
             material.SetColor("_Color", characterSkillColor);
-        }
-    }
-
-    private void ShowTargetsInSkillRange(Skill skill)
-    {
-        if (ShouldShowTargetsInSkillRange(skill))
-        {
-            var targetsInRange = GetTargetsInSkillRange(skill);
-            targetsInRange.ForEach(p =>
-            {
-                Utils.ChangeCharacterMaterialColor(p.GetComponent<CustomCharacter>(), Color.red);
-            });
         }
     }
 
@@ -535,13 +521,5 @@ public class CustomInputManager : InputManager
     private bool IsSamePlayer(GameObject player)
     {
         return player.name == _player.name;
-    }
-
-    private bool ShouldShowTargetsInSkillRange(Skill skill)
-    {
-        return skill.GetType() == typeof(SkillBasic)
-            || skill.GetSkillName() == "BARREL ROLL"
-            || skill.GetSkillName() == "MULTISHOT"
-            || skill.GetSkillName() == "DISARM";
     }
 }
