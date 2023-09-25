@@ -884,8 +884,8 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            ulong attackerId = GetEffectCausedBy(playerUpdate, PlayerEffect.ElnarMark);
-            if (PlayerCanSeeElnarsMark(playerUpdate))
+            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+            if (PlayerShouldSeeElnarsMark(playerUpdate))
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
                     .DisplayUmaMarks(playerUpdate.Id);
@@ -900,14 +900,14 @@ public class Battle : MonoBehaviour
         return characterSpeed;
     }
 
-    private bool PlayerCanSeeElnarsMark(Player playerUpdate)
+    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
     {
-        ulong attackerId = GetEffectCausedBy(playerUpdate, PlayerEffect.ElnarMark);
+        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
         return playerUpdate.Id == SocketConnectionManager.Instance.playerId
             || attackerId == SocketConnectionManager.Instance.playerId;
     }
 
-    private ulong GetEffectCausedBy(Player playerUpdate, PlayerEffect effect)
+    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
     {
         return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
