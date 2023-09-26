@@ -163,8 +163,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id,
-         %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
+        {:play, player_id, %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
         %{next_state: next_state} = gen_server_state
       ) do
     game =
@@ -258,8 +257,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
 
-    {:noreply,
-     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_cast(
@@ -269,8 +267,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
 
-    {:noreply,
-     %{gen_server_state | current_players: current, selected_characters: selected_characters}}
+    {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
   end
 
   def handle_call({:join, client_id, player_id}, _, gen_server_state) do
@@ -278,8 +275,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       broadcast_to_darkworlds_server({:player_joined, player_id})
       PlayerTracker.add_player_game(client_id, player_id, self())
 
-      {:reply, {:ok, player_id},
-       %{gen_server_state | current_players: gen_server_state.current_players + 1}}
+      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
     else
       {:reply, {:error, :game_full}, gen_server_state}
     end
@@ -299,8 +295,8 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_call(:get_state, _from, gen_server_state) do
     {:reply,
-     {gen_server_state.game_status, gen_server_state.current_players,
-      gen_server_state.selected_characters, gen_server_state.opts}, gen_server_state}
+     {gen_server_state.game_status, gen_server_state.current_players, gen_server_state.selected_characters,
+      gen_server_state.opts}, gen_server_state}
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
@@ -346,8 +342,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players,
-       gen_server_state.client_game_state.game.players}
+      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
     )
 
     {:noreply, gen_server_state}
