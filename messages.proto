@@ -54,6 +54,7 @@ message PlayerCharacter{
     - aoe_position: Position of the aoe attack, only used when action == ATTACKING_AOE
     - {basic, first, second, third, fourth}_cooldown_left: Time remaining in seconds until the cooldown is over.
     - character_name: Name of the player's character
+    - effects: The effects that are active on the player
  */
 message Player {
     uint64 id = 1;
@@ -70,9 +71,14 @@ message Player {
     MillisTime skill_3_cooldown_left = 12;
     MillisTime skill_4_cooldown_left = 13;
     string character_name = 14;
-    map<uint64, MillisTime> effects = 15;
+    map<uint64, EffectInfo> effects = 15;
     RelativePosition direction = 16;
     float body_size = 17;
+}
+
+message EffectInfo {
+    MillisTime ends_at = 1;
+    uint64 caused_by = 2;
 }
 
 message KillEvent {

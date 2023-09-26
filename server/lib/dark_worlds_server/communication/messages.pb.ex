@@ -206,7 +206,7 @@ defmodule DarkWorldsServer.Communication.Proto.Player.EffectsEntry do
   use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field(:key, 1, type: :uint64)
-  field(:value, 2, type: DarkWorldsServer.Communication.Proto.MillisTime)
+  field(:value, 2, type: DarkWorldsServer.Communication.Proto.EffectInfo)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -265,6 +265,17 @@ defmodule DarkWorldsServer.Communication.Proto.Player do
 
   field(:direction, 16, type: DarkWorldsServer.Communication.Proto.RelativePosition)
   field(:body_size, 17, type: :float, json_name: "bodySize")
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.EffectInfo do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+
+  field(:ends_at, 1, type: DarkWorldsServer.Communication.Proto.MillisTime, json_name: "endsAt")
+  field(:caused_by, 2, type: :uint64, json_name: "causedBy")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

@@ -60,13 +60,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Distance: 46.72
+    - _Distance: 18
     - _EffectOffset: 0.2
     - _Fill: -1.12
     - _Fresnel_Power: 0.36
     - _QueueControl: 0
     - _QueueOffset: -1
     m_Colors:
-    - _Center: {r: -35.07, g: 1, b: -40.5, a: 0}
+    - _Center: {r: -47.66, g: 1, b: -39.629997, a: 0}
     - _Emission: {r: 0.14135566, g: 0.02352941, b: 0.17254902, a: 0}
   m_BuildTextureStacks: []

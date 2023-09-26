@@ -233,7 +233,6 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -335,7 +334,6 @@ public class CustomInputManager : InputManager
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        ShowTargetsInSkillRange(skill);
         directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
@@ -427,18 +425,6 @@ public class CustomInputManager : InputManager
         {
             material = skillRange.GetComponentInChildren<MeshRenderer>().material;
             material.SetColor("_Color", characterSkillColor);
-        }
-    }
-
-    private void ShowTargetsInSkillRange(Skill skill)
-    {
-        if (ShouldShowTargetsInSkillRange(skill))
-        {
-            var targetsInRange = GetTargetsInSkillRange(skill);
-            targetsInRange.ForEach(p =>
-            {
-                Utils.ChangeCharacterMaterialColor(p.GetComponent<CustomCharacter>(), Color.red);
-            });
         }
     }
 
