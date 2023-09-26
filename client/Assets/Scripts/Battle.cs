@@ -884,25 +884,45 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
-            if (PlayerShouldSeeElnarsMark(playerUpdate))
+            Debug.Log("Elnar marked");
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
+            {
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
-                    .DisplayUmaMarks(playerUpdate.Id);
+                    .DisplayEffectMarks(playerUpdate.Id, PlayerEffect.ElnarMark);
+            }
         }
         else
         {
+            Debug.Log("Elnar unmarked");
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(playerUpdate.Id);
+                .RemoveMarks(playerUpdate.Id, PlayerEffect.ElnarMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
+        {
+            Debug.Log("Yugen marked");
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMarks(playerUpdate.Id, PlayerEffect.YugenMark);
+            }
+        }
+        else
+        {
+            Debug.Log("Yugen unmarked");
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMarks(playerUpdate.Id, PlayerEffect.YugenMark);
         }
 
         return characterSpeed;
     }
 
-    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
+    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
     {
-        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+        ulong attackerId = GetEffectCauser(playerUpdate, effect);
         return playerUpdate.Id == SocketConnectionManager.Instance.playerId
             || attackerId == SocketConnectionManager.Instance.playerId;
     }
