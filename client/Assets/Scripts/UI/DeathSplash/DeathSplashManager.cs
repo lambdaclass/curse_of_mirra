@@ -158,22 +158,6 @@ public class DeathSplashManager : MonoBehaviour
     {
         if (player)
         {
-            List<SkinnedMeshRenderer> skinnedMeshFilter = new List<SkinnedMeshRenderer>();
-            modelClone.GetComponentsInChildren(skinnedMeshFilter);
-            foreach (var meshFilter in skinnedMeshFilter)
-            {
-                meshFilter.GetComponent<Renderer>().material.shader = Shader.Find(
-                    "Universal Render Pipeline/Lit"
-                );
-            }
-            for (int i = 0; i < modelClone.transform.childCount; i++)
-            {
-                Renderer renderer = modelClone.transform.GetChild(i).GetComponent<Renderer>();
-                if (renderer)
-                {
-                    renderer.material.color = Color.white;
-                }
-            }
             // TODO: get model sizes to make them look the same
             if (modelClone.name.Contains("H4ck"))
             {

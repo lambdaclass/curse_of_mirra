@@ -329,11 +329,9 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
-    map_shrink_wait_ms =
-      Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
 
-    spawn_loot_interval_ms =
-      Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+    spawn_loot_interval_ms = Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
@@ -378,8 +376,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    game_status =
-      has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
 
     out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 

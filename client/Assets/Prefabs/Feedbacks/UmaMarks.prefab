@@ -92,3 +92,4 @@ MonoBehaviour:
   mark1: {fileID: 21300000, guid: 8ea88dfda1b574b98bd9962eda5bfebc, type: 3}
   mark2: {fileID: 21300000, guid: 49b71af24ea86457c9df1855a21846de, type: 3}
   mark3: {fileID: 21300000, guid: 8f6610bbfb792450d9495c7eb4263376, type: 3}
+  image: {fileID: 8857743303492985341}

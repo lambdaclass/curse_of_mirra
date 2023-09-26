@@ -16,6 +16,9 @@ public class Battle : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
+    [SerializeField]
+    CustomGUIManager CustomGUIManager;
+
     public bool showClientPredictionGhost;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -282,15 +285,6 @@ public class Battle : MonoBehaviour
                     SetPlayerDead(playerCharacter);
                 }
 
-                if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
-                {
-                    // TODO: Refactor: create a script/reference.
-                    currentPlayer
-                        .GetComponent<CustomCharacter>()
-                        .characterBase.Position.GetComponent<Renderer>()
-                        .material.color = new Color(1, 0, 0, .5f);
-                }
-
                 Transform hitbox = currentPlayer
                     .GetComponent<CustomCharacter>()
                     .characterBase.Hitbox.transform;
@@ -516,17 +510,9 @@ public class Battle : MonoBehaviour
     {
         Health healthComponent = player.GetComponent<Health>();
 
-        // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>()
-            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
-
-        // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>()
-            .ChangePlayerTextureOnDamage(
-                player,
-                healthComponent.CurrentHealth,
-                playerUpdate.Health
-            );
+        player
+            .GetComponent<CharacterFeedbacks>()
+            .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -664,11 +650,11 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
     {
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
+        playerCharacter.GetComponent<CharacterFeedbacks>().PlayDeathFeedback();
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
-        playerCharacter.characterBase.Position.SetActive(false);
+        CustomGUIManager.DisplayZoneDamageFeedback(false);
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -853,37 +839,16 @@ public class Battle : MonoBehaviour
             }
         }
 
-        // TODO: Temporary out of area feedback. Refactor!
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
         {
-            Renderer renderer = character.CharacterModel.transform
-                .GetChild(0)
-                .GetComponent<Renderer>();
-
-            if (renderer == null)
+            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
             {
-                renderer = character.CharacterModel.transform.GetChild(1).GetComponent<Renderer>();
+                CustomGUIManager.DisplayZoneDamageFeedback(true);
             }
-
-            if (renderer.material.shader.name != "Shader Graphs/OverlayDamageShader")
+            else
             {
-                if (renderer.material.color != Color.magenta)
-                {
-                    Utils.ChangeCharacterMaterialColor(character, Color.magenta);
-                }
+                CustomGUIManager.DisplayZoneDamageFeedback(false);
             }
-        }
-        else
-        {
-            Utils.ChangeCharacterMaterialColor(character, Color.white);
-        }
-
-        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
-        {
-            GetComponent<PlayerFeedbacks>()
-                .ExecuteH4ckDisarmFeedback(
-                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
-                );
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
@@ -919,27 +884,39 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            player
-                .GetComponent<CustomCharacter>()
-                .characterBase.GetComponent<CharacterFeedbackManager>()
-                .DisplayUmaMarks(1);
+            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+            if (PlayerShouldSeeElnarsMark(playerUpdate))
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayUmaMarks(playerUpdate.Id);
         }
         else
         {
-            player
-                .GetComponent<CustomCharacter>()
-                .characterBase.GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(1);
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMarks(playerUpdate.Id);
         }
 
         return characterSpeed;
+    }
+
+    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
+    {
+        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
+            || attackerId == SocketConnectionManager.Instance.playerId;
+    }
+
+    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
+    {
+        return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
         if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
-            GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
+            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
         }
 
         foreach (ulong key in playerUpdate.Effects.Keys)
@@ -950,7 +927,9 @@ public class Battle : MonoBehaviour
                 {
                     string name = Enum.GetName(typeof(StateEffects), effect);
                     bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                    player
+                        .GetComponent<CharacterFeedbacks>()
+                        .SetActiveFeedback(player, name, isActive);
                 }
             }
         }

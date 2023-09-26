@@ -12,19 +12,22 @@ public class UmaMarks : MonoBehaviour
     [SerializeField]
     Sprite mark3;
 
+    [SerializeField]
+    Image image;
+
     public void SetImage(int markCount)
     {
         if (markCount == 1)
         {
-            GetComponent<Image>().sprite = mark1;
+            image.sprite = mark1;
         }
         if (markCount == 2)
         {
-            GetComponent<Image>().sprite = mark2;
+            image.sprite = mark2;
         }
         if (markCount == 3)
         {
-            GetComponent<Image>().sprite = mark3;
+            image.sprite = mark3;
         }
     }
 }

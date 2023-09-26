@@ -1,21 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 // TODO: this could probably be a part of another class
 public class CharacterFeedbackManager : MonoBehaviour
 {
     [SerializeField]
-    public GameObject umaMarks;
-
+    public UmaMarks umaMarks;
     public ulong currentMark = 0;
 
     List<ulong> marksApplied = new List<ulong>();
 
     public void DisplayUmaMarks(ulong markId)
     {
-        umaMarks.SetActive(true);
+        umaMarks.gameObject.SetActive(true);
         if (!marksApplied.Contains(markId))
         {
             marksApplied.Add(markId);
@@ -36,13 +35,13 @@ public class CharacterFeedbackManager : MonoBehaviour
         }
         if (marksApplied.Count == 0 && currentMark != 0)
         {
-            umaMarks.SetActive(false);
+            umaMarks.gameObject.SetActive(false);
             marksApplied.Clear();
         }
     }
 
     private void UpdateMarkImage(int markCount)
     {
-        umaMarks.GetComponent<UmaMarks>().SetImage(markCount);
+        umaMarks.SetImage(markCount);
     }
 }
