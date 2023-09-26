@@ -282,11 +282,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_call(:get_board, _from, gen_server_state) do
-    {:reply, gen_server_state.client_game_state.game.board, gen_server_state}
+    {:reply, gen_server_state.client_game_state.myrra_state.game.board, gen_server_state}
   end
 
   def handle_call(:get_players, _from, gen_server_state) do
-    {:reply, gen_server_state.client_game_state.game.players, gen_server_state}
+    {:reply, gen_server_state.client_game_state.myrra_state.game.players, gen_server_state}
   end
 
   def handle_call(:get_logged_players, _from, gen_server_state) do
@@ -341,7 +341,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
+      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.myrra_state.players}
     )
 
     {:noreply, gen_server_state}
@@ -370,7 +370,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    game_status = has_a_player_won?(server_game_state.game.myrra_state.players, gen_server_state.is_single_player?)
 
     out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
@@ -446,7 +446,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp decide_next_game_update(%{game_status: :game_finished} = gen_server_state) do
     [winner] =
-      Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
+      Enum.filter(gen_server_state.server_game_state.game.myrra_state.players, fn player ->
         player.status == :alive
       end)
 

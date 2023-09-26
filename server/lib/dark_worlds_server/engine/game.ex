@@ -5,8 +5,12 @@ defmodule DarkWorldsServer.Engine.Game do
   @enforce_keys [:players, :board]
   defstruct [:players, :board]
 
-  def new(config) do
-    LambdaGameEngine.new(config)
+  def new(old_config) do
+    {:ok, engine_config_json} =
+      Application.app_dir(:lambda_game_engine, "priv/config.json")
+      |> File.read()
+
+    LambdaGameEngine.new(Map.put(old_config, :engine_config, engine_config_json))
   end
 
   def move_player(a, b, c), do: LambdaGameEngine.move_player(a, b, c)
