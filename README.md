@@ -24,6 +24,8 @@ Make sure Docker is running.
 ```
 make start
 ```
+To test locally, temporarily edit the `mix.exs` file to point to the path to your local copy of the game engine, for example:
+```{:lambda_game_engine, path: "/Users/MyUsername/lambda/lambda_game_engine"}```
 
 ## Useful commands
 ```
