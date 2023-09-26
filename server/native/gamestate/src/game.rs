@@ -551,7 +551,7 @@ impl GameState {
                     nearest_distance = distance;
                 }
             }
-        };
+        }
         println!("nearest player = {:?}", nearest_player);
         nearest_player
     }
