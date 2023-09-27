@@ -14,6 +14,9 @@ public class CustomMMTouchButton : MMTouchButton
     public Skill skill;
     List<Image> images = new List<Image>();
 
+    private static readonly Color white = new Color(1f, 1f, 1f);
+    private static readonly Color grey = new Color(0.5f, 0.5f, 0.5f);
+
     public void SetInitialSprite(Sprite newSprite, Sprite backgroundSprite)
     {
         GameObject parent = gameObject.transform.parent.gameObject;
@@ -37,7 +40,7 @@ public class CustomMMTouchButton : MMTouchButton
         {
             if (image.GetComponent<CustomMMTouchButton>() == null)
             {
-                image.color = new Color(255f, 255f, 255f);
+                image.color = white;
             }
         }
     }
@@ -50,7 +53,7 @@ public class CustomMMTouchButton : MMTouchButton
         {
             if (image.GetComponent<CustomMMTouchButton>() == null)
             {
-                image.color = new Color(0.5f, 0.5f, 0.5f);
+                image.color = grey;
             }
         }
     }
