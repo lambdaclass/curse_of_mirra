@@ -92,9 +92,9 @@
     },
     {
       "Name": "Elnars Mark",
-      "Cooldown": "3000",
+      "Cooldown": "900",
       "Damage": "20",
-      "Duration": "5000",
+      "Duration": "6000",
       "SkillRange": "450",
       "Par1": "0",
       "Par1Desc": "",
@@ -106,7 +106,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "140"
+      "Angle": "360"
     },
     {
       "Name": "Yugens Mark",
