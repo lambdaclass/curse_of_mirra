@@ -10,9 +10,9 @@ using UnityEngine.Networking;
 
 public class LobbyConnection : MonoBehaviour
 {
-    [Tooltip("IP to connect to. If empty, localhost will be used")]
-    public string server_name = "LocalHost";
-    public string server_ip = "localhost";
+    [Tooltip("IP to connect to. If empty, Brazil will be used")]
+    public string server_name;
+    public string server_ip;
     public List<string> lobbiesList;
     public List<string> gamesList;
     public static LobbyConnection Instance;
