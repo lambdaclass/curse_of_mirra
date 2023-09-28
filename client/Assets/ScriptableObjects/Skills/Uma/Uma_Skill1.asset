@@ -36,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 65a0159db117148ef904fe5db9a3aaea, type: 3}

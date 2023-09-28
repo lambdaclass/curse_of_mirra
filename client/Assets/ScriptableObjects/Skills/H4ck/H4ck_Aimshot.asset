@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: H4ck_Aimshot
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: DISARM
-  description: "Target opponent can\u2019t use any skills for 2 seconds. Always a
-    sneaky guy, he has mastered the art of impairing his foes using his slingshot."
+  description: It will paralize the opponent and Hack will be able to target him
+    better.
   inputType: 2
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 2
   projectilePrefab: {fileID: 5269552939558784490, guid: e401f90204eb843c385dd95a19b84e24,
@@ -35,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 1.5
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: b81e2e7de37174cf183293a340be99df, type: 3}

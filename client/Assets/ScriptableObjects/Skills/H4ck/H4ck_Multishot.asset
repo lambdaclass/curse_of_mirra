@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: MULTISHOT
   description: Throws multiple slingshots in an arc. In close range, multiple shots
-    can hit one same target. H4ck stores various kinds of munitions in his fanny
-    pack.
+    can hit one same target.
   inputType: 2
+  angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
@@ -36,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: b9235b88acabf41f8b72d06a4b2faa4c, type: 3}

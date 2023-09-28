@@ -11,19 +11,13 @@ public class CoMCharacter : ScriptableObject
     public Sprite blockArtwork;
     public Sprite characterPlayer;
     public GameObject prefab;
+    public Sprite skillBackground;
+    public Color32 InputFeedbackColor;
+    public List<SkillInfo> skillsInfo;
+
+    // The references below should be deleted with an upcoming refactor
     public SkillInfo skillBasicInfo;
     public SkillInfo skill1Info;
     public SkillInfo skill2Info;
     public SkillInfo skill3Info;
-    public SkillInfo skill4Info;
-    public Sprite skillBasicSprite;
-    public Sprite skill1Sprite;
-    public Sprite skill2Sprite;
-    public Sprite skill3Sprite;
-    public Sprite skill4Sprite;
-    public Sprite skillBackground;
-    public List<Sprite> selectedSkills;
-    public List<Sprite> notSelectedSkills;
-    public List<SkillInfo> skillsInfo;
-    public Color32 InputFeedbackColor;
 }

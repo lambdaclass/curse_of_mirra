@@ -9,7 +9,6 @@ public class SkillInfo : ScriptableObject
     public new string name;
     public string description;
     public UIType inputType;
-
     public float angle;
 
     [MMEnumCondition("inputType", (int)UIType.Direction)]
@@ -37,6 +36,7 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
     public bool showCooldown;
+    public Sprite skillSprite;
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {
