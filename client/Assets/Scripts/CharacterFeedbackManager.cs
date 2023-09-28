@@ -10,7 +10,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     IDictionary<ulong, ISet<PlayerEffect>> playersMarks =
         new Dictionary<ulong, ISet<PlayerEffect>>();
 
-    public void DisplayEffectMarks(ulong playerId, PlayerEffect effect)
+    public void DisplayEffectMark(ulong playerId, PlayerEffect effect)
     {
         umaMarks.gameObject.SetActive(true);
         if (playersMarks.ContainsKey(playerId))
@@ -24,7 +24,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         UpdateMarkImage(playersMarks[playerId].Count);
     }
 
-    public void RemoveMarks(ulong playerId, PlayerEffect effect)
+    public void RemoveMark(ulong playerId, PlayerEffect effect)
     {
         if (playersMarks.ContainsKey(playerId))
         {

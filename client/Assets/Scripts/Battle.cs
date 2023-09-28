@@ -32,7 +32,6 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
-    private bool healthBarIsGreen;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -49,7 +48,6 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
-        healthBarIsGreen = false;
     }
 
     private void InitBlockingStates()
@@ -877,14 +875,14 @@ public class Battle : MonoBehaviour
             {
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMarks(playerUpdate.Id, PlayerEffect.ElnarMark);
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
             }
         }
         else
         {
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(playerUpdate.Id, PlayerEffect.ElnarMark);
+                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
         }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
         {
@@ -892,14 +890,14 @@ public class Battle : MonoBehaviour
             {
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMarks(playerUpdate.Id, PlayerEffect.YugenMark);
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
             }
         }
         else
         {
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(playerUpdate.Id, PlayerEffect.YugenMark);
+                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
         }
 
         return characterSpeed;
