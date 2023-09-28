@@ -32,7 +32,7 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
-    private bool healthBarColorChanged;
+    private bool healthBarIsGreen;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -49,7 +49,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
-        healthBarColorChanged = false;
+        healthBarIsGreen = false;
     }
 
     private void InitBlockingStates()
@@ -870,21 +870,22 @@ public class Battle : MonoBehaviour
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
         if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned) && !healthBarColorChanged
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
         )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
-            healthBarColorChanged = true;
         }
-        else
+        if (
+            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+        )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
-            healthBarColorChanged = false;
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            Debug.Log("Elnar marked");
             if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
             {
                 character.characterBase
@@ -894,14 +895,12 @@ public class Battle : MonoBehaviour
         }
         else
         {
-            Debug.Log("Elnar unmarked");
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
                 .RemoveMarks(playerUpdate.Id, PlayerEffect.ElnarMark);
         }
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
         {
-            Debug.Log("Yugen marked");
             if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
             {
                 character.characterBase
@@ -911,7 +910,6 @@ public class Battle : MonoBehaviour
         }
         else
         {
-            Debug.Log("Yugen unmarked");
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
                 .RemoveMarks(playerUpdate.Id, PlayerEffect.YugenMark);
