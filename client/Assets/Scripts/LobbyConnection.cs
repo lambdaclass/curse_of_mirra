@@ -116,8 +116,8 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
 
         if (Instance != null)
         {
@@ -191,8 +191,8 @@ public class LobbyConnection : MonoBehaviour
 
     public void Refresh()
     {
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
     }
@@ -444,33 +444,33 @@ public class LobbyConnection : MonoBehaviour
 
     private string makeUrl(string path)
     {
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + serverIp + ":4000" + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + serverIp + ":4000" + path;
         }
         else
         {
-            return "https://" + server_ip + path;
+            return "https://" + serverIp + path;
         }
     }
 
     private string makeWebsocketUrl(string path)
     {
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
         else
         {
-            return "wss://" + server_ip + path;
+            return "wss://" + serverIp + path;
         }
     }
 

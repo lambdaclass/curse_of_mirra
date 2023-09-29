@@ -75,7 +75,7 @@ public class SocketConnectionManager : MonoBehaviour
         {
             Instance = this;
             this.session_id = LobbyConnection.Instance.GameSession;
-            this.server_ip = LobbyConnection.Instance.server_ip;
+            this.server_ip = LobbyConnection.Instance.serverIp;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;

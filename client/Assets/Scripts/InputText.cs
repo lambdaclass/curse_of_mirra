@@ -18,6 +18,6 @@ public class InputText : MonoBehaviour
 
     public void Init()
     {
-        text = LobbyConnection.Instance.server_ip;
+        text = LobbyConnection.Instance.serverIp;
     }
 }
