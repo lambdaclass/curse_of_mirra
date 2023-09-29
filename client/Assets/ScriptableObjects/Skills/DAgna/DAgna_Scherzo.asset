@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: DAgna_Scherzo
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Scherzo
-  description: "Togglable skill, while active, D\u2019agna will stand still and play
-    music, dealing damage to all nearby enemies. The further the sound travels, the
-    less damage it deals. Being a music virtuoso Myrra granted her music the the
-    power to damage everyone that hears it."
+  description: "D\u2019agna will stand still and play music, dealing damage to all
+    nearby enemies."
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -36,3 +35,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 0
+  skillSprite: {fileID: 21300000, guid: 5652d8d89985a46dba285a391249bcb0, type: 3}

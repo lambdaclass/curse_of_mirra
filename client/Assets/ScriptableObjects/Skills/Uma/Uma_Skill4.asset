@@ -17,6 +17,7 @@ MonoBehaviour:
     three Marks. If the target has been anointed with the three marks it\u2019s ready
     to be sacrificed to the feathered serpent."
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -35,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}

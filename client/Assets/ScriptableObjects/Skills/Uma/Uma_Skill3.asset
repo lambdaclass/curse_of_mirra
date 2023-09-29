@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: "XANDA\u2019S MARK "
   description: Target an enemy which has 50%+ health, inflicting a Mark for a short
-    period. Any damage incoming to Uma will instead be divided between Uma and any
-    target cursed by this Mark. Taints her enemy preparing it for the kill. This
-    mark is named before her second born.
+    period.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -36,3 +35,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 1cec1eb6996fb48738fd1c60bbe2cf0d, type: 3}

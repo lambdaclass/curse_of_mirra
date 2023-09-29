@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: DAgna_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Pizzicato
-  description: Performs a pizzicato, doing concentrated damage in a close area and
-    knocking enemies back. Like Scherzo, it deals more optimal damage the closer
-    it is to the target. Being a music virtuoso Myrra granted her atonal music the
-    the power to damage everyone that hears it.
+  description: Concentrated damage in a close area and knocking enemies back.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
@@ -36,3 +34,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 3.5
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 92ed3db3cc92b46e79b1ee00aede3f01, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377340570206829633}
   - component: {fileID: 6284103280827666314}
+  - component: {fileID: 1743729574858777773}
   m_Layer: 0
   m_Name: CharacterBase
   m_TagString: Untagged
@@ -56,6 +57,20 @@ MonoBehaviour:
   FeedbackContainer: {fileID: 2245838494617956913}
   AimDirection: {fileID: 504285555944152676}
   SkillRange: {fileID: 7220386294724277444}
+--- !u!114 &1743729574858777773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6426377142093029336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c27519de357b4dae962d7fcc6dc3470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  umaMarks: {fileID: 3575391336039923830}
+  currentMark: 0
 --- !u!1001 &736706980731925996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -488,6 +503,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1377340570206829633}
     m_Modifications:
+    - target: {fileID: 409074941635815774, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -615,6 +635,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e098dcba25946b6b2853c408723ff3, type: 3}
+--- !u!114 &3575391336039923830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5624804799685822865, guid: 20e098dcba25946b6b2853c408723ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 9192134172331002343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe7381e20cfa4ba595084a5dfb1266a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5427165918156939992 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3801090819467586367, guid: 20e098dcba25946b6b2853c408723ff3,

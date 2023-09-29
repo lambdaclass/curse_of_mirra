@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: H4ck_Dash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: NEON CRASH
-  description: Short-ish cooldown offensive dash that deals damage to enemies near    
-    the dash path. H4ck has been using his roller skates to escape from trouble since    
-    he was a child so he excells on this.
+  description: Short-ish cooldown offensive dash that deals damage to enemies near
+    the dash path.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -36,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 2
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 2e4ee314aaf0e42df8c1cb966f29b764, type: 3}

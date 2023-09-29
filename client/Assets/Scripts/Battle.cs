@@ -339,14 +339,6 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.StartingSkill4:
-                currentPlayer.GetComponent<Skill4>().StartFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerAction.ExecutingSkill4:
-                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
         }
     }
 
@@ -500,11 +492,6 @@ public class Battle : MonoBehaviour
                 UIControls.Skill3,
                 (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill3>().GetSkillInfo().showCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
             );
         }
     }
@@ -886,7 +873,34 @@ public class Battle : MonoBehaviour
             healthBarColorChanged = false;
         }
 
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
+        {
+            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+            if (PlayerShouldSeeElnarsMark(playerUpdate))
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayUmaMarks(playerUpdate.Id);
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMarks(playerUpdate.Id);
+        }
+
         return characterSpeed;
+    }
+
+    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
+    {
+        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
+            || attackerId == SocketConnectionManager.Instance.playerId;
+    }
+
+    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
+    {
+        return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
@@ -904,7 +918,6 @@ public class Battle : MonoBehaviour
                 {
                     string name = Enum.GetName(typeof(StateEffects), effect);
                     bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    print(name + " " + isActive);
                     player
                         .GetComponent<CharacterFeedbacks>()
                         .SetActiveFeedback(player, name, isActive);
