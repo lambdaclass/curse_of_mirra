@@ -255,7 +255,7 @@ MonoBehaviour:
   ChangeLayersRecursivelyOnDeath: 0
   LayerOnDeath:
     _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 0}
+  DeathMMFeedbacks: {fileID: 3122739627522311740}
   ResetColorOnRevive: 1
   ColorMaterialPropertyName: _Color
   UseMaterialPropertyBlocks: 0
@@ -667,6 +667,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5752884145135258627}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3122739627522311740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7241905311957862975, guid: 2dbdd743c87404d0787e7d0764d32739,
+    type: 3}
+  m_PrefabInstance: {fileID: 5752884145135258627}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8491932137166830183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4183631776080393828, guid: 2dbdd743c87404d0787e7d0764d32739,
