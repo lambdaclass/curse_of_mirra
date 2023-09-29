@@ -11,8 +11,8 @@ using UnityEngine.Networking;
 public class LobbyConnection : MonoBehaviour
 {
     [Tooltip("IP to connect to. If empty, Brazil will be used")]
-    public string server_name;
-    public string server_ip;
+    public string serverName;
+    public string serverIp;
     public List<string> lobbiesList;
     public List<string> gamesList;
     public static LobbyConnection Instance;
