@@ -8,7 +8,10 @@ public class SkillsDetailHandler : MonoBehaviour
 {
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
-    public List<GameObject> list;
+    public Sprite selectedBorder;
+    public Sprite notSelectedBorder;
+    public List<SkillDescription> skillsList;
+    public List<Image> bordersList;
 
     void Awake()
     {
@@ -17,9 +20,13 @@ public class SkillsDetailHandler : MonoBehaviour
 
     public void SetSkillsList()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        skillsList.AddRange(GetComponentsInChildren<SkillDescription>());
+        foreach (Image border in transform.parent.transform.parent.GetComponentsInChildren<Image>())
         {
-            list.Add(transform.GetChild(i).gameObject);
+            if (border.GetComponent<SkillDescription>() == null)
+            {
+                bordersList.Add(border);
+            }
         }
     }
 
@@ -29,21 +36,12 @@ public class SkillsDetailHandler : MonoBehaviour
         skillDescription.text = setSkillDescription;
     }
 
-    public void SetSkillIcon(Sprite skillIcon, Sprite selectedSkillIcon)
+    public void ResetSelectSkill(SkillDescription selectedSkill)
     {
-        list.ForEach(el =>
+        skillsList.ForEach(el =>
         {
-            if (
-                el.GetComponent<Image>().sprite == skillIcon
-                || el.GetComponent<Image>().sprite == selectedSkillIcon
-            )
-            {
-                el.GetComponent<Image>().sprite = selectedSkillIcon;
-            }
-            else
-            {
-                el.GetComponent<Image>().sprite = el.GetComponent<SkillDescription>().skillSprite;
-            }
+            el.GetComponent<SkillDescription>().skillBorder.sprite = notSelectedBorder;
         });
+        selectedSkill.skillBorder.sprite = selectedBorder;
     }
 }
