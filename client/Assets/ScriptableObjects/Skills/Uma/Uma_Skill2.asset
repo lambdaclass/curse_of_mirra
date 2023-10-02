@@ -18,7 +18,7 @@ MonoBehaviour:
     the kill. This mark is named before her first born. '
   inputType: 0
   angle: 0
-  executeOnQuickTap: 0
+  executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}

@@ -17,7 +17,7 @@ public class ServersListHandler : MonoBehaviour
 
     public void ChangeSelectedServerName()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = LobbyConnection.Instance.server_name;
+        GetComponentInChildren<TextMeshProUGUI>().text = LobbyConnection.Instance.serverName;
     }
 
     public void ShowServerOptions()

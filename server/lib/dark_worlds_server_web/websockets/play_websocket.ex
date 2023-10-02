@@ -128,14 +128,14 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:game_update, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.client_game_state.game.players,
-      projectiles: game_state.client_game_state.game.projectiles,
-      killfeed: game_state.client_game_state.game.killfeed,
+      players: game_state.client_game_state.game.myrra_state.players,
+      projectiles: game_state.client_game_state.game.myrra_state.projectiles,
+      killfeed: game_state.client_game_state.game.myrra_state.killfeed,
       player_timestamp: game_state.player_timestamps[web_socket_state.player_id],
-      playable_radius: game_state.client_game_state.game.playable_radius,
-      shrinking_center: game_state.client_game_state.game.shrinking_center,
+      playable_radius: game_state.client_game_state.game.myrra_state.playable_radius,
+      shrinking_center: game_state.client_game_state.game.myrra_state.shrinking_center,
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
-      loots: game_state.client_game_state.game.loots
+      loots: game_state.client_game_state.game.myrra_state.loots
     }
 
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
@@ -143,7 +143,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:game_finished, winner, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.client_game_state.game.players,
+      players: game_state.client_game_state.game.myrra_state.players,
       winner: winner
     }
 

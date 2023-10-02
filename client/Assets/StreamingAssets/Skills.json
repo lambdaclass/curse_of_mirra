@@ -110,10 +110,10 @@
     },
     {
       "Name": "Yugens Mark",
-      "Cooldown": "5000",
+      "Cooldown": "4500",
       "Damage": "20",
-      "Duration": "5000",
-      "SkillRange": "450",
+      "Duration": "6000",
+      "SkillRange": "950",
       "Par1": "0",
       "Par1Desc": "",
       "Par2": "0",
@@ -124,7 +124,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "140"
+      "Angle": "45"
     },
     {
       "Name": "Xandas Mark",

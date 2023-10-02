@@ -32,7 +32,6 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
-    private bool healthBarColorChanged;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -49,7 +48,6 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
-        healthBarColorChanged = false;
     }
 
     private void InitBlockingStates()
@@ -857,39 +855,57 @@ public class Battle : MonoBehaviour
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
         if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned) && !healthBarColorChanged
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
         )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
-            healthBarColorChanged = true;
         }
-        else
+        if (
+            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+        )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
-            healthBarColorChanged = false;
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
-            if (PlayerShouldSeeElnarsMark(playerUpdate))
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
+            {
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
-                    .DisplayUmaMarks(playerUpdate.Id);
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+            }
         }
         else
         {
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(playerUpdate.Id);
+                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
         }
 
         return characterSpeed;
     }
 
-    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
+    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
     {
-        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+        ulong attackerId = GetEffectCauser(playerUpdate, effect);
         return playerUpdate.Id == SocketConnectionManager.Instance.playerId
             || attackerId == SocketConnectionManager.Instance.playerId;
     }

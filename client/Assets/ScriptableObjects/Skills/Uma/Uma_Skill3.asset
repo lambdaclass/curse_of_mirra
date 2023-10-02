@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill3
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: "XANDA\u2019S MARK "
+  name: 'XANDA''S MARK '
   description: Target an enemy which has 50%+ health, inflicting a Mark for a short
     period.
   inputType: 0

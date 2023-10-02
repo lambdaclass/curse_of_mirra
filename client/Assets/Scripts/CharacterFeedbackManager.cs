@@ -8,35 +8,30 @@ public class CharacterFeedbackManager : MonoBehaviour
 {
     [SerializeField]
     public UmaMarks umaMarks;
-    public ulong currentMark = 0;
 
-    List<ulong> marksApplied = new List<ulong>();
+    IDictionary<ulong, ISet<PlayerEffect>> playersMarks =
+        new Dictionary<ulong, ISet<PlayerEffect>>();
 
-    public void DisplayUmaMarks(ulong markId)
+    public void DisplayEffectMark(ulong playerId, PlayerEffect effect)
     {
         umaMarks.gameObject.SetActive(true);
-        if (!marksApplied.Contains(markId))
+        if (playersMarks.ContainsKey(playerId))
         {
-            marksApplied.Add(markId);
+            playersMarks[playerId].Add(effect);
         }
-        UpdateMarkImage(marksApplied.Count);
-        currentMark = markId;
+        else
+        {
+            playersMarks.Add(playerId, new HashSet<PlayerEffect>() { effect });
+        }
+        UpdateMarkImage(playersMarks[playerId].Count);
     }
 
-    public void RemoveMarks(ulong markId)
+    public void RemoveMark(ulong playerId, PlayerEffect effect)
     {
-        if (marksApplied.Count > 0)
+        if (playersMarks.ContainsKey(playerId))
         {
-            if (marksApplied.Contains(markId))
-            {
-                marksApplied.Remove(markId);
-                UpdateMarkImage(marksApplied.Count);
-            }
-        }
-        if (marksApplied.Count == 0 && currentMark != 0)
-        {
-            umaMarks.gameObject.SetActive(false);
-            marksApplied.Clear();
+            playersMarks[playerId].Remove(effect);
+            UpdateMarkImage(playersMarks[playerId].Count);
         }
     }
 
