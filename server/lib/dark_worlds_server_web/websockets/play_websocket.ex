@@ -143,7 +143,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:game_finished, winner, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.client_game_state.game.players,
+      players: game_state.client_game_state.game.myrra_state.players,
       winner: winner
     }
 
