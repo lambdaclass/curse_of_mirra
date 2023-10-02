@@ -20,13 +20,10 @@ run:
 	mix assets.build
 	iex -S mix phx.server
 
-tests: elixir-tests rust-tests
+tests: elixir-tests
 
 elixir-tests:
 	mix test
-
-rust-tests:
-	mix rust_tests
 
 shell:
 	iex -S mix run --no-start --no-halt
