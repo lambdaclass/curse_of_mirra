@@ -383,7 +383,8 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
                 GameObject projectileFromSkill = skillInfoSet
-                    .Single(skill => skill.name == gameProjectiles[i].SkillName)
+                    .Where(el => el.name == gameProjectiles[i].SkillName)
+                    .First()
                     .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
                     .InstanceProjectile(projectileFromSkill, angle);
