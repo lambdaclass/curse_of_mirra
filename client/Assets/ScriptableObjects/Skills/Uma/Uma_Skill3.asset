@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill3
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: 'XANDA''S MARK '
-  description: Target an enemy which has 50%+ health, inflicting a Mark for a short
-    period.
+  name: AVENGE
+  description: "Performs the ultimate revenge: assassinate any target that has all
+    three Marks. If the target has been anointed with the three marks it\u2019s ready
+    to be sacrificed to the feathered serpent."
   inputType: 0
   angle: 0
   executeOnQuickTap: 0
-  indicatorType: 0
+  indicatorType: 3
   projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0
@@ -35,4 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
-  skillSprite: {fileID: 21300000, guid: 1cec1eb6996fb48738fd1c60bbe2cf0d, type: 3}
+  skillSprite: {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
