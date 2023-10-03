@@ -23,7 +23,7 @@ public class LobbyInfo : MonoBehaviour
         lobbyID.text = "# " + id.Substring(id.Length - 5);
 
         // TODO bring from LobbyConnection map name
-        mapName.text = "Araban";
+        mapName.text = "ArabanTest";
     }
 
     // Update is called once per frame
