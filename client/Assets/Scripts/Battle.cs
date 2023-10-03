@@ -37,6 +37,8 @@ public class Battle : MonoBehaviour
     private enum StateEffects
     {
         Slowed = PlayerEffect.Slowed,
+        Paralyzed = PlayerEffect.Paralyzed,
+        Poisoned = PlayerEffect.Poisoned,
     }
 
     void Start()
@@ -920,19 +922,32 @@ public class Battle : MonoBehaviour
         if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
             player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
+            if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+            {
+                CustomGUIManager.stateManagerUI.ClearAllStates();
+            }
         }
 
         foreach (ulong key in playerUpdate.Effects.Keys)
         {
             foreach (int effect in Enum.GetValues(typeof(StateEffects)))
             {
+                string name = Enum.GetName(typeof(StateEffects), effect);
+                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
                 if (playerUpdate.Effects.ContainsKey((ulong)effect))
                 {
-                    string name = Enum.GetName(typeof(StateEffects), effect);
-                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    player
-                        .GetComponent<CharacterFeedbacks>()
-                        .SetActiveFeedback(player, name, isActive);
+                    player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
+                    if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+                    {
+                        CustomGUIManager.stateManagerUI.ToggleState(name, true);
+                    }
+                }
+                else
+                {
+                    if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+                    {
+                        CustomGUIManager.stateManagerUI.ToggleState(name, false);
+                    }
                 }
             }
         }
