@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: "YUGEN\u2019S MARK"
+  name: YUGEN'S MARK
   description: 'Target a nearby enemy, inflicting a Mark for a short period which
     poisons the enemy, dealing damage over time. Taints her enemy preparing it for
     the kill. This mark is named before her first born. '
-  inputType: 0
-  executeOnQuickTap: 0
+  inputType: 2
+  angle: 0
+  executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
@@ -30,8 +31,9 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 0
-  skillCircleRadius: 0
-  skillConeAngle: 0
+  skillCircleRadius: 11
+  skillConeAngle: 45
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: b18b679aa83fb4a4fae073c52758a5b1, type: 3}

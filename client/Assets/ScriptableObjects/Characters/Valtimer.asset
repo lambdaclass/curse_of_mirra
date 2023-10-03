@@ -18,42 +18,17 @@ MonoBehaviour:
   blockArtwork: {fileID: 21300000, guid: 7cbbd800f2b02497a91084c47728e2a8, type: 3}
   characterPlayer: {fileID: 0}
   prefab: {fileID: 0}
-  skillBasicInfo: {fileID: 0}
-  skill1Info: {fileID: 0}
-  skill2Info: {fileID: 0}
-  skill3Info: {fileID: 0}
-  skill4Info: {fileID: 0}
-  skillBasicSprite: {fileID: 0}
-  skill1Sprite: {fileID: 0}
-  skill2Sprite: {fileID: 0}
-  skill3Sprite: {fileID: 0}
-  skill4Sprite: {fileID: 0}
-  notSelectedSkillBasicSprite: {fileID: 0}
-  notSelectedSkill1Sprite: {fileID: 0}
-  notSelectedSkill2Sprite: {fileID: 0}
-  notSelectedSkill3Sprite: {fileID: 0}
-  notSelectedSkill4Sprite: {fileID: 0}
-  selectedSkillBasicSprite: {fileID: 0}
-  selectedSkill1Sprite: {fileID: 0}
-  selectedSkill2Sprite: {fileID: 0}
-  selectedSkill3Sprite: {fileID: 0}
-  selectedSkill4Sprite: {fileID: 0}
   skillBackground: {fileID: 21300000, guid: ee16a25e959584c8a8b286c6bad1713f, type: 3}
-  selectedSkills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  notSelectedSkills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 0
   skillsInfo:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  skillBasicInfo: {fileID: 0}
+  skill1Info: {fileID: 0}
+  skill2Info: {fileID: 0}
+  skill3Info: {fileID: 0}

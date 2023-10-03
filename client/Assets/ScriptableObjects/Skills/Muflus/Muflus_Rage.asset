@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: RAGE
   description: While active, gain a small boost of movement speed, partial crowd
-    control immunity, and damage for every hit and subsequent ones. Myrra has provided
-    the bulls with a PED that has unleashed the full aggressive potential of their
-    bodies.
+    control immunity, and damage for every hit and subsequent ones.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -37,3 +36,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
+  skillSprite: {fileID: 21300000, guid: 58f723c155a1248c995301264c269df5, type: 3}

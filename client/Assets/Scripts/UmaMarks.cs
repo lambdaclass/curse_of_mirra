@@ -17,6 +17,10 @@ public class UmaMarks : MonoBehaviour
 
     public void SetImage(int markCount)
     {
+        if (markCount == 0)
+        {
+            gameObject.SetActive(false);
+        }
         if (markCount == 1)
         {
             image.sprite = mark1;

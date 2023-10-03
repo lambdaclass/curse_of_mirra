@@ -6,32 +6,34 @@ using UnityEngine.UI;
 public class SkillDescription : MonoBehaviour, IPointerDownHandler
 {
     SkillInfo skillData;
-    public Sprite skillSprite;
-    public Sprite selectedSkillSprite;
+    Sprite skillSprite;
 
-    public void SetSkillDescription(SkillInfo skillInfo, Sprite skill, Sprite selectedSkill)
+    [SerializeField]
+    public Image skillBorder;
+    SkillsDetailHandler skillsDetailHandler;
+
+    public void SetSkillDescription(SkillInfo skillInfo)
     {
         skillData = skillInfo;
-        skillSprite = skill;
-        selectedSkillSprite = selectedSkill;
+        skillSprite = skillInfo.skillSprite;
+        skillsDetailHandler = transform.parent.transform.parent.GetComponent<SkillsDetailHandler>();
+
+        GetComponent<Image>().sprite = skillSprite;
 
         // The first list element always starts with a selected display
-        GameObject firstGameObject = transform.parent.GetComponent<SkillsDetailHandler>().list[0];
+        GameObject firstGameObject = transform.parent.transform.parent
+            .GetComponent<SkillsDetailHandler>()
+            .skillsList[0].gameObject;
         if (this.gameObject == firstGameObject)
         {
-            GetComponent<Image>().sprite = selectedSkillSprite;
-        }
-        else
-        {
-            GetComponent<Image>().sprite = skillSprite;
+            skillsDetailHandler.ResetSelectSkill(this);
+            skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        SkillsDetailHandler skillsDetailHandler =
-            transform.parent.GetComponent<SkillsDetailHandler>();
         skillsDetailHandler.SetSkillDetaill(skillData.name, skillData.description);
-        skillsDetailHandler.SetSkillIcon(skillSprite, selectedSkillSprite);
+        skillsDetailHandler.ResetSelectSkill(this);
     }
 }

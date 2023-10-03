@@ -68,7 +68,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def handle_info({:game_update, game_state}, state) do
     players =
-      game_state.client_game_state.game.players
+      game_state.client_game_state.game.myrra_state.players
       |> Enum.map(&Map.take(&1, [:id, :health, :position]))
       |> Enum.sort_by(& &1.health, :desc)
 

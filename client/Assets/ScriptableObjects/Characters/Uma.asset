@@ -18,35 +18,17 @@ MonoBehaviour:
   blockArtwork: {fileID: 21300000, guid: 3144019d1288c4de9851065f05a1cbc5, type: 3}
   characterPlayer: {fileID: 21300000, guid: 7deff0598157c43dda66d16460fe341b, type: 3}
   prefab: {fileID: 1787465996332106805, guid: ed2f9d09eb48e4bfea96370afd8336ef, type: 3}
-  skillBasicInfo: {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
-  skill1Info: {fileID: 11400000, guid: 279a098f0c0664c50a725ed54d4f8e2c, type: 2}
-  skill2Info: {fileID: 11400000, guid: 6e1b4c6729c554e248b46a54a5319a0a, type: 2}
-  skill3Info: {fileID: 11400000, guid: 1174f220c8d564f2da1089e2e0107211, type: 2}
-  skill4Info: {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
-  skillBasicSprite: {fileID: 21300000, guid: bb4428fe7b4fe4367a7a424eab36d0c2, type: 3}
-  skill1Sprite: {fileID: 21300000, guid: e88ed245af34b44a09d395d5767df93b, type: 3}
-  skill2Sprite: {fileID: 21300000, guid: 3b961129105594fd8a47cba07332bb0a, type: 3}
-  skill3Sprite: {fileID: 21300000, guid: 7ace4db523322437c810c82678f0680f, type: 3}
-  skill4Sprite: {fileID: 21300000, guid: d19e1e4711fa645539bce8af849e0e78, type: 3}
   skillBackground: {fileID: 21300000, guid: a3a6ee393ec9f494bb2b2f4aea4a12de, type: 3}
-  selectedSkills:
-  - {fileID: 21300000, guid: 4fb41a8fd5aa14e7b9dc6b80bc4ef918, type: 3}
-  - {fileID: 21300000, guid: 7d73c1279f2c449d58542ffb421ba488, type: 3}
-  - {fileID: 21300000, guid: ade6405e69e324e35b3098b2089472be, type: 3}
-  - {fileID: 21300000, guid: de52ef4c6d6c343ffad96c0d4e163447, type: 3}
-  - {fileID: 21300000, guid: 5dbcbc7f5edb94cbcb7d824756a4cb78, type: 3}
-  notSelectedSkills:
-  - {fileID: 21300000, guid: 7cff1e476dc6c4b85b78d6b0cd5f0dd8, type: 3}
-  - {fileID: 21300000, guid: 182f1e310174b439898fc8031d45b24e, type: 3}
-  - {fileID: 21300000, guid: 50c898f99c4be4c0b82c96f689460513, type: 3}
-  - {fileID: 21300000, guid: 80b979e068bdd494fbeb983d7924dcf3, type: 3}
-  - {fileID: 21300000, guid: e9a2fccb68ec044bca32885021efa7da, type: 3}
+  InputFeedbackColor:
+    serializedVersion: 2
+    rgba: 4278234390
   skillsInfo:
   - {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
   - {fileID: 11400000, guid: 279a098f0c0664c50a725ed54d4f8e2c, type: 2}
   - {fileID: 11400000, guid: 6e1b4c6729c554e248b46a54a5319a0a, type: 2}
   - {fileID: 11400000, guid: 1174f220c8d564f2da1089e2e0107211, type: 2}
   - {fileID: 11400000, guid: ee20a1cfb77b14f73b4ded5ec082cc61, type: 2}
-  InputFeedbackColor:
-    serializedVersion: 2
-    rgba: 4278234390
+  skillBasicInfo: {fileID: 11400000, guid: 1794f232504ea4f70882e62643ba4f27, type: 2}
+  skill1Info: {fileID: 11400000, guid: 279a098f0c0664c50a725ed54d4f8e2c, type: 2}
+  skill2Info: {fileID: 11400000, guid: 6e1b4c6729c554e248b46a54a5319a0a, type: 2}
+  skill3Info: {fileID: 11400000, guid: 1174f220c8d564f2da1089e2e0107211, type: 2}
