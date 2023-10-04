@@ -16,10 +16,6 @@ public class SkillInfo : ScriptableObject
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
     public GameObject projectilePrefab;
-    public GameObject feedbackVfx;
-    public float feedbackVfxDuration;
-    public GameObject startFeedbackVfx;
-    public float startFeedbackVfxDuration;
     public bool instantiateVfxOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
@@ -42,4 +38,13 @@ public class SkillInfo : ScriptableObject
     {
         return this.name.ToLower() == skillConfigItem.Name.ToLower();
     }
+
+    [Header("Feedbacks")]
+    public GameObject feedbackVfx;
+    public float feedbackVfxDuration;
+    public float feedbackVfxDelay;
+    public GameObject startFeedbackVfx;
+    public float startFeedbackVfxDuration;
+    public float startFeedbackVfxDelay;
+    public GameObject animationVfx;
 }
