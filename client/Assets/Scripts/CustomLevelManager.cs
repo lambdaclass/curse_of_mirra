@@ -47,6 +47,8 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
+    private ulong playerToFollowId;
+
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
@@ -90,6 +92,7 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         playerId = LobbyConnection.Instance.playerId;
+        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
@@ -319,12 +322,14 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        var alivePlayers = Utils.GetAlivePlayers();
-        if (alivePlayers.Count() > 0)
-        {
-            playerToFollow = alivePlayers.ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
-        }
+        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+        StartCoroutine(WaitToChangeCamera(playerToFollow));
+    }
+
+    private IEnumerator WaitToChangeCamera(Player player)
+    {
+        yield return new WaitUntil(() => player != null);
+        setCameraToPlayer(playerToFollow.Id);
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
