@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 // TODO: this could probably be a part of another class
 public class CharacterFeedbackManager : MonoBehaviour

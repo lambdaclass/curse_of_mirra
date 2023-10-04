@@ -57,6 +57,7 @@ MonoBehaviour:
   FeedbackContainer: {fileID: 2245838494617956913}
   AimDirection: {fileID: 504285555944152676}
   SkillRange: {fileID: 7220386294724277444}
+  CharacterFeedbackManager: {fileID: 0}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +72,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   umaMarks: {fileID: 3575391336039923830}
   currentMark: 0
---- !u!1001 &736706980731925996
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -656,6 +656,12 @@ GameObject:
 --- !u!224 &5694839354157769067 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 9192134172331002343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8808009727120482489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 409074941635815774, guid: 20e098dcba25946b6b2853c408723ff3,
     type: 3}
   m_PrefabInstance: {fileID: 9192134172331002343}
   m_PrefabAsset: {fileID: 0}

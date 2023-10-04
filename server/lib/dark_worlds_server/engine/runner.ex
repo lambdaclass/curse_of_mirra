@@ -311,7 +311,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} =
+      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
@@ -392,7 +393,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
-    map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
+    map_shrink_minimum_radius =
+      gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
 
     map_shrink_interval_ms =
       Map.get(
@@ -531,7 +533,8 @@ defmodule DarkWorldsServer.Engine.Runner do
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-        players_with_character = Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
+        players_with_character =
+          Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
 
         players_without_character =
           Enum.filter(state[:players], fn player_id ->

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: YUGEN'S MARK
+  name: "XANDA\u2019S MARK"
   description: 'Target a nearby enemy, inflicting a Mark for a short period which
     poisons the enemy, dealing damage over time. Taints her enemy preparing it for
     the kill. This mark is named before her first born. '
-  inputType: 2
+  inputType: 0
   angle: 0
   executeOnQuickTap: 1
   indicatorType: 0
@@ -31,8 +31,8 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 0
-  skillCircleRadius: 11
-  skillConeAngle: 45
+  skillCircleRadius: 12
+  skillConeAngle: 0
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1

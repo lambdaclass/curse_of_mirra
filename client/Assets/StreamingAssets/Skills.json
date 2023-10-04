@@ -128,10 +128,10 @@
     },
     {
       "Name": "Xandas Mark",
-      "Cooldown": "500",
+      "Cooldown": "9000",
       "Damage": "0",
-      "Duration": "5000",
-      "SkillRange": "0",
+      "Duration": "8000",
+      "SkillRange": "450",
       "Par1": "0",
       "Par1Desc": "",
       "Par2": "0",
@@ -142,7 +142,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "0"
+      "Angle": "360"
     },
     {
       "Name": "Shadowstep",
