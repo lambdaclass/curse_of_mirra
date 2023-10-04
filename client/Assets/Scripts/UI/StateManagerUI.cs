@@ -8,9 +8,12 @@ public class StateManagerUI : MonoBehaviour
     [SerializeField]
     public List<GameObject> states;
 
-    public void ToggleState(string name, bool isActive)
+    public void ToggleState(string name, ulong playerUpdateId, bool isActive)
     {
-        GetState(name).SetActive(isActive);
+        if (SocketConnectionManager.Instance.playerId == playerUpdateId)
+        {
+            GetState(name).SetActive(isActive);
+        }
     }
 
     public GameObject GetState(string name)

@@ -937,17 +937,11 @@ public class Battle : MonoBehaviour
                 if (playerUpdate.Effects.ContainsKey((ulong)effect))
                 {
                     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
-                    if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
-                    {
-                        CustomGUIManager.stateManagerUI.ToggleState(name, true);
-                    }
+                    CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, true);
                 }
                 else
                 {
-                    if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
-                    {
-                        CustomGUIManager.stateManagerUI.ToggleState(name, false);
-                    }
+                    CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, false);
                 }
             }
         }
