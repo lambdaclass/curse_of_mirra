@@ -220,7 +220,6 @@ public class Battle : MonoBehaviour
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
                 Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-
                 if (
                     serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
                     && useClientPrediction

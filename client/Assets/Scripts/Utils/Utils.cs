@@ -56,6 +56,38 @@ public class Utils
         );
     }
 
+    public static Player GetNearestPlayer(Position toCompare)
+    {
+        ulong aux_X = 0;
+        ulong aux_Y = 0;
+        Player nearest_player = null;
+        SocketConnectionManager.Instance.gamePlayers.ForEach(player =>
+        {
+            if (aux_Y == 0 && aux_Y == 0)
+            {
+                aux_X = toCompare.X - player.Position.X;
+                aux_Y = toCompare.Y - player.Position.Y;
+                nearest_player = player;
+            }
+            else
+            {
+                if (
+                    aux_X > (toCompare.X - player.Position.X)
+                    && aux_Y > (toCompare.Y - player.Position.Y)
+                )
+                {
+                    aux_X = toCompare.X - player.Position.X;
+                    nearest_player = player;
+                }
+            }
+        });
+
+        // return SocketConnectionManager.Instance.gamePlayers.Find(
+        //     player => player;
+        // );
+        return nearest_player;
+    }
+
     public static MMSimpleObjectPooler SimpleObjectPooler(
         string name,
         Transform parentTransform,
