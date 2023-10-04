@@ -899,6 +899,21 @@ public class Battle : MonoBehaviour
                 .GetComponent<CharacterFeedbackManager>()
                 .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
         }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
+        }
 
         return characterSpeed;
     }

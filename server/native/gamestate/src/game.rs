@@ -529,7 +529,9 @@ impl GameState {
     ) -> Option<(u64, Position)> {
         let mut nearest_player = None;
         let mut nearest_distance = max_distance;
-        let mut lowest_hp = 100;
+        let mut lowest_hp = 1000;
+
+        println!("finding nearest player");
 
         for player in players {
             if player.id != attacking_player_id && matches!(player.status, Status::ALIVE) {
@@ -550,7 +552,7 @@ impl GameState {
                 }
             }
         }
-
+        println!("nearest player = {:?}", nearest_player);
         nearest_player
     }
 
@@ -900,10 +902,17 @@ impl GameState {
             ),
             Name::Muflus => Self::muflus_skill_2(attacking_player),
             Name::Uma => {
+                println!("Uma is attacking with Skill2 - Xanda's Mark");
                 let attacking_player =
                     GameState::get_player_mut(&mut self.players, attacking_player_id)?;
                 let attacking_player_id = attacking_player.id;
                 let duration = attacking_player.character.duration_skill_2();
+                //println!("{:?}", &pys);
+                println!("{:?}", &attacking_player.position);
+                println!("{:?}", &attacking_player.direction);
+                println!("{:?}", attacking_player.id);
+                println!("{:?}", attack_angle);
+
                 match Self::nearest_player(
                     &pys,
                     &attacking_player.position,
@@ -913,9 +922,10 @@ impl GameState {
                     attack_angle,
                 ) {
                     Some((player_id, _position)) => {
+                        println!("Nearest player found");
                         attacking_player.add_effect(
                             Effect::XandaMarkOwner,
-                            false,
+                            true,
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
@@ -933,7 +943,7 @@ impl GameState {
                             GameState::get_player_mut(&mut self.players, player_id)?;
                         attacked_player.add_effect(
                             Effect::XandaMark,
-                            false,
+                            true,
                             EffectData {
                                 time_left: duration,
                                 ends_at: add_millis(now, duration),
@@ -945,7 +955,8 @@ impl GameState {
                                 caused_to: attacked_player.id,
                                 damage: 0,
                             },
-                        )
+                        );
+                        println!("Xanda's Mark effects applied?");
                     }
                     None => (),
                 };
