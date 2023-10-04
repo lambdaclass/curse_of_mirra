@@ -290,7 +290,7 @@ MonoBehaviour:
   ChangeLayersRecursivelyOnDeath: 0
   LayerOnDeath:
     _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 5643974057392810740}
+  DeathMMFeedbacks: {fileID: 5973157310221602209}
   ResetColorOnRevive: 1
   ColorMaterialPropertyName: _Color
   UseMaterialPropertyBlocks: 0
@@ -516,9 +516,9 @@ MonoBehaviour:
   characterModel: {fileID: 5450023447993378974}
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
-  - {fileID: 1214908588437706415}
+  - {fileID: 895018412278084090}
   feedbacksPrefabs:
-  - {fileID: 5170985737378874173}
+  - {fileID: 6590048612560282728}
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -597,10 +597,20 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5450023447993379102}
+    - target: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3474089471427560328, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938553123194918875, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.058
       objectReference: {fileID: 0}
     - target: {fileID: 5694839354157769067, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -642,6 +652,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 35.727
       objectReference: {fileID: 0}
+    - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: FeedbackContainer
+      value: 
+      objectReference: {fileID: 2555543476477378627}
     - target: {fileID: 6358736928028733582, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -654,9 +669,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
---- !u!1 &1214908588437706415 stripped
+--- !u!1 &895018412278084090 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3474089471427560328, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2371788534584169767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2555543476477378627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 2371788534584169767}
   m_PrefabAsset: {fileID: 0}
@@ -666,15 +687,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2371788534584169767}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5170985737378874173 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7433544379751437850, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2371788534584169767}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5643974057392810740 stripped
+--- !u!114 &5973157310221602209 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7978449564968484819, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 8218686647784609926, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 2371788534584169767}
   m_PrefabAsset: {fileID: 0}
@@ -684,6 +699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6590048612560282728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2371788534584169767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8637859798674725549 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
