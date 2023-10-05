@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SLINGSHOT
   description: High speed ranged attack, can bounce off walls, like a pinball machine.
-  inputType: 0
-  angle: 120
-  executeOnQuickTap: 0
-  indicatorType: 3
+  inputType: 2
+  angle: 180
+  executeOnQuickTap: 1
+  indicatorType: 0
   projectilePrefab: {fileID: 5269552939558784490, guid: 80e8c347e1d344c8d904d75ece7493dc,
     type: 3}
   feedbackVfx: {fileID: 0}
@@ -31,7 +31,7 @@ MonoBehaviour:
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 3.5
-  skillConeAngle: 0
+  skillConeAngle: 180
   arrowWidth: 0
   skillAreaRadius: 3.5
   showCooldown: 0
