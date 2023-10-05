@@ -185,7 +185,7 @@
       "Cooldown": "800",
       "Damage": "9",
       "Duration": "0",
-      "SkillRange": "350",
+      "SkillRange": "0",
       "Par1": "100",
       "Par1Desc": "Projectile speed",
       "Par2": "0",
@@ -196,7 +196,7 @@
       "Par4Desc": "",
       "Par5": "0",
       "Par5Desc": "",
-      "Angle": "120"
+      "Angle": "45"
     },
     {
       "Name": "Multishot",
