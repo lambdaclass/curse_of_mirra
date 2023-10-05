@@ -37,6 +37,7 @@ public class Battle : MonoBehaviour
     private enum StateEffects
     {
         Slowed = PlayerEffect.Slowed,
+        Paralyzed = PlayerEffect.Paralyzed,
     }
 
     void Start()
@@ -932,23 +933,16 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
+        foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
-            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
-        }
-
-        foreach (ulong key in playerUpdate.Effects.Keys)
-        {
-            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
+            string name = Enum.GetName(typeof(StateEffects), effect);
+            if (playerUpdate.Effects.ContainsKey((ulong)effect))
             {
-                if (playerUpdate.Effects.ContainsKey((ulong)effect))
-                {
-                    string name = Enum.GetName(typeof(StateEffects), effect);
-                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    player
-                        .GetComponent<CharacterFeedbacks>()
-                        .SetActiveFeedback(player, name, isActive);
-                }
+                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
+            }
+            else
+            {
+                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, false);
             }
         }
     }

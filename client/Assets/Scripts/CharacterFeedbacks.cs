@@ -139,7 +139,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
     {
-        SetActiveStateFeedback(feedbackName, true);
+        SetActiveStateFeedback(feedbackName, value);
     }
 
     public void ClearAllFeedbacks(GameObject player)
