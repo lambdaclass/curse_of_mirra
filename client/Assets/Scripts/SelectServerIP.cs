@@ -17,6 +17,9 @@ public class SelectServerIP : MonoBehaviour
     public static string serverIp;
     public static string serverNameString;
 
+    // TODO: This should be a config file
+    private const string _defaultServerIp = "aws-testing.dark-worlds.lambdaclass.com";
+
     public void SetServerIp()
     {
         serverIp = IP.text;
@@ -28,11 +31,11 @@ public class SelectServerIP : MonoBehaviour
 
     public static string GetServerIp()
     {
-        return string.IsNullOrEmpty(serverIp) ? "localhost" : serverIp;
+        return string.IsNullOrEmpty(serverIp) ? _defaultServerIp : serverIp;
     }
 
     public static string GetServerName()
     {
-        return string.IsNullOrEmpty(serverNameString) ? "LocalHost" : serverNameString;
+        return string.IsNullOrEmpty(serverNameString) ? "Brazil" : serverNameString;
     }
 }

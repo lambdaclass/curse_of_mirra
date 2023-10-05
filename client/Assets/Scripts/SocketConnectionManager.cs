@@ -15,10 +15,10 @@ public class SocketConnectionManager : MonoBehaviour
     public static Dictionary<int, GameObject> projectilesStatic;
 
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
-    public string session_id = "";
+    public string sessionId = "";
 
     [Tooltip("IP to connect to. If empty, localhost will be used")]
-    public string server_ip = "localhost";
+    public string serverIp = "localhost";
     public static SocketConnectionManager Instance;
     public List<Player> gamePlayers;
     public GameEvent gameEvent;
@@ -53,7 +53,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public class Session
     {
-        public string session_id { get; set; }
+        public string sessionId { get; set; }
     }
 
     public void Awake()
@@ -74,8 +74,8 @@ public class SocketConnectionManager : MonoBehaviour
         else
         {
             Instance = this;
-            this.session_id = LobbyConnection.Instance.GameSession;
-            this.server_ip = LobbyConnection.Instance.server_ip;
+            this.sessionId = LobbyConnection.Instance.GameSession;
+            this.serverIp = LobbyConnection.Instance.serverIp;
             this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
@@ -94,7 +94,7 @@ public class SocketConnectionManager : MonoBehaviour
     void Start()
     {
         playerId = LobbyConnection.Instance.playerId;
-        ConnectToSession(this.session_id);
+        ConnectToSession(this.sessionId);
         eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     }
 
@@ -108,9 +108,9 @@ public class SocketConnectionManager : MonoBehaviour
 #endif
     }
 
-    private void ConnectToSession(string session_id)
+    private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + session_id + "/" + this.clientId + "/" + playerId);
+        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
@@ -128,20 +128,20 @@ public class SocketConnectionManager : MonoBehaviour
     {
         try
         {
-            GameEvent game_event = GameEvent.Parser.ParseFrom(data);
-            switch (game_event.Type)
+            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+            switch (gameEvent.Type)
             {
                 case GameEventType.StateUpdate:
-                    this.playableRadius = game_event.PlayableRadius;
-                    this.shrinkingCenter = game_event.ShrinkingCenter;
-                    KillFeedManager.instance.putEvents(game_event.Killfeed.ToList());
+                    this.playableRadius = gameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
+                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
                     if (
                         this.gamePlayers != null
-                        && this.gamePlayers.Count < game_event.Players.Count
+                        && this.gamePlayers.Count < gameEvent.Players.Count
                         && SpawnBot.Instance != null
                     )
                     {
-                        game_event.Players
+                        gameEvent.Players
                             .ToList()
                             .FindAll((player) => !this.gamePlayers.Contains(player))
                             .ForEach(
@@ -152,22 +152,22 @@ public class SocketConnectionManager : MonoBehaviour
                             );
                     }
                     // This should be deleted when the match end is fixed
-                    // game_event.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
-                    this.gamePlayers = game_event.Players.ToList();
-                    eventsBuffer.AddEvent(game_event);
-                    this.gameProjectiles = game_event.Projectiles.ToList();
-                    alivePlayers = game_event.Players.ToList().FindAll(el => el.Health > 0);
-                    updatedLoots = game_event.Loots.ToList();
+                    // gameEvent.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
+                    this.gamePlayers = gameEvent.Players.ToList();
+                    eventsBuffer.AddEvent(gameEvent);
+                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
+                    updatedLoots = gameEvent.Loots.ToList();
                     break;
                 case GameEventType.PingUpdate:
-                    currentPing = (uint)game_event.Latency;
+                    currentPing = (uint)gameEvent.Latency;
                     break;
                 case GameEventType.GameFinished:
-                    winnerPlayer.Item1 = game_event.WinnerPlayer;
-                    winnerPlayer.Item2 = game_event.WinnerPlayer.KillCount;
-                    this.gamePlayers = game_event.Players.ToList();
+                    winnerPlayer.Item1 = gameEvent.WinnerPlayer;
+                    winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
+                    this.gamePlayers = gameEvent.Players.ToList();
                     // This should be uncommented when the match end is finished
-                    // game_event.Players
+                    // gameEvent.Players
                     //     .ToList()
                     //     .ForEach(
                     //         (player) =>
@@ -184,22 +184,22 @@ public class SocketConnectionManager : MonoBehaviour
                     //     );
                     break;
                 case GameEventType.InitialPositions:
-                    this.gamePlayers = game_event.Players.ToList();
+                    this.gamePlayers = gameEvent.Players.ToList();
                     break;
                 case GameEventType.SelectedCharacterUpdate:
                     this.selectedCharacters = fromMapFieldToDictionary(
-                        game_event.SelectedCharacters
+                        gameEvent.SelectedCharacters
                     );
                     break;
                 case GameEventType.FinishCharacterSelection:
                     this.selectedCharacters = fromMapFieldToDictionary(
-                        game_event.SelectedCharacters
+                        gameEvent.SelectedCharacters
                     );
                     this.allSelected = true;
-                    this.gamePlayers = game_event.Players.ToList();
+                    this.gamePlayers = gameEvent.Players.ToList();
                     break;
                 default:
-                    print("Message received is: " + game_event.Type);
+                    print("Message received is: " + gameEvent.Type);
                     break;
             }
         }
@@ -232,9 +232,9 @@ public class SocketConnectionManager : MonoBehaviour
         return result;
     }
 
-    public static Player GetPlayer(ulong id, List<Player> player_list)
+    public static Player GetPlayer(ulong id, List<Player> playerList)
     {
-        return player_list.Find(el => el.Id == id);
+        return playerList.Find(el => el.Id == id);
     }
 
     public void SendAction(ClientAction action)
@@ -288,17 +288,17 @@ public class SocketConnectionManager : MonoBehaviour
             port = 4000;
         }
 
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "http://" + server_ip + ":" + port + path;
+            return "http://" + serverIp + ":" + port + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":" + port + path;
+            return "http://" + serverIp + ":" + port + path;
         }
         else
         {
-            return "https://" + server_ip + path;
+            return "https://" + serverIp + path;
         }
     }
 
@@ -317,17 +317,17 @@ public class SocketConnectionManager : MonoBehaviour
             port = 4000;
         }
 
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":" + port + path;
+            return "ws://" + serverIp + ":" + port + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":" + port + path;
+            return "ws://" + serverIp + ":" + port + path;
         }
         else
         {
-            return "wss://" + server_ip + path;
+            return "wss://" + serverIp + path;
         }
     }
 

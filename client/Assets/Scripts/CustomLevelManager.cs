@@ -180,27 +180,37 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(CoMCharacter characterInfo){
+    private void SetSkillAngles(CoMCharacter characterInfo)
+    {
         var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
-       
+
         List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        float basicSkillInfoAngle = jsonSkills.Exists(skill => characterInfo.skillBasicInfo.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle) : 0;
+        float basicSkillInfoAngle = jsonSkills.Exists(
+            skill => characterInfo.skillBasicInfo.Equals(skill)
+        )
+            ? float.Parse(
+                jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle
+            )
+            : 0;
         characterInfo.skillBasicInfo.angle = basicSkillInfoAngle;
 
-        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle) : 0;
+        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill1Info.angle = skill1InfoAngle;
 
-        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle) : 0;
+        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill2Info.angle = skill2InfoAngle;
 
-        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle) : 0;
+        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle)
+            : 0;
         characterInfo.skill3Info.angle = skill3InfoAngle;
-
-        float skill4InfoAngle = jsonSkills.Exists(skill => characterInfo.skill4Info.Equals(skill)) ? float.Parse(jsonSkills.Find(skill => characterInfo.skill4Info.Equals(skill)).Angle) : 0;
-        characterInfo.skill4Info.angle = skill4InfoAngle;
     }
-    
+
     private void SetPlayersSkills(ulong clientPlayerId)
     {
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
@@ -213,13 +223,11 @@ public class CustomLevelManager : LevelManager
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
             Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
-            Skill4 skill4 = player.gameObject.AddComponent<Skill4>();
 
             skillList.Add(skillBasic);
             skillList.Add(skill1);
             skillList.Add(skill2);
             skillList.Add(skill3);
-            skillList.Add(skill4);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -238,7 +246,6 @@ public class CustomLevelManager : LevelManager
             skill1.SetSkill(Action.Skill1, characterInfo.skill1Info, skillsAnimationEvent);
             skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
             skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
-            skill4.SetSkill(Action.Skill4, characterInfo.skill4Info, skillsAnimationEvent);
 
             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
@@ -277,11 +284,6 @@ public class CustomLevelManager : LevelManager
                     UIControls.Skill3,
                     characterInfo.skill3Info.inputType,
                     skill3
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill4,
-                    characterInfo.skill4Info.inputType,
-                    skill4
                 );
             }
 

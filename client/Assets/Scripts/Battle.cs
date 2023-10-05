@@ -16,6 +16,9 @@ public class Battle : MonoBehaviour
     [SerializeField]
     CustomInputManager InputManager;
 
+    [SerializeField]
+    CustomGUIManager CustomGUIManager;
+
     public bool showClientPredictionGhost;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -29,7 +32,6 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
-    private bool healthBarColorChanged;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -46,7 +48,6 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
-        healthBarColorChanged = false;
     }
 
     private void InitBlockingStates()
@@ -282,15 +283,6 @@ public class Battle : MonoBehaviour
                     SetPlayerDead(playerCharacter);
                 }
 
-                if (serverPlayerUpdate.Id != SocketConnectionManager.Instance.playerId)
-                {
-                    // TODO: Refactor: create a script/reference.
-                    currentPlayer
-                        .GetComponent<CustomCharacter>()
-                        .characterBase.Position.GetComponent<Renderer>()
-                        .material.color = new Color(1, 0, 0, .5f);
-                }
-
                 Transform hitbox = currentPlayer
                     .GetComponent<CustomCharacter>()
                     .characterBase.Hitbox.transform;
@@ -340,14 +332,6 @@ public class Battle : MonoBehaviour
                 break;
             case PlayerAction.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerAction.StartingSkill4:
-                currentPlayer.GetComponent<Skill4>().StartFeedback();
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerAction.ExecutingSkill4:
-                currentPlayer.GetComponent<Skill4>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
         }
@@ -504,11 +488,6 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill3>().GetSkillInfo().showCooldown
             );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill4,
-                (float)playerUpdate.Skill4CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill4>().GetSkillInfo().showCooldown
-            );
         }
     }
 
@@ -516,17 +495,9 @@ public class Battle : MonoBehaviour
     {
         Health healthComponent = player.GetComponent<Health>();
 
-        // Display damage done on you on your client
-        GetComponent<PlayerFeedbacks>()
-            .DisplayDamageRecieved(player, healthComponent, playerUpdate.Health, playerUpdate.Id);
-
-        // Display damage done on others players (not you)
-        GetComponent<PlayerFeedbacks>()
-            .ChangePlayerTextureOnDamage(
-                player,
-                healthComponent.CurrentHealth,
-                playerUpdate.Health
-            );
+        player
+            .GetComponent<CharacterFeedbacks>()
+            .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -664,11 +635,11 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
     {
-        GetComponent<PlayerFeedbacks>().PlayDeathFeedback(playerCharacter);
+        playerCharacter.GetComponent<CharacterFeedbacks>().PlayDeathFeedback();
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
-        playerCharacter.characterBase.Position.SetActive(false);
+        CustomGUIManager.DisplayZoneDamageFeedback(false);
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -853,27 +824,16 @@ public class Battle : MonoBehaviour
             }
         }
 
-        // TODO: Temporary out of area feedback. Refactor!
-        if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea)
-            && !playerMaterialColorChanged
-        )
+        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
         {
-            Utils.ChangeCharacterMaterialColor(character, Color.magenta);
-            playerMaterialColorChanged = true;
-        }
-        else
-        {
-            Utils.ChangeCharacterMaterialColor(character, Color.white);
-            playerMaterialColorChanged = false;
-        }
-
-        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
-        {
-            GetComponent<PlayerFeedbacks>()
-                .ExecuteH4ckDisarmFeedback(
-                    playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Disarmed)
-                );
+            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
+            {
+                CustomGUIManager.DisplayZoneDamageFeedback(true);
+            }
+            else
+            {
+                CustomGUIManager.DisplayZoneDamageFeedback(false);
+            }
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
@@ -895,26 +855,86 @@ public class Battle : MonoBehaviour
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
         if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned) && !healthBarColorChanged
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
         )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
-            healthBarColorChanged = true;
+        }
+        if (
+            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+        )
+        {
+            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
+        }
+
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+            }
         }
         else
         {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
-            healthBarColorChanged = false;
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
         }
 
         return characterSpeed;
+    }
+
+    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
+    {
+        ulong attackerId = GetEffectCauser(playerUpdate, effect);
+        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
+            || attackerId == SocketConnectionManager.Instance.playerId;
+    }
+
+    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
+    {
+        return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
         if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
         {
-            GetComponent<PlayerFeedbacks>().ClearAllFeedbacks(player);
+            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
         }
 
         foreach (ulong key in playerUpdate.Effects.Keys)
@@ -925,8 +945,9 @@ public class Battle : MonoBehaviour
                 {
                     string name = Enum.GetName(typeof(StateEffects), effect);
                     bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    print(name + " " + isActive);
-                    GetComponent<PlayerFeedbacks>().SetActiveFeedback(player, name, isActive);
+                    player
+                        .GetComponent<CharacterFeedbacks>()
+                        .SetActiveFeedback(player, name, isActive);
                 }
             }
         }

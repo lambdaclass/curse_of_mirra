@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Muflus_Melee
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: BASH
-  description: Targets an arc in front of you, dealing damage. Muflus wields a chainsaw
-    tipped club fiercely against his enemies.
+  description: Targets an arc in front of you, dealing damage.
   inputType: 0
+  angle: 0
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -34,3 +34,4 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 4.5
   showCooldown: 0
+  skillSprite: {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
