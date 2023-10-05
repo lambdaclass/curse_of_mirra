@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
 {
@@ -39,6 +41,10 @@ public class Skill : CharacterAbility
         this.skillInfo = skillInfo;
         this.skillsAnimationEvent = skillsAnimationEvent;
         this.AbilityStartSfx = skillInfo.abilityStartSfx;
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            this.AbilityStopSfx = skillInfo.abilityStopSfx;
+        }
     }
 
     protected override void Start()
@@ -112,6 +118,7 @@ public class Skill : CharacterAbility
     {
         return skillInfo;
     }
+
     public GameObject GetProjectileFromSkill()
     {
         return skillInfo?.projectilePrefab;
@@ -306,7 +313,8 @@ public class Skill : CharacterAbility
         AbilityStopFeedbacks?.StopFeedbacks();
     }
 
-    public float GetAngle(){
+    public float GetAngle()
+    {
         return this.skillInfo.angle;
     }
 

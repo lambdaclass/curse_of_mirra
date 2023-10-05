@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Does a 360deg spin with the weapon extended, dealing great damage
     nearly instantly in the area.
   inputType: 0
-  angle: 0
+  angle: 360
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
@@ -28,12 +28,14 @@ MonoBehaviour:
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 8300000, guid: c590b419253be4535bc86a275dda97e4, type: 3}
+  abilityStartSfx: {fileID: 8300000, guid: a45528f069f5d4285a8a43fee8244921, type: 3}
+  sfxHasAbilityStop: 0
+  abilityStopSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 4.5
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 4.5
+  skillAreaRadius: 5
   showCooldown: 1
   skillSprite: {fileID: 21300000, guid: 8f6fd7484022f4a83a5152c63ff4370d, type: 3}
