@@ -1,12 +1,12 @@
 ﻿{
   "Name": "dev",
-  "board_width": "10000",
-  "board_height": "10000",
+  "board_width": "16000",
+  "board_height": "16000",
   "server_tickrate_ms": "30",
   "game_timeout_ms": "1200000",
-  "map_shrink_wait_ms": "30000",
+  "map_shrink_wait_ms": "3000000",
   "map_shrink_interval": "40",
-  "map_shrink_minimum_radius": "1800",
+  "map_shrink_minimum_radius": "18000000",
   "out_of_area_damage": "10",
   "use_proxy": "false",
   "spawn_loot_interval_ms": "15000"
