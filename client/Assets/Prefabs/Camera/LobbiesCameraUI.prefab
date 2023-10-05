@@ -3432,7 +3432,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3564,6 +3564,7 @@ MonoBehaviour:
   mutedSprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
   unmutedSprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
   volumeSlider: {fileID: 0}
+  channel: 1
 --- !u!1 &4407779193814417940
 GameObject:
   m_ObjectHideFlags: 0
