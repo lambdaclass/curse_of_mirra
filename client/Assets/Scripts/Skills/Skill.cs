@@ -223,12 +223,12 @@ public class Skill : CharacterAbility
                     )
                 );
             }
+        }
 
-            if (!skillInfo.sfxHasAbilityStop)
-            {
-                GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
-                GetComponentInChildren<Sound3DManager>().PlaySfxSound();
-            }
+        if (!skillInfo.sfxHasAbilityStop)
+        {
+            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
         }
 
         if (skillInfo.feedbackVfx)
