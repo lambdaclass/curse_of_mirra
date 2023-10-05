@@ -933,30 +933,16 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
+        foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
-            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
-            if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+            string name = Enum.GetName(typeof(StateEffects), effect);
+            if (playerUpdate.Effects.ContainsKey((ulong)effect))
             {
-                CustomGUIManager.stateManagerUI.ClearAllStates();
+                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
             }
-        }
-
-        foreach (ulong key in playerUpdate.Effects.Keys)
-        {
-            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
+            else
             {
-                string name = Enum.GetName(typeof(StateEffects), effect);
-                bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                if (playerUpdate.Effects.ContainsKey((ulong)effect))
-                {
-                    player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
-                    CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, true);
-                }
-                else
-                {
-                    CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, false);
-                }
+                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, false);
             }
         }
     }
