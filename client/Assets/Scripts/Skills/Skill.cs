@@ -196,6 +196,14 @@ public class Skill : CharacterAbility
             }
             StartCoroutine(StopStartFeedbackVfx(skillInfo.startFeedbackVfxDuration));
         }
+
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            // We have to change the abilityStartSfx to abilityStopSfx when we have 2 sfx for each animation, for now this is a little hack
+            GetComponentInChildren<Sound3DManager>()
+                .SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
+        }
     }
 
     public void ExecuteFeedback()
@@ -216,8 +224,11 @@ public class Skill : CharacterAbility
                 );
             }
 
-            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
-            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
+            if (!skillInfo.sfxHasAbilityStop)
+            {
+                GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
+                GetComponentInChildren<Sound3DManager>().PlaySfxSound();
+            }
         }
 
         if (skillInfo.feedbackVfx)
