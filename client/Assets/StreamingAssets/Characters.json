@@ -36,9 +36,9 @@
       "Faction": "oto",
       "BaseSpeed": "25",
       "SkillBasic": "Slingshot",
-      "SkillActive1": "Multishot",
+      "SkillActive1": "Neon Crash",
       "SkillActive2": "Disarm",
-      "SkillDash": "Neon Crash",
+      "SkillDash": "Denial of Service",
       "SkillUltimate": "Denial of Service",
       "BodySize": "80"
     },
