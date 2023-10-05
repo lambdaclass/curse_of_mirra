@@ -48,9 +48,9 @@ public class ClientPrediction
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
             var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
 
-            newPositionX = Math.Min(newPositionX, (10000 - 1));
+            newPositionX = Math.Min(newPositionX, (16000 - 1));
             newPositionX = Math.Max(newPositionX, 0);
-            newPositionY = Math.Min(newPositionY, (10000 - 1));
+            newPositionY = Math.Min(newPositionY, (16000 - 1));
             newPositionY = Math.Max(newPositionY, 0);
 
             newPlayerPosition.X = (ulong)newPositionX;

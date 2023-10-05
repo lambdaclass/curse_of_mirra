@@ -19,8 +19,8 @@ public class Utils
 
     public static Vector3 transformBackendPositionToFrontendPosition(Position position)
     {
-        var x = (long)position?.Y / 100f - 50.0f;
-        var y = (-((long)position?.X)) / 100f + 50.0f;
+        var x = (long)position?.Y / 100f;
+        var y = (-((long)position?.X)) / 100f;
         return new Vector3(x, 1f, y);
     }
 

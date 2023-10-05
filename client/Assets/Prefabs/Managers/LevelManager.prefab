@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100, y: 30, z: 140}
+  m_Size: {x: 300, y: 30, z: 300}
   m_Center: {x: 0, y: 0, z: -17.9}
 --- !u!114 &4421236017082313433
 MonoBehaviour:
@@ -136,7 +136,7 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  quickMapPrefab: {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07,
+  quickMapPrefab: {fileID: 8260821150174466730, guid: 887d96ee8bbc04c01bc2afbad1b927a9,
     type: 3}
   quickGamePrefab: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854,
     type: 3}
