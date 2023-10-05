@@ -97,6 +97,7 @@ defmodule DarkWorldsServer.Engine.Runner do
        game_status: :character_selection,
        player_timestamps: %{},
        bot_handler_pid: nil,
+       player_to_client_id: %{},
        opts: opts
      }}
   end
@@ -226,7 +227,8 @@ defmodule DarkWorldsServer.Engine.Runner do
          current_players: gen_server_state.current_players + 1,
          max_players: gen_server_state.max_players + 1,
          selected_characters: selected_characters,
-         bot_handler_pid: bot_handler_pid
+         bot_handler_pid: bot_handler_pid,
+         is_single_player?: false
      }}
   end
 
@@ -275,7 +277,12 @@ defmodule DarkWorldsServer.Engine.Runner do
       broadcast_to_darkworlds_server({:player_joined, player_id})
       PlayerTracker.add_player_game(client_id, player_id, self())
 
-      {:reply, {:ok, player_id}, %{gen_server_state | current_players: gen_server_state.current_players + 1}}
+      gen_server_state =
+        gen_server_state
+        |> Map.put(:current_players, gen_server_state.current_players + 1)
+        |> put_in([:player_to_client_id, player_id], client_id)
+
+      {:reply, {:ok, player_id}, gen_server_state}
     else
       {:reply, {:error, :game_full}, gen_server_state}
     end
@@ -378,6 +385,11 @@ defmodule DarkWorldsServer.Engine.Runner do
     game =
       server_game_state.game
       |> Game.world_tick(out_of_area_damage)
+
+    Enum.each(game.myrra_state.killfeed, fn {_killed_by, killed} ->
+      Logger.info("Removing player_id #{killed}")
+      PlayerTracker.remove_player(gen_server_state.player_to_client_id[killed])
+    end)
 
     server_game_state = server_game_state |> Map.put(:game, game)
 
