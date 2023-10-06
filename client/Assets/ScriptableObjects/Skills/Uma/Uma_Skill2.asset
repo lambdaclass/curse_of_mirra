@@ -23,12 +23,12 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 2b43317aef3de42a5835435ecc30603e, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
   startAnimationDuration: 0
-  executeAnimationDuration: 0
+  executeAnimationDuration: 0.6
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 0
