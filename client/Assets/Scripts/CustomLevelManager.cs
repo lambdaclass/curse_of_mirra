@@ -95,6 +95,7 @@ public class CustomLevelManager : LevelManager
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
+        SetPlayerHealthBar(playerId);
         setCameraToPlayer(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
@@ -291,6 +292,18 @@ public class CustomLevelManager : LevelManager
             }
 
             StartCoroutine(inputManager.ShowInputs());
+        }
+    }
+
+    private void SetPlayerHealthBar(ulong playerId)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            if (UInt64.Parse(player.PlayerID) == playerId)
+            {
+                MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Cyan);
+            }
         }
     }
 

@@ -867,7 +867,14 @@ public class Battle : MonoBehaviour
             && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
         )
         {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Cyan);
+            }
+            else
+            {
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
+            }
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
