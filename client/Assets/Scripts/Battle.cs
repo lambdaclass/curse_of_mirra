@@ -869,9 +869,7 @@ public class Battle : MonoBehaviour
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                healthBar.ForegroundColor = Utils.GetHealthBarGradient(
-                    new Color32(34, 142, 239, 255)
-                );
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarCyan);
             }
             else
             {
