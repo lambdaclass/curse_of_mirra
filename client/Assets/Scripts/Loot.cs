@@ -30,9 +30,10 @@ public class Loot : MonoBehaviour
     {
         if (!loots.ContainsKey(loot.Id))
         {
-            var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
-            position.y = 0;
             GameObject lootPoolObj = objectPooler.GetPooledGameObject();
+            var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
+            position.y = lootPoolObj.transform.position.y;
+
             lootPoolObj.transform.position = position;
             lootPoolObj.name = loot.Id.ToString();
             lootPoolObj.transform.rotation = Quaternion.identity;
