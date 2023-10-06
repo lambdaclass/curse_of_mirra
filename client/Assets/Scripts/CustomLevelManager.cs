@@ -302,7 +302,9 @@ public class CustomLevelManager : LevelManager
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-                healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Cyan);
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(
+                    new Color32(34, 142, 239, 255)
+                );
             }
         }
     }
