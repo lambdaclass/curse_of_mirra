@@ -857,14 +857,16 @@ public class Battle : MonoBehaviour
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
         if (
             playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+            && !healthBar.ForegroundColor.Equals(
+                Utils.GetHealthBarGradient(Utils.healthBarPoisoned)
+            )
         )
         {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
+            healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarPoisoned);
         }
         if (
             !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(Utils.healthBarPoisoned))
         )
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
@@ -873,7 +875,7 @@ public class Battle : MonoBehaviour
             }
             else
             {
-                healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
+                healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarRed);
             }
         }
 
