@@ -48,11 +48,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Paralyzed
       objectReference: {fileID: 0}
-    - target: {fileID: 2839086473104844235, guid: 262536aa68c064a41aa64eebf8dd30f7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5723725922278119117, guid: 262536aa68c064a41aa64eebf8dd30f7,
         type: 3}
       propertyPath: m_RootOrder

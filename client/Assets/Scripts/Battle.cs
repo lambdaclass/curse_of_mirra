@@ -936,14 +936,10 @@ public class Battle : MonoBehaviour
         foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
             string name = Enum.GetName(typeof(StateEffects), effect);
-            if (playerUpdate.Effects.ContainsKey((ulong)effect))
-            {
-                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, true);
-            }
-            else
-            {
-                player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, false);
-            }
+            bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
+
+            CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
+            player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
 
