@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject noLobbiesText;
 
+    public StateManagerUI stateManagerUI;
+
     void Start()
     {
         SetEmptyListIndicator(true);
