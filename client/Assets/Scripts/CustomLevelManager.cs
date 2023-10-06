@@ -8,6 +8,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -51,6 +52,9 @@ public class CustomLevelManager : LevelManager
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
+
+    [SerializeField]
+    private GameObject spawnParticle;
 
     protected override void Awake()
     {
@@ -104,6 +108,8 @@ public class CustomLevelManager : LevelManager
             this.transform.position,
             true
         );
+
+        Utils.GetCharacter(playerId).characterBase.activateSpawnFeedback();
     }
 
     void Update()
