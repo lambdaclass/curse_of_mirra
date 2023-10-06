@@ -170,13 +170,13 @@ public class LobbyConnection : MonoBehaviour
 
     public void CreateLobby()
     {
-        ValidateVersionHashes();
+        // ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
     {
-        ValidateVersionHashes();
+        // ValidateVersionHashes();
         ConnectToSession(matchmaking_id);
         LobbySession = matchmaking_id;
     }
@@ -199,7 +199,7 @@ public class LobbyConnection : MonoBehaviour
 
     public void QuickGame()
     {
-        ValidateVersionHashes();
+        // ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/new_lobby")));
         StartCoroutine(WaitLobbyCreated());
     }
@@ -262,7 +262,7 @@ public class LobbyConnection : MonoBehaviour
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                    // Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -287,7 +287,7 @@ public class LobbyConnection : MonoBehaviour
                     serverHash = response.server_version;
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                    // Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -312,7 +312,7 @@ public class LobbyConnection : MonoBehaviour
                     gamesList = response.current_games;
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                    // Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
                     break;
             }
         }
@@ -352,10 +352,10 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectServerSettings = parseReconnectServerSettings(
                             response.game_config
                         );
-                        Errors.Instance.HandleReconnectError(
-                            ongoingGameTitle,
-                            ongoingGameDescription
-                        );
+                        // Errors.Instance.HandleReconnectError(
+                        //     ongoingGameTitle,
+                        //     ongoingGameDescription
+                        // );
                     }
                     break;
                 default:
@@ -437,7 +437,7 @@ public class LobbyConnection : MonoBehaviour
     {
         if (closeCode != WebSocketCloseCode.Normal)
         {
-            Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+            // Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
