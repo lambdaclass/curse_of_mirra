@@ -22,6 +22,9 @@ public class CustomGUIManager : MonoBehaviour
     [SerializeField]
     Image zoneDamageFeedbackTextue;
 
+    [SerializeField]
+    public StateManagerUI stateManagerUI;
+
     Vignette vignette;
     bool playerInZone = false;
     bool zoneDamageFeedbackisFaded = true;
