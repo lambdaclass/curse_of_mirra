@@ -51,6 +51,11 @@ public class Loot : MonoBehaviour
     private void RemoveLoot(ulong id)
     {
         GameObject lootObject = loots[id];
+        MMSoundManagerSoundPlayEvent.Trigger(
+            lootsList.LootList[0].pickUpSound,
+            MMSoundManager.MMSoundManagerTracks.Sfx,
+            lootObject.transform.position
+        );
         lootObject.SetActive(false);
         loots.Remove(id);
     }
