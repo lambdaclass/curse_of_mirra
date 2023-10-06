@@ -52,6 +52,9 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    [SerializeField]
+    private AudioClip spawnSfx;
+
     protected override void Awake()
     {
         base.Awake();
@@ -104,6 +107,11 @@ public class CustomLevelManager : LevelManager
             MMSoundManager.MMSoundManagerTracks.Music,
             this.transform.position,
             true
+        );
+        MMSoundManagerSoundPlayEvent.Trigger(
+            spawnSfx,
+            MMSoundManager.MMSoundManagerTracks.Sfx,
+            Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
         );
     }
 
