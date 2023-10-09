@@ -1,11 +1,11 @@
 defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
   require Logger
-  alias DarkWorldsServer.Engine.EngineRunner
-  alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.BotPlayer
+  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.PlayerTracker
 
@@ -349,6 +349,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     ## Shutdown this runner and create a engine_runner instead
     config = Application.get_env(:dark_worlds_server, __MODULE__)
+
     if config[:use_engine_runner] do
       setup_engine_runner(selected_players)
       {:stop, :normal, gen_server_state}

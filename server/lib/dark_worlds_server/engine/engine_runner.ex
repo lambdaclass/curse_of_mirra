@@ -7,7 +7,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
-  @loot_spawn_rate_ms 5_000
+  @loot_spawn_rate_ms 20_000
 
   #######
   # API #
@@ -141,7 +141,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       },
       projectiles: [],
       killfeed: [],
-      playable_radius: 20000,
+      playable_radius: 20_000,
       shrinking_center: %LambdaGameEngine.MyrraEngine.Position{x: 5000, y: 5000},
       loots: transform_loots_to_myrra_loots(game_state.loots),
       next_killfeed: [],
@@ -158,10 +158,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         __struct__: LambdaGameEngine.MyrraEngine.Player,
         id: player.id,
         position: transform_position_to_myrra_position(player.position),
-        status: (if player.health <= 0, do: :dead, else: :alive),
+        status: if(player.health <= 0, do: :dead, else: :alive),
         health: player.health,
         body_size: player.size,
-        character_name: "H4ck", # LambdaGameEngine only supports H4ck for now
+        character_name: "H4ck",
         ## Placeholder values
         kill_count: 0,
         effects: %{},
@@ -171,7 +171,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
           x: 0.0,
           y: 0.0
         },
-        aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0},
+        aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
       }
       |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
     end)
@@ -179,10 +179,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     cooldowns = %{
-      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"])
-      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"])
-      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"])
-      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"])
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
       skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
   end
@@ -194,13 +194,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Enum.map(loots, fn loot ->
       %{
         id: loot.id,
-        loot_type: {:health, :placeholder}, # The only type of loot is health so we can leverage that
+        loot_type: {:health, :placeholder},
         position: transform_position_to_myrra_position(loot.position)
       }
     end)
   end
 
   defp transform_position_to_myrra_position(position) do
-    %LambdaGameEngine.MyrraEngine.Position{x: -1*position.y + 5000, y: position.x + 5000}
+    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + 5000, y: position.x + 5000}
   end
 end
