@@ -26,4 +26,9 @@ public class CharacterBase : MonoBehaviour
     {
         spawnFeedback.SetActive(true);
     }
+
+    void Awake()
+    {
+        activateSpawnFeedback();
+    }
 }

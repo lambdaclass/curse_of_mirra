@@ -53,9 +53,6 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
-    [SerializeField]
-    private GameObject spawnParticle;
-
     protected override void Awake()
     {
         base.Awake();
@@ -108,8 +105,6 @@ public class CustomLevelManager : LevelManager
             this.transform.position,
             true
         );
-
-        Utils.GetCharacter(playerId).characterBase.activateSpawnFeedback();
     }
 
     void Update()
