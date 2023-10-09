@@ -495,8 +495,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "2023 Lambda S.A.S - Curse of Myrra y cualquier logotipo asociado son marcas
-    registradas, marcas de servicio \x03o marcas comerciales de Lambda S.A.S"
+  m_text: 2023 Lambda S.A.S - Curse of Myrra and any associated logos are registered
+    trademarks, service marks or trademarks of Lambda S.A.S
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0bb84a89d7f44992a742b09e7a84739, type: 2}
   m_sharedMaterial: {fileID: 4508656867630630428, guid: f0bb84a89d7f44992a742b09e7a84739,
