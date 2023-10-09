@@ -482,6 +482,7 @@ MonoBehaviour:
   weaponModel: {fileID: 4647235498851149651}
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
+  - {fileID: 305740109525267919}
   feedbacksPrefabs:
   - {fileID: 6057499254784400716}
   damageOverlayColor:
@@ -562,10 +563,45 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 5603193989365964841}
+    - target: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00007118284
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00007118284
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 179.988
       objectReference: {fileID: 0}
     - target: {fileID: 4938553123194918875, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -602,6 +638,12 @@ PrefabInstance:
 --- !u!1 &220605700603955422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &305740109525267919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
