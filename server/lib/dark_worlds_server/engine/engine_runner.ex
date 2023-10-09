@@ -154,205 +154,41 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_players_to_myrra_players(players) do
     Enum.map(players, fn {_id, player} ->
       %{
+        ## Transformed
+        __struct__: LambdaGameEngine.MyrraEngine.Player,
         id: player.id,
         position: transform_position_to_myrra_position(player.position),
         status: (if player.health <= 0, do: :dead, else: :alive),
-        character: %{
-          active: true,
-          id: 2,
-          name: :h4ck,
-          __struct__: LambdaGameEngine.MyrraEngine.Character,
-          class: :hunter,
-          skill_1: %{
-            name: "Multishot",
-            __struct__: LambdaGameEngine.MyrraEngine.Skill,
-            angle: 45,
-            duration: 0,
-            damage: 9,
-            cooldown_ms: 4500,
-            skill_range: 0.0,
-            par1: 100,
-            par1desc: "Projectiles speed",
-            par2: 0,
-            par2desc: "",
-            par3: 0,
-            par3desc: "",
-            par4: 0,
-            par4desc: "",
-            par5: 0,
-            par5desc: ""
-          },
-          skill_2: %{
-            name: "Disarm",
-            __struct__: LambdaGameEngine.MyrraEngine.Skill,
-            angle: 0,
-            duration: 4000,
-            damage: 0,
-            cooldown_ms: 6500,
-            skill_range: 0.0,
-            par1: 0,
-            par1desc: "",
-            par2: 0,
-            par2desc: "",
-            par3: 0,
-            par3desc: "",
-            par4: 0,
-            par4desc: "",
-            par5: 0,
-            par5desc: ""
-          },
-          skill_3: %{
-            name: "Neon Crash",
-            __struct__: LambdaGameEngine.MyrraEngine.Skill,
-            angle: 0,
-            duration: 300,
-            damage: 3,
-            cooldown_ms: 5000,
-            skill_range: 200.0,
-            par1: 0,
-            par1desc: "",
-            par2: 0,
-            par2desc: "",
-            par3: 0,
-            par3desc: "",
-            par4: 0,
-            par4desc: "",
-            par5: 0,
-            par5desc: ""
-          },
-          skill_4: %{
-            name: "Denial of Service",
-            __struct__: LambdaGameEngine.MyrraEngine.Skill,
-            angle: 0,
-            duration: 6000,
-            damage: 0,
-            cooldown_ms: 20000,
-            skill_range: 0.0,
-            par1: 0,
-            par1desc: "",
-            par2: 0,
-            par2desc: "",
-            par3: 0,
-            par3desc: "",
-            par4: 0,
-            par4desc: "",
-            par5: 0,
-            par5desc: ""
-          },
-          body_size: 80.0,
-          base_speed: 25,
-          faction: :otobi,
-          skill_basic: %{
-            name: "Slingshot",
-            __struct__: LambdaGameEngine.MyrraEngine.Skill,
-            angle: 120,
-            duration: 0,
-            damage: 9,
-            cooldown_ms: 800,
-            skill_range: 350.0,
-            par1: 100,
-            par1desc: "Projectile speed",
-            par2: 0,
-            par2desc: "",
-            par3: 0,
-            par3desc: "",
-            par4: 0,
-            par4desc: "",
-            par5: 0,
-            par5desc: ""
-          }
-        },
-        __struct__: LambdaGameEngine.MyrraEngine.Player,
+        health: player.health,
+        body_size: player.size,
+        character_name: "H4ck", # LambdaGameEngine only supports H4ck for now
+        ## Placeholder values
+        kill_count: 0,
+        effects: %{},
+        death_count: 0,
         action: :nothing,
         direction: %LambdaGameEngine.MyrraEngine.RelativePosition{
           x: 0.0,
           y: 0.0
         },
-        character_name: "H4ck",
-        health: 100,
-        skill_4_cooldown_left: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_3_cooldown_left: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_2_cooldown_left: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_1_cooldown_left: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        kill_count: 0,
-        effects: %{},
-        death_count: 0,
-        body_size: 80.0,
-        basic_skill_cooldown_left: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
         aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0},
-        basic_skill_started_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_1_started_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_2_started_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_3_started_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_4_started_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        basic_skill_ends_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_1_ends_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_2_ends_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_3_ends_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        },
-        skill_4_ends_at: %{
-          high: 0,
-          low: 0,
-          __struct__: LambdaGameEngine.MyrraEngine.Player
-        }
       }
+      |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
     end)
   end
+
+  defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
+    cooldowns = %{
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"])
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"])
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"])
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"])
+      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+    }
+  end
+
+  defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
+  defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
 
   defp transform_loots_to_myrra_loots(loots) do
     Enum.map(loots, fn loot ->
