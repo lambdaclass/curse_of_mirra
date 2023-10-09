@@ -6,6 +6,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
+  # Amount of time between loot spawn
+  @loot_spawn_rate_ms 5_000
 
   #######
   # API #
@@ -24,6 +26,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   def start_game_tick(runner_pid) do
     GenServer.cast(runner_pid, :start_game_tick)
+  end
+
+  if Mix.env() == :dev do
+    def enable() do
+      config =
+        Application.get_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
+        |> Keyword.put(:use_engine_runner, true)
+
+      Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
+    end
   end
 
   #######################
@@ -80,6 +92,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   def handle_cast(:start_game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
+    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
+
     {:noreply, state}
   end
 
@@ -87,10 +101,19 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(:game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
 
+    ## TODO: implement game tick
     # LambdaGameEngine.game_tick(state.game_state)
     game_state = state.game_state
 
     broadcast_game_state(state.broadcast_topic, Map.put(game_state, :player_timestamps, state.player_timestamps))
+
+    {:noreply, %{state | game_state: game_state}}
+  end
+
+  def handle_info(:spawn_loot, state) do
+    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
+
+    {game_state, _loot_id} = LambdaGameEngine.spawn_random_loot(state.game_state)
 
     {:noreply, %{state | game_state: game_state}}
   end
@@ -120,7 +143,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       killfeed: [],
       playable_radius: 20000,
       shrinking_center: %LambdaGameEngine.MyrraEngine.Position{x: 5000, y: 5000},
-      loots: [],
+      loots: transform_loots_to_myrra_loots(game_state.loots),
       next_killfeed: [],
       next_projectile_id: 0,
       next_loot_id: 0,
@@ -133,7 +156,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       %{
         id: player.id,
         position: transform_position_to_myrra_position(player.position),
-        status: :alive,
+        status: (if player.health <= 0, do: :dead, else: :alive),
         character: %{
           active: true,
           id: 2,
@@ -327,6 +350,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
           low: 0,
           __struct__: LambdaGameEngine.MyrraEngine.Player
         }
+      }
+    end)
+  end
+
+  defp transform_loots_to_myrra_loots(loots) do
+    Enum.map(loots, fn loot ->
+      %{
+        id: loot.id,
+        loot_type: {:health, :placeholder}, # The only type of loot is health so we can leverage that
+        position: transform_position_to_myrra_position(loot.position)
       }
     end)
   end
