@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
   m_Name: Uma_Skill1
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: SHADOWSTEP
-  description: While active, grants a high dodge chance and movement speed bonus
-    for a short time.
-  inputType: 0
+  name: YUGEN'S MARK
+  description: 'Target a nearby enemy, inflicting a Mark for a short period which
+    poisons the enemy, dealing damage over time. Taints her enemy preparing it for
+    the kill. This mark is named before her first born. '
+  inputType: 2
   angle: 0
-  executeOnQuickTap: 0
+  executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   feedbackVfx: {fileID: 0}
@@ -30,8 +31,8 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 0
-  skillCircleRadius: 0
-  skillConeAngle: 0
+  skillCircleRadius: 10
+  skillConeAngle: 45
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1

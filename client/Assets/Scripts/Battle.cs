@@ -32,7 +32,6 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
-    private bool healthBarColorChanged;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -41,6 +40,8 @@ public class Battle : MonoBehaviour
     private enum StateEffects
     {
         Slowed = PlayerEffect.Slowed,
+        Paralyzed = PlayerEffect.Paralyzed,
+        Poisoned = PlayerEffect.Poisoned,
     }
 
     void Start()
@@ -52,7 +53,6 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
-        healthBarColorChanged = false;
     }
 
     private void InitBlockingStates()
@@ -225,7 +225,6 @@ public class Battle : MonoBehaviour
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
                 Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-
                 if (
                     serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
                     && useClientPrediction
@@ -862,39 +861,72 @@ public class Battle : MonoBehaviour
 
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
         if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned) && !healthBarColorChanged
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
         )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
-            healthBarColorChanged = true;
         }
-        else
+        if (
+            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
+        )
         {
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
-            healthBarColorChanged = false;
         }
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
         {
-            ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
-            if (PlayerShouldSeeElnarsMark(playerUpdate))
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
+            {
                 character.characterBase
                     .GetComponent<CharacterFeedbackManager>()
-                    .DisplayUmaMarks(playerUpdate.Id);
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+            }
         }
         else
         {
             character.characterBase
                 .GetComponent<CharacterFeedbackManager>()
-                .RemoveMarks(playerUpdate.Id);
+                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
+        }
+        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
+        {
+            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
+            {
+                character.characterBase
+                    .GetComponent<CharacterFeedbackManager>()
+                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
+            }
+        }
+        else
+        {
+            character.characterBase
+                .GetComponent<CharacterFeedbackManager>()
+                .RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
         }
 
         return characterSpeed;
     }
 
-    private bool PlayerShouldSeeElnarsMark(Player playerUpdate)
+    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
     {
-        ulong attackerId = GetEffectCauser(playerUpdate, PlayerEffect.ElnarMark);
+        ulong attackerId = GetEffectCauser(playerUpdate, effect);
         return playerUpdate.Id == SocketConnectionManager.Instance.playerId
             || attackerId == SocketConnectionManager.Instance.playerId;
     }
@@ -906,24 +938,13 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
+        foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
-            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
-        }
+            string name = Enum.GetName(typeof(StateEffects), effect);
+            bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
 
-        foreach (ulong key in playerUpdate.Effects.Keys)
-        {
-            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-            {
-                if (playerUpdate.Effects.ContainsKey((ulong)effect))
-                {
-                    string name = Enum.GetName(typeof(StateEffects), effect);
-                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    player
-                        .GetComponent<CharacterFeedbacks>()
-                        .SetActiveFeedback(player, name, isActive);
-                }
-            }
+            CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
+            player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
 

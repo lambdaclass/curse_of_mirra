@@ -10,16 +10,13 @@ public class SkillInfo : ScriptableObject
     public new string name;
     public string description;
     public UIType inputType;
+
     public float angle;
 
     [MMEnumCondition("inputType", (int)UIType.Direction)]
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
     public GameObject projectilePrefab;
-    public GameObject feedbackVfx;
-    public float feedbackVfxDuration;
-    public GameObject startFeedbackVfx;
-    public float startFeedbackVfxDuration;
     public bool instantiateVfxOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
@@ -41,6 +38,15 @@ public class SkillInfo : ScriptableObject
     public float cooldown;
     public float skillRange;
     public Sprite skillSprite;
+
+    [Header("Feedbacks")]
+    public GameObject feedbackVfx;
+    public float feedbackVfxDuration;
+    public float feedbackVfxDelay;
+    public GameObject startFeedbackVfx;
+    public float startFeedbackVfxDuration;
+    public float startFeedbackVfxDelay;
+    public GameObject animationVfx;
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {

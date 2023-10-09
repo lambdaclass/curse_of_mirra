@@ -10,9 +10,9 @@ using UnityEngine.Networking;
 
 public class LobbyConnection : MonoBehaviour
 {
-    [Tooltip("IP to connect to. If empty, localhost will be used")]
-    public string server_name = "LocalHost";
-    public string server_ip = "localhost";
+    [Tooltip("IP to connect to. If empty, Brazil will be used")]
+    public string serverName;
+    public string serverIp;
     public List<string> lobbiesList;
     public List<string> gamesList;
     public static LobbyConnection Instance;
@@ -116,8 +116,8 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
 
         if (Instance != null)
         {
@@ -191,8 +191,8 @@ public class LobbyConnection : MonoBehaviour
 
     public void Refresh()
     {
-        this.server_ip = SelectServerIP.GetServerIp();
-        this.server_name = SelectServerIP.GetServerName();
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
     }
@@ -364,15 +364,15 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private void ConnectToSession(string session_id)
+    private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/matchmaking/" + session_id);
+        string url = makeWebsocketUrl("/matchmaking/" + sessionId);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
         ws.OnOpen += () =>
         {
-            LobbySession = session_id;
+            LobbySession = sessionId;
         };
         ws.Connect();
     }
@@ -381,24 +381,24 @@ public class LobbyConnection : MonoBehaviour
     {
         try
         {
-            LobbyEvent lobby_event = LobbyEvent.Parser.ParseFrom(data);
-            switch (lobby_event.Type)
+            LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
+            switch (lobbyEvent.Type)
             {
                 case LobbyEventType.Connected:
                     Debug.Log(
                         "Connected to lobby "
-                            + lobby_event.LobbyId
+                            + lobbyEvent.LobbyId
                             + " as player_id "
-                            + lobby_event.PlayerInfo.PlayerId
+                            + lobbyEvent.PlayerInfo.PlayerId
                     );
-                    this.playerId = lobby_event.PlayerInfo.PlayerId;
+                    this.playerId = lobbyEvent.PlayerInfo.PlayerId;
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    this.hostId = lobby_event.HostPlayerId;
+                    this.hostId = lobbyEvent.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
-                    this.playerCount = lobby_event.PlayersInfo.Count();
-                    lobby_event.PlayersInfo
+                    this.playerCount = lobbyEvent.PlayersInfo.Count();
+                    lobbyEvent.PlayersInfo
                         .ToList()
                         .ForEach(
                             playerInfo =>
@@ -407,22 +407,22 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerRemoved:
-                    this.playerCount = lobby_event.PlayersInfo.Count();
-                    this.hostId = lobby_event.HostPlayerId;
+                    this.playerCount = lobbyEvent.PlayersInfo.Count();
+                    this.hostId = lobbyEvent.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
-                    this.playersIdName.Remove(lobby_event.RemovedPlayerInfo.PlayerId);
+                    this.playersIdName.Remove(lobbyEvent.RemovedPlayerInfo.PlayerId);
                     break;
 
                 case LobbyEventType.GameStarted:
-                    GameSession = lobby_event.GameId;
-                    serverSettings = lobby_event.GameConfig;
+                    GameSession = lobbyEvent.GameId;
+                    serverSettings = lobbyEvent.GameConfig;
                     serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
-                    serverHash = lobby_event.ServerHash;
+                    serverHash = lobbyEvent.ServerHash;
                     gameStarted = true;
                     break;
 
                 default:
-                    Debug.Log("Message received is: " + lobby_event.Type);
+                    Debug.Log("Message received is: " + lobbyEvent.Type);
                     break;
             }
             ;
@@ -444,33 +444,33 @@ public class LobbyConnection : MonoBehaviour
 
     private string makeUrl(string path)
     {
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + serverIp + ":4000" + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "http://" + server_ip + ":4000" + path;
+            return "http://" + serverIp + ":4000" + path;
         }
         else
         {
-            return "https://" + server_ip + path;
+            return "https://" + serverIp + path;
         }
     }
 
     private string makeWebsocketUrl(string path)
     {
-        if (server_ip.Contains("localhost"))
+        if (serverIp.Contains("localhost"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
-        else if (server_ip.Contains("10.150.20.186"))
+        else if (serverIp.Contains("10.150.20.186"))
         {
-            return "ws://" + server_ip + ":4000" + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
         else
         {
-            return "wss://" + server_ip + path;
+            return "wss://" + serverIp + path;
         }
     }
 

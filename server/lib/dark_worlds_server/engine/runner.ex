@@ -282,11 +282,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_call(:get_board, _from, gen_server_state) do
-    {:reply, gen_server_state.client_game_state.game.board, gen_server_state}
+    {:reply, gen_server_state.client_game_state.myrra_state.game.board, gen_server_state}
   end
 
   def handle_call(:get_players, _from, gen_server_state) do
-    {:reply, gen_server_state.client_game_state.game.players, gen_server_state}
+    {:reply, gen_server_state.client_game_state.myrra_state.game.players, gen_server_state}
   end
 
   def handle_call(:get_logged_players, _from, gen_server_state) do
@@ -311,7 +311,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} =
+      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
@@ -341,7 +342,7 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.players}
+      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.myrra_state.players}
     )
 
     {:noreply, gen_server_state}
@@ -370,7 +371,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    game_status = has_a_player_won?(server_game_state.game.players, gen_server_state.is_single_player?)
+    game_status = has_a_player_won?(server_game_state.game.myrra_state.players, gen_server_state.is_single_player?)
 
     out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
@@ -392,7 +393,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
-    map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
+    map_shrink_minimum_radius =
+      gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
 
     map_shrink_interval_ms =
       Map.get(
@@ -446,7 +448,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   defp decide_next_game_update(%{game_status: :game_finished} = gen_server_state) do
     [winner] =
-      Enum.filter(gen_server_state.server_game_state.game.players, fn player ->
+      Enum.filter(gen_server_state.server_game_state.game.myrra_state.players, fn player ->
         player.status == :alive
       end)
 
@@ -531,7 +533,8 @@ defmodule DarkWorldsServer.Engine.Runner do
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-        players_with_character = Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
+        players_with_character =
+          Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
 
         players_without_character =
           Enum.filter(state[:players], fn player_id ->

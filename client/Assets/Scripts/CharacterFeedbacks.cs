@@ -47,7 +47,7 @@ public class CharacterFeedbacks : MonoBehaviour
     public void SetActiveStateFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksStatesPrefabs.Find(el => el.name == name);
-        feedbackToActivate.SetActive(active);
+        feedbackToActivate?.SetActive(active);
     }
 
     public List<GameObject> GetFeedbackStateList()
@@ -139,7 +139,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
     {
-        SetActiveStateFeedback(feedbackName, true);
+        SetActiveStateFeedback(feedbackName, value);
     }
 
     public void ClearAllFeedbacks(GameObject player)
