@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MainScreenModelManager : MonoBehaviour
 {
@@ -8,13 +9,14 @@ public class MainScreenModelManager : MonoBehaviour
     GameObject playerModelContainer;
 
     [SerializeField]
-    GameObject playerModel;
+    List<GameObject> playerModels;
 
     GameObject modelClone;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject playerModel = playerModels.Single(playerModel => playerModel.name == "H4ck");
         modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
