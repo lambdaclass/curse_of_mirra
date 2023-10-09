@@ -275,9 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe6344b7148db4687d3c84e7712904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBarType: 1
+  HealthBarType: 0
   TimeScale: 0
-  HealthBarPrefab: {fileID: 0}
+  HealthBarPrefab: {fileID: 8827457937895349807, guid: a64e09850dfe3452790cf56726c0460f,
+    type: 3}
   TargetProgressBar: {fileID: 0}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
@@ -498,11 +499,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1787465996332106948}
     m_Modifications:
-    - target: {fileID: 6478395459742873813, guid: 2dbdd743c87404d0787e7d0764d32739,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 178418404827298802, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: character
@@ -632,6 +628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6478395459742873813, guid: 2dbdd743c87404d0787e7d0764d32739,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
