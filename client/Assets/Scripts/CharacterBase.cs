@@ -22,6 +22,9 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public GameObject spawnFeedback;
 
+    [SerializeField]
+    public GameObject HealthBar;
+
     public void activateSpawnFeedback()
     {
         spawnFeedback.SetActive(true);

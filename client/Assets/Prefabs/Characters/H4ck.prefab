@@ -277,8 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBarType: 0
   TimeScale: 0
-  HealthBarPrefab: {fileID: 8827457937895349807, guid: a64e09850dfe3452790cf56726c0460f,
-    type: 3}
+  HealthBarPrefab: {fileID: 3736085772538779165}
   TargetProgressBar: {fileID: 0}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
@@ -659,6 +658,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3736085772538779165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2042230812023421470, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4364836716465000514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
