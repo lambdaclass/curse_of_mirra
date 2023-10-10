@@ -703,6 +703,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1725853959130803222, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725853959130803222, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Lift time
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725853959130803222, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1582350833707911559, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Flip.x

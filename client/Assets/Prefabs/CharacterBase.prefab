@@ -58,6 +58,7 @@ MonoBehaviour:
     type: 3}
   AimDirection: {fileID: 504285555944152676}
   SkillRange: {fileID: 7220386294724277444}
+  spawnFeedback: {fileID: 5507989738225416466}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,10 +79,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1377340570206829633}
     m_Modifications:
+    - target: {fileID: 1604899928706869543, guid: 2ad62a127852e43fabdb1afa6bbfda96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5411787436480696057, guid: 2ad62a127852e43fabdb1afa6bbfda96,
         type: 3}
       propertyPath: m_Name
       value: SpawnFeedback
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411787436480696057, guid: 2ad62a127852e43fabdb1afa6bbfda96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6920702692572928157, guid: 2ad62a127852e43fabdb1afa6bbfda96,
         type: 3}
@@ -140,6 +151,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad62a127852e43fabdb1afa6bbfda96, type: 3}
+--- !u!1 &5507989738225416466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5411787436480696057, guid: 2ad62a127852e43fabdb1afa6bbfda96,
+    type: 3}
+  m_PrefabInstance: {fileID: 534458840552749035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7449377188674056054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6920702692572928157, guid: 2ad62a127852e43fabdb1afa6bbfda96,
