@@ -859,9 +859,6 @@ public class Battle : MonoBehaviour
         {
             characterSpeed = 0f;
         }
-
-
-
         return characterSpeed;
     }
 
