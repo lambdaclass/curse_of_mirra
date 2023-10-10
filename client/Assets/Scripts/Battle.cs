@@ -873,9 +873,4 @@ public class Battle : MonoBehaviour
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
-
-    private bool PlayerIsAlive(Player playerUpdate)
-    {
-        return playerUpdate.Status == Status.Alive;
-    }
 }
