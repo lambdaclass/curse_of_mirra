@@ -5,6 +5,7 @@ using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
+
+    private static readonly int _healthBarIndex = 1;
 
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
@@ -854,28 +857,30 @@ public class Battle : MonoBehaviour
             characterSpeed = 0f;
         }
 
-        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+        var healthBarFront = player
+            .GetComponent<CustomCharacter>()
+            .GetComponentsInChildren<MMProgressBar>()[
+            _healthBarIndex
+        ].ForegroundBar.GetComponent<Image>();
         if (
             playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && !healthBar.ForegroundColor.Equals(
-                Utils.GetHealthBarGradient(Utils.healthBarPoisoned)
-            )
+            && !healthBarFront.color.Equals(Utils.healthBarPoisoned)
         )
         {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarPoisoned);
+            healthBarFront.color = Utils.healthBarPoisoned;
         }
         if (
             !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(Utils.healthBarPoisoned))
+            && healthBarFront.color.Equals(Utils.healthBarPoisoned)
         )
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarCyan);
+                healthBarFront.color = Utils.healthBarCyan;
             }
             else
             {
-                healthBar.ForegroundColor = Utils.GetHealthBarGradient(Utils.healthBarRed);
+                healthBarFront.color = Utils.healthBarRed;
             }
         }
 

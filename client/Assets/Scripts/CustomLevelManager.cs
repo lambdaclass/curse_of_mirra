@@ -52,6 +52,7 @@ public class CustomLevelManager : LevelManager
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
+    private static readonly int _healthBarIndex = 1;
 
     protected override void Awake()
     {
@@ -300,18 +301,16 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            var playerProgressBars = player.GetComponentsInChildren<MMProgressBar>();
-            foreach (var progressBar in playerProgressBars)
+            Image healthBarFront = player.GetComponentsInChildren<MMProgressBar>()[
+                _healthBarIndex
+            ].ForegroundBar.GetComponent<Image>();
+            if (UInt64.Parse(player.PlayerID) == playerId)
             {
-                var healthBarFront = progressBar.ForegroundBar.GetComponent<Image>();
-                if (UInt64.Parse(player.PlayerID) == playerId)
-                {
-                    healthBarFront.color = Utils.healthBarCyan;
-                }
-                else
-                {
-                    healthBarFront.color = Utils.healthBarRed;
-                }
+                healthBarFront.color = Utils.healthBarCyan;
+            }
+            else
+            {
+                healthBarFront.color = Utils.healthBarRed;
             }
         }
     }
