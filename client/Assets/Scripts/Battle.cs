@@ -801,10 +801,11 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
-        ManageFeedbacks(player, playerUpdate);
-
         CharacterFeedbackManager feedbackManager =
             character.characterBase.GetComponent<CharacterFeedbackManager>();
+
+        ManageFeedbacks(player, playerUpdate);
+        feedbackManager.HandleUmMarks(playerUpdate);
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
@@ -873,56 +874,7 @@ public class Battle : MonoBehaviour
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
         }
 
-        feedbackManager.HandleUmMarks(playerUpdate);
-
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
-        // {
-        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
-        //     {
-        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-        //     }
-        // }
-        // else
-        // {
-        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-        // }
-
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
-        // {
-        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
-        //     {
-        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
-        //     }
-        // }
-        // else
-        // {
-        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
-        // }
-        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
-        // {
-        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
-        //     {
-        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
-        //     }
-        // }
-        // else
-        // {
-        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
-        // }
-
         return characterSpeed;
-    }
-
-    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
-    {
-        ulong attackerId = GetEffectCauser(playerUpdate, effect);
-        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
-            || attackerId == SocketConnectionManager.Instance.playerId;
-    }
-
-    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
-    {
-        return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)

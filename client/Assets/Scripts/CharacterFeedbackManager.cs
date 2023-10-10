@@ -67,7 +67,6 @@ public class CharacterFeedbackManager : MonoBehaviour
     {
         if (playersMarks.ContainsKey(playerId) && playersMarks[playerId].Contains(effect))
         {
-            print("Removing " + effect);
             playersMarks[playerId].Remove(effect);
             UpdateMarkImage(playersMarks[playerId].Count);
         }
