@@ -178,13 +178,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
-    cooldowns = %{
+    myrra_cooldowns = %{
       basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
       skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
       skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
       skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
       skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
+
+    Map.merge(myrra_player, myrra_cooldowns)
   end
 
   defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
