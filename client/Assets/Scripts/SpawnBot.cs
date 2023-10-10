@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnBot : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SpawnBot : MonoBehaviour
     private string botId;
 
     public static SpawnBot Instance;
+    private static readonly int _healthBarIndex = 1;
 
     public void Init()
     {
@@ -54,6 +56,12 @@ public class SpawnBot : MonoBehaviour
             );
             newPlayer.PlayerID = botId.ToString();
             newPlayer.name = "BOT" + botId;
+            Image healthBarFront = newPlayer.GetComponentsInChildren<MMProgressBar>()[
+                _healthBarIndex
+            ].ForegroundBar.GetComponent<Image>();
+
+            healthBarFront.color = Utils.healthBarRed;
+
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
 
             pendingSpawn = false;
