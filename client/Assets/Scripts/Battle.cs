@@ -803,6 +803,9 @@ public class Battle : MonoBehaviour
     {
         ManageFeedbacks(player, playerUpdate);
 
+        CharacterFeedbackManager feedbackManager =
+            character.characterBase.GetComponent<CharacterFeedbackManager>();
+
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
             characterSpeed *= 0.5f;
@@ -870,51 +873,42 @@ public class Battle : MonoBehaviour
             healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
         }
 
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
-        }
+        feedbackManager.HandleUmMarks(playerUpdate);
+
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
+        // {
+        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
+        //     {
+        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+        //     }
+        // }
+        // else
+        // {
+        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
+        // }
+
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
+        // {
+        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
+        //     {
+        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
+        //     }
+        // }
+        // else
+        // {
+        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
+        // }
+        // if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
+        // {
+        //     if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
+        //     {
+        //         feedbackManager.DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
+        //     }
+        // }
+        // else
+        // {
+        //     feedbackManager.RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
+        // }
 
         return characterSpeed;
     }
