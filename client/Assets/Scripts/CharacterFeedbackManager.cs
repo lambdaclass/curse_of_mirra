@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using MoreMountains.Tools;
 
 // TODO: this could probably be a part of another class
 public class CharacterFeedbackManager : MonoBehaviour
@@ -87,5 +88,34 @@ public class CharacterFeedbackManager : MonoBehaviour
     private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
     {
         return playerUpdate.Effects[(ulong)effect].CausedBy;
+    }
+
+    public void ChangeHealthBarColor(MMHealthBar healthBar, Color color)
+    {
+        healthBar.ForegroundColor = Utils.GetHealthBarGradient(color);
+    }
+
+    public void ToggleHealthBar(
+        GameObject player,
+        Player playerUpdate
+    )
+    {
+        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
+
+        switch (playerUpdate.Effects)
+        {
+            case var effect when effect.ContainsKey((ulong)PlayerEffect.Poisoned):
+                if (!healthBar.ForegroundColor.Equals(MMColors.Green))
+                {
+                    ChangeHealthBarColor(healthBar, MMColors.Green);
+                }
+                break;
+            default:
+                if (!healthBar.ForegroundColor.Equals(MMColors.Red))
+                {
+                    ChangeHealthBarColor(healthBar, MMColors.BestRed);
+                }
+                break;
+        }
     }
 }

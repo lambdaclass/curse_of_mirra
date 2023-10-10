@@ -806,6 +806,8 @@ public class Battle : MonoBehaviour
 
         ManageFeedbacks(player, playerUpdate);
         feedbackManager.HandleUmMarks(playerUpdate);
+        feedbackManager.ToggleHealthBar(player, playerUpdate);
+
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
@@ -858,21 +860,7 @@ public class Battle : MonoBehaviour
             characterSpeed = 0f;
         }
 
-        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-        if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && !healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
-        )
-        {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.Green);
-        }
-        if (
-            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && healthBar.ForegroundColor.Equals(Utils.GetHealthBarGradient(MMColors.Green))
-        )
-        {
-            healthBar.ForegroundColor = Utils.GetHealthBarGradient(MMColors.BestRed);
-        }
+
 
         return characterSpeed;
     }
