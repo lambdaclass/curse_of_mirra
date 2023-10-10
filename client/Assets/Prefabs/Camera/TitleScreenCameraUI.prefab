@@ -409,10 +409,10 @@ MonoBehaviour:
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
-  DisabledSprite: {fileID: 0}
+  DisabledSprite: {fileID: 21300000, guid: 3160d094174a4413f9e4b8233d3da1c7, type: 3}
   DisabledChangeColor: 0
   DisabledColor: {r: 1, g: 1, b: 1, a: 1}
-  PressedSprite: {fileID: 21300000, guid: 3160d094174a4413f9e4b8233d3da1c7, type: 3}
+  PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightedSprite: {fileID: 0}
