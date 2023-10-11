@@ -16,9 +16,9 @@ public class MainScreenModelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject playerModel = playerModels.Single(
-            playerModel => playerModel.name.Contains("H4ck")
-        );
+        int index = Random.Range(0, playerModels.Count);
+        string name = playerModels[index].name;
+        GameObject playerModel = playerModels.Single(playerModel => playerModel.name == name);
         modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
@@ -26,7 +26,4 @@ public class MainScreenModelManager : MonoBehaviour
             playerModelContainer.transform
         );
     }
-
-    // Update is called once per frame
-    void Update() { }
 }
