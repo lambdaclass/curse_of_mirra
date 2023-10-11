@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
@@ -22,12 +23,20 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public GameObject spawnFeedback;
 
+    [SerializeField]
+    public AudioClip spawnSfx;
+
     public void activateSpawnFeedback()
     {
         spawnFeedback.SetActive(true);
+        MMSoundManagerSoundPlayEvent.Trigger(
+            spawnSfx,
+            MMSoundManager.MMSoundManagerTracks.Sfx,
+            Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
+        );
     }
 
-    void Awake()
+    void Start()
     {
         activateSpawnFeedback();
     }

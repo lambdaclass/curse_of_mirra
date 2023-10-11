@@ -108,11 +108,6 @@ public class CustomLevelManager : LevelManager
             this.transform.position,
             true
         );
-        MMSoundManagerSoundPlayEvent.Trigger(
-            spawnSfx,
-            MMSoundManager.MMSoundManagerTracks.Sfx,
-            Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
-        );
     }
 
     void Update()
