@@ -186,15 +186,7 @@ public class Skill : CharacterAbility
 
         if (skillInfo.startFeedbackVfx)
         {
-            if (skillInfo.startFeedbackVfx.GetComponent<MMF_Player>())
-            {
-                this.PlayAbilityStartFeedbacks();
-            }
-            if (skillInfo.startFeedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-            {
-                skillInfo.startFeedbackVfx.SetActive(true);
-            }
-            StartCoroutine(StopStartFeedbackVfx(skillInfo.startFeedbackVfxDuration));
+            StartCoroutine(StartFeedbackVfx());
         }
 
         if (skillInfo.sfxHasAbilityStop)
@@ -204,6 +196,21 @@ public class Skill : CharacterAbility
                 .SetSfxSound(skillInfo.abilityStartSfx);
             GetComponentInChildren<Sound3DManager>().PlaySfxSound();
         }
+    }
+
+    IEnumerator StartFeedbackVfx()
+    {
+        yield return new WaitForSeconds(skillInfo.startFeedbackVfxDelay);
+
+        if (skillInfo.startFeedbackVfx.GetComponent<MMF_Player>())
+        {
+            this.PlayAbilityStartFeedbacks();
+        }
+        if (skillInfo.startFeedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
+        {
+            skillInfo.startFeedbackVfx.SetActive(true);
+        }
+        StartCoroutine(StopStartFeedbackVfx());
     }
 
     public void ExecuteFeedback()
@@ -233,21 +240,27 @@ public class Skill : CharacterAbility
 
         if (skillInfo.feedbackVfx)
         {
-            if (skillInfo.feedbackVfx.GetComponent<MMF_Player>())
-            {
-                this.PlayAbilityStopFeedbacks();
-            }
-            if (skillInfo.feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-            {
-                feedbackVfx.SetActive(true);
-            }
-            if (trail)
-            {
-                trail.emitting = true;
-            }
-
-            StartCoroutine(StopFeedbackVfx(skillInfo.feedbackVfxDuration));
+            StartCoroutine(ExecuteFeedbackVfx());
         }
+    }
+
+    IEnumerator ExecuteFeedbackVfx()
+    {
+        yield return new WaitForSeconds(skillInfo.feedbackVfxDelay);
+
+        if (skillInfo.feedbackVfx.GetComponent<MMF_Player>())
+        {
+            this.PlayAbilityStopFeedbacks();
+        }
+        if (skillInfo.feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
+        {
+            feedbackVfx.SetActive(true);
+        }
+        if (trail)
+        {
+            trail.emitting = true;
+        }
+        StartCoroutine(StopFeedbackVfx());
     }
 
     private void ClearAnimator()
@@ -283,9 +296,9 @@ public class Skill : CharacterAbility
         _animator.SetBool(animationId, false);
     }
 
-    IEnumerator StopFeedbackVfx(float time)
+    IEnumerator StopFeedbackVfx()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(skillInfo.feedbackVfxDuration);
 
         if (feedbackVfx.GetComponent<MMF_Player>())
         {
@@ -301,9 +314,9 @@ public class Skill : CharacterAbility
         }
     }
 
-    IEnumerator StopStartFeedbackVfx(float time)
+    IEnumerator StopStartFeedbackVfx()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(skillInfo.startFeedbackVfxDuration);
 
         if (startFeedbackVfx.GetComponent<MMF_Player>())
         {

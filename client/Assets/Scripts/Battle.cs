@@ -37,6 +37,8 @@ public class Battle : MonoBehaviour
     private enum StateEffects
     {
         Slowed = PlayerEffect.Slowed,
+        Paralyzed = PlayerEffect.Paralyzed,
+        Poisoned = PlayerEffect.Poisoned,
     }
 
     void Start()
@@ -220,7 +222,6 @@ public class Battle : MonoBehaviour
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
                 Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
-
                 if (
                     serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
                     && useClientPrediction
@@ -932,24 +933,13 @@ public class Battle : MonoBehaviour
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
     {
-        if (playerUpdate.Effects.Keys.Count == 0 || !PlayerIsAlive(playerUpdate))
+        foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
-            player.GetComponent<CharacterFeedbacks>().ClearAllFeedbacks(player);
-        }
+            string name = Enum.GetName(typeof(StateEffects), effect);
+            bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
 
-        foreach (ulong key in playerUpdate.Effects.Keys)
-        {
-            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-            {
-                if (playerUpdate.Effects.ContainsKey((ulong)effect))
-                {
-                    string name = Enum.GetName(typeof(StateEffects), effect);
-                    bool isActive = key == (ulong)effect && PlayerIsAlive(playerUpdate);
-                    player
-                        .GetComponent<CharacterFeedbacks>()
-                        .SetActiveFeedback(player, name, isActive);
-                }
-            }
+            CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
+            player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
 

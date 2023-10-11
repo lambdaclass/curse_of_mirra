@@ -8,6 +8,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -46,6 +47,8 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
+
+    private ulong playerToFollowId;
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -90,6 +93,7 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         playerId = LobbyConnection.Instance.playerId;
+        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
@@ -319,12 +323,23 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        var alivePlayers = Utils.GetAlivePlayers();
-        if (alivePlayers.Count() > 0)
+        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+        if (KillFeedManager.instance.saveKillerId != 0)
         {
-            playerToFollow = alivePlayers.ElementAt(0);
+            StartCoroutine(WaitToChangeCamera(playerToFollow));
+        }
+        else
+        {
+            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             setCameraToPlayer(playerToFollow.Id);
         }
+    }
+
+    private IEnumerator WaitToChangeCamera(Player player)
+    {
+        yield return new WaitUntil(() => player != null);
+        setCameraToPlayer(playerToFollow.Id);
+        KillFeedManager.instance.saveKillerId = 0;
     }
 
     private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)

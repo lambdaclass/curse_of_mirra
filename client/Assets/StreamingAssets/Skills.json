@@ -163,8 +163,8 @@
       "Angle": "0"
     },
     {
-      "Name": "Final Vengeance",
-      "Cooldown": "10000",
+      "Name": "Avenge",
+      "Cooldown": "40000",
       "Damage": "0",
       "Duration": "0",
       "SkillRange": "0",
