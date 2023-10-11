@@ -16,7 +16,9 @@ public class MainScreenModelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject playerModel = playerModels.Single(playerModel => playerModel.name == "H4ck");
+        GameObject playerModel = playerModels.Single(
+            playerModel => playerModel.name.Contains("H4ck")
+        );
         modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,

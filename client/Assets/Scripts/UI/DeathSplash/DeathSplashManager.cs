@@ -62,9 +62,10 @@ public class DeathSplashManager : MonoBehaviour
     {
         player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
         GameObject characterModel = characterModels.Single(
-            characterPrefab =>
-                characterPrefab.GetComponent<CustomCharacter>().CharacterModel.name
-                == player.GetComponent<CustomCharacter>().CharacterModel.name
+            characterModel =>
+                characterModel.name.Contains(
+                    player.GetComponent<CustomCharacter>().CharacterModel.name
+                )
         );
         modelClone = Instantiate(characterModel, characterModelContainer.transform);
     }
