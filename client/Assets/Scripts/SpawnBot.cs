@@ -1,5 +1,4 @@
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class SpawnBot : MonoBehaviour
@@ -14,12 +13,19 @@ public class SpawnBot : MonoBehaviour
 
     public static SpawnBot Instance;
 
+    public void Awake()
+    {
+        Init();
+    }
+
     public void Init()
     {
-        if (SocketConnectionManager.Instance.players.Count == 9)
-            GetComponent<MMTouchButton>().DisableButton();
         Instance = this;
-        GenerateBotPlayer();
+        if (SocketConnectionManager.Instance.players.Count == 9)
+        {
+            GetComponent<MMTouchButton>().DisableButton();
+        }
+        //GenerateBotPlayer();
     }
 
     public void GenerateBotPlayer()
@@ -45,6 +51,7 @@ public class SpawnBot : MonoBehaviour
     {
         if (pendingSpawn)
         {
+            Debug.Log("Paso por acá");
             playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
 
             CustomCharacter newPlayer = Instantiate(
@@ -55,6 +62,10 @@ public class SpawnBot : MonoBehaviour
             newPlayer.PlayerID = botId.ToString();
             newPlayer.name = "BOT" + botId;
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+            if (SocketConnectionManager.Instance.players.Count == 9)
+            {
+                GetComponent<MMTouchButton>().DisableButton();
+            }
 
             pendingSpawn = false;
         }

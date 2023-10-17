@@ -135,24 +135,30 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
+                    Debug.Log("this.gamePlayers != null " + (this.gamePlayers != null));
+                    Debug.Log(
+                        "this.gamePlayers.Count < gameEvent.Players.Count "
+                            + (this.gamePlayers.Count < gameEvent.Players.Count)
+                    );
+                    Debug.Log("SpawnBot.Instance != null " + (SpawnBot.Instance != null));
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < gameEvent.Players.Count
                         && SpawnBot.Instance != null
                     )
                     {
+                        Debug.Log("Will spawn a bot");
                         gameEvent.Players
                             .ToList()
                             .FindAll((player) => !this.gamePlayers.Contains(player))
                             .ForEach(
                                 (player) =>
                                 {
+                                    Debug.Log("Spawning bot");
                                     SpawnBot.Instance.Spawn(player);
                                 }
                             );
                     }
-                    // This should be deleted when the match end is fixed
-                    // gameEvent.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
@@ -166,22 +172,6 @@ public class SocketConnectionManager : MonoBehaviour
                     winnerPlayer.Item1 = gameEvent.WinnerPlayer;
                     winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
                     this.gamePlayers = gameEvent.Players.ToList();
-                    // This should be uncommented when the match end is finished
-                    // gameEvent.Players
-                    //     .ToList()
-                    //     .ForEach(
-                    //         (player) =>
-                    //             print(
-                    //                 "PLAYER: "
-                    //                     + player.Id
-                    //                     + " KILLS: "
-                    //                     + player.KillCount
-                    //                     + " DEATHS: "
-                    //                     + player.DeathCount
-                    //                     + " STATUS: "
-                    //                     + player.Status
-                    //             )
-                    //     );
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = gameEvent.Players.ToList();
