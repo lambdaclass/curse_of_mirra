@@ -149,32 +149,8 @@ public class SocketConnectionManager : MonoBehaviour
                         && SpawnBot.Instance != null
                     )
                     {
+                        // We use an event here, to prevent losing events.
                         OnBotSpawnRequested(gameEvent.Players.ToList());
-                        // gameEvent.Players
-                        //     .ToList()
-                        //     .FindAll((player) => !this.gamePlayers.Any((p) => p.Id == player.Id))
-                        //     .ForEach(
-                        //         (player) =>
-                        //         {
-                        //             var spawnPosition =
-                        //                 Utils.transformBackendPositionToFrontendPosition(
-                        //                     player.Position
-                        //                 );
-                        //             var botId = player.Id.ToString();
-                        //             SpawnBot.Instance.playerPrefab
-                        //                 .GetComponent<CustomCharacter>()
-                        //                 .PlayerID = "";
-
-                        //             CustomCharacter newPlayer = Instantiate(
-                        //                 SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
-                        //                 spawnPosition,
-                        //                 Quaternion.identity
-                        //             );
-                        //             newPlayer.PlayerID = botId.ToString();
-                        //             newPlayer.name = "BOT" + botId;
-                        //             this.players.Add(newPlayer.gameObject);
-                        //         }
-                        //     );
                     }
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
