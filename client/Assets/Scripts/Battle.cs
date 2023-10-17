@@ -245,8 +245,6 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-                Debug.Log("serverPlayerUpdate.Id: " + serverPlayerUpdate.Id);
-                Debug.Log("currentPlayer: " + currentPlayer);
                 if (currentPlayer.activeSelf)
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))

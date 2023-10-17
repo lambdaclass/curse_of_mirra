@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnBot : MonoBehaviour
 {
     [SerializeField]
-    GameObject playerPrefab;
+    public GameObject playerPrefab;
 
     private bool pendingSpawn = false;
     private bool botsActive = true;
@@ -25,12 +25,15 @@ public class SpawnBot : MonoBehaviour
         {
             GetComponent<MMTouchButton>().DisableButton();
         }
-        //GenerateBotPlayer();
     }
 
     public void GenerateBotPlayer()
     {
         SocketConnectionManager.Instance.CallSpawnBot();
+        if (SocketConnectionManager.Instance.players.Count == 9)
+        {
+            GetComponent<MMTouchButton>().DisableButton();
+        }
     }
 
     public void ToggleBots()
@@ -40,34 +43,34 @@ public class SpawnBot : MonoBehaviour
         GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(botsActive);
     }
 
-    public void Spawn(Player player)
-    {
-        pendingSpawn = true;
-        spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
-        botId = player.Id.ToString();
-    }
+    // public void Spawn(Player player)
+    // {
+    //     pendingSpawn = true;
+    //     spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
+    //     botId = player.Id.ToString();
+    // }
 
-    public void Update()
-    {
-        if (pendingSpawn)
-        {
-            Debug.Log("Paso por acá");
-            playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
+    // public void Update()
+    // {
+    //     if (pendingSpawn)
+    //     {
+    //         Debug.Log("Paso por acá");
+    //         playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
 
-            CustomCharacter newPlayer = Instantiate(
-                playerPrefab.GetComponent<CustomCharacter>(),
-                spawnPosition,
-                Quaternion.identity
-            );
-            newPlayer.PlayerID = botId.ToString();
-            newPlayer.name = "BOT" + botId;
-            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
-            if (SocketConnectionManager.Instance.players.Count == 9)
-            {
-                GetComponent<MMTouchButton>().DisableButton();
-            }
+    //         CustomCharacter newPlayer = Instantiate(
+    //             playerPrefab.GetComponent<CustomCharacter>(),
+    //             spawnPosition,
+    //             Quaternion.identity
+    //         );
+    //         newPlayer.PlayerID = botId.ToString();
+    //         newPlayer.name = "BOT" + botId;
+    //         SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+    //         if (SocketConnectionManager.Instance.players.Count == 9)
+    //         {
+    //             GetComponent<MMTouchButton>().DisableButton();
+    //         }
 
-            pendingSpawn = false;
-        }
-    }
+    //         pendingSpawn = false;
+    //     }
+    // }
 }

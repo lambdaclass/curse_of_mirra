@@ -135,27 +135,35 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    Debug.Log("this.gamePlayers != null " + (this.gamePlayers != null));
-                    Debug.Log(
-                        "this.gamePlayers.Count < gameEvent.Players.Count "
-                            + (this.gamePlayers.Count < gameEvent.Players.Count)
-                    );
-                    Debug.Log("SpawnBot.Instance != null " + (SpawnBot.Instance != null));
                     if (
                         this.gamePlayers != null
                         && this.gamePlayers.Count < gameEvent.Players.Count
                         && SpawnBot.Instance != null
                     )
                     {
-                        Debug.Log("Will spawn a bot");
                         gameEvent.Players
                             .ToList()
-                            .FindAll((player) => !this.gamePlayers.Contains(player))
+                            .FindAll((player) => !this.gamePlayers.Any((p) => p.Id == player.Id))
                             .ForEach(
                                 (player) =>
                                 {
-                                    Debug.Log("Spawning bot");
-                                    SpawnBot.Instance.Spawn(player);
+                                    var spawnPosition =
+                                        Utils.transformBackendPositionToFrontendPosition(
+                                            player.Position
+                                        );
+                                    var botId = player.Id.ToString();
+                                    SpawnBot.Instance.playerPrefab
+                                        .GetComponent<CustomCharacter>()
+                                        .PlayerID = "";
+
+                                    CustomCharacter newPlayer = Instantiate(
+                                        SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
+                                        spawnPosition,
+                                        Quaternion.identity
+                                    );
+                                    newPlayer.PlayerID = botId.ToString();
+                                    newPlayer.name = "BOT" + botId;
+                                    this.players.Add(newPlayer.gameObject);
                                 }
                             );
                     }
