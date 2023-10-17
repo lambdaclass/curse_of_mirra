@@ -50,6 +50,12 @@ public class SocketConnectionManager : MonoBehaviour
     {
         public List<Player> gameEventPlayers;
         public List<Player> gamePlayers;
+
+        public BotSpawnEventData(List<Player> gameEventPlayers, List<Player> gamePlayers)
+        {
+            this.gameEventPlayers = gameEventPlayers;
+            this.gamePlayers = gamePlayers;
+        }
     }
 
     public event Action<BotSpawnEventData> BotSpawnRequested;
@@ -336,9 +342,6 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void OnBotSpawnRequested(List<Player> gameEventPlayers)
     {
-        BotSpawnEventData botSpawnEventData = new BotSpawnEventData();
-        botSpawnEventData.gameEventPlayers = gameEventPlayers;
-        botSpawnEventData.gamePlayers = this.gamePlayers;
-        BotSpawnRequested?.Invoke(botSpawnEventData);
+        BotSpawnRequested?.Invoke(new BotSpawnEventData(gameEventPlayers, this.gamePlayers));
     }
 }

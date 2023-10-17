@@ -42,35 +42,4 @@ public class SpawnBot : MonoBehaviour
         SocketConnectionManager.Instance.ToggleBots();
         GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(botsActive);
     }
-
-    // public void Spawn(Player player)
-    // {
-    //     pendingSpawn = true;
-    //     spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
-    //     botId = player.Id.ToString();
-    // }
-
-    // public void Update()
-    // {
-    //     if (pendingSpawn)
-    //     {
-    //         Debug.Log("Paso por acá");
-    //         playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
-
-    //         CustomCharacter newPlayer = Instantiate(
-    //             playerPrefab.GetComponent<CustomCharacter>(),
-    //             spawnPosition,
-    //             Quaternion.identity
-    //         );
-    //         newPlayer.PlayerID = botId.ToString();
-    //         newPlayer.name = "BOT" + botId;
-    //         SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
-    //         if (SocketConnectionManager.Instance.players.Count == 9)
-    //         {
-    //             GetComponent<MMTouchButton>().DisableButton();
-    //         }
-
-    //         pendingSpawn = false;
-    //     }
-    // }
 }
