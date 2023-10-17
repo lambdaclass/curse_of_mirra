@@ -46,6 +46,14 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> alivePlayers = new List<Player>();
     public List<LootPackage> updatedLoots = new List<LootPackage>();
 
+    public struct BotSpawnEventData
+    {
+        public List<Player> gameEventPlayers;
+        public List<Player> gamePlayers;
+    }
+
+    public event Action<BotSpawnEventData> BotSpawnRequested;
+
     WebSocket ws;
 
     private string clientId;
@@ -141,31 +149,32 @@ public class SocketConnectionManager : MonoBehaviour
                         && SpawnBot.Instance != null
                     )
                     {
-                        gameEvent.Players
-                            .ToList()
-                            .FindAll((player) => !this.gamePlayers.Any((p) => p.Id == player.Id))
-                            .ForEach(
-                                (player) =>
-                                {
-                                    var spawnPosition =
-                                        Utils.transformBackendPositionToFrontendPosition(
-                                            player.Position
-                                        );
-                                    var botId = player.Id.ToString();
-                                    SpawnBot.Instance.playerPrefab
-                                        .GetComponent<CustomCharacter>()
-                                        .PlayerID = "";
+                        OnBotSpawnRequested(gameEvent.Players.ToList());
+                        // gameEvent.Players
+                        //     .ToList()
+                        //     .FindAll((player) => !this.gamePlayers.Any((p) => p.Id == player.Id))
+                        //     .ForEach(
+                        //         (player) =>
+                        //         {
+                        //             var spawnPosition =
+                        //                 Utils.transformBackendPositionToFrontendPosition(
+                        //                     player.Position
+                        //                 );
+                        //             var botId = player.Id.ToString();
+                        //             SpawnBot.Instance.playerPrefab
+                        //                 .GetComponent<CustomCharacter>()
+                        //                 .PlayerID = "";
 
-                                    CustomCharacter newPlayer = Instantiate(
-                                        SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
-                                        spawnPosition,
-                                        Quaternion.identity
-                                    );
-                                    newPlayer.PlayerID = botId.ToString();
-                                    newPlayer.name = "BOT" + botId;
-                                    this.players.Add(newPlayer.gameObject);
-                                }
-                            );
+                        //             CustomCharacter newPlayer = Instantiate(
+                        //                 SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
+                        //                 spawnPosition,
+                        //                 Quaternion.identity
+                        //             );
+                        //             newPlayer.PlayerID = botId.ToString();
+                        //             newPlayer.name = "BOT" + botId;
+                        //             this.players.Add(newPlayer.gameObject);
+                        //         }
+                        //     );
                     }
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
@@ -347,5 +356,13 @@ public class SocketConnectionManager : MonoBehaviour
     public bool PlayerIsWinner(ulong playerId)
     {
         return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
+    }
+
+    private void OnBotSpawnRequested(List<Player> gameEventPlayers)
+    {
+        BotSpawnEventData botSpawnEventData = new BotSpawnEventData();
+        botSpawnEventData.gameEventPlayers = gameEventPlayers;
+        botSpawnEventData.gamePlayers = this.gamePlayers;
+        BotSpawnRequested?.Invoke(botSpawnEventData);
     }
 }
