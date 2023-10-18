@@ -9,7 +9,6 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -54,6 +53,10 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    [SerializeField]
+    GameObject loadinScreen;
+
+    Int32 CAMERA_OFFSET = 30;
     bool cinematic = false;
     double xDigit = 0;
     double zDigit = 0;
@@ -103,17 +106,15 @@ public class CustomLevelManager : LevelManager
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         var player = Utils.GetPlayer(playerId);
-
-        System.Random rnd = new System.Random();
-
         this.camera
             .GetComponent<CinemachineVirtualCamera>()
             .GetCinemachineComponent<CinemachineFramingTransposer>()
             .m_TrackedObjectOffset = new Vector3(
-            -roundupbyten((int)player.transform.position.x) + (rnd.Next(1, 5) * 10),
-            0,
-            -roundupbyten((int)player.transform.position.z) + (rnd.Next(1, 5) * 10)
+            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
+            6,
+            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
         );
+
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
         MMSoundManagerSoundPlayEvent.Trigger(
@@ -192,13 +193,39 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-        yield return new WaitForSeconds(.2f);
+        //Start moving camera and remove loading sceen
         InvokeRepeating("Substract", 1f, 0.1f);
+        yield return new WaitForSeconds(1.7f);
+        loadinScreen.SetActive(false);
+        //Cancel camera movement and start zoom in
+        yield return new WaitForSeconds(2.1f);
+        CancelInvoke("Substract");
+        InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+        //Cancel camera zoom
+        yield return new WaitForSeconds(0.5f);
+        CancelInvoke("MoveYCamera");
     }
 
     int roundupbyten(int i)
     {
-        return (int)(Math.Ceiling(i / 10.0d) * 10); // fixed
+        return (int)(Math.Ceiling(i / 10.0d) * 10);
+    }
+
+    void MoveYCamera()
+    {
+        Vector3 cameraOffset = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>()
+            .m_TrackedObjectOffset;
+
+        this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>()
+            .m_TrackedObjectOffset = new Vector3(
+            0,
+            cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
+            0
+        );
     }
 
     void Substract()
@@ -211,32 +238,14 @@ public class CustomLevelManager : LevelManager
 
         var xIsPositive = Math.Round(cameraOffset.x) > 0;
         var zIsPositive = Math.Round(cameraOffset.z) > 0;
+        var xValue = (xIsPositive ? -1 : 1);
+        var zValue = (zIsPositive ? -1 : 1);
 
-        if (cinematic == false)
-        {
-            xDigit = Math.Abs(Math.Round(cameraOffset.x / 10));
-            zDigit = Math.Abs(Math.Round(cameraOffset.z / 10));
-            cinematic = true;
-            pos = new Vector3(
-                roundupbyten((int)cameraOffset.x),
-                0,
-                roundupbyten((int)cameraOffset.z)
-            );
-
-            print(roundupbyten((int)cameraOffset.x) % xDigit);
-            print(zDigit + " " + xDigit);
-        }
-        else
-        {
-            print(xDigit);
-            print(zDigit);
-            pos = new Vector3(
-                cameraOffset.x
-                    + (float)(cameraOffset.x != 0 ? (xIsPositive ? -xDigit : xDigit) : 0),
-                0,
-                cameraOffset.z + (float)(cameraOffset.z != 0 ? (zIsPositive ? -zDigit : zDigit) : 0)
-            );
-        }
+        pos = new Vector3(
+            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
+            cameraOffset.y,
+            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
+        );
 
         this.camera
             .GetComponent<CinemachineVirtualCamera>()
