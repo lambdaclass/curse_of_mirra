@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -22,13 +23,15 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public GameObject spawnFeedback;
 
-    public void activateSpawnFeedback()
+    IEnumerator activateSpawnFeedback()
     {
         spawnFeedback.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        spawnFeedback.SetActive(false);
     }
 
     void Awake()
     {
-        activateSpawnFeedback();
+        StartCoroutine(activateSpawnFeedback());
     }
 }
