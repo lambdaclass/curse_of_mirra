@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TitleScreenController : MonoBehaviour
 {
-    private const string TITLE_SCENE_NAME = "Lobbies";
+    private const string TITLE_SCENE_NAME = "MainScreen";
 
     [SerializeField]
     CanvasGroup playNowButton;
