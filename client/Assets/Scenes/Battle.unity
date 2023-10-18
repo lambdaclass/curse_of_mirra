@@ -182,18 +182,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &672995939 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 813438968687883540, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2856279044554654229}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1103355900 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4190701241990048127, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -305,12 +293,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1400874598, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400874598, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 460.9242
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1400874598, guid: 9edcf7e494cf3e640b18cb7495fb179a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -396,13 +380,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 628.55457
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3943502343545172835, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -436,13 +415,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5888417331244992891, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5888417331244992891, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 796.18494
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5888417331244992891, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -467,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 6399823345918844847, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 188.5545
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6399823345918844847, guid: 9edcf7e494cf3e640b18cb7495fb179a,
         type: 3}
@@ -496,7 +470,7 @@ Camera:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2856279044554654232 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 368487284, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+  m_CorrespondingSourceObject: {fileID: 456601720, guid: 9edcf7e494cf3e640b18cb7495fb179a,
     type: 3}
   m_PrefabInstance: {fileID: 2856279044554654229}
   m_PrefabAsset: {fileID: 0}
@@ -581,6 +555,11 @@ PrefabInstance:
       objectReference: {fileID: 2856279044554654234}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
+      propertyPath: battleScreen
+      value: 
+      objectReference: {fileID: 2856279044554654232}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
       propertyPath: loadinScreen
       value: 
       objectReference: {fileID: 1760191340}
@@ -588,12 +567,12 @@ PrefabInstance:
         type: 3}
       propertyPath: totalKillsText
       value: 
-      objectReference: {fileID: 672995939}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: backToLobbyButton
       value: 
-      objectReference: {fileID: 2856279044554654232}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: joystickL

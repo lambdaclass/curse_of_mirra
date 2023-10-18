@@ -56,12 +56,14 @@ public class CustomLevelManager : LevelManager
     //Camera cinematic variables
     [SerializeField]
     GameObject loadinScreen;
+
+    [SerializeField]
+    GameObject battleScreen;
     Int32 CAMERA_OFFSET = 30;
     Int32 CAMERA_Y_OFFSET = 6;
     bool cinematic = false;
     double xDigit = 0;
     double zDigit = 0;
-
     CinemachineFramingTransposer cameraFramingTransposer = null;
 
     protected override void Awake()
@@ -200,6 +202,7 @@ public class CustomLevelManager : LevelManager
         InvokeRepeating("Substract", 1f, 0.1f);
         yield return new WaitForSeconds(1.7f);
         loadinScreen.SetActive(false);
+        battleScreen.SetActive(true);
         //Cancel camera movement and start zoom in
         yield return new WaitForSeconds(2.1f);
         CancelInvoke("Substract");
