@@ -78,10 +78,4 @@ config :dark_worlds_server, :information, version_hash: hash
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-case Mix.env() do
-  :rust_test ->
-    nil
-
-  env when env in [:dev, :prod, :test] ->
-    import_config "#{config_env()}.exs"
-end
+import_config "#{config_env()}.exs"

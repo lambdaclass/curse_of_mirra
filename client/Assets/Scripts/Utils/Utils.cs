@@ -36,6 +36,11 @@ public class Utils
         );
     }
 
+    public static CustomCharacter GetCharacter(ulong id)
+    {
+        return GetPlayer(id).GetComponent<CustomCharacter>();
+    }
+
     public static Player GetGamePlayer(ulong id)
     {
         Player player = null;
