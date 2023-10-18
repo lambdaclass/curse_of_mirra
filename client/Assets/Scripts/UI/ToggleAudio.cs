@@ -21,6 +21,9 @@ public class ToggleAudio : MonoBehaviour
 
     private ulong SFX_VOLUME = 3;
 
+    //The engines defines this value as 0 (muted)
+    private float MUTED_VOLUME = 0.0001f;
+
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channel;
 
@@ -106,6 +109,7 @@ public class ToggleAudio : MonoBehaviour
     private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
     {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        return !soundManager.IsMuted(track) || soundManager.GetTrackVolume(track, false) <= 0.0001f;
+        return !soundManager.IsMuted(track)
+            || soundManager.GetTrackVolume(track, false) <= MUTED_VOLUME;
     }
 }
