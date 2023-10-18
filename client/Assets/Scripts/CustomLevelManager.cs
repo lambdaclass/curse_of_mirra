@@ -53,19 +53,25 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    //Camera cinematic variables
     [SerializeField]
     GameObject loadinScreen;
-
     Int32 CAMERA_OFFSET = 30;
+    Int32 CAMERA_Y_OFFSET = 6;
     bool cinematic = false;
     double xDigit = 0;
     double zDigit = 0;
+
+    CinemachineFramingTransposer cameraFramingTransposer = null;
 
     protected override void Awake()
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         InitializeMap();
+        cameraFramingTransposer = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -106,12 +112,9 @@ public class CustomLevelManager : LevelManager
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         var player = Utils.GetPlayer(playerId);
-        this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>()
-            .m_TrackedObjectOffset = new Vector3(
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
             player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-            6,
+            CAMERA_Y_OFFSET,
             player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
         );
 
@@ -213,15 +216,9 @@ public class CustomLevelManager : LevelManager
 
     void MoveYCamera()
     {
-        Vector3 cameraOffset = this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>()
-            .m_TrackedObjectOffset;
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
 
-        this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>()
-            .m_TrackedObjectOffset = new Vector3(
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
             0,
             cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
             0
@@ -230,27 +227,19 @@ public class CustomLevelManager : LevelManager
 
     void Substract()
     {
-        Vector3 pos = new Vector3(0, 0, 0);
-        Vector3 cameraOffset = this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>()
-            .m_TrackedObjectOffset;
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
 
         var xIsPositive = Math.Round(cameraOffset.x) > 0;
         var zIsPositive = Math.Round(cameraOffset.z) > 0;
         var xValue = (xIsPositive ? -1 : 1);
         var zValue = (zIsPositive ? -1 : 1);
 
-        pos = new Vector3(
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
             cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
             cameraOffset.y,
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
-
-        this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>()
-            .m_TrackedObjectOffset = pos;
+        ;
     }
 
     private void setCameraToPlayer(ulong playerID)
