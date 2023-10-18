@@ -3,12 +3,12 @@
 ## Requirements
 - Rust:
     - https://www.rust-lang.org/tools/install
-- Elixir and Erlang: 
+- Elixir and Erlang:
     - https://thinkingelixir.com/install-elixir-using-asdf/
-    - Erlang/OTP 25
-    - Elixir 1.14.4
+    - Erlang/OTP 26
+    - Elixir 1.15.4
 - Unity
-- Docker 
+- Docker
 
 ## Setup project
 Make sure Docker is running.

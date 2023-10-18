@@ -23,4 +23,8 @@ defmodule DarkWorldsServer.Engine.PlayerTracker do
       _ -> nil
     end
   end
+
+  def remove_player(client_id) do
+    :ets.delete(@table, client_id)
+  end
 end
