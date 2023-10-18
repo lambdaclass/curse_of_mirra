@@ -18,4 +18,17 @@ public class CharacterBase : MonoBehaviour
 
     [SerializeField]
     public GameObject SkillRange;
+
+    [SerializeField]
+    public GameObject spawnFeedback;
+
+    public void activateSpawnFeedback()
+    {
+        spawnFeedback.SetActive(true);
+    }
+
+    void Awake()
+    {
+        activateSpawnFeedback();
+    }
 }

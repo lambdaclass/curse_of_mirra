@@ -20,13 +20,10 @@ run:
 	mix assets.build
 	iex -S mix phx.server
 
-tests: elixir-tests rust-tests
+tests: elixir-tests
 
 elixir-tests:
 	mix test
-
-rust-tests:
-	mix rust_tests
 
 shell:
 	iex -S mix run --no-start --no-halt
@@ -36,7 +33,6 @@ credo:
 
 format:
 	mix format
-	cargo fmt --manifest-path native/gamestate/Cargo.toml
 	cd load_test && mix format
 
 prepush: format credo tests
