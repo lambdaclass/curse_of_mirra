@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class UITests
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void UITestsSimplePasses()
+    [SetUp]
+    public void Setup()
     {
-        // Use the Assert class to test conditions
+        EditorSceneManager.OpenScene("Assets/Scenes/TitleScreen.unity");
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator UITestsWithEnumeratorPasses()
+    [Test]
+    public void VerifySceneElements()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        var gameObject = GameObject.Find("Enter");
+        Assert.That(gameObject, Is.Not.Null);
+    }
+
+    [TearDown]
+    public void Teardown()
+    {
+        EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
     }
 }
