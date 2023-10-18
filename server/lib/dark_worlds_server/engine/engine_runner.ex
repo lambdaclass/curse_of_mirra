@@ -43,11 +43,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #######################
   @impl true
   def init(%{engine_config_raw_json: engine_config_raw_json}) do
-    # priority =
-    #   Application.fetch_env!(:dark_worlds_server, __MODULE__)
-    #   |> Keyword.fetch!(:process_priority)
+    priority =
+      Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
+      |> Keyword.fetch!(:process_priority)
 
-    # Process.flag(:priority, priority)
+    Process.flag(:priority, priority)
 
     engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
 
@@ -57,6 +57,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{}
     }
+
+    Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
     {:ok, state}
   end
@@ -70,6 +72,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       |> put_in([:user_to_player, user_id], player_id)
 
     {:reply, :ok, state}
+  end
+
+  def handle_call(msg, from, state) do
+    Logger.error("Unexpected handle_call msg", %{msg: msg, from: from})
+    {:noreply, state}
   end
 
   @impl true
@@ -94,6 +101,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
     Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
 
+    {:noreply, state}
+  end
+
+  def handle_cast(msg, state) do
+    Logger.error("Unexpected handle_cast msg", %{msg: msg})
     {:noreply, state}
   end
 
@@ -161,7 +173,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         status: if(player.health <= 0, do: :dead, else: :alive),
         health: player.health,
         body_size: player.size,
-        character_name: "H4ck",
+        character_name: transform_character_name_to_myrra_character_name(player.character.name),
         ## Placeholder values
         kill_count: 0,
         effects: %{},
@@ -203,6 +215,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_position_to_myrra_position(position) do
-    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + 5000, y: position.x + 5000}
+    {width, height} = Process.get(:map_size)
+    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + div(width, 2), y: position.x + div(height, 2)}
   end
+
+  defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
 end
