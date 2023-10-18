@@ -17,8 +17,8 @@ public class UITests
     [Test]
     public void VerifySceneElements()
     {
-        var gameObject = GameObject.Find("Enter");
-        Assert.That(gameObject, Is.Not.Null);
+        var enterButton = GameObject.Find("Enter");
+        Assert.That(enterButton, Is.Not.Null);
     }
 
     [TearDown]
