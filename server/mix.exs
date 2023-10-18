@@ -9,10 +9,7 @@ defmodule DarkWorldsServer.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
-      preferred_cli_env: [
-        rust_tests: :rust_test
-      ]
+      deps: deps()
     ]
   end
 
@@ -62,7 +59,6 @@ defmodule DarkWorldsServer.MixProject do
       {:etop, "~> 0.7"},
       {:rexbug, ">= 1.0.0"},
       {:eep, github: "virtan/eep"},
-      {:rust_tests, path: "rust_tests_app", runtime: Mix.env() == :rust_test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:cors_plug, "~> 3.0"},
       {:tesla, "~> 1.4", override: true},
@@ -83,7 +79,6 @@ defmodule DarkWorldsServer.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      rust_tests: ["cmd mix test ./rust_tests_app/test --color --force"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]

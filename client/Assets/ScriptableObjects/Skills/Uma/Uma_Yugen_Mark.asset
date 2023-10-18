@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: Uma_Skill1
+  m_Name: Uma_Yugen_Mark
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: YUGEN'S MARK
   description: 'Target a nearby enemy, inflicting a Mark for a short period which
@@ -21,19 +21,22 @@ MonoBehaviour:
   executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
-  feedbackVfx: {fileID: 0}
-  feedbackVfxDuration: 0
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
-  executeAnimationDuration: 0
+  executeAnimationDuration: 1.5
   skillCircleRadius: 10
   skillConeAngle: 45
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
   skillSprite: {fileID: 21300000, guid: 65a0159db117148ef904fe5db9a3aaea, type: 3}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  feedbackVfxDelay: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  startFeedbackVfxDelay: 0
+  animationVfx: {fileID: 0}
