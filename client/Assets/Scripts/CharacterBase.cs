@@ -23,8 +23,9 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public GameObject spawnFeedback;
 
-    IEnumerator activateSpawnFeedback()
+    public IEnumerator activateSpawnFeedback()
     {
+        print("arranco");
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
         yield return new WaitForSeconds(lifeTime);
@@ -33,6 +34,6 @@ public class CharacterBase : MonoBehaviour
 
     void Awake()
     {
-        StartCoroutine(activateSpawnFeedback());
+        // StartCoroutine(activateSpawnFeedback());
     }
 }

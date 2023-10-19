@@ -204,6 +204,9 @@ public class CustomLevelManager : LevelManager
         loadinScreen.SetActive(false);
         battleScreen.SetActive(true);
         //Cancel camera movement and start zoom in
+        Utils
+            .GetAllCharacters()
+            .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
         yield return new WaitForSeconds(2.1f);
         CancelInvoke("Substract");
         InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
