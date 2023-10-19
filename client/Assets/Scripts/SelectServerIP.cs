@@ -22,7 +22,7 @@ public class SelectServerIP : MonoBehaviour
 
     public void SetServerIp()
     {
-        serverIp = IP.text;
+        serverIp = IP.text.Trim();  
         serverNameString = serverName.text;
         GetComponent<Image>().sprite = selectedButtonSprite;
         LobbyConnection.Instance.Refresh();

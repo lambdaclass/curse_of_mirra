@@ -138,7 +138,7 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, null);
+        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, characterInfo.skillBackground);
         Skill1.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
