@@ -21,29 +21,30 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
         }
       })
 
-      for i <- 1..3 do
-        Runner.play(pid, i, %ActionOk{
-          action: :select_character,
-          value: %{player_id: i, character_name: "Muflus"},
-          timestamp: nil
-        })
-      end
+    for i <- 1..3 do
+      Runner.play(pid, i, %ActionOk{
+        action: :select_character,
+        value: %{player_id: i, character_name: "Muflus"},
+        timestamp: nil
+      })
+    end
+
     {:ok, bot_player_pid} =
       BotPlayer.start_link(pid, 30)
-      # Add a bot to the server
-      Runner.play(pid, 4, %ActionOk{action: :add_bot, timestamp: nil, value: nil})
 
+    # Add a bot to the server
+    Runner.play(pid, 4, %ActionOk{action: :add_bot, timestamp: nil, value: nil})
 
-      ## Needed for the character selection
-      Process.sleep(1_000)
+    ## Needed for the character selection
+    Process.sleep(1_000)
 
-      for i <- 1..4, do: Runner.join(pid, "client-id", i)
+    for i <- 1..4, do: Runner.join(pid, "client-id", i)
 
-      %{runner_pid: pid, bot_player_pid: bot_player_pid}
+    %{runner_pid: pid, bot_player_pid: bot_player_pid}
   end
 
   describe "bot decisions" do
-    test "Bot flees when in harm",%{runner_pid: _pid, bot_player_pid: _bot_player_pid} do
+    test "Bot flees when in harm", %{runner_pid: _pid, bot_player_pid: _bot_player_pid} do
       true
     end
   end

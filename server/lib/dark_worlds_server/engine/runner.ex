@@ -311,8 +311,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_call(:get_game, _from, gen_server_state) do
-    {:reply,
-     gen_server_state.server_game_state.game, gen_server_state}
+    {:reply, gen_server_state.server_game_state.game, gen_server_state}
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do

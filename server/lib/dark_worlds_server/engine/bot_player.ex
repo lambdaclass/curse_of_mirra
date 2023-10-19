@@ -66,6 +66,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
     state =
       put_in(state, [:bots, bot_id], new_bot_state)
+
     {:noreply, state}
   end
 
@@ -133,7 +134,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, game_state) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
-    target = calculate_circle_point(bot.position.x, bot.position.y, game_state.shrinking_center.x, game_state.shrinking_center.y)
+
+    target =
+      calculate_circle_point(
+        bot.position.x,
+        bot.position.y,
+        game_state.shrinking_center.x,
+        game_state.shrinking_center.y
+      )
 
     Map.put(bot_state, :action, {:move, target})
   end
@@ -189,7 +197,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     {x, -y}
   end
 
-  defp decide_state(_player_state, %{bots_enabled: false})  do
+  defp decide_state(_player_state, %{bots_enabled: false}) do
     :nothing
   end
 
@@ -200,5 +208,4 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       Enum.random([:attack_enemy, :random_movement])
     end
   end
-
 end
