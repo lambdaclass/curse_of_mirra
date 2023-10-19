@@ -34,6 +34,9 @@ public class Battle : MonoBehaviour
     private Loot loot;
     private bool playerMaterialColorChanged;
 
+    [SerializeField]
+    private CustomLevelManager levelManager;
+
     private static readonly int _healthBarIndex = 1;
 
     // We do this to only have the state effects in the enum instead of all the effects
@@ -381,7 +384,8 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
                 GameObject projectileFromSkill = skillInfoSet
-                    .Single(skill => skill.name == gameProjectiles[i].SkillName)
+                    .Where(el => el.name == gameProjectiles[i].SkillName)
+                    .First()
                     .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
                     .InstanceProjectile(projectileFromSkill, angle);
@@ -643,6 +647,7 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         CustomGUIManager.DisplayZoneDamageFeedback(false);
+        levelManager.DestroySkillsClone(playerCharacter);
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
