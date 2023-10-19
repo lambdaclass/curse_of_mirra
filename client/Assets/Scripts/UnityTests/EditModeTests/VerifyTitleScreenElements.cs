@@ -6,7 +6,9 @@ using UnityEngine.TestTools;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-public class UITests
+public class VerifyTitleScreenElements
+// Verifies the existence of elements in the Title Screen
+
 {
     [SetUp]
     public void Setup()
