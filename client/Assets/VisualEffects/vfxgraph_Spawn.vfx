@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 60
     y: -244
     width: 3436
-    height: 1997
+    height: 1977
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,8 +64,8 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 114340500867371532}
   m_ParameterInfo:
-  - name: Lift time
-    path: Lift time
+  - name: LifeTime
+    path: LifeTime
     tooltip: 
     sheetType: m_Float
     realType: Single
@@ -9642,7 +9642,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615047}
-  m_ExposedName: Lift time
+  m_ExposedName: LifeTime
   m_Exposed: 1
   m_Order: 0
   m_Category: 

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/AddressableAssetsData.meta
+guid: d7c2fd5ca86c7404eb9f81c07c361c88
+========
+guid: a67d304fd32794ebc89dbd634a83d955
+>>>>>>>> main:client/Assets/Packages/Google.Protobuf.3.24.3.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

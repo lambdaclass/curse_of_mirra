@@ -14,10 +14,5 @@ public class CoMCharacter : ScriptableObject
     public Sprite skillBackground;
     public Color32 InputFeedbackColor;
     public List<SkillInfo> skillsInfo;
-
-    // The references below should be deleted with an upcoming refactor
     public SkillInfo skillBasicInfo;
-    public SkillInfo skill1Info;
-    public SkillInfo skill2Info;
-    public SkillInfo skill3Info;
 }
