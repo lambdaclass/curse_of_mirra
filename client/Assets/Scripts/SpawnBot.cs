@@ -1,11 +1,10 @@
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class SpawnBot : MonoBehaviour
 {
     [SerializeField]
-    GameObject playerPrefab;
+    public GameObject playerPrefab;
 
     private bool pendingSpawn = false;
     private bool botsActive = true;
@@ -14,17 +13,27 @@ public class SpawnBot : MonoBehaviour
 
     public static SpawnBot Instance;
 
+    public void Awake()
+    {
+        Init();
+    }
+
     public void Init()
     {
-        if (SocketConnectionManager.Instance.players.Count == 9)
-            GetComponent<MMTouchButton>().DisableButton();
         Instance = this;
-        GenerateBotPlayer();
+        if (SocketConnectionManager.Instance.players.Count == 9)
+        {
+            GetComponent<MMTouchButton>().DisableButton();
+        }
     }
 
     public void GenerateBotPlayer()
     {
         SocketConnectionManager.Instance.CallSpawnBot();
+        if (SocketConnectionManager.Instance.players.Count == 9)
+        {
+            GetComponent<MMTouchButton>().DisableButton();
+        }
     }
 
     public void ToggleBots()
@@ -32,31 +41,5 @@ public class SpawnBot : MonoBehaviour
         botsActive = !botsActive;
         SocketConnectionManager.Instance.ToggleBots();
         GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(botsActive);
-    }
-
-    public void Spawn(Player player)
-    {
-        pendingSpawn = true;
-        spawnPosition = Utils.transformBackendPositionToFrontendPosition(player.Position);
-        botId = player.Id.ToString();
-    }
-
-    public void Update()
-    {
-        if (pendingSpawn)
-        {
-            playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
-
-            CustomCharacter newPlayer = Instantiate(
-                playerPrefab.GetComponent<CustomCharacter>(),
-                spawnPosition,
-                Quaternion.identity
-            );
-            newPlayer.PlayerID = botId.ToString();
-            newPlayer.name = "BOT" + botId;
-            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
-
-            pendingSpawn = false;
-        }
     }
 }

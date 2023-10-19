@@ -8,7 +8,6 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -57,6 +56,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
+        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
     }
 
@@ -170,6 +170,32 @@ public class CustomLevelManager : LevelManager
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
+    }
+
+    private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
+    {
+        botSpawnEventData.gameEventPlayers
+            .ToList()
+            .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
+            .ForEach(
+                (player) =>
+                {
+                    var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
+                        player.Position
+                    );
+                    var botId = player.Id.ToString();
+                    SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
+
+                    CustomCharacter newPlayer = Instantiate(
+                        SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
+                        spawnPosition,
+                        Quaternion.identity
+                    );
+                    newPlayer.PlayerID = botId.ToString();
+                    newPlayer.name = "BOT" + botId;
+                    SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+                }
+            );
     }
 
     private void setCameraToPlayer(ulong playerID)

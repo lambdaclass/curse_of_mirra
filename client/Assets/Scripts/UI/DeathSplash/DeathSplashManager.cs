@@ -47,25 +47,27 @@ public class DeathSplashManager : MonoBehaviour
     TextMeshProUGUI defeaterAbility;
 
     [SerializeField]
-    GameObject playerModelContainer;
+    GameObject characterModelContainer;
+
+    [SerializeField]
+    List<GameObject> characterModels;
 
     private const int WINNER_POS = 1;
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
     GameObject player;
-    GameObject playerModel;
     GameObject modelClone;
 
     public void SetDeathSplashPlayer()
     {
         player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
-        GameObject playerModel = player.GetComponent<CustomCharacter>().CharacterModel;
-        modelClone = Instantiate(
-            playerModel,
-            playerModelContainer.transform.position,
-            playerModelContainer.transform.rotation,
-            playerModelContainer.transform
+        GameObject characterModel = characterModels.Single(
+            characterModel =>
+                characterModel.name.Contains(
+                    player.GetComponent<CustomCharacter>().CharacterModel.name
+                )
         );
+        modelClone = Instantiate(characterModel, characterModelContainer.transform);
     }
 
     void OnEnable()
@@ -158,32 +160,13 @@ public class DeathSplashManager : MonoBehaviour
     {
         if (player)
         {
-            // TODO: get model sizes to make them look the same
-            if (modelClone.name.Contains("H4ck"))
-            {
-                modelClone.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            }
-            if (modelClone.name.Contains("Muflus"))
-            {
-                modelClone.transform.localScale = new Vector3(0.34f, 0.34f, 0.34f);
-                modelClone.transform.localPosition = new Vector3(0f, -0.1f, 0f);
-            }
-            if (modelClone.name.Contains("Dagna"))
-            {
-                modelClone.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            if (modelClone.name.Contains("Uma"))
-            {
-                modelClone.transform.localScale = new Vector3(1.45f, 1.45f, 1.45f);
-                modelClone.transform.localPosition = new Vector3(0f, 0.14f, 0f);
-            }
             if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
             {
-                modelClone.GetComponent<Animator>().SetBool("Victory", true);
+                modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
             }
             else
             {
-                modelClone.GetComponent<Animator>().SetBool("Defeat", true);
+                modelClone.GetComponentInChildren<Animator>().SetBool("Defeat", true);
             }
         }
     }

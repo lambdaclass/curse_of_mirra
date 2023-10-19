@@ -1,5 +1,7 @@
 # Curse of Myrra
 
+Curse of Myrra is a game that uses the [Lambda backend game engine](https://github.com/lambdaclass/lambda_backend_game_engine).
+
 ## Requirements
 - Rust:
     - https://www.rust-lang.org/tools/install

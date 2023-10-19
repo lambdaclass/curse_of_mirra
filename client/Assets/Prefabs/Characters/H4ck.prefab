@@ -482,6 +482,7 @@ MonoBehaviour:
   weaponModel: {fileID: 4647235498851149651}
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
+  - {fileID: 305740109525267919}
   feedbacksPrefabs:
   - {fileID: 6057499254784400716}
   damageOverlayColor:
@@ -642,6 +643,12 @@ PrefabInstance:
 --- !u!1 &220605700603955422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &305740109525267919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
