@@ -65,8 +65,8 @@ public class Loot : MonoBehaviour
 
     private void RemoveLoot(ulong id)
     {
-        GameObject lootObject = GetLootObject(id);
-        string type = GetLootType(id);
+        GameObject lootObject = GetLoot(id).lootObject;
+        string type = GetLoot(id).type;
 
         MMSoundManagerSoundPlayEvent.Trigger(
             GetLootableByType(type).pickUpSound,
@@ -80,12 +80,7 @@ public class Loot : MonoBehaviour
 
     private bool ExistInLoots(ulong id)
     {
-        foreach (var loot in loots)
-        {
-            if (loot.id == id)
-                return true;
-        }
-        return false;
+        return loots.Any(loot => loot.id == id);
     }
 
     private void RemoveById(ulong id)
@@ -94,14 +89,9 @@ public class Loot : MonoBehaviour
         loots.Remove(toRemove);
     }
 
-    private GameObject GetLootObject(ulong id)
+    private LootItem GetLoot(ulong id)
     {
-        return loots.Find(loot => loot.id == id).lootObject;
-    }
-
-    private string GetLootType(ulong id)
-    {
-        return loots.Find(loot => loot.id == id).type;
+        return loots.Find(loot => loot.id == id);
     }
 
     private Lootable GetLootableByType(string type)
