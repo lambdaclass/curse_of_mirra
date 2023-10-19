@@ -115,7 +115,6 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
-        Debug.Log("Initializing LobbyConnection");
         this.serverIp = SelectServerIP.GetServerIp();
         this.serverName = SelectServerIP.GetServerName();
 
@@ -333,8 +332,7 @@ public class LobbyConnection : MonoBehaviour
                     CurrentGameResponse response = JsonUtility.FromJson<CurrentGameResponse>(
                         webRequest.downloadHandler.text
                     );
-                    Debug.Log("Ongoing game? " + response.ongoing_game);
-                    if (response.ongoing_game && !SocketConnectionManager.Instance.playerExitedGame)
+                    if (IsAbleToReconnect(response.ongoing_game))
                     {
                         this.reconnectPossible = true;
                         this.reconnectToCharacterSelection = response.on_character_selection;
@@ -362,6 +360,13 @@ public class LobbyConnection : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private bool IsAbleToReconnect(bool ongoingGame)
+    {
+        return ongoingGame
+            && SocketConnectionManager.Instance
+            && !SocketConnectionManager.Instance.playerExitedGame;
     }
 
     private void ConnectToSession(string sessionId)

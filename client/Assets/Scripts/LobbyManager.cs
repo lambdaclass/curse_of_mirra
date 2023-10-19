@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
-    public bool playerExitedGame = false;
     private const string CHARACTER_SELECTION_SCENE_NAME = "CharacterSelection";
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string LOBBIES_SCENE_NAME = "Lobbies";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
+    private bool playerExitedGame = false;
 
     [SerializeField]
     GameObject playButton;
