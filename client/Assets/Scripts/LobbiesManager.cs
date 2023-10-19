@@ -31,11 +31,11 @@ public class LobbiesManager : LevelSelector
         StartCoroutine(WaitForLobbyJoin(idHash));
     }
 
-    public void Back()
-    {
-        LobbyConnection.Instance.Init();
-        SceneManager.LoadScene("Lobbies");
-    }
+    // public void Back()
+    // {
+    //     LobbyConnection.Instance.Init();
+    //     SceneManager.LoadScene("Lobbies");
+    // }
 
     public void Refresh()
     {

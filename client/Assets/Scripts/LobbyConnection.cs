@@ -40,7 +40,6 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
-
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
@@ -116,6 +115,7 @@ public class LobbyConnection : MonoBehaviour
 
     public void Init()
     {
+        Debug.Log("Initializing LobbyConnection");
         this.serverIp = SelectServerIP.GetServerIp();
         this.serverName = SelectServerIP.GetServerName();
 
@@ -333,8 +333,8 @@ public class LobbyConnection : MonoBehaviour
                     CurrentGameResponse response = JsonUtility.FromJson<CurrentGameResponse>(
                         webRequest.downloadHandler.text
                     );
-
-                    if (response.ongoing_game)
+                    Debug.Log("Ongoing game? " + response.ongoing_game);
+                    if (response.ongoing_game && !SocketConnectionManager.Instance.playerExitedGame)
                     {
                         this.reconnectPossible = true;
                         this.reconnectToCharacterSelection = response.on_character_selection;

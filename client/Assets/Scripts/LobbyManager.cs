@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
+    public bool playerExitedGame = false;
     private const string CHARACTER_SELECTION_SCENE_NAME = "CharacterSelection";
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string LOBBIES_SCENE_NAME = "Lobbies";
@@ -45,6 +46,10 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
+        if (SocketConnectionManager.Instance)
+        {
+            SocketConnectionManager.Instance.playerExitedGame = false;
+        }
         StartCoroutine(CreateGame());
         this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
@@ -72,6 +77,7 @@ public class LobbyManager : LevelSelector
 
     public void BackToLobbyFromGame()
     {
+        this.playerExitedGame = true;
         Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
         BackToLobbyAndCloseConnection();
     }
@@ -109,6 +115,14 @@ public class LobbyManager : LevelSelector
                 this.playButton.SetActive(true);
                 this.waitingText.SetActive(false);
             }
+        }
+
+        if (
+            SocketConnectionManager.Instance
+            && this.playerExitedGame != SocketConnectionManager.Instance.playerExitedGame
+        )
+        {
+            SocketConnectionManager.Instance.playerExitedGame = this.playerExitedGame;
         }
     }
 }
