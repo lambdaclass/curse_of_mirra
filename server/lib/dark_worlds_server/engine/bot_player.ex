@@ -194,12 +194,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp decide_state(player_state, _bots_genserver_state) do
-    cond do
-      Enum.any?(player_state.effects, fn {k, _v} -> k == :out_of_area end) ->
-        :flee_from_zone
-
-      true ->
-        Enum.random([:attack_enemy, :random_movement])
+    if Enum.any?(player_state.effects, fn {k, _v} -> k == :out_of_area end) do
+      :flee_from_zone
+    else
+      Enum.random([:attack_enemy, :random_movement])
     end
   end
 
