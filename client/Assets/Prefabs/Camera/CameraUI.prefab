@@ -12336,6 +12336,7 @@ GameObject:
   - component: {fileID: 5806646212593837140}
   - component: {fileID: 2864256523158950205}
   - component: {fileID: 5046237525699424236}
+  - component: {fileID: 3606361664792325017}
   m_Layer: 0
   m_Name: AttackBasic
   m_TagString: Untagged
@@ -12484,6 +12485,61 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   newPointerTapDown:
+    m_PersistentCalls:
+      m_Calls: []
+  skill: {fileID: 0}
+--- !u!114 &3606361664792325017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502623651594081531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f012b325306e4de28c398cf364a4080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetCamera: {fileID: 20646998284766860}
+  HorizontalAxisEnabled: 1
+  VerticalAxisEnabled: 1
+  MaxRangeMode: 0
+  MaxRange: 100
+  MaxRangeTransform: {fileID: 0}
+  JoystickValue:
+    m_PersistentCalls:
+      m_Calls: []
+  JoystickNormalizedValue:
+    m_PersistentCalls:
+      m_Calls: []
+  JoystickMagnitudeValue:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerDownEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDragEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  RotatingIndicator: {fileID: 0}
+  RotatingIndicatorThreshold: 0.1
+  PressedOpacity: 1
+  InterpolateOpacity: 1
+  InterpolateOpacitySpeed: 1
+  RawValue: {x: 0, y: 0}
+  NormalizedValue: {x: 0, y: 0}
+  Magnitude: 0
+  DrawGizmos: 1
+  newPointerUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newDragEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newPointerDownEvent:
     m_PersistentCalls:
       m_Calls: []
   skill: {fileID: 0}
@@ -14661,6 +14717,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2938020214328287934}
+  - component: {fileID: 4193348489826148595}
+  - component: {fileID: 957426595544397154}
   - component: {fileID: 3705797991875376954}
   m_Layer: 0
   m_Name: AttackBasicWrapper
@@ -14688,9 +14746,47 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -129.00009, y: 86}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: -38, y: 15}
+  m_SizeDelta: {x: 340, y: 340}
   m_Pivot: {x: 1, y: 0}
+--- !u!222 &4193348489826148595
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802007321232912316}
+  m_CullTransparentMesh: 1
+--- !u!114 &957426595544397154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802007321232912316}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!225 &3705797991875376954
 CanvasGroup:
   m_ObjectHideFlags: 0
