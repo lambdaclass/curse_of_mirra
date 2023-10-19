@@ -6,6 +6,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Engine.Runner
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
+  # This variable will dice how much time passes between bot decisions in milis
+  @decide_delay 500
+
   #######
   # API #
   #######
@@ -39,8 +42,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def handle_cast({:add_bot, bot_id}, state) do
     send(self(), {:decide_action, bot_id})
     send(self(), {:do_action, bot_id})
-    objective = Enum.random([:random_movement, :attack_player])
-    {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: objective})}
+    {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: :random_movement})}
   end
 
   def handle_cast({:bots_enabled, toggle}, state) do
@@ -50,19 +52,31 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   @impl GenServer
   def handle_info({:decide_action, bot_id}, state) do
     bot_state = get_in(state, [:bots, bot_id])
-    new_bot_state = decide_action(bot_id, state.players, bot_state)
-    state = put_in(state, [:bots, bot_id], new_bot_state)
-    {:noreply, state}
-  end
 
-  def handle_info({:do_action, bot_id}, %{bots_enabled: false} = state) do
-    Process.send_after(self(), {:do_action, bot_id}, state.game_tick_rate)
+    new_bot_state =
+      if bot_state && bot_state.alive do
+        Process.send_after(self(), {:decide_action, bot_id}, @decide_delay)
+
+        game_state = Runner.get_game(state.game_pid) |> Map.get(:myrra_state)
+        bot_ingame_state = Enum.find(game_state.players, fn player -> player.id == bot_id end)
+
+        decide_action(bot_id, state.players, bot_state, game_state)
+        |> Map.put(:objective, decide_state(bot_ingame_state, state))
+      end
+
+    state =
+      put_in(state, [:bots, bot_id], new_bot_state)
     {:noreply, state}
   end
 
   def handle_info({:do_action, bot_id}, state) do
     bot_state = get_in(state, [:bots, bot_id])
-    do_action(bot_id, state.game_pid, state.game_tick_rate, state.players, bot_state)
+
+    if bot_state && bot_state.alive do
+      Process.send_after(self(), {:do_action, bot_id}, state.game_tick_rate)
+      do_action(bot_id, state.game_pid, state.players, bot_state)
+    end
+
     {:noreply, state}
   end
 
@@ -92,47 +106,48 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   #############################
   # Callbacks implementations #
   #############################
-  defp decide_action(_, _, %{alive: false} = bot_state) do
+  defp decide_action(_, _, %{alive: false} = bot_state, _game_state) do
     bot_state
   end
 
-  defp decide_action(bot_id, _, %{objective: :random_movement} = bot_state) do
-    Process.send_after(self(), {:decide_action, bot_id}, 5_000)
-    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
+  defp decide_action(_bot_id, _players, %{objective: :random_movement} = bot_state, _game_state) do
+    movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(bot_id, [], %{objective: :attack_player} = bot_state) do
-    Process.send_after(self(), {:decide_action, bot_id}, 5_000)
-    [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
+  defp decide_action(_bot_id, [], %{objective: :attack_enemy} = bot_state, _game_state) do
+    movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(bot_id, players, %{objective: :attack_player} = bot_state) do
-    Process.send_after(self(), {:decide_action, bot_id}, 5_000)
-
+  defp decide_action(bot_id, players, %{objective: :attack_enemy} = bot_state, _game_state) do
     case Enum.reject(players, fn player -> player.id == bot_id or player.health <= 0 end) do
-      [player | _] ->
-        Map.put(bot_state, :action, {:try_attack, player.id})
-
-      _ ->
-        [movement] = Enum.take_random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}], 1)
+      [] ->
+        movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
         Map.put(bot_state, :action, {:move, movement})
+
+      players ->
+        Map.put(bot_state, :action, {:try_attack, Enum.random(players).id})
     end
   end
 
-  defp do_action(_, _, _, _, %{alive: false}) do
-    :noop
+  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, game_state) do
+    bot = Enum.find(players, fn player -> player.id == bot_id end)
+    target = calculate_circle_point(bot.position.x, bot.position.y, game_state.shrinking_center.x, game_state.shrinking_center.y)
+
+    Map.put(bot_state, :action, {:move, target})
   end
 
-  defp do_action(bot_id, game_pid, action_tick_rate, _players, %{action: {:move, {x, y}}}) do
-    Process.send_after(self(), {:do_action, bot_id}, action_tick_rate)
+  defp decide_action(_bot_id, _players, bot_state, _game_state) do
+    bot_state
+    |> Map.put(:action, {:nothing, nil})
+  end
+
+  defp do_action(bot_id, game_pid, _players, %{action: {:move, {x, y}}}) do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
-  defp do_action(bot_id, game_pid, action_tick_rate, players, %{action: {:try_attack, player_id}}) do
-    Process.send_after(self(), {:do_action, bot_id}, action_tick_rate)
-
+  defp do_action(bot_id, game_pid, players, %{action: {:try_attack, player_id}}) do
     ## TODO: Not ideal to do this iteration over the lists twice, but not the worst considering the size
     player = Enum.find(players, fn player -> player.id == player_id end)
     bot = Enum.find(players, fn player -> player.id == bot_id end)
@@ -159,6 +174,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
+  defp do_action(_bot_id, _game_pid, _players, _) do
+    nil
+  end
+
   ####################
   # Internal helpers #
   ####################
@@ -169,4 +188,19 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
     {x, -y}
   end
+
+  defp decide_state(_player_state, %{bots_enabled: false})  do
+    :nothing
+  end
+
+  defp decide_state(player_state, _bots_genserver_state) do
+    cond do
+      Enum.any?(player_state.effects, fn {k, _v} -> k == :out_of_area end) ->
+        :flee_from_zone
+
+      true ->
+        Enum.random([:attack_enemy, :random_movement])
+    end
+  end
+
 end
