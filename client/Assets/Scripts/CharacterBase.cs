@@ -25,8 +25,9 @@ public class CharacterBase : MonoBehaviour
 
     IEnumerator activateSpawnFeedback()
     {
+        float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(lifeTime);
         spawnFeedback.SetActive(false);
     }
 
