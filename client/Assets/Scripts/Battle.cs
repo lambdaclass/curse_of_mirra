@@ -248,7 +248,6 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-
                 if (currentPlayer.activeSelf)
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))

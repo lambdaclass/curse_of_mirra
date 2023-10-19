@@ -46,6 +46,20 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> alivePlayers = new List<Player>();
     public List<LootPackage> updatedLoots = new List<LootPackage>();
 
+    public struct BotSpawnEventData
+    {
+        public List<Player> gameEventPlayers;
+        public List<Player> gamePlayers;
+
+        public BotSpawnEventData(List<Player> gameEventPlayers, List<Player> gamePlayers)
+        {
+            this.gameEventPlayers = gameEventPlayers;
+            this.gamePlayers = gamePlayers;
+        }
+    }
+
+    public event Action<BotSpawnEventData> BotSpawnRequested;
+
     WebSocket ws;
 
     private string clientId;
@@ -141,18 +155,9 @@ public class SocketConnectionManager : MonoBehaviour
                         && SpawnBot.Instance != null
                     )
                     {
-                        gameEvent.Players
-                            .ToList()
-                            .FindAll((player) => !this.gamePlayers.Contains(player))
-                            .ForEach(
-                                (player) =>
-                                {
-                                    SpawnBot.Instance.Spawn(player);
-                                }
-                            );
+                        // We use an event here, to prevent losing events.
+                        OnBotSpawnRequested(gameEvent.Players.ToList());
                     }
-                    // This should be deleted when the match end is fixed
-                    // gameEvent.Players.ToList().ForEach((player) => print("PLAYER: " + player.Id + " KILLS: " + player.KillCount + " DEATHS: " + player.DeathCount));
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
@@ -166,22 +171,6 @@ public class SocketConnectionManager : MonoBehaviour
                     winnerPlayer.Item1 = gameEvent.WinnerPlayer;
                     winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
                     this.gamePlayers = gameEvent.Players.ToList();
-                    // This should be uncommented when the match end is finished
-                    // gameEvent.Players
-                    //     .ToList()
-                    //     .ForEach(
-                    //         (player) =>
-                    //             print(
-                    //                 "PLAYER: "
-                    //                     + player.Id
-                    //                     + " KILLS: "
-                    //                     + player.KillCount
-                    //                     + " DEATHS: "
-                    //                     + player.DeathCount
-                    //                     + " STATUS: "
-                    //                     + player.Status
-                    //             )
-                    //     );
                     break;
                 case GameEventType.InitialPositions:
                     this.gamePlayers = gameEvent.Players.ToList();
@@ -349,5 +338,10 @@ public class SocketConnectionManager : MonoBehaviour
     public bool PlayerIsWinner(ulong playerId)
     {
         return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
+    }
+
+    private void OnBotSpawnRequested(List<Player> gameEventPlayers)
+    {
+        BotSpawnRequested?.Invoke(new BotSpawnEventData(gameEventPlayers, this.gamePlayers));
     }
 }
