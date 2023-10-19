@@ -197,11 +197,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     {x, -y}
   end
 
-  defp decide_state(_player_state, %{bots_enabled: false}) do
+  def decide_state(_player_state, %{bots_enabled: false}) do
     :nothing
   end
 
-  defp decide_state(player_state, _bots_genserver_state) do
+  def decide_state(player_state, _bots_genserver_state) do
     if Enum.any?(player_state.effects, fn {k, _v} -> k == :out_of_area end) do
       :flee_from_zone
     else
