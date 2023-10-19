@@ -21,7 +21,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     IDictionary<ulong, ISet<PlayerEffect>> playersMarks =
         new Dictionary<ulong, ISet<PlayerEffect>>();
 
-    public void HandleUmMarks(Player playerUpdate)
+    public void HandleUmaMarks(Player playerUpdate)
     {
         foreach (int effect in Enum.GetValues(typeof(Marks)))
         {
@@ -95,10 +95,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         healthBar.ForegroundColor = Utils.GetHealthBarGradient(color);
     }
 
-    public void ToggleHealthBar(
-        GameObject player,
-        Player playerUpdate
-    )
+    public void ToggleHealthBar(GameObject player, Player playerUpdate)
     {
         MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
 
