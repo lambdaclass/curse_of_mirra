@@ -70,6 +70,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
+        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -246,6 +247,32 @@ public class CustomLevelManager : LevelManager
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
         ;
+    }
+
+    private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
+    {
+        botSpawnEventData.gameEventPlayers
+            .ToList()
+            .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
+            .ForEach(
+                (player) =>
+                {
+                    var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
+                        player.Position
+                    );
+                    var botId = player.Id.ToString();
+                    SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
+
+                    CustomCharacter newPlayer = Instantiate(
+                        SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
+                        spawnPosition,
+                        Quaternion.identity
+                    );
+                    newPlayer.PlayerID = botId.ToString();
+                    newPlayer.name = "BOT" + botId;
+                    SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+                }
+            );
     }
 
     private void setCameraToPlayer(ulong playerID)
