@@ -60,10 +60,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     GenServer.call(runner_pid, :get_state)
   end
 
-  def get_game(runner_pid) do
-    GenServer.call(runner_pid, :get_game)
-  end
-
   def get_board(runner_pid) do
     GenServer.call(runner_pid, :get_board)
   end
@@ -308,10 +304,6 @@ defmodule DarkWorldsServer.Engine.Runner do
     {:reply,
      {gen_server_state.game_status, gen_server_state.current_players, gen_server_state.selected_characters,
       gen_server_state.opts}, gen_server_state}
-  end
-
-  def handle_call(:get_game, _from, gen_server_state) do
-    {:reply, gen_server_state.server_game_state.game, gen_server_state}
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
