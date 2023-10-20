@@ -861,11 +861,9 @@ public class Battle : MonoBehaviour
             characterSpeed = 0f;
         }
 
-        var healthBarFront = player
-            .GetComponent<CustomCharacter>()
-            .GetComponentsInChildren<MMProgressBar>()[
-            _healthBarIndex
-        ].ForegroundBar.GetComponent<Image>();
+        var healthBarFront = character
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar.ForegroundBar.GetComponent<Image>();
         if (
             playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
             && !healthBarFront.color.Equals(Utils.healthBarPoisoned)

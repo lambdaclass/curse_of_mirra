@@ -310,10 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe6344b7148db4687d3c84e7712904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBarType: 0
+  HealthBarType: 2
   TimeScale: 0
   HealthBarPrefab: {fileID: 4376723688183607097}
-  TargetProgressBar: {fileID: 0}
+  TargetProgressBar: {fileID: 4376723688183607097}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 45, y: 0, z: 0}
@@ -517,6 +517,7 @@ MonoBehaviour:
   weaponModel: {fileID: 0}
   feedbacksStatesPrefabs:
   - {fileID: 895018412278084090}
+  - {fileID: 818023681295879403}
   feedbacksPrefabs:
   - {fileID: 6590048612560282728}
   damageOverlayColor:
@@ -669,6 +670,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
+--- !u!1 &818023681295879403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2371788534584169767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &895018412278084090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,

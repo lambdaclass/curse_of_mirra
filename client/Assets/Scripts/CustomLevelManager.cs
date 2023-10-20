@@ -198,9 +198,9 @@ public class CustomLevelManager : LevelManager
                     );
                     newPlayer.PlayerID = botId.ToString();
                     newPlayer.name = "BOT" + botId;
-                    Image healthBarFront = newPlayer.GetComponentsInChildren<MMProgressBar>()[
-                        _healthBarIndex
-                    ].ForegroundBar.GetComponent<Image>();
+                    Image healthBarFront = newPlayer
+                        .GetComponent<MMHealthBar>()
+                        .TargetProgressBar.ForegroundBar.GetComponent<Image>();
 
                     healthBarFront.color = Utils.healthBarRed;
                     SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
@@ -353,9 +353,9 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            Image healthBarFront = player.GetComponentsInChildren<MMProgressBar>()[
-                _healthBarIndex
-            ].ForegroundBar.GetComponent<Image>();
+            Image healthBarFront = player
+                .GetComponent<MMHealthBar>()
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;

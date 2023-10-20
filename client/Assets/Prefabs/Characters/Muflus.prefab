@@ -275,10 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe6344b7148db4687d3c84e7712904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBarType: 0
+  HealthBarType: 2
   TimeScale: 0
-  HealthBarPrefab: {fileID: 8047304923672176213}
-  TargetProgressBar: {fileID: 0}
+  HealthBarPrefab: {fileID: 0}
+  TargetProgressBar: {fileID: 8047304923672176213}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 45, y: 0, z: 0}
@@ -771,6 +771,11 @@ PrefabInstance:
     - target: {fileID: 1824325337625087515, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042137297313984016, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
