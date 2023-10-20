@@ -52,6 +52,9 @@ public class CustomLevelManager : LevelManager
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    [SerializeField]
+    private AudioClip spawnSfx;
+
     private bool deathSplashIsShown = false;
 
     protected override void Awake()

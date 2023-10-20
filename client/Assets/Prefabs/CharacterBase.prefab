@@ -59,6 +59,7 @@ MonoBehaviour:
   AimDirection: {fileID: 504285555944152676}
   SkillRange: {fileID: 7220386294724277444}
   spawnFeedback: {fileID: 5507989738225416466}
+  spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
