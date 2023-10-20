@@ -248,6 +248,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"), do: "SLINGSHOT"
   defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"), do: "MULTISHOT"
   defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
+  # TEST skills
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"), do: "DISARM"
 
   defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
