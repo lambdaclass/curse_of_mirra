@@ -67,7 +67,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state ->
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-          closest_entity = get_closes_entity(state, bot_id)
+          closest_entity = get_closes_entity(state.game_state, bot_id)
 
           decide_action(bot_id, state.players, bot_state, state, closest_entity)
           |> Map.put(:objective, decide_objective(state.game_state, bot_id, closest_entity))
@@ -129,8 +129,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.put(bot_state, :action, {:try_attack, closest_entity})
   end
 
-  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, game_state, _closest_entity) do
+  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, state, _closest_entity) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
+
 
     target =
       calculate_circle_point(
@@ -214,29 +215,40 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def decide_objective(_, _, _), do: :nothing
 
-  defp get_closes_entity(bot, game_state) do
-    players_distances =
-      game_state.players
-      |> Enum.filter(fn player -> player.status == :alive and player.id != bot.id end)
-      |> map_entities(bot)
+  defp get_closes_entity(%{myrra_state: game_state}, bot_id) do
+    bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
 
-    loots_distances =
-      game_state.loots
-      |> map_entities(bot)
-
-    cond do
-      Enum.empty?(loots_distances) and Enum.empty?(players_distances) ->
+    case bot do
+      nil ->
         %{}
+      bot ->
+        players_distances =
+          game_state.players
+          |> Enum.filter(fn player -> player.status == :alive and player.id != bot.id end)
+          |> map_entities(bot)
 
-      Enum.empty?(loots_distances) ->
-        hd(players_distances)
+        loots_distances =
+          game_state.loots
+          |> map_entities(bot)
 
-      Enum.empty?(players_distances) ->
-        hd(loots_distances)
+        cond do
+          Enum.empty?(loots_distances) and Enum.empty?(players_distances) ->
+            %{}
 
-      true ->
-        Enum.min_by([hd(loots_distances), hd(players_distances)], fn entity -> entity.distance_to_entity end)
+          Enum.empty?(loots_distances) ->
+            hd(players_distances)
+
+          Enum.empty?(players_distances) ->
+            hd(loots_distances)
+
+          true ->
+            Enum.min_by([hd(loots_distances), hd(players_distances)], fn entity -> entity.distance_to_entity end)
+        end
     end
+  end
+
+  defp get_closes_entity(_, _ ) do
+    %{}
   end
 
   defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
