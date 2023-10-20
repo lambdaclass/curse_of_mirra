@@ -42,10 +42,16 @@ public class ToggleAudio : MonoBehaviour
         if (
             volumeSlider
             && (IsMuted(channel) && unmutedVolume != volumeSlider.value)
-            && volumeSlider.value > 0.0001f
+            && volumeSlider.value > MUTED_VOLUME
         )
         {
             unmutedVolume = volumeSlider.value;
+        }
+
+        if (volumeSlider)
+        {
+            muteButtonImage.overrideSprite =
+                volumeSlider.value == MUTED_VOLUME ? mutedSprite : unmutedSprite;
         }
     }
 
