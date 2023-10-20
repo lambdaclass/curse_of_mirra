@@ -5,45 +5,75 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
   describe "bot decisions" do
     test "Bot flees when in harm" do
       bot_with_out_of_zone_state = %{
+        id: 1,
         effects: %{
           out_of_area: %{}
         }
       }
 
-      assert :flee_from_zone == BotPlayer.decide_state(bot_with_out_of_zone_state, %{})
+      state_map = %{
+        myrra_state: %{
+          players: [
+            bot_with_out_of_zone_state
+          ]
+        }
+      }
+
+      assert :flee_from_zone == BotPlayer.decide_objective(state_map, 1)
     end
 
     test "Pick a random action when idle" do
-      bot_in_idle = %{
+      bot_with_out_of_zone_state = %{
+        id: 1,
         effects: %{}
       }
 
-      result_state = BotPlayer.decide_state(bot_in_idle, %{})
+      state_map = %{
+        myrra_state: %{
+          players: [
+            bot_with_out_of_zone_state
+          ]
+        }
+      }
+
+      result_state = BotPlayer.decide_objective(state_map, 1)
       assert Enum.any?([:attack_enemy, :random_movement], fn s -> s == result_state end)
     end
 
     test "Dont move when bots are not enabled" do
-      bot_state = %{
+      bot_with_out_of_zone_state = %{
+        id: 1,
         effects: %{}
       }
 
-      state_with_disabled_bots = %{
-        bots_enabled: false
+      state_map = %{
+        bots_enabled: false,
+        myrra_state: %{
+          players: [
+            bot_with_out_of_zone_state
+          ]
+        }
       }
 
-      assert :nothing == BotPlayer.decide_state(bot_state, state_with_disabled_bots)
+      assert :nothing == BotPlayer.decide_objective(state_map, 1)
     end
 
     test "Move when bots are not enabled" do
-      bot_state = %{
+      bot_with_out_of_zone_state = %{
+        id: 1,
         effects: %{}
       }
 
-      state_with_enable_bots = %{
-        bots_enabled: true
+      state_map = %{
+        bots_enabled: true,
+        myrra_state: %{
+          players: [
+            bot_with_out_of_zone_state
+          ]
+        }
       }
 
-      result_state = BotPlayer.decide_state(bot_state, state_with_enable_bots)
+      result_state = BotPlayer.decide_objective(state_map, 1)
       assert Enum.any?([:attack_enemy, :random_movement], fn s -> s == result_state end)
     end
   end
