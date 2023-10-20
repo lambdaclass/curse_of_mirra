@@ -23,7 +23,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
     end
 
     test "Pick a random action when idle" do
-      bot_with_out_of_zone_state = %{
+      bot_state = %{
         id: 1,
         effects: %{}
       }
@@ -31,7 +31,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
       state_map = %{
         myrra_state: %{
           players: [
-            bot_with_out_of_zone_state
+            bot_state
           ]
         }
       }
@@ -41,7 +41,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
     end
 
     test "Dont move when bots are not enabled" do
-      bot_with_out_of_zone_state = %{
+      bot_state = %{
         id: 1,
         effects: %{}
       }
@@ -50,7 +50,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
         bots_enabled: false,
         myrra_state: %{
           players: [
-            bot_with_out_of_zone_state
+            bot_state
           ]
         }
       }
@@ -59,7 +59,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
     end
 
     test "Move when bots are not enabled" do
-      bot_with_out_of_zone_state = %{
+      bot_state = %{
         id: 1,
         effects: %{}
       }
@@ -68,7 +68,7 @@ defmodule DarkWorldsServer.Engine.BotPlayerTest do
         bots_enabled: true,
         myrra_state: %{
           players: [
-            bot_with_out_of_zone_state
+            bot_state
           ]
         }
       }
