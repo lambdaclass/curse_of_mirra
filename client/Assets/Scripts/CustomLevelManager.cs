@@ -53,6 +53,9 @@ public class CustomLevelManager : LevelManager
     public List<GameObject> mapList = new List<GameObject>();
     private static readonly int _healthBarIndex = 1;
 
+    [SerializeField]
+    private AudioClip spawnSfx;
+
     private bool deathSplashIsShown = false;
 
     protected override void Awake()

@@ -808,7 +808,12 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
+        CharacterFeedbackManager feedbackManager =
+            character.characterBase.GetComponent<CharacterFeedbackManager>();
+
         ManageFeedbacks(player, playerUpdate);
+        feedbackManager.HandleUmaMarks(playerUpdate);
+        feedbackManager.ToggleHealthBar(player, playerUpdate);
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
         {
@@ -860,91 +865,7 @@ public class Battle : MonoBehaviour
         {
             characterSpeed = 0f;
         }
-
-        var healthBarFront = character
-            .GetComponent<MMHealthBar>()
-            .TargetProgressBar.ForegroundBar.GetComponent<Image>();
-        if (
-            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && !healthBarFront.color.Equals(Utils.healthBarPoisoned)
-        )
-        {
-            healthBarFront.color = Utils.healthBarPoisoned;
-        }
-        if (
-            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
-            && healthBarFront.color.Equals(Utils.healthBarPoisoned)
-        )
-        {
-            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
-            {
-                healthBarFront.color = Utils.healthBarCyan;
-            }
-            else
-            {
-                healthBarFront.color = Utils.healthBarRed;
-            }
-        }
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.ElnarMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.ElnarMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.ElnarMark);
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.YugenMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.YugenMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.YugenMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.YugenMark);
-        }
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.XandaMark))
-        {
-            if (PlayerShouldSeeEffectMark(playerUpdate, PlayerEffect.XandaMark))
-            {
-                character.characterBase
-                    .GetComponent<CharacterFeedbackManager>()
-                    .DisplayEffectMark(playerUpdate.Id, PlayerEffect.XandaMark);
-            }
-        }
-        else
-        {
-            character.characterBase
-                .GetComponent<CharacterFeedbackManager>()
-                .RemoveMark(playerUpdate.Id, PlayerEffect.XandaMark);
-        }
-
         return characterSpeed;
-    }
-
-    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
-    {
-        ulong attackerId = GetEffectCauser(playerUpdate, effect);
-        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
-            || attackerId == SocketConnectionManager.Instance.playerId;
-    }
-
-    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
-    {
-        return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
 
     private void ManageFeedbacks(GameObject player, Player playerUpdate)
@@ -957,10 +878,5 @@ public class Battle : MonoBehaviour
             CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
-    }
-
-    private bool PlayerIsAlive(Player playerUpdate)
-    {
-        return playerUpdate.Status == Status.Alive;
     }
 }
