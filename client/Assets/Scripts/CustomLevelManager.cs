@@ -187,14 +187,17 @@ public class CustomLevelManager : LevelManager
             .ForEach(
                 (player) =>
                 {
+                    print(player);
                     var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
                         player.Position
                     );
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(player.CharacterName);
+                    print(botCharacter);
                     var botId = player.Id.ToString();
-                    SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>().PlayerID = "";
+                    botCharacter.PlayerID = "";
 
                     CustomCharacter newPlayer = Instantiate(
-                        SpawnBot.Instance.playerPrefab.GetComponent<CustomCharacter>(),
+                        botCharacter,
                         spawnPosition,
                         Quaternion.identity
                     );
