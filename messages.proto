@@ -209,6 +209,7 @@ enum PlayerEffect {
     SCHERZO = 15;
     DANSE_MACABRE = 16;
     PARALYZED = 17;
+    NONE = 18;
 }
 
 /* Represents the events happening in the matchmaking lobby, either from client or server

@@ -65,6 +65,9 @@ public class CustomLevelManager : LevelManager
     double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
 
+    [SerializeField]
+    private AudioClip spawnSfx;
+
     private bool deathSplashIsShown = false;
 
     protected override void Awake()

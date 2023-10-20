@@ -4,6 +4,7 @@ defmodule DarkWorldsServer.Engine do
   """
   use DynamicSupervisor
 
+  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.PlayerTracker
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.Runner
@@ -14,6 +15,11 @@ defmodule DarkWorldsServer.Engine do
 
   def start_child(args) do
     DynamicSupervisor.start_child(__MODULE__, {Runner, args})
+  end
+
+  def start_engine_runner() do
+    {:ok, engine_config_json} = Application.app_dir(:lambda_game_engine, "priv/config.json") |> File.read()
+    DynamicSupervisor.start_child(__MODULE__, {EngineRunner, %{engine_config_raw_json: engine_config_json}})
   end
 
   @impl true
