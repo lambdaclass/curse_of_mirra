@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/Packages/System.Runtime.CompilerServices.Unsafe.4.5.2/version.txt.meta
+guid: 15f8242599d0d443a9aa057c73d20cfa
+TextScriptImporter:
+========
 guid: dd5270927261d43799c26918a09291c6
 DefaultImporter:
+>>>>>>>> main:client/Assets/Scenes/VfxPlayground.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

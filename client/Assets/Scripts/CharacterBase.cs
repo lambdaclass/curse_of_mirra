@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -22,13 +24,24 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public GameObject spawnFeedback;
 
-    public void activateSpawnFeedback()
+    [SerializeField]
+    public AudioClip spawnSfx;
+
+    IEnumerator activateSpawnFeedback()
     {
+        float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
+        MMSoundManagerSoundPlayEvent.Trigger(
+            spawnSfx,
+            MMSoundManager.MMSoundManagerTracks.Sfx,
+            Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
+        );
+        yield return new WaitForSeconds(lifeTime);
+        spawnFeedback.SetActive(false);
     }
 
-    void Awake()
+    void Start()
     {
-        activateSpawnFeedback();
+        StartCoroutine(activateSpawnFeedback());
     }
 }

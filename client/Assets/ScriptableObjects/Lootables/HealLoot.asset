@@ -15,3 +15,5 @@ MonoBehaviour:
   lootName: Heal Loot
   lootPrefab: {fileID: 6444456623425687815, guid: f8b8367f45eb44faa8497f614c9a0204,
     type: 3}
+  pickUpSound: {fileID: 8300000, guid: 5529b4334aa9d4fa58e864479b0b4f7a, type: 3}
+  type: LootHealth

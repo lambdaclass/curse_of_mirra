@@ -2,8 +2,10 @@ defmodule DarkWorldsServer.Engine.Runner do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.BotPlayer
+  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.Game
   alias DarkWorldsServer.Engine.PlayerTracker
 
@@ -352,7 +354,15 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.myrra_state.players}
     )
 
-    {:noreply, gen_server_state}
+    ## Shutdown this runner and create a engine_runner instead
+    config = Application.get_env(:dark_worlds_server, __MODULE__)
+
+    if config[:use_engine_runner] do
+      setup_engine_runner(selected_players)
+      {:stop, :normal, gen_server_state}
+    else
+      {:noreply, gen_server_state}
+    end
   end
 
   def handle_info(:check_player_amount, gen_server_state) do
@@ -588,5 +598,22 @@ defmodule DarkWorldsServer.Engine.Runner do
 
       [new_item | acc_config]
     end)
+  end
+
+  defp setup_engine_runner(selected_players) do
+    ## Start engine_runner
+    {:ok, engine_runner_pid} = Engine.start_engine_runner()
+
+    ## Setup each player in engine_runner
+    Enum.each(selected_players, fn {id, name} ->
+      :ok = EngineRunner.join(engine_runner_pid, id, String.downcase(name))
+    end)
+
+    ## Start the game ticks
+    EngineRunner.start_game_tick(engine_runner_pid)
+
+    ## Tell runner subs that there is a new runner (engine_runner)
+    msg = {:change_to_engine_runner, engine_runner_pid, Communication.pubsub_game_topic(engine_runner_pid)}
+    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, Communication.pubsub_game_topic(self()), msg)
   end
 end
