@@ -7,7 +7,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   # This variable will dice how much time passes between bot decisions in milis
-  @decide_delay 500
+  @decide_delay_ms 500
 
   #######
   # API #
@@ -35,7 +35,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def init({game_pid, tick_rate}) do
     game_id = Communication.pid_to_external_id(game_pid)
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
-    {:ok, %{game_pid: game_pid, bots_enabled: true, game_tick_rate: tick_rate * 2, players: [], bots: %{}}}
+
+    {:ok,
+     %{game_pid: game_pid, bots_enabled: true, game_tick_rate: tick_rate * 2, players: [], bots: %{}, game_state: %{}}}
   end
 
   @impl GenServer
@@ -54,14 +56,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     bot_state = get_in(state, [:bots, bot_id])
 
     new_bot_state =
-      if bot_state && bot_state.alive do
-        Process.send_after(self(), {:decide_action, bot_id}, @decide_delay)
+      case bot_state do
+        %{action: :die} ->
+          bot_state
 
-        game_state = Runner.get_game(state.game_pid) |> Map.get(:myrra_state)
-        bot_ingame_state = Enum.find(game_state.players, fn player -> player.id == bot_id end)
+        bot_state ->
+          Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-        decide_action(bot_id, state.players, bot_state, game_state)
-        |> Map.put(:objective, decide_state(bot_ingame_state, state))
+          decide_action(bot_id, state.players, bot_state, state)
+          |> Map.put(:objective, decide_objective(state, bot_id))
       end
 
     state =
@@ -73,7 +76,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def handle_info({:do_action, bot_id}, state) do
     bot_state = get_in(state, [:bots, bot_id])
 
-    if bot_state && bot_state.alive do
+    if bot_state.alive do
       Process.send_after(self(), {:do_action, bot_id}, state.game_tick_rate)
       do_action(bot_id, state.game_pid, state.players, bot_state)
     end
@@ -97,7 +100,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
     Enum.each(bots, fn {bot_id, _} -> send(self(), {:think_and_do, bot_id}) end)
 
-    {:noreply, %{state | players: players, bots: bots}}
+    {:noreply, %{state | players: players, bots: bots, game_state: game_state.client_game_state.game}}
   end
 
   def handle_info(_msg, state) do
@@ -108,7 +111,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # Callbacks implementations #
   #############################
   defp decide_action(_, _, %{alive: false} = bot_state, _game_state) do
-    bot_state
+    Map.put(bot_state, :action, :die)
   end
 
   defp decide_action(_bot_id, _players, %{objective: :random_movement} = bot_state, _game_state) do
@@ -132,15 +135,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
-  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, game_state) do
+  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, state) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
     target =
       calculate_circle_point(
         bot.position.x,
         bot.position.y,
-        game_state.shrinking_center.x,
-        game_state.shrinking_center.y
+        state.game_state.myrra_state.shrinking_center.x,
+        state.game_state.myrra_state.shrinking_center.y
       )
 
     Map.put(bot_state, :action, {:move, target})
@@ -197,15 +200,23 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     {x, -y}
   end
 
-  def decide_state(_player_state, %{bots_enabled: false}) do
+  def decide_objective(%{bots_enabled: false}, _bot_id) do
     :nothing
   end
 
-  def decide_state(player_state, _bots_genserver_state) do
-    if Enum.any?(player_state.effects, fn {k, _v} -> k == :out_of_area end) do
-      :flee_from_zone
-    else
-      Enum.random([:attack_enemy, :random_movement])
+  def decide_objective(%{game_state: %{myrra_state: myrra_state}}, bot_id) do
+    case Enum.find(myrra_state.players, fn player -> player.id == bot_id end) do
+      nil ->
+        :nothing
+
+      bot_ingame_state ->
+        if Enum.any?(bot_ingame_state.effects, fn {k, _v} -> k == :out_of_area end) do
+          :flee_from_zone
+        else
+          Enum.random([:attack_enemy, :random_movement])
+        end
     end
   end
+
+  def decide_objective(_, _), do: :nothing
 end
