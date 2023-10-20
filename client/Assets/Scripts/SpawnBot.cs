@@ -1,6 +1,5 @@
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpawnBot : MonoBehaviour
 {
