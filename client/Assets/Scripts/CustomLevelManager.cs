@@ -61,7 +61,6 @@ public class CustomLevelManager : LevelManager
     GameObject battleScreen;
     Int32 CAMERA_OFFSET = 30;
     Int32 CAMERA_Y_OFFSET = 6;
-    bool cinematic = false;
     double xDigit = 0;
     double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
@@ -202,21 +201,30 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-        //Start moving camera and remove loading sceen
-        InvokeRepeating("Substract", 1f, 0.1f);
-        yield return new WaitForSeconds(1.7f);
-        loadinScreen.SetActive(false);
-        battleScreen.SetActive(true);
-        //Cancel camera movement and start zoom in
-        Utils
-            .GetAllCharacters()
-            .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
-        yield return new WaitForSeconds(2.1f);
-        CancelInvoke("Substract");
-        InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-        //Cancel camera zoom
-        yield return new WaitForSeconds(0.5f);
-        CancelInvoke("MoveYCamera");
+        if (!SocketConnectionManager.Instance.cinematicDone)
+        {
+            //Start moving camera and remove loading sceen
+            InvokeRepeating("Substract", 1f, 0.1f);
+            yield return new WaitForSeconds(1.7f);
+            loadinScreen.SetActive(false);
+            battleScreen.SetActive(true);
+            //Cancel camera movement and start zoom in
+            Utils
+                .GetAllCharacters()
+                .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
+            yield return new WaitForSeconds(2.1f);
+            CancelInvoke("Substract");
+            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            //Cancel camera zoom
+            yield return new WaitForSeconds(0.5f);
+            CancelInvoke("MoveYCamera");
+        }
+        else
+        {
+            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+            yield return new WaitForSeconds(0.8f);
+            loadinScreen.SetActive(false);
+        }
     }
 
     int roundupbyten(int i)
