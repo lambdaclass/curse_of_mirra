@@ -186,6 +186,8 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
+                    LobbyConnection.Instance.matchStarted = DateTime.Now;
+                    PlayerPrefs.SetString("matchStartTime", DateTime.Now.ToString());
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);

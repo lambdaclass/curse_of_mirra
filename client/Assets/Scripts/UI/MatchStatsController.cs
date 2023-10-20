@@ -39,13 +39,7 @@ public class MatchStatsController : MonoBehaviour
             .GetGamePlayer(SocketConnectionManager.Instance.playerId)
             ?.KillCount.ToString();
 
-        time += Time.deltaTime;
-
-        if (time >= period && seconds > 0)
-        {
-            time = time - period;
-            seconds--;
-            zoneTimer.text = seconds.ToString();
-        }
+        ulong timeRemainingMilliseconds = (ulong)(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - (DateTime.Now - LobbyConnection.Instance.matchStarted).TotalMilliseconds);
+        zoneTimer.text = (timeRemainingMilliseconds / 1000).ToString();
     }
 }
