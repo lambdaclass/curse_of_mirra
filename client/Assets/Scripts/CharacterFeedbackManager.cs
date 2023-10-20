@@ -5,7 +5,6 @@ using System;
 using MoreMountains.Tools;
 using UnityEngine.UI;
 
-// TODO: this could probably be a part of another class
 public class CharacterFeedbackManager : MonoBehaviour
 {
     [SerializeField]
@@ -98,24 +97,6 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void ToggleHealthBar(GameObject player, Player playerUpdate)
     {
-        // MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-
-        // switch (playerUpdate.Effects)
-        // {
-        //     case var effect when effect.ContainsKey((ulong)PlayerEffect.Poisoned):
-        //         if (!healthBar.ForegroundColor.Equals(MMColors.Green))
-        //         {
-        //             ChangeHealthBarColor(healthBar, MMColors.Green);
-        //         }
-        //         break;
-        //     default:
-        //         if (!healthBar.ForegroundColor.Equals(MMColors.Red))
-        //         {
-        //             ChangeHealthBarColor(healthBar, MMColors.BestRed);
-        //         }
-        //         break;
-        // }
-
         var healthBarFront = player
             .GetComponent<CustomCharacter>()
             .GetComponent<MMHealthBar>()
