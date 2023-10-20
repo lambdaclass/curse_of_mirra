@@ -163,6 +163,11 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
                     alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
                     updatedLoots = gameEvent.Loots.ToList();
+
+                    if(LobbyConnection.Instance.matchStartTime == 0) {
+                        LobbyConnection.Instance.matchStartTime = (ulong)gameEvent.ServerTimestamp;
+                        PlayerPrefs.SetString("matchStartTime", ((ulong)gameEvent.ServerTimestamp).ToString());
+                    }
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)gameEvent.Latency;
@@ -186,8 +191,6 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
-                    LobbyConnection.Instance.matchStarted = DateTime.Now;
-                    PlayerPrefs.SetString("matchStartTime", DateTime.Now.ToString());
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);

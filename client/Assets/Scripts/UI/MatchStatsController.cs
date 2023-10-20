@@ -39,7 +39,9 @@ public class MatchStatsController : MonoBehaviour
             .GetGamePlayer(SocketConnectionManager.Instance.playerId)
             ?.KillCount.ToString();
 
-        ulong timeRemainingMilliseconds = (ulong)(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - (DateTime.Now - LobbyConnection.Instance.matchStarted).TotalMilliseconds);
+        EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
+        ulong elapsedTime = (ulong)buffer.lastEvent().ServerTimestamp - LobbyConnection.Instance.matchStartTime;
+        ulong timeRemainingMilliseconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - elapsedTime;
         zoneTimer.text = (timeRemainingMilliseconds / 1000).ToString();
     }
 }

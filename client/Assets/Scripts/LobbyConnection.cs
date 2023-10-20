@@ -38,9 +38,7 @@ public class LobbyConnection : MonoBehaviour
     public string reconnectServerHash;
     public string reconnectGameId;
     public ulong reconnectPlayerId;
-
-    public DateTime matchStarted;
-
+    public ulong matchStartTime;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
@@ -239,7 +237,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-        this.matchStarted = DateTime.Parse(PlayerPrefs.GetString("matchStartTime"));
+        this.matchStartTime = Convert.ToUInt64(PlayerPrefs.GetString("matchStartTime"));
     }
 
     private IEnumerator WaitLobbyCreated()
