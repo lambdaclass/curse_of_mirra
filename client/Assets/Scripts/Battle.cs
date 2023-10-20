@@ -36,8 +36,6 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
 
-    private static readonly int _healthBarIndex = 1;
-
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {

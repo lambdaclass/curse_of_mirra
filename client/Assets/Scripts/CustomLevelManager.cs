@@ -51,7 +51,6 @@ public class CustomLevelManager : LevelManager
 
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-    private static readonly int _healthBarIndex = 1;
 
     [SerializeField]
     private AudioClip spawnSfx;

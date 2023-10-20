@@ -27,9 +27,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public AudioClip spawnSfx;
 
-    [SerializeField]
-    public GameObject HealthBar;
-
     IEnumerator activateSpawnFeedback()
     {
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
