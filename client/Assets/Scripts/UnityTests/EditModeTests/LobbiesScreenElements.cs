@@ -18,6 +18,8 @@ public class LobbiesScreenElements
     {
         var mainCamera = GameObject.Find("Main Camera");
         Assert.That(mainCamera, Is.Not.Null);
+        Camera hasCameraComponent = mainCamera.GetComponent<Camera>();
+        Assert.That(hasCameraComponent, Is.Not.Null);
     }
 
     [Test]
