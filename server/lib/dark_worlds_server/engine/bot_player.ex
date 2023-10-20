@@ -64,7 +64,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
           decide_action(bot_id, state.players, bot_state, state)
-          |> Map.put(:objective, decide_objective(state, bot_id))
+          |> Map.put(:objective, decide_objective(state.game_state, bot_id))
       end
 
     state =
@@ -204,13 +204,17 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     :nothing
   end
 
-  def decide_objective(%{game_state: %{myrra_state: myrra_state}}, bot_id) do
-    case Enum.find(myrra_state.players, fn player -> player.id == bot_id end) do
-      nil ->
-        :nothing
+  def decide_objective(%{myrra_state: myrra_state}, bot_id) do
+    bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
 
-      bot_ingame_state ->
-        if Enum.any?(bot_ingame_state.effects, fn {k, _v} -> k == :out_of_area end) do
+    case bot do
+      nil ->
+        :waiting_game_update
+
+      bot ->
+        out_of_area? = Enum.any?(bot.effects, fn {k, _v} -> k == :out_of_area end)
+
+        if out_of_area? do
           :flee_from_zone
         else
           Enum.random([:attack_enemy, :random_movement])
