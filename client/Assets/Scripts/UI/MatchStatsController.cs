@@ -15,22 +15,8 @@ public class MatchStatsController : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI killCount;
-    private float nextActionTime = 0.0f;
-    public float period = 1f;
 
-    public float time = 0f;
-
-    ulong seconds = 0;
-
-    void Awake()
-    {
-        seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
-    }
-
-    void Start()
-    {
-        zoneTimer.text = seconds.ToString();
-    }
+    ulong remainingSeconds = 1;
 
     void FixedUpdate()
     {
@@ -39,9 +25,17 @@ public class MatchStatsController : MonoBehaviour
             .GetGamePlayer(SocketConnectionManager.Instance.playerId)
             ?.KillCount.ToString();
 
-        EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
-        ulong elapsedTime = (ulong)buffer.lastEvent().ServerTimestamp - LobbyConnection.Instance.matchStartTime;
-        ulong timeRemainingMilliseconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - elapsedTime;
-        zoneTimer.text = (timeRemainingMilliseconds / 1000).ToString();
+        if(remainingSeconds > 0) {
+            EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
+            ulong elapsedTime = (ulong)buffer.lastEvent().ServerTimestamp - LobbyConnection.Instance.matchStartTime;
+            if(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs > elapsedTime) {
+                remainingSeconds = (LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - elapsedTime) / 1000;
+                zoneTimer.text = remainingSeconds.ToString();
+            }
+            else {
+                remainingSeconds = 0;
+                zoneTimer.text = "0";
+            }
+        }
     }
 }
