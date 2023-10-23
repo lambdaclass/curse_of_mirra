@@ -9,6 +9,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
+  # Amount of time until the game starts
+  @game_start_timer_ms 30
 
   #######
   # API #
@@ -56,6 +58,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.flag(:priority, priority)
 
     engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
+
+    Process.send_after(self(), :start_game, @game_start_timer_ms)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
@@ -139,6 +143,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(msg, state) do
     Logger.error("Unexpected handle_info msg", %{msg: msg})
     {:noreply, state}
+  end
+
+  # TODO will do :start_game callback
+  def handle_info(:start_game, state) do
   end
 
   ####################
