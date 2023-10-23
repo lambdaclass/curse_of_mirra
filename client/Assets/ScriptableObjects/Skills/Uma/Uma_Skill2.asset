@@ -21,19 +21,22 @@ MonoBehaviour:
   executeOnQuickTap: 1
   indicatorType: 0
   projectilePrefab: {fileID: 0}
-  feedbackVfx: {fileID: 0}
-  feedbackVfxDuration: 0
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
-  hasModelAnimation: 0
+  hasModelAnimation: 1
   abilityStartSfx: {fileID: 0}
   startAnimationDuration: 0
-  executeAnimationDuration: 0
+  executeAnimationDuration: 0.6
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 1
   skillSprite: {fileID: 21300000, guid: b18b679aa83fb4a4fae073c52758a5b1, type: 3}
+  feedbackVfx: {fileID: 0}
+  feedbackVfxDuration: 0
+  feedbackVfxDelay: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  startFeedbackVfxDelay: 0
+  animationVfx: {fileID: 0}
