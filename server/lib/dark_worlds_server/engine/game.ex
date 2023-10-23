@@ -30,11 +30,7 @@ defmodule DarkWorldsServer.Engine.Game do
   def basic_attack(a, b, c), do: LambdaGameEngine.basic_attack(a, b, c)
   def world_tick(game_state, out_of_area_damage), do: LambdaGameEngine.world_tick(game_state, out_of_area_damage)
   def disconnect(game, id), do: LambdaGameEngine.disconnect(game, id)
-
-  def spawn_player(game, player_id) do
-    LambdaGameEngine.spawn_player(game, player_id)
-  end
-
+  def spawn_player(game, player_id), do: LambdaGameEngine.spawn_player(game, player_id)
   def shrink_map(game, map_shrink_minimum_radius), do: LambdaGameEngine.shrink_map(game, map_shrink_minimum_radius)
   def spawn_loot(game), do: LambdaGameEngine.spawn_loot(game)
 end
