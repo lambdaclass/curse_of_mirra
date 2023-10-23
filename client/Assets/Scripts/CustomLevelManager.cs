@@ -102,6 +102,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        SetPlayerHealthBar(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
         MMSoundManagerSoundPlayEvent.Trigger(
@@ -199,6 +200,11 @@ public class CustomLevelManager : LevelManager
                     );
                     newPlayer.PlayerID = botId.ToString();
                     newPlayer.name = "BOT" + botId;
+                    Image healthBarFront = newPlayer
+                        .GetComponent<MMHealthBar>()
+                        .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+
+                    healthBarFront.color = Utils.healthBarRed;
                     SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
                 }
             );
@@ -342,6 +348,24 @@ public class CustomLevelManager : LevelManager
             }
 
             StartCoroutine(inputManager.ShowInputs());
+        }
+    }
+
+    private void SetPlayerHealthBar(ulong playerId)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            Image healthBarFront = player
+                .GetComponent<MMHealthBar>()
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+            if (UInt64.Parse(player.PlayerID) == playerId)
+            {
+                healthBarFront.color = Utils.healthBarCyan;
+            }
+            else
+            {
+                healthBarFront.color = Utils.healthBarRed;
+            }
         }
     }
 

@@ -13,6 +13,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # We'll decide the view range of a bot
   @visibility_max_range 2000
 
+  # This variable will dice how much time passes between bot decisions in milis
+  @decide_delay_ms 500
+
   #######
   # API #
   #######
