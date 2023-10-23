@@ -22,9 +22,4 @@ public class LeftMMTouchJoystick : MMTouchJoystick
         MaxRange = (knobBackgroundDiameter - knobDiameter - adjustValue) * scaleCanvas;
         base.RefreshMaxRangeDistance();
     }
-    public override void OnDrag(PointerEventData eventData)
-    { 
-        base.OnDrag(eventData); 
-        Debug.Log(MaxRange + ", RawValue: " + RawValue + ", Scale: " + scaleCanvas);
-    }
 }
