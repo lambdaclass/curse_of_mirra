@@ -76,7 +76,7 @@ public class DeathSplashManager : MonoBehaviour
         ShowMessage();
         ShowMatchInfo();
         ShowPlayerAnimation();
-        ShowEndGameScreen();
+        // ShowEndGameScreen();
     }
 
     void ShowRankingDisplay()
@@ -174,30 +174,20 @@ public class DeathSplashManager : MonoBehaviour
     public void ShowEndGameScreen()
     {
         // TODO: get image from lobby
-        if (SocketConnectionManager.Instance.GameHasEnded())
+        print(SocketConnectionManager.Instance.GameHasEnded());
+        backgroundEndGame.SetActive(true);
+        spectateManager.UnsetSpectateMode();
+        // TODO: get player name
+        winnerName.text =
+            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
+        winnerCharacter.text = SocketConnectionManager.Instance.winnerPlayer.Item1.CharacterName;
+        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
         {
-            backgroundEndGame.SetActive(true);
-            spectateManager.UnsetSpectateMode();
-            // TODO: get player name
-            winnerName.text =
-                "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
-            winnerCharacter.text = SocketConnectionManager
-                .Instance
-                .winnerPlayer
-                .Item1
-                .CharacterName;
-            if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
-            {
-                title.text = "Victory";
-            }
-            else
-            {
-                title.text = "Defeat";
-            }
+            title.text = "Victory";
         }
         else
         {
-            backgroundEndGame.SetActive(false);
+            title.text = "Defeat";
         }
     }
 }
