@@ -32,7 +32,6 @@ defmodule DarkWorldsServer.Engine.Game do
   def disconnect(game, id), do: LambdaGameEngine.disconnect(game, id)
 
   def spawn_player(game, player_id, character_config_info, skill_config_info) do
-
     LambdaGameEngine.spawn_player(game, player_id, character_config_info, skill_config_info)
   end
 
