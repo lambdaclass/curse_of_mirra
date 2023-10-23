@@ -255,7 +255,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
-    :math.sqrt(:math.pow(end_x - start_x, 2) + :math.pow(end_y - start_y, 2))
+    diagonal_movement_cost = 14
+    straight_movement_cost = 10
+
+    x_distance = abs(end_x - start_x)
+    y_distance = abs(end_y - start_y)
+    remaining = abs(x_distance - y_distance)
+
+    diagonal_movement_cost * Enum.min(x_distance, y_distance) + 10 * straight_movement_cost
   end
 
   defp map_entities(entities, bot) do
