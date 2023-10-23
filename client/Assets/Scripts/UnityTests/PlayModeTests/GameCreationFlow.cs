@@ -21,20 +21,17 @@ public class GameCreationFlow : InputTestFixture
     // Goes from Title Screen to Main Screen by clicking the "Enter" button
     {
         GameObject enterButton = GameObject.Find("ButtonContainer");
-        string sceneName = SceneManager.GetActiveScene().name;
-        Assert.That(sceneName, Is.EqualTo("TitleScreen"));
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("TitleScreen"));
         Debug.Log("Enter Title screen - OK");
-
 
         yield return new WaitForSeconds(3f);
 
         ClickUI(enterButton);
         Debug.Log("Click on Play Now button - OK");
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(1f);
 
-        sceneName = SceneManager.GetActiveScene().name;
-        Assert.That(sceneName, Is.EqualTo("MainScreen"));
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("MainScreen"));
         Debug.Log("Enter Main Screen - OK");
 
         // Goes from Main Screen to Lobbies screen by clicking on "Play Game"
@@ -44,16 +41,12 @@ public class GameCreationFlow : InputTestFixture
 
         Debug.Log("Play Game button is present - OK");
 
-        yield return new WaitForSeconds(1f);
-
         ClickUI(playGameButton);
         Debug.Log("Click on Play Game button - OK");
 
         yield return new WaitForSeconds(1f);
-        string lobbiesSceneName = SceneManager.GetActiveScene().name;
-        Assert.That(lobbiesSceneName, Is.EqualTo("Lobbies"));
-        yield return new WaitForSeconds(7f);
-        Debug.Log("Enger Lobbies - OK");
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
+        Debug.Log("Ener Lobbies - OK");
     }
     public void ClickUI(GameObject uiElement)
     {
