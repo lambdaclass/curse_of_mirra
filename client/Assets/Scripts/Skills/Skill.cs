@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
 {
@@ -39,6 +41,10 @@ public class Skill : CharacterAbility
         this.skillInfo = skillInfo;
         this.skillsAnimationEvent = skillsAnimationEvent;
         this.AbilityStartSfx = skillInfo.abilityStartSfx;
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            this.AbilityStopSfx = skillInfo.abilityStopSfx;
+        }
     }
 
     protected override void Start()
@@ -182,6 +188,14 @@ public class Skill : CharacterAbility
         {
             StartCoroutine(StartFeedbackVfx());
         }
+
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            // We have to change the abilityStartSfx to abilityStopSfx when we have 2 sfx for each animation, for now this is a little hack
+            GetComponentInChildren<Sound3DManager>()
+                .SetSfxSound(skillInfo.abilityStartSfx);
+            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
+        }
     }
 
     IEnumerator StartFeedbackVfx()
@@ -216,7 +230,10 @@ public class Skill : CharacterAbility
                     )
                 );
             }
+        }
 
+        if (!skillInfo.sfxHasAbilityStop)
+        {
             GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
             GetComponentInChildren<Sound3DManager>().PlaySfxSound();
         }

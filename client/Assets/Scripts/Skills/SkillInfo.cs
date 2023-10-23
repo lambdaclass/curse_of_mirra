@@ -21,6 +21,11 @@ public class SkillInfo : ScriptableObject
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
+
+    public bool sfxHasAbilityStop;
+
+    [MMCondition("sfxHasAbilityStop", true)]
+    public AudioClip abilityStopSfx;
     public float startAnimationDuration;
     public float executeAnimationDuration;
     public float skillCircleRadius;

@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Google.Protobuf.Collections;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Google.Protobuf.Collections;
 
 public class Utils
 {
+    public static readonly Color healthBarCyan = new Color32(34, 142, 239, 255);
+    public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
+    public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
+
     public static IEnumerator WaitForGameCreation(string levelName)
     {
         yield return new WaitUntil(
