@@ -11,10 +11,12 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
     float positionY;
     const float initialJoystickOpacity = 0.3f;
     const float pressedJoystickOpacity = 0.4f;
+    float scaleCanvas;
 
     protected override void Start()
     {
         base.Start();
+        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
         _initialPosition = BackgroundCanvasGroup.transform.position;
     }
 
@@ -23,7 +25,7 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
         if (
             eventData.position.y
             < GetComponent<RectTransform>().position.y
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2
+                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2 * scaleCanvas
         )
         {
             positionY =
@@ -37,12 +39,12 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
         if (
             eventData.position.x
             < GetComponent<RectTransform>().position.x
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2
+                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2 * scaleCanvas
         )
         {
             positionX =
                 eventData.position.x
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2;
+                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2 ;
         }
         else
         {
