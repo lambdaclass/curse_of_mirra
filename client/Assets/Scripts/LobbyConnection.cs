@@ -80,6 +80,7 @@ public class LobbyConnection : MonoBehaviour
         public ulong current_game_player_id;
         public List<Player> players;
         public Configs game_config;
+        public bool player_exited_game;
 
         [Serializable]
         public class Player
@@ -332,7 +333,7 @@ public class LobbyConnection : MonoBehaviour
                     CurrentGameResponse response = JsonUtility.FromJson<CurrentGameResponse>(
                         webRequest.downloadHandler.text
                     );
-                    if (IsAbleToReconnect(response.ongoing_game))
+                    if (IsAbleToReconnect(response))
                     {
                         this.reconnectPossible = true;
                         this.reconnectToCharacterSelection = response.on_character_selection;
@@ -362,11 +363,9 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private bool IsAbleToReconnect(bool ongoingGame)
+    private bool IsAbleToReconnect(CurrentGameResponse response)
     {
-        return ongoingGame
-            && SocketConnectionManager.Instance
-            && !SocketConnectionManager.Instance.playerExitedGame;
+        return response.ongoing_game && !response.player_exited_game;
     }
 
     private void ConnectToSession(string sessionId)

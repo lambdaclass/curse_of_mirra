@@ -64,7 +64,6 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string clientId;
     private bool reconnect;
-    public bool playerExitedGame = false;
 
     public class Session
     {

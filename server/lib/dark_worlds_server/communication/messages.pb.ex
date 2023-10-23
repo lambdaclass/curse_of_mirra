@@ -41,6 +41,7 @@ defmodule DarkWorldsServer.Communication.Proto.Action do
   field(:SELECT_CHARACTER, 12)
   field(:ENABLE_BOTS, 13)
   field(:DISABLE_BOTS, 14)
+  field(:EXIT_MATCH, 15)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.Direction do
@@ -97,6 +98,7 @@ defmodule DarkWorldsServer.Communication.Proto.PlayerEffect do
   field(:SCHERZO, 15)
   field(:DANSE_MACABRE, 16)
   field(:PARALYZED, 17)
+  field(:NONE, 18)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.LobbyEventType do
@@ -334,6 +336,8 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     type: DarkWorldsServer.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
+
+  field(:player_id, 8, type: :int64, json_name: "playerId")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

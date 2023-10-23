@@ -11,7 +11,6 @@ public class LobbyManager : LevelSelector
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string LOBBIES_SCENE_NAME = "Lobbies";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
-    private bool playerExitedGame = false;
 
     [SerializeField]
     GameObject playButton;
@@ -46,10 +45,6 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
-        if (SocketConnectionManager.Instance)
-        {
-            SocketConnectionManager.Instance.playerExitedGame = false;
-        }
         StartCoroutine(CreateGame());
         this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
@@ -77,9 +72,20 @@ public class LobbyManager : LevelSelector
 
     public void BackToLobbyFromGame()
     {
-        this.playerExitedGame = true;
         Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
+        SendExitGameAction();
         BackToLobbyAndCloseConnection();
+    }
+
+    private void SendExitGameAction()
+    {
+        ClientAction clientAction = new ClientAction
+        {
+            Action = Action.ExitMatch,
+            PlayerId = (long)LobbyConnection.Instance.playerId,
+            Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+        };
+        SocketConnectionManager.Instance.SendAction(clientAction);
     }
 
     public void SelectMap(string mapName)
@@ -115,14 +121,6 @@ public class LobbyManager : LevelSelector
                 this.playButton.SetActive(true);
                 this.waitingText.SetActive(false);
             }
-        }
-
-        if (
-            SocketConnectionManager.Instance
-            && this.playerExitedGame != SocketConnectionManager.Instance.playerExitedGame
-        )
-        {
-            SocketConnectionManager.Instance.playerExitedGame = this.playerExitedGame;
         }
     }
 }

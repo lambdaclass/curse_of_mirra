@@ -128,6 +128,7 @@ message ClientAction {
     sint64 target = 5;
     int64 timestamp = 6;
     PlayerCharacter player_character = 7;
+    int64 player_id = 8;
 }
 
 /* Actions a client/player performs
@@ -158,6 +159,7 @@ enum Action {
     SELECT_CHARACTER = 12;
     ENABLE_BOTS = 13;
     DISABLE_BOTS = 14;
+    EXIT_MATCH = 15;
 }
 
 /* Directions an action can happen in

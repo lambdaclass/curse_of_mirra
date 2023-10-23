@@ -166,7 +166,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   def handle_cast(
-        {:play, player_id, %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
+        {:play, player_id,
+         %ActionOk{action: :teleport, value: position_transform, timestamp: timestamp}},
         %{next_state: next_state} = gen_server_state
       ) do
     game =
@@ -234,6 +235,33 @@ defmodule DarkWorldsServer.Engine.Runner do
      }}
   end
 
+  def handle_cast(
+        {:play, _, %ActionOk{action: :exit_match, value: player_id}},
+        gen_server_state
+      ) do
+    players =
+      Enum.map(gen_server_state.server_game_state.game.myrra_state.players, fn player ->
+        if player.id == player_id do
+          Map.put(player, :exited, true)
+        else
+          player
+        end
+      end)
+
+    # new_gen_server_state =
+    #   put_in(gen_server_state, [:server_game_state, :game, :myrra_state, :players], players)
+
+    new_gen_server_state =
+      Map.update(
+        gen_server_state,
+        [:server_game_state, :game, :myrra_state, :players],
+        players,
+        fn _players -> players end
+      )
+
+    {:noreply, new_gen_server_state}
+  end
+
   def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
     bot_pid = gen_server_state[:bot_handler_pid]
 
@@ -261,7 +289,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     {:ok, game} = Game.disconnect(game_state.game, player_id)
 
-    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
+    {:noreply,
+     %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
   end
 
   def handle_cast(
@@ -271,7 +300,8 @@ defmodule DarkWorldsServer.Engine.Runner do
     current = gen_server_state.current_players - 1
     selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
 
-    {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
+    {:noreply,
+     %{gen_server_state | current_players: current, selected_characters: selected_characters}}
   end
 
   def handle_call({:join, client_id, player_id}, _, gen_server_state) do
@@ -304,8 +334,9 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_call(:get_state, _from, gen_server_state) do
     {:reply,
-     {gen_server_state.game_status, gen_server_state.current_players, gen_server_state.selected_characters,
-      gen_server_state.opts}, gen_server_state}
+     {gen_server_state.game_status, gen_server_state.current_players,
+      gen_server_state.selected_characters, gen_server_state.opt,
+      gen_server_state.server_game_state.game.myrra_state.players}, gen_server_state}
   end
 
   def handle_info(:all_characters_set?, gen_server_state) do
@@ -334,9 +365,11 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
-    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+    map_shrink_wait_ms =
+      Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
 
-    spawn_loot_interval_ms = Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+    spawn_loot_interval_ms =
+      Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
@@ -351,7 +384,8 @@ defmodule DarkWorldsServer.Engine.Runner do
       |> Map.put(:tick_rate, tick_rate)
 
     broadcast_to_darkworlds_server(
-      {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.myrra_state.players}
+      {:finish_character_selection, selected_players,
+       gen_server_state.client_game_state.game.myrra_state.players}
     )
 
     ## Shutdown this runner and create a engine_runner instead
@@ -388,7 +422,11 @@ defmodule DarkWorldsServer.Engine.Runner do
   def handle_info(:update_state, %{server_game_state: server_game_state} = gen_server_state) do
     gen_server_state = Map.put(gen_server_state, :client_game_state, server_game_state)
 
-    game_status = has_a_player_won?(server_game_state.game.myrra_state.players, gen_server_state.is_single_player?)
+    game_status =
+      has_a_player_won?(
+        server_game_state.game.myrra_state.players,
+        gen_server_state.is_single_player?
+      )
 
     out_of_area_damage = gen_server_state.opts.game_config.runner_config.out_of_area_damage
 
@@ -613,7 +651,14 @@ defmodule DarkWorldsServer.Engine.Runner do
     EngineRunner.start_game_tick(engine_runner_pid)
 
     ## Tell runner subs that there is a new runner (engine_runner)
-    msg = {:change_to_engine_runner, engine_runner_pid, Communication.pubsub_game_topic(engine_runner_pid)}
-    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, Communication.pubsub_game_topic(self()), msg)
+    msg =
+      {:change_to_engine_runner, engine_runner_pid,
+       Communication.pubsub_game_topic(engine_runner_pid)}
+
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      Communication.pubsub_game_topic(self()),
+      msg
+    )
   end
 end

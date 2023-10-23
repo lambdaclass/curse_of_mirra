@@ -434,6 +434,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(
+        %ProtoAction{action: :EXIT_MATCH, player_id: player_id, timestamp: timestamp},
+        ProtoAction
+      ) do
+    %EngineAction{action: :exit_match, value: player_id, timestamp: timestamp}
+  end
+
+  def decode(
         %ProtoAction{
           action: :SELECT_CHARACTER,
           player_character: player_character,
