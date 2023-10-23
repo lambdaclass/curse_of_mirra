@@ -55,7 +55,7 @@ public class CustomLevelManager : LevelManager
 
     //Camera cinematic variables
     [SerializeField]
-    GameObject loadinScreen;
+    GameObject loadingScreen;
 
     [SerializeField]
     GameObject battleScreen;
@@ -209,7 +209,7 @@ public class CustomLevelManager : LevelManager
             //Start moving camera and remove loading sceen
             InvokeRepeating("Substract", 1f, 0.1f);
             yield return new WaitForSeconds(1.7f);
-            loadinScreen.SetActive(false);
+            loadingScreen.SetActive(false);
             battleScreen.SetActive(true);
             //Cancel camera movement and start zoom in
             Utils
@@ -225,12 +225,12 @@ public class CustomLevelManager : LevelManager
         else
         {
             cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            yield return new WaitForSeconds(0.8f);
-            loadinScreen.SetActive(false);
+            yield return new WaitForSeconds(0.9f);
+            loadingScreen.SetActive(false);
         }
     }
 
-    int roundupbyten(int i)
+    int RoundUpByTen(int i)
     {
         return (int)(Math.Ceiling(i / 10.0d) * 10);
     }
