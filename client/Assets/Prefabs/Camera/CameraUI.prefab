@@ -19088,7 +19088,7 @@ GameObject:
   - component: {fileID: 5674721991527340972}
   - component: {fileID: 4177447364865365636}
   - component: {fileID: 2626942584374310421}
-  - component: {fileID: 1460033625435595378}
+  - component: {fileID: 4776476842457892279}
   m_Layer: 0
   m_Name: JoystickKnob
   m_TagString: Untagged
@@ -19166,7 +19166,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1460033625435595378
+--- !u!114 &4776476842457892279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19175,14 +19175,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7817028359507705854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6a0577d46b80a4f929e57370c60650, type: 3}
+  m_Script: {fileID: 11500000, guid: f26d8b5a4a0ac49a6b4edc2ac2d8b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetCamera: {fileID: 20646998284766860}
   HorizontalAxisEnabled: 1
   VerticalAxisEnabled: 1
   MaxRangeMode: 0
-  MaxRange: 150
+  MaxRange: 1.5
   MaxRangeTransform: {fileID: 0}
   JoystickValue:
     m_PersistentCalls:
@@ -19204,7 +19204,7 @@ MonoBehaviour:
       m_Calls: []
   RotatingIndicator: {fileID: 8219119912930584202}
   RotatingIndicatorThreshold: 0.1
-  PressedOpacity: 1
+  PressedOpacity: 0.5
   InterpolateOpacity: 1
   InterpolateOpacitySpeed: 1
   RawValue: {x: 0, y: 0}
