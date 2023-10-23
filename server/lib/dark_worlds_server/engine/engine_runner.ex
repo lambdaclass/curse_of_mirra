@@ -98,7 +98,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     player_id = state.user_to_player[user_id]
     skill_key = action_skill_to_key(skill_action)
-    game_state = LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{"direction_angle" => Float.to_string(angle)})
+
+    game_state =
+      LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
+        "direction_angle" => Float.to_string(angle)
+      })
 
     state =
       Map.put(state, :game_state, game_state)
@@ -238,8 +242,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         status: :active,
         projectile_type: :bullet,
         pierce: false,
-        last_attacked_player_id: projectile.player_id, # For some reason they are initiated like this
-        remaining_ticks: 9999, # Honestly don't see why client should care about this
+        # For some reason they are initiated like this
+        last_attacked_player_id: projectile.player_id,
+        # Honestly don't see why client should care about this
+        remaining_ticks: 9999,
         skill_name: transform_projectile_name_to_myrra_projectile_skill_name(projectile.name)
       }
     end)
