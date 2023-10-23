@@ -374,7 +374,6 @@ public class CustomLevelManager : LevelManager
     private void SetCameraToAlivePlayer()
     {
         playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.playerToTrack);
-        print(KillFeedManager.instance.saveKillerId);
         if (playerToFollow != null)
         {
             StartCoroutine(WaitToChangeCamera(playerToFollow));
