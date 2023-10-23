@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using MoreMountains.Tools;
+using UnityEngine.UI;
 
-// TODO: this could probably be a part of another class
 public class CharacterFeedbackManager : MonoBehaviour
 {
     [SerializeField]
@@ -97,22 +97,30 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void ToggleHealthBar(GameObject player, Player playerUpdate)
     {
-        MMHealthBar healthBar = player.GetComponent<MMHealthBar>();
-
-        switch (playerUpdate.Effects)
+        var healthBarFront = player
+            .GetComponent<CustomCharacter>()
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+        if (
+            playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && !healthBarFront.color.Equals(Utils.healthBarPoisoned)
+        )
         {
-            case var effect when effect.ContainsKey((ulong)PlayerEffect.Poisoned):
-                if (!healthBar.ForegroundColor.Equals(MMColors.Green))
-                {
-                    ChangeHealthBarColor(healthBar, MMColors.Green);
-                }
-                break;
-            default:
-                if (!healthBar.ForegroundColor.Equals(MMColors.Red))
-                {
-                    ChangeHealthBarColor(healthBar, MMColors.BestRed);
-                }
-                break;
+            healthBarFront.color = Utils.healthBarPoisoned;
+        }
+        if (
+            !playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
+            && healthBarFront.color.Equals(Utils.healthBarPoisoned)
+        )
+        {
+            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            {
+                healthBarFront.color = Utils.healthBarCyan;
+            }
+            else
+            {
+                healthBarFront.color = Utils.healthBarRed;
+            }
         }
     }
 }

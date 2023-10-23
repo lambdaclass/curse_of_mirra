@@ -28,12 +28,14 @@ MonoBehaviour:
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 3
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 8300000, guid: 94d75fdbc0d57419cbd21e88be9a3bcb, type: 3}
+  abilityStartSfx: {fileID: 8300000, guid: a6ef9d76555564806994f38a2c618186, type: 3}
+  sfxHasAbilityStop: 1
+  abilityStopSfx: {fileID: 8300000, guid: 544ea3791bbf64d0cade509ce6120dfc, type: 3}
   startAnimationDuration: 0.6
   executeAnimationDuration: 1
   skillCircleRadius: 12
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 0
+  skillAreaRadius: 4.5
   showCooldown: 1
   skillSprite: {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}

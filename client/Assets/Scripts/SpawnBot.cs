@@ -1,10 +1,11 @@
 using MoreMountains.Tools;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpawnBot : MonoBehaviour
 {
     [SerializeField]
-    public GameObject playerPrefab;
+    public List<GameObject> playerPrefab;
 
     private bool pendingSpawn = false;
     private bool botsActive = true;
@@ -42,4 +43,9 @@ public class SpawnBot : MonoBehaviour
         SocketConnectionManager.Instance.ToggleBots();
         GetComponent<ToggleButton>().ToggleWithSiblingComponentBool(botsActive);
     }
+
+    public CustomCharacter GetCharacterByName(string name){
+       return playerPrefab.Find(el => el.name == name).GetComponent<CustomCharacter>();
+    }
+    
 }

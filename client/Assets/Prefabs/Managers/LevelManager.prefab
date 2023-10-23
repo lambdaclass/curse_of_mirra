@@ -158,6 +158,7 @@ MonoBehaviour:
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
+  spawnSfx: {fileID: 8300000, guid: abe5adaeaef2d4d04962e8031c495467, type: 3}
 --- !u!114 &1781753480240237338
 MonoBehaviour:
   m_ObjectHideFlags: 0
