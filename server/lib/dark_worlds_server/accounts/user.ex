@@ -168,4 +168,10 @@ defmodule DarkWorldsServer.Accounts.User do
       add_error(changeset, :current_password, "is not valid")
     end
   end
+
+  def character_selection_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:character_name])
+    |> validate_required(:character_name)
+  end
 end

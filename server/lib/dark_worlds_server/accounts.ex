@@ -221,6 +221,11 @@ defmodule DarkWorldsServer.Accounts do
     end
   end
 
+  def update_user_character_name(user, attrs) do
+    User.character_selection_changeset(user, attrs)
+    |> Repo.update!()
+  end
+
   ## Session
 
   @doc """

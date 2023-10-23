@@ -33,6 +33,8 @@ defmodule DarkWorldsServerWeb.Router do
     get "/current_lobbies", LobbyController, :current_lobbies
     get "/current_games", GameController, :current_games
     get "/player_game/:player_id", GameController, :player_game
+    get "/characters/:user_id", UserController, :current_character
+    post "/characters/:user_id/select_character", UserController, :select_character
   end
 
   scope "/", DarkWorldsServerWeb do
