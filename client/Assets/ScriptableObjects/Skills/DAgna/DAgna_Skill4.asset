@@ -28,7 +28,7 @@ MonoBehaviour:
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 0}
+  abilityStartSfx: {fileID: 8300000, guid: 5d51f6cc86eff4b95b40150a9c8ad6f9, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 0
