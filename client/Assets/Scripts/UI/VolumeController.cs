@@ -1,3 +1,4 @@
+using System;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
@@ -11,30 +12,44 @@ public class VolumeController : MonoBehaviour
     private Slider volumeSlider;
     private float unmutedVolume;
 
+    [SerializeField]
+    private MMSoundManager.MMSoundManagerTracks channelToUse;
+
+    void Awake()
+    {
+        soundManager = MMSoundManager.Instance;
+        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
+    }
+
     void Start()
     {
         volumeSlider = GetComponent<Slider>();
-        soundManager = MMSoundManager.Instance;
-
-        volumeSlider.value = soundManager.GetTrackVolume(
-            MMSoundManager.MMSoundManagerTracks.Master,
-            false
-        );
-
         unmutedVolume = volumeSlider.value;
         uiValue.text = uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
     }
 
+    private void MuteChannel()
+    {
+        switch (channelToUse)
+        {
+            case MMSoundManager.MMSoundManagerTracks.Music:
+                MMSoundManager.Instance.MuteMusic();
+                break;
+            case MMSoundManager.MMSoundManagerTracks.Sfx:
+                MMSoundManager.Instance.MuteSfx();
+                break;
+        }
+    }
+
     public void ChangeMusicVolume()
     {
-        if (IsMuted(MMSoundManager.MMSoundManagerTracks.Master))
+        if (IsMuted(channelToUse))
         {
-            MMSoundManager.Instance.UnmuteMaster();
+            MuteChannel();
         }
-
         MMSoundManagerTrackEvent.Trigger(
             MMSoundManagerTrackEventTypes.SetVolumeTrack,
-            MMSoundManager.MMSoundManagerTracks.Master,
+            channelToUse,
             volumeSlider.value
         );
         uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
@@ -42,10 +57,7 @@ public class VolumeController : MonoBehaviour
 
     private void Update()
     {
-        volumeSlider.value = soundManager.GetTrackVolume(
-            MMSoundManager.MMSoundManagerTracks.Master,
-            false
-        );
+        volumeSlider.value = soundManager.GetTrackVolume(channelToUse, false);
     }
 
     private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
