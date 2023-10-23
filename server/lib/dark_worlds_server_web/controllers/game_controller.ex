@@ -39,7 +39,7 @@ defmodule DarkWorldsServerWeb.GameController do
 
         player_exited_game =
           players
-          |> Enum.find(fn player -> player.id == player_id end)
+          |> Enum.find(fn player -> player.id == game_player_id end)
           |> Map.get(:exited_game, false)
 
         json(conn, %{

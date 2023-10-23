@@ -239,27 +239,11 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, _, %ActionOk{action: :exit_match, value: player_id}},
         gen_server_state
       ) do
-    players =
-      Enum.map(gen_server_state.server_game_state.game.myrra_state.players, fn player ->
-        if player.id == player_id do
-          Map.put(player, :exited, true)
-        else
-          player
-        end
-      end)
+    {:ok, game} = Game.exit_game(gen_server_state.server_game_state.game, player_id)
+    server_game_state = gen_server_state.server_game_state |> Map.put(:game, game)
+    gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
 
-    # new_gen_server_state =
-    #   put_in(gen_server_state, [:server_game_state, :game, :myrra_state, :players], players)
-
-    new_gen_server_state =
-      Map.update(
-        gen_server_state,
-        [:server_game_state, :game, :myrra_state, :players],
-        players,
-        fn _players -> players end
-      )
-
-    {:noreply, new_gen_server_state}
+    {:noreply, gen_server_state}
   end
 
   def handle_cast({:play, _, %ActionOk{action: :disable_bots}}, gen_server_state) do
