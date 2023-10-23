@@ -70,6 +70,8 @@ public class CustomLevelManager : LevelManager
 
     private bool deathSplashIsShown = false;
 
+    public bool test = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -145,6 +147,10 @@ public class CustomLevelManager : LevelManager
         {
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
+        }
+        if (GameHasEnded())
+        {
+            deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -477,7 +483,6 @@ public class CustomLevelManager : LevelManager
             .DeathMMFeedbacks;
         yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
         deathSplash.SetActive(true);
-        deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         UiControls.SetActive(false);
     }
 
@@ -506,5 +511,10 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+    }
+
+    private bool GameHasEnded()
+    {
+        return SocketConnectionManager.Instance.GameHasEnded();
     }
 }
