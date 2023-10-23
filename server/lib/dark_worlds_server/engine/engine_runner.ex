@@ -20,8 +20,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
-  def play(runner_pid, user_id, action) do
-    GenServer.cast(runner_pid, {:play, user_id, action})
+  def move(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:move, user_id, action})
+  end
+
+  def basic_attack(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:basic_attack, user_id, action})
+  end
+
+  def skill(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:skill, user_id, action})
   end
 
   def start_game_tick(runner_pid) do
@@ -80,7 +88,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}}, state) do
+  def handle_cast({:move, user_id, %ActionOk{value: value, timestamp: timestamp}}, state) do
     angle =
       case Nx.atan2(value.y, value.x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
         pos_degree when pos_degree >= 0 -> pos_degree

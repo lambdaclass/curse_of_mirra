@@ -4,8 +4,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   """
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
+  alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.Runner
+  alias DarkWorldsServer.Engine.EngineRunner
 
   require Logger
 
@@ -88,9 +90,17 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   @impl true
   def websocket_handle({:binary, message}, web_socket_state) do
     case Communication.decode(message) do
-      {:ok, action} ->
+      {:ok, %ActionOk{action: action} = action_data} ->
         RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
-        Runner.play(web_socket_state[:runner_pid], web_socket_state[:player_id], action)
+
+        case action do
+          :move_with_joystick -> EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+          :basic_attack -> EngineRunner.basic_attack(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+          :skill -> EngineRunner.skill(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+          ### REMOVE THIS WHEN API REFACTOR IS DONE
+          _ -> Runner.play(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+        end
+
         {:ok, web_socket_state}
 
       {:error, msg} ->
