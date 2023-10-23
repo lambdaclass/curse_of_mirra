@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Accounts.User
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
@@ -14,6 +15,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #######
   def start_link(args) do
     GenServer.start_link(__MODULE__, args)
+  end
+
+  # TODO will refactor the following two join functions into one
+  def join(runner_pid, %User{id: user_id, character_name: character_name}) do
+    join(runner_pid, user_id, character_name)
   end
 
   def join(runner_pid, user_id, character_name) do
