@@ -203,13 +203,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     bot_id = gen_server_state.current_players + 1
 
-    %{game_config: %{character_config: %{Items: characters_info}, skills_config: %{Items: skills_info}}} =
-      gen_server_state.opts
-
-    characters_info = config_atom_to_string(characters_info)
-    skills_info = config_atom_to_string(skills_info)
-
-    {:ok, new_game} = Game.spawn_player(game_state.game, bot_id, characters_info, skills_info)
+    {:ok, new_game} = Game.spawn_player(game_state.game, bot_id)
 
     bot_player = Enum.find(new_game.myrra_state.players, fn p -> p.id == bot_id end)
 
