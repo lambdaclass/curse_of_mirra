@@ -36,6 +36,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
       Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
     end
+
+    def bot_join(pid_middle_number) do
+      join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
+    end
   end
 
   #######################
