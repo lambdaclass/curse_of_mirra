@@ -76,7 +76,6 @@ public class DeathSplashManager : MonoBehaviour
         ShowMessage();
         ShowMatchInfo();
         ShowPlayerAnimation();
-        // ShowEndGameScreen();
     }
 
     void ShowRankingDisplay()
@@ -174,7 +173,6 @@ public class DeathSplashManager : MonoBehaviour
     public void ShowEndGameScreen()
     {
         // TODO: get image from lobby
-        print(SocketConnectionManager.Instance.GameHasEnded());
         backgroundEndGame.SetActive(true);
         spectateManager.UnsetSpectateMode();
         // TODO: get player name
