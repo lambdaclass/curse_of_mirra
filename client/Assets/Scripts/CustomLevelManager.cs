@@ -374,20 +374,17 @@ public class CustomLevelManager : LevelManager
     private void SetCameraToAlivePlayer()
     {
         playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.playerToTrack);
-        if (playerToFollow != null)
+        if (KillFeedManager.instance.saveKillerId != 0)
         {
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        if (
-            (
-                playerToFollow.Status == Status.Dead
-                && KillFeedManager.instance.saveKillerId == 0
-                && Utils.GetAlivePlayers().Count() > 0
-            )
-        )
+        else
         {
-            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
+            if (playerToFollow.Status == Status.Dead && Utils.GetAlivePlayers().Count() > 0)
+            {
+                playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+                setCameraToPlayer(playerToFollow.Id);
+            }
         }
     }
 
