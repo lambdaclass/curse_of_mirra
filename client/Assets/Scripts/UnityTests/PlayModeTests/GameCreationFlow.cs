@@ -46,7 +46,7 @@ public class GameCreationFlow : InputTestFixture
 
         yield return new WaitForSeconds(1f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
-        Debug.Log("Ener Lobbies - OK");
+        Debug.Log("Enter Lobbies - OK");
     }
     public void ClickUI(GameObject uiElement)
     {
