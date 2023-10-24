@@ -1137,8 +1137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 3559691647198255115}
   skillDescription: {fileID: 1678620968804355485}
-  selectedBorder: {fileID: 21300000, guid: 8c49f1d74cc08487b95c314d2d5dcf70, type: 3}
-  notSelectedBorder: {fileID: 21300000, guid: f7f4c9b5510cb422dbb3912405fb37c3, type: 3}
+  selectedBorder: {fileID: 21300000, guid: b6fdc832a403442c5b757819089678b8, type: 3}
+  notSelectedBorder: {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
   skillsList: []
   bordersList: []
 --- !u!1 &3996843027451480336
