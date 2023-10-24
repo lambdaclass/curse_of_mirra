@@ -15,15 +15,32 @@ public class KillFeedManager : MonoBehaviour
 
     public ulong playerToTrack;
 
+    public bool killedByDangerZone = false;
+
+    public List<ulong> killedRegistrations = new List<ulong>();
+
     public void Awake()
     {
         KillFeedManager.instance = this;
         playerToTrack = SocketConnectionManager.Instance.playerId;
+        killedRegistrations.Add(9999);
     }
 
     public void putEvents(List<KillEvent> feedEvent)
     {
-        feedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
+        feedEvent.ForEach(
+            (killEvent) =>
+            {
+                feedEvents.Enqueue(killEvent);
+                killedRegistrations.Add(killEvent.Killed);
+            }
+        );
+        bool dead = Utils.GetGamePlayer(playerToTrack).Status == Status.Dead;
+        killedRegistrations.ForEach(el => print(el));
+        if (dead)
+        {
+            killedByDangerZone = killedRegistrations.Find(el => el == playerToTrack) == 0;
+        }
     }
 
     public ulong GetKiller(ulong deathPlayerId)
@@ -44,8 +61,7 @@ public class KillFeedManager : MonoBehaviour
         {
             if (playerToTrack == killEvent.Killed)
             {
-                saveKillerId = killEvent.KilledBy;
-                playerToTrack = saveKillerId;
+                playerToTrack = killEvent.KilledBy;
             }
             killFeedItem.SetPlayerNames(killEvent.KilledBy.ToString(), killEvent.Killed.ToString());
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
