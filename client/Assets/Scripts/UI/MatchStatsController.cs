@@ -28,8 +28,13 @@ public class MatchStatsController : MonoBehaviour
         if(remainingSeconds > 0) {
             EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
             ulong elapsedTime = (ulong)buffer.lastEvent().ServerTimestamp - LobbyConnection.Instance.matchStartTime;
-            if(LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs > elapsedTime) {
-                remainingSeconds = (LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs - elapsedTime) / 1000;
+            ulong mapShrinkWaitMs = LobbyConnection
+                .Instance
+                .serverSettings
+                .RunnerConfig
+                .MapShrinkWaitMs;
+            if(mapShrinkWaitMs > elapsedTime) {
+                remainingSeconds = (mapShrinkWaitMs - elapsedTime) / 1000;
                 zoneTimer.text = remainingSeconds.ToString();
             }
             else {
