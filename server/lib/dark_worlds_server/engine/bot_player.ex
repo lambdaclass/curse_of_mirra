@@ -126,8 +126,43 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(%{objective: :attack_enemy} = bot_state, _bot_id, _players, _game_state, closest_entity) do
-    Map.put(bot_state, :action, {:try_attack, closest_entity})
+  defp decide_action(
+         %{objective: :attack_enemy} = bot_state,
+         bot_id,
+         _players,
+         %{game_state: %{myrra_state: myrra_state}},
+         %{direction_to_entity: direction_to_entity} = closest_entity
+       ) do
+    bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
+
+    IO.inspect(bot, label: "character")
+
+    skills =
+      Map.take(bot.character, [:skill_basic, :skill_1, :skill_2, :skill_3, :skill_4])
+
+    cooldowns =
+      Map.take(bot, [
+        :basic_skill_cooldown_left,
+        :skill_1_cooldown_left,
+        :skill_2_cooldown_left,
+        :skill_3_cooldown_left,
+        :skill_4_cooldown_left
+      ])
+
+    case skill_would_hit(skills, cooldowns, closest_entity) do
+      nil ->
+        Map.put(bot_state, :action, {:move, direction_to_entity})
+
+      {skill, _skill_specs} ->
+        skill =
+          if skill == :skill_basic do
+            :basic_attack
+          else
+            skill
+          end
+
+        Map.put(bot_state, :action, {:attack, closest_entity, skill})
+    end
   end
 
   defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entity) do
@@ -152,27 +187,16 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp do_action(bot_id, game_pid, _players, %{
-         action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
+         action: {:attack, %{type: :enemy, direction_to_entity: {x, y}}, skill}
        }) do
-    # TODO replace this 400 with a function that determines if any skill would hit the enemy
-    if direction_to_entity.distance_to_entity > 400 do
-      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
-    else
-      Runner.play(game_pid, bot_id, %ActionOk{
-        action: :basic_attack,
-        value: %RelativePosition{x: x, y: y},
-        timestamp: nil
-      })
-    end
+    Runner.play(game_pid, bot_id, %ActionOk{
+      action: skill,
+      value: %RelativePosition{x: x, y: y},
+      timestamp: nil
+    })
   end
 
-  defp do_action(bot_id, game_pid, _players, %{
-         action: {:try_attack, %{direction_to_entity: {x, y}}}
-       }) do
-    Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
-  end
-
-  defp do_action(_bot_id, _game_pid, _players, _) do
+  defp do_action(_bot_id, _game_pid, _players, _value) do
     nil
   end
 
@@ -262,7 +286,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     %{}
   end
 
-  defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
+  defp get_distance_to_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
     diagonal_movement_cost = 14
     straight_movement_cost = 10
 
@@ -287,4 +311,18 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
   end
+
+  defp skill_would_hit(skills, cooldowns, %{distance_to_entity: distance_to_entity}) do
+    Enum.find(skills, fn {skill_name, skill_specs} ->
+      skill_specs.skill_range >= distance_to_entity and get_cooldown(skill_name, cooldowns) == 0
+    end)
+  end
+
+  defp skill_would_hit(_skills, _cooldowns, _closest_entity), do: nil
+
+  def get_cooldown(:skill_basic, cooldowns), do: Map.get(cooldowns, :basic_skill_cooldown_left).low
+  def get_cooldown(:skill_1, cooldowns), do: Map.get(cooldowns, :skill_1_cooldown_left).low
+  def get_cooldown(:skill_2, cooldowns), do: Map.get(cooldowns, :skill_2_cooldown_left).low
+  def get_cooldown(:skill_3, cooldowns), do: Map.get(cooldowns, :skill_3_cooldown_left).low
+  def get_cooldown(:skill_4, cooldowns), do: Map.get(cooldowns, :skill_4_cooldown_left).low
 end
