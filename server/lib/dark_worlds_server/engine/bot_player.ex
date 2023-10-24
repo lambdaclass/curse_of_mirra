@@ -153,7 +153,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
        }) do
-    if direction_to_entity.distance_to_entity > 200  do
+    if direction_to_entity.distance_to_entity > 200 do
       Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
     else
       Runner.play(game_pid, bot_id, %ActionOk{
@@ -167,7 +167,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{direction_to_entity: {x, y}}}
        }) do
-      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
+    Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
   defp do_action(_bot_id, _game_pid, _players, _) do
