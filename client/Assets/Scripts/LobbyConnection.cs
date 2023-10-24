@@ -19,6 +19,7 @@ public class LobbyConnection : MonoBehaviour
     public string GameSession;
     public string LobbySession;
     public ulong playerId;
+    public string playerName;
     public bool isHost = false;
     public ulong hostId;
     public int playerCount;

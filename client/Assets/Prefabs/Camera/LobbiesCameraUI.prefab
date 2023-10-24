@@ -250,7 +250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0, y: -123}
+  m_AnchoredPosition: {x: 0, y: -123}
   m_SizeDelta: {x: -270, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4705164179273894460
@@ -2094,7 +2094,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 580734115480870141}
+      - m_Target: {fileID: 8452378500890619199}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: CreateLobby
         m_Mode: 1
@@ -2959,8 +2959,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7844609706619734572}
-  - component: {fileID: 580734115480870141}
-  - component: {fileID: 6681311028336639718}
   m_Layer: 5
   m_Name: OptionsContainer
   m_TagString: Untagged
@@ -2992,37 +2990,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &580734115480870141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2461370457626985535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610e661a176e54d3793b92ad9640aa97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelName: CharacterSelection
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
---- !u!114 &6681311028336639718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2461370457626985535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a906a3ed6f6416fbb0d5bd4e2bd1d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbiesContainer: {fileID: 2269567885505166013}
-  lobbyItemPrefab: {fileID: 6431237631302165411, guid: 13e64695dc3a44037a7a7568727079c6,
-    type: 3}
-  noLobbiesText: {fileID: 8723296149733053187}
 --- !u!1 &2734577476813917642
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,7 +3901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -175, y: 0}
+  m_AnchoredPosition: {x: -174.99997, y: 0}
   m_SizeDelta: {x: -350, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &337196790420840675
@@ -6127,7 +6094,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 580734115480870141}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: BackToTitle
         m_Mode: 1
@@ -6253,6 +6220,8 @@ GameObject:
   - component: {fileID: 5951903642671385689}
   - component: {fileID: 5951903642671385688}
   - component: {fileID: 8548008160481732647}
+  - component: {fileID: 8452378500890619199}
+  - component: {fileID: 7540675894359844497}
   m_Layer: 0
   m_Name: LobbiesCameraUI
   m_TagString: Untagged
@@ -6361,6 +6330,38 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &8452378500890619199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951903642671385691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610e661a176e54d3793b92ad9640aa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelName: CharacterSelection
+  DoNotUseLevelManager: 0
+  DestroyPersistentCharacter: 0
+  playerNameHandler: {fileID: 2909154361289663421}
+--- !u!114 &7540675894359844497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951903642671385691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a906a3ed6f6416fbb0d5bd4e2bd1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbiesContainer: {fileID: 2269567885505166013}
+  lobbyItemPrefab: {fileID: 6431237631302165411, guid: 13e64695dc3a44037a7a7568727079c6,
+    type: 3}
+  noLobbiesText: {fileID: 8723296149733053187}
 --- !u!1 &5951903642770980596
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,7 +7055,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 580734115480870141}
+      - m_Target: {fileID: 8452378500890619199}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: QuickGame
         m_Mode: 1
@@ -7547,7 +7548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8736285107288543268
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8453,7 +8454,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 580734115480870141}
+      - m_Target: {fileID: 8452378500890619199}
         m_TargetAssemblyTypeName: LobbiesManager, Assembly-CSharp
         m_MethodName: Refresh
         m_Mode: 1
@@ -8638,9 +8639,9 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SelectServerIP, Assembly-CSharp
-        m_MethodName: SetServerIp
+      - m_Target: {fileID: 2909154361289663421}
+        m_TargetAssemblyTypeName: PlayerNameHandler, Assembly-CSharp
+        m_MethodName: SetPlayerName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8694,10 +8695,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8763731305477245662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7692ed230eb4edf9d53f6f25073cb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 859a830459b884495aad1592043987eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNameInput: {fileID: 0}
+  playerNameHandler: {fileID: 7746979640278216153}
+  playerNameInput: {fileID: 1846223437841234972}
   selectedButtonSprite: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515,
     type: 3}
 --- !u!1 &9062132588434431537
