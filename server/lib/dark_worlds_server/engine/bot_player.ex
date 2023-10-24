@@ -234,6 +234,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
             out_of_area? ->
               :flee_from_zone
 
+            not Enum.empty?(closest_entity) ->
+              :attack_enemy
+
             true ->
               :wander
           end
