@@ -48,7 +48,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     send(self(), {:decide_action, bot_id})
     send(self(), {:do_action, bot_id})
 
-    {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: :random_movement})}
+    wandering_position = %{x: :rand.uniform(10000), y: :rand.uniform(10000)}
+    already_visited_positions = [wandering_position]
+
+    {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: :wander, current_wandering_position: wandering_position, already_visited_positions: already_visited_positions})}
   end
 
   def handle_cast({:bots_enabled, toggle}, state) do
@@ -120,9 +123,21 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.put(bot_state, :action, :die)
   end
 
-  defp decide_action(_bot_id, _players, %{objective: :random_movement} = bot_state, _game_state, _closest_entity) do
-    movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
-    Map.put(bot_state, :action, {:move, movement})
+  defp decide_action(bot_id, players, %{objective: :wander, current_wandering_position: wandering_position} = bot_state, _game_state, _closest_entity) do
+    bot = Enum.find(players, fn player -> player.id == bot_id end)
+
+    if bot do
+      target =
+        calculate_circle_point(
+          bot.position,
+          wandering_position
+        )
+
+      Map.put(bot_state, :action, {:move, target})
+    else
+      Map.put(bot_state, :action, {:nothing, nil})
+    end
+
   end
 
   defp decide_action(_bot_id, _players, %{objective: :attack_enemy} = bot_state, _game_state, closest_entity) do
@@ -212,11 +227,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
               :attack_enemy
 
             true ->
-              :random_movement
+              :wander
           end
       end
 
-    Map.put(bot_state, :objective, objective)
+    if objective == :wander do
+      maybe_generate_wandering_position(bot, bot_state)
+    else
+      Map.put(bot_state, :objective, objective)
+    end
   end
 
   def decide_objective(bot_state, _, _, _), do: Map.put(bot_state, :objective, :nothing)
@@ -282,5 +301,24 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
+  end
+
+  def maybe_generate_wandering_position(bot, %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state) do
+    if get_distance_to_point(bot.position, %Position{x: current_wandering_position.x, y: current_wandering_position.y}) < 500 do
+      generate_wandering_position(bot_state)
+    else
+      bot_state
+    end
+  end
+
+  def maybe_generate_wandering_position(_bot, bot_state), do: generate_wandering_position(bot_state)
+
+  def generate_wandering_position(%{already_visited_positions: already_visited_positions} = bot_state) do
+    wandering_position = %{x: :rand.uniform(10000), y: :rand.uniform(10000)}
+    if Enum.member?(already_visited_positions, wandering_position) do
+      generate_wandering_position(bot_state)
+    else
+      Map.merge(bot_state, %{objective: :wander, current_wandering_position: wandering_position, already_visited_positions: bot_state.already_visited_positions ++ [wandering_position]})
+    end
   end
 end
