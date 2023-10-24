@@ -59,7 +59,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
 
-    Process.send_after(self(), :start_game, @game_start_timer_ms)
+    # Process.send_after(self(), :start_game, @game_start_timer_ms)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),

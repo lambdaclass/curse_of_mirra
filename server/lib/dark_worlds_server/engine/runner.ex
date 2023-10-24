@@ -78,6 +78,8 @@ defmodule DarkWorldsServer.Engine.Runner do
   update and the final game timeout.
   """
   def init(opts) do
+    IO.inspect(label: :AVER_INIT)
+
     priority =
       Application.fetch_env!(:dark_worlds_server, __MODULE__)
       |> Keyword.fetch!(:process_priority)
@@ -601,6 +603,7 @@ defmodule DarkWorldsServer.Engine.Runner do
   end
 
   defp setup_engine_runner(selected_players) do
+    IO.inspect(label: :AHORA_ENTRA?)
     ## Start engine_runner
     {:ok, engine_runner_pid} = Engine.start_engine_runner()
 
