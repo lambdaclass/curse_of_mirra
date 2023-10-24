@@ -240,18 +240,6 @@ public class CustomLevelManager : LevelManager
             : 0;
         skillsClone[1].angle = skill1InfoAngle;
         skillsClone[1].skillConeAngle = skill1InfoAngle;
-
-        float skill2InfoAngle = jsonSkills.Exists(skill => skillsClone[2].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[2].Equals(skill)).Angle)
-            : 0;
-        skillsClone[2].angle = skill2InfoAngle;
-        skillsClone[2].skillConeAngle = skill2InfoAngle;
-
-        float skill3InfoAngle = jsonSkills.Exists(skill => skillsClone[3].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[3].Equals(skill)).Angle)
-            : 0;
-        skillsClone[3].angle = skill3InfoAngle;
-        skillsClone[3].skillConeAngle = skill3InfoAngle;
     }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
@@ -285,13 +273,9 @@ public class CustomLevelManager : LevelManager
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
-            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
-            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
             skillList.Add(skillBasic);
             skillList.Add(skill1);
-            skillList.Add(skill2);
-            skillList.Add(skill3);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -305,8 +289,6 @@ public class CustomLevelManager : LevelManager
 
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
             skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
-            skill2.SetSkill(Action.Skill2, skillInfoClone[2], skillsAnimationEvent);
-            skill3.SetSkill(Action.Skill3, skillInfoClone[3], skillsAnimationEvent);
 
             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
@@ -335,16 +317,6 @@ public class CustomLevelManager : LevelManager
                     UIControls.Skill1,
                     skillInfoClone[1].inputType,
                     skill1
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill2,
-                    skillInfoClone[2].inputType,
-                    skill2
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill3,
-                    skillInfoClone[3].inputType,
-                    skill3
                 );
             }
 
