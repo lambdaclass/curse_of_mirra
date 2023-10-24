@@ -117,7 +117,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   #############################
   # Callbacks implementations #
   #############################
-  defp decide_action(%{alive: false} = bot_state, _, _ , _game_state, _closest_entity) do
+  defp decide_action(%{alive: false} = bot_state, _, _, _game_state, _closest_entity) do
     Map.put(bot_state, :action, :die)
   end
 
@@ -126,11 +126,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(%{objective: :attack_enemy} = bot_state, _bot_id, _players,  _game_state, closest_entity) do
+  defp decide_action(%{objective: :attack_enemy} = bot_state, _bot_id, _players, _game_state, closest_entity) do
     Map.put(bot_state, :action, {:try_attack, closest_entity})
   end
 
-  defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players , state, _closest_entity) do
+  defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entity) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
     target =
