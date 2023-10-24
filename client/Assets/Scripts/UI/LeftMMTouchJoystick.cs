@@ -1,87 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using MoreMountains.Tools;
 
-public class LeftMMTouchJoystick : MMTouchRepositionableJoystick
+public class LeftMMTouchJoystick : MMTouchJoystick
 {
-    float positionX;
-    float positionY;
-    const float initialJoystickOpacity = 0.3f;
-    const float pressedJoystickOpacity = 0.4f;
-
-    protected override void Start()
-    {
-        base.Start();
-        _initialPosition = BackgroundCanvasGroup.transform.position;
+    float adjustValue = 15f;
+    float scaleCanvas;
+    public override void Initialize(){
+        base.Initialize();
     }
-
-    private Vector3 ClampJoystickPositionToScreen(PointerEventData eventData)
+    public override void RefreshMaxRangeDistance()
     {
-        if (
-            eventData.position.y
-            < GetComponent<RectTransform>().position.y
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2
-        )
-        {
-            positionY =
-                eventData.position.y
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.y / 2;
-        }
-        else
-        {
-            positionY = eventData.position.y;
-        }
-        if (
-            eventData.position.x
-            < GetComponent<RectTransform>().position.x
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2
-        )
-        {
-            positionX =
-                eventData.position.x
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2;
-        }
-        else
-        {
-            positionX = eventData.position.x;
-        }
-        _newPosition = new Vector3(positionX, positionY, 0f);
-        return _newPosition;
-    }
+        // What makes this responsive is taking into account the canvas scaling
+        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
 
-    public void SetOpacity(float opacity)
-    {
-        BackgroundCanvasGroup.alpha = opacity;
-    }
-
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        base.OnPointerDown(eventData);
-        ClampJoystickPositionToScreen(eventData);
-        BackgroundCanvasGroup.transform.position = _newPosition;
-        KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_newPosition);
-        KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerDown(eventData);
-        SetOpacity(pressedJoystickOpacity);
-    }
-
-    public override void OnDrag(PointerEventData eventData)
-    {
-        base.OnDrag(eventData);
-        KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnDrag(eventData);
-    }
-
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        base.OnPointerUp(eventData);
-        if (ResetPositionToInitialOnRelease)
-        {
-            BackgroundCanvasGroup.transform.position = _initialPosition;
-            KnobCanvasGroup.GetComponent<MMTouchJoystick>().SetNeutralPosition(_initialPosition);
-            KnobCanvasGroup.GetComponent<MMTouchJoystick>().OnPointerUp(eventData);
-        }
-        SetOpacity(initialJoystickOpacity);
+        float knobBackgroundDiameter = gameObject.transform.parent.gameObject.GetComponent<RectTransform>().rect.width;
+        float knobDiameter = GetComponent<RectTransform>().rect.width;
+        MaxRange = (knobBackgroundDiameter - knobDiameter - adjustValue) * scaleCanvas;
+        base.RefreshMaxRangeDistance();
     }
 }

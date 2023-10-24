@@ -11,7 +11,7 @@ public class Battle : MonoBehaviour
     public HashSet<SkillInfo> skillInfoSet;
 
     [SerializeField]
-    MMTouchJoystick joystickL;
+    LeftMMTouchJoystick joystickL;
 
     [SerializeField]
     CustomInputManager InputManager;
