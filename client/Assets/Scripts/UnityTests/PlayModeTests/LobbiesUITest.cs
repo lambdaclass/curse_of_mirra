@@ -38,7 +38,7 @@ public class LobbiesUITest : InputTestFixture
     }
 
     [UnityTest]
-    public IEnumerator MuteButton()
+    public IEnumerator UnmuteButton()
     {
         Debug.Log("start click");
         GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
@@ -63,12 +63,12 @@ public class LobbiesUITest : InputTestFixture
         // Verify sound manager is unmuted
         Assert.That(MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master), Is.EqualTo(true));
     }
-    
+
     IEnumerator CoClickButton(GameObject go)
     {
         // simulate a button click  
         var pointer = new PointerEventData(EventSystem.current);
- 
+
         ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerEnterHandler);
         ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerDownHandler);
         yield return new WaitForSeconds(0.1f);
