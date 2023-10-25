@@ -33,14 +33,10 @@ public class MatchStatsController : MonoBehaviour
                 .serverSettings
                 .RunnerConfig
                 .MapShrinkWaitMs;
-            if(mapShrinkWaitMs > elapsedTime) {
-                remainingSeconds = (mapShrinkWaitMs - elapsedTime) / 1000;
-                zoneTimer.text = remainingSeconds.ToString();
-            }
-            else {
-                remainingSeconds = 0;
-                zoneTimer.text = "0";
-            }
+            remainingSeconds = (mapShrinkWaitMs > elapsedTime) ?
+                (mapShrinkWaitMs - elapsedTime) / 1000
+                : 0;
+            zoneTimer.text = remainingSeconds.ToString();
         }
     }
 }
