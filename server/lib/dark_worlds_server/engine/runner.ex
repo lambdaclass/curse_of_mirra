@@ -138,7 +138,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       )
       when action in [:move, :move_with_joystick] do
     {:ok, game} = do_move(action, server_game_state.game, player, value)
-
     server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
@@ -259,22 +258,28 @@ defmodule DarkWorldsServer.Engine.Runner do
 
   def handle_cast(
         {:disconnect, player_id},
-        %{client_game_state: game_state} = gen_server_state
-      ) do
-    current = gen_server_state.current_players - 1
-    {:ok, game} = Game.disconnect(game_state.game, player_id)
-
-    {:noreply, %{gen_server_state | client_game_state: %{game_state | game: game}, current_players: current}}
-  end
-
-  def handle_cast(
-        {:disconnect, player_id},
         %{game_status: :character_selection} = gen_server_state
       ) do
     current = gen_server_state.current_players - 1
     selected_characters = Map.delete(gen_server_state.selected_characters, player_id)
 
     {:noreply, %{gen_server_state | current_players: current, selected_characters: selected_characters}}
+  end
+
+  def handle_cast({:disconnect, player_id}, gen_server_state) do
+    bot_handler_pid =
+      case gen_server_state[:bot_handler_pid] do
+        nil ->
+          {:ok, pid} = BotPlayer.start_link(self(), gen_server_state.tick_rate)
+          pid
+
+        bot_handler_pid ->
+          bot_handler_pid
+      end
+
+    BotPlayer.add_bot(bot_handler_pid, player_id)
+
+    {:noreply, gen_server_state}
   end
 
   def handle_call({:join, client_id, player_id}, _, gen_server_state) do
