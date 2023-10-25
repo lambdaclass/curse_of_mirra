@@ -42,7 +42,6 @@ public class LobbyPlayerList : MonoBehaviour
         PlayerItem playerI = newPlayer.GetComponent<PlayerItem>();
         playerI.SetId(id);
         playerI.SetPlayerItemText(name);
-        Debug.Log("Created player item for " + name);
 
         this.playerItems[id] = newPlayer;
     }
