@@ -25,10 +25,4 @@ MonoBehaviour:
   skillsInfo:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   skillBasicInfo: {fileID: 0}
-  skill1Info: {fileID: 0}
-  skill2Info: {fileID: 0}
-  skill3Info: {fileID: 0}
