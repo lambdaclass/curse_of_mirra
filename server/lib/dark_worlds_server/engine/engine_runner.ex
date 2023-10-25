@@ -51,6 +51,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #######################
   @impl true
   def init(%{engine_config_raw_json: engine_config_raw_json}) do
+    IO.inspect(label: :INIT_ENGINERUNNER)
+
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
