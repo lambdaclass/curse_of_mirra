@@ -139,14 +139,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       nil ->
         Map.put(bot_state, :action, {:move, direction_to_entity})
 
-      {skill, _skill_specs} ->
-        skill =
-          if skill == :skill_basic do
-            :basic_attack
-          else
-            skill
-          end
-
+      skill ->
         Map.put(bot_state, :action, {:attack, closest_entity, skill})
     end
   end
@@ -309,37 +302,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp skill_would_hit(bot, %{distance_to_entity: distance_to_entity}) do
-    skills =
-      Map.take(bot.character, [:skill_basic, :skill_1, :skill_2, :skill_3, :skill_4])
-
-    cooldowns =
-      Map.take(bot, [
-        :basic_skill_cooldown_left,
-        :skill_1_cooldown_left,
-        :skill_2_cooldown_left,
-        :skill_3_cooldown_left,
-        :skill_4_cooldown_left
-      ])
-    # TODO We need to replace this with a propper finder of skill type when the new engine is implemented
-    buff_skills = ["Rage", "Denial of Service"]
-
     skill =
-      Enum.find(skills, fn {skill_name, skill_specs} ->
-        (skill_specs.skill_range >= distance_to_entity or skill_specs.name in buff_skills) and get_cooldown(skill_name, cooldowns) == 0
-      end)
+      Map.get(bot.character, :skill_basic)
 
-    if Enum.all?(cooldowns, fn {_skill_name, cd} -> cd.low > 0 end) do
-      {:skill_basic, %{}}
-    else
-      skill
+    if skill.skill_range >= distance_to_entity do
+      :basic_attack
     end
   end
 
   defp skill_would_hit(_bot, _closest_entity), do: nil
-
-  def get_cooldown(:skill_basic, cooldowns), do: Map.get(cooldowns, :basic_skill_cooldown_left).low
-  def get_cooldown(:skill_1, cooldowns), do: Map.get(cooldowns, :skill_1_cooldown_left).low
-  def get_cooldown(:skill_2, cooldowns), do: Map.get(cooldowns, :skill_2_cooldown_left).low
-  def get_cooldown(:skill_3, cooldowns), do: Map.get(cooldowns, :skill_3_cooldown_left).low
-  def get_cooldown(:skill_4, cooldowns), do: Map.get(cooldowns, :skill_4_cooldown_left).low
 end
