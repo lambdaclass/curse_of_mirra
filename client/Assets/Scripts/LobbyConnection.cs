@@ -87,6 +87,7 @@ public class LobbyConnection : MonoBehaviour
         {
             public ulong id;
             public string character_name;
+            public string player_name;
         }
 
         [Serializable]
@@ -236,6 +237,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
+        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
     }
 
     private IEnumerator WaitLobbyCreated()
