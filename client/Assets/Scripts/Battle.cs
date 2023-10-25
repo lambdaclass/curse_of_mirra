@@ -482,16 +482,6 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill2,
-                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill3,
-                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
-            );
         }
     }
 
