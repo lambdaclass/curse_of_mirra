@@ -302,10 +302,6 @@ public class Battle : MonoBehaviour
         RelativePosition direction
     )
     {
-        if (currentPlayer.name.Contains("BOT"))
-        {
-            return;
-        }
         // TODO: Refactor
         switch (playerAction)
         {
