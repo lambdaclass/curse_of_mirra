@@ -198,6 +198,12 @@ public class SocketConnectionManager : MonoBehaviour
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
                     break;
+                case GameEventType.PlayerJoined:
+                    LobbyConnection.Instance.playersIdName.Add(
+                        gameEvent.PlayerJoinedId,
+                        gameEvent.PlayerJoinedName
+                    );
+                    break;
                 default:
                     print("Message received is: " + gameEvent.Type);
                     break;
