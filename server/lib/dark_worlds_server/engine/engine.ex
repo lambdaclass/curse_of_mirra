@@ -14,7 +14,7 @@ defmodule DarkWorldsServer.Engine do
   end
 
   def start_child(args) do
-    DynamicSupervisor.start_child(__MODULE__, {Runner, args})
+    DynamicSupervisor.start_child(__MODULE__, {EngineRunner, args})
   end
 
   def start_engine_runner() do
