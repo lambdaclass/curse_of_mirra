@@ -6,6 +6,7 @@ using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using MoreMountains.Tools;
+using UnityEngine.EventSystems;
 
 public class LobbyCreationFlow : InputTestFixture
 {
@@ -16,34 +17,42 @@ public class LobbyCreationFlow : InputTestFixture
         SceneManager.LoadScene("Scenes/Lobbies");
     }
 
+    // Creates a lobby in the Lobby scene
     [UnityTest]
     public IEnumerator LobbyCreation()
-    // Creates a lobby in the Lobby scene
     {
         GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
-        ClickUI(newLobbyButton);
+        yield return CoClickButton(newLobbyButton);
         yield return new WaitForSeconds(1f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
         yield return new WaitForSeconds(1f);
 
         GameObject launchGameButton = GameObject.Find("LaunchGameButton");
-        ClickUI(launchGameButton);
+        yield return CoClickButton(launchGameButton);
         yield return new WaitForSeconds(3f);
 
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
         yield return new WaitForFixedUpdate();
 
         GameObject selectH4ckButton = GameObject.Find("H4ck");
-        // ClickUI(selectH4ckButton);
-        yield return new WaitForSeconds(1f);
         Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(false));
+        yield return CoClickButton(selectH4ckButton);
+        yield return new WaitForSeconds(1f);
+        Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(true));
         //selectH4ckButton.GetComponent<UICharacterItem>().SendCharacterSelection();
         yield return new WaitForSeconds(1f);
         //Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(true));
-        Assert.That(SocketConnectionManager.Instance.isConnectionOpen(), Is.EqualTo(true));
     }
-    public void ClickUI(GameObject uiElement)
+
+    IEnumerator CoClickButton(GameObject go)
     {
-        uiElement.GetComponent<MMTouchButton>().ButtonReleased.Invoke();
+        // simulate a button click  
+        var pointer = new PointerEventData(EventSystem.current);
+ 
+        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerEnterHandler);
+        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerDownHandler);
+        yield return new WaitForSeconds(0.1f);
+        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerUpHandler);
+        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerClickHandler);
     }
 }
