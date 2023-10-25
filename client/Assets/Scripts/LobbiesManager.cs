@@ -76,6 +76,12 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene("Lobby");
     }
 
+    public void ChangePlayerName()
+    {
+        PlayerPrefs.SetString("playerName", "");
+        this.ShowPlayerNamePopUp();
+    }
+
     private void ShowPlayerNamePopUp()
     {
         if (PlayerPrefs.GetString("playerName") == "")
