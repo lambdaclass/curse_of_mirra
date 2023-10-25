@@ -15,7 +15,11 @@ public class LobbiesManager : LevelSelector
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instance = this;
-        this.ShowPlayerNamePopUp();
+        if (PlayerPrefs.GetString("playerName") == "")
+        {
+            Debug.Log("Showing pop up");
+            this.ShowPlayerNamePopUp();
+        }
     }
 
     public override void GoToLevel()
@@ -76,17 +80,8 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene("Lobby");
     }
 
-    public void ChangePlayerName()
+    public void ShowPlayerNamePopUp()
     {
-        PlayerPrefs.SetString("playerName", "");
-        this.ShowPlayerNamePopUp();
-    }
-
-    private void ShowPlayerNamePopUp()
-    {
-        if (PlayerPrefs.GetString("playerName") == "")
-        {
-            this.playerNameHandler.Show();
-        }
+        this.playerNameHandler.Show();
     }
 }
