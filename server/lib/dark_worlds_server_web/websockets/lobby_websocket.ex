@@ -56,14 +56,11 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   @impl true
   def websocket_info({:player_added, player_id, player_name, host_player_id, players}, state) do
-    {:reply,
-     {:binary,
-      Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
+    {:reply, {:binary, Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
   end
 
   def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)},
-     state}
+    {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
   end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do
@@ -90,14 +87,10 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   defp log_termination({_, 1000, _} = reason) do
-    Logger.info(
-      "#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}"
-    )
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
   end
 
   defp log_termination(reason) do
-    Logger.error(
-      "#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}"
-    )
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 end

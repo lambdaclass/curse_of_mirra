@@ -88,9 +88,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   def terminate(:stop, _req, :version_mismatch) do
-    Logger.info(
-      "#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch"
-    )
+    Logger.info("#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch")
 
     :ok
   end
@@ -101,15 +99,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   defp log_termination({_, 1000, _} = reason) do
-    Logger.info(
-      "#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}"
-    )
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
   end
 
   defp log_termination(reason) do
-    Logger.error(
-      "#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}"
-    )
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 
   @impl true
@@ -139,8 +133,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   @impl true
   def websocket_info({:player_joined, player_id, player_name}, web_socket_state) do
-    {:reply, {:binary, Communication.game_player_joined(player_id, player_name)},
-     web_socket_state}
+    {:reply, {:binary, Communication.game_player_joined(player_id, player_name)}, web_socket_state}
   end
 
   def websocket_info({:initial_positions, players}, web_socket_state) do
@@ -201,8 +194,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   def websocket_info({:finish_character_selection, selected_players, players}, web_socket_state) do
-    {:reply, {:binary, Communication.finish_character_selection!(selected_players, players)},
-     web_socket_state}
+    {:reply, {:binary, Communication.finish_character_selection!(selected_players, players)}, web_socket_state}
   end
 
   def websocket_info({:change_to_engine_runner, engine_runner_pid, topic}, web_socket_state) do
