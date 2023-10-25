@@ -15,7 +15,6 @@ public class CustomLevelManager : LevelManager
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
-    public GameObject quickGamePrefab;
 
     [SerializeField]
     GameObject roundSplash;
@@ -35,8 +34,6 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     private BackgroundMusic backgroundMusic;
-
-    private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
@@ -46,18 +43,10 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
-
     private ulong playerToFollowId;
-
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-
-    [SerializeField]
-    private AudioClip spawnSfx;
-
     private bool deathSplashIsShown = false;
-
-    public bool test = false;
 
     protected override void Awake()
     {
@@ -196,7 +185,9 @@ public class CustomLevelManager : LevelManager
                     var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
                         player.Position
                     );
-                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(player.CharacterName);
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
+                        player.CharacterName
+                    );
                     var botId = player.Id.ToString();
                     botCharacter.PlayerID = "";
 
