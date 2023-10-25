@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using MoreMountains.TopDownEngine;
 using System.Collections.Generic;
 
 public class DeathSplashManager : MonoBehaviour
@@ -174,11 +173,17 @@ public class DeathSplashManager : MonoBehaviour
     {
         // TODO: get image from lobby
         backgroundEndGame.SetActive(true);
-        spectateManager.UnsetSpectateMode();
-        // TODO: get player name
-        winnerName.text =
-            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
-        winnerCharacter.text = SocketConnectionManager.Instance.winnerPlayer.Item1.CharacterName;
+        spectateManager.UnsetSpectateMode();        
+       
+        string playerName = LobbyConnection.Instance.playersIdName[
+            SocketConnectionManager.Instance.winnerPlayer.Item1.Id
+        ];
+        winnerName.text = playerName;
+        winnerCharacter.text = SocketConnectionManager
+            .Instance
+            .winnerPlayer
+            .Item1
+            .CharacterName;
         if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
         {
             title.text = "Victory";
@@ -187,5 +192,6 @@ public class DeathSplashManager : MonoBehaviour
         {
             title.text = "Defeat";
         }
+        
     }
 }

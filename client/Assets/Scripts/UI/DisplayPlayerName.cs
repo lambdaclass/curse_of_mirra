@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
@@ -11,7 +9,9 @@ public class DisplayPlayerName : MonoBehaviour
 
     void Start()
     {
-        GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
+        GetComponent<TextMeshPro>().text = LobbyConnection.Instance.playersIdName[
+            (ulong)decimal.Parse(character.PlayerID)
+        ];
     }
 
     void Update()

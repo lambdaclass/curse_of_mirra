@@ -31,6 +31,7 @@ public class SocketConnectionManager : MonoBehaviour
     public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
+    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
@@ -94,6 +95,8 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
             this.reconnect = LobbyConnection.Instance.reconnect;
+            this.playersIdName = LobbyConnection.Instance.playersIdName;
+
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
@@ -124,8 +127,16 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
-        print(url);
+        string url = makeWebsocketUrl(
+            "/play/"
+                + sessionId
+                + "/"
+                + this.clientId
+                + "/"
+                + playerId
+                + "/"
+                + PlayerPrefs.GetString("playerName")
+        );
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
