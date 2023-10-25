@@ -14,7 +14,6 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
     player_name =
       :cowboy_req.binding(:player_name, req)
-      |> IO.inspect(label: "Player name")
 
     {:cowboy_websocket, req, %{lobby_id: lobby_id, player_name: player_name}}
   end

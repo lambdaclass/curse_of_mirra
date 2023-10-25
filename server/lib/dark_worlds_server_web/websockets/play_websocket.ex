@@ -55,7 +55,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
         client_id: client_id,
         player_name: player_name
       }) do
-    IO.inspect("PlayWebSocket")
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),

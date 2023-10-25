@@ -15,7 +15,6 @@ defmodule DarkWorldsServerWeb.BoardLive.Show do
   end
 
   defp mount_connected(%{"game_id" => game_id, "player_id" => player_id_str}, socket) do
-    IO.inspect("BoardLive.Show")
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
     runner_pid = Communication.external_id_to_pid(game_id)
     player_id = String.to_integer(player_id_str)
@@ -25,7 +24,7 @@ defmodule DarkWorldsServerWeb.BoardLive.Show do
     {board_width, board_height} = {state.game.board.height, state.game.board.width}
 
     {mode, player_id} =
-      case Runner.join(runner_pid, :persistent_term.get(:runtime_id), player_id, "fulano") do
+      case Runner.join(runner_pid, :persistent_term.get(:runtime_id), player_id, "Player") do
         {:ok, player_id} -> {:player, player_id}
         {:error, :game_full} -> {:spectator, nil}
       end

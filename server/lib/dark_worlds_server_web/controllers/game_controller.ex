@@ -21,8 +21,6 @@ defmodule DarkWorldsServerWeb.GameController do
   end
 
   def player_game(conn, %{"player_id" => player_id}) do
-    IO.inspect("GameController.player_game")
-
     case PlayerTracker.get_player_game(player_id) do
       nil ->
         json(conn, %{ongoing_game: false})

@@ -134,7 +134,6 @@ public class SocketConnectionManager : MonoBehaviour
                 + "/"
                 + PlayerPrefs.GetString("playerName")
         );
-        print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);

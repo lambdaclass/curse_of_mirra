@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using MoreMountains.TopDownEngine;
 using System.Collections.Generic;
 
 public class DeathSplashManager : MonoBehaviour
@@ -178,7 +177,6 @@ public class DeathSplashManager : MonoBehaviour
         {
             backgroundEndGame.SetActive(true);
             spectateManager.UnsetSpectateMode();
-            // TODO: get player name
             string playerName = LobbyConnection.Instance.playersIdName[
                 SocketConnectionManager.Instance.winnerPlayer.Item1.Id
             ];
