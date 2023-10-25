@@ -18,8 +18,7 @@ public class PlayerNameHandler : MonoBehaviour
     {
         this.playerName = playerNameInput.text.Trim();
         GetComponent<Image>().sprite = selectedButtonSprite;
-        LobbyConnection.Instance.playerName = playerName;
-        Debug.Log("Player name set to " + LobbyConnection.Instance.playerName);
+        PlayerPrefs.SetString("playerName", playerName);
         this.Hide();
     }
 

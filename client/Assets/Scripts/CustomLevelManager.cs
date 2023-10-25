@@ -171,6 +171,7 @@ public class CustomLevelManager : LevelManager
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
+            //newPlayer.name = PlayerPrefs.GetString("playerName");
             newPlayer.PlayerID = (i + 1).ToString();
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
@@ -190,7 +191,9 @@ public class CustomLevelManager : LevelManager
                     var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
                         player.Position
                     );
-                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(player.CharacterName);
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
+                        player.CharacterName
+                    );
                     var botId = player.Id.ToString();
                     botCharacter.PlayerID = "";
 

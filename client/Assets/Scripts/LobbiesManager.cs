@@ -15,7 +15,7 @@ public class LobbiesManager : LevelSelector
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instance = this;
-        this.SetPlayerName();
+        this.ShowPlayerNamePopUp();
     }
 
     public override void GoToLevel()
@@ -76,12 +76,10 @@ public class LobbiesManager : LevelSelector
         SceneManager.LoadScene("Lobby");
     }
 
-    private void SetPlayerName()
+    private void ShowPlayerNamePopUp()
     {
-        Debug.Log("Player name is: " + LobbyConnection.Instance.playerName);
-        if (LobbyConnection.Instance.playerName == "")
+        if (PlayerPrefs.GetString("playerName") == "")
         {
-            Debug.Log("Player name is empty");
             this.playerNameHandler.Show();
         }
     }

@@ -9,7 +9,9 @@ public class DisplayPlayerName : MonoBehaviour
 
     void Start()
     {
-        GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
+        // GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
+        Debug.Log(Utils.GetGamePlayer((ulong)decimal.Parse(character.PlayerID)));
+        GetComponent<TextMeshPro>().text = PlayerPrefs.GetString("playerName");
     }
 
     void Update()
