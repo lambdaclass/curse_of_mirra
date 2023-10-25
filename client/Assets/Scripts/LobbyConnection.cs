@@ -171,7 +171,7 @@ public class LobbyConnection : MonoBehaviour
     public void CreateLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
+        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
