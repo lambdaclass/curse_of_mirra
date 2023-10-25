@@ -131,25 +131,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
          bot_id,
          _players,
          %{game_state: %{myrra_state: myrra_state}},
-         %{direction_to_entity: direction_to_entity} = closest_entity
+         %{type: :enemy, direction_to_entity: direction_to_entity} = closest_entity
        ) do
     bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
 
-    IO.inspect(bot, label: "character")
-
-    skills =
-      Map.take(bot.character, [:skill_basic, :skill_1, :skill_2, :skill_3, :skill_4])
-
-    cooldowns =
-      Map.take(bot, [
-        :basic_skill_cooldown_left,
-        :skill_1_cooldown_left,
-        :skill_2_cooldown_left,
-        :skill_3_cooldown_left,
-        :skill_4_cooldown_left
-      ])
-
-    case skill_would_hit(skills, cooldowns, closest_entity) do
+    case skill_would_hit(bot, closest_entity) do
       nil ->
         Map.put(bot_state, :action, {:move, direction_to_entity})
 
@@ -163,6 +149,16 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
         Map.put(bot_state, :action, {:attack, closest_entity, skill})
     end
+  end
+
+  defp decide_action(
+         %{objective: :attack_enemy} = bot_state,
+         _bot_id,
+         _players,
+         _state,
+         %{direction_to_entity: direction_to_entity}
+       ) do
+    Map.put(bot_state, :action, {:move, direction_to_entity})
   end
 
   defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entity) do
@@ -312,13 +308,34 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
   end
 
-  defp skill_would_hit(skills, cooldowns, %{distance_to_entity: distance_to_entity}) do
-    Enum.find(skills, fn {skill_name, skill_specs} ->
-      skill_specs.skill_range >= distance_to_entity and get_cooldown(skill_name, cooldowns) == 0
-    end)
+  defp skill_would_hit(bot, %{distance_to_entity: distance_to_entity}) do
+    skills =
+      Map.take(bot.character, [:skill_basic, :skill_1, :skill_2, :skill_3, :skill_4])
+
+    cooldowns =
+      Map.take(bot, [
+        :basic_skill_cooldown_left,
+        :skill_1_cooldown_left,
+        :skill_2_cooldown_left,
+        :skill_3_cooldown_left,
+        :skill_4_cooldown_left
+      ])
+    # TODO We need to replace this with a propper finder of skill type when the new engine is implemented
+    buff_skills = ["Rage", "Denial of Service"]
+
+    skill =
+      Enum.find(skills, fn {skill_name, skill_specs} ->
+        (skill_specs.skill_range >= distance_to_entity or skill_specs.name in buff_skills) and get_cooldown(skill_name, cooldowns) == 0
+      end)
+
+    if Enum.all?(cooldowns, fn {_skill_name, cd} -> cd.low > 0 end) do
+      {:skill_basic, %{}}
+    else
+      skill
+    end
   end
 
-  defp skill_would_hit(_skills, _cooldowns, _closest_entity), do: nil
+  defp skill_would_hit(_bot, _closest_entity), do: nil
 
   def get_cooldown(:skill_basic, cooldowns), do: Map.get(cooldowns, :basic_skill_cooldown_left).low
   def get_cooldown(:skill_1, cooldowns), do: Map.get(cooldowns, :skill_1_cooldown_left).low
