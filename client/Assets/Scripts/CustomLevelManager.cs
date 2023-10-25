@@ -171,6 +171,7 @@ public class CustomLevelManager : LevelManager
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
+            // TODO?:
             //newPlayer.name = PlayerPrefs.GetString("playerName");
             newPlayer.PlayerID = (i + 1).ToString();
 

@@ -124,7 +124,16 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
+        string url = makeWebsocketUrl(
+            "/play/"
+                + sessionId
+                + "/"
+                + this.clientId
+                + "/"
+                + playerId
+                + "/"
+                + PlayerPrefs.GetString("playerName")
+        );
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());

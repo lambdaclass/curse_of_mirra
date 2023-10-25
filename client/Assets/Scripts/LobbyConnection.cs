@@ -366,7 +366,8 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/matchmaking/" + sessionId);
+        var player_name = PlayerPrefs.GetString("playerName");
+        string url = makeWebsocketUrl("/matchmaking/" + sessionId + "/" + player_name);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;

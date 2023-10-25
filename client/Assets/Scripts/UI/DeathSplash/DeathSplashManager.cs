@@ -179,8 +179,10 @@ public class DeathSplashManager : MonoBehaviour
             backgroundEndGame.SetActive(true);
             spectateManager.UnsetSpectateMode();
             // TODO: get player name
-            winnerName.text =
-                "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
+            string playerName = LobbyConnection.Instance.playersIdName[
+                SocketConnectionManager.Instance.winnerPlayer.Item1.Id
+            ];
+            winnerName.text = playerName;
             winnerCharacter.text = SocketConnectionManager
                 .Instance
                 .winnerPlayer

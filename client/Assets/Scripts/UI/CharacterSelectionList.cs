@@ -55,6 +55,7 @@ public class CharacterSelectionList : MonoBehaviour
         CharacterSelectionPlayerItem playerI =
             newPlayer.GetComponent<CharacterSelectionPlayerItem>();
         playerI.SetId(id);
+        playerI.SetPlayerName(LobbyConnection.Instance.playersIdName[id]);
         playerI.SetCharacterName("Not Selected");
         playerI.SetPlayerItemText();
 
