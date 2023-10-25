@@ -43,6 +43,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     # This will start the runner and kill the session after the time given
     Process.send_after(self(), :start_game, 10000_000)
 
+    # This prints in terminal the amount of players until the game starts
+    send(self(), :inspect)
+
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
     {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
@@ -100,6 +103,12 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     {:ok, _game_pid} = Engine.start_child(%{players: Map.keys(state.players)})
     # Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
     {:stop, :normal, state}
+  end
+
+  def handle_info(:inspect, state) do
+    Process.send_after(self(), :inspect, 1_000)
+    IO.inspect(Map.keys(state.players) |> Enum.count(), label: "Actualmente hay esta cantidad de players")
+    {:noreply, state}
   end
 
   @impl GenServer
