@@ -48,15 +48,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     send(self(), {:decide_action, bot_id})
     send(self(), {:do_action, bot_id})
 
-    wandering_position = %{x: :rand.uniform(10000), y: :rand.uniform(10000)}
-    already_visited_positions = [wandering_position]
-
     {:noreply,
      put_in(state, [:bots, bot_id], %{
        alive: true,
-       objective: :wander,
-       current_wandering_position: wandering_position,
-       already_visited_positions: already_visited_positions
+       objective: :nothing,
+       current_wandering_position: nil
      })}
   end
 
@@ -131,9 +127,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp decide_action(
+         %{objective: :wander, current_wandering_position: wandering_position} = bot_state,
          bot_id,
          players,
-         %{objective: :wander, current_wandering_position: wandering_position} = bot_state,
          _game_state,
          _closest_entity
        ) do
@@ -145,7 +141,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
           bot.position,
           wandering_position
         )
-
       Map.put(bot_state, :action, {:move, target})
     else
       Map.put(bot_state, :action, {:nothing, nil})
@@ -198,7 +193,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
-  defp do_action(_bot_id, _game_pid, _players, _) do
+  defp do_action(_bot_id, _game_pid, _players, _value) do
     nil
   end
 
@@ -245,7 +240,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       end
 
     if objective == :wander do
-      maybe_generate_wandering_position(bot, bot_state, myrra_state)
+      maybe_put_wandering_position(bot, bot_state, myrra_state)
     else
       Map.put(bot_state, :objective, objective)
     end
@@ -318,41 +313,55 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
   end
 
-  def maybe_generate_wandering_position(
+  def maybe_put_wandering_position(
         bot,
         %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state,
         myrra_state
       ) do
     if get_distance_to_point(bot.position, %Position{x: current_wandering_position.x, y: current_wandering_position.y}) <
          500 do
-      generate_wandering_position(bot_state, myrra_state)
+      put_wandering_position(bot, bot_state, myrra_state)
     else
       bot_state
     end
   end
 
-  def maybe_generate_wandering_position(_bot, bot_state, myrra_state),
-    do: generate_wandering_position(bot_state, myrra_state)
+  def maybe_put_wandering_position(bot, bot_state, myrra_state),
+    do: put_wandering_position(bot, bot_state, myrra_state)
 
-  def generate_wandering_position(%{already_visited_positions: already_visited_positions} = bot_state, myrra_state) do
-    left_x = myrra_state.shrinking_center.x - div(myrra_state.playable_radius, 2)
-    rigth_x = myrra_state.shrinking_center.x + div(myrra_state.playable_radius, 2)
-    down_y = myrra_state.shrinking_center.y - div(myrra_state.playable_radius, 2)
-    up_y = myrra_state.shrinking_center.y + div(myrra_state.playable_radius, 2)
+  def put_wandering_position(
+        %{position: bot_position},
+        bot_state,
+        myrra_state
+      ) do
+    playable_area_radius = div(myrra_state.playable_radius, 2)
+    bot_visibility_radius = div(@visibility_max_range, 2)
+
+    # We need to pick and X and Y wich are in a safe zone close to the bot that's also inside of the board
+    left_x = Enum.max([myrra_state.shrinking_center.x - playable_area_radius, bot_position.x - bot_visibility_radius, 0])
+
+    right_x =
+      Enum.min([
+        myrra_state.shrinking_center.x + playable_area_radius,
+        bot_position.x + bot_visibility_radius,
+        myrra_state.board.width
+      ])
+
+    down_y =
+      Enum.max([myrra_state.shrinking_center.y - playable_area_radius, bot_position.y - bot_visibility_radius, 0])
+
+    up_y =
+      Enum.min([
+        myrra_state.shrinking_center.y + playable_area_radius,
+        bot_position.y + bot_visibility_radius,
+        myrra_state.board.height
+      ])
 
     wandering_position = %{
-      x: Enum.random(max(left_x, 0)..min(rigth_x, myrra_state.board.width)),
-      y: Enum.random(max(down_y, 0)..min(up_y, myrra_state.board.height))
+      x: Enum.random(left_x..right_x),
+      y: Enum.random(down_y..up_y)
     }
 
-    if Enum.member?(already_visited_positions, wandering_position) do
-      generate_wandering_position(bot_state, myrra_state)
-    else
-      Map.merge(bot_state, %{
-        objective: :wander,
-        current_wandering_position: wandering_position,
-        already_visited_positions: bot_state.already_visited_positions ++ [wandering_position]
-      })
-    end
+    Map.merge(bot_state, %{current_wandering_position: wandering_position, objective: :wander})
   end
 end
