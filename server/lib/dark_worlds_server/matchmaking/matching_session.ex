@@ -1,6 +1,7 @@
 defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   use GenServer, restart: :transient
   alias DarkWorldsServer.Engine
+  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Matchmaking
 
   # 2 minutes
@@ -41,7 +42,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
 
     # This will start the runner and kill the session after the time given
-    Process.send_after(self(), :start_game, 10000_000)
+    Process.send_after(self(), :start_game, 10_000)
 
     # This prints in terminal the amount of players until the game starts
     send(self(), :inspect)
@@ -100,14 +101,30 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:start_game, state) do
-    {:ok, _game_pid} = Engine.start_child(%{players: Map.keys(state.players)})
+    {:ok, game_pid} = Engine.start_child()
+
+    ## Setup each player in engine_runner
+    Enum.each(state.players, fn player_id ->
+      :ok = EngineRunner.join(game_pid, player_id, "h4ck")
+    end)
+
+    ## Start the game ticks
+    EngineRunner.start_game_tick(game_pid)
+
+    # TODO must uncomment the following line and broadcast the msg
+    # without the config or using the new config used in the server side
     # Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
+
     {:stop, :normal, state}
   end
 
   def handle_info(:inspect, state) do
     Process.send_after(self(), :inspect, 1_000)
-    IO.inspect(Map.keys(state.players) |> Enum.count(), label: "Actualmente hay esta cantidad de players")
+
+    IO.inspect(Map.keys(state.players) |> Enum.count(),
+      label: "Actualmente hay esta cantidad de players"
+    )
+
     {:noreply, state}
   end
 
