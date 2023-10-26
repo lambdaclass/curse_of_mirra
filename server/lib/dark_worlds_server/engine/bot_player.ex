@@ -10,7 +10,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
 
-  # We'll decide the view range of a bot
   @visibility_max_range 2000
 
   #######
@@ -67,7 +66,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state ->
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-          closest_entity = get_closes_entity(state.game_state, bot_id)
+          closest_entity = get_closest_entity(state.game_state, bot_id)
 
           bot_state
           |> decide_action(bot_id, state.players, state, closest_entity)
@@ -223,7 +222,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def decide_objective(bot_state, _, _, _), do: Map.put(bot_state, :objective, :nothing)
 
-  defp get_closes_entity(%{myrra_state: game_state}, bot_id) do
+  defp get_closest_entity(%{myrra_state: game_state}, bot_id) do
     # TODO maybe we could add a priority to the entities.
     # e.g. if the bot has low health priorities the loot boxes
     bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
@@ -258,7 +257,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
-  defp get_closes_entity(_, _) do
+  defp get_closest_entity(_, _) do
     %{}
   end
 
