@@ -10,8 +10,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
 
-  # We'll decide the view range of a bot
-  @visibility_max_range 2000
+  # We'll decide the view range of a bot measured in grid cells
+  # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
+  @visibility_max_range_cells 2000
 
   #######
   # API #
@@ -72,7 +73,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state ->
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-          closest_entity = get_closes_entity(state.game_state, bot_id)
+          closest_entity = get_closest_entity(state.game_state, bot_id)
 
           bot_state
           |> decide_action(bot_id, state.players, state, closest_entity)
@@ -172,10 +173,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
+  # Entity detected is an enemy we should try an attack
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
        }) do
     # TODO replace this 400 with a function that determines if any skill would hit the enemy
+    # If the entity detected is in attack range we should perfom an attack
     if direction_to_entity.distance_to_entity > 400 do
       Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
     else
@@ -187,6 +190,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
+  # Entity detected is a loot crate we should try to pick it
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{direction_to_entity: {x, y}}}
        }) do
@@ -248,7 +252,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def decide_objective(bot_state, _, _, _), do: Map.put(bot_state, :objective, :nothing)
 
-  defp get_closes_entity(%{myrra_state: game_state}, bot_id) do
+  defp get_closest_entity(%{myrra_state: game_state}, bot_id) do
     # TODO maybe we could add a priority to the entities.
     # e.g. if the bot has low health priorities the loot boxes
     bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
@@ -283,7 +287,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
-  defp get_closes_entity(_, _) do
+  defp get_closest_entity(_, _) do
     %{}
   end
 
@@ -310,7 +314,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
-    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
+    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 
   def maybe_put_wandering_position(
