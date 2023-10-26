@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+/* Represents the initial game state.
+    - width: The width of the playing area.
+    - height: The length of the playing area.
+    - map_modification: If present, contains the information for when the map modification mechanic is triggered
+    - loot_interval_ms: If present, interval in milliseconds for spawning loot crates
+*/
+message Game {
+    uint64 width = 1;
+    uint64 height = 2;
+    optional MapModification map_modification = 3;
+    optional uint64 loot_interval_ms = 4;
+}
+
+/* The information for when the map modification mechanic is triggered.
+    - modification: Defines how to modify the playable area radius.
+    - starting_radius: Starting radius for the playable area.
+    - minimum_radius: Mininum radius for the playable area, how small can the playable zone get.
+    - max_radius: Max radius for the playable area, how big can the playable zone get.
+    - outside_radius_effects: Effects given when a player is outside the playable area.
+    - inside_radius_effects: Effects given when a player is inside the playable area.
+*/
+message MapModification {
+    Modification modification = 1;
+    uint64 starting_radius = 2;
+    uint64 minimum_radius = 3;
+    uint64 max_radius = 4;
+    repeated string outside_radius_effects = 5;
+    repeated string inside_radius_effects = 6;
+}
+
+/* Defines how to modify the playable area radius.
+    - modifier: Determines how `value` interacts with the current value of the attribute, it can be one of
+    - additive: Given value is added to current value
+    - multiplicative: Given value is multiplied to current value
+    - override: Given value is set as the attribute value
+    - value: The value we are using for the changemessage Modification {
+*/
+message Modification {
+    string modifier = 1;
+    int64 value = 2;
+}
