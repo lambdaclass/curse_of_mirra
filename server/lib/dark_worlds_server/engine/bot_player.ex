@@ -339,7 +339,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         myrra_state
       ) do
     playable_area_radius = div(myrra_state.playable_radius, 2)
-    bot_visibility_radius = div(@visibility_max_range, 2)
+    bot_visibility_radius = @visibility_max_range_cells * 2
 
     # We need to pick and X and Y wich are in a safe zone close to the bot that's also inside of the board
     left_x = Enum.max([myrra_state.shrinking_center.x - playable_area_radius, bot_position.x - bot_visibility_radius, 0])
