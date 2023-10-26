@@ -156,6 +156,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
          action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
        }) do
     # TODO replace this 400 with a function that determines if any skill would hit the enemy
+    # If the entity detected is in attack range we should perfom an attack
     if direction_to_entity.distance_to_entity > 400 do
       Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
     else
