@@ -41,3 +41,18 @@ message Modification {
     string modifier = 1;
     int64 value = 2;
 }
+
+/* Represents a character in the game
+- name: Unique name of the character.
+- active: Can the character be picked?
+- base_speed: Base speed of the character.
+- base_size: Size of the character for collision math.
+- skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
+*/
+message Character {
+    string name = 1;
+    bool active = 2;
+    uint64 base_speed = 3;
+    uint64 base_size = 4;
+    repeated Skill skills = 5;
+}
