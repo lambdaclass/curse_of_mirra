@@ -10,7 +10,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
 
-  @visibility_max_range 2000
+  # We'll decide the view range of a bot measured in grid cells
+  # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
+  @visibility_max_range_cells 2000
 
   #######
   # API #
@@ -284,6 +286,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
-    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
+    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 end
