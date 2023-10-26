@@ -142,6 +142,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
           bot.position,
           wandering_position
         )
+
       Map.put(bot_state, :action, {:move, target})
     else
       Map.put(bot_state, :action, {:nothing, nil})
@@ -338,25 +339,25 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state,
         myrra_state
       ) do
-    playable_area_radius = div(myrra_state.playable_radius, 2)
     bot_visibility_radius = @visibility_max_range_cells * 2
 
     # We need to pick and X and Y wich are in a safe zone close to the bot that's also inside of the board
-    left_x = Enum.max([myrra_state.shrinking_center.x - playable_area_radius, bot_position.x - bot_visibility_radius, 0])
+    left_x =
+      Enum.max([myrra_state.shrinking_center.x - myrra_state.playable_radius, bot_position.x - bot_visibility_radius, 0])
 
     right_x =
       Enum.min([
-        myrra_state.shrinking_center.x + playable_area_radius,
+        myrra_state.shrinking_center.x + myrra_state.playable_radius,
         bot_position.x + bot_visibility_radius,
         myrra_state.board.width
       ])
 
     down_y =
-      Enum.max([myrra_state.shrinking_center.y - playable_area_radius, bot_position.y - bot_visibility_radius, 0])
+      Enum.max([myrra_state.shrinking_center.y - myrra_state.playable_radius, bot_position.y - bot_visibility_radius, 0])
 
     up_y =
       Enum.min([
-        myrra_state.shrinking_center.y + playable_area_radius,
+        myrra_state.shrinking_center.y + myrra_state.playable_radius,
         bot_position.y + bot_visibility_radius,
         myrra_state.board.height
       ])
