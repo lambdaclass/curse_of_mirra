@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 469487634}
   - component: {fileID: 469487633}
   - component: {fileID: 469487632}
+  - component: {fileID: 469487635}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -410,6 +411,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &469487635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469487631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &579426447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,6 +451,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1603105262504358399, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: NewLobbyButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1640966383155315131, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: NewLobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407779193814417940, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: ServerNameContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596110088298880832, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: ServerTitle
+      objectReference: {fileID: 0}
     - target: {fileID: 4645730930463048086, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -437,6 +491,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5658143403135113039, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: MenuContainer
+      objectReference: {fileID: 0}
     - target: {fileID: 5951903642396642347, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}
       propertyPath: m_IsActive
@@ -446,6 +505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951903642457954208, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: BackArrow
       objectReference: {fileID: 0}
     - target: {fileID: 5951903642671385691, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}
@@ -517,6 +581,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6472191256914153022, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: QuickGameButton
+      objectReference: {fileID: 0}
     - target: {fileID: 7893711936685605754, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -536,6 +605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623420363451892913, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: m_Name
+      value: RefreshButton
       objectReference: {fileID: 0}
     - target: {fileID: 9005106390324705388, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}

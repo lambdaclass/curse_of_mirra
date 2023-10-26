@@ -10,9 +10,6 @@ using UnityEngine.UI;
 public enum UIControls
 {
     Skill1,
-    Skill2,
-    Skill3,
-    Skill4,
     SkillBasic
 }
 
@@ -41,22 +38,10 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton Skill1;
 
     [SerializeField]
-    CustomMMTouchButton Skill2;
-
-    [SerializeField]
-    CustomMMTouchButton Skill3;
-
-    [SerializeField]
     GameObject SkillBasicCooldownContainer;
 
     [SerializeField]
     GameObject Skill1CooldownContainer;
-
-    [SerializeField]
-    GameObject Skill2CooldownContainer;
-
-    [SerializeField]
-    GameObject Skill3CooldownContainer;
 
     [SerializeField]
     GameObject disarmObjectSkill1;
@@ -95,16 +80,12 @@ public class CustomInputManager : InputManager
         base.Start();
         mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
-        mobileButtons.Add(UIControls.Skill2, Skill2);
-        mobileButtons.Add(UIControls.Skill3, Skill3);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
         // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, GameObject>();
         buttonsCooldown.Add(UIControls.Skill1, Skill1CooldownContainer);
-        buttonsCooldown.Add(UIControls.Skill2, Skill2CooldownContainer);
-        buttonsCooldown.Add(UIControls.Skill3, Skill3CooldownContainer);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldownContainer);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
@@ -141,14 +122,6 @@ public class CustomInputManager : InputManager
         SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, characterInfo.skillBackground);
         Skill1.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
-            characterInfo.skillBackground
-        );
-        Skill2.SetInitialSprite(
-            characterInfo.skillsInfo[2].skillSprite,
-            characterInfo.skillBackground
-        );
-        Skill3.SetInitialSprite(
-            characterInfo.skillsInfo[3].skillSprite,
             characterInfo.skillBackground
         );
         characterSkillColor = characterInfo.InputFeedbackColor;
@@ -522,14 +495,5 @@ public class CustomInputManager : InputManager
     private bool IsSamePlayer(GameObject player)
     {
         return player.name == _player.name;
-    }
-
-    private bool ShouldShowTargetsInSkillRange(Skill skill)
-    {
-        return skill.GetType() == typeof(SkillBasic)
-            || skill.GetSkillName() == "BARREL ROLL"
-            || skill.GetSkillName() == "MULTISHOT"
-            || skill.GetSkillName() == "DISARM"
-            || skill.GetSkillName() == "YUGEN'S MARK";
     }
 }

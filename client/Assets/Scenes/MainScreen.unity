@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
+  m_IndirectSpecularColor: {r: 0.37312195, g: 0.3807416, b: 0.3587262, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,6 +130,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 270936414570726327, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: Version
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149726560792241861, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: LoadoutButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2414937526592749047, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayGameTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642789701728528495, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: CharactersButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898723066307044248, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898723066307044248, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898723066307044248, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898723066307044248, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428456206368941700, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: LoadoutText
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457283744149958112, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayGameButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801714794669601017, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: SettingsIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393381854947077796, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: BackgroundImage
+      objectReference: {fileID: 0}
     - target: {fileID: 5393381855249456355, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
       propertyPath: m_RootOrder
@@ -189,6 +249,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainScreenCameraUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662618274600013632, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_Name
+      value: CharactersText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636896590161572060, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636896590161572060, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636896590161572060, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636896590161572060, guid: 2e58a51401b054dda958456ff0440f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e58a51401b054dda958456ff0440f6c, type: 3}

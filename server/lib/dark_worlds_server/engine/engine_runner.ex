@@ -81,14 +81,28 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}}, state) do
-    angle =
-      case Nx.atan2(value.y, value.x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
-        pos_degree when pos_degree >= 0 -> pos_degree
-        neg_degree -> neg_degree + 360
-      end
+    angle = relative_position_to_angle_degrees(value.x, value.y)
 
     player_id = state.user_to_player[user_id]
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
+
+    state =
+      Map.put(state, :game_state, game_state)
+      |> put_in([:player_timestamps, player_id], timestamp)
+
+    {:noreply, state}
+  end
+
+  def handle_cast({:play, user_id, %ActionOk{action: skill_action, value: value, timestamp: timestamp}}, state) do
+    angle = relative_position_to_angle_degrees(value.x, value.y)
+
+    player_id = state.user_to_player[user_id]
+    skill_key = action_skill_to_key(skill_action)
+
+    game_state =
+      LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
+        "direction_angle" => Float.to_string(angle)
+      })
 
     state =
       Map.put(state, :game_state, game_state)
@@ -101,6 +115,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
     Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
 
+    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
     {:noreply, state}
   end
 
@@ -113,13 +128,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(:game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
 
-    ## TODO: implement game tick
-    # LambdaGameEngine.game_tick(state.game_state)
-    game_state = state.game_state
+    now = System.monotonic_time(:millisecond)
+    time_diff = now - state.last_game_tick_at
+    game_state = LambdaGameEngine.game_tick(state.game_state, time_diff)
 
     broadcast_game_state(state.broadcast_topic, Map.put(game_state, :player_timestamps, state.player_timestamps))
 
-    {:noreply, %{state | game_state: game_state}}
+    {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
   end
 
   def handle_info(:spawn_loot, state) do
@@ -142,6 +157,19 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_state, transform_state_to_myrra_state(game_state)})
   end
 
+  defp relative_position_to_angle_degrees(x, y) do
+    case Nx.atan2(y, x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
+      pos_degree when pos_degree >= 0 -> pos_degree
+      neg_degree -> neg_degree + 360
+    end
+  end
+
+  defp action_skill_to_key(:basic_attack), do: "1"
+  defp action_skill_to_key(:skill_1), do: "2"
+  defp action_skill_to_key(:skill_2), do: "3"
+  defp action_skill_to_key(:skill_3), do: "4"
+  defp action_skill_to_key(:skill_4), do: "5"
+
   defp transform_state_to_myrra_state(game_state) do
     %{
       __struct__: LambdaGameEngine.MyrraEngine.Game,
@@ -151,7 +179,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         __struct__: LambdaGameEngine.MyrraEngine.Board,
         height: game_state.config.game.height
       },
-      projectiles: [],
+      projectiles: transform_projectiles_to_myrra_projectiles(game_state.projectiles),
       killfeed: [],
       playable_radius: 20_000,
       shrinking_center: %LambdaGameEngine.MyrraEngine.Position{x: 5000, y: 5000},
@@ -201,6 +229,34 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Map.merge(myrra_player, myrra_cooldowns)
   end
 
+  defp transform_projectiles_to_myrra_projectiles(projectiles) do
+    Enum.map(projectiles, fn projectile ->
+      %LambdaGameEngine.MyrraEngine.Projectile{
+        id: projectile.id,
+        position: transform_position_to_myrra_position(projectile.position),
+        direction: transform_angle_to_myrra_relative_position(projectile.direction_angle),
+        speed: projectile.speed,
+        range: projectile.max_distance,
+        player_id: projectile.player_id,
+        damage: projectile.damage,
+        status: :active,
+        projectile_type: :bullet,
+        pierce: false,
+        # For some reason they are initiated like this
+        last_attacked_player_id: projectile.player_id,
+        # Honestly don't see why client should care about this
+        remaining_ticks: 9999,
+        skill_name: transform_projectile_name_to_myrra_projectile_skill_name(projectile.name)
+      }
+    end)
+  end
+
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"), do: "SLINGSHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"), do: "MULTISHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
+  # TEST skills
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"), do: "DISARM"
+
   defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
 
@@ -220,4 +276,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
+
+  defp transform_angle_to_myrra_relative_position(angle) do
+    angle_radians = Nx.divide(Nx.Constants.pi(), 180) |> Nx.multiply(angle)
+    x = Nx.cos(angle_radians) |> Nx.to_number()
+    y = Nx.sin(angle_radians) |> Nx.to_number()
+    %LambdaGameEngine.MyrraEngine.RelativePosition{x: x, y: y}
+  end
 end
