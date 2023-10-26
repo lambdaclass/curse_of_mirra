@@ -14,6 +14,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
   @visibility_max_range_cells 2000
 
+  # The random factor will add a layer of randomness to bot actions
+  # The following actions will be afected:
+  # - Bot decision, the bot should start a wandering cicle sometimes
+  # - Bot aim, they shouln't be always have perfect precision, so we will add some inaccuracy to their shots
+  @random_factor Enum.random([30])
+
   #######
   # API #
   #######
@@ -180,7 +186,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
        }) do
     # TODO replace this 400 with a function that determines if any skill would hit the enemy
     # If the entity detected is in attack range we should perfom an attack
-    if direction_to_entity.distance_to_entity > 400 do
+    if direction_to_entity.distance_to_entity > 1000 do
       Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
     else
       Runner.play(game_pid, bot_id, %ActionOk{
@@ -210,6 +216,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def calculate_circle_point(cx, cy, x, y) do
+    {x, y}  = add_randomness_to_position(%{x: x, y: y})
+
     radius = 1
     angle = Nx.atan2(x - cx, y - cy)
     x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
@@ -235,6 +243,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
           cond do
             out_of_area? ->
               :flee_from_zone
+
+            random_decision = maybe_random_decision() ->
+              random_decision
 
             not Enum.empty?(closest_entity) ->
               :attack_enemy
@@ -368,5 +379,23 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     }
 
     Map.merge(bot_state, %{current_wandering_position: wandering_position, objective: :wander})
+  end
+
+  def maybe_random_decision() do
+    case :rand.uniform(100) do
+      x when x <= div(@random_factor, 2) ->
+        :nothing
+      x when x < @random_factor ->
+        :wander
+      _ ->
+        nil
+    end
+  end
+
+  # We'll add a randomness to a position decided by the @random_factor variable so the bot behavior isn't 100% acurate
+  def add_randomness_to_position(%{x: x, y: y}) do
+    random_x = x + Enum.random(0..@random_factor) * 10
+    random_y = y + Enum.random(0..@random_factor) * 10
+    {random_x, random_y}
   end
 end
