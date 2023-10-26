@@ -9,8 +9,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
-  # Amount of time until the game starts
-  @game_start_timer_ms 30
 
   #######
   # API #
@@ -51,8 +49,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #######################
   @impl true
   def init(%{engine_config_raw_json: engine_config_raw_json}) do
-    IO.inspect(label: :INIT_ENGINERUNNER)
-
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
@@ -60,8 +56,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.flag(:priority, priority)
 
     engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
-
-    # Process.send_after(self(), :start_game, @game_start_timer_ms)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
@@ -92,9 +86,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}}, state) do
+  def handle_cast(
+        {:play, user_id,
+         %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}},
+        state
+      ) do
     angle =
-      case Nx.atan2(value.y, value.x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
+      case Nx.atan2(value.y, value.x)
+           |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi()))
+           |> Nx.to_number() do
         pos_degree when pos_degree >= 0 -> pos_degree
         neg_degree -> neg_degree + 360
       end
@@ -129,7 +129,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     # LambdaGameEngine.game_tick(state.game_state)
     game_state = state.game_state
 
-    broadcast_game_state(state.broadcast_topic, Map.put(game_state, :player_timestamps, state.player_timestamps))
+    broadcast_game_state(
+      state.broadcast_topic,
+      Map.put(game_state, :player_timestamps, state.player_timestamps)
+    )
 
     {:noreply, %{state | game_state: game_state}}
   end
@@ -147,15 +150,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  # TODO will do :start_game callback
-  def handle_info(:start_game, state) do
-  end
-
   ####################
   # Internal helpers #
   ####################
   defp broadcast_game_state(topic, game_state) do
-    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_state, transform_state_to_myrra_state(game_state)})
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      topic,
+      {:game_state, transform_state_to_myrra_state(game_state)}
+    )
   end
 
   defp transform_state_to_myrra_state(game_state) do
@@ -207,11 +210,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
@@ -232,7 +240,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_position_to_myrra_position(position) do
     {width, height} = Process.get(:map_size)
-    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + div(width, 2), y: position.x + div(height, 2)}
+
+    %LambdaGameEngine.MyrraEngine.Position{
+      x: -1 * position.y + div(width, 2),
+      y: position.x + div(height, 2)
+    }
   end
 
   defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
