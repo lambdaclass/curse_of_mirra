@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.VFX;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public AudioClip spawnSfx;
 
-    IEnumerator activateSpawnFeedback()
+    public IEnumerator activateSpawnFeedback()
     {
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
@@ -38,10 +39,5 @@ public class CharacterBase : MonoBehaviour
         );
         yield return new WaitForSeconds(lifeTime);
         spawnFeedback.SetActive(false);
-    }
-
-    void Start()
-    {
-        StartCoroutine(activateSpawnFeedback());
     }
 }

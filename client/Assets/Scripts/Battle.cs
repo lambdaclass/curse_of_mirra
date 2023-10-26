@@ -633,8 +633,11 @@ public class Battle : MonoBehaviour
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
-        CustomGUIManager.DisplayZoneDamageFeedback(false);
         levelManager.DestroySkillsClone(playerCharacter);
+        if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
+        {
+            CustomGUIManager.DisplayZoneDamageFeedback(false);
+        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -824,7 +827,10 @@ public class Battle : MonoBehaviour
             }
         }
 
-        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+        if (
+            SocketConnectionManager.Instance.playerId == playerUpdate.Id
+            && playerUpdate.Status == Status.Alive
+        )
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
             {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -46,6 +47,18 @@ public class CustomLevelManager : LevelManager
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
+
+    //Camera cinematic variables
+    [SerializeField]
+    GameObject loadingScreen;
+
+    [SerializeField]
+    GameObject battleScreen;
+    Int32 CAMERA_OFFSET = 30;
+    Int32 CAMERA_Y_OFFSET = 6;
+    double xDigit = 0;
+    double zDigit = 0;
+    CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
 
     protected override void Awake()
@@ -54,6 +67,9 @@ public class CustomLevelManager : LevelManager
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
+        cameraFramingTransposer = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -93,6 +109,13 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        var player = Utils.GetPlayer(playerId);
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
+            CAMERA_Y_OFFSET,
+            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
+        );
+
         SetPlayerHealthBar(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
@@ -102,6 +125,7 @@ public class CustomLevelManager : LevelManager
             this.transform.position,
             true
         );
+        StartCoroutine(CameraCinematic());
     }
 
     void Update()
@@ -172,6 +196,67 @@ public class CustomLevelManager : LevelManager
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
+    }
+
+    IEnumerator CameraCinematic()
+    {
+        if (!SocketConnectionManager.Instance.cinematicDone)
+        {
+            //Start moving camera and remove loading sceen
+            InvokeRepeating("Substract", 1f, 0.1f);
+            yield return new WaitForSeconds(1.7f);
+            loadingScreen.SetActive(false);
+            battleScreen.SetActive(true);
+            //Cancel camera movement and start zoom in
+            Utils
+                .GetAllCharacters()
+                .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
+            yield return new WaitForSeconds(2.1f);
+            CancelInvoke("Substract");
+            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            //Cancel camera zoom
+            yield return new WaitForSeconds(0.5f);
+            CancelInvoke("MoveYCamera");
+        }
+        else
+        {
+            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+            yield return new WaitForSeconds(0.9f);
+            loadingScreen.SetActive(false);
+        }
+    }
+
+    int RoundUpByTen(int i)
+    {
+        return (int)(Math.Ceiling(i / 10.0d) * 10);
+    }
+
+    void MoveYCamera()
+    {
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            0,
+            cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
+            0
+        );
+    }
+
+    void Substract()
+    {
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+
+        var xIsPositive = Math.Round(cameraOffset.x) > 0;
+        var zIsPositive = Math.Round(cameraOffset.z) > 0;
+        var xValue = (xIsPositive ? -1 : 1);
+        var zValue = (zIsPositive ? -1 : 1);
+
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
+            cameraOffset.y,
+            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
+        );
+        ;
     }
 
     private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
