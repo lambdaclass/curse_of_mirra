@@ -16,7 +16,8 @@ defmodule DarkWorldsServer.Engine.Game do
   def move_player(a, b, c), do: LambdaGameEngine.move_player(a, b, c)
 
   def move_player_to_relative_position(game_state, player_id, relative_position),
-    do: LambdaGameEngine.move_player_to_relative_position(game_state, player_id, relative_position)
+    do:
+      LambdaGameEngine.move_player_to_relative_position(game_state, player_id, relative_position)
 
   def move_with_joystick(game_state, player_id, x, y),
     do: LambdaGameEngine.move_with_joystick(game_state, player_id, x, y)
@@ -39,5 +40,5 @@ defmodule DarkWorldsServer.Engine.Game do
     do: LambdaGameEngine.shrink_map(game, map_shrink_minimum_radius)
 
   def spawn_loot(game), do: LambdaGameEngine.spawn_loot(game)
-  def exit_game(game, player_id), do: LambdaGameEngine.exit_game(game, player_id)
+  # def exit_game(game, player_id), do: LambdaGameEngine.exit_game(game, player_id)
 end
