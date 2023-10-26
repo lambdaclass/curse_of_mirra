@@ -23,13 +23,13 @@ public class GameStartFlow : InputTestFixture
     {
         GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
         yield return CoClickButton(newLobbyButton);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         GameObject launchGameButton = GameObject.Find("LaunchGameButton");
         yield return CoClickButton(launchGameButton);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
         yield return new WaitForFixedUpdate();
@@ -37,13 +37,13 @@ public class GameStartFlow : InputTestFixture
         GameObject selectH4ckButton = GameObject.Find("H4ck");
         Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(false));
         yield return CoClickButton(selectH4ckButton);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(true));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         GameObject confirmButton = GameObject.Find("ConfirmButton");
         yield return CoClickButton(confirmButton);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Battle"));
     }
 

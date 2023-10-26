@@ -63,7 +63,7 @@ defmodule DarkWorldsServer.MixProject do
       {:cors_plug, "~> 3.0"},
       {:tesla, "~> 1.4", override: true},
       {:toxiproxy_ex, "~> 1.0.0"},
-      {:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}
+      {:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_backend_game_engine", branch: "main"}
     ]
   end
 

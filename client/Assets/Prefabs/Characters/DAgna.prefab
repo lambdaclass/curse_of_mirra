@@ -275,10 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe6344b7148db4687d3c84e7712904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBarType: 1
+  HealthBarType: 2
   TimeScale: 0
-  HealthBarPrefab: {fileID: 0}
-  TargetProgressBar: {fileID: 0}
+  HealthBarPrefab: {fileID: 114091369736583034, guid: 450e1d7339bce43c7b7468ae7c44b0fe,
+    type: 3}
+  TargetProgressBar: {fileID: 6007337871673755618}
   Size: {x: 1, y: 0.4}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 0, y: 0, z: 0}
@@ -573,6 +574,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.11
       objectReference: {fileID: 0}
+    - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.153
+      objectReference: {fileID: 0}
     - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: objectToHighlight
@@ -811,6 +822,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5695135899728150012}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6007337871673755618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2042230812023421470, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5695135899728150012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6635038232230199741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,

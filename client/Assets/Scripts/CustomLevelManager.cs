@@ -8,7 +8,6 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -16,7 +15,6 @@ public class CustomLevelManager : LevelManager
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
-    public GameObject quickGamePrefab;
 
     [SerializeField]
     GameObject roundSplash;
@@ -36,8 +34,6 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     private BackgroundMusic backgroundMusic;
-
-    private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
@@ -47,16 +43,16 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
-
     private ulong playerToFollowId;
-
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
+    private bool deathSplashIsShown = false;
 
     protected override void Awake()
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
+        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
     }
 
@@ -97,6 +93,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        SetPlayerHealthBar(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
         MMSoundManagerSoundPlayEvent.Trigger(
@@ -111,9 +108,14 @@ public class CustomLevelManager : LevelManager
     {
         Player gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
-        if (GameHasEndedOrPlayerHasDied(gamePlayer))
+        if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
             StartCoroutine(ShowDeathSplash(player));
+            deathSplashIsShown = true;
+        }
+        if (GameHasEnded())
+        {
+            deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -172,6 +174,40 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
+    private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
+    {
+        botSpawnEventData.gameEventPlayers
+            .ToList()
+            .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
+            .ForEach(
+                (player) =>
+                {
+                    var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
+                        player.Position
+                    );
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
+                        player.CharacterName
+                    );
+                    var botId = player.Id.ToString();
+                    botCharacter.PlayerID = "";
+
+                    CustomCharacter newPlayer = Instantiate(
+                        botCharacter,
+                        spawnPosition,
+                        Quaternion.identity
+                    );
+                    newPlayer.PlayerID = botId.ToString();
+                    newPlayer.name = "BOT" + botId;
+                    Image healthBarFront = newPlayer
+                        .GetComponent<MMHealthBar>()
+                        .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+
+                    healthBarFront.color = Utils.healthBarRed;
+                    SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+                }
+            );
+    }
+
     private void setCameraToPlayer(ulong playerID)
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
@@ -184,35 +220,44 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(CoMCharacter characterInfo)
+    private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
         var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
         List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        float basicSkillInfoAngle = jsonSkills.Exists(
-            skill => characterInfo.skillBasicInfo.Equals(skill)
-        )
-            ? float.Parse(
-                jsonSkills.Find(skill => characterInfo.skillBasicInfo.Equals(skill)).Angle
-            )
+        float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Angle)
             : 0;
-        characterInfo.skillBasicInfo.angle = basicSkillInfoAngle;
+        skillsClone[0].angle = basicSkillInfoAngle;
+        skillsClone[0].skillConeAngle = basicSkillInfoAngle;
 
-        float skill1InfoAngle = jsonSkills.Exists(skill => characterInfo.skill1Info.Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill1Info.Equals(skill)).Angle)
+        float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
+            ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
             : 0;
-        characterInfo.skill1Info.angle = skill1InfoAngle;
+        skillsClone[1].angle = skill1InfoAngle;
+        skillsClone[1].skillConeAngle = skill1InfoAngle;
+    }
 
-        float skill2InfoAngle = jsonSkills.Exists(skill => characterInfo.skill2Info.Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill2Info.Equals(skill)).Angle)
-            : 0;
-        characterInfo.skill2Info.angle = skill2InfoAngle;
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
+    {
+        List<SkillInfo> skills = new List<SkillInfo>();
+        characterInfo.skillsInfo.ForEach(skill =>
+        {
+            SkillInfo skillClone = Instantiate(skill);
+            skillClone.InitWithBackend();
+            skills.Add(skillClone);
+        });
 
-        float skill3InfoAngle = jsonSkills.Exists(skill => characterInfo.skill3Info.Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => characterInfo.skill3Info.Equals(skill)).Angle)
-            : 0;
-        characterInfo.skill3Info.angle = skill3InfoAngle;
+        return skills;
+    }
+
+    public void DestroySkillsClone(CustomCharacter player)
+    {
+        player
+            .GetComponentsInChildren<Skill>()
+            .ToList()
+            .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
 
     private void SetPlayersSkills(ulong clientPlayerId)
@@ -225,13 +270,9 @@ public class CustomLevelManager : LevelManager
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
-            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
-            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
             skillList.Add(skillBasic);
             skillList.Add(skill1);
-            skillList.Add(skill2);
-            skillList.Add(skill3);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -240,16 +281,11 @@ public class CustomLevelManager : LevelManager
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
-            SetSkillAngles(characterInfo);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(
-                Action.BasicAttack,
-                characterInfo.skillBasicInfo,
-                skillsAnimationEvent
-            );
-            skill1.SetSkill(Action.Skill1, characterInfo.skill1Info, skillsAnimationEvent);
-            skill2.SetSkill(Action.Skill2, characterInfo.skill2Info, skillsAnimationEvent);
-            skill3.SetSkill(Action.Skill3, characterInfo.skill3Info, skillsAnimationEvent);
+            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
@@ -271,27 +307,35 @@ public class CustomLevelManager : LevelManager
                 inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(
                     UIControls.SkillBasic,
-                    characterInfo.skillBasicInfo.inputType,
+                    skillInfoClone[0].inputType,
                     skillBasic
                 );
                 inputManager.AssignSkillToInput(
                     UIControls.Skill1,
-                    characterInfo.skill1Info.inputType,
+                    skillInfoClone[1].inputType,
                     skill1
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill2,
-                    characterInfo.skill2Info.inputType,
-                    skill2
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill3,
-                    characterInfo.skill3Info.inputType,
-                    skill3
                 );
             }
 
             StartCoroutine(inputManager.ShowInputs());
+        }
+    }
+
+    private void SetPlayerHealthBar(ulong playerId)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            Image healthBarFront = player
+                .GetComponent<MMHealthBar>()
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+            if (UInt64.Parse(player.PlayerID) == playerId)
+            {
+                healthBarFront.color = Utils.healthBarCyan;
+            }
+            else
+            {
+                healthBarFront.color = Utils.healthBarRed;
+            }
         }
     }
 
@@ -317,7 +361,6 @@ public class CustomLevelManager : LevelManager
             .DeathMMFeedbacks;
         yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
         deathSplash.SetActive(true);
-        deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         UiControls.SetActive(false);
     }
 
@@ -346,5 +389,10 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+    }
+
+    private bool GameHasEnded()
+    {
+        return SocketConnectionManager.Instance.GameHasEnded();
     }
 }

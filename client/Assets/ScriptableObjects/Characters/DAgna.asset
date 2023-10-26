@@ -23,12 +23,6 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 0
   skillsInfo:
-  - {fileID: 11400000, guid: 006e5c754d1fb4f2fa147355f5705123, type: 2}
-  - {fileID: 11400000, guid: dc37d4787c07e4b8d81224bb2e0592f5, type: 2}
-  - {fileID: 11400000, guid: 1784299165adc474f8aaa980903baed9, type: 2}
-  - {fileID: 11400000, guid: d49f342c1917646068b7af707681705d, type: 2}
   - {fileID: 11400000, guid: 5e8a72e5044d34e72a26762a5911fef6, type: 2}
-  skillBasicInfo: {fileID: 11400000, guid: 006e5c754d1fb4f2fa147355f5705123, type: 2}
-  skill1Info: {fileID: 11400000, guid: dc37d4787c07e4b8d81224bb2e0592f5, type: 2}
-  skill2Info: {fileID: 11400000, guid: 1784299165adc474f8aaa980903baed9, type: 2}
-  skill3Info: {fileID: 11400000, guid: d49f342c1917646068b7af707681705d, type: 2}
+  - {fileID: 11400000, guid: 1784299165adc474f8aaa980903baed9, type: 2}
+  skillBasicInfo: {fileID: 11400000, guid: 5e8a72e5044d34e72a26762a5911fef6, type: 2}
