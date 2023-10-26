@@ -25,7 +25,7 @@ defmodule DarkWorldsServerWeb.LobbyController do
     matchmaking_pid =
       case MatchingSupervisor.children_pids() do
         [] -> Matchmaking.create_session()
-        [matchmaking_pids] -> hd(matchmaking_pids)
+        [matchmaking_pid] -> matchmaking_pid
       end
 
     json(conn, %{lobby_id: Communication.pid_to_external_id(matchmaking_pid)})
