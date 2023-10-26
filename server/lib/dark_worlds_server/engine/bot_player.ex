@@ -10,8 +10,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
 
-  # We'll decide the view range of a bot
-  @visibility_max_range 2000
+  # We'll decide the view range of a bot measured in grid cells
+  # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
+  @visibility_max_range_cells 2000
 
   #######
   # API #
@@ -67,7 +68,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state ->
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-          closest_entity = get_closes_entity(state.game_state, bot_id)
+          closest_entity = get_closest_entity(state.game_state, bot_id)
 
           bot_state
           |> decide_action(bot_id, state.players, state, closest_entity)
@@ -185,7 +186,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     })
   end
 
-  defp do_action(_bot_id, _game_pid, _players, _value) do
+  defp do_action(_bot_id, _game_pid, _players, _) do
     nil
   end
 
@@ -236,7 +237,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def decide_objective(bot_state, _, _, _), do: Map.put(bot_state, :objective, :nothing)
 
-  defp get_closes_entity(%{myrra_state: game_state}, bot_id) do
+  defp get_closest_entity(%{myrra_state: game_state}, bot_id) do
     # TODO maybe we could add a priority to the entities.
     # e.g. if the bot has low health priorities the loot boxes
     bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
@@ -271,7 +272,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
-  defp get_closes_entity(_, _) do
+  defp get_closest_entity(_, _) do
     %{}
   end
 
@@ -298,7 +299,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
-    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range end)
+    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 
   defp skill_would_hit(bot, %{distance_to_entity: distance_to_entity}) do
