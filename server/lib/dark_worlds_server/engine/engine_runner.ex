@@ -34,16 +34,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.cast(runner_pid, :start_game_tick)
   end
 
-  if Mix.env() == :dev do
-    def enable() do
-      config =
-        Application.get_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
-        |> Keyword.put(:use_engine_runner, true)
-
-      Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
-    end
-  end
-
   #######################
   # GenServer callbacks #
   #######################
@@ -87,8 +77,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast(
-        {:play, user_id,
-         %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}},
+        {:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}},
         state
       ) do
     angle =
@@ -210,16 +199,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
