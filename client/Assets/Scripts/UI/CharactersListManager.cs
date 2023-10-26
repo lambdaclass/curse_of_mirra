@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+using TMPro;
 
 public class CharactersListManager : MonoBehaviour
 {
+    [SerializeField]
+    List<CoMCharacter> players;
+
     [SerializeField]
     GameObject listItem;
 
@@ -16,11 +20,12 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        List<GameObject> players = SocketConnectionManager.Instance.players;
-        players.ForEach(el =>
+        players.ForEach(player =>
         {
             GameObject item = (GameObject)Instantiate(listItem, this.transform);
-            //item.GetComponent<Image>().sprite = CoMCharacter.characterSprite;
+            item.GetComponentInChildren<Image>().sprite = player.characterSprite;
+            item.GetComponentInChildren<TextMeshProUGUI>().text = player.name;
+            //item.GetComponentInChildren<TextMeshPro>().text = player.name;
         });
     }
 }
