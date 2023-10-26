@@ -152,6 +152,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
+  # Entity detected is an enemy we should try an attack
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
        }) do
@@ -168,6 +169,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
+  # Entity detected is a loot crate we should try to pick it
   defp do_action(bot_id, game_pid, _players, %{
          action: {:try_attack, %{direction_to_entity: {x, y}}}
        }) do
