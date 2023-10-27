@@ -29,14 +29,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   if Mix.env() == :dev do
-    def enable() do
-      config =
-        Application.get_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
-        |> Keyword.put(:use_engine_runner, true)
-
-      Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
-    end
-
     def bot_join(pid_middle_number) do
       join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
     end
