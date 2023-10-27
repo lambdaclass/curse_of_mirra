@@ -7,7 +7,7 @@ using TMPro;
 public class CharactersListManager : MonoBehaviour
 {
     [SerializeField]
-    List<CoMCharacter> players;
+    List<CoMCharacter> characterSriptableObjects;
 
     [SerializeField]
     GameObject listItem;
@@ -20,11 +20,11 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        players.ForEach(player =>
+        characterSriptableObjects.ForEach(character =>
         {
             GameObject item = (GameObject)Instantiate(listItem, this.transform);
-            item.GetComponentInChildren<Image>().sprite = player.characterSprite;
-            item.GetComponentInChildren<TextMeshProUGUI>().text = player.name;
+            item.GetComponentInChildren<Image>().sprite = character.characterSprite;
+            item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
         });
     }
 }
