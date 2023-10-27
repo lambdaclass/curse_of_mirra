@@ -19,10 +19,10 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    private ulong SFX_VOLUME = 3;
-
-    //The engines defines this value as 0 (muted)
-    private float MUTED_VOLUME = 0.0001f;
+    private float SFX_VOLUME = 2f;
+    private float MASTER_VOLUME = 0.2f;
+    private float MUSIC_VOLUME = 0.5f;
+    private float MUTED_VOLUME = 0.0001f; //The engines defines this value as 0 (muted)
 
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channel;
@@ -31,8 +31,9 @@ public class ToggleAudio : MonoBehaviour
     {
         muteButtonImage = GetComponentInChildren<Image>();
         soundManager = MMSoundManager.Instance;
-        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
+        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
+        soundManager.SetVolumeMusic(MUSIC_VOLUME);
         soundManager.SetVolumeSfx(SFX_VOLUME);
         muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
     }
