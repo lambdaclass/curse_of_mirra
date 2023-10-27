@@ -10,6 +10,11 @@ gen-server-protobuf:
 		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/communication/ \
 		--elixir_opt=package_prefix=dark_worlds_server.communication.proto \
 		messages.proto
+
+	protoc \
+		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/communication/ \
+		--elixir_opt=package_prefix=dark_worlds_server.communication.proto \
+		config.proto
 # Elixir's protobuf lib does not add a new line nor formats the output file
 # so we do it here with a format:
 	mix format "./server/lib/dark_worlds_server/communication/messages.pb.ex"
@@ -17,6 +22,9 @@ gen-server-protobuf:
 gen-client-protobuf:
 	protoc --csharp_out=./  messages.proto
 	mv Messages.cs client/Assets/Scripts/Messages.pb.cs
+
+	protoc --csharp_out=./  config.proto
+	mv Config.cs client/Assets/Scripts/Config.pb.cs
 
 gen-load-test-protobuf:
 	protoc \
