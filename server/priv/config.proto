@@ -41,3 +41,41 @@ message Modification {
     string modifier = 1;
     int64 value = 2;
 }
+/*
+    - name: unique name for the loot, this will be referenced by other configurations
+    - size: radius size of the loot
+    - effects: List of effects the loot will give out
+*/
+
+/*
+    effects should be a repeated of effects ?
+    or strings
+*/
+
+message Loot {
+    string name = 1;
+    uint64 size = 2;
+    repeated Effects effects = 3;
+}
+
+/*
+    - `name`: Unique name for the projectile, this will be referenced by other configurations
+    - `base_damage`: Damage done by the projectile on collision
+    - `base_speed`: Travel speed of the projectile
+    - `base_size`: Size of the projectile for collision math
+    - `player_collision`: Determines if the projectile is removed from game after colliding with a player, default is `true`
+    - `on_hit_effects`: Effects given to target on collision
+    - `duration_ms`: Defines how long in milliseconds the projectile can exist
+    - `max_distance`: Defines the maximum distance the projectile can travel
+*/
+
+message Projectiles {
+    string name = 1;
+    uint64 base_damage = 2;
+    uint64 base_speed = 3;
+    uint64 base_size = 4;
+    bool player_collision = 5;
+    repeated Effect on_hit_effect = 6;
+    optional uint64 max_distance = 7;
+    optional MillisTime duration_ms = 8;
+}
