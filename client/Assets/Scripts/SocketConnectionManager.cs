@@ -47,6 +47,8 @@ public class SocketConnectionManager : MonoBehaviour
     public List<Player> alivePlayers = new List<Player>();
     public List<LootPackage> updatedLoots = new List<LootPackage>();
 
+    public bool cinematicDone;
+
     public struct BotSpawnEventData
     {
         public List<Player> gameEventPlayers;
@@ -104,6 +106,7 @@ public class SocketConnectionManager : MonoBehaviour
             {
                 this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
                 this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
+                this.cinematicDone = true;
             }
         }
     }
