@@ -6,6 +6,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Engine.Runner
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
+  # TODO take all this values from the config file
+
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
 
