@@ -39,5 +39,4 @@ defmodule DarkWorldsServer.Engine.Game do
     do: LambdaGameEngine.shrink_map(game, map_shrink_minimum_radius)
 
   def spawn_loot(game), do: LambdaGameEngine.spawn_loot(game)
-  # def exit_game(game, player_id), do: LambdaGameEngine.exit_game(game, player_id)
 end

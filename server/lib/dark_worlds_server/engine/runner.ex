@@ -209,8 +209,7 @@ defmodule DarkWorldsServer.Engine.Runner do
 
     broadcast_to_darkworlds_server({:player_joined, bot_id})
 
-    selected_characters =
-      Map.put(gen_server_state.selected_characters, bot_id, bot_player.character_name)
+    selected_characters = Map.put(gen_server_state.selected_characters, bot_id, bot_player.character_name)
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
 
@@ -242,9 +241,6 @@ defmodule DarkWorldsServer.Engine.Runner do
         {:play, _, %ActionOk{action: :exit_match, value: player_id}},
         gen_server_state
       ) do
-    # {:ok, game} = Game.exit_game(gen_server_state.server_game_state.game, player_id)
-    # server_game_state = gen_server_state.server_game_state |> Map.put(:game, game)
-    # gen_server_state = Map.put(gen_server_state, :server_game_state, server_game_state)
     PlayerTracker.remove_player(gen_server_state.player_to_client_id[player_id])
 
     {:noreply, gen_server_state}
@@ -336,8 +332,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     opts = gen_server_state.opts
     selected_players = gen_server_state.selected_characters
 
-    {:ok, game} =
-      create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
+    {:ok, game} = create_new_game(opts.game_config, gen_server_state.max_players, selected_players)
 
     Logger.info("#{DateTime.utc_now()} Starting runner, pid: #{inspect(self())}")
 
@@ -350,11 +345,9 @@ defmodule DarkWorldsServer.Engine.Runner do
       Map.get(opts.game_config, :game_timeout, @game_timeout)
     )
 
-    map_shrink_wait_ms =
-      Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
+    map_shrink_wait_ms = Map.get(opts.game_config.runner_config, :map_shrink_wait_ms, @map_shrink_wait_ms)
 
-    spawn_loot_interval_ms =
-      Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
+    spawn_loot_interval_ms = Map.get(opts.game_config.runner_config, :spawn_loot_interval_ms, @spawn_loot_interval_ms)
 
     Process.send_after(self(), :update_state, tick_rate)
     Process.send_after(self(), :shrink_map, map_shrink_wait_ms)
@@ -437,8 +430,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     do: {:noreply, gen_server_state}
 
   def handle_info(:shrink_map, %{server_game_state: server_game_state} = gen_server_state) do
-    map_shrink_minimum_radius =
-      gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
+    map_shrink_minimum_radius = gen_server_state.opts.game_config.runner_config.map_shrink_minimum_radius
 
     map_shrink_interval_ms =
       Map.get(
@@ -577,8 +569,7 @@ defmodule DarkWorldsServer.Engine.Runner do
         state
 
       not is_nil(selected_characters) and map_size(selected_characters) < state[:max_players] ->
-        players_with_character =
-          Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
+        players_with_character = Enum.map(selected_characters, fn {player_id, _player_name} -> player_id end)
 
         players_without_character =
           Enum.filter(state[:players], fn player_id ->
@@ -635,8 +626,7 @@ defmodule DarkWorldsServer.Engine.Runner do
     EngineRunner.start_game_tick(engine_runner_pid)
 
     ## Tell runner subs that there is a new runner (engine_runner)
-    msg =
-      {:change_to_engine_runner, engine_runner_pid, Communication.pubsub_game_topic(engine_runner_pid)}
+    msg = {:change_to_engine_runner, engine_runner_pid, Communication.pubsub_game_topic(engine_runner_pid)}
 
     Phoenix.PubSub.broadcast(
       DarkWorldsServer.PubSub,
