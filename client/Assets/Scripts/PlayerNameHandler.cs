@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class PlayerNameHandler : MonoBehaviour
 {
+    private const string PLAYER_NAME_KEY = "playerName";
+    private const string PLAYER_NAME_PLACEHOLDER = "Player Name";
+
     [SerializeField]
     GameObject playerNameHandler;
 
@@ -22,7 +25,7 @@ public class PlayerNameHandler : MonoBehaviour
 
     public void SetPlayerName()
     {
-        this.playerName = playerNameInput.text.Trim();
+        this.playerName = playerNameInput.text.Trim().ToUpper();
         if (this.playerName == "")
         {
             this.errorMessage.SetActive(true);
@@ -30,7 +33,7 @@ public class PlayerNameHandler : MonoBehaviour
         }
         this.errorMessage.SetActive(false);
         GetComponent<Image>().sprite = selectedButtonSprite;
-        PlayerPrefs.SetString("playerName", playerName);
+        PlayerPrefs.SetString(PLAYER_NAME_KEY, playerName);
         this.Hide();
     }
 
@@ -41,16 +44,24 @@ public class PlayerNameHandler : MonoBehaviour
 
     public void Show()
     {
-        if (PlayerPrefs.HasKey("playerName"))
+        if (PlayerPrefs.HasKey(PLAYER_NAME_KEY))
         {
-            this.playerName = PlayerPrefs.GetString("playerName");
+            this.playerName = PlayerPrefs.GetString(PLAYER_NAME_KEY);
             this.placeholder.text = this.playerName;
         }
         else
         {
-            this.placeholder.text = "Player Name";
+            this.placeholder.text = PLAYER_NAME_PLACEHOLDER;
         }
         this.playerNameHandler.SetActive(true);
+    }
+
+    public void ClearPlaceholder()
+    {
+        if (this.placeholder.text == PLAYER_NAME_PLACEHOLDER)
+        {
+            this.placeholder.text = "";
+        }
     }
 
     private void Hide()
