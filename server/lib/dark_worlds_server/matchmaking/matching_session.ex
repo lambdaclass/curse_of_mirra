@@ -113,7 +113,25 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
 
     # TODO must uncomment the following line and broadcast the msg
     # without the config or using the new config used in the server side
-    # Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
+    game_config =
+      %{
+        runner_config:
+          Utils.Config.read_config(:game_settings)
+          |> Enum.map(fn {k, v} ->
+            value =
+              case Integer.parse(v) do
+                :error -> v
+                {parsed_value, _} -> parsed_value
+              end
+
+            {k, value}
+          end)
+          |> Map.new(),
+        character_config: Utils.Config.read_config(:characters),
+        skills_config: Utils.Config.read_config(:skills)
+      }
+
+    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
 
     {:stop, :normal, state}
   end
