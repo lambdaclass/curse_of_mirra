@@ -26,6 +26,13 @@ Make sure Docker is running.
 ```
 make start
 ```
+To test locally using the [game engine](https://github.com/lambdaclass/lambda_game_engine), temporarily edit the `mix.exs` file to point to the path to your local copy of the game engine, for example:
+```{:lambda_game_engine, path: "/Users/MyUsername/lambda/lambda_game_engine"}```
+
+
+To test using a remote server, point to the git URL and specify the desired branch:
+```{:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}```
+
 
 ## Useful commands
 ```

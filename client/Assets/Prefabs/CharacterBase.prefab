@@ -81,20 +81,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1377340570206829633}
     m_Modifications:
-    - target: {fileID: 1604899928706869543, guid: 2ad62a127852e43fabdb1afa6bbfda96,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5411787436480696057, guid: 2ad62a127852e43fabdb1afa6bbfda96,
         type: 3}
       propertyPath: m_Name
       value: SpawnFeedback
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411787436480696057, guid: 2ad62a127852e43fabdb1afa6bbfda96,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6920702692572928157, guid: 2ad62a127852e43fabdb1afa6bbfda96,
         type: 3}

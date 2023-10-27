@@ -130,6 +130,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 270936414570726327, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: Version
+      objectReference: {fileID: 0}
+    - target: {fileID: 524417006874143901, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: UserName
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883857881244308170, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: SignOutButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354906326035365634, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: UserContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304244504776472181, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: UserAvatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393381854947077796, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: BackgroundImage
+      objectReference: {fileID: 0}
     - target: {fileID: 5393381855249456355, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: m_RootOrder
@@ -189,6 +219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TitleScreenCameraUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413032971949822041, guid: d126b369faf0c43198f047c8765666f0,
+        type: 3}
+      propertyPath: m_Name
+      value: Background
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d126b369faf0c43198f047c8765666f0, type: 3}

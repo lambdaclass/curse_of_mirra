@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -15,7 +16,6 @@ public class CustomLevelManager : LevelManager
     bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
-    public GameObject quickGamePrefab;
 
     [SerializeField]
     GameObject roundSplash;
@@ -35,8 +35,6 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     private BackgroundMusic backgroundMusic;
-
-    private bool isMuted;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
@@ -46,15 +44,21 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
-
     private ulong playerToFollowId;
-
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
+    //Camera cinematic variables
     [SerializeField]
-    private AudioClip spawnSfx;
+    GameObject loadingScreen;
 
+    [SerializeField]
+    GameObject battleScreen;
+    Int32 CAMERA_OFFSET = 30;
+    Int32 CAMERA_Y_OFFSET = 6;
+    double xDigit = 0;
+    double zDigit = 0;
+    CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
 
     protected override void Awake()
@@ -63,6 +67,9 @@ public class CustomLevelManager : LevelManager
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
+        cameraFramingTransposer = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -102,6 +109,13 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        var player = Utils.GetPlayer(playerId);
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
+            CAMERA_Y_OFFSET,
+            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
+        );
+
         SetPlayerHealthBar(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         MMSoundManager.Instance.FreeAllSounds();
@@ -111,6 +125,7 @@ public class CustomLevelManager : LevelManager
             this.transform.position,
             true
         );
+        StartCoroutine(CameraCinematic());
     }
 
     void Update()
@@ -121,6 +136,10 @@ public class CustomLevelManager : LevelManager
         {
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
+        }
+        if (GameHasEnded())
+        {
+            deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -179,6 +198,67 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
+    IEnumerator CameraCinematic()
+    {
+        if (!SocketConnectionManager.Instance.cinematicDone)
+        {
+            //Start moving camera and remove loading sceen
+            InvokeRepeating("Substract", 1f, 0.1f);
+            yield return new WaitForSeconds(1.7f);
+            loadingScreen.SetActive(false);
+            battleScreen.SetActive(true);
+            //Cancel camera movement and start zoom in
+            Utils
+                .GetAllCharacters()
+                .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
+            yield return new WaitForSeconds(2.1f);
+            CancelInvoke("Substract");
+            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            //Cancel camera zoom
+            yield return new WaitForSeconds(0.5f);
+            CancelInvoke("MoveYCamera");
+        }
+        else
+        {
+            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+            yield return new WaitForSeconds(0.9f);
+            loadingScreen.SetActive(false);
+        }
+    }
+
+    int RoundUpByTen(int i)
+    {
+        return (int)(Math.Ceiling(i / 10.0d) * 10);
+    }
+
+    void MoveYCamera()
+    {
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            0,
+            cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
+            0
+        );
+    }
+
+    void Substract()
+    {
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+
+        var xIsPositive = Math.Round(cameraOffset.x) > 0;
+        var zIsPositive = Math.Round(cameraOffset.z) > 0;
+        var xValue = (xIsPositive ? -1 : 1);
+        var zValue = (zIsPositive ? -1 : 1);
+
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
+            cameraOffset.y,
+            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
+        );
+        ;
+    }
+
     private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
     {
         botSpawnEventData.gameEventPlayers
@@ -190,7 +270,9 @@ public class CustomLevelManager : LevelManager
                     var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
                         player.Position
                     );
-                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(player.CharacterName);
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
+                        player.CharacterName
+                    );
                     var botId = player.Id.ToString();
                     botCharacter.PlayerID = "";
 
@@ -240,18 +322,6 @@ public class CustomLevelManager : LevelManager
             : 0;
         skillsClone[1].angle = skill1InfoAngle;
         skillsClone[1].skillConeAngle = skill1InfoAngle;
-
-        float skill2InfoAngle = jsonSkills.Exists(skill => skillsClone[2].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[2].Equals(skill)).Angle)
-            : 0;
-        skillsClone[2].angle = skill2InfoAngle;
-        skillsClone[2].skillConeAngle = skill2InfoAngle;
-
-        float skill3InfoAngle = jsonSkills.Exists(skill => skillsClone[3].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[3].Equals(skill)).Angle)
-            : 0;
-        skillsClone[3].angle = skill3InfoAngle;
-        skillsClone[3].skillConeAngle = skill3InfoAngle;
     }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
@@ -285,13 +355,9 @@ public class CustomLevelManager : LevelManager
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
-            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
-            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
             skillList.Add(skillBasic);
             skillList.Add(skill1);
-            skillList.Add(skill2);
-            skillList.Add(skill3);
 
             string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
                 UInt64.Parse(player.PlayerID)
@@ -305,8 +371,6 @@ public class CustomLevelManager : LevelManager
 
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
             skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
-            skill2.SetSkill(Action.Skill2, skillInfoClone[2], skillsAnimationEvent);
-            skill3.SetSkill(Action.Skill3, skillInfoClone[3], skillsAnimationEvent);
 
             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
@@ -335,16 +399,6 @@ public class CustomLevelManager : LevelManager
                     UIControls.Skill1,
                     skillInfoClone[1].inputType,
                     skill1
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill2,
-                    skillInfoClone[2].inputType,
-                    skill2
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill3,
-                    skillInfoClone[3].inputType,
-                    skill3
                 );
             }
 
@@ -392,7 +446,6 @@ public class CustomLevelManager : LevelManager
             .DeathMMFeedbacks;
         yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
         deathSplash.SetActive(true);
-        deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
         UiControls.SetActive(false);
     }
 
@@ -421,5 +474,10 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+    }
+
+    private bool GameHasEnded()
+    {
+        return SocketConnectionManager.Instance.GameHasEnded();
     }
 }
