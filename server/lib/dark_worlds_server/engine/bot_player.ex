@@ -169,8 +169,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
     amount_of_players_in_flee_proximity =
       players
-      |> Enum.filter(fn p -> p.distance_to_entity < @range_of_players_to_flee end)
-      |> Enum.count()
+      |> Enum.count(fn p -> p.distance_to_entity < @range_of_players_to_flee end)
 
     cond do
       amount_of_players_in_flee_proximity >= @amount_of_players_to_flee ->
