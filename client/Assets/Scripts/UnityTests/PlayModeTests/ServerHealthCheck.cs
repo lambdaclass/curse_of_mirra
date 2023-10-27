@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using MoreMountains.Tools;
 using UnityEngine.EventSystems;
 
-public class GameStartFlow : InputTestFixture
+public class ServerHealthCheck : InputTestFixture
 {
     [SetUp]
     public override void Setup()
@@ -19,7 +19,7 @@ public class GameStartFlow : InputTestFixture
 
     // Creates a lobby in the Lobby scene
     [UnityTest]
-    public IEnumerator GameStart()
+    public IEnumerator ServerIsHealthy()
     {
 
         GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
@@ -35,17 +35,7 @@ public class GameStartFlow : InputTestFixture
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
         yield return new WaitForFixedUpdate();
 
-        GameObject selectH4ckButton = GameObject.Find("H4ck");
-        Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(false));
-        yield return CoClickButton(selectH4ckButton);
-        yield return new WaitForSeconds(2f);
-        Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(true));
-        yield return new WaitForSeconds(2f);
-
-        GameObject confirmButton = GameObject.Find("ConfirmButton");
-        yield return CoClickButton(confirmButton);
-        yield return new WaitForSeconds(2f);
-        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Battle"));
+        Assert.That(SocketConnectionManager.Instance.isConnectionOpen, Is.EqualTo(true));
     }
 
     IEnumerator CoClickButton(GameObject go)

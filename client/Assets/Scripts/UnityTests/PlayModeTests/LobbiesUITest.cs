@@ -33,13 +33,11 @@ public class LobbiesUITest : InputTestFixture
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
         Debug.Log("2");
 
-
         GameObject backButton = GameObject.Find("Back");
         yield return CoClickButton(backButton);
         yield return new WaitForSeconds(5f);
         //Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
         Debug.Log("3");
-
     }
 
     [UnityTest]
@@ -68,7 +66,7 @@ public class LobbiesUITest : InputTestFixture
         // Verify icon changed
         Assert.That(toggleAudioRef.GetComponentInChildren<Image>().overrideSprite, Is.EqualTo(toggleAudioRef.mutedSprite));
         // Verify sound manager is unmuted
-        Assert.That(MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master), Is.EqualTo(true));
+        Assert.That(MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master), Is.EqualTo(false));
         Debug.Log("7");
     }
 
