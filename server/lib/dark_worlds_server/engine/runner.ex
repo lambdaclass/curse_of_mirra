@@ -138,7 +138,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       )
       when action in [:move, :move_with_joystick] do
     {:ok, game} = do_move(action, server_game_state.game, player, value)
-
     server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
@@ -202,11 +201,14 @@ defmodule DarkWorldsServer.Engine.Runner do
     game_state = gen_server_state.server_game_state
 
     bot_id = gen_server_state.current_players + 1
+
     {:ok, new_game} = Game.spawn_player(game_state.game, bot_id)
+
+    bot_player = Enum.find(new_game.myrra_state.players, fn p -> p.id == bot_id end)
 
     broadcast_to_darkworlds_server({:player_joined, bot_id})
 
-    selected_characters = Map.put(gen_server_state.selected_characters, bot_id, "Muflus")
+    selected_characters = Map.put(gen_server_state.selected_characters, bot_id, bot_player.character_name)
 
     broadcast_to_darkworlds_server({:selected_characters, selected_characters})
 

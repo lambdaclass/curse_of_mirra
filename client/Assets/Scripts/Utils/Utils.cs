@@ -64,6 +64,17 @@ public class Utils
         );
     }
 
+    public static List<CustomCharacter> GetAllCharacters()
+    {
+        List<CustomCharacter> result = new List<CustomCharacter>();
+        Utils
+            .GetAlivePlayers()
+            .ToList()
+            .ForEach(player => result.Add(Utils.GetCharacter(player.Id)));
+
+        return result;
+    }
+
     public static Player GetNearestPlayer(Position toCompare)
     {
         ulong aux_X = 0;

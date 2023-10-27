@@ -11,7 +11,7 @@ public class Battle : MonoBehaviour
     public HashSet<SkillInfo> skillInfoSet;
 
     [SerializeField]
-    MMTouchJoystick joystickL;
+    LeftMMTouchJoystick joystickL;
 
     [SerializeField]
     CustomInputManager InputManager;
@@ -482,16 +482,6 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill2,
-                (float)playerUpdate.Skill2CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill3,
-                (float)playerUpdate.Skill3CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
-            );
         }
     }
 
@@ -643,8 +633,11 @@ public class Battle : MonoBehaviour
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
-        CustomGUIManager.DisplayZoneDamageFeedback(false);
         levelManager.DestroySkillsClone(playerCharacter);
+        if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
+        {
+            CustomGUIManager.DisplayZoneDamageFeedback(false);
+        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -834,7 +827,10 @@ public class Battle : MonoBehaviour
             }
         }
 
-        if (SocketConnectionManager.Instance.playerId == playerUpdate.Id)
+        if (
+            SocketConnectionManager.Instance.playerId == playerUpdate.Id
+            && playerUpdate.Status == Status.Alive
+        )
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
             {

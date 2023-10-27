@@ -261,7 +261,7 @@ MonoBehaviour:
         Spread: 0
         RolloffMode: 1
         MinDistance: 1
-        MaxDistance: 40
+        MaxDistance: 50
         UseCustomRolloffCurve: 0
         CustomRolloffCurve:
           serializedVersion: 2
