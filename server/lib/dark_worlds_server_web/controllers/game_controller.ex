@@ -26,7 +26,7 @@ defmodule DarkWorldsServerWeb.GameController do
         json(conn, %{ongoing_game: false})
 
       {game_pid, game_player_id} ->
-        {game_status, player_count, selected_characters, %{game_config: game_config}} =
+        {game_status, player_count, selected_characters, %{game_config: game_config}, _} =
           Runner.get_game_state(game_pid)
 
         selections =
@@ -37,7 +37,7 @@ defmodule DarkWorldsServerWeb.GameController do
         server_hash =
           Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
-        player_exited_game = PlayerTracker.get_player_game(player_id) == nil
+        player_exited_game = is_nil(PlayerTracker.get_player_game(player_id))
 
         json(conn, %{
           ongoing_game: game_status != :game_finished,
