@@ -50,7 +50,7 @@ message Modification {
 message Loot {
     string name = 1;
     uint64 size = 2;
-    repeated Effects effects = 3;
+    repeated Effect effects = 3;
 }
 
 /*
@@ -64,7 +64,7 @@ message Loot {
     - `max_distance`: Defines the maximum distance the projectile can travel
 */
 
-message Projectiles {
+message Projectile {
     string name = 1;
     uint64 base_damage = 2;
     uint64 base_speed = 3;
@@ -123,11 +123,11 @@ message Skill {
 */
 message Mechanic {
     string name = 1;
-    optional repeated string effects = 2;
+    repeated string effects = 2;
     optional uint64 damage = 3;
     optional uint64 range = 4;
     optional uint64 cone_angle = 5;
-    optional repeated string on_hit_effects = 6;
+    repeated string on_hit_effects = 6;
     optional Projectile projectile = 7;
     optional uint64 count = 8;
     optional MillisTime duration_ms = 9;
