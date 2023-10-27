@@ -4,7 +4,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Runner
-  alias LambdaGameEngine.MyrraEngine.Position
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   # This variable will decide how much time passes between bot decisions in milis
