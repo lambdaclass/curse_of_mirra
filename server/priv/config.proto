@@ -47,11 +47,6 @@ message Modification {
     - effects: List of effects the loot will give out
 */
 
-/*
-    effects should be a repeated of effects ?
-    or strings
-*/
-
 message Loot {
     string name = 1;
     uint64 size = 2;
@@ -78,4 +73,63 @@ message Projectiles {
     repeated Effect on_hit_effect = 6;
     optional uint64 max_distance = 7;
     optional MillisTime duration_ms = 8;
+}
+
+/* Represents a character in the game
+- name: Unique name of the character.
+- active: Can the character be picked?
+- base_speed: Base speed of the character.
+- base_size: Size of the character for collision math.
+- skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
+*/
+message Character {
+    string name = 1;
+    bool active = 2;
+    uint64 base_speed = 3;
+    uint64 base_size = 4;
+    repeated Skill skills = 5;
+}
+
+/* Represents a skill of a character
+- name: Unique name for the skill.
+- cooldown_ms: Time that needs to elapse before the skill is usable again.
+- is_passive: Marks the skill as a passive skill, this means it can't be triggered. Instead it will trigger on player spawn, so only `GiveEffect` makes sense for it.
+- mechanics: Core mechanic of the skill (e.g hit, shoot, etc).
+*/
+message Skill {
+    string name = 1;
+    uint64 cooldown_ms = 2;
+    bool is_passive = 3;
+    repeated Mechanic mechanics = 4;
+}
+
+/*
+- GiveEffect: This makes the skill give a certain effect.
+  * effects: List of effects given.
+- Hit: Player will hit all things in area of target.
+  * damage: Damage done to targets.
+  * range: Up to how far away can things be hit.
+  * cone_angle: Defines how the cone of hit is generated.
+  * on_hit_effects: Effects given to targets hit by skill.
+- SimpleShoot: Player will shoot a projectile.
+  * projectile: Projectile to shoot.
+- MultiShoot: Player will shoot multiple shots of a projectile.
+  * projectile: Projectile to shoot.
+  * count: How many projectiles will be shot.
+  * cone_angle: Defines how wide is the angle to spread the projectiles on.
+- MoveToTarget: Player will be moved to target position.
+  * duration_ms: How long it takes to move the player, 0 means instantly.
+  * max_range: Maximum distance allowed to move, if target is beyond this limit movement will be capped to this point.
+*/
+message Mechanic {
+    string name = 1;
+    optional repeated string effects = 2;
+    optional uint64 damage = 3;
+    optional uint64 range = 4;
+    optional uint64 cone_angle = 5;
+    optional repeated string on_hit_effects = 6;
+    optional Projectile projectile = 7;
+    optional uint64 count = 8;
+    optional uint64 duration_ms = 9;
+    optional uint64 max_range = 10;
 }
