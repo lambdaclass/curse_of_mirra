@@ -4,10 +4,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Runner
+  alias LambdaGameEngine.MyrraEngine.Position
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
-  # This variable will dice how much time passes between bot decisions in milis
+  # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
+
+  # We'll decide the view range of a bot measured in grid cells
+  # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
+  @visibility_max_range_cells 2000
 
   #######
   # API #
@@ -36,14 +41,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     game_id = Communication.pid_to_external_id(game_pid)
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
 
-    {:ok,
-     %{game_pid: game_pid, bots_enabled: true, game_tick_rate: tick_rate * 2, players: [], bots: %{}, game_state: %{}}}
+    {:ok, %{game_pid: game_pid, bots_enabled: true, game_tick_rate: tick_rate, players: [], bots: %{}, game_state: %{}}}
   end
 
   @impl GenServer
   def handle_cast({:add_bot, bot_id}, state) do
     send(self(), {:decide_action, bot_id})
     send(self(), {:do_action, bot_id})
+
     {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: :random_movement})}
   end
 
@@ -63,8 +68,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot_state ->
           Process.send_after(self(), {:decide_action, bot_id}, @decide_delay_ms)
 
-          decide_action(bot_id, state.players, bot_state, state)
-          |> Map.put(:objective, decide_objective(state.game_state, bot_id))
+          closest_entity = get_closest_entity(state.game_state, bot_id)
+
+          bot_state
+          |> decide_action(bot_id, state.players, state, closest_entity)
+          |> decide_objective(state, bot_id, closest_entity)
       end
 
     state =
@@ -110,46 +118,32 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   #############################
   # Callbacks implementations #
   #############################
-  defp decide_action(_, _, %{alive: false} = bot_state, _game_state) do
+  defp decide_action(%{alive: false} = bot_state, _, _, _game_state, _closest_entity) do
     Map.put(bot_state, :action, :die)
   end
 
-  defp decide_action(_bot_id, _players, %{objective: :random_movement} = bot_state, _game_state) do
+  defp decide_action(%{objective: :random_movement} = bot_state, _bot_id, _players, _game_state, _closest_entity) do
     movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(_bot_id, [], %{objective: :attack_enemy} = bot_state, _game_state) do
-    movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
-    Map.put(bot_state, :action, {:move, movement})
+  defp decide_action(%{objective: :attack_enemy} = bot_state, _bot_id, _players, _game_state, closest_entity) do
+    Map.put(bot_state, :action, {:try_attack, closest_entity})
   end
 
-  defp decide_action(bot_id, players, %{objective: :attack_enemy} = bot_state, _game_state) do
-    case Enum.reject(players, fn player -> player.id == bot_id or player.health <= 0 end) do
-      [] ->
-        movement = Enum.random([{1.0, 1.0}, {-1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}, {0.0, 0.0}])
-        Map.put(bot_state, :action, {:move, movement})
-
-      players ->
-        Map.put(bot_state, :action, {:try_attack, Enum.random(players).id})
-    end
-  end
-
-  defp decide_action(bot_id, players, %{objective: :flee_from_zone} = bot_state, state) do
+  defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entity) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
     target =
       calculate_circle_point(
-        bot.position.x,
-        bot.position.y,
-        state.game_state.myrra_state.shrinking_center.x,
-        state.game_state.myrra_state.shrinking_center.y
+        bot.position,
+        state.game_state.myrra_state.shrinking_center
       )
 
     Map.put(bot_state, :action, {:move, target})
   end
 
-  defp decide_action(_bot_id, _players, bot_state, _game_state) do
+  defp decide_action(bot_state, _bot_id, _players, _game_state, _closest_entity) do
     bot_state
     |> Map.put(:action, {:nothing, nil})
   end
@@ -158,31 +152,28 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
-  defp do_action(bot_id, game_pid, players, %{action: {:try_attack, player_id}}) do
-    ## TODO: Not ideal to do this iteration over the lists twice, but not the worst considering the size
-    player = Enum.find(players, fn player -> player.id == player_id end)
-    bot = Enum.find(players, fn player -> player.id == bot_id end)
-
-    case bot do
-      nil ->
-        :waiting_game_update
-
-      bot ->
-        x_distance = player.position.x - bot.position.x
-        y_distance = player.position.y - bot.position.y
-
-        {x, y} = calculate_circle_point(bot.position.x, bot.position.y, player.position.x, player.position.y)
-
-        if abs(x_distance) >= 20 and abs(y_distance) >= 20 do
-          Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
-        else
-          Runner.play(game_pid, bot_id, %ActionOk{
-            action: :basic_attack,
-            value: %RelativePosition{x: x, y: y},
-            timestamp: nil
-          })
-        end
+  # Entity detected is an enemy we should try an attack
+  defp do_action(bot_id, game_pid, _players, %{
+         action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
+       }) do
+    # TODO replace this 400 with a function that determines if any skill would hit the enemy
+    # If the entity detected is in attack range we should perfom an attack
+    if direction_to_entity.distance_to_entity > 400 do
+      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
+    else
+      Runner.play(game_pid, bot_id, %ActionOk{
+        action: :basic_attack,
+        value: %RelativePosition{x: x, y: y},
+        timestamp: nil
+      })
     end
+  end
+
+  # Entity detected is a loot crate we should try to pick it
+  defp do_action(bot_id, game_pid, _players, %{
+         action: {:try_attack, %{direction_to_entity: {x, y}}}
+       }) do
+    Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
   defp do_action(_bot_id, _game_pid, _players, _) do
@@ -192,6 +183,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   ####################
   # Internal helpers #
   ####################
+  def calculate_circle_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
+    calculate_circle_point(start_x, start_y, end_x, end_y)
+  end
+
   def calculate_circle_point(cx, cy, x, y) do
     radius = 1
     angle = Nx.atan2(x - cx, y - cy)
@@ -200,27 +195,100 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     {x, -y}
   end
 
-  def decide_objective(%{bots_enabled: false}, _bot_id) do
-    :nothing
+  def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entity) do
+    Map.put(bot_state, :objective, :nothing)
   end
 
-  def decide_objective(%{myrra_state: myrra_state}, bot_id) do
+  def decide_objective(bot_state, %{game_state: %{myrra_state: myrra_state}}, bot_id, closest_entity) do
     bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
+
+    objective =
+      case bot do
+        nil ->
+          :waiting_game_update
+
+        bot ->
+          out_of_area? = Enum.any?(bot.effects, fn {k, _v} -> k == :out_of_area end)
+
+          cond do
+            out_of_area? ->
+              :flee_from_zone
+
+            not Enum.empty?(closest_entity) ->
+              :attack_enemy
+
+            true ->
+              :random_movement
+          end
+      end
+
+    Map.put(bot_state, :objective, objective)
+  end
+
+  def decide_objective(bot_state, _, _, _), do: Map.put(bot_state, :objective, :nothing)
+
+  defp get_closest_entity(%{myrra_state: game_state}, bot_id) do
+    # TODO maybe we could add a priority to the entities.
+    # e.g. if the bot has low health priorities the loot boxes
+    bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
 
     case bot do
       nil ->
-        :waiting_game_update
+        %{}
 
       bot ->
-        out_of_area? = Enum.any?(bot.effects, fn {k, _v} -> k == :out_of_area end)
+        players_distances =
+          game_state.players
+          |> Enum.filter(fn player -> player.status == :alive and player.id != bot.id end)
+          |> map_entities(bot, :enemy)
 
-        if out_of_area? do
-          :flee_from_zone
-        else
-          Enum.random([:attack_enemy, :random_movement])
+        loots_distances =
+          game_state.loots
+          |> map_entities(bot, :loot)
+
+        cond do
+          Enum.empty?(loots_distances) and Enum.empty?(players_distances) ->
+            %{}
+
+          Enum.empty?(loots_distances) ->
+            hd(players_distances)
+
+          Enum.empty?(players_distances) ->
+            hd(loots_distances)
+
+          true ->
+            Enum.min_by([hd(loots_distances), hd(players_distances)], fn entity -> entity.distance_to_entity end)
         end
     end
   end
 
-  def decide_objective(_, _), do: :nothing
+  defp get_closest_entity(_, _) do
+    %{}
+  end
+
+  defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
+    diagonal_movement_cost = 14
+    straight_movement_cost = 10
+
+    x_distance = abs(end_x - start_x)
+    y_distance = abs(end_y - start_y)
+    remaining = abs(x_distance - y_distance)
+
+    (diagonal_movement_cost * Enum.min([x_distance, y_distance]) + remaining * straight_movement_cost)
+    |> div(10)
+  end
+
+  defp map_entities(entities, bot, type) do
+    entities
+    |> Enum.map(fn entity ->
+      %{
+        type: type,
+        entity_id: entity.id,
+        distance_to_entity: get_distance_to_point(bot.position, entity.position),
+        direction_to_entity: calculate_circle_point(bot.position, entity.position)
+      }
+    end)
+    |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
+    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
+  end
 end

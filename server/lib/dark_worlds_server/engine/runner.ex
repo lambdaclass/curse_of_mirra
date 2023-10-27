@@ -138,7 +138,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       )
       when action in [:move, :move_with_joystick] do
     {:ok, game} = do_move(action, server_game_state.game, player, value)
-
     server_game_state = %{server_game_state | game: game}
 
     gen_server_state =
