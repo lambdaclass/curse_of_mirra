@@ -4,7 +4,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Runner
-  alias LambdaGameEngine.MyrraEngine.Position
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   # This variable will decide how much time passes between bot decisions in milis
@@ -13,6 +12,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # We'll decide the view range of a bot measured in grid cells
   # e.g. from {x=1, y=1} to {x=5, y=1} you have 4 cells
   @visibility_max_range_cells 2000
+
+  # The random factor will add a layer of randomness to bot actions
+  # The following actions will be afected:
+  # - Bot decision, the bot should start a wandering cicle sometimes
+  # - Bot aim, they shouln't be always have perfect precision, so we will add some inaccuracy to their shots
+  @random_factor Enum.random([50, 70, 90])
 
   #######
   # API #
@@ -154,13 +159,20 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   # Entity detected is an enemy we should try an attack
   defp do_action(bot_id, game_pid, _players, %{
-         action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
-       }) do
+         action:
+           {:try_attack, %{type: :enemy, entity_position: entity_position, direction_to_entity: {entity_x, entity_y}} = entity_data}}
+       ) do
     # TODO replace this 400 with a function that determines if any skill would hit the enemy
     # If the entity detected is in attack range we should perfom an attack
-    if direction_to_entity.distance_to_entity > 400 do
-      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
+    if entity_data.distance_to_entity > 400 do
+      Runner.play(game_pid, bot_id, %ActionOk{
+        action: :move_with_joystick,
+        value: %{x: entity_x, y: entity_y},
+        timestamp: nil
+      })
     else
+      {x, y} = add_randomness_to_position(entity_position)
+
       Runner.play(game_pid, bot_id, %ActionOk{
         action: :basic_attack,
         value: %RelativePosition{x: x, y: y},
@@ -214,6 +226,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
             out_of_area? ->
               :flee_from_zone
 
+            random_decision = maybe_random_decision() ->
+              random_decision
+
             not Enum.empty?(closest_entity) ->
               :attack_enemy
 
@@ -266,7 +281,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     %{}
   end
 
-  defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
+  defp get_distance_to_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
     diagonal_movement_cost = 14
     straight_movement_cost = 10
 
@@ -285,10 +300,31 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         type: type,
         entity_id: entity.id,
         distance_to_entity: get_distance_to_point(bot.position, entity.position),
-        direction_to_entity: calculate_circle_point(bot.position, entity.position)
+        direction_to_entity: calculate_circle_point(bot.position, entity.position),
+        entity_position: entity.position
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
+  end
+
+  def maybe_random_decision() do
+    case :rand.uniform(100) do
+      x when x <= div(@random_factor, 2) ->
+        :nothing
+
+      x when x < @random_factor ->
+        :random_movement
+
+      _ ->
+        nil
+    end
+  end
+
+  # We'll add a randomness to a position decided by the @random_factor variable so the bot behavior isn't 100% acurate
+  def add_randomness_to_position(%{x: x, y: y}) do
+    random_x = x + x * Enum.random(0..@random_factor) / 100
+    random_y = y + y * Enum.random(0..@random_factor) / 100
+    {random_x, random_y}
   end
 end
