@@ -68,7 +68,7 @@ public class Loot : MonoBehaviour
         GameObject lootObject = GetLoot(id).lootObject;
         string type = GetLoot(id).type;
 
-        var lootSoundManagerRef = lootObject.GetComponent<Sound3DManager>();
+        Sound3DManager lootSoundManagerRef = lootObject.GetComponent<Sound3DManager>();
         lootSoundManagerRef.SetSfxSound(GetLootableByType(type).pickUpSound);
         lootSoundManagerRef.PlaySfxSound();
 
