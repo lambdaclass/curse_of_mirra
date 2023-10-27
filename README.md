@@ -10,6 +10,7 @@ Curse of Myrra is a game that uses the [Lambda backend game engine](https://gith
     - Erlang/OTP 26
     - Elixir 1.15.4
 - Unity
+    - Download link: https://unity.com/unity-hub
 - Docker
 
 ## Suggested environment
