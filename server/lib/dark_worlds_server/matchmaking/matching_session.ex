@@ -108,6 +108,27 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
+    # TODO We must delete this. It's a temporary workaround to send the config that
+    # the client needs from the server. This is done by GameConfig but the client
+    # will not send it anymore.
+    game_config =
+      %{
+        runner_config:
+          Utils.Config.read_config(:game_settings)
+          |> Enum.map(fn {k, v} ->
+            value =
+              case Integer.parse(v) do
+                :error -> v
+                {parsed_value, _} -> parsed_value
+              end
+
+            {k, value}
+          end)
+          |> Map.new(),
+        character_config: Utils.Config.read_config(:characters),
+        skills_config: Utils.Config.read_config(:skills)
+      }
+
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
 
     {:stop, :normal, state}
