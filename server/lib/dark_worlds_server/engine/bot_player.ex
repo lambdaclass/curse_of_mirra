@@ -18,7 +18,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # The following actions will be afected:
   # - Bot decision, the bot should start a wandering cicle sometimes
   # - Bot aim, they shouln't be always have perfect precision, so we will add some inaccuracy to their shots
-  @random_factor Enum.random([30])
+  @random_factor Enum.random([90])
 
   #######
   # API #
@@ -216,7 +216,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def calculate_circle_point(cx, cy, x, y) do
-    {x, y}  = add_randomness_to_position(%{x: x, y: y})
+    {x, y} = add_randomness_to_position(%{x: x, y: y})
 
     radius = 1
     angle = Nx.atan2(x - cx, y - cy)
@@ -303,7 +303,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     %{}
   end
 
-  defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
+  defp get_distance_to_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
     diagonal_movement_cost = 14
     straight_movement_cost = 10
 
@@ -334,8 +334,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state,
         myrra_state
       ) do
-    if get_distance_to_point(bot.position, %Position{x: current_wandering_position.x, y: current_wandering_position.y}) <
-         500 do
+    if get_distance_to_point(bot.position, current_wandering_position) <= 500 do
       put_wandering_position(bot, bot_state, myrra_state)
     else
       bot_state
@@ -385,8 +384,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     case :rand.uniform(100) do
       x when x <= div(@random_factor, 2) ->
         :nothing
+
       x when x < @random_factor ->
         :wander
+
       _ ->
         nil
     end
