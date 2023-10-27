@@ -289,6 +289,50 @@ public class CustomLevelManager : LevelManager
 
                     healthBarFront.color = Utils.healthBarRed;
                     SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+
+                    List<Skill> skillList = new List<Skill>();
+
+                    SkillBasic skillBasic = newPlayer.gameObject.AddComponent<SkillBasic>();
+                    Skill1 skill1 = newPlayer.gameObject.AddComponent<Skill1>();
+
+                    skillList.Add(skillBasic);
+                    skillList.Add(skill1);
+
+                    string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
+                        UInt64.Parse(newPlayer.PlayerID)
+                    ];
+                    CoMCharacter characterInfo = charactersInfo.Find(
+                        el => el.name == selectedCharacter
+                    );
+                    SkillAnimationEvents skillsAnimationEvent =
+                        newPlayer.CharacterModel.GetComponent<SkillAnimationEvents>();
+
+                    List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+                    SetSkillAngles(skillInfoClone);
+
+                    skillBasic.SetSkill(
+                        Action.BasicAttack,
+                        skillInfoClone[0],
+                        skillsAnimationEvent
+                    );
+                    skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+
+                    var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+
+                    foreach (var skill in items)
+                    {
+                        for (int i = 0; i < skillList.Count; i++)
+                        {
+                            if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+                            {
+                                // 350 in the back is equal to 12 in the front
+                                // So this is the calculation
+                                skillList[i].SetSkillAreaRadius(
+                                    float.Parse(skill.SkillRange) / 100
+                                );
+                            }
+                        }
+                    }
                 }
             );
     }
