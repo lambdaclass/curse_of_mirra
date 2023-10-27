@@ -142,6 +142,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
       {:player_added, player_id, player_name, state.host_player_id, state.players}
     )
 
+    send(self(), :is_lobby_full?)
     {:noreply, state}
   end
 
@@ -153,6 +154,14 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     )
 
     {:noreply, state}
+  end
+
+  def handle_info(:is_lobby_full?, state) do
+    # TODO start the game when lobby is full
+    case Enum.count(state[:players]) do
+      10 -> {:stop, :normal, state}
+      _ -> {:noreply, state}
+    end
   end
 
   def handle_info(:pong, state) do
