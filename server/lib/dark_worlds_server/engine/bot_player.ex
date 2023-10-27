@@ -4,7 +4,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.Runner
-  alias LambdaGameEngine.MyrraEngine.Position
   alias LambdaGameEngine.MyrraEngine.RelativePosition
 
   # This variable will decide how much time passes between bot decisions in milis
@@ -127,8 +126,32 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.put(bot_state, :action, {:move, movement})
   end
 
-  defp decide_action(%{objective: :attack_enemy} = bot_state, _bot_id, _players, _game_state, closest_entity) do
-    Map.put(bot_state, :action, {:try_attack, closest_entity})
+  defp decide_action(
+         %{objective: :attack_enemy} = bot_state,
+         bot_id,
+         _players,
+         %{game_state: %{myrra_state: myrra_state}},
+         %{type: :enemy, direction_to_entity: direction_to_entity} = closest_entity
+       ) do
+    bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
+
+    case skill_would_hit(bot, closest_entity) do
+      nil ->
+        Map.put(bot_state, :action, {:move, direction_to_entity})
+
+      skill ->
+        Map.put(bot_state, :action, {:attack, closest_entity, skill})
+    end
+  end
+
+  defp decide_action(
+         %{objective: :attack_enemy} = bot_state,
+         _bot_id,
+         _players,
+         _state,
+         %{direction_to_entity: direction_to_entity}
+       ) do
+    Map.put(bot_state, :action, {:move, direction_to_entity})
   end
 
   defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entity) do
@@ -152,28 +175,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
   end
 
-  # Entity detected is an enemy we should try an attack
   defp do_action(bot_id, game_pid, _players, %{
-         action: {:try_attack, %{type: :enemy, direction_to_entity: {x, y}} = direction_to_entity}
+         action: {:attack, %{type: :enemy, direction_to_entity: {x, y}}, skill}
        }) do
-    # TODO replace this 400 with a function that determines if any skill would hit the enemy
-    # If the entity detected is in attack range we should perfom an attack
-    if direction_to_entity.distance_to_entity > 400 do
-      Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
-    else
-      Runner.play(game_pid, bot_id, %ActionOk{
-        action: :basic_attack,
-        value: %RelativePosition{x: x, y: y},
-        timestamp: nil
-      })
-    end
-  end
-
-  # Entity detected is a loot crate we should try to pick it
-  defp do_action(bot_id, game_pid, _players, %{
-         action: {:try_attack, %{direction_to_entity: {x, y}}}
-       }) do
-    Runner.play(game_pid, bot_id, %ActionOk{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: nil})
+    Runner.play(game_pid, bot_id, %ActionOk{
+      action: skill,
+      value: %RelativePosition{x: x, y: y},
+      timestamp: nil
+    })
   end
 
   defp do_action(_bot_id, _game_pid, _players, _) do
@@ -266,7 +275,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     %{}
   end
 
-  defp get_distance_to_point(%Position{x: start_x, y: start_y}, %Position{x: end_x, y: end_y}) do
+  defp get_distance_to_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
     diagonal_movement_cost = 14
     straight_movement_cost = 10
 
@@ -291,4 +300,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
+
+  defp skill_would_hit(bot, %{distance_to_entity: distance_to_entity}) do
+    skill =
+      Map.get(bot.character, :skill_basic)
+
+    if skill.skill_range >= distance_to_entity do
+      :basic_attack
+    end
+  end
+
+  defp skill_would_hit(_bot, _closest_entity), do: nil
 end
