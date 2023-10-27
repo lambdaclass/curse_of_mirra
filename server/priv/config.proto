@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 /* Represents the initial game state.
-    - width: The width of the playing area.
+    - width_ The width of the playing area.
     - height: The length of the playing area.
     - map_modification: If present, contains the information for when the map modification mechanic is triggered
     - loot_interval_ms: If present, interval in milliseconds for spawning loot crates
@@ -10,7 +10,7 @@ message Game {
     uint64 width = 1;
     uint64 height = 2;
     optional MapModification map_modification = 3;
-    optional float loot_interval_ms = 4;
+    optional MillisTime loot_interval_ms = 4;
 }
 
 /* The information for when the map modification mechanic is triggered.
@@ -98,7 +98,7 @@ message Character {
 */
 message Skill {
     string name = 1;
-    uint64 cooldown_ms = 2;
+    MillisTime cooldown_ms = 2;
     bool is_passive = 3;
     repeated Mechanic mechanics = 4;
 }
@@ -130,7 +130,7 @@ message Mechanic {
     optional repeated string on_hit_effects = 6;
     optional Projectile projectile = 7;
     optional uint64 count = 8;
-    optional uint64 duration_ms = 9;
+    optional MillisTime duration_ms = 9;
     optional uint64 max_range = 10;
 }
 
@@ -144,13 +144,27 @@ message Effect {
 
   message Duration {
     string type = 1;
-    uint64 duration_ms = 2;
+    MillisTime duration_ms = 2;
   }
 
   message Periodic {
     string type = 1;
     string instant_application = 2;
-    uint64 interval_ms = 3;
+    MillisTime interval_ms = 3;
     uint64 trigger_count = 4;
   }
+}
+
+/*
+    - We divided the milliseconds time in two parts because
+    - rustler can't handle u128, so instead of developing those functions
+    - we decided to use 2 u64 fields to represent the time in milliseconds
+
+    - If you need to use complete time in milliseconds, you should use both
+    - If you need to use remaining time in milliseconds, you can use only low field
+    - because high field will be 0
+*/
+message MillisTime {
+    uint64 high = 1;
+    uint64 low = 2;
 }
