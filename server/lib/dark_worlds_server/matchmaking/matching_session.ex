@@ -103,6 +103,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
 
+    # TODO this is the counterpart of the TODO tag in play_websocket.ex:43
+    # That module should handle this join.
     ## Setup each player in engine_runner
     Enum.each(state.players, fn player_id ->
       :ok = EngineRunner.join(game_pid, player_id, "h4ck")
@@ -111,8 +113,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
-    # TODO must uncomment the following line and broadcast the msg
-    # without the config or using the new config used in the server side
+    # TODO We must delete this. It's a temporary workaround to send the config that
+    # the client needs from the server. This is done by GameConfig but the client
+    # will not send it anymore.
     game_config =
       %{
         runner_config:
@@ -134,16 +137,6 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
 
     {:stop, :normal, state}
-  end
-
-  def handle_info(:inspect, state) do
-    Process.send_after(self(), :inspect, 1_000)
-
-    IO.inspect(Map.keys(state.players) |> Enum.count(),
-      label: "Actualmente hay esta cantidad de players"
-    )
-
-    {:noreply, state}
   end
 
   @impl GenServer

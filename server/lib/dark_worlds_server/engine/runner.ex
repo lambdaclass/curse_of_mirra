@@ -352,9 +352,6 @@ defmodule DarkWorldsServer.Engine.Runner do
       {:finish_character_selection, selected_players, gen_server_state.client_game_state.game.myrra_state.players}
     )
 
-    ## Shutdown this runner and create a engine_runner instead
-    config = Application.get_env(:dark_worlds_server, __MODULE__)
-
     {:noreply, gen_server_state}
   end
 

@@ -35,17 +35,14 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:stop, %{}}
   end
 
-  # Uncomment to enable hash verification of client and server
-  # def websocket_init(%{client_hash: hash}) when hash != @server_hash do
-  #   {:stop, :version_mismatch}
-  # end
-
-  def websocket_init(%{game_id: game_id, player_id: player_id, client_id: client_id}) do
+  def websocket_init(%{game_id: game_id, player_id: player_id, client_id: _client_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
-         true <- runner_pid in Engine.list_runners_pids(),
-         {:ok, player_id} <- Runner.join(runner_pid, client_id, String.to_integer(player_id)) do
+         true <- runner_pid in Engine.list_runners_pids() do
+      # TODO this must be restored but the websocket is not starting for the host player.
+      # The MatchingSession will add the players in the meantime.
+      #  {:ok, player_id} <- Runner.join(runner_pid, client_id, String.to_integer(player_id)) do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
