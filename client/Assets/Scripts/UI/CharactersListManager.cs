@@ -25,7 +25,6 @@ public class CharactersListManager : MonoBehaviour
             GameObject item = (GameObject)Instantiate(listItem, this.transform);
             item.GetComponentInChildren<Image>().sprite = player.characterSprite;
             item.GetComponentInChildren<TextMeshProUGUI>().text = player.name;
-            //item.GetComponentInChildren<TextMeshPro>().text = player.name;
         });
     }
 }
