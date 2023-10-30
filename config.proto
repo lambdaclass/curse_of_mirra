@@ -41,12 +41,12 @@ message Modification {
     string modifier = 1;
     int64 value = 2;
 }
+
 /*
     - name: unique name for the loot, this will be referenced by other configurations
     - size: radius size of the loot
     - effects: List of effects the loot will give out
 */
-
 message Loot {
     string name = 1;
     uint64 size = 2;
@@ -63,7 +63,6 @@ message Loot {
     - `duration_ms`: Defines how long in milliseconds the projectile can exist
     - `max_distance`: Defines the maximum distance the projectile can travel
 */
-
 message Projectile {
     string name = 1;
     uint64 base_damage = 2;
@@ -134,6 +133,20 @@ message Mechanic {
     optional uint64 max_range = 10;
 }
 
+/* Represents an effect acting on a player.
+- name: unique name for the effect.
+- effect_time_type: This determines how the effect is applied. It can be any of:
+  - Instant: Effect is executed once and removed
+  - Duration: Effect is stuck on the player for a duration
+    - duration_ms
+  - Permanent: Effect lasts forever and can only be removed by other effects
+  - Periodic: Like an Instant, but the effect is applied many times over a period of time
+    - instant_application: Boolean specifying if first application of effect should happen at instant 0 or not
+    - interval_ms: Every X milliseconds the effect will be applied
+    - trigger_count: Sets how many times the effect will be applied
+- player_attributes: Attributes changes that will be applied over the player having this effect
+- projectile_attributes: Attributes changes that will be applied over the projectiles of the player having this effect
+*/
 message Effect {
   string name = 1;
   oneof effect_type {
@@ -167,4 +180,31 @@ message Effect {
 message MillisTime {
     uint64 high = 1;
     uint64 low = 2;
+}
+
+/* 
+Represents a move action
+*/
+message Move {
+  Direction direction = 1;
+  float angle = 2;
+}
+
+/* 
+Represents the action of using a skill 
+*/
+message UseSkill {
+  Skill skill = 1;
+  float angle = 2;
+}
+
+/* 
+Directions an action can happen in
+*/
+enum Direction {
+    DIRECTION_UNSPECIFIED = 0;
+    UP = 1;
+    DOWN = 2;
+    LEFT = 3;
+    RIGHT = 4;
 }
