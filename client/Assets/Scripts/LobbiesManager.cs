@@ -17,7 +17,6 @@ public class LobbiesManager : LevelSelector
         Instance = this;
         if (PlayerPrefs.GetString("playerName") == "")
         {
-            Debug.Log("Showing pop up");
             this.ShowPlayerNamePopUp();
         }
     }
