@@ -23,9 +23,9 @@ public static partial class ActionReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "Chpjb21tdW5pY2F0aW9uL2FjdGlvbi5wcm90bxoaY29tbXVuaWNhdGlvbi9j",
-          "b25maWcucHJvdG8iFQoETW92ZRINCgVhbmdsZRgBIAEoAiIwCghVc2VTa2ls",
-          "bBIVCgVza2lsbBgBIAEoCzIGLlNraWxsEg0KBWFuZ2xlGAIgASgCYgZwcm90",
-          "bzM="));
+          "b25maWcucHJvdG8iFQoETW92ZRINCgVhbmdsZRgBIAEoAiI0CghVc2VTa2ls",
+          "bBIZCgVza2lsbBgBIAEoCzIKLkdhbWVTa2lsbBINCgVhbmdsZRgCIAEoAmIG",
+          "cHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::ConfigReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -281,10 +281,10 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
 
   /// <summary>Field number for the "skill" field.</summary>
   public const int SkillFieldNumber = 1;
-  private global::Skill skill_;
+  private global::GameSkill skill_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::Skill Skill {
+  public global::GameSkill Skill {
     get { return skill_; }
     set {
       skill_ = value;
@@ -403,7 +403,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     }
     if (other.skill_ != null) {
       if (skill_ == null) {
-        Skill = new global::Skill();
+        Skill = new global::GameSkill();
       }
       Skill.MergeFrom(other.Skill);
     }
@@ -427,7 +427,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
           break;
         case 10: {
           if (skill_ == null) {
-            Skill = new global::Skill();
+            Skill = new global::GameSkill();
           }
           input.ReadMessage(Skill);
           break;
@@ -453,7 +453,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
           break;
         case 10: {
           if (skill_ == null) {
-            Skill = new global::Skill();
+            Skill = new global::GameSkill();
           }
           input.ReadMessage(Skill);
           break;

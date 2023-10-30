@@ -1,20 +1,22 @@
 syntax = "proto3";
 
+import "communication/messages.proto";
+
 message Config {
-  CharactersConfig charactersConfig = 1;
-  EffectsConfig effectsConfig = 2;
-  GameConfig gameConfig = 3;
-  LootsConfig lootsConfig = 4;
-  ProjectilesConfig projectilesConfig = 5;
-  SkillsConfig SkillsConfig = 6;
+  GameCharactersConfig charactersConfig = 1;
+  GameEffectsConfig effectsConfig = 2;
+  GameStateConfig gameConfig = 3;
+  GameLootsConfig lootsConfig = 4;
+  GameProjectilesConfig projectilesConfig = 5;
+  GameSkillsConfig gameSkillsConfig = 6;
 }
 
-message CharactersConfig {
-  repeated Character characters = 1;
+message GameCharactersConfig {
+  repeated GameCharacter characters = 1;
 }
 
-message EffectsConfig {
-  repeated Effect effects = 1;
+message GameEffectsConfig {
+  repeated GameEffect effects = 1;
 }
 
 /* Represents the initial game state.
@@ -23,23 +25,23 @@ message EffectsConfig {
     - map_modification: If present, contains the information for when the map modification mechanic is triggered
     - loot_interval_ms: If present, interval in milliseconds for spawning loot crates
 */
-message GameConfig {
+message GameStateConfig {
     uint64 width = 1;
     uint64 height = 2;
     optional MapModification map_modification = 3;
     optional MillisTime loot_interval_ms = 4;
 }
 
-message LootsConfig {
-  repeated Loot loots = 1;
+message GameLootsConfig {
+  repeated GameLoot loots = 1;
 }
 
-message ProjectilesConfig {
-  repeated Projectile projectiles_config = 1;
+message GameProjectilesConfig {
+  repeated GameProjectile projectiles_config = 1;
 }
 
-message SkillsConfig {
-  repeated Skill skills = 1;
+message GameSkillsConfig {
+  repeated GameSkill skills = 1;
 }
 
 /* The information for when the map modification mechanic is triggered.
@@ -76,7 +78,7 @@ message Modification {
     - size: radius size of the loot
     - effects: List of effects the loot will give out
 */
-message Loot {
+message GameLoot {
     string name = 1;
     uint64 size = 2;
     repeated string effects = 3;
@@ -92,7 +94,7 @@ message Loot {
     - `duration_ms`: Defines how long in milliseconds the projectile can exist
     - `max_distance`: Defines the maximum distance the projectile can travel
 */
-message Projectile {
+message GameProjectile {
     string name = 1;
     uint64 base_damage = 2;
     uint64 base_speed = 3;
@@ -110,12 +112,12 @@ message Projectile {
 - base_size: Size of the character for collision math.
 - skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
 */
-message Character {
+message GameCharacter {
     string name = 1;
     bool active = 2;
     uint64 base_speed = 3;
     uint64 base_size = 4;
-    repeated Skill skills = 5;
+    repeated GameSkill skills = 5;
 }
 
 /* Represents a skill of a character
@@ -124,7 +126,7 @@ message Character {
 - is_passive: Marks the skill as a passive skill, this means it can't be triggered. Instead it will trigger on player spawn, so only `GiveEffect` makes sense for it.
 - mechanics: Core mechanic of the skill (e.g hit, shoot, etc).
 */
-message Skill {
+message GameSkill {
     string name = 1;
     MillisTime cooldown_ms = 2;
     bool is_passive = 3;
@@ -156,7 +158,7 @@ message Mechanic {
     optional uint64 range = 4;
     optional uint64 cone_angle = 5;
     repeated string on_hit_effects = 6;
-    optional Projectile projectile = 7;
+    optional GameProjectile projectile = 7;
     optional uint64 count = 8;
     optional MillisTime duration_ms = 9;
     optional uint64 max_range = 10;
@@ -176,7 +178,7 @@ message Mechanic {
 - player_attributes: Attributes changes that will be applied over the player having this effect
 - projectile_attributes: Attributes changes that will be applied over the projectiles of the player having this effect
 */
-message Effect {
+message GameEffect {
   string name = 1;
   oneof effect_type {
     string simple_type = 2;
@@ -195,18 +197,4 @@ message Effect {
     MillisTime interval_ms = 3;
     uint64 trigger_count = 4;
   }
-}
-
-/*
-    - We divided the milliseconds time in two parts because
-    - rustler can't handle u128, so instead of developing those functions
-    - we decided to use 2 u64 fields to represent the time in milliseconds
-
-    - If you need to use complete time in milliseconds, you should use both
-    - If you need to use remaining time in milliseconds, you can use only low field
-    - because high field will be 0
-*/
-message MillisTime {
-    uint64 high = 1;
-    uint64 low = 2;
 }

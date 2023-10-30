@@ -13,6 +13,6 @@ message Move {
 Represents the action of using a skill 
 */
 message UseSkill {
-  Skill skill = 1;
+  GameSkill skill = 1;
   float angle = 2;
 }

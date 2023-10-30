@@ -3,37 +3,37 @@ defmodule DarkWorldsServer.Communication.Proto.Config do
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :charactersConfig, 1, type: DarkWorldsServer.Communication.Proto.CharactersConfig
-  field :effectsConfig, 2, type: DarkWorldsServer.Communication.Proto.EffectsConfig
-  field :gameConfig, 3, type: DarkWorldsServer.Communication.Proto.GameConfig
-  field :lootsConfig, 4, type: DarkWorldsServer.Communication.Proto.LootsConfig
-  field :projectilesConfig, 5, type: DarkWorldsServer.Communication.Proto.ProjectilesConfig
-  field :SkillsConfig, 6, type: DarkWorldsServer.Communication.Proto.SkillsConfig
+  field :charactersConfig, 1, type: DarkWorldsServer.Communication.Proto.GameCharactersConfig
+  field :effectsConfig, 2, type: DarkWorldsServer.Communication.Proto.GameEffectsConfig
+  field :gameConfig, 3, type: DarkWorldsServer.Communication.Proto.GameStateConfig
+  field :lootsConfig, 4, type: DarkWorldsServer.Communication.Proto.GameLootsConfig
+  field :projectilesConfig, 5, type: DarkWorldsServer.Communication.Proto.GameProjectilesConfig
+  field :gameSkillsConfig, 6, type: DarkWorldsServer.Communication.Proto.GameSkillsConfig
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.CharactersConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameCharactersConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :characters, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.Character
+  field :characters, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.GameCharacter
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.EffectsConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameEffectsConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :effects, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.Effect
+  field :effects, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.GameEffect
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.GameConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameStateConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
@@ -46,43 +46,40 @@ defmodule DarkWorldsServer.Communication.Proto.GameConfig do
     type: DarkWorldsServer.Communication.Proto.MapModification,
     json_name: "mapModification"
 
-  field :loot_interval_ms, 4,
-    proto3_optional: true,
-    type: DarkWorldsServer.Communication.Proto.MillisTime,
-    json_name: "lootIntervalMs"
+  field :loot_interval_ms, 4, proto3_optional: true, type: MillisTime, json_name: "lootIntervalMs"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.LootsConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameLootsConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :loots, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.Loot
+  field :loots, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.GameLoot
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.ProjectilesConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameProjectilesConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :projectiles_config, 1,
     repeated: true,
-    type: DarkWorldsServer.Communication.Proto.Projectile,
+    type: DarkWorldsServer.Communication.Proto.GameProjectile,
     json_name: "projectilesConfig"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.SkillsConfig do
+defmodule DarkWorldsServer.Communication.Proto.GameSkillsConfig do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
-  field :skills, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.Skill
+  field :skills, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.GameSkill
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -118,7 +115,7 @@ defmodule DarkWorldsServer.Communication.Proto.Modification do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Loot do
+defmodule DarkWorldsServer.Communication.Proto.GameLoot do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
@@ -130,7 +127,7 @@ defmodule DarkWorldsServer.Communication.Proto.Loot do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Projectile do
+defmodule DarkWorldsServer.Communication.Proto.GameProjectile do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
@@ -147,7 +144,7 @@ defmodule DarkWorldsServer.Communication.Proto.Projectile do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Character do
+defmodule DarkWorldsServer.Communication.Proto.GameCharacter do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
@@ -156,22 +153,18 @@ defmodule DarkWorldsServer.Communication.Proto.Character do
   field :active, 2, type: :bool
   field :base_speed, 3, type: :uint64, json_name: "baseSpeed"
   field :base_size, 4, type: :uint64, json_name: "baseSize"
-  field :skills, 5, repeated: true, type: DarkWorldsServer.Communication.Proto.Skill
+  field :skills, 5, repeated: true, type: DarkWorldsServer.Communication.Proto.GameSkill
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Skill do
+defmodule DarkWorldsServer.Communication.Proto.GameSkill do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :name, 1, type: :string
-
-  field :cooldown_ms, 2,
-    type: DarkWorldsServer.Communication.Proto.MillisTime,
-    json_name: "cooldownMs"
-
+  field :cooldown_ms, 2, type: MillisTime, json_name: "cooldownMs"
   field :is_passive, 3, type: :bool, json_name: "isPassive"
   field :mechanics, 4, repeated: true, type: DarkWorldsServer.Communication.Proto.Mechanic
 
@@ -192,52 +185,40 @@ defmodule DarkWorldsServer.Communication.Proto.Mechanic do
 
   field :projectile, 7,
     proto3_optional: true,
-    type: DarkWorldsServer.Communication.Proto.Projectile
+    type: DarkWorldsServer.Communication.Proto.GameProjectile
 
   field :count, 8, proto3_optional: true, type: :uint64
-
-  field :duration_ms, 9,
-    proto3_optional: true,
-    type: DarkWorldsServer.Communication.Proto.MillisTime,
-    json_name: "durationMs"
-
+  field :duration_ms, 9, proto3_optional: true, type: MillisTime, json_name: "durationMs"
   field :max_range, 10, proto3_optional: true, type: :uint64, json_name: "maxRange"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Effect.Duration do
+defmodule DarkWorldsServer.Communication.Proto.GameEffect.Duration do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :type, 1, type: :string
-
-  field :duration_ms, 2,
-    type: DarkWorldsServer.Communication.Proto.MillisTime,
-    json_name: "durationMs"
+  field :duration_ms, 2, type: MillisTime, json_name: "durationMs"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Effect.Periodic do
+defmodule DarkWorldsServer.Communication.Proto.GameEffect.Periodic do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :type, 1, type: :string
   field :instant_application, 2, type: :string, json_name: "instantApplication"
-
-  field :interval_ms, 3,
-    type: DarkWorldsServer.Communication.Proto.MillisTime,
-    json_name: "intervalMs"
-
+  field :interval_ms, 3, type: MillisTime, json_name: "intervalMs"
   field :trigger_count, 4, type: :uint64, json_name: "triggerCount"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.Effect do
+defmodule DarkWorldsServer.Communication.Proto.GameEffect do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
@@ -248,25 +229,14 @@ defmodule DarkWorldsServer.Communication.Proto.Effect do
   field :simple_type, 2, type: :string, json_name: "simpleType", oneof: 0
 
   field :duration_type, 3,
-    type: DarkWorldsServer.Communication.Proto.Effect.Duration,
+    type: DarkWorldsServer.Communication.Proto.GameEffect.Duration,
     json_name: "durationType",
     oneof: 0
 
   field :periodic_type, 4,
-    type: DarkWorldsServer.Communication.Proto.Effect.Periodic,
+    type: DarkWorldsServer.Communication.Proto.GameEffect.Periodic,
     json_name: "periodicType",
     oneof: 0
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
-defmodule DarkWorldsServer.Communication.Proto.MillisTime do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
-
-  field :high, 1, type: :uint64
-  field :low, 2, type: :uint64
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
