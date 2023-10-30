@@ -198,6 +198,18 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
+    IEnumerator ActivateSpawnFeedbackWithDelay(List<CustomCharacter> characters)
+    {
+        foreach (var character in characters)
+        {
+            // Wait for the specified delay
+            yield return new WaitForSeconds(1);
+
+            // Activate spawn feedback for the current character
+            StartCoroutine(character.characterBase.activateSpawnFeedback(false));
+        }
+    }
+
     IEnumerator CameraCinematic()
     {
         if (!SocketConnectionManager.Instance.cinematicDone)
@@ -208,9 +220,19 @@ public class CustomLevelManager : LevelManager
             loadingScreen.SetActive(false);
             battleScreen.SetActive(true);
             //Cancel camera movement and start zoom in
+            StartCoroutine(
+                Utils.GetCharacter(
+                        playerId)
+                    .characterBase.activateSpawnFeedback(true));
             Utils
-                .GetAllCharacters()
-                .ForEach(el => StartCoroutine(el.characterBase.activateSpawnFeedback()));
+                .GetAlivePlayers()
+                .Where(player => player.Id != playerId)
+                .ToList()
+                .ForEach(el => StartCoroutine(
+                    Utils.GetCharacter(
+                        el.Id)
+                    .characterBase.activateSpawnFeedback(false))
+                );
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");
             InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
