@@ -19,28 +19,6 @@ public class LobbiesUITest : InputTestFixture
     }
 
     [UnityTest]
-    public IEnumerator BacktoLobbiesButton()
-    {
-        GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
-        yield return CoClickButton(newLobbyButton);
-        yield return new WaitForSeconds(5f);
-        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
-        Debug.Log("1");
-
-        GameObject launchGameButton = GameObject.Find("LaunchGameButton");
-        yield return CoClickButton(launchGameButton);
-        yield return new WaitForSeconds(5f);
-        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
-        Debug.Log("2");
-
-        GameObject backButton = GameObject.Find("Back");
-        yield return CoClickButton(backButton);
-        yield return new WaitForSeconds(5f);
-        //Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
-        Debug.Log("3");
-    }
-
-    [UnityTest]
     public IEnumerator UnmuteButton()
     {
         Debug.Log("start click");
@@ -68,6 +46,28 @@ public class LobbiesUITest : InputTestFixture
         // Verify sound manager is unmuted
         Assert.That(MMSoundManager.Instance.IsMuted(MMSoundManager.MMSoundManagerTracks.Master), Is.EqualTo(false));
         Debug.Log("7");
+    }
+
+    [UnityTest]
+    public IEnumerator BacktoLobbiesButton()
+    {
+        GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
+        yield return CoClickButton(newLobbyButton);
+        yield return new WaitForSeconds(5f);
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
+        Debug.Log("1");
+
+        GameObject launchGameButton = GameObject.Find("LaunchGameButton");
+        yield return CoClickButton(launchGameButton);
+        yield return new WaitForSeconds(5f);
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
+        Debug.Log("2");
+
+        GameObject backButton = GameObject.Find("Back");
+        yield return CoClickButton(backButton);
+        yield return new WaitForSeconds(5f);
+        //Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
+        Debug.Log("3");
     }
 
     IEnumerator CoClickButton(GameObject go)
