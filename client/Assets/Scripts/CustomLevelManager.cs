@@ -198,18 +198,6 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    IEnumerator ActivateSpawnFeedbackWithDelay(List<CustomCharacter> characters)
-    {
-        foreach (var character in characters)
-        {
-            // Wait for the specified delay
-            yield return new WaitForSeconds(1);
-
-            // Activate spawn feedback for the current character
-            StartCoroutine(character.characterBase.activateSpawnFeedback(false));
-        }
-    }
-
     IEnumerator CameraCinematic()
     {
         if (!SocketConnectionManager.Instance.cinematicDone)
