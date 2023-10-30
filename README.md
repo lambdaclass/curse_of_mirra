@@ -28,8 +28,8 @@ make setup
 ```
 
 ## Setup Unity
-- On Unity Hub add a new project and select the client folder contained on `.../curse_of_myrra/client`
-- Select the correct version of the editor, it will show the version needed by default but you need to select if you want to download the Intel or Silicon version.
+- On Unity Hub click on the add project button and select the `client` folder.
+- Select the correct version of the editor, by default it will show the version needed for the project but you need to select if you want to download the Intel or Silicon version.
 - Once we run Unity if you want to test the game you can select the scene on `Assets/Scenes/TitleScreen` and then running it by clicking the play button.
 
 ## Run backend
