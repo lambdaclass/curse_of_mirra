@@ -22,3 +22,6 @@ List tests added/updated.
 - [ ] Tests have been added/updated.
 - [ ] This change requires new documentation.
   - [ ] Documentation has been added/updated.
+- [ ] I have tested the changes in another devices.
+  - [ ] Tested in iOS.
+  - [ ] Tested in Android.
