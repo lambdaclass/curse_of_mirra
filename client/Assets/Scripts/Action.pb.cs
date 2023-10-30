@@ -22,15 +22,17 @@ public static partial class ActionReflection {
   static ActionReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Chpjb21tdW5pY2F0aW9uL2FjdGlvbi5wcm90bxoaY29tbXVuaWNhdGlvbi9j",
-          "b25maWcucHJvdG8iFQoETW92ZRINCgVhbmdsZRgBIAEoAiI0CghVc2VTa2ls",
-          "bBIZCgVza2lsbBgBIAEoCzIKLkdhbWVTa2lsbBINCgVhbmdsZRgCIAEoAmIG",
-          "cHJvdG8z"));
+          "Chpjb21tdW5pY2F0aW9uL2FjdGlvbi5wcm90byIVCgRNb3ZlEg0KBWFuZ2xl",
+          "GAEgASgCIigKCFVzZVNraWxsEg0KBXNraWxsGAEgASgJEg0KBWFuZ2xlGAIg",
+          "ASgCIlEKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIdCgh1",
+          "c2VTa2lsbBgCIAEoCzIJLlVzZVNraWxsSABCDQoLYWN0aW9uX3R5cGViBnBy",
+          "b3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-        new pbr::FileDescriptor[] { global::ConfigReflection.Descriptor, },
+        new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Angle" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill" }, new[]{ "ActionType" }, null, null, null)
         }));
   }
   #endregion
@@ -268,7 +270,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public UseSkill(UseSkill other) : this() {
-    skill_ = other.skill_ != null ? other.skill_.Clone() : null;
+    skill_ = other.skill_;
     angle_ = other.angle_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -281,13 +283,13 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
 
   /// <summary>Field number for the "skill" field.</summary>
   public const int SkillFieldNumber = 1;
-  private global::GameSkill skill_;
+  private string skill_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::GameSkill Skill {
+  public string Skill {
     get { return skill_; }
     set {
-      skill_ = value;
+      skill_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -318,7 +320,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(Skill, other.Skill)) return false;
+    if (Skill != other.Skill) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -327,7 +329,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (skill_ != null) hash ^= Skill.GetHashCode();
+    if (Skill.Length != 0) hash ^= Skill.GetHashCode();
     if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -347,9 +349,9 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (skill_ != null) {
+    if (Skill.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Skill);
+      output.WriteString(Skill);
     }
     if (Angle != 0F) {
       output.WriteRawTag(21);
@@ -365,9 +367,9 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (skill_ != null) {
+    if (Skill.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Skill);
+      output.WriteString(Skill);
     }
     if (Angle != 0F) {
       output.WriteRawTag(21);
@@ -383,8 +385,8 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (skill_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skill);
+    if (Skill.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Skill);
     }
     if (Angle != 0F) {
       size += 1 + 4;
@@ -401,11 +403,8 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     if (other == null) {
       return;
     }
-    if (other.skill_ != null) {
-      if (skill_ == null) {
-        Skill = new global::GameSkill();
-      }
-      Skill.MergeFrom(other.Skill);
+    if (other.Skill.Length != 0) {
+      Skill = other.Skill;
     }
     if (other.Angle != 0F) {
       Angle = other.Angle;
@@ -426,10 +425,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (skill_ == null) {
-            Skill = new global::GameSkill();
-          }
-          input.ReadMessage(Skill);
+          Skill = input.ReadString();
           break;
         }
         case 21: {
@@ -452,14 +448,296 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          if (skill_ == null) {
-            Skill = new global::GameSkill();
-          }
-          input.ReadMessage(Skill);
+          Skill = input.ReadString();
           break;
         }
         case 21: {
           Angle = input.ReadFloat();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+public sealed partial class GameAction : pb::IMessage<GameAction>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<GameAction> _parser = new pb::MessageParser<GameAction>(() => new GameAction());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<GameAction> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::ActionReflection.Descriptor.MessageTypes[2]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameAction() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameAction(GameAction other) : this() {
+    switch (other.ActionTypeCase) {
+      case ActionTypeOneofCase.Move:
+        Move = other.Move.Clone();
+        break;
+      case ActionTypeOneofCase.UseSkill:
+        UseSkill = other.UseSkill.Clone();
+        break;
+    }
+
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameAction Clone() {
+    return new GameAction(this);
+  }
+
+  /// <summary>Field number for the "move" field.</summary>
+  public const int MoveFieldNumber = 1;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Move Move {
+    get { return actionTypeCase_ == ActionTypeOneofCase.Move ? (global::Move) actionType_ : null; }
+    set {
+      actionType_ = value;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.Move;
+    }
+  }
+
+  /// <summary>Field number for the "useSkill" field.</summary>
+  public const int UseSkillFieldNumber = 2;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::UseSkill UseSkill {
+    get { return actionTypeCase_ == ActionTypeOneofCase.UseSkill ? (global::UseSkill) actionType_ : null; }
+    set {
+      actionType_ = value;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.UseSkill;
+    }
+  }
+
+  private object actionType_;
+  /// <summary>Enum of possible cases for the "action_type" oneof.</summary>
+  public enum ActionTypeOneofCase {
+    None = 0,
+    Move = 1,
+    UseSkill = 2,
+  }
+  private ActionTypeOneofCase actionTypeCase_ = ActionTypeOneofCase.None;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ActionTypeOneofCase ActionTypeCase {
+    get { return actionTypeCase_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void ClearActionType() {
+    actionTypeCase_ = ActionTypeOneofCase.None;
+    actionType_ = null;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as GameAction);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(GameAction other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!object.Equals(Move, other.Move)) return false;
+    if (!object.Equals(UseSkill, other.UseSkill)) return false;
+    if (ActionTypeCase != other.ActionTypeCase) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (actionTypeCase_ == ActionTypeOneofCase.Move) hash ^= Move.GetHashCode();
+    if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) hash ^= UseSkill.GetHashCode();
+    hash ^= (int) actionTypeCase_;
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (actionTypeCase_ == ActionTypeOneofCase.Move) {
+      output.WriteRawTag(10);
+      output.WriteMessage(Move);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
+      output.WriteRawTag(18);
+      output.WriteMessage(UseSkill);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (actionTypeCase_ == ActionTypeOneofCase.Move) {
+      output.WriteRawTag(10);
+      output.WriteMessage(Move);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
+      output.WriteRawTag(18);
+      output.WriteMessage(UseSkill);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (actionTypeCase_ == ActionTypeOneofCase.Move) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Move);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(UseSkill);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(GameAction other) {
+    if (other == null) {
+      return;
+    }
+    switch (other.ActionTypeCase) {
+      case ActionTypeOneofCase.Move:
+        if (Move == null) {
+          Move = new global::Move();
+        }
+        Move.MergeFrom(other.Move);
+        break;
+      case ActionTypeOneofCase.UseSkill:
+        if (UseSkill == null) {
+          UseSkill = new global::UseSkill();
+        }
+        UseSkill.MergeFrom(other.UseSkill);
+        break;
+    }
+
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          global::Move subBuilder = new global::Move();
+          if (actionTypeCase_ == ActionTypeOneofCase.Move) {
+            subBuilder.MergeFrom(Move);
+          }
+          input.ReadMessage(subBuilder);
+          Move = subBuilder;
+          break;
+        }
+        case 18: {
+          global::UseSkill subBuilder = new global::UseSkill();
+          if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
+            subBuilder.MergeFrom(UseSkill);
+          }
+          input.ReadMessage(subBuilder);
+          UseSkill = subBuilder;
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          global::Move subBuilder = new global::Move();
+          if (actionTypeCase_ == ActionTypeOneofCase.Move) {
+            subBuilder.MergeFrom(Move);
+          }
+          input.ReadMessage(subBuilder);
+          Move = subBuilder;
+          break;
+        }
+        case 18: {
+          global::UseSkill subBuilder = new global::UseSkill();
+          if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
+            subBuilder.MergeFrom(UseSkill);
+          }
+          input.ReadMessage(subBuilder);
+          UseSkill = subBuilder;
           break;
         }
       }

@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "communication/config.proto";
-
 /* 
 Represents a move action
 */
@@ -13,6 +11,13 @@ message Move {
 Represents the action of using a skill 
 */
 message UseSkill {
-  GameSkill skill = 1;
+  string skill = 1;
   float angle = 2;
+}
+
+message GameAction {
+    oneof action_type {
+        Move move = 1;
+        UseSkill useSkill = 2;
+    }
 }

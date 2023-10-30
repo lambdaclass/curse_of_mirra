@@ -1,6 +1,6 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -10,13 +10,10 @@ public class PlayerControls : MonoBehaviour
         {
             var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            var clientAction = new ClientAction
-            {
-                Action = Action.MoveWithJoystick,
-                MoveDelta = valuesToSend,
-                Timestamp = timestamp
-            };
-            SocketConnectionManager.Instance.SendAction(clientAction);
+
+            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
+
+            SocketConnectionManager.Instance.SendGameAction(moveAction);
 
             ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
             {

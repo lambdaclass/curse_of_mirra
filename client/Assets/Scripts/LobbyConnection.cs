@@ -26,7 +26,6 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
-
     public bool gameStarted = false;
     public bool errorOngoingGame = false;
     public bool errorConnection = false;

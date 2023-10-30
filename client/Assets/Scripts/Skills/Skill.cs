@@ -282,12 +282,12 @@ public class Skill : CharacterAbility
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction
+        UseSkill useSkillAction = new UseSkill
         {
-            Action = serverSkill,
-            Position = relativePosition
+            Skill = serverSkill.ToString(),
+            Angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg
         };
-        SocketConnectionManager.Instance.SendAction(action);
+        SocketConnectionManager.Instance.SendGameAction(useSkillAction);
     }
 
     public void EndSkillFeedback(string animationId)
