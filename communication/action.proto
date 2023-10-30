@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "communication/config.proto";
+
+/* 
+Represents a move action
+*/
+message Move {
+  float angle = 1;
+}
+
+/* 
+Represents the action of using a skill 
+*/
+message UseSkill {
+  Skill skill = 1;
+  float angle = 2;
+}

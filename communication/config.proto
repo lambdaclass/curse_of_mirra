@@ -1,16 +1,45 @@
 syntax = "proto3";
 
+message Config {
+  CharactersConfig charactersConfig = 1;
+  EffectsConfig effectsConfig = 2;
+  GameConfig gameConfig = 3;
+  LootsConfig lootsConfig = 4;
+  ProjectilesConfig projectilesConfig = 5;
+  SkillsConfig SkillsConfig = 6;
+}
+
+message CharactersConfig {
+  repeated Character characters = 1;
+}
+
+message EffectsConfig {
+  repeated Effect effects = 1;
+}
+
 /* Represents the initial game state.
     - width_ The width of the playing area.
     - height: The length of the playing area.
     - map_modification: If present, contains the information for when the map modification mechanic is triggered
     - loot_interval_ms: If present, interval in milliseconds for spawning loot crates
 */
-message Game {
+message GameConfig {
     uint64 width = 1;
     uint64 height = 2;
     optional MapModification map_modification = 3;
     optional MillisTime loot_interval_ms = 4;
+}
+
+message LootsConfig {
+  repeated Loot loots = 1;
+}
+
+message ProjectilesConfig {
+  repeated Projectile projectiles_config = 1;
+}
+
+message SkillsConfig {
+  repeated Skill skills = 1;
 }
 
 /* The information for when the map modification mechanic is triggered.
@@ -35,7 +64,7 @@ message MapModification {
     - additive: Given value is added to current value
     - multiplicative: Given value is multiplied to current value
     - override: Given value is set as the attribute value
-    - value: The value we are using for the changemessage Modification {
+    - value: The value we are using for the changemessage Modification
 */
 message Modification {
     string modifier = 1;
@@ -152,7 +181,7 @@ message Effect {
   oneof effect_type {
     string simple_type = 2;
     Duration duration_type = 3;
-    Periodic periodic_type = 5;
+    Periodic periodic_type = 4;
   }
 
   message Duration {
@@ -180,31 +209,4 @@ message Effect {
 message MillisTime {
     uint64 high = 1;
     uint64 low = 2;
-}
-
-/* 
-Represents a move action
-*/
-message Move {
-  Direction direction = 1;
-  float angle = 2;
-}
-
-/* 
-Represents the action of using a skill 
-*/
-message UseSkill {
-  Skill skill = 1;
-  float angle = 2;
-}
-
-/* 
-Directions an action can happen in
-*/
-enum Direction {
-    DIRECTION_UNSPECIFIED = 0;
-    UP = 1;
-    DOWN = 2;
-    LEFT = 3;
-    RIGHT = 4;
 }
