@@ -7,17 +7,17 @@ gen-protobuf: gen-server-protobuf gen-client-protobuf gen-load-test-protobuf
 
 gen-server-protobuf:
 	protoc \
-		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/communication/ \
+		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/ \
 		--elixir_opt=package_prefix=dark_worlds_server.communication.proto \
 		communication/messages.proto
 
 	protoc \
-		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/communication/ \
+		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/ \
 		--elixir_opt=package_prefix=dark_worlds_server.communication.proto \
 		communication/config.proto
 
 	protoc \
-		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/communication/ \
+		--elixir_out=transform_module=DarkWorldsServer.Communication.ProtoTransform:./server/lib/dark_worlds_server/ \
 		--elixir_opt=package_prefix=dark_worlds_server.communication.proto \
 		communication/action.proto
 
