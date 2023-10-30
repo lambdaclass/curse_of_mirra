@@ -12,7 +12,6 @@ public class CharactersListManager : MonoBehaviour
     [SerializeField]
     GameObject listItem;
 
-    // Start is called before the first frame update
     void Start()
     {
         GenerateList();
@@ -22,7 +21,7 @@ public class CharactersListManager : MonoBehaviour
     {
         characterSriptableObjects.ForEach(character =>
         {
-            GameObject item = (GameObject)Instantiate(listItem, this.transform);
+            GameObject item = Instantiate(listItem, this.transform);
             item.GetComponentInChildren<Image>().sprite = character.characterSprite;
             item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
         });

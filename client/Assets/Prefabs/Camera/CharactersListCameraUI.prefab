@@ -361,10 +361,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5741640993274027128}
   - component: {fileID: 248361080225995900}
-  - component: {fileID: 4258106593352095536}
   - component: {fileID: 308321332972754867}
   - component: {fileID: 6345098883407110135}
   - component: {fileID: 11606672839862008}
+  - component: {fileID: 2372228470634523547}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -405,20 +405,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4258106593352095536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953420686901047233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: MainScreen
-  LoadingSceneMode: 0
 --- !u!222 &308321332972754867
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -476,7 +462,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4258106593352095536}
+      - m_Target: {fileID: 2372228470634523547}
         m_TargetAssemblyTypeName: MoreMountains.Tools.MMLoadScene, MoreMountains.Tools
         m_MethodName: LoadScene
         m_Mode: 1
@@ -511,6 +497,21 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
+  isBackButton: 1
+--- !u!114 &2372228470634523547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953420686901047233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: MainScreen
+  LoadingSceneMode: 0
 --- !u!1 &1233662421940816831
 GameObject:
   m_ObjectHideFlags: 0

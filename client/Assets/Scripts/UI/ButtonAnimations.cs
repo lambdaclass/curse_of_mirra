@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 
 public class ButtonAnimations : MMTouchButton
 {
+    [SerializeField]
+    bool isBackButton;
+
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
@@ -15,7 +18,11 @@ public class ButtonAnimations : MMTouchButton
 
     public override void OnPointerUp(PointerEventData data)
     {
-        base.OnPointerDown(data);
+        base.OnPointerUp(data);
         transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+        if (isBackButton)
+        {
+            DOTween.Kill(transform);
+        }
     }
 }
