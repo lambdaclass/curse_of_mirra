@@ -379,7 +379,7 @@ defmodule DarkWorldsServer.Accounts do
       iex> get_users_count
       a_number
   """
-  def get_users_count do
+  def get_users_count() do
     Repo.aggregate(User, :count)
   end
 

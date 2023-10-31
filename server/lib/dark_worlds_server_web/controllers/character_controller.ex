@@ -72,7 +72,7 @@ defmodule DarkWorldsServerWeb.CharacterController do
     }
   end
 
-  defp generate_provisional_password do
+  defp generate_provisional_password() do
     @alphabet
     |> String.graphemes()
     |> Enum.take_random(16)
