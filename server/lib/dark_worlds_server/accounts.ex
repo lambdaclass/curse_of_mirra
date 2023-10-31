@@ -362,11 +362,11 @@ defmodule DarkWorldsServer.Accounts do
 
   ## Examples
 
-      iex> get_user_by_device_client_id(valid_device_client_id)
-      %User{}
+    iex> get_user_by_device_client_id(valid_device_client_id)
+    %User{}
 
-      iex> get_user_by_device_client_id(inexistent_device_client_id)
-      nil
+    iex> get_user_by_device_client_id(inexistent_device_client_id)
+    nil
   """
   def get_user_by_device_client_id(device_client_id) do
     Repo.get_by(User, device_client_id: device_client_id)
@@ -381,5 +381,14 @@ defmodule DarkWorldsServer.Accounts do
   """
   def get_users_count do
     Repo.aggregate(User, :count)
+  end
+
+  @doc """
+
+  """
+  def update_user_selected_character(user, selected_character) do
+    user
+    |> User.selected_character_changeset(%{selected_character: selected_character})
+    |> Repo.update()
   end
 end

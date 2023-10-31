@@ -22,16 +22,27 @@ defmodule DarkWorldsServerWeb.CharacterController do
         json(conn, user_response(user))
 
       {:error, changeset} ->
-        IO.inspect(changeset)
-        json(conn, %{device_client_id: "ALREADY_TAKEN", selected_character: "ALREADY_TAKEN"})
+        json(conn, %{error: "USER_ALREADY_TAKEN"})
     end
   end
 
   def update_player_character_name(
         conn,
-        %{"device_client_id" => _device_client_id, "selected_character" => _selected_character} = params
+        %{"device_client_id" => device_client_id, "selected_character" => selected_character}
       ) do
-    json(conn, params)
+    user = Accounts.get_user_by_device_client_id(device_client_id)
+
+    if is_nil(user) do
+      json(conn, %{error: "INEXISTENT_USER"})
+    else
+      case Accounts.update_user_selected_character(user, selected_character) do
+        {:ok, user} ->
+          json(conn, user_response(user))
+
+        {:error, _changeset} ->
+          json(conn, %{error: "An error has occurred"})
+      end
+    end
   end
 
   def user_response(nil) do
