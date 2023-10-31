@@ -10,5 +10,7 @@ defmodule DarkWorldsServer.Repo.Migrations.AddNewFieldsToUsersSchema do
       add :most_used_character, :string, default: "h4ck"
       add :experience, :float, default: 0
     end
+
+    create unique_index(:users, :device_client_id)
   end
 end
