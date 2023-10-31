@@ -62,6 +62,7 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
 
     private Vector3 ClampJoystickPositionToScreen(PointerEventData eventData)
     {
+        Debug.Log("position: " + eventData.position);
         positionY = eventData.position.y;
 
         positionX = eventData.position.x;
