@@ -1,5 +1,5 @@
 defmodule DarkWorldsServer.Accounts.User do
-  use Ecto.Schema
+  use DarkWorldsServer.Schema
   import Ecto.Changeset
 
   schema "users" do
