@@ -356,4 +356,30 @@ defmodule DarkWorldsServer.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Gets a user by username, returns nil if the user doesn't exists
+
+  ## Examples
+
+      iex> get_user_by_username(valid_username)
+      %User{}
+
+      iex> get_user_by_username(inexistent_username)
+      nil
+  """
+  def get_user_by_username(username) do
+    Repo.get_by(User, username: username)
+  end
+
+  @doc """
+  Gets the current users count in the database
+
+  ## Examples
+      iex> get_users_count
+      a_number
+  """
+  def get_users_count do
+    Repo.aggregate(User, :count)
+  end
 end
