@@ -128,7 +128,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp decide_action(
-         %{objective: :wander, current_wandering_position: wandering_position} = bot_state,
+         %{objective: :wander} = bot_state,
          bot_id,
          players,
          _game_state,
@@ -136,17 +136,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
        ) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
-    if bot do
-      target =
-        calculate_circle_point(
-          bot.position,
-          wandering_position
-        )
-
-      Map.put(bot_state, :action, {:move, target})
-    else
-      Map.put(bot_state, :action, {:nothing, nil})
-    end
+    set_correct_wander_state(bot, bot_state)
   end
 
   defp decide_action(
@@ -161,8 +151,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     closest_entity =
       Enum.min_by([List.first(players), List.first(loots)], fn e -> if e, do: e.distance_to_entity end)
 
-    skill = skill_would_hit(bot, closest_entity)
-
     amount_of_players_in_flee_proximity =
       players
       |> Enum.count(fn p -> p.distance_to_entity < @range_of_players_to_flee end)
@@ -170,11 +158,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     cond do
       amount_of_players_in_flee_proximity >= @amount_of_players_to_flee ->
         %{direction_to_entity: {x, y}} = hd(players)
-        new_direction = {-x, -y}
-        Map.put(bot_state, :action, {:move, new_direction})
+        flee_direction = {-x, -y}
+        Map.put(bot_state, :action, {:move, flee_direction})
 
-      closest_entity.type == :enemy and not is_nil(skill) ->
-        Map.put(bot_state, :action, {:attack, closest_entity, skill})
+      closest_entity.type == :enemy and skill_would_hit?(bot, closest_entity) ->
+        Map.put(bot_state, :action, {:attack, closest_entity, :basic_attack})
 
       true ->
         Map.put(bot_state, :action, {:move, closest_entity.direction_to_entity})
@@ -323,16 +311,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 
-  defp skill_would_hit(bot, %{distance_to_entity: distance_to_entity}) do
-    skill =
-      Map.get(bot.character, :skill_basic)
+  defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
+    skill = Map.get(bot.character, :skill_basic)
 
-    if skill.skill_range >= distance_to_entity do
-      :basic_attack
-    end
+    skill.skill_range >= distance_to_entity
   end
 
-  defp skill_would_hit(_bot, _closest_entities), do: nil
+  defp skill_would_hit?(_bot, _closest_entities), do: nil
 
   def maybe_put_wandering_position(
         %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state,
@@ -384,5 +369,17 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     }
 
     Map.merge(bot_state, %{current_wandering_position: wandering_position, objective: :wander})
+  end
+
+  defp set_correct_wander_state(nil, bot_state), do: Map.put(bot_state, :action, {:nothing, nil})
+
+  defp set_correct_wander_state(bot, %{current_wandering_position: wandering_position} = bot_state) do
+    target =
+      calculate_circle_point(
+        bot.position,
+        wandering_position
+      )
+
+    Map.put(bot_state, :action, {:move, target})
   end
 end
