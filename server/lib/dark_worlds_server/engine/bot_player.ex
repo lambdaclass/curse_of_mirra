@@ -144,7 +144,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp decide_action(
-         %{objective: :attack_enemy} = bot_state,
+         %{objective: :chase_entity} = bot_state,
          bot_id,
          _players,
          %{game_state: %{myrra_state: myrra_state}},
@@ -162,7 +162,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp decide_action(
-         %{objective: :attack_enemy} = bot_state,
+         %{objective: :chase_entity} = bot_state,
          _bot_id,
          _players,
          _state,
@@ -241,7 +241,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
               :flee_from_zone
 
             not Enum.empty?(closest_entity) ->
-              :attack_enemy
+              :chase_entity
 
             true ->
               :wander
