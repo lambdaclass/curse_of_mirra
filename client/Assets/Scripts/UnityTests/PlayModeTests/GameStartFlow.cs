@@ -23,13 +23,13 @@ public class GameStartFlow : InputTestFixture
     {
 
         GameObject newLobbyButton = GameObject.Find("NewLobbyButton");
-        yield return CoClickButton(newLobbyButton);
+        yield return TestingUtils.CoClickButton(newLobbyButton);
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
         yield return new WaitForSeconds(2f);
 
         GameObject launchGameButton = GameObject.Find("LaunchGameButton");
-        yield return CoClickButton(launchGameButton);
+        yield return TestingUtils.CoClickButton(launchGameButton);
         yield return new WaitForSeconds(2f);
 
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
@@ -37,26 +37,14 @@ public class GameStartFlow : InputTestFixture
 
         GameObject selectH4ckButton = GameObject.Find("H4ck");
         Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(false));
-        yield return CoClickButton(selectH4ckButton);
+        yield return TestingUtils.CoClickButton(selectH4ckButton);
         yield return new WaitForSeconds(2f);
         Assert.That(selectH4ckButton.GetComponent<UICharacterItem>().selected, Is.EqualTo(true));
         yield return new WaitForSeconds(2f);
 
         GameObject confirmButton = GameObject.Find("ConfirmButton");
-        yield return CoClickButton(confirmButton);
+        yield return TestingUtils.CoClickButton(confirmButton);
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Battle"));
-    }
-
-    IEnumerator CoClickButton(GameObject go)
-    {
-        // simulate a button click  
-        var pointer = new PointerEventData(EventSystem.current);
-
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerEnterHandler);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerDownHandler);
-        yield return new WaitForSeconds(0.1f);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerUpHandler);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerClickHandler);
     }
 }
