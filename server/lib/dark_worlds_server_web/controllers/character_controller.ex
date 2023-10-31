@@ -6,12 +6,12 @@ defmodule DarkWorldsServerWeb.CharacterController do
 
   @alphabet "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-  def player_character_name(conn, %{"device_client_id" => device_client_id}) do
+  def get_player(conn, %{"device_client_id" => device_client_id}) do
     user = DarkWorldsServer.Accounts.get_user_by_device_client_id(device_client_id)
     json(conn, user_response(user))
   end
 
-  def set_player_character_name(conn, %{
+  def create_player(conn, %{
         "device_client_id" => device_client_id,
         "selected_character" => selected_character
       }) do
@@ -21,12 +21,12 @@ defmodule DarkWorldsServerWeb.CharacterController do
       {:ok, user} ->
         json(conn, user_response(user))
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         json(conn, %{error: "USER_ALREADY_TAKEN"})
     end
   end
 
-  def update_player_character_name(
+  def update_player(
         conn,
         %{"device_client_id" => device_client_id, "selected_character" => selected_character}
       ) do
