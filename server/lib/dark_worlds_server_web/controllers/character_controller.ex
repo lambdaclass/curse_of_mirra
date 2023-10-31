@@ -23,7 +23,7 @@ defmodule DarkWorldsServerWeb.CharacterController do
     end
   end
 
-  def update_player_character_name(conn, %{"username" => username, "character_name" => character_name}) do
+  def update_player_character_name(conn, %{"username" => username, "character_name" => character_name} = params) do
     json(conn, params)
   end
 
