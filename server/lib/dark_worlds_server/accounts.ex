@@ -358,18 +358,18 @@ defmodule DarkWorldsServer.Accounts do
   end
 
   @doc """
-  Gets a user by username, returns nil if the user doesn't exists
+  Gets a user by device_client_id, returns nil if the user doesn't exists
 
   ## Examples
 
-      iex> get_user_by_username(valid_username)
+      iex> get_user_by_device_client_id(valid_device_client_id)
       %User{}
 
-      iex> get_user_by_username(inexistent_username)
+      iex> get_user_by_device_client_id(inexistent_device_client_id)
       nil
   """
-  def get_user_by_username(username) do
-    Repo.get_by(User, username: username)
+  def get_user_by_device_client_id(device_client_id) do
+    Repo.get_by(User, device_client_id: device_client_id)
   end
 
   @doc """

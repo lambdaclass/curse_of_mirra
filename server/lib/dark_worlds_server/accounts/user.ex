@@ -8,7 +8,12 @@ defmodule DarkWorldsServer.Accounts.User do
     field(:hashed_password, :string, redact: true)
     field(:confirmed_at, :naive_datetime)
     field(:username, :string)
-    field(:character_name, :string)
+    field(:selected_character, :string)
+    field(:device_client_id, :string)
+    field(:total_kills, :integer)
+    field(:total_wins, :integer)
+    field(:most_used_character, :string)
+    field(:experience, :float)
 
     timestamps()
   end
@@ -38,11 +43,12 @@ defmodule DarkWorldsServer.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :username, :password, :character_name])
+    |> cast(attrs, [:email, :username, :password, :selected_character, :device_client_id])
     |> validate_required(:username)
     |> validate_email(opts)
     |> validate_password(opts)
     |> maybe_validate_unique_username(opts)
+    |> unique_constraint(:device_client_id)
   end
 
   defp validate_email(changeset, opts) do
