@@ -29,6 +29,12 @@ public enum UIType
     Select
 }
 
+public enum SkillType
+{
+    Basic,
+    Secondary
+}
+
 public class CustomInputManager : InputManager
 {
     [SerializeField]
@@ -119,7 +125,10 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, characterInfo.skillBackground);
+        SkillBasic.SetInitialSprite(
+            characterInfo.skillsInfo[0].skillSprite,
+            characterInfo.skillBackground
+        );
         Skill1.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground

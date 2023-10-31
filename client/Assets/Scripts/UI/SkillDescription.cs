@@ -10,20 +10,19 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
 
     [SerializeField]
     public Image skillBorder;
+
+    [SerializeField]
     SkillsDetailHandler skillsDetailHandler;
 
     public void SetSkillDescription(SkillInfo skillInfo)
     {
         skillData = skillInfo;
         skillSprite = skillInfo.skillSprite;
-        skillsDetailHandler = transform.parent.transform.parent.GetComponent<SkillsDetailHandler>();
 
         GetComponent<Image>().sprite = skillSprite;
 
         // The first list element always starts with a selected display
-        GameObject firstGameObject = transform.parent.transform.parent
-            .GetComponent<SkillsDetailHandler>()
-            .skillsList[0].gameObject;
+        GameObject firstGameObject = skillsDetailHandler.skillsList[0].gameObject;
         if (this.gameObject == firstGameObject)
         {
             skillsDetailHandler.ResetSelectSkill(this);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class MainScreenModelManager : MonoBehaviour
+public class UIModelManager : MonoBehaviour
 {
     [SerializeField]
     GameObject playerModelContainer;
@@ -11,19 +11,24 @@ public class MainScreenModelManager : MonoBehaviour
     [SerializeField]
     List<GameObject> playerModels;
 
-    GameObject modelClone;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetModel(CoMCharacter character = null)
     {
         int index = Random.Range(0, playerModels.Count);
         string name = playerModels[index].name;
-        GameObject playerModel = playerModels.Single(playerModel => playerModel.name == name);
-        modelClone = Instantiate(
+        GameObject playerModel =
+            character != null
+                ? character.UIModel
+                : playerModels.Single(playerModel => playerModel.name == name);
+        GameObject modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
             playerModel.transform.rotation,
             playerModelContainer.transform
         );
+    }
+
+    public void RemoveCurrentMode()
+    {
+        Destroy(playerModelContainer.transform.GetChild(0).gameObject);
     }
 }
