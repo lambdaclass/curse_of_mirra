@@ -149,6 +149,38 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
+  defp decide_action(
+         %{objective: :chase_entity} = bot_state,
+         bot_id,
+         _players,
+         %{game_state: %{myrra_state: myrra_state}},
+         %{players: players, loots: loots}
+       ) do
+    bot = Enum.find(myrra_state.players, fn player -> player.id == bot_id end)
+
+    closest_entity =
+      Enum.min_by([List.first(players), List.first(loots)], fn e -> if e, do: e.distance_to_entity end)
+
+    skill = skill_would_hit(bot, closest_entity)
+
+    amount_of_players_in_flee_proximity =
+      players
+      |> Enum.count(fn p -> p.distance_to_entity < @range_of_players_to_flee end)
+
+    cond do
+      amount_of_players_in_flee_proximity >= @amount_of_players_to_flee ->
+        %{direction_to_entity: {x, y}} = hd(players)
+        new_direction = {-x, -y}
+        Map.put(bot_state, :action, {:move, new_direction})
+
+      closest_entity.type == :enemy and not is_nil(skill) ->
+        Map.put(bot_state, :action, {:attack, closest_entity, skill})
+
+      true ->
+        Map.put(bot_state, :action, {:move, closest_entity.direction_to_entity})
+    end
+  end
+
   defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entities) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
