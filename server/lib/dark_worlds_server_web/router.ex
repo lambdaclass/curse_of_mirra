@@ -35,7 +35,7 @@ defmodule DarkWorldsServerWeb.Router do
   end
 
   scope "/", DarkWorldsServerWeb do
-    get "/get_player_character_name/:username", CharacterController, :player_character_name
+    get "/get_player_character_name/:device_client_id", CharacterController, :player_character_name
     post "/set_player_character_name", CharacterController, :set_player_character_name
     put "/update_player_character_name", CharacterController, :update_player_character_name
   end
