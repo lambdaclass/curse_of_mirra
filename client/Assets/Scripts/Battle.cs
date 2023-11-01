@@ -42,7 +42,7 @@ public class Battle : MonoBehaviour
         Slowed = PlayerEffect.Slowed,
         Paralyzed = PlayerEffect.Paralyzed,
         Poisoned = PlayerEffect.Poisoned,
-        // InDamageZone = PlayerEffect.OutOfArea
+        OutOfArea = PlayerEffect.OutOfArea
     }
 
     void Start()
@@ -865,9 +865,7 @@ public class Battle : MonoBehaviour
             string name = Enum.GetName(typeof(StateEffects), effect);
             bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
             CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-            if(hasEffect) {
-                print("has effect: " + effect);
-            }
+            // print(name + " " + hasEffect);
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }

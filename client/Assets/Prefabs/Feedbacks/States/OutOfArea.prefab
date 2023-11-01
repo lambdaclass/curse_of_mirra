@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6637807221728859361}
   - component: {fileID: 6120305692645052936}
   m_Layer: 0
-  m_Name: DamageZone
+  m_Name: OutOfArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,8 +285,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.33
+      scalar: 0.6
+      minScalar: 0.45
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4485,17 +4485,17 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -4.5274153
-          outSlope: -4.5274153
+          inSlope: -6.7131257
+          outSlope: -6.7131257
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.44175315
+          time: 0.2979238
           value: -1
-          inSlope: -4.5274153
-          outSlope: -4.5274153
+          inSlope: -6.7131257
+          outSlope: -6.7131257
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334

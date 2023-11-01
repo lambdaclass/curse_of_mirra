@@ -483,7 +483,7 @@ MonoBehaviour:
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
   - {fileID: 305740109525267919}
-  - {fileID: 8078260364030063346}
+  - {fileID: 5395175593027007493}
   feedbacksPrefabs:
   - {fileID: 6057499254784400716}
   damageOverlayColor:
@@ -651,6 +651,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: m_Name
+      value: OutOfArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -712,6 +717,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5395175593027007493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6057499254784400716 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
@@ -730,12 +741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8078260364030063346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3426755726173006851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8699783014714598281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,

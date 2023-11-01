@@ -48,6 +48,10 @@ public class CharacterFeedbacks : MonoBehaviour
     public void SetActiveStateFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksStatesPrefabs.Find(el => el.name == name);
+        // if(name == "OutOfArea") {
+        //     print(feedbackToActivate);
+        // }
+        print(feedbackToActivate);
         feedbackToActivate?.SetActive(active);
     }
 
