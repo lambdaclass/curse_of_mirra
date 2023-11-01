@@ -98,13 +98,6 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
 
-    # # TODO this is the counterpart of the TODO tag in play_websocket.ex:43
-    # # That module should handle this join.
-    # ## Setup each player in engine_runner
-    # Enum.each(state.players, fn player_id ->
-    #   :ok = EngineRunner.join(game_pid, player_id, "h4ck")
-    # end)
-
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
@@ -159,7 +152,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:is_lobby_full?, state) do
     # TODO start the game when lobby is full
     case Enum.count(state[:players]) do
-      10 -> {:stop, :normal, state}
+      4 ->
+        send(self(), :start_game)
+          {:noreply, state}
       _ -> {:noreply, state}
     end
   end
