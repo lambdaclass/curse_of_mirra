@@ -28,8 +28,8 @@ message GameEffectsConfig {
 message GameStateConfig {
     uint64 width = 1;
     uint64 height = 2;
-    optional MapModification map_modification = 3;
-    optional MillisTime loot_interval_ms = 4;
+    MapModification map_modification = 3;
+    uint64 loot_interval_ms = 4;
 }
 
 message GameLootsConfig {
@@ -101,8 +101,8 @@ message GameProjectile {
     uint64 base_size = 4;
     bool player_collision = 5;
     repeated string on_hit_effect = 6;
-    optional uint64 max_distance = 7;
-    optional float duration_ms = 8;
+    uint64 max_distance = 7;
+    float duration_ms = 8;
 }
 
 /* Represents a character in the game
@@ -128,7 +128,7 @@ message GameCharacter {
 */
 message GameSkill {
     string name = 1;
-    MillisTime cooldown_ms = 2;
+    uint64 cooldown_ms = 2;
     bool is_passive = 3;
     repeated Mechanic mechanics = 4;
 }
@@ -154,14 +154,14 @@ message GameSkill {
 message Mechanic {
     string name = 1;
     repeated string effects = 2;
-    optional uint64 damage = 3;
-    optional uint64 range = 4;
-    optional uint64 cone_angle = 5;
+    uint64 damage = 3;
+    uint64 range = 4;
+    uint64 cone_angle = 5;
     repeated string on_hit_effects = 6;
-    optional GameProjectile projectile = 7;
-    optional uint64 count = 8;
-    optional MillisTime duration_ms = 9;
-    optional uint64 max_range = 10;
+    GameProjectile projectile = 7;
+    uint64 count = 8;
+    uint64 duration_ms = 9;
+    uint64 max_range = 10;
 }
 
 /* Represents an effect acting on a player.
@@ -188,13 +188,13 @@ message GameEffect {
 
   message Duration {
     string type = 1;
-    MillisTime duration_ms = 2;
+    uint64 duration_ms = 2;
   }
 
   message Periodic {
     string type = 1;
     string instant_application = 2;
-    MillisTime interval_ms = 3;
+    uint64 interval_ms = 3;
     uint64 trigger_count = 4;
   }
 }

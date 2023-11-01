@@ -31,64 +31,58 @@ public static partial class ConfigReflection {
           "bWVQcm9qZWN0aWxlc0NvbmZpZxIrChBnYW1lU2tpbGxzQ29uZmlnGAYgASgL",
           "MhEuR2FtZVNraWxsc0NvbmZpZyI6ChRHYW1lQ2hhcmFjdGVyc0NvbmZpZxIi",
           "CgpjaGFyYWN0ZXJzGAEgAygLMg4uR2FtZUNoYXJhY3RlciIxChFHYW1lRWZm",
-          "ZWN0c0NvbmZpZxIcCgdlZmZlY3RzGAEgAygLMgsuR2FtZUVmZmVjdCLDAQoP",
-          "R2FtZVN0YXRlQ29uZmlnEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEo",
-          "BBIvChBtYXBfbW9kaWZpY2F0aW9uGAMgASgLMhAuTWFwTW9kaWZpY2F0aW9u",
-          "SACIAQESMAoWc3Bhd25fbG9vdF9pbnRlcnZhbF9tcxgEIAEoCzILLk1pbGxp",
-          "c1RpbWVIAYgBAUITChFfbWFwX21vZGlmaWNhdGlvbkIZChdfc3Bhd25fbG9v",
-          "dF9pbnRlcnZhbF9tcyIrCg9HYW1lTG9vdHNDb25maWcSGAoFbG9vdHMYASAD",
-          "KAsyCS5HYW1lTG9vdCJEChVHYW1lUHJvamVjdGlsZXNDb25maWcSKwoScHJv",
-          "amVjdGlsZXNfY29uZmlnGAEgAygLMg8uR2FtZVByb2plY3RpbGUiLgoQR2Ft",
-          "ZVNraWxsc0NvbmZpZxIaCgZza2lsbHMYASADKAsyCi5HYW1lU2tpbGwiugEK",
-          "D01hcE1vZGlmaWNhdGlvbhIjCgxtb2RpZmljYXRpb24YASABKAsyDS5Nb2Rp",
-          "ZmljYXRpb24SFwoPc3RhcnRpbmdfcmFkaXVzGAIgASgEEhYKDm1pbmltdW1f",
-          "cmFkaXVzGAMgASgEEhIKCm1heF9yYWRpdXMYBCABKAQSHgoWb3V0c2lkZV9y",
-          "YWRpdXNfZWZmZWN0cxgFIAMoCRIdChVpbnNpZGVfcmFkaXVzX2VmZmVjdHMY",
-          "BiADKAkiLwoMTW9kaWZpY2F0aW9uEhAKCG1vZGlmaWVyGAEgASgJEg0KBXZh",
-          "bHVlGAIgASgDIjcKCEdhbWVMb290EgwKBG5hbWUYASABKAkSDAoEc2l6ZRgC",
-          "IAEoBBIPCgdlZmZlY3RzGAMgAygJIuEBCg5HYW1lUHJvamVjdGlsZRIMCgRu",
-          "YW1lGAEgASgJEhMKC2Jhc2VfZGFtYWdlGAIgASgEEhIKCmJhc2Vfc3BlZWQY",
-          "AyABKAQSEQoJYmFzZV9zaXplGAQgASgEEhgKEHBsYXllcl9jb2xsaXNpb24Y",
-          "BSABKAgSFQoNb25faGl0X2VmZmVjdBgGIAMoCRIZCgxtYXhfZGlzdGFuY2UY",
-          "ByABKARIAIgBARIYCgtkdXJhdGlvbl9tcxgIIAEoAkgBiAEBQg8KDV9tYXhf",
-          "ZGlzdGFuY2VCDgoMX2R1cmF0aW9uX21zInAKDUdhbWVDaGFyYWN0ZXISDAoE",
-          "bmFtZRgBIAEoCRIOCgZhY3RpdmUYAiABKAgSEgoKYmFzZV9zcGVlZBgDIAEo",
-          "BBIRCgliYXNlX3NpemUYBCABKAQSGgoGc2tpbGxzGAUgAygLMgouR2FtZVNr",
-          "aWxsIm0KCUdhbWVTa2lsbBIMCgRuYW1lGAEgASgJEiAKC2Nvb2xkb3duX21z",
-          "GAIgASgLMgsuTWlsbGlzVGltZRISCgppc19wYXNzaXZlGAMgASgIEhwKCW1l",
-          "Y2hhbmljcxgEIAMoCzIJLk1lY2hhbmljItsCCghNZWNoYW5pYxIMCgRuYW1l",
-          "GAEgASgJEg8KB2VmZmVjdHMYAiADKAkSEwoGZGFtYWdlGAMgASgESACIAQES",
-          "EgoFcmFuZ2UYBCABKARIAYgBARIXCgpjb25lX2FuZ2xlGAUgASgESAKIAQES",
-          "FgoOb25faGl0X2VmZmVjdHMYBiADKAkSKAoKcHJvamVjdGlsZRgHIAEoCzIP",
-          "LkdhbWVQcm9qZWN0aWxlSAOIAQESEgoFY291bnQYCCABKARIBIgBARIlCgtk",
-          "dXJhdGlvbl9tcxgJIAEoCzILLk1pbGxpc1RpbWVIBYgBARIWCgltYXhfcmFu",
-          "Z2UYCiABKARIBogBAUIJCgdfZGFtYWdlQggKBl9yYW5nZUINCgtfY29uZV9h",
-          "bmdsZUINCgtfcHJvamVjdGlsZUIICgZfY291bnRCDgoMX2R1cmF0aW9uX21z",
-          "QgwKCl9tYXhfcmFuZ2UiygIKCkdhbWVFZmZlY3QSDAoEbmFtZRgBIAEoCRIV",
-          "CgtzaW1wbGVfdHlwZRgCIAEoCUgAEi0KDWR1cmF0aW9uX3R5cGUYAyABKAsy",
-          "FC5HYW1lRWZmZWN0LkR1cmF0aW9uSAASLQoNcGVyaW9kaWNfdHlwZRgEIAEo",
-          "CzIULkdhbWVFZmZlY3QuUGVyaW9kaWNIABo6CghEdXJhdGlvbhIMCgR0eXBl",
-          "GAEgASgJEiAKC2R1cmF0aW9uX21zGAIgASgLMgsuTWlsbGlzVGltZRpuCghQ",
-          "ZXJpb2RpYxIMCgR0eXBlGAEgASgJEhsKE2luc3RhbnRfYXBwbGljYXRpb24Y",
-          "AiABKAkSIAoLaW50ZXJ2YWxfbXMYAyABKAsyCy5NaWxsaXNUaW1lEhUKDXRy",
-          "aWdnZXJfY291bnQYBCABKARCDQoLZWZmZWN0X3R5cGViBnByb3RvMw=="));
+          "ZWN0c0NvbmZpZxIcCgdlZmZlY3RzGAEgAygLMgsuR2FtZUVmZmVjdCJ2Cg9H",
+          "YW1lU3RhdGVDb25maWcSDQoFd2lkdGgYASABKAQSDgoGaGVpZ2h0GAIgASgE",
+          "EioKEG1hcF9tb2RpZmljYXRpb24YAyABKAsyEC5NYXBNb2RpZmljYXRpb24S",
+          "GAoQbG9vdF9pbnRlcnZhbF9tcxgEIAEoBCIrCg9HYW1lTG9vdHNDb25maWcS",
+          "GAoFbG9vdHMYASADKAsyCS5HYW1lTG9vdCJEChVHYW1lUHJvamVjdGlsZXND",
+          "b25maWcSKwoScHJvamVjdGlsZXNfY29uZmlnGAEgAygLMg8uR2FtZVByb2pl",
+          "Y3RpbGUiLgoQR2FtZVNraWxsc0NvbmZpZxIaCgZza2lsbHMYASADKAsyCi5H",
+          "YW1lU2tpbGwiugEKD01hcE1vZGlmaWNhdGlvbhIjCgxtb2RpZmljYXRpb24Y",
+          "ASABKAsyDS5Nb2RpZmljYXRpb24SFwoPc3RhcnRpbmdfcmFkaXVzGAIgASgE",
+          "EhYKDm1pbmltdW1fcmFkaXVzGAMgASgEEhIKCm1heF9yYWRpdXMYBCABKAQS",
+          "HgoWb3V0c2lkZV9yYWRpdXNfZWZmZWN0cxgFIAMoCRIdChVpbnNpZGVfcmFk",
+          "aXVzX2VmZmVjdHMYBiADKAkiLwoMTW9kaWZpY2F0aW9uEhAKCG1vZGlmaWVy",
+          "GAEgASgJEg0KBXZhbHVlGAIgASgDIjcKCEdhbWVMb290EgwKBG5hbWUYASAB",
+          "KAkSDAoEc2l6ZRgCIAEoBBIPCgdlZmZlY3RzGAMgAygJIrYBCg5HYW1lUHJv",
+          "amVjdGlsZRIMCgRuYW1lGAEgASgJEhMKC2Jhc2VfZGFtYWdlGAIgASgEEhIK",
+          "CmJhc2Vfc3BlZWQYAyABKAQSEQoJYmFzZV9zaXplGAQgASgEEhgKEHBsYXll",
+          "cl9jb2xsaXNpb24YBSABKAgSFQoNb25faGl0X2VmZmVjdBgGIAMoCRIUCgxt",
+          "YXhfZGlzdGFuY2UYByABKAQSEwoLZHVyYXRpb25fbXMYCCABKAIicAoNR2Ft",
+          "ZUNoYXJhY3RlchIMCgRuYW1lGAEgASgJEg4KBmFjdGl2ZRgCIAEoCBISCgpi",
+          "YXNlX3NwZWVkGAMgASgEEhEKCWJhc2Vfc2l6ZRgEIAEoBBIaCgZza2lsbHMY",
+          "BSADKAsyCi5HYW1lU2tpbGwiYAoJR2FtZVNraWxsEgwKBG5hbWUYASABKAkS",
+          "EwoLY29vbGRvd25fbXMYAiABKAQSEgoKaXNfcGFzc2l2ZRgDIAEoCBIcCglt",
+          "ZWNoYW5pY3MYBCADKAsyCS5NZWNoYW5pYyLQAQoITWVjaGFuaWMSDAoEbmFt",
+          "ZRgBIAEoCRIPCgdlZmZlY3RzGAIgAygJEg4KBmRhbWFnZRgDIAEoBBINCgVy",
+          "YW5nZRgEIAEoBBISCgpjb25lX2FuZ2xlGAUgASgEEhYKDm9uX2hpdF9lZmZl",
+          "Y3RzGAYgAygJEiMKCnByb2plY3RpbGUYByABKAsyDy5HYW1lUHJvamVjdGls",
+          "ZRINCgVjb3VudBgIIAEoBBITCgtkdXJhdGlvbl9tcxgJIAEoBBIRCgltYXhf",
+          "cmFuZ2UYCiABKAQisAIKCkdhbWVFZmZlY3QSDAoEbmFtZRgBIAEoCRIVCgtz",
+          "aW1wbGVfdHlwZRgCIAEoCUgAEi0KDWR1cmF0aW9uX3R5cGUYAyABKAsyFC5H",
+          "YW1lRWZmZWN0LkR1cmF0aW9uSAASLQoNcGVyaW9kaWNfdHlwZRgEIAEoCzIU",
+          "LkdhbWVFZmZlY3QuUGVyaW9kaWNIABotCghEdXJhdGlvbhIMCgR0eXBlGAEg",
+          "ASgJEhMKC2R1cmF0aW9uX21zGAIgASgEGmEKCFBlcmlvZGljEgwKBHR5cGUY",
+          "ASABKAkSGwoTaW5zdGFudF9hcHBsaWNhdGlvbhgCIAEoCRITCgtpbnRlcnZh",
+          "bF9tcxgDIAEoBBIVCg10cmlnZ2VyX2NvdW50GAQgASgEQg0KC2VmZmVjdF90",
+          "eXBlYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::MessagesReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Config), global::Config.Parser, new[]{ "CharactersConfig", "EffectsConfig", "GameConfig", "LootsConfig", "ProjectilesConfig", "GameSkillsConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameCharactersConfig), global::GameCharactersConfig.Parser, new[]{ "Characters" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffectsConfig), global::GameEffectsConfig.Parser, new[]{ "Effects" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameStateConfig), global::GameStateConfig.Parser, new[]{ "Width", "Height", "MapModification", "SpawnLootIntervalMs" }, new[]{ "MapModification", "SpawnLootIntervalMs" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameStateConfig), global::GameStateConfig.Parser, new[]{ "Width", "Height", "MapModification", "LootIntervalMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameLootsConfig), global::GameLootsConfig.Parser, new[]{ "Loots" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameProjectilesConfig), global::GameProjectilesConfig.Parser, new[]{ "ProjectilesConfig" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameSkillsConfig), global::GameSkillsConfig.Parser, new[]{ "Skills" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MapModification), global::MapModification.Parser, new[]{ "Modification", "StartingRadius", "MinimumRadius", "MaxRadius", "OutsideRadiusEffects", "InsideRadiusEffects" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Modification), global::Modification.Parser, new[]{ "Modifier", "Value" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameLoot), global::GameLoot.Parser, new[]{ "Name", "Size", "Effects" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameProjectile), global::GameProjectile.Parser, new[]{ "Name", "BaseDamage", "BaseSpeed", "BaseSize", "PlayerCollision", "OnHitEffect", "MaxDistance", "DurationMs" }, new[]{ "MaxDistance", "DurationMs" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameProjectile), global::GameProjectile.Parser, new[]{ "Name", "BaseDamage", "BaseSpeed", "BaseSize", "PlayerCollision", "OnHitEffect", "MaxDistance", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameCharacter), global::GameCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "Skills" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameSkill), global::GameSkill.Parser, new[]{ "Name", "CooldownMs", "IsPassive", "Mechanics" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Mechanic), global::Mechanic.Parser, new[]{ "Name", "Effects", "Damage", "Range", "ConeAngle", "OnHitEffects", "Projectile", "Count", "DurationMs", "MaxRange" }, new[]{ "Damage", "Range", "ConeAngle", "Projectile", "Count", "DurationMs", "MaxRange" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Mechanic), global::Mechanic.Parser, new[]{ "Name", "Effects", "Damage", "Range", "ConeAngle", "OnHitEffects", "Projectile", "Count", "DurationMs", "MaxRange" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect), global::GameEffect.Parser, new[]{ "Name", "SimpleType", "DurationType", "PeriodicType" }, new[]{ "EffectType" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Duration), global::GameEffect.Types.Duration.Parser, new[]{ "Type", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Periodic), global::GameEffect.Types.Periodic.Parser, new[]{ "Type", "InstantApplication", "IntervalMs", "TriggerCount" }, null, null, null, null)})
         }));
@@ -925,7 +919,7 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     width_ = other.width_;
     height_ = other.height_;
     mapModification_ = other.mapModification_ != null ? other.mapModification_.Clone() : null;
-    spawnLootIntervalMs_ = other.spawnLootIntervalMs_ != null ? other.spawnLootIntervalMs_.Clone() : null;
+    lootIntervalMs_ = other.lootIntervalMs_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -971,15 +965,15 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     }
   }
 
-  /// <summary>Field number for the "spawn_loot_interval_ms" field.</summary>
-  public const int SpawnLootIntervalMsFieldNumber = 4;
-  private global::MillisTime spawnLootIntervalMs_;
+  /// <summary>Field number for the "loot_interval_ms" field.</summary>
+  public const int LootIntervalMsFieldNumber = 4;
+  private ulong lootIntervalMs_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::MillisTime SpawnLootIntervalMs {
-    get { return spawnLootIntervalMs_; }
+  public ulong LootIntervalMs {
+    get { return lootIntervalMs_; }
     set {
-      spawnLootIntervalMs_ = value;
+      lootIntervalMs_ = value;
     }
   }
 
@@ -1001,7 +995,7 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     if (Width != other.Width) return false;
     if (Height != other.Height) return false;
     if (!object.Equals(MapModification, other.MapModification)) return false;
-    if (!object.Equals(SpawnLootIntervalMs, other.SpawnLootIntervalMs)) return false;
+    if (LootIntervalMs != other.LootIntervalMs) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1012,7 +1006,7 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     if (Width != 0UL) hash ^= Width.GetHashCode();
     if (Height != 0UL) hash ^= Height.GetHashCode();
     if (mapModification_ != null) hash ^= MapModification.GetHashCode();
-    if (spawnLootIntervalMs_ != null) hash ^= SpawnLootIntervalMs.GetHashCode();
+    if (LootIntervalMs != 0UL) hash ^= LootIntervalMs.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1043,9 +1037,9 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
       output.WriteRawTag(26);
       output.WriteMessage(MapModification);
     }
-    if (spawnLootIntervalMs_ != null) {
-      output.WriteRawTag(34);
-      output.WriteMessage(SpawnLootIntervalMs);
+    if (LootIntervalMs != 0UL) {
+      output.WriteRawTag(32);
+      output.WriteUInt64(LootIntervalMs);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1069,9 +1063,9 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
       output.WriteRawTag(26);
       output.WriteMessage(MapModification);
     }
-    if (spawnLootIntervalMs_ != null) {
-      output.WriteRawTag(34);
-      output.WriteMessage(SpawnLootIntervalMs);
+    if (LootIntervalMs != 0UL) {
+      output.WriteRawTag(32);
+      output.WriteUInt64(LootIntervalMs);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1092,8 +1086,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     if (mapModification_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(MapModification);
     }
-    if (spawnLootIntervalMs_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(SpawnLootIntervalMs);
+    if (LootIntervalMs != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(LootIntervalMs);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1119,11 +1113,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
       }
       MapModification.MergeFrom(other.MapModification);
     }
-    if (other.spawnLootIntervalMs_ != null) {
-      if (spawnLootIntervalMs_ == null) {
-        SpawnLootIntervalMs = new global::MillisTime();
-      }
-      SpawnLootIntervalMs.MergeFrom(other.SpawnLootIntervalMs);
+    if (other.LootIntervalMs != 0UL) {
+      LootIntervalMs = other.LootIntervalMs;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1155,11 +1146,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
           input.ReadMessage(MapModification);
           break;
         }
-        case 34: {
-          if (spawnLootIntervalMs_ == null) {
-            SpawnLootIntervalMs = new global::MillisTime();
-          }
-          input.ReadMessage(SpawnLootIntervalMs);
+        case 32: {
+          LootIntervalMs = input.ReadUInt64();
           break;
         }
       }
@@ -1192,11 +1180,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
           input.ReadMessage(MapModification);
           break;
         }
-        case 34: {
-          if (spawnLootIntervalMs_ == null) {
-            SpawnLootIntervalMs = new global::MillisTime();
-          }
-          input.ReadMessage(SpawnLootIntervalMs);
+        case 32: {
+          LootIntervalMs = input.ReadUInt64();
           break;
         }
       }
@@ -2620,7 +2605,6 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 {
   private static readonly pb::MessageParser<GameProjectile> _parser = new pb::MessageParser<GameProjectile>(() => new GameProjectile());
   private pb::UnknownFieldSet _unknownFields;
-  private int _hasBits0;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pb::MessageParser<GameProjectile> Parser { get { return _parser; } }
@@ -2648,7 +2632,6 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public GameProjectile(GameProjectile other) : this() {
-    _hasBits0 = other._hasBits0;
     name_ = other.name_;
     baseDamage_ = other.baseDamage_;
     baseSpeed_ = other.baseSpeed_;
@@ -2743,23 +2726,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong MaxDistance {
-    get { if ((_hasBits0 & 1) != 0) { return maxDistance_; } else { return 0UL; } }
+    get { return maxDistance_; }
     set {
-      _hasBits0 |= 1;
       maxDistance_ = value;
     }
-  }
-  /// <summary>Gets whether the "max_distance" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasMaxDistance {
-    get { return (_hasBits0 & 1) != 0; }
-  }
-  /// <summary>Clears the value of the "max_distance" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearMaxDistance() {
-    _hasBits0 &= ~1;
   }
 
   /// <summary>Field number for the "duration_ms" field.</summary>
@@ -2768,23 +2738,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public float DurationMs {
-    get { if ((_hasBits0 & 2) != 0) { return durationMs_; } else { return 0F; } }
+    get { return durationMs_; }
     set {
-      _hasBits0 |= 2;
       durationMs_ = value;
     }
-  }
-  /// <summary>Gets whether the "duration_ms" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasDurationMs {
-    get { return (_hasBits0 & 2) != 0; }
-  }
-  /// <summary>Clears the value of the "duration_ms" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearDurationMs() {
-    _hasBits0 &= ~2;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2823,8 +2780,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
     if (PlayerCollision != false) hash ^= PlayerCollision.GetHashCode();
     hash ^= onHitEffect_.GetHashCode();
-    if (HasMaxDistance) hash ^= MaxDistance.GetHashCode();
-    if (HasDurationMs) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DurationMs);
+    if (MaxDistance != 0UL) hash ^= MaxDistance.GetHashCode();
+    if (DurationMs != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DurationMs);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2864,11 +2821,11 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteBool(PlayerCollision);
     }
     onHitEffect_.WriteTo(output, _repeated_onHitEffect_codec);
-    if (HasMaxDistance) {
+    if (MaxDistance != 0UL) {
       output.WriteRawTag(56);
       output.WriteUInt64(MaxDistance);
     }
-    if (HasDurationMs) {
+    if (DurationMs != 0F) {
       output.WriteRawTag(69);
       output.WriteFloat(DurationMs);
     }
@@ -2903,11 +2860,11 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteBool(PlayerCollision);
     }
     onHitEffect_.WriteTo(ref output, _repeated_onHitEffect_codec);
-    if (HasMaxDistance) {
+    if (MaxDistance != 0UL) {
       output.WriteRawTag(56);
       output.WriteUInt64(MaxDistance);
     }
-    if (HasDurationMs) {
+    if (DurationMs != 0F) {
       output.WriteRawTag(69);
       output.WriteFloat(DurationMs);
     }
@@ -2937,10 +2894,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       size += 1 + 1;
     }
     size += onHitEffect_.CalculateSize(_repeated_onHitEffect_codec);
-    if (HasMaxDistance) {
+    if (MaxDistance != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxDistance);
     }
-    if (HasDurationMs) {
+    if (DurationMs != 0F) {
       size += 1 + 4;
     }
     if (_unknownFields != null) {
@@ -2971,10 +2928,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       PlayerCollision = other.PlayerCollision;
     }
     onHitEffect_.Add(other.onHitEffect_);
-    if (other.HasMaxDistance) {
+    if (other.MaxDistance != 0UL) {
       MaxDistance = other.MaxDistance;
     }
-    if (other.HasDurationMs) {
+    if (other.DurationMs != 0F) {
       DurationMs = other.DurationMs;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -3454,7 +3411,7 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public GameSkill(GameSkill other) : this() {
     name_ = other.name_;
-    cooldownMs_ = other.cooldownMs_ != null ? other.cooldownMs_.Clone() : null;
+    cooldownMs_ = other.cooldownMs_;
     isPassive_ = other.isPassive_;
     mechanics_ = other.mechanics_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -3480,10 +3437,10 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
 
   /// <summary>Field number for the "cooldown_ms" field.</summary>
   public const int CooldownMsFieldNumber = 2;
-  private global::MillisTime cooldownMs_;
+  private ulong cooldownMs_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::MillisTime CooldownMs {
+  public ulong CooldownMs {
     get { return cooldownMs_; }
     set {
       cooldownMs_ = value;
@@ -3529,7 +3486,7 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
       return true;
     }
     if (Name != other.Name) return false;
-    if (!object.Equals(CooldownMs, other.CooldownMs)) return false;
+    if (CooldownMs != other.CooldownMs) return false;
     if (IsPassive != other.IsPassive) return false;
     if(!mechanics_.Equals(other.mechanics_)) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -3540,7 +3497,7 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (cooldownMs_ != null) hash ^= CooldownMs.GetHashCode();
+    if (CooldownMs != 0UL) hash ^= CooldownMs.GetHashCode();
     if (IsPassive != false) hash ^= IsPassive.GetHashCode();
     hash ^= mechanics_.GetHashCode();
     if (_unknownFields != null) {
@@ -3565,9 +3522,9 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (cooldownMs_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(CooldownMs);
+    if (CooldownMs != 0UL) {
+      output.WriteRawTag(16);
+      output.WriteUInt64(CooldownMs);
     }
     if (IsPassive != false) {
       output.WriteRawTag(24);
@@ -3588,9 +3545,9 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (cooldownMs_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(CooldownMs);
+    if (CooldownMs != 0UL) {
+      output.WriteRawTag(16);
+      output.WriteUInt64(CooldownMs);
     }
     if (IsPassive != false) {
       output.WriteRawTag(24);
@@ -3610,8 +3567,8 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (cooldownMs_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(CooldownMs);
+    if (CooldownMs != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(CooldownMs);
     }
     if (IsPassive != false) {
       size += 1 + 1;
@@ -3632,11 +3589,8 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
     if (other.Name.Length != 0) {
       Name = other.Name;
     }
-    if (other.cooldownMs_ != null) {
-      if (cooldownMs_ == null) {
-        CooldownMs = new global::MillisTime();
-      }
-      CooldownMs.MergeFrom(other.CooldownMs);
+    if (other.CooldownMs != 0UL) {
+      CooldownMs = other.CooldownMs;
     }
     if (other.IsPassive != false) {
       IsPassive = other.IsPassive;
@@ -3661,11 +3615,8 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
           Name = input.ReadString();
           break;
         }
-        case 18: {
-          if (cooldownMs_ == null) {
-            CooldownMs = new global::MillisTime();
-          }
-          input.ReadMessage(CooldownMs);
+        case 16: {
+          CooldownMs = input.ReadUInt64();
           break;
         }
         case 24: {
@@ -3695,11 +3646,8 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
           Name = input.ReadString();
           break;
         }
-        case 18: {
-          if (cooldownMs_ == null) {
-            CooldownMs = new global::MillisTime();
-          }
-          input.ReadMessage(CooldownMs);
+        case 16: {
+          CooldownMs = input.ReadUInt64();
           break;
         }
         case 24: {
@@ -3743,7 +3691,6 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
 {
   private static readonly pb::MessageParser<Mechanic> _parser = new pb::MessageParser<Mechanic>(() => new Mechanic());
   private pb::UnknownFieldSet _unknownFields;
-  private int _hasBits0;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pb::MessageParser<Mechanic> Parser { get { return _parser; } }
@@ -3771,7 +3718,6 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public Mechanic(Mechanic other) : this() {
-    _hasBits0 = other._hasBits0;
     name_ = other.name_;
     effects_ = other.effects_.Clone();
     damage_ = other.damage_;
@@ -3780,7 +3726,7 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     onHitEffects_ = other.onHitEffects_.Clone();
     projectile_ = other.projectile_ != null ? other.projectile_.Clone() : null;
     count_ = other.count_;
-    durationMs_ = other.durationMs_ != null ? other.durationMs_.Clone() : null;
+    durationMs_ = other.durationMs_;
     maxRange_ = other.maxRange_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -3820,23 +3766,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong Damage {
-    get { if ((_hasBits0 & 1) != 0) { return damage_; } else { return 0UL; } }
+    get { return damage_; }
     set {
-      _hasBits0 |= 1;
       damage_ = value;
     }
-  }
-  /// <summary>Gets whether the "damage" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasDamage {
-    get { return (_hasBits0 & 1) != 0; }
-  }
-  /// <summary>Clears the value of the "damage" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearDamage() {
-    _hasBits0 &= ~1;
   }
 
   /// <summary>Field number for the "range" field.</summary>
@@ -3845,23 +3778,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong Range {
-    get { if ((_hasBits0 & 2) != 0) { return range_; } else { return 0UL; } }
+    get { return range_; }
     set {
-      _hasBits0 |= 2;
       range_ = value;
     }
-  }
-  /// <summary>Gets whether the "range" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasRange {
-    get { return (_hasBits0 & 2) != 0; }
-  }
-  /// <summary>Clears the value of the "range" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearRange() {
-    _hasBits0 &= ~2;
   }
 
   /// <summary>Field number for the "cone_angle" field.</summary>
@@ -3870,23 +3790,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong ConeAngle {
-    get { if ((_hasBits0 & 4) != 0) { return coneAngle_; } else { return 0UL; } }
+    get { return coneAngle_; }
     set {
-      _hasBits0 |= 4;
       coneAngle_ = value;
     }
-  }
-  /// <summary>Gets whether the "cone_angle" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasConeAngle {
-    get { return (_hasBits0 & 4) != 0; }
-  }
-  /// <summary>Clears the value of the "cone_angle" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearConeAngle() {
-    _hasBits0 &= ~4;
   }
 
   /// <summary>Field number for the "on_hit_effects" field.</summary>
@@ -3918,31 +3825,18 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong Count {
-    get { if ((_hasBits0 & 8) != 0) { return count_; } else { return 0UL; } }
+    get { return count_; }
     set {
-      _hasBits0 |= 8;
       count_ = value;
     }
-  }
-  /// <summary>Gets whether the "count" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasCount {
-    get { return (_hasBits0 & 8) != 0; }
-  }
-  /// <summary>Clears the value of the "count" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearCount() {
-    _hasBits0 &= ~8;
   }
 
   /// <summary>Field number for the "duration_ms" field.</summary>
   public const int DurationMsFieldNumber = 9;
-  private global::MillisTime durationMs_;
+  private ulong durationMs_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::MillisTime DurationMs {
+  public ulong DurationMs {
     get { return durationMs_; }
     set {
       durationMs_ = value;
@@ -3955,23 +3849,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ulong MaxRange {
-    get { if ((_hasBits0 & 16) != 0) { return maxRange_; } else { return 0UL; } }
+    get { return maxRange_; }
     set {
-      _hasBits0 |= 16;
       maxRange_ = value;
     }
-  }
-  /// <summary>Gets whether the "max_range" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasMaxRange {
-    get { return (_hasBits0 & 16) != 0; }
-  }
-  /// <summary>Clears the value of the "max_range" field</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearMaxRange() {
-    _hasBits0 &= ~16;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3997,7 +3878,7 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if(!onHitEffects_.Equals(other.onHitEffects_)) return false;
     if (!object.Equals(Projectile, other.Projectile)) return false;
     if (Count != other.Count) return false;
-    if (!object.Equals(DurationMs, other.DurationMs)) return false;
+    if (DurationMs != other.DurationMs) return false;
     if (MaxRange != other.MaxRange) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -4008,14 +3889,14 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     hash ^= effects_.GetHashCode();
-    if (HasDamage) hash ^= Damage.GetHashCode();
-    if (HasRange) hash ^= Range.GetHashCode();
-    if (HasConeAngle) hash ^= ConeAngle.GetHashCode();
+    if (Damage != 0UL) hash ^= Damage.GetHashCode();
+    if (Range != 0UL) hash ^= Range.GetHashCode();
+    if (ConeAngle != 0UL) hash ^= ConeAngle.GetHashCode();
     hash ^= onHitEffects_.GetHashCode();
     if (projectile_ != null) hash ^= Projectile.GetHashCode();
-    if (HasCount) hash ^= Count.GetHashCode();
-    if (durationMs_ != null) hash ^= DurationMs.GetHashCode();
-    if (HasMaxRange) hash ^= MaxRange.GetHashCode();
+    if (Count != 0UL) hash ^= Count.GetHashCode();
+    if (DurationMs != 0UL) hash ^= DurationMs.GetHashCode();
+    if (MaxRange != 0UL) hash ^= MaxRange.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -4039,15 +3920,15 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteString(Name);
     }
     effects_.WriteTo(output, _repeated_effects_codec);
-    if (HasDamage) {
+    if (Damage != 0UL) {
       output.WriteRawTag(24);
       output.WriteUInt64(Damage);
     }
-    if (HasRange) {
+    if (Range != 0UL) {
       output.WriteRawTag(32);
       output.WriteUInt64(Range);
     }
-    if (HasConeAngle) {
+    if (ConeAngle != 0UL) {
       output.WriteRawTag(40);
       output.WriteUInt64(ConeAngle);
     }
@@ -4056,15 +3937,15 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(58);
       output.WriteMessage(Projectile);
     }
-    if (HasCount) {
+    if (Count != 0UL) {
       output.WriteRawTag(64);
       output.WriteUInt64(Count);
     }
-    if (durationMs_ != null) {
-      output.WriteRawTag(74);
-      output.WriteMessage(DurationMs);
+    if (DurationMs != 0UL) {
+      output.WriteRawTag(72);
+      output.WriteUInt64(DurationMs);
     }
-    if (HasMaxRange) {
+    if (MaxRange != 0UL) {
       output.WriteRawTag(80);
       output.WriteUInt64(MaxRange);
     }
@@ -4083,15 +3964,15 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteString(Name);
     }
     effects_.WriteTo(ref output, _repeated_effects_codec);
-    if (HasDamage) {
+    if (Damage != 0UL) {
       output.WriteRawTag(24);
       output.WriteUInt64(Damage);
     }
-    if (HasRange) {
+    if (Range != 0UL) {
       output.WriteRawTag(32);
       output.WriteUInt64(Range);
     }
-    if (HasConeAngle) {
+    if (ConeAngle != 0UL) {
       output.WriteRawTag(40);
       output.WriteUInt64(ConeAngle);
     }
@@ -4100,15 +3981,15 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(58);
       output.WriteMessage(Projectile);
     }
-    if (HasCount) {
+    if (Count != 0UL) {
       output.WriteRawTag(64);
       output.WriteUInt64(Count);
     }
-    if (durationMs_ != null) {
-      output.WriteRawTag(74);
-      output.WriteMessage(DurationMs);
+    if (DurationMs != 0UL) {
+      output.WriteRawTag(72);
+      output.WriteUInt64(DurationMs);
     }
-    if (HasMaxRange) {
+    if (MaxRange != 0UL) {
       output.WriteRawTag(80);
       output.WriteUInt64(MaxRange);
     }
@@ -4126,26 +4007,26 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
     size += effects_.CalculateSize(_repeated_effects_codec);
-    if (HasDamage) {
+    if (Damage != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Damage);
     }
-    if (HasRange) {
+    if (Range != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Range);
     }
-    if (HasConeAngle) {
+    if (ConeAngle != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ConeAngle);
     }
     size += onHitEffects_.CalculateSize(_repeated_onHitEffects_codec);
     if (projectile_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Projectile);
     }
-    if (HasCount) {
+    if (Count != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Count);
     }
-    if (durationMs_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(DurationMs);
+    if (DurationMs != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DurationMs);
     }
-    if (HasMaxRange) {
+    if (MaxRange != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxRange);
     }
     if (_unknownFields != null) {
@@ -4164,13 +4045,13 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       Name = other.Name;
     }
     effects_.Add(other.effects_);
-    if (other.HasDamage) {
+    if (other.Damage != 0UL) {
       Damage = other.Damage;
     }
-    if (other.HasRange) {
+    if (other.Range != 0UL) {
       Range = other.Range;
     }
-    if (other.HasConeAngle) {
+    if (other.ConeAngle != 0UL) {
       ConeAngle = other.ConeAngle;
     }
     onHitEffects_.Add(other.onHitEffects_);
@@ -4180,16 +4061,13 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       }
       Projectile.MergeFrom(other.Projectile);
     }
-    if (other.HasCount) {
+    if (other.Count != 0UL) {
       Count = other.Count;
     }
-    if (other.durationMs_ != null) {
-      if (durationMs_ == null) {
-        DurationMs = new global::MillisTime();
-      }
-      DurationMs.MergeFrom(other.DurationMs);
+    if (other.DurationMs != 0UL) {
+      DurationMs = other.DurationMs;
     }
-    if (other.HasMaxRange) {
+    if (other.MaxRange != 0UL) {
       MaxRange = other.MaxRange;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -4242,11 +4120,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           Count = input.ReadUInt64();
           break;
         }
-        case 74: {
-          if (durationMs_ == null) {
-            DurationMs = new global::MillisTime();
-          }
-          input.ReadMessage(DurationMs);
+        case 72: {
+          DurationMs = input.ReadUInt64();
           break;
         }
         case 80: {
@@ -4303,11 +4178,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           Count = input.ReadUInt64();
           break;
         }
-        case 74: {
-          if (durationMs_ == null) {
-            DurationMs = new global::MillisTime();
-          }
-          input.ReadMessage(DurationMs);
+        case 72: {
+          DurationMs = input.ReadUInt64();
           break;
         }
         case 80: {
@@ -4736,7 +4608,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
       public Duration(Duration other) : this() {
         type_ = other.type_;
-        durationMs_ = other.durationMs_ != null ? other.durationMs_.Clone() : null;
+        durationMs_ = other.durationMs_;
         _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
       }
 
@@ -4760,10 +4632,10 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
 
       /// <summary>Field number for the "duration_ms" field.</summary>
       public const int DurationMsFieldNumber = 2;
-      private global::MillisTime durationMs_;
+      private ulong durationMs_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-      public global::MillisTime DurationMs {
+      public ulong DurationMs {
         get { return durationMs_; }
         set {
           durationMs_ = value;
@@ -4786,7 +4658,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           return true;
         }
         if (Type != other.Type) return false;
-        if (!object.Equals(DurationMs, other.DurationMs)) return false;
+        if (DurationMs != other.DurationMs) return false;
         return Equals(_unknownFields, other._unknownFields);
       }
 
@@ -4795,7 +4667,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       public override int GetHashCode() {
         int hash = 1;
         if (Type.Length != 0) hash ^= Type.GetHashCode();
-        if (durationMs_ != null) hash ^= DurationMs.GetHashCode();
+        if (DurationMs != 0UL) hash ^= DurationMs.GetHashCode();
         if (_unknownFields != null) {
           hash ^= _unknownFields.GetHashCode();
         }
@@ -4818,9 +4690,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           output.WriteRawTag(10);
           output.WriteString(Type);
         }
-        if (durationMs_ != null) {
-          output.WriteRawTag(18);
-          output.WriteMessage(DurationMs);
+        if (DurationMs != 0UL) {
+          output.WriteRawTag(16);
+          output.WriteUInt64(DurationMs);
         }
         if (_unknownFields != null) {
           _unknownFields.WriteTo(output);
@@ -4836,9 +4708,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           output.WriteRawTag(10);
           output.WriteString(Type);
         }
-        if (durationMs_ != null) {
-          output.WriteRawTag(18);
-          output.WriteMessage(DurationMs);
+        if (DurationMs != 0UL) {
+          output.WriteRawTag(16);
+          output.WriteUInt64(DurationMs);
         }
         if (_unknownFields != null) {
           _unknownFields.WriteTo(ref output);
@@ -4853,8 +4725,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         if (Type.Length != 0) {
           size += 1 + pb::CodedOutputStream.ComputeStringSize(Type);
         }
-        if (durationMs_ != null) {
-          size += 1 + pb::CodedOutputStream.ComputeMessageSize(DurationMs);
+        if (DurationMs != 0UL) {
+          size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DurationMs);
         }
         if (_unknownFields != null) {
           size += _unknownFields.CalculateSize();
@@ -4871,11 +4743,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         if (other.Type.Length != 0) {
           Type = other.Type;
         }
-        if (other.durationMs_ != null) {
-          if (durationMs_ == null) {
-            DurationMs = new global::MillisTime();
-          }
-          DurationMs.MergeFrom(other.DurationMs);
+        if (other.DurationMs != 0UL) {
+          DurationMs = other.DurationMs;
         }
         _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
       }
@@ -4896,11 +4765,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
               Type = input.ReadString();
               break;
             }
-            case 18: {
-              if (durationMs_ == null) {
-                DurationMs = new global::MillisTime();
-              }
-              input.ReadMessage(DurationMs);
+            case 16: {
+              DurationMs = input.ReadUInt64();
               break;
             }
           }
@@ -4922,11 +4788,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
               Type = input.ReadString();
               break;
             }
-            case 18: {
-              if (durationMs_ == null) {
-                DurationMs = new global::MillisTime();
-              }
-              input.ReadMessage(DurationMs);
+            case 16: {
+              DurationMs = input.ReadUInt64();
               break;
             }
           }
@@ -4972,7 +4835,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       public Periodic(Periodic other) : this() {
         type_ = other.type_;
         instantApplication_ = other.instantApplication_;
-        intervalMs_ = other.intervalMs_ != null ? other.intervalMs_.Clone() : null;
+        intervalMs_ = other.intervalMs_;
         triggerCount_ = other.triggerCount_;
         _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
       }
@@ -5009,10 +4872,10 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
 
       /// <summary>Field number for the "interval_ms" field.</summary>
       public const int IntervalMsFieldNumber = 3;
-      private global::MillisTime intervalMs_;
+      private ulong intervalMs_;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-      public global::MillisTime IntervalMs {
+      public ulong IntervalMs {
         get { return intervalMs_; }
         set {
           intervalMs_ = value;
@@ -5048,7 +4911,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         }
         if (Type != other.Type) return false;
         if (InstantApplication != other.InstantApplication) return false;
-        if (!object.Equals(IntervalMs, other.IntervalMs)) return false;
+        if (IntervalMs != other.IntervalMs) return false;
         if (TriggerCount != other.TriggerCount) return false;
         return Equals(_unknownFields, other._unknownFields);
       }
@@ -5059,7 +4922,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         int hash = 1;
         if (Type.Length != 0) hash ^= Type.GetHashCode();
         if (InstantApplication.Length != 0) hash ^= InstantApplication.GetHashCode();
-        if (intervalMs_ != null) hash ^= IntervalMs.GetHashCode();
+        if (IntervalMs != 0UL) hash ^= IntervalMs.GetHashCode();
         if (TriggerCount != 0UL) hash ^= TriggerCount.GetHashCode();
         if (_unknownFields != null) {
           hash ^= _unknownFields.GetHashCode();
@@ -5087,9 +4950,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           output.WriteRawTag(18);
           output.WriteString(InstantApplication);
         }
-        if (intervalMs_ != null) {
-          output.WriteRawTag(26);
-          output.WriteMessage(IntervalMs);
+        if (IntervalMs != 0UL) {
+          output.WriteRawTag(24);
+          output.WriteUInt64(IntervalMs);
         }
         if (TriggerCount != 0UL) {
           output.WriteRawTag(32);
@@ -5113,9 +4976,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           output.WriteRawTag(18);
           output.WriteString(InstantApplication);
         }
-        if (intervalMs_ != null) {
-          output.WriteRawTag(26);
-          output.WriteMessage(IntervalMs);
+        if (IntervalMs != 0UL) {
+          output.WriteRawTag(24);
+          output.WriteUInt64(IntervalMs);
         }
         if (TriggerCount != 0UL) {
           output.WriteRawTag(32);
@@ -5137,8 +5000,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         if (InstantApplication.Length != 0) {
           size += 1 + pb::CodedOutputStream.ComputeStringSize(InstantApplication);
         }
-        if (intervalMs_ != null) {
-          size += 1 + pb::CodedOutputStream.ComputeMessageSize(IntervalMs);
+        if (IntervalMs != 0UL) {
+          size += 1 + pb::CodedOutputStream.ComputeUInt64Size(IntervalMs);
         }
         if (TriggerCount != 0UL) {
           size += 1 + pb::CodedOutputStream.ComputeUInt64Size(TriggerCount);
@@ -5161,11 +5024,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
         if (other.InstantApplication.Length != 0) {
           InstantApplication = other.InstantApplication;
         }
-        if (other.intervalMs_ != null) {
-          if (intervalMs_ == null) {
-            IntervalMs = new global::MillisTime();
-          }
-          IntervalMs.MergeFrom(other.IntervalMs);
+        if (other.IntervalMs != 0UL) {
+          IntervalMs = other.IntervalMs;
         }
         if (other.TriggerCount != 0UL) {
           TriggerCount = other.TriggerCount;
@@ -5193,11 +5053,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
               InstantApplication = input.ReadString();
               break;
             }
-            case 26: {
-              if (intervalMs_ == null) {
-                IntervalMs = new global::MillisTime();
-              }
-              input.ReadMessage(IntervalMs);
+            case 24: {
+              IntervalMs = input.ReadUInt64();
               break;
             }
             case 32: {
@@ -5227,11 +5084,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
               InstantApplication = input.ReadString();
               break;
             }
-            case 26: {
-              if (intervalMs_ == null) {
-                IntervalMs = new global::MillisTime();
-              }
-              input.ReadMessage(IntervalMs);
+            case 24: {
+              IntervalMs = input.ReadUInt64();
               break;
             }
             case 32: {

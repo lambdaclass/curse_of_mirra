@@ -42,14 +42,10 @@ defmodule DarkWorldsServer.Communication.Proto.GameStateConfig do
   field :height, 2, type: :uint64
 
   field :map_modification, 3,
-    proto3_optional: true,
     type: DarkWorldsServer.Communication.Proto.MapModification,
     json_name: "mapModification"
 
-  field :spawn_loot_interval_ms, 4,
-    proto3_optional: true,
-    type: MillisTime,
-    json_name: "spawnLootIntervalMs"
+  field :loot_interval_ms, 4, type: :uint64, json_name: "lootIntervalMs"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -141,8 +137,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameProjectile do
   field :base_size, 4, type: :uint64, json_name: "baseSize"
   field :player_collision, 5, type: :bool, json_name: "playerCollision"
   field :on_hit_effect, 6, repeated: true, type: :string, json_name: "onHitEffect"
-  field :max_distance, 7, proto3_optional: true, type: :uint64, json_name: "maxDistance"
-  field :duration_ms, 8, proto3_optional: true, type: :float, json_name: "durationMs"
+  field :max_distance, 7, type: :uint64, json_name: "maxDistance"
+  field :duration_ms, 8, type: :float, json_name: "durationMs"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -167,7 +163,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameSkill do
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :name, 1, type: :string
-  field :cooldown_ms, 2, type: MillisTime, json_name: "cooldownMs"
+  field :cooldown_ms, 2, type: :uint64, json_name: "cooldownMs"
   field :is_passive, 3, type: :bool, json_name: "isPassive"
   field :mechanics, 4, repeated: true, type: DarkWorldsServer.Communication.Proto.Mechanic
 
@@ -181,18 +177,14 @@ defmodule DarkWorldsServer.Communication.Proto.Mechanic do
 
   field :name, 1, type: :string
   field :effects, 2, repeated: true, type: :string
-  field :damage, 3, proto3_optional: true, type: :uint64
-  field :range, 4, proto3_optional: true, type: :uint64
-  field :cone_angle, 5, proto3_optional: true, type: :uint64, json_name: "coneAngle"
+  field :damage, 3, type: :uint64
+  field :range, 4, type: :uint64
+  field :cone_angle, 5, type: :uint64, json_name: "coneAngle"
   field :on_hit_effects, 6, repeated: true, type: :string, json_name: "onHitEffects"
-
-  field :projectile, 7,
-    proto3_optional: true,
-    type: DarkWorldsServer.Communication.Proto.GameProjectile
-
-  field :count, 8, proto3_optional: true, type: :uint64
-  field :duration_ms, 9, proto3_optional: true, type: MillisTime, json_name: "durationMs"
-  field :max_range, 10, proto3_optional: true, type: :uint64, json_name: "maxRange"
+  field :projectile, 7, type: DarkWorldsServer.Communication.Proto.GameProjectile
+  field :count, 8, type: :uint64
+  field :duration_ms, 9, type: :uint64, json_name: "durationMs"
+  field :max_range, 10, type: :uint64, json_name: "maxRange"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -203,7 +195,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEffect.Duration do
   use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
 
   field :type, 1, type: :string
-  field :duration_ms, 2, type: MillisTime, json_name: "durationMs"
+  field :duration_ms, 2, type: :uint64, json_name: "durationMs"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -215,7 +207,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEffect.Periodic do
 
   field :type, 1, type: :string
   field :instant_application, 2, type: :string, json_name: "instantApplication"
-  field :interval_ms, 3, type: MillisTime, json_name: "intervalMs"
+  field :interval_ms, 3, type: :uint64, json_name: "intervalMs"
   field :trigger_count, 4, type: :uint64, json_name: "triggerCount"
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
