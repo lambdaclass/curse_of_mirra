@@ -865,7 +865,6 @@ public class Battle : MonoBehaviour
             string name = Enum.GetName(typeof(StateEffects), effect);
             bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
             CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-            // print(name + " " + hasEffect);
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
