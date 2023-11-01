@@ -45,7 +45,6 @@ public class CharacterInfoManager : MonoBehaviour
 
     void Start()
     {
-        print(startPos);
         SetCharacterInfo(startPos);
     }
 
@@ -79,7 +78,7 @@ public class CharacterInfoManager : MonoBehaviour
     public void SetCharacterInfo(int currentPos)
     {
         CoMCharacter comCharacter = comCharacters[currentPos];
-        ModelManager.RemoveCurrentMode();
+        ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;

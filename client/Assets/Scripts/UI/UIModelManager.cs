@@ -27,7 +27,7 @@ public class UIModelManager : MonoBehaviour
         );
     }
 
-    public void RemoveCurrentMode()
+    public void RemoveCurrentModel()
     {
         if (playerModelContainer.transform.childCount > 0)
         {
