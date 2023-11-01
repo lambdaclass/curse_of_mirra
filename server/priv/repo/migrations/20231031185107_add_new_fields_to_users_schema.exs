@@ -11,11 +11,11 @@ defmodule DarkWorldsServer.Repo.Migrations.AddNewFieldsToUsersSchema do
       add :hashed_password, :string, null: false
       add :confirmed_at, :naive_datetime
       add :username, :string
-      add :selected_character, :string, default: "h4ck"
+      add :selected_character, :string
       add :device_client_id, :string
       add :total_kills, :integer, default: 0
       add :total_wins, :integer, default: 0
-      add :most_used_character, :string, default: "h4ck"
+      add :most_used_character, :string
       add :experience, :float, default: 0
 
       timestamps()

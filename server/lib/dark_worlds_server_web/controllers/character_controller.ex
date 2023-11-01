@@ -45,14 +45,14 @@ defmodule DarkWorldsServerWeb.CharacterController do
     end
   end
 
-  def user_response(nil) do
+  defp user_response(nil) do
     %{
       device_client_id: "NOT_FOUND",
       selected_character: "NOT_FOUND"
     }
   end
 
-  def user_response(%User{device_client_id: device_client_id, selected_character: selected_character}) do
+  defp user_response(%User{device_client_id: device_client_id, selected_character: selected_character}) do
     %{
       device_client_id: device_client_id,
       selected_character: selected_character
@@ -60,22 +60,15 @@ defmodule DarkWorldsServerWeb.CharacterController do
   end
 
   defp create_user_data(device_client_id, selected_character) do
-    provisional_password = generate_provisional_password()
-    current_users_count = Accounts.get_users_count()
+    provisional_password = UUID.uuid4()
+    user = UUID.uuid4()
 
     %{
-      email: "test_#{current_users_count}@mail.com",
+      email: "test_#{user}@mail.com",
       password: provisional_password,
       device_client_id: device_client_id,
       selected_character: selected_character,
-      username: "user_#{current_users_count}"
+      username: "user_#{user}"
     }
-  end
-
-  defp generate_provisional_password() do
-    @alphabet
-    |> String.graphemes()
-    |> Enum.take_random(16)
-    |> Enum.join("")
   end
 end
