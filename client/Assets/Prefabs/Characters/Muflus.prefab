@@ -483,7 +483,6 @@ MonoBehaviour:
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
   - {fileID: 6362123941699143047}
-  - {fileID: 5740382608016110833}
   feedbacksPrefabs:
   - {fileID: 604736327119138052}
   damageOverlayColor:
@@ -809,11 +808,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4346920019462547642, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -908,11 +902,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442873924106891826, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: looping
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5694839354157769067, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -1076,12 +1065,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b32352ba4b34ff688fd08f29fbcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5740382608016110833 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4346920019462547642, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8357189057863228491}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6362123941699143047 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
