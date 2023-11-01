@@ -175,7 +175,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     target =
       calculate_circle_point(
         bot.position,
-        state.game_state.myrra_state.shrinking_center
+        state.game_state.myrra_state.shrinking_center,
+        false
       )
 
     Map.put(bot_state, :action, {:move, target})
@@ -207,29 +208,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   ####################
   # Internal helpers #
   ####################
-  def calculate_circle_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
-    calculate_circle_point(start_x, start_y, end_x, end_y)
+  def calculate_circle_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}, use_inaccuracy) do
+    inaccuracy_value = if use_inaccuracy, do: Enum.random([0, 50, -50, 75, -75, 100, -100, 150, -150]), else: 0
+    calculate_circle_point(start_x, start_y, end_x, end_y, inaccuracy_value)
   end
 
-  def calculate_circle_point(cx, cy, x, y) do
+  def calculate_circle_point(cx, cy, x, y, inaccuracy_value) do
     radius = 1
-    angle = Nx.atan2(x - cx, y - cy)
-    x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
-    y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
-    {x, -y}
-  end
+    {new_cx, new_cy} = {cx + inaccuracy_value, cy + inaccuracy_value}
 
-  def calculate_random_circle_point_attack(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
-    calculate_random_circle_point_attack(start_x, start_y, end_x, end_y)
-  end
-
-  def calculate_random_circle_point_attack(cx, cy, x, y) do
-    # This are random numbers to add some random innacuracy to every attack direction
-    ramdom_innacuracy = Enum.random([0, 50, -50, 100, -100, 200, -200])
-
-    {new_cx, new_cy} = {cx + ramdom_innacuracy, cy + ramdom_innacuracy}
-
-    radius = 1
     angle = Nx.atan2(x - new_cx, y - new_cy)
     x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
     y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
@@ -321,8 +308,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         type: type,
         entity_id: entity.id,
         distance_to_entity: get_distance_to_point(bot.position, entity.position),
-        direction_to_entity: calculate_circle_point(bot.position, entity.position),
-        attacking_direction: calculate_random_circle_point_attack(bot.position, entity.position)
+        direction_to_entity: calculate_circle_point(bot.position, entity.position, false),
+        attacking_direction: calculate_circle_point(bot.position, entity.position, true)
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
@@ -395,7 +382,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     target =
       calculate_circle_point(
         bot.position,
-        wandering_position
+        wandering_position,
+        false
       )
 
     Map.put(bot_state, :action, {:move, target})
