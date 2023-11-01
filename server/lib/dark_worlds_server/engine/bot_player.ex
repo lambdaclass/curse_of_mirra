@@ -191,7 +191,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp do_action(bot_id, game_pid, _players, %{
-         action: {:attack, %{type: :enemy, direction_to_entity: {x, y}}, skill}
+         action: {:attack, %{type: :enemy, attacking_direction: {x, y}}, skill}
        }) do
     Runner.play(game_pid, bot_id, %ActionOk{
       action: skill,
@@ -214,6 +214,23 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   def calculate_circle_point(cx, cy, x, y) do
     radius = 1
     angle = Nx.atan2(x - cx, y - cy)
+    x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
+    y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
+    {x, -y}
+  end
+
+  def calculate_random_circle_point_attack(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
+    calculate_random_circle_point_attack(start_x, start_y, end_x, end_y)
+  end
+
+  def calculate_random_circle_point_attack(cx, cy, x, y) do
+    # This are random numbers to add some random innacuracy to every attack direction
+    ramdom_innacuracy = Enum.random([0, 50, -50, 100, -100, 200, -200])
+
+    {new_cx, new_cy} = {cx + ramdom_innacuracy, cy + ramdom_innacuracy}
+
+    radius = 1
+    angle = Nx.atan2(x - new_cx, y - new_cy)
     x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
     y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
     {x, -y}
@@ -242,7 +259,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
               :chase_entity
 
             true ->
-              :wander
+              get_random_decision()
           end
       end
 
@@ -304,7 +321,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         type: type,
         entity_id: entity.id,
         distance_to_entity: get_distance_to_point(bot.position, entity.position),
-        direction_to_entity: calculate_circle_point(bot.position, entity.position)
+        direction_to_entity: calculate_circle_point(bot.position, entity.position),
+        attacking_direction: calculate_random_circle_point_attack(bot.position, entity.position)
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
@@ -381,5 +399,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       )
 
     Map.put(bot_state, :action, {:move, target})
+  end
+
+  # We'll set a random decision for the bots, 20% of the time they'll just do nothing
+  # and 80% of the time they'll wander around the map.
+  def get_random_decision() do
+    if :rand.uniform(100) <= 20 do
+      :nothing
+    else
+      :wander
+    end
   end
 end
