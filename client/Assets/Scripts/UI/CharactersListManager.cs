@@ -28,6 +28,16 @@ public class CharactersListManager : MonoBehaviour
                 item.GetComponentInChildren<Image>().sprite = character.characterSprite;
                 item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
                 index++;
+
+                // TODO: this conditional by name should be replaced with a bool if this character is not active
+                if (
+                    character.name == "Uren"
+                    || character.name == "Kenzu"
+                    || character.name == "Otix"
+                )
+                {
+                    item.GetComponentInChildren<ButtonAnimationsMMTouchButton>().enabled = false;
+                }
             }
         );
     }
