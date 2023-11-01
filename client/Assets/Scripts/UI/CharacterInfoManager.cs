@@ -26,12 +26,6 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     List<SkillDescription> skillDescriptions;
 
-    [SerializeField]
-    TextMeshProUGUI skillName;
-
-    [SerializeField]
-    TextMeshProUGUI skillDescription;
-
     [Header("Buttons")]
     [SerializeField]
     GameObject leftButton;
