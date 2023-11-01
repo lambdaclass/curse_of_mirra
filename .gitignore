@@ -67,8 +67,8 @@ ExportedObj/
 *.mdb.meta
 
 # Unity Test Framework generated files on interrupted tests
-client/Assets/*.unity
-client/Assets/*.unity.meta
+client/Assets/InitTest*.unity
+client/Assets/InitTest*.unity.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
