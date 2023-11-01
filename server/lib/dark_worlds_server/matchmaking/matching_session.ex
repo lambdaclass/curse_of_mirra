@@ -41,7 +41,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def init(_args) do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     # This will start the runner and kill the session after the time given
-    Process.send_after(self(), :start_game, 10_000)
+    Process.send_after(self(), :start_game, 1_000)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
     {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
@@ -98,12 +98,12 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
 
-    # TODO this is the counterpart of the TODO tag in play_websocket.ex:43
-    # That module should handle this join.
-    ## Setup each player in engine_runner
-    Enum.each(state.players, fn player_id ->
-      :ok = EngineRunner.join(game_pid, player_id, "h4ck")
-    end)
+    # # TODO this is the counterpart of the TODO tag in play_websocket.ex:43
+    # # That module should handle this join.
+    # ## Setup each player in engine_runner
+    # Enum.each(state.players, fn player_id ->
+    #   :ok = EngineRunner.join(game_pid, player_id, "h4ck")
+    # end)
 
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)

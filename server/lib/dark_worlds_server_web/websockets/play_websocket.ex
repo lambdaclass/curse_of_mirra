@@ -5,7 +5,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.RequestTracker
-  alias DarkWorldsServer.Engine.Runner
+  alias DarkWorldsServer.Engine.EngineRunner
 
   require Logger
 
@@ -44,10 +44,9 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
-         true <- runner_pid in Engine.list_runners_pids() do
-      # TODO this must be restored but the websocket is not starting for the host player.
-      # The MatchingSession will add the players in the meantime.
-      # {:ok, player_id} <- Runner.join(runner_pid, client_id, String.to_integer(player_id)) do
+         true <- runner_pid in Engine.list_runners_pids(),
+         # String.to_integer(player_id) should be client_id
+         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), "h4ck") do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)

@@ -56,7 +56,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
-    {:ok, state}
+    {:ok, state |> IO.inspect(label: :creado)}
   end
 
   @impl true
@@ -67,7 +67,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(state, :game_state, game_state)
       |> put_in([:user_to_player, user_id], player_id)
 
-    {:reply, :ok, state}
+    {:reply, {:ok, player_id}, state}
   end
 
   def handle_call(msg, from, state) do
