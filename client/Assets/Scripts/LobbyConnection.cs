@@ -413,6 +413,7 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.GameStarted:
+                    Debug.Log("wtf?" + lobbyEvent.GameId);
                     GameSession = lobbyEvent.GameId;
                     serverSettings = lobbyEvent.GameConfig;
                     serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;

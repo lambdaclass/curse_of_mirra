@@ -65,7 +65,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
-        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
+        // SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -148,7 +148,7 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if (Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId).Health <= 0)
+        if (gamePlayer != null && gamePlayer.Health <= 0)
         {
             SetCameraToAlivePlayer();
         }
@@ -157,15 +157,9 @@ public class CustomLevelManager : LevelManager
     private GameObject GetCharacterPrefab(ulong playerId)
     {
         GameObject prefab = null;
-        foreach (
-            KeyValuePair<ulong, string> entry in SocketConnectionManager.Instance.selectedCharacters
-        )
-        {
-            if (entry.Key == (ulong)playerId)
-            {
-                prefab = charactersInfo.Find(el => el.name == entry.Value).prefab;
-            }
-        }
+
+        Player player = Utils.GetGamePlayer(playerId);
+        prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
         return prefab;
     }
 
@@ -400,10 +394,7 @@ public class CustomLevelManager : LevelManager
             skillList.Add(skillBasic);
             skillList.Add(skill1);
 
-            string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
-                UInt64.Parse(player.PlayerID)
-            ];
-            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == selectedCharacter);
+            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == Utils.GetGamePlayer(clientPlayerId).CharacterName);
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,6 +49,8 @@ public class SocketConnectionManager : MonoBehaviour
 
     public bool cinematicDone;
 
+    public bool connected = false;
+
     public struct BotSpawnEventData
     {
         public List<Player> gameEventPlayers;
@@ -72,13 +75,14 @@ public class SocketConnectionManager : MonoBehaviour
         public string sessionId { get; set; }
     }
 
-    public void Awake()
-    {
-        Init();
-    }
+    // public void Awake()
+    // {
+    //     Init();
+    // }
 
     public void Init()
     {
+        StartCoroutine(WaitForLobbyConnection());
         if (Instance != null)
         {
             if (this.ws != null)
@@ -90,12 +94,6 @@ public class SocketConnectionManager : MonoBehaviour
         else
         {
             Instance = this;
-            this.sessionId = LobbyConnection.Instance.GameSession;
-            this.serverIp = LobbyConnection.Instance.serverIp;
-            this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-            this.serverHash = LobbyConnection.Instance.serverHash;
-            this.clientId = LobbyConnection.Instance.clientId;
-            this.reconnect = LobbyConnection.Instance.reconnect;
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
@@ -108,11 +106,14 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitForLobbyConnection()
+    {
+        yield return new WaitUntil(() => LobbyConnection.Instance != null);
+    }
+
     void Start()
     {
-        playerId = LobbyConnection.Instance.playerId;
-        ConnectToSession(this.sessionId);
-        eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
+        Init();
     }
 
     void Update()
@@ -123,6 +124,28 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+
+        StartCoroutine(IsGameCreated());
+    }
+
+    private IEnumerator IsGameCreated()
+    {
+        yield return new WaitUntil(() => LobbyConnection.Instance.GameSession != "" && LobbyConnection.Instance.GameSession != null);
+        Debug.Log("game_session: " + LobbyConnection.Instance.GameSession);
+        this.sessionId = LobbyConnection.Instance.GameSession;
+        this.serverIp = LobbyConnection.Instance.serverIp;
+        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+        this.serverHash = LobbyConnection.Instance.serverHash;
+        this.clientId = LobbyConnection.Instance.clientId;
+        this.reconnect = LobbyConnection.Instance.reconnect;
+        playerId = LobbyConnection.Instance.playerId;
+
+        if (!connected && this.sessionId != "")
+        {
+            ConnectToSession(this.sessionId);
+            connected = true;
+            eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
+        }
     }
 
     private void ConnectToSession(string sessionId)
@@ -307,18 +330,18 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        // var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
 
-        int port;
+        int port = 4000;
 
-        if (useProxy == "true")
-        {
-            port = 5000;
-        }
-        else
-        {
-            port = 4000;
-        }
+        // if (useProxy == "true")
+        // {
+        //     port = 5000;
+        // }
+        // else
+        // {
+        //     port = 4000;
+        // }
 
         if (serverIp.Contains("localhost"))
         {

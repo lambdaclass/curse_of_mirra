@@ -54,19 +54,20 @@ public class PlayerControls : MonoBehaviour
 
     public static float getBackendCharacterSpeed(ulong playerId)
     {
-        if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        {
-            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        string charName = Utils.GetGamePlayer(playerId).CharacterName;
+        // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
+        // {
+        // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
 
-            foreach (var character in chars)
+        foreach (var character in chars)
+        {
+            if (charName == character.Name)
             {
-                if (charName == character.Name)
-                {
-                    return float.Parse(character.BaseSpeed);
-                }
+                return float.Parse(character.BaseSpeed);
             }
         }
+        // }
         return 0f;
     }
 }

@@ -22,10 +22,11 @@ public class SpawnBot : MonoBehaviour
     public void Init()
     {
         Instance = this;
-        if (SocketConnectionManager.Instance.players.Count == 9)
-        {
-            GetComponent<MMTouchButton>().DisableButton();
-        }
+        Debug.Log("socket: " + SocketConnectionManager.Instance);
+        // if (SocketConnectionManager.Instance.players.Count == 9)
+        // {
+        //     GetComponent<MMTouchButton>().DisableButton();
+        // }
     }
 
     public void GenerateBotPlayer()
@@ -47,5 +48,5 @@ public class SpawnBot : MonoBehaviour
     public CustomCharacter GetCharacterByName(string name){
        return playerPrefab.Find(el => el.name == name).GetComponent<CustomCharacter>();
     }
-    
+
 }
