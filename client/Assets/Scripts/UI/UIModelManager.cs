@@ -29,6 +29,9 @@ public class UIModelManager : MonoBehaviour
 
     public void RemoveCurrentMode()
     {
-        Destroy(playerModelContainer.transform.GetChild(0).gameObject);
+        if (playerModelContainer.transform.childCount > 0)
+        {
+            Destroy(playerModelContainer.transform.GetChild(0).gameObject);
+        }
     }
 }

@@ -41,11 +41,12 @@ public class CharacterInfoManager : MonoBehaviour
 
     int currentPos = 0;
 
+    public static int startPos;
+
     void Start()
     {
-        ModelManager.SetModel(comCharacters[0]);
-        skillDescriptions[0].SetSkillDescription(comCharacters[0].skillsInfo[0]);
-        skillDescriptions[1].SetSkillDescription(comCharacters[0].skillsInfo[1]);
+        print(startPos);
+        SetCharacterInfo(startPos);
     }
 
     public void RightArrowFunc()

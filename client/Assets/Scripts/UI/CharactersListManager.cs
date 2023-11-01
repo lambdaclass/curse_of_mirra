@@ -19,11 +19,16 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        characterSriptableObjects.ForEach(character =>
-        {
-            GameObject item = Instantiate(listItem, this.transform);
-            item.GetComponentInChildren<Image>().sprite = character.characterSprite;
-            item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
-        });
+        var index = 0;
+        characterSriptableObjects.ForEach(
+            (character) =>
+            {
+                GameObject item = Instantiate(listItem, this.transform);
+                item.GetComponent<CharacterListItem>().listPosition = index;
+                item.GetComponentInChildren<Image>().sprite = character.characterSprite;
+                item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
+                index++;
+            }
+        );
     }
 }
