@@ -34,7 +34,7 @@ defmodule DarkWorldsServerWeb.Router do
     get "/player_game/:player_id", GameController, :player_game
   end
 
-  scope "/users", DarkWorldsServerWeb do
+  scope "/users-characters", DarkWorldsServerWeb do
     get "/:device_client_id", CharacterController, :get_player
     post "/new", CharacterController, :create_player
     put "/:device_client_id/edit", CharacterController, :update_player
