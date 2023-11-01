@@ -209,18 +209,25 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # Internal helpers #
   ####################
   def calculate_circle_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}, use_inaccuracy) do
-    inaccuracy_value = if use_inaccuracy, do: Enum.random([0, 50, -50, 75, -75, 100, -100, 150, -150]), else: 0
-    calculate_circle_point(start_x, start_y, end_x, end_y, inaccuracy_value)
+    calculate_circle_point(start_x, start_y, end_x, end_y, use_inaccuracy)
   end
 
-  def calculate_circle_point(cx, cy, x, y, inaccuracy_value) do
+  def calculate_circle_point(cx, cy, x, y, use_inaccuracy) do
     radius = 1
-    {new_cx, new_cy} = {cx + inaccuracy_value, cy + inaccuracy_value}
 
-    angle = Nx.atan2(x - new_cx, y - new_cy)
+    angle =
+      Nx.atan2(x - cx, y - cy)
+      |> maybe_add_inaccuracy_to_angle(use_inaccuracy)
+
     x = Nx.cos(angle) |> Nx.multiply(radius) |> Nx.to_number()
     y = Nx.sin(angle) |> Nx.multiply(radius) |> Nx.to_number()
     {x, -y}
+  end
+
+  defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
+
+  defp maybe_add_inaccuracy_to_angle(angle, true) do
+    angle |> Nx.add(Enum.random([0, 0.05, -0.05, 0.1, -0.1]))
   end
 
   def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entities) do
