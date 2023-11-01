@@ -239,6 +239,17 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
+    public void SendGameAction<T>(IMessage<T> action)
+        where T : IMessage<T>
+    {
+        using (var stream = new MemoryStream())
+        {
+            action.WriteTo(stream);
+            var msg = stream.ToArray();
+            ws.Send(msg);
+        }
+    }
+
     public void CallSpawnBot()
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
