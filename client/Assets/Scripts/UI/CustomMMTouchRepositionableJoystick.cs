@@ -25,10 +25,7 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
             KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().SetNeutralPosition(_newPosition);
             KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().OnPointerDown(eventData);
         }
-        else
-        {
-            KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerDown(eventData);
-        }
+        KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerDown(eventData);
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -53,19 +50,40 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
                     .SetNeutralPosition(_initialPosition);
                 KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().OnPointerUp(eventData);
             }
-            else
-            {
-                KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerUp(eventData);
-            }
+            KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerUp(eventData);
         }
     }
 
     private Vector3 ClampJoystickPositionToScreen(PointerEventData eventData)
     {
-        Debug.Log("position: " + eventData.position);
-        positionY = eventData.position.y;
-
-        positionX = eventData.position.x;
+        Debug.Log("data: " + eventData.position);
+        Debug.Log("position: " + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width);
+        if (
+            eventData.position.x
+            > transform.position.x - BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width
+        )
+        {
+            positionX =
+                transform.position.x
+                - BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width;
+        }
+        else
+        {
+            positionX = eventData.position.x;
+        }
+        if (
+            eventData.position.y
+            < transform.position.y + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.height
+        )
+        {
+            positionY =
+                transform.position.y
+                + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.height;
+        }
+        else
+        {
+            positionY = eventData.position.y;
+        }
 
         _newPosition = new Vector3(positionX, positionY, 0f);
         return _newPosition;
