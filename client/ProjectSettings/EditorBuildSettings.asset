@@ -170,4 +170,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterList.unity
     guid: 14a4b55aedccb47048005bd6c5ced949
+  - enabled: 1
+    path: Assets/Scenes/CharacterInfo.unity
+    guid: 3e69def80fd2b449bb2871e03dc161e6
   m_configObjects: {}
