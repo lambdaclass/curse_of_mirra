@@ -33,7 +33,7 @@ public class PlayerNameHandler : MonoBehaviour
         }
         this.errorMessage.SetActive(false);
         GetComponent<Image>().sprite = selectedButtonSprite;
-        PlayerPrefs.SetString(PLAYER_NAME_KEY, playerName);
+        PlayerPrefs.SetString(PLAYER_NAME_KEY, this.playerName);
         this.Hide();
     }
 
@@ -47,7 +47,7 @@ public class PlayerNameHandler : MonoBehaviour
         if (PlayerPrefs.HasKey(PLAYER_NAME_KEY))
         {
             this.playerName = PlayerPrefs.GetString(PLAYER_NAME_KEY);
-            this.placeholder.text = this.playerName;
+            this.placeholder.text = this.playerName.ToUpper();
         }
         else
         {
