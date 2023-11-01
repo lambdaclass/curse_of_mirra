@@ -36,6 +36,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
       Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
     end
+
+    def bot_join(pid_middle_number) do
+      join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
+    end
   end
 
   #######################
@@ -206,7 +210,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         kill_count: 0,
         effects: %{},
         death_count: 0,
-        action: :nothing,
+        action: transform_action_to_myrra_action(player.actions),
         direction: %LambdaGameEngine.MyrraEngine.RelativePosition{
           x: 0.0,
           y: 0.0
@@ -276,6 +280,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
+  defp transform_character_name_to_myrra_character_name("muflus"), do: "Muflus"
 
   defp transform_angle_to_myrra_relative_position(angle) do
     angle_radians = Nx.divide(Nx.Constants.pi(), 180) |> Nx.multiply(angle)
@@ -283,4 +288,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     y = Nx.sin(angle_radians) |> Nx.to_number()
     %LambdaGameEngine.MyrraEngine.RelativePosition{x: x, y: y}
   end
+
+  defp transform_action_to_myrra_action([]), do: :nothing
+  defp transform_action_to_myrra_action([:nothing | _]), do: :nothing
+  defp transform_action_to_myrra_action([:moving | _]), do: :moving
+  defp transform_action_to_myrra_action([{:using_skill, "1"} | _]), do: :attacking
+  defp transform_action_to_myrra_action([{:using_skill, "2"} | _]), do: :executingskill2
 end

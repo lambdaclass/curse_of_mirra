@@ -10,7 +10,13 @@ Curse of Myrra is a game that uses the [Lambda backend game engine](https://gith
     - Erlang/OTP 26
     - Elixir 1.15.4
 - Unity
+    - Download link: https://unity.com/unity-hub
 - Docker
+
+## Suggested environment
+- Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system
+- In VSCode, download the .NET extension. Once installed, change the version to 1.26 (the option to change versions is in a dropdown next to the Uninstall button in the extension window)/
+To check if the previous stesps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
 
 ## Setup project
 Make sure Docker is running.
@@ -20,6 +26,11 @@ cd curse_of_myrra/server
 make db
 make setup
 ```
+
+## Setup Unity
+- On Unity Hub click on the add project button and select the `client` folder.
+- Select the correct version of the editor, by default it will show the version needed for the project but you need to select if you want to download the Intel or Silicon version.
+- Once we run Unity if you want to test the game you can select the scene on `Assets/Scenes/TitleScreen` and then running it by clicking the play button.
 
 ## Run backend
 Make sure Docker is running.
