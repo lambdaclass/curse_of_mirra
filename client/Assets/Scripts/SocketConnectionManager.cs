@@ -229,6 +229,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void onWebsocketClose(WebSocketCloseCode closeCode)
     {
+        Debug.Log("closeCode:" + closeCode);
         if (closeCode != WebSocketCloseCode.Normal)
         {
             LobbyConnection.Instance.errorConnection = true;

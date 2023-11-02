@@ -3,6 +3,8 @@ defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
   alias DarkWorldsServer.Communication.Proto.PlayerInformation
+  alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.Move
 
   @moduledoc """
   The Communication context
@@ -113,7 +115,7 @@ defmodule DarkWorldsServer.Communication do
 
   def decode(value) do
     try do
-      {:ok, ClientAction.decode(value)}
+      {:ok, GameAction.decode(value)}
     rescue
       Protobuf.DecodeError -> {:error, :error_decoding}
     end

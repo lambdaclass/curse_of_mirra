@@ -11,13 +11,15 @@ public class PlayerControls : MonoBehaviour
             var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            ClientAction moveAction = new ClientAction
-            {
-                Action = Action.MoveWithJoystick,
-                Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg
-            };
+            // ClientAction moveAction = new ClientAction
+            // {
+            //     Action = Action.MoveWithJoystick,
+            //     Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg
+            // };
+            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
+            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp};
 
-            SocketConnectionManager.Instance.SendAction(moveAction);
+            SocketConnectionManager.Instance.SendGameAction(gameAction);
 
             ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
             {

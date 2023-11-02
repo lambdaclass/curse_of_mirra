@@ -3,6 +3,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.Move
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
@@ -20,8 +22,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
-  def move(runner_pid, user_id, action) do
-    GenServer.cast(runner_pid, {:move, user_id, action})
+  def move(runner_pid, user_id, action, timestamp) do
+    GenServer.cast(runner_pid, {:move, user_id, action, timestamp})
   end
 
   def basic_attack(runner_pid, user_id, action) do
@@ -84,9 +86,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:move, user_id, %ActionOk{value: value, timestamp: timestamp}}, state) do
+  def handle_cast({:move, user_id, %Move{angle: angle}, timestamp}, state) do
     player_id = state.user_to_player[user_id]
-    game_state = LambdaGameEngine.move_player(state.game_state, player_id, value.angle)
+    game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =
       Map.put(state, :game_state, game_state)
