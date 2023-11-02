@@ -29,12 +29,6 @@ public enum UIType
     Select
 }
 
-public enum SkillType
-{
-    Basic,
-    Secondary
-}
-
 public class CustomInputManager : InputManager
 {
     [SerializeField]

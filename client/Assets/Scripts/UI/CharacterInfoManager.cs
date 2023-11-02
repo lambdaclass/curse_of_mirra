@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -33,45 +34,44 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     GameObject rightButton;
 
-    int currentPos = 0;
-
-    public static int startPos;
+    int currentCharacterListPosition = 0;
+    public static int selectedCharacterPosition;
 
     void Start()
     {
-        SetCharacterInfo(startPos);
+        SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void RightArrowFunc()
     {
-        if (currentPos == comCharacters.Count - 1)
+        if (currentCharacterListPosition == comCharacters.Count - 1)
         {
-            currentPos = 0;
+            currentCharacterListPosition = 0;
         }
         else
         {
-            currentPos = currentPos + 1;
+            currentCharacterListPosition = currentCharacterListPosition + 1;
         }
 
-        SetCharacterInfo(currentPos);
+        SetCharacterInfo(currentCharacterListPosition);
     }
 
     public void LeftArrowFunc()
     {
-        if (currentPos == 0)
+        if (currentCharacterListPosition == 0)
         {
-            currentPos = comCharacters.Count - 1;
+            currentCharacterListPosition = comCharacters.Count - 1;
         }
         else
         {
-            currentPos = currentPos - 1;
+            currentCharacterListPosition = currentCharacterListPosition - 1;
         }
-        SetCharacterInfo(currentPos);
+        SetCharacterInfo(currentCharacterListPosition);
     }
 
-    public void SetCharacterInfo(int currentPos)
+    public void SetCharacterInfo(int currentCharacterListPosition)
     {
-        CoMCharacter comCharacter = comCharacters[currentPos];
+        CoMCharacter comCharacter = comCharacters[currentCharacterListPosition];
         ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;

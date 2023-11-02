@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Tools;
 
 public class CharacterListItem : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CharacterListItem : MonoBehaviour
 
     public void SetCharacterInfoStart()
     {
-        CharacterInfoManager.startPos = listPosition;
+        this.GetComponent<MMLoadScene>().LoadScene();
+        CharacterInfoManager.selectedCharacterPosition = listPosition;
     }
 }

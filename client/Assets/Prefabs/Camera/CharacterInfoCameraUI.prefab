@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 108796906}
   - component: {fileID: 6772157271451458404}
   m_Layer: 5
-  m_Name: AbilityInfo
+  m_Name: SkillInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6121490704517079073}
   - component: {fileID: 892787290020357033}
   m_Layer: 5
-  m_Name: Abilities
+  m_Name: Skills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 227444003}
   - component: {fileID: 1870698266130867539}
   m_Layer: 5
-  m_Name: AbilityDesc
+  m_Name: SkillDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 240515595}
   - component: {fileID: 240515594}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Lore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6afcfc34edba444648205bf88cb25341, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98cc57bbdff7548cc83d39333e7dd800, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0024414062}
+  m_AnchoredPosition: {x: -66, y: -0.0024414062}
   m_SizeDelta: {x: 755.65, y: -0.005127}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &690206828
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 690206831}
   - component: {fileID: 690206830}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Overview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49c604c52092a483eb4124b9f751bc81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c84e7bfddff04462197e84d0d07b6292, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 756291877}
   - component: {fileID: 756291876}
   - component: {fileID: 1278721550}
-  - component: {fileID: 2223313658883486273}
+  - component: {fileID: 1504651484074665098}
   m_Layer: 5
   m_Name: LeftArrow
   m_TagString: Untagged
@@ -596,7 +596,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2223313658883486273
+--- !u!114 &1504651484074665098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 756291874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 35be77ffb4af4465bb85c1c6a6cd0e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
@@ -650,6 +650,9 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 0
+  isBackButton: 0
+  initialScale: {x: 0, y: 0, z: 0}
+  finalScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1345791317
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +704,7 @@ GameObject:
   - component: {fileID: 1522037928}
   - component: {fileID: 1522037927}
   m_Layer: 5
-  m_Name: AbilityName
+  m_Name: SkillName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,7 +840,7 @@ GameObject:
   - component: {fileID: 1629498681}
   - component: {fileID: 1629498680}
   m_Layer: 5
-  m_Name: AbilityType
+  m_Name: SkillType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -974,7 +977,7 @@ GameObject:
   - component: {fileID: 1713799049}
   - component: {fileID: 1713799051}
   m_Layer: 5
-  m_Name: Ability1
+  m_Name: Skill1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1066,6 +1069,7 @@ GameObject:
   - component: {fileID: 1824699882}
   - component: {fileID: 789196870}
   - component: {fileID: 9044898544056008100}
+  - component: {fileID: 6214137711462198732}
   m_Layer: 5
   m_Name: RightArrow
   m_TagString: Untagged
@@ -1150,7 +1154,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824699880}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
   m_Name: 
@@ -1197,6 +1201,63 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 0
+--- !u!114 &6214137711462198732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824699880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35be77ffb4af4465bb85c1c6a6cd0e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactable: 1
+  ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 576590200}
+        m_TargetAssemblyTypeName: CharacterInfoManager, Assembly-CSharp
+        m_MethodName: RightArrowFunc
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  DisabledSprite: {fileID: 0}
+  DisabledChangeColor: 0
+  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedSprite: {fileID: 0}
+  PressedChangeColor: 0
+  PressedColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightedSprite: {fileID: 0}
+  HighlightedChangeColor: 0
+  HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  PressedOpacity: 1
+  IdleOpacity: 1
+  DisabledOpacity: 1
+  PressedFirstTimeDelay: 0
+  ReleasedDelay: 0
+  BufferDuration: 0
+  Animator: {fileID: 0}
+  IdleAnimationParameterName: Idle
+  DisabledAnimationParameterName: Disabled
+  PressedAnimationParameterName: Pressed
+  MouseMode: 0
+  isBackButton: 0
+  initialScale: {x: 0, y: 0, z: 0}
+  finalScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1892104622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,7 +1270,7 @@ GameObject:
   - component: {fileID: 1892104625}
   - component: {fileID: 1892104624}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Skins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,8 +1346,9 @@ GameObject:
   - component: {fileID: 2141335949}
   - component: {fileID: 2141335948}
   - component: {fileID: 2141335950}
+  - component: {fileID: 1908511881176901671}
   m_Layer: 5
-  m_Name: Ability2
+  m_Name: Skill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1365,6 +1427,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillBorder: {fileID: 7484672168220757525}
   skillsDetailHandler: {fileID: 110082026}
+--- !u!225 &1908511881176901671
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141335946}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &223550853586146651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,7 +3080,7 @@ GameObject:
   - component: {fileID: 5456968639447509346}
   - component: {fileID: 6102505352314002646}
   m_Layer: 5
-  m_Name: AbitiliesButton
+  m_Name: SkillsButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3052,7 +3126,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 36
+  m_Spacing: 39
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -3504,7 +3578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 66, y: 0}
   m_SizeDelta: {x: 671, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &7394534773787914565
@@ -3719,6 +3793,8 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 1
+  initialScale: {x: 0, y: 0, z: 0}
+  finalScale: {x: 0, y: 0, z: 0}
 --- !u!114 &8929504488937810101
 MonoBehaviour:
   m_ObjectHideFlags: 0

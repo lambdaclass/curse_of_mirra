@@ -11,7 +11,6 @@ public class SkillInfo : ScriptableObject
     public string description;
     public UIType inputType;
 
-    public SkillType skillType;
     public float angle;
 
     [MMEnumCondition("inputType", (int)UIType.Direction)]

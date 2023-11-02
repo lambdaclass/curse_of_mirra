@@ -34,6 +34,7 @@ public class CharactersListManager : MonoBehaviour
                     character.name == "Uren"
                     || character.name == "Kenzu"
                     || character.name == "Otix"
+                    || character.name == "Valtimer"
                 )
                 {
                     item.GetComponentInChildren<ButtonAnimationsMMTouchButton>().enabled = false;
