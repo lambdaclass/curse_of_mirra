@@ -20,4 +20,5 @@ message GameAction {
         Move move = 1;
         UseSkill useSkill = 2;
     }
+    int64 timestamp = 3;
 }

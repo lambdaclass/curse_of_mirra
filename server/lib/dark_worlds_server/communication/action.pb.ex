@@ -28,6 +28,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameAction do
 
   field :move, 1, type: DarkWorldsServer.Communication.Proto.Move, oneof: 0
   field :useSkill, 2, type: DarkWorldsServer.Communication.Proto.UseSkill, oneof: 0
+  field :timestamp, 3, type: :int64
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
