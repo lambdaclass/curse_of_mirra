@@ -4,7 +4,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   """
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
-  alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.EngineRunner
@@ -92,7 +91,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   @impl true
   def websocket_handle({:binary, message}, web_socket_state) do
     case Communication.decode(message) do
-      {:ok, %GameAction{action_type: {action, action_data}, timestamp: timestamp} = game_action} ->
+      {:ok, %GameAction{action_type: {action, action_data}, timestamp: timestamp}} ->
         RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
         case action do
           :move ->

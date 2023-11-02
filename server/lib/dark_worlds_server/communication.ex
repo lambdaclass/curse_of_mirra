@@ -1,10 +1,8 @@
 defmodule DarkWorldsServer.Communication do
-  alias DarkWorldsServer.Communication.Proto.ClientAction
   alias DarkWorldsServer.Communication.Proto.GameEvent
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
   alias DarkWorldsServer.Communication.Proto.PlayerInformation
   alias DarkWorldsServer.Communication.Proto.GameAction
-  alias DarkWorldsServer.Communication.Proto.Move
 
   @moduledoc """
   The Communication context
