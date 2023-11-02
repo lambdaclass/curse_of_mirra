@@ -135,7 +135,6 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
       {:player_added, player_id, player_name, state.host_player_id, state.players}
     )
 
-    # send(self(), :is_lobby_full?)
     Process.send_after(self(), :is_lobby_full?, 2_000)
     {:noreply, state}
   end
