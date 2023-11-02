@@ -3,12 +3,12 @@ syntax = "proto3";
 import "communication/messages.proto";
 
 message Config {
-  GameCharactersConfig charactersConfig = 1;
-  GameEffectsConfig effectsConfig = 2;
-  GameStateConfig gameConfig = 3;
-  GameLootsConfig lootsConfig = 4;
-  GameProjectilesConfig projectilesConfig = 5;
-  GameSkillsConfig gameSkillsConfig = 6;
+  GameCharactersConfig characters_config = 1;
+  GameEffectsConfig effects_config = 2;
+  GameStateConfig game_config = 3;
+  GameLootsConfig loots_config = 4;
+  GameProjectilesConfig projectiles_config = 5;
+  GameSkillsConfig game_skills_config = 6;
 }
 
 message GameCharactersConfig {
