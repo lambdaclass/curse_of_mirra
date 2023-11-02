@@ -86,10 +86,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:move, user_id, %Move{angle: angle}, timestamp}, state) do
-    player_id = state.user_to_player[user_id]
+  def handle_cast({:move, player_id, %Move{angle: angle}, timestamp}, state) do
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
-
     state =
       Map.put(state, :game_state, game_state)
       |> put_in([:player_timestamps, player_id], timestamp)

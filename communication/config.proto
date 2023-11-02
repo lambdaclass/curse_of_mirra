@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "communication/messages.proto";
-
 message Config {
   GameCharactersConfig charactersConfig = 1;
   GameEffectsConfig effectsConfig = 2;
