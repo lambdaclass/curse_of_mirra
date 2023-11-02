@@ -2,7 +2,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Communication.Proto.Move
 
   # This is the amount of time between state updates in milliseconds
@@ -96,23 +95,24 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  def handle_cast({:play, user_id, %ActionOk{action: skill_action, value: value, timestamp: timestamp}}, state) do
-    angle = relative_position_to_angle_degrees(value.x, value.y)
+  ## TODO: replace with actual skill implementation
+  # def handle_cast({:play, user_id, %ActionOk{action: skill_action, value: value, timestamp: timestamp}}, state) do
+  #   angle = relative_position_to_angle_degrees(value.x, value.y)
 
-    player_id = state.user_to_player[user_id]
-    skill_key = action_skill_to_key(skill_action)
+  #   player_id = state.user_to_player[user_id]
+  #   skill_key = action_skill_to_key(skill_action)
 
-    game_state =
-      LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
-        "direction_angle" => Float.to_string(angle)
-      })
+  #   game_state =
+  #     LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
+  #       "direction_angle" => Float.to_string(angle)
+  #     })
 
-    state =
-      Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+  #   state =
+  #     Map.put(state, :game_state, game_state)
+  #     |> put_in([:player_timestamps, player_id], timestamp)
 
-    {:noreply, state}
-  end
+  #   {:noreply, state}
+  # end
 
   def handle_cast(:start_game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
