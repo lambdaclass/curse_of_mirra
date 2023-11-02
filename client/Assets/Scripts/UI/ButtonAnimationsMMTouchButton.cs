@@ -33,5 +33,7 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             transform.DOScale(new Vector3(1f, 1f, 1f), duration);
         }
+
+        this.Interactable = true;
     }
 }
