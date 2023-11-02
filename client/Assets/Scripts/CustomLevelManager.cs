@@ -298,11 +298,8 @@ public class CustomLevelManager : LevelManager
                     skillList.Add(skillBasic);
                     skillList.Add(skill1);
 
-                    string selectedCharacter = SocketConnectionManager.Instance.selectedCharacters[
-                        UInt64.Parse(newPlayer.PlayerID)
-                    ];
                     CoMCharacter characterInfo = charactersInfo.Find(
-                        el => el.name == selectedCharacter
+                        el => el.name == player.CharacterName
                     );
                     SkillAnimationEvents skillsAnimationEvent =
                         newPlayer.CharacterModel.GetComponent<SkillAnimationEvents>();

@@ -6,7 +6,6 @@ setup: dependencies
 
 dependencies:
 	mix deps.get
-	mix deps.update lambda_game_engine
 
 db:
 	docker compose up -d
