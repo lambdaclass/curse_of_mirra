@@ -12,7 +12,6 @@ public class SocketConnectionManager : MonoBehaviour
     public List<GameObject> players;
 
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
-    public static Dictionary<int, GameObject> projectilesStatic;
 
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
@@ -96,7 +95,6 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
             this.reconnect = LobbyConnection.Instance.reconnect;
-            projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
             if (this.reconnect)

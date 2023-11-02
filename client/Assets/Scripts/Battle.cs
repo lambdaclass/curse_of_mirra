@@ -353,12 +353,11 @@ public class Battle : MonoBehaviour
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
+            Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+                gameProjectiles[i].Position
+            );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
-                    gameProjectiles[i].Position
-                );
-
                 projectile
                     .GetComponent<SkillProjectile>()
                     .UpdatePosition(
@@ -381,7 +380,7 @@ public class Battle : MonoBehaviour
                     .First()
                     .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-                    .InstanceProjectile(projectileFromSkill, angle);
+                    .InstanceProjectile(projectileFromSkill, angle, new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2]));
 
                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
