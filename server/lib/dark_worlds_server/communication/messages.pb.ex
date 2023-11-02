@@ -336,6 +336,8 @@ defmodule DarkWorldsServer.Communication.Proto.ClientAction do
     json_name: "playerCharacter"
   )
 
+  field(:angle, 8, type: :float)
+
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 

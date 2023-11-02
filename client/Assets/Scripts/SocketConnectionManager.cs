@@ -130,8 +130,11 @@ public class SocketConnectionManager : MonoBehaviour
 
     private IEnumerator IsGameCreated()
     {
-        yield return new WaitUntil(() => LobbyConnection.Instance.GameSession != "" && LobbyConnection.Instance.GameSession != null);
-        Debug.Log("game_session: " + LobbyConnection.Instance.GameSession);
+        yield return new WaitUntil(
+            () =>
+                LobbyConnection.Instance.GameSession != ""
+                && LobbyConnection.Instance.GameSession != null
+        );
         this.sessionId = LobbyConnection.Instance.GameSession;
         this.serverIp = LobbyConnection.Instance.serverIp;
         this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;

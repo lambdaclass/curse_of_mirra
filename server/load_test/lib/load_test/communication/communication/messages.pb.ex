@@ -308,6 +308,8 @@ defmodule LoadTest.Communication.Proto.ClientAction do
     type: LoadTest.Communication.Proto.PlayerCharacter,
     json_name: "playerCharacter"
   )
+
+  field(:angle, 8, type: :float)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEvent do

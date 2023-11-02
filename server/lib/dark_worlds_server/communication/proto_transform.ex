@@ -368,12 +368,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   def decode(
         %ProtoAction{
           action: :MOVE_WITH_JOYSTICK,
-          move_delta: %{x: x, y: y},
+          angle: angle,
           timestamp: timestamp
         },
         ProtoAction
       ) do
-    %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}
+    %EngineAction{action: :move_with_joystick, value: %{angle: angle}, timestamp: timestamp}
   end
 
   def decode(%ProtoAction{action: :MOVE, direction: direction, timestamp: timestamp}, ProtoAction) do

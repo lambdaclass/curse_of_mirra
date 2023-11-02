@@ -4,6 +4,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   """
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
+  alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.RequestTracker
   alias DarkWorldsServer.Engine.EngineRunner
 
@@ -42,11 +44,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_init(%{game_id: game_id, player_id: player_id, client_id: _client_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
-    IO.inspect(player_id, label: :conexion_creada)
+
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
-         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), "h4ck") |> IO.inspect(label: :se_unio_al_juego) do
+         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), "h4ck") do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
@@ -89,10 +91,18 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   @impl true
   def websocket_handle({:binary, message}, web_socket_state) do
     case Communication.decode(message) do
-      {:ok, action} ->
+      {:ok, %ActionOk{action: action} = action_data} ->
         RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
-        EngineRunner.play(web_socket_state[:runner_pid], web_socket_state[:player_id], action)
-        {:ok, web_socket_state}
+        case action do
+          :move_with_joystick ->
+            EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+
+          :basic_attack ->
+            EngineRunner.basic_attack(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+
+          :skill ->
+            EngineRunner.skill(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data)
+        end
 
       {:error, msg} ->
         {:reply, {:text, "ERROR: #{msg}"}, web_socket_state}
@@ -127,21 +137,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, :ping, Map.put(web_socket_state, :last_ping_time, time_now)}
   end
 
-  def websocket_info({:game_update, game_state}, web_socket_state) do
-    reply_map = %{
-      players: game_state.client_game_state.game.myrra_state.players,
-      projectiles: game_state.client_game_state.game.myrra_state.projectiles,
-      killfeed: game_state.client_game_state.game.myrra_state.killfeed,
-      player_timestamp: game_state.player_timestamps[web_socket_state.player_id],
-      playable_radius: game_state.client_game_state.game.myrra_state.playable_radius,
-      shrinking_center: game_state.client_game_state.game.myrra_state.shrinking_center,
-      server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
-      loots: game_state.client_game_state.game.myrra_state.loots
-    }
-
-    {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
-  end
-
   ## The difference with :game_update messages is that these come from EngineRunner
   def websocket_info({:game_state, game_state}, web_socket_state) do
     reply_map = %{
@@ -153,7 +148,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       shrinking_center: game_state.shrinking_center,
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
       loots: game_state.loots
-    } |> IO.inspect(label: :update)
+    }
 
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
   end

@@ -20,8 +20,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
-  def play(runner_pid, user_id, action) do
-    GenServer.cast(runner_pid, {:play, user_id, action})
+  def move(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:move, user_id, action})
+  end
+
+  def basic_attack(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:basic_attack, user_id, action})
+  end
+
+  def skill(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:skill, user_id, action})
   end
 
   def start_game_tick(runner_pid) do
@@ -56,7 +64,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
-    {:ok, state |> IO.inspect(label: :creado)}
+    {:ok, state}
   end
 
   @impl true
@@ -76,11 +84,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}}, state) do
-    angle = relative_position_to_angle_degrees(value.x, value.y)
-
+  def handle_cast({:move, user_id, %ActionOk{value: value, timestamp: timestamp}}, state) do
     player_id = state.user_to_player[user_id]
-    game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
+    game_state = LambdaGameEngine.move_player(state.game_state, player_id, value.angle)
 
     state =
       Map.put(state, :game_state, game_state)
