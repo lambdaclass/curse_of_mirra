@@ -201,7 +201,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 495, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &227444004
 CanvasRenderer:
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 756291877}
   - component: {fileID: 756291876}
   - component: {fileID: 1278721550}
-  - component: {fileID: 1278721549}
+  - component: {fileID: 2223313658883486273}
   m_Layer: 5
   m_Name: LeftArrow
   m_TagString: Untagged
@@ -596,7 +596,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1278721549
+--- !u!114 &2223313658883486273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 756291874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35be77ffb4af4465bb85c1c6a6cd0e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
@@ -649,8 +649,7 @@ MonoBehaviour:
   IdleAnimationParameterName: Idle
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
-  MouseMode: 1
-  isBackButton: 0
+  MouseMode: 0
 --- !u!1 &1345791317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1065,7 @@ GameObject:
   - component: {fileID: 1824699883}
   - component: {fileID: 1824699882}
   - component: {fileID: 789196870}
-  - component: {fileID: 789196869}
+  - component: {fileID: 9044898544056008100}
   m_Layer: 5
   m_Name: RightArrow
   m_TagString: Untagged
@@ -1144,7 +1143,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &789196869
+--- !u!114 &9044898544056008100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1153,7 +1152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824699880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35be77ffb4af4465bb85c1c6a6cd0e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
@@ -1197,8 +1196,7 @@ MonoBehaviour:
   IdleAnimationParameterName: Idle
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
-  MouseMode: 1
-  isBackButton: 0
+  MouseMode: 0
 --- !u!1 &1892104622
 GameObject:
   m_ObjectHideFlags: 0
