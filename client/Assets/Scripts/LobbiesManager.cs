@@ -7,12 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class LobbiesManager : LevelSelector
 {
+    [SerializeField]
+    public PlayerNameHandler playerNameHandler;
     public static LobbiesManager Instance;
 
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instance = this;
+        if (PlayerPrefs.GetString("playerName") == "")
+        {
+            this.ShowPlayerNamePopUp();
+        }
     }
 
     public override void GoToLevel()
@@ -71,5 +77,10 @@ public class LobbiesManager : LevelSelector
         LobbyConnection.Instance.ConnectToLobby(idHash);
         yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void ShowPlayerNamePopUp()
+    {
+        this.playerNameHandler.Show();
     }
 }

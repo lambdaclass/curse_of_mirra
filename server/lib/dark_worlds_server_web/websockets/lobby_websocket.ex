@@ -5,12 +5,17 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   @behaviour :cowboy_websocket
 
-  @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+  @server_hash Application.compile_env(:dark_worlds_server, :information)
+               |> Keyword.get(:version_hash)
 
   @impl true
   def init(req, _opts) do
     lobby_id = :cowboy_req.binding(:lobby_id, req)
-    {:cowboy_websocket, req, %{lobby_id: lobby_id}}
+
+    player_name =
+      :cowboy_req.binding(:player_name, req)
+
+    {:cowboy_websocket, req, %{lobby_id: lobby_id, player_name: player_name}}
   end
 
   @impl true
@@ -18,20 +23,18 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     {:stop, %{}}
   end
 
-  def websocket_init(%{lobby_id: lobby_id}) do
+  def websocket_init(%{lobby_id: lobby_id, player_name: player_name}) do
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(lobby_id))
 
     matchmaking_session_pid = Communication.external_id_to_pid(lobby_id)
     player_id = Matchmaking.next_id(matchmaking_session_pid)
 
-    # TODO: player_name should be sent by client, see issue #527
-    # https://github.com/lambdaclass/curse_of_myrra/issues/527
-    player_name = to_string(player_id)
+    # TODO: fetch player_name from db if player_name is nil
 
     Matchmaking.add_player(player_id, player_name, matchmaking_session_pid)
 
     {:reply, {:binary, Communication.lobby_connected!(lobby_id, player_id, player_name)},
-     %{lobby_pid: matchmaking_session_pid, player_id: player_id}}
+     %{lobby_pid: matchmaking_session_pid, player_id: player_id, player_name: player_name}}
   end
 
   @impl true
