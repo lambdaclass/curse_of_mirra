@@ -12,10 +12,6 @@ defmodule DarkWorldsServerWeb.Router do
     plug :fetch_current_user
   end
 
-  pipeline :game do
-    plug :put_root_layout, {DarkWorldsServerWeb.Layouts, :game}
-  end
-
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -34,17 +30,6 @@ defmodule DarkWorldsServerWeb.Router do
     get "/join_lobby", LobbyController, :join
     get "/current_games", GameController, :current_games
     get "/player_game/:player_id", GameController, :player_game
-  end
-
-  scope "/", DarkWorldsServerWeb do
-    pipe_through [:browser, :game]
-
-    live "/board/:game_id/:player_id", BoardLive.Show
-
-    live_session :authenticated, on_mount: [{DarkWorldsServerWeb.UserAuth, :ensure_authenticated}] do
-      live "/matchmaking", MatchmakingLive.Index
-      live "/matchmaking/:session_id", MatchmakingLive.Show
-    end
   end
 
   # Enable Swoosh mailbox preview in development

@@ -2,7 +2,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Communication.Proto.CharacterConfig
   alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
-  alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
   alias DarkWorldsServer.Communication.Proto.EffectInfo
   alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.KillEvent
@@ -19,7 +18,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.SkillConfigItem
   alias DarkWorldsServer.Communication.Proto.SkillsConfig
   alias DarkWorldsServer.Communication.Proto.Status
-  alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
   alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
   alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
   alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
@@ -211,48 +209,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(%EngineAction{action: :move, value: direction, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :MOVE, direction: direction_encode(direction), timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :teleport, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :attack, value: direction, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :ATTACK, direction: direction_encode(direction), timestamp: timestamp}
-  end
-
-  def encode(
-        %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_1, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_2, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_3, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_4, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}
-  end
-
-  def encode(
-        %EngineAction{action: :basic_attack, value: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
-  end
-
   def encode({killed_by, killed}, KillEvent) do
     %KillEvent{killed_by: killed_by, killed: killed}
   end
@@ -337,13 +293,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(
-        %ProtoAction{action: :AUTO_ATTACK, target: target, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :auto_attack, value: target, timestamp: timestamp}
-  end
-
   def decode(%ProtoProjectile{} = projectile, ProtoProjectile) do
     %{
       id: id,
@@ -378,100 +327,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(
-        %ProtoAction{
-          action: :MOVE_WITH_JOYSTICK,
-          angle: angle,
-          timestamp: timestamp
-        },
-        ProtoAction
-      ) do
-    %EngineAction{action: :move_with_joystick, value: %{angle: angle}, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :MOVE, direction: direction, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :move, value: direction_decode(direction), timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :ATTACK, direction: direction, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :attack, value: direction_decode(direction), timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_1, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_3, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_4, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :ADD_BOT, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :add_bot, value: nil, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{
-          action: :SELECT_CHARACTER,
-          player_character: player_character,
-          timestamp: timestamp
-        },
-        ProtoAction
-      ) do
-    %EngineAction{action: :select_character, value: player_character, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :teleport, value: position, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :ENABLE_BOTS, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :enable_bots, value: :enable_bots, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :DISABLE_BOTS, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :disable_bots, value: :disable_bots, timestamp: timestamp}
-  end
-
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end
@@ -479,16 +334,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###############################
   # Helpers for transformations #
   ###############################
-  defp direction_encode(:up), do: :UP
-  defp direction_encode(:down), do: :DOWN
-  defp direction_encode(:left), do: :LEFT
-  defp direction_encode(:right), do: :RIGHT
-
-  defp direction_decode(:UP), do: :up
-  defp direction_decode(:DOWN), do: :down
-  defp direction_decode(:LEFT), do: :left
-  defp direction_decode(:RIGHT), do: :right
-
   defp player_status_encode(:alive), do: :ALIVE
   defp player_status_encode(:dead), do: :DEAD
 

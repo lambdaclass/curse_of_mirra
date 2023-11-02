@@ -24,9 +24,9 @@ public static partial class ActionReflection {
         string.Concat(
           "Chpjb21tdW5pY2F0aW9uL2FjdGlvbi5wcm90byIVCgRNb3ZlEg0KBWFuZ2xl",
           "GAEgASgCIigKCFVzZVNraWxsEg0KBXNraWxsGAEgASgJEg0KBWFuZ2xlGAIg",
-          "ASgCImQKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIdCgh1",
-          "c2VTa2lsbBgCIAEoCzIJLlVzZVNraWxsSAASEQoJdGltZXN0YW1wGAMgASgD",
-          "Qg0KC2FjdGlvbl90eXBlYgZwcm90bzM="));
+          "ASgCImUKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIeCgl1",
+          "c2Vfc2tpbGwYAiABKAsyCS5Vc2VTa2lsbEgAEhEKCXRpbWVzdGFtcBgDIAEo",
+          "A0INCgthY3Rpb25fdHlwZWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -40,7 +40,7 @@ public static partial class ActionReflection {
 }
 #region Messages
 /// <summary>
-/// 
+///
 ///Represents a move action
 /// </summary>
 public sealed partial class Move : pb::IMessage<Move>
@@ -233,8 +233,8 @@ public sealed partial class Move : pb::IMessage<Move>
 }
 
 /// <summary>
-/// 
-///Represents the action of using a skill 
+///
+///Represents the action of using a skill
 /// </summary>
 public sealed partial class UseSkill : pb::IMessage<UseSkill>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -527,7 +527,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
-  /// <summary>Field number for the "useSkill" field.</summary>
+  /// <summary>Field number for the "use_skill" field.</summary>
   public const int UseSkillFieldNumber = 2;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]

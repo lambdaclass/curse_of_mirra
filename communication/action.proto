@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-/* 
+/*
 Represents a move action
 */
 message Move {
   float angle = 1;
 }
 
-/* 
-Represents the action of using a skill 
+/*
+Represents the action of using a skill
 */
 message UseSkill {
   string skill = 1;
@@ -18,7 +18,7 @@ message UseSkill {
 message GameAction {
     oneof action_type {
         Move move = 1;
-        UseSkill useSkill = 2;
+        UseSkill use_skill = 2;
     }
     int64 timestamp = 3;
 }

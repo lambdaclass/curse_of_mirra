@@ -5,9 +5,6 @@ defmodule DarkWorldsServerWeb.LobbyController do
   alias DarkWorldsServer.Matchmaking
   alias DarkWorldsServer.Matchmaking.MatchingSupervisor
 
-  @server_hash Application.compile_env(:dark_worlds_server, :information)
-               |> Keyword.get(:version_hash)
-
   def new(conn, _params) do
     matchmaking_session_pid = Matchmaking.create_session()
     lobby_id = Communication.pid_to_external_id(matchmaking_session_pid)
@@ -17,8 +14,9 @@ defmodule DarkWorldsServerWeb.LobbyController do
   def current_lobbies(conn, _params) do
     matchmaking_pids = MatchingSupervisor.children_pids()
     lobbies = Enum.map(matchmaking_pids, fn pid -> Communication.pid_to_external_id(pid) end)
+    server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
-    json(conn, %{lobbies: lobbies, server_version: @server_hash})
+    json(conn, %{lobbies: lobbies, server_version: server_hash})
   end
 
   def join(conn, _params) do

@@ -5,8 +5,6 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   @behaviour :cowboy_websocket
 
-  @server_hash Application.compile_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
-
   @impl true
   def init(req, _opts) do
     lobby_id = :cowboy_req.binding(:lobby_id, req)
@@ -62,11 +60,12 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
+    server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
     reply_map = %{
       game_pid: game_pid,
       game_config: game_config,
-      server_hash: @server_hash
+      server_hash: server_hash
     }
     {:reply, {:binary, Communication.lobby_game_started!(reply_map)}, new_state}
   end

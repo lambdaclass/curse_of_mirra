@@ -22,49 +22,50 @@ public static partial class ConfigReflection {
   static ConfigReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Chpjb21tdW5pY2F0aW9uL2NvbmZpZy5wcm90byKRAgoGQ29uZmlnEi8KEGNo",
-          "YXJhY3RlcnNDb25maWcYASABKAsyFS5HYW1lQ2hhcmFjdGVyc0NvbmZpZxIp",
-          "Cg1lZmZlY3RzQ29uZmlnGAIgASgLMhIuR2FtZUVmZmVjdHNDb25maWcSJAoK",
-          "Z2FtZUNvbmZpZxgDIAEoCzIQLkdhbWVTdGF0ZUNvbmZpZxIlCgtsb290c0Nv",
-          "bmZpZxgEIAEoCzIQLkdhbWVMb290c0NvbmZpZxIxChFwcm9qZWN0aWxlc0Nv",
-          "bmZpZxgFIAEoCzIWLkdhbWVQcm9qZWN0aWxlc0NvbmZpZxIrChBnYW1lU2tp",
-          "bGxzQ29uZmlnGAYgASgLMhEuR2FtZVNraWxsc0NvbmZpZyI6ChRHYW1lQ2hh",
-          "cmFjdGVyc0NvbmZpZxIiCgpjaGFyYWN0ZXJzGAEgAygLMg4uR2FtZUNoYXJh",
-          "Y3RlciIxChFHYW1lRWZmZWN0c0NvbmZpZxIcCgdlZmZlY3RzGAEgAygLMgsu",
-          "R2FtZUVmZmVjdCJ2Cg9HYW1lU3RhdGVDb25maWcSDQoFd2lkdGgYASABKAQS",
-          "DgoGaGVpZ2h0GAIgASgEEioKEG1hcF9tb2RpZmljYXRpb24YAyABKAsyEC5N",
-          "YXBNb2RpZmljYXRpb24SGAoQbG9vdF9pbnRlcnZhbF9tcxgEIAEoBCIrCg9H",
-          "YW1lTG9vdHNDb25maWcSGAoFbG9vdHMYASADKAsyCS5HYW1lTG9vdCJEChVH",
-          "YW1lUHJvamVjdGlsZXNDb25maWcSKwoScHJvamVjdGlsZXNfY29uZmlnGAEg",
-          "AygLMg8uR2FtZVByb2plY3RpbGUiLgoQR2FtZVNraWxsc0NvbmZpZxIaCgZz",
-          "a2lsbHMYASADKAsyCi5HYW1lU2tpbGwiugEKD01hcE1vZGlmaWNhdGlvbhIj",
-          "Cgxtb2RpZmljYXRpb24YASABKAsyDS5Nb2RpZmljYXRpb24SFwoPc3RhcnRp",
-          "bmdfcmFkaXVzGAIgASgEEhYKDm1pbmltdW1fcmFkaXVzGAMgASgEEhIKCm1h",
-          "eF9yYWRpdXMYBCABKAQSHgoWb3V0c2lkZV9yYWRpdXNfZWZmZWN0cxgFIAMo",
-          "CRIdChVpbnNpZGVfcmFkaXVzX2VmZmVjdHMYBiADKAkiLwoMTW9kaWZpY2F0",
-          "aW9uEhAKCG1vZGlmaWVyGAEgASgJEg0KBXZhbHVlGAIgASgDIjcKCEdhbWVM",
-          "b290EgwKBG5hbWUYASABKAkSDAoEc2l6ZRgCIAEoBBIPCgdlZmZlY3RzGAMg",
-          "AygJIrYBCg5HYW1lUHJvamVjdGlsZRIMCgRuYW1lGAEgASgJEhMKC2Jhc2Vf",
-          "ZGFtYWdlGAIgASgEEhIKCmJhc2Vfc3BlZWQYAyABKAQSEQoJYmFzZV9zaXpl",
-          "GAQgASgEEhgKEHBsYXllcl9jb2xsaXNpb24YBSABKAgSFQoNb25faGl0X2Vm",
-          "ZmVjdBgGIAMoCRIUCgxtYXhfZGlzdGFuY2UYByABKAQSEwoLZHVyYXRpb25f",
-          "bXMYCCABKAIicAoNR2FtZUNoYXJhY3RlchIMCgRuYW1lGAEgASgJEg4KBmFj",
-          "dGl2ZRgCIAEoCBISCgpiYXNlX3NwZWVkGAMgASgEEhEKCWJhc2Vfc2l6ZRgE",
-          "IAEoBBIaCgZza2lsbHMYBSADKAsyCi5HYW1lU2tpbGwiYAoJR2FtZVNraWxs",
-          "EgwKBG5hbWUYASABKAkSEwoLY29vbGRvd25fbXMYAiABKAQSEgoKaXNfcGFz",
-          "c2l2ZRgDIAEoCBIcCgltZWNoYW5pY3MYBCADKAsyCS5NZWNoYW5pYyLQAQoI",
-          "TWVjaGFuaWMSDAoEbmFtZRgBIAEoCRIPCgdlZmZlY3RzGAIgAygJEg4KBmRh",
-          "bWFnZRgDIAEoBBINCgVyYW5nZRgEIAEoBBISCgpjb25lX2FuZ2xlGAUgASgE",
-          "EhYKDm9uX2hpdF9lZmZlY3RzGAYgAygJEiMKCnByb2plY3RpbGUYByABKAsy",
-          "Dy5HYW1lUHJvamVjdGlsZRINCgVjb3VudBgIIAEoBBITCgtkdXJhdGlvbl9t",
-          "cxgJIAEoBBIRCgltYXhfcmFuZ2UYCiABKAQisAIKCkdhbWVFZmZlY3QSDAoE",
-          "bmFtZRgBIAEoCRIVCgtzaW1wbGVfdHlwZRgCIAEoCUgAEi0KDWR1cmF0aW9u",
-          "X3R5cGUYAyABKAsyFC5HYW1lRWZmZWN0LkR1cmF0aW9uSAASLQoNcGVyaW9k",
-          "aWNfdHlwZRgEIAEoCzIULkdhbWVFZmZlY3QuUGVyaW9kaWNIABotCghEdXJh",
-          "dGlvbhIMCgR0eXBlGAEgASgJEhMKC2R1cmF0aW9uX21zGAIgASgEGmEKCFBl",
-          "cmlvZGljEgwKBHR5cGUYASABKAkSGwoTaW5zdGFudF9hcHBsaWNhdGlvbhgC",
-          "IAEoCRITCgtpbnRlcnZhbF9tcxgDIAEoBBIVCg10cmlnZ2VyX2NvdW50GAQg",
-          "ASgEQg0KC2VmZmVjdF90eXBlYgZwcm90bzM="));
+          "Chpjb21tdW5pY2F0aW9uL2NvbmZpZy5wcm90bxocY29tbXVuaWNhdGlvbi9t",
+          "ZXNzYWdlcy5wcm90byKYAgoGQ29uZmlnEjAKEWNoYXJhY3RlcnNfY29uZmln",
+          "GAEgASgLMhUuR2FtZUNoYXJhY3RlcnNDb25maWcSKgoOZWZmZWN0c19jb25m",
+          "aWcYAiABKAsyEi5HYW1lRWZmZWN0c0NvbmZpZxIlCgtnYW1lX2NvbmZpZxgD",
+          "IAEoCzIQLkdhbWVTdGF0ZUNvbmZpZxImCgxsb290c19jb25maWcYBCABKAsy",
+          "EC5HYW1lTG9vdHNDb25maWcSMgoScHJvamVjdGlsZXNfY29uZmlnGAUgASgL",
+          "MhYuR2FtZVByb2plY3RpbGVzQ29uZmlnEi0KEmdhbWVfc2tpbGxzX2NvbmZp",
+          "ZxgGIAEoCzIRLkdhbWVTa2lsbHNDb25maWciOgoUR2FtZUNoYXJhY3RlcnND",
+          "b25maWcSIgoKY2hhcmFjdGVycxgBIAMoCzIOLkdhbWVDaGFyYWN0ZXIiMQoR",
+          "R2FtZUVmZmVjdHNDb25maWcSHAoHZWZmZWN0cxgBIAMoCzILLkdhbWVFZmZl",
+          "Y3QidgoPR2FtZVN0YXRlQ29uZmlnEg0KBXdpZHRoGAEgASgEEg4KBmhlaWdo",
+          "dBgCIAEoBBIqChBtYXBfbW9kaWZpY2F0aW9uGAMgASgLMhAuTWFwTW9kaWZp",
+          "Y2F0aW9uEhgKEGxvb3RfaW50ZXJ2YWxfbXMYBCABKAQiKwoPR2FtZUxvb3Rz",
+          "Q29uZmlnEhgKBWxvb3RzGAEgAygLMgkuR2FtZUxvb3QiRAoVR2FtZVByb2pl",
+          "Y3RpbGVzQ29uZmlnEisKEnByb2plY3RpbGVzX2NvbmZpZxgBIAMoCzIPLkdh",
+          "bWVQcm9qZWN0aWxlIi4KEEdhbWVTa2lsbHNDb25maWcSGgoGc2tpbGxzGAEg",
+          "AygLMgouR2FtZVNraWxsIroBCg9NYXBNb2RpZmljYXRpb24SIwoMbW9kaWZp",
+          "Y2F0aW9uGAEgASgLMg0uTW9kaWZpY2F0aW9uEhcKD3N0YXJ0aW5nX3JhZGl1",
+          "cxgCIAEoBBIWCg5taW5pbXVtX3JhZGl1cxgDIAEoBBISCgptYXhfcmFkaXVz",
+          "GAQgASgEEh4KFm91dHNpZGVfcmFkaXVzX2VmZmVjdHMYBSADKAkSHQoVaW5z",
+          "aWRlX3JhZGl1c19lZmZlY3RzGAYgAygJIi8KDE1vZGlmaWNhdGlvbhIQCght",
+          "b2RpZmllchgBIAEoCRINCgV2YWx1ZRgCIAEoAyI3CghHYW1lTG9vdBIMCgRu",
+          "YW1lGAEgASgJEgwKBHNpemUYAiABKAQSDwoHZWZmZWN0cxgDIAMoCSK2AQoO",
+          "R2FtZVByb2plY3RpbGUSDAoEbmFtZRgBIAEoCRITCgtiYXNlX2RhbWFnZRgC",
+          "IAEoBBISCgpiYXNlX3NwZWVkGAMgASgEEhEKCWJhc2Vfc2l6ZRgEIAEoBBIY",
+          "ChBwbGF5ZXJfY29sbGlzaW9uGAUgASgIEhUKDW9uX2hpdF9lZmZlY3QYBiAD",
+          "KAkSFAoMbWF4X2Rpc3RhbmNlGAcgASgEEhMKC2R1cmF0aW9uX21zGAggASgC",
+          "InAKDUdhbWVDaGFyYWN0ZXISDAoEbmFtZRgBIAEoCRIOCgZhY3RpdmUYAiAB",
+          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoBBIRCgliYXNlX3NpemUYBCABKAQSGgoG",
+          "c2tpbGxzGAUgAygLMgouR2FtZVNraWxsImAKCUdhbWVTa2lsbBIMCgRuYW1l",
+          "GAEgASgJEhMKC2Nvb2xkb3duX21zGAIgASgEEhIKCmlzX3Bhc3NpdmUYAyAB",
+          "KAgSHAoJbWVjaGFuaWNzGAQgAygLMgkuTWVjaGFuaWMi0AEKCE1lY2hhbmlj",
+          "EgwKBG5hbWUYASABKAkSDwoHZWZmZWN0cxgCIAMoCRIOCgZkYW1hZ2UYAyAB",
+          "KAQSDQoFcmFuZ2UYBCABKAQSEgoKY29uZV9hbmdsZRgFIAEoBBIWCg5vbl9o",
+          "aXRfZWZmZWN0cxgGIAMoCRIjCgpwcm9qZWN0aWxlGAcgASgLMg8uR2FtZVBy",
+          "b2plY3RpbGUSDQoFY291bnQYCCABKAQSEwoLZHVyYXRpb25fbXMYCSABKAQS",
+          "EQoJbWF4X3JhbmdlGAogASgEIrACCgpHYW1lRWZmZWN0EgwKBG5hbWUYASAB",
+          "KAkSFQoLc2ltcGxlX3R5cGUYAiABKAlIABItCg1kdXJhdGlvbl90eXBlGAMg",
+          "ASgLMhQuR2FtZUVmZmVjdC5EdXJhdGlvbkgAEi0KDXBlcmlvZGljX3R5cGUY",
+          "BCABKAsyFC5HYW1lRWZmZWN0LlBlcmlvZGljSAAaLQoIRHVyYXRpb24SDAoE",
+          "dHlwZRgBIAEoCRITCgtkdXJhdGlvbl9tcxgCIAEoBBphCghQZXJpb2RpYxIM",
+          "CgR0eXBlGAEgASgJEhsKE2luc3RhbnRfYXBwbGljYXRpb24YAiABKAkSEwoL",
+          "aW50ZXJ2YWxfbXMYAyABKAQSFQoNdHJpZ2dlcl9jb3VudBgEIAEoBEINCgtl",
+          "ZmZlY3RfdHlwZWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -139,7 +140,7 @@ public sealed partial class Config : pb::IMessage<Config>
     return new Config(this);
   }
 
-  /// <summary>Field number for the "charactersConfig" field.</summary>
+  /// <summary>Field number for the "characters_config" field.</summary>
   public const int CharactersConfigFieldNumber = 1;
   private global::GameCharactersConfig charactersConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -151,7 +152,7 @@ public sealed partial class Config : pb::IMessage<Config>
     }
   }
 
-  /// <summary>Field number for the "effectsConfig" field.</summary>
+  /// <summary>Field number for the "effects_config" field.</summary>
   public const int EffectsConfigFieldNumber = 2;
   private global::GameEffectsConfig effectsConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -163,7 +164,7 @@ public sealed partial class Config : pb::IMessage<Config>
     }
   }
 
-  /// <summary>Field number for the "gameConfig" field.</summary>
+  /// <summary>Field number for the "game_config" field.</summary>
   public const int GameConfigFieldNumber = 3;
   private global::GameStateConfig gameConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -175,7 +176,7 @@ public sealed partial class Config : pb::IMessage<Config>
     }
   }
 
-  /// <summary>Field number for the "lootsConfig" field.</summary>
+  /// <summary>Field number for the "loots_config" field.</summary>
   public const int LootsConfigFieldNumber = 4;
   private global::GameLootsConfig lootsConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -187,7 +188,7 @@ public sealed partial class Config : pb::IMessage<Config>
     }
   }
 
-  /// <summary>Field number for the "projectilesConfig" field.</summary>
+  /// <summary>Field number for the "projectiles_config" field.</summary>
   public const int ProjectilesConfigFieldNumber = 5;
   private global::GameProjectilesConfig projectilesConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -199,7 +200,7 @@ public sealed partial class Config : pb::IMessage<Config>
     }
   }
 
-  /// <summary>Field number for the "gameSkillsConfig" field.</summary>
+  /// <summary>Field number for the "game_skills_config" field.</summary>
   public const int GameSkillsConfigFieldNumber = 6;
   private global::GameSkillsConfig gameSkillsConfig_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4280,10 +4281,24 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public string SimpleType {
-    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
+    get { return HasSimpleType ? (string) effectType_ : ""; }
     set {
       effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       effectTypeCase_ = EffectTypeOneofCase.SimpleType;
+    }
+  }
+  /// <summary>Gets whether the "simple_type" field is set</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool HasSimpleType {
+    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
+  }
+  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void ClearSimpleType() {
+    if (HasSimpleType) {
+      ClearEffectType();
     }
   }
 
@@ -4361,7 +4376,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
+    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
     hash ^= (int) effectTypeCase_;
@@ -4387,7 +4402,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -4413,7 +4428,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -4438,7 +4453,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
     }
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {
