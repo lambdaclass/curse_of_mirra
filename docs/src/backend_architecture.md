@@ -16,10 +16,10 @@ The architecture of the server should be as simple as possible.
 
 ## Round
 1. Clients send messages to the `game_state` process
-2. Game state processes all messages in an ordered
-3. The `tick`, clock of the game, is updated and the game state process sends a small delta update to all the players with the changes that were realized during the tick.
+2. Game state processes all messages in order
+3. The `tick`, which is the clock of the game, is updated and the game state process sends a small delta update to all the players with the changes that were realized during the tick.
 
-> Most of the work is done during 3 where collision detection, powers get consumed, creates get spawned or assigned to a client, damage and death are resolved.
+> Most of the work is done during 3 where collision is detected, powers get consumed, creates get spawned or assigned to a client, damage and death are resolved.
 
 4. Go to 1.
 
