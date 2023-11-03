@@ -376,6 +376,9 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
+
+                Debug.Log(skillInfoSet);
+                Debug.Log(skillInfoSet.Count);
                 GameObject projectileFromSkill = skillInfoSet
                     .Where(el => el.name == gameProjectiles[i].SkillName)
                     .First()
