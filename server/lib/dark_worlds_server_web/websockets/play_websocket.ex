@@ -47,7 +47,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
-         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), "h4ck") do
+         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), Enum.random(["h4ck", "muflus"])) do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
@@ -95,7 +95,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
         case action do
           :move ->
             EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
-          :useSkill when action_data.skill == "BasicAttack" ->
+          :use_skill when action_data.skill == "BasicAttack" ->
             EngineRunner.basic_attack(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
         end
 

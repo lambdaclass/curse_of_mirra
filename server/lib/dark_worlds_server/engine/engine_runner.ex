@@ -210,10 +210,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         effects: %{},
         death_count: 0,
         action: transform_action_to_myrra_action(player.actions),
-        direction: %LambdaGameEngine.MyrraEngine.RelativePosition{
-          x: 0.0,
-          y: 0.0
-        },
+        direction: transform_angle_to_myrra_relative_position(player.direction),
         aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
       }
       |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
