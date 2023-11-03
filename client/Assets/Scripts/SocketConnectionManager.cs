@@ -12,7 +12,7 @@ public class SocketConnectionManager : MonoBehaviour
     public List<GameObject> players;
 
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
-
+    public static Dictionary<int, GameObject> projectilesStatic;
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
 
@@ -30,6 +30,7 @@ public class SocketConnectionManager : MonoBehaviour
     public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
+    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
@@ -95,6 +96,9 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
             this.reconnect = LobbyConnection.Instance.reconnect;
+            this.playersIdName = LobbyConnection.Instance.playersIdName;
+
+            projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
             if (this.reconnect)
@@ -125,8 +129,16 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
-        print(url);
+        string url = makeWebsocketUrl(
+            "/play/"
+                + sessionId
+                + "/"
+                + this.clientId
+                + "/"
+                + playerId
+                + "/"
+                + PlayerPrefs.GetString("playerName")
+        );
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
         ws = new WebSocket(url, headers);
@@ -187,6 +199,12 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
+                    break;
+                case GameEventType.PlayerJoined:
+                    LobbyConnection.Instance.playersIdName.Add(
+                        gameEvent.PlayerJoinedId,
+                        gameEvent.PlayerJoinedName
+                    );
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);

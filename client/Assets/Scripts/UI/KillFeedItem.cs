@@ -19,7 +19,7 @@ public class KillFeedItem : MonoBehaviour
 
     public void SetPlayerNames(string killer, string killed)
     {
-        killerPlayer.text = "Player " + killer;
-        killedPlayer.text = "Player " + killed;
+        killerPlayer.text = killer;
+        killedPlayer.text = killed;
     }
 }
