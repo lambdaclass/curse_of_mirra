@@ -97,6 +97,7 @@ defmodule LoadTest.Communication.Proto.PlayerEffect do
   field(:SCHERZO, 15)
   field(:DANSE_MACABRE, 16)
   field(:PARALYZED, 17)
+  field(:NONE, 18)
 end
 
 defmodule LoadTest.Communication.Proto.LobbyEventType do
@@ -159,26 +160,27 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:latency, 3, type: :uint64)
   field(:projectiles, 4, repeated: true, type: LoadTest.Communication.Proto.Projectile)
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
-  field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
+  field(:player_joined_name, 6, type: :string, json_name: "playerJoinedName")
+  field(:winner_player, 7, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
 
-  field(:selected_characters, 7,
+  field(:selected_characters, 8,
     repeated: true,
     type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
 
-  field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
-  field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
-  field(:killfeed, 10, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
-  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
+  field(:killfeed, 11, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 12, type: :uint64, json_name: "playableRadius")
 
-  field(:shrinking_center, 12,
+  field(:shrinking_center, 13,
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
 
-  field(:loots, 13, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
+  field(:loots, 14, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
