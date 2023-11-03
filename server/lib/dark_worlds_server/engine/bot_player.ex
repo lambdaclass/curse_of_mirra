@@ -260,7 +260,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
 
   defp maybe_add_inaccuracy_to_angle(angle, true) do
-    angle |> Nx.add(Enum.random([0, 0.05, -0.05, 0.1, -0.1]))
+    deviation_angles =
+      [0, angle_to_radian(4), angle_to_radian(-4), angle_to_radian(8), angle_to_radian(-8)]
+
+    angle |> Nx.add(Enum.random(deviation_angles))
   end
 
   def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entities) do
@@ -442,4 +445,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     # and the unplayable zone to avoid being on the edge of both
     distance > playable_radius - @radius_sub_to_escape
   end
+
+  defp angle_to_radian(angle), do: angle * :math.pi() / 180
 end
