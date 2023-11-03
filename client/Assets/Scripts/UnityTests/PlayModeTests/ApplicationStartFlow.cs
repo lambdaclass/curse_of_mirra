@@ -20,16 +20,12 @@ public class ApplicationStartFlow : InputTestFixture
     [UnityTest]
     public IEnumerator TestGameStart()
     {
-        GameObject enterButton = GameObject.Find("ButtonContainer");
-        string sceneName = SceneManager.GetActiveScene().name;
-        Assert.That(sceneName, Is.EqualTo("TitleScreen"));
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("TitleScreen"));
 
         yield return new WaitForSeconds(3f);
-        yield return TestingUtils.CoClickButton(enterButton);
+        yield return TestingUtils.ForceClick("ButtonContainer");
 
         yield return new WaitForSeconds(1f);
-        Debug.Log("check scene");
-        sceneName = SceneManager.GetActiveScene().name;
-        Assert.That(sceneName, Is.EqualTo("MainScreen"));
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("MainScreen"));
     }
 }

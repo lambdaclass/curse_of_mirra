@@ -5,15 +5,15 @@ using UnityEngine.EventSystems;
 
 public static class TestingUtils
 {
-    public static IEnumerator CoClickButton(GameObject go)
+    public static IEnumerator ForceClick(string elementName)
     {
-        // simulate a button click  
+        GameObject gameObjectToClick = GameObject.Find(elementName);
         var pointer = new PointerEventData(EventSystem.current);
 
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerEnterHandler);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerDownHandler);
+        ExecuteEvents.Execute(gameObjectToClick, pointer, ExecuteEvents.pointerEnterHandler);
+        ExecuteEvents.Execute(gameObjectToClick, pointer, ExecuteEvents.pointerDownHandler);
         yield return new WaitForSeconds(0.1f);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerUpHandler);
-        ExecuteEvents.Execute(go, pointer, ExecuteEvents.pointerClickHandler);
+        ExecuteEvents.Execute(gameObjectToClick, pointer, ExecuteEvents.pointerUpHandler);
+        ExecuteEvents.Execute(gameObjectToClick, pointer, ExecuteEvents.pointerClickHandler);
     }
 }
