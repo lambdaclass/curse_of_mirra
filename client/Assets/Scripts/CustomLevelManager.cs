@@ -65,7 +65,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
-        // SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
+        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -394,7 +394,9 @@ public class CustomLevelManager : LevelManager
             skillList.Add(skillBasic);
             skillList.Add(skill1);
 
-            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == Utils.GetGamePlayer(clientPlayerId).CharacterName);
+            CoMCharacter characterInfo = charactersInfo.Find(
+                el => el.name == Utils.GetGamePlayer(clientPlayerId).CharacterName
+            );
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
 

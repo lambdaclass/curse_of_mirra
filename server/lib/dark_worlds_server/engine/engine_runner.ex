@@ -5,6 +5,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   alias DarkWorldsServer.Engine.ActionOk
   alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Communication.Proto.Move
+  alias DarkWorldsServer.Communication.Proto.UseSkill
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
@@ -26,8 +27,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.cast(runner_pid, {:move, user_id, action, timestamp})
   end
 
-  def basic_attack(runner_pid, user_id, action) do
-    GenServer.cast(runner_pid, {:basic_attack, user_id, action})
+  def basic_attack(runner_pid, user_id, action, timestamp) do
+    GenServer.cast(runner_pid, {:basic_attack, user_id, action, timestamp})
   end
 
   def skill(runner_pid, user_id, action) do
@@ -97,11 +98,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  def handle_cast({:play, user_id, %ActionOk{action: skill_action, value: value, timestamp: timestamp}}, state) do
-    angle = relative_position_to_angle_degrees(value.x, value.y)
-
+  @impl true
+  def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
     player_id = state.user_to_player[user_id]
-    skill_key = action_skill_to_key(skill_action)
+    skill_key = action_skill_to_key(skill)
 
     game_state =
       LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
@@ -168,7 +168,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     end
   end
 
-  defp action_skill_to_key(:basic_attack), do: "1"
+  defp action_skill_to_key("BasicAttack"), do: "1"
   defp action_skill_to_key(:skill_1), do: "2"
   defp action_skill_to_key(:skill_2), do: "3"
   defp action_skill_to_key(:skill_3), do: "4"
