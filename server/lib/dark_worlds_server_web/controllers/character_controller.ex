@@ -4,8 +4,6 @@ defmodule DarkWorldsServerWeb.CharacterController do
   alias DarkWorldsServer.Accounts
   alias DarkWorldsServer.Accounts.User
 
-  @alphabet "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
   def get_player(conn, %{"device_client_id" => device_client_id}) do
     user = DarkWorldsServer.Accounts.get_user_by_device_client_id(device_client_id)
     json(conn, user_response(user))
