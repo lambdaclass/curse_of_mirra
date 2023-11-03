@@ -159,7 +159,7 @@ defmodule LoadTest.Communication.Proto.GameEvent do
   field(:players, 2, repeated: true, type: LoadTest.Communication.Proto.Player)
   field(:latency, 3, type: :uint64)
   field(:projectiles, 4, repeated: true, type: LoadTest.Communication.Proto.Projectile)
-  field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
+  field(:player_id, 5, type: :uint64, json_name: "playerId")
   field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
 
   field(:selected_characters, 7,

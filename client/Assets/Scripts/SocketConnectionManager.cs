@@ -124,7 +124,6 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-
         StartCoroutine(IsGameCreated());
     }
 
@@ -141,8 +140,7 @@ public class SocketConnectionManager : MonoBehaviour
         this.serverHash = LobbyConnection.Instance.serverHash;
         this.clientId = LobbyConnection.Instance.clientId;
         this.reconnect = LobbyConnection.Instance.reconnect;
-        playerId = LobbyConnection.Instance.playerId;
-
+        this.playerId = LobbyConnection.Instance.playerId;
         if (!connected && this.sessionId != "")
         {
             ConnectToSession(this.sessionId);
@@ -172,6 +170,7 @@ public class SocketConnectionManager : MonoBehaviour
         try
         {
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+            this.playerId = gameEvent.PlayerId;
             switch (gameEvent.Type)
             {
                 case GameEventType.StateUpdate:

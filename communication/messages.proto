@@ -12,7 +12,7 @@ message GameEvent {
     repeated Player players = 2;
     uint64 latency = 3;
     repeated Projectile projectiles = 4;
-    uint64 player_joined_id = 5;
+    uint64 player_id = 5;
     Player winner_player = 6;
     map<uint64, string> selected_characters = 7;
     int64 player_timestamp = 8;

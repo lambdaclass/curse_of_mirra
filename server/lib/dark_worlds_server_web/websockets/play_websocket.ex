@@ -49,7 +49,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          # String.to_integer(player_id) should be client_id
          {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), Enum.random(["h4ck"])) do
       web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
-
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
       {:ok, web_socket_state}
@@ -118,11 +117,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:text, "ERROR unsupported message"}, web_socket_state}
   end
 
-  @impl true
-  def websocket_info({:player_joined, player_id}, web_socket_state) do
-    {:reply, {:binary, Communication.game_player_joined(player_id)}, web_socket_state}
-  end
-
   def websocket_info({:initial_positions, players}, web_socket_state) do
     {:reply, {:binary, Communication.initial_positions(players)}, web_socket_state}
   end
@@ -144,7 +138,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
       playable_radius: game_state.playable_radius,
       shrinking_center: game_state.shrinking_center,
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
-      loots: game_state.loots
+      loots: game_state.loots,
+      player_id: web_socket_state[:player_id]
     }
 
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}

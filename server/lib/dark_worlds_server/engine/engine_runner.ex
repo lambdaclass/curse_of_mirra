@@ -70,7 +70,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_call({:join, user_id, character_name}, _from, state) do
-    IO.inspect({:join, user_id, character_name})
     {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, character_name)
 
     state =
@@ -87,7 +86,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:move, player_id, %Move{angle: angle}, timestamp}, state) do
-    IO.inspect({:move, player_id, angle})
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =

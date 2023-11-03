@@ -63,7 +63,8 @@ defmodule DarkWorldsServer.Communication do
         shrinking_center: shrinking_center,
         player_timestamp: player_timestamp,
         server_timestamp: server_timestamp,
-        loots: loots
+        loots: loots,
+        player_id: player_id
       }) do
     %GameEvent{
       type: :STATE_UPDATE,
@@ -74,7 +75,8 @@ defmodule DarkWorldsServer.Communication do
       shrinking_center: shrinking_center,
       player_timestamp: player_timestamp,
       server_timestamp: server_timestamp,
-      loots: loots
+      loots: loots,
+      player_id: player_id
     }
     |> GameEvent.encode()
   end
@@ -86,11 +88,6 @@ defmodule DarkWorldsServer.Communication do
 
   def game_finished!(%{winner: winner, players: players}) do
     %GameEvent{winner_player: winner, type: :GAME_FINISHED, players: players}
-    |> GameEvent.encode()
-  end
-
-  def game_player_joined(player_id) do
-    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
     |> GameEvent.encode()
   end
 
