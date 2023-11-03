@@ -24,6 +24,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias LambdaGameEngine.MyrraEngine.RelativePosition, as: EngineRelativePosition
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.UseSkill
 
   @behaviour Protobuf.TransformModule
 
@@ -231,6 +232,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def decode(value, GameAction) do
+    value
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, UseSkill) do
     value
   end
 

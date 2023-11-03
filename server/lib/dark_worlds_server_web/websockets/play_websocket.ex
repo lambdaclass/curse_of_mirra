@@ -95,6 +95,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
         case action do
           :move ->
             EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
+          :useSkill when action_data.skill == "BasicAttack" ->
+            EngineRunner.basic_attack(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
         end
 
         {:ok, web_socket_state}
