@@ -13,8 +13,8 @@ config :dark_worlds_server,
 # Configures the endpoint
 dispatch = [
   _: [
-    {"/play/:game_id/:client_id/:player_id", DarkWorldsServerWeb.PlayWebSocket, []},
-    {"/matchmaking/:lobby_id", DarkWorldsServerWeb.LobbyWebsocket, []},
+    {"/play/:game_id/:client_id/:player_id/:player_name", DarkWorldsServerWeb.PlayWebSocket, []},
+    {"/matchmaking/:lobby_id/:player_name", DarkWorldsServerWeb.LobbyWebsocket, []},
     {:_, Plug.Cowboy.Handler, {DarkWorldsServerWeb.Endpoint, []}}
   ]
 ]
