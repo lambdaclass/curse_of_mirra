@@ -22,6 +22,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # The number of minimum playable radius where the bot could flee
   @min_playable_radius_flee 5000
 
+  # Number to substract to the playable radio
+  @radius_sub_to_escape 500
+
   #######
   # API #
   #######
@@ -147,12 +150,21 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
          %{objective: :chase_loot} = bot_state,
          _bot_id,
          _players,
-         _game_state,
+         %{game_state: %{myrra_state: myrra_state}},
          %{loots_by_distance: loots_by_distance}
        ) do
     closest_loot = List.first(loots_by_distance)
 
-    Map.put(bot_state, :action, {:move, closest_loot.direction_to_entity})
+    {x, y} = closest_loot.direction_to_entity
+
+    center = myrra_state.shrinking_center
+    radius = myrra_state.playable_radius
+
+    if position_out_of_radius?(closest_loot.entity_position, center, radius) do
+      Map.put(bot_state, :action, {:move, {-x, -y}})
+    else
+      Map.put(bot_state, :action, {:move, {x, y}})
+    end
   end
 
   defp decide_action(
@@ -266,7 +278,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     closest_entity =
       Enum.min_by(closests_entities, fn e -> if e, do: e.distance_to_entity end)
 
-    out_of_area? = Enum.any?(bot.effects, fn {k, _v} -> k == :out_of_area end)
+    center = myrra_state.shrinking_center
+    radius = myrra_state.playable_radius
+
+    out_of_area? =
+      position_out_of_radius?(bot.position, center, radius)
 
     if out_of_area? do
       Map.put(bot_state, :objective, :flee_from_zone)
@@ -336,7 +352,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         entity_id: entity.id,
         distance_to_entity: get_distance_to_point(bot.position, entity.position),
         direction_to_entity: calculate_circle_point(bot.position, entity.position, false),
-        attacking_direction: calculate_circle_point(bot.position, entity.position, true)
+        attacking_direction: calculate_circle_point(bot.position, entity.position, true),
+        entity_position: entity.position
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
@@ -414,5 +431,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       )
 
     Map.put(bot_state, :action, {:move, target})
+  end
+
+  defp position_out_of_radius?(position, center, playable_radius) do
+    distance =
+      (:math.pow(position.x - center.x, 2) + :math.pow(position.y - center.y, 2))
+      |> :math.sqrt()
+
+    # We'll substract a fixed value to the playable radio to have some space between the bot
+    # and the unplayable zone to avoid being on the edge of both
+    distance > playable_radius - @radius_sub_to_escape
   end
 end
