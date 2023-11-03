@@ -56,8 +56,6 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
 
     private Vector3 ClampJoystickPositionToScreen(PointerEventData eventData)
     {
-        Debug.Log("data: " + eventData.position);
-        Debug.Log("position: " + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width);
         if (
             eventData.position.x
             > transform.position.x - BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width

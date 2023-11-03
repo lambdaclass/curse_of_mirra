@@ -119,7 +119,10 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, characterInfo.skillBackground);
+        SkillBasic.SetInitialSprite(
+            characterInfo.skillsInfo[0].skillSprite,
+            characterInfo.skillBackground
+        );
         Skill1.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
@@ -413,6 +416,7 @@ public class CustomInputManager : InputManager
         Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
         material = skillRange.GetComponentInChildren<MeshRenderer>().material;
         material.SetColor("_Color", newColor);
+        Debug.Log("cancelable: " + newColor);
     }
 
     private void DisableButtons()
