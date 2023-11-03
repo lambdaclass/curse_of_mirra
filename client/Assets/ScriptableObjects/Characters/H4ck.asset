@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: H4ck
   m_EditorClassIdentifier: 
   name: H4ck
+  characterSprite: {fileID: 21300000, guid: 4847406aec1d24995ac6fd1c0565edfe, type: 3}
   artWork: {fileID: 21300000, guid: a440347521185447ea28aa7a1c9fc6c1, type: 3}
   selectedArtwork: {fileID: 21300000, guid: d5cf4c8f212e24ea8aa07ccdcd285ec7, type: 3}
   blockArtwork: {fileID: 21300000, guid: 3c95af6d197c24f9b96a8f18c682fe2a, type: 3}
