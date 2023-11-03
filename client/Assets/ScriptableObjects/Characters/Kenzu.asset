@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Kenzu
   m_EditorClassIdentifier: 
   name: Kenzu
+  characterSprite: {fileID: 21300000, guid: af4328f0817a143fea5bad37599b9e2c, type: 3}
   artWork: {fileID: 21300000, guid: d8d11da874a274698912639d5fea1403, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5749ed7bc217c40c3a32fd0cf71acb2d, type: 3}
   blockArtwork: {fileID: 21300000, guid: 11656ee72c86a45b99ddc43d666cd368, type: 3}

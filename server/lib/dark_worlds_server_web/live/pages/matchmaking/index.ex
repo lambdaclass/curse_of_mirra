@@ -17,7 +17,7 @@ defmodule DarkWorldsServerWeb.MatchmakingLive.Index do
   def handle_event("create_session", _params, socket) do
     session_pid = Matchmaking.create_session()
     session_id = Communication.pid_to_external_id(session_pid)
-    {:noreply, push_navigate(socket, to: ~p"/matchmaking/#{session_id}")}
+    {:noreply, push_navigate(socket, to: ~p"/matchmaking/#{session_id}/player")}
   end
 
   def handle_info(:fetch_sessions, socket) do

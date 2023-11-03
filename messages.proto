@@ -13,14 +13,15 @@ message GameEvent {
     uint64 latency = 3;
     repeated Projectile projectiles = 4;
     uint64 player_joined_id = 5;
-    Player winner_player = 6;
-    map<uint64, string> selected_characters = 7;
-    int64 player_timestamp = 8;
-    int64 server_timestamp = 9;
-    repeated KillEvent killfeed = 10;
-    uint64 playable_radius = 11;
-    Position shrinking_center = 12;
-    repeated LootPackage loots = 13;
+    string player_joined_name = 6;
+    Player winner_player = 7;
+    map<uint64, string> selected_characters = 8;
+    int64 player_timestamp = 9;
+    int64 server_timestamp = 10;
+    repeated KillEvent killfeed = 11;
+    uint64 playable_radius = 12;
+    Position shrinking_center = 13;
+    repeated LootPackage loots = 14;
 }
 
 /* Type of game events
