@@ -37,6 +37,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def encode(config, GameCharactersConfig) do
+    # For some reason is breaking the encoding here
     config |> IO.inspect(label: :characters?)
   end
 
