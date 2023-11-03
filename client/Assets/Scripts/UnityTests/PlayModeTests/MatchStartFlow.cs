@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using MoreMountains.Tools;
 using UnityEngine.EventSystems;
 
-public class GameStartFlow : InputTestFixture
+public class MatchStartFlow : InputTestFixture
 {
     [SetUp]
     public override void Setup()
@@ -19,7 +19,7 @@ public class GameStartFlow : InputTestFixture
 
     // Creates a lobby in the Lobby scene
     [UnityTest]
-    public IEnumerator GameStart()
+    public IEnumerator MatchStart()
     {
         yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(2f);

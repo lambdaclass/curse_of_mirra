@@ -19,7 +19,7 @@ public class ServerHealthCheck : InputTestFixture
 
     // Creates a lobby in the Lobby scene
     [UnityTest]
-    public IEnumerator ServerIsHealthy()
+    public IEnumerator IsServerHealthy()
     {
         yield return TestingUtils.ForceClick("newLobbyButton");
         yield return new WaitForSeconds(2f);

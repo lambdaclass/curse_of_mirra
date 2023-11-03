@@ -18,7 +18,7 @@ public class ApplicationStartFlow : InputTestFixture
     }
 
     [UnityTest]
-    public IEnumerator TestGameStart()
+    public IEnumerator ApplicationStart()
     {
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("TitleScreen"));
 
@@ -27,5 +27,8 @@ public class ApplicationStartFlow : InputTestFixture
 
         yield return new WaitForSeconds(1f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("MainScreen"));
+
+        yield return TestingUtils.ForceClick("PlayGameButton");
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
     }
 }
