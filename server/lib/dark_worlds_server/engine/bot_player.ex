@@ -336,8 +336,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         entity_id: entity.id,
         distance_to_entity: get_distance_to_point(bot.position, entity.position),
         direction_to_entity: calculate_circle_point(bot.position, entity.position, false),
-        attacking_direction: calculate_circle_point(bot.position, entity.position, true),
-        entity_position: entity.position
+        attacking_direction: calculate_circle_point(bot.position, entity.position, true)
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
