@@ -54,6 +54,7 @@ public class PlayerNameHandler : MonoBehaviour
             this.placeholder.text = PLAYER_NAME_PLACEHOLDER;
         }
         this.playerNameHandler.SetActive(true);
+        this.playerNameHandler.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     public void ClearPlaceholder()
