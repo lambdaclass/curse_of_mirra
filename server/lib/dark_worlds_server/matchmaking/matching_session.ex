@@ -41,7 +41,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def init(_args) do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     # This will start the runner and kill the session after the time given
-    Process.send_after(self(), :start_game, 10_000)
+    Process.send_after(self(), :start_game, 1_000)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
     {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
@@ -96,33 +96,17 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:start_game, state) do
-    {:ok, game_pid} = Engine.start_child()
+    {:ok, engine_config_json} =
+      Application.app_dir(:lambda_game_engine, "priv/config.json") |> File.read()
+
+    engine_config = LambdaGameEngine.parse_config(engine_config_json)
+
+    {:ok, game_pid} = Engine.start_child(engine_config)
 
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
-    # TODO We must delete this. It's a temporary workaround to send the config that
-    # the client needs from the server. This is done by GameConfig but the client
-    # will not send it anymore.
-    game_config =
-      %{
-        runner_config:
-          Utils.Config.read_config(:game_settings)
-          |> Enum.map(fn {k, v} ->
-            value =
-              case Integer.parse(v) do
-                :error -> v
-                {parsed_value, _} -> parsed_value
-              end
-
-            {k, value}
-          end)
-          |> Map.new(),
-        character_config: Utils.Config.read_config(:characters),
-        skills_config: Utils.Config.read_config(:skills)
-      }
-
-    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
+    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
 
     {:stop, :normal, state}
   end
@@ -154,8 +138,10 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     case Enum.count(state[:players]) do
       4 ->
         send(self(), :start_game)
-          {:noreply, state}
-      _ -> {:noreply, state}
+        {:noreply, state}
+
+      _ ->
+        {:noreply, state}
     end
   end
 
