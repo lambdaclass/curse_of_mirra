@@ -3,6 +3,8 @@ defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
   alias DarkWorldsServer.Communication.Proto.PlayerInformation
   alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.Move
+  alias DarkWorldsServer.Communication.Proto.UseSkill
 
   @moduledoc """
   The Communication context
