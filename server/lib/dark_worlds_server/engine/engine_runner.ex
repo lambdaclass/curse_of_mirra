@@ -47,14 +47,12 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{engine_config_raw_json: engine_config_raw_json}) do
+  def init(%{engine_config: engine_config}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
 
     Process.flag(:priority, priority)
-
-    engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
@@ -98,7 +96,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
-
     player_id = state.user_to_player[user_id]
     skill_key = action_skill_to_key(skill)
 

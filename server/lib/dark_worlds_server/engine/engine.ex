@@ -12,13 +12,10 @@ defmodule DarkWorldsServer.Engine do
     DynamicSupervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def start_child() do
-    {:ok, engine_config_json} =
-      Application.app_dir(:lambda_game_engine, "priv/config.json") |> File.read()
-
+  def start_child(engine_config) do
     DynamicSupervisor.start_child(
       __MODULE__,
-      {EngineRunner, %{engine_config_raw_json: engine_config_json}}
+      {EngineRunner, %{engine_config: engine_config}}
     )
   end
 
