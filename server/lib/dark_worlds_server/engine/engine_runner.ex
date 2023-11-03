@@ -37,11 +37,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.cast(runner_pid, :start_game_tick)
   end
 
-  if Mix.env() == :dev do
-    def bot_join(pid_middle_number) do
-      join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
-    end
-  end
+  # if Mix.env() == :dev do
+  #   def bot_join(pid_middle_number) do
+  #     join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
+  #   end
+  # end
 
   #######################
   # GenServer callbacks #
@@ -70,6 +70,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_call({:join, user_id, character_name}, _from, state) do
+    IO.inspect({:join, user_id, character_name})
     {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, character_name)
 
     state =
@@ -86,6 +87,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:move, player_id, %Move{angle: angle}, timestamp}, state) do
+    IO.inspect({:move, player_id, angle})
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =

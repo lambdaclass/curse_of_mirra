@@ -178,15 +178,15 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    if (
-                        this.gamePlayers != null
-                        && this.gamePlayers.Count < gameEvent.Players.Count
-                        && SpawnBot.Instance != null
-                    )
-                    {
-                        // We use an event here, to prevent losing events.
-                        OnBotSpawnRequested(gameEvent.Players.ToList());
-                    }
+                    // if (
+                    //     this.gamePlayers != null
+                    //     && this.gamePlayers.Count < gameEvent.Players.Count
+                    //     && SpawnBot.Instance != null
+                    // )
+                    // {
+                    //     // We use an event here, to prevent losing events.
+                    //     OnBotSpawnRequested(gameEvent.Players.ToList());
+                    // }
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
