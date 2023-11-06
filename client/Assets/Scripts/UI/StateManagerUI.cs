@@ -12,7 +12,11 @@ public class StateManagerUI : MonoBehaviour
     {
         if (SocketConnectionManager.Instance.playerId == playerUpdateId)
         {
-            GetState(name).SetActive(isActive);
+
+            GameObject state = GetState(name);
+            if(state) {
+                state.SetActive(isActive);
+            }
         }
     }
 

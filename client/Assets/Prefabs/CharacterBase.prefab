@@ -60,7 +60,6 @@ MonoBehaviour:
   SkillRange: {fileID: 7220386294724277444}
   spawnFeedback: {fileID: 5507989738225416466}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
-  HealthBar: {fileID: 2144187193244669002}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,12 +403,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 450e1d7339bce43c7b7468ae7c44b0fe, type: 3}
---- !u!1 &2144187193244669002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000010797750574, guid: 450e1d7339bce43c7b7468ae7c44b0fe,
-    type: 3}
-  m_PrefabInstance: {fileID: 2144315291311885668}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2223069264887198898 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224000010736761302, guid: 450e1d7339bce43c7b7468ae7c44b0fe,
@@ -766,6 +759,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3096859426901363567, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3096859426901363567, guid: 20e098dcba25946b6b2853c408723ff3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -804,7 +807,7 @@ PrefabInstance:
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1.7078
+      value: 2.7078
       objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}

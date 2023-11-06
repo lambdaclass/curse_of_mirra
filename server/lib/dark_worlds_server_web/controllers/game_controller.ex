@@ -14,7 +14,8 @@ defmodule DarkWorldsServerWeb.GameController do
   def current_games(conn, _params) do
     current_games_pids = Engine.list_runners_pids()
 
-    current_games = Enum.map(current_games_pids, fn pid -> Communication.pid_to_external_id(pid) end)
+    current_games =
+      Enum.map(current_games_pids, fn pid -> Communication.pid_to_external_id(pid) end)
 
     json(conn, %{current_games: current_games})
   end
@@ -25,11 +26,16 @@ defmodule DarkWorldsServerWeb.GameController do
         json(conn, %{ongoing_game: false})
 
       {game_pid, game_player_id} ->
-        {game_status, player_count, selected_characters, %{game_config: game_config}} = Runner.get_game_state(game_pid)
+        {game_status, player_count, selected_characters, %{game_config: game_config}} =
+          Runner.get_game_state(game_pid)
 
-        selections = Enum.map(selected_characters, fn {id, name} -> %{character_name: name, id: id} end)
+        selections =
+          Enum.map(selected_characters, fn {id, name} -> %{character_name: name, id: id} end)
+
         game_config = Enum.reduce(game_config, %{}, &transform_config/2)
-        server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+
+        server_hash =
+          Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
         json(conn, %{
           ongoing_game: game_status != :game_finished,

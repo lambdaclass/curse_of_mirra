@@ -6,6 +6,7 @@ using UnityEngine;
 public class CoMCharacter : ScriptableObject
 {
     public new string name;
+    public Sprite characterSprite;
     public Sprite artWork;
     public Sprite selectedArtwork;
     public Sprite blockArtwork;
