@@ -58,6 +58,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
+      game_tick: @game_tick_rate_ms,
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{}
@@ -85,8 +86,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:move, user_id, %Move{angle: angle}, timestamp}, state) do
-    player_id = state.user_to_player[user_id]
+  def handle_cast({:move, player_id, %Move{angle: angle}, timestamp}, state) do
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =

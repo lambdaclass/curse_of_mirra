@@ -3,9 +3,13 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Matchmaking
+  alias DarkWorldsServer.Engine.BotPlayer
 
   # 2 minutes
   @timeout_ms 2 * 60 * 1000
+
+  # Max number of players in the match
+  @max_amount_players 2
 
   #######
   # API #
@@ -41,7 +45,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def init(_args) do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     # This will start the runner and kill the session after the time given
-    Process.send_after(self(), :start_game, 10_000)
+    Process.send_after(self(), :start_game, 2_000)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
     {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
@@ -101,6 +105,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
+    Process.send_after(self(), {:add_bots, game_pid}, 5_000)
+
     # TODO We must delete this. It's a temporary workaround to send the config that
     # the client needs from the server. This is done by GameConfig but the client
     # will not send it anymore.
@@ -150,9 +156,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:is_lobby_full?, state) do
-    # TODO start the game when lobby is full
     case Enum.count(state[:players]) do
-      4 ->
+      @max_amount_players ->
         send(self(), :start_game)
           {:noreply, state}
       _ -> {:noreply, state}
@@ -171,5 +176,23 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:ping, self()})
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     {:noreply, state, @timeout_ms}
+  end
+
+  def handle_info({:add_bots, game_pid}, state) do
+    amount_bots = @max_amount_players - Enum.count(state.players)
+
+    {:ok, bot_pid} = BotPlayer.start_link(game_pid, 20)
+
+    for _bot <- 1..amount_bots do
+      bot_id = Enum.count(state.players) + 1
+
+      send(self(), {:add_player, bot_id, "bot"})
+
+      EngineRunner.join(game_pid, bot_id, "h4ck")
+
+      BotPlayer.add_bot(bot_pid, bot_id)
+    end
+
+    {:noreply, state}
   end
 end
