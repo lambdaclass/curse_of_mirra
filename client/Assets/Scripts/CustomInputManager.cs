@@ -71,7 +71,6 @@ public class CustomInputManager : InputManager
     private GameObject _player;
 
     Color32 characterSkillColor;
-    Color32 newColor;
 
     public Material material;
 
@@ -204,12 +203,12 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        directionIndicator.InitIndicator(skill, newColor);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        directionIndicator.InitIndicator(joystick.skill, newColor);
+        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
@@ -283,7 +282,7 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        directionIndicator.InitIndicator(joystick.skill, newColor);
+        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
 
         directionIndicator.SetConeIndicator();
 
@@ -305,14 +304,17 @@ public class CustomInputManager : InputManager
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        directionIndicator.InitIndicator(skill, newColor);
+        directionIndicator.InitIndicator(skill, characterSkillColor);
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
-        directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
-        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
-        /* activeJoystickStatus = canceled */;
+        if (!canceled)
+        {
+            directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
+            directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
+        }
+        activeJoystickStatus = canceled;
     }
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
@@ -396,7 +398,7 @@ public class CustomInputManager : InputManager
         else
         {
             material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-            material.SetColor("_Color", newColor);
+            material.SetColor("_Color", characterSkillColor);
         }
     }
 
@@ -410,12 +412,13 @@ public class CustomInputManager : InputManager
 
     public void SetSkillRangeCancelable(bool cancelable)
     {
-        Transform skillRange = _player
+        Material skillRangeMaterial = _player
             .GetComponent<CustomCharacter>()
-            .characterBase.SkillRange.transform;
-        newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
-        material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-        material.SetColor("_Color", newColor);
+            .characterBase.SkillRange.GetComponentInChildren<MeshRenderer>()
+            .material;
+        skillRangeMaterial.SetColor("_Color", characterSkillColor);
+
+        _player.GetComponentInChildren<AimDirection>().DeactivateIndicator();
     }
 
     private void DisableButtons()
@@ -442,7 +445,7 @@ public class CustomInputManager : InputManager
         canceled = value;
         if (directionIndicator)
         {
-            directionIndicator.CancelableFeedback(value);
+            directionIndicator.DeactivateIndicator();
         }
         SetSkillRangeCancelable(value);
     }

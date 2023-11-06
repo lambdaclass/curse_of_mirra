@@ -24,8 +24,6 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
-        dragged = false;
-        CancelAttack(RawValue, dragged);
         SetJoystick();
         newPointerDownEvent.Invoke(this);
         FirstLayer();
