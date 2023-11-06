@@ -447,7 +447,10 @@ public class CustomInputManager : InputManager
         {
             directionIndicator.DeactivateIndicator();
         }
-        SetSkillRangeCancelable(value);
+        if (_player)
+        {
+            SetSkillRangeCancelable(value);
+        }
     }
 
     public void ToggleCanceled(bool value)
