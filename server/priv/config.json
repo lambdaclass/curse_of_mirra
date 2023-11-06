@@ -215,7 +215,7 @@
   "game": {
     "width": 10000,
     "height": 10000,
-    "zone_starting_radius": 10000,
+    "zone_starting_radius": 14000,
     "zone_modifications": [
       {
         "duration_ms": 30000,
@@ -229,10 +229,10 @@
         "outside_radius_effects": []
       },
       {
-        "duration_ms": 15000,
+        "duration_ms": 20000,
         "modification": {
           "modifier": "Additive",
-          "value": -50
+          "value": -45
         },
         "interval_ms": 100,
         "min_radius": 5000,
