@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,18 @@ public class CharacterListItem
         IPointerDownHandler
 {
     public int listPosition;
-    public bool isInsideCard = false;
-    public bool isRealesed = false;
-    Vector2 touchStartPos;
+    private bool isInsideCard = false;
+    private bool isRealesed = false;
+
+    //Min difference of the touchStartPos and the current touch
+    private const float MIN_DIFFERENCE = 6.0f;
+    private Vector2 touchStartPos;
 
     public void SetCharacterInfoStart(PointerEventData eventData)
     {
-        if (isInsideCard && eventData.position == touchStartPos)
+        var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
+        var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
+        if (isInsideCard && touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
         {
             this.GetComponent<MMLoadScene>().LoadScene();
             CharacterInfoManager.selectedCharacterPosition = listPosition;
