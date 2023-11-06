@@ -37,7 +37,7 @@ public class CharactersListManager : MonoBehaviour
                     || character.name == "Valtimer"
                 )
                 {
-                    item.GetComponentInChildren<ButtonAnimationsMMTouchButton>().enabled = false;
+                    item.GetComponent<CharacterListItem>().IsEnable = false;
                 }
             }
         );

@@ -20,12 +20,18 @@ public class CharacterListItem
     //Min difference of the touchStartPos and the current touch
     private const float MIN_DIFFERENCE = 6.0f;
     private Vector2 touchStartPos;
+    public bool IsEnable = true;
 
     public void SetCharacterInfoStart(PointerEventData eventData)
     {
         var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
         var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (isInsideCard && touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
+        if (
+            isInsideCard
+            && touchXDifference < MIN_DIFFERENCE
+            && touchYDifference < MIN_DIFFERENCE
+            && IsEnable
+        )
         {
             this.GetComponent<MMLoadScene>().LoadScene();
             CharacterInfoManager.selectedCharacterPosition = listPosition;
