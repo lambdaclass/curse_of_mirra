@@ -207,7 +207,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
-      ^players -> :ongoing
       [_, _ | _] -> :ongoing
       [player] -> {:ended, player}
       [] -> {:ended, nil}
