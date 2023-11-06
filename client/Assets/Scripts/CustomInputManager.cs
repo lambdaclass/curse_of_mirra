@@ -5,7 +5,6 @@ using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public enum UIControls
 {
@@ -72,6 +71,7 @@ public class CustomInputManager : InputManager
     private GameObject _player;
 
     Color32 characterSkillColor;
+    Color32 newColor;
 
     public Material material;
 
@@ -204,12 +204,12 @@ public class CustomInputManager : InputManager
     public void ShowTapSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        directionIndicator.InitIndicator(skill, characterSkillColor);
+        directionIndicator.InitIndicator(skill, newColor);
     }
 
     public void ShowAimAoeSkill(CustomMMTouchJoystick joystick)
     {
-        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
+        directionIndicator.InitIndicator(joystick.skill, newColor);
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
@@ -283,7 +283,7 @@ public class CustomInputManager : InputManager
 
     private void ShowAimDirectionSkill(CustomMMTouchJoystick joystick)
     {
-        directionIndicator.InitIndicator(joystick.skill, characterSkillColor);
+        directionIndicator.InitIndicator(joystick.skill, newColor);
 
         directionIndicator.SetConeIndicator();
 
@@ -305,14 +305,14 @@ public class CustomInputManager : InputManager
     private void ShowAimDirectionTargetsSkill(Skill skill)
     {
         ShowSkillRange(skill);
-        directionIndicator.InitIndicator(skill, characterSkillColor);
+        directionIndicator.InitIndicator(skill, newColor);
     }
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
         directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
         directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
-        activeJoystickStatus = canceled;
+        /* activeJoystickStatus = canceled */;
     }
 
     private void ExecuteDirectionSkill(Vector2 direction, Skill skill)
@@ -329,7 +329,7 @@ public class CustomInputManager : InputManager
             direction = GetPlayerOrientation();
         }
 
-        if (!activeJoystickStatus)
+        if (!canceled)
         {
             skill.TryExecuteSkill(direction);
         }
@@ -396,7 +396,7 @@ public class CustomInputManager : InputManager
         else
         {
             material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-            material.SetColor("_Color", characterSkillColor);
+            material.SetColor("_Color", newColor);
         }
     }
 
@@ -413,10 +413,9 @@ public class CustomInputManager : InputManager
         Transform skillRange = _player
             .GetComponent<CustomCharacter>()
             .characterBase.SkillRange.transform;
-        Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
+        newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
         material = skillRange.GetComponentInChildren<MeshRenderer>().material;
         material.SetColor("_Color", newColor);
-        Debug.Log("cancelable: " + newColor);
     }
 
     private void DisableButtons()

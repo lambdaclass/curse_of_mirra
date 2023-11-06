@@ -11,9 +11,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
     float scaleCanvas;
-    bool cancelState = false;
     bool dragged = false;
-    bool cancelEnable = false;
     bool previousDrag = false;
     private CustomInputManager inputManager;
 
@@ -26,6 +24,8 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
+        dragged = false;
+        CancelAttack(RawValue, dragged);
         SetJoystick();
         newPointerDownEvent.Invoke(this);
         FirstLayer();
@@ -34,9 +34,9 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        newDragEvent.Invoke(RawValue, this);
         dragged = true;
         CancelAttack(RawValue, dragged);
+        newDragEvent.Invoke(RawValue, this);
     }
 
     public override void OnPointerUp(PointerEventData data)
@@ -80,30 +80,13 @@ public class CustomMMTouchJoystick : MMTouchJoystick
 
     public void CancelAttack(Vector2 value, bool dragged)
     {
-        if ((value.x < 0.7f || value.x > -0.7f) && (value.y < 0.7f || value.y > -0.7f))
+        if (value.x < 0.1f && value.x > -0.1f && value.y < 0.1f && value.y > -0.1f)
         {
-            cancelEnable = true;
+            inputManager.SetCanceled(dragged);
         }
-        if (dragged && cancelEnable)
+        else
         {
-            if (value.x < 0.1f && value.x > -0.1f && value.y < 0.1f && value.y > -0.1f)
-            {
-                //Debug.Log("cancelStyles");
-                previousDrag = true;
-                inputManager.SetCanceled(true);
-            }
-            else
-            {
-                previousDrag = false;
-                cancelEnable = false;
-                //Debug.Log("no cancelStyles");
-                inputManager.SetCanceled(false);
-            }
-        }
-        if (previousDrag && !dragged)
-        {
-            //Debug.Log("cancel");
-            inputManager.SetCanceled(true);
+            inputManager.SetCanceled(false);
         }
     }
 }
