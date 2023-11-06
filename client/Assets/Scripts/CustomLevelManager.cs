@@ -39,6 +39,7 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
+    public Camera PlayerCamera;
     public Player playerToFollow;
 
     [SerializeField]
@@ -132,6 +133,13 @@ public class CustomLevelManager : LevelManager
     {
         Player gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
+        player
+            .GetComponent<CustomCharacter>()
+            .characterInfo.transform.LookAt(
+                transform.position + PlayerCamera.transform.rotation * Vector3.back,
+                PlayerCamera.transform.rotation * Vector3.up
+            );
+
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
             StartCoroutine(ShowDeathSplash(player));

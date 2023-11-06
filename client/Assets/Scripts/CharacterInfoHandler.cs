@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CharacterInfoHandler : MonoBehaviour
 {
-    public Camera mainCamera;
+    public Camera playerCamera;
 
     void Update()
     {
         transform.LookAt(
-            transform.position + mainCamera.transform.rotation * Vector3.back,
-            mainCamera.transform.rotation * Vector3.up
+            transform.position + playerCamera.transform.rotation * Vector3.back,
+            playerCamera.transform.rotation * Vector3.up
         );
     }
 }
