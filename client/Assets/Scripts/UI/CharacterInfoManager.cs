@@ -33,8 +33,6 @@ public class CharacterInfoManager : MonoBehaviour
 
     [SerializeField]
     GameObject rightButton;
-
-    int currentCharacterListPosition = 0;
     public static int selectedCharacterPosition;
 
     void Start()
@@ -44,34 +42,34 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void RightArrowFunc()
     {
-        if (currentCharacterListPosition == comCharacters.Count - 1)
+        if (selectedCharacterPosition == comCharacters.Count - 1)
         {
-            currentCharacterListPosition = 0;
+            selectedCharacterPosition = 0;
         }
         else
         {
-            currentCharacterListPosition = currentCharacterListPosition + 1;
+            selectedCharacterPosition = selectedCharacterPosition + 1;
         }
 
-        SetCharacterInfo(currentCharacterListPosition);
+        SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void LeftArrowFunc()
     {
-        if (currentCharacterListPosition == 0)
+        if (selectedCharacterPosition == 0)
         {
-            currentCharacterListPosition = comCharacters.Count - 1;
+            selectedCharacterPosition = comCharacters.Count - 1;
         }
         else
         {
-            currentCharacterListPosition = currentCharacterListPosition - 1;
+            selectedCharacterPosition = selectedCharacterPosition - 1;
         }
-        SetCharacterInfo(currentCharacterListPosition);
+        SetCharacterInfo(selectedCharacterPosition);
     }
 
-    public void SetCharacterInfo(int currentCharacterListPosition)
+    public void SetCharacterInfo(int currentPosition)
     {
-        CoMCharacter comCharacter = comCharacters[currentCharacterListPosition];
+        CoMCharacter comCharacter = comCharacters[currentPosition];
         ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;
