@@ -483,6 +483,7 @@ MonoBehaviour:
   feedbacksStatesPrefabs:
   - {fileID: 6880168384479574166}
   - {fileID: 6362123941699143047}
+  - {fileID: 1633531900575384653}
   feedbacksPrefabs:
   - {fileID: 604736327119138052}
   damageOverlayColor:
@@ -1050,6 +1051,12 @@ MonoBehaviour:
 --- !u!1 &604736327119138052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1633531900575384653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
