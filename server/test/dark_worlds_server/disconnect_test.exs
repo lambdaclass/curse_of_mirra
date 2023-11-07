@@ -6,7 +6,7 @@ defmodule DarkWorldsServer.Test.Disconnect do
   setup do
     {:ok, pid} =
       Runner.start_link(%{
-        players: [1, 2, 3],
+        players: %{1 => "Player 1", 2 => "Player 2", 3 => "Player 3"},
         game_config: %{
           runner_config: %{
             board_width: 1000,
