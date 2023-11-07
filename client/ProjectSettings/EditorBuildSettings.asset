@@ -170,4 +170,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterList.unity
     guid: 14a4b55aedccb47048005bd6c5ced949
+  - enabled: 1
+    path: Assets/Scenes/TestScreen.unity
+    guid: 8e368f40ce79c43ca965179ccb8fb637
   m_configObjects: {}
