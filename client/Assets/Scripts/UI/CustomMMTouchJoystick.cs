@@ -78,7 +78,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
 
     public void CancelAttack(Vector2 value, bool dragged)
     {
-        if (value.x < 0.4f && value.x > -0.4f && value.y < 0.4f && value.y > -0.4f)
+        if (value.x < 0.5f && value.x > -0.5f && value.y < 0.5f && value.y > -0.5f)
         {
             inputManager.SetCanceled(dragged);
         }
