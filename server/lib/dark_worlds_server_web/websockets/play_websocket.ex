@@ -52,7 +52,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
-      {:ok, web_socket_state}
+      {:reply, {:binary, Communication.joined_game(player_id)}, web_socket_state}
     else
       false ->
         {:stop, :no_runner}
