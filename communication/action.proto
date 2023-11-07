@@ -15,10 +15,15 @@ message UseSkill {
   float angle = 2;
 }
 
+message ToggleBots {
+  bool bots_active = 1;
+}
+
 message GameAction {
     oneof action_type {
         Move move = 1;
         UseSkill use_skill = 2;
+        ToggleBots toggle_bots = 3;
     }
-    int64 timestamp = 3;
+    int64 timestamp = 4;
 }

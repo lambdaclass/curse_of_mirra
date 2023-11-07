@@ -24,15 +24,18 @@ public static partial class ActionReflection {
         string.Concat(
           "Chpjb21tdW5pY2F0aW9uL2FjdGlvbi5wcm90byIVCgRNb3ZlEg0KBWFuZ2xl",
           "GAEgASgCIigKCFVzZVNraWxsEg0KBXNraWxsGAEgASgJEg0KBWFuZ2xlGAIg",
-          "ASgCImUKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIeCgl1",
-          "c2Vfc2tpbGwYAiABKAsyCS5Vc2VTa2lsbEgAEhEKCXRpbWVzdGFtcBgDIAEo",
-          "A0INCgthY3Rpb25fdHlwZWIGcHJvdG8z"));
+          "ASgCIiEKClRvZ2dsZUJvdHMSEwoLYm90c19hY3RpdmUYASABKAgiiQEKCkdh",
+          "bWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIeCgl1c2Vfc2tpbGwY",
+          "AiABKAsyCS5Vc2VTa2lsbEgAEiIKC3RvZ2dsZV9ib3RzGAMgASgLMgsuVG9n",
+          "Z2xlQm90c0gAEhEKCXRpbWVzdGFtcBgEIAEoA0INCgthY3Rpb25fdHlwZWIG",
+          "cHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::ToggleBots), global::ToggleBots.Parser, new[]{ "BotsActive" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill", "ToggleBots", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
         }));
   }
   #endregion
@@ -462,6 +465,195 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
 
 }
 
+public sealed partial class ToggleBots : pb::IMessage<ToggleBots>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<ToggleBots> _parser = new pb::MessageParser<ToggleBots>(() => new ToggleBots());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<ToggleBots> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::ActionReflection.Descriptor.MessageTypes[2]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ToggleBots() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ToggleBots(ToggleBots other) : this() {
+    botsActive_ = other.botsActive_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ToggleBots Clone() {
+    return new ToggleBots(this);
+  }
+
+  /// <summary>Field number for the "bots_active" field.</summary>
+  public const int BotsActiveFieldNumber = 1;
+  private bool botsActive_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool BotsActive {
+    get { return botsActive_; }
+    set {
+      botsActive_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as ToggleBots);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(ToggleBots other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (BotsActive != other.BotsActive) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (BotsActive != false) hash ^= BotsActive.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (BotsActive != false) {
+      output.WriteRawTag(8);
+      output.WriteBool(BotsActive);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (BotsActive != false) {
+      output.WriteRawTag(8);
+      output.WriteBool(BotsActive);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (BotsActive != false) {
+      size += 1 + 1;
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(ToggleBots other) {
+    if (other == null) {
+      return;
+    }
+    if (other.BotsActive != false) {
+      BotsActive = other.BotsActive;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          BotsActive = input.ReadBool();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 8: {
+          BotsActive = input.ReadBool();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
 public sealed partial class GameAction : pb::IMessage<GameAction>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -476,7 +668,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::ActionReflection.Descriptor.MessageTypes[2]; }
+    get { return global::ActionReflection.Descriptor.MessageTypes[3]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -503,6 +695,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
         break;
       case ActionTypeOneofCase.UseSkill:
         UseSkill = other.UseSkill.Clone();
+        break;
+      case ActionTypeOneofCase.ToggleBots:
+        ToggleBots = other.ToggleBots.Clone();
         break;
     }
 
@@ -539,8 +734,20 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
+  /// <summary>Field number for the "toggle_bots" field.</summary>
+  public const int ToggleBotsFieldNumber = 3;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ToggleBots ToggleBots {
+    get { return actionTypeCase_ == ActionTypeOneofCase.ToggleBots ? (global::ToggleBots) actionType_ : null; }
+    set {
+      actionType_ = value;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.ToggleBots;
+    }
+  }
+
   /// <summary>Field number for the "timestamp" field.</summary>
-  public const int TimestampFieldNumber = 3;
+  public const int TimestampFieldNumber = 4;
   private long timestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -557,6 +764,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     None = 0,
     Move = 1,
     UseSkill = 2,
+    ToggleBots = 3,
   }
   private ActionTypeOneofCase actionTypeCase_ = ActionTypeOneofCase.None;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -589,6 +797,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (!object.Equals(Move, other.Move)) return false;
     if (!object.Equals(UseSkill, other.UseSkill)) return false;
+    if (!object.Equals(ToggleBots, other.ToggleBots)) return false;
     if (Timestamp != other.Timestamp) return false;
     if (ActionTypeCase != other.ActionTypeCase) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -600,6 +809,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     int hash = 1;
     if (actionTypeCase_ == ActionTypeOneofCase.Move) hash ^= Move.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) hash ^= UseSkill.GetHashCode();
+    if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) hash ^= ToggleBots.GetHashCode();
     if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= (int) actionTypeCase_;
     if (_unknownFields != null) {
@@ -628,8 +838,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(UseSkill);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
+      output.WriteRawTag(26);
+      output.WriteMessage(ToggleBots);
+    }
     if (Timestamp != 0L) {
-      output.WriteRawTag(24);
+      output.WriteRawTag(32);
       output.WriteInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -650,8 +864,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(UseSkill);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
+      output.WriteRawTag(26);
+      output.WriteMessage(ToggleBots);
+    }
     if (Timestamp != 0L) {
-      output.WriteRawTag(24);
+      output.WriteRawTag(32);
       output.WriteInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -669,6 +887,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(UseSkill);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(ToggleBots);
     }
     if (Timestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
@@ -700,6 +921,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = new global::UseSkill();
         }
         UseSkill.MergeFrom(other.UseSkill);
+        break;
+      case ActionTypeOneofCase.ToggleBots:
+        if (ToggleBots == null) {
+          ToggleBots = new global::ToggleBots();
+        }
+        ToggleBots.MergeFrom(other.ToggleBots);
         break;
     }
 
@@ -736,7 +963,16 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = subBuilder;
           break;
         }
-        case 24: {
+        case 26: {
+          global::ToggleBots subBuilder = new global::ToggleBots();
+          if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
+            subBuilder.MergeFrom(ToggleBots);
+          }
+          input.ReadMessage(subBuilder);
+          ToggleBots = subBuilder;
+          break;
+        }
+        case 32: {
           Timestamp = input.ReadInt64();
           break;
         }
@@ -773,7 +1009,16 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = subBuilder;
           break;
         }
-        case 24: {
+        case 26: {
+          global::ToggleBots subBuilder = new global::ToggleBots();
+          if (actionTypeCase_ == ActionTypeOneofCase.ToggleBots) {
+            subBuilder.MergeFrom(ToggleBots);
+          }
+          input.ReadMessage(subBuilder);
+          ToggleBots = subBuilder;
+          break;
+        }
+        case 32: {
           Timestamp = input.ReadInt64();
           break;
         }

@@ -4281,24 +4281,10 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public string SimpleType {
-    get { return HasSimpleType ? (string) effectType_ : ""; }
+    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
     set {
       effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       effectTypeCase_ = EffectTypeOneofCase.SimpleType;
-    }
-  }
-  /// <summary>Gets whether the "simple_type" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasSimpleType {
-    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
-  }
-  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearSimpleType() {
-    if (HasSimpleType) {
-      ClearEffectType();
     }
   }
 
@@ -4376,7 +4362,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
     hash ^= (int) effectTypeCase_;
@@ -4402,7 +4388,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -4428,7 +4414,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -4453,7 +4439,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
     }
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {

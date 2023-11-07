@@ -290,18 +290,20 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void ToggleBots()
     {
-        ClientAction clientAction;
-        if (this.botsActive)
-        {
-            clientAction = new ClientAction { Action = Action.DisableBots };
-        }
-        else
-        {
-            clientAction = new ClientAction { Action = Action.EnableBots };
-        }
+        // ClientAction clientAction;
+        // if (this.botsActive)
+        // {
+        //     clientAction = new ClientAction { Action = Action.DisableBots };
+        // }
+        // else
+        // {
+        //     clientAction = new ClientAction { Action = Action.EnableBots };
+        // }
+
+        ToggleBots toggleBots = new ToggleBots { BotsActive = this.botsActive };
 
         this.botsActive = !this.botsActive;
-        SendAction(clientAction);
+        SendGameAction(toggleBots);
     }
 
     private string makeUrl(string path)
