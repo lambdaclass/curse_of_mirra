@@ -419,21 +419,28 @@ enum LootType {
     LOOT_HEALTH = 1;
 }
 
+/*
+ */
+enum ModifierType {
+    MULTIPLICATIVE = 0;
+    ADDITIVE = 1;
+}
+
+/*
+ */
+enum MechanicType {
+    HIT = 0;
+    SIMPLE_SHOOT = 1;
+    MULTI_SHOOT = 2;
+}
+
 message Config {
-  GameCharactersConfig characters = 1;
-  GameEffectsConfig effects = 2;
-  GameStateConfig game = 3;
-  GameLootsConfig loots = 4;
-  GameProjectilesConfig projectiles = 5;
-  GameSkillsConfig skills = 6;
-}
-
-message GameCharactersConfig {
   repeated GameCharacter characters = 1;
-}
-
-message GameEffectsConfig {
-  repeated GameEffect effects = 1;
+  repeated GameEffect effects = 2;
+  GameStateConfig game = 3;
+  repeated GameLoot loots = 4;
+  repeated GameProjectile projectiles = 5;
+  repeated GameSkill skills = 6;
 }
 
 /* Represents the initial game state.
@@ -449,18 +456,6 @@ message GameStateConfig {
     uint64 loot_interval_ms = 4;
 }
 
-message GameLootsConfig {
-  repeated GameLoot loots = 1;
-}
-
-message GameProjectilesConfig {
-  repeated GameProjectile projectiles_config = 1;
-}
-
-message GameSkillsConfig {
-  repeated GameSkill skills = 1;
-}
-
 /* The information for when the map modification mechanic is triggered.
     - modification: Defines how to modify the playable area radius.
     - starting_radius: Starting radius for the playable area.
@@ -471,11 +466,11 @@ message GameSkillsConfig {
 */
 message MapModification {
     Modification modification = 1;
-    uint64 starting_radius = 2;
+    uint64 sta  rting_radius = 2;
     uint64 minimum_radius = 3;
     uint64 max_radius = 4;
-    repeated string outside_radius_effects = 5;
-    repeated string inside_radius_effects = 6;
+    repeated GameEffect outside_radius_effects = 5;
+    repeated GameEffect inside_radius_effects = 6;
 }
 
 /* Defines how to modify the playable area radius.
@@ -486,8 +481,8 @@ message MapModification {
     - value: The value we are using for the changemessage Modification
 */
 message Modification {
-    string modifier = 1;
-    int64 value = 2;
+    ModifierType modifier = 1;
+    float value = 2;
 }
 
 /*
@@ -498,7 +493,7 @@ message Modification {
 message GameLoot {
     string name = 1;
     uint64 size = 2;
-    repeated string effects = 3;
+    repeated GameEffect effects = 3;
 }
 
 /*
@@ -536,7 +531,7 @@ message GameCharacter {
     uint64 base_speed = 3;
     uint64 base_size = 4;
     uint64 base_health = 5;
-    repeated GameSkill skills = 6;
+    map<string, GameSkill> skills = 6;
 }
 
 /* Represents a skill of a character
@@ -571,7 +566,7 @@ message GameSkill {
   * max_range: Maximum distance allowed to move, if target is beyond this limit movement will be capped to this point.
 */
 message Mechanic {
-    string name = 1;
+    MechanicType name = 1;
     repeated GameEffect effects = 2;
     uint64 damage = 3;
     uint64 range = 4;

@@ -97,7 +97,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
 
   def handle_info(:start_game, state) do
     {:ok, engine_config_json} =
-      Application.app_dir(:lambda_game_engine, "priv/config.json") |> File.read()
+      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
 
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
 

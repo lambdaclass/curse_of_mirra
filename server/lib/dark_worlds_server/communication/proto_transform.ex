@@ -19,11 +19,15 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.GameEffectsConfig
   alias DarkWorldsServer.Communication.Proto.GameStateConfig
   alias DarkWorldsServer.Communication.Proto.GameLootsConfig
-  alias DarkWorldsServer.Communication.Proto.GameProjectilesConfig
+  alias DarkWorldsServer.Communication.Proto.GameProjectile
   alias DarkWorldsServer.Communication.Proto.GameSkillsConfig
   alias DarkWorldsServer.Communication.Proto.GameCharacter
   alias DarkWorldsServer.Communication.Proto.GameEffect
   alias DarkWorldsServer.Communication.Proto.GameLoot
+  alias DarkWorldsServer.Communication.Proto.GameSkill
+  alias DarkWorldsServer.Communication.Proto.MapModification
+  alias DarkWorldsServer.Communication.Proto.Modification
+  alias DarkWorldsServer.Communication.Proto.Mechanic
 
   @behaviour Protobuf.TransformModule
 
@@ -31,54 +35,17 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
-  @impl Protobuf.TransformModule
-  def encode(config, Config) do
-    config |> IO.inspect()
+  def encode({name, mechanic}, Mechanic) do
+    %Mechanic{
+      name: mechanic_name_encode(name),
+    }
   end
 
-  def encode(config, GameCharactersConfig) do
-    # For some reason is breaking the encoding here
-    config |> IO.inspect(label: :characters?)
-  end
-
-  def encode(config, GameEffectsConfig) do
-    config |> IO.inspect(label: :effects?)
-  end
-
-  def encode(config, GameStateConfig) do
-    config |> IO.inspect(label: :state?)
-  end
-
-  def encode(config, GameLootsConfig) do
-    config |> IO.inspect(label: :loots?)
-  end
-
-  def encode(config, GameProjectilesConfig) do
-    config |> IO.inspect(label: :projectiles?)
-  end
-
-  def encode(config, GameSkillsConfig) do
-    config |> IO.inspect(label: :skills?)
-  end
-
-  def encode(config, GameCharacter) do
-    config |> IO.inspect(label: :character?)
-  end
-
-  def encode(config, GameEffect) do
-    config |> IO.inspect(label: :effect?)
-  end
-
-  def encode(config, GameLoot) do
-    config |> IO.inspect(label: :loot?)
-  end
-
-  def encode(config, GameProjectile) do
-    config |> IO.inspect(label: :projectile?)
-  end
-
-  def encode(config, GameSkill) do
-    config |> IO.inspect(label: :gameskill?)
+  def encode({modifier, value}, Modification) do
+    %Modification{
+      value: value,
+      modifier: modifier_encode(modifier)
+    }
   end
 
   def encode(%EnginePosition{} = position, ProtoPosition) do
@@ -183,12 +150,16 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
+  def encode(data, _struct) do
+    data
+  end
+
   ###########
   # DECODES #
   ###########
 
   def decode(config, Config) do
-    config |> IO.inspect()
+    config
   end
 
   def decode(config, GameCharactersConfig) do
@@ -196,43 +167,44 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(config, GameEffectsConfig) do
-    config |> IO.inspect(label: :effects?)
+    config
   end
 
   def decode(config, GameStateConfig) do
-    config |> IO.inspect(label: :state?)
+    config
+  end
+
+  def decode(config, MapModification) do
+    config
   end
 
   def decode(config, GameLootsConfig) do
-    config |> IO.inspect(label: :loots?)
+    config
   end
 
   def decode(config, GameProjectilesConfig) do
-    config |> IO.inspect(label: :projectiles?)
-  end
-
-  def decode(config, GameSkillsConfig) do
-    config |> IO.inspect(label: :skills?)
+    config
   end
 
   def decode(config, GameCharacter) do
-    config |> IO.inspect(label: :character?)
+    config
   end
 
   def decode(config, GameEffect) do
-    config |> IO.inspect(label: :effect?)
+    config
   end
 
   def decode(config, GameLoot) do
-    config |> IO.inspect(label: :loot?)
+    config
   end
 
   def decode(config, GameProjectile) do
-    config |> IO.inspect(label: :projectile?)
+    config
   end
 
-  def decode(config, GameSkill) do
-    config |> IO.inspect(label: :gameskill?)
+  @impl Protobuf.TransformModule
+  def decode(%GameSkill{} = config, GameSkill) do
+    config
   end
 
   @impl Protobuf.TransformModule
@@ -443,4 +415,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     do: {17, %{ends_at: ends_at, caused_by: caused_by}}
 
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
+
+  defp modifier_encode(:multiplicative), do: :MULTIPLICATIVE
+  defp modifier_encode(:additive), do: :ADDITIVE
+
+  defp mechanic_name_encode(:hit), do: :HIT
+  defp mechanic_name_encode(:simple_shoot), do: :SIMPLE_SHOOT
+  defp mechanic_name_encode(:multi_shoot), do: :MULTI_SHOOT
 end
