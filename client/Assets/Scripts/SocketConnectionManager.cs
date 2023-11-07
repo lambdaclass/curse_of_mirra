@@ -269,6 +269,7 @@ public class SocketConnectionManager : MonoBehaviour
     public void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {
+        Debug.Log("Sending game action");
         using (var stream = new MemoryStream())
         {
             action.WriteTo(stream);

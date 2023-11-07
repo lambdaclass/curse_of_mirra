@@ -25,6 +25,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Communication.Proto.ToggleBots
 
   @behaviour Protobuf.TransformModule
 
@@ -242,6 +243,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def decode(value, Move) do
+    value
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, ToggleBots) do
     value
   end
 

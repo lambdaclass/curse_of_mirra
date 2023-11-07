@@ -3,6 +3,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.Move
+  alias DarkWorldsServer.Communication.Proto.ToggleBots
   alias DarkWorldsServer.Communication.Proto.UseSkill
 
   # This is the amount of time between state updates in milliseconds
