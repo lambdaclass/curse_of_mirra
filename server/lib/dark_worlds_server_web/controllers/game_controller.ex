@@ -26,11 +26,17 @@ defmodule DarkWorldsServerWeb.GameController do
         json(conn, %{ongoing_game: false})
 
       {game_pid, game_player_id} ->
-        {game_status, player_count, selected_characters, %{game_config: game_config}, _} =
-          Runner.get_game_state(game_pid)
+        {game_status, player_count, selected_characters,
+         %{game_config: game_config, players: players}, _} = Runner.get_game_state(game_pid)
+
+        # selections =
+        #   Enum.map(selected_characters, fn {id, name} -> %{character_name: name, id: id} end)
 
         selections =
-          Enum.map(selected_characters, fn {id, name} -> %{character_name: name, id: id} end)
+          Enum.map(selected_characters, fn {id, character_name} ->
+            player_name = Map.get(players, id, "Player")
+            %{id: id, character_name: character_name, player_name: player_name}
+          end)
 
         game_config = Enum.reduce(game_config, %{}, &transform_config/2)
 

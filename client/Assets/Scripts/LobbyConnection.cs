@@ -39,6 +39,7 @@ public class LobbyConnection : MonoBehaviour
     public string reconnectGameId;
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
+    public Dictionary<ulong, string> reconnectplayersIdName;
     public ServerGameSettings reconnectServerSettings;
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
@@ -237,14 +238,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-        if (SocketConnectionManager.Instance != null)
-        {
-            this.playersIdName = SocketConnectionManager.Instance.playersIdName;
-        }
-        else
-        {
-            this.playersIdName = new Dictionary<ulong, string>();
-        }
+        this.playersIdName = this.reconnectplayersIdName;
     }
 
     private IEnumerator WaitLobbyCreated()
@@ -353,6 +347,11 @@ public class LobbyConnection : MonoBehaviour
                         this.reconnectPlayers = new Dictionary<ulong, string>();
                         response.players.ForEach(
                             player => this.reconnectPlayers.Add(player.id, player.character_name)
+                        );
+
+                        this.reconnectplayersIdName = new Dictionary<ulong, string>();
+                        response.players.ForEach(
+                            player => this.reconnectplayersIdName.Add(player.id, player.player_name)
                         );
 
                         this.reconnectServerSettings = parseReconnectServerSettings(
