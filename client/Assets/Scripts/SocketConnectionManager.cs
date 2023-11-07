@@ -170,7 +170,6 @@ public class SocketConnectionManager : MonoBehaviour
     {
         try
         {
-            this.playerId = 1;
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
             switch (gameEvent.Type)
             {
@@ -215,6 +214,9 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
+                    break;
+                case GameEventType.PlayerJoined:
+                    this.playerId = gameEvent.PlayerJoinedId;
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);

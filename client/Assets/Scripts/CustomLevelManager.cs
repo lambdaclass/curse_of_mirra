@@ -102,9 +102,9 @@ public class CustomLevelManager : LevelManager
 
     private IEnumerator InitializeLevel()
     {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
+        yield return new WaitUntil(checkPlayerHasJoined);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
-        playerId = LobbyConnection.Instance.playerId;
+        playerId = SocketConnectionManager.Instance.playerId;
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
@@ -513,5 +513,11 @@ public class CustomLevelManager : LevelManager
     private bool GameHasEnded()
     {
         return SocketConnectionManager.Instance.GameHasEnded();
+    }
+
+    private bool checkPlayerHasJoined() {
+        return SocketConnectionManager.Instance.gamePlayers != null
+            && SocketConnectionManager.Instance.playerId != null
+            && SocketConnectionManager.Instance.gamePlayers.Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
     }
 }
