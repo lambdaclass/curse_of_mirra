@@ -18,6 +18,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def join(runner_pid, user_id, character_name) do
+    IO.inspect(runner_pid, label: "runner_pid")
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 

@@ -105,7 +105,19 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
-    Process.send_after(self(), {:add_bots, game_pid}, 5_000)
+    amount_bots = @max_amount_players - Enum.count(state.players)
+
+    {:ok, bot_pid} = BotPlayer.start_link(game_pid, 20)
+
+    for bot_id <- 1..amount_bots do
+      bot_id = Enum.count(state.players) + bot_id
+
+      send(self(), {:add_player, bot_id, "bot"})
+
+      EngineRunner.join(game_pid, bot_id, "h4ck")
+
+      BotPlayer.add_bot(bot_pid, bot_id)
+    end
 
     # TODO We must delete this. It's a temporary workaround to send the config that
     # the client needs from the server. This is done by GameConfig but the client
@@ -176,23 +188,5 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:ping, self()})
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     {:noreply, state, @timeout_ms}
-  end
-
-  def handle_info({:add_bots, game_pid}, state) do
-    amount_bots = @max_amount_players - Enum.count(state.players)
-
-    {:ok, bot_pid} = BotPlayer.start_link(game_pid, 20)
-
-    for _bot <- 1..amount_bots do
-      bot_id = Enum.count(state.players) + 1
-
-      send(self(), {:add_player, bot_id, "bot"})
-
-      EngineRunner.join(game_pid, bot_id, "h4ck")
-
-      BotPlayer.add_bot(bot_pid, bot_id)
-    end
-
-    {:noreply, state}
   end
 end

@@ -162,7 +162,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     radius = game_state.playable_radius
 
     if position_out_of_radius?(closest_loot.entity_position, center, radius) do
-      Map.put(bot_state, :action, {:move, rem(angle - 180, 360)})
+      flee_angle_direction = if angle - 180 < 0, do: angle + 180, else: angle
+      Map.put(bot_state, :action, {:move, flee_angle_direction})
     else
       Map.put(bot_state, :action, {:move, angle})
     end
@@ -192,11 +193,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     cond do
       danger_zone and not playable_radius_closed ->
         %{angle_direction_to_entity: angle} = hd(enemies_by_distance)
-        flee_angle_direction = rem(angle - 180, 360)
+        flee_angle_direction = if angle - 180 < 0, do: angle + 180, else: angle
         Map.put(bot_state, :action, {:move, flee_angle_direction})
 
-      # skill_would_hit?(bot, closest_enemy) ->
-      #   Map.put(bot_state, :action, {:attack, closest_enemy, :basic_attack})
+      skill_would_hit?(bot, closest_enemy) ->
+        Map.put(bot_state, :action, {:attack, closest_enemy, "BasicAttack"})
 
       true ->
         Map.put(bot_state, :action, {:move, closest_enemy.angle_direction_to_entity})
@@ -243,10 +244,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def calculate_circle_point(cx, cy, x, y, use_inaccuracy) do
-    case Nx.atan2(x - cx, y - cy) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
-      pos_degree when pos_degree >= 0 -> pos_degree
-      neg_degree -> neg_degree + 360
-    end
+    Nx.atan2(x - cx, y - cy)
+    |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi()))
+    |> Nx.to_number()
+    |> Kernel.*(-1)
   end
 
   defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
@@ -356,9 +357,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
-    skill = Map.get(bot.character, :skill_basic)
-
-    skill.skill_range >= distance_to_entity
+    distance_to_entity < 500
   end
 
   defp skill_would_hit?(_bot, _closest_entities), do: nil
