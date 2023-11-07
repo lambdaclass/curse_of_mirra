@@ -34,6 +34,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.cast(runner_pid, {:skill, user_id, action})
   end
 
+  def toggle_bots(runner_pid, action, timestamp) do
+    GenServer.cast(runner_pid, {:toggle_bots, action, timestamp})
+  end
+
   def start_game_tick(runner_pid) do
     GenServer.cast(runner_pid, :start_game_tick)
   end
@@ -98,8 +102,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
-
+  def handle_cast(
+        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        state
+      ) do
     player_id = state.user_to_player[user_id]
     skill_key = action_skill_to_key(skill)
 
@@ -111,6 +117,20 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     state =
       Map.put(state, :game_state, game_state)
       |> put_in([:player_timestamps, player_id], timestamp)
+
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_cast(
+        {:toggle_bots, %ToggleBots{bots_active: bots_active}, timestamp},
+        state
+      ) do
+    bot_pid = state[:bot_handler_pid]
+
+    if bot_pid do
+      BotPlayer.toggle_bots(bot_pid, bots_active)
+    end
 
     {:noreply, state}
   end
@@ -136,7 +156,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     time_diff = now - state.last_game_tick_at
     game_state = LambdaGameEngine.game_tick(state.game_state, time_diff)
 
-    broadcast_game_state(state.broadcast_topic, Map.put(game_state, :player_timestamps, state.player_timestamps))
+    broadcast_game_state(
+      state.broadcast_topic,
+      Map.put(game_state, :player_timestamps, state.player_timestamps)
+    )
 
     {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
   end
@@ -158,7 +181,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # Internal helpers #
   ####################
   defp broadcast_game_state(topic, game_state) do
-    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_state, transform_state_to_myrra_state(game_state)})
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      topic,
+      {:game_state, transform_state_to_myrra_state(game_state)}
+    )
   end
 
   defp relative_position_to_angle_degrees(x, y) do
@@ -220,11 +247,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
@@ -252,11 +284,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     end)
   end
 
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"), do: "SLINGSHOT"
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"), do: "MULTISHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
+    do: "SLINGSHOT"
+
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
+    do: "MULTISHOT"
+
   defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
   # TEST skills
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"), do: "DISARM"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
+    do: "DISARM"
 
   defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
@@ -273,7 +310,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_position_to_myrra_position(position) do
     {width, height} = Process.get(:map_size)
-    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + div(width, 2), y: position.x + div(height, 2)}
+
+    %LambdaGameEngine.MyrraEngine.Position{
+      x: -1 * position.y + div(width, 2),
+      y: position.x + div(height, 2)
+    }
   end
 
   defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"

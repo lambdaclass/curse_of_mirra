@@ -36,12 +36,16 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     GenServer.cast(bot_pid, {:add_bot, bot_id})
   end
 
-  def enable_bots(bot_pid) do
-    GenServer.cast(bot_pid, {:bots_enabled, true})
-  end
+  # def enable_bots(bot_pid) do
+  #   GenServer.cast(bot_pid, {:bots_enabled, true})
+  # end
 
-  def disable_bots(bot_pid) do
-    GenServer.cast(bot_pid, {:bots_enabled, false})
+  # def disable_bots(bot_pid) do
+  #   GenServer.cast(bot_pid, {:bots_enabled, false})
+  # end
+
+  def toggle_bots(bot_pid, bots_active) do
+    GenServer.cast(bot_pid, {:bots_enabled, bots_active})
   end
 
   #######################
@@ -52,7 +56,15 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     game_id = Communication.pid_to_external_id(game_pid)
     Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}")
 
-    {:ok, %{game_pid: game_pid, bots_enabled: true, game_tick_rate: tick_rate, players: [], bots: %{}, game_state: %{}}}
+    {:ok,
+     %{
+       game_pid: game_pid,
+       bots_enabled: true,
+       game_tick_rate: tick_rate,
+       players: [],
+       bots: %{},
+       game_state: %{}
+     }}
   end
 
   @impl GenServer
@@ -60,7 +72,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     send(self(), {:decide_action, bot_id})
     send(self(), {:do_action, bot_id})
 
-    {:noreply, put_in(state, [:bots, bot_id], %{alive: true, objective: :nothing, current_wandering_position: nil})}
+    {:noreply,
+     put_in(state, [:bots, bot_id], %{
+       alive: true,
+       objective: :nothing,
+       current_wandering_position: nil
+     })}
   end
 
   def handle_cast({:bots_enabled, toggle}, state) do
@@ -88,8 +105,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
           |> decide_action(bot_id, state.players, state, closest_entities)
       end
 
-    state =
-      put_in(state, [:bots, bot_id], new_bot_state)
+    state = put_in(state, [:bots, bot_id], new_bot_state)
 
     {:noreply, state}
   end
@@ -204,7 +220,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     end
   end
 
-  defp decide_action(%{objective: :flee_from_zone} = bot_state, bot_id, players, state, _closest_entities) do
+  defp decide_action(
+         %{objective: :flee_from_zone} = bot_state,
+         bot_id,
+         players,
+         state,
+         _closest_entities
+       ) do
     bot = Enum.find(players, fn player -> player.id == bot_id end)
 
     target =
@@ -253,8 +275,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
 
   defp maybe_add_inaccuracy_to_angle(angle, true) do
-    deviation_angles =
-      [0, angle_to_radian(4), angle_to_radian(-4), angle_to_radian(8), angle_to_radian(-8)]
+    deviation_angles = [
+      0,
+      angle_to_radian(4),
+      angle_to_radian(-4),
+      angle_to_radian(8),
+      angle_to_radian(-8)
+    ]
 
     angle |> Nx.add(Enum.random(deviation_angles))
   end
@@ -271,14 +298,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
     closests_entities = [List.first(enemies_by_distance), List.first(loots_by_distance)]
 
-    closest_entity =
-      Enum.min_by(closests_entities, fn e -> if e, do: e.distance_to_entity end)
+    closest_entity = Enum.min_by(closests_entities, fn e -> if e, do: e.distance_to_entity end)
 
     center = game_state.shrinking_center
     radius = game_state.playable_radius
 
-    out_of_area? =
-      position_out_of_radius?(bot.position, center, radius)
+    out_of_area? = position_out_of_radius?(bot.position, center, radius)
 
     if out_of_area? do
       Map.put(bot_state, :objective, :flee_from_zone)
@@ -336,7 +361,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     y_distance = abs(end_y - start_y)
     remaining = abs(x_distance - y_distance)
 
-    (diagonal_movement_cost * Enum.min([x_distance, y_distance]) + remaining * straight_movement_cost)
+    (diagonal_movement_cost * Enum.min([x_distance, y_distance]) +
+       remaining * straight_movement_cost)
     |> div(10)
   end
 
@@ -367,7 +393,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         bot,
         game_state
       ) do
-    if get_distance_to_point(bot.position, %{x: current_wandering_position.x, y: current_wandering_position.y}) <
+    if get_distance_to_point(bot.position, %{
+         x: current_wandering_position.x,
+         y: current_wandering_position.y
+       }) <
          500 do
       put_wandering_position(bot_state, bot, game_state)
     else
@@ -387,7 +416,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
     # We need to pick and X and Y wich are in a safe zone close to the bot that's also inside of the board
     left_x =
-      Enum.max([game_state.shrinking_center.x - game_state.playable_radius, bot_position.x - bot_visibility_radius, 0])
+      Enum.max([
+        game_state.shrinking_center.x - game_state.playable_radius,
+        bot_position.x - bot_visibility_radius,
+        0
+      ])
 
     right_x =
       Enum.min([
@@ -397,7 +430,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       ])
 
     down_y =
-      Enum.max([game_state.shrinking_center.y - game_state.playable_radius, bot_position.y - bot_visibility_radius, 0])
+      Enum.max([
+        game_state.shrinking_center.y - game_state.playable_radius,
+        bot_position.y - bot_visibility_radius,
+        0
+      ])
 
     up_y =
       Enum.min([
@@ -416,7 +453,10 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp set_correct_wander_state(nil, bot_state), do: Map.put(bot_state, :action, {:nothing, nil})
 
-  defp set_correct_wander_state(bot, %{current_wandering_position: wandering_position} = bot_state) do
+  defp set_correct_wander_state(
+         bot,
+         %{current_wandering_position: wandering_position} = bot_state
+       ) do
     target =
       calculate_circle_point(
         bot.position,
