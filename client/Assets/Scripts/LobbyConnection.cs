@@ -237,7 +237,14 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
+        if (SocketConnectionManager.Instance != null)
+        {
+            this.playersIdName = SocketConnectionManager.Instance.playersIdName;
+        }
+        else
+        {
+            this.playersIdName = new Dictionary<ulong, string>();
+        }
     }
 
     private IEnumerator WaitLobbyCreated()

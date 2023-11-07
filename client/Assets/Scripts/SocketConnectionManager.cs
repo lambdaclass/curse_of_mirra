@@ -13,6 +13,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
     public static Dictionary<int, GameObject> projectilesStatic;
+
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
 
@@ -159,6 +160,7 @@ public class SocketConnectionManager : MonoBehaviour
             switch (gameEvent.Type)
             {
                 case GameEventType.StateUpdate:
+                    Debug.Log(gameEvent);
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
