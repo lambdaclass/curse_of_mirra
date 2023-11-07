@@ -53,6 +53,6 @@ public class LobbiesUITest : InputTestFixture
 
         yield return TestingUtils.ForceClick("Back");
         yield return new WaitForSeconds(5f);
-        //Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
     }
 }
