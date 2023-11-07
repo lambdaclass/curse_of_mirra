@@ -62,14 +62,14 @@ public class SkillInfo : ScriptableObject
     {
         if (LobbyConnection.Instance != null)
         {
-            foreach (var skill in LobbyConnection.Instance.serverSettings.SkillsConfig.Items)
+            foreach (var skill in LobbyConnection.Instance.engineServerSettings.Skills)
             {
                 var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
                 if (regexName.ToLower() == skill.Name.ToLower())
                 {
-                    this.damage = float.Parse(skill.Damage);
-                    this.cooldown = float.Parse(skill.Cooldown);
-                    this.skillRange = float.Parse(skill.SkillRange);
+                    this.damage = 0;
+                    this.cooldown = skill.CooldownMs / 1000;
+                    this.skillRange = 0;
                 }
             }
         }

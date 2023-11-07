@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
             Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
-            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp};
+            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
             SocketConnectionManager.Instance.SendGameAction(gameAction);
 
@@ -59,13 +59,13 @@ public class PlayerControls : MonoBehaviour
         // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
         // {
         // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        var chars = LobbyConnection.Instance.engineServerSettings.Characters;
 
         foreach (var character in chars)
         {
-            if (charName == character.Name)
+            if (charName.ToLower() == character.Name.ToLower())
             {
-                return float.Parse(character.BaseSpeed);
+                return character.BaseSpeed;
             }
         }
         // }
