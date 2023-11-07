@@ -3,7 +3,7 @@ defmodule DarkWorldsServer.Engine.RequestTracker do
     :ets.new(:request_tracker, [:set, :public, :named_table])
   end
 
-  def add_counter(game_pid, player_id) when is_pid(game_pid) and is_integer(player_id) do
+  def add_counter(game_pid, player_id) when is_pid(game_pid) do
     key = {game_pid, player_id}
     :ets.update_counter(:request_tracker, key, 1, {key, 0})
   end
