@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using MoreMountains.Tools;
 using UnityEngine.EventSystems;
 
 public class ApplicationStartFlow : InputTestFixture
@@ -29,6 +28,7 @@ public class ApplicationStartFlow : InputTestFixture
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("MainScreen"));
 
         yield return TestingUtils.ForceClick("PlayGameButton");
+        yield return new WaitForSeconds(1f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
     }
 }

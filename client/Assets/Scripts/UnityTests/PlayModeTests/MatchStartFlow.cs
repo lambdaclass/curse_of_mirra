@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using MoreMountains.Tools;
-using UnityEngine.EventSystems;
 
 public class MatchStartFlow : InputTestFixture
 {

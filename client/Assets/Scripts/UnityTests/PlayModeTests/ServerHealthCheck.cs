@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using MoreMountains.Tools;
-using UnityEngine.EventSystems;
 
 public class ServerHealthCheck : InputTestFixture
 {
@@ -21,16 +19,15 @@ public class ServerHealthCheck : InputTestFixture
     [UnityTest]
     public IEnumerator IsServerHealthy()
     {
-        yield return TestingUtils.ForceClick("newLobbyButton");
+        yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
-        yield return new WaitForSeconds(2f);
 
-        yield return TestingUtils.ForceClick("launchGameButton");
+        yield return TestingUtils.ForceClick("LaunchGameButton");
         yield return new WaitForSeconds(2f);
 
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(2f);
 
         Assert.That(SocketConnectionManager.Instance.isConnectionOpen, Is.EqualTo(true));
     }
