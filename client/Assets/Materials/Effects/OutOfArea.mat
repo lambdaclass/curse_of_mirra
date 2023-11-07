@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CenterCurveSimple_01_Example
+  m_Name: OutOfArea
   m_Shader: {fileID: -6465566751694194690, guid: 23514104079acab47a8589c480f3b606,
     type: 3}
   m_ValidKeywords:
@@ -177,9 +177,9 @@ Material:
     - _FinalColor: {r: 1, g: 0, b: 0, a: 1}
     - _MainMaskChannelsAdd: {r: 0, g: 0, b: 1, a: 1}
     - _MainMaskChannelsMultiply: {r: 1, g: 1, b: 0, a: 0}
-    - _RampColorTint: {r: 0.98039216, g: 0.019607844, b: 0.019607844, a: 1}
+    - _RampColorTint: {r: 0.98039216, g: 0.019607825, b: 0.8721988, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4202632025110340696
+--- !u!114 &2234846105292200428
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -356,4 +356,46 @@ defmodule DarkWorldsServer.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Gets a user by device_client_id, returns nil if the user doesn't exists
+
+  ## Examples
+
+    iex> get_user_by_device_client_id(valid_device_client_id)
+    %User{}
+
+    iex> get_user_by_device_client_id(inexistent_device_client_id)
+    nil
+  """
+  def get_user_by_device_client_id(device_client_id) do
+    Repo.get_by(User, device_client_id: device_client_id)
+  end
+
+  @doc """
+  Gets the current users count in the database
+
+  ## Examples
+      iex> get_users_count
+      a_number
+  """
+  def get_users_count() do
+    Repo.aggregate(User, :count)
+  end
+
+  @doc """
+  Updates the user's selected character
+
+  ## Examples
+    iex> update_user_selected_character(%User{}, selected_character)
+      {:ok, %User{}}
+
+    iex> update_user_password(user, "invalid password", %{password: ...})
+      {:error, %Ecto.Changeset{}}
+  """
+  def update_user_selected_character(user, selected_character) do
+    user
+    |> User.selected_character_changeset(%{selected_character: selected_character})
+    |> Repo.update()
+  end
 end
