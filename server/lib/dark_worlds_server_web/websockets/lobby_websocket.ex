@@ -1,5 +1,6 @@
 defmodule DarkWorldsServerWeb.LobbyWebsocket do
   require Logger
+  alias DarkWorldsServer.Matchmaking.MatchingCoordinator
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Matchmaking
 
@@ -17,34 +18,12 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   def websocket_init(%{lobby_id: lobby_id}) do
-    Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, Matchmaking.session_topic(lobby_id))
-
-    matchmaking_session_pid = Communication.external_id_to_pid(lobby_id)
-    player_id = Matchmaking.next_id(matchmaking_session_pid)
-
-    # TODO: player_name should be sent by client, see issue #527
-    # https://github.com/lambdaclass/curse_of_myrra/issues/527
-    player_name = to_string(player_id)
-
-    Matchmaking.add_player(player_id, player_name, matchmaking_session_pid)
-
-    {:reply, {:binary, Communication.lobby_connected!(lobby_id, player_id, player_name)},
-     %{lobby_pid: matchmaking_session_pid, player_id: player_id}}
+    :ok = MatchingCoordinator.join(make_ref())
+    send(self(), {:player_added, 1, "player_name", 1, [{1, "player_name"}]})
+    {:reply, {:binary, Communication.lobby_connected!(lobby_id, 1, "player_name")}, %{}}
   end
 
   @impl true
-  def websocket_handle({:binary, message}, state) do
-    case Communication.lobby_decode(message) do
-      {:ok, %{type: :START_GAME, game_config: game_config}} ->
-        Matchmaking.start_game(game_config, state[:lobby_pid])
-        {:ok, state}
-
-      {:error, msg} ->
-        Logger.error("Received frame with an invalid message: #{msg}")
-        {:ok, state}
-    end
-  end
-
   def websocket_handle(_, state) do
     {:ok, state}
   end
@@ -54,9 +33,9 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     {:reply, {:binary, Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
   end
 
-  def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
-  end
+  # def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
+  #   {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
+  # end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
