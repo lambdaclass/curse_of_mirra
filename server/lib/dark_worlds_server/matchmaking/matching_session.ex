@@ -7,7 +7,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   @timeout_ms 2 * 60 * 1000
 
   # Max number of players in the match
-  @max_amount_players 2
+  @max_amount_players 4
 
   #######
   # API #

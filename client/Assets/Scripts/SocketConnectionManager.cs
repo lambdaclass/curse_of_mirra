@@ -184,7 +184,7 @@ public class SocketConnectionManager : MonoBehaviour
                     )
                     {
                         // We use an event here, to prevent losing events.
-                        OnBotSpawnRequested(gameEvent.Players.ToList());
+                        StartCoroutine(OnBotSpawnRequested(gameEvent.Players.ToList()));
                     }
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
@@ -383,8 +383,9 @@ public class SocketConnectionManager : MonoBehaviour
         return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
     }
 
-    private void OnBotSpawnRequested(List<Player> gameEventPlayers)
+    private IEnumerator OnBotSpawnRequested(List<Player> gameEventPlayers)
     {
         BotSpawnRequested?.Invoke(new BotSpawnEventData(gameEventPlayers, this.gamePlayers));
+        yield return null;
     }
 }
