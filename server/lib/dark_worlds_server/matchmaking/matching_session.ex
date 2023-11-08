@@ -1,7 +1,6 @@
 defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   use GenServer, restart: :transient
   alias DarkWorldsServer.Engine
-  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Matchmaking
 
   # 2 minutes
@@ -96,15 +95,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:start_game, state) do
-    {:ok, engine_config_json} =
-      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
+    {:ok, game_pid} = Engine.start_child()
 
-    engine_config = LambdaGameEngine.parse_config(engine_config_json)
-
-    {:ok, game_pid} = Engine.start_child(engine_config)
-
-    ## Start the game ticks
-    EngineRunner.start_game_tick(game_pid)
+    {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
 
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
 

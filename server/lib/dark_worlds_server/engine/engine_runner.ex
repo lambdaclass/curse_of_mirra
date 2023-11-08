@@ -9,6 +9,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
+  # Amount of time between loot spawn
+  @game_tick_start 5_000
   ## Time between checking that a game has ended
   @check_game_ended_interval_ms 1_000
   ## Time to wait between a game ended detected and shutting down this process
@@ -22,6 +24,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #######
   def start_link(args) do
     GenServer.start_link(__MODULE__, args)
+  end
+
+  def get_config(runner_pid) do
+    GenServer.call(runner_pid, :get_config)
   end
 
   def join(runner_pid, user_id, character_name) do
@@ -40,10 +46,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.cast(runner_pid, {:skill, user_id, action})
   end
 
-  def start_game_tick(runner_pid) do
-    GenServer.cast(runner_pid, :start_game_tick)
-  end
-
   if Mix.env() == :dev do
     def bot_join(pid_middle_number) do
       join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
@@ -54,19 +56,23 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{engine_config: engine_config}) do
+  def init(_) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
 
     Process.flag(:priority, priority)
 
-    Process.send_after(self(), :game_timeout, @game_timeout_ms)
+    {:ok, engine_config_json} =
+      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
 
-    engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
+    engine_config = LambdaGameEngine.parse_config(engine_config_json)
+
+    Process.send_after(self(), :game_timeout, @game_timeout_ms)
+    Process.send_after(self(), :start_game_tick, @game_tick_start)
 
     state = %{
-      game_state: engine_config,
+      game_state: LambdaGameEngine.engine_new_game(engine_config),
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{}
@@ -75,6 +81,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
     {:ok, state}
+  end
+
+  @impl true
+  def handle_call(:get_config, _from, state) do
+    {:reply, {:ok, state.game_state.config}, state}
   end
 
   @impl true
@@ -122,17 +133,18 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  def handle_cast(:start_game_tick, state) do
-    Process.send_after(self(), :game_tick, @game_tick_rate_ms)
-    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
-    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
-
-    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
+  def handle_cast(msg, state) do
+    Logger.error("Unexpected handle_cast msg", %{msg: msg})
     {:noreply, state}
   end
 
-  def handle_cast(msg, state) do
-    Logger.error("Unexpected handle_cast msg", %{msg: msg})
+  @impl true
+  def handle_info(:start_game_tick, state) do
+    Process.send_after(self(), :game_tick, @game_tick_rate_ms)
+    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
+    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms * 10)
+
+    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
     {:noreply, state}
   end
 
@@ -206,16 +218,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
+      ^players -> :ongoing
       [_, _ | _] -> :ongoing
       [player] -> {:ended, player}
       [] -> {:ended, nil}
-    end
-  end
-
-  defp relative_position_to_angle_degrees(x, y) do
-    case Nx.atan2(y, x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
-      pos_degree when pos_degree >= 0 -> pos_degree
-      neg_degree -> neg_degree + 360
     end
   end
 

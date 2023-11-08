@@ -20,7 +20,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.GameStateConfig
   alias DarkWorldsServer.Communication.Proto.GameLootsConfig
   alias DarkWorldsServer.Communication.Proto.GameProjectile
-  alias DarkWorldsServer.Communication.Proto.GameSkillsConfig
   alias DarkWorldsServer.Communication.Proto.GameCharacter
   alias DarkWorldsServer.Communication.Proto.GameEffect
   alias DarkWorldsServer.Communication.Proto.GameLoot
@@ -35,10 +34,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
+  @impl true
   def encode({name, mechanic}, Mechanic) do
     %Mechanic{
       name: mechanic_name_encode(name),
     }
+    |> Map.merge(mechanic)
   end
 
   def encode({modifier, value}, Modification) do
@@ -359,60 +360,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp projectile_status_decode(:ACTIVE), do: :active
   defp projectile_status_decode(:EXPLODED), do: :exploded
-
-  defp effect_encode({:petrified, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {0, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:disarmed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {1, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:denial_of_service, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {2, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:raged, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {3, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:neon_crashing, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {4, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:leaping, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {5, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:out_of_area, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {6, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:elnar_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {7, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:yugen_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {8, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:xanda_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {9, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {10, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:poisoned, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {11, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:slowed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {12, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:fiery_rampage, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {13, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:burned, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {14, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:scherzo, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {15, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:danse_macabre, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {16, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:paralyzed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {17, %{ends_at: ends_at, caused_by: caused_by}}
 
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
 
