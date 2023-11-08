@@ -158,13 +158,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
   end
 
-  def websocket_info({:game_finished, winner, game_state}, web_socket_state) do
+  def websocket_info({:game_ended, winner, game_state}, web_socket_state) do
     reply_map = %{
-      players: game_state.client_game_state.game.myrra_state.players,
+      players: game_state.players,
       winner: winner
     }
-
-    Logger.info("THE GAME HAS FINISHED")
 
     {:reply, {:binary, Communication.game_finished!(reply_map)}, web_socket_state}
   end
