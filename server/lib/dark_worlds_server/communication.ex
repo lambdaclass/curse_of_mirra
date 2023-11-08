@@ -3,8 +3,6 @@ defmodule DarkWorldsServer.Communication do
   alias DarkWorldsServer.Communication.Proto.LobbyEvent
   alias DarkWorldsServer.Communication.Proto.PlayerInformation
   alias DarkWorldsServer.Communication.Proto.GameAction
-  alias DarkWorldsServer.Communication.Proto.Move
-  alias DarkWorldsServer.Communication.Proto.UseSkill
 
   @moduledoc """
   The Communication context
@@ -110,6 +108,11 @@ defmodule DarkWorldsServer.Communication do
       selected_characters: selected_characters,
       players: players
     }
+    |> GameEvent.encode()
+  end
+
+  def joined_game(player_id) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
     |> GameEvent.encode()
   end
 

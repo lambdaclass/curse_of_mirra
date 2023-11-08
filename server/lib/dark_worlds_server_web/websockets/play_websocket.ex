@@ -41,18 +41,19 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   #   {:stop, :version_mismatch}
   # end
 
-  def websocket_init(%{game_id: game_id, player_id: player_id, client_id: _client_id}) do
+  def websocket_init(%{game_id: game_id, player_id: _player_id, client_id: client_id}) do
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
-         {:ok, player_id} <- EngineRunner.join(runner_pid, String.to_integer(player_id), Enum.random(["h4ck", "muflus"])) do
-      web_socket_state = %{runner_pid: runner_pid, player_id: player_id, game_id: game_id}
+
+      {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
+        web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
-      {:ok, web_socket_state}
+      {:reply, {:binary, Communication.joined_game(player_id)}, web_socket_state}
     else
       false ->
         {:stop, :no_runner}
@@ -92,11 +93,18 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     case Communication.decode(message) do
       {:ok, %GameAction{action_type: {action, action_data}, timestamp: timestamp}} ->
         RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
+
         case action do
           :move ->
             EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
+
           :use_skill when action_data.skill == "BasicAttack" ->
-            EngineRunner.basic_attack(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
+            EngineRunner.basic_attack(
+              web_socket_state[:runner_pid],
+              web_socket_state[:player_id],
+              action_data,
+              timestamp
+            )
         end
 
         {:ok, web_socket_state}

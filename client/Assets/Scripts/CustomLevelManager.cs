@@ -65,7 +65,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
-        SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
+        // SocketConnectionManager.Instance.BotSpawnRequested += GenerateBotPlayer;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -102,9 +102,9 @@ public class CustomLevelManager : LevelManager
 
     private IEnumerator InitializeLevel()
     {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.gamePlayers != null);
+        yield return new WaitUntil(checkPlayerHasJoined);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
-        playerId = LobbyConnection.Instance.playerId;
+        playerId = SocketConnectionManager.Instance.playerId;
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
@@ -255,77 +255,77 @@ public class CustomLevelManager : LevelManager
 
     private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
     {
-        botSpawnEventData.gameEventPlayers
-            .ToList()
-            .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
-            .ForEach(
-                (player) =>
-                {
-                    var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
-                        player.Position
-                    );
-                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
-                        player.CharacterName
-                    );
-                    var botId = player.Id.ToString();
-                    botCharacter.PlayerID = "";
+        // botSpawnEventData.gameEventPlayers
+        //     .ToList()
+        //     .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
+        //     .ForEach(
+        //         (player) =>
+        //         {
+        //             var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
+        //                 player.Position
+        //             );
+        //             CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
+        //                 player.CharacterName
+        //             );
+        //             var botId = player.Id.ToString();
+        //             botCharacter.PlayerID = "";
 
-                    CustomCharacter newPlayer = Instantiate(
-                        botCharacter,
-                        spawnPosition,
-                        Quaternion.identity
-                    );
-                    newPlayer.PlayerID = botId.ToString();
-                    newPlayer.name = "BOT" + botId;
-                    Image healthBarFront = newPlayer
-                        .GetComponent<MMHealthBar>()
-                        .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+        //             CustomCharacter newPlayer = Instantiate(
+        //                 botCharacter,
+        //                 spawnPosition,
+        //                 Quaternion.identity
+        //             );
+        //             newPlayer.PlayerID = botId.ToString();
+        //             newPlayer.name = "BOT" + botId;
+        //             Image healthBarFront = newPlayer
+        //                 .GetComponent<MMHealthBar>()
+        //                 .TargetProgressBar.ForegroundBar.GetComponent<Image>();
 
-                    healthBarFront.color = Utils.healthBarRed;
-                    SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+        //             healthBarFront.color = Utils.healthBarRed;
+        //             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
 
-                    List<Skill> skillList = new List<Skill>();
+        //             List<Skill> skillList = new List<Skill>();
 
-                    SkillBasic skillBasic = newPlayer.gameObject.AddComponent<SkillBasic>();
-                    Skill1 skill1 = newPlayer.gameObject.AddComponent<Skill1>();
+        //             SkillBasic skillBasic = newPlayer.gameObject.AddComponent<SkillBasic>();
+        //             Skill1 skill1 = newPlayer.gameObject.AddComponent<Skill1>();
 
-                    skillList.Add(skillBasic);
-                    skillList.Add(skill1);
+        //             skillList.Add(skillBasic);
+        //             skillList.Add(skill1);
 
-                    CoMCharacter characterInfo = charactersInfo.Find(
-                        el => el.name == player.CharacterName
-                    );
-                    SkillAnimationEvents skillsAnimationEvent =
-                        newPlayer.CharacterModel.GetComponent<SkillAnimationEvents>();
+        //             CoMCharacter characterInfo = charactersInfo.Find(
+        //                 el => el.name == player.CharacterName
+        //             );
+        //             SkillAnimationEvents skillsAnimationEvent =
+        //                 newPlayer.CharacterModel.GetComponent<SkillAnimationEvents>();
 
-                    List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
-                    SetSkillAngles(skillInfoClone);
+        //             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+        //             SetSkillAngles(skillInfoClone);
 
-                    skillBasic.SetSkill(
-                        Action.BasicAttack,
-                        skillInfoClone[0],
-                        skillsAnimationEvent
-                    );
-                    skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+        //             skillBasic.SetSkill(
+        //                 Action.BasicAttack,
+        //                 skillInfoClone[0],
+        //                 skillsAnimationEvent
+        //             );
+        //             skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
-                    var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+        //             var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
 
-                    foreach (var skill in items)
-                    {
-                        for (int i = 0; i < skillList.Count; i++)
-                        {
-                            if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-                            {
-                                // 350 in the back is equal to 12 in the front
-                                // So this is the calculation
-                                skillList[i].SetSkillAreaRadius(
-                                    float.Parse(skill.SkillRange) / 100
-                                );
-                            }
-                        }
-                    }
-                }
-            );
+        //             foreach (var skill in items)
+        //             {
+        //                 for (int i = 0; i < skillList.Count; i++)
+        //                 {
+        //                     if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+        //                     {
+        //                         // 350 in the back is equal to 12 in the front
+        //                         // So this is the calculation
+        //                         skillList[i].SetSkillAreaRadius(
+        //                             float.Parse(skill.SkillRange) / 100
+        //                         );
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     );
     }
 
     private void setCameraToPlayer(ulong playerID)
@@ -342,21 +342,22 @@ public class CustomLevelManager : LevelManager
 
     private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
-        var skills = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+    
+        // var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
-        List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
+        // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Angle)
-            : 0;
-        skillsClone[0].angle = basicSkillInfoAngle;
-        skillsClone[0].skillConeAngle = basicSkillInfoAngle;
+        // float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
+        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Mecha.Angle)
+        //     : 0;
+        skillsClone[0].angle = 45; // basicSkillInfoAngle;
+        skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
 
-        float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
-            ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
-            : 0;
-        skillsClone[1].angle = skill1InfoAngle;
-        skillsClone[1].skillConeAngle = skill1InfoAngle;
+        // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
+        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
+        //     : 0;
+        skillsClone[1].angle = 45; // skill1InfoAngle;
+        skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
     }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
@@ -406,20 +407,20 @@ public class CustomLevelManager : LevelManager
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
             skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
-            var items = LobbyConnection.Instance.serverSettings.SkillsConfig.Items;
+            var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
-            foreach (var skill in items)
-            {
-                for (int i = 0; i < skillList.Count; i++)
-                {
-                    if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-                    {
-                        // 350 in the back is equal to 12 in the front
-                        // So this is the calculation
-                        skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
-                    }
-                }
-            }
+            // foreach (var skill in skills)
+            // {
+            //     for (int i = 0; i < skillList.Count; i++)
+            //     {
+            //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+            //         {
+            //             // 350 in the back is equal to 12 in the front
+            //             // So this is the calculation
+            //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
+            //         }
+            //     }
+            // }
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
@@ -513,5 +514,11 @@ public class CustomLevelManager : LevelManager
     private bool GameHasEnded()
     {
         return SocketConnectionManager.Instance.GameHasEnded();
+    }
+
+    private bool checkPlayerHasJoined() {
+        return SocketConnectionManager.Instance.gamePlayers != null
+            && SocketConnectionManager.Instance.playerId != null
+            && SocketConnectionManager.Instance.gamePlayers.Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
     }
 }
