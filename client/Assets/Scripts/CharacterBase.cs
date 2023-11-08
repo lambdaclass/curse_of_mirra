@@ -28,6 +28,16 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public AudioClip spawnSfx;
 
+    [SerializeField]
+    GameObject billboard;
+
+    Camera clientCamera;
+
+    public void setCameraToBillboard(Camera cam)
+    {
+        clientCamera = cam;
+    }
+
     public IEnumerator activateSpawnFeedback()
     {
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
@@ -39,5 +49,13 @@ public class CharacterBase : MonoBehaviour
         );
         yield return new WaitForSeconds(lifeTime);
         spawnFeedback.SetActive(false);
+    }
+
+    void Update()
+    {
+        transform.LookAt(
+            transform.position + clientCamera.transform.rotation * Vector3.back,
+            clientCamera.transform.rotation * Vector3.up
+        );
     }
 }

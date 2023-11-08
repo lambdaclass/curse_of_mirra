@@ -39,12 +39,14 @@ public class CustomLevelManager : LevelManager
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
-    public Camera PlayerCamera;
     public Player playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
+
+    private CharacterBase clientCamera;
+
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -133,12 +135,6 @@ public class CustomLevelManager : LevelManager
     {
         Player gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
-        player
-            .GetComponent<CustomCharacter>()
-            .characterInfo.transform.LookAt(
-                transform.position + PlayerCamera.transform.rotation * Vector3.back,
-                PlayerCamera.transform.rotation * Vector3.up
-            );
 
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -302,7 +298,6 @@ public class CustomLevelManager : LevelManager
 
                     SkillBasic skillBasic = newPlayer.gameObject.AddComponent<SkillBasic>();
                     Skill1 skill1 = newPlayer.gameObject.AddComponent<Skill1>();
-
                     skillList.Add(skillBasic);
                     skillList.Add(skill1);
 
@@ -346,6 +341,7 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
+            player.characterBase.setCameraToBillboard(camera);
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 this.camera.SetTarget(player);
