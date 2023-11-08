@@ -31,6 +31,7 @@ public class ClientPrediction
 
     void simulatePlayerMovement(Player player)
     {
+        // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id) / 100f;
 
         pendingPlayerInputs.ForEach(input =>

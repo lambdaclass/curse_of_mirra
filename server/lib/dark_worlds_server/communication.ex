@@ -124,6 +124,11 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
+  def joined_game(player_id) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
+    |> GameEvent.encode()
+  end
+
   def decode(value) do
     try do
       {:ok, GameAction.decode(value)}

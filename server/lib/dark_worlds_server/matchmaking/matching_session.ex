@@ -1,7 +1,6 @@
 defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   use GenServer, restart: :transient
   alias DarkWorldsServer.Engine
-  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Matchmaking
 
   # 2 minutes
@@ -44,7 +43,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def init(_args) do
     Process.send_after(self(), :check_timeout, @timeout_ms * 2)
     # This will start the runner and kill the session after the time given
-    Process.send_after(self(), :start_game, 2_000)
+    Process.send_after(self(), :start_game, 5_000)
     session_id = :erlang.term_to_binary(self()) |> Base58.encode()
     topic = Matchmaking.session_topic(session_id)
     {:ok, %{players: %{}, host_player_id: nil, session_id: session_id, topic: topic}}
@@ -101,41 +100,9 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
 
-    ## Start the game ticks
-    EngineRunner.start_game_tick(game_pid)
+    {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
 
-
-    # TODO: We need to find a better way to add bots to the match
-    # amount_bots = @max_amount_players - Enum.count(state.players)
-
-    # for bot_number <- 1..amount_bots do
-    #   bot_id = Enum.count(state.players) + bot_number
-    #   send(self(), {:add_player, bot_id, "bot"})
-    #   EngineRunner.add_bot(game_pid)
-    # end
-
-    # TODO We must delete this. It's a temporary workaround to send the config that
-    # the client needs from the server. This is done by GameConfig but the client
-    # will not send it anymore.
-    game_config =
-      %{
-        runner_config:
-          Utils.Config.read_config(:game_settings)
-          |> Enum.map(fn {k, v} ->
-            value =
-              case Integer.parse(v) do
-                :error -> v
-                {parsed_value, _} -> parsed_value
-              end
-
-            {k, value}
-          end)
-          |> Map.new(),
-        character_config: Utils.Config.read_config(:characters),
-        skills_config: Utils.Config.read_config(:skills)
-      }
-
-    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, game_config})
+    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
 
     {:stop, :normal, state}
   end
@@ -166,8 +133,10 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     case Enum.count(state[:players]) do
       @max_amount_players ->
         send(self(), :start_game)
-          {:noreply, state}
-      _ -> {:noreply, state}
+        {:noreply, state}
+
+      _ ->
+        {:noreply, state}
     end
   end
 

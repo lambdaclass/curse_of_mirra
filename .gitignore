@@ -121,3 +121,7 @@ $RECYCLE.BIN/
 ## Dev ##
 *.todo
 client/ProjectSettings/ProjectSettings.asset
+
+# Ignore Visual Studio Code configuration
+.vscode
+curse_of_myrra.code-workspace

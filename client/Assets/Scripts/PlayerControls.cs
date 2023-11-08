@@ -11,13 +11,8 @@ public class PlayerControls : MonoBehaviour
             var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            // ClientAction moveAction = new ClientAction
-            // {
-            //     Action = Action.MoveWithJoystick,
-            //     Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg
-            // };
             Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
-            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp};
+            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
             SocketConnectionManager.Instance.SendGameAction(gameAction);
 
@@ -64,13 +59,13 @@ public class PlayerControls : MonoBehaviour
         // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
         // {
         // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        var chars = LobbyConnection.Instance.engineServerSettings.Characters;
 
         foreach (var character in chars)
         {
-            if (charName == character.Name)
+            if (charName.ToLower() == character.Name.ToLower())
             {
-                return float.Parse(character.BaseSpeed);
+                return character.BaseSpeed;
             }
         }
         // }

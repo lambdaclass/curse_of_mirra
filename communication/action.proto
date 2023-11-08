@@ -1,29 +1,24 @@
-syntax = "proto3";
+// syntax = "proto3";
 
-/*
-Represents a move action
-*/
-message Move {
-  float angle = 1;
-}
+// /*
+// Represents a move action
+// */
+// message Move {
+//   float angle = 1;
+// }
 
-/*
-Represents the action of using a skill
-*/
-message UseSkill {
-  string skill = 1;
-  float angle = 2;
-}
+// /*
+// Represents the action of using a skill
+// */
+// message UseSkill {
+//   string skill = 1;
+//   float angle = 2;
+// }
 
-message ToggleBots {
-  bool bots_active = 1;
-}
-
-message GameAction {
-    oneof action_type {
-        Move move = 1;
-        UseSkill use_skill = 2;
-        ToggleBots toggle_bots = 3;
-    }
-    int64 timestamp = 4;
-}
+// message GameAction {
+//     oneof action_type {
+//         Move move = 1;
+//         UseSkill use_skill = 2;
+//     }
+//     int64 timestamp = 3;
+// }

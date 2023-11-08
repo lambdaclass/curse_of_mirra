@@ -24,7 +24,7 @@ public class MatchStatsController : MonoBehaviour
 
     void Awake()
     {
-        seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
+        seconds = 0;
     }
 
     void Start()

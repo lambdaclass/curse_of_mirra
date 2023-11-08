@@ -45,16 +45,10 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
-        StartCoroutine(CreateGame());
+        // StartCoroutine(CreateGame());
         this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
-
-    public IEnumerator CreateGame()
-    {
-        yield return LobbyConnection.Instance.StartGame();
-    }
-
     public void Back()
     {
         LobbyConnection.Instance.Init();
