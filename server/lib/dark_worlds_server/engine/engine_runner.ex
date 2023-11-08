@@ -3,7 +3,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.Move
-  alias DarkWorldsServer.Communication.Proto.ToggleBots
+  # alias DarkWorldsServer.Communication.Proto.ToggleBots
   alias DarkWorldsServer.Communication.Proto.UseSkill
   alias DarkWorldsServer.Engine.BotPlayer
 
@@ -145,7 +145,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:move, player_id, %Move{angle: angle}, timestamp}, state) do
+  def handle_cast({:move, user_id, %Move{angle: angle}, timestamp}, state) do
+    player_id = state.user_to_player[user_id] || user_id
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =
@@ -157,7 +158,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
-    player_id = state.user_to_player[user_id]
+    player_id = state.user_to_player[user_id] || user_id
     skill_key = action_skill_to_key(skill)
 
     game_state =
@@ -172,32 +173,24 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  @impl true
-  def handle_cast(
-        {:toggle_bots, %ToggleBots{bots_active: bots_active}, timestamp},
-        state
-      ) do
-    bot_pid = state[:bot_handler_pid]
+  # @impl true
+  # def handle_cast(
+  #       {:toggle_bots, %ToggleBots{bots_active: bots_active}, timestamp},
+  #       state
+  #     ) do
+  #   bot_pid = state[:bot_handler_pid]
 
-    if bot_pid do
-      BotPlayer.toggle_bots(bot_pid, bots_active)
-    end
+  #   if bot_pid do
+  #     BotPlayer.toggle_bots(bot_pid, bots_active)
+  #   end
 
-    {:noreply, state}
-  end
+  #   {:noreply, state}
+  # end
 
   def handle_cast(msg, state) do
     Logger.error("Unexpected handle_cast msg", %{msg: msg})
     {:noreply, state}
   end
-
-  @impl true
-  def handle_info(:start_game_tick, state) do
-    Process.send_after(self(), :game_tick, @game_tick_rate_ms)
-    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
-    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms * 10)
-
-    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
 
   @impl true
   def handle_info(:start_game_tick, state) do
@@ -241,7 +234,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         :skip
 
       {:ended, winner} ->
-        broadcast_game_ended(state.broadcast_topic, winner, Map.put(state.game_state, :player_timestamps, state.player_timestamps))
+        broadcast_game_ended(
+          state.broadcast_topic,
+          winner,
+          Map.put(state.game_state, :player_timestamps, state.player_timestamps)
+        )
 
         ## The idea of having this waiting period is in case websocket processes keep
         ## sending messages, this way we give some time before making them crash
@@ -347,16 +344,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)

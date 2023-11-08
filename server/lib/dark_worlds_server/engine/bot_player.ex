@@ -232,7 +232,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     target =
       calculate_circle_point(
         bot.position,
-        state.shrinking_center,
+        state.game_state.shrinking_center,
         false
       )
 
@@ -265,26 +265,17 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     calculate_circle_point(start_x, start_y, end_x, end_y, use_inaccuracy)
   end
 
-  def calculate_circle_point(cx, cy, x, y, _use_inaccuracy) do
+  def calculate_circle_point(cx, cy, x, y, use_inaccuracy) do
     Nx.atan2(x - cx, y - cy)
     |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi()))
     |> Nx.to_number()
     |> Kernel.*(-1)
+    |> maybe_add_inaccuracy_to_angle(use_inaccuracy)
   end
 
-  # defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
+  defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
 
-  # defp maybe_add_inaccuracy_to_angle(angle, true) do
-  #   deviation_angles = [
-  #     0,
-  #     angle_to_radian(4),
-  #     angle_to_radian(-4),
-  #     angle_to_radian(8),
-  #     angle_to_radian(-8)
-  #   ]
-
-  #   angle |> Nx.add(Enum.random(deviation_angles))
-  # end
+  defp maybe_add_inaccuracy_to_angle(angle, true), do: angle + Enum.random(-8..8)
 
   def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entities) do
     Map.put(bot_state, :objective, :nothing)
@@ -350,8 +341,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       loots_by_distance: loots_by_distance
     }
   end
-
-  defp get_closest_entities(_, _), do: %{}
 
   defp get_distance_to_point(%{x: start_x, y: start_y}, %{x: end_x, y: end_y}) do
     diagonal_movement_cost = 14
@@ -476,6 +465,4 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     # and the unplayable zone to avoid being on the edge of both
     distance > playable_radius - @radius_sub_to_escape
   end
-
-  defp angle_to_radian(angle), do: angle * :math.pi() / 180
 end

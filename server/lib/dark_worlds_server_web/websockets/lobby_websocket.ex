@@ -67,6 +67,7 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
       game_config: game_config,
       server_hash: server_hash
     }
+
     {:reply, {:binary, Communication.lobby_game_started!(reply_map)}, new_state}
   end
 

@@ -21,8 +21,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     client_id = :cowboy_req.binding(:client_id, req)
     client_hash = :cowboy_req.header("dark-worlds-client-hash", req)
 
-    {:cowboy_websocket, req,
-     %{game_id: game_id, player_id: player_id, client_id: client_id, client_hash: client_hash}}
+    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_id: client_id, client_hash: client_hash}}
   end
 
   @impl true
@@ -50,8 +49,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
 
-      {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
-        web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
+         {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
+      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
@@ -73,9 +72,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   def terminate(:stop, _req, :version_mismatch) do
-    Logger.info(
-      "#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch"
-    )
+    Logger.info("#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch")
 
     :ok
   end
@@ -86,15 +83,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   defp log_termination({_, 1000, _} = reason) do
-    Logger.info(
-      "#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}"
-    )
+    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
   end
 
   defp log_termination(reason) do
-    Logger.error(
-      "#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}"
-    )
+    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
   end
 
   @impl true
@@ -189,8 +182,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   def websocket_info({:finish_character_selection, selected_players, players}, web_socket_state) do
-    {:reply, {:binary, Communication.finish_character_selection!(selected_players, players)},
-     web_socket_state}
+    {:reply, {:binary, Communication.finish_character_selection!(selected_players, players)}, web_socket_state}
   end
 
   def websocket_info({:change_to_engine_runner, engine_runner_pid, topic}, web_socket_state) do

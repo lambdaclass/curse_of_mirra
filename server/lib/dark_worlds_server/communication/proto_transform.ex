@@ -27,7 +27,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.MapModification
   alias DarkWorldsServer.Communication.Proto.Modification
   alias DarkWorldsServer.Communication.Proto.Mechanic
-  alias DarkWorldsServer.Communication.Proto.ToggleBots
 
   @behaviour Protobuf.TransformModule
 
@@ -38,7 +37,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   @impl true
   def encode({name, mechanic}, Mechanic) do
     %Mechanic{
-      name: mechanic_name_encode(name),
+      name: mechanic_name_encode(name)
     }
     |> Map.merge(mechanic)
   end
@@ -221,11 +220,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def decode(value, Move) do
-    value
-  end
-
-  @impl Protobuf.TransformModule
-  def decode(value, ToggleBots) do
     value
   end
 
