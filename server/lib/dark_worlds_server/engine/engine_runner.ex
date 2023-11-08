@@ -5,6 +5,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.ToggleBots
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Engine.BotPlayer
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
@@ -19,8 +20,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def join(runner_pid, user_id, character_name) do
-    IO.inspect(runner_pid, label: "runner_pid")
     GenServer.call(runner_pid, {:join, user_id, character_name})
+  end
+
+  def add_bot(runner_pid) do
+    GenServer.call(runner_pid, :add_bot)
   end
 
   def move(runner_pid, user_id, action, timestamp) do
@@ -67,7 +71,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       game_tick: @game_tick_rate_ms,
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
-      user_to_player: %{}
+      user_to_player: %{},
+      bot_handler_pid: nil
     }
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
@@ -84,6 +89,29 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       |> put_in([:user_to_player, user_id], player_id)
 
     {:reply, {:ok, player_id}, state}
+  end
+
+  @impl true
+  def handle_call(:add_bot, _from, state) do
+    bot_handler_pid =
+      case Map.get(state, :bot_handler_pid) do
+        nil ->
+          {:ok, pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
+          pid
+
+        bot_handler_pid ->
+          bot_handler_pid
+      end
+
+    {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, "h4ck")
+
+    state =
+      Map.put(state, :game_state, game_state)
+      |> Map.put(:bot_handler_pid, bot_handler_pid)
+
+    BotPlayer.add_bot(bot_handler_pid, 2)
+
+    {:reply, :ok, state}
   end
 
   def handle_call(msg, from, state) do
@@ -104,10 +132,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast(
-        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        {:basic_attack, player_id, %UseSkill{angle: angle, skill: skill}, timestamp},
         state
       ) do
-    player_id = state.user_to_player[user_id]
     skill_key = action_skill_to_key(skill)
 
     game_state =

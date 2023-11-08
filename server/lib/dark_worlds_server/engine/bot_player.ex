@@ -265,26 +265,26 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     calculate_circle_point(start_x, start_y, end_x, end_y, use_inaccuracy)
   end
 
-  def calculate_circle_point(cx, cy, x, y, use_inaccuracy) do
+  def calculate_circle_point(cx, cy, x, y, _use_inaccuracy) do
     Nx.atan2(x - cx, y - cy)
     |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi()))
     |> Nx.to_number()
     |> Kernel.*(-1)
   end
 
-  defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
+  # defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
 
-  defp maybe_add_inaccuracy_to_angle(angle, true) do
-    deviation_angles = [
-      0,
-      angle_to_radian(4),
-      angle_to_radian(-4),
-      angle_to_radian(8),
-      angle_to_radian(-8)
-    ]
+  # defp maybe_add_inaccuracy_to_angle(angle, true) do
+  #   deviation_angles = [
+  #     0,
+  #     angle_to_radian(4),
+  #     angle_to_radian(-4),
+  #     angle_to_radian(8),
+  #     angle_to_radian(-8)
+  #   ]
 
-    angle |> Nx.add(Enum.random(deviation_angles))
-  end
+  #   angle |> Nx.add(Enum.random(deviation_angles))
+  # end
 
   def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entities) do
     Map.put(bot_state, :objective, :nothing)
@@ -382,8 +382,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 
-  defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
-    distance_to_entity < 500
+  defp skill_would_hit?(_bot, %{distance_to_entity: distance_to_entity}) do
+    distance_to_entity < 1500
   end
 
   defp skill_would_hit?(_bot, _closest_entities), do: nil

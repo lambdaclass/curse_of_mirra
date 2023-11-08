@@ -106,7 +106,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     case Communication.decode(message) do
       {:ok, %GameAction{action_type: {action, action_data}, timestamp: timestamp}} ->
         RequestTracker.add_counter(web_socket_state[:runner_pid], web_socket_state[:player_id])
-        IO.inspect(action, label: "Action: ")
 
         case action do
           :move ->

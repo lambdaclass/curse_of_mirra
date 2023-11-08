@@ -3,7 +3,6 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Matchmaking
-  alias DarkWorldsServer.Engine.BotPlayer
 
   # 2 minutes
   @timeout_ms 2 * 60 * 1000
@@ -105,18 +104,14 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
     ## Start the game ticks
     EngineRunner.start_game_tick(game_pid)
 
+
+    # TODO: We need to find a better way to add bots to the match
     amount_bots = @max_amount_players - Enum.count(state.players)
 
-    {:ok, bot_pid} = BotPlayer.start_link(game_pid, 20)
-
-    for bot_id <- 1..amount_bots do
-      bot_id = Enum.count(state.players) + bot_id
-
+    for bot_number <- 1..amount_bots do
+      bot_id = Enum.count(state.players) + bot_number
       send(self(), {:add_player, bot_id, "bot"})
-
-      EngineRunner.join(game_pid, bot_id, "h4ck")
-
-      BotPlayer.add_bot(bot_pid, bot_id)
+      EngineRunner.add_bot(game_pid)
     end
 
     # TODO We must delete this. It's a temporary workaround to send the config that
