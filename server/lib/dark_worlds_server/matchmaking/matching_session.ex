@@ -106,13 +106,13 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
 
 
     # TODO: We need to find a better way to add bots to the match
-    amount_bots = @max_amount_players - Enum.count(state.players)
+    # amount_bots = @max_amount_players - Enum.count(state.players)
 
-    for bot_number <- 1..amount_bots do
-      bot_id = Enum.count(state.players) + bot_number
-      send(self(), {:add_player, bot_id, "bot"})
-      EngineRunner.add_bot(game_pid)
-    end
+    # for bot_number <- 1..amount_bots do
+    #   bot_id = Enum.count(state.players) + bot_number
+    #   send(self(), {:add_player, bot_id, "bot"})
+    #   EngineRunner.add_bot(game_pid)
+    # end
 
     # TODO We must delete this. It's a temporary workaround to send the config that
     # the client needs from the server. This is done by GameConfig but the client

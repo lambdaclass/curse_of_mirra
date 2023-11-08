@@ -20,6 +20,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def join(runner_pid, user_id, character_name) do
+    IO.inspect(runner_pid, label: "runner_pid")
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
@@ -109,7 +110,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(state, :game_state, game_state)
       |> Map.put(:bot_handler_pid, bot_handler_pid)
 
-    BotPlayer.add_bot(bot_handler_pid, 2)
+    BotPlayer.add_bot(bot_handler_pid, player_id)
 
     {:reply, :ok, state}
   end
