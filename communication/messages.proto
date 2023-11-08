@@ -466,7 +466,7 @@ message GameStateConfig {
 */
 message MapModification {
     Modification modification = 1;
-    uint64 sta  rting_radius = 2;
+    uint64 starting_radius = 2;
     uint64 minimum_radius = 3;
     uint64 max_radius = 4;
     repeated GameEffect outside_radius_effects = 5;
