@@ -1,23 +1,12 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.GameAction
-  alias DarkWorldsServer.Communication.Proto.CharacterConfig
-  alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
-  alias DarkWorldsServer.Communication.Proto.EffectInfo
-  alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.LootPackage
-  alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
-  alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
-  alias DarkWorldsServer.Communication.Proto.RunnerConfig
-  alias DarkWorldsServer.Communication.Proto.ServerGameSettings
-  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
-  alias DarkWorldsServer.Communication.Proto.SkillsConfig
-  alias DarkWorldsServer.Communication.Proto.Status
   alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
   alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
   alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
@@ -25,6 +14,20 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Communication.Proto.Config
+  alias DarkWorldsServer.Communication.Proto.GameCharactersConfig
+  alias DarkWorldsServer.Communication.Proto.GameEffectsConfig
+  alias DarkWorldsServer.Communication.Proto.GameStateConfig
+  alias DarkWorldsServer.Communication.Proto.GameLootsConfig
+  alias DarkWorldsServer.Communication.Proto.GameProjectile
+  alias DarkWorldsServer.Communication.Proto.GameSkillsConfig
+  alias DarkWorldsServer.Communication.Proto.GameCharacter
+  alias DarkWorldsServer.Communication.Proto.GameEffect
+  alias DarkWorldsServer.Communication.Proto.GameLoot
+  alias DarkWorldsServer.Communication.Proto.GameSkill
+  alias DarkWorldsServer.Communication.Proto.MapModification
+  alias DarkWorldsServer.Communication.Proto.Modification
+  alias DarkWorldsServer.Communication.Proto.Mechanic
 
   @behaviour Protobuf.TransformModule
 
@@ -32,95 +35,16 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
-  def encode(status, Status) do
-    status
-  end
-
-  def encode(effect, EffectsEntry) do
-    effect_encode(effect)
-  end
-
-  def encode(effect_info, EffectInfo) do
-    effect_info
-  end
-
-  def encode(entry, SelectedCharactersEntry) do
-    entry
-  end
-
-  def encode(millis_time, ProtoMillisTime) do
-    millis_time
-  end
-
-  def encode(skill_config, SkillsConfig) do
-    skill_config
-  end
-
-  def encode(skill_config_item, SkillConfigItem) do
-    skill_config_item
-  end
-
-  def encode(runner_config, RunnerConfig) do
-    runner_config
-  end
-
-  def encode(character_config, CharacterConfig) do
-    character_config
-  end
-
-  def encode(character_config_item, CharacterConfigItem) do
-    character_config_item
-  end
-
-  @impl Protobuf.TransformModule
-  def encode(
-        %{
-          character_config: character_config,
-          runner_config: runner_config,
-          skills_config: skills_config
-        },
-        ServerGameSettings
-      ) do
-    %{
-      Name: name,
-      board_height: board_height,
-      board_width: board_width,
-      game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms,
-      map_shrink_wait_ms: map_shrink_wait_ms,
-      map_shrink_interval: map_shrink_interval,
-      out_of_area_damage: out_of_area_damage,
-      map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy,
-      spawn_loot_interval_ms: spawn_loot_interval_ms
-    } = runner_config
-
-    runner_config = %RunnerConfig{
-      Name: name,
-      board_height: board_height,
-      board_width: board_width,
-      game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms,
-      map_shrink_wait_ms: map_shrink_wait_ms,
-      map_shrink_interval: map_shrink_interval,
-      out_of_area_damage: out_of_area_damage,
-      map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy,
-      spawn_loot_interval_ms: spawn_loot_interval_ms
+  def encode({name, mechanic}, Mechanic) do
+    %Mechanic{
+      name: mechanic_name_encode(name),
     }
+  end
 
-    character_config = %CharacterConfig{
-      Items: character_config[:Items]
-    }
-
-    skills_config = %SkillsConfig{
-      Items: skills_config[:Items]
-    }
-
-    %ServerGameSettings{
-      runner_config: runner_config,
-      character_config: character_config,
-      skills_config: skills_config
+  def encode({modifier, value}, Modification) do
+    %Modification{
+      value: value,
+      modifier: modifier_encode(modifier)
     }
   end
 
@@ -226,9 +150,62 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
+  def encode(data, _struct) do
+    data
+  end
+
   ###########
   # DECODES #
   ###########
+
+  def decode(config, Config) do
+    config
+  end
+
+  def decode(config, GameCharactersConfig) do
+    config |> IO.inspect(label: :characters?)
+  end
+
+  def decode(config, GameEffectsConfig) do
+    config
+  end
+
+  def decode(config, GameStateConfig) do
+    config
+  end
+
+  def decode(config, MapModification) do
+    config
+  end
+
+  def decode(config, GameLootsConfig) do
+    config
+  end
+
+  def decode(config, GameProjectilesConfig) do
+    config
+  end
+
+  def decode(config, GameCharacter) do
+    config
+  end
+
+  def decode(config, GameEffect) do
+    config
+  end
+
+  def decode(config, GameLoot) do
+    config
+  end
+
+  def decode(config, GameProjectile) do
+    config
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(%GameSkill{} = config, GameSkill) do
+    config
+  end
 
   @impl Protobuf.TransformModule
   def decode(value, GameAction) do
@@ -438,4 +415,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     do: {17, %{ends_at: ends_at, caused_by: caused_by}}
 
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
+
+  defp modifier_encode(:multiplicative), do: :MULTIPLICATIVE
+  defp modifier_encode(:additive), do: :ADDITIVE
+
+  defp mechanic_name_encode(:hit), do: :HIT
+  defp mechanic_name_encode(:simple_shoot), do: :SIMPLE_SHOOT
+  defp mechanic_name_encode(:multi_shoot), do: :MULTI_SHOOT
 end

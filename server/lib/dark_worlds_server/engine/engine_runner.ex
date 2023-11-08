@@ -9,6 +9,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
+  ## Time between checking that a game has ended
+  @check_game_ended_interval_ms 1_000
+  ## Time to wait between a game ended detected and shutting down this process
+  @game_ended_shutdown_wait_ms 10_000
+  ## Timeout to stop game process, this is a safeguard in case the process
+  ## does not detect a game ending and stays as a zombie
+  @game_timeout_ms 600_000
 
   #######
   # API #
@@ -47,17 +54,19 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{engine_config_raw_json: engine_config_raw_json}) do
+  def init(%{engine_config: engine_config}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
 
     Process.flag(:priority, priority)
 
+    Process.send_after(self(), :game_timeout, @game_timeout_ms)
+
     engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
 
     state = %{
-      game_state: LambdaGameEngine.engine_new_game(engine_config),
+      game_state: engine_config,
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{}
@@ -98,7 +107,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
-
     player_id = state.user_to_player[user_id]
     skill_key = action_skill_to_key(skill)
 
@@ -117,6 +125,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_cast(:start_game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
     Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
+    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
 
     state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
     {:noreply, state}
@@ -148,6 +157,33 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, %{state | game_state: game_state}}
   end
 
+  def handle_info(:check_game_ended, state) do
+    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
+
+    case check_game_ended(Map.values(state.game_state.players)) do
+      :ongoing ->
+        :skip
+
+      {:ended, winner} ->
+        broadcast_game_ended(state.broadcast_topic, winner, Map.put(state.game_state, :player_timestamps, state.player_timestamps))
+
+        ## The idea of having this waiting period is in case websocket processes keep
+        ## sending messages, this way we give some time before making them crash
+        ## (sending to inexistant process will cause them to crash)
+        Process.send_after(self(), :game_ended, @game_ended_shutdown_wait_ms)
+    end
+
+    {:noreply, state}
+  end
+
+  def handle_info(:game_ended, state) do
+    {:stop, :normal, state}
+  end
+
+  def handle_info(:game_timeout, state) do
+    {:stop, {:shutdown, :game_timeout}, state}
+  end
+
   def handle_info(msg, state) do
     Logger.error("Unexpected handle_info msg", %{msg: msg})
     {:noreply, state}
@@ -158,6 +194,22 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   ####################
   defp broadcast_game_state(topic, game_state) do
     Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_state, transform_state_to_myrra_state(game_state)})
+  end
+
+  defp broadcast_game_ended(topic, winner, game_state) do
+    myrra_winner = transform_player_to_myrra_player(winner)
+    myrra_state = transform_state_to_myrra_state(game_state)
+    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_ended, myrra_winner, myrra_state})
+  end
+
+  defp check_game_ended(players) do
+    players_alive = Enum.filter(players, fn player -> player.status == :alive end)
+
+    case players_alive do
+      [_, _ | _] -> :ongoing
+      [player] -> {:ended, player}
+      [] -> {:ended, nil}
+    end
   end
 
   defp relative_position_to_angle_degrees(x, y) do
@@ -195,26 +247,28 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_players_to_myrra_players(players) do
-    Enum.map(players, fn {_id, player} ->
-      %{
-        ## Transformed
-        __struct__: LambdaGameEngine.MyrraEngine.Player,
-        id: player.id,
-        position: transform_position_to_myrra_position(player.position),
-        status: if(player.health <= 0, do: :dead, else: :alive),
-        health: player.health,
-        body_size: player.size,
-        character_name: transform_character_name_to_myrra_character_name(player.character.name),
-        ## Placeholder values
-        kill_count: 0,
-        effects: %{},
-        death_count: 0,
-        action: transform_action_to_myrra_action(player.actions),
-        direction: transform_angle_to_myrra_relative_position(player.direction),
-        aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
-      }
-      |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
-    end)
+    Enum.map(players, fn {_id, player} -> transform_player_to_myrra_player(player) end)
+  end
+
+  defp transform_player_to_myrra_player(player) do
+    %{
+      ## Transformed
+      __struct__: LambdaGameEngine.MyrraEngine.Player,
+      id: player.id,
+      position: transform_position_to_myrra_position(player.position),
+      status: if(player.health <= 0, do: :dead, else: :alive),
+      health: player.health,
+      body_size: player.size,
+      character_name: transform_character_name_to_myrra_character_name(player.character.name),
+      ## Placeholder values
+      kill_count: 0,
+      effects: %{},
+      death_count: 0,
+      action: transform_action_to_myrra_action(player.actions),
+      direction: transform_angle_to_myrra_relative_position(player.direction),
+      aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
+    }
+    |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
   end
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do

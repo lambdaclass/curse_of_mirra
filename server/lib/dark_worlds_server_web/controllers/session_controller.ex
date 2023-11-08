@@ -4,7 +4,12 @@ defmodule DarkWorldsServerWeb.SessionController do
   alias DarkWorldsServer.Engine
 
   def new(conn, _params) do
-    {:ok, runner_pid} = Engine.start_child()
+    {:ok, engine_config_json} =
+      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
+
+    engine_config = LambdaGameEngine.parse_config(engine_config_json)
+
+    {:ok, runner_pid} = Engine.start_child(engine_config)
 
     headers = Enum.into(conn.req_headers, %{})
     session_id = Communication.pid_to_external_id(runner_pid)

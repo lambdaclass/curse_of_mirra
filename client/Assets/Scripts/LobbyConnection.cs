@@ -26,6 +26,7 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
+    public Config engineServerSettings;
     public bool gameStarted = false;
     public bool errorOngoingGame = false;
     public bool errorConnection = false;
@@ -205,24 +206,24 @@ public class LobbyConnection : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        yield return GameSettings.ParseSettingsCoroutine(settings =>
-        {
-            serverSettings = settings;
-        });
-        LobbyEvent lobbyEvent = new LobbyEvent
-        {
-            Type = LobbyEventType.StartGame,
-            GameConfig = serverSettings
-        };
+        yield return new WaitForSeconds(1);
+        // {
+        //     serverSettings = settings;
+        // });
+        // LobbyEvent lobbyEvent = new LobbyEvent
+        // {
+        //     Type = LobbyEventType.StartGame,
+        //     // GameConfig = serverSettings
+        // };
 
-        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+        // serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
-        using (var stream = new MemoryStream())
-        {
-            lobbyEvent.WriteTo(stream);
-            var msg = stream.ToArray();
-            ws.Send(msg);
-        }
+        // using (var stream = new MemoryStream())
+        // {
+        //     lobbyEvent.WriteTo(stream);
+        //     var msg = stream.ToArray();
+        //     ws.Send(msg);
+        // }
     }
 
     public void Reconnect()
@@ -414,8 +415,10 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobbyEvent.GameId;
-                    serverSettings = lobbyEvent.GameConfig;
-                    serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    Debug.Log(lobbyEvent.GameConfig);
+                    engineServerSettings = lobbyEvent.GameConfig;
+                    // FIX THIS!!
+                    serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
                     gameStarted = true;
                     break;

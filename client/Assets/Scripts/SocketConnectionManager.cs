@@ -141,7 +141,6 @@ public class SocketConnectionManager : MonoBehaviour
         this.serverHash = LobbyConnection.Instance.serverHash;
         this.clientId = LobbyConnection.Instance.clientId;
         this.reconnect = LobbyConnection.Instance.reconnect;
-        playerId = LobbyConnection.Instance.playerId;
 
         if (!connected && this.sessionId != "")
         {
@@ -153,7 +152,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
+        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + "delete-this");
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
@@ -215,6 +214,9 @@ public class SocketConnectionManager : MonoBehaviour
                     );
                     this.allSelected = true;
                     this.gamePlayers = gameEvent.Players.ToList();
+                    break;
+                case GameEventType.PlayerJoined:
+                    this.playerId = gameEvent.PlayerJoinedId;
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);

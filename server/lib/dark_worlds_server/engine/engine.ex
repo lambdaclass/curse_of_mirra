@@ -18,7 +18,7 @@ defmodule DarkWorldsServer.Engine do
 
     DynamicSupervisor.start_child(
       __MODULE__,
-      {EngineRunner, %{engine_config_raw_json: engine_config_json}}
+      {EngineRunner, %{engine_config: engine_config}}
     )
   end
 
