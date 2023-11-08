@@ -5,6 +5,7 @@ using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class Battle : MonoBehaviour
 {
@@ -180,6 +181,7 @@ public class Battle : MonoBehaviour
 
     void UpdatePlayerActions()
     {
+        Profiler.BeginSample("UpdatePlayerActions");
         long currentTime;
         long pastTime;
         GameObject interpolationGhost = null;
@@ -203,25 +205,12 @@ public class Battle : MonoBehaviour
                 );
             }
 
-            if (
-                useInterpolation
-                && (
-                    SocketConnectionManager.Instance.playerId
-                        != SocketConnectionManager.Instance.gamePlayers[i].Id
-                    || !useClientPrediction
-                )
-            )
-            {
-                gameEvent = buffer.getNextEventToRender(pastTime);
-            }
-            else
-            {
-                gameEvent = buffer.lastEvent();
-            }
+            gameEvent = buffer.lastEvent();
 
             // There are a few frames during which this is outdated and produces an error
             if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
             {
+                Profiler.BeginSample("serverPlayerUpdate");
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
                 Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
@@ -292,8 +281,10 @@ public class Battle : MonoBehaviour
 
                 float hitboxSize = serverPlayerUpdate.BodySize / 50f;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
+                Profiler.EndSample();
             }
         }
+        Profiler.EndSample();
     }
 
     private void executeSkillFeedback(
@@ -502,6 +493,7 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
+        Profiler.BeginSample("HandleMovement");
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
@@ -534,25 +526,12 @@ public class Battle : MonoBehaviour
             return;
         }
 
-        if (useClientPrediction)
+        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
-            walking =
-                playerUpdate.Id == SocketConnectionManager.Instance.playerId
-                    ? InputsAreBeingUsed()
-                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                        playerUpdate.Id,
-                        (long)pastTime
-                    );
-        }
-        else
-        {
-            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
-            {
-                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                    playerUpdate.Id,
-                    (long)pastTime
-                );
-            }
+            walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                playerUpdate.Id,
+                (long)pastTime
+            );
         }
 
         Vector2 movementChange = new Vector2(xChange, yChange);
@@ -621,6 +600,8 @@ public class Battle : MonoBehaviour
         }
 
         modelAnimator.SetBool("Walking", walking);
+
+        Profiler.EndSample();
     }
 
     public void SetPlayerDead(CustomCharacter playerCharacter)

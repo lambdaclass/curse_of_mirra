@@ -356,13 +356,11 @@ public class CustomLevelManager : LevelManager
             ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Angle)
             : 0;
         skillsClone[0].angle = basicSkillInfoAngle;
-        skillsClone[0].skillConeAngle = basicSkillInfoAngle;
 
         float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
             ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
             : 0;
         skillsClone[1].angle = skill1InfoAngle;
-        skillsClone[1].skillConeAngle = skill1InfoAngle;
     }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)

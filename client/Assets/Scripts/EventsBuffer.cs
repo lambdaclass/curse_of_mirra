@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Profiling;
 
 public class EventsBuffer
 {
@@ -29,6 +30,8 @@ public class EventsBuffer
 
     public GameEvent getNextEventToRender(long pastTime)
     {
+        Profiler.BeginSample("Player is moving");
+
         GameEvent nextGameEvent = updatesBuffer
             .Where(ge => ge.ServerTimestamp > pastTime)
             .OrderBy(ge => ge.ServerTimestamp)
@@ -42,6 +45,7 @@ public class EventsBuffer
         {
             return nextGameEvent;
         }
+        Profiler.EndSample();
     }
 
     /*
@@ -55,6 +59,7 @@ public class EventsBuffer
     */
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
+        Profiler.BeginSample("Player is moving");
         var count = 0;
         GameEvent currentEventToRender = this.getNextEventToRender(pastTime);
         var index = updatesBuffer.IndexOf(currentEventToRender);
@@ -106,6 +111,7 @@ public class EventsBuffer
         }
 
         return count >= 1;
+        Profiler.EndSample();
     }
 
     public void setLastTimestampSeen(ulong playerId, long serverTimestamp)
