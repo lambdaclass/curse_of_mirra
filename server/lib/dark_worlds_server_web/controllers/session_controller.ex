@@ -4,7 +4,6 @@ defmodule DarkWorldsServerWeb.SessionController do
   alias DarkWorldsServer.Engine
 
   def new(conn, _params) do
-
     {:ok, runner_pid} = Engine.start_child()
 
     headers = Enum.into(conn.req_headers, %{})

@@ -2,9 +2,13 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   use GenServer, restart: :transient
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Matchmaking
+  alias DarkWorldsServer.Engine.EngineRunner
 
   # 2 minutes
   @timeout_ms 2 * 60 * 1000
+
+  # Max number of players in the match
+  @max_amount_players 4
 
   #######
   # API #
@@ -97,6 +101,15 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
 
+    # TODO: We need to find a better way to add bots to the match
+    amount_bots = @max_amount_players - Enum.count(state.players)
+
+    for bot_number <- 1..amount_bots do
+      bot_id = Enum.count(state.players) + bot_number
+      send(self(), {:add_player, bot_id, "bot"})
+      EngineRunner.add_bot(game_pid)
+    end
+
     {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
 
     Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
@@ -127,9 +140,8 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:is_lobby_full?, state) do
-    # TODO start the game when lobby is full
     case Enum.count(state[:players]) do
-      4 ->
+      @max_amount_players ->
         send(self(), :start_game)
         {:noreply, state}
 
