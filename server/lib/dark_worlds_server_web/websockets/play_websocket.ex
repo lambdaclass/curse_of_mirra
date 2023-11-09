@@ -20,6 +20,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     player_id = :cowboy_req.binding(:player_id, req)
     client_id = :cowboy_req.binding(:client_id, req)
     client_hash = :cowboy_req.header("dark-worlds-client-hash", req)
+
     {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_id: client_id, client_hash: client_hash}}
   end
 
@@ -48,8 +49,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
 
-      {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
-        web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
+         {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
+      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
@@ -72,6 +73,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def terminate(:stop, _req, :version_mismatch) do
     Logger.info("#{__MODULE__} #{inspect(self())} closed because of server/client version mismatch")
+
     :ok
   end
 
@@ -96,7 +98,12 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
         case action do
           :move ->
-            EngineRunner.move(web_socket_state[:runner_pid], web_socket_state[:player_id], action_data, timestamp)
+            EngineRunner.move(
+              web_socket_state[:runner_pid],
+              web_socket_state[:player_id],
+              action_data,
+              timestamp
+            )
 
           :use_skill when action_data.skill == "BasicAttack" ->
             EngineRunner.basic_attack(
@@ -177,7 +184,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
 
   def websocket_info({:change_to_engine_runner, engine_runner_pid, topic}, web_socket_state) do
     Logger.info("Switching to engine_runner #{inspect(engine_runner_pid)}")
-    :ok = Phoenix.PubSub.unsubscribe(DarkWorldsServer.PubSub, "game_play_#{web_socket_state.game_id}")
+
+    :ok =
+      Phoenix.PubSub.unsubscribe(DarkWorldsServer.PubSub, "game_play_#{web_socket_state.game_id}")
+
     :ok = Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, topic)
 
     web_socket_state = %{web_socket_state | runner_pid: engine_runner_pid}

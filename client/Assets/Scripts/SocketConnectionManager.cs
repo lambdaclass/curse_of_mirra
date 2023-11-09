@@ -36,7 +36,6 @@ public class SocketConnectionManager : MonoBehaviour
     public ClientPrediction clientPrediction = new ClientPrediction();
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
-    private Boolean botsActive = true;
 
     public EventsBuffer eventsBuffer;
     public bool allSelected = false;
@@ -50,20 +49,6 @@ public class SocketConnectionManager : MonoBehaviour
     public bool cinematicDone;
 
     public bool connected = false;
-
-    public struct BotSpawnEventData
-    {
-        public List<Player> gameEventPlayers;
-        public List<Player> gamePlayers;
-
-        public BotSpawnEventData(List<Player> gameEventPlayers, List<Player> gamePlayers)
-        {
-            this.gameEventPlayers = gameEventPlayers;
-            this.gamePlayers = gamePlayers;
-        }
-    }
-
-    public event Action<BotSpawnEventData> BotSpawnRequested;
 
     WebSocket ws;
 
@@ -177,15 +162,6 @@ public class SocketConnectionManager : MonoBehaviour
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    if (
-                        this.gamePlayers != null
-                        && this.gamePlayers.Count < gameEvent.Players.Count
-                        && SpawnBot.Instance != null
-                    )
-                    {
-                        // We use an event here, to prevent losing events.
-                        OnBotSpawnRequested(gameEvent.Players.ToList());
-                    }
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
@@ -279,33 +255,6 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    public void CallSpawnBot()
-    {
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        ClientAction clientAction = new ClientAction
-        {
-            Action = Action.AddBot,
-            Timestamp = timestamp
-        };
-        SendAction(clientAction);
-    }
-
-    public void ToggleBots()
-    {
-        ClientAction clientAction;
-        if (this.botsActive)
-        {
-            clientAction = new ClientAction { Action = Action.DisableBots };
-        }
-        else
-        {
-            clientAction = new ClientAction { Action = Action.EnableBots };
-        }
-
-        this.botsActive = !this.botsActive;
-        SendAction(clientAction);
-    }
-
     private string makeUrl(string path)
     {
         var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
@@ -381,10 +330,5 @@ public class SocketConnectionManager : MonoBehaviour
     public bool PlayerIsWinner(ulong playerId)
     {
         return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
-    }
-
-    private void OnBotSpawnRequested(List<Player> gameEventPlayers)
-    {
-        BotSpawnRequested?.Invoke(new BotSpawnEventData(gameEventPlayers, this.gamePlayers));
     }
 }
