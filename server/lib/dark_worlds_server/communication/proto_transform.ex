@@ -164,7 +164,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(config, GameCharactersConfig) do
-    config |> IO.inspect(label: :characters?)
+    config
   end
 
   def decode(config, GameEffectsConfig) do
