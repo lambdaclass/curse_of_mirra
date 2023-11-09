@@ -135,8 +135,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         end
       end)
 
-    Enum.each(bots, fn {bot_id, _} -> send(self(), {:think_and_do, bot_id}) end)
-
     {:noreply, %{state | players: players, bots: bots, game_state: game_state}}
   end
 
