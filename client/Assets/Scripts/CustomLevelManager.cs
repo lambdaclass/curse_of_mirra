@@ -169,7 +169,7 @@ public class CustomLevelManager : LevelManager
         for (ulong i = 0; i < totalPlayers; i++)
         {
             prefab = GetCharacterPrefab(i + 1);
-            if (LobbyConnection.Instance.playerId == i + 1)
+            if (SocketConnectionManager.Instance.playerId == i + 1)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -267,7 +267,7 @@ public class CustomLevelManager : LevelManager
 
     private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
-    
+
         // var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
         // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);

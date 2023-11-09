@@ -60,7 +60,7 @@ public class DeathSplashManager : MonoBehaviour
 
     public void SetDeathSplashPlayer()
     {
-        player = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         GameObject characterModel = characterModels.Single(
             characterModel =>
                 characterModel.name.Contains(
@@ -87,7 +87,7 @@ public class DeathSplashManager : MonoBehaviour
     private int GetRanking()
     {
         bool isWinner = SocketConnectionManager.Instance.PlayerIsWinner(
-            LobbyConnection.Instance.playerId
+            SocketConnectionManager.Instance.playerId
         );
 
         return isWinner ? WINNER_POS : Utils.GetAlivePlayers().Count() + 1;
@@ -96,7 +96,7 @@ public class DeathSplashManager : MonoBehaviour
     void ShowMessage()
     {
         var endGameMessage = SocketConnectionManager.Instance.PlayerIsWinner(
-            LobbyConnection.Instance.playerId
+            SocketConnectionManager.Instance.playerId
         )
             ? WINNER_MESSAGE
             : LOSER_MESSAGE;
@@ -126,7 +126,7 @@ public class DeathSplashManager : MonoBehaviour
 
     private ulong GetKillCount()
     {
-        var playerId = LobbyConnection.Instance.playerId;
+        var playerId = SocketConnectionManager.Instance.playerId;
         var gamePlayer = Utils.GetGamePlayer(playerId);
         return gamePlayer.KillCount;
     }
@@ -159,7 +159,7 @@ public class DeathSplashManager : MonoBehaviour
     {
         if (player)
         {
-            if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
+            if (SocketConnectionManager.Instance.PlayerIsWinner(SocketConnectionManager.Instance.playerId))
             {
                 modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
             }
@@ -179,7 +179,7 @@ public class DeathSplashManager : MonoBehaviour
         winnerName.text =
             "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id.ToString();
         winnerCharacter.text = SocketConnectionManager.Instance.winnerPlayer.Item1.CharacterName;
-        if (SocketConnectionManager.Instance.PlayerIsWinner(LobbyConnection.Instance.playerId))
+        if (SocketConnectionManager.Instance.PlayerIsWinner(SocketConnectionManager.Instance.playerId))
         {
             title.text = "Victory";
         }
