@@ -2,6 +2,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   use GenServer, restart: :transient
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Matchmaking
+  alias DarkWorldsServer.Engine.EngineRunner
 
   # 2 minutes
   @timeout_ms 2 * 60 * 1000
@@ -99,6 +100,15 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
 
   def handle_info(:start_game, state) do
     {:ok, game_pid} = Engine.start_child()
+
+    # TODO: We need to find a better way to add bots to the match
+    amount_bots = @max_amount_players - Enum.count(state.players)
+
+    for bot_number <- 1..amount_bots do
+      bot_id = Enum.count(state.players) + bot_number
+      send(self(), {:add_player, bot_id, "bot"})
+      EngineRunner.add_bot(game_pid)
+    end
 
     {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
 

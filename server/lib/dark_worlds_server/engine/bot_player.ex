@@ -373,10 +373,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
     # FIXME: We should find a way to use the skill of the character distance
-    case bot.character_name do
-      "H4ck" -> distance_to_entity < 1000
-      "Muflus" -> distance_to_entity < 450
-    end
+    # case bot.character_name do
+    #   "H4ck" -> distance_to_entity < 1000
+    #   "Muflus" -> distance_to_entity < 450
+    # end
+    false
   end
 
   def maybe_put_wandering_position(

@@ -33,7 +33,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def join(runner_pid, user_id, character_name) do
-    IO.inspect(runner_pid, label: "runner_pid")
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
@@ -84,7 +83,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
-    Process.send_after(self(), :start_game_tick, @game_tick_start)
+    Process.send_after(self(), :start_game_tick, 0)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
