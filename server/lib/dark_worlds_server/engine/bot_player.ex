@@ -265,15 +265,17 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
 
   def calculate_circle_point(cx, cy, x, y, use_inaccuracy) do
     Nx.atan2(x - cx, y - cy)
+    |> maybe_add_inaccuracy_to_angle(use_inaccuracy)
     |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi()))
     |> Nx.to_number()
     |> Kernel.*(-1)
-    |> maybe_add_inaccuracy_to_angle(use_inaccuracy)
   end
 
   defp maybe_add_inaccuracy_to_angle(angle, false), do: angle
 
-  defp maybe_add_inaccuracy_to_angle(angle, true), do: angle + Enum.random(-8..8)
+  defp maybe_add_inaccuracy_to_angle(angle, true) do
+    Nx.add(angle, Enum.random([-0.1, -0.01, 0, 0.01, 0.1]))
+  end
 
   def decide_objective(bot_state, %{bots_enabled: false}, _bot_id, _closest_entities) do
     Map.put(bot_state, :objective, :nothing)
