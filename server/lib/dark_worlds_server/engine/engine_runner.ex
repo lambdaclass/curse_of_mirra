@@ -3,7 +3,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   require Logger
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Communication.Proto.Move
-  # alias DarkWorldsServer.Communication.Proto.ToggleBots
   alias DarkWorldsServer.Communication.Proto.UseSkill
   alias DarkWorldsServer.Engine.BotPlayer
 
@@ -50,10 +49,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   def skill(runner_pid, user_id, action) do
     GenServer.cast(runner_pid, {:skill, user_id, action})
-  end
-
-  def toggle_bots(runner_pid, action, timestamp) do
-    GenServer.cast(runner_pid, {:toggle_bots, action, timestamp})
   end
 
   def start_game_tick(runner_pid) do
@@ -171,20 +166,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     {:noreply, state}
   end
-
-  # @impl true
-  # def handle_cast(
-  #       {:toggle_bots, %ToggleBots{bots_active: bots_active}, timestamp},
-  #       state
-  #     ) do
-  #   bot_pid = state[:bot_handler_pid]
-
-  #   if bot_pid do
-  #     BotPlayer.toggle_bots(bot_pid, bots_active)
-  #   end
-
-  #   {:noreply, state}
-  # end
 
   def handle_cast(msg, state) do
     Logger.error("Unexpected handle_cast msg", %{msg: msg})

@@ -112,12 +112,6 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
               action_data,
               timestamp
             )
-
-          :toggle_bots ->
-            EngineRunner.toggle_bots(web_socket_state[:runner_pid], action_data, timestamp)
-
-          :add_bots ->
-            EngineRunner.add_bot(web_socket_state[:runner_pid])
         end
 
         {:ok, web_socket_state}
