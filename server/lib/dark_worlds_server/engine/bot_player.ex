@@ -178,7 +178,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     radius = game_state.playable_radius
 
     if position_out_of_radius?(closest_loot.entity_position, center, radius) do
-      flee_angle_direction = if angle - 180 < 0, do: angle + 180, else: angle
+      flee_angle_direction = if angle <= 0, do: angle + 180, else: angle - 180
       Map.put(bot_state, :action, {:move, flee_angle_direction})
     else
       Map.put(bot_state, :action, {:move, angle})
@@ -209,7 +209,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     cond do
       danger_zone and not playable_radius_closed ->
         %{angle_direction_to_entity: angle} = hd(enemies_by_distance)
-        flee_angle_direction = if angle - 180 < 0, do: angle + 180, else: angle
+        flee_angle_direction = if angle <= 0, do: angle + 180, else: angle - 180
         Map.put(bot_state, :action, {:move, flee_angle_direction})
 
       skill_would_hit?(bot, closest_enemy) ->
@@ -371,11 +371,13 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
   end
 
-  defp skill_would_hit?(_bot, %{distance_to_entity: distance_to_entity}) do
-    distance_to_entity < 1500
+  defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
+    # FIXME: We should find a way to use the skill of the character distance
+    case bot.character_name do
+      "H4ck" -> distance_to_entity < 1000
+      "Muflus" -> distance_to_entity < 450
+    end
   end
-
-  defp skill_would_hit?(_bot, _closest_entities), do: nil
 
   def maybe_put_wandering_position(
         %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state,

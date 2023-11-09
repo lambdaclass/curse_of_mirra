@@ -184,6 +184,8 @@ public class SocketConnectionManager : MonoBehaviour
                     )
                     {
                         // We use an event here, to prevent losing events.
+                        // FIXME: We added the coroutine as a temporary solution, this 
+                        // should be removed and find a better solution to the problem.
                         StartCoroutine(OnBotSpawnRequested(gameEvent.Players.ToList()));
                     }
                     this.gamePlayers = gameEvent.Players.ToList();

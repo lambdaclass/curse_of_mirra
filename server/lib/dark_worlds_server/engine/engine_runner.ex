@@ -128,7 +128,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
           bot_handler_pid
       end
 
-    {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, "h4ck")
+    {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, Enum.random(["h4ck", "muflus"]))
 
     state =
       Map.put(state, :game_state, game_state)
