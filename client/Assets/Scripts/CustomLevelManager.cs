@@ -267,7 +267,6 @@ public class CustomLevelManager : LevelManager
 
     private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
-
         // var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
         // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
@@ -321,8 +320,9 @@ public class CustomLevelManager : LevelManager
             skillList.Add(skill1);
 
             CoMCharacter characterInfo = charactersInfo.Find(
-                el => el.name == Utils.GetGamePlayer(clientPlayerId).CharacterName
+                el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
+
             SkillAnimationEvents skillsAnimationEvent =
                 player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
@@ -441,9 +441,12 @@ public class CustomLevelManager : LevelManager
         return SocketConnectionManager.Instance.GameHasEnded();
     }
 
-    private bool checkPlayerHasJoined() {
+    private bool checkPlayerHasJoined()
+    {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager.Instance.gamePlayers.Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
+            && SocketConnectionManager.Instance.gamePlayers.Any(
+                (player) => player.Id == SocketConnectionManager.Instance.playerId
+            );
     }
 }
