@@ -11,7 +11,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
     float scaleCanvas;
-    float cancelAreaValue = 0.5f;
+    const float cancelAreaValue = 0.5f;
     bool dragged = false;
     bool previousDrag = false;
     private CustomInputManager inputManager;
