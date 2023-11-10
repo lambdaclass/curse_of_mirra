@@ -7,33 +7,37 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
     float positionX;
     float positionY;
     float scaleCanvas;
+    CustomMMTouchJoystick knobJoystick;
+    CustomMMTouchButton knobButton;
 
     protected override void Start()
     {
         base.Start();
         scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
         _initialPosition = BackgroundCanvasGroup.transform.position;
+        knobJoystick = KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>();
+        knobButton = KnobCanvasGroup.GetComponent<CustomMMTouchButton>();
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
         ClampJoystickPositionToScreen(eventData);
-        if (KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().isActiveAndEnabled)
+        if (knobJoystick.isActiveAndEnabled)
         {
             BackgroundCanvasGroup.transform.position = _newPosition;
-            KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().SetNeutralPosition(_newPosition);
-            KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().OnPointerDown(eventData);
+            knobJoystick.SetNeutralPosition(_newPosition);
+            knobJoystick.OnPointerDown(eventData);
         }
-        KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerDown(eventData);
+        knobButton.OnPointerDown(eventData);
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        if (KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().isActiveAndEnabled)
+        if (knobJoystick.isActiveAndEnabled)
         {
-            KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().OnDrag(eventData);
+            knobJoystick.OnDrag(eventData);
         }
     }
 
@@ -42,41 +46,31 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
         base.OnPointerUp(eventData);
         if (ResetPositionToInitialOnRelease)
         {
-            if (KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().isActiveAndEnabled)
+            if (knobJoystick.isActiveAndEnabled)
             {
                 BackgroundCanvasGroup.transform.position = _initialPosition;
-                KnobCanvasGroup
-                    .GetComponent<CustomMMTouchJoystick>()
-                    .SetNeutralPosition(_initialPosition);
-                KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>().OnPointerUp(eventData);
+                knobJoystick.SetNeutralPosition(_initialPosition);
+                knobJoystick.OnPointerUp(eventData);
             }
-            KnobCanvasGroup.GetComponent<CustomMMTouchButton>().OnPointerUp(eventData);
+            knobButton.OnPointerUp(eventData);
         }
     }
 
     private Vector3 ClampJoystickPositionToScreen(PointerEventData eventData)
     {
-        if (
-            eventData.position.x
-            > transform.position.x - BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width
-        )
+        Rect backgroundKnob = BackgroundCanvasGroup.GetComponent<RectTransform>().rect;
+
+        if (eventData.position.x > transform.position.x - backgroundKnob.width)
         {
-            positionX =
-                transform.position.x
-                - BackgroundCanvasGroup.GetComponent<RectTransform>().rect.width;
+            positionX = transform.position.x - backgroundKnob.width;
         }
         else
         {
             positionX = eventData.position.x;
         }
-        if (
-            eventData.position.y
-            < transform.position.y + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.height
-        )
+        if (eventData.position.y < transform.position.y + backgroundKnob.height)
         {
-            positionY =
-                transform.position.y
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().rect.height;
+            positionY = transform.position.y + backgroundKnob.height;
         }
         else
         {
