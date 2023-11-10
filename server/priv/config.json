@@ -107,7 +107,7 @@
   "projectiles": [
     {
       "name": "projectile_slingshot",
-      "base_damage": 20,
+      "base_damage": 8,
       "base_speed": 40,
       "base_size": 20,
       "remove_on_collision": true,
@@ -136,8 +136,8 @@
         {
           "MultiShoot": {
             "projectile": "projectile_slingshot",
-            "count": 5,
-            "cone_angle": 90
+            "count": 3,
+            "cone_angle": 40
           }
         }
       ]
@@ -163,7 +163,7 @@
       "mechanics": [
         {
           "Hit": {
-            "damage": 30,
+            "damage": 14,
             "range": 500,
             "cone_angle": 90,
             "on_hit_effects": []
@@ -192,7 +192,7 @@
     {
       "name": "h4ck",
       "active": true,
-      "base_speed": 25,
+      "base_speed": 20,
       "base_size": 80,
       "base_health": 100,
       "skills": {
@@ -203,7 +203,7 @@
     {
       "name": "muflus",
       "active": true,
-      "base_speed": 15,
+      "base_speed": 20,
       "base_size": 100,
       "base_health": 100,
       "skills": {
@@ -218,7 +218,7 @@
     "zone_starting_radius": 14000,
     "zone_modifications": [
       {
-        "duration_ms": 30000,
+        "duration_ms": 5000,
         "modification": {
           "modifier": "Additive",
           "value": 0
@@ -226,7 +226,7 @@
         "interval_ms": 500,
         "min_radius": 5000,
         "max_radius": 10000,
-        "outside_radius_effects": []
+        "outside_radius_effects": ["damage_outside_area"]
       },
       {
         "duration_ms": 20000,
