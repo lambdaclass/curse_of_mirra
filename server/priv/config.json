@@ -164,8 +164,8 @@
         {
           "Hit": {
             "damage": 14,
-            "range": 500,
-            "cone_angle": 90,
+            "range": 800,
+            "cone_angle": 120,
             "on_hit_effects": []
           }
         }
