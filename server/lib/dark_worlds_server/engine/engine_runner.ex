@@ -122,7 +122,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
           bot_handler_pid
       end
 
-    {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, Enum.random(["h4ck", "muflus"]))
+    {game_state, player_id} =
+      LambdaGameEngine.add_player(state.game_state, Enum.random(["h4ck", "muflus"]))
 
     state =
       Map.put(state, :game_state, game_state)
@@ -151,7 +152,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_cast({:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp}, state) do
+  def handle_cast(
+        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        state
+      ) do
     player_id = state.user_to_player[user_id] || user_id
     skill_key = action_skill_to_key(skill)
 
@@ -256,7 +260,12 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp broadcast_game_ended(topic, winner, game_state) do
     myrra_winner = transform_player_to_myrra_player(winner)
     myrra_state = transform_state_to_myrra_state(game_state)
-    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_ended, myrra_winner, myrra_state})
+
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      topic,
+      {:game_ended, myrra_winner, myrra_state}
+    )
   end
 
   defp check_game_ended(players) do
@@ -277,6 +286,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp action_skill_to_key(:skill_4), do: "5"
 
   defp transform_state_to_myrra_state(game_state) do
+    if length(game_state.killfeed) != 0 do
+      IO.inspect(game_state.killfeed)
+    end
+
     %{
       __struct__: LambdaGameEngine.MyrraEngine.Game,
       players: transform_players_to_myrra_players(game_state.players),
@@ -286,7 +299,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         height: game_state.config.game.height
       },
       projectiles: transform_projectiles_to_myrra_projectiles(game_state.projectiles),
-      killfeed: [],
+      killfeed: transform_killfeed_to_myrra_killfeed(game_state.killfeed),
       playable_radius: game_state.zone.radius,
       shrinking_center: transform_position_to_myrra_position(game_state.zone.center),
       loots: transform_loots_to_myrra_loots(game_state.loots),
@@ -324,11 +337,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left:
+        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
@@ -404,4 +422,25 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_action_to_myrra_action([:moving | _]), do: :moving
   defp transform_action_to_myrra_action([{:using_skill, "1"} | _]), do: :attacking
   defp transform_action_to_myrra_action([{:using_skill, "2"} | _]), do: :executingskill2
+
+  defp transform_killfeed_to_myrra_killfeed([]), do: []
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {{:player, killer_id}, killed_id} | tail
+       ]),
+       do: [%{killed_by: killer_id, killed: killed_id} | tail]
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {{:zone, _}, killed_id} | tail
+       ]) do
+    IO.inspect("Zone kill")
+    [%{killed_by: 9999, killed: killed_id} | tail]
+  end
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {{:loot, _}, killed_id} | tail
+       ]) do
+    IO.inspect("Loot kill")
+    [%{killed_by: 1111, killed: killed_id} | tail]
+  end
 end
