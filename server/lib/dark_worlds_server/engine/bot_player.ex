@@ -209,7 +209,6 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         Map.put(bot_state, :action, {:attack, closest_enemy, "BasicAttack"})
 
       true ->
-        # If we are very close to the enemy we will keep some distance
         Map.put(bot_state, :action, {:move, closest_enemy.angle_direction_to_entity})
     end
   end
