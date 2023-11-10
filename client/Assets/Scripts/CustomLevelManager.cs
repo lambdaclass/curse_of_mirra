@@ -45,8 +45,6 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    private CharacterBase clientCamera;
-
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -339,9 +337,10 @@ public class CustomLevelManager : LevelManager
 
     private void setCameraToPlayer(ulong playerID)
     {
+        GameObject cam = GameObject.Find("CM vcam1");
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            player.characterBase.setCameraToBillboard(camera);
+            player.characterBase.setCamera(cam);
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
                 this.camera.SetTarget(player);

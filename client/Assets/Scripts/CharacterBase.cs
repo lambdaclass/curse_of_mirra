@@ -31,9 +31,9 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     GameObject billboard;
 
-    Camera clientCamera;
+    GameObject clientCamera;
 
-    public void setCameraToBillboard(Camera cam)
+    public void setCamera(GameObject cam)
     {
         clientCamera = cam;
     }
@@ -53,7 +53,7 @@ public class CharacterBase : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(
+        this.billboard.transform.LookAt(
             transform.position + clientCamera.transform.rotation * Vector3.back,
             clientCamera.transform.rotation * Vector3.up
         );
