@@ -286,10 +286,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp action_skill_to_key(:skill_4), do: "5"
 
   defp transform_state_to_myrra_state(game_state) do
-    if length(game_state.killfeed) != 0 do
-      IO.inspect(game_state.killfeed)
-    end
-
     %{
       __struct__: LambdaGameEngine.MyrraEngine.Game,
       players: transform_players_to_myrra_players(game_state.players),
@@ -431,16 +427,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
        do: [%{killed_by: killer_id, killed: killed_id} | tail]
 
   defp transform_killfeed_to_myrra_killfeed([
-         {{:zone, _}, killed_id} | tail
+         {:zone, killed_id} | tail
        ]) do
-    IO.inspect("Zone kill")
+    IO.inspect("Zone kill: #{killed_id} killed by ZONE")
+    IO.inspect(tail, label: "Tail")
     [%{killed_by: 9999, killed: killed_id} | tail]
   end
 
   defp transform_killfeed_to_myrra_killfeed([
          {{:loot, _}, killed_id} | tail
        ]) do
-    IO.inspect("Loot kill")
     [%{killed_by: 1111, killed: killed_id} | tail]
   end
 end

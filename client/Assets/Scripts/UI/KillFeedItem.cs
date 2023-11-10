@@ -31,7 +31,7 @@ public class KillFeedItem : MonoBehaviour
         if (killed == LOOT_ID)
         {
             killedPlayer.text = "Loot";
-            killerPlayer.text = "Player " + killer;
+            killerPlayer.text = "Player " + killed;
             return;
         }
         killerPlayer.text = "Player " + killer;

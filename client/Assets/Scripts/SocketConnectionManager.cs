@@ -163,7 +163,11 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.StateUpdate:
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    Debug.Log(gameEvent.Killfeed.ToList());
+                    if (gameEvent.Killfeed.Count != 0)
+                    {
+                        print("Paso por aca");
+                        Debug.Log(gameEvent);
+                    }
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
                     this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
