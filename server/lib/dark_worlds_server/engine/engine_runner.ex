@@ -7,7 +7,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   alias DarkWorldsServer.Engine.BotPlayer
 
   # This is the amount of time between state updates in milliseconds
-  @game_tick_rate_ms 20
+  @game_tick_rate_ms 30
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
   # Amount of time between loot spawn
@@ -78,7 +78,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
-    Process.send_after(self(), :start_game_tick, 0)
+    Process.send_after(self(), :start_game_tick, @game_tick_start)
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
