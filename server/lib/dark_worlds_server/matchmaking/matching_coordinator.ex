@@ -3,7 +3,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
   use GenServer
 
   ## Amount of players needed to start a game
-  @session_player_amount 10
+  @session_player_amount 3
   ## Time to wait for a matching session to be full
   @start_game_timeout_ms 10_000
 
@@ -92,7 +92,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
   end
 
   defp consume_and_notify_players([{_, client_pid} | rest_players], game_pid, engine_config, count) do
-    send(client_pid, {:game_started, game_pid, engine_config})
+    Process.send_after(client_pid, {:game_started, game_pid, engine_config}, 1_000)
     consume_and_notify_players(rest_players, game_pid, engine_config, count-1)
   end
 end
