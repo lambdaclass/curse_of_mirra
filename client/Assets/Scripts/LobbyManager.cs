@@ -12,35 +12,12 @@ public class LobbyManager : LevelSelector
     private const string LOBBIES_SCENE_NAME = "Lobbies";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
 
-    [SerializeField]
-    GameObject playButton;
-
-    [SerializeField]
-    GameObject waitingText;
-
     public static string LevelSelected;
 
     public override void GoToLevel()
     {
         base.GoToLevel();
         gameObject.GetComponent<MMTouchButton>().DisableButton();
-    }
-
-    void Start()
-    {
-        // if (playButton != null && waitingText != null)
-        // {
-        //     if (LobbyConnection.Instance.isHost)
-        //     {
-        //         playButton.SetActive(true);
-        //         waitingText.SetActive(false);
-        //     }
-        //     else
-        //     {
-        //         playButton.SetActive(false);
-        //         waitingText.SetActive(true);
-        //     }
-        // }
     }
 
     public void GameStart()
@@ -95,14 +72,5 @@ public class LobbyManager : LevelSelector
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
-
-        // if (this.playButton)
-        // {
-        //     if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
-        //     {
-        //         this.playButton.SetActive(true);
-        //         this.waitingText.SetActive(false);
-        //     }
-        // }
     }
 }
