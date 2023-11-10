@@ -28,19 +28,19 @@ public class LobbyManager : LevelSelector
 
     void Start()
     {
-        if (playButton != null && waitingText != null)
-        {
-            if (LobbyConnection.Instance.isHost)
-            {
-                playButton.SetActive(true);
-                waitingText.SetActive(false);
-            }
-            else
-            {
-                playButton.SetActive(false);
-                waitingText.SetActive(true);
-            }
-        }
+        // if (playButton != null && waitingText != null)
+        // {
+        //     if (LobbyConnection.Instance.isHost)
+        //     {
+        //         playButton.SetActive(true);
+        //         waitingText.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         playButton.SetActive(false);
+        //         waitingText.SetActive(true);
+        //     }
+        // }
     }
 
     public void GameStart()
@@ -49,6 +49,7 @@ public class LobbyManager : LevelSelector
         this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
+
     public void Back()
     {
         LobbyConnection.Instance.Init();
@@ -95,13 +96,13 @@ public class LobbyManager : LevelSelector
             SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
         }
 
-        if (this.playButton)
-        {
-            if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
-            {
-                this.playButton.SetActive(true);
-                this.waitingText.SetActive(false);
-            }
-        }
+        // if (this.playButton)
+        // {
+        //     if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
+        //     {
+        //         this.playButton.SetActive(true);
+        //         this.waitingText.SetActive(false);
+        //     }
+        // }
     }
 }
