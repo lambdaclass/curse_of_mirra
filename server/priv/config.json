@@ -164,7 +164,7 @@
         {
           "Hit": {
             "damage": 14,
-            "range": 800,
+            "range": 1000,
             "cone_angle": 120,
             "on_hit_effects": []
           }
@@ -218,7 +218,7 @@
     "zone_starting_radius": 14000,
     "zone_modifications": [
       {
-        "duration_ms": 5000,
+        "duration_ms": 30000,
         "modification": {
           "modifier": "Additive",
           "value": 0

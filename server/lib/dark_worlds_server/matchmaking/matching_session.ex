@@ -8,7 +8,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   @timeout_ms 2 * 60 * 1000
 
   # Max number of players in the match
-  @max_amount_players 4
+  @max_amount_players 10
 
   #######
   # API #
@@ -99,20 +99,20 @@ defmodule DarkWorldsServer.Matchmaking.MatchingSession do
   end
 
   def handle_info(:start_game, state) do
-    {:ok, game_pid} = Engine.start_child()
+    # {:ok, game_pid} = Engine.start_child()
 
-    # TODO: We need to find a better way to add bots to the match
-    amount_bots = @max_amount_players - Enum.count(state.players)
+    # # TODO: We need to find a better way to add bots to the match
+    # amount_bots = @max_amount_players - Enum.count(state.players)
 
-    for bot_number <- 1..amount_bots do
-      bot_id = Enum.count(state.players) + bot_number
-      send(self(), {:add_player, bot_id, "bot"})
-      EngineRunner.add_bot(game_pid)
-    end
+    # for bot_number <- 1..amount_bots do
+    #   bot_id = Enum.count(state.players) + bot_number
+    #   send(self(), {:add_player, bot_id, "bot"})
+    #   EngineRunner.add_bot(game_pid)
+    # end
 
-    {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
+    # {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
 
-    Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
+    # Phoenix.PubSub.broadcast!(DarkWorldsServer.PubSub, state[:topic], {:game_started, game_pid, engine_config})
 
     {:stop, :normal, state}
   end
