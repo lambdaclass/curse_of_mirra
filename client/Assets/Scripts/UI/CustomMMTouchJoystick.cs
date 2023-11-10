@@ -11,6 +11,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
     float scaleCanvas;
+    float cancelAreaValue = 0.5f;
     bool dragged = false;
     bool previousDrag = false;
     private CustomInputManager inputManager;
@@ -78,7 +79,12 @@ public class CustomMMTouchJoystick : MMTouchJoystick
 
     public void CancelAttack(Vector2 value, bool dragged)
     {
-        if (value.x < 0.5f && value.x > -0.5f && value.y < 0.5f && value.y > -0.5f)
+        if (
+            value.x < cancelAreaValue
+            && value.x > -cancelAreaValue
+            && value.y < cancelAreaValue
+            && value.y > -cancelAreaValue
+        )
         {
             inputManager.SetCanceled(dragged);
         }
