@@ -113,3 +113,6 @@ monocrash*.blob
 
 ## This file is created at build time
 /Assets/Resources/GitHash*
+
+/Assets/ThirdParty/TopDownEngine/
+/Assets/ThirdParty/TopDownEngine.meta
