@@ -166,7 +166,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void MaybeReconnect()
     {
-        StartCoroutine(GetCurrentGame());
+        // StartCoroutine(GetCurrentGame());
     }
 
     public void CreateLobby()
@@ -184,10 +184,10 @@ public class LobbyConnection : MonoBehaviour
 
     private void ValidateVersionHashes()
     {
-        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
-        {
-            Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
-        }
+        // if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
+        // {
+        //     Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
+        // }
     }
 
     public void Refresh()
