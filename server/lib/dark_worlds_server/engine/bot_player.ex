@@ -25,6 +25,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # Number to substract to the playable radio
   @radius_sub_to_escape 500
 
+  # The time that of wait to activate bots
+  @time_to_activate_bots_ms 8_000
+
   #######
   # API #
   #######
@@ -36,16 +39,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     GenServer.cast(bot_pid, {:add_bot, bot_id})
   end
 
-  # def enable_bots(bot_pid) do
-  #   GenServer.cast(bot_pid, {:bots_enabled, true})
-  # end
-
-  # def disable_bots(bot_pid) do
-  #   GenServer.cast(bot_pid, {:bots_enabled, false})
-  # end
-
-  def toggle_bots(bot_pid, bots_active) do
-    GenServer.cast(bot_pid, {:bots_enabled, bots_active})
+  def activate_bots(bot_pid) do
+    Process.send_after(bot_pid, :activate_bots, @time_to_activate_bots_ms)
   end
 
   #######################
@@ -59,7 +54,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     {:ok,
      %{
        game_pid: game_pid,
-       bots_enabled: true,
+       bots_enabled: false,
        game_tick_rate: tick_rate,
        players: [],
        bots: %{},
@@ -80,8 +75,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
      })}
   end
 
-  def handle_cast({:bots_enabled, toggle}, state) do
-    {:noreply, %{state | bots_enabled: toggle}}
+  def handle_info(:activate_bots, state) do
+    {:noreply, %{state | bots_enabled: true}}
   end
 
   @impl GenServer
@@ -214,7 +209,12 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         Map.put(bot_state, :action, {:attack, closest_enemy, "BasicAttack"})
 
       true ->
-        Map.put(bot_state, :action, {:move, closest_enemy.angle_direction_to_entity})
+        # If we are very close to the enemy we will keep some distance
+        if closest_enemy.distance_to_entity < 300 do
+          Map.put(bot_state, :action, {:nothing, nil})
+        else
+          Map.put(bot_state, :action, {:move, closest_enemy.angle_direction_to_entity})
+        end
     end
   end
 

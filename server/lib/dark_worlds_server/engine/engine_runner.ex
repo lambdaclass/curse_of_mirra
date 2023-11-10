@@ -116,6 +116,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       case Map.get(state, :bot_handler_pid) do
         nil ->
           {:ok, pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
+          BotPlayer.activate_bots(pid)
           pid
 
         bot_handler_pid ->
