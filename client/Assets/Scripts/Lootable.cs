@@ -7,7 +7,6 @@ public class Lootable : ScriptableObject
 {
     public string lootName;
     public GameObject lootPrefab;
-    public GameObject useItemVFX;
     public AudioClip pickUpSound;
     public string type;
 }
