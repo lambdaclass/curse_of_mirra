@@ -111,7 +111,7 @@ public class LobbyConnection : MonoBehaviour
     {
         this.Init();
         LoadClientId();
-        MaybeReconnect();
+        // MaybeReconnect();
         PopulateLists();
     }
 
@@ -186,7 +186,7 @@ public class LobbyConnection : MonoBehaviour
     {
         if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
         {
-            Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
+            // Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
         }
     }
 
@@ -195,7 +195,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverIp = SelectServerIP.GetServerIp();
         this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
-        MaybeReconnect();
+        // MaybeReconnect();
     }
 
     public void QuickGame()
