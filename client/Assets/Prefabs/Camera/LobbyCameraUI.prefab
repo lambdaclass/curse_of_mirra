@@ -971,8 +971,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DisabledSprite: {fileID: 0}
-  DisabledChangeColor: 0
-  DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+  DisabledChangeColor: 1
+  DisabledColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   PressedSprite: {fileID: 0}
   PressedChangeColor: 0
   PressedColor: {r: 1, g: 1, b: 1, a: 1}

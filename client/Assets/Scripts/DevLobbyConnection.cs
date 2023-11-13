@@ -7,14 +7,14 @@ using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class LobbyConnection : MonoBehaviour
+public class DevLobbyConnection : MonoBehaviour
 {
     [Tooltip("IP to connect to. If empty, Brazil will be used")]
     public string serverName;
     public string serverIp;
     public List<string> lobbiesList;
     public List<string> gamesList;
-    public static LobbyConnection Instance;
+    public static DevLobbyConnection Instance;
     public string GameSession;
     public string LobbySession;
     public ulong playerId;
@@ -188,6 +188,21 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
+    }
+
+    public void QuickGame()
+    {
+        ValidateVersionHashes();
+        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
+        StartCoroutine(WaitLobbyCreated());
+    }
+
     public IEnumerator StartGame()
     {
         yield return new WaitForSeconds(1);
@@ -220,6 +235,12 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
+    }
+
+    private IEnumerator WaitLobbyCreated()
+    {
+        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
+        yield return StartGame();
     }
 
     IEnumerator GetRequest(string uri)
