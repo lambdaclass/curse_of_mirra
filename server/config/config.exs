@@ -10,6 +10,8 @@ import Config
 config :dark_worlds_server,
   ecto_repos: [DarkWorldsServer.Repo]
 
+config :dark_worlds_server, DarkWorldsServer.Repo, migration_primary_key: [type: :binary_id]
+
 # Configures the endpoint
 dispatch = [
   _: [

@@ -100,8 +100,8 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def game_player_joined(player_id) do
-    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
+  def game_player_joined(player_id, player_name) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id, player_joined_name: player_name}
     |> GameEvent.encode()
   end
 

@@ -19,9 +19,17 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     game_id = :cowboy_req.binding(:game_id, req)
     player_id = :cowboy_req.binding(:player_id, req)
     client_id = :cowboy_req.binding(:client_id, req)
+    player_name = :cowboy_req.binding(:player_name, req)
     client_hash = :cowboy_req.header("dark-worlds-client-hash", req)
 
-    {:cowboy_websocket, req, %{game_id: game_id, player_id: player_id, client_id: client_id, client_hash: client_hash}}
+    {:cowboy_websocket, req,
+     %{
+       game_id: game_id,
+       player_id: player_id,
+       client_id: client_id,
+       player_name: player_name,
+       client_hash: client_hash
+     }}
   end
 
   @impl true
@@ -42,7 +50,12 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   #   {:stop, :version_mismatch}
   # end
 
-  def websocket_init(%{game_id: game_id, player_id: _player_id, client_id: client_id}) do
+  def websocket_init(%{
+        game_id: game_id,
+        player_id: _player_id,
+        client_id: client_id,
+        player_name: player_name
+      }) do
     runner_pid = Communication.external_id_to_pid(game_id)
 
     with :ok <- Phoenix.PubSub.subscribe(DarkWorldsServer.PubSub, "game_play_#{game_id}"),
@@ -50,7 +63,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          # String.to_integer(player_id) should be client_id
 
          {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
-      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id}
+      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id,
+        player_name: player_name}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
@@ -134,8 +148,8 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   end
 
   @impl true
-  def websocket_info({:player_joined, player_id}, web_socket_state) do
-    {:reply, {:binary, Communication.game_player_joined(player_id)}, web_socket_state}
+  def websocket_info({:player_joined, player_id, player_name}, web_socket_state) do
+    {:reply, {:binary, Communication.game_player_joined(player_id, player_name)}, web_socket_state}
   end
 
   def websocket_info({:initial_positions, players}, web_socket_state) do

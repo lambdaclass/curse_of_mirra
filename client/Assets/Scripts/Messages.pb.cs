@@ -449,6 +449,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     latency_ = other.latency_;
     projectiles_ = other.projectiles_.Clone();
     playerJoinedId_ = other.playerJoinedId_;
+    playerJoinedName_ = other.playerJoinedName_;
     winnerPlayer_ = other.winnerPlayer_ != null ? other.winnerPlayer_.Clone() : null;
     selectedCharacters_ = other.selectedCharacters_.Clone();
     playerTimestamp_ = other.playerTimestamp_;
@@ -524,8 +525,20 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     }
   }
 
+  /// <summary>Field number for the "player_joined_name" field.</summary>
+  public const int PlayerJoinedNameFieldNumber = 6;
+  private string playerJoinedName_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string PlayerJoinedName {
+    get { return playerJoinedName_; }
+    set {
+      playerJoinedName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   /// <summary>Field number for the "winner_player" field.</summary>
-  public const int WinnerPlayerFieldNumber = 6;
+  public const int WinnerPlayerFieldNumber = 7;
   private global::Player winnerPlayer_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -537,9 +550,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "selected_characters" field.</summary>
-  public const int SelectedCharactersFieldNumber = 7;
+  public const int SelectedCharactersFieldNumber = 8;
   private static readonly pbc::MapField<ulong, string>.Codec _map_selectedCharacters_codec
-      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 58);
+      = new pbc::MapField<ulong, string>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForString(18, ""), 66);
   private readonly pbc::MapField<ulong, string> selectedCharacters_ = new pbc::MapField<ulong, string>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -548,7 +561,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "player_timestamp" field.</summary>
-  public const int PlayerTimestampFieldNumber = 8;
+  public const int PlayerTimestampFieldNumber = 9;
   private long playerTimestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -560,7 +573,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "server_timestamp" field.</summary>
-  public const int ServerTimestampFieldNumber = 9;
+  public const int ServerTimestampFieldNumber = 10;
   private long serverTimestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -572,9 +585,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "killfeed" field.</summary>
-  public const int KillfeedFieldNumber = 10;
+  public const int KillfeedFieldNumber = 11;
   private static readonly pb::FieldCodec<global::KillEvent> _repeated_killfeed_codec
-      = pb::FieldCodec.ForMessage(82, global::KillEvent.Parser);
+      = pb::FieldCodec.ForMessage(90, global::KillEvent.Parser);
   private readonly pbc::RepeatedField<global::KillEvent> killfeed_ = new pbc::RepeatedField<global::KillEvent>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -583,7 +596,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "playable_radius" field.</summary>
-  public const int PlayableRadiusFieldNumber = 11;
+  public const int PlayableRadiusFieldNumber = 12;
   private ulong playableRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -595,7 +608,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "shrinking_center" field.</summary>
-  public const int ShrinkingCenterFieldNumber = 12;
+  public const int ShrinkingCenterFieldNumber = 13;
   private global::Position shrinkingCenter_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -607,9 +620,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
   }
 
   /// <summary>Field number for the "loots" field.</summary>
-  public const int LootsFieldNumber = 13;
+  public const int LootsFieldNumber = 14;
   private static readonly pb::FieldCodec<global::LootPackage> _repeated_loots_codec
-      = pb::FieldCodec.ForMessage(106, global::LootPackage.Parser);
+      = pb::FieldCodec.ForMessage(114, global::LootPackage.Parser);
   private readonly pbc::RepeatedField<global::LootPackage> loots_ = new pbc::RepeatedField<global::LootPackage>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -637,6 +650,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (Latency != other.Latency) return false;
     if(!projectiles_.Equals(other.projectiles_)) return false;
     if (PlayerJoinedId != other.PlayerJoinedId) return false;
+    if (PlayerJoinedName != other.PlayerJoinedName) return false;
     if (!object.Equals(WinnerPlayer, other.WinnerPlayer)) return false;
     if (!SelectedCharacters.Equals(other.SelectedCharacters)) return false;
     if (PlayerTimestamp != other.PlayerTimestamp) return false;
@@ -657,6 +671,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (Latency != 0UL) hash ^= Latency.GetHashCode();
     hash ^= projectiles_.GetHashCode();
     if (PlayerJoinedId != 0UL) hash ^= PlayerJoinedId.GetHashCode();
+    if (PlayerJoinedName.Length != 0) hash ^= PlayerJoinedName.GetHashCode();
     if (winnerPlayer_ != null) hash ^= WinnerPlayer.GetHashCode();
     hash ^= SelectedCharacters.GetHashCode();
     if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
@@ -697,26 +712,30 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(40);
       output.WriteUInt64(PlayerJoinedId);
     }
-    if (winnerPlayer_ != null) {
+    if (PlayerJoinedName.Length != 0) {
       output.WriteRawTag(50);
+      output.WriteString(PlayerJoinedName);
+    }
+    if (winnerPlayer_ != null) {
+      output.WriteRawTag(58);
       output.WriteMessage(WinnerPlayer);
     }
     selectedCharacters_.WriteTo(output, _map_selectedCharacters_codec);
     if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(64);
+      output.WriteRawTag(72);
       output.WriteInt64(PlayerTimestamp);
     }
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(72);
+      output.WriteRawTag(80);
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(output, _repeated_killfeed_codec);
     if (PlayableRadius != 0UL) {
-      output.WriteRawTag(88);
+      output.WriteRawTag(96);
       output.WriteUInt64(PlayableRadius);
     }
     if (shrinkingCenter_ != null) {
-      output.WriteRawTag(98);
+      output.WriteRawTag(106);
       output.WriteMessage(ShrinkingCenter);
     }
     loots_.WriteTo(output, _repeated_loots_codec);
@@ -744,26 +763,30 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteRawTag(40);
       output.WriteUInt64(PlayerJoinedId);
     }
-    if (winnerPlayer_ != null) {
+    if (PlayerJoinedName.Length != 0) {
       output.WriteRawTag(50);
+      output.WriteString(PlayerJoinedName);
+    }
+    if (winnerPlayer_ != null) {
+      output.WriteRawTag(58);
       output.WriteMessage(WinnerPlayer);
     }
     selectedCharacters_.WriteTo(ref output, _map_selectedCharacters_codec);
     if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(64);
+      output.WriteRawTag(72);
       output.WriteInt64(PlayerTimestamp);
     }
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(72);
+      output.WriteRawTag(80);
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
     if (PlayableRadius != 0UL) {
-      output.WriteRawTag(88);
+      output.WriteRawTag(96);
       output.WriteUInt64(PlayableRadius);
     }
     if (shrinkingCenter_ != null) {
-      output.WriteRawTag(98);
+      output.WriteRawTag(106);
       output.WriteMessage(ShrinkingCenter);
     }
     loots_.WriteTo(ref output, _repeated_loots_codec);
@@ -787,6 +810,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     size += projectiles_.CalculateSize(_repeated_projectiles_codec);
     if (PlayerJoinedId != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerJoinedId);
+    }
+    if (PlayerJoinedName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerJoinedName);
     }
     if (winnerPlayer_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(WinnerPlayer);
@@ -829,13 +855,16 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (other.PlayerJoinedId != 0UL) {
       PlayerJoinedId = other.PlayerJoinedId;
     }
+    if (other.PlayerJoinedName.Length != 0) {
+      PlayerJoinedName = other.PlayerJoinedName;
+    }
     if (other.winnerPlayer_ != null) {
       if (winnerPlayer_ == null) {
         WinnerPlayer = new global::Player();
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -889,40 +918,44 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           break;
         }
         case 50: {
+          PlayerJoinedName = input.ReadString();
+          break;
+        }
+        case 58: {
           if (winnerPlayer_ == null) {
             WinnerPlayer = new global::Player();
           }
           input.ReadMessage(WinnerPlayer);
           break;
         }
-        case 58: {
+        case 66: {
           selectedCharacters_.AddEntriesFrom(input, _map_selectedCharacters_codec);
           break;
         }
-        case 64: {
+        case 72: {
           PlayerTimestamp = input.ReadInt64();
           break;
         }
-        case 72: {
+        case 80: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 82: {
+        case 90: {
           killfeed_.AddEntriesFrom(input, _repeated_killfeed_codec);
           break;
         }
-        case 88: {
+        case 96: {
           PlayableRadius = input.ReadUInt64();
           break;
         }
-        case 98: {
+        case 106: {
           if (shrinkingCenter_ == null) {
             ShrinkingCenter = new global::Position();
           }
           input.ReadMessage(ShrinkingCenter);
           break;
         }
-        case 106: {
+        case 114: {
           loots_.AddEntriesFrom(input, _repeated_loots_codec);
           break;
         }
@@ -962,40 +995,44 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           break;
         }
         case 50: {
+          PlayerJoinedName = input.ReadString();
+          break;
+        }
+        case 58: {
           if (winnerPlayer_ == null) {
             WinnerPlayer = new global::Player();
           }
           input.ReadMessage(WinnerPlayer);
           break;
         }
-        case 58: {
+        case 66: {
           selectedCharacters_.AddEntriesFrom(ref input, _map_selectedCharacters_codec);
           break;
         }
-        case 64: {
+        case 72: {
           PlayerTimestamp = input.ReadInt64();
           break;
         }
-        case 72: {
+        case 80: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 82: {
+        case 90: {
           killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
           break;
         }
-        case 88: {
+        case 96: {
           PlayableRadius = input.ReadUInt64();
           break;
         }
-        case 98: {
+        case 106: {
           if (shrinkingCenter_ == null) {
             ShrinkingCenter = new global::Position();
           }
           input.ReadMessage(ShrinkingCenter);
           break;
         }
-        case 106: {
+        case 114: {
           loots_.AddEntriesFrom(ref input, _repeated_loots_codec);
           break;
         }
@@ -1856,7 +1893,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.Add(other.effects_);
+    effects_.MergeFrom(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();

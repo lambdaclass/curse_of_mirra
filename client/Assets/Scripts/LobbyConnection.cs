@@ -86,6 +86,7 @@ public class LobbyConnection : MonoBehaviour
         {
             public ulong id;
             public string character_name;
+            public string player_name;
         }
 
         [Serializable]
@@ -220,6 +221,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
+        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
     }
 
     IEnumerator GetRequest(string uri)
@@ -236,7 +238,6 @@ public class LobbyConnection : MonoBehaviour
                     Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
-                    Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
@@ -274,7 +275,6 @@ public class LobbyConnection : MonoBehaviour
     IEnumerator GetGames()
     {
         string url = makeUrl("/current_games");
-        Debug.Log(url);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -363,12 +363,6 @@ public class LobbyConnection : MonoBehaviour
             switch (lobbyEvent.Type)
             {
                 case LobbyEventType.Connected:
-                    Debug.Log(
-                        "Connected to lobby "
-                            + lobbyEvent.LobbyId
-                            + " as player_id "
-                            + lobbyEvent.PlayerInfo.PlayerId
-                    );
                     this.playerId = lobbyEvent.PlayerInfo.PlayerId;
                     break;
 

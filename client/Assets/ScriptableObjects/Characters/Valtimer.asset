@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Valtimer
   m_EditorClassIdentifier: 
   name: Valtimer
+  characterSprite: {fileID: 21300000, guid: 23e924275674f4363b5d872484ae4826, type: 3}
   artWork: {fileID: 21300000, guid: dfa1c4ce28a1d4135b631eb1eba33018, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 657b179b25e5447fb93a7832cec990b1, type: 3}
   blockArtwork: {fileID: 21300000, guid: 7cbbd800f2b02497a91084c47728e2a8, type: 3}
