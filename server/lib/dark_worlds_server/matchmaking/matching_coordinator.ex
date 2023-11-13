@@ -50,7 +50,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
   end
 
   @impl true
-  def handle_info({:check_timeout, session_ref}, %{session: session_ref} = state) do
+  def handle_info({:check_timeout, session_ref}, %{session: session_ref, players: [_ | _]} = state) do
     {:ok, game_pid, engine_config} = start_game()
     players = consume_and_notify_players(state.players, game_pid, engine_config, @session_player_amount)
     new_session_ref = make_ref()
