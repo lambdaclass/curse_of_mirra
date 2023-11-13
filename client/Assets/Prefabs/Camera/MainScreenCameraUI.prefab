@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 2137606020687136776}
   - component: {fileID: 9063476113355210580}
   - component: {fileID: 3629100666378567067}
-  - component: {fileID: 3720724159530934410}
+  - component: {fileID: 404685908301210433}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1313,9 +1313,9 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3720724159530934410}
-        m_TargetAssemblyTypeName: MoreMountains.Tools.MMLoadScene, MoreMountains.Tools
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 404685908301210433}
+        m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
+        m_MethodName: CreateLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3720724159530934410
+--- !u!114 &404685908301210433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1395,11 +1395,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4457283744149958112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Script: {fileID: 11500000, guid: d099cd5914770451c8218f261ba97034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Lobbies
-  LoadingSceneMode: 0
+  LevelName: Lobby
+  DoNotUseLevelManager: 0
+  DestroyPersistentCharacter: 0
 --- !u!1 &4801714794669601017
 GameObject:
   m_ObjectHideFlags: 0

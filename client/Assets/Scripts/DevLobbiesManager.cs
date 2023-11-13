@@ -5,9 +5,9 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LobbiesManager : LevelSelector
+public class DevLobbiesManager : LevelSelector
 {
-    public static LobbiesManager Instance;
+    public static DevLobbiesManager Instance;
 
     void Start()
     {
@@ -33,43 +33,43 @@ public class LobbiesManager : LevelSelector
 
     public void Back()
     {
-        LobbyConnection.Instance.Init();
+        DevLobbyConnection.Instance.Init();
         SceneManager.LoadScene("Lobbies");
     }
 
     public void Refresh()
     {
-        LobbyConnection.Instance.Refresh();
+        DevLobbyConnection.Instance.Refresh();
         this.GetComponent<UIManager>().RefreshLobbiesList();
     }
 
     public void QuickGame()
     {
-        LobbyConnection.Instance.QuickGame();
+        DevLobbyConnection.Instance.QuickGame();
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
     public IEnumerator WaitForLobbyCreation()
     {
-        LobbyConnection.Instance.CreateLobby();
+        DevLobbyConnection.Instance.CreateLobby();
         yield return new WaitUntil(
             () =>
-                !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
-                && LobbyConnection.Instance.playerId != UInt64.MaxValue
+                !string.IsNullOrEmpty(DevLobbyConnection.Instance.LobbySession)
+                && DevLobbyConnection.Instance.playerId != UInt64.MaxValue
         );
         SceneManager.LoadScene("Lobby");
     }
 
     public void Reconnect()
     {
-        LobbyConnection.Instance.Reconnect();
+        DevLobbyConnection.Instance.Reconnect();
         SceneManager.LoadScene("CharacterSelection");
     }
 
     public IEnumerator WaitForLobbyJoin(string idHash)
     {
-        LobbyConnection.Instance.ConnectToLobby(idHash);
-        yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
+        DevLobbyConnection.Instance.ConnectToLobby(idHash);
+        yield return new WaitUntil(() => DevLobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
 }

@@ -214,7 +214,6 @@ public class SocketConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             LobbyConnection.Instance.errorConnection = true;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
             this.Init();
             LobbyConnection.Instance.Init();
         }

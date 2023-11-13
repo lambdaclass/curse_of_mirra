@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.VFX;
-using UnityEngine.VFX;
 
 public class CharacterBase : MonoBehaviour
 {
