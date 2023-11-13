@@ -8,19 +8,16 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   @impl true
   def init(req, _opts) do
-    lobby_id = :cowboy_req.binding(:lobby_id, req)
-    {:cowboy_websocket, req, %{lobby_id: lobby_id}}
+    [{"user_id", user_id}] = :cowboy_req.parse_qs(req)
+    {:cowboy_websocket, req, %{user_id: user_id}}
   end
 
   @impl true
-  def websocket_init(%{lobby_id: :undefined}) do
-    {:stop, %{}}
-  end
-
-  def websocket_init(%{lobby_id: lobby_id}) do
-    :ok = MatchingCoordinator.join(make_ref())
-    send(self(), {:player_added, 1, "player_name", 1, [{1, "player_name"}]})
-    {:reply, {:binary, Communication.lobby_connected!(lobby_id, 1, "player_name")}, %{}}
+  def websocket_init(%{user_id: user_id}) do
+    :ok = MatchingCoordinator.join(user_id)
+    ## TODO: Remove this once the old lobby screen is removed
+    send(self(), {:player_added, 1, user_id, 1, [{1, user_id}]})
+    {:reply, {:binary, Communication.lobby_connected!(user_id, 1, "player_name")}, %{}}
   end
 
   @impl true
