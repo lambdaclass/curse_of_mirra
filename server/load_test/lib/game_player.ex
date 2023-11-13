@@ -6,60 +6,33 @@ defmodule LoadTest.GamePlayer do
   alias LoadTest.Communication.Proto.LobbyEvent
   alias LoadTest.Communication.Proto.GameConfig
   alias LoadTest.Communication.Proto.BoardSize
-  alias LoadTest.Communication.Proto.ClientAction
+  alias LoadTest.Communication.Proto.GameAction
   alias LoadTest.Communication.Proto.RelativePosition
   alias LoadTest.PlayerSupervisor
 
-  def move(player, :up), do: _move(player, :UP)
-  def move(player, :down), do: _move(player, :DOWN)
-  def move(player, :left), do: _move(player, :LEFT)
-  def move(player, :right), do: _move(player, :RIGHT)
-
-  def attack(player, :up), do: _attack(player, :UP)
-  def attack(player, :down), do: _attack(player, :DOWN)
-  def attack(player, :left), do: _attack(player, :LEFT)
-  def attack(player, :right), do: _attack(player, :RIGHT)
-
-  def attack_aoe(player, position) do
-    %{
-      "player" => player,
-      "action" => "attack_aoe",
-      "value" => %{"x" => position.x, "y" => position.y}
-    }
-    |> send_command()
-  end
+  defp dir_to_degrees(:up), do: 90
+  defp dir_to_degrees(:down), do: 270
+  defp dir_to_degrees(:left), do: 180
+  defp dir_to_degrees(:right), do: 360
 
   defp _move(player, direction) do
-    %ClientAction{action: :MOVE, direction: direction}
+    angle_deg = dir_to_degrees(direction)
+    timestamp = DateTime.utc_now() |> DateTime.to_unix(:millisecond)
+
+    %GameAction{action_type: {:move, %{angle: angle_deg}}, timestamp: timestamp}
     |> send_command()
   end
 
-  def teleport(player, position) do
-    %{
-      "player" => player,
-      "action" => "teleport",
-      "value" => %{"x" => position.x, "y" => position.y}
-    }
-    |> send_command()
-  end
+  defp _basic_attack(player, direction) do
+    angle_deg = dir_to_degrees(direction)
+    timestamp = DateTime.utc_now() |> DateTime.to_unix(:millisecond)
 
-  defp _attack(player, direction) do
-    %ClientAction{action: :ATTACK, direction: direction}
-    |> send_command()
-  end
-
-  defp attack_aoe(%{x: x, y: y}) do
-    %ClientAction{
-      action: :ATTACK_AOE,
-      position: %RelativePosition{
-        x: x,
-        y: y
-      }
-    }
+    %GameAction{action_type: {:use_skill, %{degrees: angle_deg, skill: "BasicAttack"}}, timestamp: timestamp}
     |> send_command()
   end
 
   def start_link({player_number, session_id, max_duration}) do
+    IO.inspect(session_id, label: "INITIALIZING PLAYER NUMBER #{player_number} ON SESSION ID")
     ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
@@ -94,21 +67,16 @@ defmodule LoadTest.GamePlayer do
 
   def handle_info(:play, state) do
     direction = Enum.random([:up, :down, :left, :right])
-    action = Enum.random([:move, :attack, :attack_aoe])
+    action = Enum.random([:move, :attack])
 
     # Melee attacks pretty much never ever land, but in general we have to rework how
     # both melee and aoe attacks work in general, so w/e
     case action do
       :move ->
-        move(state.player_number, direction)
+        _move(state.player_number, direction)
 
       :attack ->
-        attack(state.player_number, direction)
-
-      :attack_aoe ->
-        random_x = Enum.random(0..100)
-        random_y = Enum.random(0..100)
-        attack_aoe(%{x: random_x, y: random_y})
+        _basic_attack(state.player_number, direction)
     end
 
     Process.send_after(self(), :play, 30, [])
@@ -116,7 +84,7 @@ defmodule LoadTest.GamePlayer do
   end
 
   defp send_command(command) do
-    WebSockex.cast(self(), {:send, {:binary, ClientAction.encode(command)}})
+    WebSockex.cast(self(), {:send, {:binary, GameAction.encode(command)}})
   end
 
   defp ws_url(session_id, player_id) do
