@@ -24,8 +24,6 @@ defmodule LoadTest.LobbyPlayer do
     {:ok, response} = get(join_lobby_url())
     %{"lobby_id" => lobby_id} = response.body |> Jason.decode!()
 
-    IO.inspect(label: "JOINING LOBBY WITH ID")
-
     ws_url = ws_url(lobby_id)
 
     WebSockex.start_link(ws_url, __MODULE__, %{

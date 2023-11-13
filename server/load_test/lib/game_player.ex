@@ -32,7 +32,6 @@ defmodule LoadTest.GamePlayer do
   end
 
   def start_link({player_number, session_id, max_duration}) do
-    IO.inspect(session_id, label: "INITIALIZING PLAYER NUMBER #{player_number} ON GAME ID")
     ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
@@ -61,8 +60,6 @@ defmodule LoadTest.GamePlayer do
   end
 
   def handle_info(:disconnect, state) do
-    IO.puts("Disconnecting...")
-    IO.puts("Goodbye")
     {:close, {1000, ""}, state}
     # WebSockex.cast(self(), {:close, {1000, ""}, state})
   end
