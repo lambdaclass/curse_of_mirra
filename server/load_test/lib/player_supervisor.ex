@@ -35,9 +35,7 @@ defmodule LoadTest.PlayerSupervisor do
 
   # creates `num_players` which will try to join a lobby
   def spawn_players(num_players, duration \\ nil) do
-    {:ok, player_one_pid} = spawn_lobby_player(1, duration)
-
-    for i <- 2..num_players do
+    for i <- 1..num_players do
       {:ok, _pid} = spawn_lobby_player(i, duration)
     end
   end
