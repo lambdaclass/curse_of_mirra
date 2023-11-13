@@ -50,6 +50,12 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     :ok
   end
 
+  def terminate(reason, _req, _state) do
+    log_termination(reason)
+
+    :ok
+  end
+
   defp log_termination({_, 1000, _} = reason) do
     Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
   end
