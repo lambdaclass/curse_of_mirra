@@ -418,7 +418,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
