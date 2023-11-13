@@ -333,16 +333,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
@@ -429,13 +424,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_killfeed_to_myrra_killfeed([
          {:zone, killed_id} | tail
        ]) do
-    IO.inspect("Zone kill: #{killed_id} killed by ZONE")
-    IO.inspect(tail, label: "Tail")
     [%{killed_by: 9999, killed: killed_id} | tail]
   end
 
   defp transform_killfeed_to_myrra_killfeed([
-         {{:loot, _}, killed_id} | tail
+         {:loot, killed_id} | tail
        ]) do
     [%{killed_by: 1111, killed: killed_id} | tail]
   end
