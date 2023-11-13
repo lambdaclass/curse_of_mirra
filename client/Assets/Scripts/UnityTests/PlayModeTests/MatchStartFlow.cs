@@ -19,6 +19,7 @@ public class MatchStartFlow : InputTestFixture
     [UnityTest]
     public IEnumerator MatchStart()
     {
+        yield return SetupLocalhostAsServer();
         yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
@@ -40,5 +41,12 @@ public class MatchStartFlow : InputTestFixture
         yield return TestingUtils.ForceClick("ConfirmButton");
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Battle"));
+    }
+
+    IEnumerator SetupLocalhostAsServer() {
+        yield return TestingUtils.ForceClick("ServerNameContainer");
+        yield return new WaitForSeconds(.1f);
+        yield return TestingUtils.ForceClick("LocalHost");
+        yield return new WaitForSeconds(.1f);
     }
 }
