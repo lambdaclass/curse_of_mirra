@@ -12,6 +12,7 @@ defmodule LoadTest.LobbyPlayer do
   alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.PlayerSupervisor
 
+  # TODO: remove this
   def characters_config() do
     @config_folder
     |> then(fn folder -> folder <> "Characters.json" end)
@@ -19,7 +20,12 @@ defmodule LoadTest.LobbyPlayer do
     |> Jason.decode!(keys: :atoms)
   end
 
-  def start_link({player_number, lobby_id, max_duration}) do
+  def start_link({player_number, max_duration}) do
+    {:ok, response} = get(join_lobby_url())
+    %{"lobby_id" => lobby_id} = response.body |> Jason.decode!()
+
+    IO.inspect(label: "JOINING LOBBY WITH ID")
+
     ws_url = ws_url(lobby_id)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
@@ -31,7 +37,7 @@ defmodule LoadTest.LobbyPlayer do
 
   def handle_frame({_type, msg}, state) do
     case LobbyEvent.decode(msg) do
-      %LobbyEvent{type: :GAME_STARTED, game_id: game_id} ->
+      %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: _config, server_hash: _server_hash} ->
         {:ok, pid} =
           PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration)
 
@@ -48,25 +54,6 @@ defmodule LoadTest.LobbyPlayer do
     {:reply, frame, state}
   end
 
-  def start_game(player_pid) do
-    runner_config = %{
-      board_width: 1000,
-      board_height: 1000,
-      server_tickrate_ms: 30,
-      game_timeout_ms: 1_200_000
-    }
-
-    start_game_command = %LobbyEvent{
-      type: :START_GAME,
-      game_config: %{
-        runner_config: runner_config,
-        character_config: characters_config()
-      }
-    }
-
-    WebSockex.cast(player_pid, {:send, {:binary, LobbyEvent.encode(start_game_command)}})
-  end
-
   defp ws_url(lobby_id) do
     host = PlayerSupervisor.server_host()
 
@@ -76,6 +63,18 @@ defmodule LoadTest.LobbyPlayer do
 
       _ ->
         "ws://#{host}/matchmaking/#{lobby_id}"
+    end
+  end
+
+  defp join_lobby_url() do
+    host = PlayerSupervisor.server_host()
+
+    case System.get_env("SSL_ENABLED") do
+      "true" ->
+        "https://#{host}/join_lobby"
+
+      _ ->
+        "http://#{host}/join_lobby"
     end
   end
 end
