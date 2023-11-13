@@ -3,8 +3,6 @@ using MoreMountains.Tools;
 
 public class LeftMMTouchJoystick : MMTouchJoystick
 {
-    float scaleCanvas;
-
     // Needed due to padding in the sprite
     float adjustValue = 30f;
 
@@ -16,7 +14,7 @@ public class LeftMMTouchJoystick : MMTouchJoystick
     public override void RefreshMaxRangeDistance()
     {
         // What makes this responsive is taking into account the canvas scaling
-        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        float scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
 
         float knobBackgroundRadius =
             gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;

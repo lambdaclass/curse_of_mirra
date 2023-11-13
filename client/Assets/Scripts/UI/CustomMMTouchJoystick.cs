@@ -10,10 +10,8 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
-    float scaleCanvas;
     const float cancelAreaValue = 0.5f;
     bool dragged = false;
-    bool previousDrag = false;
     private CustomInputManager inputManager;
 
     public override void Initialize()
@@ -50,7 +48,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void RefreshMaxRangeDistance()
     {
         // What makes this responsive is taking into account the canvas scaling
-        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        float scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
 
         float knobBackgroundRadius =
             gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;

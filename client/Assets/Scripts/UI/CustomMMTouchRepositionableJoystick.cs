@@ -60,17 +60,17 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
     {
         Rect backgroundKnob = BackgroundCanvasGroup.GetComponent<RectTransform>().rect;
 
-        if (eventData.position.x > transform.position.x - backgroundKnob.width)
+        if (eventData.position.x > transform.position.x - backgroundKnob.width / 2 * scaleCanvas)
         {
-            positionX = transform.position.x - backgroundKnob.width;
+            positionX = transform.position.x - backgroundKnob.width / 2 * scaleCanvas;
         }
         else
         {
             positionX = eventData.position.x;
         }
-        if (eventData.position.y < transform.position.y + backgroundKnob.height)
+        if (eventData.position.y < transform.position.y + backgroundKnob.height / 2 * scaleCanvas)
         {
-            positionY = transform.position.y + backgroundKnob.height;
+            positionY = transform.position.y + backgroundKnob.height / 2 * scaleCanvas;
         }
         else
         {
