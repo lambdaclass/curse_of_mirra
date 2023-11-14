@@ -1,25 +1,40 @@
 # Curse of Myrra
 
-Curse of Myrra is a game that uses the [Lambda backend game engine](https://github.com/lambdaclass/lambda_backend_game_engine).
+Welcome to the realm of Curse of Myrra, crafted by Lambda Game Studio.
+
+Curse of Myrra is the inaugural game built on our groundbreaking [Lambda Backend Game Engine](https://github.com/lambdaclass/lambda_backend_game_engine). This open source engine, meticulously developed by Lambda Game Studio, serves as the backend,ensuring seamless and reliable gameplay.
+
+Step into a universe where the destinies of heroes from four planets collide in an epic struggle for the favor of Myrra, a capricious deity known for manipulating entire societies by exploiting their deepest desires. Brace yourself for an immersive journey where every decision matters, and the pursuit of victory comes with the ever-present thrill of unpredictability.
+
+Curse of Myrra is more than a game; it's an adventure into a world where strategy, skill, and a dash of chaos converge. Join the battle and confront the challenges that lie ahead in this captivating and dynamic gaming experience. The stage is set, and the Curse of Myrra awaits—embrace the challenge and become a legend.
+
+![Muflus 3D model](docs/src/images/Curse_of_Myrra_3D_Assets_Muflus.png)
+![Uma 3D model](docs/src/images/Curse_of_Myrra_3D_Assets_Uma.jpeg)
+![Shinko hero concept art](docs/src/images/Curse_of_Myrra_concept_art_Shinko.png)
+![Concept art for a gang member dog in the planet of Otobi](docs/src/images/Curse_of_Myrra_concept_art_Otobi_dog.png)
 
 ## Requirements
+
 - Rust:
-    - https://www.rust-lang.org/tools/install
+  - https://www.rust-lang.org/tools/install
 - Elixir and Erlang:
-    - https://thinkingelixir.com/install-elixir-using-asdf/
-    - Erlang/OTP 26
-    - Elixir 1.15.4
+  - https://thinkingelixir.com/install-elixir-using-asdf/
+  - Erlang/OTP 26
+  - Elixir 1.15.4
 - Unity
-    - Download link: https://unity.com/unity-hub
+  - Download link: https://unity.com/unity-hub
 - Docker
 
 ## Suggested environment
+
 - Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system
 - In VSCode, download the .NET extension. Once installed, change the version to 1.26 (the option to change versions is in a dropdown next to the Uninstall button in the extension window)/
-To check if the previous stesps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
+  To check if the previous stesps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
 
 ## Setup project
+
 Make sure Docker is running.
+
 ```
 git clone https://github.com/lambdaclass/curse_of_myrra
 cd curse_of_myrra/server
@@ -28,55 +43,67 @@ make setup
 ```
 
 ## Setup Unity
+
 - On Unity Hub click on the add project button and select the `client` folder.
 - Select the correct version of the editor, by default it will show the version needed for the project but you need to select if you want to download the Intel or Silicon version.
 - Once we run Unity if you want to test the game you can select the scene on `Assets/Scenes/TitleScreen` and then running it by clicking the play button.
 
 ## Run backend
+
 Make sure Docker is running.
+
 ```
 make start
 ```
-To test locally using the [game engine](https://github.com/lambdaclass/lambda_game_engine), temporarily edit the `mix.exs` file to point to the path to your local copy of the game engine, for example:
-```{:lambda_game_engine, path: "/Users/MyUsername/lambda/lambda_game_engine"}```
 
+To test locally using the [game engine](https://github.com/lambdaclass/lambda_game_engine), temporarily edit the `mix.exs` file to point to the path to your local copy of the game engine, for example:
+`{:lambda_game_engine, path: "/Users/MyUsername/lambda/lambda_game_engine"}`
 
 To test using a remote server, point to the git URL and specify the desired branch:
-```{:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}```
-
+`{:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}`
 
 ## Useful commands
+
 ```
 make tests
 ```
+
 Will run elixir and rust tests
 
 ```
 make format
 ```
+
 Will format elixir and rust code.`
+
 ```
 make prepush
 ```
+
 Will format you code, runs credo check and tests.
 
 ## Documentation
+
 You can find our documentation [here](https://docs.curseofmyrra.com/) or run it locally.
 
 For that you have to install:
+
 ```
 cargo install mdbook
 cargo install mdbook-mermaid
 ```
 
 Then run:
+
 ```
 make docs
 ```
+
 Open:
 [http://localhost:3000/](http://localhost:3000/ios_builds.html)
 
 Some useful links
+
 - [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
 - [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
 - [Android build](https://docs.curseofmyrra.com/android_builds.html)
