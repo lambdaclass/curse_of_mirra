@@ -9,7 +9,8 @@ defmodule DarkWorldsServer.Communication do
   """
 
   def lobby_connected!(lobby_id, player_id, player_name) do
-    player_info = %PlayerInformation{player_id: player_id, player_name: player_name}
+    player_info =
+      %PlayerInformation{player_id: player_id, player_name: player_name}
 
     %LobbyEvent{type: :CONNECTED, lobby_id: lobby_id, player_info: player_info}
     |> LobbyEvent.encode()
@@ -20,6 +21,9 @@ defmodule DarkWorldsServer.Communication do
 
     players_info =
       Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
+
+    IO.inspect(player_info, label: "player_info")
+    IO.inspect(players_info, label: "players_info")
 
     %LobbyEvent{
       type: :PLAYER_ADDED,
