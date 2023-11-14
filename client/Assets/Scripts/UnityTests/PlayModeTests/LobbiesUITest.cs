@@ -41,7 +41,7 @@ public class LobbiesUITest : InputTestFixture
     }
 
     [UnityTest]
-    public IEnumerator BacktoLobbiesButton()
+    public IEnumerator BackToLobbiesButton()
     {
         yield return SetupLocalhostAsServer();
         yield return TestingUtils.ForceClick("NewLobbyButton");
