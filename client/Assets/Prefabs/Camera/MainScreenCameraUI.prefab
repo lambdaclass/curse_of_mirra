@@ -2692,7 +2692,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 404685908301210433}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: CreateLobby
+        m_MethodName: JoinLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

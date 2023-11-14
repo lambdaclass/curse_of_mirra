@@ -168,7 +168,7 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetCurrentGame());
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/join_lobby")));
