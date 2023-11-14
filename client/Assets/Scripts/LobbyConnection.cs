@@ -471,4 +471,12 @@ public class LobbyConnection : MonoBehaviour
             SkillsConfig = skills,
         };
     }
+
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
+    }
 }
