@@ -2,6 +2,8 @@
 
 Curse of Myrra is a game that uses the [Lambda backend game engine](https://github.com/lambdaclass/lambda_backend_game_engine).
 
+The code is licenced with an Apache 2 license. The music and graphs are licenced with a CC attribution and share alike license.
+
 ## Requirements
 - Rust:
     - https://www.rust-lang.org/tools/install
