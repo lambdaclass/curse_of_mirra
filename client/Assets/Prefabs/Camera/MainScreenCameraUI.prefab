@@ -1635,7 +1635,7 @@ GameObject:
   - component: {fileID: 8510049185260040724}
   - component: {fileID: 7134546989184091289}
   m_Layer: 5
-  m_Name: PlayGameTest
+  m_Name: PlayGameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3986,7 +3986,7 @@ GameObject:
   - component: {fileID: 1293016859635106772}
   - component: {fileID: 4511476274825024282}
   - component: {fileID: 8781577542234122291}
-  - component: {fileID: 1570974109471260033}
+  - component: {fileID: 3623105243293131614}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -4064,7 +4064,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1570974109471260033
+--- !u!114 &3623105243293131614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4073,11 +4073,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6157797292620639516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 35be77ffb4af4465bb85c1c6a6cd0e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
   ButtonPressedFirstTime:
+    m_PersistentCalls:
+      m_Calls: []
+  ButtonReleased:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7557915888323543382}
@@ -4092,9 +4095,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  ButtonReleased:
-    m_PersistentCalls:
-      m_Calls: []
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -4118,6 +4118,7 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
+  isBackButton: 0
 --- !u!1 &6581880279276118681
 GameObject:
   m_ObjectHideFlags: 0
