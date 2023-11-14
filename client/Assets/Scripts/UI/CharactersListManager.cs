@@ -38,6 +38,7 @@ public class CharactersListManager : MonoBehaviour
                 )
                 {
                     item.GetComponent<CharacterListItem>().IsEnable = false;
+                    item.GetComponent<ButtonAnimationsMMTouchButton>().enabled = false;
                 }
             }
         );
