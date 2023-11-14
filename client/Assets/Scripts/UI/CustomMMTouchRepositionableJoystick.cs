@@ -13,7 +13,7 @@ public class CustomMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
     protected override void Start()
     {
         base.Start();
-        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
         _initialPosition = BackgroundCanvasGroup.transform.position;
         knobJoystick = KnobCanvasGroup.GetComponent<CustomMMTouchJoystick>();
         knobButton = KnobCanvasGroup.GetComponent<CustomMMTouchButton>();

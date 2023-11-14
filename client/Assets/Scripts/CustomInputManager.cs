@@ -410,7 +410,7 @@ public class CustomInputManager : InputManager
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
-    public void SetSkillRangeCancelable(bool cancelable)
+    public void SetSkillRangeCancelable()
     {
         Material skillRangeMaterial = _player
             .GetComponent<CustomCharacter>()
@@ -418,7 +418,7 @@ public class CustomInputManager : InputManager
             .material;
         skillRangeMaterial.SetColor("_Color", characterSkillColor);
 
-        _player.GetComponentInChildren<AimDirection>().DeactivateIndicator();
+        directionIndicator.DeactivateIndicator();
     }
 
     private void DisableButtons()
@@ -449,7 +449,7 @@ public class CustomInputManager : InputManager
         }
         if (_player)
         {
-            SetSkillRangeCancelable(value);
+            SetSkillRangeCancelable();
         }
     }
 

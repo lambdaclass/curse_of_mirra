@@ -14,7 +14,7 @@ public class LeftMMTouchJoystick : MMTouchJoystick
     public override void RefreshMaxRangeDistance()
     {
         // What makes this responsive is taking into account the canvas scaling
-        float scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
         float knobBackgroundRadius =
             gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;

@@ -10,7 +10,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
-    const float cancelAreaValue = 0.5f;
+    const float CANCEL_AREA_VALUE = 0.5f;
     bool dragged = false;
     private CustomInputManager inputManager;
 
@@ -32,7 +32,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     {
         base.OnDrag(eventData);
         dragged = true;
-        CancelAttack(RawValue, dragged);
+        CancelAttack();
         newDragEvent.Invoke(RawValue, this);
     }
 
@@ -40,7 +40,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     {
         newPointerUpEvent.Invoke(RawValue, skill);
         dragged = false;
-        CancelAttack(RawValue, dragged);
+        CancelAttack();
         UnSetJoystick();
         ResetJoystick();
     }
@@ -48,7 +48,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void RefreshMaxRangeDistance()
     {
         // What makes this responsive is taking into account the canvas scaling
-        float scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
         float knobBackgroundRadius =
             gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;
@@ -75,13 +75,13 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         joystickBg.enabled = false;
     }
 
-    public void CancelAttack(Vector2 value, bool dragged)
+    public void CancelAttack()
     {
         if (
-            value.x < cancelAreaValue
-            && value.x > -cancelAreaValue
-            && value.y < cancelAreaValue
-            && value.y > -cancelAreaValue
+            RawValue.x < CANCEL_AREA_VALUE
+            && RawValue.x > -CANCEL_AREA_VALUE
+            && RawValue.y < CANCEL_AREA_VALUE
+            && RawValue.y > -CANCEL_AREA_VALUE
         )
         {
             inputManager.SetCanceled(dragged);
