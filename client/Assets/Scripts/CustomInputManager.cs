@@ -324,10 +324,10 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        if (direction.x == 0 && direction.y == 0 && skill.ExecutesOnQuickTap())
-        {
-            direction = GetPlayerOrientation();
-        }
+        // if (direction.x == 0 && direction.y == 0 && skill.ExecutesOnQuickTap())
+        // {
+        //     direction = GetPlayerOrientation();
+        // }
 
         if (!activeJoystickStatus)
         {

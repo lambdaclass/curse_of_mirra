@@ -128,7 +128,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast(
-        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        {:basic_attack, user_id, %UseSkill{angle: angle, auto_aim: auto_aim, skill: skill}, timestamp},
         state
       ) do
     player_id = state.user_to_player[user_id] || user_id
@@ -136,7 +136,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     game_state =
       LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
-        "direction_angle" => Float.to_string(angle)
+        "direction_angle" => Float.to_string(angle),
+        "auto_aim" => to_string(auto_aim),
       })
 
     state =
