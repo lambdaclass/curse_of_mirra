@@ -31,6 +31,6 @@ public class LobbiesListItem : MonoBehaviour
 
     public void ConnectToLobby()
     {
-        LobbiesManager.Instance.ConnectToLobby(idHash);
+        MainManager.Instance.ConnectToLobby(idHash);
     }
 }

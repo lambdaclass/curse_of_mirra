@@ -33,7 +33,7 @@ defmodule DarkWorldsServer.Test.Disconnect do
     ## Needed for the character selection
     Process.sleep(1_000)
 
-    for i <- 1..3, do: Runner.join(pid, "client-id", i)
+    for i <- 1..3, do: Runner.join(pid, "client-id", i, "player-#{i}")
     %{pid: pid}
   end
 

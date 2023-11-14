@@ -10,11 +10,13 @@ import Config
 config :dark_worlds_server,
   ecto_repos: [DarkWorldsServer.Repo]
 
+config :dark_worlds_server, DarkWorldsServer.Repo, migration_primary_key: [type: :binary_id]
+
 # Configures the endpoint
 dispatch = [
   _: [
     {"/play/:game_id/:client_id/:player_id", DarkWorldsServerWeb.PlayWebSocket, []},
-    {"/matchmaking/:lobby_id", DarkWorldsServerWeb.LobbyWebsocket, []},
+    {"/matchmaking", DarkWorldsServerWeb.LobbyWebsocket, []},
     {:_, Plug.Cowboy.Handler, {DarkWorldsServerWeb.Endpoint, []}}
   ]
 ]

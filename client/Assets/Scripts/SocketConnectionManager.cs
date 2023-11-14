@@ -32,6 +32,7 @@ public class SocketConnectionManager : MonoBehaviour
     public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
+    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
@@ -79,6 +80,14 @@ public class SocketConnectionManager : MonoBehaviour
         else
         {
             Instance = this;
+            this.sessionId = LobbyConnection.Instance.GameSession;
+            this.serverIp = LobbyConnection.Instance.serverIp;
+            this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+            this.serverHash = LobbyConnection.Instance.serverHash;
+            this.clientId = LobbyConnection.Instance.clientId;
+            this.reconnect = LobbyConnection.Instance.reconnect;
+            this.playersIdName = LobbyConnection.Instance.playersIdName;
+
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
@@ -214,7 +223,6 @@ public class SocketConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             LobbyConnection.Instance.errorConnection = true;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
             this.Init();
             LobbyConnection.Instance.Init();
         }

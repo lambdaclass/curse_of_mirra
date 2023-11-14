@@ -2,25 +2,21 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   require Logger
   alias DarkWorldsServer.Matchmaking.MatchingCoordinator
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Matchmaking
 
   @behaviour :cowboy_websocket
 
   @impl true
   def init(req, _opts) do
-    lobby_id = :cowboy_req.binding(:lobby_id, req)
-    {:cowboy_websocket, req, %{lobby_id: lobby_id}}
+    [{"user_id", user_id}] = :cowboy_req.parse_qs(req)
+    {:cowboy_websocket, req, %{user_id: user_id}}
   end
 
   @impl true
-  def websocket_init(%{lobby_id: :undefined}) do
-    {:stop, %{}}
-  end
-
-  def websocket_init(%{lobby_id: lobby_id}) do
-    :ok = MatchingCoordinator.join(make_ref())
-    send(self(), {:player_added, 1, "player_name", 1, [{1, "player_name"}]})
-    {:reply, {:binary, Communication.lobby_connected!(lobby_id, 1, "player_name")}, %{}}
+  def websocket_init(%{user_id: user_id}) do
+    :ok = MatchingCoordinator.join(user_id)
+    ## TODO: Remove this once the old lobby screen is removed
+    send(self(), {:player_added, 1, user_id, 1, [{1, user_id}]})
+    {:reply, {:binary, Communication.lobby_connected!(user_id, 1, "player_name")}, %{user_id: user_id}}
   end
 
   @impl true
@@ -32,10 +28,6 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   def websocket_info({:player_added, player_id, player_name, host_player_id, players}, state) do
     {:reply, {:binary, Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
   end
-
-  # def websocket_info({:player_removed, player_id, host_player_id, players}, state) do
-  #   {:reply, {:binary, Communication.lobby_player_removed!(player_id, host_player_id, players)}, state}
-  # end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
@@ -51,13 +43,9 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
   end
 
   @impl true
-  def terminate(reason, _partialreq, %{lobby_pid: lobby_pid, player_id: player_id} = state) do
+  def terminate(reason, _partialreq, %{user_id: user_id}) do
     log_termination(reason)
-
-    unless state[:game_started] do
-      Matchmaking.remove_player(player_id, lobby_pid)
-    end
-
+    MatchingCoordinator.leave(user_id)
     :ok
   end
 

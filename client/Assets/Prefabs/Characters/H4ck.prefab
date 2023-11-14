@@ -483,6 +483,7 @@ MonoBehaviour:
   feedbacksStatesPrefabs:
   - {fileID: 220605700603955422}
   - {fileID: 305740109525267919}
+  - {fileID: 5395175593027007493}
   feedbacksPrefabs:
   - {fileID: 6057499254784400716}
   damageOverlayColor:
@@ -648,6 +649,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterBase
       objectReference: {fileID: 0}
+    - target: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Name
+      value: OutOfArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887682979786841841, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_TagString
+      value: FX
+      objectReference: {fileID: 0}
     - target: {fileID: 7449377188674056054, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -698,6 +714,12 @@ MonoBehaviour:
 --- !u!4 &4364836716465000514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5395175593027007493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}

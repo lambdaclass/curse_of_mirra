@@ -3,7 +3,11 @@ guid: 1f0a5e80ba2fd423ca92d64690e77e6a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - lootPrefab: {instanceID: 0}
+  - useItemVFX: {fileID: 4692905955090546937, guid: 59c5330b62ef44325b2960b13e6cd0cf,
+      type: 3}
+  - pickUpSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
