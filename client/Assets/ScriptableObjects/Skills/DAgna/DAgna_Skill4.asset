@@ -17,7 +17,7 @@ MonoBehaviour:
     But they all use Scherzo now! Myrra granted her the ability to use her music
     to create illusions of herself.
   inputType: 0
-  skillType: 1
+  skillSetType: 0
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 0

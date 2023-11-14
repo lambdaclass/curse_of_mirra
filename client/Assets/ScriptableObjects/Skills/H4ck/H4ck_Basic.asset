@@ -15,6 +15,7 @@ MonoBehaviour:
   name: SLINGSHOT
   description: High speed ranged attack, can bounce off walls, like a pinball machine.
   inputType: 2
+  skillSetType: 1
   angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
@@ -24,6 +25,8 @@ MonoBehaviour:
   animationSpeedMultiplier: 4
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
+  sfxHasAbilityStop: 0
+  abilityStopSfx: {fileID: 0}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 0
@@ -31,6 +34,9 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 0
   showCooldown: 0
+  damage: 0
+  cooldown: 0
+  skillRange: 0
   skillSprite: {fileID: 21300000, guid: d1a5f236163cd4c32aa227329b30638d, type: 3}
   feedbackVfx: {fileID: 0}
   feedbackVfxDuration: 0

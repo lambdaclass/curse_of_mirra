@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class SkillsDetailHandler : MonoBehaviour
 {
+    public TextMeshProUGUI skillSetType;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
     public Sprite selectedBorder;
@@ -31,8 +32,13 @@ public class SkillsDetailHandler : MonoBehaviour
         }
     }
 
-    public void SetSkillDetaill(string setSkillName, string setSkillDescription)
+    public void SetSkillDetaill(
+        string setSkillType,
+        string setSkillName,
+        string setSkillDescription
+    )
     {
+        skillSetType.text = setSkillType + ": ";
         skillName.text = setSkillName;
         skillDescription.text = setSkillDescription;
     }
