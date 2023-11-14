@@ -20,6 +20,7 @@ public class LobbiesUITest : InputTestFixture
     [UnityTest]
     public IEnumerator UnmuteButton()
     {
+        yield return SetupLocalhostAsServer();
         yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(2f);
 
@@ -40,8 +41,9 @@ public class LobbiesUITest : InputTestFixture
     }
 
     [UnityTest]
-    public IEnumerator BacktoLobbiesButton()
+    public IEnumerator BackToLobbiesButton()
     {
+        yield return SetupLocalhostAsServer();
         yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
@@ -53,5 +55,12 @@ public class LobbiesUITest : InputTestFixture
         yield return TestingUtils.ForceClick("Back");
         yield return new WaitForSeconds(2f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobbies"));
+    }
+
+    IEnumerator SetupLocalhostAsServer() {
+        yield return TestingUtils.ForceClick("ServerNameContainer");
+        yield return new WaitForSeconds(.1f);
+        yield return TestingUtils.ForceClick("LocalHost");
+        yield return new WaitForSeconds(.1f);
     }
 }
