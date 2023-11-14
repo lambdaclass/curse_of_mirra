@@ -15,7 +15,7 @@ public class MainManager : LevelSelector
         Instance = this;
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         StartCoroutine(WaitForLobbyCreation());
     }
@@ -27,7 +27,7 @@ public class MainManager : LevelSelector
 
     public IEnumerator WaitForLobbyCreation()
     {
-        LobbyConnection.Instance.CreateLobby();
+        LobbyConnection.Instance.JoinLobby();
         yield return new WaitUntil(
             () =>
                 !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
