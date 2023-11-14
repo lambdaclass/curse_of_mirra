@@ -21,7 +21,9 @@ defmodule DarkWorldsServer.Application do
       # Start the Game Engine
       DarkWorldsServer.Engine,
       # Start the matchmaking supervisor
-      DarkWorldsServer.Matchmaking.MatchingCoordinator
+      DarkWorldsServer.Matchmaking.MatchingCoordinator,
+      # Start the custom metrics generator
+      DarkWorldsServer.Metrics.CustomMetricsGenerator
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
