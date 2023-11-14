@@ -15,17 +15,17 @@ defmodule DarkWorldsServer.Metrics.CustomMetricsGenerator do
   #######################
   # GenServer callbacks #
   #######################
-  @impl true
-  def init(_args) do
-    case Mix.env() do
-      :prod ->
-        Process.send_after(self(), :send_metrics, @send_metric_interval_ms)
-
-      _ ->
-        :nothing
+  if Mix.env() == :prod do
+    @impl true
+    def init(_args) do
+      Process.send_after(self(), :send_metrics, @send_metric_interval_ms)
+      {:ok, %{}}
     end
-
-    {:ok, %{}}
+  else
+    @impl true
+    def init(_args) do
+      {:ok, %{}}
+    end
   end
 
   @impl true
