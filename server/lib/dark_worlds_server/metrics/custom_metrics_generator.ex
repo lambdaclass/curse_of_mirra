@@ -3,7 +3,7 @@ defmodule DarkWorldsServer.Metrics.CustomMetricsGenerator do
   use GenServer
   require Logger
 
-  @send_metric_interval_ms 60_000 # 60s
+  @send_metric_interval_ms 30_000 # 30s
 
   #######
   # API #
@@ -50,7 +50,13 @@ defmodule DarkWorldsServer.Metrics.CustomMetricsGenerator do
     aggregate = RequestTracker.aggregate_table()
     total_games = length(Map.keys(aggregate.msgs_per_game))
 
-    NewRelic.report_custom_metric("Test/GamesCount", total_games)
+    {total_messages, total_players} = Enum.reduce(aggregate.msgs_per_game, {0, 0}, fn {_, %{total: total, msgs_per_player: msgs_per_player}}, {msg_count, player_count} ->
+      {msg_count + total, player_count + length(Map.keys(msgs_per_player))}
+    end)
+
+    NewRelic.report_custom_metric("GamesCount", total_games)
+    NewRelic.report_custom_metric("PlayersCount", total_players)
+    NewRelic.report_custom_metric("MessagesCount", total_messages)
   end
 
 end
