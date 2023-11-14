@@ -21,14 +21,17 @@ defmodule LoadTest.LobbyPlayer do
   end
 
   def start_link({player_number, max_duration}) do
-    {:ok, response} = get(join_lobby_url())
-    %{"lobby_id" => lobby_id} = response.body |> Jason.decode!()
-
-    ws_url = ws_url(lobby_id)
+    # It seems as the lobby id does not matter anymore
+    # {:ok, response} = get(join_lobby_url())
+    # %{"lobby_id" => lobby_id} = response.body |> Jason.decode!()
+    player_id = "user_#{player_number}"
+    ws_url = ws_url(player_id)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
+      user_id: player_id,
+      player_id: player_id,
       player_number: player_number,
-      lobby_id: lobby_id,
+      # lobby_id: lobby_id,
       max_duration: max_duration
     })
   end
@@ -52,27 +55,27 @@ defmodule LoadTest.LobbyPlayer do
     {:reply, frame, state}
   end
 
-  defp ws_url(lobby_id) do
+  defp ws_url(player_id) do
     host = PlayerSupervisor.server_host()
 
     case System.get_env("SSL_ENABLED") do
       "true" ->
-        "wss://#{host}/matchmaking/#{lobby_id}"
+        "wss://#{host}/matchmaking?user_id=#{player_id}"
 
       _ ->
-        "ws://#{host}/matchmaking/#{lobby_id}"
+        "ws://#{host}/matchmaking?user_id=#{player_id}"
     end
   end
 
-  defp join_lobby_url() do
-    host = PlayerSupervisor.server_host()
-
-    case System.get_env("SSL_ENABLED") do
-      "true" ->
-        "https://#{host}/join_lobby"
-
-      _ ->
-        "http://#{host}/join_lobby"
-    end
-  end
+  # defp join_lobby_url() do
+  #   host = PlayerSupervisor.server_host()
+  #
+  #   case System.get_env("SSL_ENABLED") do
+  #     "true" ->
+  #       "https://#{host}/join_lobby"
+  #
+  #     _ ->
+  #       "http://#{host}/join_lobby"
+  #   end
+  # end
 end
