@@ -252,10 +252,23 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # Internal helpers #
   ####################
   defp broadcast_game_state(topic, game_state) do
+    game_state = transform_state_to_myrra_state(game_state)
+
+    reply_map = %{
+      players: game_state.players,
+      projectiles: game_state.projectiles,
+      killfeed: game_state.killfeed,
+      player_timestamp: 4,
+      playable_radius: game_state.playable_radius,
+      shrinking_center: game_state.shrinking_center,
+      server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
+      loots: game_state.loots
+    }
+
     Phoenix.PubSub.broadcast(
       DarkWorldsServer.PubSub,
       topic,
-      {:game_state, transform_state_to_myrra_state(game_state)}
+      {:game_state_v2, Communication.game_update!(reply_map)}
     )
   end
 
