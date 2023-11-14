@@ -344,7 +344,10 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/matchmaking/?user_id=" + this.clientId);
+        string player_name = PlayerPrefs.GetString("playerName");
+        string url = makeWebsocketUrl(
+            "/matchmaking/?user_id=" + this.clientId + "&player_name=" + player_name
+        );
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
@@ -372,10 +375,16 @@ public class LobbyConnection : MonoBehaviour
                     this.playerCount = lobbyEvent.PlayersInfo.Count();
                     lobbyEvent.PlayersInfo
                         .ToList()
-                        .ForEach(
-                            playerInfo =>
-                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-                        );
+                        .ForEach(playerInfo =>
+                        {
+                            Debug.Log(
+                                "Player of id: "
+                                    + playerInfo.PlayerId
+                                    + " added: "
+                                    + playerInfo.PlayerName
+                            );
+                            this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName;
+                        });
                     break;
 
                 case LobbyEventType.PlayerRemoved:
