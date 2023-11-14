@@ -2,7 +2,7 @@
   <h1> Current Matchmaking Sessions</h1>
   <%= if assigns[:game_session_ids] do %>
     <%= for session_id <- @game_session_ids do %>
-      <div> <.link navigate={~p"/matchmaking/#{Communication.pid_to_external_id(session_id)}"}><%= "#{Communication.pid_to_external_id(session_id)}" %></.link> </div>
+      <div> <.link navigate={~p"/matchmaking/#{Communication.pid_to_external_id(session_id)}/player"}><%= "#{Communication.pid_to_external_id(session_id)}" %></.link> </div>
     <% end %>
   <% else %>
     <p>Fetching matchmaking sessions...</p>

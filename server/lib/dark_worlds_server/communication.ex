@@ -17,7 +17,9 @@ defmodule DarkWorldsServer.Communication do
 
   def lobby_player_added!(player_id, player_name, host_player_id, players) do
     player_info = %PlayerInformation{player_id: player_id, player_name: player_name}
-    players_info = Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
+
+    players_info =
+      Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
 
     %LobbyEvent{
       type: :PLAYER_ADDED,
@@ -30,7 +32,9 @@ defmodule DarkWorldsServer.Communication do
 
   def lobby_player_removed!(player_id, host_player_id, players) do
     player_info = %PlayerInformation{player_id: player_id, player_name: "not_needed"}
-    players_info = Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
+
+    players_info =
+      Enum.map(players, fn {id, name} -> %PlayerInformation{player_id: id, player_name: name} end)
 
     %LobbyEvent{
       type: :PLAYER_REMOVED,
@@ -46,10 +50,19 @@ defmodule DarkWorldsServer.Communication do
     |> LobbyEvent.encode()
   end
 
-  def lobby_game_started!(%{game_pid: game_pid, game_config: game_config, server_hash: server_hash}) do
+  def lobby_game_started!(%{
+        game_pid: game_pid,
+        game_config: game_config,
+        server_hash: server_hash
+      }) do
     game_id = pid_to_external_id(game_pid)
 
-    %LobbyEvent{type: :GAME_STARTED, game_id: game_id, game_config: game_config, server_hash: server_hash}
+    %LobbyEvent{
+      type: :GAME_STARTED,
+      game_id: game_id,
+      game_config: game_config,
+      server_hash: server_hash
+    }
     |> LobbyEvent.encode()
   end
 
@@ -87,8 +100,8 @@ defmodule DarkWorldsServer.Communication do
     |> GameEvent.encode()
   end
 
-  def game_player_joined(player_id) do
-    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id}
+  def game_player_joined(player_id, player_name) do
+    %GameEvent{type: :PLAYER_JOINED, player_joined_id: player_id, player_joined_name: player_name}
     |> GameEvent.encode()
   end
 
