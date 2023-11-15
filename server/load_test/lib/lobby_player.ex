@@ -21,9 +21,6 @@ defmodule LoadTest.LobbyPlayer do
   end
 
   def start_link({player_number, max_duration}) do
-    # It seems as the lobby id does not matter anymore
-    # {:ok, response} = get(join_lobby_url())
-    # %{"lobby_id" => lobby_id} = response.body |> Jason.decode!()
     player_id = "user_#{player_number}"
     ws_url = ws_url(player_id)
 
@@ -31,7 +28,6 @@ defmodule LoadTest.LobbyPlayer do
       user_id: player_id,
       player_id: player_id,
       player_number: player_number,
-      # lobby_id: lobby_id,
       max_duration: max_duration
     })
   end
@@ -66,16 +62,4 @@ defmodule LoadTest.LobbyPlayer do
         "ws://#{host}/matchmaking?user_id=#{player_id}"
     end
   end
-
-  # defp join_lobby_url() do
-  #   host = PlayerSupervisor.server_host()
-  #
-  #   case System.get_env("SSL_ENABLED") do
-  #     "true" ->
-  #       "https://#{host}/join_lobby"
-  #
-  #     _ ->
-  #       "http://#{host}/join_lobby"
-  #   end
-  # end
 end
