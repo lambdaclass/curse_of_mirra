@@ -48,15 +48,18 @@ defmodule DarkWorldsServer.Metrics.CustomMetricsGenerator do
 
   defp report_metrics_to_new_relic() do
     aggregate = RequestTracker.aggregate_table()
-    total_games = length(Map.keys(aggregate.msgs_per_game))
+    current_games = DarkWorldsServer.Engine.list_runners_pids()
+    total_games = current_games |> Enum.count()
 
-    {total_messages, total_players} = Enum.reduce(aggregate.msgs_per_game, {0, 0}, fn {_, %{total: total, msgs_per_player: msgs_per_player}}, {msg_count, player_count} ->
+    {total_messages, total_players} = aggregate.msgs_per_game
+    |> Enum.filter(fn {game_pid, _} -> game_pid in current_games end)
+    |> Enum.reduce({0, 0}, fn {_, %{total: total, msgs_per_player: msgs_per_player}}, {msg_count, player_count} ->
       {msg_count + total, player_count + length(Map.keys(msgs_per_player))}
     end)
 
-    NewRelic.report_custom_metric("GamesCount", total_games)
-    NewRelic.report_custom_metric("PlayersCount", total_players)
-    NewRelic.report_custom_metric("MessagesCount", total_messages)
+    NewRelic.report_custom_metric("CurrentGamesCount", total_games)
+    NewRelic.report_custom_metric("CurrentPlayersCount", total_players)
+    NewRelic.report_custom_metric("CurrentMessagesCount", total_messages)
   end
 
 end
