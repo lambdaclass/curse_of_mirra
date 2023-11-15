@@ -35,10 +35,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
-  def add_bot(runner_pid) do
-    GenServer.call(runner_pid, :add_bot)
-  end
-
   def move(runner_pid, user_id, action, timestamp) do
     GenServer.cast(runner_pid, {:move, user_id, action, timestamp})
   end
@@ -65,7 +61,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(_) do
+  def init(%{bot_count: bot_count}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
@@ -79,6 +75,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
     Process.send_after(self(), :start_game_tick, @game_tick_start)
+    Process.send_after(self(), :start_game_tick, @game_tick_start)
+    send(self(), {:spawn_bots, bot_count})
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
@@ -111,29 +109,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
-  def handle_call(:add_bot, _from, state) do
-    bot_handler_pid =
-      case Map.get(state, :bot_handler_pid) do
-        nil ->
-          {:ok, pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
-          pid
-
-        bot_handler_pid ->
-          bot_handler_pid
-      end
-
-    {game_state, player_id} =
-      LambdaGameEngine.add_player(state.game_state, Enum.random(["h4ck", "muflus"]))
-
-    state =
-      Map.put(state, :game_state, game_state)
-      |> Map.put(:bot_handler_pid, bot_handler_pid)
-
-    BotPlayer.add_bot(bot_handler_pid, player_id)
-
-    {:reply, :ok, state}
-  end
-
   def handle_call(msg, from, state) do
     Logger.error("Unexpected handle_call msg", %{msg: msg, from: from})
     {:noreply, state}
@@ -186,7 +161,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
-  @impl true
   def handle_info(:game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
 
@@ -239,6 +213,34 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   def handle_info(:game_timeout, state) do
     {:stop, {:shutdown, :game_timeout}, state}
+  end
+
+  def handle_info( {:spawn_bots, bot_count}, state) when bot_count > 0 do
+    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
+
+    {game_state, bots_ids} = Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn (_, {acc_game_state, bots}) ->
+      character = Enum.random(["h4ck", "muflus"])
+      {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
+
+      {new_game_state, [player_id | bots]}
+    end)
+
+    Process.send_after(self(), {:activate_bots, bots_ids}, 10_000)
+
+    state =
+      Map.put(state, :game_state, game_state)
+      |> Map.put(:bot_handler_pid, bot_handler_pid)
+
+    {:noreply, state}
+  end
+
+  def handle_info({:activate_bots, bots_ids}, state) do
+    Enum.each(bots_ids, fn (player_id) -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
+    {:noreply, state}
+  end
+
+  def handle_info({:spawn_bots, _bot_count}, state) do
+    {:noreply, state}
   end
 
   def handle_info(msg, state) do

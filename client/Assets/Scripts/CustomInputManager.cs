@@ -5,7 +5,6 @@ using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public enum UIControls
 {
@@ -119,7 +118,10 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite, characterInfo.skillBackground);
+        SkillBasic.SetInitialSprite(
+            characterInfo.skillsInfo[0].skillSprite,
+            characterInfo.skillBackground
+        );
         Skill1.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
@@ -307,8 +309,11 @@ public class CustomInputManager : InputManager
 
     private void AimDirectionSkill(Vector2 direction, CustomMMTouchJoystick joystick)
     {
-        directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
-        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
+        if (!canceled)
+        {
+            directionIndicator.Rotate(direction.x, direction.y, joystick.skill);
+            directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
+        }
         activeJoystickStatus = canceled;
     }
 
@@ -326,7 +331,7 @@ public class CustomInputManager : InputManager
             direction = GetPlayerOrientation();
         }
 
-        if (!activeJoystickStatus)
+        if (!canceled)
         {
             skill.TryExecuteSkill(direction);
         }
@@ -405,14 +410,15 @@ public class CustomInputManager : InputManager
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
-    public void SetSkillRangeCancelable(bool cancelable)
+    public void SetSkillRangeCancelable()
     {
-        Transform skillRange = _player
+        Material skillRangeMaterial = _player
             .GetComponent<CustomCharacter>()
-            .characterBase.SkillRange.transform;
-        Color32 newColor = cancelable ? new Color32(255, 0, 0, 255) : characterSkillColor;
-        material = skillRange.GetComponentInChildren<MeshRenderer>().material;
-        material.SetColor("_Color", newColor);
+            .characterBase.SkillRange.GetComponentInChildren<MeshRenderer>()
+            .material;
+        skillRangeMaterial.SetColor("_Color", characterSkillColor);
+
+        directionIndicator.DeactivateIndicator();
     }
 
     private void DisableButtons()
@@ -439,9 +445,12 @@ public class CustomInputManager : InputManager
         canceled = value;
         if (directionIndicator)
         {
-            directionIndicator.CancelableFeedback(value);
+            directionIndicator.DeactivateIndicator();
         }
-        SetSkillRangeCancelable(value);
+        if (_player)
+        {
+            SetSkillRangeCancelable();
+        }
     }
 
     public void ToggleCanceled(bool value)

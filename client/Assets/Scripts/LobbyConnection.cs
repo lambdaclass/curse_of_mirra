@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
@@ -87,6 +86,7 @@ public class LobbyConnection : MonoBehaviour
         {
             public ulong id;
             public string character_name;
+            public string player_name;
         }
 
         [Serializable]
@@ -168,7 +168,7 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetCurrentGame());
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/join_lobby")));
@@ -187,21 +187,6 @@ public class LobbyConnection : MonoBehaviour
         {
             Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
         }
-    }
-
-    public void Refresh()
-    {
-        this.serverIp = SelectServerIP.GetServerIp();
-        this.serverName = SelectServerIP.GetServerName();
-        PopulateLists();
-        MaybeReconnect();
-    }
-
-    public void QuickGame()
-    {
-        ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
-        StartCoroutine(WaitLobbyCreated());
     }
 
     public IEnumerator StartGame()
@@ -236,12 +221,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-    }
-
-    private IEnumerator WaitLobbyCreated()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        yield return StartGame();
+        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
     }
 
     IEnumerator GetRequest(string uri)
@@ -258,7 +238,6 @@ public class LobbyConnection : MonoBehaviour
                     Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
-                    Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
@@ -296,7 +275,6 @@ public class LobbyConnection : MonoBehaviour
     IEnumerator GetGames()
     {
         string url = makeUrl("/current_games");
-        Debug.Log(url);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -366,7 +344,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/matchmaking/" + sessionId);
+        string url = makeWebsocketUrl("/matchmaking/?user_id=" + this.clientId);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
@@ -385,12 +363,6 @@ public class LobbyConnection : MonoBehaviour
             switch (lobbyEvent.Type)
             {
                 case LobbyEventType.Connected:
-                    Debug.Log(
-                        "Connected to lobby "
-                            + lobbyEvent.LobbyId
-                            + " as player_id "
-                            + lobbyEvent.PlayerInfo.PlayerId
-                    );
                     this.playerId = lobbyEvent.PlayerInfo.PlayerId;
                     break;
 
@@ -440,7 +412,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
@@ -499,5 +470,13 @@ public class LobbyConnection : MonoBehaviour
             CharacterConfig = characters,
             SkillsConfig = skills,
         };
+    }
+
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
     }
 }

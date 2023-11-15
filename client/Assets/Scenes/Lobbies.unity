@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4439372, g: 0.49315345, b: 0.5721989, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -451,6 +451,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 579426449}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleAudio, Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 247914137351970354, guid: 108d83700d59547d0974e1d2edaf0140,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1603105262504358399, guid: 108d83700d59547d0974e1d2edaf0140,
         type: 3}
       propertyPath: m_Name
@@ -571,66 +611,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5951903643173492978, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5951903643173492978, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6472191256914153022, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_Name
-      value: QuickGameButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893711936685605754, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893711936685605754, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893711936685605754, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893711936685605754, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8623420363451892913, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_Name
-      value: RefreshButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 9005106390324705388, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9005106390324705388, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9005106390324705388, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9005106390324705388, guid: 108d83700d59547d0974e1d2edaf0140,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 108d83700d59547d0974e1d2edaf0140, type: 3}
 --- !u!20 &579426448 stripped
@@ -639,6 +619,18 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 579426447}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &579426449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5795610678716246469, guid: 108d83700d59547d0974e1d2edaf0140,
+    type: 3}
+  m_PrefabInstance: {fileID: 579426447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631924958
 GameObject:
   m_ObjectHideFlags: 0
