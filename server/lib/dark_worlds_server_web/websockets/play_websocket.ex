@@ -179,6 +179,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
     {:reply, {:binary, Communication.game_update!(reply_map)}, web_socket_state}
   end
 
+  ## The difference with :game_update messages is that these come from EngineRunner
+  def websocket_info({:game_state_v2, game_state}, web_socket_state) do
+    {:reply, {:binary, game_state}, web_socket_state}
+  end
+
   def websocket_info({:game_ended, winner, game_state}, web_socket_state) do
     reply_map = %{
       players: game_state.players,
