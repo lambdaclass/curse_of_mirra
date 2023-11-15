@@ -44,7 +44,7 @@ Material:
     - _CastShadows: 1
     - _Cull: 0
     - _DstBlend: 10
-    - _IntersectionDepth: 1.06
+    - _IntersectionDepth: 1.15
     - _QueueControl: 0
     - _QueueOffset: -1
     - _ReceiveShadows: 0
@@ -55,7 +55,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 30.39065, g: 0, b: 126.50718, a: 0.9843137}
+    - _Color: {r: 0.009433985, g: 0.007965487, b: 0.007965487, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6541416978517499957
 MonoBehaviour:

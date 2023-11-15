@@ -11,9 +11,6 @@ public class SelectServerIP : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI serverName;
 
-    [SerializeField]
-    Sprite selectedButtonSprite;
-
     public static string serverIp;
     public static string serverNameString;
 
@@ -24,8 +21,7 @@ public class SelectServerIP : MonoBehaviour
     {
         serverIp = IP.text.Trim();
         serverNameString = serverName.text;
-        GetComponent<Image>().sprite = selectedButtonSprite;
-        DevLobbyConnection.Instance.Refresh();
+        LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

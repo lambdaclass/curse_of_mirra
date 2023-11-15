@@ -168,7 +168,7 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetCurrentGame());
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         ValidateVersionHashes();
         StartCoroutine(GetRequest(makeUrl("/join_lobby")));
@@ -470,5 +470,13 @@ public class LobbyConnection : MonoBehaviour
             CharacterConfig = characters,
             SkillsConfig = skills,
         };
+    }
+
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
     }
 }

@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Pattern:
-        m_Texture: {fileID: 2800000, guid: 833c9a144141943599e1f547c94c49df, type: 3}
+        m_Texture: {fileID: 2800000, guid: c9123c432055d4d71a7fbd5126044d26, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shader:
@@ -62,11 +62,11 @@ Material:
     m_Floats:
     - _Distance: 18
     - _EffectOffset: 0.2
-    - _Fill: -1.12
+    - _Fill: -0.43
     - _Fresnel_Power: 0.36
     - _QueueControl: 0
     - _QueueOffset: -1
     m_Colors:
     - _Center: {r: -47.66, g: 1, b: -39.629997, a: 0}
-    - _Emission: {r: 0.14135566, g: 0.02352941, b: 0.17254902, a: 0}
+    - _Emission: {r: 0.011095252, g: 0.010241771, b: 0.010241771, a: 0}
   m_BuildTextureStacks: []
