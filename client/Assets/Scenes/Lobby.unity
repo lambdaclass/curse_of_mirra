@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4439372, g: 0.49315345, b: 0.5721989, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +179,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 700571422194183535, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -19.000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 700571422194183535, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442205213832481231, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: m_Name
+      value: LaunchGameButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612060440756062917, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: m_Name
+      value: LaunchGameText
+      objectReference: {fileID: 0}
     - target: {fileID: 1903341828403103254, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -228,6 +248,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LobbyCameraUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7415766529375599363}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleAudio, Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885184054646259449, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3964679790848395740, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
@@ -323,6 +383,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093336476668291451, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: m_Name
+      value: LaunchGameButtonContainer
       objectReference: {fileID: 0}
     - target: {fileID: 4293731728168688227, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
@@ -456,9 +521,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1083681582}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7415766529375599362}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7415766529375599362}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -467,7 +582,7 @@ PrefabInstance:
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GameStart
+      value: DisableButton
       objectReference: {fileID: 0}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
@@ -476,13 +591,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
-      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
       objectReference: {fileID: 0}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: MoreMountains.Tools.MMTouchButton, MoreMountains.Tools
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7074927172809773038, guid: e580470930bcc40c78798bc2c97d07d2,
         type: 3}
@@ -658,5 +793,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87a286771fa86194e979f187a1691a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7415766529375599363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4654064426207884402, guid: e580470930bcc40c78798bc2c97d07d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7415766529375599359}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

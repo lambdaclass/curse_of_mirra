@@ -1,5 +1,5 @@
 defmodule DarkWorldsServer.Accounts.UserToken do
-  use Ecto.Schema
+  use DarkWorldsServer.Schema
   import Ecto.Query
   alias DarkWorldsServer.Accounts.UserToken
 

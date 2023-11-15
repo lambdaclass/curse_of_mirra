@@ -27,12 +27,17 @@ defmodule DarkWorldsServerWeb.Router do
   scope "/", DarkWorldsServerWeb do
     pipe_through(:browser)
 
-    get("/", PageController, :home)
-    # get "/new_session", SessionController, :new
-    get("/new_lobby", LobbyController, :new)
-    get("/current_lobbies", LobbyController, :current_lobbies)
-    get("/current_games", GameController, :current_games)
-    get("/player_game/:player_id", GameController, :player_game)
+    get "/", PageController, :home
+    get "/new_lobby", LobbyController, :new
+    get "/current_lobbies", LobbyController, :current_lobbies
+    get "/current_games", GameController, :current_games
+    get "/player_game/:player_id", GameController, :player_game
+  end
+
+  scope "/users-characters", DarkWorldsServerWeb do
+    get "/:device_client_id", CharacterController, :get_player
+    post "/new", CharacterController, :create_player
+    put "/:device_client_id/edit", CharacterController, :update_player
   end
 
   scope "/", DarkWorldsServerWeb do

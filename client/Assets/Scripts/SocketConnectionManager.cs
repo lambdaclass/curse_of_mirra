@@ -13,7 +13,6 @@ public class SocketConnectionManager : MonoBehaviour
 
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
     public static Dictionary<int, GameObject> projectilesStatic;
-
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
 
