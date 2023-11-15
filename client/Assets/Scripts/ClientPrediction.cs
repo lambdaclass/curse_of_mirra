@@ -21,6 +21,7 @@ public class ClientPrediction
     public void simulatePlayerState(Player player, long timestamp)
     {
         removeServerAcknowledgedInputs(player, timestamp);
+        Debug.Log("pendingPlayerInputs.Count: " + pendingPlayerInputs.Count);
         simulatePlayerMovement(player);
     }
 
@@ -36,11 +37,10 @@ public class ClientPrediction
 
         pendingPlayerInputs.ForEach(input =>
         {
-            Vector2 movementDirection;
-            if (player.Effects.ContainsKey((ulong)PlayerEffect.DanseMacabre))
-                movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
-            else
-                movementDirection = new Vector2(-input.joystick_y_value, input.joystick_x_value);
+            Vector2 movementDirection = new Vector2(
+                -input.joystick_y_value,
+                input.joystick_x_value
+            );
 
             movementDirection.Normalize();
             Vector2 movementVector = movementDirection * characterSpeed;

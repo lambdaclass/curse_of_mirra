@@ -121,7 +121,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
     {:noreply, state}
   end
@@ -141,7 +141,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
     {:noreply, state}
   end
