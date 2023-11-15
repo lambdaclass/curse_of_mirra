@@ -261,6 +261,9 @@ public class CustomLevelManager : LevelManager
 
     private void GenerateBotPlayer(SocketConnectionManager.BotSpawnEventData botSpawnEventData)
     {
+        string myModel = Utils
+            .GetCharacter(SocketConnectionManager.Instance.playerId)
+            .CharacterModel.name;
         botSpawnEventData.gameEventPlayers
             .ToList()
             .FindAll((player) => !botSpawnEventData.gamePlayers.Any((p) => p.Id == player.Id))
@@ -270,9 +273,7 @@ public class CustomLevelManager : LevelManager
                     var spawnPosition = Utils.transformBackendPositionToFrontendPosition(
                         player.Position
                     );
-                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(
-                        player.CharacterName
-                    );
+                    CustomCharacter botCharacter = SpawnBot.Instance.GetCharacterByName(myModel);
                     var botId = player.Id.ToString();
                     botCharacter.PlayerID = "";
 
