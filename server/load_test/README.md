@@ -10,17 +10,22 @@ iex -S mix
 Inside the Elixir shell
 
 ```
-LoadTest.PlayerSupervisor.spawn_50_sessions()
+LoadTest.PlayerSupervisor.spawn_players(50)
 ```
 
-to create 50 games with 3 players sending random commands every 30 ms.
+to create 50 players that will connect to the server and wait to be assigned a
+game and then wait for it to start. Once it starts they send random commands
+every 30 ms. They still receive updates form the server but those are just
+ignored.
 
-If you plan on creating more than 50 sessions, first increase the file descriptor limit of your shell by doing
+If you plan on creating more than 150 players, first increase the file descriptor limit of your shell by doing
 
 ```bash
 ulimit -n 65535
 before running iex -S mix
 ```
+
+## Analyzing results
 
 If you want to see a request tracking report for every player of every game after a load test, you can run the helper function `DarkWorldsServer.Engine.RequestTracker.report/1` *on the server*. Running
 
@@ -77,3 +82,9 @@ Details per game
        player 2, total msg: 1910
        player 3, total msg: 1910
 ```
+
+Some metrics are also reported to newrelic. Currently %CPU, %RAM are recorded.
+We also sent custom metrics which you can find on newrelic by the name
+`Custom/CurrentGamesCount`, `Custom/CurrentMessagesCount` and
+`Custom/CurrentPlayersCount`. So see how these are calculated or add new custom
+metrics, check `DarkWorldsServer.Metrics.CustomMetricsGenerator`.
