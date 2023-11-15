@@ -89,7 +89,17 @@ public class DeathSplashManager : MonoBehaviour
             SocketConnectionManager.Instance.playerId
         );
 
-        return isWinner ? WINNER_POS : Utils.GetAlivePlayers().Count() + 1;
+        // FIXME This is a temporal for the cases where the winner dies simultaneously
+        // FIXME with other/s player/s
+        if (isWinner)
+        {
+            return WINNER_POS;
+        }
+        if (Utils.GetAlivePlayers().Count() == 0)
+        {
+            return 2;
+        }
+        return Utils.GetAlivePlayers().Count() + 1;
     }
 
     void ShowMessage()
