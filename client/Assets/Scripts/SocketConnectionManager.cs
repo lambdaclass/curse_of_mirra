@@ -167,6 +167,8 @@ public class SocketConnectionManager : MonoBehaviour
         try
         {
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+            Debug.Log("EVENT ARRIVED: " + gameEvent.Type);
+
             switch (gameEvent.Type)
             {
                 case GameEventType.StateUpdate:

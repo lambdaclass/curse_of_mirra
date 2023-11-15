@@ -122,10 +122,11 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def handle_info({:game_state, game_state}, state) do
-    players =
-      game_state.players
-      |> Enum.map(&Map.take(&1, [:id, :health, :position]))
-      |> Enum.sort_by(& &1.health, :desc)
+    # players =
+    #   game_state.players
+    #   |> Enum.map(&Map.take(&1, [:id, :health, :position]))
+    #   |> Enum.sort_by(& &1.health, :desc)
+    players = []
 
     bots =
       Enum.reduce(players, state.bots, fn player, acc_bots ->
