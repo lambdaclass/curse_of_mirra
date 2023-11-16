@@ -25,11 +25,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # Number to substract to the playable radio
   @radius_sub_to_escape 500
 
+  # This is the amount of time between bots messages
+  @game_tick_rate_ms 30
+
   #######
   # API #
   #######
-  def start_link(game_pid, tick_rate) do
-    GenServer.start_link(__MODULE__, {game_pid, tick_rate})
+  def start_link(game_pid, _args) do
+    GenServer.start_link(__MODULE__, {game_pid, @game_tick_rate_ms})
   end
 
   def add_bot(bot_pid, bot_id) do
