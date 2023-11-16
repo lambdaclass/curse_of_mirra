@@ -216,7 +216,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def handle_info( {:spawn_bots, bot_count}, state) when bot_count > 0 do
-    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), _)
+    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), %{})
 
     {game_state, bots_ids} = Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn (_, {acc_game_state, bots}) ->
       character = Enum.random(["h4ck", "muflus"])
