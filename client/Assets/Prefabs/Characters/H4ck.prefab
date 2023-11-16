@@ -848,7 +848,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: faf775423972341529c34bf8fd2cb992,
         type: 3}
       propertyPath: m_Name
-      value: H4ck_v2
+      value: H4ck
       objectReference: {fileID: 0}
     - target: {fileID: 7130830382094696963, guid: faf775423972341529c34bf8fd2cb992,
         type: 3}
