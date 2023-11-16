@@ -21,7 +21,6 @@ public class ClientPrediction
     public void simulatePlayerState(Player player, long timestamp)
     {
         removeServerAcknowledgedInputs(player, timestamp);
-        Debug.Log("pendingPlayerInputs.Count: " + pendingPlayerInputs.Count);
         simulatePlayerMovement(player);
     }
 
