@@ -7,18 +7,28 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
 {
     [SerializeField]
     bool isBackButton;
-    float duration = 0.25f;
+    float duration = 0.2f;
+    Vector3 initialScale;
+
+    void Start()
+    {
+        initialScale = transform.localScale;
+    }
 
     public override void OnPointerDown(PointerEventData data)
     {
         base.OnPointerDown(data);
         if (isBackButton)
         {
-            transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), duration).SetEase(Ease.OutQuad);
+            transform
+                .DOScale(initialScale - new Vector3(0.1f, 0.1f, 0.1f), duration)
+                .SetEase(Ease.OutQuad);
         }
         else
         {
-            transform.DOScale(new Vector3(0.965f, 0.965f, 0.965f), duration).SetEase(Ease.OutQuad);
+            transform
+                .DOScale(initialScale - new Vector3(0.05f, 0.05f, 0.05f), duration)
+                .SetEase(Ease.OutQuad);
         }
     }
 
@@ -31,7 +41,7 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         }
         else
         {
-            transform.DOScale(new Vector3(1f, 1f, 1f), duration);
+            transform.DOScale(initialScale, duration);
         }
     }
 }
