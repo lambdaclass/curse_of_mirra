@@ -75,7 +75,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
     Process.send_after(self(), :start_game_tick, @game_tick_start)
-    Process.send_after(self(), :start_game_tick, @game_tick_start)
+
     send(self(), {:spawn_bots, bot_count})
 
     state = %{
