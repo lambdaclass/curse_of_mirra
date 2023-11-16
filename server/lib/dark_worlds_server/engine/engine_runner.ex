@@ -215,15 +215,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:stop, {:shutdown, :game_timeout}, state}
   end
 
-  def handle_info( {:spawn_bots, bot_count}, state) when bot_count > 0 do
+  def handle_info({:spawn_bots, bot_count}, state) when bot_count > 0 do
     {:ok, bot_handler_pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
 
-    {game_state, bots_ids} = Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn (_, {acc_game_state, bots}) ->
-      character = Enum.random(["h4ck", "muflus"])
-      {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
+    {game_state, bots_ids} =
+      Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn _, {acc_game_state, bots} ->
+        character = Enum.random(["h4ck", "muflus"])
+        {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
 
-      {new_game_state, [player_id | bots]}
-    end)
+        {new_game_state, [player_id | bots]}
+      end)
 
     Process.send_after(self(), {:activate_bots, bots_ids}, 10_000)
 
@@ -235,7 +236,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def handle_info({:activate_bots, bots_ids}, state) do
-    Enum.each(bots_ids, fn (player_id) -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
+    Enum.each(bots_ids, fn player_id -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
     {:noreply, state}
   end
 
@@ -421,28 +422,18 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_killfeed_to_myrra_killfeed([
          {{:player, killer_id}, killed_id} | tail
        ]) do
-
-        [%{killed_by: killer_id, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
-        |> IO.inspect(label: "player")
+    [%{killed_by: killer_id, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
   end
 
   defp transform_killfeed_to_myrra_killfeed([
          {:zone, killed_id} | tail
        ]) do
-
     [%{killed_by: 9999, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
-    |> IO.inspect(label: "zone")
   end
 
   defp transform_killfeed_to_myrra_killfeed([
          {:loot, killed_id} | tail
        ]) do
-
     [%{killed_by: 1111, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
-    |> IO.inspect(label: "loot")
-  end
-
-  defp transform_killfeed_to_myrra_killfeed(other) do
-    IO.inspect(other, label: "other")
   end
 end

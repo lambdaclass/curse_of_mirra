@@ -79,6 +79,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
   # Internal helpers #
   ####################
   defp start_game(), do: start_game(0)
+
   defp start_game(bot_count) do
     {:ok, game_pid} = Engine.start_child(bot_count)
     {:ok, engine_config} = Engine.EngineRunner.get_config(game_pid)
