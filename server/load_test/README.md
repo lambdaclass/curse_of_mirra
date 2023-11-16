@@ -1,5 +1,10 @@
 # LoadTest
 
+This directory contains the code we use to load test our backend architechture. The organization is as follows:
+
+- This README will contain an explanation on how to run the load tests
+- On `reports/` we'll keep track record of the times we run load tests. The methodology, results and actions taken based on it.
+
 ```bash
 cd server/load_test
 mix deps.get
