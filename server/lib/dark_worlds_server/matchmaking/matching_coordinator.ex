@@ -1,6 +1,7 @@
 defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
   alias DarkWorldsServer.Engine
   use GenServer
+  require Logger
 
   ## Amount of players needed to start a game
   @session_player_amount 10
@@ -65,6 +66,7 @@ defmodule DarkWorldsServer.Matchmaking.MatchingCoordinator do
 
   def handle_info(:check_capacity, %{players: players} = state) when length(players) >= @session_player_amount do
     {:ok, game_pid, engine_config} = start_game()
+    Logger.info("STARTING GAME WITH #{length(players)} PLAYERS")
     players = consume_and_notify_players(state.players, game_pid, engine_config, @session_player_amount)
     new_session_ref = make_ref()
     Process.send_after(self(), {:check_timeout, new_session_ref}, @start_game_timeout_ms)
