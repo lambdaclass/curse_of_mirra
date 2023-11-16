@@ -252,6 +252,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # Internal helpers #
   ####################
   defp broadcast_game_state(topic, game_state) do
+          IO.inspect(game_state)
+
     Phoenix.PubSub.broadcast(
       DarkWorldsServer.PubSub,
       topic,

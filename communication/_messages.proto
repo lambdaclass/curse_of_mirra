@@ -455,9 +455,6 @@ message GameStateConfig {
     uint64 height = 2;
     MapModification map_modification = 3;
     uint64 loot_interval_ms = 4;
-    uint64 zone_starting_radius = 5;
-    repeated MapModification zone_modifications = 6;
-    repeated GameLoot loots = 7;
 }
 
 /* The information for when the map modification mechanic is triggered.
@@ -469,28 +466,24 @@ message GameStateConfig {
     - inside_radius_effects: Effects given when a player is inside the playable area.
 */
 message MapModification {
-    map<string, float> modification = 1;
+    Modification modification = 1;
     uint64 starting_radius = 2;
-    uint64 min_radius = 3;
+    uint64 minimum_radius = 3;
     uint64 max_radius = 4;
     repeated GameEffect outside_radius_effects = 5;
     repeated GameEffect inside_radius_effects = 6;
-    float duration_ms = 7;
-    float interval_ms = 8;
 }
 
 /* Defines how to modify the playable area radius.
-    - modifier: Determines how `value` interacts with the current value of the attribute, it can be one of:
-        - additive: Given value is added to current value
-        - multiplicative: Given value is multiplied to current value
-        - override: Given value is set as the attribute value
-    - attribute: The attribute to modify.
+    - modifier: Determines how `value` interacts with the current value of the attribute, it can be one of
+    - additive: Given value is added to current value
+    - multiplicative: Given value is multiplied to current value
+    - override: Given value is set as the attribute value
     - value: The value we are using for the changemessage Modification
 */
-message Attribute {
+message Modification {
     ModifierType modifier = 1;
-    string attribute = 2;
-    float value = 3;
+    float value = 2;
 }
 
 /*
@@ -602,13 +595,10 @@ message Mechanic {
 */
 message GameEffect {
   string name = 1;
-  bool is_reversable = 2;
-  repeated Attribute player_attributes = 3;
-  repeated Attribute projectile_attributes = 4;
-  oneof effect_time_type {
-    string simple_type = 5;
-    Duration duration_type = 6;
-    Periodic periodic_type = 7;
+  oneof effect_type {
+    string simple_type = 2;
+    Duration duration_type = 3;
+    Periodic periodic_type = 4;
   }
 
   message Duration {
@@ -618,12 +608,12 @@ message GameEffect {
 
   message Periodic {
     string type = 1;
-    bool instant_application = 2;
+    string instant_application = 2;
     uint64 interval_ms = 3;
     uint64 trigger_count = 4;
-    float time_since_last_trigger = 5;
   }
 }
+
 
 /*
 Represents a move action

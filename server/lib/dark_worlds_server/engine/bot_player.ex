@@ -169,6 +169,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
          %{game_state: game_state},
          %{loots_by_distance: loots_by_distance}
        ) do
+            IO.inspect(game_state.playable_radius, label: "bot_player.decide_action() chase_loot")
+
     closest_loot = List.first(loots_by_distance)
 
     angle = closest_loot.angle_direction_to_entity
@@ -191,6 +193,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
          %{game_state: game_state},
          %{enemies_by_distance: enemies_by_distance}
        ) do
+        IO.inspect(game_state.playable_radius, label: "bot_player.decide_action() chase_enemy")
     bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
 
     closest_enemy = List.first(enemies_by_distance)
@@ -286,6 +289,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         enemies_by_distance: enemies_by_distance,
         loots_by_distance: loots_by_distance
       }) do
+        IO.inspect(game_state.playable_radius, label: "bot_player.decide_objective()")
     bot = Enum.find(game_state.players, fn player -> player.id == bot_id end)
 
     closests_entities = [List.first(enemies_by_distance), List.first(loots_by_distance)]
@@ -404,6 +408,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
         %{position: bot_position},
         game_state
       ) do
+        IO.inspect(game_state.playable_radius, label: "bot_player.put_wandering_position()")
     bot_visibility_radius = @visibility_max_range_cells * 2
 
     # We need to pick and X and Y wich are in a safe zone close to the bot that's also inside of the board
@@ -460,6 +465,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp position_out_of_radius?(position, center, playable_radius) do
+    IO.inspect(playable_radius, label: "bot_player.position_out_of_radius?()")
     distance =
       (:math.pow(position.x - center.x, 2) + :math.pow(position.y - center.y, 2))
       |> :math.sqrt()
