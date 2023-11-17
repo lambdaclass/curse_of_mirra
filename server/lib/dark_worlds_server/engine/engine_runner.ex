@@ -426,15 +426,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #      ]),
   #      do: [%{killed_by: killer_id, killed: killed_id} | tail]
 
-  defp transform_killfeed_to_myrra_killfeed([
-         {{:zone, _}, killed_id} | tail
-       ]) do
-    [%{killed_by: 9999, killed: killed_id} | tail]
-  end
+  # defp transform_killfeed_to_myrra_killfeed([
+  #        {{:zone, _}, killed_id} | tail
+  #      ]) do
+  #   [%{killed_by: 9999, killed: killed_id} | tail]
+  # end
 
-  defp transform_killfeed_to_myrra_killfeed([
-         {{:loot, _}, killed_id} | tail
-       ]) do
-    [%{killed_by: 1111, killed: killed_id} | tail]
-  end
+  # defp transform_killfeed_to_myrra_killfeed([
+  #        {{:loot, _}, killed_id} | tail
+  #      ]) do
+  #   [%{killed_by: 1111, killed: killed_id} | tail]
+  # end
 end
