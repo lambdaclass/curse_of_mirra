@@ -23,6 +23,9 @@ public class BattleTests
         yield return TestingUtils.ForceClick("LocalHost");
         yield return new WaitForSeconds(.1f);
 
+        yield return TestingUtils.ForceClick("Ok");
+        yield return TestingUtils.ForceClick("No");
+
         yield return TestingUtils.ForceClick("NewLobbyButton");
         yield return new WaitForSeconds(1f);
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Lobby"));
@@ -51,10 +54,10 @@ public class BattleTests
         GameObject player = Utils.GetPlayer(1);
         Vector3 initialPlayerPosition = player.transform.position;
 
-        GameObject movementJoystick = GameObject.Find("JoystickKnob");
-        movementJoystick.GetComponent<LeftMMTouchJoystick>().RawValue = new Vector2(1, 1);
+        LeftMMTouchJoystick movementJoystick = GameObject.Find("JoystickKnob").GetComponent<LeftMMTouchJoystick>();
+        movementJoystick.RawValue = new Vector2(1, 1);
         yield return new WaitForSeconds(.5f);
-        movementJoystick.GetComponent<LeftMMTouchJoystick>().RawValue = new Vector2(0, 0);
+        movementJoystick.RawValue = new Vector2(0, 0);
 
         Vector3 currentPlayerPosition = player.transform.position;
 
