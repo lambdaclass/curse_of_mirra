@@ -1,7 +1,7 @@
 defmodule LoadTest.Communication.Proto.GameEventType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:STATE_UPDATE, 0)
   field(:PING_UPDATE, 1)
@@ -15,7 +15,7 @@ end
 defmodule LoadTest.Communication.Proto.Status do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:ALIVE, 0)
   field(:DEAD, 1)
@@ -24,7 +24,7 @@ end
 defmodule LoadTest.Communication.Proto.Action do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:ACTION_UNSPECIFIED, 0)
   field(:ATTACK, 1)
@@ -46,7 +46,7 @@ end
 defmodule LoadTest.Communication.Proto.Direction do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:DIRECTION_UNSPECIFIED, 0)
   field(:UP, 1)
@@ -58,7 +58,7 @@ end
 defmodule LoadTest.Communication.Proto.PlayerAction do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:NOTHING, 0)
   field(:ATTACKING, 1)
@@ -77,7 +77,7 @@ end
 defmodule LoadTest.Communication.Proto.PlayerEffect do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:PETRIFIED, 0)
   field(:DISARMED, 1)
@@ -103,7 +103,7 @@ end
 defmodule LoadTest.Communication.Proto.LobbyEventType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:TYPE_UNSPECIFIED, 0)
   field(:CONNECTED, 1)
@@ -117,7 +117,7 @@ end
 defmodule LoadTest.Communication.Proto.ProjectileType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:BULLET, 0)
   field(:DISARMING_BULLET, 1)
@@ -126,7 +126,7 @@ end
 defmodule LoadTest.Communication.Proto.ProjectileStatus do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:ACTIVE, 0)
   field(:EXPLODED, 1)
@@ -135,7 +135,7 @@ end
 defmodule LoadTest.Communication.Proto.LootType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:LOOT_TYPE_UNSPECIFIED, 0)
   field(:LOOT_HEALTH, 1)
@@ -144,7 +144,7 @@ end
 defmodule LoadTest.Communication.Proto.ModifierType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:MULTIPLICATIVE, 0)
   field(:ADDITIVE, 1)
@@ -153,17 +153,18 @@ end
 defmodule LoadTest.Communication.Proto.MechanicType do
   @moduledoc false
 
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:HIT, 0)
   field(:SIMPLE_SHOOT, 1)
   field(:MULTI_SHOOT, 2)
+  field(:GIVE_EFFECT, 3)
 end
 
 defmodule LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry do
   @moduledoc false
 
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:key, 1, type: :uint64)
   field(:value, 2, type: :string)
@@ -172,39 +173,40 @@ end
 defmodule LoadTest.Communication.Proto.GameEvent do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:type, 1, type: LoadTest.Communication.Proto.GameEventType, enum: true)
   field(:players, 2, repeated: true, type: LoadTest.Communication.Proto.Player)
   field(:latency, 3, type: :uint64)
   field(:projectiles, 4, repeated: true, type: LoadTest.Communication.Proto.Projectile)
   field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
-  field(:winner_player, 6, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
+  field(:player_joined_name, 6, type: :string, json_name: "playerJoinedName")
+  field(:winner_player, 7, type: LoadTest.Communication.Proto.Player, json_name: "winnerPlayer")
 
-  field(:selected_characters, 7,
+  field(:selected_characters, 8,
     repeated: true,
     type: LoadTest.Communication.Proto.GameEvent.SelectedCharactersEntry,
     json_name: "selectedCharacters",
     map: true
   )
 
-  field(:player_timestamp, 8, type: :int64, json_name: "playerTimestamp")
-  field(:server_timestamp, 9, type: :int64, json_name: "serverTimestamp")
-  field(:killfeed, 10, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
-  field(:playable_radius, 11, type: :uint64, json_name: "playableRadius")
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
+  field(:killfeed, 11, repeated: true, type: LoadTest.Communication.Proto.KillEvent)
+  field(:playable_radius, 12, type: :uint64, json_name: "playableRadius")
 
-  field(:shrinking_center, 12,
+  field(:shrinking_center, 13,
     type: LoadTest.Communication.Proto.Position,
     json_name: "shrinkingCenter"
   )
 
-  field(:loots, 13, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
+  field(:loots, 14, repeated: true, type: LoadTest.Communication.Proto.LootPackage)
 end
 
 defmodule LoadTest.Communication.Proto.PlayerCharacter do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:player_id, 1, type: :uint64, json_name: "playerId")
   field(:character_name, 2, type: :string, json_name: "characterName")
@@ -213,7 +215,7 @@ end
 defmodule LoadTest.Communication.Proto.Player.EffectsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:key, 1, type: :uint64)
   field(:value, 2, type: LoadTest.Communication.Proto.EffectInfo)
@@ -222,7 +224,7 @@ end
 defmodule LoadTest.Communication.Proto.Player do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:id, 1, type: :uint64)
   field(:health, 2, type: :sint64)
@@ -273,7 +275,7 @@ end
 defmodule LoadTest.Communication.Proto.EffectInfo do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:ends_at, 1, type: LoadTest.Communication.Proto.MillisTime, json_name: "endsAt")
   field(:caused_by, 2, type: :uint64, json_name: "causedBy")
@@ -282,7 +284,7 @@ end
 defmodule LoadTest.Communication.Proto.KillEvent do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:killed_by, 1, type: :uint64, json_name: "killedBy")
   field(:killed, 2, type: :uint64)
@@ -291,7 +293,7 @@ end
 defmodule LoadTest.Communication.Proto.Position do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:x, 1, type: :uint64)
   field(:y, 2, type: :uint64)
@@ -300,7 +302,7 @@ end
 defmodule LoadTest.Communication.Proto.RelativePosition do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:x, 1, type: :float)
   field(:y, 2, type: :float)
@@ -309,7 +311,7 @@ end
 defmodule LoadTest.Communication.Proto.ClientAction do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:action, 1, type: LoadTest.Communication.Proto.Action, enum: true)
   field(:direction, 2, type: LoadTest.Communication.Proto.Direction, enum: true)
@@ -334,7 +336,7 @@ end
 defmodule LoadTest.Communication.Proto.LobbyEvent do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:type, 1, type: LoadTest.Communication.Proto.LobbyEventType, enum: true)
   field(:lobby_id, 2, type: :string, json_name: "lobbyId")
@@ -371,7 +373,7 @@ end
 defmodule LoadTest.Communication.Proto.PlayerInformation do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:player_id, 1, type: :uint64, json_name: "playerId")
   field(:player_name, 2, type: :string, json_name: "playerName")
@@ -380,7 +382,7 @@ end
 defmodule LoadTest.Communication.Proto.RunnerConfig do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:Name, 1, type: :string)
   field(:board_width, 2, type: :uint64, json_name: "boardWidth")
@@ -398,7 +400,7 @@ end
 defmodule LoadTest.Communication.Proto.GameConfig do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:board_size, 1, type: LoadTest.Communication.Proto.BoardSize, json_name: "boardSize")
   field(:server_tickrate_ms, 2, type: :uint64, json_name: "serverTickrateMs")
@@ -408,7 +410,7 @@ end
 defmodule LoadTest.Communication.Proto.BoardSize do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:width, 1, type: :uint64)
   field(:height, 2, type: :uint64)
@@ -417,7 +419,7 @@ end
 defmodule LoadTest.Communication.Proto.CharacterConfigItem do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:Name, 1, type: :string)
   field(:Id, 2, type: :string)
@@ -436,7 +438,7 @@ end
 defmodule LoadTest.Communication.Proto.CharacterConfig do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.CharacterConfigItem)
 end
@@ -444,7 +446,7 @@ end
 defmodule LoadTest.Communication.Proto.SkillsConfig do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:Items, 1, repeated: true, type: LoadTest.Communication.Proto.SkillConfigItem)
 end
@@ -452,7 +454,7 @@ end
 defmodule LoadTest.Communication.Proto.SkillConfigItem do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:Name, 1, type: :string)
   field(:Cooldown, 2, type: :string)
@@ -476,7 +478,7 @@ end
 defmodule LoadTest.Communication.Proto.ServerGameSettings do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:runner_config, 1,
     type: LoadTest.Communication.Proto.RunnerConfig,
@@ -497,7 +499,7 @@ end
 defmodule LoadTest.Communication.Proto.Projectile do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:id, 1, type: :uint64)
   field(:position, 2, type: LoadTest.Communication.Proto.Position)
@@ -523,7 +525,7 @@ end
 defmodule LoadTest.Communication.Proto.MillisTime do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:high, 1, type: :uint64)
   field(:low, 2, type: :uint64)
@@ -532,7 +534,7 @@ end
 defmodule LoadTest.Communication.Proto.LootPackage do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:id, 1, type: :uint64)
   field(:position, 2, type: LoadTest.Communication.Proto.Position)
@@ -547,7 +549,7 @@ end
 defmodule LoadTest.Communication.Proto.Config do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:characters, 1, repeated: true, type: LoadTest.Communication.Proto.GameCharacter)
   field(:effects, 2, repeated: true, type: LoadTest.Communication.Proto.GameEffect)
@@ -560,7 +562,7 @@ end
 defmodule LoadTest.Communication.Proto.GameStateConfig do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:width, 1, type: :uint64)
   field(:height, 2, type: :uint64)
@@ -576,7 +578,7 @@ end
 defmodule LoadTest.Communication.Proto.MapModification do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:modification, 1, type: LoadTest.Communication.Proto.Modification)
   field(:starting_radius, 2, type: :uint64, json_name: "startingRadius")
@@ -599,7 +601,7 @@ end
 defmodule LoadTest.Communication.Proto.Modification do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:modifier, 1, type: LoadTest.Communication.Proto.ModifierType, enum: true)
   field(:value, 2, type: :float)
@@ -608,7 +610,7 @@ end
 defmodule LoadTest.Communication.Proto.GameLoot do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:name, 1, type: :string)
   field(:size, 2, type: :uint64)
@@ -618,7 +620,7 @@ end
 defmodule LoadTest.Communication.Proto.GameProjectile do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:name, 1, type: :string)
   field(:base_damage, 2, type: :uint64, json_name: "baseDamage")
@@ -639,7 +641,7 @@ end
 defmodule LoadTest.Communication.Proto.GameCharacter.SkillsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:key, 1, type: :string)
   field(:value, 2, type: LoadTest.Communication.Proto.GameSkill)
@@ -648,7 +650,7 @@ end
 defmodule LoadTest.Communication.Proto.GameCharacter do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:name, 1, type: :string)
   field(:active, 2, type: :bool)
@@ -666,7 +668,7 @@ end
 defmodule LoadTest.Communication.Proto.GameSkill do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:name, 1, type: :string)
   field(:cooldown_ms, 2, type: :uint64, json_name: "cooldownMs")
@@ -677,7 +679,7 @@ end
 defmodule LoadTest.Communication.Proto.Mechanic do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:name, 1, type: LoadTest.Communication.Proto.MechanicType, enum: true)
   field(:effects, 2, repeated: true, type: LoadTest.Communication.Proto.GameEffect)
@@ -700,7 +702,7 @@ end
 defmodule LoadTest.Communication.Proto.GameEffect.Duration do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:type, 1, type: :string)
   field(:duration_ms, 2, type: :uint64, json_name: "durationMs")
@@ -709,7 +711,7 @@ end
 defmodule LoadTest.Communication.Proto.GameEffect.Periodic do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:type, 1, type: :string)
   field(:instant_application, 2, type: :string, json_name: "instantApplication")
@@ -720,7 +722,7 @@ end
 defmodule LoadTest.Communication.Proto.GameEffect do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   oneof(:effect_type, 0)
 
@@ -743,7 +745,7 @@ end
 defmodule LoadTest.Communication.Proto.Move do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:angle, 1, type: :float)
 end
@@ -751,7 +753,7 @@ end
 defmodule LoadTest.Communication.Proto.UseSkill do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:skill, 1, type: :string)
   field(:angle, 2, type: :float)
@@ -760,7 +762,7 @@ end
 defmodule LoadTest.Communication.Proto.GameAction do
   @moduledoc false
 
-  use Protobuf, protoc_gen_elixir_version: "0.12.0", syntax: :proto3
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   oneof(:action_type, 0)
 

@@ -68,8 +68,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     Process.flag(:priority, priority)
 
-    {:ok, engine_config_json} =
-      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
+    {:ok, engine_config_json} = Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
 
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
 

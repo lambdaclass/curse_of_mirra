@@ -61,8 +61,11 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          true <- runner_pid in Engine.list_runners_pids(),
          # String.to_integer(player_id) should be client_id
 
-         {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
-      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id, player_name: player_name}
+         # FIXME Remove this. Testing purposes only.
+         {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, "h4ck") do
+          #  Enum.random(["h4ck", "muflus"])) do
+      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id,
+        player_name: player_name}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
