@@ -7,7 +7,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   alias DarkWorldsServer.Engine.BotPlayer
 
   # This is the amount of time between state updates in milliseconds
-  @game_tick_rate_ms 30
+  @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
   # Amount of time between loot spawn
@@ -121,7 +121,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
     {:noreply, state}
   end
@@ -141,7 +141,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
     {:noreply, state}
   end
@@ -216,7 +216,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def handle_info({:spawn_bots, bot_count}, state) when bot_count > 0 do
-    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), @game_tick_rate_ms)
+    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), %{})
 
     {game_state, bots_ids} =
       Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn _, {acc_game_state, bots} ->
