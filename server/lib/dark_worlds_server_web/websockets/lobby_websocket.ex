@@ -1,7 +1,8 @@
 defmodule DarkWorldsServerWeb.LobbyWebsocket do
   require Logger
-  alias DarkWorldsServer.Matchmaking.MatchingCoordinator
+
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Matchmaking.MatchingCoordinator
 
   @behaviour :cowboy_websocket
 

@@ -381,7 +381,11 @@ public class Battle : MonoBehaviour
                     .First()
                     .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-                    .InstanceProjectile(projectileFromSkill, angle, new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2]));
+                    .InstanceProjectile(
+                        projectileFromSkill,
+                        angle,
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
 
                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }

@@ -2,9 +2,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Engine.EngineRunner
 
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
@@ -25,11 +25,14 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   # Number to substract to the playable radio
   @radius_sub_to_escape 500
 
+  # This is the amount of time between bots messages
+  @game_tick_rate_ms 30
+
   #######
   # API #
   #######
-  def start_link(game_pid, tick_rate) do
-    GenServer.start_link(__MODULE__, {game_pid, tick_rate})
+  def start_link(game_pid, _args) do
+    GenServer.start_link(__MODULE__, {game_pid, @game_tick_rate_ms})
   end
 
   def add_bot(bot_pid, bot_id) do
@@ -372,7 +375,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
-    # FIXME: We should find a way to use the skill of the character distance
+    # TODO: We should find a way to use the skill of the character distance
     case bot.character_name do
       "H4ck" -> distance_to_entity < 1000 and Enum.random(0..100) < 40
       "Muflus" -> distance_to_entity < 450 and Enum.random(0..100) < 30
