@@ -2,7 +2,6 @@ defmodule DarkWorldsServerWeb.LobbyController do
   use DarkWorldsServerWeb, :controller
 
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Matchmaking
 
   def new(conn, _params) do
     json(conn, %{})
