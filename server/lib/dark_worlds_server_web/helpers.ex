@@ -1,7 +1,6 @@
 defmodule DarkWorldsServerWeb.Helpers do
   alias DarkWorldsServer.Communication
   alias DarkWorldsServer.Engine
-  alias DarkWorldsServer.Matchmaking
 
   def order_players_by_health(players) do
     players
@@ -16,11 +15,6 @@ defmodule DarkWorldsServerWeb.Helpers do
 
   def is_alive?(%{status: :alive}), do: true
   def is_alive?(_), do: false
-
-  def list_matchmaking_sessions() do
-    Matchmaking.fetch_sessions()
-    |> Enum.map(fn pid -> Communication.pid_to_external_id(pid) end)
-  end
 
   def list_game_sessions() do
     Engine.list_runners_pids()
