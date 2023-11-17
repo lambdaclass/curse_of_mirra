@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
@@ -26,7 +25,7 @@ public class LobbyConnection : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
-
+    public Config engineServerSettings;
     public bool gameStarted = false;
     public bool errorOngoingGame = false;
     public bool errorConnection = false;
@@ -169,10 +168,10 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetCurrentGame());
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
+        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -190,41 +189,26 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    public void Refresh()
-    {
-        this.serverIp = SelectServerIP.GetServerIp();
-        this.serverName = SelectServerIP.GetServerName();
-        PopulateLists();
-        MaybeReconnect();
-    }
-
-    public void QuickGame()
-    {
-        ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
-        StartCoroutine(WaitLobbyCreated());
-    }
-
     public IEnumerator StartGame()
     {
-        yield return GameSettings.ParseSettingsCoroutine(settings =>
-        {
-            serverSettings = settings;
-        });
-        LobbyEvent lobbyEvent = new LobbyEvent
-        {
-            Type = LobbyEventType.StartGame,
-            GameConfig = serverSettings
-        };
+        yield return new WaitForSeconds(1);
+        // {
+        //     serverSettings = settings;
+        // });
+        // LobbyEvent lobbyEvent = new LobbyEvent
+        // {
+        //     Type = LobbyEventType.StartGame,
+        //     // GameConfig = serverSettings
+        // };
 
-        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+        // serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
-        using (var stream = new MemoryStream())
-        {
-            lobbyEvent.WriteTo(stream);
-            var msg = stream.ToArray();
-            ws.Send(msg);
-        }
+        // using (var stream = new MemoryStream())
+        // {
+        //     lobbyEvent.WriteTo(stream);
+        //     var msg = stream.ToArray();
+        //     ws.Send(msg);
+        // }
     }
 
     public void Reconnect()
@@ -238,12 +222,6 @@ public class LobbyConnection : MonoBehaviour
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
         this.playersIdName = SocketConnectionManager.Instance.playersIdName;
-    }
-
-    private IEnumerator WaitLobbyCreated()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        yield return StartGame();
     }
 
     IEnumerator GetRequest(string uri)
@@ -366,8 +344,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        var player_name = PlayerPrefs.GetString("playerName");
-        string url = makeWebsocketUrl("/matchmaking/" + sessionId + "/" + player_name);
+        string url = makeWebsocketUrl("/matchmaking/?user_id=" + this.clientId);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
@@ -410,8 +387,10 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.GameStarted:
                     GameSession = lobbyEvent.GameId;
-                    serverSettings = lobbyEvent.GameConfig;
-                    serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+                    Debug.Log(lobbyEvent.GameConfig);
+                    engineServerSettings = lobbyEvent.GameConfig;
+                    // FIX THIS!!
+                    serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
                     gameStarted = true;
                     break;
@@ -433,7 +412,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
@@ -492,5 +470,13 @@ public class LobbyConnection : MonoBehaviour
             CharacterConfig = characters,
             SkillsConfig = skills,
         };
+    }
+
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
     }
 }

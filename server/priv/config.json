@@ -1,7 +1,25 @@
 {
   "effects": [
     {
+      "name": "test_effect",
+      "is_reversable": true,
+      "effect_time_type": {
+        "Duration": {
+          "duration_ms": 6000
+        }
+      },
+      "player_attributes": [
+        {
+          "attribute": "speed",
+          "modifier": "Multiplicative",
+          "value": "1.2"
+        }
+      ],
+      "projectile_attributes": []
+    },
+    {
       "name": "heal_30",
+      "is_reversable": false,
       "effect_time_type": "Instant",
       "player_attributes": [
         {
@@ -14,6 +32,7 @@
     },
     {
       "name": "h4ck_dos",
+      "is_reversable": true,
       "effect_time_type": {
         "Duration": {
           "duration_ms": 6000
@@ -33,7 +52,7 @@
           "value": "1.2"
         },
         {
-          "attribute": "player_collision",
+          "attribute": "remove_on_collision",
           "modifier": "Override",
           "value": "false"
         }
@@ -41,12 +60,38 @@
     },
     {
       "name": "damage_outside_area",
-      "effect_time_type": "Instant",
+      "is_reversable": false,
+      "effect_time_type": {
+        "Periodic": {
+          "instant_applicaiton": false,
+          "interval_ms": 1000,
+          "trigger_count": 999999
+        }
+      },
       "player_attributes": [
         {
           "attribute": "health",
           "modifier": "Additive",
           "value": "-10"
+        }
+      ],
+      "projectile_attributes": []
+    },
+    {
+      "name": "poison",
+      "is_reversable": false,
+      "effect_time_type": {
+        "Periodic": {
+          "instant_applicaiton": false,
+          "interval_ms": 1000,
+          "trigger_count": 5
+        }
+      },
+      "player_attributes": [
+        {
+          "attribute": "health",
+          "modifier": "Multiplicative",
+          "value": "0.95"
         }
       ],
       "projectile_attributes": []
@@ -62,92 +107,83 @@
   "projectiles": [
     {
       "name": "projectile_slingshot",
-      "base_damage": 10,
-      "base_speed": 120,
-      "base_size": 50,
-      "player_collision": true,
+      "base_damage": 8,
+      "base_speed": 40,
+      "base_size": 20,
+      "remove_on_collision": true,
       "on_hit_effects": [],
       "duration_ms": 999999,
       "max_distance": 999999
     },
     {
-      "name": "projectile_multishot",
-      "base_damage": 10,
-      "base_speed": 100,
-      "base_size": 50,
-      "on_hit_effects": [],
-      "duration_ms": 999999,
-      "max_distance": 999999
-    },
-    {
-      "name": "projectile_disarm",
+      "name": "projectile_poison_dart",
       "base_damage": 0,
-      "base_speed": 100,
-      "base_size": 50,
-      "on_hit_effects": [],
+      "base_speed": 60,
+      "base_size": 10,
+      "remove_on_collision": false,
+      "on_hit_effects": ["poison"],
       "duration_ms": 999999,
-      "max_distance": 999999
+      "max_distance": 500
     }
   ],
   "skills": [
     {
       "name": "slingshot",
       "cooldown_ms": 800,
-      "is_passive": false,
-      "mechanics": [
-        {
-          "SimpleShoot": {
-            "projectile": "projectile_slingshot"
-          }
-        }
-      ]
-    },
-    {
-      "name": "multishot",
-      "cooldown_ms": 4500,
+      "execution_duration_ms": 250,
       "is_passive": false,
       "mechanics": [
         {
           "MultiShoot": {
-            "projectile": "projectile_multishot",
-            "count": 5,
-            "cone_angle": 90
+            "projectile": "projectile_slingshot",
+            "count": 3,
+            "cone_angle": 40
           }
         }
       ]
     },
     {
-      "name": "disarm",
-      "cooldown_ms": 6500,
+      "name": "poison_dart",
+      "cooldown_ms": 800,
+      "execution_duration_ms": 150,
       "is_passive": false,
       "mechanics": [
         {
           "SimpleShoot": {
-            "projectile": "projectile_disarm"
+            "projectile": "projectile_poison_dart"
           }
         }
       ]
     },
     {
-      "name": "neon_crash",
-      "cooldown_ms": 5000,
+      "name": "hit",
+      "cooldown_ms": 1500,
+      "execution_duration_ms": 500,
       "is_passive": false,
       "mechanics": [
         {
-          "MoveToTarget": {
-            "duration_ms": 1000,
-            "max_range": 500
+          "Hit": {
+            "damage": 14,
+            "range": 1000,
+            "cone_angle": 120,
+            "on_hit_effects": []
           }
         }
       ]
     },
     {
-      "name": "denial_of_service",
-      "cooldown_ms": 20000,
+      "name": "circle_hit",
+      "cooldown_ms": 1500,
+      "execution_duration_ms": 800,
       "is_passive": false,
       "mechanics": [
         {
-          "GiveEffect": ["h4ck_dos"]
+          "Hit": {
+            "damage": 20,
+            "range": 500,
+            "cone_angle": 360,
+            "on_hit_effects": []
+          }
         }
       ]
     }
@@ -156,31 +192,87 @@
     {
       "name": "h4ck",
       "active": true,
-      "base_speed": 25,
+      "base_speed": 20,
       "base_size": 80,
+      "base_health": 100,
       "skills": {
         "1": "slingshot",
-        "2": "multishot",
-        "3": "disarm",
-        "4": "neon_crash",
-        "5": "denial_of_service"
+        "3": "poison_dart"
+      }
+    },
+    {
+      "name": "muflus",
+      "active": true,
+      "base_speed": 20,
+      "base_size": 100,
+      "base_health": 100,
+      "skills": {
+        "1": "hit",
+        "2": "circle_hit"
       }
     }
   ],
   "game": {
     "width": 10000,
     "height": 10000,
-    "map_modification": {
-      "modification": {
-        "modifier": "Multiplicative",
-        "value": 0.9
+    "zone_starting_radius": 14000,
+    "zone_modifications": [
+      {
+        "duration_ms": 30000,
+        "modification": {
+          "modifier": "Additive",
+          "value": 0
+        },
+        "interval_ms": 500,
+        "min_radius": 5000,
+        "max_radius": 10000,
+        "outside_radius_effects": ["damage_outside_area"]
       },
-      "starting_radius": 10000,
-      "minimum_radius": 1800,
-      "max_radius": 10000,
-      "outside_radius_effects": [],
-      "inside_radius_effects": ["damage_outside_area"]
-    },
+      {
+        "duration_ms": 20000,
+        "modification": {
+          "modifier": "Additive",
+          "value": -45
+        },
+        "interval_ms": 100,
+        "min_radius": 5000,
+        "max_radius": 10000,
+        "outside_radius_effects": ["damage_outside_area"]
+      },
+      {
+        "duration_ms": 15000,
+        "modification": {
+          "modifier": "Additive",
+          "value": -25
+        },
+        "interval_ms": 100,
+        "min_radius": 2500,
+        "max_radius": 10000,
+        "outside_radius_effects": ["damage_outside_area"]
+      },
+      {
+        "duration_ms": 15000,
+        "modification": {
+          "modifier": "Additive",
+          "value": -15
+        },
+        "interval_ms": 100,
+        "min_radius": 1000,
+        "max_radius": 10000,
+        "outside_radius_effects": ["damage_outside_area"]
+      },
+      {
+        "duration_ms": 120000,
+        "modification": {
+          "modifier": "Additive",
+          "value": -5
+        },
+        "interval_ms": 100,
+        "min_radius": 0,
+        "max_radius": 10000,
+        "outside_radius_effects": ["damage_outside_area"]
+      }
+    ],
     "loot_interval_ms": 7000
   }
 }

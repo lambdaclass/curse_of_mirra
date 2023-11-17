@@ -7,16 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
-    private const string CHARACTER_SELECTION_SCENE_NAME = "CharacterSelection";
+    private const string BATTLE_SCENE_NAME = "Battle";
     private const string LOBBY_SCENE_NAME = "Lobby";
-    private const string LOBBIES_SCENE_NAME = "Lobbies";
+    private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
-
-    [SerializeField]
-    GameObject playButton;
-
-    [SerializeField]
-    GameObject waitingText;
 
     public static string LevelSelected;
 
@@ -26,39 +20,17 @@ public class LobbyManager : LevelSelector
         gameObject.GetComponent<MMTouchButton>().DisableButton();
     }
 
-    void Start()
-    {
-        if (playButton != null && waitingText != null)
-        {
-            if (LobbyConnection.Instance.isHost)
-            {
-                playButton.SetActive(true);
-                waitingText.SetActive(false);
-            }
-            else
-            {
-                playButton.SetActive(false);
-                waitingText.SetActive(true);
-            }
-        }
-    }
-
     public void GameStart()
     {
-        StartCoroutine(CreateGame());
-        this.LevelName = CHARACTER_SELECTION_SCENE_NAME;
+        // StartCoroutine(CreateGame());
+        this.LevelName = BATTLE_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
-    }
-
-    public IEnumerator CreateGame()
-    {
-        yield return LobbyConnection.Instance.StartGame();
     }
 
     public void Back()
     {
         LobbyConnection.Instance.Init();
-        this.LevelName = LOBBIES_SCENE_NAME;
+        this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
     }
 
@@ -94,21 +66,11 @@ public class LobbyManager : LevelSelector
     {
         if (
             !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && !LobbyConnection.Instance.isHost
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
             LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene(CHARACTER_SELECTION_SCENE_NAME);
-        }
-
-        if (this.playButton)
-        {
-            if (LobbyConnection.Instance.isHost && !this.playButton.activeSelf)
-            {
-                this.playButton.SetActive(true);
-                this.waitingText.SetActive(false);
-            }
+            SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
     }
 }

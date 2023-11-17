@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4421236017967322550}
   - component: {fileID: 4421236017082313434}
   - component: {fileID: 4421236017082313433}
-  - component: {fileID: 1781753480240237338}
   m_Layer: 14
   m_Name: LevelManager
   m_TagString: Untagged
@@ -139,8 +138,6 @@ MonoBehaviour:
   SetPlayerAsFeedbackRangeCenter: 0
   quickMapPrefab: {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07,
     type: 3}
-  quickGamePrefab: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854,
-    type: 3}
   roundSplash: {fileID: 0}
   deathSplash: {fileID: 0}
   roundText: {fileID: 0}
@@ -158,18 +155,5 @@ MonoBehaviour:
   mapList:
   - {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07, type: 3}
   - {fileID: 3856665203278081415, guid: 49d35586eb6b54147a958245fc3ab7ad, type: 3}
-  spawnSfx: {fileID: 8300000, guid: abe5adaeaef2d4d04962e8031c495467, type: 3}
---- !u!114 &1781753480240237338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4421236017967322551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00444f8795c5b42e1b9128d33bd14fe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1787465996332106805, guid: 8ab0d99d24cda40dcb595686d5a6bc6e,
-    type: 3}
+  loadingScreen: {fileID: 0}
+  battleScreen: {fileID: 0}

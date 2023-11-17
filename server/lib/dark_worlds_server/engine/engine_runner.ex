@@ -2,12 +2,23 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Engine.ActionOk
+  alias DarkWorldsServer.Communication.Proto.Move
+  alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Engine.BotPlayer
 
   # This is the amount of time between state updates in milliseconds
   @game_tick_rate_ms 20
   # Amount of time between loot spawn
   @loot_spawn_rate_ms 20_000
+  # Amount of time between loot spawn
+  @game_tick_start 5_000
+  ## Time between checking that a game has ended
+  @check_game_ended_interval_ms 1_000
+  ## Time to wait between a game ended detected and shutting down this process
+  @game_ended_shutdown_wait_ms 10_000
+  ## Timeout to stop game process, this is a safeguard in case the process
+  ## does not detect a game ending and stays as a zombie
+  @game_timeout_ms 600_000
 
   #######
   # API #
@@ -16,12 +27,24 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     GenServer.start_link(__MODULE__, args)
   end
 
+  def get_config(runner_pid) do
+    GenServer.call(runner_pid, :get_config)
+  end
+
   def join(runner_pid, user_id, character_name) do
     GenServer.call(runner_pid, {:join, user_id, character_name})
   end
 
-  def play(runner_pid, user_id, action) do
-    GenServer.cast(runner_pid, {:play, user_id, action})
+  def move(runner_pid, user_id, action, timestamp) do
+    GenServer.cast(runner_pid, {:move, user_id, action, timestamp})
+  end
+
+  def basic_attack(runner_pid, user_id, action, timestamp) do
+    GenServer.cast(runner_pid, {:basic_attack, user_id, action, timestamp})
+  end
+
+  def skill(runner_pid, user_id, action) do
+    GenServer.cast(runner_pid, {:skill, user_id, action})
   end
 
   def start_game_tick(runner_pid) do
@@ -29,14 +52,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   if Mix.env() == :dev do
-    def enable() do
-      config =
-        Application.get_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
-        |> Keyword.put(:use_engine_runner, true)
-
-      Application.put_env(:dark_worlds_server, DarkWorldsServer.Engine.Runner, config)
-    end
-
     def bot_join(pid_middle_number) do
       join(:c.pid(0, pid_middle_number, 0), "bot", "h4ck")
     end
@@ -46,25 +61,40 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{engine_config_raw_json: engine_config_raw_json}) do
+  def init(%{bot_count: bot_count}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
 
     Process.flag(:priority, priority)
 
-    engine_config = LambdaGameEngine.parse_config(engine_config_raw_json)
+    {:ok, engine_config_json} =
+      Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
+
+    engine_config = LambdaGameEngine.parse_config(engine_config_json)
+
+    Process.send_after(self(), :game_timeout, @game_timeout_ms)
+    Process.send_after(self(), :start_game_tick, @game_tick_start)
+
+    send(self(), {:spawn_bots, bot_count})
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
+      game_tick: @game_tick_rate_ms,
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
-      user_to_player: %{}
+      user_to_player: %{},
+      bot_handler_pid: nil
     }
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
     {:ok, state}
+  end
+
+  @impl true
+  def handle_call(:get_config, _from, state) do
+    {:reply, {:ok, state.game_state.config}, state}
   end
 
   @impl true
@@ -75,33 +105,34 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(state, :game_state, game_state)
       |> put_in([:user_to_player, user_id], player_id)
 
-    {:reply, :ok, state}
+    {:reply, {:ok, player_id}, state}
   end
 
+  @impl true
   def handle_call(msg, from, state) do
     Logger.error("Unexpected handle_call msg", %{msg: msg, from: from})
     {:noreply, state}
   end
 
   @impl true
-  def handle_cast({:play, user_id, %ActionOk{action: :move_with_joystick, value: value, timestamp: timestamp}}, state) do
-    angle = relative_position_to_angle_degrees(value.x, value.y)
-
-    player_id = state.user_to_player[user_id]
+  def handle_cast({:move, user_id, %Move{angle: angle}, timestamp}, state) do
+    player_id = state.user_to_player[user_id] || user_id
     game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
     {:noreply, state}
   end
 
-  def handle_cast({:play, user_id, %ActionOk{action: skill_action, value: value, timestamp: timestamp}}, state) do
-    angle = relative_position_to_angle_degrees(value.x, value.y)
-
-    player_id = state.user_to_player[user_id]
-    skill_key = action_skill_to_key(skill_action)
+  @impl true
+  def handle_cast(
+        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        state
+      ) do
+    player_id = state.user_to_player[user_id] || user_id
+    skill_key = action_skill_to_key(skill)
 
     game_state =
       LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
@@ -110,16 +141,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     state =
       Map.put(state, :game_state, game_state)
-      |> put_in([:player_timestamps, player_id], timestamp)
+      |> put_in([:player_timestamps, user_id], timestamp)
 
-    {:noreply, state}
-  end
-
-  def handle_cast(:start_game_tick, state) do
-    Process.send_after(self(), :game_tick, @game_tick_rate_ms)
-    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
-
-    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
     {:noreply, state}
   end
 
@@ -129,6 +152,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   @impl true
+  def handle_info(:start_game_tick, state) do
+    Process.send_after(self(), :game_tick, @game_tick_rate_ms)
+    Process.send_after(self(), :spawn_loot, @loot_spawn_rate_ms)
+    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms * 10)
+
+    state = Map.put(state, :last_game_tick_at, System.monotonic_time(:millisecond))
+    {:noreply, state}
+  end
+
   def handle_info(:game_tick, state) do
     Process.send_after(self(), :game_tick, @game_tick_rate_ms)
 
@@ -136,7 +168,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     time_diff = now - state.last_game_tick_at
     game_state = LambdaGameEngine.game_tick(state.game_state, time_diff)
 
-    broadcast_game_state(state.broadcast_topic, Map.put(game_state, :player_timestamps, state.player_timestamps))
+    broadcast_game_state(
+      state.broadcast_topic,
+      Map.put(game_state, :player_timestamps, state.player_timestamps)
+    )
 
     {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
   end
@@ -149,6 +184,66 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, %{state | game_state: game_state}}
   end
 
+  def handle_info(:check_game_ended, state) do
+    Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
+
+    case check_game_ended(Map.values(state.game_state.players)) do
+      :ongoing ->
+        :skip
+
+      {:ended, winner} ->
+        broadcast_game_ended(
+          state.broadcast_topic,
+          winner,
+          Map.put(state.game_state, :player_timestamps, state.player_timestamps)
+        )
+
+        ## The idea of having this waiting period is in case websocket processes keep
+        ## sending messages, this way we give some time before making them crash
+        ## (sending to inexistant process will cause them to crash)
+        Process.send_after(self(), :game_ended, @game_ended_shutdown_wait_ms)
+    end
+
+    {:noreply, state}
+  end
+
+  def handle_info(:game_ended, state) do
+    {:stop, :normal, state}
+  end
+
+  def handle_info(:game_timeout, state) do
+    {:stop, {:shutdown, :game_timeout}, state}
+  end
+
+  def handle_info({:spawn_bots, bot_count}, state) when bot_count > 0 do
+    {:ok, bot_handler_pid} = BotPlayer.start_link(self(), %{})
+
+    {game_state, bots_ids} =
+      Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn _, {acc_game_state, bots} ->
+        character = Enum.random(["h4ck", "muflus"])
+        {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
+
+        {new_game_state, [player_id | bots]}
+      end)
+
+    Process.send_after(self(), {:activate_bots, bots_ids}, 10_000)
+
+    state =
+      Map.put(state, :game_state, game_state)
+      |> Map.put(:bot_handler_pid, bot_handler_pid)
+
+    {:noreply, state}
+  end
+
+  def handle_info({:activate_bots, bots_ids}, state) do
+    Enum.each(bots_ids, fn player_id -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
+    {:noreply, state}
+  end
+
+  def handle_info({:spawn_bots, _bot_count}, state) do
+    {:noreply, state}
+  end
+
   def handle_info(msg, state) do
     Logger.error("Unexpected handle_info msg", %{msg: msg})
     {:noreply, state}
@@ -158,17 +253,36 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # Internal helpers #
   ####################
   defp broadcast_game_state(topic, game_state) do
-    Phoenix.PubSub.broadcast(DarkWorldsServer.PubSub, topic, {:game_state, transform_state_to_myrra_state(game_state)})
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      topic,
+      {:game_state, transform_state_to_myrra_state(game_state)}
+    )
   end
 
-  defp relative_position_to_angle_degrees(x, y) do
-    case Nx.atan2(y, x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
-      pos_degree when pos_degree >= 0 -> pos_degree
-      neg_degree -> neg_degree + 360
+  defp broadcast_game_ended(topic, winner, game_state) do
+    myrra_winner = transform_player_to_myrra_player(winner)
+    myrra_state = transform_state_to_myrra_state(game_state)
+
+    Phoenix.PubSub.broadcast(
+      DarkWorldsServer.PubSub,
+      topic,
+      {:game_ended, myrra_winner, myrra_state}
+    )
+  end
+
+  defp check_game_ended(players) do
+    players_alive = Enum.filter(players, fn player -> player.status == :alive end)
+
+    case players_alive do
+      ^players -> :ongoing
+      [_, _ | _] -> :ongoing
+      [player] -> {:ended, player}
+      [] -> {:ended, nil}
     end
   end
 
-  defp action_skill_to_key(:basic_attack), do: "1"
+  defp action_skill_to_key("BasicAttack"), do: "1"
   defp action_skill_to_key(:skill_1), do: "2"
   defp action_skill_to_key(:skill_2), do: "3"
   defp action_skill_to_key(:skill_3), do: "4"
@@ -184,9 +298,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
         height: game_state.config.game.height
       },
       projectiles: transform_projectiles_to_myrra_projectiles(game_state.projectiles),
-      killfeed: [],
-      playable_radius: 20_000,
-      shrinking_center: %LambdaGameEngine.MyrraEngine.Position{x: 5000, y: 5000},
+      killfeed: transform_killfeed_to_myrra_killfeed(game_state.killfeed),
+      playable_radius: game_state.zone.radius,
+      shrinking_center: transform_position_to_myrra_position(game_state.zone.center),
       loots: transform_loots_to_myrra_loots(game_state.loots),
       next_killfeed: [],
       next_projectile_id: 0,
@@ -196,29 +310,28 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   defp transform_players_to_myrra_players(players) do
-    Enum.map(players, fn {_id, player} ->
-      %{
-        ## Transformed
-        __struct__: LambdaGameEngine.MyrraEngine.Player,
-        id: player.id,
-        position: transform_position_to_myrra_position(player.position),
-        status: if(player.health <= 0, do: :dead, else: :alive),
-        health: player.health,
-        body_size: player.size,
-        character_name: transform_character_name_to_myrra_character_name(player.character.name),
-        ## Placeholder values
-        kill_count: 0,
-        effects: %{},
-        death_count: 0,
-        action: transform_action_to_myrra_action(player.actions),
-        direction: %LambdaGameEngine.MyrraEngine.RelativePosition{
-          x: 0.0,
-          y: 0.0
-        },
-        aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
-      }
-      |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
-    end)
+    Enum.map(players, fn {_id, player} -> transform_player_to_myrra_player(player) end)
+  end
+
+  defp transform_player_to_myrra_player(player) do
+    %{
+      ## Transformed
+      __struct__: LambdaGameEngine.MyrraEngine.Player,
+      id: player.id,
+      position: transform_position_to_myrra_position(player.position),
+      status: if(player.health <= 0, do: :dead, else: :alive),
+      health: player.health,
+      body_size: player.size,
+      character_name: transform_character_name_to_myrra_character_name(player.character.name),
+      ## Placeholder values
+      kill_count: 0,
+      effects: %{},
+      death_count: 0,
+      action: transform_action_to_myrra_action(player.actions),
+      direction: transform_angle_to_myrra_relative_position(player.direction),
+      aoe_position: %LambdaGameEngine.MyrraEngine.Position{x: 0, y: 0}
+    }
+    |> transform_player_cooldowns_to_myrra_player_cooldowns(player)
   end
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
@@ -255,11 +368,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     end)
   end
 
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"), do: "SLINGSHOT"
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"), do: "MULTISHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
+    do: "SLINGSHOT"
+
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
+    do: "MULTISHOT"
+
   defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
   # TEST skills
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"), do: "DISARM"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
+    do: "DISARM"
 
   defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
@@ -276,7 +394,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_position_to_myrra_position(position) do
     {width, height} = Process.get(:map_size)
-    %LambdaGameEngine.MyrraEngine.Position{x: -1 * position.y + div(width, 2), y: position.x + div(height, 2)}
+
+    %LambdaGameEngine.MyrraEngine.Position{
+      x: -1 * position.y + div(width, 2),
+      y: position.x + div(height, 2)
+    }
   end
 
   defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
@@ -294,4 +416,21 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_action_to_myrra_action([:moving | _]), do: :moving
   defp transform_action_to_myrra_action([{:using_skill, "1"} | _]), do: :attacking
   defp transform_action_to_myrra_action([{:using_skill, "2"} | _]), do: :executingskill2
+
+  defp transform_killfeed_to_myrra_killfeed([]), do: []
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {{:player, killer_id}, killed_id} | tail
+       ]),
+       do: [%{killed_by: killer_id, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {:zone, killed_id} | tail
+       ]),
+       do: [%{killed_by: 9999, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
+
+  defp transform_killfeed_to_myrra_killfeed([
+         {:loot, killed_id} | tail
+       ]),
+       do: [%{killed_by: 1111, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 end
