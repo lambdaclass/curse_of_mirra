@@ -87,9 +87,3 @@ Details per game
        player 2, total msg: 1910
        player 3, total msg: 1910
 ```
-
-Some metrics are also reported to newrelic. Currently %CPU, %RAM are recorded.
-We also sent custom metrics which you can find on newrelic by the name
-`Custom/CurrentGamesCount`, `Custom/CurrentMessagesCount` and
-`Custom/CurrentPlayersCount`. So see how these are calculated or add new custom
-metrics, check `DarkWorldsServer.Metrics.CustomMetricsGenerator`.
