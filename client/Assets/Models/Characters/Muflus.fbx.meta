@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0df27fc4447d9491f9e0335ddaa32afe
+guid: 043923b73a8b145ad9a4312f99eed42c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Muffle_txt
+      name: Muflus
     second: {fileID: 2100000, guid: 83314c59849d348258b0f8074d098957, type: 2}
   materials:
     materialImportMode: 2
