@@ -76,7 +76,6 @@ defmodule DarkWorldsServer.Communication do
         server_timestamp: server_timestamp,
         loots: loots
       }) do
-        IO.inspect(playable_radius, label: "Communication.game_update()")
     %GameEvent{
       type: :STATE_UPDATE,
       players: players,

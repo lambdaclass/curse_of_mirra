@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelection.unity
     guid: c796279466b2c48518d16be8290b7f99
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/DeprecatedLobby.unity
     guid: a1e874fb97e2f4273a5c06e47683bb16
   - enabled: 1
     path: Assets/ThirdParty/TopDownEngine/ThirdParty/MoreMountains/MMTools/Tools/MMSceneLoading/LoadingScreens/LoadingScreen.unity

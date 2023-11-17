@@ -166,13 +166,14 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   ## The difference with :game_update messages is that these come from EngineRunner
   def websocket_info({:game_state, game_state}, web_socket_state) do
     IO.inspect("Paso por aca")
+    IO.inspect(game_state, label: "game_state")
     reply_map = %{
       players: game_state.players,
       projectiles: game_state.projectiles,
       killfeed: game_state.killfeed,
       player_timestamp: game_state.player_timestamps[web_socket_state.player_id],
-      playable_radius: game_state.playable_radius,
-      shrinking_center: game_state.shrinking_center,
+      playable_radius: game_state.myrra_state.playable_radius,
+      shrinking_center: game_state.myrra_state.shrinking_center,
       server_timestamp: DateTime.utc_now() |> DateTime.to_unix(:millisecond),
       loots: game_state.loots
     }
