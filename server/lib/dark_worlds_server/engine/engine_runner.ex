@@ -215,15 +215,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:stop, {:shutdown, :game_timeout}, state}
   end
 
-  def handle_info( {:spawn_bots, bot_count}, state) when bot_count > 0 do
+  def handle_info({:spawn_bots, bot_count}, state) when bot_count > 0 do
     {:ok, bot_handler_pid} = BotPlayer.start_link(self(), %{})
 
-    {game_state, bots_ids} = Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn (_, {acc_game_state, bots}) ->
-      character = Enum.random(["h4ck", "muflus"])
-      {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
+    {game_state, bots_ids} =
+      Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn _, {acc_game_state, bots} ->
+        character = Enum.random(["h4ck", "muflus"])
+        {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
 
-      {new_game_state, [player_id | bots]}
-    end)
+        {new_game_state, [player_id | bots]}
+      end)
 
     Process.send_after(self(), {:activate_bots, bots_ids}, 10_000)
 
@@ -235,7 +236,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   end
 
   def handle_info({:activate_bots, bots_ids}, state) do
-    Enum.each(bots_ids, fn (player_id) -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
+    Enum.each(bots_ids, fn player_id -> BotPlayer.add_bot(state.bot_handler_pid, player_id) end)
     {:noreply, state}
   end
 
@@ -288,10 +289,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp action_skill_to_key(:skill_4), do: "5"
 
   defp transform_state_to_myrra_state(game_state) do
-    if length(game_state.killfeed) != 0 do
-      IO.inspect(game_state.killfeed)
-    end
-
     %{
       __struct__: LambdaGameEngine.MyrraEngine.Game,
       players: transform_players_to_myrra_players(game_state.players),
@@ -339,16 +336,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   defp transform_player_cooldowns_to_myrra_player_cooldowns(myrra_player, engine_player) do
     myrra_cooldowns = %{
-      basic_skill_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
-      skill_1_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
-      skill_2_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
-      skill_3_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
-      skill_4_cooldown_left:
-        transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
+      basic_skill_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["1"]),
+      skill_1_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["2"]),
+      skill_2_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["3"]),
+      skill_3_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["4"]),
+      skill_4_cooldown_left: transform_milliseconds_to_myrra_millis_time(engine_player.cooldowns["5"])
     }
 
     Map.merge(myrra_player, myrra_cooldowns)
@@ -435,14 +427,12 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_killfeed_to_myrra_killfeed([
          {{:zone, _}, killed_id} | tail
        ]) do
-    IO.inspect("Zone kill")
     [%{killed_by: 9999, killed: killed_id} | tail]
   end
 
   defp transform_killfeed_to_myrra_killfeed([
          {{:loot, _}, killed_id} | tail
        ]) do
-    IO.inspect("Loot kill")
     [%{killed_by: 1111, killed: killed_id} | tail]
   end
 end

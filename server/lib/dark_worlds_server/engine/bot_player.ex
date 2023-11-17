@@ -2,9 +2,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   use GenServer, restart: :transient
   require Logger
   alias DarkWorldsServer.Communication
-  alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Engine.EngineRunner
 
   # This variable will decide how much time passes between bot decisions in milis
   @decide_delay_ms 500
