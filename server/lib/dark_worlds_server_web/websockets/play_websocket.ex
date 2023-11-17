@@ -3,11 +3,10 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
   Play Websocket handler that parses msgs to be send to the runner genserver
   """
   alias DarkWorldsServer.Communication
+  alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Engine
   alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.RequestTracker
-  alias DarkWorldsServer.Engine.EngineRunner
-  alias DarkWorldsServer.Communication.Proto.GameAction
 
   require Logger
 
@@ -63,8 +62,7 @@ defmodule DarkWorldsServerWeb.PlayWebSocket do
          # String.to_integer(player_id) should be client_id
 
          {:ok, player_id} <- EngineRunner.join(runner_pid, client_id, Enum.random(["h4ck", "muflus"])) do
-      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id,
-        player_name: player_name}
+      web_socket_state = %{runner_pid: runner_pid, player_id: client_id, game_id: game_id, player_name: player_name}
 
       Process.send_after(self(), :send_ping, @ping_interval_ms)
 
