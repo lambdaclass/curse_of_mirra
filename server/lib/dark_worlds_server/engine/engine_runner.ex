@@ -174,7 +174,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(game_state, :player_timestamps, state.player_timestamps)
     )
 
-    {:noreply, %{state | game_state: game_state, last_game_tick_at: now, last_standing_players: update_last_standing_players(state)}}
+    {:noreply,
+     %{
+       state
+       | game_state: game_state,
+         last_game_tick_at: now,
+         last_standing_players: update_last_standing_players(state)
+     }}
   end
 
   def handle_info(:spawn_loot, state) do
@@ -285,11 +291,17 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
-      ^players -> :ongoing
-      [_, _ | _] -> :ongoing
-      [player] -> {:ended, player}
+      ^players ->
+        :ongoing
+
+      [_, _ | _] ->
+        :ongoing
+
+      [player] ->
+        {:ended, player}
+
       [] ->
-        # FIXME we should use a tiebreaker instead of picking the 1st one in the list
+        # TODO we should use a tiebreaker instead of picking the 1st one in the list
         {:ended, hd(last_standing_players)}
     end
   end
