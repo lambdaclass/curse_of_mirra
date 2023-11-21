@@ -5,18 +5,50 @@ In this document we go over how the backend is structured. Currently, it serves 
 - It provides a matchmaking functionality, where players join lobbies with other players hoping to start a game or create their own so others can join.
 - Once a game starts, it acts as the authoritative server for it. It receives players' actions, updates the game state according to the rules of the game, then sends it back to players. We'll call this the *gameplay* functionality.
 
+Having a p2p solution is not possible due to potential cheats and due to connectivity problems between cellphones.
+The server is responsible of coordinating state between clients and banning cheaters.
+
+The architecture of the server should be as simple as possible. 
+
+- 1 process per player
+- 1 game_state process
+- N+1 processes in total with N being the number of players
+
+## Round
+1. Clients send messages to the `game_state` process
+2. Game state processes all messages in order
+3. The `tick`, which is the clock of the game, is updated and the game state process sends a small delta update to all the players with the changes that were realized during the tick.
+
+> Most of the work is done during 3 where collision is detected, powers get consumed, creates get spawned or assigned to a client, damage and death are resolved.
+4. Go to 1.
+
+## API
+We aim for the API provided to clients during a game to be as simple as possible:
+
+- move(joystick_values): Allows a player to move through the board by providing joystick values corresponding to the direction of movement.
+- basic_attack(joystick_values): Takes joystick values to determine the direction of the attack.
+- skill(skill_name, joystick_values): Accepts joystick values for skill direction along with the skill name.
+- refresh: Used to request the entire game state.
+
+Additionally, the server can communicate various messages to the clients:
+
+- game_start: Indicates the start of the game.
+- game_end: Signals the end of the game.
+- state: Represents the differences between two states.
+- game_state: Contains all the information about the game.
+- ping: Used to inquire about the server's ping.
+
 ## Matchmaking
 
 For matchmaking to work, players should be able to:
 
-- Create their own lobbies.
-- View a list of current lobbies and join any of them.
-- Send a link to other players to join their lobby.
-- Start the game once the lobby is full or they just want to start early.
+- Join an existing lobby.
+- Create a lobby if no other exists.
+- Start the game once the lobby is full.
 
 All matchmaking sessions are spawned by a `DynamicSupervisor` called `MatchingSupervisor`. When a player creates a lobby, this supervisor starts a new child `MatchingSession` process. This is the process that will both handle the logic and hold all of the state for that lobby. Right now, that's just a list of the current players in the lobby, along with the ability to add/remove players and start the game.
 
-Inside a lobby, when a player decides to start the game, the lobby process uses [Phoenix PubSub](https://hexdocs.pm/phoenix_pubsub/Phoenix.PubSub.html) to broadcast a message saying that the game has started; then it terminates. We'll go into it later, but the idea is that the *gameplay* part of the server will pick up this message and start the game from there.
+Inside a lobby, when the game starts, the lobby process uses [Phoenix PubSub](https://hexdocs.pm/phoenix_pubsub/Phoenix.PubSub.html) to broadcast a message saying that the game has started; then it terminates. We'll go into it later, but the idea is that the *gameplay* part of the server will pick up this message and start the game from there.
 
 Every lobby has a unique `ID`, which we call the `session_id` throughout the code. This id is simply the erlang `PID` of the lobby process with an encoding on top to make it human readable. This way players can pass it around to their friends to join their lobbies.
 
@@ -72,29 +104,31 @@ When a game starts, two things happen:
 Let's go over the main gameplay flow. Let's say `player_1` wants to move to the right one square. To do this, they send a `JSON` frame over the socket that looks like this:
 
 ```json
-{"action": "move", "value": "right"}
+{"action": "move_with_joystick", "value": "{angle}"}
 ```
 
 The corresponding `PlayWebSocket` process picks it up, decodes it, then sends a message to the `Runner` with the player's action like this:
 
 ```elixir
-GenServer.cast(runner_pid, {:play, player_id, action})
+GenServer.cast(runner_pid, {:move, user_id, action})
 ```
 
 The `Runner`'s appropriate handler eventually picks up this message, which in this case looks like this:
 
 ```elixir
-  def handle_cast(
-        {:play, player, %ActionOk{action: :move, value: value}},
-        %{next_state: %{game: game} = next_state} = state
-      ) do
-    game =
-      game
-      |> Game.move_player(player, value)
+  def handle_cast({:move, user_id, %ActionOk{value: value, timestamp: timestamp}}, state) do
+    angle =
+      case Nx.atan2(value.y, value.x) |> Nx.multiply(Nx.divide(180.0, Nx.Constants.pi())) |> Nx.to_number() do
+        pos_degree when pos_degree >= 0 -> pos_degree
+        neg_degree -> neg_degree + 360
+      end
 
-    next_state = Map.put(next_state, :game, game)
+    player_id = state.user_to_player[user_id]
+    game_state = LambdaGameEngine.move_player(state.game_state, player_id, angle)
 
-    state = Map.put(state, :next_state, next_state)
+    state =
+      Map.put(state, :game_state, game_state)
+      |> put_in([:player_timestamps, player_id], timestamp)
 
     {:noreply, state}
   end

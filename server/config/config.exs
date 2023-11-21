@@ -15,8 +15,8 @@ config :dark_worlds_server, DarkWorldsServer.Repo, migration_primary_key: [type:
 # Configures the endpoint
 dispatch = [
   _: [
-    {"/play/:game_id/:client_id/:player_id/:player_name", DarkWorldsServerWeb.PlayWebSocket, []},
-    {"/matchmaking/:lobby_id/:player_name", DarkWorldsServerWeb.LobbyWebsocket, []},
+    {"/play/:game_id/:client_id/:player_id", DarkWorldsServerWeb.PlayWebSocket, []},
+    {"/matchmaking", DarkWorldsServerWeb.LobbyWebsocket, []},
     {:_, Plug.Cowboy.Handler, {DarkWorldsServerWeb.Endpoint, []}}
   ]
 ]
@@ -71,9 +71,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Configures game GenServer
-config :dark_worlds_server, DarkWorldsServer.Engine.Runner,
-  process_priority: :high,
-  use_engine_runner: false
+config :dark_worlds_server, DarkWorldsServer.Engine.Runner, process_priority: :high
 
 # Configure server hash
 {hash, _} = System.cmd("git", ["rev-parse", "--short=8", "HEAD"])

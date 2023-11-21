@@ -60,6 +60,9 @@ MonoBehaviour:
   SkillRange: {fileID: 7220386294724277444}
   spawnFeedback: {fileID: 5507989738225416466}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
+  HealthBar: {fileID: 2144187193244669002}
+  sound3DManager: {fileID: 2456409585967183270, guid: 3a382f87385cf42ae8e87bc29ac80101,
+    type: 3}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669118239313068348, guid: 2dbdd743c87404d0787e7d0764d32739,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.757
       objectReference: {fileID: 0}
     - target: {fileID: 5495881793934213699, guid: 2dbdd743c87404d0787e7d0764d32739,
         type: 3}
@@ -759,16 +767,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3096859426901363567, guid: 20e098dcba25946b6b2853c408723ff3,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3096859426901363567, guid: 20e098dcba25946b6b2853c408723ff3,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -807,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2.7078
+      value: 1.7078
       objectReference: {fileID: 0}
     - target: {fileID: 3501873528741423244, guid: 20e098dcba25946b6b2853c408723ff3,
         type: 3}

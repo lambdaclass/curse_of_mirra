@@ -7,19 +7,16 @@ defmodule DarkWorldsServer.Engine do
   alias DarkWorldsServer.Engine.EngineRunner
   alias DarkWorldsServer.Engine.PlayerTracker
   alias DarkWorldsServer.Engine.RequestTracker
-  alias DarkWorldsServer.Engine.Runner
 
   def start_link(args) do
     DynamicSupervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def start_child(args) do
-    DynamicSupervisor.start_child(__MODULE__, {Runner, args})
-  end
-
-  def start_engine_runner() do
-    {:ok, engine_config_json} = Application.app_dir(:lambda_game_engine, "priv/config.json") |> File.read()
-    DynamicSupervisor.start_child(__MODULE__, {EngineRunner, %{engine_config_raw_json: engine_config_json}})
+  def start_child(bot_count) do
+    DynamicSupervisor.start_child(
+      __MODULE__,
+      {EngineRunner, %{bot_count: bot_count}}
+    )
   end
 
   @impl true
@@ -34,7 +31,7 @@ defmodule DarkWorldsServer.Engine do
     |> DynamicSupervisor.which_children()
     |> Enum.filter(fn children ->
       case children do
-        {:undefined, pid, :worker, [Runner]} when is_pid(pid) -> true
+        {:undefined, pid, :worker, [EngineRunner]} when is_pid(pid) -> true
         _ -> false
       end
     end)

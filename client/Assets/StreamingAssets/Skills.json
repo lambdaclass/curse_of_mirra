@@ -1,6 +1,7 @@
 {
   "Items": [
     {
+      "Projectile": "",
       "Name": "Bash",
       "Cooldown": "500",
       "Damage": "12",
@@ -19,6 +20,7 @@
       "Angle": "140"
     },
     {
+      "Projectile": "",
       "Name": "Barrel Roll",
       "Cooldown": "5000",
       "Damage": "19",
@@ -37,6 +39,7 @@
       "Angle": "360"
     },
     {
+      "Projectile": "",
       "Name": "Rage",
       "Cooldown": "10000",
       "Damage": "0",
@@ -55,6 +58,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Leap",
       "Cooldown": "6000",
       "Damage": "12",
@@ -73,6 +77,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Fiery Rampage",
       "Cooldown": "20000",
       "Damage": "0",
@@ -91,6 +96,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Elnars Mark",
       "Cooldown": "900",
       "Damage": "20",
@@ -109,6 +115,7 @@
       "Angle": "360"
     },
     {
+      "Projectile": "",
       "Name": "Yugens Mark",
       "Cooldown": "4500",
       "Damage": "20",
@@ -127,6 +134,7 @@
       "Angle": "45"
     },
     {
+      "Projectile": "",
       "Name": "Xandas Mark",
       "Cooldown": "9000",
       "Damage": "0",
@@ -145,6 +153,7 @@
       "Angle": "360"
     },
     {
+      "Projectile": "",
       "Name": "Shadowstep",
       "Cooldown": "500",
       "Damage": "10",
@@ -163,6 +172,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Avenge",
       "Cooldown": "40000",
       "Damage": "0",
@@ -181,6 +191,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Slingshot",
       "Cooldown": "800",
       "Damage": "9",
@@ -199,6 +210,7 @@
       "Angle": "45"
     },
     {
+      "Projectile": "",
       "Name": "Multishot",
       "Cooldown": "4500",
       "Damage": "9",
@@ -217,6 +229,7 @@
       "Angle": "45"
     },
     {
+      "Projectile": "",
       "Name": "Disarm",
       "Cooldown": "6500",
       "Damage": "0",
@@ -235,6 +248,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Neon Crash",
       "Cooldown": "5000",
       "Damage": "3",
@@ -253,6 +267,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Denial of Service",
       "Cooldown": "20000",
       "Damage": "0",
@@ -271,6 +286,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Scherzo",
       "Cooldown": "0",
       "Damage": "10",
@@ -289,6 +305,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Pizzicato",
       "Cooldown": "4000",
       "Damage": "10",
@@ -307,6 +324,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Band Recruit",
       "Cooldown": "5000",
       "Damage": "10",
@@ -325,6 +343,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Danse Macabre",
       "Cooldown": "8000",
       "Damage": "10",
@@ -343,6 +362,7 @@
       "Angle": "0"
     },
     {
+      "Projectile": "",
       "Name": "Orchestra",
       "Cooldown": "60000",
       "Damage": "10",

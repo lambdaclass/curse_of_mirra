@@ -1,24 +1,27 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
-  alias DarkWorldsServer.Communication.Proto.CharacterConfig
-  alias DarkWorldsServer.Communication.Proto.CharacterConfigItem
-  alias DarkWorldsServer.Communication.Proto.ClientAction, as: ProtoAction
-  alias DarkWorldsServer.Communication.Proto.EffectInfo
-  alias DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry
+  alias DarkWorldsServer.Communication.Proto.Config
+  alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.GameCharacter
+  alias DarkWorldsServer.Communication.Proto.GameCharactersConfig
+  alias DarkWorldsServer.Communication.Proto.GameEffect
+  alias DarkWorldsServer.Communication.Proto.GameEffectsConfig
+  alias DarkWorldsServer.Communication.Proto.GameLoot
+  alias DarkWorldsServer.Communication.Proto.GameLootsConfig
+  alias DarkWorldsServer.Communication.Proto.GameProjectile
+  alias DarkWorldsServer.Communication.Proto.GameSkill
+  alias DarkWorldsServer.Communication.Proto.GameStateConfig
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.LootPackage
-  alias DarkWorldsServer.Communication.Proto.MillisTime, as: ProtoMillisTime
+  alias DarkWorldsServer.Communication.Proto.MapModification
+  alias DarkWorldsServer.Communication.Proto.Mechanic
+  alias DarkWorldsServer.Communication.Proto.Modification
+  alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
-  alias DarkWorldsServer.Communication.Proto.Player.EffectsEntry
   alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
-  alias DarkWorldsServer.Communication.Proto.RunnerConfig
-  alias DarkWorldsServer.Communication.Proto.ServerGameSettings
-  alias DarkWorldsServer.Communication.Proto.SkillConfigItem
-  alias DarkWorldsServer.Communication.Proto.SkillsConfig
-  alias DarkWorldsServer.Communication.Proto.Status
-  alias DarkWorldsServer.Engine.ActionOk, as: EngineAction
+  alias DarkWorldsServer.Communication.Proto.UseSkill
   alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
   alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
   alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
@@ -30,95 +33,18 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   # ENCODES #
   ###########
 
-  def encode(status, Status) do
-    status
-  end
-
-  def encode(effect, EffectsEntry) do
-    effect_encode(effect)
-  end
-
-  def encode(effect_info, EffectInfo) do
-    effect_info
-  end
-
-  def encode(entry, SelectedCharactersEntry) do
-    entry
-  end
-
-  def encode(millis_time, ProtoMillisTime) do
-    millis_time
-  end
-
-  def encode(skill_config, SkillsConfig) do
-    skill_config
-  end
-
-  def encode(skill_config_item, SkillConfigItem) do
-    skill_config_item
-  end
-
-  def encode(runner_config, RunnerConfig) do
-    runner_config
-  end
-
-  def encode(character_config, CharacterConfig) do
-    character_config
-  end
-
-  def encode(character_config_item, CharacterConfigItem) do
-    character_config_item
-  end
-
-  @impl Protobuf.TransformModule
-  def encode(
-        %{
-          character_config: character_config,
-          runner_config: runner_config,
-          skills_config: skills_config
-        },
-        ServerGameSettings
-      ) do
-    %{
-      Name: name,
-      board_height: board_height,
-      board_width: board_width,
-      game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms,
-      map_shrink_wait_ms: map_shrink_wait_ms,
-      map_shrink_interval: map_shrink_interval,
-      out_of_area_damage: out_of_area_damage,
-      map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy,
-      spawn_loot_interval_ms: spawn_loot_interval_ms
-    } = runner_config
-
-    runner_config = %RunnerConfig{
-      Name: name,
-      board_height: board_height,
-      board_width: board_width,
-      game_timeout_ms: game_timeout_ms,
-      server_tickrate_ms: server_tickrate_ms,
-      map_shrink_wait_ms: map_shrink_wait_ms,
-      map_shrink_interval: map_shrink_interval,
-      out_of_area_damage: out_of_area_damage,
-      map_shrink_minimum_radius: map_shrink_minimum_radius,
-      use_proxy: use_proxy,
-      spawn_loot_interval_ms: spawn_loot_interval_ms
+  @impl true
+  def encode({name, mechanic}, Mechanic) do
+    %Mechanic{
+      name: mechanic_name_encode(name)
     }
+    |> Map.merge(mechanic)
+  end
 
-    character_config = %CharacterConfig{
-      Items: character_config[:Items]
-    }
-
-    skills_config = %SkillsConfig{
-      Items: skills_config[:Items]
-    }
-
-    %ServerGameSettings{
-      runner_config: runner_config,
-      character_config: character_config,
-      skills_config: skills_config
+  def encode({modifier, value}, Modification) do
+    %Modification{
+      value: value,
+      modifier: modifier_encode(modifier)
     }
   end
 
@@ -208,48 +134,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def encode(%EngineAction{action: :move, value: direction, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :MOVE, direction: direction_encode(direction), timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :teleport, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :attack, value: direction, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :ATTACK, direction: direction_encode(direction), timestamp: timestamp}
-  end
-
-  def encode(
-        %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_1, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_2, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_3, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp}
-  end
-
-  def encode(%EngineAction{action: :skill_4, value: position, timestamp: timestamp}, ProtoAction) do
-    %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp}
-  end
-
-  def encode(
-        %EngineAction{action: :basic_attack, value: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp}
-  end
-
   def encode({killed_by, killed}, KillEvent) do
     %KillEvent{killed_by: killed_by, killed: killed}
   end
@@ -266,9 +150,77 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
+  def encode(data, _struct) do
+    data
+  end
+
   ###########
   # DECODES #
   ###########
+
+  def decode(config, Config) do
+    config
+  end
+
+  def decode(config, GameCharactersConfig) do
+    config
+  end
+
+  def decode(config, GameEffectsConfig) do
+    config
+  end
+
+  def decode(config, GameStateConfig) do
+    config
+  end
+
+  def decode(config, MapModification) do
+    config
+  end
+
+  def decode(config, GameLootsConfig) do
+    config
+  end
+
+  def decode(config, GameProjectilesConfig) do
+    config
+  end
+
+  def decode(config, GameCharacter) do
+    config
+  end
+
+  def decode(config, GameEffect) do
+    config
+  end
+
+  def decode(config, GameLoot) do
+    config
+  end
+
+  def decode(config, GameProjectile) do
+    config
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(%GameSkill{} = config, GameSkill) do
+    config
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, GameAction) do
+    value
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, UseSkill) do
+    value
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, Move) do
+    value
+  end
 
   @impl Protobuf.TransformModule
   def decode(%ProtoPosition{} = position, ProtoPosition) do
@@ -324,13 +276,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(
-        %ProtoAction{action: :AUTO_ATTACK, target: target, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :auto_attack, value: target, timestamp: timestamp}
-  end
-
   def decode(%ProtoProjectile{} = projectile, ProtoProjectile) do
     %{
       id: id,
@@ -365,100 +310,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
-  def decode(
-        %ProtoAction{
-          action: :MOVE_WITH_JOYSTICK,
-          move_delta: %{x: x, y: y},
-          timestamp: timestamp
-        },
-        ProtoAction
-      ) do
-    %EngineAction{action: :move_with_joystick, value: %{x: x, y: y}, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :MOVE, direction: direction, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :move, value: direction_decode(direction), timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :ATTACK, direction: direction, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :attack, value: direction_decode(direction), timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :ATTACK_AOE, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :attack_aoe, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_1, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_1, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_2, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_2, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_3, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_3, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :SKILL_4, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :skill_4, value: position, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :BASIC_ATTACK, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :basic_attack, value: position, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :ADD_BOT, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :add_bot, value: nil, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{
-          action: :SELECT_CHARACTER,
-          player_character: player_character,
-          timestamp: timestamp
-        },
-        ProtoAction
-      ) do
-    %EngineAction{action: :select_character, value: player_character, timestamp: timestamp}
-  end
-
-  def decode(
-        %ProtoAction{action: :TELEPORT, position: position, timestamp: timestamp},
-        ProtoAction
-      ) do
-    %EngineAction{action: :teleport, value: position, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :ENABLE_BOTS, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :enable_bots, value: :enable_bots, timestamp: timestamp}
-  end
-
-  def decode(%ProtoAction{action: :DISABLE_BOTS, timestamp: timestamp}, ProtoAction) do
-    %EngineAction{action: :disable_bots, value: :disable_bots, timestamp: timestamp}
-  end
-
   def decode(%struct{} = msg, struct) do
     Map.from_struct(msg)
   end
@@ -466,16 +317,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###############################
   # Helpers for transformations #
   ###############################
-  defp direction_encode(:up), do: :UP
-  defp direction_encode(:down), do: :DOWN
-  defp direction_encode(:left), do: :LEFT
-  defp direction_encode(:right), do: :RIGHT
-
-  defp direction_decode(:UP), do: :up
-  defp direction_decode(:DOWN), do: :down
-  defp direction_decode(:LEFT), do: :left
-  defp direction_decode(:RIGHT), do: :right
-
   defp player_status_encode(:alive), do: :ALIVE
   defp player_status_encode(:dead), do: :DEAD
 
@@ -519,59 +360,12 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   defp projectile_status_decode(:ACTIVE), do: :active
   defp projectile_status_decode(:EXPLODED), do: :exploded
 
-  defp effect_encode({:petrified, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {0, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:disarmed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {1, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:denial_of_service, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {2, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:raged, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {3, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:neon_crashing, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {4, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:leaping, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {5, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:out_of_area, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {6, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:elnar_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {7, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:yugen_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {8, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:xanda_mark, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {9, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:xanda_mark_owner, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {10, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:poisoned, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {11, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:slowed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {12, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:fiery_rampage, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {13, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:burned, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {14, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:scherzo, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {15, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:danse_macabre, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {16, %{ends_at: ends_at, caused_by: caused_by}}
-
-  defp effect_encode({:paralyzed, %{ends_at: ends_at, caused_by: caused_by}}),
-    do: {17, %{ends_at: ends_at, caused_by: caused_by}}
-
   defp loot_type_encode({:health, _}), do: :LOOT_HEALTH
+
+  defp modifier_encode(:multiplicative), do: :MULTIPLICATIVE
+  defp modifier_encode(:additive), do: :ADDITIVE
+
+  defp mechanic_name_encode(:hit), do: :HIT
+  defp mechanic_name_encode(:simple_shoot), do: :SIMPLE_SHOOT
+  defp mechanic_name_encode(:multi_shoot), do: :MULTI_SHOOT
 end
