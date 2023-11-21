@@ -2,7 +2,7 @@
 
 Welcome to the realm of Curse of Myrra, crafted by Lambda Game Studio.
 
-Curse of Myrra is the inaugural game built on our groundbreaking [Lambda Backend Game Engine](https://github.com/lambdaclass/lambda_backend_game_engine). This open source engine, meticulously developed by Lambda Game Studio, serves as the backend,ensuring seamless and reliable gameplay.
+Curse of Myrra is the inaugural game built on our groundbreaking [Lambda Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda Game Studio, ensures seamless and reliable gameplay.
 
 Step into a universe where the destinies of heroes from four planets collide in an epic struggle for the favor of Myrra, a capricious deity known for manipulating entire societies by exploiting their deepest desires. Brace yourself for an immersive journey where every decision matters, and the pursuit of victory comes with the ever-present thrill of unpredictability.
 
@@ -29,7 +29,7 @@ Curse of Myrra is more than a game; it's an adventure into a world where strateg
 
 - Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system
 - In VSCode, download the .NET extension. Once installed, change the version to 1.26 (the option to change versions is in a dropdown next to the Uninstall button in the extension window)/
-  To check if the previous stesps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
+  To check if the previous steps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
 
 ## Setup project
 
@@ -44,7 +44,7 @@ make setup
 
 ## Setup Unity
 
-- On Unity Hub click on the add project button and select the `client` folder.
+- On Unity Hub, click on the add project button and select the `client` folder.
 - Select the correct version of the editor, by default it will show the version needed for the project but you need to select if you want to download the Intel or Silicon version.
 - Once we run Unity if you want to test the game you can select the scene on `Assets/Scenes/TitleScreen` and then running it by clicking the play button.
 
@@ -56,11 +56,11 @@ Make sure Docker is running.
 make start
 ```
 
-To test locally using the [game engine](https://github.com/lambdaclass/lambda_game_engine), temporarily edit the `mix.exs` file to point to the path to your local copy of the game engine, for example:
-`{:lambda_game_engine, path: "/Users/MyUsername/lambda/lambda_game_engine"}`
+To test locally using the [game backend](https://github.com/lambdaclass/game_backend), temporarily edit the `mix.exs` file to point to the path to your _local_ copy of the game backend, for example:
+`{:game_backend, path: "/Users/MyUsername/lambda/game_backend"}`
 
-To test using a remote server, point to the git URL and specify the desired branch:
-`{:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_game_engine", branch: "main"}`
+To test using a remote server, point to the _github URL_ instead and specify the desired branch:
+`{:gagame_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
 
 ## Useful commands
 
@@ -68,23 +68,23 @@ To test using a remote server, point to the git URL and specify the desired bran
 make tests
 ```
 
-Will run elixir and rust tests
+Will run Elixir and Rust tests
 
 ```
 make format
 ```
 
-Will format elixir and rust code.`
+Will format Elixir and Rust code.`
 
 ```
 make prepush
 ```
 
-Will format you code, runs credo check and tests.
+Will format you code, and run Credo check and tests.
 
 ## Documentation
 
-You can find our documentation [here](https://docs.curseofmyrra.com/) or run it locally.
+You can find our documentation [here](https://docs.curseofmyrra.com/) or by running it locally.
 
 For that you have to install:
 
