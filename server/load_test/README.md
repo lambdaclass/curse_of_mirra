@@ -1,5 +1,10 @@
 # LoadTest
 
+This directory contains the code we use to load test our backend architechture. The organization is as follows:
+
+- This README will contain an explanation on how to run the load tests
+- On `reports/` we'll keep track record of the times we run load tests. The methodology, results and actions taken based on it.
+
 ```bash
 cd server/load_test
 mix deps.get
@@ -82,9 +87,3 @@ Details per game
        player 2, total msg: 1910
        player 3, total msg: 1910
 ```
-
-Some metrics are also reported to newrelic. Currently %CPU, %RAM are recorded.
-We also sent custom metrics which you can find on newrelic by the name
-`Custom/CurrentGamesCount`, `Custom/CurrentMessagesCount` and
-`Custom/CurrentPlayersCount`. So see how these are calculated or add new custom
-metrics, check `DarkWorldsServer.Metrics.CustomMetricsGenerator`.

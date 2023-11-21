@@ -1,32 +1,31 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
+  alias DarkWorldsServer.Communication.Proto.Config
   alias DarkWorldsServer.Communication.Proto.GameAction
+  alias DarkWorldsServer.Communication.Proto.GameCharacter
+  alias DarkWorldsServer.Communication.Proto.GameCharactersConfig
+  alias DarkWorldsServer.Communication.Proto.GameEffect
+  alias DarkWorldsServer.Communication.Proto.GameEffectsConfig
+  alias DarkWorldsServer.Communication.Proto.GameLoot
+  alias DarkWorldsServer.Communication.Proto.GameLootsConfig
+  alias DarkWorldsServer.Communication.Proto.GameProjectile
+  alias DarkWorldsServer.Communication.Proto.GameSkill
+  alias DarkWorldsServer.Communication.Proto.GameStateConfig
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.LootPackage
+  alias DarkWorldsServer.Communication.Proto.MapModification
+  alias DarkWorldsServer.Communication.Proto.Mechanic
+  alias DarkWorldsServer.Communication.Proto.Modification
+  alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
   alias DarkWorldsServer.Communication.Proto.Position, as: ProtoPosition
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
+  alias DarkWorldsServer.Communication.Proto.UseSkill
   alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
   alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
   alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
   alias LambdaGameEngine.MyrraEngine.RelativePosition, as: EngineRelativePosition
-  alias DarkWorldsServer.Communication.Proto.Move
-  alias DarkWorldsServer.Communication.Proto.GameAction
-  alias DarkWorldsServer.Communication.Proto.UseSkill
-  alias DarkWorldsServer.Communication.Proto.Config
-  alias DarkWorldsServer.Communication.Proto.GameCharactersConfig
-  alias DarkWorldsServer.Communication.Proto.GameEffectsConfig
-  alias DarkWorldsServer.Communication.Proto.GameStateConfig
-  alias DarkWorldsServer.Communication.Proto.GameLootsConfig
-  alias DarkWorldsServer.Communication.Proto.GameProjectile
-  alias DarkWorldsServer.Communication.Proto.GameCharacter
-  alias DarkWorldsServer.Communication.Proto.GameEffect
-  alias DarkWorldsServer.Communication.Proto.GameLoot
-  alias DarkWorldsServer.Communication.Proto.GameSkill
-  alias DarkWorldsServer.Communication.Proto.MapModification
-  alias DarkWorldsServer.Communication.Proto.Modification
-  alias DarkWorldsServer.Communication.Proto.Mechanic
 
   @behaviour Protobuf.TransformModule
 

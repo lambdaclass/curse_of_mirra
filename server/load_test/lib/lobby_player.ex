@@ -12,14 +12,6 @@ defmodule LoadTest.LobbyPlayer do
   alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.PlayerSupervisor
 
-  # TODO: remove this
-  def characters_config() do
-    @config_folder
-    |> then(fn folder -> folder <> "Characters.json" end)
-    |> then(&File.read!/1)
-    |> Jason.decode!(keys: :atoms)
-  end
-
   def start_link({player_number, max_duration}) do
     player_id = "user_#{player_number}"
     ws_url = ws_url(player_id)
