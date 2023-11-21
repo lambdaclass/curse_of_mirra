@@ -2,7 +2,7 @@
 
 <img src="docs/src/images/Curse_of_Myrra_logo.png" alt="Curse of Myrra logo">
 
-Welcome to the realm of Curse of Myrra, crafted by Lambda.
+Welcome to the realm of Curse of Myrra, crafted by LambdaClass.
 
 Curse of Myrra is the inaugural game built on our groundbreaking [Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda, ensures seamless and reliable gameplay.
 
