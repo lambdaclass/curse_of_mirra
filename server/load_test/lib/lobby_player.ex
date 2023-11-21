@@ -12,7 +12,7 @@ defmodule LoadTest.LobbyPlayer do
   alias LoadTest.Communication.Proto.BoardSize
   alias LoadTest.PlayerSupervisor
 
-  def start_link({player_number, max_duration}) do
+  def start_link({player_number, max_duration_seconds}) do
     player_id = "user_#{player_number}"
     ws_url = ws_url(player_id)
 
@@ -20,7 +20,7 @@ defmodule LoadTest.LobbyPlayer do
       user_id: player_id,
       player_id: player_id,
       player_number: player_number,
-      max_duration: max_duration
+      max_duration_seconds: max_duration_seconds
     })
   end
 
@@ -33,7 +33,7 @@ defmodule LoadTest.LobbyPlayer do
         server_hash: _server_hash
       } ->
         {:ok, pid} =
-          PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration)
+          PlayerSupervisor.spawn_game_player(state.player_number, game_id, state.max_duration_seconds)
 
         Process.send(pid, :play, [])
         {:close, {1000, ""}, state}

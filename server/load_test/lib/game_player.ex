@@ -34,19 +34,20 @@ defmodule LoadTest.GamePlayer do
     |> send_command()
   end
 
-  def start_link({player_number, session_id, max_duration}) do
+  def start_link({player_number, session_id, max_duration_seconds}) do
     ws_url = ws_url(session_id, player_number)
 
     WebSockex.start_link(ws_url, __MODULE__, %{
       player_number: player_number,
       session_id: session_id,
-      max_duration: max_duration
+      max_duration_seconds: max_duration_seconds
     })
   end
 
   def handle_connect(_conn, state) do
-    unless is_nil(state.max_duration) do
-      Process.send_after(self(), :disconnect, state.max_duration, [])
+    unless is_nil(state.max_duration_seconds) do
+      max_duration_ms = state.max_duration_seconds * 1000
+      Process.send_after(self(), :disconnect, max_duration_ms, [])
     end
 
     {:ok, state}
