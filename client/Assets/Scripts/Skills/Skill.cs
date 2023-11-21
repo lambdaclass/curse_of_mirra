@@ -153,10 +153,7 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(RelativePosition relativePosition)
     {
-        // bool hasMoved = relativePosition.X != 0 || relativePosition.Y != 0;
-        if (
-            AbilityAuthorized /* && hasMoved */
-        )
+        if (AbilityAuthorized)
         {
             SendActionToBackend(relativePosition);
         }
