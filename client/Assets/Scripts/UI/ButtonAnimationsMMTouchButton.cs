@@ -7,7 +7,7 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
 {
     [Header("Back Button bool")]
     [Tooltip(
-        "If this component is applied to a back button this should be truw to avoid animation errors"
+        "If this component is applied to a back button this should be true to avoid animation errors"
     )]
     [SerializeField]
     bool isBackButton;
