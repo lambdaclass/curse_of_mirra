@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using CandyCoded.HapticFeedback;
 
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
@@ -85,6 +86,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         )
         {
             inputManager.SetCanceled(dragged);
+            HapticFeedback.MediumFeedback();
         }
         else
         {
