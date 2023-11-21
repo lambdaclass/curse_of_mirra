@@ -282,12 +282,15 @@ public class Skill : CharacterAbility
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        UseSkill useSkillAction = new UseSkill
         {
-            Action = serverSkill,
-            Position = relativePosition
+            Skill = serverSkill.ToString(),
+            Angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg
         };
-        SocketConnectionManager.Instance.SendAction(action);
+
+        GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
+        SocketConnectionManager.Instance.SendGameAction(gameAction);
     }
 
     public void EndSkillFeedback(string animationId)
