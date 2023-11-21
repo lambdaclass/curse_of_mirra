@@ -27,7 +27,10 @@ defmodule LoadTest.GamePlayer do
     angle_deg = dir_to_degrees(direction)
     timestamp = DateTime.utc_now() |> DateTime.to_unix(:millisecond)
 
-    %GameAction{action_type: {:use_skill, %{degrees: angle_deg, skill: "BasicAttack"}}, timestamp: timestamp}
+    %GameAction{
+      action_type: {:use_skill, %{degrees: angle_deg, skill: "BasicAttack"}},
+      timestamp: timestamp
+    }
     |> send_command()
   end
 
