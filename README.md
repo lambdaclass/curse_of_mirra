@@ -62,7 +62,7 @@ To test locally using the [game backend](https://github.com/lambdaclass/game_bac
 `{:game_backend, path: "/Users/MyUsername/lambda/game_backend"}`
 
 To test using a remote server, point to the _github URL_ instead and specify the desired branch:
-`{:gagame_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
+`{:game_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
 
 ## Useful commands
 
