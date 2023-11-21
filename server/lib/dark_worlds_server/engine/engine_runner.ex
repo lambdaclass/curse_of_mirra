@@ -289,10 +289,6 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp action_skill_to_key(:skill_4), do: "5"
 
   defp transform_state_to_myrra_state(game_state) do
-    if length(game_state.killfeed) != 0 do
-      IO.inspect(game_state.killfeed)
-    end
-
     %{
       __struct__: LambdaGameEngine.MyrraEngine.Game,
       players: transform_players_to_myrra_players(game_state.players),
