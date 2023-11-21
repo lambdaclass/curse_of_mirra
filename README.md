@@ -1,12 +1,14 @@
 # Curse of Myrra
 
+<img src="docs/src/images/Curse_of_Myrra_logo.png" alt="Curse of Myrra logo">
+
 Welcome to the realm of Curse of Myrra, crafted by Lambda Game Studio.
 
 Curse of Myrra is the inaugural game built on our groundbreaking [Lambda Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda Game Studio, ensures seamless and reliable gameplay.
 
 Step into a universe where the destinies of heroes from four planets collide in an epic struggle for the favor of Myrra, a capricious deity known for manipulating entire societies by exploiting their deepest desires. Brace yourself for an immersive journey where every decision matters, and the pursuit of victory comes with the ever-present thrill of unpredictability.
 
-Curse of Myrra is more than a game; it's an adventure into a world where strategy, skill, and a dash of chaos converge. Join the battle and confront the challenges that lie ahead in this captivating and dynamic gaming experience. The stage is set, and the Curse of Myrra awaits—embrace the challenge and become a legend.
+Curse of Myrra is more than a game; it's an adventure into a world where strategy, skill, and a dash of chaos converge. Join the battle and confront the challenges that lie ahead in this captivating and dynamic gaming experience. The stage is set, and the Curse of Myrra awaits—embrace the challenge and become a legend!
 
 <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Muflus.png" alt="Muflus 3D model" width=300px>
 <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Uma.jpeg" alt="Uma 3D model" width=300px>
