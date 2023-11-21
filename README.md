@@ -74,7 +74,7 @@ Will run Elixir and Rust tests
 make format
 ```
 
-Will format Elixir and Rust code.`
+Will format Elixir and Rust code.
 
 ```
 make prepush
