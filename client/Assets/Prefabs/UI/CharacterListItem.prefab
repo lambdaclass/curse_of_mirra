@@ -101,6 +101,8 @@ GameObject:
   - component: {fileID: 3824852254299653743}
   - component: {fileID: 4587373118796966721}
   - component: {fileID: 609478325760209221}
+  - component: {fileID: 703506002697159412}
+  - component: {fileID: 1840111733565828972}
   m_Layer: 5
   m_Name: CharacterListItem
   m_TagString: Untagged
@@ -193,6 +195,39 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
+  isBackButton: 0
+  initialScale: {x: 0, y: 0, z: 0}
+  finalScale: {x: 0, y: 0, z: 0}
+--- !u!114 &703506002697159412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2192738142746803912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: CharacterInfo
+  LoadingSceneMode: 0
+--- !u!114 &1840111733565828972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2192738142746803912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512397050c6e441fd8f7bee134a97d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listPosition: 0
+  isInsideCard: 0
+  isPressed: 0
+  isRealesed: 0
 --- !u!1 &2231415005938754795
 GameObject:
   m_ObjectHideFlags: 0
