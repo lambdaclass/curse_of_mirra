@@ -137,7 +137,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     game_state =
       LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
         "direction_angle" => Float.to_string(angle),
-        "auto_aim" => to_string(auto_aim),
+        "auto_aim" => to_string(auto_aim)
       })
 
     state =
