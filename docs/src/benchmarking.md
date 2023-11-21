@@ -39,7 +39,7 @@ Switch between htop and logs with Ctrl-b 1 or Ctrl-b 2.
    from the load_tests app. Run `iex -S mix` there. The function you want
    to call is `LoadTest.PlayerSupervisor.spawn_players/2`, which takes
    as an argument how many player sessions to start and optionally the amount 
-   in milliseconds until those sessions exit the game.
+   in seconds until those sessions exit the game.
 
 5. On the frontend, check for how good the user experience is! This is very important!
    If you can, try to play with someone else while the load tests run.
