@@ -5,37 +5,31 @@ using UnityEngine.EventSystems;
 
 public class ButtonAnimationsMMTouchButton : MMTouchButton
 {
+    [Header("Back Button bool")]
+    [Tooltip(
+        "If this component is applied to a back button this should be true to avoid animation errors"
+    )]
     [SerializeField]
     bool isBackButton;
-
-    [Header("Animation duration")]
-    float duration = 0.25f;
 
     [Header("Animation Scale values")]
     [Tooltip(
         "Initial scale of the object to animate. If is not specified it will use the scale values of the rectTransform"
     )]
-    [SerializeField]
-    Vector3 initialScale = Vector3.zero;
+    Vector3 initialScale;
+
+    [Header("Animation duration")]
+    float duration = 0.25f;
 
     [Tooltip(
         "Final scale of the object to animate. If is not specified it will use the initial scale minus 0.1f"
     )]
-    [SerializeField]
     Vector3 finalScale;
 
     void Start()
     {
-        if (initialScale == Vector3.zero)
-            initialScale = GetComponent<RectTransform>().localScale;
-        if (finalScale == Vector3.zero)
-        {
-            finalScale = new Vector3(
-                initialScale.x - 0.1f,
-                initialScale.y - 0.1f,
-                initialScale.z - 0.1f
-            );
-        }
+        initialScale = transform.localScale;
+        finalScale = initialScale - new Vector3(0.05f, 0.05f, 0.05f);
     }
 
     public override void OnPointerDown(PointerEventData data)
@@ -43,7 +37,9 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         base.OnPointerDown(data);
         if (isBackButton)
         {
-            transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), duration).SetEase(Ease.OutQuad);
+            transform
+                .DOScale(initialScale - new Vector3(0.1f, 0.1f, 0.1f), duration)
+                .SetEase(Ease.OutQuad);
         }
         else
         {
