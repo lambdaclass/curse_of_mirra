@@ -37,7 +37,7 @@ Host myrra_load_test_server
 
 ### Game Server Setup
 1. ssh into it: `ssh myuser@myrra_load_test_server.`
-2. Use the script under `server/load_test/setup_game_server.sh`,
+2. Use the script on this repo under `server/load_test/setup_game_server.sh`,
    this should clone the game server, compile it, and
    create a systemd service for it.
 3. Execute: `systemctl daemon-reload`,
