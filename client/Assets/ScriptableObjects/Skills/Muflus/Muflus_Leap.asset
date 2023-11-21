@@ -16,15 +16,11 @@ MonoBehaviour:
   description: Jump to a location, dealing damages and slowing enemies near area
     upon arrival.
   inputType: 1
+  skillType: 1
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
   projectilePrefab: {fileID: 0}
-  feedbackVfx: {fileID: 1325620527884586498, guid: 35639583e9c8544f7b42f01fe58f44b3,
-    type: 3}
-  feedbackVfxDuration: 1
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
   instantiateVfxOnModel: 0
   animationSpeedMultiplier: 3
   hasModelAnimation: 1
@@ -38,4 +34,15 @@ MonoBehaviour:
   arrowWidth: 0
   skillAreaRadius: 4.5
   showCooldown: 1
+  damage: 0
+  cooldown: 0
+  skillRange: 0
   skillSprite: {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
+  feedbackVfx: {fileID: 1325620527884586498, guid: 35639583e9c8544f7b42f01fe58f44b3,
+    type: 3}
+  feedbackVfxDuration: 1
+  feedbackVfxDelay: 0
+  startFeedbackVfx: {fileID: 0}
+  startFeedbackVfxDuration: 0
+  startFeedbackVfxDelay: 0
+  animationVfx: {fileID: 0}

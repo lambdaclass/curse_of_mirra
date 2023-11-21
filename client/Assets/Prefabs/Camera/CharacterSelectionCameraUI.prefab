@@ -574,6 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillBorder: {fileID: 1510671850626421525}
+  skillsDetailHandler: {fileID: 4760535875643805996}
 --- !u!1 &3031970256918495232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,6 +1973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillBorder: {fileID: 4830317438449570513}
+  skillsDetailHandler: {fileID: 4760535875643805996}
 --- !u!1 &7644384234179708966
 GameObject:
   m_ObjectHideFlags: 0
