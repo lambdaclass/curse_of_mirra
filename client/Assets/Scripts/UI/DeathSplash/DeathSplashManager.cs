@@ -52,6 +52,7 @@ public class DeathSplashManager : MonoBehaviour
     List<GameObject> characterModels;
 
     private const int WINNER_POS = 1;
+    private const int SECOND_PLACE_POS = 2;
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
     GameObject player;
@@ -97,7 +98,7 @@ public class DeathSplashManager : MonoBehaviour
         }
         if (Utils.GetAlivePlayers().Count() == 0)
         {
-            return 2;
+            return SECOND_PLACE_POS;
         }
         return Utils.GetAlivePlayers().Count() + 1;
     }
