@@ -377,7 +377,7 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
     # TODO: We should find a way to use the skill of the character distance
     case bot.character_name do
-      "H4ck" -> distance_to_entity < 1000 and Enum.random(0..100) < 40
+      "H4ck" -> distance_to_entity < 1000 and Enum.random(0..100) < 20
       "Muflus" -> distance_to_entity < 450 and Enum.random(0..100) < 30
     end
   end

@@ -108,13 +108,13 @@
   "projectiles": [
     {
       "name": "projectile_slingshot",
-      "base_damage": 8,
-      "base_speed": 40,
+      "base_damage": 7,
+      "base_speed": 60,
       "base_size": 20,
       "remove_on_collision": true,
       "on_hit_effects": [],
       "duration_ms": 999999,
-      "max_distance": 999999
+      "max_distance": 1500
     },
     {
       "name": "projectile_poison_dart",
@@ -130,7 +130,7 @@
   "skills": [
     {
       "name": "slingshot",
-      "cooldown_ms": 800,
+      "cooldown_ms": 1000,
       "execution_duration_ms": 250,
       "is_passive": false,
       "mechanics": [
@@ -158,14 +158,14 @@
     },
     {
       "name": "hit",
-      "cooldown_ms": 1500,
+      "cooldown_ms": 1000,
       "execution_duration_ms": 500,
       "is_passive": false,
       "mechanics": [
         {
           "Hit": {
-            "damage": 14,
-            "range": 1000,
+            "damage": 20,
+            "range": 675,
             "cone_angle": 120,
             "on_hit_effects": []
           }
@@ -229,7 +229,7 @@
         "interval_ms": 500,
         "min_radius": 5000,
         "max_radius": 10000,
-        "outside_radius_effects": ["damage_outside_area"]
+        "outside_radius_effects": []
       },
       {
         "duration_ms": 20000,
