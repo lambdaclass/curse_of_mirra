@@ -36,6 +36,10 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
 
+    List<Player> alivePlayers = new List<Player>();
+
+    PlayerControls playerControls;
+
     // We do this to only have the state effects in the enum instead of all the effects
     private enum StateEffects
     {
@@ -54,6 +58,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
+        playerControls = GetComponent<PlayerControls>();
     }
 
     private void InitBlockingStates()
@@ -151,16 +156,18 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        // CustomCharacter player = Utils.GetCharacter(SocketConnectionManager.Instance.playerId);
+        CustomCharacter player = Utils
+            .GetPlayer(SocketConnectionManager.Instance.playerId)
+            ?.GetComponent<CustomCharacter>();
         GameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
         Player playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
-
-        if (player)
+        print(SystemInfo.processorCount);
+        if (player.gameObject)
         {
-            CustomCharacter character = player.GetComponent<CustomCharacter>();
-            if (PlayerMovementAuthorized(character))
+            if (PlayerMovementAuthorized(player))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
@@ -168,12 +175,11 @@ public class Battle : MonoBehaviour
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
                 {
-                    GetComponent<PlayerControls>()
-                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
                 {
-                    GetComponent<PlayerControls>().SendAction();
+                    playerControls.SendAction();
                 }
             }
         }
@@ -190,25 +196,27 @@ public class Battle : MonoBehaviour
         currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
 
+        if (alivePlayers.Count != SocketConnectionManager.Instance.gamePlayers.Count)
+        {
+            alivePlayers = Utils.GetAlivePlayers().ToList();
+        }
+
         if (buffer.firstTimestamp == 0)
         {
             buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
         }
 
-        for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+        for (int i = 0; i < alivePlayers.Count; i++)
         {
             if (showInterpolationGhosts)
             {
-                interpolationGhost = FindGhostPlayer(
-                    SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
-                );
+                interpolationGhost = FindGhostPlayer(alivePlayers[i].Id.ToString());
             }
 
             if (
                 useInterpolation
                 && (
-                    SocketConnectionManager.Instance.playerId
-                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    SocketConnectionManager.Instance.playerId != alivePlayers[i].Id
                     || !useClientPrediction
                 )
             )
@@ -220,80 +228,74 @@ public class Battle : MonoBehaviour
                 gameEvent = buffer.lastEvent();
             }
 
-            // There are a few frames during which this is outdated and produces an error
-            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
+            // This call to `new` here is extremely important for client prediction. If we don't make a copy,
+            // prediction will modify the player in place, which is not what we want.
+            Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+            if (
+                serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                && useClientPrediction
+            )
             {
-                // This call to `new` here is extremely important for client prediction. If we don't make a copy,
-                // prediction will modify the player in place, which is not what we want.
-                Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                // Move the ghost BEFORE client prediction kicks in, so it only moves up until
+                // the last server update.
+                if (clientPredictionGhost != null)
+                {
+                    UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                }
+                SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                    serverPlayerUpdate,
+                    gameEvent.PlayerTimestamp
+                );
+            }
+
+            if (interpolationGhost != null)
+            {
+                UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+            }
+
+            GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+            if (currentPlayer.activeSelf)
+            {
+                if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
+                {
+                    UpdatePlayer(currentPlayer, buffer.lastEvent().Players[i], pastTime);
+                }
+                else
+                {
+                    UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
+                }
+
                 if (
-                    serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
-                    && useClientPrediction
+                    !buffer.timestampAlreadySeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
+                    )
                 )
                 {
-                    // Move the ghost BEFORE client prediction kicks in, so it only moves up until
-                    // the last server update.
-                    if (clientPredictionGhost != null)
-                    {
-                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
-                    }
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                        serverPlayerUpdate,
-                        gameEvent.PlayerTimestamp
+                    executeSkillFeedback(
+                        currentPlayer,
+                        serverPlayerUpdate.Action,
+                        serverPlayerUpdate.Direction
+                    );
+                    buffer.setLastTimestampSeen(
+                        SocketConnectionManager.Instance.gamePlayers[i].Id,
+                        gameEvent.ServerTimestamp
                     );
                 }
-
-                if (interpolationGhost != null)
-                {
-                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
-                }
-
-                GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-                if (currentPlayer.activeSelf)
-                {
-                    if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-                    {
-                        UpdatePlayer(currentPlayer, buffer.lastEvent().Players[i], pastTime);
-                    }
-                    else
-                    {
-                        UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
-                    }
-
-                    if (
-                        !buffer.timestampAlreadySeen(
-                            SocketConnectionManager.Instance.gamePlayers[i].Id,
-                            gameEvent.ServerTimestamp
-                        )
-                    )
-                    {
-                        executeSkillFeedback(
-                            currentPlayer,
-                            serverPlayerUpdate.Action,
-                            serverPlayerUpdate.Direction
-                        );
-                        buffer.setLastTimestampSeen(
-                            SocketConnectionManager.Instance.gamePlayers[i].Id,
-                            gameEvent.ServerTimestamp
-                        );
-                    }
-                }
-
-                // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-
-                if (serverPlayerUpdate.Health <= 0)
-                {
-                    SetPlayerDead(playerCharacter);
-                }
-
-                Transform hitbox = currentPlayer
-                    .GetComponent<CustomCharacter>()
-                    .characterBase.Hitbox.transform;
-
-                float hitboxSize = serverPlayerUpdate.BodySize / 50f;
-                hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
+
+            // TODO: try to optimize GetComponent calls
+            CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
+
+            if (serverPlayerUpdate.Health <= 0)
+            {
+                SetPlayerDead(playerCharacter);
+            }
+
+            Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
+
+            float hitboxSize = serverPlayerUpdate.BodySize / 50f;
+            hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
         }
     }
 
