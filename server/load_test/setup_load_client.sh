@@ -1,9 +1,15 @@
+# Usage: ./setup_load_client.sh <BRANCH_NAME>
+# If no BRANCH_NAME is provided, defaults to main
+
+BRANCH_NAME="$1"
+BRANCH_NAME=${BRANCH_NAME:-"main"}
+
 export MIX_ENV=prod
 cd /tmp
 # Only clone `server/` subdirectory
-git clone https://github.com/lambdaclass/curse_of_myrra.git dark_worlds_server
-cd dark_worlds_server/
-git checkout
+git clone https://github.com/lambdaclass/curse_of_myrra.git curse_of_myrra
+cd curse_of_myrra/
+git checkout $BRANCH_NAME
 cd server/load_test
 
 mix local.hex --force && mix local.rebar --force
@@ -14,5 +20,5 @@ mix compile
 mix phx.gen.release
 mix release
 
-rm -rf /root/dark_worlds_server
-mv /tmp/dark_worlds_server /root/
+rm -rf /root/curse_of_myrra
+mv /tmp/curse_of_myrra /root/

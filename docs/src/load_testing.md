@@ -46,11 +46,17 @@ Host myrra_load_test_server
    ```sh
    chmod +x ./setup_game_server.sh && ./setup_game_server
    ```
+
+   `setup_game_server` can also take a branch name as an argument. So if you want to run the load test on an specific branch, you can instead do:
+   ```sh
+   chmod +x ./setup_game_server.sh && ./setup_game_server <BRANCH_NAME_TO_TEST>
+   ```
+
 4. Now you can start the game server with: 
 ```sh
-   systemctl daemon-reload && systemctl start dark_worlds_server
+   systemctl daemon-reload && systemctl start curse_of_myrra
 ```
-   You can check the logs with `journalctl -xefu dark_worlds_server`.
+   You can check the logs with `journalctl -xefu curse_of_myrra`.
 5. Make sure to disable hyperthreading, if using an x86 CPU:
 ```sh
 # If active, this returns 1
@@ -71,10 +77,15 @@ is to open htop, you should see the virtual cores as 'offline'.
    ```sh
    chmod +x ./setup_load_client.sh && ./setup_load_client
    ```
+
+   `setup_load_client` can also take a branch name as an argument. So if you want to run the load test client from a specific branch, you can instead do:
+   ```sh
+   chmod +x ./setup_load_client.sh && ./setup_load_client <BRANCH_NAME_TO_TEST>
+   ```
 3. Set this env variable: `export SERVER_HOST=game_server_ip:game_server_port`.
 4. Run:
    ```sh
-       ./dark_worlds_server/server/load_test/_build
+       ./curse_of_myrra/server/load_test/_build
    ``` 
    this drops you into an Elixir shell from which you'll run the load tests.
 5. From the elixir shell, you can run: `LoadTest.PlayerSupervisor.spawn_players(NUMBER_OF_USERS, PLAY_TIME)` 
