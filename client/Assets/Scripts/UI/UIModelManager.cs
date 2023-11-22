@@ -11,6 +11,8 @@ public class UIModelManager : MonoBehaviour
     [SerializeField]
     List<GameObject> playerModels;
 
+    string TEMPORARY_AVAIBLE_CHARACTER = "Muflus Variant";
+
     public void SetModel(CoMCharacter character = null)
     {
         int index = Random.Range(0, playerModels.Count);
@@ -18,7 +20,9 @@ public class UIModelManager : MonoBehaviour
         GameObject playerModel =
             character != null
                 ? character.UIModel
-                : playerModels.Single(playerModel => playerModel.name == name);
+                : playerModels.Single(
+                    playerModel => playerModel.name == TEMPORARY_AVAIBLE_CHARACTER
+                );
         GameObject modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
