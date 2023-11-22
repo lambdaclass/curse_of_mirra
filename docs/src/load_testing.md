@@ -36,14 +36,21 @@ Host myrra_load_test_server
 ```
 
 ### Game Server Setup
-1. ssh into it: `ssh myuser@myrra_load_test_server.`
-2. Use the script on this repo under `server/load_test/setup_game_server.sh`,
-   this should clone the game server, compile it, and
-   create a systemd service for it.
-3. Execute: `systemctl daemon-reload`,
-   so systemd can register the new daemon.
-4. Now you can start the game server with: `systemctl start dark_worlds_server`,
-   you can check the logs with `journalctl -xefu dark_worlds_server`.
+1. Log into it with ssh: 
+   ```sh
+   ssh myuser@myrra_load_test_server
+   ```
+2. If it's not already there, copy the script on this repo under
+   `server/load_test/setup_game_server.sh` it clones the game server, compiles it, and creates a
+   systemd service for it, run it with:
+   ```sh
+   chmod +x ./setup_game_server.sh && ./setup_game_server
+   ```
+4. Now you can start the game server with: 
+```sh
+   systemctl daemon-reload && systemctl start dark_worlds_server
+```
+   You can check the logs with `journalctl -xefu dark_worlds_server`.
 5. Make sure to disable hyperthreading, if using an x86 CPU:
 ```sh
 # If active, this returns 1
@@ -55,10 +62,19 @@ One way of checking this, besides the command above,
 is to open htop, you should see the virtual cores as 'offline'.
 
 ### Load Test Client setup
-1. ssh into it: `ssh myuser@myrra_load_test_client.`
-2. Use the script under `server/load_test/setup_load_client.sh`,
-   this will clone the game on `./dark_worlds_server`.
+1. Log into it with ssh: 
+   ```sh
+   ssh myuser@myrra_load_test_client
+   ```
+2. If not already there, copy this repo's script under `server/load_test/setup_load_client.sh`
+   and run it:
+   ```sh
+   chmod +x ./setup_load_client.sh && ./setup_load_client
+   ```
 3. Set this env variable: `export SERVER_HOST=game_server_ip:game_server_port`.
-4. Run: `./dark_worlds_server/server/load_test/_build`, this drops you
-   into an Elixir shell from which you'll run the load tests.
+4. Run:
+   ```sh
+       ./dark_worlds_server/server/load_test/_build
+   ``` 
+   this drops you into an Elixir shell from which you'll run the load tests.
 5. From the elixir shell, you can run: `LoadTest.PlayerSupervisor.spawn_players(NUMBER_OF_USERS, PLAY_TIME)` 
