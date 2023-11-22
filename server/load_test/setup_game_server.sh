@@ -7,8 +7,8 @@ BRANCH_NAME=${BRANCH_NAME:-"main"}
 export MIX_ENV=prod
 cd /tmp
 # # Clone and compile the game.
-git clone https://github.com/lambdaclass/curse_of_myrra.git curse_of_myrra
-cd curse_of_myrra/
+git clone https://github.com/lambdaclass/curse_of_myrra.git dark_worlds_server
+cd dark_worlds_server
 git sparse-checkout set --no-cone server
 git checkout $BRANCH_NAME
 cd server/
@@ -21,8 +21,8 @@ mix compile
 mix phx.gen.release
 mix release --overwrite
 
-rm -rf $USER/curse_of_myrra
-mv /tmp/curse_of_myrra $HOME/
+rm -rf $USER/dark_worlds_server
+mv /tmp/dark_worlds_server $HOME/dark_worlds_server
 
 # Create a service for the gmae.
 cat <<EOF > /etc/systemd/system/curse_of_myrra.service
@@ -33,12 +33,13 @@ After=network-online.target
 
 [Service]
 User=root
-WorkingDirectory=$HOME/curse_of_myrra/server
+WorkingDirectory=$HOME/dark_worlds_server/server
 Restart=on-failure
-ExecStart=$HOME/curse_of_myrra/server/entrypoint.sh
+ExecStart=$HOME/dark_worlds_server/server/entrypoint.sh
 ExecReload=/bin/kill -HUP
 KillSignal=SIGTERM
 EnvironmentFile=/root/.env
+LimitNOFILE=65512
 
 [Install]
 WantedBy=multi-user.target
