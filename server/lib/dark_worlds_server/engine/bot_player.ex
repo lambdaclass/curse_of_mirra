@@ -372,7 +372,9 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
       }
     end)
     |> Enum.sort_by(fn distances -> distances.distance_to_entity end, :asc)
-    |> Enum.filter(fn distances -> distances.distance_to_entity <= @visibility_max_range_cells end)
+    |> Enum.filter(fn distances ->
+      distances.distance_to_entity <= @visibility_max_range_cells
+    end)
   end
 
   defp skill_would_hit?(bot, %{distance_to_entity: distance_to_entity}) do
@@ -384,7 +386,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
   end
 
   def maybe_put_wandering_position(
-        %{objective: :wander, current_wandering_position: current_wandering_position} = bot_state,
+        %{objective: :wander, current_wandering_position: current_wandering_position} =
+          bot_state,
         bot,
         game_state
       ) do
@@ -446,7 +449,8 @@ defmodule DarkWorldsServer.Engine.BotPlayer do
     Map.merge(bot_state, %{current_wandering_position: wandering_position, objective: :wander})
   end
 
-  defp set_correct_wander_state(nil, bot_state), do: Map.put(bot_state, :action, {:nothing, nil})
+  defp set_correct_wander_state(nil, bot_state),
+    do: Map.put(bot_state, :action, {:nothing, nil})
 
   defp set_correct_wander_state(
          bot,

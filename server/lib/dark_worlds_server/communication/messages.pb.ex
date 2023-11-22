@@ -1,3 +1,17 @@
+defmodule DarkWorldsServer.Communication.Proto.GameEventType do
+  @moduledoc false
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field(:STATE_UPDATE, 0)
+  field(:PING_UPDATE, 1)
+  field(:PLAYER_JOINED, 2)
+  field(:GAME_FINISHED, 3)
+  field(:INITIAL_POSITIONS, 4)
+  field(:SELECTED_CHARACTER_UPDATE, 5)
+  field(:FINISH_CHARACTER_SELECTION, 6)
+end
+
 defmodule DarkWorldsServer.Communication.Proto.Status do
   @moduledoc false
 
@@ -144,6 +158,56 @@ defmodule DarkWorldsServer.Communication.Proto.MechanicType do
   field(:HIT, 0)
   field(:SIMPLE_SHOOT, 1)
   field(:MULTI_SHOOT, 2)
+end
+
+defmodule DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field(:key, 1, type: :uint64)
+  field(:value, 2, type: :string)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.GameEvent do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field(:type, 1, type: DarkWorldsServer.Communication.Proto.GameEventType, enum: true)
+  field(:players, 2, repeated: true, type: DarkWorldsServer.Communication.Proto.Player)
+  field(:latency, 3, type: :uint64)
+  field(:projectiles, 4, repeated: true, type: DarkWorldsServer.Communication.Proto.Projectile)
+  field(:player_joined_id, 5, type: :uint64, json_name: "playerJoinedId")
+  field(:player_joined_name, 6, type: :string, json_name: "playerJoinedName")
+
+  field(:winner_player, 7,
+    type: DarkWorldsServer.Communication.Proto.Player,
+    json_name: "winnerPlayer"
+  )
+
+  field(:selected_characters, 8,
+    repeated: true,
+    type: DarkWorldsServer.Communication.Proto.GameEvent.SelectedCharactersEntry,
+    json_name: "selectedCharacters",
+    map: true
+  )
+
+  field(:player_timestamp, 9, type: :int64, json_name: "playerTimestamp")
+  field(:server_timestamp, 10, type: :int64, json_name: "serverTimestamp")
+  field(:killfeed, 11, repeated: true, type: DarkWorldsServer.Communication.Proto.KillEvent)
+  field(:playable_radius, 12, type: :uint64, json_name: "playableRadius")
+
+  field(:shrinking_center, 13,
+    type: DarkWorldsServer.Communication.Proto.Position,
+    json_name: "shrinkingCenter"
+  )
+
+  field(:loots, 14, repeated: true, type: DarkWorldsServer.Communication.Proto.LootPackage)
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
 defmodule DarkWorldsServer.Communication.Proto.PlayerCharacter do

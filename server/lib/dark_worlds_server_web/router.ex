@@ -28,7 +28,6 @@ defmodule DarkWorldsServerWeb.Router do
     pipe_through(:browser)
 
     get "/", PageController, :home
-    get "/new_lobby", LobbyController, :new
     get "/current_lobbies", LobbyController, :current_lobbies
     get "/join_lobby", LobbyController, :join
     get "/current_games", GameController, :current_games

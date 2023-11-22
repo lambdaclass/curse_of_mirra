@@ -17,7 +17,9 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     :ok = MatchingCoordinator.join(user_id)
     ## TODO: Remove this once the old lobby screen is removed
     send(self(), {:player_added, 1, user_id, 1, [{1, user_id}]})
-    {:reply, {:binary, Communication.lobby_connected!(user_id, 1, "player_name")}, %{user_id: user_id}}
+
+    {:reply, {:binary, Communication.lobby_connected!(user_id, 1, "player_name")},
+     %{user_id: user_id}}
   end
 
   @impl true
@@ -27,12 +29,16 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
 
   @impl true
   def websocket_info({:player_added, player_id, player_name, host_player_id, players}, state) do
-    {:reply, {:binary, Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
+    {:reply,
+     {:binary,
+      Communication.lobby_player_added!(player_id, player_name, host_player_id, players)}, state}
   end
 
   def websocket_info({:game_started, game_pid, game_config}, state) do
     new_state = Map.put(state, :game_started, true)
-    server_hash = Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
+
+    server_hash =
+      Application.get_env(:dark_worlds_server, :information) |> Keyword.get(:version_hash)
 
     reply_map = %{
       game_pid: game_pid,
@@ -50,11 +56,21 @@ defmodule DarkWorldsServerWeb.LobbyWebsocket do
     :ok
   end
 
+  def terminate(reason, _req, _state) do
+    log_termination(reason)
+
+    :ok
+  end
+
   defp log_termination({_, 1000, _} = reason) do
-    Logger.info("#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}")
+    Logger.info(
+      "#{__MODULE__} with PID #{inspect(self())} closed with message: #{inspect(reason)}"
+    )
   end
 
   defp log_termination(reason) do
-    Logger.error("#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}")
+    Logger.error(
+      "#{__MODULE__} with PID #{inspect(self())} terminated with error: #{inspect(reason)}"
+    )
   end
 end

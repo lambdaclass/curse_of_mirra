@@ -1,5 +1,45 @@
 syntax = "proto3";
 
+/* Represents the events pushed by the server during a game
+    - type: type of the event
+    - players: player list, used on STATE_UPDATE
+    - ping_update: updated player's ping, used on PING_UPDATE
+    - projectiles: projectile list, used on STATE_UPDATE
+    - player_joined_id: ID of the player that joined the game
+ */
+message GameEvent {
+    GameEventType type = 1;
+    repeated Player players = 2;
+    uint64 latency = 3;
+    repeated Projectile projectiles = 4;
+    uint64 player_joined_id = 5;
+    string player_joined_name = 6;
+    Player winner_player = 7;
+    map<uint64, string> selected_characters = 8;
+    int64 player_timestamp = 9;
+    int64 server_timestamp = 10;
+    repeated KillEvent killfeed = 11;
+    uint64 playable_radius = 12;
+    Position shrinking_center = 13;
+    repeated LootPackage loots = 14;
+}
+
+/* Type of game events
+    - STATE_UPDATE: The game's state has been updated
+    - PING_UPDATE: The player's current ping updated
+    - PLAYER_JOINED: A player has joined the game
+    - INITIAL_POSITIONS: The initial positions of each player
+ */
+enum GameEventType {
+    STATE_UPDATE = 0;
+    PING_UPDATE = 1;
+    PLAYER_JOINED = 2;
+    GAME_FINISHED = 3;
+    INITIAL_POSITIONS = 4;
+    SELECTED_CHARACTER_UPDATE = 5;
+    FINISH_CHARACTER_SELECTION = 6;
+}
+
 message PlayerCharacter{
     uint64 player_id = 1;
     string character_name = 2;

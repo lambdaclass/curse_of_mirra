@@ -14,7 +14,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.MapModification
   alias DarkWorldsServer.Communication.Proto.Mechanic
-  alias DarkWorldsServer.Communication.Proto.Modification
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
   alias DarkWorldsServer.Communication.Proto.PlayerInformation, as: ProtoPlayerInformation
@@ -39,13 +38,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       name: mechanic_name_encode(name)
     }
     |> Map.merge(mechanic)
-  end
-
-  def encode({modifier, value}, Modification) do
-    %Modification{
-      value: value,
-      modifier: modifier_encode(modifier)
-    }
   end
 
   def encode(%EnginePosition{} = position, ProtoPosition) do

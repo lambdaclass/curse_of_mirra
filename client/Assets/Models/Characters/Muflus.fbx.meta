@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: aa1f69145f51142e5b7d9afd969338d5
+guid: 043923b73a8b145ad9a4312f99eed42c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muflus
+    second: {fileID: 2100000, guid: 83314c59849d348258b0f8074d098957, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -47,7 +52,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

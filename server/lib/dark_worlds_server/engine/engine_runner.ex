@@ -84,7 +84,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{},
-      bot_handler_pid: nil
+      bot_handler_pid: nil,
+      last_standing_players: []
     }
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
@@ -173,7 +174,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(game_state, :player_timestamps, state.player_timestamps)
     )
 
-    {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
+    {:noreply,
+     %{
+       state
+       | game_state: game_state,
+         last_game_tick_at: now,
+         last_standing_players: update_last_standing_players(state)
+     }}
   end
 
   def handle_info(:spawn_loot, state) do
@@ -187,7 +194,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(:check_game_ended, state) do
     Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
 
-    case check_game_ended(Map.values(state.game_state.players)) do
+    case check_game_ended(Map.values(state.game_state.players), state.last_standing_players) do
       :ongoing ->
         :skip
 
@@ -256,31 +263,49 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Phoenix.PubSub.broadcast(
       DarkWorldsServer.PubSub,
       topic,
-      #{:game_state, transform_state_to_myrra_state(game_state)}
+      # {:game_state, transform_state_to_myrra_state(game_state)}
       {:game_state, game_state}
     )
   end
 
+  defp update_last_standing_players(%{last_standing_players: last_standing_players} = state) do
+    players_alive =
+      Enum.filter(Map.values(state.game_state.players), fn player -> player.status == :alive end)
+
+    case players_alive do
+      [] -> last_standing_players
+      players_alive -> players_alive
+    end
+  end
+
   defp broadcast_game_ended(topic, winner, game_state) do
-    #myrra_winner = transform_player_to_myrra_player(winner)
-    #myrra_state = transform_state_to_myrra_state(game_state)
+    # myrra_winner = transform_player_to_myrra_player(winner)
+    # myrra_state = transform_state_to_myrra_state(game_state)
 
     Phoenix.PubSub.broadcast(
       DarkWorldsServer.PubSub,
       topic,
-      #{:game_ended, myrra_winner, myrra_state}
+      # {:game_ended, myrra_winner, myrra_state}
       {:game_ended, winner, game_state}
     )
   end
 
-  defp check_game_ended(players) do
+  defp check_game_ended(players, last_standing_players) do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
-      ^players -> :ongoing
-      [_, _ | _] -> :ongoing
-      [player] -> {:ended, player}
-      [] -> {:ended, nil}
+      ^players ->
+        :ongoing
+
+      [_, _ | _] ->
+        :ongoing
+
+      [player] ->
+        {:ended, player}
+
+      [] ->
+        # TODO we should use a tiebreaker instead of picking the 1st one in the list
+        {:ended, hd(last_standing_players)}
     end
   end
 
@@ -370,16 +395,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #   end)
   # end
 
-  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
-  #   do: "SLINGSHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
+    do: "SLINGSHOT"
 
-  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
-  #   do: "MULTISHOT"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
+    do: "MULTISHOT"
 
-  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
-  # # TEST skills
-  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
-  #   do: "DISARM"
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
+  # TEST skills
+  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
+    do: "DISARM"
 
   # defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   # defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
@@ -394,14 +419,14 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #   end)
   # end
 
-  # defp transform_position_to_myrra_position(position) do
-  #   {width, height} = Process.get(:map_size)
+  defp transform_position_to_myrra_position(position) do
+    {width, height} = Process.get(:map_size)
 
-  #   %LambdaGameEngine.MyrraEngine.Position{
-  #     x: -1 * position.y + div(width, 2),
-  #     y: position.x + div(height, 2)
-  #   }
-  # end
+    %LambdaGameEngine.MyrraEngine.Position{
+      x: -1 * position.y + div(width, 2),
+      y: position.x + div(height, 2)
+    }
+  end
 
   # defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
   # defp transform_character_name_to_myrra_character_name("muflus"), do: "Muflus"
@@ -424,17 +449,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # defp transform_killfeed_to_myrra_killfeed([
   #        {{:player, killer_id}, killed_id} | tail
   #      ]),
-  #      do: [%{killed_by: killer_id, killed: killed_id} | tail]
+  #      do: [%{killed_by: killer_id, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 
   # defp transform_killfeed_to_myrra_killfeed([
-  #        {{:zone, _}, killed_id} | tail
-  #      ]) do
-  #   [%{killed_by: 9999, killed: killed_id} | tail]
-  # end
+  #        {:zone, killed_id} | tail
+  #      ]),
+  #      do: [%{killed_by: 9999, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 
   # defp transform_killfeed_to_myrra_killfeed([
-  #        {{:loot, _}, killed_id} | tail
-  #      ]) do
-  #   [%{killed_by: 1111, killed: killed_id} | tail]
-  # end
+  #        {:loot, killed_id} | tail
+  #      ]),
+  #      do: [%{killed_by: 1111, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 end
