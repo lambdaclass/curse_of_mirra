@@ -84,7 +84,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{},
-      bot_handler_pid: nil
+      bot_handler_pid: nil,
+      last_standing_players: []
     }
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
@@ -173,7 +174,13 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(game_state, :player_timestamps, state.player_timestamps)
     )
 
-    {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
+    {:noreply,
+     %{
+       state
+       | game_state: game_state,
+         last_game_tick_at: now,
+         last_standing_players: update_last_standing_players(state)
+     }}
   end
 
   def handle_info(:spawn_loot, state) do
@@ -187,7 +194,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(:check_game_ended, state) do
     Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
 
-    case check_game_ended(Map.values(state.game_state.players)) do
+    case check_game_ended(Map.values(state.game_state.players), state.last_standing_players) do
       :ongoing ->
         :skip
 
@@ -260,6 +267,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     )
   end
 
+  defp update_last_standing_players(%{last_standing_players: last_standing_players} = state) do
+    players_alive = Enum.filter(Map.values(state.game_state.players), fn player -> player.status == :alive end)
+
+    case players_alive do
+      [] -> last_standing_players
+      players_alive -> players_alive
+    end
+  end
+
   defp broadcast_game_ended(topic, winner, game_state) do
     myrra_winner = transform_player_to_myrra_player(winner)
     myrra_state = transform_state_to_myrra_state(game_state)
@@ -271,14 +287,22 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     )
   end
 
-  defp check_game_ended(players) do
+  defp check_game_ended(players, last_standing_players) do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
-      ^players -> :ongoing
-      [_, _ | _] -> :ongoing
-      [player] -> {:ended, player}
-      [] -> {:ended, nil}
+      ^players ->
+        :ongoing
+
+      [_, _ | _] ->
+        :ongoing
+
+      [player] ->
+        {:ended, player}
+
+      [] ->
+        # TODO we should use a tiebreaker instead of picking the 1st one in the list
+        {:ended, hd(last_standing_players)}
     end
   end
 
