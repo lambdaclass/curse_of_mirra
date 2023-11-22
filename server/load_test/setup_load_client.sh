@@ -1,4 +1,3 @@
-# Usage: ./setup_load_client.sh <BRANCH_NAME>
 # If no BRANCH_NAME is provided, defaults to main
 
 BRANCH_NAME="$1"
