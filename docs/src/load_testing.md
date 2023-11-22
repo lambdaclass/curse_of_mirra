@@ -18,7 +18,7 @@ Soem things to keep in mind about load tests:
 - Write down every code snippet that you've used, be it Elixir, Rust or bash commands,
   if you think it's obvious, write it down just in case.
 - Track records of the parameters you've used for the tests, eg: Player Amount,
-  where there bots enabled? etc.
+  were there bots enabled? etc.
 - Use text or pictures for reports, videos only if there are UX (i.e. gameplay) issues.
 - Use multiple sources of truth and data, like htop, New Relic, erlang's etop/fprop.
 - Feel free to experiment a bit, certain VM flags can improve or hinder performance,
