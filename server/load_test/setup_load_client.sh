@@ -5,7 +5,6 @@ BRANCH_NAME=${BRANCH_NAME:-"main"}
 
 export MIX_ENV=prod
 cd /tmp
-# Only clone `server/` subdirectory
 git clone https://github.com/lambdaclass/curse_of_myrra.git curse_of_myrra
 cd curse_of_myrra/
 git checkout $BRANCH_NAME
