@@ -19,7 +19,7 @@ mix deps.compile
 mix assets.deploy
 mix compile
 mix phx.gen.release
-mix release
+mix release --overwrite
 
 rm -rf $USER/curse_of_myrra
 mv /tmp/curse_of_myrra $HOME/
