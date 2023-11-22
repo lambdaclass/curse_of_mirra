@@ -85,7 +85,10 @@ is to open htop, you should see the virtual cores as 'offline'.
 3. Set this env variable: `export SERVER_HOST=game_server_ip:game_server_port`.
 4. Run:
    ```sh
-       ./curse_of_myrra/server/load_test/_build
+       cd ./curse_of_myrra/server/load_test/ && iex -S mix 
    ``` 
    this drops you into an Elixir shell from which you'll run the load tests.
-5. From the elixir shell, you can run: `LoadTest.PlayerSupervisor.spawn_players(NUMBER_OF_USERS, PLAY_TIME)` 
+5. From the elixir shell, start the load test with:
+   ```elixir
+   LoadTest.PlayerSupervisor.spawn_players(number_of_players, play_time_in_ms)
+   ``` 
