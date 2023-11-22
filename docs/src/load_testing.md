@@ -15,7 +15,7 @@ Soem things to keep in mind about load tests:
 - Always write down the specs + OS + config from where you're running the tests.
   For example, did you change linux's governor settings? Write it down.
   Did you test any BEAM VM flag? Keep a record of it.
-- Write down every snippet code that you've used, be it Elixir, Rust or bash commands,
+- Write down every code snippet that you've used, be it Elixir, Rust or bash commands,
   if you think it's obvious, write it down just in case.
 - Track records of the parameters you've used for the tests, eg: Player Amount,
   where there bots enabled? etc.
