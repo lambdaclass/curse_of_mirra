@@ -64,7 +64,8 @@ defmodule DarkWorldsServer.MixProject do
       {:tesla, "~> 1.4", override: true},
       {:toxiproxy_ex, "~> 1.0.0"},
       {:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_backend_game_engine", branch: "main"},
-      {:uuid, "~> 1.1"}
+      {:uuid, "~> 1.1"},
+      {:eflambe, "~> 0.3.0"}
     ]
   end
 
