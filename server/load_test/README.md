@@ -8,9 +8,11 @@ This directory contains the code we use to load test our backend architechture. 
 ```bash
 cd server/load_test
 mix deps.get
-export SERVER_HOST=10.150.20.186:4000
+export SERVER_HOST=localhost:4000
 iex -S mix
 ```
+
+You can use localhost or the IP of a server running the game backend. This is useful to run a local check but the proper approach to load testing is to run a two server setup: one for a client and one for the server. You can read more about this at [load_testing.md](../../docs/src/load_testing.md).
 
 Inside the Elixir shell
 
@@ -23,12 +25,14 @@ game and then wait for it to start. Once it starts they send random commands
 every 30 ms. They still receive updates form the server but those are just
 ignored.
 
-If you plan on creating more than 150 players, first increase the file descriptor limit of your shell by doing
+When running the load test (either locally or in a server), you might encounter a connection refused error that is related to not having enough file descriptors. To fix this you should run the following command both in the terminal session used to run the server and the one used to run the client:
 
 ```bash
+# run before running iex -S mix or make run
 ulimit -n 65535
-before running iex -S mix
 ```
+
+When the game server is ran as a systemd service you might need to edit the service config. You can check [LimitNOFILE on the server setup script](./setup_game_server.sh) although it's a one time thing. You shouldn't do it every time.
 
 ## Analyzing results
 
