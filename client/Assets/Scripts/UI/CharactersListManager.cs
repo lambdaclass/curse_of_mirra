@@ -35,6 +35,9 @@ public class CharactersListManager : MonoBehaviour
                     || character.name == "Kenzu"
                     || character.name == "Otix"
                     || character.name == "Valtimer"
+                    || character.name == "Uma"
+                    || character.name == "H4ck"
+                    || character.name == "DAgna"
                 )
                 {
                     item.GetComponent<CharacterListItem>().IsEnable = false;
