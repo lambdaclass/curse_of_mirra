@@ -8,7 +8,7 @@ Our current methodology is to use 2 servers to load test:
   want a dedicated load test client to avoid consumer network
   and hardware limitations.
 
-Soem things to keep in mind about load tests:
+Some things to keep in mind about load tests:
 - Always write a report, and every report must go to:
   server/load_test/reports/your_report.md, this is important 
   to keep track of possible performance regressions.
