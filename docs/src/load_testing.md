@@ -92,3 +92,16 @@ is to open htop, you should see the virtual cores as 'offline'.
    ```elixir
    LoadTest.PlayerSupervisor.spawn_players(number_of_players, play_time_in_ms)
    ``` 
+
+### Useful tools
+- Htop: To monitor CPU Usage, usually installed on Linux distributions and Mac.
+- Glances: Like htop but more friendly and has some more useful data,
+  like Net Usage.
+- Fprof: To generate a visual tree of function calls,
+  (here's how to use it)[https://blog.appsignal.com/2022/04/26/using-profiling-in-elixir-to-improve-performance.html],
+  you'll then (erlgrind)[https://github.com/isacssouza/erlgrind] to interpret the data,
+  and install (qcachegrind)[https://formulae.brew.sh/formula/qcachegrind].
+- Etop: Like unix's htop, but for erlang, on an Elixir Shell start it with:
+```elixir
+    Etop.start(file: "/tmp/etop.exs", interval: 2000)
+```
