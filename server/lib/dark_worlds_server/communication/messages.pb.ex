@@ -614,16 +614,15 @@ defmodule DarkWorldsServer.Communication.Proto.Config do
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:characters, 1, repeated: true, type: DarkWorldsServer.Communication.Proto.GameCharacter)
-  field(:effects, 2, repeated: true, type: DarkWorldsServer.Communication.Proto.GameEffect)
-  field(:game, 3, type: DarkWorldsServer.Communication.Proto.GameStateConfig)
-  field(:loots, 4, repeated: true, type: DarkWorldsServer.Communication.Proto.GameLoot)
+  field(:game, 2, type: DarkWorldsServer.Communication.Proto.GameStateConfig)
+  field(:loots, 3, repeated: true, type: DarkWorldsServer.Communication.Proto.GameLoot)
 
-  field(:projectiles, 5,
+  field(:projectiles, 4,
     repeated: true,
     type: DarkWorldsServer.Communication.Proto.GameProjectile
   )
 
-  field(:skills, 6, repeated: true, type: DarkWorldsServer.Communication.Proto.GameSkill)
+  field(:skills, 5, repeated: true, type: DarkWorldsServer.Communication.Proto.GameSkill)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -655,28 +654,12 @@ defmodule DarkWorldsServer.Communication.Proto.GameStateConfig do
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
 
-defmodule DarkWorldsServer.Communication.Proto.MapModification.ModificationEntry do
-  @moduledoc false
-
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
-
-  field(:key, 1, type: :string)
-  field(:value, 2, type: :float)
-
-  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
-end
-
 defmodule DarkWorldsServer.Communication.Proto.MapModification do
   @moduledoc false
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
-  field(:modification, 1,
-    repeated: true,
-    type: DarkWorldsServer.Communication.Proto.MapModification.ModificationEntry,
-    map: true
-  )
-
+  field(:modification, 1, type: DarkWorldsServer.Communication.Proto.ZoneModification)
   field(:starting_radius, 2, type: :uint64, json_name: "startingRadius")
   field(:min_radius, 3, type: :uint64, json_name: "minRadius")
   field(:max_radius, 4, type: :uint64, json_name: "maxRadius")
@@ -695,6 +678,17 @@ defmodule DarkWorldsServer.Communication.Proto.MapModification do
 
   field(:duration_ms, 7, type: :float, json_name: "durationMs")
   field(:interval_ms, 8, type: :float, json_name: "intervalMs")
+
+  def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
+end
+
+defmodule DarkWorldsServer.Communication.Proto.ZoneModification do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field(:modifier, 1, type: DarkWorldsServer.Communication.Proto.ModifierType, enum: true)
+  field(:value, 2, type: :int64)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -733,15 +727,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameProjectile do
   field(:base_speed, 3, type: :uint64, json_name: "baseSpeed")
   field(:base_size, 4, type: :uint64, json_name: "baseSize")
   field(:remove_on_collision, 5, type: :bool, json_name: "removeOnCollision")
-
-  field(:on_hit_effects, 6,
-    repeated: true,
-    type: DarkWorldsServer.Communication.Proto.GameEffect,
-    json_name: "onHitEffects"
-  )
-
-  field(:max_distance, 7, type: :uint64, json_name: "maxDistance")
-  field(:duration_ms, 8, type: :float, json_name: "durationMs")
+  field(:max_distance, 6, type: :uint64, json_name: "maxDistance")
+  field(:duration_ms, 7, type: :float, json_name: "durationMs")
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -833,7 +820,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEffect.Periodic do
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field(:type, 1, type: :string)
-  field(:instant_application, 2, type: :bool, json_name: "instantApplication")
+  field(:instant_applicaiton, 2, type: :bool, json_name: "instantApplicaiton")
   field(:interval_ms, 3, type: :uint64, json_name: "intervalMs")
   field(:trigger_count, 4, type: :uint64, json_name: "triggerCount")
   field(:time_since_last_trigger, 5, type: :float, json_name: "timeSinceLastTrigger")
@@ -864,18 +851,8 @@ defmodule DarkWorldsServer.Communication.Proto.GameEffect do
   )
 
   field(:simple_type, 5, type: :string, json_name: "simpleType", oneof: 0)
-
-  field(:duration_type, 6,
-    type: DarkWorldsServer.Communication.Proto.GameEffect.Duration,
-    json_name: "durationType",
-    oneof: 0
-  )
-
-  field(:periodic_type, 7,
-    type: DarkWorldsServer.Communication.Proto.GameEffect.Periodic,
-    json_name: "periodicType",
-    oneof: 0
-  )
+  field(:duration, 6, type: DarkWorldsServer.Communication.Proto.GameEffect.Duration, oneof: 0)
+  field(:periodic, 7, type: DarkWorldsServer.Communication.Proto.GameEffect.Periodic, oneof: 0)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

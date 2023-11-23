@@ -435,11 +435,10 @@ enum MechanicType {
 
 message Config {
   repeated GameCharacter characters = 1;
-  repeated GameEffect effects = 2;
-  GameStateConfig game = 3;
-  repeated GameLoot loots = 4;
-  repeated GameProjectile projectiles = 5;
-  repeated GameSkill skills = 6;
+  GameStateConfig game = 2;
+  repeated GameLoot loots = 3;
+  repeated GameProjectile projectiles = 4;
+  repeated GameSkill skills = 5;
 }
 
 /* Represents the initial game state.
@@ -467,7 +466,7 @@ message GameStateConfig {
     - inside_radius_effects: Effects given when a player is inside the playable area.
 */
 message MapModification {
-    map<string, float> modification = 1;
+    ZoneModification modification = 1;
     uint64 starting_radius = 2;
     uint64 min_radius = 3;
     uint64 max_radius = 4;
@@ -475,6 +474,11 @@ message MapModification {
     repeated GameEffect inside_radius_effects = 6;
     float duration_ms = 7;
     float interval_ms = 8;
+}
+
+message ZoneModification {
+    ModifierType modifier = 1;
+    int64 value = 2;
 }
 
 /* Defines how to modify the playable area radius.
@@ -518,9 +522,8 @@ message GameProjectile {
     uint64 base_speed = 3;
     uint64 base_size = 4;
     bool remove_on_collision = 5;
-    repeated GameEffect on_hit_effects = 6;
-    uint64 max_distance = 7;
-    float duration_ms = 8;
+    uint64 max_distance = 6;
+    float duration_ms = 7;
 }
 
 /* Represents a character in the game
@@ -606,8 +609,8 @@ message GameEffect {
   repeated Attribute projectile_attributes = 4;
   oneof effect_time_type {
     string simple_type = 5;
-    Duration duration_type = 6;
-    Periodic periodic_type = 7;
+    Duration duration = 6;
+    Periodic periodic = 7;
   }
 
   message Duration {
@@ -617,7 +620,7 @@ message GameEffect {
 
   message Periodic {
     string type = 1;
-    bool instant_application = 2;
+    bool instant_applicaiton = 2;
     uint64 interval_ms = 3;
     uint64 trigger_count = 4;
     float time_since_last_trigger = 5;

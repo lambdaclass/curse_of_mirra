@@ -1,4 +1,5 @@
 defmodule DarkWorldsServer.Communication.ProtoTransform do
+  alias DarkWorldsServer.Communication.Proto.Attribute
   alias DarkWorldsServer.Communication.Proto.Config
   alias DarkWorldsServer.Communication.Proto.GameAction
   alias DarkWorldsServer.Communication.Proto.GameCharacter
@@ -13,6 +14,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.MapModification
+  alias DarkWorldsServer.Communication.Proto.ModifierType
   alias DarkWorldsServer.Communication.Proto.Mechanic
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
@@ -21,6 +23,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.Projectile, as: ProtoProjectile
   alias DarkWorldsServer.Communication.Proto.RelativePosition, as: ProtoRelativePosition
   alias DarkWorldsServer.Communication.Proto.UseSkill
+  alias DarkWorldsServer.Communication.Proto.ZoneModification
   alias LambdaGameEngine.MyrraEngine.Player, as: EnginePlayer
   alias LambdaGameEngine.MyrraEngine.Position, as: EnginePosition
   alias LambdaGameEngine.MyrraEngine.Projectile, as: EngineProjectile
@@ -142,6 +145,30 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     }
   end
 
+  def encode({modifier, value}, ZoneModification) do
+    %ZoneModification{
+      modifier: modifier_encode(modifier),
+      value: value
+    }
+  end
+
+  def encode({modifier, attribute, value}, Attribute) do
+    IO.inspect(modifier, label: "modifier")
+    IO.inspect(value, label: "value")
+    IO.inspect(attribute, label: "attribute")
+
+    %Attribute{
+      modifier: modifier_encode(modifier),
+      attribute: attribute,
+      value: value
+    }
+    |> IO.inspect(label: "Attribute")
+  end
+
+  def encode(modifier, ModifierType) do
+    IO.inspect(modifier, label: "modifier")
+  end
+
   def encode(data, _struct) do
     data
   end
@@ -149,6 +176,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # DECODES #
   ###########
+
+  def decode(config, Attribute) do
+    config
+  end
 
   def decode(config, Config) do
     config
@@ -167,6 +198,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   end
 
   def decode(config, MapModification) do
+    config
+  end
+
+  def decode(config, ModifierType) do
+    IO.inspect(config, label: "ModifierType")
     config
   end
 
@@ -206,6 +242,11 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   @impl Protobuf.TransformModule
   def decode(value, UseSkill) do
+    value
+  end
+
+  @impl Protobuf.TransformModule
+  def decode(value, ZoneModification) do
     value
   end
 
@@ -356,6 +397,8 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp modifier_encode(:multiplicative), do: :MULTIPLICATIVE
   defp modifier_encode(:additive), do: :ADDITIVE
+  defp modifier_encode(:Additive), do: :ADDITIVE
+  defp modifier_encode(:Multiplicative), do: :MULTIPLICATIVE
 
   defp mechanic_name_encode(:hit), do: :HIT
   defp mechanic_name_encode(:simple_shoot), do: :SIMPLE_SHOOT

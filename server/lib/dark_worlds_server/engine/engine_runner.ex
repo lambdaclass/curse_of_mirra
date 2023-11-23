@@ -76,7 +76,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
     Process.send_after(self(), :start_game_tick, @game_tick_start)
 
-    send(self(), {:spawn_bots, bot_count})
+    # send(self(), {:spawn_bots, bot_count})
 
     state = %{
       game_state: LambdaGameEngine.engine_new_game(engine_config),
@@ -395,16 +395,16 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #   end)
   # end
 
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
-    do: "SLINGSHOT"
+  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_slingshot"),
+  #   do: "SLINGSHOT"
 
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
-    do: "MULTISHOT"
+  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_multishot"),
+  #   do: "MULTISHOT"
 
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
-  # TEST skills
-  defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
-    do: "DISARM"
+  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_disarm"), do: "DISARM"
+  # # TEST skills
+  # defp transform_projectile_name_to_myrra_projectile_skill_name("projectile_poison_dart"),
+  #   do: "DISARM"
 
   # defp transform_milliseconds_to_myrra_millis_time(nil), do: %{high: 0, low: 0}
   # defp transform_milliseconds_to_myrra_millis_time(cooldown), do: %{high: 0, low: cooldown}
@@ -419,14 +419,14 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   #   end)
   # end
 
-  defp transform_position_to_myrra_position(position) do
-    {width, height} = Process.get(:map_size)
+  # defp transform_position_to_myrra_position(position) do
+  #   {width, height} = Process.get(:map_size)
 
-    %LambdaGameEngine.MyrraEngine.Position{
-      x: -1 * position.y + div(width, 2),
-      y: position.x + div(height, 2)
-    }
-  end
+  #   %LambdaGameEngine.MyrraEngine.Position{
+  #     x: -1 * position.y + div(width, 2),
+  #     y: position.x + div(height, 2)
+  #   }
+  # end
 
   # defp transform_character_name_to_myrra_character_name("h4ck"), do: "H4ck"
   # defp transform_character_name_to_myrra_character_name("muflus"), do: "Muflus"
