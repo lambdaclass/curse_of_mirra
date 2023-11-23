@@ -8,8 +8,16 @@ defmodule LoadTest.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      # Start the Telemetry supervisor
+      LoadTestWeb.Telemetry,
+      # Start the Ecto repository
+      LoadTest.Repo,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: LoadTest.PubSub},
+      # Start the Endpoint (http/https)
+      LoadTestWeb.Endpoint,
       LoadTest.PlayerSupervisor
-      # Starts a worker by calling: LoadTest.Worker.start_link(arg)
+      # Start a worker by calling: LoadTest.Worker.start_link(arg)
       # {LoadTest.Worker, arg}
     ]
 
@@ -17,5 +25,13 @@ defmodule LoadTest.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: LoadTest.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  @impl true
+  def config_change(changed, _new, removed) do
+    LoadTestWeb.Endpoint.config_change(changed, removed)
+    :ok
   end
 end
