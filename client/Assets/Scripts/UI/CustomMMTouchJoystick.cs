@@ -14,7 +14,6 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     const float CANCEL_AREA_VALUE = 0.5f;
     bool dragged = false;
     float frameCounter;
-    Vector3 previousRawValue;
     private CustomInputManager inputManager;
 
     public override void Initialize()
@@ -103,7 +102,6 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         }
         else
         {
-            previousRawValue = RawValue;
             inputManager.SetCanceled(false);
             frameCounter = 0;
         }
