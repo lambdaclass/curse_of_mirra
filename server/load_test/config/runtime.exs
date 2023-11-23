@@ -95,3 +95,7 @@ if config_env() == :prod do
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
 end
+
+config :elixir_auth_google,
+  client_id: "360013025886-iffmfg8d4c8ovcn5ebi29kiv7h9ueehg.apps.googleusercontent.com",
+  client_secret: "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"

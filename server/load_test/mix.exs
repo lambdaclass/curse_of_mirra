@@ -49,6 +49,10 @@ defmodule LoadTest.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
 
+      # Used for OAuth
+      {:elixir_auth_google, "~> 1.6.9"},
+
+      # Used for running the load test
       {:websockex, "~> 0.4.3"},
       {:tesla, "~> 1.4"},
       {:protobuf, "~> 0.10.0"}
