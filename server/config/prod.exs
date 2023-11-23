@@ -15,7 +15,14 @@ config :dark_worlds_server, DarkWorldsServerWeb.Endpoint, cache_static_manifest:
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: DarkWorldsServer.Finch
 
 # Do not print debug messages in production
-config :logger, level: :info
+# config :logger, level: :info
+
+config :logger,
+  backends: [{LoggerFileBackend, :info}, {LoggerFileBackend, :error}]
+
+config :logger, :info,
+  path: "/tmp/myrra.log",
+  level: :info
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.

@@ -66,7 +66,8 @@ defmodule DarkWorldsServer.MixProject do
       {:lambda_game_engine, git: "https://github.com/lambdaclass/lambda_backend_game_engine", branch: "main"},
       {:uuid, "~> 1.1"},
       {:eflambe, "~> 0.3.0"},
-      {:flame_on, "~> 0.6.0"}
+      {:flame_on, "~> 0.6.0"},
+      {:logger_file_backend, "~> 0.0.13"}
     ]
   end
 
