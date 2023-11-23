@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Linq;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -27,23 +28,28 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     List<SkillDescription> skillDescriptions;
 
-    [Header("Buttons")]
+    [Header("Arrows")]
     [SerializeField]
     GameObject leftButton;
 
     [SerializeField]
     GameObject rightButton;
-    bool ONLY_MUFLUS = true;
+
+    [Tooltip("This bool indicate whether to activate or deactivate the left/right arrows")]
+    public const bool ENABLE_ARROWS = false;
     public static int selectedCharacterPosition;
+
+    private List<CoMCharacter> avaiblesCharacters = new List<CoMCharacter>();
 
     void Start()
     {
+        avaiblesCharacters = Utils.GetOnlyAvaibleCharacterInfo(comCharacters);
         SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void RightArrowFunc()
     {
-        if (selectedCharacterPosition == comCharacters.Count - 1)
+        if (selectedCharacterPosition == avaiblesCharacters.Count - 1)
         {
             selectedCharacterPosition = 0;
         }
@@ -52,27 +58,25 @@ public class CharacterInfoManager : MonoBehaviour
             selectedCharacterPosition = selectedCharacterPosition + 1;
         }
 
-        if (!ONLY_MUFLUS)
-            SetCharacterInfo(selectedCharacterPosition);
+        SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void LeftArrowFunc()
     {
         if (selectedCharacterPosition == 0)
         {
-            selectedCharacterPosition = comCharacters.Count - 1;
+            selectedCharacterPosition = avaiblesCharacters.Count - 1;
         }
         else
         {
             selectedCharacterPosition = selectedCharacterPosition - 1;
         }
-        if (!ONLY_MUFLUS)
-            SetCharacterInfo(selectedCharacterPosition);
+        SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void SetCharacterInfo(int currentPosition)
     {
-        CoMCharacter comCharacter = comCharacters[currentPosition];
+        CoMCharacter comCharacter = avaiblesCharacters[currentPosition];
         ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;

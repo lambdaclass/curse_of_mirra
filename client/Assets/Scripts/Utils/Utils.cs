@@ -153,4 +153,25 @@ public class Utils
             }
         };
     }
+
+    public static List<CoMCharacter> GetOnlyAvaibleCharacterInfo(List<CoMCharacter> comCharacters)
+    {
+        var avaibleCharacterInfo = comCharacters
+            .Select(el => el.name)
+            .Intersect(MainScreenManager.enableCharactersName);
+
+        var result = new List<CoMCharacter>();
+        for (int i = 0; i < comCharacters.Count(); i++)
+        {
+            for (int j = 0; j < avaibleCharacterInfo.Count(); j++)
+            {
+                if (comCharacters[i].name.ToUpper() == avaibleCharacterInfo.ToList()[j].ToUpper())
+                {
+                    result.Add(comCharacters[i]);
+                }
+            }
+        }
+
+        return result;
+    }
 }

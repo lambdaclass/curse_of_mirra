@@ -3763,6 +3763,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelManager: {fileID: 9166025620740607941}
+  enableCharactersName:
+  - Muflus
+  - Uma
+  - H4ck
 --- !u!1 &5393381855419559497
 GameObject:
   m_ObjectHideFlags: 0

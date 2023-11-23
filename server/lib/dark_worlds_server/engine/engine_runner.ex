@@ -227,7 +227,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     {game_state, bots_ids} =
       Enum.reduce(0..(bot_count - 1), {state.game_state, []}, fn _, {acc_game_state, bots} ->
-        character = Enum.random(["h4ck", "muflus"])
+        character = Enum.random(["muflus", "muflus"])
         {new_game_state, player_id} = LambdaGameEngine.add_player(acc_game_state, character)
 
         {new_game_state, [player_id | bots]}
