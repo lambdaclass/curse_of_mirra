@@ -397,8 +397,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   defp modifier_encode(:multiplicative), do: :MULTIPLICATIVE
   defp modifier_encode(:additive), do: :ADDITIVE
-  defp modifier_encode(:Additive), do: :ADDITIVE
-  defp modifier_encode(:Multiplicative), do: :MULTIPLICATIVE
+  defp modifier_encode(:override), do: :OVERRIDE
 
   defp mechanic_name_encode(:hit), do: :HIT
   defp mechanic_name_encode(:simple_shoot), do: :SIMPLE_SHOOT

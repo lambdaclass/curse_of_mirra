@@ -404,7 +404,6 @@ message MillisTime {
     - loot_type: Type of loot
  */
 message LootPackage {
-
     uint64 id = 1;
     Position position = 2;
     LootType loot_type = 3;
@@ -423,6 +422,7 @@ enum LootType {
 enum ModifierType {
     MULTIPLICATIVE = 0;
     ADDITIVE = 1;
+    OVERRIDE = 2;
 }
 
 /*
