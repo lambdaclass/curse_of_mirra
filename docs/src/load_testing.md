@@ -44,20 +44,20 @@ Host myrra_load_test_server
    `server/load_test/setup_game_server.sh` it clones the game server, compiles it, and creates a
    systemd service for it, run it with:
    ```sh
-   chmod +x ./setup_game_server.sh && ./setup_game_server
+   chmod +x ./setup_game_server.sh && ./setup_game_server.sh
    ```
 
    `setup_game_server` can also take a branch name as an argument. So if you want to run the load test on an specific branch, you can instead do:
    ```sh
-   chmod +x ./setup_game_server.sh && ./setup_game_server <BRANCH_NAME_TO_TEST>
+   chmod +x ./setup_game_server.sh && ./setup_game_server.sh <BRANCH_NAME_TO_TEST>
    ```
 
-4. Now you can start the game server with: 
+3. Now you can start the game server with: 
 ```sh
-   systemctl daemon-reload && systemctl start curse_of_myrra
+systemctl daemon-reload && systemctl start curse_of_myrra
 ```
    You can check the logs with `journalctl -xefu curse_of_myrra`.
-5. Make sure to disable hyperthreading, if using an x86 CPU:
+4. Make sure to disable hyperthreading, if using an x86 CPU:
 ```sh
 # If active, this returns 1
 cat /sys/devices/system/cpu/smt/active
@@ -75,12 +75,12 @@ is to open htop, you should see the virtual cores as 'offline'.
 2. If not already there, copy this repo's script under `server/load_test/setup_load_client.sh`
    and run it:
    ```sh
-   chmod +x ./setup_load_client.sh && ./setup_load_client
+   chmod +x ./setup_load_client.sh && ./setup_load_client.sh
    ```
 
    `setup_load_client` can also take a branch name as an argument. So if you want to run the load test client from a specific branch, you can instead do:
    ```sh
-   chmod +x ./setup_load_client.sh && ./setup_load_client <BRANCH_NAME_TO_TEST>
+   chmod +x ./setup_load_client.sh && ./setup_load_client.sh <BRANCH_NAME_TO_TEST>
    ```
 3. Set this env variable: `export SERVER_HOST=game_server_ip:game_server_port`.
 4. Run:
