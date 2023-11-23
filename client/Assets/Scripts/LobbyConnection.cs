@@ -46,9 +46,7 @@ public class LobbyConnection : MonoBehaviour
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
     private const string versionHashesTitle = "Warning";
-    private const string versionHashesDescription =
-        "Client and Server version hashes do not match.";
-
+    private const string versionHashesDescription = "Client and Server version hashes do not match.";
     WebSocket ws;
 
     [Serializable]
@@ -110,7 +108,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        LoadClientId();
+        this.clientId = Utils.GetClientId();
         MaybeReconnect();
         PopulateLists();
     }
@@ -153,17 +151,6 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetGames());
     }
 
-    private void LoadClientId()
-    {
-        if (!PlayerPrefs.HasKey("client_id"))
-        {
-            Guid g = Guid.NewGuid();
-            PlayerPrefs.SetString("client_id", g.ToString());
-        }
-
-        this.clientId = PlayerPrefs.GetString("client_id");
-    }
-
     private void MaybeReconnect()
     {
         // StartCoroutine(GetCurrentGame());
@@ -172,7 +159,7 @@ public class LobbyConnection : MonoBehaviour
     public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
+        StartCoroutine(GetRequest(Utils.MakeHTTPUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -250,7 +237,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetLobbies()
     {
-        string url = makeUrl("/current_lobbies");
+        string url = Utils.MakeHTTPUrl("/current_lobbies");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -275,7 +262,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetGames()
     {
-        string url = makeUrl("/current_games");
+        string url = Utils.MakeHTTPUrl("/current_games");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -299,7 +286,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetCurrentGame()
     {
-        string url = makeUrl("/player_game/" + this.clientId);
+        string url = Utils.MakeHTTPUrl("/player_game/" + this.clientId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -410,32 +397,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-        }
-    }
-
-    private string makeUrl(string path)
-    {
-        if (serverIp.Contains("localhost"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        // Load test server
-        else if (serverIp.Contains("168.119.71.104"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        // Load test runner server
-        else if (serverIp.Contains("176.9.26.172"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else
-        {
-            return "https://" + serverIp + path;
         }
     }
 
