@@ -84,7 +84,6 @@ public class CharacterFeedbacks : MonoBehaviour
                 if (playerId == SocketConnectionManager.Instance.playerId)
                 {
                     HapticFeedback.HeavyFeedback();
-                    print("vibration");
                 }
             }
             if (playerHealth > clientHealth)
