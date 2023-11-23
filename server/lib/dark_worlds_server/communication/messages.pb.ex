@@ -634,22 +634,16 @@ defmodule DarkWorldsServer.Communication.Proto.GameStateConfig do
 
   field(:width, 1, type: :uint64)
   field(:height, 2, type: :uint64)
+  field(:loot_interval_ms, 3, type: :uint64, json_name: "lootIntervalMs")
+  field(:zone_starting_radius, 4, type: :uint64, json_name: "zoneStartingRadius")
 
-  field(:map_modification, 3,
-    type: DarkWorldsServer.Communication.Proto.MapModification,
-    json_name: "mapModification"
-  )
-
-  field(:loot_interval_ms, 4, type: :uint64, json_name: "lootIntervalMs")
-  field(:zone_starting_radius, 5, type: :uint64, json_name: "zoneStartingRadius")
-
-  field(:zone_modifications, 6,
+  field(:zone_modifications, 5,
     repeated: true,
     type: DarkWorldsServer.Communication.Proto.MapModification,
     json_name: "zoneModifications"
   )
 
-  field(:loots, 7, repeated: true, type: DarkWorldsServer.Communication.Proto.GameLoot)
+  field(:loots, 6, repeated: true, type: DarkWorldsServer.Communication.Proto.GameLoot)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
