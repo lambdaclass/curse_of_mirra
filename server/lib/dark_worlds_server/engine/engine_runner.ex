@@ -71,7 +71,10 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:ok, engine_config_json} =
       Application.app_dir(:dark_worlds_server, "priv/config.json") |> File.read()
 
+    now = System.monotonic_time(:millisecond)
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
+    later = System.monotonic_time(:millisecond)
+    NewRelic.report_custom_metric("GameBackend/ParseConfigTime", now - later)
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
     Process.send_after(self(), :start_game_tick, @game_tick_start)
@@ -100,7 +103,11 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_call({:join, user_id, character_name}, _from, state) do
+    now = System.monotonic_time(:millisecond)
     {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, character_name)
+    later = System.monotonic_time(:millisecond)
+    Logger.info("Adding player took: #{inspect(now - later)}")
+    NewRelic.report_custom_metric("GameBackend/AddPlayerTime", now - later)
 
     state =
       Map.put(state, :game_state, game_state)
@@ -168,6 +175,9 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     now = System.monotonic_time(:millisecond)
     time_diff = now - state.last_game_tick_at
     game_state = LambdaGameEngine.game_tick(state.game_state, time_diff)
+    now_after_tick = System.monotonic_time(:millisecond)
+    Logger.info("World tick took: #{inspect(now_after_tick - now)}")
+    NewRelic.report_custom_metric("GameBackend/GameTickExecutionTimeMs", now_after_tick - now)
 
     broadcast_game_state(
       state.broadcast_topic,
