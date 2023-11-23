@@ -73,23 +73,30 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth, ulong playerId)
+    public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth)
     {
         if (clientHealth != playerHealth)
         {
             if (playerHealth < clientHealth)
             {
                 ApplyColorFeedback(damageOverlayColor);
-
-                if (playerId == SocketConnectionManager.Instance.playerId)
-                {
-                    HapticFeedback.HeavyFeedback();
-                }
             }
             if (playerHealth > clientHealth)
             {
                 ApplyColorFeedback(healOverlayColor);
             }
+        }
+    }
+
+    public void HapticFeedbackOnDamage(float clientHealth, float playerHealth, ulong playerId)
+    {
+        if (
+            clientHealth != playerHealth
+            && playerHealth < clientHealth
+            && playerId == SocketConnectionManager.Instance.playerId
+        )
+        {
+            HapticFeedback.HeavyFeedback();
         }
     }
 

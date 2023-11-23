@@ -490,7 +490,10 @@ public class Battle : MonoBehaviour
 
         player
             .GetComponent<CharacterFeedbacks>()
-            .ChangePlayerTextureOnDamage(
+            .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
+        player
+            .GetComponent<CharacterFeedbacks>()
+            .HapticFeedbackOnDamage(
                 healthComponent.CurrentHealth,
                 playerUpdate.Health,
                 playerUpdate.Id
