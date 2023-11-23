@@ -74,7 +74,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     now = System.monotonic_time(:nanosecond)
     engine_config = LambdaGameEngine.parse_config(engine_config_json)
     later = System.monotonic_time(:nanosecond)
-    NewRelic.report_custom_metric("GameBackend/ParseConfigTime", now - later)
+    NewRelic.report_custom_metric("GameBackend/ParseConfigTime", later - now)
 
     Process.send_after(self(), :game_timeout, @game_timeout_ms)
     Process.send_after(self(), :start_game_tick, @game_tick_start)
@@ -106,8 +106,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     now = System.monotonic_time(:nanosecond)
     {game_state, player_id} = LambdaGameEngine.add_player(state.game_state, character_name)
     later = System.monotonic_time(:nanosecond)
-    Logger.info("Adding player took: #{inspect(now - later)}")
-    NewRelic.report_custom_metric("GameBackend/AddPlayerTime", now - later)
+    Logger.info("Adding player took: #{inspect(later - now)}")
+    NewRelic.report_custom_metric("GameBackend/AddPlayerTime", later - now)
 
     state =
       Map.put(state, :game_state, game_state)
