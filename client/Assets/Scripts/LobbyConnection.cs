@@ -479,4 +479,31 @@ public class LobbyConnection : MonoBehaviour
         PopulateLists();
         MaybeReconnect();
     }
+
+    public void SelectCharacter() {
+        StartCoroutine(SetSelectedCharacter());
+    }
+
+    IEnumerator SetSelectedCharacter() {
+        string url = makeUrl("/user-characters/" + this.clientId + "/edit");
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, "{ \"selected-character\": \"h4ck\" }", "application/json"))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    Session session = JsonUtility.FromJson<Session>(
+                        webRequest.downloadHandler.text
+                    );
+                    ConnectToSession(session.lobby_id);
+                    break;
+                default:
+                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                    break;
+            }
+        }
+    }
 }
