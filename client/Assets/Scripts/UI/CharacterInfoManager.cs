@@ -33,6 +33,7 @@ public class CharacterInfoManager : MonoBehaviour
 
     [SerializeField]
     GameObject rightButton;
+    bool ONLY_MUFLUS = true;
     public static int selectedCharacterPosition;
 
     void Start()
@@ -51,7 +52,8 @@ public class CharacterInfoManager : MonoBehaviour
             selectedCharacterPosition = selectedCharacterPosition + 1;
         }
 
-        SetCharacterInfo(selectedCharacterPosition);
+        if (!ONLY_MUFLUS)
+            SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void LeftArrowFunc()
@@ -64,7 +66,8 @@ public class CharacterInfoManager : MonoBehaviour
         {
             selectedCharacterPosition = selectedCharacterPosition - 1;
         }
-        SetCharacterInfo(selectedCharacterPosition);
+        if (!ONLY_MUFLUS)
+            SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void SetCharacterInfo(int currentPosition)
