@@ -270,7 +270,8 @@ public class Battle : MonoBehaviour
                         executeSkillFeedback(
                             currentPlayer,
                             serverPlayerUpdate.Action,
-                            serverPlayerUpdate.Direction
+                            serverPlayerUpdate.Direction,
+                            serverPlayerUpdate.ActionDurationMs
                         );
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -300,7 +301,8 @@ public class Battle : MonoBehaviour
     private void executeSkillFeedback(
         GameObject currentPlayer,
         PlayerAction playerAction,
-        RelativePosition direction
+        RelativePosition direction,
+        ulong actionDurationMs
     )
     {
         // TODO: Refactor
