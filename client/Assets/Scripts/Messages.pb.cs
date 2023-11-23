@@ -108,87 +108,86 @@ public static partial class MessagesReflection {
           "IqgBCgZDb25maWcSIgoKY2hhcmFjdGVycxgBIAMoCzIOLkdhbWVDaGFyYWN0",
           "ZXISHgoEZ2FtZRgCIAEoCzIQLkdhbWVTdGF0ZUNvbmZpZxIYCgVsb290cxgD",
           "IAMoCzIJLkdhbWVMb290EiQKC3Byb2plY3RpbGVzGAQgAygLMg8uR2FtZVBy",
-          "b2plY3RpbGUSGgoGc2tpbGxzGAUgAygLMgouR2FtZVNraWxsItwBCg9HYW1l",
-          "U3RhdGVDb25maWcSDQoFd2lkdGgYASABKAQSDgoGaGVpZ2h0GAIgASgEEioK",
-          "EG1hcF9tb2RpZmljYXRpb24YAyABKAsyEC5NYXBNb2RpZmljYXRpb24SGAoQ",
-          "bG9vdF9pbnRlcnZhbF9tcxgEIAEoBBIcChR6b25lX3N0YXJ0aW5nX3JhZGl1",
-          "cxgFIAEoBBIsChJ6b25lX21vZGlmaWNhdGlvbnMYBiADKAsyEC5NYXBNb2Rp",
-          "ZmljYXRpb24SGAoFbG9vdHMYByADKAsyCS5HYW1lTG9vdCL+AQoPTWFwTW9k",
-          "aWZpY2F0aW9uEicKDG1vZGlmaWNhdGlvbhgBIAEoCzIRLlpvbmVNb2RpZmlj",
-          "YXRpb24SFwoPc3RhcnRpbmdfcmFkaXVzGAIgASgEEhIKCm1pbl9yYWRpdXMY",
-          "AyABKAQSEgoKbWF4X3JhZGl1cxgEIAEoBBIrChZvdXRzaWRlX3JhZGl1c19l",
-          "ZmZlY3RzGAUgAygLMgsuR2FtZUVmZmVjdBIqChVpbnNpZGVfcmFkaXVzX2Vm",
-          "ZmVjdHMYBiADKAsyCy5HYW1lRWZmZWN0EhMKC2R1cmF0aW9uX21zGAcgASgC",
-          "EhMKC2ludGVydmFsX21zGAggASgCIkIKEFpvbmVNb2RpZmljYXRpb24SHwoI",
-          "bW9kaWZpZXIYASABKA4yDS5Nb2RpZmllclR5cGUSDQoFdmFsdWUYAiABKAMi",
-          "TgoJQXR0cmlidXRlEh8KCG1vZGlmaWVyGAEgASgOMg0uTW9kaWZpZXJUeXBl",
-          "EhEKCWF0dHJpYnV0ZRgCIAEoCRINCgV2YWx1ZRgDIAEoAiJECghHYW1lTG9v",
-          "dBIMCgRuYW1lGAEgASgJEgwKBHNpemUYAiABKAQSHAoHZWZmZWN0cxgDIAMo",
-          "CzILLkdhbWVFZmZlY3QiogEKDkdhbWVQcm9qZWN0aWxlEgwKBG5hbWUYASAB",
-          "KAkSEwoLYmFzZV9kYW1hZ2UYAiABKAQSEgoKYmFzZV9zcGVlZBgDIAEoBBIR",
-          "CgliYXNlX3NpemUYBCABKAQSGwoTcmVtb3ZlX29uX2NvbGxpc2lvbhgFIAEo",
-          "CBIUCgxtYXhfZGlzdGFuY2UYBiABKAQSEwoLZHVyYXRpb25fbXMYByABKAIi",
-          "0AEKDUdhbWVDaGFyYWN0ZXISDAoEbmFtZRgBIAEoCRIOCgZhY3RpdmUYAiAB",
-          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoBBIRCgliYXNlX3NpemUYBCABKAQSEwoL",
-          "YmFzZV9oZWFsdGgYBSABKAQSKgoGc2tpbGxzGAYgAygLMhouR2FtZUNoYXJh",
-          "Y3Rlci5Ta2lsbHNFbnRyeRo5CgtTa2lsbHNFbnRyeRILCgNrZXkYASABKAkS",
-          "GQoFdmFsdWUYAiABKAsyCi5HYW1lU2tpbGw6AjgBIn8KCUdhbWVTa2lsbBIM",
-          "CgRuYW1lGAEgASgJEhMKC2Nvb2xkb3duX21zGAIgASgEEhIKCmlzX3Bhc3Np",
-          "dmUYAyABKAgSHAoJbWVjaGFuaWNzGAQgAygLMgkuTWVjaGFuaWMSHQoVZXhl",
-          "Y3V0aW9uX2R1cmF0aW9uX21zGAUgASgEIvkBCghNZWNoYW5pYxIbCgRuYW1l",
-          "GAEgASgOMg0uTWVjaGFuaWNUeXBlEhwKB2VmZmVjdHMYAiADKAsyCy5HYW1l",
-          "RWZmZWN0Eg4KBmRhbWFnZRgDIAEoBBINCgVyYW5nZRgEIAEoBBISCgpjb25l",
-          "X2FuZ2xlGAUgASgEEiMKDm9uX2hpdF9lZmZlY3RzGAYgAygLMgsuR2FtZUVm",
-          "ZmVjdBIjCgpwcm9qZWN0aWxlGAcgASgLMg8uR2FtZVByb2plY3RpbGUSDQoF",
-          "Y291bnQYCCABKAQSEwoLZHVyYXRpb25fbXMYCSABKAQSEQoJbWF4X3Jhbmdl",
-          "GAogASgEIrYDCgpHYW1lRWZmZWN0EgwKBG5hbWUYASABKAkSFQoNaXNfcmV2",
-          "ZXJzYWJsZRgCIAEoCBIlChFwbGF5ZXJfYXR0cmlidXRlcxgDIAMoCzIKLkF0",
-          "dHJpYnV0ZRIpChVwcm9qZWN0aWxlX2F0dHJpYnV0ZXMYBCADKAsyCi5BdHRy",
-          "aWJ1dGUSFQoLc2ltcGxlX3R5cGUYBSABKAlIABIoCghkdXJhdGlvbhgGIAEo",
-          "CzIULkdhbWVFZmZlY3QuRHVyYXRpb25IABIoCghwZXJpb2RpYxgHIAEoCzIU",
-          "LkdhbWVFZmZlY3QuUGVyaW9kaWNIABotCghEdXJhdGlvbhIMCgR0eXBlGAEg",
-          "ASgJEhMKC2R1cmF0aW9uX21zGAIgASgEGoIBCghQZXJpb2RpYxIMCgR0eXBl",
-          "GAEgASgJEhsKE2luc3RhbnRfYXBwbGljYWl0b24YAiABKAgSEwoLaW50ZXJ2",
-          "YWxfbXMYAyABKAQSFQoNdHJpZ2dlcl9jb3VudBgEIAEoBBIfChd0aW1lX3Np",
-          "bmNlX2xhc3RfdHJpZ2dlchgFIAEoAkISChBlZmZlY3RfdGltZV90eXBlIhUK",
-          "BE1vdmUSDQoFYW5nbGUYASABKAIiKAoIVXNlU2tpbGwSDQoFc2tpbGwYASAB",
-          "KAkSDQoFYW5nbGUYAiABKAIiZQoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgL",
-          "MgUuTW92ZUgAEh4KCXVzZV9za2lsbBgCIAEoCzIJLlVzZVNraWxsSAASEQoJ",
-          "dGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlKq4BCg1HYW1lRXZlbnRU",
-          "eXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExB",
-          "WUVSX0pPSU5FRBACEhEKDUdBTUVfRklOSVNIRUQQAxIVChFJTklUSUFMX1BP",
-          "U0lUSU9OUxAEEh0KGVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBRIeChpG",
-          "SU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAGKh0KBlN0YXR1cxIJCgVBTElW",
-          "RRAAEggKBERFQUQQASr/AQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklF",
-          "RBAAEgoKBkFUVEFDSxABEgwKCFRFTEVQT1JUEAISDgoKQVRUQUNLX0FPRRAD",
-          "EhYKEk1PVkVfV0lUSF9KT1lTVElDSxAEEgsKB0FERF9CT1QQBRIPCgtBVVRP",
-          "X0FUVEFDSxAGEhAKDEJBU0lDX0FUVEFDSxAHEgsKB1NLSUxMXzEQCBILCgdT",
-          "S0lMTF8yEAkSCwoHU0tJTExfMxAKEgsKB1NLSUxMXzQQCxIUChBTRUxFQ1Rf",
-          "Q0hBUkFDVEVSEAwSDwoLRU5BQkxFX0JPVFMQDRIQCgxESVNBQkxFX0JPVFMQ",
-          "DipNCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoC",
-          "VVAQARIICgRET1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQq/QEKDFBsYXll",
-          "ckFjdGlvbhILCgdOT1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNL",
-          "SU5HX0FPRRACEhQKEFNUQVJUSU5HX1NLSUxMXzEQAxIUChBTVEFSVElOR19T",
-          "S0lMTF8yEAQSFAoQU1RBUlRJTkdfU0tJTExfMxAFEhQKEFNUQVJUSU5HX1NL",
-          "SUxMXzQQBhIVChFFWEVDVVRJTkdfU0tJTExfMRAHEhUKEUVYRUNVVElOR19T",
-          "S0lMTF8yEAgSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFFWEVDVVRJTkdf",
-          "U0tJTExfNBAKEgoKBk1PVklORxALKrYCCgxQbGF5ZXJFZmZlY3QSDQoJUEVU",
-          "UklGSUVEEAASDAoIRElTQVJNRUQQARIVChFERU5JQUxfT0ZfU0VSVklDRRAC",
-          "EgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIP",
-          "CgtPVVRfT0ZfQVJFQRAGEg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJL",
-          "EAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQ",
-          "T0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBBR0UQDRIKCgZC",
-          "VVJORUQQDhILCgdTQ0hFUlpPEA8SEQoNREFOU0VfTUFDQUJSRRAQEg0KCVBB",
-          "UkFMWVpFRBAREggKBE5PTkUQEiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQ",
-          "RV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERF",
-          "RBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNU",
-          "QVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVU",
-          "eXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9q",
-          "ZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAEqNgoITG9v",
-          "dFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAASDwoLTE9PVF9IRUFM",
-          "VEgQASowCgxNb2RpZmllclR5cGUSEgoOTVVMVElQTElDQVRJVkUQABIMCghB",
-          "RERJVElWRRABKjoKDE1lY2hhbmljVHlwZRIHCgNISVQQABIQCgxTSU1QTEVf",
-          "U0hPT1QQARIPCgtNVUxUSV9TSE9PVBACYgZwcm90bzM="));
+          "b2plY3RpbGUSGgoGc2tpbGxzGAUgAygLMgouR2FtZVNraWxsIrABCg9HYW1l",
+          "U3RhdGVDb25maWcSDQoFd2lkdGgYASABKAQSDgoGaGVpZ2h0GAIgASgEEhgK",
+          "EGxvb3RfaW50ZXJ2YWxfbXMYAyABKAQSHAoUem9uZV9zdGFydGluZ19yYWRp",
+          "dXMYBCABKAQSLAoSem9uZV9tb2RpZmljYXRpb25zGAUgAygLMhAuTWFwTW9k",
+          "aWZpY2F0aW9uEhgKBWxvb3RzGAYgAygLMgkuR2FtZUxvb3Qi/gEKD01hcE1v",
+          "ZGlmaWNhdGlvbhInCgxtb2RpZmljYXRpb24YASABKAsyES5ab25lTW9kaWZp",
+          "Y2F0aW9uEhcKD3N0YXJ0aW5nX3JhZGl1cxgCIAEoBBISCgptaW5fcmFkaXVz",
+          "GAMgASgEEhIKCm1heF9yYWRpdXMYBCABKAQSKwoWb3V0c2lkZV9yYWRpdXNf",
+          "ZWZmZWN0cxgFIAMoCzILLkdhbWVFZmZlY3QSKgoVaW5zaWRlX3JhZGl1c19l",
+          "ZmZlY3RzGAYgAygLMgsuR2FtZUVmZmVjdBITCgtkdXJhdGlvbl9tcxgHIAEo",
+          "AhITCgtpbnRlcnZhbF9tcxgIIAEoAiJCChBab25lTW9kaWZpY2F0aW9uEh8K",
+          "CG1vZGlmaWVyGAEgASgOMg0uTW9kaWZpZXJUeXBlEg0KBXZhbHVlGAIgASgD",
+          "Ik4KCUF0dHJpYnV0ZRIfCghtb2RpZmllchgBIAEoDjINLk1vZGlmaWVyVHlw",
+          "ZRIRCglhdHRyaWJ1dGUYAiABKAkSDQoFdmFsdWUYAyABKAIiRAoIR2FtZUxv",
+          "b3QSDAoEbmFtZRgBIAEoCRIMCgRzaXplGAIgASgEEhwKB2VmZmVjdHMYAyAD",
+          "KAsyCy5HYW1lRWZmZWN0IqIBCg5HYW1lUHJvamVjdGlsZRIMCgRuYW1lGAEg",
+          "ASgJEhMKC2Jhc2VfZGFtYWdlGAIgASgEEhIKCmJhc2Vfc3BlZWQYAyABKAQS",
+          "EQoJYmFzZV9zaXplGAQgASgEEhsKE3JlbW92ZV9vbl9jb2xsaXNpb24YBSAB",
+          "KAgSFAoMbWF4X2Rpc3RhbmNlGAYgASgEEhMKC2R1cmF0aW9uX21zGAcgASgC",
+          "ItABCg1HYW1lQ2hhcmFjdGVyEgwKBG5hbWUYASABKAkSDgoGYWN0aXZlGAIg",
+          "ASgIEhIKCmJhc2Vfc3BlZWQYAyABKAQSEQoJYmFzZV9zaXplGAQgASgEEhMK",
+          "C2Jhc2VfaGVhbHRoGAUgASgEEioKBnNraWxscxgGIAMoCzIaLkdhbWVDaGFy",
+          "YWN0ZXIuU2tpbGxzRW50cnkaOQoLU2tpbGxzRW50cnkSCwoDa2V5GAEgASgJ",
+          "EhkKBXZhbHVlGAIgASgLMgouR2FtZVNraWxsOgI4ASJ/CglHYW1lU2tpbGwS",
+          "DAoEbmFtZRgBIAEoCRITCgtjb29sZG93bl9tcxgCIAEoBBISCgppc19wYXNz",
+          "aXZlGAMgASgIEhwKCW1lY2hhbmljcxgEIAMoCzIJLk1lY2hhbmljEh0KFWV4",
+          "ZWN1dGlvbl9kdXJhdGlvbl9tcxgFIAEoBCL5AQoITWVjaGFuaWMSGwoEbmFt",
+          "ZRgBIAEoDjINLk1lY2hhbmljVHlwZRIcCgdlZmZlY3RzGAIgAygLMgsuR2Ft",
+          "ZUVmZmVjdBIOCgZkYW1hZ2UYAyABKAQSDQoFcmFuZ2UYBCABKAQSEgoKY29u",
+          "ZV9hbmdsZRgFIAEoBBIjCg5vbl9oaXRfZWZmZWN0cxgGIAMoCzILLkdhbWVF",
+          "ZmZlY3QSIwoKcHJvamVjdGlsZRgHIAEoCzIPLkdhbWVQcm9qZWN0aWxlEg0K",
+          "BWNvdW50GAggASgEEhMKC2R1cmF0aW9uX21zGAkgASgEEhEKCW1heF9yYW5n",
+          "ZRgKIAEoBCK2AwoKR2FtZUVmZmVjdBIMCgRuYW1lGAEgASgJEhUKDWlzX3Jl",
+          "dmVyc2FibGUYAiABKAgSJQoRcGxheWVyX2F0dHJpYnV0ZXMYAyADKAsyCi5B",
+          "dHRyaWJ1dGUSKQoVcHJvamVjdGlsZV9hdHRyaWJ1dGVzGAQgAygLMgouQXR0",
+          "cmlidXRlEhUKC3NpbXBsZV90eXBlGAUgASgJSAASKAoIZHVyYXRpb24YBiAB",
+          "KAsyFC5HYW1lRWZmZWN0LkR1cmF0aW9uSAASKAoIcGVyaW9kaWMYByABKAsy",
+          "FC5HYW1lRWZmZWN0LlBlcmlvZGljSAAaLQoIRHVyYXRpb24SDAoEdHlwZRgB",
+          "IAEoCRITCgtkdXJhdGlvbl9tcxgCIAEoBBqCAQoIUGVyaW9kaWMSDAoEdHlw",
+          "ZRgBIAEoCRIbChNpbnN0YW50X2FwcGxpY2FpdG9uGAIgASgIEhMKC2ludGVy",
+          "dmFsX21zGAMgASgEEhUKDXRyaWdnZXJfY291bnQYBCABKAQSHwoXdGltZV9z",
+          "aW5jZV9sYXN0X3RyaWdnZXIYBSABKAJCEgoQZWZmZWN0X3RpbWVfdHlwZSIV",
+          "CgRNb3ZlEg0KBWFuZ2xlGAEgASgCIigKCFVzZVNraWxsEg0KBXNraWxsGAEg",
+          "ASgJEg0KBWFuZ2xlGAIgASgCImUKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEo",
+          "CzIFLk1vdmVIABIeCgl1c2Vfc2tpbGwYAiABKAsyCS5Vc2VTa2lsbEgAEhEK",
+          "CXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSquAQoNR2FtZUV2ZW50",
+          "VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBM",
+          "QVlFUl9KT0lORUQQAhIRCg1HQU1FX0ZJTklTSEVEEAMSFQoRSU5JVElBTF9Q",
+          "T1NJVElPTlMQBBIdChlTRUxFQ1RFRF9DSEFSQUNURVJfVVBEQVRFEAUSHgoa",
+          "RklOSVNIX0NIQVJBQ1RFUl9TRUxFQ1RJT04QBiodCgZTdGF0dXMSCQoFQUxJ",
+          "VkUQABIICgRERUFEEAEq/wEKBkFjdGlvbhIWChJBQ1RJT05fVU5TUEVDSUZJ",
+          "RUQQABIKCgZBVFRBQ0sQARIMCghURUxFUE9SVBACEg4KCkFUVEFDS19BT0UQ",
+          "AxIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBBILCgdBRERfQk9UEAUSDwoLQVVU",
+          "T19BVFRBQ0sQBhIQCgxCQVNJQ19BVFRBQ0sQBxILCgdTS0lMTF8xEAgSCwoH",
+          "U0tJTExfMhAJEgsKB1NLSUxMXzMQChILCgdTS0lMTF80EAsSFAoQU0VMRUNU",
+          "X0NIQVJBQ1RFUhAMEg8KC0VOQUJMRV9CT1RTEA0SEAoMRElTQUJMRV9CT1RT",
+          "EA4qTQoJRGlyZWN0aW9uEhkKFURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYK",
+          "AlVQEAESCAoERE9XThACEggKBExFRlQQAxIJCgVSSUdIVBAEKv0BCgxQbGF5",
+          "ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFD",
+          "S0lOR19BT0UQAhIUChBTVEFSVElOR19TS0lMTF8xEAMSFAoQU1RBUlRJTkdf",
+          "U0tJTExfMhAEEhQKEFNUQVJUSU5HX1NLSUxMXzMQBRIUChBTVEFSVElOR19T",
+          "S0lMTF80EAYSFQoRRVhFQ1VUSU5HX1NLSUxMXzEQBxIVChFFWEVDVVRJTkdf",
+          "U0tJTExfMhAIEhUKEUVYRUNVVElOR19TS0lMTF8zEAkSFQoRRVhFQ1VUSU5H",
+          "X1NLSUxMXzQQChIKCgZNT1ZJTkcQCyq2AgoMUGxheWVyRWZmZWN0Eg0KCVBF",
+          "VFJJRklFRBAAEgwKCERJU0FSTUVEEAESFQoRREVOSUFMX09GX1NFUlZJQ0UQ",
+          "AhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJTkcQBBILCgdMRUFQSU5HEAUS",
+          "DwoLT1VUX09GX0FSRUEQBhIOCgpFTE5BUl9NQVJLEAcSDgoKWVVHRU5fTUFS",
+          "SxAIEg4KClhBTkRBX01BUksQCRIUChBYQU5EQV9NQVJLX09XTkVSEAoSDAoI",
+          "UE9JU09ORUQQCxIKCgZTTE9XRUQQDBIRCg1GSUVSWV9SQU1QQUdFEA0SCgoG",
+          "QlVSTkVEEA4SCwoHU0NIRVJaTxAPEhEKDURBTlNFX01BQ0FCUkUQEBINCglQ",
+          "QVJBTFlaRUQQERIICgROT05FEBIqjwEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZ",
+          "UEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURE",
+          "RUQQAhIQCgxHQU1FX1NUQVJURUQQAxIQCgxQTEFZRVJfQ09VTlQQBBIOCgpT",
+          "VEFSVF9HQU1FEAUSEgoOUExBWUVSX1JFTU9WRUQQBioyCg5Qcm9qZWN0aWxl",
+          "VHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJv",
+          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKjYKCExv",
+          "b3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xPT1RfSEVB",
+          "TFRIEAEqMAoMTW9kaWZpZXJUeXBlEhIKDk1VTFRJUExJQ0FUSVZFEAASDAoI",
+          "QURESVRJVkUQASo6CgxNZWNoYW5pY1R5cGUSBwoDSElUEAASEAoMU0lNUExF",
+          "X1NIT09UEAESDwoLTVVMVElfU0hPT1QQAmIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -214,7 +213,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::MillisTime), global::MillisTime.Parser, new[]{ "High", "Low" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LootPackage), global::LootPackage.Parser, new[]{ "Id", "Position", "LootType" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Config), global::Config.Parser, new[]{ "Characters", "Game", "Loots", "Projectiles", "Skills" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameStateConfig), global::GameStateConfig.Parser, new[]{ "Width", "Height", "MapModification", "LootIntervalMs", "ZoneStartingRadius", "ZoneModifications", "Loots" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameStateConfig), global::GameStateConfig.Parser, new[]{ "Width", "Height", "LootIntervalMs", "ZoneStartingRadius", "ZoneModifications", "Loots" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MapModification), global::MapModification.Parser, new[]{ "Modification", "StartingRadius", "MinRadius", "MaxRadius", "OutsideRadiusEffects", "InsideRadiusEffects", "DurationMs", "IntervalMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ZoneModification), global::ZoneModification.Parser, new[]{ "Modifier", "Value" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Attribute), global::Attribute.Parser, new[]{ "Modifier", "Attribute_", "Value" }, null, null, null, null),
@@ -8991,7 +8990,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   public GameStateConfig(GameStateConfig other) : this() {
     width_ = other.width_;
     height_ = other.height_;
-    mapModification_ = other.mapModification_ != null ? other.mapModification_.Clone() : null;
     lootIntervalMs_ = other.lootIntervalMs_;
     zoneStartingRadius_ = other.zoneStartingRadius_;
     zoneModifications_ = other.zoneModifications_.Clone();
@@ -9029,20 +9027,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     }
   }
 
-  /// <summary>Field number for the "map_modification" field.</summary>
-  public const int MapModificationFieldNumber = 3;
-  private global::MapModification mapModification_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::MapModification MapModification {
-    get { return mapModification_; }
-    set {
-      mapModification_ = value;
-    }
-  }
-
   /// <summary>Field number for the "loot_interval_ms" field.</summary>
-  public const int LootIntervalMsFieldNumber = 4;
+  public const int LootIntervalMsFieldNumber = 3;
   private ulong lootIntervalMs_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -9054,7 +9040,7 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   }
 
   /// <summary>Field number for the "zone_starting_radius" field.</summary>
-  public const int ZoneStartingRadiusFieldNumber = 5;
+  public const int ZoneStartingRadiusFieldNumber = 4;
   private ulong zoneStartingRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -9066,9 +9052,9 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   }
 
   /// <summary>Field number for the "zone_modifications" field.</summary>
-  public const int ZoneModificationsFieldNumber = 6;
+  public const int ZoneModificationsFieldNumber = 5;
   private static readonly pb::FieldCodec<global::MapModification> _repeated_zoneModifications_codec
-      = pb::FieldCodec.ForMessage(50, global::MapModification.Parser);
+      = pb::FieldCodec.ForMessage(42, global::MapModification.Parser);
   private readonly pbc::RepeatedField<global::MapModification> zoneModifications_ = new pbc::RepeatedField<global::MapModification>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -9077,9 +9063,9 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   }
 
   /// <summary>Field number for the "loots" field.</summary>
-  public const int LootsFieldNumber = 7;
+  public const int LootsFieldNumber = 6;
   private static readonly pb::FieldCodec<global::GameLoot> _repeated_loots_codec
-      = pb::FieldCodec.ForMessage(58, global::GameLoot.Parser);
+      = pb::FieldCodec.ForMessage(50, global::GameLoot.Parser);
   private readonly pbc::RepeatedField<global::GameLoot> loots_ = new pbc::RepeatedField<global::GameLoot>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -9104,7 +9090,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     }
     if (Width != other.Width) return false;
     if (Height != other.Height) return false;
-    if (!object.Equals(MapModification, other.MapModification)) return false;
     if (LootIntervalMs != other.LootIntervalMs) return false;
     if (ZoneStartingRadius != other.ZoneStartingRadius) return false;
     if(!zoneModifications_.Equals(other.zoneModifications_)) return false;
@@ -9118,7 +9103,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     int hash = 1;
     if (Width != 0UL) hash ^= Width.GetHashCode();
     if (Height != 0UL) hash ^= Height.GetHashCode();
-    if (mapModification_ != null) hash ^= MapModification.GetHashCode();
     if (LootIntervalMs != 0UL) hash ^= LootIntervalMs.GetHashCode();
     if (ZoneStartingRadius != 0UL) hash ^= ZoneStartingRadius.GetHashCode();
     hash ^= zoneModifications_.GetHashCode();
@@ -9149,16 +9133,12 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
       output.WriteRawTag(16);
       output.WriteUInt64(Height);
     }
-    if (mapModification_ != null) {
-      output.WriteRawTag(26);
-      output.WriteMessage(MapModification);
-    }
     if (LootIntervalMs != 0UL) {
-      output.WriteRawTag(32);
+      output.WriteRawTag(24);
       output.WriteUInt64(LootIntervalMs);
     }
     if (ZoneStartingRadius != 0UL) {
-      output.WriteRawTag(40);
+      output.WriteRawTag(32);
       output.WriteUInt64(ZoneStartingRadius);
     }
     zoneModifications_.WriteTo(output, _repeated_zoneModifications_codec);
@@ -9181,16 +9161,12 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
       output.WriteRawTag(16);
       output.WriteUInt64(Height);
     }
-    if (mapModification_ != null) {
-      output.WriteRawTag(26);
-      output.WriteMessage(MapModification);
-    }
     if (LootIntervalMs != 0UL) {
-      output.WriteRawTag(32);
+      output.WriteRawTag(24);
       output.WriteUInt64(LootIntervalMs);
     }
     if (ZoneStartingRadius != 0UL) {
-      output.WriteRawTag(40);
+      output.WriteRawTag(32);
       output.WriteUInt64(ZoneStartingRadius);
     }
     zoneModifications_.WriteTo(ref output, _repeated_zoneModifications_codec);
@@ -9210,9 +9186,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     }
     if (Height != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
-    }
-    if (mapModification_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(MapModification);
     }
     if (LootIntervalMs != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(LootIntervalMs);
@@ -9239,12 +9212,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     }
     if (other.Height != 0UL) {
       Height = other.Height;
-    }
-    if (other.mapModification_ != null) {
-      if (mapModification_ == null) {
-        MapModification = new global::MapModification();
-      }
-      MapModification.MergeFrom(other.MapModification);
     }
     if (other.LootIntervalMs != 0UL) {
       LootIntervalMs = other.LootIntervalMs;
@@ -9277,26 +9244,19 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
           Height = input.ReadUInt64();
           break;
         }
-        case 26: {
-          if (mapModification_ == null) {
-            MapModification = new global::MapModification();
-          }
-          input.ReadMessage(MapModification);
-          break;
-        }
-        case 32: {
+        case 24: {
           LootIntervalMs = input.ReadUInt64();
           break;
         }
-        case 40: {
+        case 32: {
           ZoneStartingRadius = input.ReadUInt64();
           break;
         }
-        case 50: {
+        case 42: {
           zoneModifications_.AddEntriesFrom(input, _repeated_zoneModifications_codec);
           break;
         }
-        case 58: {
+        case 50: {
           loots_.AddEntriesFrom(input, _repeated_loots_codec);
           break;
         }
@@ -9323,26 +9283,19 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
           Height = input.ReadUInt64();
           break;
         }
-        case 26: {
-          if (mapModification_ == null) {
-            MapModification = new global::MapModification();
-          }
-          input.ReadMessage(MapModification);
-          break;
-        }
-        case 32: {
+        case 24: {
           LootIntervalMs = input.ReadUInt64();
           break;
         }
-        case 40: {
+        case 32: {
           ZoneStartingRadius = input.ReadUInt64();
           break;
         }
-        case 50: {
+        case 42: {
           zoneModifications_.AddEntriesFrom(ref input, _repeated_zoneModifications_codec);
           break;
         }
-        case 58: {
+        case 50: {
           loots_.AddEntriesFrom(ref input, _repeated_loots_codec);
           break;
         }

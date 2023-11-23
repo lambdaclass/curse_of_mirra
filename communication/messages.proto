@@ -450,11 +450,10 @@ message Config {
 message GameStateConfig {
     uint64 width = 1;
     uint64 height = 2;
-    MapModification map_modification = 3;
-    uint64 loot_interval_ms = 4;
-    uint64 zone_starting_radius = 5;
-    repeated MapModification zone_modifications = 6;
-    repeated GameLoot loots = 7;
+    uint64 loot_interval_ms = 3;
+    uint64 zone_starting_radius = 4;
+    repeated MapModification zone_modifications = 5;
+    repeated GameLoot loots = 6;
 }
 
 /* The information for when the map modification mechanic is triggered.
