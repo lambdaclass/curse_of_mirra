@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using CandyCoded.HapticFeedback;
 
 public class CharacterFeedbacks : MonoBehaviour
 {
@@ -75,13 +73,19 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth)
+    public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth, ulong playerId)
     {
         if (clientHealth != playerHealth)
         {
             if (playerHealth < clientHealth)
             {
                 ApplyColorFeedback(damageOverlayColor);
+
+                if (playerId == SocketConnectionManager.Instance.playerId)
+                {
+                    HapticFeedback.HeavyFeedback();
+                    print("vibration");
+                }
             }
             if (playerHealth > clientHealth)
             {

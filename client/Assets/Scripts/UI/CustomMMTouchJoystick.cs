@@ -98,7 +98,6 @@ public class CustomMMTouchJoystick : MMTouchJoystick
             {
                 inputManager.SetCanceled(dragged);
                 HapticFeedback.MediumFeedback();
-                print("vibration");
             }
             frameCounter++;
         }

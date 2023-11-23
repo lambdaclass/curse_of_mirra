@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -491,7 +490,11 @@ public class Battle : MonoBehaviour
 
         player
             .GetComponent<CharacterFeedbacks>()
-            .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
+            .ChangePlayerTextureOnDamage(
+                healthComponent.CurrentHealth,
+                playerUpdate.Health,
+                playerUpdate.Id
+            );
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
