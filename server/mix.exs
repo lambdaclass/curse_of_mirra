@@ -19,7 +19,7 @@ defmodule DarkWorldsServer.MixProject do
   def application do
     [
       mod: {DarkWorldsServer.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :tools]
     ]
   end
 

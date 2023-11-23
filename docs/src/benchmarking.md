@@ -27,8 +27,8 @@ tmux new-window -t mysession -n "Window 1"
 tmux send-keys -t mysession:1 'journalctl -xefu dark_worlds_server' C-m
 
 # Open htop window
-tmux new-window -t mysession -n "Window 2"
-tmux send-keys -t mysession:2 'htop' C-m
+tmux split-window -h
+tmux send-keys -t mysession:1 'htop' C-m
 
 # Attach to the session to view the windows
 tmux attach-session -t mysession
@@ -37,8 +37,9 @@ Switch between htop and logs with Ctrl-b 1 or Ctrl-b 2.
 
 4. Locally, on your machine, then run the load tests 
    from the load_tests app. Run `iex -S mix` there. The function you want
-   to call is `LoadTest.PlayerSupervisor.n_games_30_players/1`, which takes
-   as an argument how many game sessions to start.
+   to call is `LoadTest.PlayerSupervisor.spawn_players/2`, which takes
+   as an argument how many player sessions to start and optionally the amount 
+   in seconds until those sessions exit the game.
 
 5. On the frontend, check for how good the user experience is! This is very important!
    If you can, try to play with someone else while the load tests run.
