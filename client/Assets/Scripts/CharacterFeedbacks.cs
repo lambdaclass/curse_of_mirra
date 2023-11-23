@@ -90,11 +90,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     public void HapticFeedbackOnDamage(float clientHealth, float playerHealth, ulong playerId)
     {
-        if (
-            clientHealth != playerHealth
-            && playerHealth < clientHealth
-            && playerId == SocketConnectionManager.Instance.playerId
-        )
+        if (playerHealth < clientHealth && playerId == SocketConnectionManager.Instance.playerId)
         {
             HapticFeedback.HeavyFeedback();
         }
