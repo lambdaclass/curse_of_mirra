@@ -59,23 +59,23 @@ defmodule DarkWorldsServerWeb.Router do
     # you can use Plug.BasicAuth to set up some basic authentication
     # as long as you are also using SSL (which you should anyway).
     import Phoenix.LiveDashboard.Router
+  end
 
-    scope "/dev" do
-      pipe_through(:browser)
+  scope "/dev" do
+    pipe_through(:browser)
 
-      live_dashboard("/dashboard",
-        metrics: DarkWorldsServerWeb.Telemetry,
-        additional_pages:
-          [] ++
-            if System.get_env("FLAMEGRAPH") do
-              [flame_on: FlameOn.DashboardPage]
-            else
-              []
-            end
-      )
+    live_dashboard("/dashboard",
+      metrics: DarkWorldsServerWeb.Telemetry,
+      additional_pages:
+        [] ++
+          if System.get_env("FLAMEGRAPH") do
+            [flame_on: FlameOn.DashboardPage]
+          else
+            []
+          end
+    )
 
-      forward("/mailbox", Plug.Swoosh.MailboxPreview)
-    end
+    forward("/mailbox", Plug.Swoosh.MailboxPreview)
   end
 
   ###########################
