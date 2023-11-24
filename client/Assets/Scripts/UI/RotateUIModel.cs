@@ -25,7 +25,7 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     IEnumerator GetModel()
     {
         yield return new WaitUntil(() => modelContainer.GetComponentInChildren<Animator>() != null);
-        model = modelContainer.GetComponentInChildren<Animator>().gameObject.transform;
+        model = modelContainer.GetComponentInChildren<Animator>().transform.parent.transform;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -57,7 +57,7 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         yield return new WaitForSeconds(3f);
         if (restRotation)
         {
-            model.DORotate(new Vector3(0f, 180f, 0f), .5f, RotateMode.Fast);
+            model.DORotate(Vector3.zero, .5f, RotateMode.Fast);
         }
     }
 }
