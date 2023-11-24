@@ -41,22 +41,17 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        resetRotation = false;
         StopCoroutine(coroutine);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        resetRotation = true;
         coroutine = StartCoroutine(ResetModelRotation());
     }
 
     IEnumerator ResetModelRotation()
     {
-        if (resetRotation)
-        {
-            yield return new WaitForSeconds(2f);
-            model.DORotate(Vector3.zero, 1f, RotateMode.Fast).SetEase(Ease.OutQuint);
-        }
+        yield return new WaitForSeconds(2f);
+        model.DORotate(Vector3.zero, 1f, RotateMode.Fast).SetEase(Ease.OutQuint);
     }
 }
