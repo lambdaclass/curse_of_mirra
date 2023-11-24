@@ -13,6 +13,10 @@ public class UIModelManager : MonoBehaviour
 
     public void SetModel(CoMCharacter character = null)
     {
+        Debug.Log(LobbyConnection.Instance.SelectedCharacterName);
+        if(!string.IsNullOrEmpty(LobbyConnection.Instance.SelectedCharacterName)) {
+            
+        }
         int index = Random.Range(0, playerModels.Count);
         string name = playerModels[index].name;
         GameObject playerModel =

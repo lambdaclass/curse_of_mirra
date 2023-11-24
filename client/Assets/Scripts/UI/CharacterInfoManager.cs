@@ -78,4 +78,8 @@ public class CharacterInfoManager : MonoBehaviour
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
     }
+
+    public void SetCharacter() {
+        LobbyConnection.Instance.SelectCharacter(comCharacters[selectedCharacterPosition].name);
+    }
 }

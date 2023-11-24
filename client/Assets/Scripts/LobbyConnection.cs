@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
@@ -39,15 +40,15 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
+    public string SelectedCharacterName { get; private set; }
+
 
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
     private const string versionHashesTitle = "Warning";
-    private const string versionHashesDescription =
-        "Client and Server version hashes do not match.";
-
+    private const string versionHashesDescription = "Client and Server version hashes do not match.";
     WebSocket ws;
 
     [Serializable]
@@ -96,6 +97,13 @@ public class LobbyConnection : MonoBehaviour
             public string character_config;
             public string skills_config;
         }
+    }
+
+    [Serializable]
+    class SelectCharacterResponse
+    {
+        public ulong device_client_id;
+        public string selected_character;
     }
 
     class AcceptAllCertificates : CertificateHandler
@@ -480,13 +488,15 @@ public class LobbyConnection : MonoBehaviour
         MaybeReconnect();
     }
 
-    public void SelectCharacter() {
-        StartCoroutine(SetSelectedCharacter());
+    public void SelectCharacter(string characterName) {
+        StartCoroutine(SetSelectedCharacter(characterName));
     }
 
-    IEnumerator SetSelectedCharacter() {
-        string url = makeUrl("/user-characters/" + this.clientId + "/edit");
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, "{ \"selected-character\": \"h4ck\" }", "application/json"))
+    IEnumerator SetSelectedCharacter(string characterName) {
+        string url = makeUrl("/users-characters/" + this.clientId + "/edit");
+        string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
+        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
@@ -495,10 +505,14 @@ public class LobbyConnection : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonUtility.FromJson<Session>(
-                        webRequest.downloadHandler.text
-                    );
-                    ConnectToSession(session.lobby_id);
+                    if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
+                        Errors.Instance.HandleNetworkError(connectionTitle, webRequest.downloadHandler.text);
+                    } else {
+                        SelectCharacterResponse response = JsonUtility.FromJson<SelectCharacterResponse>(
+                            webRequest.downloadHandler.text
+                        );
+                        SelectedCharacterName = response.selected_character;
+                    }
                     break;
                 default:
                     Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
