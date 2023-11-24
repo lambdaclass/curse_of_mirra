@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 5145341565671373888}
   - component: {fileID: 8345537447180481661}
   - component: {fileID: 1049750517397163494}
+  - component: {fileID: 1172770014762724167}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -511,6 +512,54 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1172770014762724167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382648203930173913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036cedc5cc35049e6ac72e803b3cc5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelContainer: {fileID: 2160659356440150380}
+  pressed:
+    m_Name: Pressed
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 8da27e04-36a4-4676-8a77-50d0e3ed037a
+    m_Processors: 
+    m_Interactions: Press
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 83406f36-e7ca-4adf-807d-49fbb063dbef
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pressed
+      m_Flags: 0
+    m_Flags: 0
+  axis:
+    m_Name: Axis
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: f889ba57-6f17-45f0-9f94-a9907ad352b4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 47b798e0-7f22-441d-88ba-bf023555833b
+      m_Path: <Mouse>/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 0
+    m_Flags: 0
+  rotationSpeed: 1
 --- !u!1 &488909168334717098
 GameObject:
   m_ObjectHideFlags: 0
