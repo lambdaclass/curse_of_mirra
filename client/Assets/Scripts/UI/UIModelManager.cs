@@ -14,10 +14,24 @@ public class UIModelManager : MonoBehaviour
     public void SetModel(CoMCharacter character = null)
     {
         Debug.Log(LobbyConnection.Instance.SelectedCharacterName);
-        if(!string.IsNullOrEmpty(LobbyConnection.Instance.SelectedCharacterName)) {
-            
+        int index;
+        switch(LobbyConnection.Instance.SelectedCharacterName) {
+            case "Muflus":
+                index = 0;
+                break;
+            case "H4ck":
+                index = 1;
+                break;
+            case "DAgna":
+                index = 2;
+                break;
+            case "Uma":
+                index = 3;
+                break;
+            default:
+                index = Random.Range(0, playerModels.Count);
+                break;
         }
-        int index = Random.Range(0, playerModels.Count);
         string name = playerModels[index].name;
         GameObject playerModel =
             character != null

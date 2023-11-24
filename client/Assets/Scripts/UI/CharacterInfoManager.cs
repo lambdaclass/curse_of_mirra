@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening;
+using MoreMountains.Tools;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -29,10 +29,8 @@ public class CharacterInfoManager : MonoBehaviour
 
     [Header("Buttons")]
     [SerializeField]
-    GameObject leftButton;
+    MMTouchButton selectButton;
 
-    [SerializeField]
-    GameObject rightButton;
     public static int selectedCharacterPosition;
 
     void Start()
@@ -77,9 +75,15 @@ public class CharacterInfoManager : MonoBehaviour
         classImage.sprite = comCharacter.classImage;
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
+        if(LobbyConnection.Instance.SelectedCharacterName == comCharacter.name) {
+            selectButton.DisableButton();    
+        } else {
+            selectButton.EnableButton();
+        }
     }
 
     public void SetCharacter() {
         LobbyConnection.Instance.SelectCharacter(comCharacters[selectedCharacterPosition].name);
+        selectButton.DisableButton();
     }
 }

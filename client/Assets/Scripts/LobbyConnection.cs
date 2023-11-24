@@ -42,7 +42,6 @@ public class LobbyConnection : MonoBehaviour
     public ServerGameSettings reconnectServerSettings;
     public string SelectedCharacterName { get; private set; }
 
-
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
@@ -97,13 +96,6 @@ public class LobbyConnection : MonoBehaviour
             public string character_config;
             public string skills_config;
         }
-    }
-
-    [Serializable]
-    class SelectCharacterResponse
-    {
-        public ulong device_client_id;
-        public string selected_character;
     }
 
     class AcceptAllCertificates : CertificateHandler
@@ -508,14 +500,15 @@ public class LobbyConnection : MonoBehaviour
                     if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
                         Errors.Instance.HandleNetworkError(connectionTitle, webRequest.downloadHandler.text);
                     } else {
-                        SelectCharacterResponse response = JsonUtility.FromJson<SelectCharacterResponse>(
+                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
                             webRequest.downloadHandler.text
                         );
                         SelectedCharacterName = response.selected_character;
+                        PlayerPrefs.SetString("selected_character", response.selected_character);
                     }
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+                    Errors.Instance.HandleNetworkError(connectionTitle, webRequest.downloadHandler.error);
                     break;
             }
         }
