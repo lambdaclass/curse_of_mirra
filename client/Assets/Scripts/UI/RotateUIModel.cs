@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField]
-    float rotationSpeed = 0.5f;
+    float rotationSpeed = 1f;
 
     [SerializeField]
     GameObject modelContainer;
@@ -14,8 +14,9 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     Touch touch;
     Vector2 touchPosition;
     Quaternion rotationX;
-    bool restRotation;
+    bool resetRotation;
     Vector2 rotationValue;
+    Coroutine coroutine;
 
     void Awake()
     {
@@ -30,34 +31,32 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (Input.touchCount > 0 && modelContainer.GetComponentInChildren<Animator>() != null)
+        touch = Input.GetTouch(0);
+        if (touch.phase == TouchPhase.Moved)
         {
-            touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
-            {
-                rotationX = Quaternion.Euler(0f, -touch.deltaPosition.x * rotationSpeed, 0f);
-                model.rotation *= rotationX;
-            }
+            rotationX = Quaternion.Euler(0f, -touch.deltaPosition.x * rotationSpeed, 0f);
+            model.rotation *= rotationX;
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        restRotation = false;
+        resetRotation = false;
+        StopCoroutine(coroutine);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        restRotation = true;
-        StartCoroutine(ResetModelRotation());
+        resetRotation = true;
+        coroutine = StartCoroutine(ResetModelRotation());
     }
 
     IEnumerator ResetModelRotation()
     {
-        yield return new WaitForSeconds(3f);
-        if (restRotation)
+        if (resetRotation)
         {
-            model.DORotate(Vector3.zero, .5f, RotateMode.Fast);
+            yield return new WaitForSeconds(2f);
+            model.DORotate(Vector3.zero, 1f, RotateMode.Fast).SetEase(Ease.OutQuint);
         }
     }
 }
