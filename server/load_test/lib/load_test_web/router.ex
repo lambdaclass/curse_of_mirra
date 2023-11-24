@@ -44,6 +44,8 @@ defmodule LoadTestWeb.Router do
     pipe_through :browser
     pipe_through :protected
 
-    live_dashboard "/dashboard", metrics: LoadTestWeb.Telemetry
+    live_dashboard "/dashboard", metrics: LoadTestWeb.Telemetry, additional_pages: [
+      load_test_page: LoadTestWeb.Live.LoadTestPage
+    ]
   end
 end
