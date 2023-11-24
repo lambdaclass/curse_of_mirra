@@ -61,7 +61,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{bot_count: _bot_count}) do
+  def init(%{bot_count: bot_count}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)
@@ -132,7 +132,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast(
-        {:basic_attack, user_id, %UseSkill{angle: angle, auto_aim: auto_aim, skill: skill}, timestamp},
+        {:basic_attack, user_id, %UseSkill{angle: angle, auto_aim: auto_aim, skill: skill},
+         timestamp},
         state
       ) do
     player_id = state.user_to_player[user_id] || user_id

@@ -153,21 +153,13 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     |> IO.inspect(label: "ZoneModification")
   end
 
-  def encode({modifier, attribute, value}, Attribute) do
-    IO.inspect(modifier, label: "modifier")
-    IO.inspect(value, label: "value")
-    IO.inspect(attribute, label: "attribute")
-
+  def encode(%{modifier: modifier, attribute: attribute, value: value}, Attribute) do
     %Attribute{
       modifier: modifier_encode(modifier),
       attribute: attribute,
       value: value
     }
     |> IO.inspect(label: "Attribute")
-  end
-
-  def encode(modifier, Modifier) do
-    IO.inspect(modifier, label: "modifier")
   end
 
   def encode(data, _struct) do
@@ -200,11 +192,9 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(config, MapModification) do
     config
-    |> IO.inspect(label: "MapModification decode")
   end
 
   def decode(config, Modifier) do
-    IO.inspect(config, label: "ModifierType")
     config
   end
 
