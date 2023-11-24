@@ -19,7 +19,7 @@ defmodule DarkWorldsServer.MixProject do
   def application do
     [
       mod: {DarkWorldsServer.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :tools]
     ]
   end
 
@@ -55,7 +55,7 @@ defmodule DarkWorldsServer.MixProject do
       {:exbase58, "~> 1.0.2"},
       {:websockex, "~> 0.4.3"},
       {:protobuf, "~> 0.10.0"},
-      {:new_relic_agent, "~> 1.0", only: :prod},
+      {:new_relic_agent, "~> 1.0"},
       {:etop, "~> 0.7"},
       {:rexbug, ">= 1.0.0"},
       {:eep, github: "virtan/eep"},
