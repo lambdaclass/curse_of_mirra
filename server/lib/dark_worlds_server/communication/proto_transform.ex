@@ -14,7 +14,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   alias DarkWorldsServer.Communication.Proto.KillEvent
   alias DarkWorldsServer.Communication.Proto.LootPackage
   alias DarkWorldsServer.Communication.Proto.MapModification
-  alias DarkWorldsServer.Communication.Proto.ModifierType
+  alias DarkWorldsServer.Communication.Proto.Modifier
   alias DarkWorldsServer.Communication.Proto.Mechanic
   alias DarkWorldsServer.Communication.Proto.Move
   alias DarkWorldsServer.Communication.Proto.Player, as: ProtoPlayer
@@ -150,6 +150,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       modifier: modifier_encode(modifier),
       value: value
     }
+    |> IO.inspect(label: "ZoneModification")
   end
 
   def encode({modifier, attribute, value}, Attribute) do
@@ -165,7 +166,7 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
     |> IO.inspect(label: "Attribute")
   end
 
-  def encode(modifier, ModifierType) do
+  def encode(modifier, Modifier) do
     IO.inspect(modifier, label: "modifier")
   end
 
@@ -199,9 +200,10 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
 
   def decode(config, MapModification) do
     config
+    |> IO.inspect(label: "MapModification decode")
   end
 
-  def decode(config, ModifierType) do
+  def decode(config, Modifier) do
     IO.inspect(config, label: "ModifierType")
     config
   end

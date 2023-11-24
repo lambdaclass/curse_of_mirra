@@ -12,7 +12,6 @@ defmodule DarkWorldsServer.Communication do
     player_info = %PlayerInformation{player_id: player_id, player_name: player_name}
 
     %LobbyEvent{type: :CONNECTED, lobby_id: lobby_id, player_info: player_info}
-    |> IO.inspect()
     |> LobbyEvent.encode()
   end
 
@@ -28,7 +27,6 @@ defmodule DarkWorldsServer.Communication do
       host_player_id: host_player_id,
       players_info: players_info
     }
-    |> IO.inspect()
     |> LobbyEvent.encode()
   end
 
@@ -44,13 +42,11 @@ defmodule DarkWorldsServer.Communication do
       host_player_id: host_player_id,
       players_info: players_info
     }
-    |> IO.inspect()
     |> LobbyEvent.encode()
   end
 
   def lobby_player_count!(count) do
     %LobbyEvent{type: :PLAYER_COUNT, player_count: count}
-    |> IO.inspect()
     |> LobbyEvent.encode()
   end
 

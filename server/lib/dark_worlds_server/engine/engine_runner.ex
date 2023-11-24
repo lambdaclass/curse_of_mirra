@@ -61,7 +61,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   # GenServer callbacks #
   #######################
   @impl true
-  def init(%{bot_count: bot_count}) do
+  def init(%{bot_count: _bot_count}) do
     priority =
       Application.fetch_env!(:dark_worlds_server, DarkWorldsServer.Engine.Runner)
       |> Keyword.fetch!(:process_priority)

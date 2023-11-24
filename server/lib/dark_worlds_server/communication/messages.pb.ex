@@ -141,13 +141,14 @@ defmodule DarkWorldsServer.Communication.Proto.LootType do
   field(:LOOT_HEALTH, 1)
 end
 
-defmodule DarkWorldsServer.Communication.Proto.ModifierType do
+defmodule DarkWorldsServer.Communication.Proto.Modifier do
   @moduledoc false
 
   use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
-  field(:MULTIPLICATIVE, 0)
-  field(:ADDITIVE, 1)
+  field(:ADDITIVE, 0)
+  field(:MULTIPLICATIVE, 1)
+  field(:OVERRIDE, 2)
 end
 
 defmodule DarkWorldsServer.Communication.Proto.MechanicType do
@@ -681,8 +682,8 @@ defmodule DarkWorldsServer.Communication.Proto.ZoneModification do
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
-  field(:modifier, 1, type: DarkWorldsServer.Communication.Proto.ModifierType, enum: true)
-  field(:value, 2, type: :int64)
+  field(:modifier, 1, type: DarkWorldsServer.Communication.Proto.Modifier, enum: true)
+  field(:value, 2, type: :float)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end
@@ -692,9 +693,9 @@ defmodule DarkWorldsServer.Communication.Proto.Attribute do
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
-  field(:modifier, 1, type: DarkWorldsServer.Communication.Proto.ModifierType, enum: true)
+  field(:modifier, 1, type: DarkWorldsServer.Communication.Proto.Modifier, enum: true)
   field(:attribute, 2, type: :string)
-  field(:value, 3, type: :float)
+  field(:value, 3, type: :string)
 
   def transform_module(), do: DarkWorldsServer.Communication.ProtoTransform
 end

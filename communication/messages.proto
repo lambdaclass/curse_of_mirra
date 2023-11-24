@@ -1,5 +1,8 @@
 syntax = "proto3";
 
+import "google/protobuf/descriptor.proto";
+
+
 /* Represents the events pushed by the server during a game
     - type: type of the event
     - players: player list, used on STATE_UPDATE
@@ -419,9 +422,9 @@ enum LootType {
 
 /*
  */
-enum ModifierType {
-    MULTIPLICATIVE = 0;
-    ADDITIVE = 1;
+enum Modifier {
+    ADDITIVE = 0;
+    MULTIPLICATIVE = 1;
     OVERRIDE = 2;
 }
 
@@ -476,8 +479,8 @@ message MapModification {
 }
 
 message ZoneModification {
-    ModifierType modifier = 1;
-    int64 value = 2;
+    Modifier modifier = 1;
+    float value = 2;
 }
 
 /* Defines how to modify the playable area radius.
@@ -489,9 +492,9 @@ message ZoneModification {
     - value: The value we are using for the changemessage Modification
 */
 message Attribute {
-    ModifierType modifier = 1;
+    Modifier modifier = 1;
     string attribute = 2;
-    float value = 3;
+    string value = 3;
 }
 
 /*
