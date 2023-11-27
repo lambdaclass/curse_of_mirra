@@ -187,21 +187,6 @@ public class SocketConnectionManager : MonoBehaviour
                     winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
                     this.gamePlayers = gameEvent.Players.ToList();
                     break;
-                case GameEventType.InitialPositions:
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    break;
-                case GameEventType.SelectedCharacterUpdate:
-                    this.selectedCharacters = fromMapFieldToDictionary(
-                        gameEvent.SelectedCharacters
-                    );
-                    break;
-                case GameEventType.FinishCharacterSelection:
-                    this.selectedCharacters = fromMapFieldToDictionary(
-                        gameEvent.SelectedCharacters
-                    );
-                    this.allSelected = true;
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    break;
                 case GameEventType.PlayerJoined:
                     this.playerId = gameEvent.PlayerJoinedId;
                     break;

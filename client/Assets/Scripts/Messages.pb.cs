@@ -148,41 +148,38 @@ public static partial class MessagesReflection {
           "bGwSDQoFc2tpbGwYASABKAkSDQoFYW5nbGUYAiABKAISEAoIYXV0b19haW0Y",
           "AyABKAgiZQoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgAEh4K",
           "CXVzZV9za2lsbBgCIAEoCzIJLlVzZVNraWxsSAASEQoJdGltZXN0YW1wGAMg",
-          "ASgDQg0KC2FjdGlvbl90eXBlKq4BCg1HYW1lRXZlbnRUeXBlEhAKDFNUQVRF",
-          "X1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExBWUVSX0pPSU5FRBAC",
-          "EhEKDUdBTUVfRklOSVNIRUQQAxIVChFJTklUSUFMX1BPU0lUSU9OUxAEEh0K",
-          "GVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBRIeChpGSU5JU0hfQ0hBUkFD",
-          "VEVSX1NFTEVDVElPThAGKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERFQUQQ",
-          "ASr/AQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEgoKBkFUVEFD",
-          "SxABEgwKCFRFTEVQT1JUEAISDgoKQVRUQUNLX0FPRRADEhYKEk1PVkVfV0lU",
-          "SF9KT1lTVElDSxAEEgsKB0FERF9CT1QQBRIPCgtBVVRPX0FUVEFDSxAGEhAK",
-          "DEJBU0lDX0FUVEFDSxAHEgsKB1NLSUxMXzEQCBILCgdTS0lMTF8yEAkSCwoH",
-          "U0tJTExfMxAKEgsKB1NLSUxMXzQQCxIUChBTRUxFQ1RfQ0hBUkFDVEVSEAwS",
-          "DwoLRU5BQkxFX0JPVFMQDRIQCgxESVNBQkxFX0JPVFMQDipNCglEaXJlY3Rp",
-          "b24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRET1dO",
-          "EAISCAoETEVGVBADEgkKBVJJR0hUEAQq/QEKDFBsYXllckFjdGlvbhILCgdO",
-          "T1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRACEhQK",
-          "EFNUQVJUSU5HX1NLSUxMXzEQAxIUChBTVEFSVElOR19TS0lMTF8yEAQSFAoQ",
-          "U1RBUlRJTkdfU0tJTExfMxAFEhQKEFNUQVJUSU5HX1NLSUxMXzQQBhIVChFF",
-          "WEVDVVRJTkdfU0tJTExfMRAHEhUKEUVYRUNVVElOR19TS0lMTF8yEAgSFQoR",
-          "RVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFFWEVDVVRJTkdfU0tJTExfNBAKEgoK",
-          "Bk1PVklORxALKrYCCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVEEAASDAoI",
-          "RElTQVJNRUQQARIVChFERU5JQUxfT0ZfU0VSVklDRRACEgkKBVJBR0VEEAMS",
-          "EQoNTkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIPCgtPVVRfT0ZfQVJF",
-          "QRAGEg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJLEAgSDgoKWEFOREFf",
-          "TUFSSxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQT0lTT05FRBALEgoK",
-          "BlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBBR0UQDRIKCgZCVVJORUQQDhILCgdT",
-          "Q0hFUlpPEA8SEQoNREFOU0VfTUFDQUJSRRAQEg0KCVBBUkFMWVpFRBAREggK",
-          "BE5PTkUQEiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQRV9VTlNQRUNJRklF",
-          "RBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERFRBACEhAKDEdBTUVf",
-          "U1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNUQVJUX0dBTUUQBRIS",
-          "Cg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExF",
-          "VBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVz",
-          "EgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAEqNgoITG9vdFR5cGUSGQoVTE9P",
-          "VF9UWVBFX1VOU1BFQ0lGSUVEEAASDwoLTE9PVF9IRUFMVEgQASowCgxNb2Rp",
-          "ZmllclR5cGUSEgoOTVVMVElQTElDQVRJVkUQABIMCghBRERJVElWRRABKjoK",
-          "DE1lY2hhbmljVHlwZRIHCgNISVQQABIQCgxTSU1QTEVfU0hPT1QQARIPCgtN",
-          "VUxUSV9TSE9PVBACYgZwcm90bzM="));
+          "ASgDQg0KC2FjdGlvbl90eXBlKlgKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVf",
+          "VVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAIS",
+          "EQoNR0FNRV9GSU5JU0hFRBADKh0KBlN0YXR1cxIJCgVBTElWRRAAEggKBERF",
+          "QUQQASr/AQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklFRBAAEgoKBkFU",
+          "VEFDSxABEgwKCFRFTEVQT1JUEAISDgoKQVRUQUNLX0FPRRADEhYKEk1PVkVf",
+          "V0lUSF9KT1lTVElDSxAEEgsKB0FERF9CT1QQBRIPCgtBVVRPX0FUVEFDSxAG",
+          "EhAKDEJBU0lDX0FUVEFDSxAHEgsKB1NLSUxMXzEQCBILCgdTS0lMTF8yEAkS",
+          "CwoHU0tJTExfMxAKEgsKB1NLSUxMXzQQCxIUChBTRUxFQ1RfQ0hBUkFDVEVS",
+          "EAwSDwoLRU5BQkxFX0JPVFMQDRIQCgxESVNBQkxFX0JPVFMQDipNCglEaXJl",
+          "Y3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoCVVAQARIICgRE",
+          "T1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQq/QEKDFBsYXllckFjdGlvbhIL",
+          "CgdOT1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNLSU5HX0FPRRAC",
+          "EhQKEFNUQVJUSU5HX1NLSUxMXzEQAxIUChBTVEFSVElOR19TS0lMTF8yEAQS",
+          "FAoQU1RBUlRJTkdfU0tJTExfMxAFEhQKEFNUQVJUSU5HX1NLSUxMXzQQBhIV",
+          "ChFFWEVDVVRJTkdfU0tJTExfMRAHEhUKEUVYRUNVVElOR19TS0lMTF8yEAgS",
+          "FQoRRVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFFWEVDVVRJTkdfU0tJTExfNBAK",
+          "EgoKBk1PVklORxALKrYCCgxQbGF5ZXJFZmZlY3QSDQoJUEVUUklGSUVEEAAS",
+          "DAoIRElTQVJNRUQQARIVChFERU5JQUxfT0ZfU0VSVklDRRACEgkKBVJBR0VE",
+          "EAMSEQoNTkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIPCgtPVVRfT0Zf",
+          "QVJFQRAGEg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJLEAgSDgoKWEFO",
+          "REFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQT0lTT05FRBAL",
+          "EgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBBR0UQDRIKCgZCVVJORUQQDhIL",
+          "CgdTQ0hFUlpPEA8SEQoNREFOU0VfTUFDQUJSRRAQEg0KCVBBUkFMWVpFRBAR",
+          "EggKBE5PTkUQEippCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lG",
+          "SUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FN",
+          "RV9TVEFSVEVEEAMSDgoKU1RBUlRfR0FNRRAEKjIKDlByb2plY3RpbGVUeXBl",
+          "EgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9qZWN0",
+          "aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAEqNgoITG9vdFR5",
+          "cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAASDwoLTE9PVF9IRUFMVEgQ",
+          "ASowCgxNb2RpZmllclR5cGUSEgoOTVVMVElQTElDQVRJVkUQABIMCghBRERJ",
+          "VElWRRABKjoKDE1lY2hhbmljVHlwZRIHCgNISVQQABIQCgxTSU1QTEVfU0hP",
+          "T1QQARIPCgtNVUxUSV9TSE9PVBACYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -239,9 +236,6 @@ public enum GameEventType {
   [pbr::OriginalName("PING_UPDATE")] PingUpdate = 1,
   [pbr::OriginalName("PLAYER_JOINED")] PlayerJoined = 2,
   [pbr::OriginalName("GAME_FINISHED")] GameFinished = 3,
-  [pbr::OriginalName("INITIAL_POSITIONS")] InitialPositions = 4,
-  [pbr::OriginalName("SELECTED_CHARACTER_UPDATE")] SelectedCharacterUpdate = 5,
-  [pbr::OriginalName("FINISH_CHARACTER_SELECTION")] FinishCharacterSelection = 6,
 }
 
 /// <summary>
@@ -353,9 +347,7 @@ public enum LobbyEventType {
   [pbr::OriginalName("CONNECTED")] Connected = 1,
   [pbr::OriginalName("PLAYER_ADDED")] PlayerAdded = 2,
   [pbr::OriginalName("GAME_STARTED")] GameStarted = 3,
-  [pbr::OriginalName("PLAYER_COUNT")] PlayerCount = 4,
-  [pbr::OriginalName("START_GAME")] StartGame = 5,
-  [pbr::OriginalName("PLAYER_REMOVED")] PlayerRemoved = 6,
+  [pbr::OriginalName("START_GAME")] StartGame = 4,
 }
 
 /// <summary>
@@ -866,7 +858,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.Add(other.selectedCharacters_);
+    selectedCharacters_.MergeFrom(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1910,7 +1902,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.Add(other.effects_);
+    effects_.MergeFrom(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();
@@ -10884,7 +10876,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (other.BaseHealth != 0UL) {
       BaseHealth = other.BaseHealth;
     }
-    skills_.Add(other.skills_);
+    skills_.MergeFrom(other.skills_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -11882,10 +11874,24 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public string SimpleType {
-    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
+    get { return HasSimpleType ? (string) effectType_ : ""; }
     set {
       effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       effectTypeCase_ = EffectTypeOneofCase.SimpleType;
+    }
+  }
+  /// <summary>Gets whether the "simple_type" field is set</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool HasSimpleType {
+    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
+  }
+  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void ClearSimpleType() {
+    if (HasSimpleType) {
+      ClearEffectType();
     }
   }
 
@@ -11963,7 +11969,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
+    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
     hash ^= (int) effectTypeCase_;
@@ -11989,7 +11995,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12015,7 +12021,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12040,7 +12046,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+    if (HasSimpleType) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
     }
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {
