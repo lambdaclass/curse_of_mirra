@@ -140,55 +140,55 @@ public static partial class MessagesReflection {
           "IAEoBBINCgVyYW5nZRgEIAEoBBISCgpjb25lX2FuZ2xlGAUgASgEEiMKDm9u",
           "X2hpdF9lZmZlY3RzGAYgAygLMgsuR2FtZUVmZmVjdBIjCgpwcm9qZWN0aWxl",
           "GAcgASgLMg8uR2FtZVByb2plY3RpbGUSDQoFY291bnQYCCABKAQSEwoLZHVy",
-          "YXRpb25fbXMYCSABKAQSEQoJbWF4X3JhbmdlGAogASgEIrYDCgpHYW1lRWZm",
+          "YXRpb25fbXMYCSABKAQSEQoJbWF4X3JhbmdlGAogASgEIrUDCgpHYW1lRWZm",
           "ZWN0EgwKBG5hbWUYASABKAkSFQoNaXNfcmV2ZXJzYWJsZRgCIAEoCBIlChFw",
           "bGF5ZXJfYXR0cmlidXRlcxgDIAMoCzIKLkF0dHJpYnV0ZRIpChVwcm9qZWN0",
-          "aWxlX2F0dHJpYnV0ZXMYBCADKAsyCi5BdHRyaWJ1dGUSFQoLc2ltcGxlX3R5",
-          "cGUYBSABKAlIABIoCghkdXJhdGlvbhgGIAEoCzIULkdhbWVFZmZlY3QuRHVy",
-          "YXRpb25IABIoCghwZXJpb2RpYxgHIAEoCzIULkdhbWVFZmZlY3QuUGVyaW9k",
-          "aWNIABotCghEdXJhdGlvbhIMCgR0eXBlGAEgASgJEhMKC2R1cmF0aW9uX21z",
-          "GAIgASgEGoIBCghQZXJpb2RpYxIMCgR0eXBlGAEgASgJEhsKE2luc3RhbnRf",
-          "YXBwbGljYWl0b24YAiABKAgSEwoLaW50ZXJ2YWxfbXMYAyABKAQSFQoNdHJp",
-          "Z2dlcl9jb3VudBgEIAEoBBIfChd0aW1lX3NpbmNlX2xhc3RfdHJpZ2dlchgF",
-          "IAEoAkISChBlZmZlY3RfdGltZV90eXBlIhUKBE1vdmUSDQoFYW5nbGUYASAB",
-          "KAIiOgoIVXNlU2tpbGwSDQoFc2tpbGwYASABKAkSDQoFYW5nbGUYAiABKAIS",
-          "EAoIYXV0b19haW0YAyABKAgiZQoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgL",
-          "MgUuTW92ZUgAEh4KCXVzZV9za2lsbBgCIAEoCzIJLlVzZVNraWxsSAASEQoJ",
-          "dGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlKq4BCg1HYW1lRXZlbnRU",
-          "eXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExB",
-          "WUVSX0pPSU5FRBACEhEKDUdBTUVfRklOSVNIRUQQAxIVChFJTklUSUFMX1BP",
-          "U0lUSU9OUxAEEh0KGVNFTEVDVEVEX0NIQVJBQ1RFUl9VUERBVEUQBRIeChpG",
-          "SU5JU0hfQ0hBUkFDVEVSX1NFTEVDVElPThAGKh0KBlN0YXR1cxIJCgVBTElW",
-          "RRAAEggKBERFQUQQASr/AQoGQWN0aW9uEhYKEkFDVElPTl9VTlNQRUNJRklF",
-          "RBAAEgoKBkFUVEFDSxABEgwKCFRFTEVQT1JUEAISDgoKQVRUQUNLX0FPRRAD",
-          "EhYKEk1PVkVfV0lUSF9KT1lTVElDSxAEEgsKB0FERF9CT1QQBRIPCgtBVVRP",
-          "X0FUVEFDSxAGEhAKDEJBU0lDX0FUVEFDSxAHEgsKB1NLSUxMXzEQCBILCgdT",
-          "S0lMTF8yEAkSCwoHU0tJTExfMxAKEgsKB1NLSUxMXzQQCxIUChBTRUxFQ1Rf",
-          "Q0hBUkFDVEVSEAwSDwoLRU5BQkxFX0JPVFMQDRIQCgxESVNBQkxFX0JPVFMQ",
-          "DipNCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASBgoC",
-          "VVAQARIICgRET1dOEAISCAoETEVGVBADEgkKBVJJR0hUEAQq/QEKDFBsYXll",
-          "ckFjdGlvbhILCgdOT1RISU5HEAASDQoJQVRUQUNLSU5HEAESEQoNQVRUQUNL",
-          "SU5HX0FPRRACEhQKEFNUQVJUSU5HX1NLSUxMXzEQAxIUChBTVEFSVElOR19T",
-          "S0lMTF8yEAQSFAoQU1RBUlRJTkdfU0tJTExfMxAFEhQKEFNUQVJUSU5HX1NL",
-          "SUxMXzQQBhIVChFFWEVDVVRJTkdfU0tJTExfMRAHEhUKEUVYRUNVVElOR19T",
-          "S0lMTF8yEAgSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQCRIVChFFWEVDVVRJTkdf",
-          "U0tJTExfNBAKEgoKBk1PVklORxALKrYCCgxQbGF5ZXJFZmZlY3QSDQoJUEVU",
-          "UklGSUVEEAASDAoIRElTQVJNRUQQARIVChFERU5JQUxfT0ZfU0VSVklDRRAC",
-          "EgkKBVJBR0VEEAMSEQoNTkVPTl9DUkFTSElORxAEEgsKB0xFQVBJTkcQBRIP",
-          "CgtPVVRfT0ZfQVJFQRAGEg4KCkVMTkFSX01BUksQBxIOCgpZVUdFTl9NQVJL",
-          "EAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dORVIQChIMCghQ",
-          "T0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBBR0UQDRIKCgZC",
-          "VVJORUQQDhILCgdTQ0hFUlpPEA8SEQoNREFOU0VfTUFDQUJSRRAQEg0KCVBB",
-          "UkFMWVpFRBAREggKBE5PTkUQEiqPAQoOTG9iYnlFdmVudFR5cGUSFAoQVFlQ",
-          "RV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBMQVlFUl9BRERF",
-          "RBACEhAKDEdBTUVfU1RBUlRFRBADEhAKDFBMQVlFUl9DT1VOVBAEEg4KClNU",
-          "QVJUX0dBTUUQBRISCg5QTEFZRVJfUkVNT1ZFRBAGKjIKDlByb2plY3RpbGVU",
-          "eXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQASosChBQcm9q",
-          "ZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAEqNgoITG9v",
-          "dFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAASDwoLTE9PVF9IRUFM",
-          "VEgQASo6CghNb2RpZmllchIMCghBRERJVElWRRAAEhIKDk1VTFRJUExJQ0FU",
-          "SVZFEAESDAoIT1ZFUlJJREUQAio6CgxNZWNoYW5pY1R5cGUSBwoDSElUEAAS",
-          "EAoMU0lNUExFX1NIT09UEAESDwoLTVVMVElfU0hPT1QQAmIGcHJvdG8z"));
+          "aWxlX2F0dHJpYnV0ZXMYBCADKAsyCi5BdHRyaWJ1dGUSFAoKaXNfaW5zdGFu",
+          "dBgFIAEoCEgAEigKCGR1cmF0aW9uGAYgASgLMhQuR2FtZUVmZmVjdC5EdXJh",
+          "dGlvbkgAEigKCHBlcmlvZGljGAcgASgLMhQuR2FtZUVmZmVjdC5QZXJpb2Rp",
+          "Y0gAGi0KCER1cmF0aW9uEgwKBHR5cGUYASABKAkSEwoLZHVyYXRpb25fbXMY",
+          "AiABKAQaggEKCFBlcmlvZGljEgwKBHR5cGUYASABKAkSGwoTaW5zdGFudF9h",
+          "cHBsaWNhaXRvbhgCIAEoCBITCgtpbnRlcnZhbF9tcxgDIAEoBBIVCg10cmln",
+          "Z2VyX2NvdW50GAQgASgEEh8KF3RpbWVfc2luY2VfbGFzdF90cmlnZ2VyGAUg",
+          "ASgCQhIKEGVmZmVjdF90aW1lX3R5cGUiFQoETW92ZRINCgVhbmdsZRgBIAEo",
+          "AiI6CghVc2VTa2lsbBINCgVza2lsbBgBIAEoCRINCgVhbmdsZRgCIAEoAhIQ",
+          "CghhdXRvX2FpbRgDIAEoCCJlCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsy",
+          "BS5Nb3ZlSAASHgoJdXNlX3NraWxsGAIgASgLMgkuVXNlU2tpbGxIABIRCgl0",
+          "aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUqrgEKDUdhbWVFdmVudFR5",
+          "cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZ",
+          "RVJfSk9JTkVEEAISEQoNR0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJQUxfUE9T",
+          "SVRJT05TEAQSHQoZU0VMRUNURURfQ0hBUkFDVEVSX1VQREFURRAFEh4KGkZJ",
+          "TklTSF9DSEFSQUNURVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkKBUFMSVZF",
+          "EAASCAoEREVBRBABKv8BCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVE",
+          "EAASCgoGQVRUQUNLEAESDAoIVEVMRVBPUlQQAhIOCgpBVFRBQ0tfQU9FEAMS",
+          "FgoSTU9WRV9XSVRIX0pPWVNUSUNLEAQSCwoHQUREX0JPVBAFEg8KC0FVVE9f",
+          "QVRUQUNLEAYSEAoMQkFTSUNfQVRUQUNLEAcSCwoHU0tJTExfMRAIEgsKB1NL",
+          "SUxMXzIQCRILCgdTS0lMTF8zEAoSCwoHU0tJTExfNBALEhQKEFNFTEVDVF9D",
+          "SEFSQUNURVIQDBIPCgtFTkFCTEVfQk9UUxANEhAKDERJU0FCTEVfQk9UUxAO",
+          "Kk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJV",
+          "UBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCr9AQoMUGxheWVy",
+          "QWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJ",
+          "TkdfQU9FEAISFAoQU1RBUlRJTkdfU0tJTExfMRADEhQKEFNUQVJUSU5HX1NL",
+          "SUxMXzIQBBIUChBTVEFSVElOR19TS0lMTF8zEAUSFAoQU1RBUlRJTkdfU0tJ",
+          "TExfNBAGEhUKEUVYRUNVVElOR19TS0lMTF8xEAcSFQoRRVhFQ1VUSU5HX1NL",
+          "SUxMXzIQCBIVChFFWEVDVVRJTkdfU0tJTExfMxAJEhUKEUVYRUNVVElOR19T",
+          "S0lMTF80EAoSCgoGTU9WSU5HEAsqtgIKDFBsYXllckVmZmVjdBINCglQRVRS",
+          "SUZJRUQQABIMCghESVNBUk1FRBABEhUKEURFTklBTF9PRl9TRVJWSUNFEAIS",
+          "CQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8K",
+          "C09VVF9PRl9BUkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4KCllVR0VOX01BUksQ",
+          "CBIOCgpYQU5EQV9NQVJLEAkSFAoQWEFOREFfTUFSS19PV05FUhAKEgwKCFBP",
+          "SVNPTkVEEAsSCgoGU0xPV0VEEAwSEQoNRklFUllfUkFNUEFHRRANEgoKBkJV",
+          "Uk5FRBAOEgsKB1NDSEVSWk8QDxIRCg1EQU5TRV9NQUNBQlJFEBASDQoJUEFS",
+          "QUxZWkVEEBESCAoETk9ORRASKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBF",
+          "X1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVE",
+          "EAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RB",
+          "UlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5",
+          "cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2pl",
+          "Y3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASo2CghMb290",
+          "VHlwZRIZChVMT09UX1RZUEVfVU5TUEVDSUZJRUQQABIPCgtMT09UX0hFQUxU",
+          "SBABKjoKCE1vZGlmaWVyEgwKCEFERElUSVZFEAASEgoOTVVMVElQTElDQVRJ",
+          "VkUQARIMCghPVkVSUklERRACKjoKDE1lY2hhbmljVHlwZRIHCgNISVQQABIQ",
+          "CgxTSU1QTEVfU0hPT1QQARIPCgtNVUxUSV9TSE9PVBACYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::Google.Protobuf.Reflection.DescriptorReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::Modifier), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -223,7 +223,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameCharacter), global::GameCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "BaseHealth", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameSkill), global::GameSkill.Parser, new[]{ "Name", "CooldownMs", "IsPassive", "Mechanics", "ExecutionDurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Mechanic), global::Mechanic.Parser, new[]{ "Name", "Effects", "Damage", "Range", "ConeAngle", "OnHitEffects", "Projectile", "Count", "DurationMs", "MaxRange" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect), global::GameEffect.Parser, new[]{ "Name", "IsReversable", "PlayerAttributes", "ProjectileAttributes", "SimpleType", "Duration", "Periodic" }, new[]{ "EffectTimeType" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Duration), global::GameEffect.Types.Duration.Parser, new[]{ "Type", "DurationMs" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect), global::GameEffect.Parser, new[]{ "Name", "IsReversable", "PlayerAttributes", "ProjectileAttributes", "IsInstant", "Duration", "Periodic" }, new[]{ "EffectTimeType" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Duration), global::GameEffect.Types.Duration.Parser, new[]{ "Type", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Periodic), global::GameEffect.Types.Periodic.Parser, new[]{ "Type", "InstantApplicaiton", "IntervalMs", "TriggerCount", "TimeSinceLastTrigger" }, null, null, null, null)}),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle", "AutoAim" }, null, null, null, null),
@@ -12226,8 +12226,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     playerAttributes_ = other.playerAttributes_.Clone();
     projectileAttributes_ = other.projectileAttributes_.Clone();
     switch (other.EffectTimeTypeCase) {
-      case EffectTimeTypeOneofCase.SimpleType:
-        SimpleType = other.SimpleType;
+      case EffectTimeTypeOneofCase.IsInstant:
+        IsInstant = other.IsInstant;
         break;
       case EffectTimeTypeOneofCase.Duration:
         Duration = other.Duration.Clone();
@@ -12292,28 +12292,28 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     get { return projectileAttributes_; }
   }
 
-  /// <summary>Field number for the "simple_type" field.</summary>
-  public const int SimpleTypeFieldNumber = 5;
+  /// <summary>Field number for the "is_instant" field.</summary>
+  public const int IsInstantFieldNumber = 5;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string SimpleType {
-    get { return HasSimpleType ? (string) effectTimeType_ : ""; }
+  public bool IsInstant {
+    get { return HasIsInstant ? (bool) effectTimeType_ : false; }
     set {
-      effectTimeType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      effectTimeTypeCase_ = EffectTimeTypeOneofCase.SimpleType;
+      effectTimeType_ = value;
+      effectTimeTypeCase_ = EffectTimeTypeOneofCase.IsInstant;
     }
   }
-  /// <summary>Gets whether the "simple_type" field is set</summary>
+  /// <summary>Gets whether the "is_instant" field is set</summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasSimpleType {
-    get { return effectTimeTypeCase_ == EffectTimeTypeOneofCase.SimpleType; }
+  public bool HasIsInstant {
+    get { return effectTimeTypeCase_ == EffectTimeTypeOneofCase.IsInstant; }
   }
-  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
+  /// <summary> Clears the value of the oneof if it's currently set to "is_instant" </summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearSimpleType() {
-    if (HasSimpleType) {
+  public void ClearIsInstant() {
+    if (HasIsInstant) {
       ClearEffectTimeType();
     }
   }
@@ -12346,7 +12346,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   /// <summary>Enum of possible cases for the "effect_time_type" oneof.</summary>
   public enum EffectTimeTypeOneofCase {
     None = 0,
-    SimpleType = 5,
+    IsInstant = 5,
     Duration = 6,
     Periodic = 7,
   }
@@ -12383,7 +12383,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (IsReversable != other.IsReversable) return false;
     if(!playerAttributes_.Equals(other.playerAttributes_)) return false;
     if(!projectileAttributes_.Equals(other.projectileAttributes_)) return false;
-    if (SimpleType != other.SimpleType) return false;
+    if (IsInstant != other.IsInstant) return false;
     if (!object.Equals(Duration, other.Duration)) return false;
     if (!object.Equals(Periodic, other.Periodic)) return false;
     if (EffectTimeTypeCase != other.EffectTimeTypeCase) return false;
@@ -12398,7 +12398,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (IsReversable != false) hash ^= IsReversable.GetHashCode();
     hash ^= playerAttributes_.GetHashCode();
     hash ^= projectileAttributes_.GetHashCode();
-    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
+    if (HasIsInstant) hash ^= IsInstant.GetHashCode();
     if (effectTimeTypeCase_ == EffectTimeTypeOneofCase.Duration) hash ^= Duration.GetHashCode();
     if (effectTimeTypeCase_ == EffectTimeTypeOneofCase.Periodic) hash ^= Periodic.GetHashCode();
     hash ^= (int) effectTimeTypeCase_;
@@ -12430,9 +12430,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     }
     playerAttributes_.WriteTo(output, _repeated_playerAttributes_codec);
     projectileAttributes_.WriteTo(output, _repeated_projectileAttributes_codec);
-    if (HasSimpleType) {
-      output.WriteRawTag(42);
-      output.WriteString(SimpleType);
+    if (HasIsInstant) {
+      output.WriteRawTag(40);
+      output.WriteBool(IsInstant);
     }
     if (effectTimeTypeCase_ == EffectTimeTypeOneofCase.Duration) {
       output.WriteRawTag(50);
@@ -12462,9 +12462,9 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     }
     playerAttributes_.WriteTo(ref output, _repeated_playerAttributes_codec);
     projectileAttributes_.WriteTo(ref output, _repeated_projectileAttributes_codec);
-    if (HasSimpleType) {
-      output.WriteRawTag(42);
-      output.WriteString(SimpleType);
+    if (HasIsInstant) {
+      output.WriteRawTag(40);
+      output.WriteBool(IsInstant);
     }
     if (effectTimeTypeCase_ == EffectTimeTypeOneofCase.Duration) {
       output.WriteRawTag(50);
@@ -12492,8 +12492,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     }
     size += playerAttributes_.CalculateSize(_repeated_playerAttributes_codec);
     size += projectileAttributes_.CalculateSize(_repeated_projectileAttributes_codec);
-    if (HasSimpleType) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
+    if (HasIsInstant) {
+      size += 1 + 1;
     }
     if (effectTimeTypeCase_ == EffectTimeTypeOneofCase.Duration) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Duration);
@@ -12522,8 +12522,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     playerAttributes_.Add(other.playerAttributes_);
     projectileAttributes_.Add(other.projectileAttributes_);
     switch (other.EffectTimeTypeCase) {
-      case EffectTimeTypeOneofCase.SimpleType:
-        SimpleType = other.SimpleType;
+      case EffectTimeTypeOneofCase.IsInstant:
+        IsInstant = other.IsInstant;
         break;
       case EffectTimeTypeOneofCase.Duration:
         if (Duration == null) {
@@ -12570,8 +12570,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           projectileAttributes_.AddEntriesFrom(input, _repeated_projectileAttributes_codec);
           break;
         }
-        case 42: {
-          SimpleType = input.ReadString();
+        case 40: {
+          IsInstant = input.ReadBool();
           break;
         }
         case 50: {
@@ -12623,8 +12623,8 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
           projectileAttributes_.AddEntriesFrom(ref input, _repeated_projectileAttributes_codec);
           break;
         }
-        case 42: {
-          SimpleType = input.ReadString();
+        case 40: {
+          IsInstant = input.ReadBool();
           break;
         }
         case 50: {

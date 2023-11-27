@@ -845,7 +845,7 @@ defmodule DarkWorldsServer.Communication.Proto.GameEffect do
     json_name: "projectileAttributes"
   )
 
-  field(:simple_type, 5, type: :string, json_name: "simpleType", oneof: 0)
+  field(:is_instant, 5, type: :bool, json_name: "isInstant", oneof: 0)
   field(:duration, 6, type: DarkWorldsServer.Communication.Proto.GameEffect.Duration, oneof: 0)
   field(:periodic, 7, type: DarkWorldsServer.Communication.Proto.GameEffect.Periodic, oneof: 0)
 

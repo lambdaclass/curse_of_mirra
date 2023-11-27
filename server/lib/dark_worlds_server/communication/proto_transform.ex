@@ -150,7 +150,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       modifier: modifier_encode(modifier),
       value: value
     }
-    |> IO.inspect(label: "ZoneModification")
   end
 
   def encode(%{modifier: modifier, attribute: attribute, value: value}, Attribute) do
@@ -159,7 +158,26 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
       attribute: attribute,
       value: value
     }
-    |> IO.inspect(label: "Attribute")
+  end
+
+  def encode(
+        %{
+          name: name,
+          effect_time_type: effect_time_type,
+          is_reversable: is_reversable,
+          player_attributes: player_attributes,
+          projectile_attributes: projectile_attributes
+        },
+        GameEffect
+      ) do
+    %GameEffect{
+      name: name,
+      effect_time_type: effect_time_type,
+      is_reversable: is_reversable,
+      player_attributes: player_attributes,
+      projectile_attributes: projectile_attributes
+    }
+    |> IO.inspect(label: "effect")
   end
 
   def encode(data, _struct) do
@@ -169,10 +187,6 @@ defmodule DarkWorldsServer.Communication.ProtoTransform do
   ###########
   # DECODES #
   ###########
-
-  def decode(config, Attribute) do
-    config
-  end
 
   def decode(config, Config) do
     config
