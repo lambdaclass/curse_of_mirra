@@ -77,5 +77,6 @@ public class CharacterInfoManager : MonoBehaviour
         classImage.sprite = comCharacter.classImage;
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
+        StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
     }
 }
