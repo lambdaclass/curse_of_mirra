@@ -12,10 +12,7 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     GameObject modelContainer;
     Transform model;
     Touch touch;
-    Vector2 touchPosition;
     Quaternion rotationX;
-    bool resetRotation;
-    Vector2 rotationValue;
     Coroutine coroutine;
 
     void Awake()
