@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BattleUI
+  m_Name: JoysticUI
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -32,31 +32,25 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: e268fd3cd8ea145be90bf8d19485f787, type: 3}
+    - {fileID: 102900000, guid: 5fef47b8a57834620b3a20de364104dd, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: b5f903c25cf5441d4bfaab341fb60510, type: 3}
-  - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
-  - {fileID: 21300000, guid: 655c2fd23b3cc4e9fb6121ead543324d, type: 3}
-  - {fileID: 21300000, guid: 9a92af331a9454b52a821f8d2460fb7b, type: 3}
-  - {fileID: 21300000, guid: e647ca766b3fb416da2a96632832bf9b, type: 3}
-  - {fileID: 21300000, guid: 33fb8d58c08d140d8ba006ce133fffd6, type: 3}
-  - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
-  - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
-  - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
+  - {fileID: 21300000, guid: a3a6ee393ec9f494bb2b2f4aea4a12de, type: 3}
+  - {fileID: 21300000, guid: f250f50d2462c498d9fd214bb4e96654, type: 3}
+  - {fileID: 21300000, guid: ee16a25e959584c8a8b286c6bad1713f, type: 3}
+  - {fileID: 21300000, guid: c071ba4f8dee7448088070eec2385f9b, type: 3}
+  - {fileID: 21300000, guid: e1b1636f44fca45b0b3953cbd6f9ce31, type: 3}
+  - {fileID: 21300000, guid: d3ef22ef18d3742aea06930beaf21dc8, type: 3}
   m_PackedSpriteNamesToIndex:
-  - contenedor
-  - basic
-  - Settings
-  - players
-  - x-circle
-  - metrics_container
-  - kills
-  - item
-  - time_new
+  - Joystic-Kaline
+  - Joystick-Otobi
+  - Joystic-Merliot
+  - joystick-back
+  - joystick-knob
+  - Joystick-Araban
   m_RenderDataMap: {}
-  m_Tag: BattleUI
+  m_Tag: JoysticUI
   m_IsVariant: 0
