@@ -390,7 +390,7 @@ public class LobbyConnection : MonoBehaviour
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
                     // FIX THIS!!
-                    serverTickRate_ms = 30;
+                    serverTickRate_ms = 100;
                     serverHash = lobbyEvent.ServerHash;
                     gameStarted = true;
                     break;

@@ -6,12 +6,12 @@ public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         if (x != 0 || y != 0)
         {
             var valuesToSend = new RelativePosition { X = x, Y = y };
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
+            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg, Moving = true };
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
             SocketConnectionManager.Instance.SendGameAction(gameAction);
@@ -23,6 +23,11 @@ public class PlayerControls : MonoBehaviour
                 timestamp = timestamp,
             };
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+        }
+        else
+        {
+            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg, Moving = true };
+            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
         }
     }
 
