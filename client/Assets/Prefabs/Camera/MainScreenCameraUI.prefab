@@ -2235,7 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: CharacterList
+  SceneName: CharacterLists
   LoadingSceneMode: 0
 --- !u!1 &2749066895119321633
 GameObject:
