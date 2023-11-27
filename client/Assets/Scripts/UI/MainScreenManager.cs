@@ -8,7 +8,7 @@ public class MainScreenManager : MonoBehaviour
     [SerializeField]
     UIModelManager modelManager;
 
-    // We coukd map this with the backend
+    // We could map this with the backend
     [System.NonSerialized]
     public static List<string> enableCharactersName = new List<string> { "Muflus" };
 

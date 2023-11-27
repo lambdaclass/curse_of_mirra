@@ -40,11 +40,7 @@ public class UIModelManager : MonoBehaviour
     // With this we can match the Model variants for the UI model rendering
     public void SetupList(List<string> characters)
     {
-        enableCharacters = new List<string>(characters);
-        for (int i = 0; i < enableCharacters.Count(); i++)
-        {
-            enableCharacters[i] = enableCharacters[i] + " Variant";
-        }
+        enableCharacters = characters;
     }
 
     public void RemoveCurrentModel()
