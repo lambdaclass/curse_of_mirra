@@ -41,7 +41,10 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        StopCoroutine(coroutine);
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
