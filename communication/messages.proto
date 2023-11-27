@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/descriptor.proto";
 
-
 /* Represents the events pushed by the server during a game
     - type: type of the event
     - players: player list, used on STATE_UPDATE

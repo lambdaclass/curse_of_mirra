@@ -751,7 +751,7 @@ defmodule LoadTest.Communication.Proto.GameEffect do
     json_name: "projectileAttributes"
   )
 
-  field(:is_instant, 5, type: :bool, json_name: "isInstant", oneof: 0)
+  field(:simple_type, 5, type: :string, json_name: "simpleType", oneof: 0)
   field(:duration, 6, type: LoadTest.Communication.Proto.GameEffect.Duration, oneof: 0)
   field(:periodic, 7, type: LoadTest.Communication.Proto.GameEffect.Periodic, oneof: 0)
 end
