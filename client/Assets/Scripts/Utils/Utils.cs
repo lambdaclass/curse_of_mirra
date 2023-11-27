@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class Utils
@@ -11,7 +13,13 @@ public class Utils
     public static readonly Color healthBarCyan = new Color32(34, 142, 239, 255);
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
-
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
     public static IEnumerator WaitForGameCreation(string levelName)
     {
         yield return new WaitUntil(
@@ -152,5 +160,60 @@ public class Utils
                 new GradientAlphaKey(1, 1)
             }
         };
+    }
+
+    public static string MakeHTTPUrl(string path)
+    {
+        if (SelectServerIP.GetServerIp().Contains("localhost"))
+        {
+            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
+        }
+        else if (SelectServerIP.GetServerIp().Contains("10.150.20.186"))
+        {
+            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
+        }
+        else
+        {
+            return "https://" + SelectServerIP.GetServerIp() + path;
+        }
+    }
+
+    public static string GetClientId()
+    {
+        if (!PlayerPrefs.HasKey("client_id"))
+        {
+            Guid g = Guid.NewGuid();
+            PlayerPrefs.SetString("client_id", g.ToString());
+        }
+
+        return PlayerPrefs.GetString("client_id");
+    }
+
+    public static IEnumerator GetSelectedCharacter()
+    {
+        string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId());
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
+                        Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.text);
+                    } else {
+                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
+                            webRequest.downloadHandler.text
+                        );
+                        PlayerPrefs.SetString("selected_character", response.selected_character);
+                    }
+                    break;
+                default:
+                    Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.error);
+                    break;
+            }
+        }
     }
 }

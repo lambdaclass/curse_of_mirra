@@ -13,7 +13,6 @@ public class UIModelManager : MonoBehaviour
 
     public void SetModel(CoMCharacter character = null)
     {
-        Debug.Log(LobbyConnection.Instance.SelectedCharacterName);
         int index;
         switch(LobbyConnection.Instance.SelectedCharacterName) {
             case "Muflus":

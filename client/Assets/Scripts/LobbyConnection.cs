@@ -109,7 +109,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        LoadClientId();
+        this.clientId = Utils.GetClientId();
         MaybeReconnect();
         PopulateLists();
     }
@@ -152,17 +152,6 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetGames());
     }
 
-    private void LoadClientId()
-    {
-        if (!PlayerPrefs.HasKey("client_id"))
-        {
-            Guid g = Guid.NewGuid();
-            PlayerPrefs.SetString("client_id", g.ToString());
-        }
-
-        this.clientId = PlayerPrefs.GetString("client_id");
-    }
-
     private void MaybeReconnect()
     {
         // StartCoroutine(GetCurrentGame());
@@ -171,7 +160,7 @@ public class LobbyConnection : MonoBehaviour
     public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
+        StartCoroutine(GetRequest(Utils.MakeHTTPUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -249,7 +238,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetLobbies()
     {
-        string url = makeUrl("/current_lobbies");
+        string url = Utils.MakeHTTPUrl("/current_lobbies");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -274,7 +263,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetGames()
     {
-        string url = makeUrl("/current_games");
+        string url = Utils.MakeHTTPUrl("/current_games");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -298,7 +287,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetCurrentGame()
     {
-        string url = makeUrl("/player_game/" + this.clientId);
+        string url = Utils.MakeHTTPUrl("/player_game/" + this.clientId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -415,22 +404,6 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private string makeUrl(string path)
-    {
-        if (serverIp.Contains("localhost"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else
-        {
-            return "https://" + serverIp + path;
-        }
-    }
-
     private string makeWebsocketUrl(string path)
     {
         if (serverIp.Contains("localhost"))
@@ -478,6 +451,13 @@ public class LobbyConnection : MonoBehaviour
         this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
+        StartCoroutine(GetSelectedCharacter());
+    }
+
+    IEnumerator GetSelectedCharacter()
+    {
+        yield return StartCoroutine(Utils.GetSelectedCharacter());
+        SelectedCharacterName = PlayerPrefs.GetString("selected_character");
     }
 
     public void SelectCharacter(string characterName) {
@@ -485,7 +465,7 @@ public class LobbyConnection : MonoBehaviour
     }
 
     IEnumerator SetSelectedCharacter(string characterName) {
-        string url = makeUrl("/users-characters/" + this.clientId + "/edit");
+        string url = Utils.MakeHTTPUrl("/users-characters/" + this.clientId + "/edit");
         string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
         byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
         using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
