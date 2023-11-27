@@ -519,8 +519,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3423845015464949587}
-        m_TargetAssemblyTypeName: TitleScreenController, Assembly-CSharp
-        m_MethodName: PlayNow
+        m_TargetAssemblyTypeName: TitleScreenController, CurseOfMyrra
+        m_MethodName: PlayButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3253,6 +3253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb12624f6ffeb4f8588bfac3b71f1faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clientId: 
   playNowButton: {fileID: 1153961457488821272}
   logoImage: {fileID: 5972543162918846898}
   playerNameHandler: {fileID: 4914851193952802429}
