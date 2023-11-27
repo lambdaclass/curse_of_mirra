@@ -15,15 +15,15 @@ public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     Quaternion rotationX;
     Coroutine coroutine;
 
-    void Awake()
+    void Start()
     {
         StartCoroutine(GetModel());
     }
 
-    IEnumerator GetModel()
+    public IEnumerator GetModel()
     {
-        yield return new WaitUntil(() => modelContainer.GetComponentInChildren<Animator>() != null);
-        model = modelContainer.GetComponentInChildren<Animator>().transform.parent.transform;
+        yield return new WaitUntil(() => modelContainer.transform.childCount > 0);
+        model = modelContainer.transform.GetChild(0).transform;
     }
 
     public void OnDrag(PointerEventData eventData)
