@@ -275,11 +275,11 @@ public class Battle : MonoBehaviour
                                 serverPlayerUpdate.Direction,
                                 serverPlayerUpdate.ActionDurationMs
                             );
-                            buffer.setLastTimestampSeen(
-                                SocketConnectionManager.Instance.gamePlayers[i].Id,
-                                gameEvent.ServerTimestamp
-                            );
                         }
+                        buffer.setLastTimestampSeen(
+                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            gameEvent.ServerTimestamp
+                        );
                     }
                 }
 
