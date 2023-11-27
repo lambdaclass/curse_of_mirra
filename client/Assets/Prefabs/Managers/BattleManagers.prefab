@@ -1,52 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8472880969092151180
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8472880969092151182}
-  - component: {fileID: 6489395260655275309}
-  m_Layer: 0
-  m_Name: BattleBackgroundMusic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8472880969092151182
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472880969092151180}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.3377495, y: 15.252045, z: -20.525822}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8472880969195610299}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6489395260655275309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472880969092151180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eae4cb8f997d6c744a6172cbaa8cb264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundClip: {fileID: 8300000, guid: 74f1dd92c244f4dd6a507b8f919bfc81, type: 3}
-  Loop: 1
-  ID: 255
 --- !u!1 &8472880969195610298
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +30,6 @@ Transform:
   m_Children:
   - {fileID: 8472880970067065813}
   - {fileID: 8472880968890490897}
-  - {fileID: 8472880969092151182}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -184,7 +136,7 @@ PrefabInstance:
         type: 3}
       propertyPath: backgroundMusic
       value: 
-      objectReference: {fileID: 6489395260655275309}
+      objectReference: {fileID: 0}
     - target: {fileID: 4421236017967322550, guid: 557da0162830845c6b8aea06f24ea661,
         type: 3}
       propertyPath: m_RootOrder
