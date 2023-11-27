@@ -37,7 +37,7 @@ public static partial class MessagesReflection {
           "YXllckNoYXJhY3RlchIRCglwbGF5ZXJfaWQYASABKAQSFgoOY2hhcmFjdGVy",
           "X25hbWUYAiABKAki9AQKBlBsYXllchIKCgJpZBgBIAEoBBIOCgZoZWFsdGgY",
           "AiABKBISGwoIcG9zaXRpb24YAyABKAsyCS5Qb3NpdGlvbhIXCgZzdGF0dXMY",
-          "BCABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAUgASgOMg0uUGxheWVyQWN0aW9u",
+          "BCABKA4yBy5TdGF0dXMSHQoGYWN0aW9uGAUgAygOMg0uUGxheWVyQWN0aW9u",
           "Eh8KDGFvZV9wb3NpdGlvbhgGIAEoCzIJLlBvc2l0aW9uEhIKCmtpbGxfY291",
           "bnQYByABKAQSEwoLZGVhdGhfY291bnQYCCABKAQSLgoZYmFzaWNfc2tpbGxf",
           "Y29vbGRvd25fbGVmdBgJIAEoCzILLk1pbGxpc1RpbWUSKgoVc2tpbGxfMV9j",
@@ -1322,7 +1322,7 @@ public sealed partial class Player : pb::IMessage<Player>
     health_ = other.health_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     status_ = other.status_;
-    action_ = other.action_;
+    action_ = other.action_.Clone();
     aoePosition_ = other.aoePosition_ != null ? other.aoePosition_.Clone() : null;
     killCount_ = other.killCount_;
     deathCount_ = other.deathCount_;
@@ -1395,14 +1395,13 @@ public sealed partial class Player : pb::IMessage<Player>
 
   /// <summary>Field number for the "action" field.</summary>
   public const int ActionFieldNumber = 5;
-  private global::PlayerAction action_ = global::PlayerAction.Nothing;
+  private static readonly pb::FieldCodec<global::PlayerAction> _repeated_action_codec
+      = pb::FieldCodec.ForEnum(42, x => (int) x, x => (global::PlayerAction) x);
+  private readonly pbc::RepeatedField<global::PlayerAction> action_ = new pbc::RepeatedField<global::PlayerAction>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::PlayerAction Action {
+  public pbc::RepeatedField<global::PlayerAction> Action {
     get { return action_; }
-    set {
-      action_ = value;
-    }
   }
 
   /// <summary>Field number for the "aoe_position" field.</summary>
@@ -1579,7 +1578,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (Health != other.Health) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (Status != other.Status) return false;
-    if (Action != other.Action) return false;
+    if(!action_.Equals(other.action_)) return false;
     if (!object.Equals(AoePosition, other.AoePosition)) return false;
     if (KillCount != other.KillCount) return false;
     if (DeathCount != other.DeathCount) return false;
@@ -1604,7 +1603,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (Health != 0L) hash ^= Health.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (Status != global::Status.Alive) hash ^= Status.GetHashCode();
-    if (Action != global::PlayerAction.Nothing) hash ^= Action.GetHashCode();
+    hash ^= action_.GetHashCode();
     if (aoePosition_ != null) hash ^= AoePosition.GetHashCode();
     if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     if (DeathCount != 0UL) hash ^= DeathCount.GetHashCode();
@@ -1652,10 +1651,7 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(32);
       output.WriteEnum((int) Status);
     }
-    if (Action != global::PlayerAction.Nothing) {
-      output.WriteRawTag(40);
-      output.WriteEnum((int) Action);
-    }
+    action_.WriteTo(output, _repeated_action_codec);
     if (aoePosition_ != null) {
       output.WriteRawTag(50);
       output.WriteMessage(AoePosition);
@@ -1731,10 +1727,7 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(32);
       output.WriteEnum((int) Status);
     }
-    if (Action != global::PlayerAction.Nothing) {
-      output.WriteRawTag(40);
-      output.WriteEnum((int) Action);
-    }
+    action_.WriteTo(ref output, _repeated_action_codec);
     if (aoePosition_ != null) {
       output.WriteRawTag(50);
       output.WriteMessage(AoePosition);
@@ -1806,9 +1799,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (Status != global::Status.Alive) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
     }
-    if (Action != global::PlayerAction.Nothing) {
-      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Action);
-    }
+    size += action_.CalculateSize(_repeated_action_codec);
     if (aoePosition_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(AoePosition);
     }
@@ -1873,9 +1864,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.Status != global::Status.Alive) {
       Status = other.Status;
     }
-    if (other.Action != global::PlayerAction.Nothing) {
-      Action = other.Action;
-    }
+    action_.Add(other.action_);
     if (other.aoePosition_ != null) {
       if (aoePosition_ == null) {
         AoePosition = new global::Position();
@@ -1968,8 +1957,9 @@ public sealed partial class Player : pb::IMessage<Player>
           Status = (global::Status) input.ReadEnum();
           break;
         }
+        case 42:
         case 40: {
-          Action = (global::PlayerAction) input.ReadEnum();
+          action_.AddEntriesFrom(input, _repeated_action_codec);
           break;
         }
         case 50: {
@@ -2079,8 +2069,9 @@ public sealed partial class Player : pb::IMessage<Player>
           Status = (global::Status) input.ReadEnum();
           break;
         }
+        case 42:
         case 40: {
-          Action = (global::PlayerAction) input.ReadEnum();
+          action_.AddEntriesFrom(ref input, _repeated_action_codec);
           break;
         }
         case 50: {
