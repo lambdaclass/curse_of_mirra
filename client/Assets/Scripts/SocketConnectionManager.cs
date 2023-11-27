@@ -287,6 +287,16 @@ public class SocketConnectionManager : MonoBehaviour
         {
             return "http://" + serverIp + ":" + port + path;
         }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
         else
         {
             return "https://" + serverIp + path;
@@ -313,6 +323,16 @@ public class SocketConnectionManager : MonoBehaviour
             return "ws://" + serverIp + ":" + port + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":" + port + path;
         }
