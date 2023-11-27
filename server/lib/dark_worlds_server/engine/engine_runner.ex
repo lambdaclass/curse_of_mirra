@@ -83,11 +83,14 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       player_timestamps: %{},
       broadcast_topic: Communication.pubsub_game_topic(self()),
       user_to_player: %{},
-      bot_handler_pid: nil
+      bot_count: bot_count,
+      bot_handler_pid: nil,
+      last_standing_players: []
     }
 
     Process.put(:map_size, {engine_config.game.width, engine_config.game.height})
 
+    NewRelic.increment_custom_metric("GameBackend/TotalGames", 1)
     {:ok, state}
   end
 
@@ -104,6 +107,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(state, :game_state, game_state)
       |> put_in([:user_to_player, user_id], player_id)
 
+    NewRelic.increment_custom_metric("GameBackend/TotalPlayers", 1)
     {:reply, {:ok, player_id}, state}
   end
 
@@ -127,7 +131,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
   @impl true
   def handle_cast(
-        {:basic_attack, user_id, %UseSkill{angle: angle, skill: skill}, timestamp},
+        {:basic_attack, user_id, %UseSkill{angle: angle, auto_aim: auto_aim, skill: skill}, timestamp},
         state
       ) do
     player_id = state.user_to_player[user_id] || user_id
@@ -135,7 +139,8 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
 
     game_state =
       LambdaGameEngine.activate_skill(state.game_state, player_id, skill_key, %{
-        "direction_angle" => Float.to_string(angle)
+        "direction_angle" => Float.to_string(angle),
+        "auto_aim" => to_string(auto_aim)
       })
 
     state =
@@ -166,13 +171,21 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     now = System.monotonic_time(:millisecond)
     time_diff = now - state.last_game_tick_at
     game_state = LambdaGameEngine.game_tick(state.game_state, time_diff)
+    now_after_tick = System.monotonic_time(:millisecond)
+    NewRelic.report_custom_metric("GameBackend/GameTickExecutionTimeMs", now_after_tick - now)
 
     broadcast_game_state(
       state.broadcast_topic,
       Map.put(game_state, :player_timestamps, state.player_timestamps)
     )
 
-    {:noreply, %{state | game_state: game_state, last_game_tick_at: now}}
+    {:noreply,
+     %{
+       state
+       | game_state: game_state,
+         last_game_tick_at: now,
+         last_standing_players: update_last_standing_players(state)
+     }}
   end
 
   def handle_info(:spawn_loot, state) do
@@ -186,7 +199,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   def handle_info(:check_game_ended, state) do
     Process.send_after(self(), :check_game_ended, @check_game_ended_interval_ms)
 
-    case check_game_ended(Map.values(state.game_state.players)) do
+    case check_game_ended(Map.values(state.game_state.players), state.last_standing_players) do
       :ongoing ->
         :skip
 
@@ -231,6 +244,7 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       Map.put(state, :game_state, game_state)
       |> Map.put(:bot_handler_pid, bot_handler_pid)
 
+    NewRelic.increment_custom_metric("GameBackend/TotalBots", bot_count)
     {:noreply, state}
   end
 
@@ -248,6 +262,14 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     {:noreply, state}
   end
 
+  @impl true
+  def terminate(_reason, state) do
+    player_count = length(state.game_state.players) - state.bot_count
+    NewRelic.increment_custom_metric("GameBackend/TotalPlayers", -player_count)
+    NewRelic.increment_custom_metric("GameBackend/TotalBots", -state.bot_count)
+    NewRelic.increment_custom_metric("GameBackend/TotalGames", -1)
+  end
+
   ####################
   # Internal helpers #
   ####################
@@ -257,6 +279,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
       topic,
       {:game_state, transform_state_to_myrra_state(game_state)}
     )
+  end
+
+  defp update_last_standing_players(%{last_standing_players: last_standing_players} = state) do
+    players_alive = Enum.filter(Map.values(state.game_state.players), fn player -> player.status == :alive end)
+
+    case players_alive do
+      [] -> last_standing_players
+      players_alive -> players_alive
+    end
   end
 
   defp broadcast_game_ended(topic, winner, game_state) do
@@ -270,14 +301,22 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
     )
   end
 
-  defp check_game_ended(players) do
+  defp check_game_ended(players, last_standing_players) do
     players_alive = Enum.filter(players, fn player -> player.status == :alive end)
 
     case players_alive do
-      ^players -> :ongoing
-      [_, _ | _] -> :ongoing
-      [player] -> {:ended, player}
-      [] -> {:ended, nil}
+      ^players ->
+        :ongoing
+
+      [_, _ | _] ->
+        :ongoing
+
+      [player] ->
+        {:ended, player}
+
+      [] ->
+        # TODO we should use a tiebreaker instead of picking the 1st one in the list
+        {:ended, hd(last_standing_players)}
     end
   end
 
@@ -421,17 +460,15 @@ defmodule DarkWorldsServer.Engine.EngineRunner do
   defp transform_killfeed_to_myrra_killfeed([
          {{:player, killer_id}, killed_id} | tail
        ]),
-       do: [%{killed_by: killer_id, killed: killed_id} | tail]
+       do: [%{killed_by: killer_id, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 
   defp transform_killfeed_to_myrra_killfeed([
-         {{:zone, _}, killed_id} | tail
-       ]) do
-    [%{killed_by: 9999, killed: killed_id} | tail]
-  end
+         {:zone, killed_id} | tail
+       ]),
+       do: [%{killed_by: 9999, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 
   defp transform_killfeed_to_myrra_killfeed([
-         {{:loot, _}, killed_id} | tail
-       ]) do
-    [%{killed_by: 1111, killed: killed_id} | tail]
-  end
+         {:loot, killed_id} | tail
+       ]),
+       do: [%{killed_by: 1111, killed: killed_id} | transform_killfeed_to_myrra_killfeed(tail)]
 end

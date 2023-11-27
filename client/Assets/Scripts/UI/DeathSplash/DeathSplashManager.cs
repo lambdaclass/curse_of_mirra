@@ -52,6 +52,7 @@ public class DeathSplashManager : MonoBehaviour
     List<GameObject> characterModels;
 
     private const int WINNER_POS = 1;
+    private const int SECOND_PLACE_POS = 2;
     private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
     private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
     GameObject player;
@@ -89,7 +90,17 @@ public class DeathSplashManager : MonoBehaviour
             SocketConnectionManager.Instance.playerId
         );
 
-        return isWinner ? WINNER_POS : Utils.GetAlivePlayers().Count() + 1;
+        // FIXME This is a temporal for the cases where the winner dies simultaneously
+        // FIXME with other/s player/s
+        if (isWinner)
+        {
+            return WINNER_POS;
+        }
+        if (Utils.GetAlivePlayers().Count() == 0)
+        {
+            return SECOND_PLACE_POS;
+        }
+        return Utils.GetAlivePlayers().Count() + 1;
     }
 
     void ShowMessage()

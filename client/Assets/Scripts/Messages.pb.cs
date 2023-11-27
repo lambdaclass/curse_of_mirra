@@ -144,44 +144,45 @@ public static partial class MessagesReflection {
           "AiABKAQaYQoIUGVyaW9kaWMSDAoEdHlwZRgBIAEoCRIbChNpbnN0YW50X2Fw",
           "cGxpY2F0aW9uGAIgASgJEhMKC2ludGVydmFsX21zGAMgASgEEhUKDXRyaWdn",
           "ZXJfY291bnQYBCABKARCDQoLZWZmZWN0X3R5cGUiFQoETW92ZRINCgVhbmds",
-          "ZRgBIAEoAiIoCghVc2VTa2lsbBINCgVza2lsbBgBIAEoCRINCgVhbmdsZRgC",
-          "IAEoAiJlCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASHgoJ",
-          "dXNlX3NraWxsGAIgASgLMgkuVXNlU2tpbGxIABIRCgl0aW1lc3RhbXAYAyAB",
-          "KANCDQoLYWN0aW9uX3R5cGUqrgEKDUdhbWVFdmVudFR5cGUSEAoMU1RBVEVf",
-          "VVBEQVRFEAASDwoLUElOR19VUERBVEUQARIRCg1QTEFZRVJfSk9JTkVEEAIS",
-          "EQoNR0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJQUxfUE9TSVRJT05TEAQSHQoZ",
-          "U0VMRUNURURfQ0hBUkFDVEVSX1VQREFURRAFEh4KGkZJTklTSF9DSEFSQUNU",
-          "RVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBAB",
-          "Kv8BCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCgoGQVRUQUNL",
-          "EAESDAoIVEVMRVBPUlQQAhIOCgpBVFRBQ0tfQU9FEAMSFgoSTU9WRV9XSVRI",
-          "X0pPWVNUSUNLEAQSCwoHQUREX0JPVBAFEg8KC0FVVE9fQVRUQUNLEAYSEAoM",
-          "QkFTSUNfQVRUQUNLEAcSCwoHU0tJTExfMRAIEgsKB1NLSUxMXzIQCRILCgdT",
-          "S0lMTF8zEAoSCwoHU0tJTExfNBALEhQKEFNFTEVDVF9DSEFSQUNURVIQDBIP",
-          "CgtFTkFCTEVfQk9UUxANEhAKDERJU0FCTEVfQk9UUxAOKk0KCURpcmVjdGlv",
-          "bhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04Q",
-          "AhIICgRMRUZUEAMSCQoFUklHSFQQBCr9AQoMUGxheWVyQWN0aW9uEgsKB05P",
-          "VEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFAoQ",
-          "U1RBUlRJTkdfU0tJTExfMRADEhQKEFNUQVJUSU5HX1NLSUxMXzIQBBIUChBT",
-          "VEFSVElOR19TS0lMTF8zEAUSFAoQU1RBUlRJTkdfU0tJTExfNBAGEhUKEUVY",
-          "RUNVVElOR19TS0lMTF8xEAcSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQCBIVChFF",
-          "WEVDVVRJTkdfU0tJTExfMxAJEhUKEUVYRUNVVElOR19TS0lMTF80EAoSCgoG",
-          "TU9WSU5HEAsqtgIKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIMCghE",
-          "SVNBUk1FRBABEhUKEURFTklBTF9PRl9TRVJWSUNFEAISCQoFUkFHRUQQAxIR",
-          "Cg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9PRl9BUkVB",
-          "EAYSDgoKRUxOQVJfTUFSSxAHEg4KCllVR0VOX01BUksQCBIOCgpYQU5EQV9N",
-          "QVJLEAkSFAoQWEFOREFfTUFSS19PV05FUhAKEgwKCFBPSVNPTkVEEAsSCgoG",
-          "U0xPV0VEEAwSEQoNRklFUllfUkFNUEFHRRANEgoKBkJVUk5FRBAOEgsKB1ND",
-          "SEVSWk8QDxIRCg1EQU5TRV9NQUNBQlJFEBASDQoJUEFSQUxZWkVEEBESCAoE",
-          "Tk9ORRASKo8BCg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVE",
-          "EAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEAoMR0FNRV9T",
-          "VEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQSDgoKU1RBUlRfR0FNRRAFEhIK",
-          "DlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVU",
-          "EAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMS",
-          "CgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASo2CghMb290VHlwZRIZChVMT09U",
-          "X1RZUEVfVU5TUEVDSUZJRUQQABIPCgtMT09UX0hFQUxUSBABKjAKDE1vZGlm",
-          "aWVyVHlwZRISCg5NVUxUSVBMSUNBVElWRRAAEgwKCEFERElUSVZFEAEqSwoM",
-          "TWVjaGFuaWNUeXBlEgcKA0hJVBAAEhAKDFNJTVBMRV9TSE9PVBABEg8KC01V",
-          "TFRJX1NIT09UEAISDwoLR0lWRV9FRkZFQ1QQA2IGcHJvdG8z"));
+          "ZRgBIAEoAiI6CghVc2VTa2lsbBINCgVza2lsbBgBIAEoCRINCgVhbmdsZRgC",
+          "IAEoAhIQCghhdXRvX2FpbRgDIAEoCCJlCgpHYW1lQWN0aW9uEhUKBG1vdmUY",
+          "ASABKAsyBS5Nb3ZlSAASHgoJdXNlX3NraWxsGAIgASgLMgkuVXNlU2tpbGxI",
+          "ABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUqrgEKDUdhbWVF",
+          "dmVudFR5cGUSEAoMU1RBVEVfVVBEQVRFEAASDwoLUElOR19VUERBVEUQARIR",
+          "Cg1QTEFZRVJfSk9JTkVEEAISEQoNR0FNRV9GSU5JU0hFRBADEhUKEUlOSVRJ",
+          "QUxfUE9TSVRJT05TEAQSHQoZU0VMRUNURURfQ0hBUkFDVEVSX1VQREFURRAF",
+          "Eh4KGkZJTklTSF9DSEFSQUNURVJfU0VMRUNUSU9OEAYqHQoGU3RhdHVzEgkK",
+          "BUFMSVZFEAASCAoEREVBRBABKv8BCgZBY3Rpb24SFgoSQUNUSU9OX1VOU1BF",
+          "Q0lGSUVEEAASCgoGQVRUQUNLEAESDAoIVEVMRVBPUlQQAhIOCgpBVFRBQ0tf",
+          "QU9FEAMSFgoSTU9WRV9XSVRIX0pPWVNUSUNLEAQSCwoHQUREX0JPVBAFEg8K",
+          "C0FVVE9fQVRUQUNLEAYSEAoMQkFTSUNfQVRUQUNLEAcSCwoHU0tJTExfMRAI",
+          "EgsKB1NLSUxMXzIQCRILCgdTS0lMTF8zEAoSCwoHU0tJTExfNBALEhQKEFNF",
+          "TEVDVF9DSEFSQUNURVIQDBIPCgtFTkFCTEVfQk9UUxANEhAKDERJU0FCTEVf",
+          "Qk9UUxAOKk0KCURpcmVjdGlvbhIZChVESVJFQ1RJT05fVU5TUEVDSUZJRUQQ",
+          "ABIGCgJVUBABEggKBERPV04QAhIICgRMRUZUEAMSCQoFUklHSFQQBCr9AQoM",
+          "UGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABINCglBVFRBQ0tJTkcQARIRCg1B",
+          "VFRBQ0tJTkdfQU9FEAISFAoQU1RBUlRJTkdfU0tJTExfMRADEhQKEFNUQVJU",
+          "SU5HX1NLSUxMXzIQBBIUChBTVEFSVElOR19TS0lMTF8zEAUSFAoQU1RBUlRJ",
+          "TkdfU0tJTExfNBAGEhUKEUVYRUNVVElOR19TS0lMTF8xEAcSFQoRRVhFQ1VU",
+          "SU5HX1NLSUxMXzIQCBIVChFFWEVDVVRJTkdfU0tJTExfMxAJEhUKEUVYRUNV",
+          "VElOR19TS0lMTF80EAoSCgoGTU9WSU5HEAsqtgIKDFBsYXllckVmZmVjdBIN",
+          "CglQRVRSSUZJRUQQABIMCghESVNBUk1FRBABEhUKEURFTklBTF9PRl9TRVJW",
+          "SUNFEAISCQoFUkFHRUQQAxIRCg1ORU9OX0NSQVNISU5HEAQSCwoHTEVBUElO",
+          "RxAFEg8KC09VVF9PRl9BUkVBEAYSDgoKRUxOQVJfTUFSSxAHEg4KCllVR0VO",
+          "X01BUksQCBIOCgpYQU5EQV9NQVJLEAkSFAoQWEFOREFfTUFSS19PV05FUhAK",
+          "EgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VEEAwSEQoNRklFUllfUkFNUEFHRRAN",
+          "EgoKBkJVUk5FRBAOEgsKB1NDSEVSWk8QDxIRCg1EQU5TRV9NQUNBQlJFEBAS",
+          "DQoJUEFSQUxZWkVEEBESCAoETk9ORRASKo8BCg5Mb2JieUV2ZW50VHlwZRIU",
+          "ChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExBWUVS",
+          "X0FEREVEEAISEAoMR0FNRV9TVEFSVEVEEAMSEAoMUExBWUVSX0NPVU5UEAQS",
+          "DgoKU1RBUlRfR0FNRRAFEhIKDlBMQVlFUl9SRU1PVkVEEAYqMgoOUHJvamVj",
+          "dGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwK",
+          "EFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASo2",
+          "CghMb290VHlwZRIZChVMT09UX1RZUEVfVU5TUEVDSUZJRUQQABIPCgtMT09U",
+          "X0hFQUxUSBABKjAKDE1vZGlmaWVyVHlwZRISCg5NVUxUSVBMSUNBVElWRRAA",
+          "EgwKCEFERElUSVZFEAEqSwoMTWVjaGFuaWNUeXBlEgcKA0hJVBAAEhAKDFNJ",
+          "TVBMRV9TSE9PVBABEg8KC01VTFRJX1NIT09UEAISDwoLR0lWRV9FRkZFQ1QQ",
+          "A2IGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -218,7 +219,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect), global::GameEffect.Parser, new[]{ "Name", "SimpleType", "DurationType", "PeriodicType" }, new[]{ "EffectType" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Duration), global::GameEffect.Types.Duration.Parser, new[]{ "Type", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEffect.Types.Periodic), global::GameEffect.Types.Periodic.Parser, new[]{ "Type", "InstantApplication", "IntervalMs", "TriggerCount" }, null, null, null, null)}),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Angle" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle", "AutoAim" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
         }));
   }
@@ -412,7 +413,6 @@ public enum MechanicType {
 ///- projectiles: projectile list, used on STATE_UPDATE
 ///- player_joined_id: ID of the player that joined the game
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameEvent : pb::IMessage<GameEvent>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -867,7 +867,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.MergeFrom(other.selectedCharacters_);
+    selectedCharacters_.Add(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1046,7 +1046,6 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class PlayerCharacter : pb::IMessage<PlayerCharacter>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -1286,7 +1285,6 @@ public sealed partial class PlayerCharacter : pb::IMessage<PlayerCharacter>
 ///- character_name: Name of the player's character
 ///- effects: The effects that are active on the player
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Player : pb::IMessage<Player>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -1898,7 +1896,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.MergeFrom(other.effects_);
+    effects_.Add(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();
@@ -2129,7 +2127,6 @@ public sealed partial class Player : pb::IMessage<Player>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class EffectInfo : pb::IMessage<EffectInfo>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -2365,7 +2362,6 @@ public sealed partial class EffectInfo : pb::IMessage<EffectInfo>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class KillEvent : pb::IMessage<KillEvent>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -2597,7 +2593,6 @@ public sealed partial class KillEvent : pb::IMessage<KillEvent>
 ///- x: X coordinate in the grid
 ///- y: Y coordinate in the grid
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Position : pb::IMessage<Position>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -2829,7 +2824,6 @@ public sealed partial class Position : pb::IMessage<Position>
 ///- x: X coordinate between -1 and 1
 ///- y: Y coordinate between -1 and 1
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -3065,7 +3059,6 @@ public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
 ///- target: player id to autoattack
 ///- timestamp: client's time at the moment they send the action
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class ClientAction : pb::IMessage<ClientAction>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -3553,7 +3546,6 @@ public sealed partial class ClientAction : pb::IMessage<ClientAction>
 ///- removed_player_info: Information of any player leaving the lobby, used on PLAYER_REMOVED
 ///- host_player_id: ID of the player considered host of the lobby, used on PLAYER_ADDED, PLAYER_REMOVED
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -4143,7 +4135,6 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
 ///- player_id: Internal ID used by backend to identify the player/client
 ///- player_name: Name to use to identify the player/client
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class PlayerInformation : pb::IMessage<PlayerInformation>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -4370,7 +4361,6 @@ public sealed partial class PlayerInformation : pb::IMessage<PlayerInformation>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class RunnerConfig : pb::IMessage<RunnerConfig>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -4930,7 +4920,6 @@ public sealed partial class RunnerConfig : pb::IMessage<RunnerConfig>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameConfig : pb::IMessage<GameConfig>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -5203,7 +5192,6 @@ public sealed partial class GameConfig : pb::IMessage<GameConfig>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class BoardSize : pb::IMessage<BoardSize>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -5430,7 +5418,6 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigItem>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -6027,7 +6014,6 @@ public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigIt
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -6206,7 +6192,6 @@ public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class SkillsConfig : pb::IMessage<SkillsConfig>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -6385,7 +6370,6 @@ public sealed partial class SkillsConfig : pb::IMessage<SkillsConfig>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -7167,7 +7151,6 @@ public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -7469,7 +7452,6 @@ public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings
 ///- remaining_ticks: Projectile remaining lifetime
 ///- type: Projectile type depending on the attack
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Projectile : pb::IMessage<Projectile>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -8131,7 +8113,6 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
 ///- If you need to use remaining time in milliseconds, you can use only low field
 ///- because high field will be 0
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class MillisTime : pb::IMessage<MillisTime>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -8364,7 +8345,6 @@ public sealed partial class MillisTime : pb::IMessage<MillisTime>
 ///- position: Position of the loot
 ///- loot_type: Type of loot
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class LootPackage : pb::IMessage<LootPackage>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -8637,7 +8617,6 @@ public sealed partial class LootPackage : pb::IMessage<LootPackage>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Config : pb::IMessage<Config>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -8973,7 +8952,6 @@ public sealed partial class Config : pb::IMessage<Config>
 ///- map_modification: If present, contains the information for when the map modification mechanic is triggered
 ///- loot_interval_ms: If present, interval in milliseconds for spawning loot crates
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -9292,7 +9270,6 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
 ///- outside_radius_effects: Effects given when a player is outside the playable area.
 ///- inside_radius_effects: Effects given when a player is inside the playable area.
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class MapModification : pb::IMessage<MapModification>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -9662,7 +9639,6 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
 ///- override: Given value is set as the attribute value
 ///- value: The value we are using for the changemessage Modification
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Modification : pb::IMessage<Modification>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -9895,7 +9871,6 @@ public sealed partial class Modification : pb::IMessage<Modification>
 ///- size: radius size of the loot
 ///- effects: List of effects the loot will give out
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameLoot : pb::IMessage<GameLoot>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -10159,7 +10134,6 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
 ///- `duration_ms`: Defines how long in milliseconds the projectile can exist
 ///- `max_distance`: Defines the maximum distance the projectile can travel
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -10606,7 +10580,6 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 ///- base_health: Base health of the character.
 ///- skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -10884,7 +10857,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (other.BaseHealth != 0UL) {
       BaseHealth = other.BaseHealth;
     }
-    skills_.MergeFrom(other.skills_);
+    skills_.Add(other.skills_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -10977,7 +10950,6 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
 ///- is_passive: Marks the skill as a passive skill, this means it can't be triggered. Instead it will trigger on player spawn, so only `GiveEffect` makes sense for it.
 ///- mechanics: Core mechanic of the skill (e.g hit, shoot, etc).
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameSkill : pb::IMessage<GameSkill>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -11286,7 +11258,6 @@ public sealed partial class GameSkill : pb::IMessage<GameSkill>
 /// duration_ms: How long it takes to move the player, 0 means instantly.
 /// max_range: Maximum distance allowed to move, if target is beyond this limit movement will be capped to this point.
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Mechanic : pb::IMessage<Mechanic>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -11811,7 +11782,6 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
 ///- player_attributes: Attributes changes that will be applied over the player having this effect
 ///- projectile_attributes: Attributes changes that will be applied over the projectiles of the player having this effect
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameEffect : pb::IMessage<GameEffect>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -11885,24 +11855,10 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public string SimpleType {
-    get { return HasSimpleType ? (string) effectType_ : ""; }
+    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
     set {
       effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       effectTypeCase_ = EffectTypeOneofCase.SimpleType;
-    }
-  }
-  /// <summary>Gets whether the "simple_type" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasSimpleType {
-    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
-  }
-  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearSimpleType() {
-    if (HasSimpleType) {
-      ClearEffectType();
     }
   }
 
@@ -11980,7 +11936,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
     hash ^= (int) effectTypeCase_;
@@ -12006,7 +11962,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12032,7 +11988,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12057,7 +12013,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
     }
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {
@@ -12191,7 +12147,6 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static partial class Types {
-    [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
     public sealed partial class Duration : pb::IMessage<Duration>
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
         , pb::IBufferMessage
@@ -12418,7 +12373,6 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
 
     }
 
-    [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
     public sealed partial class Periodic : pb::IMessage<Periodic>
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
         , pb::IBufferMessage
@@ -12728,7 +12682,6 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
 ///
 ///Represents a move action
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Move : pb::IMessage<Move>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -12922,7 +12875,6 @@ public sealed partial class Move : pb::IMessage<Move>
 ///
 ///Represents the action of using a skill
 /// </summary>
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class UseSkill : pb::IMessage<UseSkill>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -12959,6 +12911,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
   public UseSkill(UseSkill other) : this() {
     skill_ = other.skill_;
     angle_ = other.angle_;
+    autoAim_ = other.autoAim_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -12992,6 +12945,18 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     }
   }
 
+  /// <summary>Field number for the "auto_aim" field.</summary>
+  public const int AutoAimFieldNumber = 3;
+  private bool autoAim_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool AutoAim {
+    get { return autoAim_; }
+    set {
+      autoAim_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -13009,6 +12974,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     }
     if (Skill != other.Skill) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
+    if (AutoAim != other.AutoAim) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -13018,6 +12984,7 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     int hash = 1;
     if (Skill.Length != 0) hash ^= Skill.GetHashCode();
     if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
+    if (AutoAim != false) hash ^= AutoAim.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -13044,6 +13011,10 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
       output.WriteRawTag(21);
       output.WriteFloat(Angle);
     }
+    if (AutoAim != false) {
+      output.WriteRawTag(24);
+      output.WriteBool(AutoAim);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -13062,6 +13033,10 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
       output.WriteRawTag(21);
       output.WriteFloat(Angle);
     }
+    if (AutoAim != false) {
+      output.WriteRawTag(24);
+      output.WriteBool(AutoAim);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -13077,6 +13052,9 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     }
     if (Angle != 0F) {
       size += 1 + 4;
+    }
+    if (AutoAim != false) {
+      size += 1 + 1;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -13095,6 +13073,9 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
     }
     if (other.Angle != 0F) {
       Angle = other.Angle;
+    }
+    if (other.AutoAim != false) {
+      AutoAim = other.AutoAim;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -13117,6 +13098,10 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
         }
         case 21: {
           Angle = input.ReadFloat();
+          break;
+        }
+        case 24: {
+          AutoAim = input.ReadBool();
           break;
         }
       }
@@ -13142,6 +13127,10 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
           Angle = input.ReadFloat();
           break;
         }
+        case 24: {
+          AutoAim = input.ReadBool();
+          break;
+        }
       }
     }
   }
@@ -13149,7 +13138,6 @@ public sealed partial class UseSkill : pb::IMessage<UseSkill>
 
 }
 
-[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameAction : pb::IMessage<GameAction>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage

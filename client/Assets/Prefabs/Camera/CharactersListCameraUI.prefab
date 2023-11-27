@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 25
+  m_ScrollSensitivity: 40
   m_Viewport: {fileID: 8449051140877074377}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -1183,6 +1183,7 @@ GameObject:
   - component: {fileID: 1035316454077175520}
   - component: {fileID: 8354071531447363686}
   - component: {fileID: 4704253633893132840}
+  - component: {fileID: 7835735610173490935}
   m_Layer: 5
   m_Name: List
   m_TagString: Untagged
@@ -1240,7 +1241,7 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 20
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
@@ -1271,6 +1272,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e44f07a8fefb4d91aa9b4753caddf34, type: 2}
   listItem: {fileID: 2192738142746803912, guid: 344c4239ebd4449dcb6f3ee963df11a7,
     type: 3}
+--- !u!225 &7835735610173490935
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238102322061035782}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6000699583755180149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7695973724715536642}
   - component: {fileID: 7695973724715536645}
+  - component: {fileID: 6321641151071003500}
   - component: {fileID: 7695973724715536644}
   - component: {fileID: 5689277396885681531}
   m_Layer: 0
@@ -1835,6 +1849,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &6321641151071003500
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695973724715536647}
+  m_Enabled: 1
 --- !u!124 &7695973724715536644
 Behaviour:
   m_ObjectHideFlags: 0
@@ -2056,7 +2078,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Character list
+  m_text: 'Character list
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad7095a8160a94dc2a8c06bc9c4db145, type: 2}
   m_sharedMaterial: {fileID: -6215521632685670565, guid: ad7095a8160a94dc2a8c06bc9c4db145,
@@ -2084,8 +2108,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 34.3
+  m_fontSizeBase: 34.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
