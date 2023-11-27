@@ -29,4 +29,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
   - {fileID: 11400000, guid: 275be5c874b674ef3b672edf201b0b5b, type: 2}
   skillBasicInfo: {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
-  UIModel: {fileID: 6095740820604997444, guid: 9ff4213cc4e554ae1a91a77d78a5a45c, type: 3}
+  UIModel: {fileID: 7907390967641451173, guid: b3ded8783b6794ef196dcb3a618c78db, type: 3}
