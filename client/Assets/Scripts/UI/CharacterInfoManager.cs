@@ -35,8 +35,6 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     GameObject rightButton;
 
-    [Tooltip("This bool indicate whether to activate or deactivate the left/right arrows")]
-    public const bool ENABLE_ARROWS = false;
     public static int selectedCharacterPosition;
 
     private List<CoMCharacter> avaiblesCharacters = new List<CoMCharacter>();
