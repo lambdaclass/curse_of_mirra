@@ -48,11 +48,12 @@ public class TitleScreenController : MonoBehaviour
     public void PlayButton()
     {
         StartCoroutine(FetchUserData());
+        // loading screen HERE
+        SceneManager.LoadScene(TITLE_SCENE_NAME);
     }
 
     private IEnumerator ChangeToMainScreen() {
         yield return FetchUserData();
-        SceneManager.LoadScene(TITLE_SCENE_NAME);
     }
 
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)
