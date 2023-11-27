@@ -32,9 +32,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject backToLobbyButton;
     private List<Player> gamePlayers;
-
-    [SerializeField]
-    private BackgroundMusic backgroundMusic;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
@@ -118,13 +115,6 @@ public class CustomLevelManager : LevelManager
 
         SetPlayerHealthBar(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
-        MMSoundManager.Instance.FreeAllSounds();
-        MMSoundManagerSoundPlayEvent.Trigger(
-            backgroundMusic.SoundClip,
-            MMSoundManager.MMSoundManagerTracks.Music,
-            this.transform.position,
-            true
-        );
         StartCoroutine(CameraCinematic());
     }
 
