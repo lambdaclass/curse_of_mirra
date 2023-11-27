@@ -13,13 +13,6 @@ public class CharactersListManager : MonoBehaviour
     [SerializeField]
     GameObject listItem;
 
-    List<string> enableCharactersName = new List<string>();
-
-    void Awake()
-    {
-        enableCharactersName = MainScreenManager.enableCharactersName;
-    }
-
     void Start()
     {
         GenerateList();
@@ -33,6 +26,7 @@ public class CharactersListManager : MonoBehaviour
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
+                //We only activates the charactrs which are in the avaibles list
                 if (avaibles.Contains(character))
                 {
                     item.GetComponent<CharacterListItem>().listPosition = index;

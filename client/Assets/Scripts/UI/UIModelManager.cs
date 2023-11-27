@@ -8,9 +8,11 @@ public class UIModelManager : MonoBehaviour
     [SerializeField]
     GameObject playerModelContainer;
 
+    [Tooltip("All UI character models")]
     [SerializeField]
     List<GameObject> playerModels;
 
+    [Tooltip("Enable characters name to be used")]
     private List<string> enableCharacters = new List<string>();
 
     public void SetModel(CoMCharacter character = null)
@@ -20,6 +22,7 @@ public class UIModelManager : MonoBehaviour
         string name = "";
         if (character == null)
         {
+            //We intersect all the characters model and the enable ones.
             avaibleModels = playerModels.Select(el => el.name).Intersect(enableCharacters).ToList();
             index = Random.Range(0, avaibleModels.Count);
             name = avaibleModels[index];
@@ -36,8 +39,6 @@ public class UIModelManager : MonoBehaviour
         );
     }
 
-    //This function add the " Variant" to each string and add it to a new list
-    // With this we can match the Model variants for the UI model rendering
     public void SetupList(List<string> characters)
     {
         enableCharacters = characters;
