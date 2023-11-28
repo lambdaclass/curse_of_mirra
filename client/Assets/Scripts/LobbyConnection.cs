@@ -387,10 +387,6 @@ public class LobbyConnection : MonoBehaviour
                     serverHash = lobbyEvent.ServerHash;
                     break;
 
-                case LobbyEventType.GameStarted:
-                    gameStarted = true;
-                    break;
-
                 default:
                     Debug.Log("Message received is: " + lobbyEvent.Type);
                     break;
