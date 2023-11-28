@@ -22,8 +22,8 @@ public class Utils
 
     public static Vector3 transformBackendPositionToFrontendPosition(Position position)
     {
-        var x = (long)position?.Y - 50.0f;
-        var y = (-((long)position?.X)) + 50.0f;
+        var x = ((float)position?.Y / 100.0f) - 50.0f;
+        var y = (-((float)position?.X) / 100.0f) + 50.0f;
         return new Vector3(x, 1f, y);
     }
 
@@ -77,8 +77,8 @@ public class Utils
 
     public static Player GetNearestPlayer(Position toCompare)
     {
-        ulong aux_X = 0;
-        ulong aux_Y = 0;
+        float aux_X = 0f;
+        float aux_Y = 0f;
         Player nearest_player = null;
         SocketConnectionManager.Instance.gamePlayers.ForEach(player =>
         {
