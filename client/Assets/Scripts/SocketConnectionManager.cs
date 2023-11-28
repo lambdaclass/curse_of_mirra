@@ -189,6 +189,16 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.PlayerJoined:
                     this.playerId = gameEvent.PlayerJoinedId;
                     break;
+                case GameEventType.GameStarted:
+                    this.playableRadius = gameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent);
+                    this.gamePlayers = gameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
+                    updatedLoots = gameEvent.Loots.ToList();
+                    LobbyConnection.Instance.gameStarted = true;
+                    break;
                 default:
                     print("Message received is: " + gameEvent.Type);
                     break;
