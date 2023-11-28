@@ -88,21 +88,21 @@ public class EventsBuffer
             == SocketConnectionManager.Instance.gamePlayers.Count
         )
         {
-            count +=
-                (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)).Action
-                == PlayerAction.Moving
-                    ? 1
-                    : 0;
-            count +=
-                (currentEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
-                == PlayerAction.Moving
-                    ? 1
-                    : 0;
-            count +=
-                (followingEventToRender.Players.ToList().Find(p => p.Id == playerId)).Action
-                == PlayerAction.Moving
-                    ? 1
-                    : 0;
+            count += (
+                previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)
+            ).Action.Contains(PlayerAction.Moving)
+                ? 1
+                : 0;
+            count += (
+                currentEventToRender.Players.ToList().Find(p => p.Id == playerId)
+            ).Action.Contains(PlayerAction.Moving)
+                ? 1
+                : 0;
+            count += (
+                followingEventToRender.Players.ToList().Find(p => p.Id == playerId)
+            ).Action.Contains(PlayerAction.Moving)
+                ? 1
+                : 0;
         }
 
         return count >= 1;

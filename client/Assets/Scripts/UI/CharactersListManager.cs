@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class CharactersListManager : MonoBehaviour
 {
@@ -20,26 +21,25 @@ public class CharactersListManager : MonoBehaviour
     void GenerateList()
     {
         var index = 0;
+        var avaibles = Utils.GetOnlyAvailableCharacterInfo(characterSriptableObjects);
         characterSriptableObjects.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
-                item.GetComponent<CharacterListItem>().listPosition = index;
-                item.GetComponentInChildren<Image>().sprite = character.characterSprite;
-                item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
-                index++;
-
-                // TODO: this conditional by name should be replaced with a bool if this character is not active
-                if (
-                    character.name == "Uren"
-                    || character.name == "Kenzu"
-                    || character.name == "Otix"
-                    || character.name == "Valtimer"
-                )
+                //We only activates the charactrs which are in the avaibles list
+                if (avaibles.Contains(character))
                 {
+                    item.GetComponent<CharacterListItem>().listPosition = index;
+                    index++;
+                }
+                else
+                {
+                    item.GetComponent<CharacterListItem>().listPosition = -1;
                     item.GetComponent<CharacterListItem>().IsEnable = false;
                     item.GetComponent<ButtonAnimationsMMTouchButton>().enabled = false;
                 }
+                item.GetComponentInChildren<Image>().sprite = character.characterSprite;
+                item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
             }
         );
     }
