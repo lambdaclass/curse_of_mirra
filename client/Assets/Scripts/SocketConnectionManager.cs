@@ -176,10 +176,10 @@ public class SocketConnectionManager : MonoBehaviour
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
                     Debug.Log(gameEvent.Killfeed.ToList());
                     KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    this.gamePlayers = gameEvent.Players.ToList();
+                    this.gamePlayers = gameEvent.Players.Values.ToList();
                     eventsBuffer.AddEvent(gameEvent);
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
+                    alivePlayers = gameEvent.Players.Values.ToList().FindAll(el => el.Health > 0);
                     updatedLoots = gameEvent.Loots.ToList();
                     break;
                 case GameEventType.PingUpdate:
@@ -188,7 +188,7 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.GameFinished:
                     winnerPlayer.Item1 = gameEvent.WinnerPlayer;
                     winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
-                    this.gamePlayers = gameEvent.Players.ToList();
+                    this.gamePlayers = gameEvent.Players.Values.ToList();
                     break;
                 case GameEventType.PlayerJoined:
                     this.playerId = gameEvent.PlayerJoinedId;

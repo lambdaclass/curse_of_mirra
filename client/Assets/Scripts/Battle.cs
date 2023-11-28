@@ -153,7 +153,7 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         GameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        Player playerUpdate = lastEvent.Players
+        Player playerUpdate = lastEvent.Players.Values
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
@@ -221,11 +221,11 @@ public class Battle : MonoBehaviour
             }
 
             // There are a few frames during which this is outdated and produces an error
-            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
+            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Values.Count)
             {
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
-                Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                Player serverPlayerUpdate = new Player(gameEvent.Players.Values.ToList()[i]);
                 if (
                     serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
                     && useClientPrediction
@@ -245,7 +245,7 @@ public class Battle : MonoBehaviour
 
                 if (interpolationGhost != null)
                 {
-                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players.Values.ToList()[i], pastTime);
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -253,7 +253,7 @@ public class Battle : MonoBehaviour
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
                     {
-                        UpdatePlayer(currentPlayer, buffer.lastEvent().Players[i], pastTime);
+                        UpdatePlayer(currentPlayer, buffer.lastEvent().Players.Values.ToList()[i], pastTime);
                     }
                     else
                     {
