@@ -11,6 +11,7 @@ public class LobbyManager : LevelSelector
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
+    private const string PREPARING_BATTLE_SCENE_NAME = "PreparingBattle";
 
     public static string LevelSelected;
 
@@ -69,6 +70,9 @@ public class LobbyManager : LevelSelector
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
+            SceneManager.LoadScene(PREPARING_BATTLE_SCENE_NAME);
+        }
+        if (LobbyConnection.Instance.gameStarted && SceneManager.GetActiveScene().name == PREPARING_BATTLE_SCENE_NAME) {
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
