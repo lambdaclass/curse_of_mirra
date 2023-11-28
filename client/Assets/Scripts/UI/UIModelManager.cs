@@ -13,19 +13,22 @@ public class UIModelManager : MonoBehaviour
     List<GameObject> playerModels;
 
     [Tooltip("Enable characters name to be used")]
-    private List<string> enableCharacters = new List<string>();
+    private List<string> enabledCharacters = new List<string>();
 
     public void SetModel(CoMCharacter character = null)
     {
-        List<string> avaibleModels = new List<string>();
+        List<string> availableModels = new List<string>();
         int index = 0;
         string name = "";
         if (character == null)
         {
             //We intersect all the characters model and the enable ones.
-            avaibleModels = playerModels.Select(el => el.name).Intersect(enableCharacters).ToList();
-            index = Random.Range(0, avaibleModels.Count);
-            name = avaibleModels[index];
+            availableModels = playerModels
+                .Select(el => el.name)
+                .Intersect(enabledCharacters)
+                .ToList();
+            index = Random.Range(0, availableModels.Count);
+            name = availableModels[index];
         }
         GameObject playerModel =
             character != null
@@ -41,7 +44,7 @@ public class UIModelManager : MonoBehaviour
 
     public void SetupList(List<string> characters)
     {
-        enableCharacters = characters;
+        enabledCharacters = characters;
     }
 
     public void RemoveCurrentModel()

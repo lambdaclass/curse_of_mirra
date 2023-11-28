@@ -21,7 +21,7 @@ public class CharactersListManager : MonoBehaviour
     void GenerateList()
     {
         var index = 0;
-        var avaibles = Utils.GetOnlyAvaibleCharacterInfo(characterSriptableObjects);
+        var avaibles = Utils.GetOnlyAvailableCharacterInfo(characterSriptableObjects);
         characterSriptableObjects.ForEach(
             (character) =>
             {

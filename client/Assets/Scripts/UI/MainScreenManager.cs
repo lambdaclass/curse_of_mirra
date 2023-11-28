@@ -10,11 +10,11 @@ public class MainScreenManager : MonoBehaviour
 
     // We could map this with the backend
     [System.NonSerialized]
-    public static List<string> enableCharactersName = new List<string> { "Muflus" };
+    public static List<string> enabledCharactersName = new List<string> { "Muflus" };
 
     void Awake()
     {
-        modelManager.SetupList(enableCharactersName);
+        modelManager.SetupList(enabledCharactersName);
     }
 
     void Start()

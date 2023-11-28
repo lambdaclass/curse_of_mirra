@@ -37,17 +37,17 @@ public class CharacterInfoManager : MonoBehaviour
 
     public static int selectedCharacterPosition;
 
-    private List<CoMCharacter> avaiblesCharacters = new List<CoMCharacter>();
+    private List<CoMCharacter> availableCharacters = new List<CoMCharacter>();
 
     void Start()
     {
-        avaiblesCharacters = Utils.GetOnlyAvaibleCharacterInfo(comCharacters);
+        availableCharacters = Utils.GetOnlyAvailableCharacterInfo(comCharacters);
         SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void RightArrowFunc()
     {
-        if (selectedCharacterPosition == avaiblesCharacters.Count - 1)
+        if (selectedCharacterPosition == availableCharacters.Count - 1)
         {
             selectedCharacterPosition = 0;
         }
@@ -63,7 +63,7 @@ public class CharacterInfoManager : MonoBehaviour
     {
         if (selectedCharacterPosition == 0)
         {
-            selectedCharacterPosition = avaiblesCharacters.Count - 1;
+            selectedCharacterPosition = availableCharacters.Count - 1;
         }
         else
         {
@@ -74,7 +74,7 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void SetCharacterInfo(int currentPosition)
     {
-        CoMCharacter comCharacter = avaiblesCharacters[currentPosition];
+        CoMCharacter comCharacter = availableCharacters[currentPosition];
         ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;

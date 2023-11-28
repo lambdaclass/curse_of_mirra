@@ -154,7 +154,7 @@ public class Utils
         };
     }
 
-    public static List<CoMCharacter> GetOnlyAvaibleCharacterInfo(List<CoMCharacter> comCharacters)
+    public static List<CoMCharacter> GetOnlyAvailableCharacterInfo(List<CoMCharacter> comCharacters)
     {
         var result = new List<CoMCharacter>();
         //This can be totally improved and simplified to one step
@@ -162,7 +162,7 @@ public class Utils
         //First we get the names of the avaible characters+
         var avaibleCharacterInfo = comCharacters
             .Select(el => el.name)
-            .Intersect(MainScreenManager.enableCharactersName);
+            .Intersect(MainScreenManager.enabledCharactersName);
 
         //Then we get the characterInfo from those names
         for (int i = 0; i < comCharacters.Count(); i++)
