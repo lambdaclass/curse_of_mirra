@@ -27,10 +27,6 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     List<SkillDescription> skillDescriptions;
 
-    [Header("Buttons")]
-    [SerializeField]
-    MMTouchButton selectButton;
-
     public static int selectedCharacterPosition;
 
     void Start()
@@ -76,15 +72,9 @@ public class CharacterInfoManager : MonoBehaviour
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
         StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
-        if(LobbyConnection.Instance.SelectedCharacterName == comCharacter.name) {
-            selectButton.DisableButton();    
-        } else {
-            selectButton.EnableButton();
-        }
     }
 
     public void SetCharacter() {
-        LobbyConnection.Instance.SelectCharacter(comCharacters[selectedCharacterPosition].name);
-        selectButton.DisableButton();
+        StartCoroutine(LobbyConnection.Instance.SelectCharacter(comCharacters[selectedCharacterPosition].name));
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
@@ -131,6 +130,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
+        StartCoroutine(GetSelectedCharacter());
         DontDestroyOnLoad(gameObject);
     }
 
@@ -453,37 +453,8 @@ public class LobbyConnection : MonoBehaviour
         SelectedCharacterName = PlayerPrefs.GetString("selected_character");
     }
 
-    public void SelectCharacter(string characterName) {
-        StartCoroutine(SetSelectedCharacter(characterName));
-    }
-
-    IEnumerator SetSelectedCharacter(string characterName) {
-        string url = Utils.MakeHTTPUrl("/users-characters/" + this.clientId + "/edit");
-        string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
-        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
-        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
-        {
-            webRequest.certificateHandler = new AcceptAllCertificates();
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            yield return webRequest.SendWebRequest();
-            switch (webRequest.result)
-            {
-                case UnityWebRequest.Result.Success:
-                    if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
-                        Errors.Instance.HandleNetworkError(connectionTitle, webRequest.downloadHandler.text);
-                    } else {
-                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
-                            webRequest.downloadHandler.text
-                        );
-                        SelectedCharacterName = response.selected_character;
-                        PlayerPrefs.SetString("selected_character", response.selected_character);
-                    }
-                    break;
-                default:
-                    Errors.Instance.HandleNetworkError(connectionTitle, webRequest.downloadHandler.error);
-                    break;
-            }
-        }
+    public IEnumerator SelectCharacter(string characterName) {
+        yield return StartCoroutine(Utils.SetSelectedCharacter(characterName));
+        SelectedCharacterName = PlayerPrefs.GetString("selected_character");
     }
 }

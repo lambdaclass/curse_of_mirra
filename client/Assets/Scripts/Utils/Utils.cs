@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -207,6 +208,36 @@ public class Utils
                         UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
                             webRequest.downloadHandler.text
                         );
+                        PlayerPrefs.SetString("selected_character", response.selected_character);
+                    }
+                    break;
+                default:
+                    Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.error);
+                    break;
+            }
+        }
+    }
+
+    public static IEnumerator SetSelectedCharacter(string characterName) {
+        string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit");
+        string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
+        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
+                        Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.text);
+                    } else {
+                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
+                            webRequest.downloadHandler.text
+                        );
+                        // SelectedCharacterName = response.selected_character;
                         PlayerPrefs.SetString("selected_character", response.selected_character);
                     }
                     break;
