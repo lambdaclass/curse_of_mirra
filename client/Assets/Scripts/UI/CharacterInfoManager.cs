@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Tools;
+using System.Linq;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -29,14 +30,17 @@ public class CharacterInfoManager : MonoBehaviour
 
     public static int selectedCharacterPosition;
 
+    private List<CoMCharacter> availableCharacters = new List<CoMCharacter>();
+
     void Start()
     {
+        availableCharacters = Utils.GetOnlyAvailableCharacterInfo(comCharacters);
         SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void RightArrowFunc()
     {
-        if (selectedCharacterPosition == comCharacters.Count - 1)
+        if (selectedCharacterPosition == availableCharacters.Count - 1)
         {
             selectedCharacterPosition = 0;
         }
@@ -52,7 +56,7 @@ public class CharacterInfoManager : MonoBehaviour
     {
         if (selectedCharacterPosition == 0)
         {
-            selectedCharacterPosition = comCharacters.Count - 1;
+            selectedCharacterPosition = availableCharacters.Count - 1;
         }
         else
         {
@@ -63,7 +67,7 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void SetCharacterInfo(int currentPosition)
     {
-        CoMCharacter comCharacter = comCharacters[currentPosition];
+        CoMCharacter comCharacter = availableCharacters[currentPosition];
         ModelManager.RemoveCurrentModel();
         ModelManager.SetModel(comCharacter);
         nameText.text = comCharacter.name;

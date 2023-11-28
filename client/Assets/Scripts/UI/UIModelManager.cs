@@ -8,8 +8,12 @@ public class UIModelManager : MonoBehaviour
     [SerializeField]
     GameObject playerModelContainer;
 
+    [Tooltip("All UI character models")]
     [SerializeField]
     List<GameObject> playerModels;
+
+    [Tooltip("Enable characters name to be used")]
+    private List<string> enabledCharacters = new List<string>();
 
     public void SetModel(CoMCharacter character = null)
     {
@@ -43,6 +47,11 @@ public class UIModelManager : MonoBehaviour
             playerModel.transform.rotation,
             playerModelContainer.transform
         );
+    }
+
+    public void SetupList(List<string> characters)
+    {
+        enabledCharacters = characters;
     }
 
     public void RemoveCurrentModel()
