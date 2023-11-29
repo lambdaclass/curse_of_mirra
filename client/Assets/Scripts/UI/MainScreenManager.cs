@@ -11,7 +11,7 @@ public class MainScreenManager : MonoBehaviour
     // We could map this with the backend
     // Add Uma to the list of string to visualize her
     [System.NonSerialized]
-    public static List<string> enabledCharactersName = new List<string> { "Muflus", "Uma" };
+    public static List<string> enabledCharactersName = new List<string> { "Muflus" };
 
     void Awake()
     {
