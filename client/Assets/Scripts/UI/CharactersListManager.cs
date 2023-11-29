@@ -8,9 +8,6 @@ using System.Linq;
 public class CharactersListManager : MonoBehaviour
 {
     [SerializeField]
-    List<CoMCharacter> characterSriptableObjects;
-
-    [SerializeField]
     GameObject listItem;
 
     void Start()
@@ -21,15 +18,14 @@ public class CharactersListManager : MonoBehaviour
     void GenerateList()
     {
         var index = 0;
-        var avaibles = Utils.GetOnlyAvailableCharacterInfo(characterSriptableObjects);
-        characterSriptableObjects.ForEach(
+        CharactersList.Instance.AvailableCharacters.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
-                //We only activates the charactrs which are in the avaibles list
-                if (avaibles.Contains(character))
+                if (character.enabled)
                 {
                     item.GetComponent<CharacterListItem>().listPosition = index;
+                    item.GetComponentInChildren<Image>().sprite = character.characterSprite;
                     index++;
                 }
                 else
@@ -37,8 +33,8 @@ public class CharactersListManager : MonoBehaviour
                     item.GetComponent<CharacterListItem>().listPosition = -1;
                     item.GetComponent<CharacterListItem>().IsEnable = false;
                     item.GetComponent<ButtonAnimationsMMTouchButton>().enabled = false;
+                    item.GetComponentInChildren<Image>().sprite = character.disabledCharacterSprite;
                 }
-                item.GetComponentInChildren<Image>().sprite = character.characterSprite;
                 item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
             }
         );

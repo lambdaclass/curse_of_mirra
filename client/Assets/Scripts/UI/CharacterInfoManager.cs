@@ -34,13 +34,13 @@ public class CharacterInfoManager : MonoBehaviour
 
     void Start()
     {
-        availableCharacters = Utils.GetOnlyAvailableCharacterInfo(comCharacters);
+        availableCharacters = CharactersList.Instance.AvailableCharacters;
         SetCharacterInfo(selectedCharacterPosition);
     }
 
     public void RightArrowFunc()
     {
-        if (selectedCharacterPosition == availableCharacters.Count - 1)
+        if (selectedCharacterPosition == availableCharacters.Count(character => character.enabled) - 1)
         {
             selectedCharacterPosition = 0;
         }
@@ -56,7 +56,7 @@ public class CharacterInfoManager : MonoBehaviour
     {
         if (selectedCharacterPosition == 0)
         {
-            selectedCharacterPosition = availableCharacters.Count - 1;
+            selectedCharacterPosition = availableCharacters.Count(character => character.enabled) - 1;
         }
         else
         {

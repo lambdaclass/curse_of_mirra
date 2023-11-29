@@ -196,8 +196,6 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
-  initialScale: {x: 0, y: 0, z: 0}
-  finalScale: {x: 0, y: 0, z: 0}
 --- !u!114 &703506002697159412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,9 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listPosition: 0
-  isInsideCard: 0
-  isPressed: 0
-  isRealesed: 0
+  IsEnable: 1
 --- !u!1 &2231415005938754795
 GameObject:
   m_ObjectHideFlags: 0
