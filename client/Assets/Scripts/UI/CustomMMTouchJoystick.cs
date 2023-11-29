@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using CandyCoded.HapticFeedback;
 
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
@@ -12,6 +13,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public Skill skill;
     const float CANCEL_AREA_VALUE = 0.5f;
     bool dragged = false;
+    float frameCounter;
     private CustomInputManager inputManager;
 
     public override void Initialize()
@@ -31,7 +33,13 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        dragged = true;
+        if (
+            (RawValue.x > CANCEL_AREA_VALUE || RawValue.x < -CANCEL_AREA_VALUE)
+            && (RawValue.y > CANCEL_AREA_VALUE || RawValue.y < -CANCEL_AREA_VALUE)
+        )
+        {
+            dragged = true;
+        }
         CancelAttack();
         newDragEvent.Invoke(RawValue, this);
     }
@@ -82,13 +90,20 @@ public class CustomMMTouchJoystick : MMTouchJoystick
             && RawValue.x > -CANCEL_AREA_VALUE
             && RawValue.y < CANCEL_AREA_VALUE
             && RawValue.y > -CANCEL_AREA_VALUE
+            && dragged
         )
         {
-            inputManager.SetCanceled(dragged);
+            if (frameCounter == 0)
+            {
+                inputManager.SetCanceled(dragged);
+                HapticFeedback.MediumFeedback();
+            }
+            frameCounter++;
         }
         else
         {
             inputManager.SetCanceled(false);
+            frameCounter = 0;
         }
     }
 }
