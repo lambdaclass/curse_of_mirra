@@ -17,7 +17,6 @@ public class CharactersList : MonoBehaviour
         private set { availableCharacters = value; }
     }
 
-
     public void Awake()
     {
         if (Instance != null)

@@ -1886,11 +1886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModelContainer: {fileID: 3930987982031552533}
-  playerModels:
-  - {fileID: 2866215690245578517, guid: b5943a432043c4ddeb23a63ccb79d69a, type: 3}
-  - {fileID: 7907390967641451173, guid: b3ded8783b6794ef196dcb3a618c78db, type: 3}
-  - {fileID: 3408316220301095377, guid: 1212006cbbda546668daf141c9383ba4, type: 3}
-  - {fileID: 8080158138695598659, guid: 6ab17978319c547fba9160a61df2cbec, type: 3}
 --- !u!1 &745751325421837923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,7 +2513,6 @@ GameObject:
   - component: {fileID: 4705105083713167839}
   - component: {fileID: 2176575746065903392}
   - component: {fileID: 5672602852408996140}
-  - component: {fileID: 29438146956834437}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -2618,19 +2612,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 576590200}
         m_TargetAssemblyTypeName: CharacterInfoManager, CurseOfMyrra
-        m_MethodName: SetCharacter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 29438146956834437}
-        m_TargetAssemblyTypeName: MoreMountains.Tools.MMLoadScene, MoreMountains.Tools
-        m_MethodName: LoadScene
+        m_MethodName: SelectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2663,20 +2645,6 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
---- !u!114 &29438146956834437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2754521155054148198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: MainScreen
-  LoadingSceneMode: 0
 --- !u!1 &3930987982031552533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3421,6 +3389,7 @@ GameObject:
   - component: {fileID: 7026306946470050193}
   - component: {fileID: 5024816539918638574}
   - component: {fileID: 576590200}
+  - component: {fileID: 895696640806015586}
   m_Layer: 0
   m_Name: CharacterInfoCameraUI
   m_TagString: Untagged
@@ -3548,6 +3517,20 @@ MonoBehaviour:
   skillDescriptions:
   - {fileID: 1713799051}
   - {fileID: 2141335950}
+--- !u!114 &895696640806015586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026306946470050194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: MainScreen
+  LoadingSceneMode: 0
 --- !u!1 &7116950223762955975
 GameObject:
   m_ObjectHideFlags: 0

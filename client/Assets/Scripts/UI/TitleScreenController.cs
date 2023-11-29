@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class TitleScreenController : MonoBehaviour
 {
@@ -57,16 +58,55 @@ public class TitleScreenController : MonoBehaviour
 
     public void PlayButton()
     {
-        StartCoroutine(ChangeToMainScreen());
+        ChangeToMainScreen();
     }
 
-    private IEnumerator ChangeToMainScreen() {
+    private void ChangeToMainScreen() {
         SetLoadingScreen(true);
-        yield return StartCoroutine(Utils.GetSelectedCharacter());
-        if(asyncOperation != null)
-        {
-            asyncOperation.allowSceneActivation = true;
-        }
+        StartCoroutine(Utils.GetSelectedCharacter(
+            response => {
+                GameManager.Instance.selectedCharacterName = response.selected_character;
+                if(asyncOperation != null)
+                {
+                    asyncOperation.allowSceneActivation = true;
+                }
+            },
+            error => {
+                switch(error) {
+                    case "NOT_FOUND":
+                        CreateUser();
+                        break;
+                    case "CONNECTION_ERROR":
+                        // The Errors gameObject is not in titleScreen scene yet
+                        // Errors.Instance.HandleNetworkError("Error", error);
+                        break;
+                }
+            }
+        ));
+    }
+
+    private void CreateUser() {
+        StartCoroutine(Utils.CreateUser(
+            response => {
+                GameManager.Instance.selectedCharacterName = response.selected_character;
+                print("User created");
+                if(asyncOperation != null)
+                {
+                    asyncOperation.allowSceneActivation = true;
+                }
+            },
+            error => {
+                switch(error) {
+                    case "USER_ALREADY_TAKEN":
+                        Debug.LogError("clientId already taken");
+                        break;
+                    case "CONNECTION_ERROR":
+                        // The Errors gameObject is not in titleScreen scene yet
+                        // Errors.Instance.HandleNetworkError("Error", error);
+                        break;
+                }
+            }
+        ));
     }
 
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)

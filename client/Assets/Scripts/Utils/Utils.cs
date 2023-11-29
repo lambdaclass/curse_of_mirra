@@ -165,18 +165,20 @@ public class Utils
 
     public static string MakeHTTPUrl(string path)
     {
-        if (SelectServerIP.GetServerIp().Contains("localhost"))
-        {
-            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
-        }
-        else if (SelectServerIP.GetServerIp().Contains("10.150.20.186"))
-        {
-            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
-        }
-        else
-        {
-            return "https://" + SelectServerIP.GetServerIp() + path;
-        }
+        // if (SelectServerIP.GetServerIp().Contains("localhost"))
+        // {
+        //     return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
+        // }
+        // else if (SelectServerIP.GetServerIp().Contains("10.150.20.186"))
+        // {
+        //     return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
+        // }
+        // else
+        // {
+        //     return "https://" + SelectServerIP.GetServerIp() + path;
+        // }
+
+        return "http://" + "localhost" + ":4000" + path;
     }
 
     public static string GetClientId()
@@ -190,7 +192,10 @@ public class Utils
         return PlayerPrefs.GetString("client_id");
     }
 
-    public static IEnumerator GetSelectedCharacter()
+    public static IEnumerator GetSelectedCharacter(
+        Action<UserCharacterResponse> successCallback, 
+        Action<string> errorCallback
+    )
     {
         string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId());
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -202,23 +207,27 @@ public class Utils
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
-                        Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.text);
+                    if(webRequest.downloadHandler.text.Contains("NOT_FOUND")) {
+                        errorCallback?.Invoke("NOT_FOUND");
                     } else {
                         UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
                             webRequest.downloadHandler.text
                         );
-                        PlayerPrefs.SetString("selected_character", response.selected_character);
+                        successCallback?.Invoke(response);
                     }
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.error);
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
                     break;
             }
         }
     }
 
-    public static IEnumerator SetSelectedCharacter(string characterName) {
+    public static IEnumerator SetSelectedCharacter(
+        string characterName,
+        Action<UserCharacterResponse> successCallback, 
+        Action<string> errorCallback
+    ) {
         string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit");
         string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
         byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
@@ -232,17 +241,49 @@ public class Utils
             {
                 case UnityWebRequest.Result.Success:
                     if(webRequest.downloadHandler.text.Contains("INEXISTENT_USER")) {
-                        Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.text);
+                        errorCallback?.Invoke(webRequest.downloadHandler.text);
                     } else {
                         UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
                             webRequest.downloadHandler.text
                         );
-                        // SelectedCharacterName = response.selected_character;
-                        PlayerPrefs.SetString("selected_character", response.selected_character);
+                        successCallback?.Invoke(response);
                     }
                     break;
                 default:
-                    Errors.Instance.HandleNetworkError("Error", webRequest.downloadHandler.error);
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
+                    break;
+            }
+        }
+    }
+
+    public static IEnumerator CreateUser(
+        Action<UserCharacterResponse> successCallback, 
+        Action<string> errorCallback
+    ) {
+        string url = Utils.MakeHTTPUrl("/users-characters/new");
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("device_client_id", GetClientId()));
+        formData.Add(new MultipartFormDataSection("selected_character", "muflus"));
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if(webRequest.downloadHandler.text.Contains("USER_ALREADY_TAKEN")) {
+                        errorCallback?.Invoke(webRequest.downloadHandler.text);
+                    } else {
+                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
+                            webRequest.downloadHandler.text
+                        );
+                        successCallback?.Invoke(response);
+                    }
+                    break;
+                default:
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
                     break;
             }
         }

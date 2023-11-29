@@ -33,8 +33,8 @@ public class CharacterListItem
             && IsEnable
         )
         {
-            this.GetComponent<MMLoadScene>().LoadScene();
             CharacterInfoManager.selectedCharacterPosition = listPosition;
+            this.GetComponent<MMLoadScene>().LoadScene();
         }
     }
 

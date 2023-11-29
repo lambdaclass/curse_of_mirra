@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Tools;
 using System.Linq;
+using System;
+using System.Text;
+using UnityEngine.Networking;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -75,7 +78,19 @@ public class CharacterInfoManager : MonoBehaviour
         StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
     }
 
-    public void SetCharacter() {
-        StartCoroutine(LobbyConnection.Instance.SelectCharacter(availableCharacters[selectedCharacterPosition].name));
+    public void SelectButton() {
+        StartCoroutine(SetCharacter());
+    }
+
+    private IEnumerator SetCharacter() {
+        yield return StartCoroutine(Utils.SetSelectedCharacter(availableCharacters[selectedCharacterPosition].name,
+            response => {
+                GameManager.Instance.selectedCharacterName = response.selected_character;
+            },
+            error => {
+                Errors.Instance.HandleNetworkError("Error", error);
+            }
+        ));
+        this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

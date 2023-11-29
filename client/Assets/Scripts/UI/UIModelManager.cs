@@ -13,7 +13,7 @@ public class UIModelManager : MonoBehaviour
         GameObject playerModel =
             character != null
                 ? character.UIModel
-                : CharactersList.Instance.AvailableCharacters.Find(character => character.name == LobbyConnection.Instance.SelectedCharacterName).UIModel;
+                : CharactersList.Instance.AvailableCharacters.Find(character => character.name.ToLower() == GameManager.Instance.selectedCharacterName.ToLower()).UIModel;
         GameObject modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,

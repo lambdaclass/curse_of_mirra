@@ -39,7 +39,6 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
-    public string SelectedCharacterName { get; private set; }
 
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
@@ -130,7 +129,7 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
-        StartCoroutine(GetSelectedCharacter());
+        GetSelectedCharacter();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -454,17 +453,20 @@ public class LobbyConnection : MonoBehaviour
         this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
-        StartCoroutine(GetSelectedCharacter());
+        GetSelectedCharacter();
     }
 
-    IEnumerator GetSelectedCharacter()
+    private void GetSelectedCharacter()
     {
-        yield return StartCoroutine(Utils.GetSelectedCharacter());
-        SelectedCharacterName = PlayerPrefs.GetString("selected_character");
-    }
-
-    public IEnumerator SelectCharacter(string characterName) {
-        yield return StartCoroutine(Utils.SetSelectedCharacter(characterName));
-        SelectedCharacterName = PlayerPrefs.GetString("selected_character");
+        StartCoroutine(Utils.GetSelectedCharacter(
+            response =>
+            {
+                GameManager.Instance.selectedCharacterName = response.selected_character;
+            },
+            error =>
+            {
+                Errors.Instance.HandleNetworkError("Error", error);
+            }
+        ));
     }
 }
