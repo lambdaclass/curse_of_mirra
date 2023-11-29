@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: BASH
   description: Targets an arc in front of you, dealing damage.
-  inputType: 0
+  inputType: 2
   skillSetType: 1
   angle: 0
   executeOnQuickTap: 0
