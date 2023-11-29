@@ -507,7 +507,7 @@ message GameLoot {
 message GameProjectile {
     string name = 1;
     uint64 base_damage = 2;
-    uint64 base_speed = 3;
+    float base_speed = 3;
     uint64 base_size = 4;
     bool remove_on_collision = 5;
     repeated GameEffect on_hit_effect = 6;
@@ -526,7 +526,7 @@ message GameProjectile {
 message GameCharacter {
     string name = 1;
     bool active = 2;
-    uint64 base_speed = 3;
+    float base_speed = 3;
     uint64 base_size = 4;
     uint64 base_health = 5;
     map<string, GameSkill> skills = 6;

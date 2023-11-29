@@ -122,11 +122,11 @@ public static partial class MessagesReflection {
           "CghHYW1lTG9vdBIMCgRuYW1lGAEgASgJEgwKBHNpemUYAiABKAQSHAoHZWZm",
           "ZWN0cxgDIAMoCzILLkdhbWVFZmZlY3QixgEKDkdhbWVQcm9qZWN0aWxlEgwK",
           "BG5hbWUYASABKAkSEwoLYmFzZV9kYW1hZ2UYAiABKAQSEgoKYmFzZV9zcGVl",
-          "ZBgDIAEoBBIRCgliYXNlX3NpemUYBCABKAQSGwoTcmVtb3ZlX29uX2NvbGxp",
+          "ZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAQSGwoTcmVtb3ZlX29uX2NvbGxp",
           "c2lvbhgFIAEoCBIiCg1vbl9oaXRfZWZmZWN0GAYgAygLMgsuR2FtZUVmZmVj",
           "dBIUCgxtYXhfZGlzdGFuY2UYByABKAQSEwoLZHVyYXRpb25fbXMYCCABKAIi",
           "0AEKDUdhbWVDaGFyYWN0ZXISDAoEbmFtZRgBIAEoCRIOCgZhY3RpdmUYAiAB",
-          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoBBIRCgliYXNlX3NpemUYBCABKAQSEwoL",
+          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAQSEwoL",
           "YmFzZV9oZWFsdGgYBSABKAQSKgoGc2tpbGxzGAYgAygLMhouR2FtZUNoYXJh",
           "Y3Rlci5Ta2lsbHNFbnRyeRo5CgtTa2lsbHNFbnRyeRILCgNrZXkYASABKAkS",
           "GQoFdmFsdWUYAiABKAsyCi5HYW1lU2tpbGw6AjgBImAKCUdhbWVTa2lsbBIM",
@@ -10232,10 +10232,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 
   /// <summary>Field number for the "base_speed" field.</summary>
   public const int BaseSpeedFieldNumber = 3;
-  private ulong baseSpeed_;
+  private float baseSpeed_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong BaseSpeed {
+  public float BaseSpeed {
     get { return baseSpeed_; }
     set {
       baseSpeed_ = value;
@@ -10318,7 +10318,7 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     }
     if (Name != other.Name) return false;
     if (BaseDamage != other.BaseDamage) return false;
-    if (BaseSpeed != other.BaseSpeed) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
     if (BaseSize != other.BaseSize) return false;
     if (RemoveOnCollision != other.RemoveOnCollision) return false;
     if(!onHitEffect_.Equals(other.onHitEffect_)) return false;
@@ -10333,7 +10333,7 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (BaseDamage != 0UL) hash ^= BaseDamage.GetHashCode();
-    if (BaseSpeed != 0UL) hash ^= BaseSpeed.GetHashCode();
+    if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
     if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
     if (RemoveOnCollision != false) hash ^= RemoveOnCollision.GetHashCode();
     hash ^= onHitEffect_.GetHashCode();
@@ -10365,9 +10365,9 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteRawTag(16);
       output.WriteUInt64(BaseDamage);
     }
-    if (BaseSpeed != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(BaseSpeed);
     }
     if (BaseSize != 0UL) {
       output.WriteRawTag(32);
@@ -10404,9 +10404,9 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteRawTag(16);
       output.WriteUInt64(BaseDamage);
     }
-    if (BaseSpeed != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(BaseSpeed);
     }
     if (BaseSize != 0UL) {
       output.WriteRawTag(32);
@@ -10441,8 +10441,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (BaseDamage != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseDamage);
     }
-    if (BaseSpeed != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      size += 1 + 4;
     }
     if (BaseSize != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
@@ -10475,7 +10475,7 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (other.BaseDamage != 0UL) {
       BaseDamage = other.BaseDamage;
     }
-    if (other.BaseSpeed != 0UL) {
+    if (other.BaseSpeed != 0F) {
       BaseSpeed = other.BaseSpeed;
     }
     if (other.BaseSize != 0UL) {
@@ -10514,8 +10514,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           BaseDamage = input.ReadUInt64();
           break;
         }
-        case 24: {
-          BaseSpeed = input.ReadUInt64();
+        case 29: {
+          BaseSpeed = input.ReadFloat();
           break;
         }
         case 32: {
@@ -10561,8 +10561,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           BaseDamage = input.ReadUInt64();
           break;
         }
-        case 24: {
-          BaseSpeed = input.ReadUInt64();
+        case 29: {
+          BaseSpeed = input.ReadFloat();
           break;
         }
         case 32: {
@@ -10676,10 +10676,10 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
 
   /// <summary>Field number for the "base_speed" field.</summary>
   public const int BaseSpeedFieldNumber = 3;
-  private ulong baseSpeed_;
+  private float baseSpeed_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong BaseSpeed {
+  public float BaseSpeed {
     get { return baseSpeed_; }
     set {
       baseSpeed_ = value;
@@ -10738,7 +10738,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     }
     if (Name != other.Name) return false;
     if (Active != other.Active) return false;
-    if (BaseSpeed != other.BaseSpeed) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
     if (BaseSize != other.BaseSize) return false;
     if (BaseHealth != other.BaseHealth) return false;
     if (!Skills.Equals(other.Skills)) return false;
@@ -10751,7 +10751,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (Active != false) hash ^= Active.GetHashCode();
-    if (BaseSpeed != 0UL) hash ^= BaseSpeed.GetHashCode();
+    if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
     if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
     if (BaseHealth != 0UL) hash ^= BaseHealth.GetHashCode();
     hash ^= Skills.GetHashCode();
@@ -10781,9 +10781,9 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
       output.WriteRawTag(16);
       output.WriteBool(Active);
     }
-    if (BaseSpeed != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(BaseSpeed);
     }
     if (BaseSize != 0UL) {
       output.WriteRawTag(32);
@@ -10812,9 +10812,9 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
       output.WriteRawTag(16);
       output.WriteBool(Active);
     }
-    if (BaseSpeed != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(BaseSpeed);
     }
     if (BaseSize != 0UL) {
       output.WriteRawTag(32);
@@ -10841,8 +10841,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (Active != false) {
       size += 1 + 1;
     }
-    if (BaseSpeed != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSpeed);
+    if (BaseSpeed != 0F) {
+      size += 1 + 4;
     }
     if (BaseSize != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
@@ -10869,7 +10869,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (other.Active != false) {
       Active = other.Active;
     }
-    if (other.BaseSpeed != 0UL) {
+    if (other.BaseSpeed != 0F) {
       BaseSpeed = other.BaseSpeed;
     }
     if (other.BaseSize != 0UL) {
@@ -10902,8 +10902,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
           Active = input.ReadBool();
           break;
         }
-        case 24: {
-          BaseSpeed = input.ReadUInt64();
+        case 29: {
+          BaseSpeed = input.ReadFloat();
           break;
         }
         case 32: {
@@ -10941,8 +10941,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
           Active = input.ReadBool();
           break;
         }
-        case 24: {
-          BaseSpeed = input.ReadUInt64();
+        case 29: {
+          BaseSpeed = input.ReadFloat();
           break;
         }
         case 32: {
