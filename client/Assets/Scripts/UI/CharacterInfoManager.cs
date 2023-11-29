@@ -9,9 +9,6 @@ using System.Linq;
 public class CharacterInfoManager : MonoBehaviour
 {
     [SerializeField]
-    List<CoMCharacter> comCharacters;
-
-    [SerializeField]
     private UIModelManager ModelManager;
 
     [Header("Character info")]
@@ -79,6 +76,6 @@ public class CharacterInfoManager : MonoBehaviour
     }
 
     public void SetCharacter() {
-        StartCoroutine(LobbyConnection.Instance.SelectCharacter(comCharacters[selectedCharacterPosition].name));
+        StartCoroutine(LobbyConnection.Instance.SelectCharacter(availableCharacters[selectedCharacterPosition].name));
     }
 }
