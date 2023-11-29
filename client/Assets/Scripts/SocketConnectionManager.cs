@@ -282,7 +282,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         // var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
 
-        int port = 4000;
+        int port = 6000;
 
         // if (useProxy == "true")
         // {

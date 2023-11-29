@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
@@ -11,15 +10,17 @@ public class PlayerControls : MonoBehaviour
 
     public void SendJoystickValues(float x, float y)
     {
-        float angle;
-        bool moving = x != 0 || y != 0;
+        bool moving = (x != 0 || y != 0);
+        float lastAngleSent = Mathf.Atan2(lastYSent, lastXSent) * Mathf.Rad2Deg;
         long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        if (x != lastXSent || y != lastYSent)
+        float angle = moving
+            ? Mathf.Atan2(y, x) * Mathf.Rad2Deg
+            : lastAngleSent;
+        float difference = Math.Abs(angle - lastAngleSent);
+
+        if (ShouldSendMovement(x, y, difference))
         {
-            angle = moving
-                ? Mathf.Atan2(y, x) * Mathf.Rad2Deg
-                : Mathf.Atan2(lastYSent, lastXSent) * Mathf.Rad2Deg;
-            Move moveAction = new Move { Angle = angle, Moving = moving };
+            Move moveAction = new Move { Angle = angle, Moving = moving};
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
             SocketConnectionManager.Instance.SendGameAction(gameAction);
@@ -34,6 +35,10 @@ public class PlayerControls : MonoBehaviour
             lastXSent = x;
             lastYSent = y;
         }
+    }
+
+    bool ShouldSendMovement(float x, float y, float difference) {
+        return (x != lastXSent || y != lastYSent) && (difference == 0 || difference > 5);
     }
 
     public (float, float) SendAction()
@@ -72,7 +77,6 @@ public class PlayerControls : MonoBehaviour
         {
             if (charName.ToLower() == character.Name.ToLower())
             {
-                Debug.Log($"config speed is: {character.BaseSpeed}");
                 return character.BaseSpeed;
             }
         }

@@ -412,11 +412,11 @@ public class LobbyConnection : MonoBehaviour
     {
         if (serverIp.Contains("localhost"))
         {
-            return "http://" + serverIp + ":4000" + path;
+            return "http://" + serverIp + ":6000" + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
         {
-            return "http://" + serverIp + ":4000" + path;
+            return "http://" + serverIp + ":6000" + path;
         }
         else
         {
