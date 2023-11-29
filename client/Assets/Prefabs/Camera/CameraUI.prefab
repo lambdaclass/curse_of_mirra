@@ -1810,7 +1810,7 @@ MonoBehaviour:
   SkillBasic: {fileID: 5773388603856226559}
   Skill1: {fileID: 2302692725905988441}
   SkillBasicCooldownContainer: {fileID: 6227269788242123955}
-  Skill1CooldownContainer: {fileID: 6227269788242123955}
+  Skill1CooldownContainer: {fileID: 2949602977003879530}
   disarmObjectSkill1: {fileID: 0}
   disarmObjectSkill2: {fileID: 0}
   disarmObjectSkill3: {fileID: 0}
@@ -2938,7 +2938,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409451466881700138}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
   m_Name: 

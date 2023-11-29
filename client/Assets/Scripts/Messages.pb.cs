@@ -393,6 +393,7 @@ public enum MechanicType {
   [pbr::OriginalName("HIT")] Hit = 0,
   [pbr::OriginalName("SIMPLE_SHOOT")] SimpleShoot = 1,
   [pbr::OriginalName("MULTI_SHOOT")] MultiShoot = 2,
+  [pbr::OriginalName("GIVE_EFFECT")] GiveEffect = 3,
 }
 
 #endregion
@@ -861,7 +862,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       }
       WinnerPlayer.MergeFrom(other.WinnerPlayer);
     }
-    selectedCharacters_.MergeFrom(other.selectedCharacters_);
+    selectedCharacters_.Add(other.selectedCharacters_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -1907,7 +1908,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
     }
-    effects_.MergeFrom(other.effects_);
+    effects_.Add(other.effects_);
     if (other.direction_ != null) {
       if (direction_ == null) {
         Direction = new global::RelativePosition();
@@ -10906,7 +10907,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (other.BaseHealth != 0UL) {
       BaseHealth = other.BaseHealth;
     }
-    skills_.MergeFrom(other.skills_);
+    skills_.Add(other.skills_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -11907,24 +11908,10 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public string SimpleType {
-    get { return HasSimpleType ? (string) effectType_ : ""; }
+    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
     set {
       effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       effectTypeCase_ = EffectTypeOneofCase.SimpleType;
-    }
-  }
-  /// <summary>Gets whether the "simple_type" field is set</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool HasSimpleType {
-    get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
-  }
-  /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void ClearSimpleType() {
-    if (HasSimpleType) {
-      ClearEffectType();
     }
   }
 
@@ -12002,7 +11989,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (HasSimpleType) hash ^= SimpleType.GetHashCode();
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
     if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
     hash ^= (int) effectTypeCase_;
@@ -12028,7 +12015,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12054,7 +12041,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       output.WriteRawTag(18);
       output.WriteString(SimpleType);
     }
@@ -12079,7 +12066,7 @@ public sealed partial class GameEffect : pb::IMessage<GameEffect>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (HasSimpleType) {
+    if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
     }
     if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {
