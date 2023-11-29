@@ -453,7 +453,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.93333334, g: 0.8784314, b: 0.7882353, a: 1}
-  m_Intensity: 0.8
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -556,6 +556,84 @@ Transform:
   m_Father: {fileID: 8260821150174466731}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8387864239055051947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8254824780191200135}
+  - component: {fileID: 1962857884174114384}
+  - component: {fileID: 1764090924080425114}
+  m_Layer: 0
+  m_Name: terreno lava
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 0
+--- !u!4 &8254824780191200135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387864239055051947}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -246.4, y: 0, z: -250.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8551881386812582543}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!218 &1962857884174114384
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387864239055051947}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: cc8aa95ba99fbbc4c90217922d550323, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 103
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+--- !u!154 &1764090924080425114
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387864239055051947}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: cc8aa95ba99fbbc4c90217922d550323, type: 2}
+  m_EnableTreeColliders: 1
 --- !u!1001 &8848540112018452332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -563,6 +641,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8260821150174466731}
     m_Modifications:
+    - target: {fileID: 568824635003004616, guid: 1a40b3eeaa4a9434781a83c56ce28239,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -79.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 568824635003004616, guid: 1a40b3eeaa4a9434781a83c56ce28239,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98514897
+      objectReference: {fileID: 0}
+    - target: {fileID: 568824635003004616, guid: 1a40b3eeaa4a9434781a83c56ce28239,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.17170183
+      objectReference: {fileID: 0}
+    - target: {fileID: 568824635003004616, guid: 1a40b3eeaa4a9434781a83c56ce28239,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 19.774
+      objectReference: {fileID: 0}
+    - target: {fileID: 568824635164529092, guid: 1a40b3eeaa4a9434781a83c56ce28239,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 892335694374667747, guid: 1a40b3eeaa4a9434781a83c56ce28239,
         type: 3}
       propertyPath: m_RootOrder
