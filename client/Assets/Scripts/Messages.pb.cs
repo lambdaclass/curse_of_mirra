@@ -31,7 +31,7 @@ public static partial class MessagesReflection {
           "YW1lRXZlbnQuU2VsZWN0ZWRDaGFyYWN0ZXJzRW50cnkSGAoQcGxheWVyX3Rp",
           "bWVzdGFtcBgJIAEoAxIYChBzZXJ2ZXJfdGltZXN0YW1wGAogASgDEhwKCGtp",
           "bGxmZWVkGAsgAygLMgouS2lsbEV2ZW50EhcKD3BsYXlhYmxlX3JhZGl1cxgM",
-          "IAEoBBIjChBzaHJpbmtpbmdfY2VudGVyGA0gASgLMgkuUG9zaXRpb24SGwoF",
+          "IAEoAhIjChBzaHJpbmtpbmdfY2VudGVyGA0gASgLMgkuUG9zaXRpb24SGwoF",
           "bG9vdHMYDiADKAsyDC5Mb290UGFja2FnZRo5ChdTZWxlY3RlZENoYXJhY3Rl",
           "cnNFbnRyeRILCgNrZXkYASABKAQSDQoFdmFsdWUYAiABKAk6AjgBIjwKD1Bs",
           "YXllckNoYXJhY3RlchIRCglwbGF5ZXJfaWQYASABKAQSFgoOY2hhcmFjdGVy",
@@ -77,7 +77,7 @@ public static partial class MessagesReflection {
           "BBIeChZzcGF3bl9sb290X2ludGVydmFsX21zGAsgASgEImEKCkdhbWVDb25m",
           "aWcSHgoKYm9hcmRfc2l6ZRgBIAEoCzIKLkJvYXJkU2l6ZRIaChJzZXJ2ZXJf",
           "dGlja3JhdGVfbXMYAiABKAQSFwoPZ2FtZV90aW1lb3V0X21zGAMgASgEIioK",
-          "CUJvYXJkU2l6ZRINCgV3aWR0aBgBIAEoBBIOCgZoZWlnaHQYAiABKAQi7gEK",
+          "CUJvYXJkU2l6ZRINCgV3aWR0aBgBIAEoAhIOCgZoZWlnaHQYAiABKAIi7gEK",
           "E0NoYXJhY3RlckNvbmZpZ0l0ZW0SDAoETmFtZRgBIAEoCRIKCgJJZBgCIAEo",
           "CRIOCgZBY3RpdmUYAyABKAkSDQoFQ2xhc3MYBCABKAkSDwoHRmFjdGlvbhgF",
           "IAEoCRIRCglCYXNlU3BlZWQYBiABKAkSEgoKU2tpbGxCYXNpYxgHIAEoCRIU",
@@ -97,8 +97,8 @@ public static partial class MessagesReflection {
           "bmZpZxgCIAEoCzIQLkNoYXJhY3RlckNvbmZpZxIkCg1za2lsbHNfY29uZmln",
           "GAMgASgLMg0uU2tpbGxzQ29uZmlnIscCCgpQcm9qZWN0aWxlEgoKAmlkGAEg",
           "ASgEEhsKCHBvc2l0aW9uGAIgASgLMgkuUG9zaXRpb24SJAoJZGlyZWN0aW9u",
-          "GAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoDRINCgVy",
-          "YW5nZRgFIAEoDRIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgN",
+          "GAMgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhINCgVzcGVlZBgEIAEoAhINCgVy",
+          "YW5nZRgFIAEoAhIRCglwbGF5ZXJfaWQYBiABKAQSDgoGZGFtYWdlGAcgASgN",
           "EhcKD3JlbWFpbmluZ190aWNrcxgIIAEoEhIoCg9wcm9qZWN0aWxlX3R5cGUY",
           "CSABKA4yDy5Qcm9qZWN0aWxlVHlwZRIhCgZzdGF0dXMYCiABKA4yES5Qcm9q",
           "ZWN0aWxlU3RhdHVzEh8KF2xhc3RfYXR0YWNrZWRfcGxheWVyX2lkGAsgASgE",
@@ -110,23 +110,23 @@ public static partial class MessagesReflection {
           "KAsyCy5HYW1lRWZmZWN0Eh4KBGdhbWUYAyABKAsyEC5HYW1lU3RhdGVDb25m",
           "aWcSGAoFbG9vdHMYBCADKAsyCS5HYW1lTG9vdBIkCgtwcm9qZWN0aWxlcxgF",
           "IAMoCzIPLkdhbWVQcm9qZWN0aWxlEhoKBnNraWxscxgGIAMoCzIKLkdhbWVT",
-          "a2lsbCJ2Cg9HYW1lU3RhdGVDb25maWcSDQoFd2lkdGgYASABKAQSDgoGaGVp",
-          "Z2h0GAIgASgEEioKEG1hcF9tb2RpZmljYXRpb24YAyABKAsyEC5NYXBNb2Rp",
+          "a2lsbCJ2Cg9HYW1lU3RhdGVDb25maWcSDQoFd2lkdGgYASABKAISDgoGaGVp",
+          "Z2h0GAIgASgCEioKEG1hcF9tb2RpZmljYXRpb24YAyABKAsyEC5NYXBNb2Rp",
           "ZmljYXRpb24SGAoQbG9vdF9pbnRlcnZhbF9tcxgEIAEoBCLUAQoPTWFwTW9k",
           "aWZpY2F0aW9uEiMKDG1vZGlmaWNhdGlvbhgBIAEoCzINLk1vZGlmaWNhdGlv",
-          "bhIXCg9zdGFydGluZ19yYWRpdXMYAiABKAQSFgoObWluaW11bV9yYWRpdXMY",
-          "AyABKAQSEgoKbWF4X3JhZGl1cxgEIAEoBBIrChZvdXRzaWRlX3JhZGl1c19l",
+          "bhIXCg9zdGFydGluZ19yYWRpdXMYAiABKAISFgoObWluaW11bV9yYWRpdXMY",
+          "AyABKAISEgoKbWF4X3JhZGl1cxgEIAEoAhIrChZvdXRzaWRlX3JhZGl1c19l",
           "ZmZlY3RzGAUgAygLMgsuR2FtZUVmZmVjdBIqChVpbnNpZGVfcmFkaXVzX2Vm",
           "ZmVjdHMYBiADKAsyCy5HYW1lRWZmZWN0Ij4KDE1vZGlmaWNhdGlvbhIfCght",
           "b2RpZmllchgBIAEoDjINLk1vZGlmaWVyVHlwZRINCgV2YWx1ZRgCIAEoAiJE",
-          "CghHYW1lTG9vdBIMCgRuYW1lGAEgASgJEgwKBHNpemUYAiABKAQSHAoHZWZm",
+          "CghHYW1lTG9vdBIMCgRuYW1lGAEgASgJEgwKBHNpemUYAiABKAISHAoHZWZm",
           "ZWN0cxgDIAMoCzILLkdhbWVFZmZlY3QixgEKDkdhbWVQcm9qZWN0aWxlEgwK",
           "BG5hbWUYASABKAkSEwoLYmFzZV9kYW1hZ2UYAiABKAQSEgoKYmFzZV9zcGVl",
-          "ZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAQSGwoTcmVtb3ZlX29uX2NvbGxp",
+          "ZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAISGwoTcmVtb3ZlX29uX2NvbGxp",
           "c2lvbhgFIAEoCBIiCg1vbl9oaXRfZWZmZWN0GAYgAygLMgsuR2FtZUVmZmVj",
-          "dBIUCgxtYXhfZGlzdGFuY2UYByABKAQSEwoLZHVyYXRpb25fbXMYCCABKAIi",
+          "dBIUCgxtYXhfZGlzdGFuY2UYByABKAISEwoLZHVyYXRpb25fbXMYCCABKAIi",
           "0AEKDUdhbWVDaGFyYWN0ZXISDAoEbmFtZRgBIAEoCRIOCgZhY3RpdmUYAiAB",
-          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAQSEwoL",
+          "KAgSEgoKYmFzZV9zcGVlZBgDIAEoAhIRCgliYXNlX3NpemUYBCABKAISEwoL",
           "YmFzZV9oZWFsdGgYBSABKAQSKgoGc2tpbGxzGAYgAygLMhouR2FtZUNoYXJh",
           "Y3Rlci5Ta2lsbHNFbnRyeRo5CgtTa2lsbHNFbnRyeRILCgNrZXkYASABKAkS",
           "GQoFdmFsdWUYAiABKAsyCi5HYW1lU2tpbGw6AjgBImAKCUdhbWVTa2lsbBIM",
@@ -134,10 +134,10 @@ public static partial class MessagesReflection {
           "dmUYAyABKAgSHAoJbWVjaGFuaWNzGAQgAygLMgkuTWVjaGFuaWMi+QEKCE1l",
           "Y2hhbmljEhsKBG5hbWUYASABKA4yDS5NZWNoYW5pY1R5cGUSHAoHZWZmZWN0",
           "cxgCIAMoCzILLkdhbWVFZmZlY3QSDgoGZGFtYWdlGAMgASgEEg0KBXJhbmdl",
-          "GAQgASgEEhIKCmNvbmVfYW5nbGUYBSABKAQSIwoOb25faGl0X2VmZmVjdHMY",
+          "GAQgASgCEhIKCmNvbmVfYW5nbGUYBSABKAQSIwoOb25faGl0X2VmZmVjdHMY",
           "BiADKAsyCy5HYW1lRWZmZWN0EiMKCnByb2plY3RpbGUYByABKAsyDy5HYW1l",
           "UHJvamVjdGlsZRINCgVjb3VudBgIIAEoBBITCgtkdXJhdGlvbl9tcxgJIAEo",
-          "BBIRCgltYXhfcmFuZ2UYCiABKAQisAIKCkdhbWVFZmZlY3QSDAoEbmFtZRgB",
+          "BBIRCgltYXhfcmFuZ2UYCiABKAIisAIKCkdhbWVFZmZlY3QSDAoEbmFtZRgB",
           "IAEoCRIVCgtzaW1wbGVfdHlwZRgCIAEoCUgAEi0KDWR1cmF0aW9uX3R5cGUY",
           "AyABKAsyFC5HYW1lRWZmZWN0LkR1cmF0aW9uSAASLQoNcGVyaW9kaWNfdHlw",
           "ZRgEIAEoCzIULkdhbWVFZmZlY3QuUGVyaW9kaWNIABotCghEdXJhdGlvbhIM",
@@ -230,7 +230,6 @@ public static partial class MessagesReflection {
 ///- STATE_UPDATE: The game's state has been updated
 ///- PING_UPDATE: The player's current ping updated
 ///- PLAYER_JOINED: A player has joined the game
-///- INITIAL_POSITIONS: The initial positions of each player
 /// </summary>
 public enum GameEventType {
   [pbr::OriginalName("STATE_UPDATE")] StateUpdate = 0,
@@ -340,8 +339,6 @@ public enum PlayerEffect {
 ///- CONNECTED: Websocket connection is established
 ///- PLAYER_ADDED: A player has joined the matchmaking lobby
 ///- GAME_STARTED: A game session has started from this lobby
-///- PLAYER_COUNT: Current player count in the lobby
-///- PLAYER_REMOVED: A player has left the matchmaking lobby
 /// </summary>
 public enum LobbyEventType {
   [pbr::OriginalName("TYPE_UNSPECIFIED")] TypeUnspecified = 0,
@@ -593,10 +590,10 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
 
   /// <summary>Field number for the "playable_radius" field.</summary>
   public const int PlayableRadiusFieldNumber = 12;
-  private ulong playableRadius_;
+  private float playableRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong PlayableRadius {
+  public float PlayableRadius {
     get { return playableRadius_; }
     set {
       playableRadius_ = value;
@@ -652,7 +649,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (PlayerTimestamp != other.PlayerTimestamp) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
     if(!killfeed_.Equals(other.killfeed_)) return false;
-    if (PlayableRadius != other.PlayableRadius) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PlayableRadius, other.PlayableRadius)) return false;
     if (!object.Equals(ShrinkingCenter, other.ShrinkingCenter)) return false;
     if(!loots_.Equals(other.loots_)) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -673,7 +670,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
     if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
     hash ^= killfeed_.GetHashCode();
-    if (PlayableRadius != 0UL) hash ^= PlayableRadius.GetHashCode();
+    if (PlayableRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PlayableRadius);
     if (shrinkingCenter_ != null) hash ^= ShrinkingCenter.GetHashCode();
     hash ^= loots_.GetHashCode();
     if (_unknownFields != null) {
@@ -726,9 +723,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(output, _repeated_killfeed_codec);
-    if (PlayableRadius != 0UL) {
-      output.WriteRawTag(96);
-      output.WriteUInt64(PlayableRadius);
+    if (PlayableRadius != 0F) {
+      output.WriteRawTag(101);
+      output.WriteFloat(PlayableRadius);
     }
     if (shrinkingCenter_ != null) {
       output.WriteRawTag(106);
@@ -777,9 +774,9 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       output.WriteInt64(ServerTimestamp);
     }
     killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
-    if (PlayableRadius != 0UL) {
-      output.WriteRawTag(96);
-      output.WriteUInt64(PlayableRadius);
+    if (PlayableRadius != 0F) {
+      output.WriteRawTag(101);
+      output.WriteFloat(PlayableRadius);
     }
     if (shrinkingCenter_ != null) {
       output.WriteRawTag(106);
@@ -821,8 +818,8 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
     }
     size += killfeed_.CalculateSize(_repeated_killfeed_codec);
-    if (PlayableRadius != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayableRadius);
+    if (PlayableRadius != 0F) {
+      size += 1 + 4;
     }
     if (shrinkingCenter_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShrinkingCenter);
@@ -868,7 +865,7 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
       ServerTimestamp = other.ServerTimestamp;
     }
     killfeed_.Add(other.killfeed_);
-    if (other.PlayableRadius != 0UL) {
+    if (other.PlayableRadius != 0F) {
       PlayableRadius = other.PlayableRadius;
     }
     if (other.shrinkingCenter_ != null) {
@@ -940,8 +937,8 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           killfeed_.AddEntriesFrom(input, _repeated_killfeed_codec);
           break;
         }
-        case 96: {
-          PlayableRadius = input.ReadUInt64();
+        case 101: {
+          PlayableRadius = input.ReadFloat();
           break;
         }
         case 106: {
@@ -1017,8 +1014,8 @@ public sealed partial class GameEvent : pb::IMessage<GameEvent>
           killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
           break;
         }
-        case 96: {
-          PlayableRadius = input.ReadUInt64();
+        case 101: {
+          PlayableRadius = input.ReadFloat();
           break;
         }
         case 106: {
@@ -5260,10 +5257,10 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
   /// <summary>Field number for the "width" field.</summary>
   public const int WidthFieldNumber = 1;
-  private ulong width_;
+  private float width_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Width {
+  public float Width {
     get { return width_; }
     set {
       width_ = value;
@@ -5272,10 +5269,10 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
 
   /// <summary>Field number for the "height" field.</summary>
   public const int HeightFieldNumber = 2;
-  private ulong height_;
+  private float height_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Height {
+  public float Height {
     get { return height_; }
     set {
       height_ = value;
@@ -5297,8 +5294,8 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Width != other.Width) return false;
-    if (Height != other.Height) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Width, other.Width)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Height, other.Height)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5306,8 +5303,8 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Width != 0UL) hash ^= Width.GetHashCode();
-    if (Height != 0UL) hash ^= Height.GetHashCode();
+    if (Width != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Width);
+    if (Height != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Height);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5326,13 +5323,13 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Width != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Width);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Height != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Height);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -5344,13 +5341,13 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Width != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Width);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Height != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Height);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -5362,11 +5359,11 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Width != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Width);
+    if (Width != 0F) {
+      size += 1 + 4;
     }
-    if (Height != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
+    if (Height != 0F) {
+      size += 1 + 4;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -5380,10 +5377,10 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
     if (other == null) {
       return;
     }
-    if (other.Width != 0UL) {
+    if (other.Width != 0F) {
       Width = other.Width;
     }
-    if (other.Height != 0UL) {
+    if (other.Height != 0F) {
       Height = other.Height;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -5401,12 +5398,12 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 13: {
+          Width = input.ReadFloat();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 21: {
+          Height = input.ReadFloat();
           break;
         }
       }
@@ -5424,12 +5421,12 @@ public sealed partial class BoardSize : pb::IMessage<BoardSize>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 13: {
+          Width = input.ReadFloat();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 21: {
+          Height = input.ReadFloat();
           break;
         }
       }
@@ -7567,10 +7564,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
 
   /// <summary>Field number for the "speed" field.</summary>
   public const int SpeedFieldNumber = 4;
-  private uint speed_;
+  private float speed_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public uint Speed {
+  public float Speed {
     get { return speed_; }
     set {
       speed_ = value;
@@ -7579,10 +7576,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
 
   /// <summary>Field number for the "range" field.</summary>
   public const int RangeFieldNumber = 5;
-  private uint range_;
+  private float range_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public uint Range {
+  public float Range {
     get { return range_; }
     set {
       range_ = value;
@@ -7703,8 +7700,8 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Id != other.Id) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (!object.Equals(Direction, other.Direction)) return false;
-    if (Speed != other.Speed) return false;
-    if (Range != other.Range) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Range, other.Range)) return false;
     if (PlayerId != other.PlayerId) return false;
     if (Damage != other.Damage) return false;
     if (RemainingTicks != other.RemainingTicks) return false;
@@ -7723,8 +7720,8 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Id != 0UL) hash ^= Id.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (direction_ != null) hash ^= Direction.GetHashCode();
-    if (Speed != 0) hash ^= Speed.GetHashCode();
-    if (Range != 0) hash ^= Range.GetHashCode();
+    if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+    if (Range != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Range);
     if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
     if (Damage != 0) hash ^= Damage.GetHashCode();
     if (RemainingTicks != 0L) hash ^= RemainingTicks.GetHashCode();
@@ -7763,13 +7760,13 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(26);
       output.WriteMessage(Direction);
     }
-    if (Speed != 0) {
-      output.WriteRawTag(32);
-      output.WriteUInt32(Speed);
+    if (Speed != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Speed);
     }
-    if (Range != 0) {
-      output.WriteRawTag(40);
-      output.WriteUInt32(Range);
+    if (Range != 0F) {
+      output.WriteRawTag(45);
+      output.WriteFloat(Range);
     }
     if (PlayerId != 0UL) {
       output.WriteRawTag(48);
@@ -7825,13 +7822,13 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(26);
       output.WriteMessage(Direction);
     }
-    if (Speed != 0) {
-      output.WriteRawTag(32);
-      output.WriteUInt32(Speed);
+    if (Speed != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Speed);
     }
-    if (Range != 0) {
-      output.WriteRawTag(40);
-      output.WriteUInt32(Range);
+    if (Range != 0F) {
+      output.WriteRawTag(45);
+      output.WriteFloat(Range);
     }
     if (PlayerId != 0UL) {
       output.WriteRawTag(48);
@@ -7884,11 +7881,11 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (direction_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Direction);
     }
-    if (Speed != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Speed);
+    if (Speed != 0F) {
+      size += 1 + 4;
     }
-    if (Range != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Range);
+    if (Range != 0F) {
+      size += 1 + 4;
     }
     if (PlayerId != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
@@ -7941,10 +7938,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       }
       Direction.MergeFrom(other.Direction);
     }
-    if (other.Speed != 0) {
+    if (other.Speed != 0F) {
       Speed = other.Speed;
     }
-    if (other.Range != 0) {
+    if (other.Range != 0F) {
       Range = other.Range;
     }
     if (other.PlayerId != 0UL) {
@@ -8004,12 +8001,12 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           input.ReadMessage(Direction);
           break;
         }
-        case 32: {
-          Speed = input.ReadUInt32();
+        case 37: {
+          Speed = input.ReadFloat();
           break;
         }
-        case 40: {
-          Range = input.ReadUInt32();
+        case 45: {
+          Range = input.ReadFloat();
           break;
         }
         case 48: {
@@ -8077,12 +8074,12 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           input.ReadMessage(Direction);
           break;
         }
-        case 32: {
-          Speed = input.ReadUInt32();
+        case 37: {
+          Speed = input.ReadFloat();
           break;
         }
-        case 40: {
-          Range = input.ReadUInt32();
+        case 45: {
+          Range = input.ReadFloat();
           break;
         }
         case 48: {
@@ -9022,10 +9019,10 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
 
   /// <summary>Field number for the "width" field.</summary>
   public const int WidthFieldNumber = 1;
-  private ulong width_;
+  private float width_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Width {
+  public float Width {
     get { return width_; }
     set {
       width_ = value;
@@ -9034,10 +9031,10 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
 
   /// <summary>Field number for the "height" field.</summary>
   public const int HeightFieldNumber = 2;
-  private ulong height_;
+  private float height_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Height {
+  public float Height {
     get { return height_; }
     set {
       height_ = value;
@@ -9083,8 +9080,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Width != other.Width) return false;
-    if (Height != other.Height) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Width, other.Width)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Height, other.Height)) return false;
     if (!object.Equals(MapModification, other.MapModification)) return false;
     if (LootIntervalMs != other.LootIntervalMs) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -9094,8 +9091,8 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Width != 0UL) hash ^= Width.GetHashCode();
-    if (Height != 0UL) hash ^= Height.GetHashCode();
+    if (Width != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Width);
+    if (Height != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Height);
     if (mapModification_ != null) hash ^= MapModification.GetHashCode();
     if (LootIntervalMs != 0UL) hash ^= LootIntervalMs.GetHashCode();
     if (_unknownFields != null) {
@@ -9116,13 +9113,13 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Width != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Width);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Height != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Height);
     }
     if (mapModification_ != null) {
       output.WriteRawTag(26);
@@ -9142,13 +9139,13 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Width != 0UL) {
-      output.WriteRawTag(8);
-      output.WriteUInt64(Width);
+    if (Width != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Width);
     }
-    if (Height != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Height);
+    if (Height != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Height);
     }
     if (mapModification_ != null) {
       output.WriteRawTag(26);
@@ -9168,11 +9165,11 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Width != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Width);
+    if (Width != 0F) {
+      size += 1 + 4;
     }
-    if (Height != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
+    if (Height != 0F) {
+      size += 1 + 4;
     }
     if (mapModification_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(MapModification);
@@ -9192,10 +9189,10 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
     if (other == null) {
       return;
     }
-    if (other.Width != 0UL) {
+    if (other.Width != 0F) {
       Width = other.Width;
     }
-    if (other.Height != 0UL) {
+    if (other.Height != 0F) {
       Height = other.Height;
     }
     if (other.mapModification_ != null) {
@@ -9222,12 +9219,12 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 13: {
+          Width = input.ReadFloat();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 21: {
+          Height = input.ReadFloat();
           break;
         }
         case 26: {
@@ -9256,12 +9253,12 @@ public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 8: {
-          Width = input.ReadUInt64();
+        case 13: {
+          Width = input.ReadFloat();
           break;
         }
-        case 16: {
-          Height = input.ReadUInt64();
+        case 21: {
+          Height = input.ReadFloat();
           break;
         }
         case 26: {
@@ -9354,10 +9351,10 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
 
   /// <summary>Field number for the "starting_radius" field.</summary>
   public const int StartingRadiusFieldNumber = 2;
-  private ulong startingRadius_;
+  private float startingRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong StartingRadius {
+  public float StartingRadius {
     get { return startingRadius_; }
     set {
       startingRadius_ = value;
@@ -9366,10 +9363,10 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
 
   /// <summary>Field number for the "minimum_radius" field.</summary>
   public const int MinimumRadiusFieldNumber = 3;
-  private ulong minimumRadius_;
+  private float minimumRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong MinimumRadius {
+  public float MinimumRadius {
     get { return minimumRadius_; }
     set {
       minimumRadius_ = value;
@@ -9378,10 +9375,10 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
 
   /// <summary>Field number for the "max_radius" field.</summary>
   public const int MaxRadiusFieldNumber = 4;
-  private ulong maxRadius_;
+  private float maxRadius_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong MaxRadius {
+  public float MaxRadius {
     get { return maxRadius_; }
     set {
       maxRadius_ = value;
@@ -9426,9 +9423,9 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
       return true;
     }
     if (!object.Equals(Modification, other.Modification)) return false;
-    if (StartingRadius != other.StartingRadius) return false;
-    if (MinimumRadius != other.MinimumRadius) return false;
-    if (MaxRadius != other.MaxRadius) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(StartingRadius, other.StartingRadius)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MinimumRadius, other.MinimumRadius)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxRadius, other.MaxRadius)) return false;
     if(!outsideRadiusEffects_.Equals(other.outsideRadiusEffects_)) return false;
     if(!insideRadiusEffects_.Equals(other.insideRadiusEffects_)) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -9439,9 +9436,9 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
   public override int GetHashCode() {
     int hash = 1;
     if (modification_ != null) hash ^= Modification.GetHashCode();
-    if (StartingRadius != 0UL) hash ^= StartingRadius.GetHashCode();
-    if (MinimumRadius != 0UL) hash ^= MinimumRadius.GetHashCode();
-    if (MaxRadius != 0UL) hash ^= MaxRadius.GetHashCode();
+    if (StartingRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(StartingRadius);
+    if (MinimumRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MinimumRadius);
+    if (MaxRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxRadius);
     hash ^= outsideRadiusEffects_.GetHashCode();
     hash ^= insideRadiusEffects_.GetHashCode();
     if (_unknownFields != null) {
@@ -9466,17 +9463,17 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
       output.WriteRawTag(10);
       output.WriteMessage(Modification);
     }
-    if (StartingRadius != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(StartingRadius);
+    if (StartingRadius != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(StartingRadius);
     }
-    if (MinimumRadius != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(MinimumRadius);
+    if (MinimumRadius != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(MinimumRadius);
     }
-    if (MaxRadius != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(MaxRadius);
+    if (MaxRadius != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(MaxRadius);
     }
     outsideRadiusEffects_.WriteTo(output, _repeated_outsideRadiusEffects_codec);
     insideRadiusEffects_.WriteTo(output, _repeated_insideRadiusEffects_codec);
@@ -9494,17 +9491,17 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
       output.WriteRawTag(10);
       output.WriteMessage(Modification);
     }
-    if (StartingRadius != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(StartingRadius);
+    if (StartingRadius != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(StartingRadius);
     }
-    if (MinimumRadius != 0UL) {
-      output.WriteRawTag(24);
-      output.WriteUInt64(MinimumRadius);
+    if (MinimumRadius != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(MinimumRadius);
     }
-    if (MaxRadius != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(MaxRadius);
+    if (MaxRadius != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(MaxRadius);
     }
     outsideRadiusEffects_.WriteTo(ref output, _repeated_outsideRadiusEffects_codec);
     insideRadiusEffects_.WriteTo(ref output, _repeated_insideRadiusEffects_codec);
@@ -9521,14 +9518,14 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
     if (modification_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Modification);
     }
-    if (StartingRadius != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(StartingRadius);
+    if (StartingRadius != 0F) {
+      size += 1 + 4;
     }
-    if (MinimumRadius != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MinimumRadius);
+    if (MinimumRadius != 0F) {
+      size += 1 + 4;
     }
-    if (MaxRadius != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxRadius);
+    if (MaxRadius != 0F) {
+      size += 1 + 4;
     }
     size += outsideRadiusEffects_.CalculateSize(_repeated_outsideRadiusEffects_codec);
     size += insideRadiusEffects_.CalculateSize(_repeated_insideRadiusEffects_codec);
@@ -9550,13 +9547,13 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
       }
       Modification.MergeFrom(other.Modification);
     }
-    if (other.StartingRadius != 0UL) {
+    if (other.StartingRadius != 0F) {
       StartingRadius = other.StartingRadius;
     }
-    if (other.MinimumRadius != 0UL) {
+    if (other.MinimumRadius != 0F) {
       MinimumRadius = other.MinimumRadius;
     }
-    if (other.MaxRadius != 0UL) {
+    if (other.MaxRadius != 0F) {
       MaxRadius = other.MaxRadius;
     }
     outsideRadiusEffects_.Add(other.outsideRadiusEffects_);
@@ -9583,16 +9580,16 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
           input.ReadMessage(Modification);
           break;
         }
-        case 16: {
-          StartingRadius = input.ReadUInt64();
+        case 21: {
+          StartingRadius = input.ReadFloat();
           break;
         }
-        case 24: {
-          MinimumRadius = input.ReadUInt64();
+        case 29: {
+          MinimumRadius = input.ReadFloat();
           break;
         }
-        case 32: {
-          MaxRadius = input.ReadUInt64();
+        case 37: {
+          MaxRadius = input.ReadFloat();
           break;
         }
         case 42: {
@@ -9625,16 +9622,16 @@ public sealed partial class MapModification : pb::IMessage<MapModification>
           input.ReadMessage(Modification);
           break;
         }
-        case 16: {
-          StartingRadius = input.ReadUInt64();
+        case 21: {
+          StartingRadius = input.ReadFloat();
           break;
         }
-        case 24: {
-          MinimumRadius = input.ReadUInt64();
+        case 29: {
+          MinimumRadius = input.ReadFloat();
           break;
         }
-        case 32: {
-          MaxRadius = input.ReadUInt64();
+        case 37: {
+          MaxRadius = input.ReadFloat();
           break;
         }
         case 42: {
@@ -9952,10 +9949,10 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
 
   /// <summary>Field number for the "size" field.</summary>
   public const int SizeFieldNumber = 2;
-  private ulong size_;
+  private float size_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Size {
+  public float Size {
     get { return size_; }
     set {
       size_ = value;
@@ -9989,7 +9986,7 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
       return true;
     }
     if (Name != other.Name) return false;
-    if (Size != other.Size) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Size, other.Size)) return false;
     if(!effects_.Equals(other.effects_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -9999,7 +9996,7 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
   public override int GetHashCode() {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
-    if (Size != 0UL) hash ^= Size.GetHashCode();
+    if (Size != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Size);
     hash ^= effects_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -10023,9 +10020,9 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (Size != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Size);
+    if (Size != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Size);
     }
     effects_.WriteTo(output, _repeated_effects_codec);
     if (_unknownFields != null) {
@@ -10042,9 +10039,9 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
       output.WriteRawTag(10);
       output.WriteString(Name);
     }
-    if (Size != 0UL) {
-      output.WriteRawTag(16);
-      output.WriteUInt64(Size);
+    if (Size != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Size);
     }
     effects_.WriteTo(ref output, _repeated_effects_codec);
     if (_unknownFields != null) {
@@ -10060,8 +10057,8 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
     if (Name.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
     }
-    if (Size != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Size);
+    if (Size != 0F) {
+      size += 1 + 4;
     }
     size += effects_.CalculateSize(_repeated_effects_codec);
     if (_unknownFields != null) {
@@ -10079,7 +10076,7 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
     if (other.Name.Length != 0) {
       Name = other.Name;
     }
-    if (other.Size != 0UL) {
+    if (other.Size != 0F) {
       Size = other.Size;
     }
     effects_.Add(other.effects_);
@@ -10102,8 +10099,8 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
           Name = input.ReadString();
           break;
         }
-        case 16: {
-          Size = input.ReadUInt64();
+        case 21: {
+          Size = input.ReadFloat();
           break;
         }
         case 26: {
@@ -10129,8 +10126,8 @@ public sealed partial class GameLoot : pb::IMessage<GameLoot>
           Name = input.ReadString();
           break;
         }
-        case 16: {
-          Size = input.ReadUInt64();
+        case 21: {
+          Size = input.ReadFloat();
           break;
         }
         case 26: {
@@ -10244,10 +10241,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 
   /// <summary>Field number for the "base_size" field.</summary>
   public const int BaseSizeFieldNumber = 4;
-  private ulong baseSize_;
+  private float baseSize_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong BaseSize {
+  public float BaseSize {
     get { return baseSize_; }
     set {
       baseSize_ = value;
@@ -10279,10 +10276,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
 
   /// <summary>Field number for the "max_distance" field.</summary>
   public const int MaxDistanceFieldNumber = 7;
-  private ulong maxDistance_;
+  private float maxDistance_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong MaxDistance {
+  public float MaxDistance {
     get { return maxDistance_; }
     set {
       maxDistance_ = value;
@@ -10319,10 +10316,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (Name != other.Name) return false;
     if (BaseDamage != other.BaseDamage) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
-    if (BaseSize != other.BaseSize) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSize, other.BaseSize)) return false;
     if (RemoveOnCollision != other.RemoveOnCollision) return false;
     if(!onHitEffect_.Equals(other.onHitEffect_)) return false;
-    if (MaxDistance != other.MaxDistance) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxDistance, other.MaxDistance)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DurationMs, other.DurationMs)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -10334,10 +10331,10 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (BaseDamage != 0UL) hash ^= BaseDamage.GetHashCode();
     if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
-    if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
+    if (BaseSize != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSize);
     if (RemoveOnCollision != false) hash ^= RemoveOnCollision.GetHashCode();
     hash ^= onHitEffect_.GetHashCode();
-    if (MaxDistance != 0UL) hash ^= MaxDistance.GetHashCode();
+    if (MaxDistance != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxDistance);
     if (DurationMs != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DurationMs);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -10369,18 +10366,18 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteRawTag(29);
       output.WriteFloat(BaseSpeed);
     }
-    if (BaseSize != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(BaseSize);
+    if (BaseSize != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(BaseSize);
     }
     if (RemoveOnCollision != false) {
       output.WriteRawTag(40);
       output.WriteBool(RemoveOnCollision);
     }
     onHitEffect_.WriteTo(output, _repeated_onHitEffect_codec);
-    if (MaxDistance != 0UL) {
-      output.WriteRawTag(56);
-      output.WriteUInt64(MaxDistance);
+    if (MaxDistance != 0F) {
+      output.WriteRawTag(61);
+      output.WriteFloat(MaxDistance);
     }
     if (DurationMs != 0F) {
       output.WriteRawTag(69);
@@ -10408,18 +10405,18 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
       output.WriteRawTag(29);
       output.WriteFloat(BaseSpeed);
     }
-    if (BaseSize != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(BaseSize);
+    if (BaseSize != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(BaseSize);
     }
     if (RemoveOnCollision != false) {
       output.WriteRawTag(40);
       output.WriteBool(RemoveOnCollision);
     }
     onHitEffect_.WriteTo(ref output, _repeated_onHitEffect_codec);
-    if (MaxDistance != 0UL) {
-      output.WriteRawTag(56);
-      output.WriteUInt64(MaxDistance);
+    if (MaxDistance != 0F) {
+      output.WriteRawTag(61);
+      output.WriteFloat(MaxDistance);
     }
     if (DurationMs != 0F) {
       output.WriteRawTag(69);
@@ -10444,15 +10441,15 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (BaseSpeed != 0F) {
       size += 1 + 4;
     }
-    if (BaseSize != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
+    if (BaseSize != 0F) {
+      size += 1 + 4;
     }
     if (RemoveOnCollision != false) {
       size += 1 + 1;
     }
     size += onHitEffect_.CalculateSize(_repeated_onHitEffect_codec);
-    if (MaxDistance != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxDistance);
+    if (MaxDistance != 0F) {
+      size += 1 + 4;
     }
     if (DurationMs != 0F) {
       size += 1 + 4;
@@ -10478,14 +10475,14 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
     if (other.BaseSpeed != 0F) {
       BaseSpeed = other.BaseSpeed;
     }
-    if (other.BaseSize != 0UL) {
+    if (other.BaseSize != 0F) {
       BaseSize = other.BaseSize;
     }
     if (other.RemoveOnCollision != false) {
       RemoveOnCollision = other.RemoveOnCollision;
     }
     onHitEffect_.Add(other.onHitEffect_);
-    if (other.MaxDistance != 0UL) {
+    if (other.MaxDistance != 0F) {
       MaxDistance = other.MaxDistance;
     }
     if (other.DurationMs != 0F) {
@@ -10518,8 +10515,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           BaseSpeed = input.ReadFloat();
           break;
         }
-        case 32: {
-          BaseSize = input.ReadUInt64();
+        case 37: {
+          BaseSize = input.ReadFloat();
           break;
         }
         case 40: {
@@ -10530,8 +10527,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           onHitEffect_.AddEntriesFrom(input, _repeated_onHitEffect_codec);
           break;
         }
-        case 56: {
-          MaxDistance = input.ReadUInt64();
+        case 61: {
+          MaxDistance = input.ReadFloat();
           break;
         }
         case 69: {
@@ -10565,8 +10562,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           BaseSpeed = input.ReadFloat();
           break;
         }
-        case 32: {
-          BaseSize = input.ReadUInt64();
+        case 37: {
+          BaseSize = input.ReadFloat();
           break;
         }
         case 40: {
@@ -10577,8 +10574,8 @@ public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
           onHitEffect_.AddEntriesFrom(ref input, _repeated_onHitEffect_codec);
           break;
         }
-        case 56: {
-          MaxDistance = input.ReadUInt64();
+        case 61: {
+          MaxDistance = input.ReadFloat();
           break;
         }
         case 69: {
@@ -10688,10 +10685,10 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
 
   /// <summary>Field number for the "base_size" field.</summary>
   public const int BaseSizeFieldNumber = 4;
-  private ulong baseSize_;
+  private float baseSize_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong BaseSize {
+  public float BaseSize {
     get { return baseSize_; }
     set {
       baseSize_ = value;
@@ -10739,7 +10736,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (Name != other.Name) return false;
     if (Active != other.Active) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
-    if (BaseSize != other.BaseSize) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSize, other.BaseSize)) return false;
     if (BaseHealth != other.BaseHealth) return false;
     if (!Skills.Equals(other.Skills)) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -10752,7 +10749,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (Active != false) hash ^= Active.GetHashCode();
     if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
-    if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
+    if (BaseSize != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSize);
     if (BaseHealth != 0UL) hash ^= BaseHealth.GetHashCode();
     hash ^= Skills.GetHashCode();
     if (_unknownFields != null) {
@@ -10785,9 +10782,9 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
       output.WriteRawTag(29);
       output.WriteFloat(BaseSpeed);
     }
-    if (BaseSize != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(BaseSize);
+    if (BaseSize != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(BaseSize);
     }
     if (BaseHealth != 0UL) {
       output.WriteRawTag(40);
@@ -10816,9 +10813,9 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
       output.WriteRawTag(29);
       output.WriteFloat(BaseSpeed);
     }
-    if (BaseSize != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(BaseSize);
+    if (BaseSize != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(BaseSize);
     }
     if (BaseHealth != 0UL) {
       output.WriteRawTag(40);
@@ -10844,8 +10841,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (BaseSpeed != 0F) {
       size += 1 + 4;
     }
-    if (BaseSize != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
+    if (BaseSize != 0F) {
+      size += 1 + 4;
     }
     if (BaseHealth != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseHealth);
@@ -10872,7 +10869,7 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
     if (other.BaseSpeed != 0F) {
       BaseSpeed = other.BaseSpeed;
     }
-    if (other.BaseSize != 0UL) {
+    if (other.BaseSize != 0F) {
       BaseSize = other.BaseSize;
     }
     if (other.BaseHealth != 0UL) {
@@ -10906,8 +10903,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
           BaseSpeed = input.ReadFloat();
           break;
         }
-        case 32: {
-          BaseSize = input.ReadUInt64();
+        case 37: {
+          BaseSize = input.ReadFloat();
           break;
         }
         case 40: {
@@ -10945,8 +10942,8 @@ public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
           BaseSpeed = input.ReadFloat();
           break;
         }
-        case 32: {
-          BaseSize = input.ReadUInt64();
+        case 37: {
+          BaseSize = input.ReadFloat();
           break;
         }
         case 40: {
@@ -11369,10 +11366,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
 
   /// <summary>Field number for the "range" field.</summary>
   public const int RangeFieldNumber = 4;
-  private ulong range_;
+  private float range_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong Range {
+  public float Range {
     get { return range_; }
     set {
       range_ = value;
@@ -11440,10 +11437,10 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
 
   /// <summary>Field number for the "max_range" field.</summary>
   public const int MaxRangeFieldNumber = 10;
-  private ulong maxRange_;
+  private float maxRange_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong MaxRange {
+  public float MaxRange {
     get { return maxRange_; }
     set {
       maxRange_ = value;
@@ -11468,13 +11465,13 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (Name != other.Name) return false;
     if(!effects_.Equals(other.effects_)) return false;
     if (Damage != other.Damage) return false;
-    if (Range != other.Range) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Range, other.Range)) return false;
     if (ConeAngle != other.ConeAngle) return false;
     if(!onHitEffects_.Equals(other.onHitEffects_)) return false;
     if (!object.Equals(Projectile, other.Projectile)) return false;
     if (Count != other.Count) return false;
     if (DurationMs != other.DurationMs) return false;
-    if (MaxRange != other.MaxRange) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxRange, other.MaxRange)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -11485,13 +11482,13 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (Name != global::MechanicType.Hit) hash ^= Name.GetHashCode();
     hash ^= effects_.GetHashCode();
     if (Damage != 0UL) hash ^= Damage.GetHashCode();
-    if (Range != 0UL) hash ^= Range.GetHashCode();
+    if (Range != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Range);
     if (ConeAngle != 0UL) hash ^= ConeAngle.GetHashCode();
     hash ^= onHitEffects_.GetHashCode();
     if (projectile_ != null) hash ^= Projectile.GetHashCode();
     if (Count != 0UL) hash ^= Count.GetHashCode();
     if (DurationMs != 0UL) hash ^= DurationMs.GetHashCode();
-    if (MaxRange != 0UL) hash ^= MaxRange.GetHashCode();
+    if (MaxRange != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxRange);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -11519,9 +11516,9 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(24);
       output.WriteUInt64(Damage);
     }
-    if (Range != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(Range);
+    if (Range != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Range);
     }
     if (ConeAngle != 0UL) {
       output.WriteRawTag(40);
@@ -11540,9 +11537,9 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(72);
       output.WriteUInt64(DurationMs);
     }
-    if (MaxRange != 0UL) {
-      output.WriteRawTag(80);
-      output.WriteUInt64(MaxRange);
+    if (MaxRange != 0F) {
+      output.WriteRawTag(85);
+      output.WriteFloat(MaxRange);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -11563,9 +11560,9 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(24);
       output.WriteUInt64(Damage);
     }
-    if (Range != 0UL) {
-      output.WriteRawTag(32);
-      output.WriteUInt64(Range);
+    if (Range != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Range);
     }
     if (ConeAngle != 0UL) {
       output.WriteRawTag(40);
@@ -11584,9 +11581,9 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
       output.WriteRawTag(72);
       output.WriteUInt64(DurationMs);
     }
-    if (MaxRange != 0UL) {
-      output.WriteRawTag(80);
-      output.WriteUInt64(MaxRange);
+    if (MaxRange != 0F) {
+      output.WriteRawTag(85);
+      output.WriteFloat(MaxRange);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -11605,8 +11602,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (Damage != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Damage);
     }
-    if (Range != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Range);
+    if (Range != 0F) {
+      size += 1 + 4;
     }
     if (ConeAngle != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ConeAngle);
@@ -11621,8 +11618,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (DurationMs != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DurationMs);
     }
-    if (MaxRange != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxRange);
+    if (MaxRange != 0F) {
+      size += 1 + 4;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -11643,7 +11640,7 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (other.Damage != 0UL) {
       Damage = other.Damage;
     }
-    if (other.Range != 0UL) {
+    if (other.Range != 0F) {
       Range = other.Range;
     }
     if (other.ConeAngle != 0UL) {
@@ -11662,7 +11659,7 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
     if (other.DurationMs != 0UL) {
       DurationMs = other.DurationMs;
     }
-    if (other.MaxRange != 0UL) {
+    if (other.MaxRange != 0F) {
       MaxRange = other.MaxRange;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -11692,8 +11689,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           Damage = input.ReadUInt64();
           break;
         }
-        case 32: {
-          Range = input.ReadUInt64();
+        case 37: {
+          Range = input.ReadFloat();
           break;
         }
         case 40: {
@@ -11719,8 +11716,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           DurationMs = input.ReadUInt64();
           break;
         }
-        case 80: {
-          MaxRange = input.ReadUInt64();
+        case 85: {
+          MaxRange = input.ReadFloat();
           break;
         }
       }
@@ -11750,8 +11747,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           Damage = input.ReadUInt64();
           break;
         }
-        case 32: {
-          Range = input.ReadUInt64();
+        case 37: {
+          Range = input.ReadFloat();
           break;
         }
         case 40: {
@@ -11777,8 +11774,8 @@ public sealed partial class Mechanic : pb::IMessage<Mechanic>
           DurationMs = input.ReadUInt64();
           break;
         }
-        case 80: {
-          MaxRange = input.ReadUInt64();
+        case 85: {
+          MaxRange = input.ReadFloat();
           break;
         }
       }

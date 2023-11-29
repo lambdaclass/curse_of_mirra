@@ -45,16 +45,16 @@ public class ClientPrediction
             Vector2 movementVector = movementDirection * characterSpeed;
 
             Position newPlayerPosition = new Position();
-            var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
-            var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
+            var newPositionX = (float)player.Position.X + (float)Math.Round(movementVector.x);
+            var newPositionY = (float)player.Position.Y + (float)Math.Round(movementVector.y);
 
             newPositionX = Math.Min(newPositionX, (10000 - 1));
             newPositionX = Math.Max(newPositionX, 0);
             newPositionY = Math.Min(newPositionY, (10000 - 1));
             newPositionY = Math.Max(newPositionY, 0);
 
-            newPlayerPosition.X = (ulong)newPositionX;
-            newPlayerPosition.Y = (ulong)newPositionY;
+            newPlayerPosition.X = newPositionX;
+            newPlayerPosition.Y = newPositionY;
 
             player.Position = newPlayerPosition;
         });

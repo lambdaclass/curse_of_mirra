@@ -447,7 +447,7 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id);
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();

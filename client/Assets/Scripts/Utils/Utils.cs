@@ -22,14 +22,14 @@ public class Utils
 
     public static Vector3 transformBackendPositionToFrontendPosition(Position position)
     {
-        var x = ((float)position?.Y / 100.0f) - 50.0f;
-        var y = (-((float)position?.X) / 100.0f) + 50.0f;
+        var x = ((float)position?.Y) - 50.0f;
+        var y = (-((float)position?.X)) + 50.0f;
         return new Vector3(x, 1f, y);
     }
 
     public static float transformBackendRadiusToFrontendRadius(float radius)
     {
-        return radius * 100f / 5000;
+        return radius * 10000f / 5000;
     }
 
     public static GameObject GetPlayer(ulong id)
