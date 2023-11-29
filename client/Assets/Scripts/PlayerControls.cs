@@ -18,7 +18,7 @@ public class PlayerControls : MonoBehaviour
             : lastAngleSent;
         float difference = Math.Abs(angle - lastAngleSent);
 
-        if (ShouldSendMovement(x, y, difference))
+    if (ShouldSendMovement(x, y, difference))
         {
             Move moveAction = new Move { Angle = angle, Moving = moving};
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
@@ -35,6 +35,15 @@ public class PlayerControls : MonoBehaviour
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
+            lastTimestamp = timestamp;
+        }else{ // I don't think this is necessary since we should only use the last movement direction change
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = lastXSent,
+                joystick_y_value = lastYSent,
+                timestamp = lastTimestamp,
+            };
+            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
     }
 
