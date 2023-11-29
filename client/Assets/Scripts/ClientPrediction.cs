@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class ClientPrediction
 {
@@ -26,7 +26,10 @@ public class ClientPrediction
 
     void removeServerAcknowledgedInputs(Player player, long timestamp)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp < timestamp);
+        // Debug.Log("Timestamp" + timestamp);
+        Debug.Log("Pending inputs before: " + pendingPlayerInputs.Count);
+        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
+        Debug.Log("Pending inputs after: " + pendingPlayerInputs.Count);
     }
 
     void simulatePlayerMovement(Player player)

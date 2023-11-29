@@ -508,7 +508,7 @@ public class Battle : MonoBehaviour
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         // Find a name for this "30" it means how many steps did a player on each tick
-        float velocity = 30 * characterSpeed;
+        float velocity = 40 * characterSpeed;
 
         var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
             playerUpdate.Position

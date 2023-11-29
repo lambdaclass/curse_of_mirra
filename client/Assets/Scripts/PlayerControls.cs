@@ -31,6 +31,7 @@ public class PlayerControls : MonoBehaviour
                 joystick_y_value = y,
                 timestamp = timestamp,
             };
+            // Debug.Log("Angle: " + angle + " Timestamp: " + timestamp);
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
