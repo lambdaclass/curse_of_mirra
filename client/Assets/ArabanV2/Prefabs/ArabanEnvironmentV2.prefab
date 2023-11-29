@@ -18341,7 +18341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 892335694374667747}
   m_Layer: 0
-  m_Name: Araban
+  m_Name: ArabanEnvironmentV2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
