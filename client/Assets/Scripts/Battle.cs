@@ -48,8 +48,8 @@ public class Battle : MonoBehaviour
     void Start()
     {
         InitBlockingStates();
-        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
-        InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
+        // float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+        // InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
@@ -102,6 +102,7 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdateBattleState();
+            SendPlayerMovement();
         }
     }
 
@@ -164,9 +165,7 @@ public class Battle : MonoBehaviour
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
-                    inputFromVirtualJoystick
-                    && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-                )
+                    inputFromVirtualJoystick)
                 {
                     GetComponent<PlayerControls>()
                         .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
@@ -508,8 +507,8 @@ public class Battle : MonoBehaviour
     {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
-        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
-        float velocity = tickRate * characterSpeed;
+        // Find a name for this "30" it means how many steps did a player on each tick
+        float velocity = 30 * characterSpeed;
 
         var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
             playerUpdate.Position
@@ -576,6 +575,8 @@ public class Battle : MonoBehaviour
             }
             else
             {
+                Vector3 newPosition =
+                    player.transform.position + movementDirection * velocity * Time.deltaTime;
                 // The idea here is, when moving, we never want to go past the position the backend is telling us we are in.
                 // Let's say the movementChange vector is (1, 0), i.e., we are moving horizontally to the right.
                 // Let's also say frontendPosition is (2, y, 1)
@@ -590,9 +591,6 @@ public class Battle : MonoBehaviour
                 // take newPosition.x = min(frontendPosition.x, newPosition.x)
                 // If, on the other hand, its `x` coordinate is negative, we take newPosition.x = max(frontendPosition.x, newPosition.x)
                 // The exact same thing applies to `z`
-                Vector3 newPosition =
-                    player.transform.position + movementDirection * velocity * Time.deltaTime;
-
                 if (movementDirection.x > 0)
                 {
                     newPosition.x = Math.Min(frontendPosition.x, newPosition.x);

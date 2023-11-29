@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    float lastXSent = 0;
+    float lastYSent = 0;
+
+    long lastTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
     public void SendJoystickValues(float x, float y)
     {
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        if (x != 0 || y != 0)
+        float angle;
+        bool moving = x != 0 || y != 0;
+        long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        if (x != lastXSent || y != lastYSent)
         {
-            var valuesToSend = new RelativePosition { X = x, Y = y };
-
-            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg, Moving = true };
+            angle = moving
+                ? Mathf.Atan2(y, x) * Mathf.Rad2Deg
+                : Mathf.Atan2(lastYSent, lastXSent) * Mathf.Rad2Deg;
+            Move moveAction = new Move { Angle = angle, Moving = moving };
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
             SocketConnectionManager.Instance.SendGameAction(gameAction);
@@ -23,11 +31,8 @@ public class PlayerControls : MonoBehaviour
                 timestamp = timestamp,
             };
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
-        }
-        else
-        {
-            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg, Moving = true };
-            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
+            lastXSent = x;
+            lastYSent = y;
         }
     }
 
@@ -61,19 +66,16 @@ public class PlayerControls : MonoBehaviour
     public static float getBackendCharacterSpeed(ulong playerId)
     {
         string charName = Utils.GetGamePlayer(playerId).CharacterName;
-        // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        // {
-        // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
         var chars = LobbyConnection.Instance.engineServerSettings.Characters;
 
         foreach (var character in chars)
         {
             if (charName.ToLower() == character.Name.ToLower())
             {
+                Debug.Log($"config speed is: {character.BaseSpeed}");
                 return character.BaseSpeed;
             }
         }
-        // }
         return 0f;
     }
 }
