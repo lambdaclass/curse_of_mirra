@@ -24,12 +24,13 @@ public class MainAnimations : MonoBehaviour
     {
         Sequence thunderSequence = DOTween.Sequence();
         thunderSequence
-            .AppendInterval(Random.Range(1, 3))
+            .AppendInterval(1)
             .Append(thunders.DOFade(1, 0.1f))
             .Append(thunders.DOFade(0, 0.25f))
             .Append(thunders.DOFade(1, 0.1f))
             .AppendInterval(Random.Range(0.2f, 1))
             .Append(thunders.DOFade(0, 0.25f))
+            .AppendInterval(Random.Range(1, 4))
             .SetLoops(-1, LoopType.Restart);
 
         Sequence firstRocksSequence = DOTween.Sequence();
