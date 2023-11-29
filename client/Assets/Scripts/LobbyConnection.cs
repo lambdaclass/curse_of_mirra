@@ -378,13 +378,6 @@ public class LobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.PlayerRemoved:
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
-                    this.playersIdName.Remove(lobbyEvent.RemovedPlayerInfo.PlayerId);
-                    break;
-
                 case LobbyEventType.GameStarted:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
@@ -425,6 +418,16 @@ public class LobbyConnection : MonoBehaviour
         {
             return "http://" + serverIp + ":4000" + path;
         }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "http://" + serverIp + ":4000" + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "http://" + serverIp + ":4000" + path;
+        }
         else
         {
             return "https://" + serverIp + path;
@@ -438,6 +441,16 @@ public class LobbyConnection : MonoBehaviour
             return "ws://" + serverIp + ":4000" + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":4000" + path;
         }

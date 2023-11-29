@@ -405,13 +405,6 @@ public class DevLobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.PlayerRemoved:
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
-                    this.playersIdName.Remove(lobbyEvent.RemovedPlayerInfo.PlayerId);
-                    break;
-
                 case LobbyEventType.GameStarted:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);

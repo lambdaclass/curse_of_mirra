@@ -153,4 +153,29 @@ public class Utils
             }
         };
     }
+
+    public static List<CoMCharacter> GetOnlyAvailableCharacterInfo(List<CoMCharacter> comCharacters)
+    {
+        var result = new List<CoMCharacter>();
+        //This can be totally improved and simplified to one step
+
+        //First we get the names of the avaible characters+
+        var avaibleCharacterInfo = comCharacters
+            .Select(el => el.name)
+            .Intersect(MainScreenManager.enabledCharactersName);
+
+        //Then we get the characterInfo from those names
+        for (int i = 0; i < comCharacters.Count(); i++)
+        {
+            for (int j = 0; j < avaibleCharacterInfo.Count(); j++)
+            {
+                if (comCharacters[i].name.ToUpper() == avaibleCharacterInfo.ToList()[j].ToUpper())
+                {
+                    result.Add(comCharacters[i]);
+                }
+            }
+        }
+
+        return result;
+    }
 }
