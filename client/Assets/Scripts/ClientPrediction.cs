@@ -28,7 +28,7 @@ public class ClientPrediction
     {
         // Debug.Log("Timestamp" + timestamp);
         Debug.Log("Pending inputs before: " + pendingPlayerInputs.Count);
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
+        pendingPlayerInputs.RemoveAll((input) => input.timestamp < timestamp);
         Debug.Log("Pending inputs after: " + pendingPlayerInputs.Count);
     }
 
