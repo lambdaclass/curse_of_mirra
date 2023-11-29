@@ -26,7 +26,7 @@ public class ClientPrediction
 
     void removeServerAcknowledgedInputs(Player player, long timestamp)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
+        pendingPlayerInputs.RemoveAll((input) => input.timestamp < timestamp);
     }
 
     void simulatePlayerMovement(Player player)
