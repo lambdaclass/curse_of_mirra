@@ -81,7 +81,7 @@ public class DeathSplashManager : MonoBehaviour
     void ShowRankingDisplay()
     {
         var ranking = GetRanking();
-        rankingText.text = "# " + ranking.ToString();
+        rankingText.text += " # " + ranking.ToString();
     }
 
     private int GetRanking()
