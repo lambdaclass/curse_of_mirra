@@ -15,7 +15,7 @@ public class LobbyPlayerCounter : MonoBehaviour
     {
         if (GetComponent<Text>() == null)
         {
-            Debug.LogWarning("PINGCounter requires a GUIText component.");
+            Debug.LogWarning("PlayerCounter requires a GUIText component.");
             return;
         }
         _text = GetComponent<Text>();
