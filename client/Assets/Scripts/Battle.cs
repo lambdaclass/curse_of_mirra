@@ -238,7 +238,7 @@ public class Battle : MonoBehaviour
                     }
                     SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                         serverPlayerUpdate,
-                        gameEvent.PlayerTimestamp
+                        gameEvent.ServerTimestamp
                     );
                 }
 

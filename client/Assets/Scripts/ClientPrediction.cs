@@ -8,35 +8,40 @@ public class ClientPrediction
     {
         public float joystick_x_value;
         public float joystick_y_value;
-        public long timestamp;
+        public long startMovementTimestamp;
+        public long endMovementTimestamp;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
     public void putPlayerInput(PlayerInput PlayerInput)
     {
+        PlayerInput lastPlayerInput;
+        if(pendingPlayerInputs.Count > 0){
+            lastPlayerInput = pendingPlayerInputs[pendingPlayerInputs.Count - 1];
+            lastPlayerInput.endMovementTimestamp = PlayerInput.startMovementTimestamp;
+            pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
+        }
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Player player, long timestamp)
+    public void simulatePlayerState(Player player, long serverTimestamp)
     {
-        removeServerAcknowledgedInputs(player, timestamp);
-        simulatePlayerMovement(player);
+        removeServerAcknowledgedInputs(player, serverTimestamp);
+        simulatePlayerMovement(player, serverTimestamp);
     }
 
-    void removeServerAcknowledgedInputs(Player player, long timestamp)
+    void removeServerAcknowledgedInputs(Player player, long serverTimestamp)
     {
-        // Debug.Log("Timestamp" + timestamp);
-        Debug.Log("Pending inputs before: " + pendingPlayerInputs.Count);
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp < timestamp);
-        Debug.Log("Pending inputs after: " + pendingPlayerInputs.Count);
+        pendingPlayerInputs.RemoveAll((input) => input.endMovementTimestamp != 0 && input.endMovementTimestamp < serverTimestamp);
     }
 
-    void simulatePlayerMovement(Player player)
+    void simulatePlayerMovement(Player player, long serverTimestamp)
     {
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
-
+        long deltaTime;
+        long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         pendingPlayerInputs.ForEach(input =>
         {
             Vector2 movementDirection = new Vector2(
@@ -45,7 +50,17 @@ public class ClientPrediction
             );
 
             movementDirection.Normalize();
-            Vector2 movementVector = movementDirection * characterSpeed;
+
+            var t0 = input.startMovementTimestamp;
+            var tf = input.endMovementTimestamp == 0 ? now: input.endMovementTimestamp;
+
+            if(t0 < serverTimestamp && serverTimestamp < tf ){
+                deltaTime = tf - serverTimestamp;
+            }else{
+                deltaTime = tf - t0;
+            }
+
+            Vector2 movementVector = movementDirection * characterSpeed * deltaTime / 30;
 
             Position newPlayerPosition = new Position();
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
