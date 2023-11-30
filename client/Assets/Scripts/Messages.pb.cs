@@ -171,16 +171,16 @@ public static partial class MessagesReflection {
           "VUdFTl9NQVJLEAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dO",
           "RVIQChIMCghQT0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBB",
           "R0UQDRIKCgZCVVJORUQQDhILCgdTQ0hFUlpPEA8SEQoNREFOU0VfTUFDQUJS",
-          "RRAQEg0KCVBBUkFMWVpFRBAREggKBE5PTkUQEiprCg5Mb2JieUV2ZW50VHlw",
+          "RRAQEg0KCVBBUkFMWVpFRBAREggKBE5PTkUQEipbCg5Mb2JieUV2ZW50VHlw",
           "ZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExB",
-          "WUVSX0FEREVEEAISDgoKU1RBUlRfR0FNRRADEhIKDlBSRVBBUklOR19HQU1F",
-          "EAQqMgoOUHJvamVjdGlsZVR5cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5H",
-          "X0JVTExFVBABKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoI",
-          "RVhQTE9ERUQQASo2CghMb290VHlwZRIZChVMT09UX1RZUEVfVU5TUEVDSUZJ",
-          "RUQQABIPCgtMT09UX0hFQUxUSBABKjAKDE1vZGlmaWVyVHlwZRISCg5NVUxU",
-          "SVBMSUNBVElWRRAAEgwKCEFERElUSVZFEAEqSwoMTWVjaGFuaWNUeXBlEgcK",
-          "A0hJVBAAEhAKDFNJTVBMRV9TSE9PVBABEg8KC01VTFRJX1NIT09UEAISDwoL",
-          "R0lWRV9FRkZFQ1QQA2IGcHJvdG8z"));
+          "WUVSX0FEREVEEAISEgoOUFJFUEFSSU5HX0dBTUUQAyoyCg5Qcm9qZWN0aWxl",
+          "VHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJv",
+          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKjYKCExv",
+          "b3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xPT1RfSEVB",
+          "TFRIEAEqMAoMTW9kaWZpZXJUeXBlEhIKDk1VTFRJUExJQ0FUSVZFEAASDAoI",
+          "QURESVRJVkUQASpLCgxNZWNoYW5pY1R5cGUSBwoDSElUEAASEAoMU0lNUExF",
+          "X1NIT09UEAESDwoLTVVMVElfU0hPT1QQAhIPCgtHSVZFX0VGRkVDVBADYgZw",
+          "cm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -348,8 +348,7 @@ public enum LobbyEventType {
   [pbr::OriginalName("TYPE_UNSPECIFIED")] TypeUnspecified = 0,
   [pbr::OriginalName("CONNECTED")] Connected = 1,
   [pbr::OriginalName("PLAYER_ADDED")] PlayerAdded = 2,
-  [pbr::OriginalName("START_GAME")] StartGame = 3,
-  [pbr::OriginalName("PREPARING_GAME")] PreparingGame = 4,
+  [pbr::OriginalName("PREPARING_GAME")] PreparingGame = 3,
 }
 
 /// <summary>
