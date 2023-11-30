@@ -6,8 +6,6 @@ public class PlayerControls : MonoBehaviour
     float lastXSent = 0;
     float lastYSent = 0;
 
-    long lastTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
     public void SendJoystickValues(float x, float y)
     {
         bool moving = (x != 0 || y != 0);
@@ -29,13 +27,12 @@ public class PlayerControls : MonoBehaviour
             {
                 joystick_x_value = x,
                 joystick_y_value = y,
-                timestamp = timestamp,
+                startMovementTimestamp = timestamp,
             };
             // Debug.Log("Angle: " + angle + " Timestamp: " + timestamp);
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
-            lastTimestamp = timestamp;
         }
     }
 
