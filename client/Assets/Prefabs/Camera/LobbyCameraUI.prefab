@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 159986078}
   - component: {fileID: 159986077}
   m_Layer: 5
-  m_Name: Ping
+  m_Name: LobbyPlayersCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
