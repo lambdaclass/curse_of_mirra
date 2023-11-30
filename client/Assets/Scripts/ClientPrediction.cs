@@ -22,6 +22,12 @@ public class ClientPrediction
             lastPlayerInput.endMovementTimestamp = PlayerInput.startMovementTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
+
+        if(PlayerInput.joystick_x_value == 0 && PlayerInput.joystick_y_value == 0 ){
+            pendingPlayerInputs = new List<PlayerInput>();
+            Debug.Log("zero");
+        }
+
         pendingPlayerInputs.Add(PlayerInput);
     }
 
@@ -38,6 +44,9 @@ public class ClientPrediction
 
     void simulatePlayerMovement(Player player, long serverTimestamp)
     {
+        if(pendingPlayerInputs.Count == 1){
+            Debug.Log($"player position before: {player.Position}");
+        }
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
         long deltaTime;
@@ -60,8 +69,13 @@ public class ClientPrediction
                 deltaTime = tf - t0;
             }
 
-            Vector2 movementVector = movementDirection * characterSpeed * deltaTime / 30;
+            Debug.Log($"DeltaTime {deltaTime}");
+            float manuDeltaTime = deltaTime / 30;
+            Debug.Log($"manuDeltaTime {manuDeltaTime}");
+            Vector2 movementVector = movementDirection * characterSpeed * manuDeltaTime;
 
+
+            Debug.Log($"position plus: {movementVector}");
             Position newPlayerPosition = new Position();
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
             var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
@@ -76,5 +90,8 @@ public class ClientPrediction
 
             player.Position = newPlayerPosition;
         });
+        if(pendingPlayerInputs.Count == 1){
+            Debug.Log($"player position after: {player.Position}");
+        }
     }
 }
