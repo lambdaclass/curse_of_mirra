@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SafeZone : MonoBehaviour
 {
@@ -7,6 +8,15 @@ public class SafeZone : MonoBehaviour
 
     [SerializeField]
     GameObject zoneLimit;
+
+    [SerializeField]
+    GameObject particle;
+
+    GameObject part = new GameObject();
+
+    float intialRadius = 0.0f;
+
+    bool first = false;
 
     private void Update()
     {
@@ -18,12 +28,23 @@ public class SafeZone : MonoBehaviour
             SocketConnectionManager.Instance.shrinkingCenter
         );
 
-        Material mapMaterial = map.GetComponent<Renderer>().material;
-        mapMaterial.SetVector("_Center", center);
-        mapMaterial.SetFloat("_Distance", radius / 2);
-
         float radiusCorrected = radius + radius * .007f;
-        zoneLimit.transform.position = new Vector3(center.x, 42f, center.z);
-        zoneLimit.transform.localScale = new Vector3(radiusCorrected, 50f, radiusCorrected);
+
+        if (radius == 200 && !first)
+        {
+            intialRadius = radius;
+            part = Instantiate(particle);
+            part.GetComponent<VisualEffect>().SetFloat("CircleRadius", radiusCorrected);
+            part.transform.position = new Vector3(center.x, 1f, center.z);
+            first = true;
+        }
+
+        if (intialRadius - radius == 9)
+        {
+            intialRadius = radius;
+            part = Instantiate(particle);
+            part.GetComponent<VisualEffect>().SetFloat("CircleRadius", radiusCorrected);
+            part.transform.position = new Vector3(center.x, 1f, center.z);
+        }
     }
 }

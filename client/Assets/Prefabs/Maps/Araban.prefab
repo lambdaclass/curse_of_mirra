@@ -496,6 +496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 6284500667521008806}
   zoneLimit: {fileID: 6811599458097895607}
+  particle: {fileID: 7660837595403614999, guid: d04a1dddc10004318b53f438b36e2e46,
+    type: 3}
 --- !u!1 &3802976050170938213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465646789326987294, guid: d30973b574c3e4fae9b34e910661a8a7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9191953082080297937, guid: d30973b574c3e4fae9b34e910661a8a7,
         type: 3}
