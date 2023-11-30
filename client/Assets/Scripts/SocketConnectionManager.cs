@@ -195,8 +195,6 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(gameEvent);
                     this.gamePlayers = gameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
-                    updatedLoots = gameEvent.Loots.ToList();
                     LobbyConnection.Instance.gameStarted = true;
                     break;
                 default:

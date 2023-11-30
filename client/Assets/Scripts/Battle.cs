@@ -47,8 +47,6 @@ public class Battle : MonoBehaviour
     void Start()
     {
         InitBlockingStates();
-        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
-        InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
@@ -101,6 +99,11 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdateBattleState();
+        }
+
+        if (LobbyConnection.Instance.gameStarted) {
+            float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+            InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         }
     }
 
