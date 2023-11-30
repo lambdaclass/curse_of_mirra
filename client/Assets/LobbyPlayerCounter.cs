@@ -28,9 +28,8 @@ public class LobbyPlayerCounter : MonoBehaviour
          _timeLeft = _timeLeft - Time.deltaTime;
         if (_timeLeft <= 0.0)
         {
-            Debug.Log("Actualizar");
             _timeLeft = UpdateInterval;
-            _text.text = LobbyConnection.Instance.playerCount.ToString() + "/10 players";
+            _text.text = LobbyConnection.Instance.playerCount.ToString() + " / "+ LobbyConnection.Instance.lobbyCapacity.ToString() + " players";
         }
     }
 }
