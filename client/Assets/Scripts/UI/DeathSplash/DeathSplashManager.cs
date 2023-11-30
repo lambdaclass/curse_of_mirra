@@ -169,7 +169,11 @@ public class DeathSplashManager : MonoBehaviour
     {
         if (player)
         {
-            if (SocketConnectionManager.Instance.PlayerIsWinner(SocketConnectionManager.Instance.playerId))
+            if (
+                SocketConnectionManager.Instance.PlayerIsWinner(
+                    SocketConnectionManager.Instance.playerId
+                )
+            )
             {
                 modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
             }
@@ -191,7 +195,11 @@ public class DeathSplashManager : MonoBehaviour
         ];
         winnerName.text = playerName;
         winnerCharacter.text = SocketConnectionManager.Instance.winnerPlayer.Item1.CharacterName;
-        if (SocketConnectionManager.Instance.PlayerIsWinner(SocketConnectionManager.Instance.playerId))
+        if (
+            SocketConnectionManager.Instance.PlayerIsWinner(
+                SocketConnectionManager.Instance.playerId
+            )
+        )
         {
             title.text = "Victory";
         }
