@@ -33,7 +33,7 @@ public class ClientPrediction
 
     void removeServerAcknowledgedInputs(Player player, long serverTimestamp)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.endMovementTimestamp != 0 && input.endMovementTimestamp < serverTimestamp);
+        pendingPlayerInputs.RemoveAll((input) => input.endMovementTimestamp != 0 && input.endMovementTimestamp <= serverTimestamp);
     }
 
     void simulatePlayerMovement(Player player, long serverTimestamp)
