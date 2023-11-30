@@ -8,8 +8,8 @@ public class LobbyPlayerCounter : MonoBehaviour
 {
 
     public float updateInterval = 5f;
-    protected float _timeLeft;
-    protected Text _text;
+    protected float _timeLeftToUpdate;
+    protected Text _totalLobbyPlayersText;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,18 +18,18 @@ public class LobbyPlayerCounter : MonoBehaviour
             Debug.LogWarning("PlayerCounter requires a GUIText component.");
             return;
         }
-        _text = GetComponent<Text>();
-        _timeLeft = updateInterval;
+        _totalLobbyPlayersText = GetComponent<Text>();
+        _timeLeftToUpdate = updateInterval;
     }
 
     // Update is called once per frame
     void Update()
     {
-         _timeLeft = _timeLeft - Time.deltaTime;
-        if (_timeLeft <= 0.0)
+         _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
+        if (_timeLeftToUpdate <= 0.0)
         {
-            _timeLeft = updateInterval;
-            _text.text = LobbyConnection.Instance.playerCount.ToString() + " / "+ LobbyConnection.Instance.lobbyCapacity.ToString() + " players";
+            _timeLeftToUpdate = updateInterval;
+            _totalLobbyPlayersText.text = LobbyConnection.Instance.playerCount.ToString() + " / "+ LobbyConnection.Instance.lobbyCapacity.ToString() + " players";
         }
     }
 }
