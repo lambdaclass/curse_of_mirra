@@ -8,7 +8,7 @@ using System.Collections;
 public class PingCounter : MonoBehaviour
 {
     /// the frequency at which the PING counter should update
-    public float UpdateInterval = 5f;
+    public float updateInterval = 5f;
     protected float _timeLeft;
     protected Text _text;
 
@@ -23,7 +23,7 @@ public class PingCounter : MonoBehaviour
             return;
         }
         _text = GetComponent<Text>();
-        _timeLeft = UpdateInterval;
+        _timeLeft = updateInterval;
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class PingCounter : MonoBehaviour
         _timeLeft = _timeLeft - Time.deltaTime;
         if (_timeLeft <= 0.0)
         {
-            _timeLeft = UpdateInterval;
+            _timeLeft = updateInterval;
             _text.text = "PING " + SocketConnectionManager.Instance.currentPing.ToString() + " ms";
         }
     }

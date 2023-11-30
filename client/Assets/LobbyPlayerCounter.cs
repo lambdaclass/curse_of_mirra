@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LobbyPlayerCounter : MonoBehaviour
 {
 
-    public float UpdateInterval = 5f;
+    public float updateInterval = 5f;
     protected float _timeLeft;
     protected Text _text;
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class LobbyPlayerCounter : MonoBehaviour
             return;
         }
         _text = GetComponent<Text>();
-        _timeLeft = UpdateInterval;
+        _timeLeft = updateInterval;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class LobbyPlayerCounter : MonoBehaviour
          _timeLeft = _timeLeft - Time.deltaTime;
         if (_timeLeft <= 0.0)
         {
-            _timeLeft = UpdateInterval;
+            _timeLeft = updateInterval;
             _text.text = LobbyConnection.Instance.playerCount.ToString() + " / "+ LobbyConnection.Instance.lobbyCapacity.ToString() + " players";
         }
     }
