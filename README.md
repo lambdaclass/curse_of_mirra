@@ -4,15 +4,15 @@
 
 ## Table of Contents
 
-  - [About](#about)
-  - [Licensing](#licensing)
-  - [Requirements](#requirements)
-  - [Suggested Development Environment](#suggested-development-environment)
-  - [Project Setup](#project-setup)
-  - [Unity Setup](#unity-setup)
-  - [Running the Backend](#running-the-backend)
-  - [Useful Commands](#useful-commands)
-  - [Documentation](#documentation)
+- [About](#about)
+- [Licensing](#licensing)
+- [Requirements](#requirements)
+- [Suggested Development Environment](#suggested-development-environment)
+- [Project Setup](#project-setup)
+- [Unity Setup](#unity-setup)
+- [Running the Backend](#running-the-backend)
+- [Useful Commands](#useful-commands)
+- [Documentation](#documentation)
 
 ## About
 
@@ -44,6 +44,7 @@ Find our open source 3D models, concept art, music, lore and more in our [Curse 
 ## Requirements
 
 Ensure you have the following dependencies installed:
+
 - **Rust:**
   - [Install Rust](https://www.rust-lang.org/tools/install)
 - **Elixir and Erlang:**
@@ -144,7 +145,8 @@ If you have any questions, feedback, or comments:
 - **Email:** gamedev@lambdaclass.com
 
 We share our development and creative process in the open, follow us for frequent updates on our game:
-- **Twitter:** [@YourTwitterHandle](https://twitter.com/curseofmyrra)
-- **Discord** [join](https://discord.gg/hxDRsbCpzC)
-- **Telegram** [join](https://t.me/curseofmyrra)
-- **Reddit** [r/curseofmyrra](https://www.reddit.com/r/curseofmyrra/)
+
+- **Twitter:** [@CurseOfMyrra](https://twitter.com/curseofmyrra)
+- **Reddit:** [r/curseofmyrra](https://www.reddit.com/r/curseofmyrra/)
+- **Discord:** [join link](https://discord.gg/hxDRsbCpzC)
+- **Telegram:** [t.me/curseofmyrra](https://t.me/curseofmyrra)
