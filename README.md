@@ -4,15 +4,18 @@
 
 ## Table of Contents
 
-- [About](#about)
-- [Licensing](#licensing)
-- [Requirements](#requirements)
-- [Suggested Development Environment](#suggested-development-environment)
-- [Project Setup](#project-setup)
-- [Unity Setup](#unity-setup)
-- [Running the Backend](#running-the-backend)
-- [Useful Commands](#useful-commands)
-- [Documentation](#documentation)
+- [Curse of Myrra](#curse-of-myrra)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Licensing](#licensing)
+  - [Requirements](#requirements)
+  - [Suggested Development Environment](#suggested-development-environment)
+  - [Project Setup](#project-setup)
+  - [Unity Setup](#unity-setup)
+  - [Running the Backend](#running-the-backend)
+  - [Useful Commands](#useful-commands)
+  - [Documentation](#documentation)
+  - [Contact and Socials](#contact-and-socials)
 
 ## About
 
@@ -59,9 +62,16 @@ Ensure you have the following dependencies installed:
 
 Set up your environment with the following steps:
 
-- Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system.
-- In VSCode, download the .NET extension. After installation, change the version to 1.26 (locate the version dropdown next to the Uninstall button in the extension window).
-- To check if the setup is successful, go to VSCode's console, select the Output tab, and pick Omnisharp Log in the dropdown. If there are no error logs and Omnisharp is scanning the project, the configuration is correct.
+- Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) and [Mono](https://www.mono-project.com/download/stable/) for your operating system.
+- In Unity preferences, under "External Tools", check the following preferences:
+  - Embedded packages
+  - Local packages
+  - Registry packages
+  - Git packages
+  - Built-in packages
+- In VSCode, download the ```C# Dev Kit``` extension. 
+  
+Your code should now autocomplete.
 
 ## Project Setup
 
