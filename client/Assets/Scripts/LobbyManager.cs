@@ -11,7 +11,6 @@ public class LobbyManager : LevelSelector
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
-    private const string END_GAME_SCENE_NAME = "EndGame";
 
     public static string LevelSelected;
 
@@ -47,12 +46,6 @@ public class LobbyManager : LevelSelector
     {
         Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
         BackToLobbyAndCloseConnection();
-    }
-
-    public void EndGame()
-    {
-        this.LevelName = END_GAME_SCENE_NAME;
-        SceneManager.LoadScene(this.LevelName);
     }
 
     public void SelectMap(string mapName)

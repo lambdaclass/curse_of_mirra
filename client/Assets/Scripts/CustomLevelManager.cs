@@ -109,7 +109,7 @@ public class CustomLevelManager : LevelManager
         );
 
         SetPlayerHealthBar(playerId);
-        //deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashCharacter();
+        //deathSplash.GetComponentInChildren<EndGameManager>().SetDeathSplashCharacter();
         StartCoroutine(CameraCinematic());
     }
 
@@ -125,7 +125,9 @@ public class CustomLevelManager : LevelManager
         if (GameHasEnded())
         {
             // TODO: Redirect to EndGameScreen
-            SceneManager.LoadScene("EndGame");
+            //SceneManager.LoadScene("EndGame");
+            deathSplash.GetComponentInChildren<EndGameManager>().finalSplash.SetActive(true);
+            deathSplash.GetComponentInChildren<EndGameManager>().ShowCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 public class EndGameManager : MonoBehaviour
 {
     [SerializeField]
+    public GameObject finalSplash;
+
+    [SerializeField]
     TextMeshProUGUI rankingText,
         rankingTextShadow;
 
@@ -35,12 +38,11 @@ public class EndGameManager : MonoBehaviour
     GameObject player;
     GameObject modelClone;
 
-    void Awake()
+    void OnEnable()
     {
         SetDeathSplashCharacter();
         ShowRankingDisplay();
         ShowMatchInfo();
-        ShowCharacterAnimation();
     }
 
     public void SetDeathSplashCharacter()
@@ -85,8 +87,7 @@ public class EndGameManager : MonoBehaviour
     {
         // Kill count
         var killCount = GetKillCount();
-        var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
-        amountOfKillsText.text = killCount.ToString() + killCountMessage;
+        amountOfKillsText.text = killCount.ToString();
         // Defeated By
         //defeaterPlayerName.text = GetDefeaterPlayerName();
         // Defeated By Image
@@ -120,7 +121,7 @@ public class EndGameManager : MonoBehaviour
         return "-";
     }
 
-    private void ShowCharacterAnimation()
+    public void ShowCharacterAnimation()
     {
         if (player)
         {
