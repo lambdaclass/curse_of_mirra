@@ -6,13 +6,16 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
 {
     float positionX;
     float positionY;
-    const float initialJoystickOpacity = 0.3f;
-    const float pressedJoystickOpacity = 0.4f;
+
+    float initialJoystickOpacity;
+    float pressedJoystickOpacity;
     float scaleCanvas;
 
     protected override void Start()
     {
         base.Start();
+        initialJoystickOpacity = BackgroundCanvasGroup.alpha;
+        pressedJoystickOpacity = KnobCanvasGroup.GetComponent<LeftMMTouchJoystick>().PressedOpacity;
         scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
         _initialPosition = BackgroundCanvasGroup.transform.position;
     }
