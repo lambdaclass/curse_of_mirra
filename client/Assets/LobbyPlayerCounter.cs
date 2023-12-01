@@ -11,7 +11,7 @@ public class LobbyPlayerCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponent<Text>() == null)
+        if (gameObject.GetComponent<TMP_Text>() == null)
         {
             Debug.LogWarning("PlayerCounter requires a GUIText component.");
             return;
