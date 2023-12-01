@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using CandyCoded.HapticFeedback;
 
 public class CharacterFeedbacks : MonoBehaviour
 {
@@ -87,6 +85,14 @@ public class CharacterFeedbacks : MonoBehaviour
             {
                 ApplyColorFeedback(healOverlayColor);
             }
+        }
+    }
+
+    public void HapticFeedbackOnDamage(float clientHealth, float playerHealth, ulong playerId)
+    {
+        if (playerHealth < clientHealth && playerId == SocketConnectionManager.Instance.playerId)
+        {
+            HapticFeedback.HeavyFeedback();
         }
     }
 

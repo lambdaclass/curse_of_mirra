@@ -1,22 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
 {
     float positionX;
     float positionY;
-    const float initialJoystickOpacity = 0.3f;
-    const float pressedJoystickOpacity = 0.4f;
+
+    float initialJoystickOpacity;
+    float pressedJoystickOpacity;
     float scaleCanvas;
 
     protected override void Start()
     {
         base.Start();
-        scaleCanvas = GetComponentInParent<Canvas>().gameObject.transform.localScale.x;
+        initialJoystickOpacity = BackgroundCanvasGroup.alpha;
+        pressedJoystickOpacity = KnobCanvasGroup.GetComponent<LeftMMTouchJoystick>().PressedOpacity;
+        scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
         _initialPosition = BackgroundCanvasGroup.transform.position;
     }
 
@@ -44,7 +44,7 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
         {
             positionX =
                 eventData.position.x
-                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2 ;
+                + BackgroundCanvasGroup.GetComponent<RectTransform>().sizeDelta.x / 2;
         }
         else
         {
@@ -81,7 +81,9 @@ public class LeftMMTouchRepositionableJoystick : MMTouchRepositionableJoystick
         if (ResetPositionToInitialOnRelease)
         {
             BackgroundCanvasGroup.transform.position = _initialPosition;
-            KnobCanvasGroup.GetComponent<LeftMMTouchJoystick>().SetNeutralPosition(_initialPosition);
+            KnobCanvasGroup
+                .GetComponent<LeftMMTouchJoystick>()
+                .SetNeutralPosition(_initialPosition);
             KnobCanvasGroup.GetComponent<LeftMMTouchJoystick>().OnPointerUp(eventData);
         }
         SetOpacity(initialJoystickOpacity);

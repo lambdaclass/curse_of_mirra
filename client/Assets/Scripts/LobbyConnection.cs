@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Google.Protobuf;
 using NativeWebSocket;
@@ -22,11 +21,12 @@ public class LobbyConnection : MonoBehaviour
     public bool isHost = false;
     public ulong hostId;
     public int playerCount;
+    public int lobbyCapacity;
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
-
+    public Config engineServerSettings;
     public bool gameStarted = false;
     public bool errorOngoingGame = false;
     public bool errorConnection = false;
@@ -87,6 +87,7 @@ public class LobbyConnection : MonoBehaviour
         {
             public ulong id;
             public string character_name;
+            public string player_name;
         }
 
         [Serializable]
@@ -165,13 +166,13 @@ public class LobbyConnection : MonoBehaviour
 
     private void MaybeReconnect()
     {
-        StartCoroutine(GetCurrentGame());
+        // StartCoroutine(GetCurrentGame());
     }
 
-    public void CreateLobby()
+    public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
+        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -183,47 +184,32 @@ public class LobbyConnection : MonoBehaviour
 
     private void ValidateVersionHashes()
     {
-        if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
-        {
-            Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
-        }
-    }
-
-    public void Refresh()
-    {
-        this.serverIp = SelectServerIP.GetServerIp();
-        this.serverName = SelectServerIP.GetServerName();
-        PopulateLists();
-        MaybeReconnect();
-    }
-
-    public void QuickGame()
-    {
-        ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/new_lobby")));
-        StartCoroutine(WaitLobbyCreated());
+        // if (serverHash.Trim() != GitInfo.GetGitHash().Trim())
+        // {
+        //     Errors.Instance.HandleVersionHashesError(versionHashesTitle, versionHashesDescription);
+        // }
     }
 
     public IEnumerator StartGame()
     {
-        yield return GameSettings.ParseSettingsCoroutine(settings =>
-        {
-            serverSettings = settings;
-        });
-        LobbyEvent lobbyEvent = new LobbyEvent
-        {
-            Type = LobbyEventType.StartGame,
-            GameConfig = serverSettings
-        };
+        yield return new WaitForSeconds(1);
+        // {
+        //     serverSettings = settings;
+        // });
+        // LobbyEvent lobbyEvent = new LobbyEvent
+        // {
+        //     Type = LobbyEventType.StartGame,
+        //     // GameConfig = serverSettings
+        // };
 
-        serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
+        // serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
 
-        using (var stream = new MemoryStream())
-        {
-            lobbyEvent.WriteTo(stream);
-            var msg = stream.ToArray();
-            ws.Send(msg);
-        }
+        // using (var stream = new MemoryStream())
+        // {
+        //     lobbyEvent.WriteTo(stream);
+        //     var msg = stream.ToArray();
+        //     ws.Send(msg);
+        // }
     }
 
     public void Reconnect()
@@ -236,12 +222,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-    }
-
-    private IEnumerator WaitLobbyCreated()
-    {
-        yield return new WaitUntil(() => !string.IsNullOrEmpty(LobbySession));
-        yield return StartGame();
+        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
     }
 
     IEnumerator GetRequest(string uri)
@@ -258,7 +239,6 @@ public class LobbyConnection : MonoBehaviour
                     Session session = JsonUtility.FromJson<Session>(
                         webRequest.downloadHandler.text
                     );
-                    Debug.Log("Creating and joining lobby ID: " + session.lobby_id);
                     ConnectToSession(session.lobby_id);
                     break;
                 default:
@@ -296,7 +276,6 @@ public class LobbyConnection : MonoBehaviour
     IEnumerator GetGames()
     {
         string url = makeUrl("/current_games");
-        Debug.Log(url);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -366,7 +345,7 @@ public class LobbyConnection : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/matchmaking/" + sessionId);
+        string url = makeWebsocketUrl("/matchmaking/?user_id=" + this.clientId);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
@@ -385,19 +364,12 @@ public class LobbyConnection : MonoBehaviour
             switch (lobbyEvent.Type)
             {
                 case LobbyEventType.Connected:
-                    Debug.Log(
-                        "Connected to lobby "
-                            + lobbyEvent.LobbyId
-                            + " as player_id "
-                            + lobbyEvent.PlayerInfo.PlayerId
-                    );
                     this.playerId = lobbyEvent.PlayerInfo.PlayerId;
                     break;
 
                 case LobbyEventType.PlayerAdded:
                     this.hostId = lobbyEvent.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
                     lobbyEvent.PlayersInfo
                         .ToList()
                         .ForEach(
@@ -406,19 +378,18 @@ public class LobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.PlayerRemoved:
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
-                    this.playersIdName.Remove(lobbyEvent.RemovedPlayerInfo.PlayerId);
+                case LobbyEventType.PreparingGame:
+                    GameSession = lobbyEvent.GameId;
+                    Debug.Log(lobbyEvent.GameConfig);
+                    engineServerSettings = lobbyEvent.GameConfig;
+                    // FIX THIS!!
+                    serverTickRate_ms = 30;
+                    serverHash = lobbyEvent.ServerHash;
                     break;
 
-                case LobbyEventType.GameStarted:
-                    GameSession = lobbyEvent.GameId;
-                    serverSettings = lobbyEvent.GameConfig;
-                    serverTickRate_ms = (uint)serverSettings.RunnerConfig.ServerTickrateMs;
-                    serverHash = lobbyEvent.ServerHash;
-                    gameStarted = true;
+                case LobbyEventType.NotifyPlayerAmount:
+                    this.playerCount = (int) lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int) lobbyEvent.Capacity;
                     break;
 
                 default:
@@ -438,7 +409,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
         }
     }
 
@@ -449,6 +419,16 @@ public class LobbyConnection : MonoBehaviour
             return "http://" + serverIp + ":4000" + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "http://" + serverIp + ":4000" + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "http://" + serverIp + ":4000" + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "http://" + serverIp + ":4000" + path;
         }
@@ -465,6 +445,16 @@ public class LobbyConnection : MonoBehaviour
             return "ws://" + serverIp + ":4000" + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":4000" + path;
         }
@@ -497,5 +487,13 @@ public class LobbyConnection : MonoBehaviour
             CharacterConfig = characters,
             SkillsConfig = skills,
         };
+    }
+
+    public void Refresh()
+    {
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
+        PopulateLists();
+        MaybeReconnect();
     }
 }

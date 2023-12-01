@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CharacterSelectionList : MonoBehaviour
@@ -55,6 +54,7 @@ public class CharacterSelectionList : MonoBehaviour
         CharacterSelectionPlayerItem playerI =
             newPlayer.GetComponent<CharacterSelectionPlayerItem>();
         playerI.SetId(id);
+        playerI.SetPlayerName(LobbyConnection.Instance.playersIdName[id]);
         playerI.SetCharacterName("Not Selected");
         playerI.SetPlayerItemText();
 

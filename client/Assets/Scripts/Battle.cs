@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -32,6 +31,7 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
+    private bool sendMovementStarted = false;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -42,13 +42,12 @@ public class Battle : MonoBehaviour
         Slowed = PlayerEffect.Slowed,
         Paralyzed = PlayerEffect.Paralyzed,
         Poisoned = PlayerEffect.Poisoned,
+        OutOfArea = PlayerEffect.OutOfArea
     }
 
     void Start()
     {
         InitBlockingStates();
-        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
-        InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
@@ -101,6 +100,12 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdateBattleState();
+        }
+
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+            sendMovementStarted = true;
+            float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+            InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
     }
 
@@ -266,11 +271,15 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                        executeSkillFeedback(
-                            currentPlayer,
-                            serverPlayerUpdate.Action,
-                            serverPlayerUpdate.Direction
-                        );
+                        foreach (PlayerAction action in serverPlayerUpdate.Action)
+                        {
+                            executeSkillFeedback(
+                                currentPlayer,
+                                action,
+                                serverPlayerUpdate.Direction,
+                                serverPlayerUpdate.ActionDurationMs
+                            );
+                        }
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
                             gameEvent.ServerTimestamp
@@ -299,7 +308,8 @@ public class Battle : MonoBehaviour
     private void executeSkillFeedback(
         GameObject currentPlayer,
         PlayerAction playerAction,
-        RelativePosition direction
+        RelativePosition direction,
+        ulong actionDurationMs
     )
     {
         // TODO: Refactor
@@ -353,12 +363,11 @@ public class Battle : MonoBehaviour
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
+            Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+                gameProjectiles[i].Position
+            );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
-                Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
-                    gameProjectiles[i].Position
-                );
-
                 projectile
                     .GetComponent<SkillProjectile>()
                     .UpdatePosition(
@@ -381,7 +390,11 @@ public class Battle : MonoBehaviour
                     .First()
                     .projectilePrefab;
                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-                    .InstanceProjectile(projectileFromSkill, angle);
+                    .InstanceProjectile(
+                        projectileFromSkill,
+                        angle,
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
 
                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
             }
@@ -488,6 +501,13 @@ public class Battle : MonoBehaviour
         player
             .GetComponent<CharacterFeedbacks>()
             .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
+        player
+            .GetComponent<CharacterFeedbacks>()
+            .HapticFeedbackOnDamage(
+                healthComponent.CurrentHealth,
+                playerUpdate.Health,
+                playerUpdate.Id
+            );
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -565,7 +585,7 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Action == PlayerAction.ExecutingSkill3
+                && playerUpdate.Action.Contains(PlayerAction.ExecutingSkill3)
             )
             {
                 player.transform.position = frontendPosition;
@@ -625,7 +645,9 @@ public class Battle : MonoBehaviour
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
     {
-        playerCharacter.GetComponent<CharacterFeedbacks>().PlayDeathFeedback();
+        CharacterFeedbacks playerFeedback = playerCharacter.GetComponent<CharacterFeedbacks>();
+        playerFeedback.PlayDeathFeedback();
+        playerFeedback.ClearAllFeedbacks(playerCharacter.gameObject);
         playerCharacter.CharacterModel.SetActive(false);
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
@@ -863,7 +885,6 @@ public class Battle : MonoBehaviour
         {
             string name = Enum.GetName(typeof(StateEffects), effect);
             bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-
             CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }

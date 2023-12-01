@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,13 +9,14 @@ public class LobbyPlayerList : MonoBehaviour
 
     [SerializeField]
     GameObject playButton;
-    // List<GameObject> playerItems = new List<GameObject>();
     Dictionary<ulong, GameObject> playerItems = new Dictionary<ulong, GameObject>();
 
     // Update is called once per frame
     void Update()
     {
-        var removed_keys = this.playerItems.Keys.Except(LobbyConnection.Instance.playersIdName.Keys).ToList();
+        var removed_keys = this.playerItems.Keys
+            .Except(LobbyConnection.Instance.playersIdName.Keys)
+            .ToList();
         foreach (ulong key in removed_keys)
         {
             removePlayerItem(key);

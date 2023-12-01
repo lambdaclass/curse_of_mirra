@@ -66,6 +66,10 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 
+# Unity Test Framework generated files on interrupted tests
+client/Assets/InitTest*.unity
+client/Assets/InitTest*.unity.meta
+
 # Unity3D generated file on crash reports
 sysinfo.txt
 
@@ -121,3 +125,7 @@ $RECYCLE.BIN/
 ## Dev ##
 *.todo
 client/ProjectSettings/ProjectSettings.asset
+
+# Ignore Visual Studio Code configuration
+.vscode
+curse_of_myrra.code-workspace

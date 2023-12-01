@@ -13,10 +13,25 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField]
     Image logoImage;
 
+    [SerializeField]
+    PlayerNameHandler playerNameHandler;
+
+    [SerializeField]
+    CanvasGroup changeNameButton;
+
+    [SerializeField]
+    GameObject playerNamePopUp;
+
     void Start()
     {
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(playNowButton, .3f, 1.2f));
+        StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
+        if (PlayerPrefs.GetString("playerName") == "")
+        {
+            playerNamePopUp.SetActive(true);
+            StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 1f, 1.2f));
+        }
     }
 
     public void PlayNow()
@@ -33,5 +48,10 @@ public class TitleScreenController : MonoBehaviour
             element.alpha = i;
             yield return null;
         }
+    }
+
+    public void ShowPlayerNamePopUp()
+    {
+        this.playerNameHandler.Show();
     }
 }

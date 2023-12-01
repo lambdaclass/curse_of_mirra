@@ -136,7 +136,7 @@ public class AimDirection : MonoBehaviour
 
     public bool IsInProximityRange(GameObject player)
     {
-        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        GameObject currentPlayer = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         float distance = Vector3.Distance(
             currentPlayer.transform.position,
             player.transform.position
@@ -161,7 +161,7 @@ public class AimDirection : MonoBehaviour
 
     public bool IsInArrowLine(GameObject player)
     {
-        GameObject currentPlayer = Utils.GetPlayer(LobbyConnection.Instance.playerId);
+        GameObject currentPlayer = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
 
         Vector3 arrowDirection = arrow.transform.position - currentPlayer.transform.position;
         arrowDirection = new Vector3(arrowDirection.x, 0f, arrowDirection.z);

@@ -10,7 +10,7 @@
 
 5. Click on *Player Settings* and go to *Publishing Settings* (you may use the search bar to get there), click on *Keystore Manager* > (*Keystore...* drop-down menu) > *Create New*. You may save it anywhere in your computer outside of the project folder, it's just for testing purposes. You'll need to provide a password and a name for the keystore. Then, click on *Add Key*.
 
-7. In *Publishing Settings*, click on *Browse* and select the keystore you just created. Also in the same window, at the bottom, make sure that the *Split Application Binary* option is enabled.
+7. In *Publishing Settings*, click on *Browse* and select the keystore you just created. Also in the same window, at the bottom, make sure that the *Split Application Binary* option is *disabled*.
 
 9. Close the *Player Settings* window and back in the *Build Settings* window find the *Run Device* selection and select your Android device.
 

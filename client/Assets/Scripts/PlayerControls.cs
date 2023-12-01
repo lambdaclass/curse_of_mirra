@@ -1,6 +1,6 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -10,13 +10,11 @@ public class PlayerControls : MonoBehaviour
         {
             var valuesToSend = new RelativePosition { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            var clientAction = new ClientAction
-            {
-                Action = Action.MoveWithJoystick,
-                MoveDelta = valuesToSend,
-                Timestamp = timestamp
-            };
-            SocketConnectionManager.Instance.SendAction(clientAction);
+
+            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
+            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
+
+            SocketConnectionManager.Instance.SendGameAction(gameAction);
 
             ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
             {
@@ -57,19 +55,20 @@ public class PlayerControls : MonoBehaviour
 
     public static float getBackendCharacterSpeed(ulong playerId)
     {
-        if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        {
-            var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-            var chars = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        string charName = Utils.GetGamePlayer(playerId).CharacterName;
+        // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
+        // {
+        // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
+        var chars = LobbyConnection.Instance.engineServerSettings.Characters;
 
-            foreach (var character in chars)
+        foreach (var character in chars)
+        {
+            if (charName.ToLower() == character.Name.ToLower())
             {
-                if (charName == character.Name)
-                {
-                    return float.Parse(character.BaseSpeed);
-                }
+                return character.BaseSpeed;
             }
         }
+        // }
         return 0f;
     }
 }

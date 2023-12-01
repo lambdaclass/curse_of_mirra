@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -47,7 +46,13 @@ public class KillFeedManager : MonoBehaviour
                 saveKillerId = killEvent.KilledBy;
                 playerToTrack = saveKillerId;
             }
-            killFeedItem.SetPlayerNames(killEvent.KilledBy.ToString(), killEvent.Killed.ToString());
+            // TODO: fix this when the player names are fixed in the server.
+            // string deathPlayerName = LobbyConnection.Instance.playersIdName[killEvent.Killed];
+            // string killerPlayerName = LobbyConnection.Instance.playersIdName[killEvent.KilledBy];
+            string deathPlayerName = killEvent.Killed.ToString();
+            string killerPlayerName = killEvent.KilledBy.ToString();
+
+            killFeedItem.SetPlayerNames(killerPlayerName, deathPlayerName);
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }

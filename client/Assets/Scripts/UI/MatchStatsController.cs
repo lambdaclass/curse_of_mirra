@@ -15,7 +15,6 @@ public class MatchStatsController : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI killCount;
-    private float nextActionTime = 0.0f;
     public float period = 1f;
 
     public float time = 0f;
@@ -24,7 +23,7 @@ public class MatchStatsController : MonoBehaviour
 
     void Awake()
     {
-        seconds = LobbyConnection.Instance.serverSettings.RunnerConfig.MapShrinkWaitMs / 1000;
+        seconds = 0;
     }
 
     void Start()

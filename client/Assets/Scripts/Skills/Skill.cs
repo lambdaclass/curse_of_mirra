@@ -131,11 +131,7 @@ public class Skill : CharacterAbility
             Vector3 direction = this.GetComponent<Character>()
                 .GetComponent<CharacterOrientation3D>()
                 .ForcedRotationDirection;
-            RelativePosition relativePosition = new RelativePosition
-            {
-                X = direction.x,
-                Y = direction.z
-            };
+            RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
             feedbackRotatePosition = new Vector2(direction.x, direction.z);
             ExecuteSkill(relativePosition);
         }
@@ -157,8 +153,7 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(RelativePosition relativePosition)
     {
-        bool hasMoved = relativePosition.X != 0 || relativePosition.Y != 0;
-        if (AbilityAuthorized && hasMoved)
+        if (AbilityAuthorized)
         {
             SendActionToBackend(relativePosition);
         }
@@ -282,12 +277,25 @@ public class Skill : CharacterAbility
 
     private void SendActionToBackend(RelativePosition relativePosition)
     {
-        ClientAction action = new ClientAction
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        float angle = 0f;
+        bool autoAim = true;
+        if (relativePosition.X != 0 || relativePosition.Y != 0)
         {
-            Action = serverSkill,
-            Position = relativePosition
+            angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg;
+            autoAim = false;
+        }
+
+        UseSkill useSkillAction = new UseSkill
+        {
+            Skill = serverSkill.ToString(),
+            Angle = angle,
+            AutoAim = autoAim,
         };
-        SocketConnectionManager.Instance.SendAction(action);
+
+        GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
+        SocketConnectionManager.Instance.SendGameAction(gameAction);
     }
 
     public void EndSkillFeedback(string animationId)

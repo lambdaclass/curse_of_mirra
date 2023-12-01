@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,13 +32,13 @@ public class SocketConnectionManager : MonoBehaviour
     public (Player, ulong) winnerPlayer = (null, 0);
 
     public List<Player> winners = new List<Player>();
+    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
-    private Boolean botsActive = true;
 
-    public EventsBuffer eventsBuffer;
+    public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
 
     public float playableRadius;
@@ -48,19 +49,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public bool cinematicDone;
 
-    public struct BotSpawnEventData
-    {
-        public List<Player> gameEventPlayers;
-        public List<Player> gamePlayers;
-
-        public BotSpawnEventData(List<Player> gameEventPlayers, List<Player> gamePlayers)
-        {
-            this.gameEventPlayers = gameEventPlayers;
-            this.gamePlayers = gamePlayers;
-        }
-    }
-
-    public event Action<BotSpawnEventData> BotSpawnRequested;
+    public bool connected = false;
 
     WebSocket ws;
 
@@ -72,13 +61,14 @@ public class SocketConnectionManager : MonoBehaviour
         public string sessionId { get; set; }
     }
 
-    public void Awake()
-    {
-        Init();
-    }
+    // public void Awake()
+    // {
+    //     Init();
+    // }
 
     public void Init()
     {
+        StartCoroutine(WaitForLobbyConnection());
         if (Instance != null)
         {
             if (this.ws != null)
@@ -96,6 +86,8 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
             this.reconnect = LobbyConnection.Instance.reconnect;
+            this.playersIdName = LobbyConnection.Instance.playersIdName;
+
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
@@ -108,11 +100,14 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitForLobbyConnection()
+    {
+        yield return new WaitUntil(() => LobbyConnection.Instance != null);
+    }
+
     void Start()
     {
-        playerId = LobbyConnection.Instance.playerId;
-        ConnectToSession(this.sessionId);
-        eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
+        Init();
     }
 
     void Update()
@@ -123,11 +118,36 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+
+        StartCoroutine(IsGameCreated());
+    }
+
+    private IEnumerator IsGameCreated()
+    {
+        yield return new WaitUntil(
+            () =>
+                LobbyConnection.Instance.GameSession != ""
+                && LobbyConnection.Instance.GameSession != null
+        );
+        this.sessionId = LobbyConnection.Instance.GameSession;
+        this.serverIp = LobbyConnection.Instance.serverIp;
+        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
+        this.serverHash = LobbyConnection.Instance.serverHash;
+        this.clientId = LobbyConnection.Instance.clientId;
+        this.reconnect = LobbyConnection.Instance.reconnect;
+
+        if (!connected && this.sessionId != "")
+        {
+            connected = true;
+            ConnectToSession(this.sessionId);
+        }
     }
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + sessionId + "/" + this.clientId + "/" + playerId);
+        string url = makeWebsocketUrl(
+            "/play/" + sessionId + "/" + this.clientId + "/" + "delete-this"
+        );
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
@@ -151,21 +171,12 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.StateUpdate:
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    if (
-                        this.gamePlayers != null
-                        && this.gamePlayers.Count < gameEvent.Players.Count
-                        && SpawnBot.Instance != null
-                    )
-                    {
-                        // We use an event here, to prevent losing events.
-                        OnBotSpawnRequested(gameEvent.Players.ToList());
-                    }
-                    this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
+                    this.gamePlayers = gameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
                     alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
                     updatedLoots = gameEvent.Loots.ToList();
+                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)gameEvent.Latency;
@@ -175,20 +186,16 @@ public class SocketConnectionManager : MonoBehaviour
                     winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
                     this.gamePlayers = gameEvent.Players.ToList();
                     break;
-                case GameEventType.InitialPositions:
-                    this.gamePlayers = gameEvent.Players.ToList();
+                case GameEventType.PlayerJoined:
+                    this.playerId = gameEvent.PlayerJoinedId;
                     break;
-                case GameEventType.SelectedCharacterUpdate:
-                    this.selectedCharacters = fromMapFieldToDictionary(
-                        gameEvent.SelectedCharacters
-                    );
-                    break;
-                case GameEventType.FinishCharacterSelection:
-                    this.selectedCharacters = fromMapFieldToDictionary(
-                        gameEvent.SelectedCharacters
-                    );
-                    this.allSelected = true;
+                case GameEventType.GameStarted:
+                    this.playableRadius = gameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent);
                     this.gamePlayers = gameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    LobbyConnection.Instance.gameStarted = true;
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);
@@ -203,10 +210,10 @@ public class SocketConnectionManager : MonoBehaviour
 
     private void onWebsocketClose(WebSocketCloseCode closeCode)
     {
+        Debug.Log("closeCode:" + closeCode);
         if (closeCode != WebSocketCloseCode.Normal)
         {
             LobbyConnection.Instance.errorConnection = true;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobbies");
             this.Init();
             LobbyConnection.Instance.Init();
         }
@@ -239,31 +246,15 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    public void CallSpawnBot()
+    public void SendGameAction<T>(IMessage<T> action)
+        where T : IMessage<T>
     {
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        ClientAction clientAction = new ClientAction
+        using (var stream = new MemoryStream())
         {
-            Action = Action.AddBot,
-            Timestamp = timestamp
-        };
-        SendAction(clientAction);
-    }
-
-    public void ToggleBots()
-    {
-        ClientAction clientAction;
-        if (this.botsActive)
-        {
-            clientAction = new ClientAction { Action = Action.DisableBots };
+            action.WriteTo(stream);
+            var msg = stream.ToArray();
+            ws.Send(msg);
         }
-        else
-        {
-            clientAction = new ClientAction { Action = Action.EnableBots };
-        }
-
-        this.botsActive = !this.botsActive;
-        SendAction(clientAction);
     }
 
     private string makeUrl(string path)
@@ -288,6 +279,16 @@ public class SocketConnectionManager : MonoBehaviour
         {
             return "http://" + serverIp + ":" + port + path;
         }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
         else
         {
             return "https://" + serverIp + path;
@@ -296,24 +297,34 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        // var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
 
-        int port;
+        int port = 4000;
 
-        if (useProxy == "true")
-        {
-            port = 5000;
-        }
-        else
-        {
-            port = 4000;
-        }
+        // if (useProxy == "true")
+        // {
+        //     port = 5000;
+        // }
+        // else
+        // {
+        //     port = 4000;
+        // }
 
         if (serverIp.Contains("localhost"))
         {
             return "ws://" + serverIp + ":" + port + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":" + port + path;
         }
@@ -341,10 +352,5 @@ public class SocketConnectionManager : MonoBehaviour
     public bool PlayerIsWinner(ulong playerId)
     {
         return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
-    }
-
-    private void OnBotSpawnRequested(List<Player> gameEventPlayers)
-    {
-        BotSpawnRequested?.Invoke(new BotSpawnEventData(gameEventPlayers, this.gamePlayers));
     }
 }

@@ -11,20 +11,16 @@ public class SelectServerIP : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI serverName;
 
-    [SerializeField]
-    Sprite selectedButtonSprite;
-
     public static string serverIp;
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerIp = "aws-testing.dark-worlds.lambdaclass.com";
+    private const string _defaultServerIp = "brazil-testing.curseofmyrra.com";
 
     public void SetServerIp()
     {
-        serverIp = IP.text.Trim();  
+        serverIp = IP.text.Trim();
         serverNameString = serverName.text;
-        GetComponent<Image>().sprite = selectedButtonSprite;
         LobbyConnection.Instance.Refresh();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

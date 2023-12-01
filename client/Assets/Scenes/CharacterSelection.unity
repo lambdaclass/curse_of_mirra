@@ -182,6 +182,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Battle
+--- !u!114 &1901719646 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 568055518749457472, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+    type: 3}
+  m_PrefabInstance: {fileID: 8474596286814015172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d808c9bf14a1458aadf96d5f92b3b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2077431642
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  session_id: 
-  server_ip: localhost
+  sessionId: 
+  serverIp: localhost
   playerId: 0
   currentPing: 0
   serverTickRate_ms: 0
@@ -387,6 +399,46 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8474596286814015174}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ToggleAudio, Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158023293763221096, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4339993522464934212, guid: dd4a5f5ac18714b20bf34b5503b1a495,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -416,6 +468,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1901719646}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToLobbyAndCloseConnection
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491728765078063111, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5647743955468065390, guid: dd4a5f5ac18714b20bf34b5503b1a495,
         type: 3}
@@ -469,5 +561,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b0819983f4ed467aacc7af656940050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8474596286814015174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 37168885939177385, guid: dd4a5f5ac18714b20bf34b5503b1a495,
+    type: 3}
+  m_PrefabInstance: {fileID: 8474596286814015172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

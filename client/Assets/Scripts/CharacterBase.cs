@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.VFX;
-using UnityEngine.VFX;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -28,15 +27,23 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     public AudioClip spawnSfx;
 
-    public IEnumerator activateSpawnFeedback()
+    [SerializeField]
+    Sound3DManager sound3DManager;
+
+    public IEnumerator activateSpawnFeedback(bool isCurrentPlayer)
     {
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
-        MMSoundManagerSoundPlayEvent.Trigger(
-            spawnSfx,
-            MMSoundManager.MMSoundManagerTracks.Sfx,
-            Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
-        );
+        if(isCurrentPlayer){
+            MMSoundManagerSoundPlayEvent.Trigger(
+                spawnSfx,
+                MMSoundManager.MMSoundManagerTracks.Sfx,
+                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
+            );
+        } else {
+            sound3DManager.SetSfxSound(spawnSfx);
+            sound3DManager.PlaySfxSound();
+        }
         yield return new WaitForSeconds(lifeTime);
         spawnFeedback.SetActive(false);
     }

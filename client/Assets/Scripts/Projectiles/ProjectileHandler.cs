@@ -23,15 +23,15 @@ public class ProjectileHandler : MonoBehaviour
         }
     }
 
-    public GameObject InstanceProjectile(GameObject skillProjectile, float direction)
+    public GameObject InstanceProjectile(GameObject skillProjectile, float direction, Vector3 initialPosition)
     {
         MMSimpleObjectPooler projectileFromPooler = objectPoolerList.Find(
             objectPooler => objectPooler.name.Contains(skillProjectile.name)
         );
         GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
-        pooledGameObject.SetActive(true);
-        pooledGameObject.transform.position = transform.position;
+        pooledGameObject.transform.position = initialPosition;
         pooledGameObject.transform.rotation = Quaternion.Euler(0, direction, 0);
+        pooledGameObject.SetActive(true);
 
         return pooledGameObject;
     }

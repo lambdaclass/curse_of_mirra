@@ -11,13 +11,13 @@ public class SkillInfo : ScriptableObject
     public string description;
     public UIType inputType;
 
+    public UIControls skillSetType;
     public float angle;
 
     [MMEnumCondition("inputType", (int)UIType.Direction)]
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
     public GameObject projectilePrefab;
-    public bool instantiateVfxOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
@@ -46,6 +46,7 @@ public class SkillInfo : ScriptableObject
 
     [Header("Feedbacks")]
     public GameObject feedbackVfx;
+    public bool instantiateVfxOnModel;
     public float feedbackVfxDuration;
     public float feedbackVfxDelay;
     public GameObject startFeedbackVfx;
@@ -62,14 +63,14 @@ public class SkillInfo : ScriptableObject
     {
         if (LobbyConnection.Instance != null)
         {
-            foreach (var skill in LobbyConnection.Instance.serverSettings.SkillsConfig.Items)
+            foreach (var skill in LobbyConnection.Instance.engineServerSettings.Skills)
             {
                 var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
                 if (regexName.ToLower() == skill.Name.ToLower())
                 {
-                    this.damage = float.Parse(skill.Damage);
-                    this.cooldown = float.Parse(skill.Cooldown);
-                    this.skillRange = float.Parse(skill.SkillRange);
+                    this.damage = 0;
+                    this.cooldown = skill.CooldownMs / 1000;
+                    this.skillRange = 0;
                 }
             }
         }

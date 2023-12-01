@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterSelectionPlayerItem : MonoBehaviour
@@ -22,6 +22,7 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
     [SerializeField]
     public Image background;
     public ulong id;
+    public string playerName;
     public string characterName;
 
     public ulong GetId()
@@ -45,9 +46,14 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
         this.characterName = name;
     }
 
+    public void SetPlayerName(string name)
+    {
+        this.playerName = name;
+    }
+
     public void SetPlayerItemText()
     {
-        this.playerText.text = $"Player " + id;
+        this.playerText.text = playerName;
         if (id == 1)
         {
             this.hostLabel.SetActive(true);
