@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class LobbyPlayerCounter : MonoBehaviour
 {
-
-    public float updateInterval = 5f;
-    protected float _timeLeftToUpdate;
     protected TMP_Text _totalLobbyPlayersText;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +16,6 @@ public class LobbyPlayerCounter : MonoBehaviour
             Debug.LogWarning("PlayerCounter requires a GUIText component.");
             return;
         }
-        _timeLeftToUpdate = updateInterval;
     }
 
     // Update is called once per frame
@@ -28,12 +24,6 @@ public class LobbyPlayerCounter : MonoBehaviour
         if (_totalLobbyPlayersText == null) {
             _totalLobbyPlayersText = gameObject.GetComponent<TMP_Text>();
         }
-
-         _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
-        if (_timeLeftToUpdate <= 0.0)
-        {
-            _timeLeftToUpdate = updateInterval;
-            _totalLobbyPlayersText.text = LobbyConnection.Instance.playerCount.ToString() + " / " + LobbyConnection.Instance.lobbyCapacity.ToString();
-        }
+        _totalLobbyPlayersText.text = LobbyConnection.Instance.playerCount.ToString() + " / " + LobbyConnection.Instance.lobbyCapacity.ToString();
     }
 }
