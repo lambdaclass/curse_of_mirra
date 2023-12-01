@@ -77,13 +77,20 @@ public class TitleScreenController : MonoBehaviour
                 }
             },
             error => {
-                SetLoadingScreen(false);
+                print($"response: {error}");
                 switch(error) {
-                    case "NOT_FOUND":
+                    case "USER_NOT_FOUND":
                         CreateUser();
+                        break;
+                    case "CONNECTION_ERROR":
+                        // If server is not found default to localhost IP
+                        SelectServerIP.serverIp = "localhost";
+                        SelectServerIP.serverNameString = "Localhost";
+                        ChangeToMainScreen();
                         break;
                     default:
                         Errors.Instance.HandleNetworkError("Error", error);
+                        SetLoadingScreen(false);
                         playNowButton.EnableButton();
                         break;
                 }
@@ -92,6 +99,7 @@ public class TitleScreenController : MonoBehaviour
     }
 
     private void CreateUser() {
+        print("create user");
         StartCoroutine(Utils.CreateUser(
             response => {
                 GameManager.Instance.selectedCharacterName = response.selected_character;
@@ -104,9 +112,11 @@ public class TitleScreenController : MonoBehaviour
                 switch(error) {
                     case "USER_ALREADY_TAKEN":
                         Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
+                        SetLoadingScreen(false);
                         break;
                     default:
                         Errors.Instance.HandleNetworkError("Error", error);
+                        SetLoadingScreen(false);
                         playNowButton.EnableButton();
                         break;
                 }

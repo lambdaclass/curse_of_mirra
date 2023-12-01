@@ -189,31 +189,51 @@ public class Utils
     }
 
     public static IEnumerator GetSelectedCharacter(
-        Action<UserCharacterResponse> successCallback, 
+        Action<UserCharacterResponse> successCallback,
         Action<string> errorCallback
     )
     {
         string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId());
+
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
+
             yield return webRequest.SendWebRequest();
-            switch (webRequest.result)
+            if (webRequest.result == UnityWebRequest.Result.Success)
             {
-                case UnityWebRequest.Result.Success:
-                    if(webRequest.downloadHandler.text.Contains("NOT_FOUND")) {
-                        errorCallback?.Invoke("NOT_FOUND");
-                    } else {
-                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
-                            webRequest.downloadHandler.text
-                        );
-                        successCallback?.Invoke(response);
-                    }
-                    break;
-                default:
-                    errorCallback?.Invoke(webRequest.downloadHandler.error);
-                    break;
+                if(webRequest.downloadHandler.text.Contains("NOT_FOUND")) {
+                    errorCallback?.Invoke("USER_NOT_FOUND");
+                }
+                else
+                {
+                    UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(webRequest.downloadHandler.text);
+                    successCallback?.Invoke(response);
+                }
+                webRequest.Dispose();
+            }
+            else
+            {
+                string errorDescription;
+
+                switch (webRequest.result)
+                {
+                    case UnityWebRequest.Result.ProtocolError:
+                        errorDescription = webRequest.downloadHandler.error;
+                        break;
+                    case UnityWebRequest.Result.ConnectionError:
+                        errorDescription = "CONNECTION_ERROR";
+                        break;
+                    case UnityWebRequest.Result.DataProcessingError:
+                        errorDescription = "Data processing error.";
+                        break;
+                    default:
+                        errorDescription = "Unhandled error.";
+                        break;
+                }
+
+                errorCallback?.Invoke(errorDescription);
             }
         }
     }
