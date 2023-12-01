@@ -114,7 +114,7 @@ public class CustomLevelManager : LevelManager
         );
 
         SetPlayerHealthBar(playerId);
-        deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
+        deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashCharacter();
         StartCoroutine(CameraCinematic());
     }
 
@@ -192,18 +192,16 @@ public class CustomLevelManager : LevelManager
             loadingScreen.SetActive(false);
             battleScreen.SetActive(true);
             //Cancel camera movement and start zoom in
-            StartCoroutine(
-                Utils.GetCharacter(
-                        playerId)
-                    .characterBase.activateSpawnFeedback(true));
+            StartCoroutine(Utils.GetCharacter(playerId).characterBase.activateSpawnFeedback(true));
             Utils
                 .GetAlivePlayers()
                 .Where(player => player.Id != playerId)
                 .ToList()
-                .ForEach(el => StartCoroutine(
-                    Utils.GetCharacter(
-                        el.Id)
-                    .characterBase.activateSpawnFeedback(false))
+                .ForEach(
+                    el =>
+                        StartCoroutine(
+                            Utils.GetCharacter(el.Id).characterBase.activateSpawnFeedback(false)
+                        )
                 );
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");

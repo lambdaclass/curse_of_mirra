@@ -58,7 +58,7 @@ public class DeathSplashManager : MonoBehaviour
     GameObject player;
     GameObject modelClone;
 
-    public void SetDeathSplashPlayer()
+    public void SetDeathSplashCharacter()
     {
         player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         GameObject characterModel = characterModels.Single(
@@ -75,7 +75,7 @@ public class DeathSplashManager : MonoBehaviour
         ShowRankingDisplay();
         ShowMessage();
         ShowMatchInfo();
-        ShowPlayerAnimation();
+        ShowCharacterAnimation();
     }
 
     void ShowRankingDisplay()
@@ -165,7 +165,7 @@ public class DeathSplashManager : MonoBehaviour
         return "-";
     }
 
-    private void ShowPlayerAnimation()
+    private void ShowCharacterAnimation()
     {
         if (player)
         {
