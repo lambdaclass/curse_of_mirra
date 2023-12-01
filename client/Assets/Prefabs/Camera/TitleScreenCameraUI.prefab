@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2715235285887230562}
   - component: {fileID: 7406126844779593833}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Version
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5341442429049228427}
   - component: {fileID: 7337300064976493759}
   m_Layer: 5
-  m_Name: name
+  m_Name: UserName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 5328333802275753665}
   - component: {fileID: 6284832258172888630}
   m_Layer: 0
-  m_Name: ButtonContainer
+  m_Name: PlayNowButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 8735420694635829881}
   - component: {fileID: 4796522133429006954}
   m_Layer: 5
-  m_Name: sign out
+  m_Name: SignOutButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1787,7 +1787,7 @@ GameObject:
   - component: {fileID: 6356916291220011539}
   - component: {fileID: 2043992314010757616}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: UserContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2679,7 +2679,7 @@ GameObject:
   - component: {fileID: 6596668882348007743}
   - component: {fileID: 532491021212434110}
   m_Layer: 5
-  m_Name: GameObject (1)
+  m_Name: UserAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3514,7 +3514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb12624f6ffeb4f8588bfac3b71f1faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playNowButton: {fileID: 1153961457488821272}
+  ButtonsCanvas: {fileID: 1153961457488821272}
+  playNowButton: {fileID: 6284832258172888630}
   logoImage: {fileID: 5972543162918846898}
   playerNameHandler: {fileID: 4914851193952802429}
   changeNameButton: {fileID: 6391834393251454901}
@@ -3665,7 +3666,7 @@ GameObject:
   - component: {fileID: 8479215230228302503}
   - component: {fileID: 5000944535165774476}
   m_Layer: 5
-  m_Name: Background (1)
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3741,7 +3742,7 @@ GameObject:
   - component: {fileID: 1153961457488821272}
   - component: {fileID: 8721696732698814185}
   m_Layer: 5
-  m_Name: AlphaContainer
+  m_Name: ButtonsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

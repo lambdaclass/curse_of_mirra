@@ -165,11 +165,9 @@ public class Utils
 
     public static string MakeHTTPUrl(string path)
     {
-        if (SelectServerIP.GetServerIp().Contains("localhost"))
-        {
-            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
-        }
-        else if (SelectServerIP.GetServerIp().Contains("10.150.20.186"))
+        if (SelectServerIP.GetServerIp().Contains("localhost") ||
+            SelectServerIP.GetServerIp().Contains("10.150.20.186")
+        )
         {
             return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
         }
@@ -200,7 +198,6 @@ public class Utils
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
-
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
             {

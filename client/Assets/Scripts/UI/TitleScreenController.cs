@@ -1,16 +1,19 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
+using MoreMountains.Tools;
 
 public class TitleScreenController : MonoBehaviour
 {
     private const string TITLE_SCENE_NAME = "MainScreen";
+
     [SerializeField]
-    CanvasGroup playNowButton;
+    CanvasGroup ButtonsCanvas;
+
+    [SerializeField]
+    MMTouchButton playNowButton;
 
     [SerializeField]
     Image logoImage;
@@ -26,14 +29,16 @@ public class TitleScreenController : MonoBehaviour
 
     [SerializeField]
     GameObject loadingScreen;
+
     [SerializeField]
     Image loadingSpinner;
     private AsyncOperation asyncOperation;
+    private Tween spinnerRotationTween;
 
     void Start()
     {
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
-        StartCoroutine(FadeIn(playNowButton, .3f, 1.2f));
+        StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
         if (PlayerPrefs.GetString("playerName") == "")
         {
@@ -72,13 +77,14 @@ public class TitleScreenController : MonoBehaviour
                 }
             },
             error => {
+                SetLoadingScreen(false);
                 switch(error) {
                     case "NOT_FOUND":
                         CreateUser();
                         break;
-                    case "CONNECTION_ERROR":
-                        // The Errors gameObject is not in titleScreen scene yet
-                        // Errors.Instance.HandleNetworkError("Error", error);
+                    default:
+                        Errors.Instance.HandleNetworkError("Error", error);
+                        playNowButton.EnableButton();
                         break;
                 }
             }
@@ -89,7 +95,6 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(Utils.CreateUser(
             response => {
                 GameManager.Instance.selectedCharacterName = response.selected_character;
-                print("User created");
                 if(asyncOperation != null)
                 {
                     asyncOperation.allowSceneActivation = true;
@@ -98,11 +103,11 @@ public class TitleScreenController : MonoBehaviour
             error => {
                 switch(error) {
                     case "USER_ALREADY_TAKEN":
-                        Debug.LogError("clientId already taken");
+                        Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
                         break;
-                    case "CONNECTION_ERROR":
-                        // The Errors gameObject is not in titleScreen scene yet
-                        // Errors.Instance.HandleNetworkError("Error", error);
+                    default:
+                        Errors.Instance.HandleNetworkError("Error", error);
+                        playNowButton.EnableButton();
                         break;
                 }
             }
@@ -125,10 +130,12 @@ public class TitleScreenController : MonoBehaviour
         loadingScreen.SetActive(isActive);
         if(isActive)
         {
-            loadingSpinner.transform.DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
+            spinnerRotationTween = loadingSpinner.transform.DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
                 .SetLoops(-1, LoopType.Restart)
                 .SetRelative()
                 .SetEase(Ease.InOutQuad);
+        } else {
+            spinnerRotationTween.Kill();
         }
     }
 
