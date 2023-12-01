@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311924, g: 0.38073963, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.3708708, g: 0.37838137, b: 0.35725543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -222,9 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb0c1e1552c445139ba3a8b7d1febe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: 
-  DoNotUseLevelManager: 0
-  DestroyPersistentCharacter: 0
 --- !u!1001 &6761895706733006027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232,10 +229,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 159986075, guid: d0ac014e27cb54c89add86b45c7421ef, type: 3}
-      propertyPath: m_Name
-      value: LobbyPlayersCount
-      objectReference: {fileID: 0}
     - target: {fileID: 1661318540791523867, guid: d0ac014e27cb54c89add86b45c7421ef,
         type: 3}
       propertyPath: m_RootOrder
