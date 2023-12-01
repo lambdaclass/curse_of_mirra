@@ -58,7 +58,7 @@ public static partial class MessagesReflection {
           "b24SIwoIcG9zaXRpb24YAyABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEiUKCm1v",
           "dmVfZGVsdGEYBCABKAsyES5SZWxhdGl2ZVBvc2l0aW9uEg4KBnRhcmdldBgF",
           "IAEoEhIRCgl0aW1lc3RhbXAYBiABKAMSKgoQcGxheWVyX2NoYXJhY3RlchgH",
-          "IAEoCzIQLlBsYXllckNoYXJhY3RlchINCgVhbmdsZRgIIAEoAiLiAgoKTG9i",
+          "IAEoCzIQLlBsYXllckNoYXJhY3RlchINCgVhbmdsZRgIIAEoAiKPAwoKTG9i",
           "YnlFdmVudBIdCgR0eXBlGAEgASgOMg8uTG9iYnlFdmVudFR5cGUSEAoIbG9i",
           "YnlfaWQYAiABKAkSJwoLcGxheWVyX2luZm8YAyABKAsyEi5QbGF5ZXJJbmZv",
           "cm1hdGlvbhItChFhZGRlZF9wbGF5ZXJfaW5mbxgEIAEoCzISLlBsYXllcklu",
@@ -66,7 +66,8 @@ public static partial class MessagesReflection {
           "ASgEEigKDHBsYXllcnNfaW5mbxgHIAMoCzISLlBsYXllckluZm9ybWF0aW9u",
           "Ei8KE3JlbW92ZWRfcGxheWVyX2luZm8YCCABKAsyEi5QbGF5ZXJJbmZvcm1h",
           "dGlvbhIcCgtnYW1lX2NvbmZpZxgJIAEoCzIHLkNvbmZpZxITCgtzZXJ2ZXJf",
-          "aGFzaBgKIAEoCRIWCg5ob3N0X3BsYXllcl9pZBgLIAEoBCI7ChFQbGF5ZXJJ",
+          "aGFzaBgKIAEoCRIWCg5ob3N0X3BsYXllcl9pZBgLIAEoBBIZChFhbW91bnRf",
+          "b2ZfcGxheWVycxgMIAEoBBIQCghjYXBhY2l0eRgNIAEoBCI7ChFQbGF5ZXJJ",
           "bmZvcm1hdGlvbhIRCglwbGF5ZXJfaWQYASABKAQSEwoLcGxheWVyX25hbWUY",
           "AiABKAkipwIKDFJ1bm5lckNvbmZpZxIMCgROYW1lGAEgASgJEhMKC2JvYXJk",
           "X3dpZHRoGAIgASgEEhQKDGJvYXJkX2hlaWdodBgDIAEoBBIaChJzZXJ2ZXJf",
@@ -171,16 +172,17 @@ public static partial class MessagesReflection {
           "VUdFTl9NQVJLEAgSDgoKWEFOREFfTUFSSxAJEhQKEFhBTkRBX01BUktfT1dO",
           "RVIQChIMCghQT0lTT05FRBALEgoKBlNMT1dFRBAMEhEKDUZJRVJZX1JBTVBB",
           "R0UQDRIKCgZCVVJORUQQDhILCgdTQ0hFUlpPEA8SEQoNREFOU0VfTUFDQUJS",
-          "RRAQEg0KCVBBUkFMWVpFRBAREggKBE5PTkUQEipbCg5Mb2JieUV2ZW50VHlw",
-          "ZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09OTkVDVEVEEAESEAoMUExB",
-          "WUVSX0FEREVEEAISEgoOUFJFUEFSSU5HX0dBTUUQAyoyCg5Qcm9qZWN0aWxl",
-          "VHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVMTEVUEAEqLAoQUHJv",
-          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKjYKCExv",
-          "b3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAAEg8KC0xPT1RfSEVB",
-          "TFRIEAEqMAoMTW9kaWZpZXJUeXBlEhIKDk1VTFRJUExJQ0FUSVZFEAASDAoI",
-          "QURESVRJVkUQASpLCgxNZWNoYW5pY1R5cGUSBwoDSElUEAASEAoMU0lNUExF",
-          "X1NIT09UEAESDwoLTVVMVElfU0hPT1QQAhIPCgtHSVZFX0VGRkVDVBADYgZw",
-          "cm90bzM="));
+          "RRAQEg0KCVBBUkFMWVpFRBAREggKBE5PTkUQEiqFAQoOTG9iYnlFdmVudFR5",
+          "cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEg0KCUNPTk5FQ1RFRBABEhAKDFBM",
+          "QVlFUl9BRERFRBACEhIKDlBSRVBBUklOR19HQU1FEAMSDgoKU1RBUlRfR0FN",
+          "RRAEEhgKFE5PVElGWV9QTEFZRVJfQU1PVU5UEAUqMgoOUHJvamVjdGlsZVR5",
+          "cGUSCgoGQlVMTEVUEAASFAoQRElTQVJNSU5HX0JVTExFVBABKiwKEFByb2pl",
+          "Y3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASo2CghMb290",
+          "VHlwZRIZChVMT09UX1RZUEVfVU5TUEVDSUZJRUQQABIPCgtMT09UX0hFQUxU",
+          "SBABKjAKDE1vZGlmaWVyVHlwZRISCg5NVUxUSVBMSUNBVElWRRAAEgwKCEFE",
+          "RElUSVZFEAEqSwoMTWVjaGFuaWNUeXBlEgcKA0hJVBAAEhAKDFNJTVBMRV9T",
+          "SE9PVBABEg8KC01VTFRJX1NIT09UEAISDwoLR0lWRV9FRkZFQ1QQA2IGcHJv",
+          "dG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -192,7 +194,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RelativePosition), global::RelativePosition.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ClientAction), global::ClientAction.Parser, new[]{ "Action", "Direction", "Position", "MoveDelta", "Target", "Timestamp", "PlayerCharacter", "Angle" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerInfo", "AddedPlayerInfo", "GameId", "PlayerCount", "PlayersInfo", "RemovedPlayerInfo", "GameConfig", "ServerHash", "HostPlayerId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LobbyEvent), global::LobbyEvent.Parser, new[]{ "Type", "LobbyId", "PlayerInfo", "AddedPlayerInfo", "GameId", "PlayerCount", "PlayersInfo", "RemovedPlayerInfo", "GameConfig", "ServerHash", "HostPlayerId", "AmountOfPlayers", "Capacity" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerInformation), global::PlayerInformation.Parser, new[]{ "PlayerId", "PlayerName" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RunnerConfig), global::RunnerConfig.Parser, new[]{ "Name", "BoardWidth", "BoardHeight", "ServerTickrateMs", "GameTimeoutMs", "MapShrinkWaitMs", "MapShrinkInterval", "OutOfAreaDamage", "UseProxy", "MapShrinkMinimumRadius", "SpawnLootIntervalMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameConfig), global::GameConfig.Parser, new[]{ "BoardSize", "ServerTickrateMs", "GameTimeoutMs" }, null, null, null, null),
@@ -349,6 +351,8 @@ public enum LobbyEventType {
   [pbr::OriginalName("CONNECTED")] Connected = 1,
   [pbr::OriginalName("PLAYER_ADDED")] PlayerAdded = 2,
   [pbr::OriginalName("PREPARING_GAME")] PreparingGame = 3,
+  [pbr::OriginalName("START_GAME")] StartGame = 4,
+  [pbr::OriginalName("NOTIFY_PLAYER_AMOUNT")] NotifyPlayerAmount = 5,
 }
 
 /// <summary>
@@ -3621,6 +3625,8 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     gameConfig_ = other.gameConfig_ != null ? other.gameConfig_.Clone() : null;
     serverHash_ = other.serverHash_;
     hostPlayerId_ = other.hostPlayerId_;
+    amountOfPlayers_ = other.amountOfPlayers_;
+    capacity_ = other.capacity_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3761,6 +3767,30 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
   }
 
+  /// <summary>Field number for the "amount_of_players" field.</summary>
+  public const int AmountOfPlayersFieldNumber = 12;
+  private ulong amountOfPlayers_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong AmountOfPlayers {
+    get { return amountOfPlayers_; }
+    set {
+      amountOfPlayers_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "capacity" field.</summary>
+  public const int CapacityFieldNumber = 13;
+  private ulong capacity_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong Capacity {
+    get { return capacity_; }
+    set {
+      capacity_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -3787,6 +3817,8 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     if (!object.Equals(GameConfig, other.GameConfig)) return false;
     if (ServerHash != other.ServerHash) return false;
     if (HostPlayerId != other.HostPlayerId) return false;
+    if (AmountOfPlayers != other.AmountOfPlayers) return false;
+    if (Capacity != other.Capacity) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -3805,6 +3837,8 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     if (gameConfig_ != null) hash ^= GameConfig.GetHashCode();
     if (ServerHash.Length != 0) hash ^= ServerHash.GetHashCode();
     if (HostPlayerId != 0UL) hash ^= HostPlayerId.GetHashCode();
+    if (AmountOfPlayers != 0UL) hash ^= AmountOfPlayers.GetHashCode();
+    if (Capacity != 0UL) hash ^= Capacity.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -3864,6 +3898,14 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
       output.WriteRawTag(88);
       output.WriteUInt64(HostPlayerId);
     }
+    if (AmountOfPlayers != 0UL) {
+      output.WriteRawTag(96);
+      output.WriteUInt64(AmountOfPlayers);
+    }
+    if (Capacity != 0UL) {
+      output.WriteRawTag(104);
+      output.WriteUInt64(Capacity);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3915,6 +3957,14 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
       output.WriteRawTag(88);
       output.WriteUInt64(HostPlayerId);
     }
+    if (AmountOfPlayers != 0UL) {
+      output.WriteRawTag(96);
+      output.WriteUInt64(AmountOfPlayers);
+    }
+    if (Capacity != 0UL) {
+      output.WriteRawTag(104);
+      output.WriteUInt64(Capacity);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -3955,6 +4005,12 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
     if (HostPlayerId != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(HostPlayerId);
+    }
+    if (AmountOfPlayers != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(AmountOfPlayers);
+    }
+    if (Capacity != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Capacity);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -4010,6 +4066,12 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
     }
     if (other.HostPlayerId != 0UL) {
       HostPlayerId = other.HostPlayerId;
+    }
+    if (other.AmountOfPlayers != 0UL) {
+      AmountOfPlayers = other.AmountOfPlayers;
+    }
+    if (other.Capacity != 0UL) {
+      Capacity = other.Capacity;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -4082,6 +4144,14 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
           HostPlayerId = input.ReadUInt64();
           break;
         }
+        case 96: {
+          AmountOfPlayers = input.ReadUInt64();
+          break;
+        }
+        case 104: {
+          Capacity = input.ReadUInt64();
+          break;
+        }
       }
     }
   #endif
@@ -4151,6 +4221,14 @@ public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
         }
         case 88: {
           HostPlayerId = input.ReadUInt64();
+          break;
+        }
+        case 96: {
+          AmountOfPlayers = input.ReadUInt64();
+          break;
+        }
+        case 104: {
+          Capacity = input.ReadUInt64();
           break;
         }
       }
