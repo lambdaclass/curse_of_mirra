@@ -31,6 +31,7 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
+    private bool sendMovementStarted = false;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -47,8 +48,6 @@ public class Battle : MonoBehaviour
     void Start()
     {
         InitBlockingStates();
-        float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
-        InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
@@ -101,6 +100,12 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdateBattleState();
+        }
+
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+            sendMovementStarted = true;
+            float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+            InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
     }
 

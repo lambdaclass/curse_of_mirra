@@ -136,14 +136,13 @@ MonoBehaviour:
     UnloadMethod: 2
     AntiSpillSceneName: 
   SetPlayerAsFeedbackRangeCenter: 0
-  quickMapPrefab: {fileID: 8260821150174466730, guid: f5b5452532bd24f7c94de87391698d07,
+  quickMapPrefab: {fileID: 8260821150174466730, guid: 6c52df159d5dc499aaa0bd06adc934c9,
     type: 3}
   roundSplash: {fileID: 0}
   deathSplash: {fileID: 0}
   roundText: {fileID: 0}
   totalKillsText: {fileID: 0}
   backToLobbyButton: {fileID: 0}
-  backgroundMusic: {fileID: 0}
   UiCamera: {fileID: 0}
   UiControls: {fileID: 0}
   camera: {fileID: 0}
