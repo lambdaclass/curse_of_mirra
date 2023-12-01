@@ -16,14 +16,12 @@ public class LobbyPlayerCounter : MonoBehaviour
             Debug.LogWarning("PlayerCounter requires a GUIText component.");
             return;
         }
+        _totalLobbyPlayersText = gameObject.GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_totalLobbyPlayersText == null) {
-            _totalLobbyPlayersText = gameObject.GetComponent<TMP_Text>();
-        }
         _totalLobbyPlayersText.text = LobbyConnection.Instance.playerCount.ToString() + " / " + LobbyConnection.Instance.lobbyCapacity.ToString();
     }
 }
