@@ -31,6 +31,7 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
+    private bool sendMovementStarted = false;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -101,7 +102,8 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted) {
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+            sendMovementStarted = true;
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
         }
