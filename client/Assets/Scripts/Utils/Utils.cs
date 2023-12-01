@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Text;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class Utils
@@ -12,6 +14,14 @@ public class Utils
     public static readonly Color healthBarCyan = new Color32(34, 142, 239, 255);
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
+
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
 
     public static IEnumerator WaitForGameCreation(string levelName)
     {
