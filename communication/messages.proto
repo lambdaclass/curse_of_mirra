@@ -337,10 +337,9 @@ enum LobbyEventType {
     TYPE_UNSPECIFIED = 0;
     CONNECTED = 1;
     PLAYER_ADDED = 2;
-    GAME_STARTED = 3;
+    PREPARING_GAME = 3;
     START_GAME = 4;
     NOTIFY_PLAYER_AMOUNT = 5;
-    PREPARING_GAME = 6 ;
 }
 
 
