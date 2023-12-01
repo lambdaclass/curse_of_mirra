@@ -158,8 +158,9 @@ public class CustomLevelManager : LevelManager
         // prefab = prefab == null ? quickGamePrefab : prefab;
         for (ulong i = 0; i < totalPlayers; i++)
         {
-            prefab = GetCharacterPrefab(i + 1);
-            if (SocketConnectionManager.Instance.playerId == i + 1)
+            ulong playerID = gamePlayers[(int)i].Id;
+            prefab = GetCharacterPrefab(playerID);
+            if (SocketConnectionManager.Instance.playerId == playerID)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -174,7 +175,7 @@ public class CustomLevelManager : LevelManager
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
-            newPlayer.PlayerID = (i + 1).ToString();
+            newPlayer.PlayerID = playerID.ToString();
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
