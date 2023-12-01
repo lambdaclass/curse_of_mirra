@@ -7,43 +7,13 @@ using System.Collections.Generic;
 public class DeathSplashManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject backgroundEndGame;
-
-    [SerializeField]
-    SpectateManager spectateManager;
-
-    [SerializeField]
-    TextMeshProUGUI title;
-
-    [SerializeField]
-    TextMeshProUGUI winnerName;
-
-    [SerializeField]
-    TextMeshProUGUI winnerCharacter;
+    GameObject finalSplash;
 
     [SerializeField]
     TextMeshProUGUI rankingText;
 
     [SerializeField]
-    TextMeshProUGUI messageText;
-
-    [SerializeField]
     TextMeshProUGUI amountOfKillsText;
-
-    [SerializeField]
-    GameObject defeatedByContainer;
-
-    [SerializeField]
-    TextMeshProUGUI defeater;
-
-    [SerializeField]
-    Image defeaterImage;
-
-    [SerializeField]
-    TextMeshProUGUI defeaterName;
-
-    [SerializeField]
-    TextMeshProUGUI defeaterAbility;
 
     [SerializeField]
     GameObject characterModelContainer;
@@ -51,10 +21,19 @@ public class DeathSplashManager : MonoBehaviour
     [SerializeField]
     List<GameObject> characterModels;
 
+    // Data to be added from front and back
+
+    [SerializeField]
+    TextMeshProUGUI defeaterPlayerName;
+
+    [SerializeField]
+    TextMeshProUGUI defeaterCharacterName;
+
+    [SerializeField]
+    Image defeaterImage;
+
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
-    private const string WINNER_MESSAGE = "THE KING OF ARABAN!";
-    private const string LOSER_MESSAGE = "BETTER LUCK NEXT TIME!";
     GameObject player;
     GameObject modelClone;
 
@@ -73,7 +52,6 @@ public class DeathSplashManager : MonoBehaviour
     void OnEnable()
     {
         ShowRankingDisplay();
-        ShowMessage();
         ShowMatchInfo();
         ShowCharacterAnimation();
     }
@@ -103,35 +81,18 @@ public class DeathSplashManager : MonoBehaviour
         return Utils.GetAlivePlayers().Count() + 1;
     }
 
-    void ShowMessage()
-    {
-        var endGameMessage = SocketConnectionManager.Instance.PlayerIsWinner(
-            SocketConnectionManager.Instance.playerId
-        )
-            ? WINNER_MESSAGE
-            : LOSER_MESSAGE;
-        messageText.text = endGameMessage;
-    }
-
     void ShowMatchInfo()
     {
         // Kill count
         var killCount = GetKillCount();
         var killCountMessage = killCount == 1 ? " KILL" : " KILLS";
         amountOfKillsText.text = killCount.ToString() + killCountMessage;
-        // This conditional should be activated when the info needed is ready
-        /* if (!PlayerIsWinner())
-        {
-            defeatedByContainer.SetActive(true);
-        } */
         // Defeated By
-        defeater.text = GetDefeater();
+        //defeaterPlayerName.text = GetDefeaterPlayerName();
         // Defeated By Image
-        defeaterImage.sprite = GetDefeaterSprite();
+        //defeaterImage.sprite = GetDefeaterSprite();
         // Defeated By Name
-        defeaterName.text = GetDefeaterCharacter();
-        // Defeated By Ability
-        defeaterAbility.text = GetDefeaterAbility();
+        //defeaterCharacterName.text = GetDefeaterCharacterName();
     }
 
     private ulong GetKillCount()
@@ -141,9 +102,9 @@ public class DeathSplashManager : MonoBehaviour
         return gamePlayer.KillCount;
     }
 
-    private string GetDefeater()
+    private string GetDefeaterPlayerName()
     {
-        // TODO: get Defeater
+        // TODO: get Defeater player name
         return "-";
     }
 
@@ -153,15 +114,9 @@ public class DeathSplashManager : MonoBehaviour
         return null;
     }
 
-    private string GetDefeaterCharacter()
+    private string GetDefeaterCharacterName()
     {
-        // TODO: get defeater character
-        return "-";
-    }
-
-    private string GetDefeaterAbility()
-    {
-        // TODO: get defeater ability
+        // TODO: get defeater character name
         return "-";
     }
 
@@ -187,25 +142,6 @@ public class DeathSplashManager : MonoBehaviour
     public void ShowEndGameScreen()
     {
         // TODO: get image from lobby
-        backgroundEndGame.SetActive(true);
-        spectateManager.UnsetSpectateMode();
-
-        string playerName = LobbyConnection.Instance.playersIdName[
-            SocketConnectionManager.Instance.winnerPlayer.Item1.Id
-        ];
-        winnerName.text = playerName;
-        winnerCharacter.text = SocketConnectionManager.Instance.winnerPlayer.Item1.CharacterName;
-        if (
-            SocketConnectionManager.Instance.PlayerIsWinner(
-                SocketConnectionManager.Instance.playerId
-            )
-        )
-        {
-            title.text = "Victory";
-        }
-        else
-        {
-            title.text = "Defeat";
-        }
+        finalSplash.SetActive(true);
     }
 }

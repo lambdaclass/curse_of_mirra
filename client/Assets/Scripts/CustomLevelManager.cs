@@ -26,11 +26,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    [SerializeField]
-    Text totalKillsText;
-
-    [SerializeField]
-    GameObject backToLobbyButton;
     private List<Player> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
@@ -388,8 +383,6 @@ public class CustomLevelManager : LevelManager
 
         roundText.text =
             "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        totalKillsText.text = "Total Kills: " + SocketConnectionManager.Instance.winnerPlayer.Item2;
-        backToLobbyButton.SetActive(true);
         animate = false;
 
         roundSplash.SetActive(true);
