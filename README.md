@@ -2,6 +2,20 @@
 
 <img src="docs/src/images/Curse_of_Myrra_logo.png" alt="Curse of Myrra logo">
 
+## Table of Contents
+
+- [About](#about)
+- [Licensing](#licensing)
+- [Requirements](#requirements)
+- [Suggested Development Environment](#suggested-development-environment)
+- [Project Setup](#project-setup)
+- [Unity Setup](#unity-setup)
+- [Running the Backend](#running-the-backend)
+- [Useful Commands](#useful-commands)
+- [Documentation](#documentation)
+
+## About
+
 Welcome to the realm of Curse of Myrra, crafted by LambdaClass.
 
 Curse of Myrra is the inaugural game built on our groundbreaking [Game Backend](https://github.com/lambdaclass/game_backend). This open source backend, meticulously developed by Lambda, ensures seamless and reliable gameplay.
@@ -21,83 +35,88 @@ Curse of Myrra is more than a game; it's an adventure into a world where strateg
   </div>
 <div>
 
-The code is licenced with an Apache 2 license. The music and graphs are licenced with a CC attribution and share alike license.
+## Licensing
+
+The code is licensed under the Apache 2 license, while the music and graphics are licensed under a CC attribution and share-alike license.
+
+Find our open source 3D models, concept art, music, lore and more in our [Curse of Myrra Open Game Assets](https://github.com/lambdaclass/curse_of_myrra_assets) repository.
 
 ## Requirements
 
-- Rust:
-  - https://www.rust-lang.org/tools/install
-- Elixir and Erlang:
-  - https://thinkingelixir.com/install-elixir-using-asdf/
+Ensure you have the following dependencies installed:
+
+- **Rust:**
+  - [Install Rust](https://www.rust-lang.org/tools/install)
+- **Elixir and Erlang:**
+  - [Install Elixir using ASDF](https://thinkingelixir.com/install-elixir-using-asdf/)
   - Erlang/OTP 26
   - Elixir 1.15.4
-- Unity
-  - Download link: https://unity.com/unity-hub
-- Docker
+- **Unity:**
+  - [Download Unity](https://unity.com/unity-hub)
+- **Docker**
 
-## Suggested environment
+## Suggested Development Environment
 
-- Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system
-- In VSCode, download the .NET extension. Once installed, change the version to 1.26 (the option to change versions is in a dropdown next to the Uninstall button in the extension window)/
-  To check if the previous steps worked, go to the VSCode's console, select the Output tab and pick Omnisharp Log in the dropdown. If you don't get error logs in that tab and you can see that Omnisharp is scanning the project, then the config is OK.
+Set up your environment with the following steps:
 
-## Setup project
+- Download the [.NET SDK](https://dotnet.microsoft.com/es-es/download/dotnet/thank-you/sdk-7.0.403-macos-arm64-installer) for your operating system.
+- In VSCode, download the .NET extension. After installation, change the version to 1.26 (locate the version dropdown next to the Uninstall button in the extension window).
+- To check if the setup is successful, go to VSCode's console, select the Output tab, and pick Omnisharp Log in the dropdown. If there are no error logs and Omnisharp is scanning the project, the configuration is correct.
 
-Make sure Docker is running.
+## Project Setup
 
-```
+Ensure Docker is running and execute the following commands:
+
+```bash
 git clone https://github.com/lambdaclass/curse_of_myrra
 cd curse_of_myrra/server
 make db
 make setup
 ```
 
-## Setup Unity
+## Unity Setup
 
-- On Unity Hub, click on the add project button and select the `client` folder.
-- Select the correct version of the editor, by default it will show the version needed for the project but you need to select if you want to download the Intel or Silicon version.
-- It's also needed to download the [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com) and include it in the `Assets/ThirdParty` folder. For this it's necessary to purchase the license of the engine.
-- Once we run Unity if you want to test the game you can select the scene on `Assets/Scenes/TitleScreen` and then running it by clicking the play button.
+- In Unity Hub, click on the add project button and select the `client` folder.
+- Choose the correct editor version and download the [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). Include it in the `Assets/ThirdParty` folder after purchasing the license.
+- To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
-## Run backend
+## Running the Backend
 
-Make sure Docker is running.
+Ensure Docker is running and execute:
 
-```
+```bash
 make start
 ```
 
-To test locally using the [game backend](https://github.com/lambdaclass/game_backend), temporarily edit the `mix.exs` file to point to the path to your _local_ copy of the game backend, for example:
+For local testing using the [game backend](https://github.com/lambdaclass/game_backend), temporarily edit the `mix.exs` file to point to your _local_ copy of the game backend, for example:
 `{:game_backend, path: "/Users/MyUsername/lambda/game_backend"}`
 
-To test using a remote server, point to the _github URL_ instead and specify the desired branch:
+For testing using a remote server, point to the _GitHub URL_ instead and specify the desired branch like so:
 `{:game_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
 
-## Useful commands
+## Useful Commands
 
-```
+```bash
 make tests
 ```
 
 Will run Elixir and Rust tests
 
-```
+```bash
 make format
 ```
 
 Will format Elixir and Rust code.
 
-```
+```bash
 make prepush
 ```
 
-Will format you code, and run Credo check and tests.
+Will format your code and run Credo check and tests.
 
 ## Documentation
 
-You can find our documentation [here](https://docs.curseofmyrra.com/) or by running it locally.
-
-For that you have to install:
+Explore our documentation [here](https://docs.curseofmyrra.com/) or run it locally. To run locally, install:
 
 ```
 cargo install mdbook
@@ -110,12 +129,24 @@ Then run:
 make docs
 ```
 
-Open:
-[http://localhost:3000/](http://localhost:3000/ios_builds.html)
+Open: [http://localhost:3000/](http://localhost:3000/ios_builds.html)
 
-Some useful links
+Some key documentation pages:
 
 - [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
 - [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
 - [Android build](https://docs.curseofmyrra.com/android_builds.html)
 - [IOs builds](https://docs.curseofmyrra.com/ios_builds.html)
+
+## Contact and Socials
+
+If you have any questions, feedback, or comments:
+
+- **Email:** gamedev@lambdaclass.com
+
+We share our development and creative process in the open, follow us for frequent updates on our game:
+
+- **Twitter:** [@CurseOfMyrra](https://twitter.com/curseofmyrra)
+- **Reddit:** [r/curseofmyrra](https://www.reddit.com/r/curseofmyrra/)
+- **Discord:** [join link](https://discord.gg/hxDRsbCpzC)
+- **Telegram:** [t.me/curseofmyrra](https://t.me/curseofmyrra)
