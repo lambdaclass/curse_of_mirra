@@ -92,11 +92,13 @@ make setup
 
 ## Running the Backend
 
-Ensure Docker is running and execute:
+For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure Docker is running and execute:
 
 ```bash
 make start
 ```
+
+Remember to set ```localhost``` as the server.
 
 ## Useful Commands
 
