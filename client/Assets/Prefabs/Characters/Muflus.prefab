@@ -776,27 +776,17 @@ PrefabInstance:
     - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.05
+      value: -0.049999237
       objectReference: {fileID: 0}
     - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.69
+      value: 5.6899986
       objectReference: {fileID: 0}
     - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: objectToHighlight
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416275320970837623, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 2845618174174506567, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
