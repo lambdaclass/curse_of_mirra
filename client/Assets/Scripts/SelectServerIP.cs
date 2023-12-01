@@ -15,7 +15,7 @@ public class SelectServerIP : MonoBehaviour
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerIp = "aws-testing.dark-worlds.lambdaclass.com";
+    private const string _defaultServerIp = "brazil-testing.curseofmyrra.com";
 
     public void SetServerIp()
     {

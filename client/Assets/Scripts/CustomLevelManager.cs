@@ -156,8 +156,9 @@ public class CustomLevelManager : LevelManager
         // prefab = prefab == null ? quickGamePrefab : prefab;
         for (ulong i = 0; i < totalPlayers; i++)
         {
-            prefab = GetCharacterPrefab(i + 1);
-            if (SocketConnectionManager.Instance.playerId == i + 1)
+            ulong playerID = gamePlayers[(int)i].Id;
+            prefab = GetCharacterPrefab(playerID);
+            if (SocketConnectionManager.Instance.playerId == playerID)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -172,7 +173,7 @@ public class CustomLevelManager : LevelManager
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);
-            newPlayer.PlayerID = (i + 1).ToString();
+            newPlayer.PlayerID = playerID.ToString();
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -189,18 +190,7 @@ public class CustomLevelManager : LevelManager
             yield return new WaitForSeconds(1.7f);
             loadingScreen.SetActive(false);
             battleScreen.SetActive(true);
-            //Cancel camera movement and start zoom in
-            StartCoroutine(Utils.GetCharacter(playerId).characterBase.activateSpawnFeedback(true));
-            Utils
-                .GetAlivePlayers()
-                .Where(player => player.Id != playerId)
-                .ToList()
-                .ForEach(
-                    el =>
-                        StartCoroutine(
-                            Utils.GetCharacter(el.Id).characterBase.activateSpawnFeedback(false)
-                        )
-                );
+            // Cancel camera movement and start zoom in
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");
             InvokeRepeating("MoveYCamera", 0.3f, 0.1f);

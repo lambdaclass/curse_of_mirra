@@ -20,7 +20,6 @@ MonoBehaviour:
   executeOnQuickTap: 0
   indicatorType: 3
   projectilePrefab: {fileID: 0}
-  instantiateVfxOnModel: 0
   animationSpeedMultiplier: 1.5
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: d018a797cd1c94aeabf3e45f6ca33b2f, type: 3}
@@ -37,9 +36,11 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
-  feedbackVfx: {fileID: 0}
-  feedbackVfxDuration: 0
-  feedbackVfxDelay: 0
+  feedbackVfx: {fileID: 1303081077991184068, guid: 472c7d9e1f1184d3fa83b2452b3fa903,
+    type: 3}
+  instantiateVfxOnModel: 1
+  feedbackVfxDuration: 1
+  feedbackVfxDelay: 0.35
   startFeedbackVfx: {fileID: 0}
   startFeedbackVfxDuration: 0
   startFeedbackVfxDelay: 0
