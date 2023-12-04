@@ -22,7 +22,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1.5
   hasModelAnimation: 1
-  abilityStartSfx: {fileID: 8300000, guid: d018a797cd1c94aeabf3e45f6ca33b2f, type: 3}
+  abilityStartSfx: {fileID: 8300000, guid: 12a3365ad519042ecb91d61ecf29fde6, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
   startAnimationDuration: 0
