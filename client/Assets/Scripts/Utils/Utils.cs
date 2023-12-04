@@ -168,7 +168,9 @@ public class Utils
     public static string MakeHTTPUrl(string path)
     {
         if (SelectServerIP.GetServerIp().Contains("localhost") ||
-            SelectServerIP.GetServerIp().Contains("10.150.20.186")
+            SelectServerIP.GetServerIp().Contains("10.150.20.186") ||
+            SelectServerIP.GetServerIp().Contains("168.119.71.104") ||
+            SelectServerIP.GetServerIp().Contains("176.9.26.172")
         )
         {
             return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
