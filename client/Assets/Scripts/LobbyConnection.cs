@@ -108,7 +108,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        this.clientId = Utils.GetClientId();
+        this.clientId = ServerUtils.GetClientId();
         MaybeReconnect();
         PopulateLists();
     }
@@ -159,7 +159,7 @@ public class LobbyConnection : MonoBehaviour
     public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(Utils.MakeHTTPUrl("/join_lobby")));
+        StartCoroutine(GetRequest(ServerUtils.MakeHTTPUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -237,7 +237,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetLobbies()
     {
-        string url = Utils.MakeHTTPUrl("/current_lobbies");
+        string url = ServerUtils.MakeHTTPUrl("/current_lobbies");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -262,7 +262,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetGames()
     {
-        string url = Utils.MakeHTTPUrl("/current_games");
+        string url = ServerUtils.MakeHTTPUrl("/current_games");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -286,7 +286,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetCurrentGame()
     {
-        string url = Utils.MakeHTTPUrl("/player_game/" + this.clientId);
+        string url = ServerUtils.MakeHTTPUrl("/player_game/" + this.clientId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();

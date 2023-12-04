@@ -64,7 +64,7 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
-        StartCoroutine(Utils.GetSelectedCharacter(
+        StartCoroutine(ServerUtils.GetSelectedCharacter(
             response => {
                 if(asyncOperation != null)
                 {
@@ -102,7 +102,7 @@ public class TitleScreenController : MonoBehaviour
     }
 
     private void CreateUser() {
-        StartCoroutine(Utils.CreateUser(
+        StartCoroutine(ServerUtils.CreateUser(
             response => {
                 if(asyncOperation != null)
                 {
