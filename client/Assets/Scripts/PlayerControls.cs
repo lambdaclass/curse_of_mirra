@@ -37,7 +37,7 @@ public class PlayerControls : MonoBehaviour
     }
 
     bool ShouldSendMovement(float x, float y, float difference) {
-        return (x != lastXSent || y != lastYSent) && (difference == 0 || difference > 5);
+        return (x != lastXSent || y != lastYSent) && ((difference <= 0.01f) || difference > 5);
     }
 
     public (float, float) SendAction()
