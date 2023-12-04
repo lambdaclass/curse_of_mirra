@@ -81,10 +81,19 @@ public class TitleScreenController : MonoBehaviour
                         CreateUser();
                         break;
                     case "CONNECTION_ERROR":
-                        // If server is not found default to localhost IP
-                        SelectServerIP.serverIp = "localhost";
-                        SelectServerIP.serverNameString = "Localhost";
-                        ChangeToMainScreen();
+                        if(SelectServerIP.serverIp != "localhost")
+                        {
+                            // If server is not found default to localhost IP
+                            SelectServerIP.serverIp = "localhost";
+                            SelectServerIP.serverNameString = "Localhost";
+                            ChangeToMainScreen();
+                        }
+                        else
+                        {
+                            Errors.Instance.HandleNetworkError("Error", error);
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
+                        }
                         break;
                     default:
                         Errors.Instance.HandleNetworkError("Error", error);
