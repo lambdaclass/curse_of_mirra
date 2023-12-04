@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 86686136580753948}
   - component: {fileID: 8564266225754532170}
   m_Layer: 8
-  m_Name: RimLight
+  m_Name: FrontLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.38
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -195,7 +195,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.92941177, b: 0.84313726, a: 1}
-  m_Intensity: 0.69
+  m_Intensity: 0.75
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -310,7 +310,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.4669811, g: 0.78305596, b: 1, a: 1}
-  m_Intensity: 0.8
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
