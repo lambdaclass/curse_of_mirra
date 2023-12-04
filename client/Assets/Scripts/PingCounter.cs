@@ -8,9 +8,9 @@ using System.Collections;
 public class PingCounter : MonoBehaviour
 {
     /// the frequency at which the PING counter should update
-    public float UpdateInterval = 5f;
-    protected float _timeLeft;
-    protected Text _text;
+    public float updateInterval = 5f;
+    protected float _timeLeftToUpdate;
+    protected Text _pingText;
 
     /// <summary>
     /// On Start(), we get the Text component and initialize our counter
@@ -22,8 +22,8 @@ public class PingCounter : MonoBehaviour
             Debug.LogWarning("PINGCounter requires a GUIText component.");
             return;
         }
-        _text = GetComponent<Text>();
-        _timeLeft = UpdateInterval;
+        _pingText = GetComponent<Text>();
+        _timeLeftToUpdate = updateInterval;
     }
 
     /// <summary>
@@ -32,11 +32,11 @@ public class PingCounter : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
-        _timeLeft = _timeLeft - Time.deltaTime;
-        if (_timeLeft <= 0.0)
+        _timeLeftToUpdate = _timeLeftToUpdate - Time.deltaTime;
+        if (_timeLeftToUpdate <= 0.0)
         {
-            _timeLeft = UpdateInterval;
-            _text.text = "PING " + SocketConnectionManager.Instance.currentPing.ToString() + " ms";
+            _timeLeftToUpdate = updateInterval;
+            _pingText.text = "PING " + SocketConnectionManager.Instance.currentPing.ToString() + " ms";
         }
     }
 }

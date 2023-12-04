@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -32,6 +31,7 @@ public class Battle : MonoBehaviour
 
     private Loot loot;
     private bool playerMaterialColorChanged;
+    private bool sendMovementStarted = false;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -48,8 +48,10 @@ public class Battle : MonoBehaviour
     void Start()
     {
         InitBlockingStates();
+
         // float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
         // InvokeRepeating("SendPlayerMovement", clientActionRate, clientActionRate);
+
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
@@ -103,6 +105,13 @@ public class Battle : MonoBehaviour
             SetAccumulatedTime();
             UpdateBattleState();
             SendPlayerMovement();
+        }
+
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        {
+            sendMovementStarted = true;
+            float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+            InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
     }
 
@@ -164,8 +173,7 @@ public class Battle : MonoBehaviour
             if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
-                if (
-                    inputFromVirtualJoystick)
+                if (inputFromVirtualJoystick)
                 {
                     GetComponent<PlayerControls>()
                         .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
@@ -266,11 +274,15 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                        executeSkillFeedback(
-                            currentPlayer,
-                            serverPlayerUpdate.Action,
-                            serverPlayerUpdate.Direction
-                        );
+                        foreach (PlayerAction action in serverPlayerUpdate.Action)
+                        {
+                            executeSkillFeedback(
+                                currentPlayer,
+                                action,
+                                serverPlayerUpdate.Direction,
+                                serverPlayerUpdate.ActionDurationMs
+                            );
+                        }
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
                             gameEvent.ServerTimestamp
@@ -299,7 +311,8 @@ public class Battle : MonoBehaviour
     private void executeSkillFeedback(
         GameObject currentPlayer,
         PlayerAction playerAction,
-        RelativePosition direction
+        RelativePosition direction,
+        ulong actionDurationMs
     )
     {
         // TODO: Refactor
@@ -491,6 +504,13 @@ public class Battle : MonoBehaviour
         player
             .GetComponent<CharacterFeedbacks>()
             .ChangePlayerTextureOnDamage(healthComponent.CurrentHealth, playerUpdate.Health);
+        player
+            .GetComponent<CharacterFeedbacks>()
+            .HapticFeedbackOnDamage(
+                healthComponent.CurrentHealth,
+                playerUpdate.Health,
+                playerUpdate.Id
+            );
 
         if (playerUpdate.Health != healthComponent.CurrentHealth)
         {
@@ -568,7 +588,7 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Action == PlayerAction.ExecutingSkill3
+                && playerUpdate.Action.Contains(PlayerAction.ExecutingSkill3)
             )
             {
                 player.transform.position = frontendPosition;

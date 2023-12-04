@@ -38,7 +38,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
 
-    public EventsBuffer eventsBuffer;
+    public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
 
     public float playableRadius;
@@ -138,9 +138,8 @@ public class SocketConnectionManager : MonoBehaviour
 
         if (!connected && this.sessionId != "")
         {
-            ConnectToSession(this.sessionId);
             connected = true;
-            eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
+            ConnectToSession(this.sessionId);
         }
     }
 
@@ -172,12 +171,12 @@ public class SocketConnectionManager : MonoBehaviour
                 case GameEventType.StateUpdate:
                     this.playableRadius = gameEvent.PlayableRadius;
                     this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
-                    this.gamePlayers = gameEvent.Players.ToList();
                     eventsBuffer.AddEvent(gameEvent);
+                    this.gamePlayers = gameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.Projectiles.ToList();
                     alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
                     updatedLoots = gameEvent.Loots.ToList();
+                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:
                     currentPing = (uint)gameEvent.Latency;
@@ -189,6 +188,14 @@ public class SocketConnectionManager : MonoBehaviour
                     break;
                 case GameEventType.PlayerJoined:
                     this.playerId = gameEvent.PlayerJoinedId;
+                    break;
+                case GameEventType.GameStarted:
+                    this.playableRadius = gameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent);
+                    this.gamePlayers = gameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    LobbyConnection.Instance.gameStarted = true;
                     break;
                 default:
                     print("Message received is: " + gameEvent.Type);
@@ -272,6 +279,16 @@ public class SocketConnectionManager : MonoBehaviour
         {
             return "http://" + serverIp + ":" + port + path;
         }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "http://" + serverIp + ":" + port + path;
+        }
         else
         {
             return "https://" + serverIp + path;
@@ -298,6 +315,16 @@ public class SocketConnectionManager : MonoBehaviour
             return "ws://" + serverIp + ":" + port + path;
         }
         else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
         {
             return "ws://" + serverIp + ":" + port + path;
         }

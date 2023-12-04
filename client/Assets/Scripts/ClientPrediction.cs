@@ -17,13 +17,15 @@ public class ClientPrediction
     public void putPlayerInput(PlayerInput PlayerInput)
     {
         PlayerInput lastPlayerInput;
-        if(pendingPlayerInputs.Count > 0){
+        if (pendingPlayerInputs.Count > 0)
+        {
             lastPlayerInput = pendingPlayerInputs[pendingPlayerInputs.Count - 1];
             lastPlayerInput.endMovementTimestamp = PlayerInput.startMovementTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
 
-        if(PlayerInput.joystick_x_value == 0 && PlayerInput.joystick_y_value == 0 ){
+        if (PlayerInput.joystick_x_value == 0 && PlayerInput.joystick_y_value == 0)
+        {
             pendingPlayerInputs = new List<PlayerInput>();
             Debug.Log("zero");
         }
@@ -39,14 +41,14 @@ public class ClientPrediction
 
     void removeServerAcknowledgedInputs(Player player, long serverTimestamp)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.endMovementTimestamp != 0 && input.endMovementTimestamp <= serverTimestamp);
+        pendingPlayerInputs.RemoveAll(
+            (input) =>
+                input.endMovementTimestamp != 0 && input.endMovementTimestamp <= serverTimestamp
+        );
     }
 
     void simulatePlayerMovement(Player player, long serverTimestamp)
     {
-        if(pendingPlayerInputs.Count == 1){
-            Debug.Log($"player position before: {player.Position}");
-        }
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
         long deltaTime;
@@ -61,37 +63,67 @@ public class ClientPrediction
             movementDirection.Normalize();
 
             var t0 = input.startMovementTimestamp;
-            var tf = input.endMovementTimestamp == 0 ? now: input.endMovementTimestamp;
+            var tf = input.endMovementTimestamp == 0 ? now : input.endMovementTimestamp;
 
-            if(t0 < serverTimestamp && serverTimestamp < tf ){
+            if (t0 < serverTimestamp && serverTimestamp < tf)
+            {
                 deltaTime = tf - serverTimestamp;
-            }else{
+            }
+            else
+            {
                 deltaTime = tf - t0;
             }
 
             Debug.Log($"DeltaTime {deltaTime}");
-            float manuDeltaTime = deltaTime / 30;
-            Debug.Log($"manuDeltaTime {manuDeltaTime}");
-            Vector2 movementVector = movementDirection * characterSpeed * manuDeltaTime;
-
+            float ticks = deltaTime / 30;
+            Debug.Log($"manuDeltaTime {ticks}");
+            Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
             Debug.Log($"position plus: {movementVector}");
             Position newPlayerPosition = new Position();
+
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
             var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
-
-            newPositionX = Math.Min(newPositionX, (10000 - 1));
-            newPositionX = Math.Max(newPositionX, 0);
-            newPositionY = Math.Min(newPositionY, (10000 - 1));
-            newPositionY = Math.Max(newPositionY, 0);
 
             newPlayerPosition.X = (ulong)newPositionX;
             newPlayerPosition.Y = (ulong)newPositionY;
 
             player.Position = newPlayerPosition;
         });
-        if(pendingPlayerInputs.Count == 1){
-            Debug.Log($"player position after: {player.Position}");
+
+        var radius = 4900;
+        Position center = new Position() { X = 5000, Y = 5000 };
+
+        if (distance_between_positions(player.Position, center) > radius)
+        {
+            var angle = angle_between_positions(center, player.Position);
+
+            player.Position.X = (ulong)(radius * Math.Cos(angle) + 5000);
+            player.Position.Y = (ulong)(radius * Math.Sin(angle) + 5000);
         }
+    }
+
+    double distance_between_positions(Position position_1, Position position_2)
+    {
+        double p1_x = position_1.X;
+        double p1_y = position_1.Y;
+        double p2_x = position_2.X;
+        double p2_y = position_2.Y;
+
+        double distance_squared = Math.Pow(p1_x - p2_x, 2) + Math.Pow(p1_y - p2_y, 2);
+
+        return Math.Sqrt(distance_squared);
+    }
+
+    double angle_between_positions(Position center, Position target)
+    {
+        double p1_x = center.X;
+        double p1_y = center.Y;
+        double p2_x = target.X;
+        double p2_y = target.Y;
+
+        var x_diff = p2_x - p1_x;
+        var y_diff = p2_y - p1_y;
+        return Math.Atan2(y_diff, x_diff);
     }
 }

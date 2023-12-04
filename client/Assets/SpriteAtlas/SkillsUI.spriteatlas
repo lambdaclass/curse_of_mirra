@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SkillsUI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2a9e93fc536a0452d9a2c088355f4959, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 92ed3db3cc92b46e79b1ee00aede3f01, type: 3}
+  - {fileID: 21300000, guid: 5ee2cd14562484dfebdf4df6264eb48a, type: 3}
+  - {fileID: 21300000, guid: 8dc1619544e3649cbae4eb260f1897a3, type: 3}
+  - {fileID: 21300000, guid: d1a5f236163cd4c32aa227329b30638d, type: 3}
+  - {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
+  - {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
+  - {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
+  - {fileID: 21300000, guid: 3cadd70fd27d646eaaca88ad113bb11a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - D_agna - Pizzicato BL
+  - Uma-ElnarsMark BL 1
+  - D_agna - Orchestra BL
+  - H4CK-Slingshot BL
+  - Muflus-Leap BL
+  - Uma-FinalVengeance  BL
+  - Muflus-Bash BL
+  - H4CK-DenialofService BL
+  m_RenderDataMap: {}
+  m_Tag: SkillsUI
+  m_IsVariant: 0
