@@ -6,7 +6,7 @@ public class DangerZoneColliderController : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(SetupCollitions());
+        // StartCoroutine(SetupCollitions());
     }
 
     IEnumerator SetupCollitions()

@@ -405,14 +405,13 @@ public class DevLobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.GameStarted:
+                 case LobbyEventType.PreparingGame:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
                     // FIX THIS!!
                     serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
-                    gameStarted = true;
                     break;
 
                 default:

@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muflus Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1374002154170380203, guid: 15b66cc26325d4624aa55f5dbede2d7d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b3695f510a8ed4832b290fc5ea073996, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15b66cc26325d4624aa55f5dbede2d7d, type: 3}
 --- !u!4 &2036211311006244463 stripped

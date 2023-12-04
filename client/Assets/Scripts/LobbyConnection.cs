@@ -21,6 +21,7 @@ public class LobbyConnection : MonoBehaviour
     public bool isHost = false;
     public ulong hostId;
     public int playerCount;
+    public int lobbyCapacity;
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
     public string serverHash;
@@ -369,7 +370,6 @@ public class LobbyConnection : MonoBehaviour
                 case LobbyEventType.PlayerAdded:
                     this.hostId = lobbyEvent.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
                     lobbyEvent.PlayersInfo
                         .ToList()
                         .ForEach(
@@ -378,14 +378,18 @@ public class LobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.GameStarted:
+                case LobbyEventType.PreparingGame:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
                     // FIX THIS!!
                     serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
-                    gameStarted = true;
+                    break;
+
+                case LobbyEventType.NotifyPlayerAmount:
+                    this.playerCount = (int) lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int) lobbyEvent.Capacity;
                     break;
 
                 default:

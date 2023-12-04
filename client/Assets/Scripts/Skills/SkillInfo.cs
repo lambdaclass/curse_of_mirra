@@ -18,7 +18,6 @@ public class SkillInfo : ScriptableObject
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
     public GameObject projectilePrefab;
-    public bool instantiateVfxOnModel;
     public float animationSpeedMultiplier;
     public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
@@ -47,6 +46,7 @@ public class SkillInfo : ScriptableObject
 
     [Header("Feedbacks")]
     public GameObject feedbackVfx;
+    public bool instantiateVfxOnModel;
     public float feedbackVfxDuration;
     public float feedbackVfxDelay;
     public GameObject startFeedbackVfx;

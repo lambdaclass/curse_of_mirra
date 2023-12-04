@@ -8,20 +8,7 @@ using UnityEngine.VFX;
 public class SafeZone : MonoBehaviour
 {
     [SerializeField]
-    GameObject map;
-
-    [SerializeField]
-    GameObject zoneLimit;
-
-    [SerializeField]
-    GameObject particle;
-
-    [SerializeField]
     GameObject mesh;
-    float x = 33.51848f;
-
-    float auxRadius;
-    Vector3 auxCenter = Vector3.zero;
 
     void Start()
     {
@@ -55,24 +42,19 @@ public class SafeZone : MonoBehaviour
 
     private void Update()
     {
-        float radius = Utils.transformBackendRadiusToFrontendRadius(
-            SocketConnectionManager.Instance.playableRadius
-        );
+        if (LobbyConnection.Instance.gameStarted)
+        {
+            float radius = Utils.transformBackendRadiusToFrontendRadius(
+                SocketConnectionManager.Instance.playableRadius
+            );
 
-        Vector3 center = Utils.transformBackendPositionToFrontendPosition(
-            SocketConnectionManager.Instance.shrinkingCenter
-        );
+            Vector3 center = Utils.transformBackendPositionToFrontendPosition(
+                SocketConnectionManager.Instance.shrinkingCenter
+            );
 
-        auxRadius = radius;
-        auxCenter = center;
+            float radiusCorrected = radius + radius * .007f;
 
-        float radiusCorrected = radius + radius * .007f;
-
-        ActivateParticleEffects(radius / 3f, new Vector3(center.x, 1f, center.z));
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(auxCenter, auxRadius);
+            ActivateParticleEffects(radius / 3f, new Vector3(center.x, 1f, center.z));
+        }
     }
 }
