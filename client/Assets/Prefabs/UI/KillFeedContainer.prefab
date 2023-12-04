@@ -78,5 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killFeedItem: {fileID: 1764183030965797337, guid: a6f202ac0a9e4426a83864f616f75957,
     type: 3}
+  muflusIcon: {fileID: 21300000, guid: 2a521c6907fc94b65af7f93e387feed3, type: 3}
+  zoneIcon: {fileID: 21300000, guid: ec30c7024527044c5ad8413a7d18cf88, type: 3}
   saveKillerId: 0
+  myKillerId: 0
   playerToTrack: 0

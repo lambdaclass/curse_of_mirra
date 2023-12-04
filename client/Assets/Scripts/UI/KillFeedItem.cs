@@ -10,10 +10,16 @@ public class KillFeedItem : MonoBehaviour
     private const string LOOT_ID = "1111";
 
     [SerializeField]
-    TextMeshProUGUI killerPlayer;
+    TextMeshProUGUI killerPlayer,
+        killedPlayer;
 
     [SerializeField]
-    TextMeshProUGUI killedPlayer;
+    Sprite muflusIcon,
+        zoneIcon;
+
+    [SerializeField]
+    Image killedImage,
+        killerImage;
 
     void Start()
     {
@@ -25,16 +31,21 @@ public class KillFeedItem : MonoBehaviour
         if (killer == ZONE_ID)
         {
             killerPlayer.text = "Zone";
+            killerImage.sprite = zoneIcon;
             killedPlayer.text = "Player " + killed;
+            killedImage.sprite = muflusIcon;
             return;
         }
         if (killed == LOOT_ID)
         {
             killerPlayer.text = "Loot";
             killedPlayer.text = "Player " + killed;
+            killedImage.sprite = muflusIcon;
             return;
         }
         killerPlayer.text = "Player " + killer;
+        killerImage.sprite = muflusIcon;
         killedPlayer.text = "Player " + killed;
+        killedImage.sprite = muflusIcon;
     }
 }

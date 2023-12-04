@@ -36,7 +36,7 @@ public class EndGameManager : MonoBehaviour
     GameObject modelClone;
 
     [SerializeField]
-    Sprite playerIcon,
+    Sprite muflusIcon,
         zoneIcon;
 
     void OnEnable()
@@ -125,7 +125,7 @@ public class EndGameManager : MonoBehaviour
         // TODO: get defeater sprite
         if (KillFeedManager.instance.myKillerId != 0)
         {
-            return playerIcon;
+            return muflusIcon;
         }
         else
         {
