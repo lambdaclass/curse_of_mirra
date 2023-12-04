@@ -11,6 +11,7 @@ public class KillFeedManager : MonoBehaviour
     private Queue<KillEvent> feedEvents = new Queue<KillEvent>();
 
     public ulong saveKillerId;
+    public ulong myKillerId;
 
     public ulong playerToTrack;
 
@@ -45,6 +46,10 @@ public class KillFeedManager : MonoBehaviour
             {
                 saveKillerId = killEvent.KilledBy;
                 playerToTrack = saveKillerId;
+            }
+            if (killEvent.Killed == SocketConnectionManager.Instance.playerId)
+            {
+                myKillerId = killEvent.KilledBy;
             }
             // TODO: fix this when the player names are fixed in the server.
             // string deathPlayerName = LobbyConnection.Instance.playersIdName[killEvent.Killed];

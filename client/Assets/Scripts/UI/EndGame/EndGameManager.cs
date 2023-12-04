@@ -11,13 +11,12 @@ public class EndGameManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI rankingText,
-        rankingTextShadow;
+        rankingTextShadow,
+        amountOfKillsText;
 
     [SerializeField]
-    TextMeshProUGUI amountOfKillsText;
-
-    [SerializeField]
-    GameObject characterModelContainer;
+    GameObject defeatedByContainer,
+        characterModelContainer;
 
     [SerializeField]
     List<GameObject> characterModels;
@@ -25,10 +24,8 @@ public class EndGameManager : MonoBehaviour
     // Data to be added from front and back
 
     [SerializeField]
-    TextMeshProUGUI defeaterPlayerName;
-
-    [SerializeField]
-    TextMeshProUGUI defeaterCharacterName;
+    TextMeshProUGUI defeaterPlayerName,
+        defeaterCharacterName;
 
     [SerializeField]
     Image defeaterImage;
@@ -37,6 +34,10 @@ public class EndGameManager : MonoBehaviour
     private const int SECOND_PLACE_POS = 2;
     GameObject player;
     GameObject modelClone;
+
+    [SerializeField]
+    Sprite playerIcon,
+        zoneIcon;
 
     void OnEnable()
     {
@@ -88,10 +89,20 @@ public class EndGameManager : MonoBehaviour
         // Kill count
         var killCount = GetKillCount();
         amountOfKillsText.text = killCount.ToString();
+
         // Defeated By
+        if (
+            player
+            && SocketConnectionManager.Instance.PlayerIsWinner(
+                SocketConnectionManager.Instance.playerId
+            )
+        )
+        {
+            defeatedByContainer.SetActive(false);
+        }
         //defeaterPlayerName.text = GetDefeaterPlayerName();
         // Defeated By Image
-        //defeaterImage.sprite = GetDefeaterSprite();
+        defeaterImage.sprite = GetDefeaterSprite();
         // Defeated By Name
         //defeaterCharacterName.text = GetDefeaterCharacterName();
     }
@@ -112,7 +123,14 @@ public class EndGameManager : MonoBehaviour
     private Sprite GetDefeaterSprite()
     {
         // TODO: get defeater sprite
-        return null;
+        if (KillFeedManager.instance.myKillerId != 0)
+        {
+            return playerIcon;
+        }
+        else
+        {
+            return zoneIcon;
+        }
     }
 
     private string GetDefeaterCharacterName()
