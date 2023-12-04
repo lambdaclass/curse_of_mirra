@@ -45,14 +45,30 @@ public class SkillInfo : ScriptableObject
     public Sprite skillSprite;
 
     [Header("Feedbacks")]
+    public GameObject startFeedbackVfx;
+    public float startFeedbackVfxDuration;
+    public float startFeedbackVfxDelay;
+
+    [SerializeField]
+    public List<VfxStep> vfxList;
+
+    [Header("Deprecated")]
     public GameObject feedbackVfx;
     public bool instantiateVfxOnModel;
     public float feedbackVfxDuration;
     public float feedbackVfxDelay;
-    public GameObject startFeedbackVfx;
-    public float startFeedbackVfxDuration;
-    public float startFeedbackVfxDelay;
-    public GameObject animationVfx;
+
+    [System.Serializable]
+    public class VfxStep{
+        [SerializeField]
+        public GameObject vfx;
+        [SerializeField]
+        public float duration;
+        [SerializeField]
+        public float delay;
+        [SerializeField]
+        public bool instantiateVfxOnModel;
+    }
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {
