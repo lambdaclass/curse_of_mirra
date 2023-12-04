@@ -22,7 +22,7 @@ public class LobbyConnection : MonoBehaviour
     public ulong hostId;
     public int playerCount;
     public int lobbyCapacity;
-    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
+    public Dictionary<ulong, PlayerInformation> playersIdName = new Dictionary<ulong, PlayerInformation>();
     public uint serverTickRate_ms;
     public string serverHash;
     public ServerGameSettings serverSettings;
@@ -368,14 +368,8 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
-                    lobbyEvent.PlayersInfo
-                        .ToList()
-                        .ForEach(
-                            playerInfo =>
-                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-                        );
+                    this.playersIdName[lobbyEvent.AddedPlayerInfo.PlayerId] = lobbyEvent.AddedPlayerInfo;
+                    Debug.log(lobbyEvent.AddedPlayerInfo);
                     break;
 
                 case LobbyEventType.PreparingGame:
