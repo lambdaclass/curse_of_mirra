@@ -90,7 +90,7 @@ public class TitleScreenController : MonoBehaviour
                         }
                         else
                         {
-                            Errors.Instance.HandleNetworkError("Error", error);
+                            Errors.Instance.HandleNetworkError("Error", "No server available");
                             SetLoadingScreen(false);
                             playNowButton.EnableButton();
                         }
