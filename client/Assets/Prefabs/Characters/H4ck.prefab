@@ -278,7 +278,7 @@ MonoBehaviour:
   HealthBarType: 2
   TimeScale: 0
   HealthBarPrefab: {fileID: 0}
-  TargetProgressBar: {fileID: 3736085772538779165}
+  TargetProgressBar: {fileID: 2635068537373217531}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 45, y: 0, z: 0}
@@ -504,6 +504,11 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 7067085905496623633}
+    - target: {fileID: 424312200194388252, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_RootOrder
@@ -559,6 +564,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1527076998688522004, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 7067085905496623633}
     - target: {fileID: 2042137297313984016, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -698,15 +708,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3175913458632259943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3426755726173006851}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3736085772538779165 stripped
+--- !u!114 &2635068537373217531 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2042230812023421470, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
@@ -716,6 +720,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3175913458632259943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4364836716465000514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,

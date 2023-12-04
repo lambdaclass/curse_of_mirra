@@ -278,7 +278,7 @@ MonoBehaviour:
   HealthBarType: 2
   TimeScale: 0
   HealthBarPrefab: {fileID: 0}
-  TargetProgressBar: {fileID: 8047304923672176213}
+  TargetProgressBar: {fileID: 8711474442059621043}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 45, y: 0, z: 0}
@@ -693,6 +693,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1527076998688522004, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 426235763660890386}
     - target: {fileID: 1582350833707911559, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Flip.x
@@ -1326,9 +1331,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8047304923672176213 stripped
+--- !u!1 &8099696926947248431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8711474442059621043 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2042230812023421470, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
@@ -1338,9 +1349,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8099696926947248431 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8357189057863228491}
-  m_PrefabAsset: {fileID: 0}
