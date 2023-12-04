@@ -7,9 +7,6 @@ using UnityEngine.VFX;
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
-    public GameObject PlayerName;
-
-    [SerializeField]
     public GameObject Hitbox;
 
     [SerializeField]
