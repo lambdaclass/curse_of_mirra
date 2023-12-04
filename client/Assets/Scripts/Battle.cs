@@ -102,7 +102,8 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        {
             sendMovementStarted = true;
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
@@ -436,6 +437,8 @@ public class Battle : MonoBehaviour
         Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
         movementDirection.Normalize();
         characterOrientation.ForcedRotationDirection = movementDirection;
+        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
+            Quaternion.Euler(player.GetComponent<CharacterOrientation3D>().ModelAngles);
     }
 
     private void UpdatePlayer(GameObject player, Player playerUpdate, long pastTime)

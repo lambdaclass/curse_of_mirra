@@ -7,22 +7,13 @@ using UnityEngine.VFX;
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
-    public GameObject PlayerName;
-
-    [SerializeField]
-    public GameObject Hitbox;
-
-    [SerializeField]
-    public GameObject FeedbackContainer;
-
-    [SerializeField]
-    public GameObject AimDirection;
-
-    [SerializeField]
-    public GameObject SkillRange;
-
-    [SerializeField]
-    public GameObject spawnFeedback;
+    public GameObject PlayerName,
+        Hitbox,
+        FeedbackContainer,
+        AimDirection,
+        SkillRange,
+        spawnFeedback,
+        OrientationIndicator;
 
     [SerializeField]
     public AudioClip spawnSfx;
@@ -34,13 +25,16 @@ public class CharacterBase : MonoBehaviour
     {
         float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(true);
-        if(isCurrentPlayer){
+        if (isCurrentPlayer)
+        {
             MMSoundManagerSoundPlayEvent.Trigger(
                 spawnSfx,
                 MMSoundManager.MMSoundManagerTracks.Sfx,
                 Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
             );
-        } else {
+        }
+        else
+        {
             sound3DManager.SetSfxSound(spawnSfx);
             sound3DManager.PlaySfxSound();
         }

@@ -114,6 +114,7 @@ public class CustomLevelManager : LevelManager
         );
 
         SetPlayerHealthBar(playerId);
+        SetOrientationIndicator(playerId);
         deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         StartCoroutine(CameraCinematic());
     }
@@ -239,6 +240,23 @@ public class CustomLevelManager : LevelManager
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
         ;
+    }
+
+    private void SetOrientationIndicator(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            if (UInt64.Parse(player.PlayerID) == playerID)
+            {
+                player.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(true);
+            }
+            else
+            {
+                player
+                    .GetComponentInChildren<CharacterBase>()
+                    .OrientationIndicator.SetActive(false);
+            }
+        }
     }
 
     private void setCameraToPlayer(ulong playerID)
