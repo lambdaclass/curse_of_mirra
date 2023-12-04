@@ -63,10 +63,6 @@ public class TitleScreenController : MonoBehaviour
 
     public void PlayButton()
     {
-        ChangeToMainScreen();
-    }
-
-    private void ChangeToMainScreen() {
         SetLoadingScreen(true);
         StartCoroutine(Utils.GetSelectedCharacter(
             response => {
@@ -84,7 +80,7 @@ public class TitleScreenController : MonoBehaviour
                         // If server is not found default to localhost IP
                         SelectServerIP.serverIp = "localhost";
                         SelectServerIP.serverNameString = "Localhost";
-                        ChangeToMainScreen();
+                        PlayButton();
                         break;
                     default:
                         Errors.Instance.HandleNetworkError("Error", error);
