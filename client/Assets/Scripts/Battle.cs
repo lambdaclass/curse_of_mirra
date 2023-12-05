@@ -820,7 +820,6 @@ public class Battle : MonoBehaviour
             character.characterBase.GetComponent<CharacterFeedbackManager>();
 
         ManageFeedbacks(player, playerUpdate);
-        feedbackManager.HandleUmaMarks(playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
