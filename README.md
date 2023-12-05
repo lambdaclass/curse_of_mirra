@@ -11,7 +11,7 @@
 - [Project and Unity Setup](#project-and-unity-setup)
 - [Running the Backend](#running-the-backend)
 - [Documentation](#documentation)
-- [Contact and Socials](##contact-and-socials)
+- [Contact and Socials](#contact-and-socials)
 
 ## About
 
