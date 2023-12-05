@@ -255,7 +255,7 @@ MonoBehaviour:
   ChangeLayersRecursivelyOnDeath: 0
   LayerOnDeath:
     _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 140756031000708301}
+  DeathMMFeedbacks: {fileID: 0}
   ResetColorOnRevive: 1
   ColorMaterialPropertyName: _Color
   UseMaterialPropertyBlocks: 0
@@ -486,6 +486,7 @@ MonoBehaviour:
   - {fileID: 1633531900575384653}
   feedbacksPrefabs:
   - {fileID: 604736327119138052}
+  deathFeedback: {fileID: 179007033852684844}
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -1188,6 +1189,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterBase
       objectReference: {fileID: 0}
+    - target: {fileID: 6896629263172620993, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939984729751202144, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8248100963495747579, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -1268,22 +1279,31 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8349459183747136099, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349459184058660413, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Range
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349459184058660413, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2577351981740644171, guid: 9468612907e8942b49712f4e342b630c, type: 3}
     - {fileID: 4885603082876928551, guid: 9468612907e8942b49712f4e342b630c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
---- !u!114 &140756031000708301 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8218686647784609926, guid: 9468612907e8942b49712f4e342b630c,
+--- !u!1 &179007033852684844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8178896298581030503, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &604736327119138052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
