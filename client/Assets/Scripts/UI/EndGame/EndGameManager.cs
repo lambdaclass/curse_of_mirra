@@ -19,7 +19,7 @@ public class EndGameManager : MonoBehaviour
         characterModelContainer;
 
     [SerializeField]
-    List<GameObject> characterModels;
+    List<CoMCharacter> charactersScriptableObjects;
 
     // Data to be added from front and back
 
@@ -36,8 +36,7 @@ public class EndGameManager : MonoBehaviour
     GameObject modelClone;
 
     [SerializeField]
-    Sprite muflusIcon,
-        zoneIcon;
+    Sprite zoneIcon;
 
     void OnEnable()
     {
@@ -49,13 +48,17 @@ public class EndGameManager : MonoBehaviour
     public void SetDeathSplashCharacter()
     {
         player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        GameObject characterModel = characterModels.Single(
-            characterModel =>
-                characterModel.name.Contains(
+        CoMCharacter character = charactersScriptableObjects.Single(
+            characterSO =>
+                characterSO.name.Contains(
                     player.GetComponent<CustomCharacter>().CharacterModel.name
                 )
         );
-        modelClone = Instantiate(characterModel, characterModelContainer.transform);
+        if (character)
+        {
+            GameObject characterModel = character.UIModel;
+            modelClone = Instantiate(characterModel, characterModelContainer.transform);
+        }
     }
 
     void ShowRankingDisplay()
@@ -125,7 +128,16 @@ public class EndGameManager : MonoBehaviour
         // TODO: get defeater sprite
         if (KillFeedManager.instance.myKillerId != 0)
         {
-            return muflusIcon;
+            CoMCharacter killerCharacter = charactersScriptableObjects.Single(
+                characterSO =>
+                    characterSO.name.Contains(
+                        Utils
+                            .GetPlayer(KillFeedManager.instance.myKillerId)
+                            .GetComponent<CustomCharacter>()
+                            .CharacterModel.name
+                    )
+            );
+            return killerCharacter.UIIcon;
         }
         else
         {
