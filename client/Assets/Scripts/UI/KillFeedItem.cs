@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +12,6 @@ public class KillFeedItem : MonoBehaviour
         killedPlayer;
 
     [SerializeField]
-    Sprite muflusIcon,
-        zoneIcon;
-
-    [SerializeField]
     Image killedImage,
         killerImage;
 
@@ -26,26 +20,26 @@ public class KillFeedItem : MonoBehaviour
         GetComponent<Animator>().Play("KillfeedAnim", 0, 0.0f);
     }
 
-    public void SetPlayerNames(string killer, string killed)
+    public void SetPlayerData(string killer, Sprite killerIcon, string killed, Sprite killedIcon)
     {
         if (killer == ZONE_ID)
         {
             killerPlayer.text = "Zone";
-            killerImage.sprite = zoneIcon;
+            killerImage.sprite = KillFeedManager.instance.zoneIcon;
             killedPlayer.text = "Player " + killed;
-            killedImage.sprite = muflusIcon;
+            killedImage.sprite = killedIcon;
             return;
         }
         if (killed == LOOT_ID)
         {
             killerPlayer.text = "Loot";
             killedPlayer.text = "Player " + killed;
-            killedImage.sprite = muflusIcon;
+            killedImage.sprite = killedIcon;
             return;
         }
         killerPlayer.text = "Player " + killer;
-        killerImage.sprite = muflusIcon;
+        killerImage.sprite = killerIcon;
         killedPlayer.text = "Player " + killed;
-        killedImage.sprite = muflusIcon;
+        killedImage.sprite = killedIcon;
     }
 }

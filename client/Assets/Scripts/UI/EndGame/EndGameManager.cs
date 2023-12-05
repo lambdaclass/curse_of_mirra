@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using System.Collections.Generic;
 
 public class EndGameManager : MonoBehaviour
 {
@@ -18,9 +17,6 @@ public class EndGameManager : MonoBehaviour
     GameObject defeatedByContainer,
         characterModelContainer;
 
-    [SerializeField]
-    List<CoMCharacter> charactersScriptableObjects;
-
     // Data to be added from front and back
 
     [SerializeField]
@@ -35,9 +31,6 @@ public class EndGameManager : MonoBehaviour
     GameObject player;
     GameObject modelClone;
 
-    [SerializeField]
-    Sprite zoneIcon;
-
     void OnEnable()
     {
         SetDeathSplashCharacter();
@@ -48,7 +41,7 @@ public class EndGameManager : MonoBehaviour
     public void SetDeathSplashCharacter()
     {
         player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        CoMCharacter character = charactersScriptableObjects.Single(
+        CoMCharacter character = KillFeedManager.instance.charactersScriptableObjects.Single(
             characterSO =>
                 characterSO.name.Contains(
                     player.GetComponent<CustomCharacter>().CharacterModel.name
@@ -128,20 +121,21 @@ public class EndGameManager : MonoBehaviour
         // TODO: get defeater sprite
         if (KillFeedManager.instance.myKillerId != 0)
         {
-            CoMCharacter killerCharacter = charactersScriptableObjects.Single(
-                characterSO =>
-                    characterSO.name.Contains(
-                        Utils
-                            .GetPlayer(KillFeedManager.instance.myKillerId)
-                            .GetComponent<CustomCharacter>()
-                            .CharacterModel.name
-                    )
-            );
+            CoMCharacter killerCharacter =
+                KillFeedManager.instance.charactersScriptableObjects.Single(
+                    characterSO =>
+                        characterSO.name.Contains(
+                            Utils
+                                .GetPlayer(KillFeedManager.instance.myKillerId)
+                                .GetComponent<CustomCharacter>()
+                                .CharacterModel.name
+                        )
+                );
             return killerCharacter.UIIcon;
         }
         else
         {
-            return zoneIcon;
+            return KillFeedManager.instance.zoneIcon;
         }
     }
 

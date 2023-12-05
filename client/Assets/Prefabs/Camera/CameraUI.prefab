@@ -18689,15 +18689,9 @@ MonoBehaviour:
   amountOfKillsText: {fileID: 3958969272117644351}
   defeatedByContainer: {fileID: 116797904780906585}
   characterModelContainer: {fileID: 4063635870232915765}
-  charactersScriptableObjects:
-  - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
-  - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
-  - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
-  - {fileID: 11400000, guid: 49f1e22bf30394970a6da77c66930595, type: 2}
   defeaterPlayerName: {fileID: 0}
   defeaterCharacterName: {fileID: 0}
   defeaterImage: {fileID: 917838661225552854}
-  zoneIcon: {fileID: 21300000, guid: ec30c7024527044c5ad8413a7d18cf88, type: 3}
 --- !u!1 &9164485106619494857
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
 
 public class KillFeedManager : MonoBehaviour
 {
     [SerializeField]
     KillFeedItem killFeedItem;
+
+    [SerializeField]
+    public List<CoMCharacter> charactersScriptableObjects;
+
+    [SerializeField]
+    public Sprite zoneIcon;
 
     public static KillFeedManager instance;
     private Queue<KillEvent> feedEvents = new Queue<KillEvent>();
@@ -38,6 +43,17 @@ public class KillFeedManager : MonoBehaviour
         return killerId;
     }
 
+    Sprite GetCharacterUIIcon(ulong playerId)
+    {
+        CoMCharacter characterIcon = KillFeedManager.instance.charactersScriptableObjects.Single(
+            characterSO =>
+                characterSO.name.Contains(
+                    Utils.GetPlayer(playerId).GetComponent<CustomCharacter>().CharacterModel.name
+                )
+        );
+        return characterIcon.UIIcon;
+    }
+
     public void Update()
     {
         KillEvent killEvent;
@@ -57,8 +73,10 @@ public class KillFeedManager : MonoBehaviour
             // string killerPlayerName = LobbyConnection.Instance.playersIdName[killEvent.KilledBy];
             string deathPlayerName = killEvent.Killed.ToString();
             string killerPlayerName = killEvent.KilledBy.ToString();
+            Sprite killerIcon = GetCharacterUIIcon(killEvent.KilledBy);
+            Sprite killedIcon = GetCharacterUIIcon(killEvent.Killed);
 
-            killFeedItem.SetPlayerNames(killerPlayerName, deathPlayerName);
+            killFeedItem.SetPlayerData(killerPlayerName, killerIcon, deathPlayerName, killedIcon);
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
