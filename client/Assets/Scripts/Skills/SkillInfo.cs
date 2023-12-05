@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.Tools;
 using System.Text.RegularExpressions;
+using MoreMountains.Tools;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
@@ -59,13 +59,17 @@ public class SkillInfo : ScriptableObject
     public float feedbackVfxDelay;
 
     [System.Serializable]
-    public class VfxStep{
+    public class VfxStep
+    {
         [SerializeField]
         public GameObject vfx;
+
         [SerializeField]
         public float duration;
+
         [SerializeField]
         public float delay;
+
         [SerializeField]
         public bool instantiateVfxOnModel;
     }
