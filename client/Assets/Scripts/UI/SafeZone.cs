@@ -10,6 +10,11 @@ public class SafeZone : MonoBehaviour
     [SerializeField]
     GameObject mesh;
 
+    [SerializeField]
+    public float div = 3.333f;
+
+    float previusRadius = 0.0f;
+
     void Start()
     {
         mesh = Instantiate(mesh, Vector3.zero, Quaternion.identity);
@@ -36,25 +41,27 @@ public class SafeZone : MonoBehaviour
 
     public void ActivateParticleEffects(float radius, Vector3 center)
     {
-        mesh.transform.position = new Vector3(center.x, 1f, center.z);
-        mesh.transform.localScale = new Vector3(radius, 10, radius);
+        if (previusRadius != radius) //for call optimization
+        {
+            mesh.transform.position = new Vector3(center.x, 1f, center.z);
+            mesh.transform.localScale = new Vector3(radius, 10, radius);
+            previusRadius = radius;
+            print("entro");
+        }
     }
 
     private void Update()
     {
-        if (LobbyConnection.Instance.gameStarted)
-        {
-            float radius = Utils.transformBackendRadiusToFrontendRadius(
-                SocketConnectionManager.Instance.playableRadius
-            );
+        float radius = Utils.transformBackendRadiusToFrontendRadius(
+            SocketConnectionManager.Instance.playableRadius
+        );
 
-            Vector3 center = Utils.transformBackendPositionToFrontendPosition(
-                SocketConnectionManager.Instance.shrinkingCenter
-            );
+        Vector3 center = Utils.transformBackendPositionToFrontendPosition(
+            SocketConnectionManager.Instance.shrinkingCenter
+        );
 
-            float radiusCorrected = radius + radius * .007f;
+        float radiusCorrected = radius + radius * .007f;
 
-            ActivateParticleEffects(radius / 3f, new Vector3(center.x, 1f, center.z));
-        }
+        ActivateParticleEffects(radius / div, new Vector3(center.x, 1f, center.z));
     }
 }

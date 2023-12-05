@@ -6,7 +6,9 @@ public class DangerZoneColliderController : MonoBehaviour
 {
     void Start()
     {
-        // StartCoroutine(SetupCollitions());
+        //Settings
+        StartCoroutine(SetupCollitions());
+        Physics.reuseCollisionCallbacks = true;
     }
 
     IEnumerator SetupCollitions()
