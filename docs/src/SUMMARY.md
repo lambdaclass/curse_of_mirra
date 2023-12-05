@@ -6,7 +6,6 @@
 - [Android Build](./android_builds.md)
 - [IOS Build](./ios_builds.md)
 - [Fluid gameplay in an online environment](./fluid_gameplay.md)
-- [Simulating high latency](./simulating_latency.md)
 - [Common Pitfalls](./common_pitfalls.md)
 - [Unity Animations](./animations.md)
   - [Skill animations](./skill.md)
