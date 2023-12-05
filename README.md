@@ -75,7 +75,7 @@ git clone https://github.com/lambdaclass/curse_of_myrra
 
 ## Running the Backend
 
-Ensure Docker is running and execute:
+For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure Docker is running and execute:
 
 ```bash
 git clone https://github.com/lambdaclass/game_backend
@@ -83,12 +83,7 @@ make db
 make setup
 make start
 ```
-
-For local testing using the [game backend](https://github.com/lambdaclass/game_backend), temporarily edit the `mix.exs` file to point to your _local_ copy of the game backend, for example:
-`{:game_backend, path: "/Users/MyUsername/lambda/game_backend"}`
-
-For testing using a remote server, point to the _GitHub URL_ instead and specify the desired branch like so:
-`{:game_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
+Remember to set ```localhost``` as the server.
 
 ## Documentation
 
