@@ -60,6 +60,7 @@ MonoBehaviour:
   BlockingConditionStates: 
   accumulatedTime: 0
   firstTimestamp: 0
+  levelManager: {fileID: 0}
 --- !u!114 &7090107403194157422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +86,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootsList: {fileID: 0}
+  lootPickedVfx: {fileID: 8771972552311404799, guid: b357929b194c045c19930ff3cff951f4,
+    type: 3}
 --- !u!114 &6769759324922387623
 MonoBehaviour:
   m_ObjectHideFlags: 0
