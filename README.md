@@ -8,11 +8,10 @@
 - [Licensing](#licensing)
 - [Requirements](#requirements)
 - [Suggested Development Environment](#suggested-development-environment)
-- [Project Setup](#project-setup)
-- [Unity Setup](#unity-setup)
+- [Project and Unity Setup](#project-and-unity-setup)
 - [Running the Backend](#running-the-backend)
-- [Useful Commands](#useful-commands)
 - [Documentation](#documentation)
+- [Contact and Socials](##contact-and-socials)
 
 ## About
 
@@ -63,20 +62,14 @@ Set up your environment with the following steps:
 - In VSCode, download the .NET extension. After installation, change the version to 1.26 (locate the version dropdown next to the Uninstall button in the extension window).
 - To check if the setup is successful, go to VSCode's console, select the Output tab, and pick Omnisharp Log in the dropdown. If there are no error logs and Omnisharp is scanning the project, the configuration is correct.
 
-## Project Setup
-
-Ensure Docker is running and execute the following commands:
+## Project and Unity Setup
+- Open a terminal and clone the project:
 
 ```bash
 git clone https://github.com/lambdaclass/curse_of_myrra
-cd curse_of_myrra/server
-make db
-make setup
 ```
 
-## Unity Setup
-
-- In Unity Hub, click on the add project button and select the `client` folder.
+- In Unity Hub, click on the add project button and select the `curse_of_myrra/client` folder.
 - Choose the correct editor version and download the [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). Include it in the `Assets/ThirdParty` folder after purchasing the license.
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
@@ -85,6 +78,9 @@ make setup
 Ensure Docker is running and execute:
 
 ```bash
+git clone https://github.com/lambdaclass/game_backend
+make db
+make setup
 make start
 ```
 
@@ -93,26 +89,6 @@ For local testing using the [game backend](https://github.com/lambdaclass/game_b
 
 For testing using a remote server, point to the _GitHub URL_ instead and specify the desired branch like so:
 `{:game_backend, git: "https://github.com/lambdaclass/game_backend", branch: "main"}`
-
-## Useful Commands
-
-```bash
-make tests
-```
-
-Will run Elixir and Rust tests
-
-```bash
-make format
-```
-
-Will format Elixir and Rust code.
-
-```bash
-make prepush
-```
-
-Will format your code and run Credo check and tests.
 
 ## Documentation
 
@@ -133,7 +109,6 @@ Open: [http://localhost:3000/](http://localhost:3000/ios_builds.html)
 
 Some key documentation pages:
 
-- [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
 - [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
 - [Android build](https://docs.curseofmyrra.com/android_builds.html)
 - [IOs builds](https://docs.curseofmyrra.com/ios_builds.html)
