@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 27c9ddb18b52c400984073b4a7cf8d42
+guid: 60d37ab96012b42c2b5afdc7e37a0dfc
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,23 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Uma
-    second: {fileID: 2100000, guid: 235508a9151614ba6acb00219728ecfb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: emission
-    second: {fileID: 2100000, guid: 03da282fc65c2484b8116cad1db1702c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: gold
-    second: {fileID: 2100000, guid: 95f90208230ad44f7b2c7c27d17fb32d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: metal
-    second: {fileID: 2100000, guid: 3b68ceec6f66f48c7a4cbe675f98e493, type: 2}
+      name: Uma_txt
+    second: {fileID: 2100000, guid: 131bc62d95ec04c0cbc58733eb183715, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
