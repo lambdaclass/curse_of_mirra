@@ -932,6 +932,7 @@ MonoBehaviour:
   characterModelContainer: {fileID: 1150104031980951842}
   characterModels:
   - {fileID: 680528562126163880, guid: 15b66cc26325d4624aa55f5dbede2d7d, type: 3}
+  - {fileID: 6484203954245076451, guid: 0e958de8386ab47d39286ae8abebffdd, type: 3}
 --- !u!1 &1097686793990480
 GameObject:
   m_ObjectHideFlags: 0
