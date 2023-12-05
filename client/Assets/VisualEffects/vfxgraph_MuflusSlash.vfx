@@ -2058,7 +2058,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.723756194114685,"g":0.18230308592319489,"b":0.072199247777462,"a":1.0},"time":0.0},{"color":{"r":1.67422616481781,"g":0.17706482112407685,"b":0.07012469321489334,"a":1.0},"time":0.06764324754476547},{"color":{"r":3.2548482418060304,"g":0.35932332277297976,"b":0.1533697247505188,"a":1.0},"time":0.21176470816135407},{"color":{"r":59.01769256591797,"g":6.241663932800293,"b":2.4719464778900148,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.9836684465408325,"time":0.9176470637321472},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.723756194114685,"g":0.42420655488967898,"b":0.08122406899929047,"a":1.0},"time":0.0},{"color":{"r":1.67422616481781,"g":0.4502412676811218,"b":0.07889018952846527,"a":1.0},"time":0.06764324754476547},{"color":{"r":3.2548482418060304,"g":0.9658012390136719,"b":0.1533697247505188,"a":1.0},"time":0.21176470816135407},{"color":{"r":12.84446907043457,"g":4.37115478515625,"b":0.6052367687225342,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.9836684465408325,"time":0.9176470637321472},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: gradient
@@ -4081,7 +4081,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.3764705955982208,"g":0.039738576859235767,"b":0.015686282888054849,"a":1.0},"time":0.33823147416114809},{"color":{"r":0.8078431487083435,"g":0.09045752882957459,"b":0.03921568766236305,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.9836684465408325,"time":0.9176470637321472},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.3764705955982208,"g":0.09291069954633713,"b":0.015686282888054849,"a":1.0},"time":0.33823147416114809},{"color":{"r":0.8078431487083435,"g":0.21625317633152009,"b":0.03921568766236305,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.9836684465408325,"time":0.9176470637321472},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: gradient
@@ -5735,7 +5735,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 0.3
     m_Space: 2147483647
   m_Property:
     name: A
@@ -5769,7 +5769,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.7
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: B
