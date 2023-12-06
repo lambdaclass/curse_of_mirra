@@ -124,7 +124,7 @@ public class CustomLevelManager : LevelManager
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
         }
-        if (GameHasEnded())
+        if (GameHasEnded() && !endGameManager.finalSplash.activeSelf)
         {
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");

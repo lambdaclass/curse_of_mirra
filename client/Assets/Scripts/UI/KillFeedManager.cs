@@ -55,12 +55,7 @@ public class KillFeedManager : MonoBehaviour
             CoMCharacter characterIcon =
                 KillFeedManager.instance.charactersScriptableObjects.Single(
                     characterSO =>
-                        characterSO.name.Contains(
-                            Utils
-                                .GetPlayer(killerId)
-                                .GetComponent<CustomCharacter>()
-                                .CharacterModel.name
-                        )
+                        characterSO.name.Contains(Utils.GetCharacter(killerId).CharacterModel.name)
                 );
             return characterIcon.UIIcon;
         }

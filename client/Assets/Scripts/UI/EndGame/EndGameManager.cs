@@ -29,7 +29,7 @@ public class EndGameManager : MonoBehaviour
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
     private const string ZONE_ID = "9999";
-    GameObject player;
+    CustomCharacter player;
     GameObject modelClone;
 
     void OnEnable()
@@ -41,12 +41,9 @@ public class EndGameManager : MonoBehaviour
 
     public void SetDeathSplashCharacter()
     {
-        player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        player = Utils.GetCharacter(SocketConnectionManager.Instance.playerId);
         CoMCharacter character = KillFeedManager.instance.charactersScriptableObjects.Single(
-            characterSO =>
-                characterSO.name.Contains(
-                    player.GetComponent<CustomCharacter>().CharacterModel.name
-                )
+            characterSO => characterSO.name.Contains(player.CharacterModel.name)
         );
         if (character)
         {
