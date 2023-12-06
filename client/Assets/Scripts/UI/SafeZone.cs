@@ -46,7 +46,6 @@ public class SafeZone : MonoBehaviour
             mesh.transform.position = new Vector3(center.x, 1f, center.z);
             mesh.transform.localScale = new Vector3(radius, 10, radius);
             previusRadius = radius;
-            print("entro");
         }
     }
 
