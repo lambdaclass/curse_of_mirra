@@ -13,7 +13,8 @@ public class CharacterBase : MonoBehaviour
         AimDirection,
         SkillRange,
         spawnFeedback,
-        OrientationIndicator;
+        OrientationIndicator,
+        OrientationArrow;
 
     [SerializeField]
     public AudioClip spawnSfx;

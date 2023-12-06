@@ -655,6 +655,9 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         levelManager.DestroySkillsClone(playerCharacter);
+        playerCharacter
+            .GetComponentInChildren<CharacterBase>()
+            .OrientationIndicator.SetActive(false);
         if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
         {
             CustomGUIManager.DisplayZoneDamageFeedback(false);
