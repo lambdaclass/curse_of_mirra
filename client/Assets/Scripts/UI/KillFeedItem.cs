@@ -25,7 +25,7 @@ public class KillFeedItem : MonoBehaviour
         if (killer == ZONE_ID)
         {
             killerPlayer.text = "Zone";
-            killerImage.sprite = KillFeedManager.instance.zoneIcon;
+            killerImage.sprite = killerIcon;
             killedPlayer.text = "Player " + killed;
             killedImage.sprite = killedIcon;
             return;

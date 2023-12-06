@@ -20,6 +20,7 @@ public class KillFeedManager : MonoBehaviour
     public ulong myKillerId;
 
     public ulong playerToTrack;
+    private const string ZONE_ID = "9999";
 
     public void Awake()
     {
@@ -43,15 +44,26 @@ public class KillFeedManager : MonoBehaviour
         return killerId;
     }
 
-    Sprite GetCharacterUIIcon(ulong playerId)
+    Sprite GetUIIcon(ulong killerId)
     {
-        CoMCharacter characterIcon = KillFeedManager.instance.charactersScriptableObjects.Single(
-            characterSO =>
-                characterSO.name.Contains(
-                    Utils.GetPlayer(playerId).GetComponent<CustomCharacter>().CharacterModel.name
-                )
-        );
-        return characterIcon.UIIcon;
+        if (killerId.ToString() == ZONE_ID)
+        {
+            return zoneIcon;
+        }
+        else
+        {
+            CoMCharacter characterIcon =
+                KillFeedManager.instance.charactersScriptableObjects.Single(
+                    characterSO =>
+                        characterSO.name.Contains(
+                            Utils
+                                .GetPlayer(killerId)
+                                .GetComponent<CustomCharacter>()
+                                .CharacterModel.name
+                        )
+                );
+            return characterIcon.UIIcon;
+        }
     }
 
     public void Update()
@@ -73,8 +85,8 @@ public class KillFeedManager : MonoBehaviour
             // string killerPlayerName = LobbyConnection.Instance.playersIdName[killEvent.KilledBy];
             string deathPlayerName = killEvent.Killed.ToString();
             string killerPlayerName = killEvent.KilledBy.ToString();
-            Sprite killerIcon = GetCharacterUIIcon(killEvent.KilledBy);
-            Sprite killedIcon = GetCharacterUIIcon(killEvent.Killed);
+            Sprite killerIcon = GetUIIcon(killEvent.KilledBy);
+            Sprite killedIcon = GetUIIcon(killEvent.Killed);
 
             killFeedItem.SetPlayerData(killerPlayerName, killerIcon, deathPlayerName, killedIcon);
             GameObject item = Instantiate(killFeedItem.gameObject, transform);

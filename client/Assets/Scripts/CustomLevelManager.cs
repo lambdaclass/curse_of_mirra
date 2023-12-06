@@ -52,6 +52,7 @@ public class CustomLevelManager : LevelManager
     double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
+    EndGameManager endGameManager;
 
     protected override void Awake()
     {
@@ -110,6 +111,8 @@ public class CustomLevelManager : LevelManager
 
         SetPlayerHealthBar(playerId);
         StartCoroutine(CameraCinematic());
+
+        endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
     }
 
     void Update()
@@ -125,7 +128,6 @@ public class CustomLevelManager : LevelManager
         {
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
-            EndGameManager endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
             endGameManager.finalSplash.SetActive(true);
             endGameManager.ShowCharacterAnimation();
         }

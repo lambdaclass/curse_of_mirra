@@ -28,6 +28,7 @@ public class EndGameManager : MonoBehaviour
 
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
+    private const string ZONE_ID = "9999";
     GameObject player;
     GameObject modelClone;
 
@@ -118,8 +119,11 @@ public class EndGameManager : MonoBehaviour
 
     private Sprite GetDefeaterSprite()
     {
-        // TODO: get defeater sprite
-        if (KillFeedManager.instance.myKillerId != 0)
+        if (KillFeedManager.instance.myKillerId.ToString() == ZONE_ID)
+        {
+            return KillFeedManager.instance.zoneIcon;
+        }
+        else
         {
             CoMCharacter killerCharacter =
                 KillFeedManager.instance.charactersScriptableObjects.Single(
@@ -132,10 +136,6 @@ public class EndGameManager : MonoBehaviour
                         )
                 );
             return killerCharacter.UIIcon;
-        }
-        else
-        {
-            return KillFeedManager.instance.zoneIcon;
         }
     }
 
