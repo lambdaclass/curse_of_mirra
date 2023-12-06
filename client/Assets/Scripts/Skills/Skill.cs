@@ -237,6 +237,23 @@ public class Skill : CharacterAbility
         {
             StartCoroutine(ExecuteFeedbackVfx());
         }
+
+        foreach (var vfxStep in skillInfo.vfxList)
+        {
+            StartCoroutine(ExecuteFeedbackVfx(vfxStep.vfx, vfxStep.duration, vfxStep.delay, vfxStep.instantiateVfxOnModel));
+        }
+    }
+
+    IEnumerator ExecuteFeedbackVfx(GameObject vfx, float duration, float delay, bool instantiateVfxOnModel){
+        yield return new WaitForSeconds(delay);
+
+        Transform animationParent;
+        animationParent = instantiateVfxOnModel
+            ? _model.transform
+            : _model.transform.parent;
+
+        GameObject vfxInstance = Instantiate(vfx, animationParent);
+        Destroy(vfxInstance, duration);
     }
 
     IEnumerator ExecuteFeedbackVfx()
