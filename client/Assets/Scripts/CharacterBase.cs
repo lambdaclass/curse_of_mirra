@@ -27,21 +27,19 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     Sound3DManager sound3DManager;
 
-    public IEnumerator activateSpawnFeedback(bool isCurrentPlayer)
+    public void ToggleSpawnFeedback(bool value, string id)
     {
-        float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
-        spawnFeedback.SetActive(true);
-        if(isCurrentPlayer){
-            MMSoundManagerSoundPlayEvent.Trigger(
-                spawnSfx,
-                MMSoundManager.MMSoundManagerTracks.Sfx,
-                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
-            );
-        } else {
-            sound3DManager.SetSfxSound(spawnSfx);
-            sound3DManager.PlaySfxSound();
-        }
-        yield return new WaitForSeconds(lifeTime);
-        spawnFeedback.SetActive(false);
+        // float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
+        spawnFeedback.SetActive(value);
+        // if(isCurrentPlayer){
+        //     MMSoundManagerSoundPlayEvent.Trigger(
+        //         spawnSfx,
+        //         MMSoundManager.MMSoundManagerTracks.Sfx,
+        //         Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
+        //     );
+        // } else {
+        //     sound3DManager.SetSfxSound(spawnSfx);
+        //     sound3DManager.PlaySfxSound();
+        // }
     }
 }
