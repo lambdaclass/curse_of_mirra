@@ -20,18 +20,19 @@ MonoBehaviour:
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
-  projectilePrefab: {fileID: 0}
-  animationSpeedMultiplier: 3
+  projectilePrefab: {fileID: 6460634427512080952, guid: 2f2ba68c80131418cba01525f24232e9,
+    type: 3}
+  animationSpeedMultiplier: 1
   hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: a6ef9d76555564806994f38a2c618186, type: 3}
   sfxHasAbilityStop: 1
   abilityStopSfx: {fileID: 8300000, guid: 544ea3791bbf64d0cade509ce6120dfc, type: 3}
-  startAnimationDuration: 0.6
+  startAnimationDuration: 0
   executeAnimationDuration: 1
-  skillCircleRadius: 12
+  skillCircleRadius: 20
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 4.5
+  skillAreaRadius: 4
   showCooldown: 1
   damage: 0
   cooldown: 0

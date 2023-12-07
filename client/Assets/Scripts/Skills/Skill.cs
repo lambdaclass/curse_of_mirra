@@ -240,17 +240,28 @@ public class Skill : CharacterAbility
 
         foreach (var vfxStep in skillInfo.vfxList)
         {
-            StartCoroutine(ExecuteFeedbackVfx(vfxStep.vfx, vfxStep.duration, vfxStep.delay, vfxStep.instantiateVfxOnModel));
+            StartCoroutine(
+                ExecuteFeedbackVfx(
+                    vfxStep.vfx,
+                    vfxStep.duration,
+                    vfxStep.delay,
+                    vfxStep.instantiateVfxOnModel
+                )
+            );
         }
     }
 
-    IEnumerator ExecuteFeedbackVfx(GameObject vfx, float duration, float delay, bool instantiateVfxOnModel){
+    IEnumerator ExecuteFeedbackVfx(
+        GameObject vfx,
+        float duration,
+        float delay,
+        bool instantiateVfxOnModel
+    )
+    {
         yield return new WaitForSeconds(delay);
 
         Transform animationParent;
-        animationParent = instantiateVfxOnModel
-            ? _model.transform
-            : _model.transform.parent;
+        animationParent = instantiateVfxOnModel ? _model.transform : _model.transform.parent;
 
         GameObject vfxInstance = Instantiate(vfx, animationParent);
         Destroy(vfxInstance, duration);
@@ -296,12 +307,20 @@ public class Skill : CharacterAbility
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+        Debug.Log("Skill: " + serverSkill.ToString());
+
         float angle = 0f;
         bool autoAim = true;
+        float targetX = 0f;
         if (relativePosition.X != 0 || relativePosition.Y != 0)
         {
             angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg;
             autoAim = false;
+            targetX = (float)
+                Math.Sqrt(
+                    Math.Pow((double)relativePosition.X, 2)
+                        + Math.Pow((double)relativePosition.Y, 2)
+                );
         }
 
         UseSkill useSkillAction = new UseSkill
@@ -309,6 +328,8 @@ public class Skill : CharacterAbility
             Skill = serverSkill.ToString(),
             Angle = angle,
             AutoAim = autoAim,
+            TargetX = targetX,
+            TargetY = relativePosition.Y,
         };
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
