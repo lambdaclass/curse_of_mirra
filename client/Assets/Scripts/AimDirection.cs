@@ -18,7 +18,7 @@ public class AimDirection : MonoBehaviour
     GameObject arrowHead;
 
     [SerializeField]
-    GameObject area;
+    public GameObject area;
 
     [SerializeField]
     GameObject surface;
@@ -192,14 +192,13 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(true);
+                surface.SetActive(true);
                 break;
         }
     }
 
     public void DeactivateIndicator()
     {
-        surface.SetActive(false);
-
         switch (activeIndicator)
         {
             case UIIndicatorType.Cone:
@@ -210,6 +209,7 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(false);
+                surface.SetActive(false);
                 break;
         }
         Reset();
@@ -218,6 +218,7 @@ public class AimDirection : MonoBehaviour
     private void Reset()
     {
         transform.localPosition = initialPosition;
+        area.transform.localPosition = initialPosition;
     }
 
     public void CancelableFeedback(bool cancelable)

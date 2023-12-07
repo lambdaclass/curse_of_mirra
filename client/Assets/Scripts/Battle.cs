@@ -102,7 +102,8 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        {
             sendMovementStarted = true;
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
@@ -320,19 +321,19 @@ public class Battle : MonoBehaviour
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                currentPlayer.GetComponent<SkillBasic>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                currentPlayer.GetComponent<Skill1>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:

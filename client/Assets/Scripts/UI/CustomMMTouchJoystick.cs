@@ -13,6 +13,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public Skill skill;
     const float CANCEL_AREA_VALUE = 0.5f;
     bool dragged = false;
+    bool cancelable = false;
     float frameCounter;
     private CustomInputManager inputManager;
 
@@ -34,10 +35,18 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     {
         base.OnDrag(eventData);
         if (
-            (RawValue.x > CANCEL_AREA_VALUE || RawValue.x < -CANCEL_AREA_VALUE)
-            && (RawValue.y > CANCEL_AREA_VALUE || RawValue.y < -CANCEL_AREA_VALUE)
+            RawValue.x < CANCEL_AREA_VALUE
+            && RawValue.x > -CANCEL_AREA_VALUE
+            && RawValue.y < CANCEL_AREA_VALUE
+            && RawValue.y > -CANCEL_AREA_VALUE
+            && dragged
         )
         {
+            cancelable = true;
+        }
+        else
+        {
+            cancelable = false;
             dragged = true;
         }
         CancelAttack();
@@ -48,6 +57,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     {
         newPointerUpEvent.Invoke(RawValue, skill);
         dragged = false;
+        cancelable = false;
         CancelAttack();
         UnSetJoystick();
         ResetJoystick();
@@ -58,9 +68,10 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         // What makes this responsive is taking into account the canvas scaling
         float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
-        float knobBackgroundRadius =
-            gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;
-        float knobRadius = GetComponent<RectTransform>().rect.width / 2;
+        float knobBackgroundRadius = gameObject.transform.parent
+            .GetComponent<RectTransform>()
+            .rect.width;
+        float knobRadius = GetComponent<RectTransform>().rect.width;
         MaxRange = (knobBackgroundRadius - knobRadius) * scaleCanvas;
         base.RefreshMaxRangeDistance();
     }
@@ -95,14 +106,14 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         {
             if (frameCounter == 0)
             {
-                inputManager.SetCanceled(dragged);
+                inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
                 HapticFeedback.MediumFeedback();
             }
             frameCounter++;
         }
         else
         {
-            inputManager.SetCanceled(false);
+            inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
             frameCounter = 0;
         }
     }
