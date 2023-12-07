@@ -53,10 +53,8 @@ public class AimDirection : MonoBehaviour
             arrow.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             arrow.transform.localPosition = new Vector3(0, -scaleY / 2, -0.5f);
         }
-
         surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, scaleZ);
-        surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 100);
-        //surface.SetActive(skill.IsSelfTargeted());
+        surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 50);
     }
 
     public void Rotate(float x, float y, Skill skill)
@@ -192,6 +190,7 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(true);
+                surface.SetActive(true);
                 break;
         }
     }
@@ -208,6 +207,7 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(false);
+                surface.SetActive(false);
                 break;
         }
         Reset();

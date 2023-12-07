@@ -212,7 +212,6 @@ public class CustomInputManager : InputManager
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
-        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystick = joystick;
 
         ShowSkillRange(joystick.skill);
@@ -438,11 +437,11 @@ public class CustomInputManager : InputManager
     public void SetCanceled(bool cancelValue, bool dragged, UIIndicatorType indicatorType)
     {
         canceled = cancelValue;
-        if (directionIndicator && cancelValue || directionIndicator && !cancelValue && !dragged)
+        if (directionIndicator && cancelValue && !dragged)
         {
             directionIndicator.DeactivateIndicator();
         }
-        else if (!cancelValue && dragged)
+        else if (directionIndicator && !cancelValue && dragged)
         {
             directionIndicator.ActivateIndicator(indicatorType);
         }
