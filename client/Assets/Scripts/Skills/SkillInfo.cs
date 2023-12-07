@@ -91,6 +91,8 @@ public class SkillInfo : ScriptableObject
                     this.damage = 0;
                     this.cooldown = skill.CooldownMs / 1000;
                     this.skillRange = 0;
+                    this.skillCircleRadius = 10;
+                    Debug.Log(skill.Mechanics);
                 }
             }
         }
