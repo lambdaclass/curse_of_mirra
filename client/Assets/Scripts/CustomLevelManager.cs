@@ -177,6 +177,10 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
+            if (SocketConnectionManager.Instance.playerId == playerID)
+            {
+                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
+            }
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);

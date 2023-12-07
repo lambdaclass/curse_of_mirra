@@ -72,8 +72,11 @@ public class Loot : MonoBehaviour
         string type = GetLoot(id).type;
 
         Sound3DManager lootSoundManagerRef = lootObject.GetComponent<Sound3DManager>();
+        AudioSource lootAudioSource = lootObject.GetComponent<AudioSource>();
+        lootAudioSource.clip = GetLootableByType(type).pickUpSound;
         lootSoundManagerRef.SetSfxSound(GetLootableByType(type).pickUpSound);
-        lootSoundManagerRef.PlaySfxSound();
+        // lootSoundManagerRef.PlaySfxSound();
+        lootAudioSource.Play();
 
         PlayVfx(lootObject.transform.position);
 
@@ -83,7 +86,11 @@ public class Loot : MonoBehaviour
 
     private void PlayVfx(Vector3 lootPosition)
     {
-        Vector3 position = new Vector3(lootPosition.x, lootPickedVfx.transform.position.y, lootPosition.z);
+        Vector3 position = new Vector3(
+            lootPosition.x,
+            lootPickedVfx.transform.position.y,
+            lootPosition.z
+        );
         GameObject feedbackVfx = Instantiate(lootPickedVfx, position, Quaternion.identity);
     }
 

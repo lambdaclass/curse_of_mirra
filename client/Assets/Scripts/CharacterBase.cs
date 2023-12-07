@@ -29,17 +29,16 @@ public class CharacterBase : MonoBehaviour
 
     public void ToggleSpawnFeedback(bool value, string id)
     {
-        // float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
         spawnFeedback.SetActive(value);
-        // if(isCurrentPlayer){
-        //     MMSoundManagerSoundPlayEvent.Trigger(
-        //         spawnSfx,
-        //         MMSoundManager.MMSoundManagerTracks.Sfx,
-        //         Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
-        //     );
-        // } else {
-        //     sound3DManager.SetSfxSound(spawnSfx);
-        //     sound3DManager.PlaySfxSound();
-        // }
+        if (value)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(
+                spawnSfx,
+                MMSoundManager.MMSoundManagerTracks.Sfx,
+                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position,
+                false,
+                0.001f
+            );
+        }
     }
 }

@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c3b3ae0b3854c0885741bbbc9a716b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateInterval: 0.3
+  updateInterval: 5
 --- !u!1 &1428026279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1179,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243820240813678}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &114991275479998036
 MonoBehaviour:
   m_ObjectHideFlags: 0
