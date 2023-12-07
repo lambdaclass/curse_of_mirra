@@ -9099,7 +9099,7 @@ public sealed partial class Config : pb::IMessage<Config>
 ///- width_ The width of the playing area.
 ///- height: The length of the playing area.
 ///- map_modification: If present, contains the information for when the map modification mechanic is triggered
-///- loot_interval_ms: If present, interval in milliseconds for spawning loot crates
+///- loot_interval_ms: If present, interval in milliseconds for spawning items
 /// </summary>
 [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
