@@ -11,7 +11,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
-    const float CANCEL_AREA_VALUE = 0.5f;
+    const float CANCEL_AREA_VALUE = 0.15f;
     bool dragged = false;
     bool cancelable = false;
     float frameCounter;
@@ -39,10 +39,10 @@ public class CustomMMTouchJoystick : MMTouchJoystick
             && RawValue.x > -CANCEL_AREA_VALUE
             && RawValue.y < CANCEL_AREA_VALUE
             && RawValue.y > -CANCEL_AREA_VALUE
-            && dragged
         )
         {
             cancelable = true;
+            dragged = false;
         }
         else
         {
@@ -56,8 +56,8 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnPointerUp(PointerEventData data)
     {
         newPointerUpEvent.Invoke(RawValue, skill);
-        dragged = false;
         cancelable = false;
+        dragged = false;
         CancelAttack();
         UnSetJoystick();
         ResetJoystick();
@@ -101,20 +101,14 @@ public class CustomMMTouchJoystick : MMTouchJoystick
             && RawValue.x > -CANCEL_AREA_VALUE
             && RawValue.y < CANCEL_AREA_VALUE
             && RawValue.y > -CANCEL_AREA_VALUE
-            && dragged
         )
         {
-            if (frameCounter == 0)
-            {
-                inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
-                HapticFeedback.MediumFeedback();
-            }
-            frameCounter++;
+            inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
+            HapticFeedback.MediumFeedback();
         }
         else
         {
             inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
-            frameCounter = 0;
         }
     }
 }
