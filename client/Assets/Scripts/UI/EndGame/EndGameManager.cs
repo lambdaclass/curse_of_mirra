@@ -94,11 +94,14 @@ public class EndGameManager : MonoBehaviour
         {
             defeatedByContainer.SetActive(false);
         }
-        //defeaterPlayerName.text = GetDefeaterPlayerName();
-        // Defeated By Image
-        defeaterImage.sprite = GetDefeaterSprite();
-        // Defeated By Name
-        //defeaterCharacterName.text = GetDefeaterCharacterName();
+        else
+        {
+            //defeaterPlayerName.text = GetDefeaterPlayerName();
+            // Defeated By Image
+            defeaterImage.sprite = GetDefeaterSprite();
+            // Defeated By Name
+            //defeaterCharacterName.text = GetDefeaterCharacterName();
+        }
     }
 
     private ulong GetKillCount()
