@@ -239,7 +239,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        if (!activeJoystickStatus)
+        if (!canceled)
         {
             skill.TryExecuteSkill(aoePosition);
         }
