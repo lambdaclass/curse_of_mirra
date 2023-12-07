@@ -27,12 +27,12 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: a6ef9d76555564806994f38a2c618186, type: 3}
   sfxHasAbilityStop: 1
   abilityStopSfx: {fileID: 8300000, guid: 544ea3791bbf64d0cade509ce6120dfc, type: 3}
-  startAnimationDuration: 7
-  executeAnimationDuration: 7
-  skillCircleRadius: 26
+  startAnimationDuration: 0
+  executeAnimationDuration: 1
+  skillCircleRadius: 20
   skillConeAngle: 0
   arrowWidth: 0
-  skillAreaRadius: 6.39
+  skillAreaRadius: 4
   showCooldown: 1
   damage: 0
   cooldown: 0

@@ -319,7 +319,7 @@ public class Skill : CharacterAbility
             targetX = (float)
                 Math.Sqrt(
                     Math.Pow((double)relativePosition.X, 2)
-                        + Math.Pow((double)relativePosition.X, 2)
+                        + Math.Pow((double)relativePosition.Y, 2)
                 );
         }
 
