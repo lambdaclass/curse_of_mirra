@@ -189,11 +189,9 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(true);
-                surface.SetActive(true);
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(true);
-                surface.SetActive(true);
                 break;
         }
     }
@@ -207,11 +205,9 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(false);
-                surface.SetActive(false);
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(false);
-                surface.SetActive(false);
                 break;
         }
         Reset();
