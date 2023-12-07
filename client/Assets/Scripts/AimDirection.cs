@@ -12,7 +12,7 @@ public class AimDirection : MonoBehaviour
     public GameObject cone;
 
     [SerializeField]
-    GameObject arrow;
+    public GameObject arrow;
 
     [SerializeField]
     GameObject arrowHead;
@@ -51,12 +51,12 @@ public class AimDirection : MonoBehaviour
             float scaleX = skill.GetArroWidth();
             float scaleY = skill.GetSkillRadius();
             arrow.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
-            arrow.transform.localPosition = new Vector3(0, -scaleY / 2, 0);
+            arrow.transform.localPosition = new Vector3(0, -scaleY / 2, -0.5f);
         }
 
         surface.transform.localScale = new Vector3(viewDistance * 2, viewDistance * 2, scaleZ);
         surface.GetComponentInChildren<Renderer>().material.color = new Color32(255, 255, 255, 100);
-        surface.SetActive(skill.IsSelfTargeted());
+        //surface.SetActive(skill.IsSelfTargeted());
     }
 
     public void Rotate(float x, float y, Skill skill)
@@ -189,6 +189,7 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(true);
+                surface.SetActive(true);
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(true);
@@ -206,6 +207,7 @@ public class AimDirection : MonoBehaviour
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(false);
+                surface.SetActive(false);
                 break;
             case UIIndicatorType.Area:
                 area.SetActive(false);
@@ -217,6 +219,7 @@ public class AimDirection : MonoBehaviour
 
     private void Reset()
     {
+        transform.rotation = Quaternion.Euler(new Vector3(90f, 0, 0));
         transform.localPosition = initialPosition;
         area.transform.localPosition = initialPosition;
     }
