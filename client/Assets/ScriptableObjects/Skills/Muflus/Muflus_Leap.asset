@@ -28,8 +28,8 @@ MonoBehaviour:
   sfxHasAbilityStop: 1
   abilityStopSfx: {fileID: 8300000, guid: 544ea3791bbf64d0cade509ce6120dfc, type: 3}
   startAnimationDuration: 0
-  executeAnimationDuration: 1
-  skillCircleRadius: 20
+  executeAnimationDuration: 0.1
+  skillCircleRadius: 5.69
   skillConeAngle: 0
   arrowWidth: 0
   skillAreaRadius: 4
