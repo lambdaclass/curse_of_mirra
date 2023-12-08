@@ -102,7 +102,8 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted) {
+        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        {
             sendMovementStarted = true;
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
@@ -253,6 +254,10 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+
+                // TODO: try to optimize GetComponent calls
+                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
+
                 if (currentPlayer.activeSelf)
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
@@ -273,12 +278,15 @@ public class Battle : MonoBehaviour
                     {
                         foreach (PlayerAction action in serverPlayerUpdate.Action)
                         {
-                            executeSkillFeedback(
-                                currentPlayer,
-                                action,
-                                serverPlayerUpdate.Direction,
-                                serverPlayerUpdate.ActionDurationMs
-                            );
+                            if (PlayerMovementAuthorized(playerCharacter))
+                            {
+                                executeSkillFeedback(
+                                    currentPlayer,
+                                    action,
+                                    serverPlayerUpdate.Direction,
+                                    serverPlayerUpdate.ActionDurationMs
+                                );
+                            }
                         }
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -287,17 +295,12 @@ public class Battle : MonoBehaviour
                     }
                 }
 
-                // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-
                 if (serverPlayerUpdate.Health <= 0)
                 {
                     SetPlayerDead(playerCharacter);
                 }
 
-                Transform hitbox = currentPlayer
-                    .GetComponent<CustomCharacter>()
-                    .characterBase.Hitbox.transform;
+                Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
                 float hitboxSize = serverPlayerUpdate.BodySize / 50f;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
