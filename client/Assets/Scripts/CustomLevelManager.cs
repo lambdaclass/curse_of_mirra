@@ -276,12 +276,14 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo.skillsInfo.ForEach(skill =>
-        {
-            SkillInfo skillClone = Instantiate(skill);
-            skillClone.InitWithBackend();
-            skills.Add(skillClone);
-        });
+        characterInfo
+            .skillsInfo
+            .ForEach(skill =>
+            {
+                SkillInfo skillClone = Instantiate(skill);
+                skillClone.InitWithBackend();
+                skills.Add(skillClone);
+            });
 
         return skills;
     }
@@ -303,23 +305,24 @@ public class CustomLevelManager : LevelManager
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
             skillList.Add(skillBasic);
-            skillList.Add(skill1);
+            // skillList.Add(skill1);
 
             CoMCharacter characterInfo = charactersInfo.Find(
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
 
-            SkillAnimationEvents skillsAnimationEvent =
-                player.CharacterModel.GetComponent<SkillAnimationEvents>();
+            SkillAnimationEvents skillsAnimationEvent = player
+                .CharacterModel
+                .GetComponent<SkillAnimationEvents>();
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            // skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -344,11 +347,11 @@ public class CustomLevelManager : LevelManager
                     skillInfoClone[0].inputType,
                     skillBasic
                 );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
-                    skillInfoClone[1].inputType,
-                    skill1
-                );
+                // inputManager.AssignSkillToInput(
+                //     UIControls.Skill1,
+                //     skillInfoClone[1].inputType,
+                //     skill1
+                // );
             }
 
             StartCoroutine(inputManager.ShowInputs());
@@ -361,7 +364,9 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -432,8 +437,9 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager.Instance.gamePlayers.Any(
-                (player) => player.Id == SocketConnectionManager.Instance.playerId
-            );
+            && SocketConnectionManager
+                .Instance
+                .gamePlayers
+                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
     }
 }
