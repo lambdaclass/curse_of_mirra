@@ -1730,7 +1730,7 @@ MonoBehaviour:
   SkillBasic: {fileID: 5773388603856226559}
   Skill1: {fileID: 2302692725905988441}
   SkillBasicCooldownContainer: {fileID: 6227269788242123955}
-  Skill1CooldownContainer: {fileID: 2949602977003879530}
+  Skill1CooldownContainer: {fileID: 0}
   disarmObjectSkill1: {fileID: 0}
   disarmObjectSkill2: {fileID: 0}
   disarmObjectSkill3: {fileID: 0}
@@ -3109,7 +3109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactable: 1
+  Interactable: 0
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls: []
@@ -15382,6 +15382,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DeathSplash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523150462481497076, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523150462481497076, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523150462481497076, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523150462481497076, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6bbb6a434dcc4881b347da86cd4a8d5, type: 3}
