@@ -307,8 +307,6 @@ public class Skill : CharacterAbility
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-        Debug.Log("Skill: " + serverSkill.ToString());
-
         float angle = 0f;
         bool autoAim = true;
         float targetX = 0f;
