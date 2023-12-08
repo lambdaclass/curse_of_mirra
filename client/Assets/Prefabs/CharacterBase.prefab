@@ -37,6 +37,7 @@ Transform:
   - {fileID: 7877612813920615429}
   - {fileID: 7449377188674056054}
   - {fileID: 5802362377404487455}
+  - {fileID: 6312626470633818251}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b32352ba4b34ff688fd08f29fbcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: {fileID: 0}
   Hitbox: {fileID: 7408340997204328928}
   FeedbackContainer: {fileID: 260457105922430308}
   AimDirection: {fileID: 504285555944152676}
@@ -73,7 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c27519de357b4dae962d7fcc6dc3470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  umaMarks: {fileID: 3575391336039923830}
 --- !u!1 &6582825352636674345
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,14 +214,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732992783268524443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6943470463976677241}
   - {fileID: 891083699078511433}
   m_Father: {fileID: 1377340570206829633}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8433626900182520464
 GameObject:
