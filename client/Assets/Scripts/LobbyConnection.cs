@@ -21,6 +21,7 @@ public class LobbyConnection : MonoBehaviour
     public bool isHost = false;
     public ulong hostId;
     public int playerCount;
+    public int simulatedPlayerCount;
     public int lobbyCapacity;
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
@@ -143,6 +144,9 @@ public class LobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+    if (this.gameStarted) {
+        CancelInvoke("UpdateSimulatedCounter");
+    }
     }
 
     private void PopulateLists()
@@ -390,6 +394,7 @@ public class LobbyConnection : MonoBehaviour
                 case LobbyEventType.NotifyPlayerAmount:
                     this.playerCount = (int) lobbyEvent.AmountOfPlayers;
                     this.lobbyCapacity = (int) lobbyEvent.Capacity;
+                    InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
                 default:
@@ -402,6 +407,13 @@ public class LobbyConnection : MonoBehaviour
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
+    }
+
+    private void UpdateSimulatedCounter() {
+        var limit = this.lobbyCapacity - this.simulatedPlayerCount;
+        System.Random r = new System.Random();
+        var randomNumber = r.Next(0, Math.Min(3, limit));
+        this.simulatedPlayerCount = this.simulatedPlayerCount + randomNumber;
     }
 
     private void OnWebsocketClose(WebSocketCloseCode closeCode)

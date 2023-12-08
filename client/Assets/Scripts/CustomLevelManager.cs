@@ -26,11 +26,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    [SerializeField]
-    Text totalKillsText;
-
-    [SerializeField]
-    GameObject backToLobbyButton;
     private List<Player> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
@@ -57,6 +52,7 @@ public class CustomLevelManager : LevelManager
     double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
+    EndGameManager endGameManager;
 
     protected override void Awake()
     {
@@ -115,8 +111,9 @@ public class CustomLevelManager : LevelManager
 
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
-        deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
         StartCoroutine(CameraCinematic());
+
+        endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
     }
 
     void Update()
@@ -128,9 +125,12 @@ public class CustomLevelManager : LevelManager
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
         }
-        if (GameHasEnded())
+        if (GameHasEnded() && !endGameManager.finalSplash.activeSelf)
         {
-            deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
+            // TODO: Redirect to EndGameScreen
+            //SceneManager.LoadScene("EndGame");
+            endGameManager.finalSplash.SetActive(true);
+            endGameManager.ShowCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -248,7 +248,8 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow
+                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
@@ -286,12 +287,14 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo.skillsInfo.ForEach(skill =>
-        {
-            SkillInfo skillClone = Instantiate(skill);
-            skillClone.InitWithBackend();
-            skills.Add(skillClone);
-        });
+        characterInfo
+            .skillsInfo
+            .ForEach(skill =>
+            {
+                SkillInfo skillClone = Instantiate(skill);
+                skillClone.InitWithBackend();
+                skills.Add(skillClone);
+            });
 
         return skills;
     }
@@ -322,8 +325,9 @@ public class CustomLevelManager : LevelManager
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
 
-            SkillAnimationEvents skillsAnimationEvent =
-                player.CharacterModel.GetComponent<SkillAnimationEvents>();
+            SkillAnimationEvents skillsAnimationEvent = player
+                .CharacterModel
+                .GetComponent<SkillAnimationEvents>();
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
@@ -371,7 +375,9 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -389,8 +395,6 @@ public class CustomLevelManager : LevelManager
 
         roundText.text =
             "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        totalKillsText.text = "Total Kills: " + SocketConnectionManager.Instance.winnerPlayer.Item2;
-        backToLobbyButton.SetActive(true);
         animate = false;
 
         roundSplash.SetActive(true);
@@ -444,8 +448,9 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager.Instance.gamePlayers.Any(
-                (player) => player.Id == SocketConnectionManager.Instance.playerId
-            );
+            && SocketConnectionManager
+                .Instance
+                .gamePlayers
+                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
     }
 }
