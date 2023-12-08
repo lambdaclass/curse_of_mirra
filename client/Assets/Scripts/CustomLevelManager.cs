@@ -114,6 +114,7 @@ public class CustomLevelManager : LevelManager
         StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
+        endGameManager.SetDeathSplashCharacter();
     }
 
     void Update()
@@ -125,7 +126,7 @@ public class CustomLevelManager : LevelManager
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
         }
-        if (GameHasEnded() && !endGameManager.finalSplash.activeSelf)
+        if (GameHasEnded())
         {
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
@@ -316,10 +317,10 @@ public class CustomLevelManager : LevelManager
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
             skillList.Add(skillBasic);
-            skillList.Add(skill1);
+            // skillList.Add(skill1);
 
             CoMCharacter characterInfo = charactersInfo.Find(
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
@@ -333,7 +334,7 @@ public class CustomLevelManager : LevelManager
             SetSkillAngles(skillInfoClone);
 
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            // skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -358,11 +359,11 @@ public class CustomLevelManager : LevelManager
                     skillInfoClone[0].inputType,
                     skillBasic
                 );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
-                    skillInfoClone[1].inputType,
-                    skill1
-                );
+                // inputManager.AssignSkillToInput(
+                //     UIControls.Skill1,
+                //     skillInfoClone[1].inputType,
+                //     skill1
+                // );
             }
 
             StartCoroutine(inputManager.ShowInputs());
