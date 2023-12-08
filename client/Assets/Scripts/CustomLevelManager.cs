@@ -113,6 +113,7 @@ public class CustomLevelManager : LevelManager
         StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
+        endGameManager.SetDeathSplashCharacter();
     }
 
     void Update()
@@ -124,7 +125,7 @@ public class CustomLevelManager : LevelManager
             StartCoroutine(ShowDeathSplash(player));
             deathSplashIsShown = true;
         }
-        if (GameHasEnded() && !endGameManager.finalSplash.activeSelf)
+        if (GameHasEnded())
         {
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
