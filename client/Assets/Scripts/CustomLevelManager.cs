@@ -27,12 +27,12 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    private List<Player> gamePlayers;
+    private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
-    public Player playerToFollow;
+    public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
@@ -120,7 +120,7 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        Player gamePlayer = Utils.GetGamePlayer(playerId);
+        OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -151,7 +151,7 @@ public class CustomLevelManager : LevelManager
     {
         GameObject prefab = null;
 
-        Player player = Utils.GetGamePlayer(playerId);
+        OldPlayer player = Utils.GetGamePlayer(playerId);
         prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
         return prefab;
     }
@@ -428,17 +428,17 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private IEnumerator WaitToChangeCamera(Player player)
+    private IEnumerator WaitToChangeCamera(OldPlayer player)
     {
         yield return new WaitUntil(() => player != null);
         setCameraToPlayer(playerToFollow.Id);
         KillFeedManager.instance.saveKillerId = 0;
     }
 
-    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
     {
         return SocketConnectionManager.Instance.GameHasEnded()
-            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+            || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
     }
 
     private bool GameHasEnded()

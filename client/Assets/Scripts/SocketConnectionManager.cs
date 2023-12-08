@@ -22,17 +22,17 @@ public class SocketConnectionManager : MonoBehaviour
     [Tooltip("IP to connect to. If empty, localhost will be used")]
     public string serverIp = "localhost";
     public static SocketConnectionManager Instance;
-    public List<Player> gamePlayers;
+    public List<OldPlayer> gamePlayers;
     public GameEvent gameEvent;
-    public List<Projectile> gameProjectiles;
+    public List<OldProjectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public string serverHash;
-    public (Player, ulong) winnerPlayer = (null, 0);
+    public (OldPlayer, ulong) winnerPlayer = (null, 0);
 
-    public List<Player> winners = new List<Player>();
+    public List<OldPlayer> winners = new List<OldPlayer>();
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
@@ -43,9 +43,9 @@ public class SocketConnectionManager : MonoBehaviour
     public bool allSelected = false;
 
     public float playableRadius;
-    public Position shrinkingCenter;
+    public OldPosition shrinkingCenter;
 
-    public List<Player> alivePlayers = new List<Player>();
+    public List<OldPlayer> alivePlayers = new List<OldPlayer>();
     public List<LootPackage> updatedLoots = new List<LootPackage>();
 
     public bool cinematicDone;
@@ -232,7 +232,7 @@ public class SocketConnectionManager : MonoBehaviour
         return result;
     }
 
-    public static Player GetPlayer(ulong id, List<Player> playerList)
+    public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
     {
         return playerList.Find(el => el.Id == id);
     }
