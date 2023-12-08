@@ -580,6 +580,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muflus
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 043923b73a8b145ad9a4312f99eed42c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349954947361746693, guid: 043923b73a8b145ad9a4312f99eed42c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043923b73a8b145ad9a4312f99eed42c, type: 3}
 --- !u!1 &3987262727847380181 stripped

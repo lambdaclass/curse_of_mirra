@@ -110,6 +110,7 @@ public class CustomLevelManager : LevelManager
         );
 
         SetPlayerHealthBar(playerId);
+        SetOrientationArrow(playerId);
         StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
@@ -240,6 +241,17 @@ public class CustomLevelManager : LevelManager
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
         ;
+    }
+
+    private void SetOrientationArrow(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            player
+                .GetComponentInChildren<CharacterBase>()
+                .OrientationArrow
+                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
+        }
     }
 
     private void setCameraToPlayer(ulong playerID)
