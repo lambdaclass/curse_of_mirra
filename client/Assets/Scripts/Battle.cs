@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class Battle : MonoBehaviour
 {
@@ -353,7 +354,7 @@ public class Battle : MonoBehaviour
     void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
-        List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
+        List<Communication.Protobuf.Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
         ClearProjectiles(projectiles, gameProjectiles);
         ProcessProjectilesCollision(projectiles, gameProjectiles);
         UpdateProjectiles(projectiles, gameProjectiles);
@@ -361,7 +362,7 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectiles(
         Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
+        List<Communication.Protobuf.Projectile> gameProjectiles
     )
     {
         GameObject projectile;
@@ -405,7 +406,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Communication.Protobuf.Projectile> gameProjectiles)
     {
         foreach (int projectileId in projectiles.Keys.ToList())
         {
@@ -419,12 +420,12 @@ public class Battle : MonoBehaviour
 
     void ProcessProjectilesCollision(
         Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
+        List<Communication.Protobuf.Projectile> gameProjectiles
     )
     {
         foreach (var pr in projectiles.ToList())
         {
-            Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            Communication.Protobuf.Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
             if (gameProjectile.Status == ProjectileStatus.Exploded)
             {
                 pr.Value.GetComponent<SkillProjectile>().ProcessCollision();

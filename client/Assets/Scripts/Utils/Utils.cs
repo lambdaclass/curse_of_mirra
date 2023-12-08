@@ -5,6 +5,7 @@ using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Communication.Protobuf;
 
 public class Utils
 {

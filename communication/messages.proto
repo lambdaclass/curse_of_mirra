@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option csharp_namespace = "Communication.Protobuf";
+
 // import "communication/config.proto";
 
 /* Represents the events pushed by the server during a game

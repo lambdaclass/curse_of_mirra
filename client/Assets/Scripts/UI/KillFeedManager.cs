@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Communication.Protobuf;
 
 public class KillFeedManager : MonoBehaviour
 {

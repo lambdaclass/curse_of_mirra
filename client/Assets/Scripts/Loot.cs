@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class Loot : MonoBehaviour
 {

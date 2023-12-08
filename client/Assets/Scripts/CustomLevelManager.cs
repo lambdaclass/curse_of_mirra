@@ -9,6 +9,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Communication.Protobuf;
 
 public class CustomLevelManager : LevelManager
 {
@@ -333,8 +334,8 @@ public class CustomLevelManager : LevelManager
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            // skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 

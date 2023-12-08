@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using MoreMountains.Tools;
 using UnityEngine.UI;
+using Communication.Protobuf;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {

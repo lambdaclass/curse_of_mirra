@@ -7,6 +7,7 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class SocketConnectionManager : MonoBehaviour
 {

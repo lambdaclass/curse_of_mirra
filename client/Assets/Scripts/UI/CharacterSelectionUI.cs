@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class CharacterSelectionUI : MonoBehaviour
 {
