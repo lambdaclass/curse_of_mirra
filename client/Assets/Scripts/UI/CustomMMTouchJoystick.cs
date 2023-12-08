@@ -11,8 +11,9 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public UnityEvent<Vector2, CustomMMTouchJoystick> newDragEvent;
     public UnityEvent<CustomMMTouchJoystick> newPointerDownEvent;
     public Skill skill;
-    const float CANCEL_AREA_VALUE = 0.5f;
+    const float CANCEL_AREA_VALUE = 0.15f;
     bool dragged = false;
+    bool cancelable = false;
     float frameCounter;
     private CustomInputManager inputManager;
 
@@ -34,10 +35,18 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     {
         base.OnDrag(eventData);
         if (
-            (RawValue.x > CANCEL_AREA_VALUE || RawValue.x < -CANCEL_AREA_VALUE)
-            && (RawValue.y > CANCEL_AREA_VALUE || RawValue.y < -CANCEL_AREA_VALUE)
+            RawValue.x < CANCEL_AREA_VALUE
+            && RawValue.x > -CANCEL_AREA_VALUE
+            && RawValue.y < CANCEL_AREA_VALUE
+            && RawValue.y > -CANCEL_AREA_VALUE
         )
         {
+            cancelable = true;
+            dragged = false;
+        }
+        else
+        {
+            cancelable = false;
             dragged = true;
         }
         CancelAttack();
@@ -47,6 +56,7 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     public override void OnPointerUp(PointerEventData data)
     {
         newPointerUpEvent.Invoke(RawValue, skill);
+        cancelable = false;
         dragged = false;
         CancelAttack();
         UnSetJoystick();
@@ -58,9 +68,10 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         // What makes this responsive is taking into account the canvas scaling
         float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
-        float knobBackgroundRadius =
-            gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;
-        float knobRadius = GetComponent<RectTransform>().rect.width / 2;
+        float knobBackgroundRadius = gameObject.transform.parent
+            .GetComponent<RectTransform>()
+            .rect.width;
+        float knobRadius = GetComponent<RectTransform>().rect.width;
         MaxRange = (knobBackgroundRadius - knobRadius) * scaleCanvas;
         base.RefreshMaxRangeDistance();
     }
@@ -90,20 +101,14 @@ public class CustomMMTouchJoystick : MMTouchJoystick
             && RawValue.x > -CANCEL_AREA_VALUE
             && RawValue.y < CANCEL_AREA_VALUE
             && RawValue.y > -CANCEL_AREA_VALUE
-            && dragged
         )
         {
-            if (frameCounter == 0)
-            {
-                inputManager.SetCanceled(dragged);
-                HapticFeedback.MediumFeedback();
-            }
-            frameCounter++;
+            inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
+            HapticFeedback.MediumFeedback();
         }
         else
         {
-            inputManager.SetCanceled(false);
-            frameCounter = 0;
+            inputManager.SetCanceled(cancelable, dragged, skill.GetIndicatorType());
         }
     }
 }

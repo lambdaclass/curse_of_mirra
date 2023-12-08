@@ -332,11 +332,11 @@ public class Battle : MonoBehaviour
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                currentPlayer.GetComponent<Skill1>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
