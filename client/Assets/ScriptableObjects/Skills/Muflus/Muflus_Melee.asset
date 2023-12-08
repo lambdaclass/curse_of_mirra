@@ -29,7 +29,7 @@ MonoBehaviour:
   executeAnimationDuration: 1
   skillCircleRadius: 8
   skillConeAngle: 0
-  arrowWidth: 1.75
+  arrowWidth: 3
   skillAreaRadius: 4.5
   showCooldown: 0
   damage: 0
