@@ -34,7 +34,6 @@ public class EndGameManager : MonoBehaviour
 
     void OnEnable()
     {
-        SetDeathSplashCharacter();
         ShowRankingDisplay();
         ShowMatchInfo();
     }
