@@ -22,6 +22,7 @@ public class LobbyPlayerCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _totalLobbyPlayersText.text = LobbyConnection.Instance.playerCount.ToString() + " / " + LobbyConnection.Instance.lobbyCapacity.ToString();
+        var playerAmount = Math.Max(LobbyConnection.Instance.playerCount, LobbyConnection.Instance.simulatedPlayerCount);
+        _totalLobbyPlayersText.text = playerAmount.ToString() + " / " + LobbyConnection.Instance.lobbyCapacity.ToString();
     }
 }

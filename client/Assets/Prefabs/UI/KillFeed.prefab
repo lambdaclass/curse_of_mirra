@@ -232,6 +232,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killerPlayer: {fileID: 5059230678140902515}
   killedPlayer: {fileID: 5059230678235986011}
+  muflusIcon: {fileID: 21300000, guid: 2a521c6907fc94b65af7f93e387feed3, type: 3}
+  zoneIcon: {fileID: 21300000, guid: ec30c7024527044c5ad8413a7d18cf88, type: 3}
+  killedImage: {fileID: 460692084204361476}
+  killerImage: {fileID: 5159403481353243590}
 --- !u!95 &6844343340372263940
 Animator:
   serializedVersion: 5
@@ -341,7 +345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: zone
+  m_text: Player 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c582c2a18d474af0bdf1dc9882cb5f2, type: 2}
   m_sharedMaterial: {fileID: 4895161857847874971, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
