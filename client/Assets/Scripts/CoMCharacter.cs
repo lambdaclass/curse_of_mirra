@@ -13,6 +13,7 @@ public class CoMCharacter : ScriptableObject
     public Sprite blockArtwork;
     public Sprite characterPlayer;
     public Sprite classImage;
+    public Sprite UIIcon;
     public GameObject prefab;
     public Sprite skillBackground;
     public Color32 InputFeedbackColor;
