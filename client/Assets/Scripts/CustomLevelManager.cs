@@ -249,8 +249,7 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow
-                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
@@ -288,14 +287,12 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo
-            .skillsInfo
-            .ForEach(skill =>
-            {
-                SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
-                skills.Add(skillClone);
-            });
+        characterInfo.skillsInfo.ForEach(skill =>
+        {
+            SkillInfo skillClone = Instantiate(skill);
+            skillClone.InitWithBackend();
+            skills.Add(skillClone);
+        });
 
         return skills;
     }
@@ -326,9 +323,8 @@ public class CustomLevelManager : LevelManager
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
 
-            SkillAnimationEvents skillsAnimationEvent = player
-                .CharacterModel
-                .GetComponent<SkillAnimationEvents>();
+            SkillAnimationEvents skillsAnimationEvent =
+                player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
@@ -376,9 +372,7 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -449,9 +443,8 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager
-                .Instance
-                .gamePlayers
-                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
+            && SocketConnectionManager.Instance.gamePlayers.Any(
+                (player) => player.Id == SocketConnectionManager.Instance.playerId
+            );
     }
 }
