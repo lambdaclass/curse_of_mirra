@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour {
     private const string MYRRAS_BLESSING = "loot_health";
     private Player player;
-    private bool activeInventory;
+    private bool activeInventory = false;
     private GameLoot activeItem;
     [SerializeField]
     public GameObject inventoryButton;
@@ -20,12 +20,13 @@ public class Inventory : MonoBehaviour {
     }
 
     private IEnumerator InitializePlayer() {
-        Debug.Log(SocketConnectionManager.Instance.playerId);
         yield return new WaitUntil(() => Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId) != null);
+        Debug.Log("Player ID: " + SocketConnectionManager.Instance.playerId);
         player = Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId);
     }
     private void Update() {
-        if (!activeInventory && player.Inventory.Count > 0) {
+        player = Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId);
+        if (!activeInventory && player != null && player.Inventory.Count > 0) {
             activeInventory = true;
             activeItem = player.Inventory[0]; // GameLoot
         }

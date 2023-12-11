@@ -455,10 +455,6 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        if(playerUpdate.Inventory.Count > 0) {
-            Debug.Log("AGARRO UN ITEM");
-            Debug.Log(playerUpdate.Inventory[0]);
-        }
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
         Animator modelAnimator = player
