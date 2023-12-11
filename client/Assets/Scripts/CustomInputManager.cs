@@ -212,7 +212,6 @@ public class CustomInputManager : InputManager
 
         // FIXME: Using harcoded value for testing, Value should be set dinamically
         //TODO : Add the spread area (amgle) depeding of the skill.json
-        directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
         activeJoystick = joystick;
 
         ShowSkillRange(joystick.skill);
@@ -222,10 +221,10 @@ public class CustomInputManager : InputManager
     {
         //Multiply vector values according to the scale of the animation (in this case 12)
         float multiplier = joystick.skill.GetSkillRadius();
-        directionIndicator.transform.localPosition = new Vector3(
+        directionIndicator.area.transform.localPosition = new Vector3(
             aoePosition.x * multiplier,
-            0f,
-            aoePosition.y * multiplier
+            aoePosition.y * multiplier,
+            -1f
         );
         activeJoystickStatus = canceled;
     }
@@ -239,7 +238,7 @@ public class CustomInputManager : InputManager
         activeJoystick = null;
         EnableButtons();
 
-        if (!activeJoystickStatus)
+        if (!canceled)
         {
             skill.TryExecuteSkill(aoePosition);
         }
@@ -413,7 +412,7 @@ public class CustomInputManager : InputManager
             .material;
         skillRangeMaterial.SetColor("_Color", characterSkillColor);
 
-        directionIndicator.DeactivateIndicator();
+        //directionIndicator.DeactivateIndicator();
     }
 
     private void DisableButtons()
@@ -435,12 +434,16 @@ public class CustomInputManager : InputManager
         }
     }
 
-    public void SetCanceled(bool value)
+    public void SetCanceled(bool cancelValue, bool dragged, UIIndicatorType indicatorType)
     {
-        canceled = value;
-        if (directionIndicator)
+        canceled = cancelValue;
+        if (directionIndicator && cancelValue && !dragged)
         {
             directionIndicator.DeactivateIndicator();
+        }
+        else if (directionIndicator && !cancelValue && dragged)
+        {
+            directionIndicator.ActivateIndicator(indicatorType);
         }
         if (_player)
         {

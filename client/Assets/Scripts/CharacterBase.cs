@@ -7,19 +7,14 @@ using UnityEngine.VFX;
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
-    public GameObject Hitbox;
-
-    [SerializeField]
-    public GameObject FeedbackContainer;
-
-    [SerializeField]
-    public GameObject AimDirection;
-
-    [SerializeField]
-    public GameObject SkillRange;
-
-    [SerializeField]
-    public GameObject spawnFeedback;
+    public GameObject PlayerName,
+        Hitbox,
+        FeedbackContainer,
+        AimDirection,
+        SkillRange,
+        spawnFeedback,
+        OrientationIndicator,
+        OrientationArrow;
 
     [SerializeField]
     public AudioClip spawnSfx;
