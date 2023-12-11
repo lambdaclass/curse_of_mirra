@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/Materials/OrientationArrow.mat.meta
+guid: 5e0a995fc440643b59afed67d9916a65
+NativeFormatImporter:
+========
+guid: a15bcf193c3564a869e5e895deef1930
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> main:client/Assets/Images/UI/EndGame.meta
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
