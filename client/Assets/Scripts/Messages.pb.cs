@@ -149,42 +149,43 @@ public static partial class MessagesReflection {
           "BE1vdmUSDQoFYW5nbGUYASABKAIiXgoIVXNlU2tpbGwSDQoFc2tpbGwYASAB",
           "KAkSDQoFYW5nbGUYAiABKAISEAoIYXV0b19haW0YAyABKAgSEAoIdGFyZ2V0",
           "X3gYBCABKAISEAoIdGFyZ2V0X3kYBSABKAIiJAoMVXNlSW52ZW50b3J5EhQK",
-          "DGludmVudG9yeV9hdBgBIAEoBCJlCgpHYW1lQWN0aW9uEhUKBG1vdmUYASAB",
-          "KAsyBS5Nb3ZlSAASHgoJdXNlX3NraWxsGAIgASgLMgkuVXNlU2tpbGxIABIR",
-          "Cgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUqagoNR2FtZUV2ZW50",
-          "VHlwZRIQCgxTVEFURV9VUERBVEUQABIPCgtQSU5HX1VQREFURRABEhEKDVBM",
-          "QVlFUl9KT0lORUQQAhIRCg1HQU1FX0ZJTklTSEVEEAMSEAoMR0FNRV9TVEFS",
-          "VEVEEAQqHQoGU3RhdHVzEgkKBUFMSVZFEAASCAoEREVBRBABKv8BCgZBY3Rp",
-          "b24SFgoSQUNUSU9OX1VOU1BFQ0lGSUVEEAASCgoGQVRUQUNLEAESDAoIVEVM",
-          "RVBPUlQQAhIOCgpBVFRBQ0tfQU9FEAMSFgoSTU9WRV9XSVRIX0pPWVNUSUNL",
-          "EAQSCwoHQUREX0JPVBAFEg8KC0FVVE9fQVRUQUNLEAYSEAoMQkFTSUNfQVRU",
-          "QUNLEAcSCwoHU0tJTExfMRAIEgsKB1NLSUxMXzIQCRILCgdTS0lMTF8zEAoS",
-          "CwoHU0tJTExfNBALEhQKEFNFTEVDVF9DSEFSQUNURVIQDBIPCgtFTkFCTEVf",
-          "Qk9UUxANEhAKDERJU0FCTEVfQk9UUxAOKk0KCURpcmVjdGlvbhIZChVESVJF",
-          "Q1RJT05fVU5TUEVDSUZJRUQQABIGCgJVUBABEggKBERPV04QAhIICgRMRUZU",
-          "EAMSCQoFUklHSFQQBCr9AQoMUGxheWVyQWN0aW9uEgsKB05PVEhJTkcQABIN",
-          "CglBVFRBQ0tJTkcQARIRCg1BVFRBQ0tJTkdfQU9FEAISFAoQU1RBUlRJTkdf",
-          "U0tJTExfMRADEhQKEFNUQVJUSU5HX1NLSUxMXzIQBBIUChBTVEFSVElOR19T",
-          "S0lMTF8zEAUSFAoQU1RBUlRJTkdfU0tJTExfNBAGEhUKEUVYRUNVVElOR19T",
-          "S0lMTF8xEAcSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQCBIVChFFWEVDVVRJTkdf",
-          "U0tJTExfMxAJEhUKEUVYRUNVVElOR19TS0lMTF80EAoSCgoGTU9WSU5HEAsq",
-          "tgIKDFBsYXllckVmZmVjdBINCglQRVRSSUZJRUQQABIMCghESVNBUk1FRBAB",
-          "EhUKEURFTklBTF9PRl9TRVJWSUNFEAISCQoFUkFHRUQQAxIRCg1ORU9OX0NS",
-          "QVNISU5HEAQSCwoHTEVBUElORxAFEg8KC09VVF9PRl9BUkVBEAYSDgoKRUxO",
-          "QVJfTUFSSxAHEg4KCllVR0VOX01BUksQCBIOCgpYQU5EQV9NQVJLEAkSFAoQ",
-          "WEFOREFfTUFSS19PV05FUhAKEgwKCFBPSVNPTkVEEAsSCgoGU0xPV0VEEAwS",
-          "EQoNRklFUllfUkFNUEFHRRANEgoKBkJVUk5FRBAOEgsKB1NDSEVSWk8QDxIR",
-          "Cg1EQU5TRV9NQUNBQlJFEBASDQoJUEFSQUxZWkVEEBESCAoETk9ORRASKoUB",
-          "Cg5Mb2JieUV2ZW50VHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASDQoJQ09O",
-          "TkVDVEVEEAESEAoMUExBWUVSX0FEREVEEAISEgoOUFJFUEFSSU5HX0dBTUUQ",
-          "AxIOCgpTVEFSVF9HQU1FEAQSGAoUTk9USUZZX1BMQVlFUl9BTU9VTlQQBSoy",
-          "Cg5Qcm9qZWN0aWxlVHlwZRIKCgZCVUxMRVQQABIUChBESVNBUk1JTkdfQlVM",
-          "TEVUEAEqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBM",
-          "T0RFRBABKjYKCExvb3RUeXBlEhkKFUxPT1RfVFlQRV9VTlNQRUNJRklFRBAA",
-          "Eg8KC0xPT1RfSEVBTFRIEAEqMAoMTW9kaWZpZXJUeXBlEhIKDk1VTFRJUExJ",
-          "Q0FUSVZFEAASDAoIQURESVRJVkUQASpfCgxNZWNoYW5pY1R5cGUSBwoDSElU",
-          "EAASEAoMU0lNUExFX1NIT09UEAESDwoLTVVMVElfU0hPT1QQAhIPCgtHSVZF",
-          "X0VGRkVDVBADEhIKDk1PVkVfVE9fVEFSR0VUEARiBnByb3RvMw=="));
+          "DGludmVudG9yeV9hdBgBIAEoBCKNAQoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEg",
+          "ASgLMgUuTW92ZUgAEh4KCXVzZV9za2lsbBgCIAEoCzIJLlVzZVNraWxsSAAS",
+          "JgoNdXNlX2ludmVudG9yeRgDIAEoCzINLlVzZUludmVudG9yeUgAEhEKCXRp",
+          "bWVzdGFtcBgEIAEoA0INCgthY3Rpb25fdHlwZSpqCg1HYW1lRXZlbnRUeXBl",
+          "EhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExBWUVS",
+          "X0pPSU5FRBACEhEKDUdBTUVfRklOSVNIRUQQAxIQCgxHQU1FX1NUQVJURUQQ",
+          "BCodCgZTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq/wEKBkFjdGlvbhIW",
+          "ChJBQ1RJT05fVU5TUEVDSUZJRUQQABIKCgZBVFRBQ0sQARIMCghURUxFUE9S",
+          "VBACEg4KCkFUVEFDS19BT0UQAxIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBBIL",
+          "CgdBRERfQk9UEAUSDwoLQVVUT19BVFRBQ0sQBhIQCgxCQVNJQ19BVFRBQ0sQ",
+          "BxILCgdTS0lMTF8xEAgSCwoHU0tJTExfMhAJEgsKB1NLSUxMXzMQChILCgdT",
+          "S0lMTF80EAsSFAoQU0VMRUNUX0NIQVJBQ1RFUhAMEg8KC0VOQUJMRV9CT1RT",
+          "EA0SEAoMRElTQUJMRV9CT1RTEA4qTQoJRGlyZWN0aW9uEhkKFURJUkVDVElP",
+          "Tl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExFRlQQAxIJ",
+          "CgVSSUdIVBAEKv0BCgxQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0KCUFU",
+          "VEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIUChBTVEFSVElOR19TS0lM",
+          "TF8xEAMSFAoQU1RBUlRJTkdfU0tJTExfMhAEEhQKEFNUQVJUSU5HX1NLSUxM",
+          "XzMQBRIUChBTVEFSVElOR19TS0lMTF80EAYSFQoRRVhFQ1VUSU5HX1NLSUxM",
+          "XzEQBxIVChFFWEVDVVRJTkdfU0tJTExfMhAIEhUKEUVYRUNVVElOR19TS0lM",
+          "TF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQChIKCgZNT1ZJTkcQCyq2AgoM",
+          "UGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAESFQoR",
+          "REVOSUFMX09GX1NFUlZJQ0UQAhIJCgVSQUdFRBADEhEKDU5FT05fQ1JBU0hJ",
+          "TkcQBBILCgdMRUFQSU5HEAUSDwoLT1VUX09GX0FSRUEQBhIOCgpFTE5BUl9N",
+          "QVJLEAcSDgoKWVVHRU5fTUFSSxAIEg4KClhBTkRBX01BUksQCRIUChBYQU5E",
+          "QV9NQVJLX09XTkVSEAoSDAoIUE9JU09ORUQQCxIKCgZTTE9XRUQQDBIRCg1G",
+          "SUVSWV9SQU1QQUdFEA0SCgoGQlVSTkVEEA4SCwoHU0NIRVJaTxAPEhEKDURB",
+          "TlNFX01BQ0FCUkUQEBINCglQQVJBTFlaRUQQERIICgROT05FEBIqhQEKDkxv",
+          "YmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglDT05ORUNU",
+          "RUQQARIQCgxQTEFZRVJfQURERUQQAhISCg5QUkVQQVJJTkdfR0FNRRADEg4K",
+          "ClNUQVJUX0dBTUUQBBIYChROT1RJRllfUExBWUVSX0FNT1VOVBAFKjIKDlBy",
+          "b2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxMRVQQ",
+          "ASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVE",
+          "EAEqNgoITG9vdFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAASDwoL",
+          "TE9PVF9IRUFMVEgQASowCgxNb2RpZmllclR5cGUSEgoOTVVMVElQTElDQVRJ",
+          "VkUQABIMCghBRERJVElWRRABKl8KDE1lY2hhbmljVHlwZRIHCgNISVQQABIQ",
+          "CgxTSU1QTEVfU0hPT1QQARIPCgtNVUxUSV9TSE9PVBACEg8KC0dJVkVfRUZG",
+          "RUNUEAMSEgoOTU9WRV9UT19UQVJHRVQQBGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -223,7 +224,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Angle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UseSkill), global::UseSkill.Parser, new[]{ "Skill", "Angle", "AutoAim", "TargetX", "TargetY" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UseInventory), global::UseInventory.Parser, new[]{ "InventoryAt" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "UseSkill", "UseInventory", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
         }));
   }
   #endregion
@@ -13624,6 +13625,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       case ActionTypeOneofCase.UseSkill:
         UseSkill = other.UseSkill.Clone();
         break;
+      case ActionTypeOneofCase.UseInventory:
+        UseInventory = other.UseInventory.Clone();
+        break;
     }
 
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -13659,8 +13663,20 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
+  /// <summary>Field number for the "use_inventory" field.</summary>
+  public const int UseInventoryFieldNumber = 3;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::UseInventory UseInventory {
+    get { return actionTypeCase_ == ActionTypeOneofCase.UseInventory ? (global::UseInventory) actionType_ : null; }
+    set {
+      actionType_ = value;
+      actionTypeCase_ = value == null ? ActionTypeOneofCase.None : ActionTypeOneofCase.UseInventory;
+    }
+  }
+
   /// <summary>Field number for the "timestamp" field.</summary>
-  public const int TimestampFieldNumber = 3;
+  public const int TimestampFieldNumber = 4;
   private long timestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -13677,6 +13693,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     None = 0,
     Move = 1,
     UseSkill = 2,
+    UseInventory = 3,
   }
   private ActionTypeOneofCase actionTypeCase_ = ActionTypeOneofCase.None;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13709,6 +13726,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (!object.Equals(Move, other.Move)) return false;
     if (!object.Equals(UseSkill, other.UseSkill)) return false;
+    if (!object.Equals(UseInventory, other.UseInventory)) return false;
     if (Timestamp != other.Timestamp) return false;
     if (ActionTypeCase != other.ActionTypeCase) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -13720,6 +13738,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     int hash = 1;
     if (actionTypeCase_ == ActionTypeOneofCase.Move) hash ^= Move.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) hash ^= UseSkill.GetHashCode();
+    if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) hash ^= UseInventory.GetHashCode();
     if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= (int) actionTypeCase_;
     if (_unknownFields != null) {
@@ -13748,8 +13767,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(UseSkill);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) {
+      output.WriteRawTag(26);
+      output.WriteMessage(UseInventory);
+    }
     if (Timestamp != 0L) {
-      output.WriteRawTag(24);
+      output.WriteRawTag(32);
       output.WriteInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -13770,8 +13793,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(UseSkill);
     }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) {
+      output.WriteRawTag(26);
+      output.WriteMessage(UseInventory);
+    }
     if (Timestamp != 0L) {
-      output.WriteRawTag(24);
+      output.WriteRawTag(32);
       output.WriteInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -13789,6 +13816,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (actionTypeCase_ == ActionTypeOneofCase.UseSkill) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(UseSkill);
+    }
+    if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(UseInventory);
     }
     if (Timestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
@@ -13820,6 +13850,12 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = new global::UseSkill();
         }
         UseSkill.MergeFrom(other.UseSkill);
+        break;
+      case ActionTypeOneofCase.UseInventory:
+        if (UseInventory == null) {
+          UseInventory = new global::UseInventory();
+        }
+        UseInventory.MergeFrom(other.UseInventory);
         break;
     }
 
@@ -13856,7 +13892,16 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = subBuilder;
           break;
         }
-        case 24: {
+        case 26: {
+          global::UseInventory subBuilder = new global::UseInventory();
+          if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) {
+            subBuilder.MergeFrom(UseInventory);
+          }
+          input.ReadMessage(subBuilder);
+          UseInventory = subBuilder;
+          break;
+        }
+        case 32: {
           Timestamp = input.ReadInt64();
           break;
         }
@@ -13893,7 +13938,16 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           UseSkill = subBuilder;
           break;
         }
-        case 24: {
+        case 26: {
+          global::UseInventory subBuilder = new global::UseInventory();
+          if (actionTypeCase_ == ActionTypeOneofCase.UseInventory) {
+            subBuilder.MergeFrom(UseInventory);
+          }
+          input.ReadMessage(subBuilder);
+          UseInventory = subBuilder;
+          break;
+        }
+        case 32: {
           Timestamp = input.ReadInt64();
           break;
         }
