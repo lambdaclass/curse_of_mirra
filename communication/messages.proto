@@ -2,88 +2,88 @@ syntax = "proto3";
 
 option csharp_namespace = "Communication.Protobuf";
 
-// message OldPosition {
-//     int64 x = 1;
-//     int64 y = 2;
-// }
+message Position {
+    int64 x = 1;
+    int64 y = 2;
+}
 
-// message GameState {
-//     repeated Player players = 1;
-//     repeated Projectile projectiles = 2;
-//     repeated Item items = 3;
-//     ZoneInfo zone_info = 4;
-//     repeated KillEvent killfeed = 5;
-//     int64 player_timestamp = 6;
-//     int64 server_timestamp = 7;
-// }
+message GameState {
+    repeated Player players = 1;
+    repeated Projectile projectiles = 2;
+    repeated Item items = 3;
+    ZoneInfo zone_info = 4;
+    repeated KillEvent killfeed = 5;
+    int64 player_timestamp = 6;
+    int64 server_timestamp = 7;
+}
 
-// message Player {
-//     uint64 id = 1;
-//     OldPosition position = 2;
-//     sint64 health = 3;
-//     sint64 speed = 4;
-//     float size = 5;
-//     float direction = 6;
-//     Status status = 7;
-//     uint64 kill_count = 8;
-//     uint64 death_count = 9;
-//     repeated PlayerAction actions = 10;
-//     uint64 action_duration_ms = 11;
-//     repeated SkillCooldown cooldowns = 12;
-//     repeated Item inventory = 13;
-//     repeated EffectInfo effects = 14;
-//     string character_name = 15;
-// }
+message Player {
+    uint64 id = 1;
+    Position position = 2;
+    sint64 health = 3;
+    sint64 speed = 4;
+    float size = 5;
+    float direction = 6;
+    PlayerStatus status = 7;
+    uint64 kill_count = 8;
+    uint64 death_count = 9;
+    repeated PlayerAction actions = 10;
+    uint64 action_duration_ms = 11;
+    repeated SkillCooldown cooldowns = 12;
+    repeated Item inventory = 13;
+    repeated EffectInfo effects = 14;
+    string character_name = 15;
+}
 
-// message PlayerAction {
-//     PlayerActionEnum action = 1;
-//     string action_skill_key = 2;
-// }
+message PlayerAction {
+    PlayerActionEnum action = 1;
+    string action_skill_key = 2;
+}
 
-// message SkillCooldown {
-//     string skill_key = 1;
-//     uint64 cooldown_ms = 2;
-// }
+message SkillCooldown {
+    string skill_key = 1;
+    uint64 cooldown_ms = 2;
+}
 
-// message EffectInfo {
-//     string name = 1;
-//     uint64 remaining_ms = 2;
-// }
+message EffectInfo {
+    string name = 1;
+    uint64 remaining_ms = 2;
+}
 
-// message Item {
-//     uint64 id = 1;
-//     string name = 2;
-//     float size = 3;
-//     OldPosition position = 4;
-// }
+message Item {
+    uint64 id = 1;
+    string name = 2;
+    float size = 3;
+    Position position = 4;
+}
 
-// message Projectile {
-//     uint64 id = 1;
-//     string name = 2;
-//     uint32 damage = 3;
-//     uint32 speed = 4;
-//     float size = 5;
-//     OldPosition position = 6;
-//     float direction = 7;
-// }
+message Projectile {
+    uint64 id = 1;
+    string name = 2;
+    uint32 damage = 3;
+    uint32 speed = 4;
+    float size = 5;
+    Position position = 6;
+    float direction = 7;
+}
 
-// message ZoneInfo {
-//     OldPosition center = 1;
-//     float radius = 2;
-// }
+message ZoneInfo {
+    Position center = 1;
+    float radius = 2;
+}
 
-// enum PlayerStatus {
-//     PLAYER_STATUS_UNDEFINED = 0;
-//     PLAYER_STATUS_ALIVE = 1;
-//     PLAYER_STATUS_DEAD = 2;
-// }
+enum PlayerStatus {
+    PLAYER_STATUS_UNDEFINED = 0;
+    PLAYER_STATUS_ALIVE = 1;
+    PLAYER_STATUS_DEAD = 2;
+}
 
-// enum PlayerActionEnum {
-//     PLAYER_ACTION_UNDEFINED = 0;
-//     PLAYER_ACTION_NOTHING = 1;
-//     PLAYER_ACTION_MOVING = 2;
-//     PLAYER_ACTION_USING_SKILL = 3;
-// }
+enum PlayerActionEnum {
+    PLAYER_ACTION_ENUM_UNDEFINED = 0;
+    PLAYER_ACTION_ENUM_NOTHING = 1;
+    PLAYER_ACTION_ENUM_MOVING = 2;
+    PLAYER_ACTION_ENUM_USING_SKILL = 3;
+}
 
 
 /*****************************
