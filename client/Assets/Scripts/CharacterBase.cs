@@ -32,7 +32,7 @@ public class CharacterBase : MonoBehaviour
                 MMSoundManager.MMSoundManagerTracks.Sfx,
                 Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position,
                 false,
-                0.001f
+                0.01f
             );
         }
     }

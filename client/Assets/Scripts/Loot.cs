@@ -73,10 +73,8 @@ public class Loot : MonoBehaviour
 
         Sound3DManager lootSoundManagerRef = lootObject.GetComponent<Sound3DManager>();
         AudioSource lootAudioSource = lootObject.GetComponent<AudioSource>();
-        lootAudioSource.clip = GetLootableByType(type).pickUpSound;
         lootSoundManagerRef.SetSfxSound(GetLootableByType(type).pickUpSound);
-        // lootSoundManagerRef.PlaySfxSound();
-        lootAudioSource.Play();
+        lootSoundManagerRef.PlaySfxSound();
 
         PlayVfx(lootObject.transform.position);
 

@@ -11,6 +11,9 @@ public class Sound3DManager : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    [SerializeField]
+    private bool USING_MMF_PLAYER;
+
     void Start()
     {
         mmf_player = GetComponent<MMF_Player>();
@@ -27,8 +30,14 @@ public class Sound3DManager : MonoBehaviour
         AudioClip sfx = mmf_player.GetFeedbackOfType<MMF_MMSoundManagerSound>().Sfx;
         if (sfx)
         {
-            // mmf_player.PlayFeedbacks();
-            audioSource.Play();
+            if (USING_MMF_PLAYER)
+            {
+                mmf_player.PlayFeedbacks();
+            }
+            else
+            {
+                audioSource.Play();
+            }
         }
     }
 }
