@@ -278,7 +278,7 @@ MonoBehaviour:
   HealthBarType: 2
   TimeScale: 0
   HealthBarPrefab: {fileID: 0}
-  TargetProgressBar: {fileID: 8047304923672176213}
+  TargetProgressBar: {fileID: 8711474442059621043}
   Size: {x: 1.25, y: 0.2}
   BackgroundPadding: {x: 0.01, y: 0.01}
   InitialRotationAngles: {x: 45, y: 0, z: 0}
@@ -580,6 +580,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muflus
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 043923b73a8b145ad9a4312f99eed42c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349954947361746693, guid: 043923b73a8b145ad9a4312f99eed42c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043923b73a8b145ad9a4312f99eed42c, type: 3}
 --- !u!1 &3987262727847380181 stripped
@@ -694,6 +704,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1527076998688522004, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 426235763660890386}
     - target: {fileID: 1582350833707911559, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Flip.x
@@ -777,12 +792,12 @@ PrefabInstance:
     - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.05
+      value: -0.049999237
       objectReference: {fileID: 0}
     - target: {fileID: 2223069264887198898, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.69
+      value: 5.6899986
       objectReference: {fileID: 0}
     - target: {fileID: 2336354741574673856, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -1174,6 +1189,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 6.31
       objectReference: {fileID: 0}
+    - target: {fileID: 5802362377404487455, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802362377404487455, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802362377404487455, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6215745088891147141, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1346,9 +1376,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8047304923672176213 stripped
+--- !u!1 &8099696926947248431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8711474442059621043 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2042230812023421470, guid: 9468612907e8942b49712f4e342b630c,
+  m_CorrespondingSourceObject: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
@@ -1358,9 +1394,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8099696926947248431 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8357189057863228491}
-  m_PrefabAsset: {fileID: 0}
