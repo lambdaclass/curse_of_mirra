@@ -22,10 +22,10 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     Sound3DManager sound3DManager;
 
-    public void ToggleSpawnFeedback(bool value, string id)
+    public void ToggleSpawnFeedback(bool isActiveSound, string id)
     {
-        spawnFeedback.SetActive(value);
-        if (value)
+        spawnFeedback.SetActive(isActiveSound);
+        if (isActiveSound)
         {
             MMSoundManagerSoundPlayEvent.Trigger(
                 spawnSfx,
