@@ -520,7 +520,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3423845015464949587}
-        m_TargetAssemblyTypeName: TitleScreenController, CurseOfMyrra
+        m_TargetAssemblyTypeName: TitleScreenController, CurseOfMirra
         m_MethodName: PlayNow
         m_Mode: 1
         m_Arguments:

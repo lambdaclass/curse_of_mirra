@@ -1,6 +1,6 @@
 # Fluid Gameplay in an Online Environment
 
-Curse of Myrra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
+Curse of Mirra is a multiplayer game. As such, every action any player performs (moving, attacking, etc) has to go through a centralized server that changes the state accordingly and sends back the new state to players. This introduces a huge source of problems when trying to render the game smoothly: there is an unreliable network in between.
 
 Here we'll go over the problems that arise from networking, how we solved some of them, and how we might improve these solutions in the future. The way we judge whether we have done a good job or not is if the game feels good to play. Ultimately, that's the only metric that matters here.
 
@@ -31,9 +31,9 @@ while true {
 
 This mental model is so common in games that it has a name; this is the `game loop`. A `frame` is the result of one iteration of this loop. In multiplayer games, such as ours, this loop looks slightly different: clients are not the ones updating game state, they get those updates from the server. The general idea still applies however.
  
-Typically, the more computing power you have, the higher your framerate. In Myrra, we show players their framerate in the bottom of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
+Typically, the more computing power you have, the higher your framerate. In Mirra, we show players their framerate in the bottom of the screen. Its value is usually capped at `300`, and anything below `30` will feel really bad to play. Most games run either at `30`, `60` or at an uncapped `FPS` rate.
 
-Myrra does not cap framerate, which means it can go beyond `300` (although you won't be able to see this in Unity, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
+Mirra does not cap framerate, which means it can go beyond `300` (although you won't be able to see this in Unity, because it doesn't show FPS numbers higher than `300`). This is an important thing to keep in mind, as we don't have control over it, and therefore cannot make assumptions about its value. Some games cap it and then use it as a way to, for example, keep track of time.
 
 It's very important to understand that framerate is a property of the client; the server does not know about it at all. This will matter later on.
 
@@ -71,7 +71,7 @@ Keep in mind this isn't final. We may and probably will change this at some poin
 
 The less hacky solution to this is to make `move` commands tell the server where you are now. Clients know their character speed so they can do the math themselves and just tell the server "now the character is here" or "the character moved this many units to the right". This allows clients to send as many position updates as they want. You still have to prevent cheating, however, by having the server check if the new position is valid under the game rules, but we won't concern ourselves with that here.
 
-In Myrra, the action rate is set to be the same as the tick rate. This way, we get one movement command per tick. The immediate problem caused by this is that game speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
+In Mirra, the action rate is set to be the same as the tick rate. This way, we get one movement command per tick. The immediate problem caused by this is that game speed is tied to tick rate. Decreasing tick rate slows everything down, increasing it accelerates it. There's also another huge problem this causes, which we'll talk about extensively later on as it affects smooth movement.
 
 ### Implementation
 

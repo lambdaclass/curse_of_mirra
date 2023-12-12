@@ -6918,7 +6918,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1398261209358541037}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMyrra
+        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
         m_MethodName: ToggleClientPrediction
         m_Mode: 1
         m_Arguments:
@@ -8492,7 +8492,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6022131892397320066}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMyrra
+        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
         m_MethodName: ToggleInterpolationGhosts
         m_Mode: 1
         m_Arguments:
@@ -9084,7 +9084,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3260396548179169136}
-        m_TargetAssemblyTypeName: ToggleButton, CurseOfMyrra
+        m_TargetAssemblyTypeName: ToggleButton, CurseOfMirra
         m_MethodName: ToggleClientPredictionGhost
         m_Mode: 1
         m_Arguments:
@@ -13783,7 +13783,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Show myrra your power
+  m_Text: Show mirra your power
 --- !u!114 &7614903895112868668
 MonoBehaviour:
   m_ObjectHideFlags: 0
