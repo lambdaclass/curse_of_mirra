@@ -22,6 +22,8 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     Sound3DManager sound3DManager;
 
+    const float SPAWN_SFX_VOLUME = 0.01f;
+
     public void ToggleSpawnFeedback(bool isActiveSound, string id)
     {
         spawnFeedback.SetActive(isActiveSound);
@@ -32,7 +34,7 @@ public class CharacterBase : MonoBehaviour
                 MMSoundManager.MMSoundManagerTracks.Sfx,
                 Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position,
                 false,
-                0.01f
+                SPAWN_SFX_VOLUME
             );
         }
     }
