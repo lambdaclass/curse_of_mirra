@@ -14,6 +14,9 @@ public class UIModelManager : MonoBehaviour
 
     [Tooltip("Enable characters name to be used")]
     private List<string> enabledCharacters = new List<string>();
+    bool animate = false;
+    const float ANIMATION_INTERVAL = 20f;
+    float animationClipDuration;
 
     public void SetModel(CoMCharacter character = null)
     {
@@ -40,6 +43,9 @@ public class UIModelManager : MonoBehaviour
             playerModel.transform.rotation,
             playerModelContainer.transform
         );
+        animate = true;
+        animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
+        StartCoroutine(AnimateCharacter(modelClone));
     }
 
     public void SetupList(List<string> characters)
@@ -52,6 +58,24 @@ public class UIModelManager : MonoBehaviour
         if (playerModelContainer.transform.childCount > 0)
         {
             Destroy(playerModelContainer.transform.GetChild(0).gameObject);
+        }
+    }
+
+    float AnimationClipTime(Animator modelClone)
+    {
+        List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
+        return clips.Single(clip => clip.name == "Victory").length;
+    }
+
+    IEnumerator AnimateCharacter(GameObject modelClone)
+    {
+        while (animate)
+        {
+            yield return new WaitForSeconds(1f);
+            modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
+            yield return new WaitForSeconds(animationClipDuration);
+            modelClone.GetComponentInChildren<Animator>().SetBool("Victory", false);
+            yield return new WaitForSeconds(ANIMATION_INTERVAL);
         }
     }
 }
