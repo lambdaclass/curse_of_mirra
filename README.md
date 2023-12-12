@@ -122,7 +122,7 @@ Will format your code and run Credo check and tests.
 
 ## Documentation
 
-Explore our documentation [here](https://docs.curseofmirra.com/) or run it locally. To run locally, install:
+Explore our documentation [here](https://docs.curseofmyrra.com/) or run it locally. To run locally, install:
 
 ```
 cargo install mdbook
@@ -139,10 +139,10 @@ Open: [http://localhost:3000/](http://localhost:3000/ios_builds.html)
 
 Some key documentation pages:
 
-- [Backend architecture](https://docs.curseofmirra.com/backend_architecture.html)
-- [Message protocol](https://docs.curseofmirra.com/message_protocol.html)
-- [Android build](https://docs.curseofmirra.com/android_builds.html)
-- [IOs builds](https://docs.curseofmirra.com/ios_builds.html)
+- [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
+- [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
+- [Android build](https://docs.curseofmyrra.com/android_builds.html)
+- [IOs builds](https://docs.curseofmyrra.com/ios_builds.html)
 
 ## Contact and Socials
 
