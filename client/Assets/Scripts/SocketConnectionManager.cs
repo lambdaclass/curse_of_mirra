@@ -166,40 +166,40 @@ public class SocketConnectionManager : MonoBehaviour
     {
         try
         {
-            OldGameEvent gameEvent = OldGameEvent.Parser.ParseFrom(data);
-            switch (gameEvent.Type)
+            TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
+            switch (gameEvent.OldGameEvent.Type)
             {
                 case GameEventType.StateUpdate:
-                    this.playableRadius = gameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent);
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
-                    updatedLoots = gameEvent.Loots.ToList();
-                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
+                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
+                    alivePlayers = gameEvent.OldGameEvent.Players.ToList().FindAll(el => el.Health > 0);
+                    updatedLoots = gameEvent.OldGameEvent.Loots.ToList();
+                    KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:
-                    currentPing = (uint)gameEvent.Latency;
+                    currentPing = (uint)gameEvent.OldGameEvent.Latency;
                     break;
                 case GameEventType.GameFinished:
-                    winnerPlayer.Item1 = gameEvent.WinnerPlayer;
-                    winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
-                    this.gamePlayers = gameEvent.Players.ToList();
+                    winnerPlayer.Item1 = gameEvent.OldGameEvent.WinnerPlayer;
+                    winnerPlayer.Item2 = gameEvent.OldGameEvent.WinnerPlayer.KillCount;
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     break;
                 case GameEventType.PlayerJoined:
-                    this.playerId = gameEvent.PlayerJoinedId;
+                    this.playerId = gameEvent.OldGameEvent.PlayerJoinedId;
                     break;
                 case GameEventType.GameStarted:
-                    this.playableRadius = gameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent);
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
                     LobbyConnection.Instance.gameStarted = true;
                     break;
                 default:
-                    print("Message received is: " + gameEvent.Type);
+                    print("Message received is: " + gameEvent.OldGameEvent.Type);
                     break;
             }
         }
