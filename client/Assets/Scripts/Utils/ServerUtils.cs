@@ -67,7 +67,7 @@ public static class ServerUtils
                 switch (webRequest.result)
                 {
                     case UnityWebRequest.Result.ProtocolError:
-                        errorDescription = "Internal server error";
+                        errorDescription = "Something unexpected happened";
                         errorCallback.Invoke(errorDescription);
                         break;
                     case UnityWebRequest.Result.ConnectionError:

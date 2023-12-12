@@ -82,14 +82,14 @@ public class TitleScreenController : MonoBehaviour
                             break;
                         case "CONNECTION_ERROR":
                             Errors.Instance.HandleNetworkError(
-                                "Error",
+                                "Oops!",
                                 "No Server Avaible to Connect"
                             );
                             SetLoadingScreen(false);
                             playNowButton.EnableButton();
                             break;
                         default:
-                            Errors.Instance.HandleNetworkError("Error", error);
+                            Errors.Instance.HandleNetworkError("Oops!", error);
                             SetLoadingScreen(false);
                             playNowButton.EnableButton();
                             break;
