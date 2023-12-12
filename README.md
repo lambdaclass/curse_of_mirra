@@ -1,6 +1,6 @@
 # Curse of Mirra
 
-<img src="docs/src/images/Curse_of_Myrra_logo.png" alt="Curse of Myrra logo">
+<img src="docs/src/images/Curse_of_Mirra_logo.png" alt="Curse of Mirra logo">
 
 ## Table of Contents
 
