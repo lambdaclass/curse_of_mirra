@@ -40,7 +40,10 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void RightArrowFunc()
     {
-        if (selectedCharacterPosition == availableCharacters.Count(character => character.enabled) - 1)
+        if (
+            selectedCharacterPosition
+            == availableCharacters.Count(character => character.enabled) - 1
+        )
         {
             selectedCharacterPosition = 0;
         }
@@ -56,7 +59,8 @@ public class CharacterInfoManager : MonoBehaviour
     {
         if (selectedCharacterPosition == 0)
         {
-            selectedCharacterPosition = availableCharacters.Count(character => character.enabled) - 1;
+            selectedCharacterPosition =
+                availableCharacters.Count(character => character.enabled) - 1;
         }
         else
         {
@@ -78,19 +82,26 @@ public class CharacterInfoManager : MonoBehaviour
         StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
     }
 
-    public void SelectButton() {
+    public void SelectButton()
+    {
         StartCoroutine(SetCharacter());
     }
 
-    private IEnumerator SetCharacter() {
-        yield return StartCoroutine(Utils.SetSelectedCharacter(availableCharacters[selectedCharacterPosition].name,
-            response => {
-                GameManager.Instance.selectedCharacterName = response.selected_character;
-            },
-            error => {
-                Errors.Instance.HandleNetworkError("Error", error);
-            }
-        ));
+    private IEnumerator SetCharacter()
+    {
+        yield return StartCoroutine(
+            Utils.SetSelectedCharacter(
+                availableCharacters[selectedCharacterPosition].name,
+                response =>
+                {
+                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                },
+                error =>
+                {
+                    Errors.Instance.HandleNetworkError("Error", error);
+                }
+            )
+        );
         this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

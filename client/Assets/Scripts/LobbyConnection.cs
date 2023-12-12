@@ -40,12 +40,15 @@ public class LobbyConnection : MonoBehaviour
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
+    public string selectedCharacterName;
+
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
     private const string versionHashesTitle = "Warning";
-    private const string versionHashesDescription = "Client and Server version hashes do not match.";
+    private const string versionHashesDescription =
+        "Client and Server version hashes do not match.";
     WebSocket ws;
 
     [Serializable]
@@ -458,15 +461,17 @@ public class LobbyConnection : MonoBehaviour
 
     private void GetSelectedCharacter()
     {
-        StartCoroutine(Utils.GetSelectedCharacter(
-            response =>
-            {
-                GameManager.Instance.selectedCharacterName = response.selected_character;
-            },
-            error =>
-            {
-                Errors.Instance.HandleNetworkError("Error", error);
-            }
-        ));
+        StartCoroutine(
+            Utils.GetSelectedCharacter(
+                response =>
+                {
+                    GameManager.Instance.selectedCharacterName = response.selected_character;
+                },
+                error =>
+                {
+                    Errors.Instance.HandleNetworkError("Error", error);
+                }
+            )
+        );
     }
 }
