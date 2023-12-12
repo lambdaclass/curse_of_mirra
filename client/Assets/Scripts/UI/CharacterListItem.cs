@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.EventSystems;
+using TMPro;
 using UnityEngine.UI;
 
 public class CharacterListItem
@@ -13,6 +12,17 @@ public class CharacterListItem
         IPointerUpHandler,
         IPointerDownHandler
 {
+    [SerializeField]
+    public TextMeshProUGUI characterName;
+
+    [SerializeField]
+    public Image characterImage,
+        characterIconState;
+
+    [SerializeField]
+    public GameObject soonLabel,
+        characterOpacity,
+        availableSoon;
     public int listPosition;
     private bool isInsideCard = false;
     private bool isRealesed = false;
