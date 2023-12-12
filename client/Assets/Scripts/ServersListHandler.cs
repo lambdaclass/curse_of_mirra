@@ -5,16 +5,29 @@ public class ServersListHandler : MonoBehaviour
 {
     [SerializeField]
     GameObject serverOptions;
-    public string serverName;
+
+    [SerializeField]
+    TextMeshProUGUI activeServerName;
 
     void Start()
     {
         ChangeSelectedServerName();
     }
 
+    void Update()
+    {
+        if (
+            activeServerName.text != LobbyConnection.Instance.serverName
+            || activeServerName.text == ""
+        )
+        {
+            ChangeSelectedServerName();
+        }
+    }
+
     public void ChangeSelectedServerName()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = LobbyConnection.Instance.serverName;
+        activeServerName.text = LobbyConnection.Instance.serverName;
     }
 
     public void ShowServerOptions()

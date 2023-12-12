@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class LobbyConnection : MonoBehaviour
     public bool isHost = false;
     public ulong hostId;
     public int playerCount;
+    public int simulatedPlayerCount;
+    public int lobbyCapacity;
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
     public string serverHash;
@@ -110,7 +113,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        this.clientId = Utils.GetClientId();
+        this.clientId = ServerUtils.GetClientId();
         MaybeReconnect();
         PopulateLists();
     }
@@ -127,13 +130,28 @@ public class LobbyConnection : MonoBehaviour
                 this.ws.Close();
             }
 
-            Destroy(gameObject);
+            ResetFields();
             return;
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
         GetSelectedCharacter();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void ResetFields()
+    {
+        this.LobbySession = "";
+        this.GameSession = "";
+        this.playerId = 0;
+        this.serverTickRate_ms = 0;
+        this.serverHash = "";
+        this.hostId = 0;
+        this.playerCount = 0;
+        this.gameStarted = false;
+        this.clientId = "";
+        this.simulatedPlayerCount = 0;
+        this.lobbyCapacity = 0;
     }
 
     void Update()
@@ -144,6 +162,10 @@ public class LobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
+        if (this.gameStarted)
+        {
+            CancelInvoke("UpdateSimulatedCounter");
+        }
     }
 
     private void PopulateLists()
@@ -162,7 +184,7 @@ public class LobbyConnection : MonoBehaviour
     public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(Utils.MakeHTTPUrl("/join_lobby")));
+        StartCoroutine(GetRequest(ServerUtils.MakeHTTPUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -240,7 +262,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetLobbies()
     {
-        string url = Utils.MakeHTTPUrl("/current_lobbies");
+        string url = ServerUtils.MakeHTTPUrl("/current_lobbies");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -265,7 +287,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetGames()
     {
-        string url = Utils.MakeHTTPUrl("/current_games");
+        string url = ServerUtils.MakeHTTPUrl("/current_games");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -289,7 +311,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetCurrentGame()
     {
-        string url = Utils.MakeHTTPUrl("/player_game/" + this.clientId);
+        string url = ServerUtils.MakeHTTPUrl("/player_game/" + this.clientId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -360,7 +382,6 @@ public class LobbyConnection : MonoBehaviour
                 case LobbyEventType.PlayerAdded:
                     this.hostId = lobbyEvent.HostPlayerId;
                     this.isHost = this.playerId == this.hostId;
-                    this.playerCount = lobbyEvent.PlayersInfo.Count();
                     lobbyEvent.PlayersInfo
                         .ToList()
                         .ForEach(
@@ -369,14 +390,19 @@ public class LobbyConnection : MonoBehaviour
                         );
                     break;
 
-                case LobbyEventType.GameStarted:
+                case LobbyEventType.PreparingGame:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
                     // FIX THIS!!
                     serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
-                    gameStarted = true;
+                    break;
+
+                case LobbyEventType.NotifyPlayerAmount:
+                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
+                    InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
                 default:
@@ -389,6 +415,14 @@ public class LobbyConnection : MonoBehaviour
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
+    }
+
+    private void UpdateSimulatedCounter()
+    {
+        var limit = this.lobbyCapacity - this.simulatedPlayerCount;
+        System.Random r = new System.Random();
+        var randomNumber = r.Next(0, Math.Min(3, limit));
+        this.simulatedPlayerCount = this.simulatedPlayerCount + randomNumber;
     }
 
     private void OnWebsocketClose(WebSocketCloseCode closeCode)
@@ -465,7 +499,7 @@ public class LobbyConnection : MonoBehaviour
             Utils.GetSelectedCharacter(
                 response =>
                 {
-                    GameManager.Instance.selectedCharacterName = response.selected_character;
+                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
                 },
                 error =>
                 {

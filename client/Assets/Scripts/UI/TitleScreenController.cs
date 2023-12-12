@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using MoreMountains.Tools;
+using DG.Tweening;
+using MoreMountains.Tools;
 
 public class TitleScreenController : MonoBehaviour
 {
@@ -39,6 +41,7 @@ public class TitleScreenController : MonoBehaviour
     {
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
+        StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
         if (PlayerPrefs.GetString("playerName") == "")
         {
@@ -61,67 +64,72 @@ public class TitleScreenController : MonoBehaviour
         }
     }
 
-    public void PlayButton()
+    public void ChangeToMainscreen()
     {
-        ChangeToMainScreen();
-    }
-
-    private void ChangeToMainScreen() {
         SetLoadingScreen(true);
-        StartCoroutine(Utils.GetSelectedCharacter(
-            response => {
-                GameManager.Instance.selectedCharacterName = response.selected_character;
-                if(asyncOperation != null)
+        StartCoroutine(
+            ServerUtils.GetSelectedCharacter(
+                response =>
                 {
-                    asyncOperation.allowSceneActivation = true;
+                    if (asyncOperation != null)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                },
+                error =>
+                {
+                    switch (error)
+                    {
+                        case "USER_NOT_FOUND":
+                            CreateUser();
+                            break;
+                        case "CONNECTION_ERROR":
+                            Errors.Instance.HandleNetworkError(
+                                "Oops!",
+                                "No Server Avaible to Connect"
+                            );
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
+                            break;
+                        default:
+                            Errors.Instance.HandleNetworkError("Oops!", error);
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
+                            break;
+                    }
                 }
-            },
-            error => {
-                print($"response: {error}");
-                switch(error) {
-                    case "USER_NOT_FOUND":
-                        CreateUser();
-                        break;
-                    case "CONNECTION_ERROR":
-                        // If server is not found default to localhost IP
-                        SelectServerIP.serverIp = "localhost";
-                        SelectServerIP.serverNameString = "Localhost";
-                        ChangeToMainScreen();
-                        break;
-                    default:
-                        Errors.Instance.HandleNetworkError("Error", error);
-                        SetLoadingScreen(false);
-                        playNowButton.EnableButton();
-                        break;
-                }
-            }
-        ));
+            )
+        );
     }
 
-    private void CreateUser() {
-        print("create user");
-        StartCoroutine(Utils.CreateUser(
-            response => {
-                GameManager.Instance.selectedCharacterName = response.selected_character;
-                if(asyncOperation != null)
+    private void CreateUser()
+    {
+        StartCoroutine(
+            ServerUtils.CreateUser(
+                response =>
                 {
-                    asyncOperation.allowSceneActivation = true;
+                    if (asyncOperation != null)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                },
+                error =>
+                {
+                    switch (error)
+                    {
+                        case "USER_ALREADY_TAKEN":
+                            Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
+                            SetLoadingScreen(false);
+                            break;
+                        default:
+                            Errors.Instance.HandleNetworkError("Error", error);
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
+                            break;
+                    }
                 }
-            },
-            error => {
-                switch(error) {
-                    case "USER_ALREADY_TAKEN":
-                        Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
-                        SetLoadingScreen(false);
-                        break;
-                    default:
-                        Errors.Instance.HandleNetworkError("Error", error);
-                        SetLoadingScreen(false);
-                        playNowButton.EnableButton();
-                        break;
-                }
-            }
-        ));
+            )
+        );
     }
 
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)
@@ -138,13 +146,16 @@ public class TitleScreenController : MonoBehaviour
     void SetLoadingScreen(bool isActive)
     {
         loadingScreen.SetActive(isActive);
-        if(isActive)
+        if (isActive)
         {
-            spinnerRotationTween = loadingSpinner.transform.DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
+            spinnerRotationTween = loadingSpinner.transform
+                .DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
                 .SetLoops(-1, LoopType.Restart)
                 .SetRelative()
                 .SetEase(Ease.InOutQuad);
-        } else {
+        }
+        else
+        {
             spinnerRotationTween.Kill();
         }
     }

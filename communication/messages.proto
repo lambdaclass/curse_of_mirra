@@ -30,13 +30,13 @@ message GameEvent {
     - STATE_UPDATE: The game's state has been updated
     - PING_UPDATE: The player's current ping updated
     - PLAYER_JOINED: A player has joined the game
-    - INITIAL_POSITIONS: The initial positions of each player
  */
 enum GameEventType {
     STATE_UPDATE = 0;
     PING_UPDATE = 1;
     PLAYER_JOINED = 2;
     GAME_FINISHED = 3;
+    GAME_STARTED = 4;
 }
 
 message PlayerCharacter{
@@ -237,6 +237,8 @@ message LobbyEvent {
     Config game_config = 9;
     string server_hash = 10;
     uint64 host_player_id = 11;
+    uint64 amount_of_players = 12;
+    uint64 capacity = 13;
 }
 
 /* Represents the information of a player/client
@@ -327,15 +329,14 @@ message ServerGameSettings {
     - CONNECTED: Websocket connection is established
     - PLAYER_ADDED: A player has joined the matchmaking lobby
     - GAME_STARTED: A game session has started from this lobby
-    - PLAYER_COUNT: Current player count in the lobby
-    - PLAYER_REMOVED: A player has left the matchmaking lobby
  */
 enum LobbyEventType {
     TYPE_UNSPECIFIED = 0;
     CONNECTED = 1;
     PLAYER_ADDED = 2;
-    GAME_STARTED = 3;
+    PREPARING_GAME = 3;
     START_GAME = 4;
+    NOTIFY_PLAYER_AMOUNT = 5;
 }
 
 
@@ -430,6 +431,7 @@ enum MechanicType {
     SIMPLE_SHOOT = 1;
     MULTI_SHOOT = 2;
     GIVE_EFFECT = 3;
+    MOVE_TO_TARGET = 4;
 }
 
 message Config {
@@ -625,6 +627,8 @@ message UseSkill {
   string skill = 1;
   float angle = 2;
   bool auto_aim = 3;
+  float target_x = 4;
+  float target_y = 5;
 }
 
 message GameAction {

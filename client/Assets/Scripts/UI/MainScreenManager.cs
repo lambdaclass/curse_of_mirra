@@ -9,8 +9,15 @@ public class MainScreenManager : MonoBehaviour
     [SerializeField]
     UIModelManager modelManager;
 
+    [SerializeField]
+    GameObject lobbyConnectionPrefab;
+
     void Start()
     {
+        // if (LobbyConnection.Instance == null)
+        // {
+        //     Instantiate(lobbyConnectionPrefab);
+        // }
         modelManager.SetModel();
     }
 }
