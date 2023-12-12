@@ -64,65 +64,80 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
-        StartCoroutine(ServerUtils.GetSelectedCharacter(
-            response => {
-                if(asyncOperation != null)
+        print("Request");
+        StartCoroutine(
+            ServerUtils.GetSelectedCharacter(
+                response =>
                 {
-                    asyncOperation.allowSceneActivation = true;
-                }
-            },
-            error => {
-                switch(error) {
-                    case "USER_NOT_FOUND":
-                        CreateUser();
-                        break;
-                    case "CONNECTION_ERROR":
-                        if(SelectServerIP.serverIp != "localhost")
-                        {
-                            // If server is not found default to localhost IP
-                            SelectServerIP.serverIp = "localhost";
-                            SelectServerIP.serverNameString = "Localhost";
-                            ChangeToMainscreen();
-                        }
-                        else
-                        {
-                            Errors.Instance.HandleNetworkError("Error", "No server available");
+                    if (asyncOperation != null)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                },
+                error =>
+                {
+                    switch (error)
+                    {
+                        case "USER_NOT_FOUND":
+                            CreateUser();
+                            break;
+                        case "CONNECTION_ERROR":
+                            print("Connection error " + error);
+                            print(SelectServerIP.serverIp);
+                            if (SelectServerIP.serverIp != "localhost")
+                            {
+                                // If server is not found default to localhost IP
+                                SelectServerIP.serverIp = "localhost";
+                                SelectServerIP.serverNameString = "Localhost";
+                                ChangeToMainscreen();
+                            }
+                            else
+                            {
+                                Errors.Instance.HandleNetworkError("Error", "NO SERVER AVAIBLE");
+                                SetLoadingScreen(false);
+                                playNowButton.EnableButton();
+                            }
+                            break;
+                        default:
+                            print("Entro al default");
+                            Errors.Instance.HandleNetworkError("Error", error);
                             SetLoadingScreen(false);
                             playNowButton.EnableButton();
-                        }
-                        break;
-                    default:
-                        Errors.Instance.HandleNetworkError("Error", error);
-                        SetLoadingScreen(false);
-                        playNowButton.EnableButton();
-                        break;
+                            break;
+                    }
                 }
-            }
-        ));
+            )
+        );
     }
 
-    private void CreateUser() {
-        StartCoroutine(ServerUtils.CreateUser(
-            response => {
-                if(asyncOperation != null)
+    private void CreateUser()
+    {
+        StartCoroutine(
+            ServerUtils.CreateUser(
+                response =>
                 {
-                    asyncOperation.allowSceneActivation = true;
+                    if (asyncOperation != null)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                },
+                error =>
+                {
+                    switch (error)
+                    {
+                        case "USER_ALREADY_TAKEN":
+                            Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
+                            SetLoadingScreen(false);
+                            break;
+                        default:
+                            Errors.Instance.HandleNetworkError("Error", error);
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
+                            break;
+                    }
                 }
-            },
-            error => {
-                switch(error) {
-                    case "USER_ALREADY_TAKEN":
-                        Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
-                        SetLoadingScreen(false);
-                        break;
-                    default:
-                        Errors.Instance.HandleNetworkError("Error", error);
-                        SetLoadingScreen(false);
-                        playNowButton.EnableButton();
-                        break;
-                }
-            }
-        ));
+            )
+        );
     }
 
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)
@@ -139,13 +154,16 @@ public class TitleScreenController : MonoBehaviour
     void SetLoadingScreen(bool isActive)
     {
         loadingScreen.SetActive(isActive);
-        if(isActive)
+        if (isActive)
         {
-            spinnerRotationTween = loadingSpinner.transform.DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
+            spinnerRotationTween = loadingSpinner.transform
+                .DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
                 .SetLoops(-1, LoopType.Restart)
                 .SetRelative()
                 .SetEase(Ease.InOutQuad);
-        } else {
+        }
+        else
+        {
             spinnerRotationTween.Kill();
         }
     }

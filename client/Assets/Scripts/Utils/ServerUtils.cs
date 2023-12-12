@@ -8,10 +8,11 @@ public static class ServerUtils
 {
     public static string MakeHTTPUrl(string path)
     {
-        if (SelectServerIP.GetServerIp().Contains("localhost") ||
-            SelectServerIP.GetServerIp().Contains("10.150.20.186") ||
-            SelectServerIP.GetServerIp().Contains("168.119.71.104") ||
-            SelectServerIP.GetServerIp().Contains("176.9.26.172")
+        if (
+            SelectServerIP.GetServerIp().Contains("localhost")
+            || SelectServerIP.GetServerIp().Contains("10.150.20.186")
+            || SelectServerIP.GetServerIp().Contains("168.119.71.104")
+            || SelectServerIP.GetServerIp().Contains("176.9.26.172")
         )
         {
             return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
@@ -47,12 +48,15 @@ public static class ServerUtils
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
-                if(webRequest.downloadHandler.text.Contains("NOT_FOUND")) {
+                if (webRequest.downloadHandler.text.Contains("NOT_FOUND"))
+                {
                     errorCallback?.Invoke("USER_NOT_FOUND");
                 }
                 else
                 {
-                    UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(webRequest.downloadHandler.text);
+                    UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
+                        webRequest.downloadHandler.text
+                    );
                     successCallback?.Invoke(response);
                 }
                 webRequest.Dispose();
@@ -60,20 +64,24 @@ public static class ServerUtils
             else
             {
                 string errorDescription;
-
+                Debug.Log(webRequest.result);
                 switch (webRequest.result)
                 {
                     case UnityWebRequest.Result.ProtocolError:
                         errorDescription = webRequest.downloadHandler.error;
+                        errorCallback.Invoke(errorDescription);
                         break;
                     case UnityWebRequest.Result.ConnectionError:
                         errorDescription = "CONNECTION_ERROR";
+                        errorCallback.Invoke(errorDescription);
                         break;
                     case UnityWebRequest.Result.DataProcessingError:
                         errorDescription = "Data processing error.";
+                        errorCallback.Invoke(errorDescription);
                         break;
                     default:
                         errorDescription = "Unhandled error.";
+                        errorCallback.Invoke(errorDescription);
                         break;
                 }
 
@@ -83,9 +91,10 @@ public static class ServerUtils
     }
 
     public static IEnumerator CreateUser(
-        Action<UserCharacterResponse> successCallback, 
+        Action<UserCharacterResponse> successCallback,
         Action<string> errorCallback
-    ) {
+    )
+    {
         string url = MakeHTTPUrl("/users-characters/new");
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("device_client_id", GetClientId()));
@@ -97,12 +106,16 @@ public static class ServerUtils
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    if(webRequest.downloadHandler.text.Contains("USER_ALREADY_TAKEN")) {
+                    if (webRequest.downloadHandler.text.Contains("USER_ALREADY_TAKEN"))
+                    {
                         errorCallback?.Invoke(webRequest.downloadHandler.text);
-                    } else {
-                        UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
-                            webRequest.downloadHandler.text
-                        );
+                    }
+                    else
+                    {
+                        UserCharacterResponse response =
+                            JsonUtility.FromJson<UserCharacterResponse>(
+                                webRequest.downloadHandler.text
+                            );
                         successCallback?.Invoke(response);
                     }
                     break;
@@ -111,5 +124,5 @@ public static class ServerUtils
                     break;
             }
         }
-    }    
+    }
 }
