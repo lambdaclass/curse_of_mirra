@@ -2,9 +2,26 @@ syntax = "proto3";
 
 option csharp_namespace = "Communication.Protobuf";
 
-message Position {
-    int64 x = 1;
-    int64 y = 2;
+message TransitionGameEvent {
+    GameEvent new_game_event = 1;
+    OldGameEvent old_game_event = 2;
+}
+
+message GameEvent {
+    oneof event {
+        GameState game_state = 1;
+        GameStarted game_started = 2;
+        GameFinished game_finished = 3;
+    }
+}
+
+message GameStarted {
+    GameState starting_state = 1; // TODO: can we not have this?
+}
+
+message GameFinished {
+    Player winner = 1;
+    repeated Player players = 2;
 }
 
 message GameState {
@@ -72,6 +89,11 @@ message ZoneInfo {
     float radius = 2;
 }
 
+message Position {
+    int64 x = 1;
+    int64 y = 2;
+}
+
 enum PlayerStatus {
     PLAYER_STATUS_UNDEFINED = 0;
     PLAYER_STATUS_ALIVE = 1;
@@ -103,7 +125,7 @@ enum PlayerActionEnum {
     - projectiles: projectile list, used on STATE_UPDATE
     - player_joined_id: ID of the player that joined the game
  */
-message GameEvent {
+message OldGameEvent {
     GameEventType type = 1;
     repeated OldPlayer players = 2;
     uint64 latency = 3;

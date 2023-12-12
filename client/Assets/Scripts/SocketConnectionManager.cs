@@ -23,7 +23,7 @@ public class SocketConnectionManager : MonoBehaviour
     public string serverIp = "localhost";
     public static SocketConnectionManager Instance;
     public List<OldPlayer> gamePlayers;
-    public GameEvent gameEvent;
+    public OldGameEvent gameEvent;
     public List<OldProjectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
     public ulong playerId;
@@ -37,7 +37,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
-    public List<GameEvent> gameEvents = new List<GameEvent>();
+    public List<OldGameEvent> gameEvents = new List<OldGameEvent>();
 
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
@@ -166,7 +166,7 @@ public class SocketConnectionManager : MonoBehaviour
     {
         try
         {
-            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+            OldGameEvent gameEvent = OldGameEvent.Parser.ParseFrom(data);
             switch (gameEvent.Type)
             {
                 case GameEventType.StateUpdate:

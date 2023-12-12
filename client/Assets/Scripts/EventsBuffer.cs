@@ -5,7 +5,7 @@ using Communication.Protobuf;
 public class EventsBuffer
 {
     const int bufferLimit = 30;
-    public List<GameEvent> updatesBuffer = new List<GameEvent>();
+    public List<OldGameEvent> updatesBuffer = new List<OldGameEvent>();
 
     public Dictionary<ulong, long> lastTimestampsSeen = new Dictionary<ulong, long>();
 
@@ -13,7 +13,7 @@ public class EventsBuffer
 
     public long deltaInterpolationTime { get; set; }
 
-    public void AddEvent(GameEvent newEvent)
+    public void AddEvent(OldGameEvent newEvent)
     {
         if (updatesBuffer.Count == bufferLimit)
         {
@@ -22,15 +22,15 @@ public class EventsBuffer
         updatesBuffer.Add(newEvent);
     }
 
-    public GameEvent lastEvent()
+    public OldGameEvent lastEvent()
     {
         int lastIndex = updatesBuffer.Count - 1;
         return updatesBuffer[lastIndex];
     }
 
-    public GameEvent getNextEventToRender(long pastTime)
+    public OldGameEvent getNextEventToRender(long pastTime)
     {
-        GameEvent nextGameEvent = updatesBuffer
+        OldGameEvent nextGameEvent = updatesBuffer
             .Where(ge => ge.ServerTimestamp > pastTime)
             .OrderBy(ge => ge.ServerTimestamp)
             .FirstOrDefault();
@@ -57,7 +57,7 @@ public class EventsBuffer
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
         var count = 0;
-        GameEvent currentEventToRender = this.getNextEventToRender(pastTime);
+        OldGameEvent currentEventToRender = this.getNextEventToRender(pastTime);
         var index = updatesBuffer.IndexOf(currentEventToRender);
         int previousIndex;
         int nextIndex;
@@ -80,8 +80,8 @@ public class EventsBuffer
             nextIndex = index + 1;
         }
 
-        GameEvent previousRenderedEvent = updatesBuffer[previousIndex];
-        GameEvent followingEventToRender = updatesBuffer[nextIndex];
+        OldGameEvent previousRenderedEvent = updatesBuffer[previousIndex];
+        OldGameEvent followingEventToRender = updatesBuffer[nextIndex];
 
         // There are a few frames during which this is outdated and produces an error
         if (

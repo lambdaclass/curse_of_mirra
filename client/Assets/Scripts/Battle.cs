@@ -158,7 +158,7 @@ public class Battle : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        GameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
+        OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
         OldPlayer playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
@@ -191,7 +191,7 @@ public class Battle : MonoBehaviour
         long pastTime;
         GameObject interpolationGhost = null;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
-        GameEvent gameEvent;
+        OldGameEvent gameEvent;
 
         currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
