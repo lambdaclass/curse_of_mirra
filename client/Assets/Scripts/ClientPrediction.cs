@@ -12,7 +12,15 @@ public class ClientPrediction
         public long endMovementTimestamp;
     }
 
+    public struct AcknowledgeInputs
+    {
+        public long timestamp;
+        public Position playerPosition;
+    }
+
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
+
+    public AcknowledgeInputs acknowledgedPlayerInput = new AcknowledgeInputs(){timestamp = 0, playerPosition = new Position(){X = 0, Y = 0}};
 
     public void putPlayerInput(PlayerInput PlayerInput)
     {
@@ -33,17 +41,31 @@ public class ClientPrediction
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Player player, long serverTimestamp)
+    public void simulatePlayerState(Player player, long serverTimestamp, long playerTimestamp)
     {
-        removeServerAcknowledgedInputs(player, serverTimestamp);
+        updateAcknowledgedAction(player, playerTimestamp);
+        removeServerAcknowledgedInputs(player, playerTimestamp);
+        
         simulatePlayerMovement(player, serverTimestamp);
     }
 
-    void removeServerAcknowledgedInputs(Player player, long serverTimestamp)
+    void updateAcknowledgedAction(Player player, long playerTimestamps)
+    {
+        foreach (var input in pendingPlayerInputs)
+        {
+            if (input.startMovementTimestamp == playerTimestamps && playerTimestamps != acknowledgedPlayerInput.timestamp)
+            {
+                acknowledgedPlayerInput.timestamp = playerTimestamps;
+                acknowledgedPlayerInput.playerPosition = player.Position;
+            }
+        }
+    }
+
+    void removeServerAcknowledgedInputs(Player player, long playerTimestamp)
     {
         pendingPlayerInputs.RemoveAll(
             (input) =>
-                input.endMovementTimestamp != 0 && input.endMovementTimestamp <= serverTimestamp
+                input.endMovementTimestamp != 0 && input.startMovementTimestamp < acknowledgedPlayerInput.timestamp
         );
     }
 
@@ -51,7 +73,10 @@ public class ClientPrediction
     {
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
-        long deltaTime;
+        Position algo = acknowledgedPlayerInput.playerPosition;
+        if (acknowledgedPlayerInput.timestamp == 0){
+            algo = player.Position;
+        }
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         pendingPlayerInputs.ForEach(input =>
         {
@@ -62,45 +87,28 @@ public class ClientPrediction
 
             movementDirection.Normalize();
 
-            var t0 = input.startMovementTimestamp;
-            var tf = input.endMovementTimestamp == 0 ? now : input.endMovementTimestamp;
+            var ticks = 0f;
 
-            if (t0 < serverTimestamp && serverTimestamp < tf)
-            {
-                deltaTime = tf - serverTimestamp;
-            }
-            else
-            {
-                deltaTime = tf - t0;
+            if (input.endMovementTimestamp == 0) {
+                ticks = (now - input.startMovementTimestamp) / 30;
+            } else {
+                ticks = (input.endMovementTimestamp - input.startMovementTimestamp) / 30;
             }
 
-            Debug.Log($"DeltaTime {deltaTime}");
-            float ticks = deltaTime / 30;
-            Debug.Log($"manuDeltaTime {ticks}");
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
-            Debug.Log($"position plus: {movementVector}");
             Position newPlayerPosition = new Position();
 
-            var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
-            var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
+            var newPositionX = (long)algo.X + (long)Math.Round(movementVector.x);
+            var newPositionY = (long)algo.Y + (long)Math.Round(movementVector.y);
 
             newPlayerPosition.X = (ulong)newPositionX;
             newPlayerPosition.Y = (ulong)newPositionY;
 
-            player.Position = newPlayerPosition;
+            algo = newPlayerPosition;
+            player.Position = algo;
         });
 
-        var radius = 4900;
-        Position center = new Position() { X = 5000, Y = 5000 };
-
-        if (distance_between_positions(player.Position, center) > radius)
-        {
-            var angle = angle_between_positions(center, player.Position);
-
-            player.Position.X = (ulong)(radius * Math.Cos(angle) + 5000);
-            player.Position.Y = (ulong)(radius * Math.Sin(angle) + 5000);
-        }
     }
 
     double distance_between_positions(Position position_1, Position position_2)
