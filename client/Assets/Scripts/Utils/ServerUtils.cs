@@ -64,15 +64,14 @@ public static class ServerUtils
             else
             {
                 string errorDescription;
-                Debug.Log(webRequest.result);
                 switch (webRequest.result)
                 {
                     case UnityWebRequest.Result.ProtocolError:
-                        errorDescription = webRequest.downloadHandler.error;
+                        errorDescription = "Internal server error";
                         errorCallback.Invoke(errorDescription);
                         break;
                     case UnityWebRequest.Result.ConnectionError:
-                        errorDescription = "CONNECTION_ERROR";
+                        errorDescription = "Connection Error";
                         errorCallback.Invoke(errorDescription);
                         break;
                     case UnityWebRequest.Result.DataProcessingError:

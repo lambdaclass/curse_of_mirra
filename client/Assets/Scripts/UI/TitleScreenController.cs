@@ -64,7 +64,6 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
-        print("Request");
         StartCoroutine(
             ServerUtils.GetSelectedCharacter(
                 response =>
@@ -82,24 +81,14 @@ public class TitleScreenController : MonoBehaviour
                             CreateUser();
                             break;
                         case "CONNECTION_ERROR":
-                            print("Connection error " + error);
-                            print(SelectServerIP.serverIp);
-                            if (SelectServerIP.serverIp != "localhost")
-                            {
-                                // If server is not found default to localhost IP
-                                SelectServerIP.serverIp = "localhost";
-                                SelectServerIP.serverNameString = "Localhost";
-                                ChangeToMainscreen();
-                            }
-                            else
-                            {
-                                Errors.Instance.HandleNetworkError("Error", "NO SERVER AVAIBLE");
-                                SetLoadingScreen(false);
-                                playNowButton.EnableButton();
-                            }
+                            Errors.Instance.HandleNetworkError(
+                                "Error",
+                                "No Server Avaible to Connect"
+                            );
+                            SetLoadingScreen(false);
+                            playNowButton.EnableButton();
                             break;
                         default:
-                            print("Entro al default");
                             Errors.Instance.HandleNetworkError("Error", error);
                             SetLoadingScreen(false);
                             playNowButton.EnableButton();
