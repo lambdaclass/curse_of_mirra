@@ -3,9 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Text;
+using System.Linq;
 
 public static class ServerUtils
 {
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
+
     public static string MakeHTTPUrl(string path)
     {
         if (
@@ -85,6 +95,44 @@ public static class ServerUtils
                 }
 
                 errorCallback?.Invoke(errorDescription);
+            }
+        }
+    }
+
+    public static IEnumerator SetSelectedCharacter(
+        string characterName,
+        Action<UserCharacterResponse> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        string url = Utils.MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit");
+        string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
+        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (webRequest.downloadHandler.text.Contains("INEXISTENT_USER"))
+                    {
+                        errorCallback?.Invoke(webRequest.downloadHandler.text);
+                    }
+                    else
+                    {
+                        UserCharacterResponse response =
+                            JsonUtility.FromJson<UserCharacterResponse>(
+                                webRequest.downloadHandler.text
+                            );
+                        successCallback?.Invoke(response);
+                    }
+                    break;
+                default:
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
+                    break;
             }
         }
     }

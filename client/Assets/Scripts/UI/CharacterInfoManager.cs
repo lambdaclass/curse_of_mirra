@@ -90,7 +90,7 @@ public class CharacterInfoManager : MonoBehaviour
     private IEnumerator SetCharacter()
     {
         yield return StartCoroutine(
-            Utils.SetSelectedCharacter(
+            ServerUtils.SetSelectedCharacter(
                 availableCharacters[selectedCharacterPosition].name,
                 response =>
                 {

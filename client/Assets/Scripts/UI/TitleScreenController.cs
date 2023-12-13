@@ -6,6 +6,9 @@ using DG.Tweening;
 using MoreMountains.Tools;
 using DG.Tweening;
 using MoreMountains.Tools;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class TitleScreenController : MonoBehaviour
 {
@@ -67,13 +70,50 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
+
+        List<String> avaibleCharactersNames = CharactersList.Instance.AvailableCharacters
+            .Select(character => character.name)
+            .ToList();
+
         StartCoroutine(
             ServerUtils.GetSelectedCharacter(
                 response =>
                 {
-                    if (asyncOperation != null)
+                    if (!avaibleCharactersNames.Contains(response.selected_character))
                     {
-                        asyncOperation.allowSceneActivation = true;
+                        Errors.Instance.HandleNetworkError(
+                            "Atention!",
+                            response.selected_character
+                                + " is currently unavailable "
+                                + "\n"
+                                + avaibleCharactersNames[0]
+                                + " has been selected"
+                        );
+                        StartCoroutine(
+                            ServerUtils.SetSelectedCharacter(
+                                avaibleCharactersNames[0],
+                                response =>
+                                {
+                                    LobbyConnection.Instance.selectedCharacterName =
+                                        response.selected_character;
+                                    asyncOperation.allowSceneActivation = true;
+                                },
+                                erorr =>
+                                {
+                                    Errors.Instance.HandleNetworkError(
+                                        "Oops!",
+                                        "Something went wrong"
+                                    );
+                                }
+                            )
+                        );
+                    }
+                    else
+                    {
+                        if (asyncOperation != null)
+                        {
+                            asyncOperation.allowSceneActivation = true;
+                        }
                     }
                 },
                 error =>

@@ -9,6 +9,15 @@ public class CharactersList : MonoBehaviour
     public static CharactersList Instance;
 
     [SerializeField]
+    private List<CoMCharacter> allCharacters;
+
+    public List<CoMCharacter> AllCharacters
+    {
+        get { return allCharacters; }
+        private set { allCharacters = value; }
+    }
+
+    [SerializeField]
     private List<CoMCharacter> availableCharacters;
 
     public List<CoMCharacter> AvailableCharacters
@@ -26,6 +35,7 @@ public class CharactersList : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        availableCharacters = availableCharacters.OrderByDescending(character => character.enabled).ToList();
+        allCharacters = allCharacters.OrderByDescending(character => character.enabled).ToList();
+        availableCharacters = allCharacters.Where(character => character.enabled).ToList();
     }
 }

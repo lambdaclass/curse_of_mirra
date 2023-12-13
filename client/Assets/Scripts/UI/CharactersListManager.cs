@@ -18,7 +18,7 @@ public class CharactersListManager : MonoBehaviour
     void GenerateList()
     {
         var index = 0;
-        CharactersList.Instance.AvailableCharacters.ForEach(
+        CharactersList.Instance.AllCharacters.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);

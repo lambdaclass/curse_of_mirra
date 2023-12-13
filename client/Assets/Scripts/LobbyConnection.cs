@@ -496,7 +496,7 @@ public class LobbyConnection : MonoBehaviour
     private void GetSelectedCharacter()
     {
         StartCoroutine(
-            Utils.GetSelectedCharacter(
+            ServerUtils.GetSelectedCharacter(
                 response =>
                 {
                     LobbyConnection.Instance.selectedCharacterName = response.selected_character;
