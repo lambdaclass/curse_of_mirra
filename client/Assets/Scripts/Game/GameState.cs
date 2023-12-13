@@ -1,6 +1,7 @@
 namespace Game {
     using Communication.Protobuf;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
 
     public class GameState {
@@ -23,12 +24,29 @@ namespace Game {
         }
 
         public class KillEvent {
-            private ulong killedBy { get; }
+            private KillEntity killedByEntity { get; }
+            private ulong killedById { get; }
             private ulong killed { get; }
 
+            public enum KillEntity {
+                Player,
+                Item,
+                Zone
+            }
+
             public KillEvent(Communication.Protobuf.KillEvent protobufKillEvent) {
-                this.killedBy = protobufKillEvent.KilledBy;
+                this.killedByEntity = fromProtobuf(protobufKillEvent.KilledByEntity);
+                this.killedById = protobufKillEvent.KilledById;
                 this.killed = protobufKillEvent.Killed;
+            }
+
+            private static KillEntity fromProtobuf(Communication.Protobuf.KillEntity entity) {
+                switch (entity) {
+                    case Communication.Protobuf.KillEntity.Player: return KillEntity.Player;
+                    case Communication.Protobuf.KillEntity.Item: return KillEntity.Item;
+                    case Communication.Protobuf.KillEntity.Zone: return KillEntity.Zone;
+                    default: throw new InvalidEnumArgumentException(nameof(entity), (int)entity, entity.GetType());
+                }
             }
         }
 

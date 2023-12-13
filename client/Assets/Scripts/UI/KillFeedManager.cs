@@ -15,7 +15,7 @@ public class KillFeedManager : MonoBehaviour
     public Sprite zoneIcon;
 
     public static KillFeedManager instance;
-    private Queue<KillEvent> feedEvents = new Queue<KillEvent>();
+    private Queue<OldKillEvent> feedEvents = new Queue<OldKillEvent>();
 
     public ulong saveKillerId;
     public ulong myKillerId;
@@ -29,7 +29,7 @@ public class KillFeedManager : MonoBehaviour
         playerToTrack = SocketConnectionManager.Instance.playerId;
     }
 
-    public void putEvents(List<KillEvent> feedEvent)
+    public void putEvents(List<OldKillEvent> feedEvent)
     {
         feedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
     }
@@ -64,7 +64,7 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        KillEvent killEvent;
+        OldKillEvent killEvent;
         while (feedEvents.TryDequeue(out killEvent))
         {
             if (playerToTrack == killEvent.Killed)

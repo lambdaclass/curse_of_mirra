@@ -94,6 +94,12 @@ message Position {
     int64 y = 2;
 }
 
+message KillEvent {
+    KillEntity killed_by_entity = 1;
+    uint64 killed_by_id = 2;
+    uint64 killed = 3;
+}
+
 enum PlayerStatus {
     PLAYER_STATUS_UNDEFINED = 0;
     PLAYER_STATUS_ALIVE = 1;
@@ -105,6 +111,13 @@ enum PlayerActionEnum {
     PLAYER_ACTION_ENUM_NOTHING = 1;
     PLAYER_ACTION_ENUM_MOVING = 2;
     PLAYER_ACTION_ENUM_USING_SKILL = 3;
+}
+
+enum KillEntity {
+    KILL_ENTITY_UNDEFINED = 0;
+    KILL_ENTITY_PLAYER = 1;
+    KILL_ENTITY_ITEM = 2;
+    KILL_ENTITY_ZONE = 3;
 }
 
 
@@ -136,7 +149,7 @@ message OldGameEvent {
     map<uint64, string> selected_characters = 8;
     int64 player_timestamp = 9;
     int64 server_timestamp = 10;
-    repeated KillEvent killfeed = 11;
+    repeated OldKillEvent killfeed = 11;
     uint64 playable_radius = 12;
     OldPosition shrinking_center = 13;
     repeated LootPackage loots = 14;
@@ -155,6 +168,23 @@ enum GameEventType {
     GAME_STARTED = 4;
 }
 
+message PlayerCharacter{
+    uint64 player_id = 1;
+    string character_name = 2;
+}
+
+/* Information about a player
+    - id: ID of the player, this ID is the identifier in the game session, the game object tied to it
+    - health: Current health of the player
+    - position: OldPosition of the player in the server game grid (see OldPosition for more info)
+    - power: [Amin 2023-05-05:  not sure what this is, was copied from struct like this]
+    - action: [Manu 2023-05-12: accion to renderize on client side]
+    - status: currently if alive or dead
+    - aoe_position: OldPosition of the aoe attack, only used when action == ATTACKING_AOE
+    - {basic, first, second, third, fourth}_cooldown_left: Time remaining in seconds until the cooldown is over.
+    - character_name: Name of the player's character
+    - effects: The effects that are active on the player
+ */
 message OldPlayer {
     uint64 id = 1;
     sint64 health = 2;
@@ -176,42 +206,19 @@ message OldPlayer {
     uint64 action_duration_ms = 18;
 }
 
-message OldPosition {
-    uint64 x = 1;
-    uint64 y = 2;
-}
-
 message OldEffectInfo {
     MillisTime ends_at = 1;
     uint64 caused_by = 2;
 }
 
-message OldProjectile {
-    uint64 id = 1;
-    OldPosition position = 2;
-    RelativePosition direction = 3;
-    uint32 speed = 4;
-    uint32 range = 5;
-    uint64 player_id = 6;
-    uint32 damage = 7;
-    sint64 remaining_ticks = 8;
-    ProjectileType projectile_type = 9;
-    ProjectileStatus status = 10;
-    uint64 last_attacked_player_id = 11;
-    bool pierce = 12;
-    string skill_name = 13;
-}
-
-message PlayerCharacter{
-    uint64 player_id = 1;
-    string character_name = 2;
-}
-
-message KillEvent {
+message OldKillEvent {
     uint64 killed_by = 1;
     uint64 killed = 2;
 }
 
+/*
+OldStatus of a player
+*/
 enum OldStatus {
     ALIVE = 0;
     DEAD = 1;
@@ -221,7 +228,10 @@ enum OldStatus {
     - x: X coordinate in the grid
     - y: Y coordinate in the grid
  */
-
+message OldPosition {
+    uint64 x = 1;
+    uint64 y = 2;
+}
 
 /* A relative position
     - x: X coordinate between -1 and 1
@@ -291,6 +301,10 @@ enum Direction {
     RIGHT = 4;
 }
 
+/* Actions a player performs
+    - NOTHING: nothing
+    - ATTACKING: player is attacking
+ */
 enum OldPlayerAction {
     NOTHING = 0;
     ATTACKING = 1;
@@ -463,13 +477,39 @@ enum ProjectileType {
     DISARMING_BULLET = 1;
 }
 
-/* Status of projectiles
+/* OldStatus of projectiles
     - ACTIVE: Active projectile
     - EXPLODED: Exploded projectile
  */
 enum ProjectileStatus {
     ACTIVE = 0;
     EXPLODED = 1;
+}
+
+/*
+    - position: Current projectile prosition
+    - direction: OldProjectile direction
+    - speed: OldProjectile speed
+    - range: Attack range, with center in position
+    - player_id: OldPlayer id who attacked
+    - damage: Damage dealt on opponents when hit
+    - remaining_ticks: OldProjectile remaining lifetime
+    - type: OldProjectile type depending on the attack
+ */
+message OldProjectile {
+    uint64 id = 1;
+    OldPosition position = 2;
+    RelativePosition direction = 3;
+    uint32 speed = 4;
+    uint32 range = 5;
+    uint64 player_id = 6;
+    uint32 damage = 7;
+    sint64 remaining_ticks = 8;
+    ProjectileType projectile_type = 9;
+    ProjectileStatus status = 10;
+    uint64 last_attacked_player_id = 11;
+    bool pierce = 12;
+    string skill_name = 13;
 }
 
 /*
@@ -508,10 +548,9 @@ enum LootType {
 
 /*
  */
-enum Modifier {
+enum ModifierType {
     MULTIPLICATIVE = 0;
     ADDITIVE = 1;
-    OVERRIDE = 2;
 }
 
 /*
@@ -521,7 +560,6 @@ enum MechanicType {
     SIMPLE_SHOOT = 1;
     MULTI_SHOOT = 2;
     GIVE_EFFECT = 3;
-    MOVE_TO_TARGET = 4;
 }
 
 message Config {
@@ -542,10 +580,9 @@ message Config {
 message GameStateConfig {
     uint64 width = 1;
     uint64 height = 2;
-    uint64 loot_interval_ms = 3;
-    uint64 zone_starting_radius = 4;
-    repeated MapModification zone_modifications = 5;
-    repeated GameLoot loots = 6;}
+    MapModification map_modification = 3;
+    uint64 loot_interval_ms = 4;
+}
 
 /* The information for when the map modification mechanic is triggered.
     - modification: Defines how to modify the playable area radius.
@@ -556,32 +593,24 @@ message GameStateConfig {
     - inside_radius_effects: Effects given when a player is inside the playable area.
 */
 message MapModification {
-    ZoneModification modification = 1;
+    Modification modification = 1;
     uint64 starting_radius = 2;
-    uint64 min_radius = 3;
+    uint64 minimum_radius = 3;
     uint64 max_radius = 4;
     repeated GameEffect outside_radius_effects = 5;
     repeated GameEffect inside_radius_effects = 6;
-    float duration_ms = 7;
-    float interval_ms = 8;
-}
-
-message ZoneModification {
-    Modifier modifier = 1;
-    float value = 2;
 }
 
 /* Defines how to modify the playable area radius.
     - modifier: Determines how `value` interacts with the current value of the attribute, it can be one of
-        - additive: Given value is added to current value
-        - multiplicative: Given value is multiplied to current value
-        - override: Given value is set as the attribute value
+    - additive: Given value is added to current value
+    - multiplicative: Given value is multiplied to current value
+    - override: Given value is set as the attribute value
     - value: The value we are using for the changemessage Modification
 */
-message Attribute {
-    Modifier modifier = 1;
-    string attribute = 2;
-    string value = 3;
+message Modification {
+    ModifierType modifier = 1;
+    float value = 2;
 }
 
 /*
@@ -611,8 +640,9 @@ message GameProjectile {
     uint64 base_speed = 3;
     uint64 base_size = 4;
     bool remove_on_collision = 5;
-    uint64 max_distance = 6;
-    float duration_ms = 7;
+    repeated GameEffect on_hit_effect = 6;
+    uint64 max_distance = 7;
+    float duration_ms = 8;
 }
 
 /* Represents a character in the game
@@ -643,7 +673,6 @@ message GameSkill {
     uint64 cooldown_ms = 2;
     bool is_passive = 3;
     repeated Mechanic mechanics = 4;
-    uint64 execution_duration_ms = 5;
 }
 
 /*
@@ -693,13 +722,10 @@ message Mechanic {
 */
 message GameEffect {
   string name = 1;
-  bool is_reversable = 2;
-  repeated Attribute player_attributes = 3;
-  repeated Attribute projectile_attributes = 4;
-  oneof effect_time_type {
-    string simple_type = 5;
-    Duration duration = 6;
-    Periodic periodic = 7;
+  oneof effect_type {
+    string simple_type = 2;
+    Duration duration_type = 3;
+    Periodic periodic_type = 4;
   }
 
   message Duration {
@@ -709,10 +735,9 @@ message GameEffect {
 
   message Periodic {
     string type = 1;
-    bool instant_application = 2;
+    string instant_application = 2;
     uint64 interval_ms = 3;
     uint64 trigger_count = 4;
-    float time_since_last_trigger = 5;
   }
 }
 

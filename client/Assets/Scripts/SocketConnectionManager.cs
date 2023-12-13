@@ -250,8 +250,10 @@ public class SocketConnectionManager : MonoBehaviour
     public void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {
+        print("send game action");
         using (var stream = new MemoryStream())
         {
+            Debug.Log("SendGameAction: " + action);
             action.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
