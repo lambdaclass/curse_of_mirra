@@ -91,10 +91,10 @@ public class ClientPrediction
     {
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
-        Position algo = acknowledgedPlayerInput.playerPosition;
+        Position acknowledgedPosition = acknowledgedPlayerInput.playerPosition;
         if (acknowledgedPlayerInput.timestampId == 0)
         {
-            algo = player.Position;
+            acknowledgedPosition = player.Position;
         }
 
         long difference = serverTimestamp - lastServerTimestamp;
@@ -142,14 +142,14 @@ public class ClientPrediction
 
             Position newPlayerPosition = new Position();
 
-            var newPositionX = (long)algo.X + (long)Math.Round(movementVector.x);
-            var newPositionY = (long)algo.Y + (long)Math.Round(movementVector.y);
+            var newPositionX = (long)acknowledgedPosition.X + (long)Math.Round(movementVector.x);
+            var newPositionY = (long)acknowledgedPosition.Y + (long)Math.Round(movementVector.y);
 
             newPlayerPosition.X = (ulong)newPositionX;
             newPlayerPosition.Y = (ulong)newPositionY;
 
-            algo = newPlayerPosition;
-            player.Position = algo;
+            acknowledgedPosition = newPlayerPosition;
+            player.Position = acknowledgedPosition;
         });
 
         // Debug.Log($"CP Player Position is: ({player.Position.X};{player.Position.Y})");
