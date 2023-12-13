@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class ClientPrediction
 {
+    private long lastServerTimestamp = 0;
+    private long lastTickRate = 30;
+
     public struct PlayerInput
     {
         public float joystick_x_value;
         public float joystick_y_value;
         public long startMovementTimestamp;
         public long endMovementTimestamp;
+        public long timestampId;
     }
 
     public struct AcknowledgeInputs
     {
-        public long timestamp;
+        public long timestampId;
+        public long lastTimestamp;
         public Position playerPosition;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public AcknowledgeInputs acknowledgedPlayerInput = new AcknowledgeInputs(){timestamp = 0, playerPosition = new Position(){X = 0, Y = 0}};
+    public AcknowledgeInputs acknowledgedPlayerInput = new AcknowledgeInputs()
+    {
+        timestampId = 0,
+        playerPosition = new Position() { X = 0, Y = 0 }
+    };
 
     public void putPlayerInput(PlayerInput PlayerInput)
     {
@@ -32,32 +41,40 @@ public class ClientPrediction
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
 
-        if (PlayerInput.joystick_x_value == 0 && PlayerInput.joystick_y_value == 0)
-        {
-            pendingPlayerInputs = new List<PlayerInput>();
-            Debug.Log("zero");
-        }
-
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Player player, long serverTimestamp, long playerTimestamp)
+    public void simulatePlayerState(Player player, long playerTimestamp, long serverTimestamp)
     {
-        updateAcknowledgedAction(player, playerTimestamp);
+        updateAcknowledgedAction(player, playerTimestamp, serverTimestamp);
         removeServerAcknowledgedInputs(player, playerTimestamp);
-        
         simulatePlayerMovement(player, serverTimestamp);
     }
 
-    void updateAcknowledgedAction(Player player, long playerTimestamps)
+    void updateAcknowledgedAction(Player player, long playerTimestamp, long serverTimestamp)
     {
-        foreach (var input in pendingPlayerInputs)
+        for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
-            if (input.startMovementTimestamp == playerTimestamps && playerTimestamps != acknowledgedPlayerInput.timestamp)
+            PlayerInput input = pendingPlayerInputs[i];
+            if (
+                input.startMovementTimestamp == playerTimestamp
+                && playerTimestamp != acknowledgedPlayerInput.timestampId
+            )
             {
-                acknowledgedPlayerInput.timestamp = playerTimestamps;
+                acknowledgedPlayerInput.timestampId = playerTimestamp;
                 acknowledgedPlayerInput.playerPosition = player.Position;
             }
+            if (playerTimestamp == acknowledgedPlayerInput.timestampId)
+            {
+                // Debug.Log($"serverTimestamp: {serverTimestamp}");
+                // Debug.Log($"last ackonewledgedInput: {acknowledgedPlayerInput.lastTimestamp}");
+                // Debug.Log($"difference: {serverTimestamp - acknowledgedPlayerInput.lastTimestamp}");
+                acknowledgedPlayerInput.playerPosition = player.Position;
+                input.startMovementTimestamp +=
+                    serverTimestamp - acknowledgedPlayerInput.lastTimestamp;
+                pendingPlayerInputs[i] = input;
+            }
+            acknowledgedPlayerInput.lastTimestamp = serverTimestamp;
         }
     }
 
@@ -65,7 +82,8 @@ public class ClientPrediction
     {
         pendingPlayerInputs.RemoveAll(
             (input) =>
-                input.endMovementTimestamp != 0 && input.startMovementTimestamp < acknowledgedPlayerInput.timestamp
+                input.endMovementTimestamp != 0
+                && input.timestampId < acknowledgedPlayerInput.timestampId
         );
     }
 
@@ -74,9 +92,20 @@ public class ClientPrediction
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
         Position algo = acknowledgedPlayerInput.playerPosition;
-        if (acknowledgedPlayerInput.timestamp == 0){
+        if (acknowledgedPlayerInput.timestampId == 0)
+        {
             algo = player.Position;
         }
+
+        long difference = serverTimestamp - lastServerTimestamp;
+        if(serverTimestamp > lastServerTimestamp && difference >= 30 && difference <= 40){
+            lastTickRate =  serverTimestamp - lastServerTimestamp;
+            lastServerTimestamp = serverTimestamp;
+            Debug.Log($"Tickrate is: {lastTickRate}");
+        }
+
+        lastTickRate = 30;
+
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         pendingPlayerInputs.ForEach(input =>
         {
@@ -89,10 +118,24 @@ public class ClientPrediction
 
             var ticks = 0f;
 
-            if (input.endMovementTimestamp == 0) {
-                ticks = (now - input.startMovementTimestamp) / 30;
-            } else {
-                ticks = (input.endMovementTimestamp - input.startMovementTimestamp) / 30;
+            if (input.endMovementTimestamp == 0)
+            {
+                ticks = (now - input.startMovementTimestamp) / lastTickRate;
+                if((now - input.startMovementTimestamp) < 0){
+                    Debug.Log($"Is negative? Now: {now} Start: {input.startMovementTimestamp}");
+                }
+            }
+            else
+            {
+                ticks = (input.endMovementTimestamp - input.startMovementTimestamp) / lastTickRate;
+                if((input.endMovementTimestamp - input.startMovementTimestamp) < 0){
+                    Debug.Log($"Is negative? End: {input.endMovementTimestamp} Start: {input.startMovementTimestamp}");
+                }
+            }
+
+            if (ticks < 0)
+            {
+                Debug.Log($"eto ta mal {ticks}");
             }
 
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
@@ -109,6 +152,7 @@ public class ClientPrediction
             player.Position = algo;
         });
 
+        // Debug.Log($"CP Player Position is: ({player.Position.X};{player.Position.Y})");
     }
 
     double distance_between_positions(Position position_1, Position position_2)

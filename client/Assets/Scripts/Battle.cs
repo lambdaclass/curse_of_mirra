@@ -242,12 +242,13 @@ public class Battle : MonoBehaviour
                     // the last server update.
                     if (clientPredictionGhost != null)
                     {
+                        // Debug.Log($"Server Player Position is: ({serverPlayerUpdate.Position.X};{serverPlayerUpdate.Position.Y})");
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
                     SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                         serverPlayerUpdate,
-                        gameEvent.ServerTimestamp,
-                        gameEvent.PlayerTimestamp
+                        gameEvent.PlayerTimestamp,
+                        gameEvent.ServerTimestamp
                     );
                 }
 
