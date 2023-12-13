@@ -41,6 +41,7 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
+    public List<MapCollisionable> mapCollisionables;
 
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
@@ -384,8 +385,8 @@ public class LobbyConnection : MonoBehaviour
 
                 case LobbyEventType.PreparingGame:
                     GameSession = lobbyEvent.GameId;
-                    Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
+                    mapCollisionables = lobbyEvent.MapCollisionables.ToList();
                     // FIX THIS!!
                     serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;

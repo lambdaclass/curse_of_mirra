@@ -99,6 +99,7 @@ public class CustomLevelManager : LevelManager
         this.totalPlayers = (ulong)this.gamePlayers.Count();
         playerId = SocketConnectionManager.Instance.playerId;
         playerToFollowId = playerId;
+        GenerateMapCollisionables();
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
@@ -155,6 +156,28 @@ public class CustomLevelManager : LevelManager
         return prefab;
     }
 
+    private void GenerateMapCollisionables()
+    {
+        foreach (MapCollisionable collisionable in LobbyConnection.Instance
+            .mapCollisionables)
+        {
+            GameObject collisionablePrefab = Resources.Load<GameObject>(
+                collisionable.CollisionableType.ToString()
+            );
+            Debug.Log("Position: " + Utils.transformBackendPositionToFrontendPosition(collisionable.Position));
+            GameObject newCollisionable = Instantiate(
+                collisionablePrefab,
+                Utils.transformBackendPositionToFrontendPosition(collisionable.Position),
+                Quaternion.identity
+            );
+            newCollisionable.transform.rotation = Quaternion.Euler(90, 0, 0);
+            newCollisionable.transform.localScale = new Vector3(
+                collisionable.Radius,
+                collisionable.Radius,
+                1
+            );
+        }
+    }
     private void GeneratePlayers()
     {
         // prefab = prefab == null ? quickGamePrefab : prefab;

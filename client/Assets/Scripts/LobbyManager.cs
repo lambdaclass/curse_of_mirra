@@ -69,6 +69,7 @@ public class LobbyManager : LevelSelector
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
+            Debug.Log("Game session is not null, starting game");
             LobbyConnection.Instance.StartGame();
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
