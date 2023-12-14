@@ -281,7 +281,7 @@ public class Battle : MonoBehaviour
                         {
                             if (PlayerMovementAuthorized(playerCharacter))
                             {
-                                executeSkillFeedback(
+                                ExecuteSkillFeedback(
                                     currentPlayer,
                                     action,
                                     serverPlayerUpdate.Direction,
@@ -309,7 +309,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void executeSkillFeedback(
+    private void ExecuteSkillFeedback(
         GameObject currentPlayer,
         PlayerAction playerAction,
         RelativePosition direction,
@@ -491,11 +491,11 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
-            // InputManager.CheckSkillCooldown(
-            //     UIControls.Skill1,
-            //     (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-            //     player.GetComponent<Skill1>().GetSkillInfo().showCooldown
-            // );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+            );
         }
     }
 
