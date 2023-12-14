@@ -258,6 +258,10 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
+
+                // TODO: try to optimize GetComponent calls
+                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
+
                 if (currentPlayer.activeSelf)
                 {
                     if (serverPlayerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
@@ -278,12 +282,15 @@ public class Battle : MonoBehaviour
                     {
                         foreach (PlayerAction action in serverPlayerUpdate.Action)
                         {
-                            executeSkillFeedback(
-                                currentPlayer,
-                                action,
-                                serverPlayerUpdate.Direction,
-                                serverPlayerUpdate.ActionDurationMs
-                            );
+                            if (PlayerMovementAuthorized(playerCharacter))
+                            {
+                                executeSkillFeedback(
+                                    currentPlayer,
+                                    action,
+                                    serverPlayerUpdate.Direction,
+                                    serverPlayerUpdate.ActionDurationMs
+                                );
+                            }
                         }
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
@@ -292,17 +299,12 @@ public class Battle : MonoBehaviour
                     }
                 }
 
-                // TODO: try to optimize GetComponent calls
-                CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-
                 if (serverPlayerUpdate.Health <= 0)
                 {
                     SetPlayerDead(playerCharacter);
                 }
 
-                Transform hitbox = currentPlayer
-                    .GetComponent<CustomCharacter>()
-                    .characterBase.Hitbox.transform;
+                Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
                 float hitboxSize = serverPlayerUpdate.BodySize / 50f;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
@@ -333,11 +335,11 @@ public class Battle : MonoBehaviour
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().StartFeedback();
+                currentPlayer.GetComponent<Skill1>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerAction.StartingSkill3:
@@ -491,11 +493,11 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill1,
-                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
-            );
+            // InputManager.CheckSkillCooldown(
+            //     UIControls.Skill1,
+            //     (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+            //     player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+            // );
         }
     }
 
@@ -644,7 +646,15 @@ public class Battle : MonoBehaviour
             walking = true;
         }
 
+        RotateCharacterOrientation(player);
+
         modelAnimator.SetBool("Walking", walking);
+    }
+
+    private void RotateCharacterOrientation(GameObject player)
+    {
+        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
+            player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
     }
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
@@ -656,6 +666,9 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         levelManager.DestroySkillsClone(playerCharacter);
+        playerCharacter
+            .GetComponentInChildren<CharacterBase>()
+            .OrientationIndicator.SetActive(false);
         if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
         {
             CustomGUIManager.DisplayZoneDamageFeedback(false);
@@ -824,7 +837,6 @@ public class Battle : MonoBehaviour
             character.characterBase.GetComponent<CharacterFeedbackManager>();
 
         ManageFeedbacks(player, playerUpdate);
-        feedbackManager.HandleUmaMarks(playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
 
         if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))

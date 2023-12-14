@@ -17,6 +17,8 @@ public class CharacterFeedbacks : MonoBehaviour
     [SerializeField]
     List<GameObject> feedbacksPrefabs;
 
+    [SerializeField] GameObject deathFeedback;
+
     [SerializeField]
     Color32 damageOverlayColor = new Color32(255, 255, 255, 255);
 
@@ -69,7 +71,7 @@ public class CharacterFeedbacks : MonoBehaviour
     {
         if (characterModel.activeSelf == true)
         {
-            GetComponent<Health>().DeathMMFeedbacks.PlayFeedbacks();
+            deathFeedback.SetActive(true);
         }
     }
 

@@ -9,6 +9,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -26,11 +27,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    [SerializeField]
-    Text totalKillsText;
-
-    [SerializeField]
-    GameObject backToLobbyButton;
     private List<Player> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
@@ -57,6 +53,7 @@ public class CustomLevelManager : LevelManager
     double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
+    EndGameManager endGameManager;
 
     protected override void Awake()
     {
@@ -114,8 +111,11 @@ public class CustomLevelManager : LevelManager
         );
 
         SetPlayerHealthBar(playerId);
-        deathSplash.GetComponent<DeathSplashManager>().SetDeathSplashPlayer();
+        SetOrientationArrow(playerId);
         StartCoroutine(CameraCinematic());
+
+        endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
+        endGameManager.SetDeathSplashCharacter();
     }
 
     void Update()
@@ -129,7 +129,10 @@ public class CustomLevelManager : LevelManager
         }
         if (GameHasEnded())
         {
-            deathSplash.GetComponent<DeathSplashManager>().ShowEndGameScreen();
+            // TODO: Redirect to EndGameScreen
+            //SceneManager.LoadScene("EndGame");
+            endGameManager.finalSplash.SetActive(true);
+            endGameManager.ShowCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -176,6 +179,14 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
+            if (SocketConnectionManager.Instance.playerId == playerID)
+            {
+                //Add audioListener in player
+                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
+                //Disable audioListener in camera
+                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
+                    false;
+            }
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -187,6 +198,10 @@ public class CustomLevelManager : LevelManager
     {
         if (!SocketConnectionManager.Instance.cinematicDone)
         {
+            float effectTime = Utils
+                .GetCharacter(1)
+                .characterBase.spawnFeedback.GetComponent<VisualEffect>()
+                .GetFloat("LifeTime");
             //Start moving camera and remove loading sceen
             InvokeRepeating("Substract", 1f, 0.1f);
             yield return new WaitForSeconds(1.7f);
@@ -196,6 +211,19 @@ public class CustomLevelManager : LevelManager
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");
             InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
+                });
+            yield return new WaitForSeconds(effectTime);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
+                });
             //Cancel camera zoom
             yield return new WaitForSeconds(0.5f);
             CancelInvoke("MoveYCamera");
@@ -239,6 +267,16 @@ public class CustomLevelManager : LevelManager
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
         ;
+    }
+
+    private void SetOrientationArrow(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            player
+                .GetComponentInChildren<CharacterBase>()
+                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
+        }
     }
 
     private void setCameraToPlayer(ulong playerID)
@@ -302,10 +340,10 @@ public class CustomLevelManager : LevelManager
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
             skillList.Add(skillBasic);
-            skillList.Add(skill1);
+            // skillList.Add(skill1);
 
             CoMCharacter characterInfo = charactersInfo.Find(
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
@@ -318,7 +356,7 @@ public class CustomLevelManager : LevelManager
             SetSkillAngles(skillInfoClone);
 
             skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            // skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -343,11 +381,11 @@ public class CustomLevelManager : LevelManager
                     skillInfoClone[0].inputType,
                     skillBasic
                 );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
-                    skillInfoClone[1].inputType,
-                    skill1
-                );
+                // inputManager.AssignSkillToInput(
+                //     UIControls.Skill1,
+                //     skillInfoClone[1].inputType,
+                //     skill1
+                // );
             }
 
             StartCoroutine(inputManager.ShowInputs());
@@ -378,8 +416,6 @@ public class CustomLevelManager : LevelManager
 
         roundText.text =
             "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        totalKillsText.text = "Total Kills: " + SocketConnectionManager.Instance.winnerPlayer.Item2;
-        backToLobbyButton.SetActive(true);
         animate = false;
 
         roundSplash.SetActive(true);

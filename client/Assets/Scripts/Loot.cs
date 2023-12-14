@@ -20,6 +20,9 @@ public class Loot : MonoBehaviour
 
     MMSimpleObjectPooler objectPooler;
 
+    [SerializeField]
+    GameObject lootPickedVfx;
+
     void Start()
     {
         for (int i = 0; i < lootsList.LootList.Count; i++)
@@ -69,11 +72,24 @@ public class Loot : MonoBehaviour
         string type = GetLoot(id).type;
 
         Sound3DManager lootSoundManagerRef = lootObject.GetComponent<Sound3DManager>();
+        AudioSource lootAudioSource = lootObject.GetComponent<AudioSource>();
         lootSoundManagerRef.SetSfxSound(GetLootableByType(type).pickUpSound);
         lootSoundManagerRef.PlaySfxSound();
 
+        PlayVfx(lootObject.transform.position);
+
         lootObject.SetActive(false);
         RemoveById(id);
+    }
+
+    private void PlayVfx(Vector3 lootPosition)
+    {
+        Vector3 position = new Vector3(
+            lootPosition.x,
+            lootPickedVfx.transform.position.y,
+            lootPosition.z
+        );
+        GameObject feedbackVfx = Instantiate(lootPickedVfx, position, Quaternion.identity);
     }
 
     private bool ExistInLoots(ulong id)
