@@ -42,9 +42,7 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
-
-    public string selectedCharacterName;
-
+    public string selectedCharacterName = "";
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
@@ -135,7 +133,6 @@ public class LobbyConnection : MonoBehaviour
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
-        GetSelectedCharacter();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -493,13 +490,17 @@ public class LobbyConnection : MonoBehaviour
         GetSelectedCharacter();
     }
 
-    private void GetSelectedCharacter()
+    public void GetSelectedCharacter(AsyncOperation operation = null)
     {
         StartCoroutine(
             ServerUtils.GetSelectedCharacter(
                 response =>
                 {
                     LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                    if (operation != null)
+                    {
+                        operation.allowSceneActivation = true;
+                    }
                 },
                 error =>
                 {

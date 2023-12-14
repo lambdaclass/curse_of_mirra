@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using MoreMountains.Tools;
-using DG.Tweening;
-using MoreMountains.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -39,9 +37,13 @@ public class TitleScreenController : MonoBehaviour
     Image loadingSpinner;
     private AsyncOperation asyncOperation;
     private Tween spinnerRotationTween;
+    private List<String> avaibleCharactersNames = new List<String>();
 
     void Start()
     {
+        avaibleCharactersNames = CharactersList.Instance.AvailableCharacters
+            .Select(character => character.name)
+            .ToList();
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
@@ -61,7 +63,10 @@ public class TitleScreenController : MonoBehaviour
     {
         asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         asyncOperation.allowSceneActivation = false;
-        while (asyncOperation.isDone)
+        while (
+            !asyncOperation.isDone
+            && !String.IsNullOrEmpty(LobbyConnection.Instance.selectedCharacterName)
+        )
         {
             yield return null;
         }
@@ -70,17 +75,19 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
+        SelectCharacterAndMaybeCreateUser();
+    }
 
-        List<String> avaibleCharactersNames = CharactersList.Instance.AvailableCharacters
-            .Select(character => character.name)
-            .ToList();
-
+    public void SelectCharacterAndMaybeCreateUser()
+    {
         StartCoroutine(
             ServerUtils.GetSelectedCharacter(
                 response =>
                 {
                     if (!avaibleCharactersNames.Contains(response.selected_character))
                     {
+                        // If the character selected is currently not available
+                        // Selects the first avaible character in the list and notice the user
                         Errors.Instance.HandleNetworkError(
                             "Atention!",
                             response.selected_character
@@ -100,10 +107,7 @@ public class TitleScreenController : MonoBehaviour
                                 },
                                 erorr =>
                                 {
-                                    Errors.Instance.HandleNetworkError(
-                                        "Oops!",
-                                        "Something went wrong"
-                                    );
+                                    ErrorHandler("Oops!", "Something went wrong");
                                 }
                             )
                         );
@@ -112,6 +116,8 @@ public class TitleScreenController : MonoBehaviour
                     {
                         if (asyncOperation != null)
                         {
+                            LobbyConnection.Instance.selectedCharacterName =
+                                response.selected_character;
                             asyncOperation.allowSceneActivation = true;
                         }
                     }
@@ -124,22 +130,22 @@ public class TitleScreenController : MonoBehaviour
                             CreateUser();
                             break;
                         case "CONNECTION_ERROR":
-                            Errors.Instance.HandleNetworkError(
-                                "Oops!",
-                                "No Server Avaible to Connect"
-                            );
-                            SetLoadingScreen(false);
-                            playNowButton.EnableButton();
+                            ErrorHandler("Oops!", "No Server Avaible to Connect");
                             break;
                         default:
-                            Errors.Instance.HandleNetworkError("Oops!", error);
-                            SetLoadingScreen(false);
-                            playNowButton.EnableButton();
+                            ErrorHandler("Oops!", error);
                             break;
                     }
                 }
             )
         );
+    }
+
+    private void ErrorHandler(string errorTitle, string errorMessage)
+    {
+        Errors.Instance.HandleNetworkError(errorTitle, errorMessage);
+        SetLoadingScreen(false);
+        playNowButton.EnableButton();
     }
 
     private void CreateUser()
@@ -148,23 +154,17 @@ public class TitleScreenController : MonoBehaviour
             ServerUtils.CreateUser(
                 response =>
                 {
-                    if (asyncOperation != null)
-                    {
-                        asyncOperation.allowSceneActivation = true;
-                    }
+                    LobbyConnection.Instance.GetSelectedCharacter(asyncOperation);
                 },
                 error =>
                 {
                     switch (error)
                     {
                         case "USER_ALREADY_TAKEN":
-                            Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
-                            SetLoadingScreen(false);
+                            ErrorHandler("Error", "ClientId already taken");
                             break;
                         default:
-                            Errors.Instance.HandleNetworkError("Error", error);
-                            SetLoadingScreen(false);
-                            playNowButton.EnableButton();
+                            ErrorHandler("Error", error);
                             break;
                     }
                 }

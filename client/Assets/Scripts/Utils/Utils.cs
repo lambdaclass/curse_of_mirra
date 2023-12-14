@@ -156,21 +156,6 @@ public class Utils
         };
     }
 
-    public static string MakeHTTPUrl(string path)
-    {
-        if (
-            SelectServerIP.GetServerIp().Contains("localhost")
-            || SelectServerIP.GetServerIp().Contains("10.150.20.186")
-        )
-        {
-            return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
-        }
-        else
-        {
-            return "https://" + SelectServerIP.GetServerIp() + path;
-        }
-    }
-
     public static string GetClientId()
     {
         if (!PlayerPrefs.HasKey("client_id"))

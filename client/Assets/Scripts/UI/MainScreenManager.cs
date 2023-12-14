@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class MainScreenManager : MonoBehaviour
@@ -14,10 +10,6 @@ public class MainScreenManager : MonoBehaviour
 
     void Start()
     {
-        // if (LobbyConnection.Instance == null)
-        // {
-        //     Instantiate(lobbyConnectionPrefab);
-        // }
         modelManager.SetModel();
     }
 }
