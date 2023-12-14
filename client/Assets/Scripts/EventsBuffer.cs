@@ -90,17 +90,17 @@ public class EventsBuffer
         {
             count += (
                 previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Contains(PlayerAction.Moving)
+            ).Action.Any(action => action.Action == PlayerAction.Moving)
                 ? 1
                 : 0;
             count += (
                 currentEventToRender.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Contains(PlayerAction.Moving)
+            ).Action.Any(action => action.Action == PlayerAction.Moving)
                 ? 1
                 : 0;
             count += (
                 followingEventToRender.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Contains(PlayerAction.Moving)
+            ).Action.Any(action => action.Action == PlayerAction.Moving)
                 ? 1
                 : 0;
         }
