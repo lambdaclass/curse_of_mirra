@@ -487,7 +487,6 @@ public class LobbyConnection : MonoBehaviour
         this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
-        GetSelectedCharacter();
     }
 
     public void GetSelectedCharacter(AsyncOperation operation = null)
