@@ -15,7 +15,7 @@ public class SelectServerIP : MonoBehaviour
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerIp = "brazil-testing.curseofmyrra.com";
+    private const string _defaultServerIp = "localhost";
 
     public void SetServerIp()
     {

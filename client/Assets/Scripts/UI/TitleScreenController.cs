@@ -55,10 +55,8 @@ public class TitleScreenController : MonoBehaviour
     {
         asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         asyncOperation.allowSceneActivation = false;
-        while (asyncOperation.isDone)
-        {
-            yield return null;
-        }
+
+        yield return null;
     }
 
     public void ChangeToMainscreen()
@@ -116,14 +114,13 @@ public class TitleScreenController : MonoBehaviour
                     {
                         case "USER_ALREADY_TAKEN":
                             Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
-                            SetLoadingScreen(false);
                             break;
                         default:
                             Errors.Instance.HandleNetworkError("Error", error);
-                            SetLoadingScreen(false);
-                            playNowButton.EnableButton();
                             break;
                     }
+                    SetLoadingScreen(false);
+                    playNowButton.EnableButton();
                 }
             )
         );

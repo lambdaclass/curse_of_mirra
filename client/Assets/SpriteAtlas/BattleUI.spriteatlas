@@ -56,7 +56,7 @@ SpriteAtlas:
   - metrics_container
   - kills
   - item
-  - time_new
+  - time
   m_RenderDataMap: {}
   m_Tag: BattleUI
   m_IsVariant: 0

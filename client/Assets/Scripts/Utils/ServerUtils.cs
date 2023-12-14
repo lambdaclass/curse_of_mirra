@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,12 +9,14 @@ public static class ServerUtils
 {
     public static string MakeHTTPUrl(string path)
     {
-        if (
-            SelectServerIP.GetServerIp().Contains("localhost")
-            || SelectServerIP.GetServerIp().Contains("10.150.20.186")
-            || SelectServerIP.GetServerIp().Contains("168.119.71.104")
-            || SelectServerIP.GetServerIp().Contains("176.9.26.172")
-        )
+        List<String> servers = new List<String>
+        {
+            "localhost",
+            "10.150.20.186",
+            "168.119.71.104",
+            "176.9.26.172"
+        };
+        if (servers.Any((ip) => SelectServerIP.GetServerIp() == ip))
         {
             return "http://" + SelectServerIP.GetServerIp() + ":4000" + path;
         }
