@@ -383,7 +383,6 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PreparingGame:
-                    Debug.Log("PreparingGame: " + lobbyEvent);
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
