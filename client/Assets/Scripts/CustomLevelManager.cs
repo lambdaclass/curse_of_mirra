@@ -164,7 +164,6 @@ public class CustomLevelManager : LevelManager
             GameObject collisionablePrefab = Resources.Load<GameObject>(
                 collisionable.CollisionableType.ToString()
             );
-            Debug.Log("Position: " + Utils.transformBackendPositionToFrontendPosition(collisionable.Position));
             GameObject newCollisionable = Instantiate(
                 collisionablePrefab,
                 Utils.transformBackendPositionToFrontendPosition(collisionable.Position),
