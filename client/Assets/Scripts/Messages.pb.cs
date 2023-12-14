@@ -186,8 +186,9 @@ public static partial class MessagesReflection {
           "X1VOU1BFQ0lGSUVEEAASDwoLTE9PVF9IRUFMVEgQASowCgxNb2RpZmllclR5",
           "cGUSEgoOTVVMVElQTElDQVRJVkUQABIMCghBRERJVElWRRABKl8KDE1lY2hh",
           "bmljVHlwZRIHCgNISVQQABIQCgxTSU1QTEVfU0hPT1QQARIPCgtNVUxUSV9T",
-          "SE9PVBACEg8KC0dJVkVfRUZGRUNUEAMSEgoOTU9WRV9UT19UQVJHRVQQBCof",
-          "ChFDb2xsaXNpb25hYmxlVHlwZRIKCgZDSVJDTEUQAGIGcHJvdG8z"));
+          "SE9PVBACEg8KC0dJVkVfRUZGRUNUEAMSEgoOTU9WRV9UT19UQVJHRVQQBCop",
+          "ChFDb2xsaXNpb25hYmxlVHlwZRIUChBDSVJDVUxBUl9TRUNUSU9OEABiBnBy",
+          "b3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameEventType), typeof(global::Status), typeof(global::Action), typeof(global::Direction), typeof(global::PlayerAction), typeof(global::PlayerEffect), typeof(global::LobbyEventType), typeof(global::ProjectileType), typeof(global::ProjectileStatus), typeof(global::LootType), typeof(global::ModifierType), typeof(global::MechanicType), typeof(global::CollisionableType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -404,7 +405,7 @@ public enum MechanicType {
 }
 
 public enum CollisionableType {
-  [pbr::OriginalName("CIRCLE")] Circle = 0,
+  [pbr::OriginalName("CIRCULAR_SECTION")] CircularSection = 0,
 }
 
 #endregion
@@ -9162,7 +9163,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
 
   /// <summary>Field number for the "collisionable_type" field.</summary>
   public const int CollisionableTypeFieldNumber = 2;
-  private global::CollisionableType collisionableType_ = global::CollisionableType.Circle;
+  private global::CollisionableType collisionableType_ = global::CollisionableType.CircularSection;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public global::CollisionableType CollisionableType {
@@ -9223,7 +9224,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
   public override int GetHashCode() {
     int hash = 1;
     if (Id != 0UL) hash ^= Id.GetHashCode();
-    if (CollisionableType != global::CollisionableType.Circle) hash ^= CollisionableType.GetHashCode();
+    if (CollisionableType != global::CollisionableType.CircularSection) hash ^= CollisionableType.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (Radius != 0UL) hash ^= Radius.GetHashCode();
     if (_unknownFields != null) {
@@ -9248,7 +9249,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
       output.WriteRawTag(8);
       output.WriteUInt64(Id);
     }
-    if (CollisionableType != global::CollisionableType.Circle) {
+    if (CollisionableType != global::CollisionableType.CircularSection) {
       output.WriteRawTag(16);
       output.WriteEnum((int) CollisionableType);
     }
@@ -9274,7 +9275,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
       output.WriteRawTag(8);
       output.WriteUInt64(Id);
     }
-    if (CollisionableType != global::CollisionableType.Circle) {
+    if (CollisionableType != global::CollisionableType.CircularSection) {
       output.WriteRawTag(16);
       output.WriteEnum((int) CollisionableType);
     }
@@ -9299,7 +9300,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
     if (Id != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
     }
-    if (CollisionableType != global::CollisionableType.Circle) {
+    if (CollisionableType != global::CollisionableType.CircularSection) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) CollisionableType);
     }
     if (position_ != null) {
@@ -9323,7 +9324,7 @@ public sealed partial class MapCollisionable : pb::IMessage<MapCollisionable>
     if (other.Id != 0UL) {
       Id = other.Id;
     }
-    if (other.CollisionableType != global::CollisionableType.Circle) {
+    if (other.CollisionableType != global::CollisionableType.CircularSection) {
       CollisionableType = other.CollisionableType;
     }
     if (other.position_ != null) {
