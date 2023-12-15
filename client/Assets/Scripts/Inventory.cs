@@ -38,10 +38,10 @@ public class Inventory : MonoBehaviour
         pickSequenceAnimation = DOTween.Sequence();
         pickSequenceAnimation
             .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(1, 0.2f))
-            .Append(inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 0.3f))
+            .Insert(0, inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 0.3f))
             .Append(
                 inventoryImage.transform
-                    .DOScale(imageInitialScale + new Vector3(.1f, .1f, .1f), 1)
+                    .DOScale(imageInitialScale + new Vector3(.15f, .15f, .15f), 1)
                     .SetLoops(-1, LoopType.Yoyo)
                     .SetEase(Ease.InOutQuad)
             );
@@ -57,7 +57,8 @@ public class Inventory : MonoBehaviour
         useSequenceAnimation = DOTween.Sequence();
         sparkleEffect.SetActive(true);
         useSequenceAnimation
-            .Append(inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 0.2f))
+            .Append(inventoryImage.transform.DOScale(imageInitialScale, 0.2f))
+            .Insert(0, inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 0.2f))
             .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(0, 0.2f));
         yield return new WaitForSeconds(0.2f);
         PlayerFeedback(player, true);
