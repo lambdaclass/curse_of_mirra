@@ -4,6 +4,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using Communication.Protobuf;
 using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
@@ -15,7 +16,7 @@ public class Skill : CharacterAbility
     public string skillId;
 
     [SerializeField]
-    protected Action serverSkill;
+    protected Communication.Protobuf.Action serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -32,7 +33,7 @@ public class Skill : CharacterAbility
     private TrailRenderer trail;
 
     public void SetSkill(
-        Action serverSkill,
+        Communication.Protobuf.Action serverSkill,
         SkillInfo skillInfo,
         SkillAnimationEvents skillsAnimationEvent
     )

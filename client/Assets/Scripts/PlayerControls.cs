@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class PlayerControls : MonoBehaviour
 {

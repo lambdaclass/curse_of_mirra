@@ -6,6 +6,7 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using Communication.Protobuf;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -388,7 +389,7 @@ public class LobbyConnection : MonoBehaviour
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;
                     // FIX THIS!!
-                    serverTickRate_ms = 100;
+                    serverTickRate_ms = 30;
                     serverHash = lobbyEvent.ServerHash;
                     break;
 
