@@ -16,7 +16,7 @@ namespace Game {
         private ulong deathCount { get; }
         private ulong actionDurationMs { get; }
         private string characterName { get; }
-        private List<(Action, string)> actions { get; }
+        private List<ActionTracker> actions { get; }
         private List<Cooldown> cooldowns { get; }
         private List<Item> inventory { get; }
         private List<Effect> effects { get; }
@@ -39,6 +39,18 @@ namespace Game {
             public Cooldown(string skillKey, ulong remainingMs) {
                 this.skillKey = skillKey;
                 this.remainingMs = remainingMs;
+            }
+        }
+
+        public class ActionTracker {
+            private Action action { get; }
+            private ulong duration { get; }
+            private string skillKey { get; }
+
+            public ActionTracker(Action action, ulong duration, string skillKey) {
+                this.action = action;
+                this.duration = duration;
+                this.skillKey = skillKey;
             }
         }
 
@@ -68,14 +80,22 @@ namespace Game {
             }
         }
 
-        private static List<(Player.Action, string)> fromProtobuf(List<Communication.Protobuf.PlayerAction> actions) {
-            return actions.ConvertAll<(Player.Action, string)>(action => {
-                switch (action.Action) {
-                    case Communication.Protobuf.PlayerActionEnum.UsingSkill: return (Player.Action.UsingSkill, action.ActionSkillKey);
-                    case Communication.Protobuf.PlayerActionEnum.Nothing: return (Player.Action.Nothing, null);
-                    case Communication.Protobuf.PlayerActionEnum.Moving: return (Player.Action.Moving, null);
-                    default: throw new InvalidEnumArgumentException(nameof(action.Action), (int)action.Action, action.Action.GetType());
+        private static List<ActionTracker> fromProtobuf(List<Communication.Protobuf.ActionTracker> actions) {
+            return actions.ConvertAll<Player.ActionTracker>(action => {
+                Action newAction;
+                switch (action.PlayerAction.Action) {
+                    case Communication.Protobuf.PlayerActionEnum.UsingSkill: 
+                        newAction = Player.Action.UsingSkill;
+                        break;
+                    case Communication.Protobuf.PlayerActionEnum.Nothing: 
+                        newAction = Player.Action.Nothing;
+                        break;
+                    case Communication.Protobuf.PlayerActionEnum.Moving: 
+                        newAction = Player.Action.Moving;
+                        break;
+                    default: throw new InvalidEnumArgumentException(nameof(action.PlayerAction.Action), (int)action.PlayerAction.Action, action.PlayerAction.Action.GetType());
                 }
+                return new Player.ActionTracker(newAction, action.Duration, action.PlayerAction.ActionSkillKey);
             });
         }
 
