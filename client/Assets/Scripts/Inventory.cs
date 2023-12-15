@@ -34,11 +34,12 @@ public class Inventory : MonoBehaviour
 
     IEnumerator AnimatePickItem(Coroutine useItemAnimation)
     {
+        inventoryImage.transform.localScale = imageInitialScale;
         inventoryContainer.SetActive(true);
         pickSequenceAnimation = DOTween.Sequence();
         pickSequenceAnimation
             .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(1, 0.2f))
-            .Insert(0, inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 0.3f))
+            .Insert(0.1f, inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 0.3f))
             .Append(
                 inventoryImage.transform
                     .DOScale(imageInitialScale + new Vector3(.15f, .15f, .15f), 1)
@@ -57,10 +58,11 @@ public class Inventory : MonoBehaviour
         useSequenceAnimation = DOTween.Sequence();
         sparkleEffect.SetActive(true);
         useSequenceAnimation
-            .Append(inventoryImage.transform.DOScale(imageInitialScale, 0.2f))
-            .Insert(0, inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 0.2f))
-            .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(0, 0.2f));
-        yield return new WaitForSeconds(0.2f);
+            .Append(inventoryImage.transform.DOScale(imageInitialScale * 3, 0.7f))
+            .Insert(0, inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 0.5f))
+            .Insert(0, inventoryContainer.GetComponent<CanvasGroup>().DOFade(0, 0.3f))
+            .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
+        yield return new WaitForSeconds(0.1f);
         PlayerFeedback(player, true);
 
         yield return new WaitForSeconds(0.5f);

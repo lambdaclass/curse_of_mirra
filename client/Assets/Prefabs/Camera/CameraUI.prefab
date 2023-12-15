@@ -8466,6 +8466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryContainer: {fileID: 82559397778531339}
   sparkleEffect: {fileID: 6125871501080257070}
+  firstRayEffect: {fileID: 0}
   myrrasBlessing: {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
   inventoryImage: {fileID: 158492541652231486}
 --- !u!1 &4507692683308350084
@@ -18059,7 +18060,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.9654058, b: 0.5990566, a: 0.5882353}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.5882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

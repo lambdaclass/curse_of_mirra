@@ -118,7 +118,7 @@ Material:
     - _UseUVDistortion: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 0.9404804, b: 0.2783019, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveScroll: {r: 0, g: 0, b: 0, a: 0}
     - _DistortScrolling: {r: 0, g: 0, b: 1, a: 1}
     - _OverlayTex_Scroll: {r: 0.1, g: 0.1, b: 1, a: 1}
