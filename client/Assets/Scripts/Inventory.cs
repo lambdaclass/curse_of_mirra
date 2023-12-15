@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
+using MoreMountains.TopDownEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,60 +17,58 @@ public class Inventory : MonoBehaviour
         sparkleEffect;
 
     [SerializeField]
-    public Sprite emptyInventory,
-        myrrasBlessing;
+    public Sprite myrrasBlessing;
 
     [SerializeField]
     Image inventoryImage;
     Vector3 imageInitialScale;
     Coroutine pickItemAnimation,
         useItemAnimation;
+    Sequence pickSequenceAnimation,
+        useSequenceAnimation;
 
     private void Start()
     {
         imageInitialScale = inventoryImage.gameObject.transform.localScale;
     }
 
-    IEnumerator AnimatePickItem()
+    IEnumerator AnimatePickItem(Coroutine useItemAnimation)
     {
         inventoryContainer.SetActive(true);
-        inventoryContainer.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+        pickSequenceAnimation = DOTween.Sequence();
+        pickSequenceAnimation
+            .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(1, 0.2f))
+            .Append(inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 0.3f))
+            .Append(
+                inventoryImage.transform
+                    .DOScale(imageInitialScale + new Vector3(.1f, .1f, .1f), 1)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutQuad)
+            );
         sparkleEffect.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        inventoryImage.GetComponent<CanvasGroup>().DOFade(1, 1f);
-        inventoryImage.gameObject.transform
-            .DOScale(imageInitialScale + new Vector3(0.2f, 0.2f, 0.2f), 1)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetEase(Ease.InOutQuad);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         sparkleEffect.SetActive(false);
     }
 
-    IEnumerator AnimateUseItem()
+    IEnumerator AnimateUseItem(Coroutine pickItemAnimation)
     {
-        inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 1f);
-        Sequence iconSequence = DOTween.Sequence();
-        iconSequence
-            .Append(
-                inventoryImage.gameObject.transform.DOScale(
-                    imageInitialScale + new Vector3(0.2f, 0.2f, 0.2f),
-                    .5f
-                )
-            )
-            .Append(
-                inventoryImage.gameObject.transform.DOScale(
-                    imageInitialScale + new Vector3(0.2f, 0.2f, 0.2f),
-                    .5f
-                )
-            )
-            .SetEase(Ease.InOutQuad);
-        yield return new WaitForSeconds(0.2f);
+        pickSequenceAnimation.Pause();
+        StopCoroutine(pickItemAnimation);
+        useSequenceAnimation = DOTween.Sequence();
         sparkleEffect.SetActive(true);
-        inventoryContainer.GetComponent<CanvasGroup>().DOFade(1, 1f);
-        yield return new WaitForSeconds(1f);
+        useSequenceAnimation
+            .Append(inventoryImage.GetComponent<CanvasGroup>().DOFade(0, 0.2f))
+            .Append(inventoryContainer.GetComponent<CanvasGroup>().DOFade(0, 0.2f));
+        yield return new WaitForSeconds(0.2f);
+        PlayerFeedback(player, true);
+
+        yield return new WaitForSeconds(0.5f);
         sparkleEffect.SetActive(false);
         inventoryContainer.SetActive(false);
-        StopCoroutine(useItemAnimation);
+        inventoryImage.sprite = null;
+
+        yield return new WaitForSeconds(1f);
+        PlayerFeedback(player, false);
     }
 
     private void Update()
@@ -85,10 +84,9 @@ public class Inventory : MonoBehaviour
         }
         if (ShouldChangeInventorySprite())
         {
-            PlayerFeedback(player);
             Sprite inventorySprite = GetInventoryItemSprite();
             inventoryImage.sprite = inventorySprite;
-            pickItemAnimation = StartCoroutine(AnimatePickItem());
+            pickItemAnimation = StartCoroutine(AnimatePickItem(useItemAnimation));
         }
     }
 
@@ -105,7 +103,7 @@ public class Inventory : MonoBehaviour
 
     private bool ShouldChangeInventorySprite()
     {
-        return activeItem != null;
+        return activeItem != null && inventoryImage.sprite == null;
     }
 
     private bool PlayerPickedUpItem(Player player)
@@ -115,32 +113,34 @@ public class Inventory : MonoBehaviour
 
     public void UseItem()
     {
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        UseInventory useInventoryAction = new UseInventory { InventoryAt = 0 };
-        GameAction gameAction = new GameAction
+        if (PlayerPickedUpItem(player))
         {
-            UseInventory = useInventoryAction,
-            Timestamp = timestamp
-        };
-        SocketConnectionManager.Instance.SendGameAction(gameAction);
-        UseFeedback();
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            UseInventory useInventoryAction = new UseInventory { InventoryAt = 0 };
+            GameAction gameAction = new GameAction
+            {
+                UseInventory = useInventoryAction,
+                Timestamp = timestamp
+            };
+            SocketConnectionManager.Instance.SendGameAction(gameAction);
+        }
+        if (activeItem != null && inventoryImage.sprite != null)
+        {
+            UseFeedback();
+        }
     }
 
     private void UseFeedback()
     {
-        if (pickItemAnimation != null)
-        {
-            StopCoroutine(pickItemAnimation);
-        }
-        useItemAnimation = StartCoroutine(AnimateUseItem());
+        useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
     }
 
-    void PlayerFeedback(Player player)
+    void PlayerFeedback(Player player, bool show)
     {
         GameObject playerToApplyFeedback = Utils.GetPlayer(player.Id);
         playerToApplyFeedback
             .GetComponent<CharacterFeedbacks>()
             .GetFeedback(ITEM_FEEDBACK)
-            .SetActive(true);
+            .SetActive(show);
     }
 }
