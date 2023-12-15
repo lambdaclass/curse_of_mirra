@@ -2275,7 +2275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3393411184860380941
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8466,7 +8466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryContainer: {fileID: 82559397778531339}
   sparkleEffect: {fileID: 6125871501080257070}
-  firstRayEffect: {fileID: 0}
   myrrasBlessing: {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
   inventoryImage: {fileID: 158492541652231486}
 --- !u!1 &4507692683308350084
