@@ -107,6 +107,20 @@ public class ToggleButton : MonoBehaviour
         }
     }
 
+    public void ToggleMetrics(GameObject metricsComponent)
+    {
+        if (metricsComponent.activeSelf)
+        {
+            ToggleOff();
+            metricsComponent.SetActive(false);
+        }
+        else
+        {
+            ToggleOn();
+            metricsComponent.SetActive(true);
+        }
+    }
+
     public void ToggleWithSiblingComponentBool(bool value)
     {
         if (value)

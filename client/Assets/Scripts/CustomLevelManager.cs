@@ -9,6 +9,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Communication.Protobuf;
 using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
@@ -27,12 +28,12 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    private List<Player> gamePlayers;
+    private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
-    public Player playerToFollow;
+    public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
@@ -120,7 +121,7 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        Player gamePlayer = Utils.GetGamePlayer(playerId);
+        OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -151,7 +152,7 @@ public class CustomLevelManager : LevelManager
     {
         GameObject prefab = null;
 
-        Player player = Utils.GetGamePlayer(playerId);
+        OldPlayer player = Utils.GetGamePlayer(playerId);
         prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
         return prefab;
     }
@@ -355,8 +356,8 @@ public class CustomLevelManager : LevelManager
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -447,17 +448,17 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private IEnumerator WaitToChangeCamera(Player player)
+    private IEnumerator WaitToChangeCamera(OldPlayer player)
     {
         yield return new WaitUntil(() => player != null);
         setCameraToPlayer(playerToFollow.Id);
         KillFeedManager.instance.saveKillerId = 0;
     }
 
-    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
     {
         return SocketConnectionManager.Instance.GameHasEnded()
-            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+            || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
     }
 
     private bool GameHasEnded()

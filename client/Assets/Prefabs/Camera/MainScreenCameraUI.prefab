@@ -903,7 +903,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: brazil-testing.curseofmyrra.com
+  m_Text: brazil-testing.curseofmirra.com
 --- !u!1 &1059462381555523539
 GameObject:
   m_ObjectHideFlags: 0
@@ -3529,7 +3529,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: europe-testing.curseofmyrra.com
+  m_Text: europe-testing.curseofmirra.com
 --- !u!1 &4457283744149958112
 GameObject:
   m_ObjectHideFlags: 0

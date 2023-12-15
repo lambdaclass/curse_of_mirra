@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class Battle : MonoBehaviour
 {
@@ -157,8 +158,8 @@ public class Battle : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        GameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        Player playerUpdate = lastEvent.Players
+        OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
+        OldPlayer playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
@@ -190,7 +191,7 @@ public class Battle : MonoBehaviour
         long pastTime;
         GameObject interpolationGhost = null;
         EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
-        GameEvent gameEvent;
+        OldGameEvent gameEvent;
 
         currentTime = buffer.firstTimestamp + accumulatedTime;
         pastTime = currentTime - buffer.deltaInterpolationTime;
@@ -230,7 +231,7 @@ public class Battle : MonoBehaviour
             {
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
-                Player serverPlayerUpdate = new Player(gameEvent.Players[i]);
+                OldPlayer serverPlayerUpdate = new OldPlayer(gameEvent.Players[i]);
                 if (
                     serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
                     && useClientPrediction
@@ -276,18 +277,15 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                        foreach (ActionTracker action in serverPlayerUpdate.Action)
+                        foreach (OldActionTracker action in serverPlayerUpdate.Actions)
                         {
-                            Debug.Log(
-                                $"Player {serverPlayerUpdate.Id} is doing {action.Action} during {action.Duration}"
-                            );
                             if (PlayerMovementAuthorized(playerCharacter))
                             {
                                 ExecuteSkillFeedback(
                                     currentPlayer,
-                                    action.Action,
+                                    action.OldPlayerAction,
                                     serverPlayerUpdate.Direction,
-                                    serverPlayerUpdate.ActionDurationMs
+                                    action.Duration
                                 );
                             }
                         }
@@ -313,7 +311,7 @@ public class Battle : MonoBehaviour
 
     private void ExecuteSkillFeedback(
         GameObject currentPlayer,
-        PlayerAction playerAction,
+        OldPlayerAction playerAction,
         RelativePosition direction,
         ulong actionDurationMs
     )
@@ -321,31 +319,31 @@ public class Battle : MonoBehaviour
         // TODO: Refactor
         switch (playerAction)
         {
-            case PlayerAction.Attacking:
+            case OldPlayerAction.Attacking:
                 currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.StartingSkill1:
+            case OldPlayerAction.StartingSkill1:
                 currentPlayer.GetComponent<Skill1>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.ExecutingSkill1:
+            case OldPlayerAction.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.StartingSkill2:
+            case OldPlayerAction.StartingSkill2:
                 currentPlayer.GetComponent<Skill1>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.ExecutingSkill2:
+            case OldPlayerAction.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.StartingSkill3:
+            case OldPlayerAction.StartingSkill3:
                 currentPlayer.GetComponent<Skill3>().StartFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case PlayerAction.ExecutingSkill3:
+            case OldPlayerAction.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
                 rotatePlayer(currentPlayer, direction);
                 break;
@@ -355,7 +353,7 @@ public class Battle : MonoBehaviour
     void UpdateProjectileActions()
     {
         Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
-        List<Projectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
+        List<Communication.Protobuf.OldProjectile> gameProjectiles = SocketConnectionManager.Instance.gameProjectiles;
         ClearProjectiles(projectiles, gameProjectiles);
         ProcessProjectilesCollision(projectiles, gameProjectiles);
         UpdateProjectiles(projectiles, gameProjectiles);
@@ -363,7 +361,7 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectiles(
         Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
+        List<Communication.Protobuf.OldProjectile> gameProjectiles
     )
     {
         GameObject projectile;
@@ -407,7 +405,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Projectile> gameProjectiles)
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Communication.Protobuf.OldProjectile> gameProjectiles)
     {
         foreach (int projectileId in projectiles.Keys.ToList())
         {
@@ -421,12 +419,12 @@ public class Battle : MonoBehaviour
 
     void ProcessProjectilesCollision(
         Dictionary<int, GameObject> projectiles,
-        List<Projectile> gameProjectiles
+        List<Communication.Protobuf.OldProjectile> gameProjectiles
     )
     {
         foreach (var pr in projectiles.ToList())
         {
-            Projectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            Communication.Protobuf.OldProjectile gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
             if (gameProjectile.Status == ProjectileStatus.Exploded)
             {
                 pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
@@ -444,7 +442,7 @@ public class Battle : MonoBehaviour
         characterOrientation.ForcedRotationDirection = movementDirection;
     }
 
-    private void UpdatePlayer(GameObject player, Player playerUpdate, long pastTime)
+    private void UpdatePlayer(GameObject player, OldPlayer playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -500,7 +498,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void HandlePlayerHealth(GameObject player, Player playerUpdate)
+    private void HandlePlayerHealth(GameObject player, OldPlayer playerUpdate)
     {
         Health healthComponent = player.GetComponent<Health>();
 
@@ -523,7 +521,7 @@ public class Battle : MonoBehaviour
 
     private void HandleMovement(
         GameObject player,
-        Player playerUpdate,
+        OldPlayer playerUpdate,
         long pastTime,
         float characterSpeed
     )
@@ -591,7 +589,7 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Action.Any( action => action.Action == PlayerAction.ExecutingSkill3)
+                && playerUpdate.Actions.Any( action => action.OldPlayerAction == OldPlayerAction.ExecutingSkill3)
             )
             {
                 player.transform.position = frontendPosition;
@@ -784,7 +782,7 @@ public class Battle : MonoBehaviour
             );
     }
 
-    public RelativePosition GetPlayerDirection(Player playerUpdate)
+    public RelativePosition GetPlayerDirection(OldPlayer playerUpdate)
     {
         if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
         {
@@ -828,7 +826,7 @@ public class Battle : MonoBehaviour
 
     private float ManageStateFeedbacks(
         GameObject player,
-        Player playerUpdate,
+        OldPlayer playerUpdate,
         CustomCharacter character,
         float characterSpeed
     )
@@ -863,7 +861,7 @@ public class Battle : MonoBehaviour
 
         if (
             SocketConnectionManager.Instance.playerId == playerUpdate.Id
-            && playerUpdate.Status == Status.Alive
+            && playerUpdate.Status == OldStatus.Alive
         )
         {
             if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
@@ -895,7 +893,7 @@ public class Battle : MonoBehaviour
         return characterSpeed;
     }
 
-    private void ManageFeedbacks(GameObject player, Player playerUpdate)
+    private void ManageFeedbacks(GameObject player, OldPlayer playerUpdate)
     {
         foreach (int effect in Enum.GetValues(typeof(StateEffects)))
         {
