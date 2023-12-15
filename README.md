@@ -2,6 +2,7 @@
 
 <img src="docs/src/images/Curse_of_Myrra_logo.png" alt="Curse of Myrra logo">
 
+
 ## Table of Contents
 
 - [Curse of Myrra](#curse-of-myrra)
@@ -27,8 +28,8 @@ Curse of Myrra is more than a game; it's an adventure into a world where strateg
 
 <div>
   <div float="center">
-    <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Muflus.png" alt="Muflus 3D model" width=300px>  
-    <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Uma.jpeg" alt="Uma 3D model" width=300px> 
+    <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Muflus.png" alt="Muflus 3D model" width=300px>
+    <img src="docs/src/images/Curse_of_Myrra_3D_Assets_Uma.jpeg" alt="Uma 3D model" width=300px>
   </div>
   <div float="center">
     <img src="docs/src/images/Curse_of_Myrra_concept_art_Shinko.png" alt="Shinko hero concept art" width=300px>
@@ -67,8 +68,8 @@ Set up your environment with the following steps:
   - Registry packages
   - Git packages
   - Built-in packages
-- In VSCode, download the ```C# Dev Kit``` extension. 
-  
+- In VSCode, download the ```C# Dev Kit``` extension.
+
 Your code should now autocomplete.
 
 ## Project and Unity Setup
