@@ -144,9 +144,10 @@ public class LobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-    if (this.gameStarted) {
-        CancelInvoke("UpdateSimulatedCounter");
-    }
+        if (this.gameStarted)
+        {
+            CancelInvoke("UpdateSimulatedCounter");
+        }
     }
 
     private void PopulateLists()
@@ -392,8 +393,8 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.NotifyPlayerAmount:
-                    this.playerCount = (int) lobbyEvent.AmountOfPlayers;
-                    this.lobbyCapacity = (int) lobbyEvent.Capacity;
+                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
@@ -409,7 +410,8 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private void UpdateSimulatedCounter() {
+    private void UpdateSimulatedCounter()
+    {
         var limit = this.lobbyCapacity - this.simulatedPlayerCount;
         System.Random r = new System.Random();
         var randomNumber = r.Next(0, Math.Min(3, limit));

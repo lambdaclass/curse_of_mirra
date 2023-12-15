@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ClientPrediction
 {
-    private long lastServerTimestamp = 0;
     private long lastTickRate = 30;
 
     public struct PlayerInput
@@ -66,9 +65,6 @@ public class ClientPrediction
             }
             if (playerTimestamp == acknowledgedPlayerInput.timestampId)
             {
-                // Debug.Log($"serverTimestamp: {serverTimestamp}");
-                // Debug.Log($"last ackonewledgedInput: {acknowledgedPlayerInput.lastTimestamp}");
-                // Debug.Log($"difference: {serverTimestamp - acknowledgedPlayerInput.lastTimestamp}");
                 acknowledgedPlayerInput.playerPosition = player.Position;
                 input.startMovementTimestamp +=
                     serverTimestamp - acknowledgedPlayerInput.lastTimestamp;
@@ -97,13 +93,6 @@ public class ClientPrediction
             acknowledgedPosition = player.Position;
         }
 
-        long difference = serverTimestamp - lastServerTimestamp;
-        if(serverTimestamp > lastServerTimestamp && difference >= 30 && difference <= 40){
-            lastTickRate =  serverTimestamp - lastServerTimestamp;
-            lastServerTimestamp = serverTimestamp;
-            Debug.Log($"Tickrate is: {lastTickRate}");
-        }
-
         lastTickRate = 30;
 
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -121,21 +110,10 @@ public class ClientPrediction
             if (input.endMovementTimestamp == 0)
             {
                 ticks = (now - input.startMovementTimestamp) / lastTickRate;
-                if((now - input.startMovementTimestamp) < 0){
-                    Debug.Log($"Is negative? Now: {now} Start: {input.startMovementTimestamp}");
-                }
             }
             else
             {
                 ticks = (input.endMovementTimestamp - input.startMovementTimestamp) / lastTickRate;
-                if((input.endMovementTimestamp - input.startMovementTimestamp) < 0){
-                    Debug.Log($"Is negative? End: {input.endMovementTimestamp} Start: {input.startMovementTimestamp}");
-                }
-            }
-
-            if (ticks < 0)
-            {
-                Debug.Log($"eto ta mal {ticks}");
             }
 
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
@@ -151,8 +129,6 @@ public class ClientPrediction
             acknowledgedPosition = newPlayerPosition;
             player.Position = acknowledgedPosition;
         });
-
-        // Debug.Log($"CP Player Position is: ({player.Position.X};{player.Position.Y})");
     }
 
     double distance_between_positions(Position position_1, Position position_2)

@@ -297,18 +297,14 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        // var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        var useProxy = "false";
 
         int port = 4000;
 
-        // if (useProxy == "true")
-        // {
-        //     port = 5000;
-        // }
-        // else
-        // {
-        //     port = 4000;
-        // }
+        if (useProxy == "true")
+        {
+            port = 5000;
+        }
 
         if (serverIp.Contains("localhost"))
         {
