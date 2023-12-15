@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 using CandyCoded.HapticFeedback;
 
@@ -17,7 +16,8 @@ public class CharacterFeedbacks : MonoBehaviour
     [SerializeField]
     List<GameObject> feedbacksPrefabs;
 
-    [SerializeField] GameObject deathFeedback;
+    [SerializeField]
+    GameObject deathFeedback;
 
     [SerializeField]
     Color32 damageOverlayColor = new Color32(255, 255, 255, 255);
