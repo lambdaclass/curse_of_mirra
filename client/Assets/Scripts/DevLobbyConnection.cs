@@ -6,6 +6,7 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using Communication.Protobuf;
 
 public class DevLobbyConnection : MonoBehaviour
 {
