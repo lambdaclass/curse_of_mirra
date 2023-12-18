@@ -26,15 +26,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103205090421733618}
-  m_LocalRotation: {x: -0.7668283, y: -0.029393781, z: -0.008298535, w: 0.6411252}
-  m_LocalPosition: {x: 0.00003, y: 0.00109, z: 0.00017}
+  m_LocalRotation: {x: -0.82152003, y: -0.033960897, z: -0.009731833, w: 0.56908417}
+  m_LocalPosition: {x: 0.00001, y: 0.00168, z: 0.00001}
   m_LocalScale: {x: 0.0030303039, y: 0.0030303034, z: 0.003030303}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8037595375003396719}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -100.342, y: 7.992996, z: -11.059998}
+  m_LocalEulerAnglesHint: {x: -89.511, y: 0, z: 0}
 --- !u!198 &9093927254562000756
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -426,8 +426,8 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
-      minScalar: 0
+      scalar: 2.0943952
+      minScalar: 1.6580628
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -459,7 +459,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 0
     randomizeRotationDirection: 0
-    maxNumParticles: 30
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -525,8 +525,8 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0.21, z: -0.08}
-    m_Rotation: {x: 44.6, y: 0.41, z: 0}
+    m_Position: {x: 0, y: 0.11, z: -0.06}
+    m_Rotation: {x: 58.97, y: 0.41, z: 0}
     m_Scale: {x: 0.02, y: 0.23, z: 0.3}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -4656,7 +4656,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 1
   m_CameraVelocityScale: 0
   m_VelocityScale: 0.1
   m_LengthScale: 1
@@ -4844,7 +4844,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.32040966, b: 0, a: 1}
-  m_Intensity: 2.9305463
+  m_Intensity: 3.1801472
   m_Range: 7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
