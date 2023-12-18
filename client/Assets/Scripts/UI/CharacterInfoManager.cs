@@ -36,11 +36,12 @@ public class CharacterInfoManager : MonoBehaviour
     {
         availableCharacters = CharactersManager.Instance.availableCharacters;
 
-        CoMCharacter selectedCharacter = availableCharacters.Single(
-            comCharacter => comCharacter.name == CharactersManager.Instance.selectedCharacterName
+        CoMCharacter characterToShow = availableCharacters.Single(
+            comCharacter => comCharacter.name == CharactersManager.Instance.goToCharacterName
         );
+        // Get index from selected character to show previous and next character
         characterIndex = availableCharacters.FindIndex(
-            availableCharacter => availableCharacter.name == selectedCharacter.name
+            availableCharacter => availableCharacter.name == characterToShow.name
         );
 
         if (availableCharacters.Count() > 1)
@@ -53,7 +54,7 @@ public class CharacterInfoManager : MonoBehaviour
             rightButton.enabled = false;
             leftButton.enabled = false;
         }
-        SetCharacterInfo(selectedCharacter);
+        SetCharacterInfo(characterToShow);
     }
 
     public void RightArrowFunction()

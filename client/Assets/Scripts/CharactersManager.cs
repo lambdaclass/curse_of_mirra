@@ -12,6 +12,7 @@ public class CharactersManager : MonoBehaviour
     // The available names should come from backend
     private List<string> availableCharacterNames = new List<string>() { "Muflus" };
     public string selectedCharacterName = "Muflus";
+    public string goToCharacterName;
 
     void Awake()
     {

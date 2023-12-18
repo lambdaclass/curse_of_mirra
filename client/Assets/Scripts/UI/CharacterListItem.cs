@@ -4,13 +4,9 @@ using MoreMountains.Tools;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
-public class CharacterListItem
-    : MonoBehaviour,
-        IPointerExitHandler,
-        IPointerEnterHandler,
-        IPointerUpHandler,
-        IPointerDownHandler
+public class CharacterListItem : MonoBehaviour
 {
     [SerializeField]
     public TextMeshProUGUI characterName;
@@ -23,49 +19,19 @@ public class CharacterListItem
     public GameObject soonLabel,
         characterOpacity,
         availableSoon;
-    public int listPosition;
-    private bool isInsideCard = false;
-    private bool isRealesed = false;
-
-    //Min difference of the touchStartPos and the current touch
-    private const float MIN_DIFFERENCE = 6.0f;
-    private Vector2 touchStartPos;
+    public string characterNameString;
     public bool IsEnable = true;
 
-    public void SetCharacterInfoStart(PointerEventData eventData)
+    void Start()
     {
-        var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
-        var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (
-            isInsideCard
-            && touchXDifference < MIN_DIFFERENCE
-            && touchYDifference < MIN_DIFFERENCE
-            && IsEnable
-        )
-        {
-            this.GetComponent<MMLoadScene>().LoadScene();
-            CharacterInfoManager.characterIndex = listPosition;
-        }
+        StartCoroutine(GoToCharacterInfo());
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    IEnumerator GoToCharacterInfo()
     {
-        isInsideCard = false;
-        isRealesed = false;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        isInsideCard = true;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        SetCharacterInfoStart(eventData);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        touchStartPos = eventData.position;
+        yield return new WaitUntil(
+            () => this.GetComponent<ButtonAnimationsMMTouchButton>().executeRelease && IsEnable
+        );
+        this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

@@ -25,9 +25,9 @@ public class CharactersListManager : MonoBehaviour
             {
                 GameObject item = Instantiate(listItem, this.transform);
                 CharacterListItem instanceListItem = item.GetComponent<CharacterListItem>();
-                instanceListItem.listPosition = availableCharacters.FindIndex(
-                    available => available == character
-                );
+                // Assign the character's name to be link to character info
+                instanceListItem.characterNameString = character.name;
+
                 // Characters enabled to select
                 if (availableCharacters.Contains(character))
                 {
