@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
+using Communication.Protobuf;
 
 public class Inventory : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Inventory : MonoBehaviour
     // The animations use this as a base for all the animation durations
     // If the goal is to change an entire animation duration, this is the value to change
     const float BASE_DURATION = 0.5f;
-    private Player player;
+    private OldPlayer player;
     private GameLoot activeItem;
 
     [SerializeField]
@@ -124,7 +125,7 @@ public class Inventory : MonoBehaviour
         return activeItem != null && inventoryImage.sprite == null;
     }
 
-    private bool PlayerPickedUpItem(Player player)
+    private bool PlayerPickedUpItem(OldPlayer player)
     {
         return player != null && player.Inventory.Count > 0;
     }
@@ -153,7 +154,7 @@ public class Inventory : MonoBehaviour
         useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
     }
 
-    void PlayerFeedback(Player player, bool show)
+    void PlayerFeedback(OldPlayer player, bool show)
     {
         GameObject playerToApplyFeedback = Utils.GetPlayer(player.Id);
         playerToApplyFeedback
