@@ -44,7 +44,7 @@ public class CharacterListItem
         )
         {
             this.GetComponent<MMLoadScene>().LoadScene();
-            CharacterInfoManager.selectedCharacterPosition = listPosition;
+            CharacterInfoManager.characterIndex = listPosition;
         }
     }
 

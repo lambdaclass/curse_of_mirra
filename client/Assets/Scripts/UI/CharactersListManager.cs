@@ -1,13 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class CharactersListManager : MonoBehaviour
 {
-    [SerializeField]
-    List<CoMCharacter> characterSriptableObjects;
-
     [SerializeField]
     GameObject listItem;
 
@@ -24,19 +19,18 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        var index = 0;
-        var avaibles = Utils.GetOnlyAvailableCharacterInfo(characterSriptableObjects);
-        characterSriptableObjects.ForEach(
+        List<CoMCharacter> availableCharacters = CharactersManager.Instance.availableCharacters;
+        CharactersManager.Instance.characterSriptableObjects.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
                 CharacterListItem instanceListItem = item.GetComponent<CharacterListItem>();
+                instanceListItem.listPosition = availableCharacters.FindIndex(
+                    available => available == character
+                );
                 // Characters enabled to select
-                if (avaibles.Contains(character))
+                if (availableCharacters.Contains(character))
                 {
-                    instanceListItem.listPosition = index;
-                    index++;
-
                     instanceListItem.soonLabel.SetActive(false);
                     instanceListItem.characterOpacity.SetActive(false);
                     instanceListItem.characterIconState.sprite = character.characterIcon;
@@ -44,7 +38,6 @@ public class CharactersListManager : MonoBehaviour
                 // Characters unable to select
                 else
                 {
-                    instanceListItem.listPosition = -1;
                     instanceListItem.IsEnable = false;
                     item.GetComponent<ButtonAnimationsMMTouchButton>().enabled = false;
 
