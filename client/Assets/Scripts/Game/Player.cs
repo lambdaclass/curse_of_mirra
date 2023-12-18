@@ -62,11 +62,10 @@ namespace Game {
             this.direction = protobufPlayer.Direction;
             this.killCount = protobufPlayer.KillCount;
             this.deathCount = protobufPlayer.DeathCount;
-            this.actionDurationMs = protobufPlayer.ActionDurationMs;
             this.characterName = protobufPlayer.CharacterName;
             this.position = new Position(protobufPlayer.Position);
             this.status = fromProtobuf(protobufPlayer.Status);
-            this.actions = fromProtobuf(protobufPlayer.Actions.ToList());
+            this.actions = fromProtobuf(protobufPlayer.Action.ToList());
             this.cooldowns = fromProtobuf(protobufPlayer.Cooldowns.ToList());
             this.inventory = fromProtobuf(protobufPlayer.Inventory.ToList());
             this.effects = fromProtobuf(protobufPlayer.Effects.ToList());
@@ -81,9 +80,9 @@ namespace Game {
         }
 
         private static List<ActionTracker> fromProtobuf(List<Communication.Protobuf.ActionTracker> actions) {
-            return actions.ConvertAll<Player.ActionTracker>(action => {
+            return actions.ConvertAll<Player.ActionTracker>(actionTracker => {
                 Action newAction;
-                switch (action.PlayerAction.Action) {
+                switch (actionTracker.PlayerAction.Action) {
                     case Communication.Protobuf.PlayerActionEnum.UsingSkill: 
                         newAction = Player.Action.UsingSkill;
                         break;
@@ -93,9 +92,9 @@ namespace Game {
                     case Communication.Protobuf.PlayerActionEnum.Moving: 
                         newAction = Player.Action.Moving;
                         break;
-                    default: throw new InvalidEnumArgumentException(nameof(action.PlayerAction.Action), (int)action.PlayerAction.Action, action.PlayerAction.Action.GetType());
+                    default: throw new InvalidEnumArgumentException(nameof(actionTracker.PlayerAction.Action), (int)actionTracker.PlayerAction.Action, actionTracker.PlayerAction.Action.GetType());
                 }
-                return new Player.ActionTracker(newAction, action.Duration, action.PlayerAction.ActionSkillKey);
+                return new Player.ActionTracker(newAction, actionTracker.Duration, actionTracker.PlayerAction.ActionSkillKey);
             });
         }
 

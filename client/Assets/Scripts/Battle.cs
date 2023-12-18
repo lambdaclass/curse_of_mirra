@@ -277,15 +277,15 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                        foreach (OldActionTracker action in serverPlayerUpdate.Actions)
+                        foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
                         {
                             if (PlayerMovementAuthorized(playerCharacter))
                             {
                                 ExecuteSkillFeedback(
                                     currentPlayer,
-                                    action.OldPlayerAction,
+                                    actionTracker.PlayerAction,
                                     serverPlayerUpdate.Direction,
-                                    action.Duration
+                                    actionTracker.Duration
                                 );
                             }
                         }
@@ -316,35 +316,36 @@ public class Battle : MonoBehaviour
         ulong actionDurationMs
     )
     {
+        Debug.Log("aber action" + playerAction);
         // TODO: Refactor
         switch (playerAction)
         {
             case OldPlayerAction.Attacking:
-                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback();
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                currentPlayer.GetComponent<Skill1>().StartFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill1>().StartFeedback();
+                currentPlayer.GetComponent<Skill1>().StartFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill3:
-                currentPlayer.GetComponent<Skill3>().StartFeedback();
+                currentPlayer.GetComponent<Skill3>().StartFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedback();
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedback(actionDurationMs);
                 rotatePlayer(currentPlayer, direction);
                 break;
         }
@@ -589,7 +590,7 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Actions.Any( action => action.OldPlayerAction == OldPlayerAction.ExecutingSkill3)
+                && playerUpdate.Action.Any( actionTracker => actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3)
             )
             {
                 player.transform.position = frontendPosition;
