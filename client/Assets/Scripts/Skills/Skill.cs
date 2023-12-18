@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -16,7 +17,7 @@ public class Skill : CharacterAbility
     public string skillId;
 
     [SerializeField]
-    protected Action serverSkill;
+    protected Communication.Protobuf.Action serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -42,7 +43,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void SetSkill(Action serverSkill, SkillInfo skillInfo)
+    public void SetSkill(Communication.Protobuf.Action serverSkill, SkillInfo skillInfo)
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;

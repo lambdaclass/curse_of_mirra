@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MoreMountains.Tools;
 using UnityEngine;
+using Communication.Protobuf;
 
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
