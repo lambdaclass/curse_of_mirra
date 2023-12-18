@@ -105,7 +105,6 @@ public class Battle : MonoBehaviour
         {
             SetAccumulatedTime();
             UpdateBattleState();
-            SendPlayerMovement();
         }
 
         if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)

@@ -5,8 +5,6 @@ using Communication.Protobuf;
 
 public class ClientPrediction
 {
-    private long lastTickRate = 30;
-
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -86,7 +84,7 @@ public class ClientPrediction
 
     void simulatePlayerMovement(OldPlayer player)
     {
-        // TODO check this
+        var tickRate = SocketConnectionManager.Instance.serverTickRate_ms;
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
         OldPosition acknowledgedPosition = acknowledgedPlayerInput.playerPosition;
         if (acknowledgedPlayerInput.timestampId == 0)
@@ -94,9 +92,8 @@ public class ClientPrediction
             acknowledgedPosition = player.Position;
         }
 
-        lastTickRate = 30;
-
         long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
         pendingPlayerInputs.ForEach(input =>
         {
             Vector2 movementDirection = new Vector2(
@@ -106,16 +103,9 @@ public class ClientPrediction
 
             movementDirection.Normalize();
 
-            var ticks = 0f;
-
-            if (input.endMovementTimestamp == 0)
-            {
-                ticks = (now - input.startMovementTimestamp) / lastTickRate;
-            }
-            else
-            {
-                ticks = (input.endMovementTimestamp - input.startMovementTimestamp) / lastTickRate;
-            }
+            long endTimestamp =
+                (input.endMovementTimestamp == 0) ? now : input.endMovementTimestamp;
+            float ticks = (endTimestamp - input.startMovementTimestamp) / tickRate;
 
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
@@ -131,6 +121,7 @@ public class ClientPrediction
             player.Position = acknowledgedPosition;
         });
 
+        // TODO: fix this block of code
         var radius = 4900;
         OldPosition center = new OldPosition() { X = 5000, Y = 5000 };
 

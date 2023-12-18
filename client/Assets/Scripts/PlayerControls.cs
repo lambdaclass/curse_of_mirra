@@ -9,12 +9,10 @@ public class PlayerControls : MonoBehaviour
 
     public void SendJoystickValues(float x, float y)
     {
-        bool moving = (x != 0 || y != 0);
+        bool moving = x != 0 || y != 0;
         float lastAngleSent = Mathf.Atan2(lastYSent, lastXSent) * Mathf.Rad2Deg;
         long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        float angle = moving
-            ? Mathf.Atan2(y, x) * Mathf.Rad2Deg
-            : lastAngleSent;
+        float angle = moving ? Mathf.Atan2(y, x) * Mathf.Rad2Deg : lastAngleSent;
         float difference = Math.Abs(angle - lastAngleSent);
 
         if (ShouldSendMovement(x, y, difference))
@@ -30,15 +28,15 @@ public class PlayerControls : MonoBehaviour
                 joystick_y_value = y,
                 startMovementTimestamp = timestamp,
                 timestampId = timestamp
-        };
-            // Debug.Log("Angle: " + angle + " Timestamp: " + timestamp);
+            };
             SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
         }
     }
 
-    bool ShouldSendMovement(float x, float y, float difference) {
+    bool ShouldSendMovement(float x, float y, float difference)
+    {
         return (x != lastXSent || y != lastYSent) && ((difference <= 0.01f) || difference > 5);
     }
 
