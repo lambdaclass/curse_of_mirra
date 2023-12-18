@@ -9,6 +9,8 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Communication.Protobuf;
+using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -26,12 +28,12 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    private List<Player> gamePlayers;
+    private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
     private ulong playerId;
     private GameObject prefab;
     public Camera UiCamera;
-    public Player playerToFollow;
+    public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
@@ -119,7 +121,7 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        Player gamePlayer = Utils.GetGamePlayer(playerId);
+        OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -150,7 +152,7 @@ public class CustomLevelManager : LevelManager
     {
         GameObject prefab = null;
 
-        Player player = Utils.GetGamePlayer(playerId);
+        OldPlayer player = Utils.GetGamePlayer(playerId);
         prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
         return prefab;
     }
@@ -178,6 +180,14 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
+            if (SocketConnectionManager.Instance.playerId == playerID)
+            {
+                //Add audioListener in player
+                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
+                //Disable audioListener in camera
+                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
+                    false;
+            }
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -189,6 +199,10 @@ public class CustomLevelManager : LevelManager
     {
         if (!SocketConnectionManager.Instance.cinematicDone)
         {
+            float effectTime = Utils
+                .GetCharacter(1)
+                .characterBase.spawnFeedback.GetComponent<VisualEffect>()
+                .GetFloat("LifeTime");
             //Start moving camera and remove loading sceen
             InvokeRepeating("Substract", 1f, 0.1f);
             yield return new WaitForSeconds(1.7f);
@@ -198,6 +212,19 @@ public class CustomLevelManager : LevelManager
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");
             InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
+                });
+            yield return new WaitForSeconds(effectTime);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
+                });
             //Cancel camera zoom
             yield return new WaitForSeconds(0.5f);
             CancelInvoke("MoveYCamera");
@@ -249,8 +276,7 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow
-                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
@@ -288,14 +314,12 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo
-            .skillsInfo
-            .ForEach(skill =>
-            {
-                SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
-                skills.Add(skillClone);
-            });
+        characterInfo.skillsInfo.ForEach(skill =>
+        {
+            SkillInfo skillClone = Instantiate(skill);
+            skillClone.InitWithBackend();
+            skills.Add(skillClone);
+        });
 
         return skills;
     }
@@ -326,15 +350,14 @@ public class CustomLevelManager : LevelManager
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
 
-            SkillAnimationEvents skillsAnimationEvent = player
-                .CharacterModel
-                .GetComponent<SkillAnimationEvents>();
+            SkillAnimationEvents skillsAnimationEvent =
+                player.CharacterModel.GetComponent<SkillAnimationEvents>();
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            // skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -376,9 +399,7 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -427,17 +448,17 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private IEnumerator WaitToChangeCamera(Player player)
+    private IEnumerator WaitToChangeCamera(OldPlayer player)
     {
         yield return new WaitUntil(() => player != null);
         setCameraToPlayer(playerToFollow.Id);
         KillFeedManager.instance.saveKillerId = 0;
     }
 
-    private bool GameHasEndedOrPlayerHasDied(Player gamePlayer)
+    private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
     {
         return SocketConnectionManager.Instance.GameHasEnded()
-            || gamePlayer != null && (gamePlayer.Status == Status.Dead);
+            || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
     }
 
     private bool GameHasEnded()
@@ -449,9 +470,8 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager
-                .Instance
-                .gamePlayers
-                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
+            && SocketConnectionManager.Instance.gamePlayers.Any(
+                (player) => player.Id == SocketConnectionManager.Instance.playerId
+            );
     }
 }

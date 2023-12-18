@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using MoreMountains.Tools;
 using UnityEngine.UI;
+using Communication.Protobuf;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -19,14 +20,14 @@ public class CharacterFeedbackManager : MonoBehaviour
         return effectFound;
     }
 
-    private bool PlayerShouldSeeEffectMark(Player playerUpdate, PlayerEffect effect)
+    private bool PlayerShouldSeeEffectMark(OldPlayer playerUpdate, PlayerEffect effect)
     {
         ulong attackerId = GetEffectCauser(playerUpdate, effect);
         return playerUpdate.Id == SocketConnectionManager.Instance.playerId
             || attackerId == SocketConnectionManager.Instance.playerId;
     }
 
-    private ulong GetEffectCauser(Player playerUpdate, PlayerEffect effect)
+    private ulong GetEffectCauser(OldPlayer playerUpdate, PlayerEffect effect)
     {
         return playerUpdate.Effects[(ulong)effect].CausedBy;
     }
@@ -36,7 +37,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         healthBar.ForegroundColor = Utils.GetHealthBarGradient(color);
     }
 
-    public void ToggleHealthBar(GameObject player, Player playerUpdate)
+    public void ToggleHealthBar(GameObject player, OldPlayer playerUpdate)
     {
         var healthBarFront = player
             .GetComponent<CustomCharacter>()

@@ -10,10 +10,8 @@
   - [Licensing](#licensing)
   - [Requirements](#requirements)
   - [Suggested Development Environment](#suggested-development-environment)
-  - [Project Setup](#project-setup)
-  - [Unity Setup](#unity-setup)
+  - [Project and Unity Setup](#project-and-unity-setup)
   - [Running the Backend](#running-the-backend)
-  - [Useful Commands](#useful-commands)
   - [Documentation](#documentation)
   - [Contact and Socials](#contact-and-socials)
 
@@ -73,20 +71,14 @@ Set up your environment with the following steps:
   
 Your code should now autocomplete.
 
-## Project Setup
-
-Ensure Docker is running and execute the following commands:
+## Project and Unity Setup
+- Open a terminal and clone the project:
 
 ```bash
 git clone https://github.com/lambdaclass/curse_of_myrra
-cd curse_of_myrra/server
-make db
-make setup
 ```
 
-## Unity Setup
-
-- In Unity Hub, click on the add project button and select the `client` folder.
+- In Unity Hub, click on the add project button and select the `curse_of_myrra/client` folder.
 - Choose the correct editor version and download the [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). Include it in the `Assets/ThirdParty` folder after purchasing the license.
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
@@ -95,30 +87,12 @@ make setup
 For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure Docker is running and execute:
 
 ```bash
+git clone https://github.com/lambdaclass/game_backend
+make db
+make setup
 make start
 ```
-
 Remember to set ```localhost``` as the server.
-
-## Useful Commands
-
-```bash
-make tests
-```
-
-Will run Elixir and Rust tests
-
-```bash
-make format
-```
-
-Will format Elixir and Rust code.
-
-```bash
-make prepush
-```
-
-Will format your code and run Credo check and tests.
 
 ## Documentation
 
@@ -139,7 +113,6 @@ Open: [http://localhost:3000/](http://localhost:3000/ios_builds.html)
 
 Some key documentation pages:
 
-- [Backend architecture](https://docs.curseofmyrra.com/backend_architecture.html)
 - [Message protocol](https://docs.curseofmyrra.com/message_protocol.html)
 - [Android build](https://docs.curseofmyrra.com/android_builds.html)
 - [IOs builds](https://docs.curseofmyrra.com/ios_builds.html)
