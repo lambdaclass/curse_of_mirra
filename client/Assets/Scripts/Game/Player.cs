@@ -8,7 +8,7 @@ namespace Game {
         private ulong id { get; }
         private Position position { get; }
         private long health { get; }
-        private long speed { get; }
+        private float speed { get; }
         private float size { get; }
         private float direction { get; }
         private Status status { get; }

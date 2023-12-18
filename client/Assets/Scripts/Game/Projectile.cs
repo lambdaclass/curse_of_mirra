@@ -5,7 +5,7 @@ namespace Game {
         private ulong id { get; }
         private string name { get; }
         private ulong damage { get; }
-        private long speed { get; }
+        private float speed { get; }
         private float size { get; }
         private Position position { get; }
         private float direction { get; }

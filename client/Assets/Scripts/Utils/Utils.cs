@@ -78,8 +78,8 @@ public class Utils
 
     public static OldPlayer GetNearestPlayer(OldPosition toCompare)
     {
-        ulong aux_X = 0;
-        ulong aux_Y = 0;
+        float aux_X = 0;
+        float aux_Y = 0;
         OldPlayer nearest_player = null;
         SocketConnectionManager.Instance.gamePlayers.ForEach(player =>
         {

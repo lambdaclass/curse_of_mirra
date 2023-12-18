@@ -38,7 +38,7 @@ namespace Communication.Protobuf {
             "CzIJLlpvbmVJbmZvEhwKCGtpbGxmZWVkGAUgAygLMgouS2lsbEV2ZW50EhgK",
             "EHBsYXllcl90aW1lc3RhbXAYBiABKAMSGAoQc2VydmVyX3RpbWVzdGFtcBgH",
             "IAEoAyLoAgoGUGxheWVyEgoKAmlkGAEgASgEEhsKCHBvc2l0aW9uGAIgASgL",
-            "MgkuUG9zaXRpb24SDgoGaGVhbHRoGAMgASgSEg0KBXNwZWVkGAQgASgSEgwK",
+            "MgkuUG9zaXRpb24SDgoGaGVhbHRoGAMgASgSEg0KBXNwZWVkGAQgASgCEgwK",
             "BHNpemUYBSABKAISEQoJZGlyZWN0aW9uGAYgASgCEh0KBnN0YXR1cxgHIAEo",
             "DjINLlBsYXllclN0YXR1cxISCgpraWxsX2NvdW50GAggASgEEhMKC2RlYXRo",
             "X2NvdW50GAkgASgEEh4KBmFjdGlvbhgKIAMoCzIOLkFjdGlvblRyYWNrZXIS",
@@ -54,10 +54,10 @@ namespace Communication.Protobuf {
             "ZW0SCgoCaWQYASABKAQSDAoEbmFtZRgCIAEoCRIMCgRzaXplGAMgASgCEhsK",
             "CHBvc2l0aW9uGAQgASgLMgkuUG9zaXRpb24igwEKClByb2plY3RpbGUSCgoC",
             "aWQYASABKAQSDAoEbmFtZRgCIAEoCRIOCgZkYW1hZ2UYAyABKA0SDQoFc3Bl",
-            "ZWQYBCABKA0SDAoEc2l6ZRgFIAEoAhIbCghwb3NpdGlvbhgGIAEoCzIJLlBv",
+            "ZWQYBCABKAISDAoEc2l6ZRgFIAEoAhIbCghwb3NpdGlvbhgGIAEoCzIJLlBv",
             "c2l0aW9uEhEKCWRpcmVjdGlvbhgHIAEoAiI1Cghab25lSW5mbxIZCgZjZW50",
             "ZXIYASABKAsyCS5Qb3NpdGlvbhIOCgZyYWRpdXMYAiABKAIiIAoIUG9zaXRp",
-            "b24SCQoBeBgBIAEoAxIJCgF5GAIgASgDIlgKCUtpbGxFdmVudBIlChBraWxs",
+            "b24SCQoBeBgBIAEoAhIJCgF5GAIgASgCIlgKCUtpbGxFdmVudBIlChBraWxs",
             "ZWRfYnlfZW50aXR5GAEgASgOMgsuS2lsbEVudGl0eRIUCgxraWxsZWRfYnlf",
             "aWQYAiABKAQSDgoGa2lsbGVkGAMgASgEIooECgxPbGRHYW1lRXZlbnQSHAoE",
             "dHlwZRgBIAEoDjIOLkdhbWVFdmVudFR5cGUSGwoHcGxheWVycxgCIAMoCzIK",
@@ -68,7 +68,7 @@ namespace Communication.Protobuf {
             "KAsyJS5PbGRHYW1lRXZlbnQuU2VsZWN0ZWRDaGFyYWN0ZXJzRW50cnkSGAoQ",
             "cGxheWVyX3RpbWVzdGFtcBgJIAEoAxIYChBzZXJ2ZXJfdGltZXN0YW1wGAog",
             "ASgDEh8KCGtpbGxmZWVkGAsgAygLMg0uT2xkS2lsbEV2ZW50EhcKD3BsYXlh",
-            "YmxlX3JhZGl1cxgMIAEoBBImChBzaHJpbmtpbmdfY2VudGVyGA0gASgLMgwu",
+            "YmxlX3JhZGl1cxgMIAEoAhImChBzaHJpbmtpbmdfY2VudGVyGA0gASgLMgwu",
             "T2xkUG9zaXRpb24SGwoFbG9vdHMYDiADKAsyDC5Mb290UGFja2FnZRo5ChdT",
             "ZWxlY3RlZENoYXJhY3RlcnNFbnRyeRILCgNrZXkYASABKAQSDQoFdmFsdWUY",
             "AiABKAk6AjgBIjwKD1BsYXllckNoYXJhY3RlchIRCglwbGF5ZXJfaWQYASAB",
@@ -91,7 +91,7 @@ namespace Communication.Protobuf {
             "dGlvbhgCIAEoBCJACg1PbGRFZmZlY3RJbmZvEhwKB2VuZHNfYXQYASABKAsy",
             "Cy5NaWxsaXNUaW1lEhEKCWNhdXNlZF9ieRgCIAEoBCIxCgxPbGRLaWxsRXZl",
             "bnQSEQoJa2lsbGVkX2J5GAEgASgEEg4KBmtpbGxlZBgCIAEoBCIjCgtPbGRQ",
-            "b3NpdGlvbhIJCgF4GAEgASgEEgkKAXkYAiABKAQiKAoQUmVsYXRpdmVQb3Np",
+            "b3NpdGlvbhIJCgF4GAEgASgCEgkKAXkYAiABKAIiKAoQUmVsYXRpdmVQb3Np",
             "dGlvbhIJCgF4GAEgASgCEgkKAXkYAiABKAIi8AEKDENsaWVudEFjdGlvbhIX",
             "CgZhY3Rpb24YASABKA4yBy5BY3Rpb24SHQoJZGlyZWN0aW9uGAIgASgOMgou",
             "RGlyZWN0aW9uEiMKCHBvc2l0aW9uGAMgASgLMhEuUmVsYXRpdmVQb3NpdGlv",
@@ -117,8 +117,8 @@ namespace Communication.Protobuf {
             "dXMYCiABKAQSHgoWc3Bhd25fbG9vdF9pbnRlcnZhbF9tcxgLIAEoBCJhCgpH",
             "YW1lQ29uZmlnEh4KCmJvYXJkX3NpemUYASABKAsyCi5Cb2FyZFNpemUSGgoS",
             "c2VydmVyX3RpY2tyYXRlX21zGAIgASgEEhcKD2dhbWVfdGltZW91dF9tcxgD",
-            "IAEoBCIqCglCb2FyZFNpemUSDQoFd2lkdGgYASABKAQSDgoGaGVpZ2h0GAIg",
-            "ASgEIu4BChNDaGFyYWN0ZXJDb25maWdJdGVtEgwKBE5hbWUYASABKAkSCgoC",
+            "IAEoBCIqCglCb2FyZFNpemUSDQoFd2lkdGgYASABKAISDgoGaGVpZ2h0GAIg",
+            "ASgCIu4BChNDaGFyYWN0ZXJDb25maWdJdGVtEgwKBE5hbWUYASABKAkSCgoC",
             "SWQYAiABKAkSDgoGQWN0aXZlGAMgASgJEg0KBUNsYXNzGAQgASgJEg8KB0Zh",
             "Y3Rpb24YBSABKAkSEQoJQmFzZVNwZWVkGAYgASgJEhIKClNraWxsQmFzaWMY",
             "ByABKAkSFAoMU2tpbGxBY3RpdmUxGAggASgJEhQKDFNraWxsQWN0aXZlMhgJ",
@@ -138,7 +138,7 @@ namespace Communication.Protobuf {
             "bGxzX2NvbmZpZxgDIAEoCzINLlNraWxsc0NvbmZpZyLNAgoNT2xkUHJvamVj",
             "dGlsZRIKCgJpZBgBIAEoBBIeCghwb3NpdGlvbhgCIAEoCzIMLk9sZFBvc2l0",
             "aW9uEiQKCWRpcmVjdGlvbhgDIAEoCzIRLlJlbGF0aXZlUG9zaXRpb24SDQoF",
-            "c3BlZWQYBCABKA0SDQoFcmFuZ2UYBSABKA0SEQoJcGxheWVyX2lkGAYgASgE",
+            "c3BlZWQYBCABKAISDQoFcmFuZ2UYBSABKAISEQoJcGxheWVyX2lkGAYgASgE",
             "Eg4KBmRhbWFnZRgHIAEoDRIXCg9yZW1haW5pbmdfdGlja3MYCCABKBISKAoP",
             "cHJvamVjdGlsZV90eXBlGAkgASgOMg8uUHJvamVjdGlsZVR5cGUSIQoGc3Rh",
             "dHVzGAogASgOMhEuUHJvamVjdGlsZVN0YXR1cxIfChdsYXN0X2F0dGFja2Vk",
@@ -151,33 +151,33 @@ namespace Communication.Protobuf {
             "ASgLMhAuR2FtZVN0YXRlQ29uZmlnEhgKBWxvb3RzGAQgAygLMgkuR2FtZUxv",
             "b3QSJAoLcHJvamVjdGlsZXMYBSADKAsyDy5HYW1lUHJvamVjdGlsZRIaCgZz",
             "a2lsbHMYBiADKAsyCi5HYW1lU2tpbGwidgoPR2FtZVN0YXRlQ29uZmlnEg0K",
-            "BXdpZHRoGAEgASgEEg4KBmhlaWdodBgCIAEoBBIqChBtYXBfbW9kaWZpY2F0",
+            "BXdpZHRoGAEgASgCEg4KBmhlaWdodBgCIAEoAhIqChBtYXBfbW9kaWZpY2F0",
             "aW9uGAMgASgLMhAuTWFwTW9kaWZpY2F0aW9uEhgKEGxvb3RfaW50ZXJ2YWxf",
             "bXMYBCABKAQi1AEKD01hcE1vZGlmaWNhdGlvbhIjCgxtb2RpZmljYXRpb24Y",
-            "ASABKAsyDS5Nb2RpZmljYXRpb24SFwoPc3RhcnRpbmdfcmFkaXVzGAIgASgE",
-            "EhYKDm1pbmltdW1fcmFkaXVzGAMgASgEEhIKCm1heF9yYWRpdXMYBCABKAQS",
+            "ASABKAsyDS5Nb2RpZmljYXRpb24SFwoPc3RhcnRpbmdfcmFkaXVzGAIgASgC",
+            "EhYKDm1pbmltdW1fcmFkaXVzGAMgASgCEhIKCm1heF9yYWRpdXMYBCABKAIS",
             "KwoWb3V0c2lkZV9yYWRpdXNfZWZmZWN0cxgFIAMoCzILLkdhbWVFZmZlY3QS",
             "KgoVaW5zaWRlX3JhZGl1c19lZmZlY3RzGAYgAygLMgsuR2FtZUVmZmVjdCI+",
             "CgxNb2RpZmljYXRpb24SHwoIbW9kaWZpZXIYASABKA4yDS5Nb2RpZmllclR5",
             "cGUSDQoFdmFsdWUYAiABKAIiRAoIR2FtZUxvb3QSDAoEbmFtZRgBIAEoCRIM",
-            "CgRzaXplGAIgASgEEhwKB2VmZmVjdHMYAyADKAsyCy5HYW1lRWZmZWN0IsYB",
+            "CgRzaXplGAIgASgCEhwKB2VmZmVjdHMYAyADKAsyCy5HYW1lRWZmZWN0IsYB",
             "Cg5HYW1lUHJvamVjdGlsZRIMCgRuYW1lGAEgASgJEhMKC2Jhc2VfZGFtYWdl",
-            "GAIgASgEEhIKCmJhc2Vfc3BlZWQYAyABKAQSEQoJYmFzZV9zaXplGAQgASgE",
+            "GAIgASgEEhIKCmJhc2Vfc3BlZWQYAyABKAISEQoJYmFzZV9zaXplGAQgASgC",
             "EhsKE3JlbW92ZV9vbl9jb2xsaXNpb24YBSABKAgSIgoNb25faGl0X2VmZmVj",
-            "dBgGIAMoCzILLkdhbWVFZmZlY3QSFAoMbWF4X2Rpc3RhbmNlGAcgASgEEhMK",
+            "dBgGIAMoCzILLkdhbWVFZmZlY3QSFAoMbWF4X2Rpc3RhbmNlGAcgASgCEhMK",
             "C2R1cmF0aW9uX21zGAggASgCItABCg1HYW1lQ2hhcmFjdGVyEgwKBG5hbWUY",
-            "ASABKAkSDgoGYWN0aXZlGAIgASgIEhIKCmJhc2Vfc3BlZWQYAyABKAQSEQoJ",
-            "YmFzZV9zaXplGAQgASgEEhMKC2Jhc2VfaGVhbHRoGAUgASgEEioKBnNraWxs",
+            "ASABKAkSDgoGYWN0aXZlGAIgASgIEhIKCmJhc2Vfc3BlZWQYAyABKAISEQoJ",
+            "YmFzZV9zaXplGAQgASgCEhMKC2Jhc2VfaGVhbHRoGAUgASgEEioKBnNraWxs",
             "cxgGIAMoCzIaLkdhbWVDaGFyYWN0ZXIuU2tpbGxzRW50cnkaOQoLU2tpbGxz",
             "RW50cnkSCwoDa2V5GAEgASgJEhkKBXZhbHVlGAIgASgLMgouR2FtZVNraWxs",
             "OgI4ASJgCglHYW1lU2tpbGwSDAoEbmFtZRgBIAEoCRITCgtjb29sZG93bl9t",
             "cxgCIAEoBBISCgppc19wYXNzaXZlGAMgASgIEhwKCW1lY2hhbmljcxgEIAMo",
             "CzIJLk1lY2hhbmljIvkBCghNZWNoYW5pYxIbCgRuYW1lGAEgASgOMg0uTWVj",
             "aGFuaWNUeXBlEhwKB2VmZmVjdHMYAiADKAsyCy5HYW1lRWZmZWN0Eg4KBmRh",
-            "bWFnZRgDIAEoBBINCgVyYW5nZRgEIAEoBBISCgpjb25lX2FuZ2xlGAUgASgE",
+            "bWFnZRgDIAEoBBINCgVyYW5nZRgEIAEoAhISCgpjb25lX2FuZ2xlGAUgASgE",
             "EiMKDm9uX2hpdF9lZmZlY3RzGAYgAygLMgsuR2FtZUVmZmVjdBIjCgpwcm9q",
             "ZWN0aWxlGAcgASgLMg8uR2FtZVByb2plY3RpbGUSDQoFY291bnQYCCABKAQS",
-            "EwoLZHVyYXRpb25fbXMYCSABKAQSEQoJbWF4X3JhbmdlGAogASgEIrACCgpH",
+            "EwoLZHVyYXRpb25fbXMYCSABKAQSEQoJbWF4X3JhbmdlGAogASgCIrACCgpH",
             "YW1lRWZmZWN0EgwKBG5hbWUYASABKAkSFQoLc2ltcGxlX3R5cGUYAiABKAlI",
             "ABItCg1kdXJhdGlvbl90eXBlGAMgASgLMhQuR2FtZUVmZmVjdC5EdXJhdGlv",
             "bkgAEi0KDXBlcmlvZGljX3R5cGUYBCABKAsyFC5HYW1lRWZmZWN0LlBlcmlv",
@@ -483,7 +483,6 @@ namespace Communication.Protobuf {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class TransitionGameEvent : pb::IMessage<TransitionGameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -728,7 +727,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameEvent : pb::IMessage<GameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1067,7 +1065,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameStarted : pb::IMessage<GameStarted>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1269,7 +1266,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameFinished : pb::IMessage<GameFinished>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1494,7 +1490,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameState : pb::IMessage<GameState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1871,7 +1866,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Player : pb::IMessage<Player>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1968,10 +1962,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "speed" field.</summary>
     public const int SpeedFieldNumber = 4;
-    private long speed_;
+    private float speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long Speed {
+    public float Speed {
       get { return speed_; }
       set {
         speed_ = value;
@@ -2124,7 +2118,7 @@ namespace Communication.Protobuf {
       if (Id != other.Id) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (Health != other.Health) return false;
-      if (Speed != other.Speed) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Size, other.Size)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Direction, other.Direction)) return false;
       if (Status != other.Status) return false;
@@ -2146,7 +2140,7 @@ namespace Communication.Protobuf {
       if (Id != 0UL) hash ^= Id.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Health != 0L) hash ^= Health.GetHashCode();
-      if (Speed != 0L) hash ^= Speed.GetHashCode();
+      if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
       if (Size != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Size);
       if (Direction != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Direction);
       if (Status != global::Communication.Protobuf.PlayerStatus.Undefined) hash ^= Status.GetHashCode();
@@ -2188,9 +2182,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteSInt64(Health);
       }
-      if (Speed != 0L) {
-        output.WriteRawTag(32);
-        output.WriteSInt64(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
       if (Size != 0F) {
         output.WriteRawTag(45);
@@ -2246,9 +2240,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteSInt64(Health);
       }
-      if (Speed != 0L) {
-        output.WriteRawTag(32);
-        output.WriteSInt64(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
       if (Size != 0F) {
         output.WriteRawTag(45);
@@ -2301,8 +2295,8 @@ namespace Communication.Protobuf {
       if (Health != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Health);
       }
-      if (Speed != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Speed);
+      if (Speed != 0F) {
+        size += 1 + 4;
       }
       if (Size != 0F) {
         size += 1 + 4;
@@ -2353,7 +2347,7 @@ namespace Communication.Protobuf {
       if (other.Health != 0L) {
         Health = other.Health;
       }
-      if (other.Speed != 0L) {
+      if (other.Speed != 0F) {
         Speed = other.Speed;
       }
       if (other.Size != 0F) {
@@ -2411,8 +2405,8 @@ namespace Communication.Protobuf {
             Health = input.ReadSInt64();
             break;
           }
-          case 32: {
-            Speed = input.ReadSInt64();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
           case 45: {
@@ -2489,8 +2483,8 @@ namespace Communication.Protobuf {
             Health = input.ReadSInt64();
             break;
           }
-          case 32: {
-            Speed = input.ReadSInt64();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
           case 45: {
@@ -2544,7 +2538,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ActionTracker : pb::IMessage<ActionTracker>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2780,7 +2773,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3007,7 +2999,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillCooldown : pb::IMessage<SkillCooldown>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3234,7 +3225,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EffectInfo : pb::IMessage<EffectInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3461,7 +3451,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Item : pb::IMessage<Item>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3771,7 +3760,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Projectile : pb::IMessage<Projectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3860,10 +3848,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "speed" field.</summary>
     public const int SpeedFieldNumber = 4;
-    private uint speed_;
+    private float speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Speed {
+    public float Speed {
       get { return speed_; }
       set {
         speed_ = value;
@@ -3924,7 +3912,7 @@ namespace Communication.Protobuf {
       if (Id != other.Id) return false;
       if (Name != other.Name) return false;
       if (Damage != other.Damage) return false;
-      if (Speed != other.Speed) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Size, other.Size)) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Direction, other.Direction)) return false;
@@ -3938,7 +3926,7 @@ namespace Communication.Protobuf {
       if (Id != 0UL) hash ^= Id.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Damage != 0) hash ^= Damage.GetHashCode();
-      if (Speed != 0) hash ^= Speed.GetHashCode();
+      if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
       if (Size != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Size);
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Direction != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Direction);
@@ -3972,9 +3960,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteUInt32(Damage);
       }
-      if (Speed != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
       if (Size != 0F) {
         output.WriteRawTag(45);
@@ -4010,9 +3998,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteUInt32(Damage);
       }
-      if (Speed != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
       if (Size != 0F) {
         output.WriteRawTag(45);
@@ -4045,8 +4033,8 @@ namespace Communication.Protobuf {
       if (Damage != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Damage);
       }
-      if (Speed != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Speed);
+      if (Speed != 0F) {
+        size += 1 + 4;
       }
       if (Size != 0F) {
         size += 1 + 4;
@@ -4078,7 +4066,7 @@ namespace Communication.Protobuf {
       if (other.Damage != 0) {
         Damage = other.Damage;
       }
-      if (other.Speed != 0) {
+      if (other.Speed != 0F) {
         Speed = other.Speed;
       }
       if (other.Size != 0F) {
@@ -4120,8 +4108,8 @@ namespace Communication.Protobuf {
             Damage = input.ReadUInt32();
             break;
           }
-          case 32: {
-            Speed = input.ReadUInt32();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
           case 45: {
@@ -4166,8 +4154,8 @@ namespace Communication.Protobuf {
             Damage = input.ReadUInt32();
             break;
           }
-          case 32: {
-            Speed = input.ReadUInt32();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
           case 45: {
@@ -4192,7 +4180,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ZoneInfo : pb::IMessage<ZoneInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4428,7 +4415,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Position : pb::IMessage<Position>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4476,10 +4462,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
-    private long x_;
+    private float x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long X {
+    public float X {
       get { return x_; }
       set {
         x_ = value;
@@ -4488,10 +4474,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 2;
-    private long y_;
+    private float y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long Y {
+    public float Y {
       get { return y_; }
       set {
         y_ = value;
@@ -4513,8 +4499,8 @@ namespace Communication.Protobuf {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (X != other.X) return false;
-      if (Y != other.Y) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4522,8 +4508,8 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0L) hash ^= X.GetHashCode();
-      if (Y != 0L) hash ^= Y.GetHashCode();
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4542,13 +4528,13 @@ namespace Communication.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -4560,13 +4546,13 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -4578,11 +4564,11 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(X);
+      if (X != 0F) {
+        size += 1 + 4;
       }
-      if (Y != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Y);
+      if (Y != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4596,10 +4582,10 @@ namespace Communication.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.X != 0L) {
+      if (other.X != 0F) {
         X = other.X;
       }
-      if (other.Y != 0L) {
+      if (other.Y != 0F) {
         Y = other.Y;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -4617,12 +4603,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            X = input.ReadInt64();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadInt64();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
         }
@@ -4640,12 +4626,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            X = input.ReadInt64();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadInt64();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
         }
@@ -4655,7 +4641,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class KillEvent : pb::IMessage<KillEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4927,7 +4912,6 @@ namespace Communication.Protobuf {
   ///- projectiles: projectile list, used on STATE_UPDATE
   ///- player_joined_id: ID of the player that joined the game
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldGameEvent : pb::IMessage<OldGameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5115,10 +5099,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "playable_radius" field.</summary>
     public const int PlayableRadiusFieldNumber = 12;
-    private ulong playableRadius_;
+    private float playableRadius_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong PlayableRadius {
+    public float PlayableRadius {
       get { return playableRadius_; }
       set {
         playableRadius_ = value;
@@ -5174,7 +5158,7 @@ namespace Communication.Protobuf {
       if (PlayerTimestamp != other.PlayerTimestamp) return false;
       if (ServerTimestamp != other.ServerTimestamp) return false;
       if(!killfeed_.Equals(other.killfeed_)) return false;
-      if (PlayableRadius != other.PlayableRadius) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PlayableRadius, other.PlayableRadius)) return false;
       if (!object.Equals(ShrinkingCenter, other.ShrinkingCenter)) return false;
       if(!loots_.Equals(other.loots_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -5195,7 +5179,7 @@ namespace Communication.Protobuf {
       if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
       if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
       hash ^= killfeed_.GetHashCode();
-      if (PlayableRadius != 0UL) hash ^= PlayableRadius.GetHashCode();
+      if (PlayableRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PlayableRadius);
       if (shrinkingCenter_ != null) hash ^= ShrinkingCenter.GetHashCode();
       hash ^= loots_.GetHashCode();
       if (_unknownFields != null) {
@@ -5248,9 +5232,9 @@ namespace Communication.Protobuf {
         output.WriteInt64(ServerTimestamp);
       }
       killfeed_.WriteTo(output, _repeated_killfeed_codec);
-      if (PlayableRadius != 0UL) {
-        output.WriteRawTag(96);
-        output.WriteUInt64(PlayableRadius);
+      if (PlayableRadius != 0F) {
+        output.WriteRawTag(101);
+        output.WriteFloat(PlayableRadius);
       }
       if (shrinkingCenter_ != null) {
         output.WriteRawTag(106);
@@ -5299,9 +5283,9 @@ namespace Communication.Protobuf {
         output.WriteInt64(ServerTimestamp);
       }
       killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
-      if (PlayableRadius != 0UL) {
-        output.WriteRawTag(96);
-        output.WriteUInt64(PlayableRadius);
+      if (PlayableRadius != 0F) {
+        output.WriteRawTag(101);
+        output.WriteFloat(PlayableRadius);
       }
       if (shrinkingCenter_ != null) {
         output.WriteRawTag(106);
@@ -5343,8 +5327,8 @@ namespace Communication.Protobuf {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
       }
       size += killfeed_.CalculateSize(_repeated_killfeed_codec);
-      if (PlayableRadius != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayableRadius);
+      if (PlayableRadius != 0F) {
+        size += 1 + 4;
       }
       if (shrinkingCenter_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShrinkingCenter);
@@ -5390,7 +5374,7 @@ namespace Communication.Protobuf {
         ServerTimestamp = other.ServerTimestamp;
       }
       killfeed_.Add(other.killfeed_);
-      if (other.PlayableRadius != 0UL) {
+      if (other.PlayableRadius != 0F) {
         PlayableRadius = other.PlayableRadius;
       }
       if (other.shrinkingCenter_ != null) {
@@ -5462,8 +5446,8 @@ namespace Communication.Protobuf {
             killfeed_.AddEntriesFrom(input, _repeated_killfeed_codec);
             break;
           }
-          case 96: {
-            PlayableRadius = input.ReadUInt64();
+          case 101: {
+            PlayableRadius = input.ReadFloat();
             break;
           }
           case 106: {
@@ -5539,8 +5523,8 @@ namespace Communication.Protobuf {
             killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
             break;
           }
-          case 96: {
-            PlayableRadius = input.ReadUInt64();
+          case 101: {
+            PlayableRadius = input.ReadFloat();
             break;
           }
           case 106: {
@@ -5561,7 +5545,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerCharacter : pb::IMessage<PlayerCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5801,7 +5784,6 @@ namespace Communication.Protobuf {
   ///- character_name: Name of the player's character
   ///- effects: The effects that are active on the player
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldPlayer : pb::IMessage<OldPlayer>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6633,7 +6615,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldActionTracker : pb::IMessage<OldActionTracker>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6860,7 +6841,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldEffectInfo : pb::IMessage<OldEffectInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7096,7 +7076,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldKillEvent : pb::IMessage<OldKillEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7328,7 +7307,6 @@ namespace Communication.Protobuf {
   ///- x: X coordinate in the grid
   ///- y: Y coordinate in the grid
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldPosition : pb::IMessage<OldPosition>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7376,10 +7354,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
-    private ulong x_;
+    private float x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong X {
+    public float X {
       get { return x_; }
       set {
         x_ = value;
@@ -7388,10 +7366,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 2;
-    private ulong y_;
+    private float y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Y {
+    public float Y {
       get { return y_; }
       set {
         y_ = value;
@@ -7413,8 +7391,8 @@ namespace Communication.Protobuf {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (X != other.X) return false;
-      if (Y != other.Y) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -7422,8 +7400,8 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0UL) hash ^= X.GetHashCode();
-      if (Y != 0UL) hash ^= Y.GetHashCode();
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -7442,13 +7420,13 @@ namespace Communication.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -7460,13 +7438,13 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -7478,11 +7456,11 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(X);
+      if (X != 0F) {
+        size += 1 + 4;
       }
-      if (Y != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Y);
+      if (Y != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -7496,10 +7474,10 @@ namespace Communication.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.X != 0UL) {
+      if (other.X != 0F) {
         X = other.X;
       }
-      if (other.Y != 0UL) {
+      if (other.Y != 0F) {
         Y = other.Y;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -7517,12 +7495,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            X = input.ReadUInt64();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadUInt64();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
         }
@@ -7540,12 +7518,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            X = input.ReadUInt64();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadUInt64();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
         }
@@ -7560,7 +7538,6 @@ namespace Communication.Protobuf {
   ///- x: X coordinate between -1 and 1
   ///- y: Y coordinate between -1 and 1
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7796,7 +7773,6 @@ namespace Communication.Protobuf {
   ///- target: player id to autoattack
   ///- timestamp: client's time at the moment they send the action
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ClientAction : pb::IMessage<ClientAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8284,7 +8260,6 @@ namespace Communication.Protobuf {
   ///- removed_player_info: Information of any player leaving the lobby, used on PLAYER_REMOVED
   ///- host_player_id: ID of the player considered host of the lobby, used on PLAYER_ADDED, PLAYER_REMOVED
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8948,7 +8923,6 @@ namespace Communication.Protobuf {
   ///- player_id: Internal ID used by backend to identify the player/client
   ///- player_name: Name to use to identify the player/client
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerInformation : pb::IMessage<PlayerInformation>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9175,7 +9149,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class RunnerConfig : pb::IMessage<RunnerConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9735,7 +9708,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameConfig : pb::IMessage<GameConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10008,7 +9980,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class BoardSize : pb::IMessage<BoardSize>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10056,10 +10027,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "width" field.</summary>
     public const int WidthFieldNumber = 1;
-    private ulong width_;
+    private float width_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Width {
+    public float Width {
       get { return width_; }
       set {
         width_ = value;
@@ -10068,10 +10039,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "height" field.</summary>
     public const int HeightFieldNumber = 2;
-    private ulong height_;
+    private float height_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Height {
+    public float Height {
       get { return height_; }
       set {
         height_ = value;
@@ -10093,8 +10064,8 @@ namespace Communication.Protobuf {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Width != other.Width) return false;
-      if (Height != other.Height) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Width, other.Width)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Height, other.Height)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -10102,8 +10073,8 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Width != 0UL) hash ^= Width.GetHashCode();
-      if (Height != 0UL) hash ^= Height.GetHashCode();
+      if (Width != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Width);
+      if (Height != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Height);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -10122,13 +10093,13 @@ namespace Communication.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Width != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(Width);
+      if (Width != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Width);
       }
-      if (Height != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Height);
+      if (Height != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Height);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -10140,13 +10111,13 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Width != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(Width);
+      if (Width != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Width);
       }
-      if (Height != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Height);
+      if (Height != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Height);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -10158,11 +10129,11 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Width != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Width);
+      if (Width != 0F) {
+        size += 1 + 4;
       }
-      if (Height != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
+      if (Height != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -10176,10 +10147,10 @@ namespace Communication.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.Width != 0UL) {
+      if (other.Width != 0F) {
         Width = other.Width;
       }
-      if (other.Height != 0UL) {
+      if (other.Height != 0F) {
         Height = other.Height;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -10197,12 +10168,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Width = input.ReadUInt64();
+          case 13: {
+            Width = input.ReadFloat();
             break;
           }
-          case 16: {
-            Height = input.ReadUInt64();
+          case 21: {
+            Height = input.ReadFloat();
             break;
           }
         }
@@ -10220,12 +10191,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Width = input.ReadUInt64();
+          case 13: {
+            Width = input.ReadFloat();
             break;
           }
-          case 16: {
-            Height = input.ReadUInt64();
+          case 21: {
+            Height = input.ReadFloat();
             break;
           }
         }
@@ -10235,7 +10206,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigItem>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10832,7 +10802,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11011,7 +10980,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillsConfig : pb::IMessage<SkillsConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11190,7 +11158,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11972,7 +11939,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12274,7 +12240,6 @@ namespace Communication.Protobuf {
   ///- remaining_ticks: OldProjectile remaining lifetime
   ///- type: OldProjectile type depending on the attack
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldProjectile : pb::IMessage<OldProjectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12369,10 +12334,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "speed" field.</summary>
     public const int SpeedFieldNumber = 4;
-    private uint speed_;
+    private float speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Speed {
+    public float Speed {
       get { return speed_; }
       set {
         speed_ = value;
@@ -12381,10 +12346,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "range" field.</summary>
     public const int RangeFieldNumber = 5;
-    private uint range_;
+    private float range_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Range {
+    public float Range {
       get { return range_; }
       set {
         range_ = value;
@@ -12505,8 +12470,8 @@ namespace Communication.Protobuf {
       if (Id != other.Id) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Direction, other.Direction)) return false;
-      if (Speed != other.Speed) return false;
-      if (Range != other.Range) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Range, other.Range)) return false;
       if (PlayerId != other.PlayerId) return false;
       if (Damage != other.Damage) return false;
       if (RemainingTicks != other.RemainingTicks) return false;
@@ -12525,8 +12490,8 @@ namespace Communication.Protobuf {
       if (Id != 0UL) hash ^= Id.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (direction_ != null) hash ^= Direction.GetHashCode();
-      if (Speed != 0) hash ^= Speed.GetHashCode();
-      if (Range != 0) hash ^= Range.GetHashCode();
+      if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+      if (Range != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Range);
       if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
       if (Damage != 0) hash ^= Damage.GetHashCode();
       if (RemainingTicks != 0L) hash ^= RemainingTicks.GetHashCode();
@@ -12565,13 +12530,13 @@ namespace Communication.Protobuf {
         output.WriteRawTag(26);
         output.WriteMessage(Direction);
       }
-      if (Speed != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
-      if (Range != 0) {
-        output.WriteRawTag(40);
-        output.WriteUInt32(Range);
+      if (Range != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Range);
       }
       if (PlayerId != 0UL) {
         output.WriteRawTag(48);
@@ -12627,13 +12592,13 @@ namespace Communication.Protobuf {
         output.WriteRawTag(26);
         output.WriteMessage(Direction);
       }
-      if (Speed != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Speed);
+      if (Speed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Speed);
       }
-      if (Range != 0) {
-        output.WriteRawTag(40);
-        output.WriteUInt32(Range);
+      if (Range != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Range);
       }
       if (PlayerId != 0UL) {
         output.WriteRawTag(48);
@@ -12686,11 +12651,11 @@ namespace Communication.Protobuf {
       if (direction_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Direction);
       }
-      if (Speed != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Speed);
+      if (Speed != 0F) {
+        size += 1 + 4;
       }
-      if (Range != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Range);
+      if (Range != 0F) {
+        size += 1 + 4;
       }
       if (PlayerId != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
@@ -12743,10 +12708,10 @@ namespace Communication.Protobuf {
         }
         Direction.MergeFrom(other.Direction);
       }
-      if (other.Speed != 0) {
+      if (other.Speed != 0F) {
         Speed = other.Speed;
       }
-      if (other.Range != 0) {
+      if (other.Range != 0F) {
         Range = other.Range;
       }
       if (other.PlayerId != 0UL) {
@@ -12806,12 +12771,12 @@ namespace Communication.Protobuf {
             input.ReadMessage(Direction);
             break;
           }
-          case 32: {
-            Speed = input.ReadUInt32();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
-          case 40: {
-            Range = input.ReadUInt32();
+          case 45: {
+            Range = input.ReadFloat();
             break;
           }
           case 48: {
@@ -12879,12 +12844,12 @@ namespace Communication.Protobuf {
             input.ReadMessage(Direction);
             break;
           }
-          case 32: {
-            Speed = input.ReadUInt32();
+          case 37: {
+            Speed = input.ReadFloat();
             break;
           }
-          case 40: {
-            Range = input.ReadUInt32();
+          case 45: {
+            Range = input.ReadFloat();
             break;
           }
           case 48: {
@@ -12936,7 +12901,6 @@ namespace Communication.Protobuf {
   ///- If you need to use remaining time in milliseconds, you can use only low field
   ///- because high field will be 0
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class MillisTime : pb::IMessage<MillisTime>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13169,7 +13133,6 @@ namespace Communication.Protobuf {
   ///- position: OldPosition of the loot
   ///- loot_type: Type of loot
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class LootPackage : pb::IMessage<LootPackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13442,7 +13405,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Config : pb::IMessage<Config>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13778,7 +13740,6 @@ namespace Communication.Protobuf {
   ///- map_modification: If present, contains the information for when the map modification mechanic is triggered
   ///- loot_interval_ms: If present, interval in milliseconds for spawning loot crates
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13828,10 +13789,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "width" field.</summary>
     public const int WidthFieldNumber = 1;
-    private ulong width_;
+    private float width_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Width {
+    public float Width {
       get { return width_; }
       set {
         width_ = value;
@@ -13840,10 +13801,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "height" field.</summary>
     public const int HeightFieldNumber = 2;
-    private ulong height_;
+    private float height_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Height {
+    public float Height {
       get { return height_; }
       set {
         height_ = value;
@@ -13889,8 +13850,8 @@ namespace Communication.Protobuf {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Width != other.Width) return false;
-      if (Height != other.Height) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Width, other.Width)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Height, other.Height)) return false;
       if (!object.Equals(MapModification, other.MapModification)) return false;
       if (LootIntervalMs != other.LootIntervalMs) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -13900,8 +13861,8 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Width != 0UL) hash ^= Width.GetHashCode();
-      if (Height != 0UL) hash ^= Height.GetHashCode();
+      if (Width != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Width);
+      if (Height != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Height);
       if (mapModification_ != null) hash ^= MapModification.GetHashCode();
       if (LootIntervalMs != 0UL) hash ^= LootIntervalMs.GetHashCode();
       if (_unknownFields != null) {
@@ -13922,13 +13883,13 @@ namespace Communication.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Width != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(Width);
+      if (Width != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Width);
       }
-      if (Height != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Height);
+      if (Height != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Height);
       }
       if (mapModification_ != null) {
         output.WriteRawTag(26);
@@ -13948,13 +13909,13 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Width != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(Width);
+      if (Width != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Width);
       }
-      if (Height != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Height);
+      if (Height != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Height);
       }
       if (mapModification_ != null) {
         output.WriteRawTag(26);
@@ -13974,11 +13935,11 @@ namespace Communication.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Width != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Width);
+      if (Width != 0F) {
+        size += 1 + 4;
       }
-      if (Height != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Height);
+      if (Height != 0F) {
+        size += 1 + 4;
       }
       if (mapModification_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MapModification);
@@ -13998,10 +13959,10 @@ namespace Communication.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.Width != 0UL) {
+      if (other.Width != 0F) {
         Width = other.Width;
       }
-      if (other.Height != 0UL) {
+      if (other.Height != 0F) {
         Height = other.Height;
       }
       if (other.mapModification_ != null) {
@@ -14028,12 +13989,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Width = input.ReadUInt64();
+          case 13: {
+            Width = input.ReadFloat();
             break;
           }
-          case 16: {
-            Height = input.ReadUInt64();
+          case 21: {
+            Height = input.ReadFloat();
             break;
           }
           case 26: {
@@ -14062,12 +14023,12 @@ namespace Communication.Protobuf {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Width = input.ReadUInt64();
+          case 13: {
+            Width = input.ReadFloat();
             break;
           }
-          case 16: {
-            Height = input.ReadUInt64();
+          case 21: {
+            Height = input.ReadFloat();
             break;
           }
           case 26: {
@@ -14097,7 +14058,6 @@ namespace Communication.Protobuf {
   ///- outside_radius_effects: Effects given when a player is outside the playable area.
   ///- inside_radius_effects: Effects given when a player is inside the playable area.
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class MapModification : pb::IMessage<MapModification>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14161,10 +14121,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "starting_radius" field.</summary>
     public const int StartingRadiusFieldNumber = 2;
-    private ulong startingRadius_;
+    private float startingRadius_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong StartingRadius {
+    public float StartingRadius {
       get { return startingRadius_; }
       set {
         startingRadius_ = value;
@@ -14173,10 +14133,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "minimum_radius" field.</summary>
     public const int MinimumRadiusFieldNumber = 3;
-    private ulong minimumRadius_;
+    private float minimumRadius_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong MinimumRadius {
+    public float MinimumRadius {
       get { return minimumRadius_; }
       set {
         minimumRadius_ = value;
@@ -14185,10 +14145,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "max_radius" field.</summary>
     public const int MaxRadiusFieldNumber = 4;
-    private ulong maxRadius_;
+    private float maxRadius_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong MaxRadius {
+    public float MaxRadius {
       get { return maxRadius_; }
       set {
         maxRadius_ = value;
@@ -14233,9 +14193,9 @@ namespace Communication.Protobuf {
         return true;
       }
       if (!object.Equals(Modification, other.Modification)) return false;
-      if (StartingRadius != other.StartingRadius) return false;
-      if (MinimumRadius != other.MinimumRadius) return false;
-      if (MaxRadius != other.MaxRadius) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(StartingRadius, other.StartingRadius)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MinimumRadius, other.MinimumRadius)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxRadius, other.MaxRadius)) return false;
       if(!outsideRadiusEffects_.Equals(other.outsideRadiusEffects_)) return false;
       if(!insideRadiusEffects_.Equals(other.insideRadiusEffects_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -14246,9 +14206,9 @@ namespace Communication.Protobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (modification_ != null) hash ^= Modification.GetHashCode();
-      if (StartingRadius != 0UL) hash ^= StartingRadius.GetHashCode();
-      if (MinimumRadius != 0UL) hash ^= MinimumRadius.GetHashCode();
-      if (MaxRadius != 0UL) hash ^= MaxRadius.GetHashCode();
+      if (StartingRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(StartingRadius);
+      if (MinimumRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MinimumRadius);
+      if (MaxRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxRadius);
       hash ^= outsideRadiusEffects_.GetHashCode();
       hash ^= insideRadiusEffects_.GetHashCode();
       if (_unknownFields != null) {
@@ -14273,17 +14233,17 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteMessage(Modification);
       }
-      if (StartingRadius != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(StartingRadius);
+      if (StartingRadius != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(StartingRadius);
       }
-      if (MinimumRadius != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(MinimumRadius);
+      if (MinimumRadius != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(MinimumRadius);
       }
-      if (MaxRadius != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(MaxRadius);
+      if (MaxRadius != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(MaxRadius);
       }
       outsideRadiusEffects_.WriteTo(output, _repeated_outsideRadiusEffects_codec);
       insideRadiusEffects_.WriteTo(output, _repeated_insideRadiusEffects_codec);
@@ -14301,17 +14261,17 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteMessage(Modification);
       }
-      if (StartingRadius != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(StartingRadius);
+      if (StartingRadius != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(StartingRadius);
       }
-      if (MinimumRadius != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(MinimumRadius);
+      if (MinimumRadius != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(MinimumRadius);
       }
-      if (MaxRadius != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(MaxRadius);
+      if (MaxRadius != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(MaxRadius);
       }
       outsideRadiusEffects_.WriteTo(ref output, _repeated_outsideRadiusEffects_codec);
       insideRadiusEffects_.WriteTo(ref output, _repeated_insideRadiusEffects_codec);
@@ -14328,14 +14288,14 @@ namespace Communication.Protobuf {
       if (modification_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Modification);
       }
-      if (StartingRadius != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(StartingRadius);
+      if (StartingRadius != 0F) {
+        size += 1 + 4;
       }
-      if (MinimumRadius != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MinimumRadius);
+      if (MinimumRadius != 0F) {
+        size += 1 + 4;
       }
-      if (MaxRadius != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxRadius);
+      if (MaxRadius != 0F) {
+        size += 1 + 4;
       }
       size += outsideRadiusEffects_.CalculateSize(_repeated_outsideRadiusEffects_codec);
       size += insideRadiusEffects_.CalculateSize(_repeated_insideRadiusEffects_codec);
@@ -14357,13 +14317,13 @@ namespace Communication.Protobuf {
         }
         Modification.MergeFrom(other.Modification);
       }
-      if (other.StartingRadius != 0UL) {
+      if (other.StartingRadius != 0F) {
         StartingRadius = other.StartingRadius;
       }
-      if (other.MinimumRadius != 0UL) {
+      if (other.MinimumRadius != 0F) {
         MinimumRadius = other.MinimumRadius;
       }
-      if (other.MaxRadius != 0UL) {
+      if (other.MaxRadius != 0F) {
         MaxRadius = other.MaxRadius;
       }
       outsideRadiusEffects_.Add(other.outsideRadiusEffects_);
@@ -14390,16 +14350,16 @@ namespace Communication.Protobuf {
             input.ReadMessage(Modification);
             break;
           }
-          case 16: {
-            StartingRadius = input.ReadUInt64();
+          case 21: {
+            StartingRadius = input.ReadFloat();
             break;
           }
-          case 24: {
-            MinimumRadius = input.ReadUInt64();
+          case 29: {
+            MinimumRadius = input.ReadFloat();
             break;
           }
-          case 32: {
-            MaxRadius = input.ReadUInt64();
+          case 37: {
+            MaxRadius = input.ReadFloat();
             break;
           }
           case 42: {
@@ -14432,16 +14392,16 @@ namespace Communication.Protobuf {
             input.ReadMessage(Modification);
             break;
           }
-          case 16: {
-            StartingRadius = input.ReadUInt64();
+          case 21: {
+            StartingRadius = input.ReadFloat();
             break;
           }
-          case 24: {
-            MinimumRadius = input.ReadUInt64();
+          case 29: {
+            MinimumRadius = input.ReadFloat();
             break;
           }
-          case 32: {
-            MaxRadius = input.ReadUInt64();
+          case 37: {
+            MaxRadius = input.ReadFloat();
             break;
           }
           case 42: {
@@ -14467,7 +14427,6 @@ namespace Communication.Protobuf {
   ///- override: Given value is set as the attribute value
   ///- value: The value we are using for the changemessage Modification
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Modification : pb::IMessage<Modification>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14700,7 +14659,6 @@ namespace Communication.Protobuf {
   ///- size: radius size of the loot
   ///- effects: List of effects the loot will give out
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameLoot : pb::IMessage<GameLoot>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14761,10 +14719,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "size" field.</summary>
     public const int SizeFieldNumber = 2;
-    private ulong size_;
+    private float size_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Size {
+    public float Size {
       get { return size_; }
       set {
         size_ = value;
@@ -14798,7 +14756,7 @@ namespace Communication.Protobuf {
         return true;
       }
       if (Name != other.Name) return false;
-      if (Size != other.Size) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Size, other.Size)) return false;
       if(!effects_.Equals(other.effects_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -14808,7 +14766,7 @@ namespace Communication.Protobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (Size != 0UL) hash ^= Size.GetHashCode();
+      if (Size != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Size);
       hash ^= effects_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -14832,9 +14790,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (Size != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Size);
+      if (Size != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Size);
       }
       effects_.WriteTo(output, _repeated_effects_codec);
       if (_unknownFields != null) {
@@ -14851,9 +14809,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (Size != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Size);
+      if (Size != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Size);
       }
       effects_.WriteTo(ref output, _repeated_effects_codec);
       if (_unknownFields != null) {
@@ -14869,8 +14827,8 @@ namespace Communication.Protobuf {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (Size != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Size);
+      if (Size != 0F) {
+        size += 1 + 4;
       }
       size += effects_.CalculateSize(_repeated_effects_codec);
       if (_unknownFields != null) {
@@ -14888,7 +14846,7 @@ namespace Communication.Protobuf {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
-      if (other.Size != 0UL) {
+      if (other.Size != 0F) {
         Size = other.Size;
       }
       effects_.Add(other.effects_);
@@ -14911,8 +14869,8 @@ namespace Communication.Protobuf {
             Name = input.ReadString();
             break;
           }
-          case 16: {
-            Size = input.ReadUInt64();
+          case 21: {
+            Size = input.ReadFloat();
             break;
           }
           case 26: {
@@ -14938,8 +14896,8 @@ namespace Communication.Protobuf {
             Name = input.ReadString();
             break;
           }
-          case 16: {
-            Size = input.ReadUInt64();
+          case 21: {
+            Size = input.ReadFloat();
             break;
           }
           case 26: {
@@ -14964,7 +14922,6 @@ namespace Communication.Protobuf {
   ///- `duration_ms`: Defines how long in milliseconds the projectile can exist
   ///- `max_distance`: Defines the maximum distance the projectile can travel
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -15042,10 +14999,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "base_speed" field.</summary>
     public const int BaseSpeedFieldNumber = 3;
-    private ulong baseSpeed_;
+    private float baseSpeed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong BaseSpeed {
+    public float BaseSpeed {
       get { return baseSpeed_; }
       set {
         baseSpeed_ = value;
@@ -15054,10 +15011,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "base_size" field.</summary>
     public const int BaseSizeFieldNumber = 4;
-    private ulong baseSize_;
+    private float baseSize_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong BaseSize {
+    public float BaseSize {
       get { return baseSize_; }
       set {
         baseSize_ = value;
@@ -15089,10 +15046,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "max_distance" field.</summary>
     public const int MaxDistanceFieldNumber = 7;
-    private ulong maxDistance_;
+    private float maxDistance_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong MaxDistance {
+    public float MaxDistance {
       get { return maxDistance_; }
       set {
         maxDistance_ = value;
@@ -15128,11 +15085,11 @@ namespace Communication.Protobuf {
       }
       if (Name != other.Name) return false;
       if (BaseDamage != other.BaseDamage) return false;
-      if (BaseSpeed != other.BaseSpeed) return false;
-      if (BaseSize != other.BaseSize) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSize, other.BaseSize)) return false;
       if (RemoveOnCollision != other.RemoveOnCollision) return false;
       if(!onHitEffect_.Equals(other.onHitEffect_)) return false;
-      if (MaxDistance != other.MaxDistance) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxDistance, other.MaxDistance)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DurationMs, other.DurationMs)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -15143,11 +15100,11 @@ namespace Communication.Protobuf {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (BaseDamage != 0UL) hash ^= BaseDamage.GetHashCode();
-      if (BaseSpeed != 0UL) hash ^= BaseSpeed.GetHashCode();
-      if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
+      if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
+      if (BaseSize != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSize);
       if (RemoveOnCollision != false) hash ^= RemoveOnCollision.GetHashCode();
       hash ^= onHitEffect_.GetHashCode();
-      if (MaxDistance != 0UL) hash ^= MaxDistance.GetHashCode();
+      if (MaxDistance != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxDistance);
       if (DurationMs != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DurationMs);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -15175,22 +15132,22 @@ namespace Communication.Protobuf {
         output.WriteRawTag(16);
         output.WriteUInt64(BaseDamage);
       }
-      if (BaseSpeed != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(BaseSpeed);
       }
-      if (BaseSize != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(BaseSize);
+      if (BaseSize != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BaseSize);
       }
       if (RemoveOnCollision != false) {
         output.WriteRawTag(40);
         output.WriteBool(RemoveOnCollision);
       }
       onHitEffect_.WriteTo(output, _repeated_onHitEffect_codec);
-      if (MaxDistance != 0UL) {
-        output.WriteRawTag(56);
-        output.WriteUInt64(MaxDistance);
+      if (MaxDistance != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(MaxDistance);
       }
       if (DurationMs != 0F) {
         output.WriteRawTag(69);
@@ -15214,22 +15171,22 @@ namespace Communication.Protobuf {
         output.WriteRawTag(16);
         output.WriteUInt64(BaseDamage);
       }
-      if (BaseSpeed != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(BaseSpeed);
       }
-      if (BaseSize != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(BaseSize);
+      if (BaseSize != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BaseSize);
       }
       if (RemoveOnCollision != false) {
         output.WriteRawTag(40);
         output.WriteBool(RemoveOnCollision);
       }
       onHitEffect_.WriteTo(ref output, _repeated_onHitEffect_codec);
-      if (MaxDistance != 0UL) {
-        output.WriteRawTag(56);
-        output.WriteUInt64(MaxDistance);
+      if (MaxDistance != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(MaxDistance);
       }
       if (DurationMs != 0F) {
         output.WriteRawTag(69);
@@ -15251,18 +15208,18 @@ namespace Communication.Protobuf {
       if (BaseDamage != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseDamage);
       }
-      if (BaseSpeed != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        size += 1 + 4;
       }
-      if (BaseSize != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
+      if (BaseSize != 0F) {
+        size += 1 + 4;
       }
       if (RemoveOnCollision != false) {
         size += 1 + 1;
       }
       size += onHitEffect_.CalculateSize(_repeated_onHitEffect_codec);
-      if (MaxDistance != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxDistance);
+      if (MaxDistance != 0F) {
+        size += 1 + 4;
       }
       if (DurationMs != 0F) {
         size += 1 + 4;
@@ -15285,17 +15242,17 @@ namespace Communication.Protobuf {
       if (other.BaseDamage != 0UL) {
         BaseDamage = other.BaseDamage;
       }
-      if (other.BaseSpeed != 0UL) {
+      if (other.BaseSpeed != 0F) {
         BaseSpeed = other.BaseSpeed;
       }
-      if (other.BaseSize != 0UL) {
+      if (other.BaseSize != 0F) {
         BaseSize = other.BaseSize;
       }
       if (other.RemoveOnCollision != false) {
         RemoveOnCollision = other.RemoveOnCollision;
       }
       onHitEffect_.Add(other.onHitEffect_);
-      if (other.MaxDistance != 0UL) {
+      if (other.MaxDistance != 0F) {
         MaxDistance = other.MaxDistance;
       }
       if (other.DurationMs != 0F) {
@@ -15324,12 +15281,12 @@ namespace Communication.Protobuf {
             BaseDamage = input.ReadUInt64();
             break;
           }
-          case 24: {
-            BaseSpeed = input.ReadUInt64();
+          case 29: {
+            BaseSpeed = input.ReadFloat();
             break;
           }
-          case 32: {
-            BaseSize = input.ReadUInt64();
+          case 37: {
+            BaseSize = input.ReadFloat();
             break;
           }
           case 40: {
@@ -15340,8 +15297,8 @@ namespace Communication.Protobuf {
             onHitEffect_.AddEntriesFrom(input, _repeated_onHitEffect_codec);
             break;
           }
-          case 56: {
-            MaxDistance = input.ReadUInt64();
+          case 61: {
+            MaxDistance = input.ReadFloat();
             break;
           }
           case 69: {
@@ -15371,12 +15328,12 @@ namespace Communication.Protobuf {
             BaseDamage = input.ReadUInt64();
             break;
           }
-          case 24: {
-            BaseSpeed = input.ReadUInt64();
+          case 29: {
+            BaseSpeed = input.ReadFloat();
             break;
           }
-          case 32: {
-            BaseSize = input.ReadUInt64();
+          case 37: {
+            BaseSize = input.ReadFloat();
             break;
           }
           case 40: {
@@ -15387,8 +15344,8 @@ namespace Communication.Protobuf {
             onHitEffect_.AddEntriesFrom(ref input, _repeated_onHitEffect_codec);
             break;
           }
-          case 56: {
-            MaxDistance = input.ReadUInt64();
+          case 61: {
+            MaxDistance = input.ReadFloat();
             break;
           }
           case 69: {
@@ -15411,7 +15368,6 @@ namespace Communication.Protobuf {
   ///- base_health: Base health of the character.
   ///- skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -15487,10 +15443,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "base_speed" field.</summary>
     public const int BaseSpeedFieldNumber = 3;
-    private ulong baseSpeed_;
+    private float baseSpeed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong BaseSpeed {
+    public float BaseSpeed {
       get { return baseSpeed_; }
       set {
         baseSpeed_ = value;
@@ -15499,10 +15455,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "base_size" field.</summary>
     public const int BaseSizeFieldNumber = 4;
-    private ulong baseSize_;
+    private float baseSize_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong BaseSize {
+    public float BaseSize {
       get { return baseSize_; }
       set {
         baseSize_ = value;
@@ -15549,8 +15505,8 @@ namespace Communication.Protobuf {
       }
       if (Name != other.Name) return false;
       if (Active != other.Active) return false;
-      if (BaseSpeed != other.BaseSpeed) return false;
-      if (BaseSize != other.BaseSize) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSpeed, other.BaseSpeed)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BaseSize, other.BaseSize)) return false;
       if (BaseHealth != other.BaseHealth) return false;
       if (!Skills.Equals(other.Skills)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -15562,8 +15518,8 @@ namespace Communication.Protobuf {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Active != false) hash ^= Active.GetHashCode();
-      if (BaseSpeed != 0UL) hash ^= BaseSpeed.GetHashCode();
-      if (BaseSize != 0UL) hash ^= BaseSize.GetHashCode();
+      if (BaseSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSpeed);
+      if (BaseSize != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BaseSize);
       if (BaseHealth != 0UL) hash ^= BaseHealth.GetHashCode();
       hash ^= Skills.GetHashCode();
       if (_unknownFields != null) {
@@ -15592,13 +15548,13 @@ namespace Communication.Protobuf {
         output.WriteRawTag(16);
         output.WriteBool(Active);
       }
-      if (BaseSpeed != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(BaseSpeed);
       }
-      if (BaseSize != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(BaseSize);
+      if (BaseSize != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BaseSize);
       }
       if (BaseHealth != 0UL) {
         output.WriteRawTag(40);
@@ -15623,13 +15579,13 @@ namespace Communication.Protobuf {
         output.WriteRawTag(16);
         output.WriteBool(Active);
       }
-      if (BaseSpeed != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(BaseSpeed);
       }
-      if (BaseSize != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(BaseSize);
+      if (BaseSize != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BaseSize);
       }
       if (BaseHealth != 0UL) {
         output.WriteRawTag(40);
@@ -15652,11 +15608,11 @@ namespace Communication.Protobuf {
       if (Active != false) {
         size += 1 + 1;
       }
-      if (BaseSpeed != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSpeed);
+      if (BaseSpeed != 0F) {
+        size += 1 + 4;
       }
-      if (BaseSize != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseSize);
+      if (BaseSize != 0F) {
+        size += 1 + 4;
       }
       if (BaseHealth != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BaseHealth);
@@ -15680,10 +15636,10 @@ namespace Communication.Protobuf {
       if (other.Active != false) {
         Active = other.Active;
       }
-      if (other.BaseSpeed != 0UL) {
+      if (other.BaseSpeed != 0F) {
         BaseSpeed = other.BaseSpeed;
       }
-      if (other.BaseSize != 0UL) {
+      if (other.BaseSize != 0F) {
         BaseSize = other.BaseSize;
       }
       if (other.BaseHealth != 0UL) {
@@ -15713,12 +15669,12 @@ namespace Communication.Protobuf {
             Active = input.ReadBool();
             break;
           }
-          case 24: {
-            BaseSpeed = input.ReadUInt64();
+          case 29: {
+            BaseSpeed = input.ReadFloat();
             break;
           }
-          case 32: {
-            BaseSize = input.ReadUInt64();
+          case 37: {
+            BaseSize = input.ReadFloat();
             break;
           }
           case 40: {
@@ -15752,12 +15708,12 @@ namespace Communication.Protobuf {
             Active = input.ReadBool();
             break;
           }
-          case 24: {
-            BaseSpeed = input.ReadUInt64();
+          case 29: {
+            BaseSpeed = input.ReadFloat();
             break;
           }
-          case 32: {
-            BaseSize = input.ReadUInt64();
+          case 37: {
+            BaseSize = input.ReadFloat();
             break;
           }
           case 40: {
@@ -15782,7 +15738,6 @@ namespace Communication.Protobuf {
   ///- is_passive: Marks the skill as a passive skill, this means it can't be triggered. Instead it will trigger on player spawn, so only `GiveEffect` makes sense for it.
   ///- mechanics: Core mechanic of the skill (e.g hit, shoot, etc).
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameSkill : pb::IMessage<GameSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16091,7 +16046,6 @@ namespace Communication.Protobuf {
   /// duration_ms: How long it takes to move the player, 0 means instantly.
   /// max_range: Maximum distance allowed to move, if target is beyond this limit movement will be capped to this point.
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Mechanic : pb::IMessage<Mechanic>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16182,10 +16136,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "range" field.</summary>
     public const int RangeFieldNumber = 4;
-    private ulong range_;
+    private float range_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Range {
+    public float Range {
       get { return range_; }
       set {
         range_ = value;
@@ -16253,10 +16207,10 @@ namespace Communication.Protobuf {
 
     /// <summary>Field number for the "max_range" field.</summary>
     public const int MaxRangeFieldNumber = 10;
-    private ulong maxRange_;
+    private float maxRange_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong MaxRange {
+    public float MaxRange {
       get { return maxRange_; }
       set {
         maxRange_ = value;
@@ -16281,13 +16235,13 @@ namespace Communication.Protobuf {
       if (Name != other.Name) return false;
       if(!effects_.Equals(other.effects_)) return false;
       if (Damage != other.Damage) return false;
-      if (Range != other.Range) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Range, other.Range)) return false;
       if (ConeAngle != other.ConeAngle) return false;
       if(!onHitEffects_.Equals(other.onHitEffects_)) return false;
       if (!object.Equals(Projectile, other.Projectile)) return false;
       if (Count != other.Count) return false;
       if (DurationMs != other.DurationMs) return false;
-      if (MaxRange != other.MaxRange) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MaxRange, other.MaxRange)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -16298,13 +16252,13 @@ namespace Communication.Protobuf {
       if (Name != global::Communication.Protobuf.MechanicType.Hit) hash ^= Name.GetHashCode();
       hash ^= effects_.GetHashCode();
       if (Damage != 0UL) hash ^= Damage.GetHashCode();
-      if (Range != 0UL) hash ^= Range.GetHashCode();
+      if (Range != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Range);
       if (ConeAngle != 0UL) hash ^= ConeAngle.GetHashCode();
       hash ^= onHitEffects_.GetHashCode();
       if (projectile_ != null) hash ^= Projectile.GetHashCode();
       if (Count != 0UL) hash ^= Count.GetHashCode();
       if (DurationMs != 0UL) hash ^= DurationMs.GetHashCode();
-      if (MaxRange != 0UL) hash ^= MaxRange.GetHashCode();
+      if (MaxRange != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MaxRange);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -16332,9 +16286,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteUInt64(Damage);
       }
-      if (Range != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(Range);
+      if (Range != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Range);
       }
       if (ConeAngle != 0UL) {
         output.WriteRawTag(40);
@@ -16353,9 +16307,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(72);
         output.WriteUInt64(DurationMs);
       }
-      if (MaxRange != 0UL) {
-        output.WriteRawTag(80);
-        output.WriteUInt64(MaxRange);
+      if (MaxRange != 0F) {
+        output.WriteRawTag(85);
+        output.WriteFloat(MaxRange);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -16376,9 +16330,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteUInt64(Damage);
       }
-      if (Range != 0UL) {
-        output.WriteRawTag(32);
-        output.WriteUInt64(Range);
+      if (Range != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Range);
       }
       if (ConeAngle != 0UL) {
         output.WriteRawTag(40);
@@ -16397,9 +16351,9 @@ namespace Communication.Protobuf {
         output.WriteRawTag(72);
         output.WriteUInt64(DurationMs);
       }
-      if (MaxRange != 0UL) {
-        output.WriteRawTag(80);
-        output.WriteUInt64(MaxRange);
+      if (MaxRange != 0F) {
+        output.WriteRawTag(85);
+        output.WriteFloat(MaxRange);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -16418,8 +16372,8 @@ namespace Communication.Protobuf {
       if (Damage != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Damage);
       }
-      if (Range != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Range);
+      if (Range != 0F) {
+        size += 1 + 4;
       }
       if (ConeAngle != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ConeAngle);
@@ -16434,8 +16388,8 @@ namespace Communication.Protobuf {
       if (DurationMs != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DurationMs);
       }
-      if (MaxRange != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MaxRange);
+      if (MaxRange != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -16456,7 +16410,7 @@ namespace Communication.Protobuf {
       if (other.Damage != 0UL) {
         Damage = other.Damage;
       }
-      if (other.Range != 0UL) {
+      if (other.Range != 0F) {
         Range = other.Range;
       }
       if (other.ConeAngle != 0UL) {
@@ -16475,7 +16429,7 @@ namespace Communication.Protobuf {
       if (other.DurationMs != 0UL) {
         DurationMs = other.DurationMs;
       }
-      if (other.MaxRange != 0UL) {
+      if (other.MaxRange != 0F) {
         MaxRange = other.MaxRange;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -16505,8 +16459,8 @@ namespace Communication.Protobuf {
             Damage = input.ReadUInt64();
             break;
           }
-          case 32: {
-            Range = input.ReadUInt64();
+          case 37: {
+            Range = input.ReadFloat();
             break;
           }
           case 40: {
@@ -16532,8 +16486,8 @@ namespace Communication.Protobuf {
             DurationMs = input.ReadUInt64();
             break;
           }
-          case 80: {
-            MaxRange = input.ReadUInt64();
+          case 85: {
+            MaxRange = input.ReadFloat();
             break;
           }
         }
@@ -16563,8 +16517,8 @@ namespace Communication.Protobuf {
             Damage = input.ReadUInt64();
             break;
           }
-          case 32: {
-            Range = input.ReadUInt64();
+          case 37: {
+            Range = input.ReadFloat();
             break;
           }
           case 40: {
@@ -16590,8 +16544,8 @@ namespace Communication.Protobuf {
             DurationMs = input.ReadUInt64();
             break;
           }
-          case 80: {
-            MaxRange = input.ReadUInt64();
+          case 85: {
+            MaxRange = input.ReadFloat();
             break;
           }
         }
@@ -16616,7 +16570,6 @@ namespace Communication.Protobuf {
   ///- player_attributes: Attributes changes that will be applied over the player having this effect
   ///- projectile_attributes: Attributes changes that will be applied over the projectiles of the player having this effect
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameEffect : pb::IMessage<GameEffect>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16996,7 +16949,6 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static partial class Types {
-      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class Duration : pb::IMessage<Duration>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -17223,7 +17175,6 @@ namespace Communication.Protobuf {
 
       }
 
-      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class Periodic : pb::IMessage<Periodic>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -17533,7 +17484,6 @@ namespace Communication.Protobuf {
   ///
   ///Represents a move action
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Move : pb::IMessage<Move>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -17727,7 +17677,6 @@ namespace Communication.Protobuf {
   ///
   ///Represents the action of using a skill
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UseSkill : pb::IMessage<UseSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -18065,7 +18014,6 @@ namespace Communication.Protobuf {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameAction : pb::IMessage<GameAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
