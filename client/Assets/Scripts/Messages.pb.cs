@@ -185,52 +185,52 @@ namespace Communication.Protobuf {
             "cxgCIAEoBBphCghQZXJpb2RpYxIMCgR0eXBlGAEgASgJEhsKE2luc3RhbnRf",
             "YXBwbGljYXRpb24YAiABKAkSEwoLaW50ZXJ2YWxfbXMYAyABKAQSFQoNdHJp",
             "Z2dlcl9jb3VudBgEIAEoBEINCgtlZmZlY3RfdHlwZSIVCgRNb3ZlEg0KBWFu",
-            "Z2xlGAEgASgCIjoKCFVzZVNraWxsEg0KBXNraWxsGAEgASgJEg0KBWFuZ2xl",
-            "GAIgASgCEhAKCGF1dG9fYWltGAMgASgIImUKCkdhbWVBY3Rpb24SFQoEbW92",
-            "ZRgBIAEoCzIFLk1vdmVIABIeCgl1c2Vfc2tpbGwYAiABKAsyCS5Vc2VTa2ls",
-            "bEgAEhEKCXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSpcCgxQbGF5",
-            "ZXJTdGF0dXMSGwoXUExBWUVSX1NUQVRVU19VTkRFRklORUQQABIXChNQTEFZ",
-            "RVJfU1RBVFVTX0FMSVZFEAESFgoSUExBWUVSX1NUQVRVU19ERUFEEAIqlwEK",
-            "EFBsYXllckFjdGlvbkVudW0SIAocUExBWUVSX0FDVElPTl9FTlVNX1VOREVG",
-            "SU5FRBAAEh4KGlBMQVlFUl9BQ1RJT05fRU5VTV9OT1RISU5HEAESHQoZUExB",
-            "WUVSX0FDVElPTl9FTlVNX01PVklORxACEiIKHlBMQVlFUl9BQ1RJT05fRU5V",
-            "TV9VU0lOR19TS0lMTBADKmsKCktpbGxFbnRpdHkSGQoVS0lMTF9FTlRJVFlf",
-            "VU5ERUZJTkVEEAASFgoSS0lMTF9FTlRJVFlfUExBWUVSEAESFAoQS0lMTF9F",
-            "TlRJVFlfSVRFTRACEhQKEEtJTExfRU5USVRZX1pPTkUQAypqCg1HYW1lRXZl",
-            "bnRUeXBlEhAKDFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoN",
-            "UExBWUVSX0pPSU5FRBACEhEKDUdBTUVfRklOSVNIRUQQAxIQCgxHQU1FX1NU",
-            "QVJURUQQBCogCglPbGRTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq/wEK",
-            "BkFjdGlvbhIWChJBQ1RJT05fVU5TUEVDSUZJRUQQABIKCgZBVFRBQ0sQARIM",
-            "CghURUxFUE9SVBACEg4KCkFUVEFDS19BT0UQAxIWChJNT1ZFX1dJVEhfSk9Z",
-            "U1RJQ0sQBBILCgdBRERfQk9UEAUSDwoLQVVUT19BVFRBQ0sQBhIQCgxCQVNJ",
-            "Q19BVFRBQ0sQBxILCgdTS0lMTF8xEAgSCwoHU0tJTExfMhAJEgsKB1NLSUxM",
-            "XzMQChILCgdTS0lMTF80EAsSFAoQU0VMRUNUX0NIQVJBQ1RFUhAMEg8KC0VO",
-            "QUJMRV9CT1RTEA0SEAoMRElTQUJMRV9CT1RTEA4qTQoJRGlyZWN0aW9uEhkK",
-            "FURJUkVDVElPTl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggK",
-            "BExFRlQQAxIJCgVSSUdIVBAEKoACCg9PbGRQbGF5ZXJBY3Rpb24SCwoHTk9U",
-            "SElORxAAEg0KCUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIUChBT",
-            "VEFSVElOR19TS0lMTF8xEAMSFAoQU1RBUlRJTkdfU0tJTExfMhAEEhQKEFNU",
-            "QVJUSU5HX1NLSUxMXzMQBRIUChBTVEFSVElOR19TS0lMTF80EAYSFQoRRVhF",
-            "Q1VUSU5HX1NLSUxMXzEQBxIVChFFWEVDVVRJTkdfU0tJTExfMhAIEhUKEUVY",
-            "RUNVVElOR19TS0lMTF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQChIKCgZN",
-            "T1ZJTkcQCyq2AgoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJ",
-            "U0FSTUVEEAESFQoRREVOSUFMX09GX1NFUlZJQ0UQAhIJCgVSQUdFRBADEhEK",
-            "DU5FT05fQ1JBU0hJTkcQBBILCgdMRUFQSU5HEAUSDwoLT1VUX09GX0FSRUEQ",
-            "BhIOCgpFTE5BUl9NQVJLEAcSDgoKWVVHRU5fTUFSSxAIEg4KClhBTkRBX01B",
-            "UksQCRIUChBYQU5EQV9NQVJLX09XTkVSEAoSDAoIUE9JU09ORUQQCxIKCgZT",
-            "TE9XRUQQDBIRCg1GSUVSWV9SQU1QQUdFEA0SCgoGQlVSTkVEEA4SCwoHU0NI",
-            "RVJaTxAPEhEKDURBTlNFX01BQ0FCUkUQEBINCglQQVJBTFlaRUQQERIICgRO",
-            "T05FEBIqhQEKDkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQ",
-            "ABINCglDT05ORUNURUQQARIQCgxQTEFZRVJfQURERUQQAhISCg5QUkVQQVJJ",
-            "TkdfR0FNRRADEg4KClNUQVJUX0dBTUUQBBIYChROT1RJRllfUExBWUVSX0FN",
-            "T1VOVBAFKjIKDlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FS",
-            "TUlOR19CVUxMRVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAA",
-            "EgwKCEVYUExPREVEEAEqNgoITG9vdFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BF",
-            "Q0lGSUVEEAASDwoLTE9PVF9IRUFMVEgQASowCgxNb2RpZmllclR5cGUSEgoO",
-            "TVVMVElQTElDQVRJVkUQABIMCghBRERJVElWRRABKksKDE1lY2hhbmljVHlw",
-            "ZRIHCgNISVQQABIQCgxTSU1QTEVfU0hPT1QQARIPCgtNVUxUSV9TSE9PVBAC",
-            "Eg8KC0dJVkVfRUZGRUNUEANCGaoCFkNvbW11bmljYXRpb24uUHJvdG9idWZi",
-            "BnByb3RvMw=="));
+            "Z2xlGAEgASgCIl4KCFVzZVNraWxsEg0KBXNraWxsGAEgASgJEg0KBWFuZ2xl",
+            "GAIgASgCEhAKCGF1dG9fYWltGAMgASgIEhAKCHRhcmdldF94GAQgASgCEhAK",
+            "CHRhcmdldF95GAUgASgCImUKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIF",
+            "Lk1vdmVIABIeCgl1c2Vfc2tpbGwYAiABKAsyCS5Vc2VTa2lsbEgAEhEKCXRp",
+            "bWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSpcCgxQbGF5ZXJTdGF0dXMS",
+            "GwoXUExBWUVSX1NUQVRVU19VTkRFRklORUQQABIXChNQTEFZRVJfU1RBVFVT",
+            "X0FMSVZFEAESFgoSUExBWUVSX1NUQVRVU19ERUFEEAIqlwEKEFBsYXllckFj",
+            "dGlvbkVudW0SIAocUExBWUVSX0FDVElPTl9FTlVNX1VOREVGSU5FRBAAEh4K",
+            "GlBMQVlFUl9BQ1RJT05fRU5VTV9OT1RISU5HEAESHQoZUExBWUVSX0FDVElP",
+            "Tl9FTlVNX01PVklORxACEiIKHlBMQVlFUl9BQ1RJT05fRU5VTV9VU0lOR19T",
+            "S0lMTBADKmsKCktpbGxFbnRpdHkSGQoVS0lMTF9FTlRJVFlfVU5ERUZJTkVE",
+            "EAASFgoSS0lMTF9FTlRJVFlfUExBWUVSEAESFAoQS0lMTF9FTlRJVFlfSVRF",
+            "TRACEhQKEEtJTExfRU5USVRZX1pPTkUQAypqCg1HYW1lRXZlbnRUeXBlEhAK",
+            "DFNUQVRFX1VQREFURRAAEg8KC1BJTkdfVVBEQVRFEAESEQoNUExBWUVSX0pP",
+            "SU5FRBACEhEKDUdBTUVfRklOSVNIRUQQAxIQCgxHQU1FX1NUQVJURUQQBCog",
+            "CglPbGRTdGF0dXMSCQoFQUxJVkUQABIICgRERUFEEAEq/wEKBkFjdGlvbhIW",
+            "ChJBQ1RJT05fVU5TUEVDSUZJRUQQABIKCgZBVFRBQ0sQARIMCghURUxFUE9S",
+            "VBACEg4KCkFUVEFDS19BT0UQAxIWChJNT1ZFX1dJVEhfSk9ZU1RJQ0sQBBIL",
+            "CgdBRERfQk9UEAUSDwoLQVVUT19BVFRBQ0sQBhIQCgxCQVNJQ19BVFRBQ0sQ",
+            "BxILCgdTS0lMTF8xEAgSCwoHU0tJTExfMhAJEgsKB1NLSUxMXzMQChILCgdT",
+            "S0lMTF80EAsSFAoQU0VMRUNUX0NIQVJBQ1RFUhAMEg8KC0VOQUJMRV9CT1RT",
+            "EA0SEAoMRElTQUJMRV9CT1RTEA4qTQoJRGlyZWN0aW9uEhkKFURJUkVDVElP",
+            "Tl9VTlNQRUNJRklFRBAAEgYKAlVQEAESCAoERE9XThACEggKBExFRlQQAxIJ",
+            "CgVSSUdIVBAEKoACCg9PbGRQbGF5ZXJBY3Rpb24SCwoHTk9USElORxAAEg0K",
+            "CUFUVEFDS0lORxABEhEKDUFUVEFDS0lOR19BT0UQAhIUChBTVEFSVElOR19T",
+            "S0lMTF8xEAMSFAoQU1RBUlRJTkdfU0tJTExfMhAEEhQKEFNUQVJUSU5HX1NL",
+            "SUxMXzMQBRIUChBTVEFSVElOR19TS0lMTF80EAYSFQoRRVhFQ1VUSU5HX1NL",
+            "SUxMXzEQBxIVChFFWEVDVVRJTkdfU0tJTExfMhAIEhUKEUVYRUNVVElOR19T",
+            "S0lMTF8zEAkSFQoRRVhFQ1VUSU5HX1NLSUxMXzQQChIKCgZNT1ZJTkcQCyq2",
+            "AgoMUGxheWVyRWZmZWN0Eg0KCVBFVFJJRklFRBAAEgwKCERJU0FSTUVEEAES",
+            "FQoRREVOSUFMX09GX1NFUlZJQ0UQAhIJCgVSQUdFRBADEhEKDU5FT05fQ1JB",
+            "U0hJTkcQBBILCgdMRUFQSU5HEAUSDwoLT1VUX09GX0FSRUEQBhIOCgpFTE5B",
+            "Ul9NQVJLEAcSDgoKWVVHRU5fTUFSSxAIEg4KClhBTkRBX01BUksQCRIUChBY",
+            "QU5EQV9NQVJLX09XTkVSEAoSDAoIUE9JU09ORUQQCxIKCgZTTE9XRUQQDBIR",
+            "Cg1GSUVSWV9SQU1QQUdFEA0SCgoGQlVSTkVEEA4SCwoHU0NIRVJaTxAPEhEK",
+            "DURBTlNFX01BQ0FCUkUQEBINCglQQVJBTFlaRUQQERIICgROT05FEBIqhQEK",
+            "DkxvYmJ5RXZlbnRUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABINCglDT05O",
+            "RUNURUQQARIQCgxQTEFZRVJfQURERUQQAhISCg5QUkVQQVJJTkdfR0FNRRAD",
+            "Eg4KClNUQVJUX0dBTUUQBBIYChROT1RJRllfUExBWUVSX0FNT1VOVBAFKjIK",
+            "DlByb2plY3RpbGVUeXBlEgoKBkJVTExFVBAAEhQKEERJU0FSTUlOR19CVUxM",
+            "RVQQASosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExP",
+            "REVEEAEqNgoITG9vdFR5cGUSGQoVTE9PVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
+            "DwoLTE9PVF9IRUFMVEgQASowCgxNb2RpZmllclR5cGUSEgoOTVVMVElQTElD",
+            "QVRJVkUQABIMCghBRERJVElWRRABKksKDE1lY2hhbmljVHlwZRIHCgNISVQQ",
+            "ABIQCgxTSU1QTEVfU0hPT1QQARIPCgtNVUxUSV9TSE9PVBACEg8KC0dJVkVf",
+            "RUZGRUNUEANCGaoCFkNvbW11bmljYXRpb24uUHJvdG9idWZiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Communication.Protobuf.PlayerStatus), typeof(global::Communication.Protobuf.PlayerActionEnum), typeof(global::Communication.Protobuf.KillEntity), typeof(global::Communication.Protobuf.GameEventType), typeof(global::Communication.Protobuf.OldStatus), typeof(global::Communication.Protobuf.Action), typeof(global::Communication.Protobuf.Direction), typeof(global::Communication.Protobuf.OldPlayerAction), typeof(global::Communication.Protobuf.PlayerEffect), typeof(global::Communication.Protobuf.LobbyEventType), typeof(global::Communication.Protobuf.ProjectileType), typeof(global::Communication.Protobuf.ProjectileStatus), typeof(global::Communication.Protobuf.LootType), typeof(global::Communication.Protobuf.ModifierType), typeof(global::Communication.Protobuf.MechanicType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -283,7 +283,7 @@ namespace Communication.Protobuf {
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.GameEffect), global::Communication.Protobuf.GameEffect.Parser, new[]{ "Name", "SimpleType", "DurationType", "PeriodicType" }, new[]{ "EffectType" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.GameEffect.Types.Duration), global::Communication.Protobuf.GameEffect.Types.Duration.Parser, new[]{ "Type", "DurationMs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.GameEffect.Types.Periodic), global::Communication.Protobuf.GameEffect.Types.Periodic.Parser, new[]{ "Type", "InstantApplication", "IntervalMs", "TriggerCount" }, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.Move), global::Communication.Protobuf.Move.Parser, new[]{ "Angle" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.UseSkill), global::Communication.Protobuf.UseSkill.Parser, new[]{ "Skill", "Angle", "AutoAim" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.UseSkill), global::Communication.Protobuf.UseSkill.Parser, new[]{ "Skill", "Angle", "AutoAim", "TargetX", "TargetY" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.GameAction), global::Communication.Protobuf.GameAction.Parser, new[]{ "Move", "UseSkill", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
           }));
     }
@@ -17765,6 +17765,8 @@ namespace Communication.Protobuf {
       skill_ = other.skill_;
       angle_ = other.angle_;
       autoAim_ = other.autoAim_;
+      targetX_ = other.targetX_;
+      targetY_ = other.targetY_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -17810,6 +17812,30 @@ namespace Communication.Protobuf {
       }
     }
 
+    /// <summary>Field number for the "target_x" field.</summary>
+    public const int TargetXFieldNumber = 4;
+    private float targetX_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float TargetX {
+      get { return targetX_; }
+      set {
+        targetX_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "target_y" field.</summary>
+    public const int TargetYFieldNumber = 5;
+    private float targetY_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float TargetY {
+      get { return targetY_; }
+      set {
+        targetY_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -17828,6 +17854,8 @@ namespace Communication.Protobuf {
       if (Skill != other.Skill) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
       if (AutoAim != other.AutoAim) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(TargetX, other.TargetX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(TargetY, other.TargetY)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -17838,6 +17866,8 @@ namespace Communication.Protobuf {
       if (Skill.Length != 0) hash ^= Skill.GetHashCode();
       if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
       if (AutoAim != false) hash ^= AutoAim.GetHashCode();
+      if (TargetX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(TargetX);
+      if (TargetY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(TargetY);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -17868,6 +17898,14 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteBool(AutoAim);
       }
+      if (TargetX != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(TargetX);
+      }
+      if (TargetY != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(TargetY);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -17890,6 +17928,14 @@ namespace Communication.Protobuf {
         output.WriteRawTag(24);
         output.WriteBool(AutoAim);
       }
+      if (TargetX != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(TargetX);
+      }
+      if (TargetY != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(TargetY);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -17908,6 +17954,12 @@ namespace Communication.Protobuf {
       }
       if (AutoAim != false) {
         size += 1 + 1;
+      }
+      if (TargetX != 0F) {
+        size += 1 + 4;
+      }
+      if (TargetY != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -17929,6 +17981,12 @@ namespace Communication.Protobuf {
       }
       if (other.AutoAim != false) {
         AutoAim = other.AutoAim;
+      }
+      if (other.TargetX != 0F) {
+        TargetX = other.TargetX;
+      }
+      if (other.TargetY != 0F) {
+        TargetY = other.TargetY;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -17957,6 +18015,14 @@ namespace Communication.Protobuf {
             AutoAim = input.ReadBool();
             break;
           }
+          case 37: {
+            TargetX = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            TargetY = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -17982,6 +18048,14 @@ namespace Communication.Protobuf {
           }
           case 24: {
             AutoAim = input.ReadBool();
+            break;
+          }
+          case 37: {
+            TargetX = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            TargetY = input.ReadFloat();
             break;
           }
         }

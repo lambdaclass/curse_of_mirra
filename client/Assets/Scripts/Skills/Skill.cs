@@ -320,7 +320,9 @@ public class Skill : CharacterAbility
         {
             Skill = serverSkill.ToString(),
             Angle = angle,
-            AutoAim = autoAim
+            AutoAim = autoAim,
+            TargetX = targetX,
+            TargetY = relativePosition.Y,
         };
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
