@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -23,29 +24,8 @@ public class Skill : CharacterAbility
     [SerializeField]
     protected SkillInfo skillInfo;
 
-    protected SkillAnimationEvents skillsAnimationEvent;
-
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
-    private GameObject startFeedbackVfx;
-    private GameObject feedbackVfx;
-    private TrailRenderer trail;
-
-    public void SetSkill(
-        Action serverSkill,
-        SkillInfo skillInfo,
-        SkillAnimationEvents skillsAnimationEvent
-    )
-    {
-        this.serverSkill = serverSkill;
-        this.skillInfo = skillInfo;
-        this.skillsAnimationEvent = skillsAnimationEvent;
-        this.AbilityStartSfx = skillInfo.abilityStartSfx;
-        if (skillInfo.sfxHasAbilityStop)
-        {
-            this.AbilityStopSfx = skillInfo.abilityStopSfx;
-        }
-    }
 
     protected override void Start()
     {
@@ -56,61 +36,20 @@ public class Skill : CharacterAbility
             BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
         }
 
-        if (skillInfo.startFeedbackVfx)
-        {
-            Transform animationParent;
-            animationParent = skillInfo.instantiateVfxOnModel
-                ? _model.transform
-                : _model.transform.parent;
-            startFeedbackVfx = Instantiate(skillInfo.startFeedbackVfx, animationParent);
-
-            if (skillInfo.feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-            {
-                startFeedbackVfx.SetActive(false);
-            }
-            else if (skillInfo.feedbackVfx.GetComponent<TrailRenderer>())
-            {
-                trail = startFeedbackVfx.GetComponent<TrailRenderer>();
-                trail.emitting = false;
-            }
-            else
-            {
-                this.AbilityStartFeedbacks = startFeedbackVfx.GetComponent<MMF_Player>();
-            }
-        }
-
-        if (skillInfo.feedbackVfx)
-        {
-            Transform animationParent;
-            animationParent = skillInfo.instantiateVfxOnModel
-                ? _model.transform
-                : _model.transform.parent;
-            feedbackVfx = Instantiate(skillInfo.feedbackVfx, animationParent);
-
-            if (skillInfo.feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-            {
-                feedbackVfx.SetActive(false);
-            }
-            else if (skillInfo.feedbackVfx.GetComponent<TrailRenderer>())
-            {
-                trail = feedbackVfx.GetComponent<TrailRenderer>();
-                trail.emitting = false;
-            }
-            else
-            {
-                this.AbilityStopFeedbacks = feedbackVfx.GetComponent<MMF_Player>();
-                if (skillInfo.indicatorType == UIIndicatorType.Area)
-                {
-                    Transform parentTransform = feedbackVfx.GetComponent<MMF_Player>().transform;
-                    float diameter = skillInfo.skillAreaRadius * 2;
-                    parentTransform.localScale = new Vector3(diameter, diameter, diameter);
-                }
-            }
-        }
-
         if (skillInfo)
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
+        }
+    }
+
+    public void SetSkill(Action serverSkill, SkillInfo skillInfo)
+    {
+        this.serverSkill = serverSkill;
+        this.skillInfo = skillInfo;
+        this.AbilityStartSfx = skillInfo.abilityStartSfx;
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            this.AbilityStopSfx = skillInfo.abilityStopSfx;
         }
     }
 
@@ -159,86 +98,33 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void StartFeedback()
+    public void ExecuteFeedbacks(ulong duration, bool isStart)
     {
         ClearAnimator();
 
-        if (skillInfo.hasModelAnimation == true)
+        // Setup
+        string animation;
+        List<VfxStep> vfxList = new List<VfxStep>();
+        AudioClip sfxClip;
+        if (isStart)
         {
-            string animation = skillId + "_start";
-            ChangeCharacterState(animation);
-            if (skillInfo.startAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        animation,
-                        skillInfo.startAnimationDuration
-                    )
-                );
-            }
+            animation = $"{skillId}_start";
+            vfxList = skillInfo.startVfxList;
+            sfxClip = skillInfo.abilityStartSfx ? skillInfo.abilityStartSfx : null;
+        }
+        else
+        {
+            animation = skillId;
+            vfxList = skillInfo.vfxList;
+            sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
         }
 
-        if (skillInfo.startFeedbackVfx)
-        {
-            StartCoroutine(StartFeedbackVfx());
-        }
+        // State & animation
+        ChangeCharacterState(animation);
+        StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
 
-        if (skillInfo.sfxHasAbilityStop)
-        {
-            // We have to change the abilityStartSfx to abilityStopSfx when we have 2 sfx for each animation, for now this is a little hack
-            GetComponentInChildren<Sound3DManager>()
-                .SetSfxSound(skillInfo.abilityStartSfx);
-            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
-        }
-    }
-
-    IEnumerator StartFeedbackVfx()
-    {
-        yield return new WaitForSeconds(skillInfo.startFeedbackVfxDelay);
-
-        if (skillInfo.startFeedbackVfx.GetComponent<MMF_Player>())
-        {
-            this.PlayAbilityStartFeedbacks();
-        }
-        if (skillInfo.startFeedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-        {
-            skillInfo.startFeedbackVfx.SetActive(true);
-        }
-        StartCoroutine(StopStartFeedbackVfx());
-    }
-
-    public void ExecuteFeedback()
-    {
-        ClearAnimator();
-
-        if (skillInfo.hasModelAnimation == true)
-        {
-            ChangeCharacterState(skillId);
-            if (skillInfo.executeAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        skillId,
-                        skillInfo.executeAnimationDuration
-                    )
-                );
-            }
-        }
-
-        if (!skillInfo.sfxHasAbilityStop)
-        {
-            GetComponentInChildren<Sound3DManager>().SetSfxSound(skillInfo.abilityStartSfx);
-            GetComponentInChildren<Sound3DManager>().PlaySfxSound();
-        }
-
-        if (skillInfo.feedbackVfx)
-        {
-            StartCoroutine(ExecuteFeedbackVfx());
-        }
-
-        foreach (var vfxStep in skillInfo.vfxList)
+        // Visual effects
+        foreach (var vfxStep in vfxList)
         {
             StartCoroutine(
                 ExecuteFeedbackVfx(
@@ -249,6 +135,26 @@ public class Skill : CharacterAbility
                 )
             );
         }
+
+        // Sound effects
+        if (sfxClip)
+        {
+            Sound3DManager sound3DManager = GetComponentInChildren<Sound3DManager>();
+            sound3DManager.SetSfxSound(sfxClip);
+            sound3DManager.PlaySfxSound();
+        }
+    }
+
+    public IEnumerator AutoEndSkillAnimation(string skillAnimationId, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        EndSkillAnimation(skillAnimationId);
+    }
+
+    public void EndSkillAnimation(string animationId)
+    {
+        _movement.ChangeState(CharacterStates.MovementStates.Idle);
+        _animator.SetBool(animationId, false);
     }
 
     IEnumerator ExecuteFeedbackVfx(
@@ -260,30 +166,22 @@ public class Skill : CharacterAbility
     {
         yield return new WaitForSeconds(delay);
 
-        Transform animationParent;
-        animationParent = instantiateVfxOnModel ? _model.transform : _model.transform.parent;
+        GameObject vfxInstance;
+        if (instantiateVfxOnModel)
+        {
+            vfxInstance = Instantiate(vfx, _model.transform);
+        }
+        else
+        {
+            Vector3 vfxPosition = new Vector3(
+                _model.transform.position.x,
+                vfx.transform.position.y,
+                _model.transform.position.z
+            );
+            vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
+        }
 
-        GameObject vfxInstance = Instantiate(vfx, animationParent);
         Destroy(vfxInstance, duration);
-    }
-
-    IEnumerator ExecuteFeedbackVfx()
-    {
-        yield return new WaitForSeconds(skillInfo.feedbackVfxDelay);
-
-        if (skillInfo.feedbackVfx.GetComponent<MMF_Player>())
-        {
-            this.PlayAbilityStopFeedbacks();
-        }
-        if (skillInfo.feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-        {
-            feedbackVfx.SetActive(true);
-        }
-        if (trail)
-        {
-            trail.emitting = true;
-        }
-        StartCoroutine(StopFeedbackVfx());
     }
 
     private void ClearAnimator()
@@ -298,7 +196,6 @@ public class Skill : CharacterAbility
 
     private void ChangeCharacterState(string animation)
     {
-        skillsAnimationEvent.UpdateActiveSkill(this, animation);
         _movement.ChangeState(CharacterStates.MovementStates.Attacking);
         _animator.SetBool(animation, true);
     }
@@ -332,48 +229,6 @@ public class Skill : CharacterAbility
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
         SocketConnectionManager.Instance.SendGameAction(gameAction);
-    }
-
-    public void EndSkillFeedback(string animationId)
-    {
-        _movement.ChangeState(CharacterStates.MovementStates.Idle);
-        _animator.SetBool(animationId, false);
-    }
-
-    IEnumerator StopFeedbackVfx()
-    {
-        yield return new WaitForSeconds(skillInfo.feedbackVfxDuration);
-
-        if (feedbackVfx.GetComponent<MMF_Player>())
-        {
-            this.StopAbilityStopFeedbacks();
-        }
-        if (feedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-        {
-            feedbackVfx.SetActive(false);
-        }
-        if (trail)
-        {
-            trail.emitting = false;
-        }
-    }
-
-    IEnumerator StopStartFeedbackVfx()
-    {
-        yield return new WaitForSeconds(skillInfo.startFeedbackVfxDuration);
-
-        if (startFeedbackVfx.GetComponent<MMF_Player>())
-        {
-            this.StopStartFeedbacks();
-        }
-        if (startFeedbackVfx.GetComponent<UnityEngine.VFX.VisualEffect>())
-        {
-            startFeedbackVfx.SetActive(false);
-        }
-        if (trail)
-        {
-            trail.emitting = false;
-        }
     }
 
     public virtual void StopAbilityStopFeedbacks()

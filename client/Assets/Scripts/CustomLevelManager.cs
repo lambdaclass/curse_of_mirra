@@ -200,7 +200,9 @@ public class CustomLevelManager : LevelManager
         {
             float effectTime = Utils
                 .GetCharacter(1)
-                .characterBase.spawnFeedback.GetComponent<VisualEffect>()
+                .characterBase
+                .spawnFeedback
+                .GetComponent<VisualEffect>()
                 .GetFloat("LifeTime");
             //Start moving camera and remove loading sceen
             InvokeRepeating("Substract", 1f, 0.1f);
@@ -275,7 +277,8 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow
+                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
@@ -313,12 +316,14 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo.skillsInfo.ForEach(skill =>
-        {
-            SkillInfo skillClone = Instantiate(skill);
-            skillClone.InitWithBackend();
-            skills.Add(skillClone);
-        });
+        characterInfo
+            .skillsInfo
+            .ForEach(skill =>
+            {
+                SkillInfo skillClone = Instantiate(skill);
+                skillClone.InitWithBackend();
+                skills.Add(skillClone);
+            });
 
         return skills;
     }
@@ -349,14 +354,11 @@ public class CustomLevelManager : LevelManager
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
             );
 
-            SkillAnimationEvents skillsAnimationEvent =
-                player.CharacterModel.GetComponent<SkillAnimationEvents>();
-
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
-            skill1.SetSkill(Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
+            skillBasic.SetSkill(Action.BasicAttack, skillInfoClone[0]);
+            skill1.SetSkill(Action.Skill1, skillInfoClone[1]);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -398,7 +400,9 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -469,8 +473,9 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager.Instance.gamePlayers.Any(
-                (player) => player.Id == SocketConnectionManager.Instance.playerId
-            );
+            && SocketConnectionManager
+                .Instance
+                .gamePlayers
+                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
     }
 }
