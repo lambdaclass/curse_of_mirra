@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1650204455569993588
+--- !u!1 &2900732490050732743
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1650204455569993595}
-  m_Layer: 0
-  m_Name: MuflusFire_vfx
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1650204455569993595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650204455569993588}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.37, z: 0}
-  m_LocalScale: {x: 0.0017178789, y: 0.0017178791, z: 0.0017178791}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1650204456687211375}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1650204456687211368
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1650204456687211375}
-  - component: {fileID: 1650204456687211373}
-  - component: {fileID: 1650204456687211374}
+  - component: {fileID: 331070560001493316}
+  - component: {fileID: 4025871477149374017}
+  - component: {fileID: 1123642177019667076}
   m_Layer: 0
   m_Name: vfxgraph_MuflusFire
   m_TagString: Untagged
@@ -50,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1650204456687211375
+--- !u!4 &331070560001493316
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650204456687211368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.72, z: 0}
+  m_GameObject: {fileID: 2900732490050732743}
+  m_LocalRotation: {x: -0.0007735193, y: 0.77121544, z: 0.000230995, w: 0.63657385}
+  m_LocalPosition: {x: 0.538, y: -1.646, z: -1.314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1650204455569993595}
+  m_Father: {fileID: 7843637758319489381}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!2083052967 &1650204456687211373
+  m_LocalEulerAnglesHint: {x: -0.077, y: 100.926, z: -0.052}
+--- !u!2083052967 &4025871477149374017
 VisualEffect:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650204456687211368}
+  m_GameObject: {fileID: 2900732490050732743}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 000b00ff867b945ccb4f5e7c147dff5f, type: 3}
   m_InitialEventName: OnPlay
@@ -82,17 +50,17 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0.5
         m_Name: FlameSize
         m_Overridden: 1
-      - m_Value: 20
+      - m_Value: 5
         m_Name: FlameRate
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -3, y: 0, z: 0}
+      - m_Value: {x: 0, y: 0, z: 0}
         m_Name: FlameVelocity
         m_Overridden: 1
     m_Vector4f:
@@ -111,14 +79,14 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
---- !u!73398921 &1650204456687211374
+--- !u!73398921 &1123642177019667076
 VFXRenderer:
   serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650204456687211368}
+  m_GameObject: {fileID: 2900732490050732743}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -151,3 +119,35 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &7837355199420573660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7843637758319489381}
+  m_Layer: 0
+  m_Name: MuflusFire_vfx (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7843637758319489381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837355199420573660}
+  m_LocalRotation: {x: -0.6395692, y: -0.50290084, z: -0.3896013, w: 0.43157017}
+  m_LocalPosition: {x: 0.00441, y: 0.00151, z: -0.00036}
+  m_LocalScale: {x: 0.0017178789, y: 0.0017178791, z: 0.0017178791}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 331070560001493316}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -109.283, y: -11.223999, z: -68.380005}

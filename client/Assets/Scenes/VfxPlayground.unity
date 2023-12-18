@@ -3086,10 +3086,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1403290694399530618, guid: 6751985a991154bbbbe6c7071528f3d3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1403290695515777647, guid: 6751985a991154bbbbe6c7071528f3d3,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1530626778622846659, guid: 6751985a991154bbbbe6c7071528f3d3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1787465996332106805, guid: 6751985a991154bbbbe6c7071528f3d3,
         type: 3}
@@ -3160,6 +3170,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Intensity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6810260261765807336, guid: 6751985a991154bbbbe6c7071528f3d3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6751985a991154bbbbe6c7071528f3d3, type: 3}
@@ -3444,6 +3459,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuflusFire_vfx
       objectReference: {fileID: 0}
+    - target: {fileID: 1650204455569993588, guid: 36f7ecb2ad87b491882a3e35701826f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1650204455569993595, guid: 36f7ecb2ad87b491882a3e35701826f8,
         type: 3}
       propertyPath: m_RootOrder
@@ -3497,6 +3517,11 @@ PrefabInstance:
     - target: {fileID: 1650204455569993595, guid: 36f7ecb2ad87b491882a3e35701826f8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650204456687211374, guid: 36f7ecb2ad87b491882a3e35701826f8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

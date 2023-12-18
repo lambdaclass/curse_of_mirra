@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661614571}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661614570}
   m_MasterData:
@@ -679,7 +679,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-3.0,"y":0.20000000298023225,"z":-0.10000000149011612}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: A
@@ -707,7 +707,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614573}
   - {fileID: 8926484042661614574}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661614570}
   m_MasterData:
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -2321,7 +2321,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -2400,7 +2400,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614903}
   - {fileID: 8926484042661614904}
   - {fileID: 8926484042661614907}
-  m_UIPosition: {x: 941, y: 797}
+  m_UIPosition: {x: 941, y: 874}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -2951,7 +2951,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 941, y: 666}
+  m_UIPosition: {x: 941, y: 743}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
