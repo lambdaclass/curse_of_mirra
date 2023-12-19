@@ -41,7 +41,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2900732490050732743}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 000b00ff867b945ccb4f5e7c147dff5f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 77be9f066eb4341e79ffd2b620ccb89e, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -49,20 +49,14 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array:
-      - m_Value: 0.5
-        m_Name: FlameSize
-        m_Overridden: 1
-      - m_Value: 5
-        m_Name: FlameRate
-        m_Overridden: 1
+      m_Array: []
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array:
       - m_Value: {x: 0, y: 0, z: 0}
         m_Name: FlameVelocity
-        m_Overridden: 1
+        m_Overridden: 0
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -129,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7843637758319489381}
   m_Layer: 0
-  m_Name: MuflusFire_vfx (1)
+  m_Name: MuflusFire_vfx_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +136,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7837355199420573660}
-  m_LocalRotation: {x: -0.6395692, y: -0.50290084, z: -0.3896013, w: 0.43157017}
+  m_LocalRotation: {x: -0.6395691, y: -0.502902, z: -0.38960057, w: 0.4315697}
   m_LocalPosition: {x: 0.00441, y: 0.00151, z: -0.00036}
   m_LocalScale: {x: 0.0017178789, y: 0.0017178791, z: 0.0017178791}
   m_ConstrainProportionsScale: 0
