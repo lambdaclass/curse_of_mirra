@@ -175,7 +175,9 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(gameEvent.OldGameEvent);
                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.OldGameEvent.Players.ToList().FindAll(el => el.Health > 0);
+                    alivePlayers = gameEvent.OldGameEvent.Players
+                        .ToList()
+                        .FindAll(el => el.Health > 0);
                     updatedLoots = gameEvent.OldGameEvent.Loots.ToList();
                     KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
                     break;
