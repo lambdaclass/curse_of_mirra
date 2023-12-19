@@ -160,7 +160,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void StartFeedback()
+    public void StartFeedback(ulong duration)
     {
         ClearAnimator();
 
@@ -168,16 +168,13 @@ public class Skill : CharacterAbility
         {
             string animation = skillId + "_start";
             ChangeCharacterState(animation);
-            if (skillInfo.startAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        animation,
-                        skillInfo.startAnimationDuration
-                    )
-                );
-            }
+            StartCoroutine(
+                skillsAnimationEvent.TryEjectAnimation(
+                    this,
+                    animation,
+                    duration
+                )
+            );
         }
 
         if (skillInfo.startFeedbackVfx)
@@ -209,23 +206,20 @@ public class Skill : CharacterAbility
         StartCoroutine(StopStartFeedbackVfx());
     }
 
-    public void ExecuteFeedback()
+    public void ExecuteFeedback(ulong duration)
     {
         ClearAnimator();
 
         if (skillInfo.hasModelAnimation == true)
         {
             ChangeCharacterState(skillId);
-            if (skillInfo.executeAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        skillId,
-                        skillInfo.executeAnimationDuration
-                    )
-                );
-            }
+            StartCoroutine(
+                skillsAnimationEvent.TryEjectAnimation(
+                    this,
+                    skillId,
+                    duration
+                )
+            );
         }
 
         if (!skillInfo.sfxHasAbilityStop)
