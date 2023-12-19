@@ -402,11 +402,11 @@ public class CustomLevelManager : LevelManager
                 .TargetProgressBar.ForegroundBar.GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
-                healthBarFront.color = Utils.healthBarCyan;
+                healthBarFront.color = Utils.cyan;
             }
             else
             {
-                healthBarFront.color = Utils.healthBarRed;
+                healthBarFront.color = Utils.magenta;
             }
         }
     }

@@ -209,6 +209,7 @@ message OldPlayer {
     map<uint64, OldEffectInfo> effects = 15;
     RelativePosition direction = 16;
     float body_size = 17;
+    uint64 available_burst_loads = 18;
 }
 
 message OldActionTracker {
@@ -670,6 +671,7 @@ message GameCharacter {
     uint64 base_size = 4;
     uint64 base_health = 5;
     map<string, GameSkill> skills = 6;
+    uint64 burst_loads = 7;
 }
 
 /* Represents a skill of a character

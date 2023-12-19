@@ -59,11 +59,11 @@ public class CharacterFeedbackManager : MonoBehaviour
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                healthBarFront.color = Utils.healthBarCyan;
+                healthBarFront.color = Utils.cyan;
             }
             else
             {
-                healthBarFront.color = Utils.healthBarRed;
+                healthBarFront.color = Utils.magenta;
             }
         }
     }

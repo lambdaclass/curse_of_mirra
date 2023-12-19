@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Communication.Protobuf;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using Communication.Protobuf;
 
 public class Battle : MonoBehaviour
 {
@@ -255,7 +255,6 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-
                 // TODO: try to optimize GetComponent calls
                 CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
 
