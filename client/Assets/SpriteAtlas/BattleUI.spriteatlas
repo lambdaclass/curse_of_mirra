@@ -46,8 +46,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
   - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
   - {fileID: 21300000, guid: 32f96a4ccf0ee4e82ac7bb7bf988e5ef, type: 3}
-  - {fileID: 21300000, guid: ae1d81cc310da4f54852c12ed9f2b9a4, type: 3}
-  - {fileID: 21300000, guid: cbe7229d066a1453e95d630803ca8d04, type: 3}
+  - {fileID: 21300000, guid: fe47c5ad8dd9d4a54b9f274447e27717, type: 3}
   - {fileID: 21300000, guid: fe77c7adf01bc4b1990894e4594f4125, type: 3}
   - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -58,11 +57,10 @@ SpriteAtlas:
   - metrics-container
   - kills
   - item
-  - 2
-  - kill-icon
-  - time-icon
-  - settings
-  - time_new
+  - icon
+  - border-item
+  - Settings
+  - time
   m_RenderDataMap: {}
   m_Tag: BattleUI
   m_IsVariant: 0
