@@ -25,7 +25,7 @@ public class SkillAnimationEvents : MonoBehaviour
 
     public IEnumerator TryEjectAnimation(Skill skill, string skillAnimationId, float duration)
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration / 1000f);
 
         if (this.skill == skill && this.animationId == skillAnimationId)
         {

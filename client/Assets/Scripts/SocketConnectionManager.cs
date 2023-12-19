@@ -7,6 +7,7 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
+using Communication.Protobuf;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -21,30 +22,30 @@ public class SocketConnectionManager : MonoBehaviour
     [Tooltip("IP to connect to. If empty, localhost will be used")]
     public string serverIp = "localhost";
     public static SocketConnectionManager Instance;
-    public List<Player> gamePlayers;
-    public GameEvent gameEvent;
-    public List<Projectile> gameProjectiles;
+    public List<OldPlayer> gamePlayers;
+    public OldGameEvent gameEvent;
+    public List<OldProjectile> gameProjectiles;
     public Dictionary<ulong, string> selectedCharacters;
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public string serverHash;
-    public (Player, ulong) winnerPlayer = (null, 0);
+    public (OldPlayer, ulong) winnerPlayer = (null, 0);
 
-    public List<Player> winners = new List<Player>();
+    public List<OldPlayer> winners = new List<OldPlayer>();
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
-    public List<GameEvent> gameEvents = new List<GameEvent>();
+    public List<OldGameEvent> gameEvents = new List<OldGameEvent>();
 
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
 
     public float playableRadius;
-    public Position shrinkingCenter;
+    public OldPosition shrinkingCenter;
 
-    public List<Player> alivePlayers = new List<Player>();
+    public List<OldPlayer> alivePlayers = new List<OldPlayer>();
     public List<LootPackage> updatedLoots = new List<LootPackage>();
 
     public bool cinematicDone;
@@ -165,40 +166,42 @@ public class SocketConnectionManager : MonoBehaviour
     {
         try
         {
-            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
-            switch (gameEvent.Type)
+            TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
+            switch (gameEvent.OldGameEvent.Type)
             {
                 case GameEventType.StateUpdate:
-                    this.playableRadius = gameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent);
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.Players.ToList().FindAll(el => el.Health > 0);
-                    updatedLoots = gameEvent.Loots.ToList();
-                    KillFeedManager.instance.putEvents(gameEvent.Killfeed.ToList());
+                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
+                    alivePlayers = gameEvent.OldGameEvent.Players
+                        .ToList()
+                        .FindAll(el => el.Health > 0);
+                    updatedLoots = gameEvent.OldGameEvent.Loots.ToList();
+                    KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:
-                    currentPing = (uint)gameEvent.Latency;
+                    currentPing = (uint)gameEvent.OldGameEvent.Latency;
                     break;
                 case GameEventType.GameFinished:
-                    winnerPlayer.Item1 = gameEvent.WinnerPlayer;
-                    winnerPlayer.Item2 = gameEvent.WinnerPlayer.KillCount;
-                    this.gamePlayers = gameEvent.Players.ToList();
+                    winnerPlayer.Item1 = gameEvent.OldGameEvent.WinnerPlayer;
+                    winnerPlayer.Item2 = gameEvent.OldGameEvent.WinnerPlayer.KillCount;
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     break;
                 case GameEventType.PlayerJoined:
-                    this.playerId = gameEvent.PlayerJoinedId;
+                    this.playerId = gameEvent.OldGameEvent.PlayerJoinedId;
                     break;
                 case GameEventType.GameStarted:
-                    this.playableRadius = gameEvent.PlayableRadius;
-                    this.shrinkingCenter = gameEvent.ShrinkingCenter;
-                    eventsBuffer.AddEvent(gameEvent);
-                    this.gamePlayers = gameEvent.Players.ToList();
-                    this.gameProjectiles = gameEvent.Projectiles.ToList();
+                    this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
+                    this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
+                    eventsBuffer.AddEvent(gameEvent.OldGameEvent);
+                    this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
+                    this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
                     LobbyConnection.Instance.gameStarted = true;
                     break;
                 default:
-                    print("Message received is: " + gameEvent.Type);
+                    print("Message received is: " + gameEvent.OldGameEvent.Type);
                     break;
             }
         }
@@ -231,7 +234,7 @@ public class SocketConnectionManager : MonoBehaviour
         return result;
     }
 
-    public static Player GetPlayer(ulong id, List<Player> playerList)
+    public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
     {
         return playerList.Find(el => el.Id == id);
     }
