@@ -333,6 +333,7 @@ public class Skill : CharacterAbility
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
         SocketConnectionManager.Instance.SendGameAction(gameAction);
+        SocketConnectionManager.Instance.clientPrediction.StopMovement(timestamp);
     }
 
     public void EndSkillFeedback(string animationId)

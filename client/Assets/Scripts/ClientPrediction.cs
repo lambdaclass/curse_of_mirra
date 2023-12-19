@@ -29,7 +29,10 @@ public class ClientPrediction
         playerPosition = new OldPosition() { X = 0, Y = 0 }
     };
 
-    public void putPlayerInput(PlayerInput PlayerInput)
+    static float lastXSent = 0;
+    static float lastYSent = 0;
+
+    public void PutPlayerInput(PlayerInput PlayerInput)
     {
         PlayerInput lastPlayerInput;
         if (pendingPlayerInputs.Count > 0)
@@ -40,16 +43,41 @@ public class ClientPrediction
         }
 
         pendingPlayerInputs.Add(PlayerInput);
+        SetLastSentDirection(PlayerInput.joystick_x_value, PlayerInput.joystick_y_value);
     }
 
-    public void simulatePlayerState(OldPlayer player, long playerTimestamp, long serverTimestamp)
+    public void StopMovement(long timestamp)
     {
-        updateAcknowledgedAction(player, playerTimestamp, serverTimestamp);
-        removeServerAcknowledgedInputs(player, playerTimestamp);
-        simulatePlayerMovement(player);
+        PlayerInput playerInput = new PlayerInput
+        {
+            joystick_x_value = 0,
+            joystick_y_value = 0,
+            startMovementTimestamp = timestamp,
+            endMovementTimestamp = 0,
+            timestampId = timestamp
+        };
+        PutPlayerInput(playerInput);
     }
 
-    void updateAcknowledgedAction(OldPlayer player, long playerTimestamp, long serverTimestamp)
+    public void SetLastSentDirection(float x, float y)
+    {
+        lastXSent = x;
+        lastYSent = y;
+    }
+
+    public (float, float) GetLastSentDirection()
+    {
+        return (lastXSent, lastYSent);
+    }
+
+    public void SimulatePlayerState(OldPlayer player, long playerTimestamp, long serverTimestamp)
+    {
+        UpdateAcknowledgedAction(player, playerTimestamp, serverTimestamp);
+        RemoveServerAcknowledgedInputs(player, playerTimestamp);
+        SimulatePlayerMovement(player);
+    }
+
+    void UpdateAcknowledgedAction(OldPlayer player, long playerTimestamp, long serverTimestamp)
     {
         for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
@@ -73,7 +101,7 @@ public class ClientPrediction
         }
     }
 
-    void removeServerAcknowledgedInputs(OldPlayer player, long playerTimestamp)
+    void RemoveServerAcknowledgedInputs(OldPlayer player, long playerTimestamp)
     {
         pendingPlayerInputs.RemoveAll(
             (input) =>
@@ -82,10 +110,10 @@ public class ClientPrediction
         );
     }
 
-    void simulatePlayerMovement(OldPlayer player)
+    void SimulatePlayerMovement(OldPlayer player)
     {
         var tickRate = SocketConnectionManager.Instance.serverTickRate_ms;
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
+        var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id) / 100f;
         OldPosition acknowledgedPosition = acknowledgedPlayerInput.playerPosition;
         if (acknowledgedPlayerInput.timestampId == 0)
         {
@@ -125,16 +153,16 @@ public class ClientPrediction
         var radius = 4900;
         OldPosition center = new OldPosition() { X = 5000, Y = 5000 };
 
-        if (distance_between_positions(player.Position, center) > radius)
+        if (Distance_between_positions(player.Position, center) > radius)
         {
-            var angle = angle_between_positions(center, player.Position);
+            var angle = Angle_between_positions(center, player.Position);
 
             player.Position.X = (ulong)(radius * Math.Cos(angle) + 5000);
             player.Position.Y = (ulong)(radius * Math.Sin(angle) + 5000);
         }
     }
 
-    double distance_between_positions(OldPosition position_1, OldPosition position_2)
+    double Distance_between_positions(OldPosition position_1, OldPosition position_2)
     {
         double p1_x = position_1.X;
         double p1_y = position_1.Y;
@@ -146,7 +174,7 @@ public class ClientPrediction
         return Math.Sqrt(distance_squared);
     }
 
-    double angle_between_positions(OldPosition center, OldPosition target)
+    double Angle_between_positions(OldPosition center, OldPosition target)
     {
         double p1_x = center.X;
         double p1_y = center.Y;

@@ -4,18 +4,19 @@ using Communication.Protobuf;
 
 public class PlayerControls : MonoBehaviour
 {
-    float lastXSent = 0;
-    float lastYSent = 0;
-
     public void SendJoystickValues(float x, float y)
     {
         bool moving = x != 0 || y != 0;
+
+        (float lastXSent, float lastYSent) =
+            SocketConnectionManager.Instance.clientPrediction.GetLastSentDirection();
+
         float lastAngleSent = Mathf.Atan2(lastYSent, lastXSent) * Mathf.Rad2Deg;
         long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         float angle = moving ? Mathf.Atan2(y, x) * Mathf.Rad2Deg : lastAngleSent;
         float difference = Math.Abs(angle - lastAngleSent);
 
-        if (ShouldSendMovement(x, y, difference))
+        if (ShouldSendMovement(x, y, difference, lastXSent, lastYSent))
         {
             Move moveAction = new Move { Angle = angle, Moving = moving };
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
@@ -29,13 +30,11 @@ public class PlayerControls : MonoBehaviour
                 startMovementTimestamp = timestamp,
                 timestampId = timestamp
             };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
-            lastXSent = x;
-            lastYSent = y;
+            SocketConnectionManager.Instance.clientPrediction.PutPlayerInput(playerInput);
         }
     }
 
-    bool ShouldSendMovement(float x, float y, float difference)
+    bool ShouldSendMovement(float x, float y, float difference, float lastXSent, float lastYSent)
     {
         return (x != lastXSent || y != lastYSent) && ((difference <= 0.01f) || difference > 5);
     }
@@ -65,6 +64,19 @@ public class PlayerControls : MonoBehaviour
             SendJoystickValues(x, y);
         }
         return (x, y);
+    }
+
+    public bool KeysPressed()
+    {
+        return Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S);
+    }
+
+    public bool JoytickUsed(float x, float y)
+    {
+        return x != 0 || y != 0;
     }
 
     public static float getBackendCharacterSpeed(ulong playerId)

@@ -173,7 +173,10 @@ public class Battle : MonoBehaviour
             if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
-                if (inputFromVirtualJoystick)
+                if (
+                    inputFromVirtualJoystick
+                    && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+                )
                 {
                     GetComponent<PlayerControls>()
                         .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
@@ -181,6 +184,15 @@ public class Battle : MonoBehaviour
                 else
                 {
                     GetComponent<PlayerControls>().SendAction();
+                }
+
+                if (
+                    !GetComponent<PlayerControls>().KeysPressed()
+                    && !GetComponent<PlayerControls>()
+                        .JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
+                )
+                {
+                    GetComponent<PlayerControls>().SendJoystickValues(0, 0);
                 }
             }
         }
@@ -245,7 +257,7 @@ public class Battle : MonoBehaviour
                         // Debug.Log($"Server Player Position is: ({serverPlayerUpdate.Position.X};{serverPlayerUpdate.Position.Y})");
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                    SocketConnectionManager.Instance.clientPrediction.SimulatePlayerState(
                         serverPlayerUpdate,
                         gameEvent.PlayerTimestamp,
                         gameEvent.ServerTimestamp
