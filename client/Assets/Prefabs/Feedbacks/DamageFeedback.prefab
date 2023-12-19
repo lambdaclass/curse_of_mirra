@@ -39,7 +39,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4063406239379408078}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
   m_Name: 
@@ -121,11 +121,11 @@ MonoBehaviour:
   DebugActive: 0
   FeedbacksList:
   - rid: 8225093901390184455
-  - rid: 8225093901390184457
+  - rid: 8991264300308103170
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   ForceStopFeedbacksOnDisable: 1
-  PlayCount: 33
+  PlayCount: 54
   references:
     version: 2
     RefIds:
@@ -197,16 +197,17 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 1438067562074111280}
         DebugActive: 0
-        FlashColor: {r: 1, g: 0, b: 0, a: 0.2784314}
+        FlashColor: {r: 1, g: 0, b: 0, a: 0.09803922}
         FlashDuration: 0.2
         FlashAlpha: 1
         FlashID: 0
-    - rid: 8225093901390184457
-      type: {class: MMF_CameraShake, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
+    - rid: 8991264300308103170
+      type: {class: MMF_CinemachineImpulse, ns: MoreMountains.FeedbacksForThirdParty,
+        asm: MoreMountains.Feedbacks.Cinemachine}
       data:
         Active: 1
-        UniqueID: -157473495
-        Label: Camera Shake
+        UniqueID: 1925603369
+        Label: Cinemachine Impulse
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -269,11 +270,46 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 1438067562074111280}
         DebugActive: 0
-        RepeatUntilStopped: 0
-        CameraShakeProperties:
-          Duration: 0.05
-          Amplitude: 0.1
-          Frequency: 20
-          AmplitudeX: 0
-          AmplitudeY: 0
-          AmplitudeZ: 0
+        m_ImpulseDefinition:
+          m_ImpulseChannel: 1
+          m_ImpulseShape: 0
+          m_CustomImpulseShape:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          m_ImpulseDuration: 0.2
+          m_ImpulseType: 3
+          m_DissipationRate: 0
+          m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4,
+            type: 2}
+          m_AmplitudeGain: 1
+          m_FrequencyGain: 1
+          m_RepeatMode: 0
+          m_Randomize: 1
+          m_TimeEnvelope:
+            m_AttackShape:
+              serializedVersion: 2
+              m_Curve: []
+              m_PreInfinity: 2
+              m_PostInfinity: 2
+              m_RotationOrder: 4
+            m_DecayShape:
+              serializedVersion: 2
+              m_Curve: []
+              m_PreInfinity: 2
+              m_PostInfinity: 2
+              m_RotationOrder: 4
+            m_AttackTime: 0
+            m_SustainTime: 0.2
+            m_DecayTime: 0.7
+            m_ScaleWithImpact: 1
+            m_HoldForever: 0
+          m_ImpactRadius: 100
+          m_DirectionMode: 0
+          m_DissipationMode: 2
+          m_DissipationDistance: 100
+          m_PropagationSpeed: 343
+        Velocity: {x: 0.3, y: 0.5, z: 0.3}
+        ClearImpulseOnStop: 0

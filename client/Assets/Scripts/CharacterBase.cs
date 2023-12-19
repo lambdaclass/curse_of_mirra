@@ -22,24 +22,20 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     Sound3DManager sound3DManager;
 
-    public IEnumerator activateSpawnFeedback(bool isCurrentPlayer)
+    const float SPAWN_SFX_VOLUME = 0.01f;
+
+    public void ToggleSpawnFeedback(bool isActiveSound, string id)
     {
-        float lifeTime = spawnFeedback.GetComponent<VisualEffect>().GetFloat("LifeTime");
-        spawnFeedback.SetActive(true);
-        if (isCurrentPlayer)
+        spawnFeedback.SetActive(isActiveSound);
+        if (isActiveSound)
         {
             MMSoundManagerSoundPlayEvent.Trigger(
                 spawnSfx,
                 MMSoundManager.MMSoundManagerTracks.Sfx,
-                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position
+                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position,
+                false,
+                SPAWN_SFX_VOLUME
             );
         }
-        else
-        {
-            sound3DManager.SetSfxSound(spawnSfx);
-            sound3DManager.PlaySfxSound();
-        }
-        yield return new WaitForSeconds(lifeTime);
-        spawnFeedback.SetActive(false);
     }
 }

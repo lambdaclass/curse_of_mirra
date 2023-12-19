@@ -731,6 +731,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6399475696941276347, guid: 3a382f87385cf42ae8e87bc29ac80101,
+        type: 3}
+      propertyPath: PlayCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124395806515962370, guid: 3a382f87385cf42ae8e87bc29ac80101,
+        type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a382f87385cf42ae8e87bc29ac80101, type: 3}
 --- !u!114 &44719680363781297 stripped
