@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: Orchestra
   description: Revives all recruits that spawned since the last use of this ultimate.
-    But they all use Scherzo now! Myrra granted her the ability to use her music
+    But they all use Scherzo now! Mirra granted her the ability to use her music
     to create illusions of herself.
   inputType: 0
   skillSetType: 0
