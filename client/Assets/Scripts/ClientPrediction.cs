@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Communication.Protobuf;
 
 public class ClientPrediction
 {
@@ -18,18 +19,18 @@ public class ClientPrediction
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Player player, long timestamp)
+    public void simulatePlayerState(OldPlayer player, long timestamp)
     {
         removeServerAcknowledgedInputs(player, timestamp);
         simulatePlayerMovement(player);
     }
 
-    void removeServerAcknowledgedInputs(Player player, long timestamp)
+    void removeServerAcknowledgedInputs(OldPlayer player, long timestamp)
     {
         pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
     }
 
-    void simulatePlayerMovement(Player player)
+    void simulatePlayerMovement(OldPlayer player)
     {
         // TODO check this
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
@@ -47,7 +48,7 @@ public class ClientPrediction
             var newPositionX = (long)player.Position.X + (long)Math.Round(movementVector.x);
             var newPositionY = (long)player.Position.Y + (long)Math.Round(movementVector.y);
 
-            Position newPlayerPosition = new Position();
+            OldPosition newPlayerPosition = new OldPosition();
 
             newPlayerPosition.X = (ulong)newPositionX;
             newPlayerPosition.Y = (ulong)newPositionY;
@@ -56,7 +57,7 @@ public class ClientPrediction
         });
 
         var radius = 4900;
-        Position center = new Position() { X = 5000, Y = 5000 };
+        OldPosition center = new OldPosition() { X = 5000, Y = 5000 };
 
         if (distance_between_positions(player.Position, center) > radius)
         {
@@ -67,7 +68,7 @@ public class ClientPrediction
         }
     }
 
-    double distance_between_positions(Position position_1, Position position_2)
+    double distance_between_positions(OldPosition position_1, OldPosition position_2)
     {
         double p1_x = position_1.X;
         double p1_y = position_1.Y;
@@ -79,7 +80,7 @@ public class ClientPrediction
         return Math.Sqrt(distance_squared);
     }
 
-    double angle_between_positions(Position center, Position target)
+    double angle_between_positions(OldPosition center, OldPosition target)
     {
         double p1_x = center.X;
         double p1_y = center.Y;

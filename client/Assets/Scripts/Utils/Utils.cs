@@ -5,6 +5,7 @@ using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Communication.Protobuf;
 
 public class Utils
 {
@@ -20,7 +21,7 @@ public class Utils
         SceneManager.LoadScene(levelName);
     }
 
-    public static Vector3 transformBackendPositionToFrontendPosition(Position position)
+    public static Vector3 transformBackendPositionToFrontendPosition(OldPosition position)
     {
         var x = (long)position?.Y / 100f - 50.0f;
         var y = (-((long)position?.X)) / 100f + 50.0f;
@@ -44,9 +45,9 @@ public class Utils
         return GetPlayer(id).GetComponent<CustomCharacter>();
     }
 
-    public static Player GetGamePlayer(ulong id)
+    public static OldPlayer GetGamePlayer(ulong id)
     {
-        Player player = null;
+        OldPlayer player = null;
         if (
             SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.gamePlayers.Count > 0
@@ -57,10 +58,10 @@ public class Utils
         return player;
     }
 
-    public static IEnumerable<Player> GetAlivePlayers()
+    public static IEnumerable<OldPlayer> GetAlivePlayers()
     {
         return SocketConnectionManager.Instance.gamePlayers.Where(
-            player => player.Status == Status.Alive
+            player => player.Status == OldStatus.Alive
         );
     }
 
@@ -75,11 +76,11 @@ public class Utils
         return result;
     }
 
-    public static Player GetNearestPlayer(Position toCompare)
+    public static OldPlayer GetNearestPlayer(OldPosition toCompare)
     {
         ulong aux_X = 0;
         ulong aux_Y = 0;
-        Player nearest_player = null;
+        OldPlayer nearest_player = null;
         SocketConnectionManager.Instance.gamePlayers.ForEach(player =>
         {
             if (aux_Y == 0 && aux_Y == 0)
