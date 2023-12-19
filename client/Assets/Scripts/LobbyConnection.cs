@@ -48,7 +48,8 @@ public class LobbyConnection : MonoBehaviour
     private const string connectionTitle = "Error";
     private const string connectionDescription = "Your connection to the server has been lost.";
     private const string versionHashesTitle = "Warning";
-    private const string versionHashesDescription = "Client and Server version hashes do not match.";
+    private const string versionHashesDescription =
+        "Client and Server version hashes do not match.";
     WebSocket ws;
 
     [Serializable]
@@ -126,13 +127,28 @@ public class LobbyConnection : MonoBehaviour
             {
                 this.ws.Close();
             }
-
-            Destroy(gameObject);
+            ResetFields();
             return;
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void ResetFields()
+    {
+        this.LobbySession = "";
+        this.GameSession = "";
+        this.playerId = 0;
+        this.serverTickRate_ms = 0;
+        this.serverHash = "";
+        this.hostId = 0;
+        this.playerCount = 0;
+        this.gameStarted = false;
+        this.clientId = "";
+        this.simulatedPlayerCount = 0;
+        this.lobbyCapacity = 0;
+        this.isHost = false;
     }
 
     void Update()
@@ -143,9 +159,10 @@ public class LobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-    if (this.gameStarted) {
-        CancelInvoke("UpdateSimulatedCounter");
-    }
+        if (this.gameStarted)
+        {
+            CancelInvoke("UpdateSimulatedCounter");
+        }
     }
 
     private void PopulateLists()
@@ -380,8 +397,8 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.NotifyPlayerAmount:
-                    this.playerCount = (int) lobbyEvent.AmountOfPlayers;
-                    this.lobbyCapacity = (int) lobbyEvent.Capacity;
+                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
@@ -397,7 +414,8 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private void UpdateSimulatedCounter() {
+    private void UpdateSimulatedCounter()
+    {
         var limit = this.lobbyCapacity - this.simulatedPlayerCount;
         System.Random r = new System.Random();
         var randomNumber = r.Next(0, Math.Min(3, limit));
