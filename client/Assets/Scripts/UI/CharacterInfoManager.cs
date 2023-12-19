@@ -1,18 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening;
 using System.Linq;
 
 public class CharacterInfoManager : MonoBehaviour
 {
     [SerializeField]
-    List<CoMCharacter> comCharacters;
-
-    [SerializeField]
-    private UIModelManager ModelManager;
+    private UIModelManager modelManager;
 
     [Header("Character info")]
     [SerializeField]
@@ -30,58 +25,79 @@ public class CharacterInfoManager : MonoBehaviour
 
     [Header("Arrows")]
     [SerializeField]
-    GameObject leftButton;
+    ButtonAnimationsMMTouchButton leftButton,
+        rightButton;
 
-    [SerializeField]
-    GameObject rightButton;
+    public static int characterIndex;
 
-    public static int selectedCharacterPosition;
-
-    private List<CoMCharacter> availableCharacters = new List<CoMCharacter>();
+    List<CoMCharacter> availableCharacters;
 
     void Start()
     {
-        availableCharacters = Utils.GetOnlyAvailableCharacterInfo(comCharacters);
-        SetCharacterInfo(selectedCharacterPosition);
-    }
+        availableCharacters = CharactersManager.Instance.availableCharacters;
 
-    public void RightArrowFunc()
-    {
-        if (selectedCharacterPosition == availableCharacters.Count - 1)
+        CoMCharacter characterToShow = availableCharacters.Single(
+            comCharacter => comCharacter.name == CharactersManager.Instance.goToCharacterName
+        );
+        // Get index from selected character to show previous and next character
+        characterIndex = availableCharacters.FindIndex(
+            availableCharacter => availableCharacter.name == characterToShow.name
+        );
+
+        if (availableCharacters.Count() > 1)
         {
-            selectedCharacterPosition = 0;
+            rightButton.enabled = true;
+            leftButton.enabled = true;
         }
         else
         {
-            selectedCharacterPosition = selectedCharacterPosition + 1;
+            rightButton.enabled = false;
+            leftButton.enabled = false;
         }
-
-        SetCharacterInfo(selectedCharacterPosition);
+        SetCharacterInfo(characterToShow);
     }
 
-    public void LeftArrowFunc()
+    public void RightArrowFunction()
     {
-        if (selectedCharacterPosition == 0)
+        if (characterIndex == availableCharacters.Count - 1)
         {
-            selectedCharacterPosition = availableCharacters.Count - 1;
+            characterIndex = 0;
         }
         else
         {
-            selectedCharacterPosition = selectedCharacterPosition - 1;
+            characterIndex = characterIndex + 1;
         }
-        SetCharacterInfo(selectedCharacterPosition);
+        if (availableCharacters.Count() > 1)
+        {
+            SetCharacterInfo(availableCharacters[characterIndex]);
+        }
     }
 
-    public void SetCharacterInfo(int currentPosition)
+    public void LeftArrowFunction()
     {
-        CoMCharacter comCharacter = availableCharacters[currentPosition];
-        ModelManager.RemoveCurrentModel();
-        ModelManager.SetModel(comCharacter);
+        if (characterIndex == 0)
+        {
+            characterIndex = availableCharacters.Count - 1;
+        }
+        else
+        {
+            characterIndex = characterIndex - 1;
+        }
+        if (availableCharacters.Count() > 1)
+        {
+            SetCharacterInfo(availableCharacters[characterIndex]);
+        }
+    }
+
+    public void SetCharacterInfo(CoMCharacter comCharacter)
+    {
+        modelManager.RemoveCurrentModel();
+        modelManager.SetModel(comCharacter.name);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;
         classImage.sprite = comCharacter.classImage;
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
-        StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
+        StartCoroutine(modelManager.GetComponentInChildren<RotateUIModel>().GetModel());
     }
 }
