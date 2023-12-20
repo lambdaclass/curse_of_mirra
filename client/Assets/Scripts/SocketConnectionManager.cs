@@ -52,6 +52,8 @@ public class SocketConnectionManager : MonoBehaviour
 
     public bool connected = false;
 
+    public Game.GameState gameState;
+
     WebSocket ws;
 
     private string clientId;
@@ -167,6 +169,28 @@ public class SocketConnectionManager : MonoBehaviour
         try
         {
             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
+
+            // TODO: Fix missing NewGameEvent, current missing are
+            //      - PING_UPDATE
+            //      - PLAYER_JOINED
+            if (gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
+                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined) {
+                try {
+                    switch (gameEvent.NewGameEvent.EventCase) {
+                        case GameEvent.EventOneofCase.GameState:
+                            gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
+                            break;
+                        default:
+                            print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Debug.Log(gameEvent);
+                    Debug.Log(e);
+                    throw e;
+                }
+            }
+
             switch (gameEvent.OldGameEvent.Type)
             {
                 case GameEventType.StateUpdate:
