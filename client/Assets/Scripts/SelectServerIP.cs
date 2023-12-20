@@ -22,7 +22,6 @@ public class SelectServerIP : MonoBehaviour
         serverIp = IP.text.Trim();
         serverNameString = serverName.text;
         LobbyConnection.Instance.Refresh();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static string GetServerIp()
