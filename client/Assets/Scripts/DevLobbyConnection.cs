@@ -394,8 +394,6 @@ public class DevLobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
                     this.playerCount = lobbyEvent.PlayersInfo.Count();
                     lobbyEvent.PlayersInfo
                         .ToList()

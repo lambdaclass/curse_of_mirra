@@ -368,8 +368,12 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    this.playersIdName[lobbyEvent.AddedPlayerInfo.PlayerId] = lobbyEvent.AddedPlayerInfo;
-                    Debug.log(lobbyEvent.AddedPlayerInfo);
+                    lobbyEvent.PlayersInfo
+                        .ToList()
+                        .ForEach(
+                            playerInfo =>
+                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
+                        );
                     break;
 
                 case LobbyEventType.PreparingGame:
