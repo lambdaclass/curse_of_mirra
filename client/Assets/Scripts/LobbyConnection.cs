@@ -6,6 +6,7 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using Communication.Protobuf;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -49,7 +50,6 @@ public class LobbyConnection : MonoBehaviour
     private const string versionHashesTitle = "Warning";
     private const string versionHashesDescription =
         "Client and Server version hashes do not match.";
-
     WebSocket ws;
 
     [Serializable]
@@ -111,7 +111,7 @@ public class LobbyConnection : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        LoadClientId();
+        this.clientId = ServerUtils.GetClientId();
         MaybeReconnect();
         PopulateLists();
     }
@@ -127,13 +127,28 @@ public class LobbyConnection : MonoBehaviour
             {
                 this.ws.Close();
             }
-
-            Destroy(gameObject);
+            ResetFields();
             return;
         }
         Instance = this;
         this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void ResetFields()
+    {
+        this.LobbySession = "";
+        this.GameSession = "";
+        this.playerId = 0;
+        this.serverTickRate_ms = 0;
+        this.serverHash = "";
+        this.hostId = 0;
+        this.playerCount = 0;
+        this.gameStarted = false;
+        this.clientId = "";
+        this.simulatedPlayerCount = 0;
+        this.lobbyCapacity = 0;
+        this.isHost = false;
     }
 
     void Update()
@@ -144,9 +159,10 @@ public class LobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-    if (this.gameStarted) {
-        CancelInvoke("UpdateSimulatedCounter");
-    }
+        if (this.gameStarted)
+        {
+            CancelInvoke("UpdateSimulatedCounter");
+        }
     }
 
     private void PopulateLists()
@@ -157,17 +173,6 @@ public class LobbyConnection : MonoBehaviour
         StartCoroutine(GetGames());
     }
 
-    private void LoadClientId()
-    {
-        if (!PlayerPrefs.HasKey("client_id"))
-        {
-            Guid g = Guid.NewGuid();
-            PlayerPrefs.SetString("client_id", g.ToString());
-        }
-
-        this.clientId = PlayerPrefs.GetString("client_id");
-    }
-
     private void MaybeReconnect()
     {
         // StartCoroutine(GetCurrentGame());
@@ -176,7 +181,7 @@ public class LobbyConnection : MonoBehaviour
     public void JoinLobby()
     {
         ValidateVersionHashes();
-        StartCoroutine(GetRequest(makeUrl("/join_lobby")));
+        StartCoroutine(GetRequest(ServerUtils.MakeHTTPUrl("/join_lobby")));
     }
 
     public void ConnectToLobby(string matchmaking_id)
@@ -254,7 +259,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetLobbies()
     {
-        string url = makeUrl("/current_lobbies");
+        string url = ServerUtils.MakeHTTPUrl("/current_lobbies");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -279,7 +284,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetGames()
     {
-        string url = makeUrl("/current_games");
+        string url = ServerUtils.MakeHTTPUrl("/current_games");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -303,7 +308,7 @@ public class LobbyConnection : MonoBehaviour
 
     IEnumerator GetCurrentGame()
     {
-        string url = makeUrl("/player_game/" + this.clientId);
+        string url = ServerUtils.MakeHTTPUrl("/player_game/" + this.clientId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();
@@ -392,8 +397,8 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.NotifyPlayerAmount:
-                    this.playerCount = (int) lobbyEvent.AmountOfPlayers;
-                    this.lobbyCapacity = (int) lobbyEvent.Capacity;
+                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
@@ -409,7 +414,8 @@ public class LobbyConnection : MonoBehaviour
         }
     }
 
-    private void UpdateSimulatedCounter() {
+    private void UpdateSimulatedCounter()
+    {
         var limit = this.lobbyCapacity - this.simulatedPlayerCount;
         System.Random r = new System.Random();
         var randomNumber = r.Next(0, Math.Min(3, limit));
@@ -421,32 +427,6 @@ public class LobbyConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-        }
-    }
-
-    private string makeUrl(string path)
-    {
-        if (serverIp.Contains("localhost"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        // Load test server
-        else if (serverIp.Contains("168.119.71.104"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        // Load test runner server
-        else if (serverIp.Contains("176.9.26.172"))
-        {
-            return "http://" + serverIp + ":4000" + path;
-        }
-        else
-        {
-            return "https://" + serverIp + path;
         }
     }
 

@@ -4,6 +4,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using Communication.Protobuf;
 using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
@@ -15,7 +16,7 @@ public class Skill : CharacterAbility
     public string skillId;
 
     [SerializeField]
-    protected Action serverSkill;
+    protected Communication.Protobuf.Action serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -32,7 +33,7 @@ public class Skill : CharacterAbility
     private TrailRenderer trail;
 
     public void SetSkill(
-        Action serverSkill,
+        Communication.Protobuf.Action serverSkill,
         SkillInfo skillInfo,
         SkillAnimationEvents skillsAnimationEvent
     )
@@ -159,7 +160,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void StartFeedback()
+    public void StartFeedback(ulong duration)
     {
         ClearAnimator();
 
@@ -167,16 +168,13 @@ public class Skill : CharacterAbility
         {
             string animation = skillId + "_start";
             ChangeCharacterState(animation);
-            if (skillInfo.startAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        animation,
-                        skillInfo.startAnimationDuration
-                    )
-                );
-            }
+            StartCoroutine(
+                skillsAnimationEvent.TryEjectAnimation(
+                    this,
+                    animation,
+                    duration
+                )
+            );
         }
 
         if (skillInfo.startFeedbackVfx)
@@ -208,23 +206,20 @@ public class Skill : CharacterAbility
         StartCoroutine(StopStartFeedbackVfx());
     }
 
-    public void ExecuteFeedback()
+    public void ExecuteFeedback(ulong duration)
     {
         ClearAnimator();
 
         if (skillInfo.hasModelAnimation == true)
         {
             ChangeCharacterState(skillId);
-            if (skillInfo.executeAnimationDuration > 0)
-            {
-                StartCoroutine(
-                    skillsAnimationEvent.TryEjectAnimation(
-                        this,
-                        skillId,
-                        skillInfo.executeAnimationDuration
-                    )
-                );
-            }
+            StartCoroutine(
+                skillsAnimationEvent.TryEjectAnimation(
+                    this,
+                    skillId,
+                    duration
+                )
+            );
         }
 
         if (!skillInfo.sfxHasAbilityStop)
