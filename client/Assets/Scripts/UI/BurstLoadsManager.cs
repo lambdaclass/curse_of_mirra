@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Communication.Protobuf;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +8,9 @@ public class BurstLoadsManager : MonoBehaviour
 {
     [SerializeField]
     private List<MMProgressBar> Bursts;
+    private float SkillCooldown = 0f;
 
-    void Awake() {
+    void Start() {
         Bursts.ForEach(burst =>
         {
             burst.ForegroundBar.GetComponent<Image>().color = Utils.magenta;
@@ -18,32 +20,48 @@ public class BurstLoadsManager : MonoBehaviour
     public void Update()
     {
         var player = Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId);
-        Debug.Log(player);
+
+        UpdateCooldown(player);
+
         int burstLoads = (int)player.AvailableBurstLoads;
         for (int i = 0; i < Bursts.Count; i++)
         {
-            Color burstBarColor = Bursts[i].ForegroundBar.GetComponent<Image>().color;
-            if (i <= burstLoads-1)
+            Image foregroundImage = Bursts[i].ForegroundBar.GetComponent<Image>();
+
+            if (i <= burstLoads - 1)
             {
-                if (!burstBarColor.Equals(Utils.magenta)){
-                    Bursts[i].ForegroundBar.GetComponent<Image>().color = Utils.magenta;
+                if (!foregroundImage.color.Equals(Utils.magenta)){
+                    foregroundImage.color = Utils.magenta;
                 }
             }
             else
             {
-                Bursts[i].ForegroundBar.GetComponent<Image>().color = Utils.burstLoadsBarCharging;
+                foregroundImage.color = Utils.burstLoadsBarCharging;
             }
 
-            if (i == burstLoads)
-            {
-                Bursts[i].UpdateBar01(1-player.BasicSkillCooldownLeft.Low / 5000f);
-            } else if (i < burstLoads)
-            {
-                Bursts[i].UpdateBar01(1f);
-            } else
-            {
-                Bursts[i].UpdateBar01(0f);
-            }
+            UpdateBurstsBar(i, burstLoads, player.BasicSkillCooldownLeft.Low);
+        }
+    }
+
+    private void UpdateCooldown(OldPlayer player)
+    {
+        var currentCooldown = player.BasicSkillCooldownLeft.Low;
+        if (SkillCooldown <= currentCooldown) {
+            SkillCooldown = currentCooldown;
+        }
+    }
+
+    private void UpdateBurstsBar(int currentIndex, int burstLoads, ulong cooldownLeft)
+    {
+        if (currentIndex == burstLoads)
+        {
+            Bursts[currentIndex].UpdateBar01(1 - cooldownLeft / SkillCooldown);
+        } else if (currentIndex < burstLoads)
+        {
+            Bursts[currentIndex].UpdateBar01(1f);
+        } else
+        {
+            Bursts[currentIndex].UpdateBar01(0f);
         }
     }
 }

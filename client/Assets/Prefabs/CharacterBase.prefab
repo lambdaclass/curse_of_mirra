@@ -61,6 +61,9 @@ MonoBehaviour:
   spawnFeedback: {fileID: 5507989738225416466}
   OrientationIndicator: {fileID: 7732992783268524443}
   OrientationArrow: {fileID: 6582825352636674345}
+  CharacterCard: {fileID: 3654173184674931120}
+  BurstLoadsBar: {fileID: 1000010797750574, guid: e0c1cbd2e65a043d9941f720b99e8ddb,
+    type: 3}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
 --- !u!114 &1743729574858777773
@@ -659,6 +662,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6283273754690193740, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
+--- !u!1 &3654173184674931120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1428990921056839056, guid: 1b5803238588347b78c88ecab08cedef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2405749641239282720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5802362377404487455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,

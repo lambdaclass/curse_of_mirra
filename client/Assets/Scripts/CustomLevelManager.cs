@@ -187,6 +187,7 @@ public class CustomLevelManager : LevelManager
                 //Disable audioListener in camera
                 this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
                     false;
+                Instantiate(newPlayer.characterBase.BurstLoadsBar, newPlayer.characterBase.CharacterCard.transform);
             }
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
