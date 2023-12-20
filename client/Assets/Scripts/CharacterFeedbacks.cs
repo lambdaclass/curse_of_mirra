@@ -63,6 +63,11 @@ public class CharacterFeedbacks : MonoBehaviour
         return feedback;
     }
 
+    public void ExecuteFeedback(GameObject feedback)
+    {
+        feedback.SetActive(true);
+    }
+
     public List<GameObject> GetFeedbackList()
     {
         return feedbacksPrefabs;

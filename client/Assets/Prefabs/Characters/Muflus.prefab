@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1787465996332106806}
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 3975715648245094208}
+  - component: {fileID: 3422967682702619958}
   m_Layer: 10
   m_Name: Muflus
   m_TagString: Player
@@ -487,7 +488,6 @@ MonoBehaviour:
   feedbacksPrefabs:
   - {fileID: 604736327119138052}
   - {fileID: 8938270116862053746}
-  - {fileID: 5740382608016110833}
   deathFeedback: {fileID: 179007033852684844}
   damageOverlayColor:
     serializedVersion: 2
@@ -495,6 +495,19 @@ MonoBehaviour:
   healOverlayColor:
     serializedVersion: 2
     rgba: 4281637428
+--- !u!114 &3422967682702619958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157912053db2b43298617967c15eddb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useItemEffect: {fileID: 5740382608016110833}
 --- !u!1001 &4293324087472863620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2315,16 +2328,6 @@ PrefabInstance:
         type: 3}
       propertyPath: objectToHighlight
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416275320970837623, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416275320970837623, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}

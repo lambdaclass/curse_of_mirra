@@ -5,10 +5,9 @@ using DG.Tweening;
 using System.Collections;
 using Communication.Protobuf;
 
-public class Inventory : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     private const string MYRRAS_BLESSING = "loot_health";
-    private const string ITEM_FEEDBACK = "UseItemEffect";
 
     // This is the base duration
     // The animations use this as a base for all the animation durations
@@ -145,21 +144,13 @@ public class Inventory : MonoBehaviour
         }
         if (activeItem != null && inventoryImage.sprite != null)
         {
-            UseFeedback();
+            useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
         }
     }
 
-    private void UseFeedback()
+    void PlayerFeedback(OldPlayer player, bool state)
     {
-        useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
-    }
-
-    void PlayerFeedback(OldPlayer player, bool show)
-    {
-        GameObject playerToApplyFeedback = Utils.GetPlayer(player.Id);
-        playerToApplyFeedback
-            .GetComponent<CharacterFeedbacks>()
-            .GetFeedback(ITEM_FEEDBACK)
-            .SetActive(show);
+        GameObject playerToExecuteFeedback = Utils.GetPlayer(player.Id);
+        playerToExecuteFeedback.GetComponent<CharacterInventory>().ExecuteFeedback(state);
     }
 }
