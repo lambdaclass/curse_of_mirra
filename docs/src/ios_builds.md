@@ -6,7 +6,7 @@
 
 3. In new folder, open .xcodeproj file with XCode
 
-4. Go to Unity-iPhone -> Signing and Capabilities. Check Automatically manage signing. In team use personal iOS Account (may need free registration in dev program developer.apple.com). Download provisioning profile if needed. Change bundle identifier to something unique that we wont use for the game. For example: com.myGitUsername.myrraV1 (and so on).
+4. Go to Unity-iPhone -> Signing and Capabilities. Check Automatically manage signing. In team use personal iOS Account (may need free registration in dev program developer.apple.com). Download provisioning profile if needed. Change bundle identifier to something unique that we wont use for the game. For example: com.myGitUsername.mirraV1 (and so on).
 
 5. Plug in iPhone, in iPhone enable developer mode (Settings -> Privacy and Security -> Developer mode -> on). In Xcode Choose iPhone in top bar
 

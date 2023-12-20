@@ -664,7 +664,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3820880597871610697}
-        m_TargetAssemblyTypeName: LobbyManager, CurseOfMyrra
+        m_TargetAssemblyTypeName: LobbyManager, CurseOfMirra
         m_MethodName: BackToLobbyFromGame
         m_Mode: 1
         m_Arguments:
@@ -3112,7 +3112,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 4075871386785948845}
-        m_TargetAssemblyTypeName: EndGameManager, CurseOfMyrra
+        m_TargetAssemblyTypeName: EndGameManager, CurseOfMirra
         m_MethodName: ShowCharacterAnimation
         m_Mode: 1
         m_Arguments:
