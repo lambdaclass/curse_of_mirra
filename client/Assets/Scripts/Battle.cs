@@ -159,8 +159,7 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        OldPlayer playerUpdate = lastEvent
-            .Players
+        OldPlayer playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
@@ -278,7 +277,7 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                         foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
+                        foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
                         {
                             if (PlayerMovementAuthorized(playerCharacter))
                             {
@@ -465,7 +464,7 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        var characterSpeed = playerUpdate.Speed / 100f;
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
             .CharacterModel.GetComponent<Animator>();
@@ -594,12 +593,9 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate
-                    .Action
-                    .Any(
-                        actionTracker =>
-                            actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
-                    )
+                && playerUpdate.Action.Any(
+                    actionTracker => actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
+                )
             )
             {
                 player.transform.position = frontendPosition;

@@ -207,12 +207,12 @@ public class Skill : CharacterAbility
 
         float angle = 0f;
         bool autoAim = true;
-        float targetX = 0f;
+        float amount = 0f;
         if (relativePosition.X != 0 || relativePosition.Y != 0)
         {
             angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg;
             autoAim = false;
-            targetX = (float)
+            amount = (float)
                 Math.Sqrt(
                     Math.Pow((double)relativePosition.X, 2)
                         + Math.Pow((double)relativePosition.Y, 2)
@@ -224,8 +224,7 @@ public class Skill : CharacterAbility
             Skill = serverSkill.ToString(),
             Angle = angle,
             AutoAim = autoAim,
-            TargetX = targetX,
-            TargetY = relativePosition.Y,
+            Amount = amount,
         };
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
