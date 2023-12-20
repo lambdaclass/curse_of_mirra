@@ -2,6 +2,7 @@ using MoreMountains.Tools;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System;
 
 public class ButtonAnimationsMMTouchButton : MMTouchButton
 {
@@ -26,15 +27,21 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
     )]
     Vector3 finalScale;
 
+    //Min difference of the touchStartPos and the current touch
+    private const float MIN_DIFFERENCE = 6.0f;
+    private Vector2 touchStartPos;
+    private bool isInsideCard = false;
+    public bool executeRelease = false;
+
     void Start()
     {
         initialScale = transform.localScale;
         finalScale = initialScale - new Vector3(0.05f, 0.05f, 0.05f);
     }
 
-    public override void OnPointerDown(PointerEventData data)
+    public override void OnPointerDown(PointerEventData eventData)
     {
-        base.OnPointerDown(data);
+        base.OnPointerDown(eventData);
         if (isBackButton)
         {
             transform
@@ -45,11 +52,13 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             transform.DOScale(finalScale, duration).SetEase(Ease.OutQuad);
         }
+
+        touchStartPos = eventData.position;
     }
 
-    public override void OnPointerUp(PointerEventData data)
+    public override void OnPointerUp(PointerEventData eventData)
     {
-        base.OnPointerUp(data);
+        base.OnPointerUp(eventData);
         if (isBackButton)
         {
             transform.DOPause();
@@ -58,5 +67,33 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             transform.DOScale(initialScale, duration);
         }
+
+        CheckReleasePosition(eventData);
+    }
+
+    public void CheckReleasePosition(PointerEventData eventData)
+    {
+        var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
+        var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
+        if (isInsideCard && touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
+        {
+            executeRelease = true;
+        }
+        else
+        {
+            executeRelease = false;
+        }
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerExit(eventData);
+        isInsideCard = false;
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+        isInsideCard = true;
     }
 }
