@@ -41,9 +41,7 @@ public class TitleScreenController : MonoBehaviour
 
     void Start()
     {
-        avaibleCharactersNames = CharactersManager.Instance.AvailableCharacters
-            .Select(character => character.name)
-            .ToList();
+        avaibleCharactersNames = CharactersManager.Instance.GetAvailableCharactersNames();
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));

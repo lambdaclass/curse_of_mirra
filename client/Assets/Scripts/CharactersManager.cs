@@ -40,10 +40,31 @@ public class CharactersManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        allCharacters = allCharacters.OrderByDescending(character => character.enabled).ToList();
-        // availableCharacters = allCharacters.Where(character => character.enabled).ToList();
+        allCharacters = allCharacters
+            .OrderByDescending(character => availableCharacterNames.Contains(character.name))
+            .ToList();
         availableCharacters = allCharacters
             .Where(character => availableCharacterNames.Contains(character.name))
             .ToList();
+    }
+
+    public void SetGoToCharacter(string goToCharacter)
+    {
+        this.GoToCharacter = goToCharacter;
+    }
+
+    public string GetGoToCharacter()
+    {
+        return this.GoToCharacter;
+    }
+
+    public List<string> GetAvailableCharactersNames()
+    {
+        return availableCharacterNames;
+    }
+
+    public bool IsAvaibleCharacter(CoMCharacter character)
+    {
+        return this.AvailableCharacters.Contains(character);
     }
 }

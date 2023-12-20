@@ -28,7 +28,7 @@ public class CharactersListManager : MonoBehaviour
                 instanceListItem.characterNameString = character.name;
 
                 // Characters enabled to select
-                if (character.enabled)
+                if (CharactersManager.Instance.IsAvaibleCharacter(character))
                 {
                     instanceListItem.soonLabel.SetActive(false);
                     instanceListItem.characterOpacity.SetActive(false);

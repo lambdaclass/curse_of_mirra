@@ -33,20 +33,24 @@ public class CharacterInfoManager : MonoBehaviour
     ButtonAnimationsMMTouchButton leftButton,
         rightButton;
 
-    public static int characterIndex;
+    private int characterIndex;
 
     List<CoMCharacter> availableCharacters;
 
     void Start()
     {
         availableCharacters = CharactersManager.Instance.AvailableCharacters;
+        string goToCharacter = CharactersManager.Instance.GetGoToCharacter();
+
+        print(goToCharacter);
+
         // Get index from selected character to show previous and next character
         characterIndex = availableCharacters.FindIndex(
-            availableCharacter =>
-                availableCharacter.name == CharactersManager.Instance.GoToCharacter
+            availableCharacter => availableCharacter.name == goToCharacter
         );
+
         CoMCharacter characterToShow = availableCharacters.Find(
-            character => character.name == CharactersManager.Instance.GoToCharacter
+            character => character.name == goToCharacter
         );
 
         rightButton.enabled = (availableCharacters.Count() > 1);
@@ -56,32 +60,32 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void RightArrowFunction()
     {
-        if (characterIndex == availableCharacters.Count(character => character.enabled) - 1)
-        {
-            characterIndex = 0;
-        }
-        else
-        {
-            characterIndex = characterIndex + 1;
-        }
         if (availableCharacters.Count() > 1)
         {
+            if (characterIndex == availableCharacters.Count() - 1)
+            {
+                characterIndex = 0;
+            }
+            else
+            {
+                characterIndex += 1;
+            }
             SetCharacterInfo(availableCharacters[characterIndex]);
         }
     }
 
     public void LeftArrowFunction()
     {
-        if (characterIndex == 0)
-        {
-            characterIndex = availableCharacters.Count(character => character.enabled) - 1;
-        }
-        else
-        {
-            characterIndex = characterIndex - 1;
-        }
         if (availableCharacters.Count() > 1)
         {
+            if (characterIndex == 0)
+            {
+                characterIndex = availableCharacters.Count() - 1;
+            }
+            else
+            {
+                characterIndex -= 1;
+            }
             SetCharacterInfo(availableCharacters[characterIndex]);
         }
     }
