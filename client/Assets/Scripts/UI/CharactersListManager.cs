@@ -1,17 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System.Linq;
 
 public class CharactersListManager : MonoBehaviour
 {
     [SerializeField]
-    List<CoMCharacter> characterSriptableObjects;
+    GameObject listItem;
 
     [SerializeField]
-    GameObject listItem;
+    Sprite unavailableSprite;
+
+    [SerializeField]
+    Sprite unavailableIcon;
 
     void Start()
     {
@@ -20,26 +19,43 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        var index = 0;
-        var avaibles = Utils.GetOnlyAvailableCharacterInfo(characterSriptableObjects);
-        characterSriptableObjects.ForEach(
+        List<CoMCharacter> availableCharacters = CharactersManager.Instance.availableCharacters;
+        CharactersManager.Instance.characterSriptableObjects.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
-                //We only activates the charactrs which are in the avaibles list
-                if (avaibles.Contains(character))
+                CharacterListItem instanceListItem = item.GetComponent<CharacterListItem>();
+                // Assign the character's name to be link to character info
+                instanceListItem.characterNameString = character.name;
+
+                // Characters enabled to select
+                if (availableCharacters.Contains(character))
                 {
-                    item.GetComponent<CharacterListItem>().listPosition = index;
-                    index++;
+                    instanceListItem.soonLabel.SetActive(false);
+                    instanceListItem.characterOpacity.SetActive(false);
+                    instanceListItem.characterIconState.sprite = character.characterIcon;
                 }
+                // Characters unable to select
                 else
                 {
-                    item.GetComponent<CharacterListItem>().listPosition = -1;
-                    item.GetComponent<CharacterListItem>().IsEnable = false;
+                    instanceListItem.IsEnable = false;
                     item.GetComponent<ButtonAnimationsMMTouchButton>().enabled = false;
+
+                    instanceListItem.characterIconState.sprite = unavailableIcon;
                 }
-                item.GetComponentInChildren<Image>().sprite = character.characterSprite;
-                item.GetComponentInChildren<TextMeshProUGUI>().text = character.name;
+                // Character's that we can't see preview of
+                if (character.characterSprite == null)
+                {
+                    instanceListItem.characterImage.sprite = unavailableSprite;
+                    instanceListItem.availableSoon.SetActive(true);
+                }
+                // Character's with preview but we can't select
+                else
+                {
+                    instanceListItem.characterImage.sprite = character.characterSprite;
+                    instanceListItem.characterName.gameObject.SetActive(true);
+                    instanceListItem.characterName.text = character.name;
+                }
             }
         );
     }

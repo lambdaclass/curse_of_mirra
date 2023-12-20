@@ -2114,7 +2114,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7487641534262862901}
-        m_TargetAssemblyTypeName: LobbyManager, CurseOfMyrra
+        m_TargetAssemblyTypeName: LobbyManager, CurseOfMirra
         m_MethodName: BackToLobbyFromGame
         m_Mode: 1
         m_Arguments:
