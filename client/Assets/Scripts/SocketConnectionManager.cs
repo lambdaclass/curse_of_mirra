@@ -46,7 +46,6 @@ public class SocketConnectionManager : MonoBehaviour
     public OldPosition shrinkingCenter;
 
     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
-    public List<LootPackage> updatedLoots = new List<LootPackage>();
 
     public bool cinematicDone;
 
@@ -202,7 +201,6 @@ public class SocketConnectionManager : MonoBehaviour
                     alivePlayers = gameEvent.OldGameEvent.Players
                         .ToList()
                         .FindAll(el => el.Health > 0);
-                    updatedLoots = gameEvent.OldGameEvent.Loots.ToList();
                     KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:

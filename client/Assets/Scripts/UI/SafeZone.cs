@@ -15,7 +15,7 @@ public class SafeZone : MonoBehaviour
                 SocketConnectionManager.Instance.playableRadius
             );
 
-            Vector3 center = Utils.transformBackendPositionToFrontendPosition(
+            Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
                 SocketConnectionManager.Instance.shrinkingCenter
             );
 
