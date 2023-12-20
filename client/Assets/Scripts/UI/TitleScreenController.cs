@@ -151,10 +151,7 @@ public class TitleScreenController : MonoBehaviour
             ServerUtils.CreateUser(
                 response =>
                 {
-                    if (asyncOperation != null)
-                    {
-                        asyncOperation.allowSceneActivation = true;
-                    }
+                    LobbyConnection.Instance.GetSelectedCharacter(asyncOperation);
                 },
                 error =>
                 {

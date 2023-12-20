@@ -493,7 +493,7 @@ public class LobbyConnection : MonoBehaviour
         MaybeReconnect();
     }
 
-    public void GetSelectedCharacter(AsyncOperation operation = null)
+    public void GetSelectedCharacter(AsyncOperation operation)
     {
         StartCoroutine(
             ServerUtils.GetSelectedCharacter(
