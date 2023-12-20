@@ -7,6 +7,7 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using Communication.Protobuf;
 
 public class LobbyConnection : MonoBehaviour
 {
@@ -149,6 +150,7 @@ public class LobbyConnection : MonoBehaviour
         this.clientId = "";
         this.simulatedPlayerCount = 0;
         this.lobbyCapacity = 0;
+        this.isHost = false;
     }
 
     void Update()
@@ -397,6 +399,8 @@ public class LobbyConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.NotifyPlayerAmount:
+                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     this.playerCount = (int)lobbyEvent.AmountOfPlayers;
                     this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);

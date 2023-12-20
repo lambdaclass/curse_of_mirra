@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Uma
   description: Wrath of vengeance
-  characterSprite: {fileID: 21300000, guid: 5744760082ca34455ab028e00f04ead9, type: 3}
-  disabledCharacterSprite: {fileID: 21300000, guid: af4328f0817a143fea5bad37599b9e2c,
-    type: 3}
+  characterSprite: {fileID: 21300000, guid: d8da1ffce372849c680660fc4ce0c42a, type: 3}
+  characterIcon: {fileID: 21300000, guid: d733a67725d5d47c5bc73099d6c350fb, type: 3}
   artWork: {fileID: 21300000, guid: c822c7d5c79d340c78de341ab277dc34, type: 3}
   selectedArtwork: {fileID: 21300000, guid: a1437621e6e31420581434f1405b4f74, type: 3}
   blockArtwork: {fileID: 21300000, guid: 3144019d1288c4de9851065f05a1cbc5, type: 3}

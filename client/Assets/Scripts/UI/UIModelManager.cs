@@ -2,46 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MoreMountains.TopDownEngine;
 
 public class UIModelManager : MonoBehaviour
 {
     [SerializeField]
     GameObject playerModelContainer;
-
-    [Tooltip("All UI character models")]
-    [SerializeField]
-    List<GameObject> playerModels;
-
-    [Tooltip("Enable characters name to be used")]
-    private List<string> enabledCharacters = new List<string>();
     bool animate = false;
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
 
-    public void SetModel(CoMCharacter character = null)
+    public void SetModel(string characterName)
     {
-        GameObject playerModel =
-            character != null
-                ? character.UIModel
-                : CharactersList.Instance.AvailableCharacters
-                    .Find(
-                        character =>
-                            character.name.ToLower()
-                            == LobbyConnection.Instance.selectedCharacterName.ToLower()
-                    )
-                    .UIModel;
+        GameObject playerModel = CharactersManager.Instance.AvailableCharacters
+            .Single(character => character.name == characterName)
+            .UIModel;
         GameObject modelClone = Instantiate(
             playerModel,
             playerModelContainer.transform.position,
             playerModel.transform.rotation,
             playerModelContainer.transform
         );
+        animate = true;
+        animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
+        StartCoroutine(AnimateCharacter(modelClone));
     }
 
-    public void SetupList(List<string> characters)
-    {
-        enabledCharacters = characters;
-    }
+    // public void SetupList(List<string> characters)
+    // {
+    //     enabledCharacters = characters;
+    // }
 
     public void RemoveCurrentModel()
     {

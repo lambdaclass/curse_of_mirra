@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +7,7 @@ using System.Linq;
 using System;
 using System.Text;
 using UnityEngine.Networking;
+using System.Collections;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -28,52 +28,68 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     List<SkillDescription> skillDescriptions;
 
-    public static int selectedCharacterPosition;
+    [Header("Arrows")]
+    [SerializeField]
+    ButtonAnimationsMMTouchButton leftButton,
+        rightButton;
 
-    private List<CoMCharacter> availableCharacters = new List<CoMCharacter>();
+    public static int characterIndex;
+
+    List<CoMCharacter> availableCharacters;
 
     void Start()
     {
-        availableCharacters = CharactersList.Instance.AvailableCharacters;
-        SetCharacterInfo(selectedCharacterPosition);
+        availableCharacters = CharactersManager.Instance.AvailableCharacters;
+        // Get index from selected character to show previous and next character
+        characterIndex = availableCharacters.FindIndex(
+            availableCharacter =>
+                availableCharacter.name == CharactersManager.Instance.GoToCharacter
+        );
+        CoMCharacter characterToShow = availableCharacters.Find(
+            character => character.name == CharactersManager.Instance.GoToCharacter
+        );
+
+        rightButton.enabled = (availableCharacters.Count() > 1);
+        leftButton.enabled = (availableCharacters.Count() > 1);
+        SetCharacterInfo(characterToShow);
     }
 
-    public void RightArrowFunc()
+    public void RightArrowFunction()
     {
-        if (
-            selectedCharacterPosition
-            == availableCharacters.Count(character => character.enabled) - 1
-        )
+        if (characterIndex == availableCharacters.Count(character => character.enabled) - 1)
         {
-            selectedCharacterPosition = 0;
+            characterIndex = 0;
         }
         else
         {
-            selectedCharacterPosition = selectedCharacterPosition + 1;
+            characterIndex = characterIndex + 1;
         }
-
-        SetCharacterInfo(selectedCharacterPosition);
+        if (availableCharacters.Count() > 1)
+        {
+            SetCharacterInfo(availableCharacters[characterIndex]);
+        }
     }
 
-    public void LeftArrowFunc()
+    public void LeftArrowFunction()
     {
-        if (selectedCharacterPosition == 0)
+        if (characterIndex == 0)
         {
-            selectedCharacterPosition =
-                availableCharacters.Count(character => character.enabled) - 1;
+            characterIndex = availableCharacters.Count(character => character.enabled) - 1;
         }
         else
         {
-            selectedCharacterPosition = selectedCharacterPosition - 1;
+            characterIndex = characterIndex - 1;
         }
-        SetCharacterInfo(selectedCharacterPosition);
+        if (availableCharacters.Count() > 1)
+        {
+            SetCharacterInfo(availableCharacters[characterIndex]);
+        }
     }
 
-    public void SetCharacterInfo(int currentPosition)
+    public void SetCharacterInfo(CoMCharacter comCharacter)
     {
-        CoMCharacter comCharacter = availableCharacters[currentPosition];
         ModelManager.RemoveCurrentModel();
-        ModelManager.SetModel(comCharacter);
+        ModelManager.SetModel(comCharacter.name);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;
         classImage.sprite = comCharacter.classImage;
@@ -91,7 +107,7 @@ public class CharacterInfoManager : MonoBehaviour
     {
         yield return StartCoroutine(
             ServerUtils.SetSelectedCharacter(
-                availableCharacters[selectedCharacterPosition].name,
+                CharactersManager.Instance.GoToCharacter,
                 response =>
                 {
                     LobbyConnection.Instance.selectedCharacterName = response.selected_character;

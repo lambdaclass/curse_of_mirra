@@ -41,11 +41,10 @@ public class TitleScreenController : MonoBehaviour
 
     void Start()
     {
-        avaibleCharactersNames = CharactersList.Instance.AvailableCharacters
+        avaibleCharactersNames = CharactersManager.Instance.AvailableCharacters
             .Select(character => character.name)
             .ToList();
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
-        StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
         if (PlayerPrefs.GetString("playerName") == "")
@@ -154,19 +153,24 @@ public class TitleScreenController : MonoBehaviour
             ServerUtils.CreateUser(
                 response =>
                 {
-                    LobbyConnection.Instance.GetSelectedCharacter(asyncOperation);
+                    if (asyncOperation != null)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
                 },
                 error =>
                 {
                     switch (error)
                     {
                         case "USER_ALREADY_TAKEN":
-                            ErrorHandler("Error", "ClientId already taken");
+                            Errors.Instance.HandleNetworkError("Error", "ClientId already taken");
                             break;
                         default:
-                            ErrorHandler("Error", error);
+                            Errors.Instance.HandleNetworkError("Error", error);
                             break;
                     }
+                    SetLoadingScreen(false);
+                    playNowButton.EnableButton();
                 }
             )
         );

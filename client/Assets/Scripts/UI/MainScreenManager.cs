@@ -1,3 +1,5 @@
+using System.Collections;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class MainScreenManager : MonoBehaviour
@@ -5,11 +7,20 @@ public class MainScreenManager : MonoBehaviour
     [SerializeField]
     UIModelManager modelManager;
 
-    [SerializeField]
-    GameObject lobbyConnectionPrefab;
-
     void Start()
     {
-        modelManager.SetModel();
+        modelManager.SetModel(LobbyConnection.Instance.selectedCharacterName);
+        CharactersManager.Instance.GoToCharacter = LobbyConnection.Instance.selectedCharacterName;
+        StartCoroutine(GoToCharacterInfo());
+    }
+
+    IEnumerator GoToCharacterInfo()
+    {
+        yield return new WaitUntil(
+            () =>
+                modelManager.GetComponentInChildren<ButtonAnimationsMMTouchButton>().executeRelease
+                == true
+        );
+        modelManager.GetComponentInChildren<MMLoadScene>().LoadScene();
     }
 }

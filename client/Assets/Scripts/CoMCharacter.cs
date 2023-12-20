@@ -8,7 +8,7 @@ public class CoMCharacter : ScriptableObject
     public new string name;
     public string description;
     public Sprite characterSprite;
-    public Sprite disabledCharacterSprite;
+    public Sprite characterIcon;
     public Sprite artWork;
     public Sprite selectedArtwork;
     public Sprite blockArtwork;
