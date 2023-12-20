@@ -318,7 +318,6 @@ public class Battle : MonoBehaviour
         ulong skillDuration
     )
     {
-        Debug.Log("aber action" + playerAction);
         // TODO: Refactor
         switch (playerAction)
         {
