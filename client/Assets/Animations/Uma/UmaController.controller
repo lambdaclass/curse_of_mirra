@@ -198,9 +198,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: SkillBasic
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Skill2
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6005831638048217647}
   m_Solo: 0

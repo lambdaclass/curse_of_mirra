@@ -486,6 +486,7 @@ MonoBehaviour:
   - {fileID: 6730391181738101473}
   feedbacksPrefabs:
   - {fileID: 4875194947177718696}
+  - {fileID: 4019254676187120606}
   deathFeedback: {fileID: 0}
   damageOverlayColor:
     serializedVersion: 2
@@ -637,6 +638,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4019254676187120606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1148891223473606969, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4875194947177718696 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
