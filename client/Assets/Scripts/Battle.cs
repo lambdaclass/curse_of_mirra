@@ -280,8 +280,12 @@ public class Battle : MonoBehaviour
                     {
                         foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
                         {
-                            if (PlayerMovementAuthorized(playerCharacter))
+                            if (
+                                PlayerMovementAuthorized(playerCharacter)
+                                && !playerCharacter.currentActions.Contains(actionTracker)
+                            )
                             {
+                                playerCharacter.currentActions.Add(actionTracker);
                                 ExecuteSkillFeedback(
                                     currentPlayer,
                                     actionTracker.PlayerAction,
@@ -289,6 +293,16 @@ public class Battle : MonoBehaviour
                                     actionTracker.Duration
                                 );
                             }
+                        }
+
+                        List<OldActionTracker> actionsToDelete = playerCharacter
+                            .currentActions
+                            .Except(serverPlayerUpdate.Action)
+                            .ToList();
+
+                        foreach (OldActionTracker action in actionsToDelete)
+                        {
+                            playerCharacter.currentActions.Remove(action);
                         }
 
                         buffer.setLastTimestampSeen(
