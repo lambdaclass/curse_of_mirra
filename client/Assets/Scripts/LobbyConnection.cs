@@ -40,9 +40,11 @@ public class LobbyConnection : MonoBehaviour
     public string reconnectServerHash;
     public string reconnectGameId;
     public ulong reconnectPlayerId;
+    public string username;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
 
+    // MESSAGES
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";

@@ -2,11 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public static class ServerUtils
 {
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
+
     public static string MakeHTTPUrl(string path)
     {
         List<String> servers = new List<String>
@@ -37,6 +46,17 @@ public static class ServerUtils
         return PlayerPrefs.GetString("client_id");
     }
 
+    public static string GetUsername()
+    {
+        if (!PlayerPrefs.HasKey("playerName"))
+        {
+            Guid g = Guid.NewGuid();
+            PlayerPrefs.SetString("playerName", g.ToString());
+        }
+
+        return PlayerPrefs.GetString("playerName");
+    }
+
     public static IEnumerator GetSelectedCharacter(
         Action<UserCharacterResponse> successCallback,
         Action<string> errorCallback
@@ -51,6 +71,7 @@ public static class ServerUtils
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
+                Debug.Log("Not found");
                 if (webRequest.downloadHandler.text.Contains("NOT_FOUND"))
                 {
                     errorCallback?.Invoke("USER_NOT_FOUND");
@@ -101,6 +122,7 @@ public static class ServerUtils
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("device_client_id", GetClientId()));
         formData.Add(new MultipartFormDataSection("selected_character", "muflus"));
+        formData.Add(new MultipartFormDataSection("username", GetUsername()));
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
         {
@@ -109,6 +131,44 @@ public static class ServerUtils
             {
                 case UnityWebRequest.Result.Success:
                     if (webRequest.downloadHandler.text.Contains("USER_ALREADY_TAKEN"))
+                    {
+                        errorCallback?.Invoke(webRequest.downloadHandler.text);
+                    }
+                    else
+                    {
+                        UserCharacterResponse response =
+                            JsonUtility.FromJson<UserCharacterResponse>(
+                                webRequest.downloadHandler.text
+                            );
+                        successCallback?.Invoke(response);
+                    }
+                    break;
+                default:
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
+                    break;
+            }
+        }
+    }
+
+    public static IEnumerator SetUsername(
+        string username,
+        Action<UserCharacterResponse> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        string url = MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit/");
+        string parametersJson = "{\"username\": \"" + username + "\"}";
+        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
+        {
+            webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (webRequest.downloadHandler.text.Contains("INEXISTENT_USER"))
                     {
                         errorCallback?.Invoke(webRequest.downloadHandler.text);
                     }
