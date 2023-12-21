@@ -401,8 +401,6 @@ public class LobbyConnection : MonoBehaviour
                 case LobbyEventType.NotifyPlayerAmount:
                     this.playerCount = (int)lobbyEvent.AmountOfPlayers;
                     this.lobbyCapacity = (int)lobbyEvent.Capacity;
-                    this.playerCount = (int)lobbyEvent.AmountOfPlayers;
-                    this.lobbyCapacity = (int)lobbyEvent.Capacity;
                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);
                     break;
 
