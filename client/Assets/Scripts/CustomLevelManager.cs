@@ -20,13 +20,7 @@ public class CustomLevelManager : LevelManager
     public GameObject quickMapPrefab;
 
     [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
     GameObject deathSplash;
-
-    [SerializeField]
-    Text roundText;
 
     private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
@@ -356,7 +350,11 @@ public class CustomLevelManager : LevelManager
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            skillBasic.SetSkill(
+                Communication.Protobuf.Action.BasicAttack,
+                skillInfoClone[0],
+                skillsAnimationEvent
+            );
             // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
@@ -411,18 +409,6 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void ShowRoundTransition()
-    {
-        bool animate = true;
-
-        roundText.text =
-            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        animate = false;
-
-        roundSplash.SetActive(true);
-        roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
-    }
-
     private IEnumerator ShowDeathSplash(GameObject player)
     {
         MMFeedbacks deathFeedback = player
@@ -469,7 +455,6 @@ public class CustomLevelManager : LevelManager
     private bool checkPlayerHasJoined()
     {
         return SocketConnectionManager.Instance.gamePlayers != null
-            && SocketConnectionManager.Instance.playerId != null
             && SocketConnectionManager.Instance.gamePlayers.Any(
                 (player) => player.Id == SocketConnectionManager.Instance.playerId
             );
