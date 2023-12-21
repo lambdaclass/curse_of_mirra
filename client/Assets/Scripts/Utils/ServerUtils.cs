@@ -8,14 +8,6 @@ using System.Text;
 
 public static class ServerUtils
 {
-    class AcceptAllCertificates : CertificateHandler
-    {
-        protected override bool ValidateCertificate(byte[] certificateData)
-        {
-            return true;
-        }
-    }
-
     public static string MakeHTTPUrl(string path)
     {
         List<String> servers = new List<String>
@@ -113,7 +105,7 @@ public static class ServerUtils
         byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
         using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
         {
-            webRequest.certificateHandler = new AcceptAllCertificates();
+            // webRequest.certificateHandler = new AcceptAllCertificates();
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
             yield return webRequest.SendWebRequest();
