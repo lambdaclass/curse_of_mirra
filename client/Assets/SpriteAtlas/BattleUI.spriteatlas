@@ -54,6 +54,8 @@ SpriteAtlas:
   - metrics-container
   - kills
   - item
+  - icon
+  - Settings
   - time
   m_RenderDataMap: {}
   m_Tag: BattleUI
