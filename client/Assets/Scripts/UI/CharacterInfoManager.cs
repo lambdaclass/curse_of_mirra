@@ -100,6 +100,7 @@ public class CharacterInfoManager : MonoBehaviour
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
         StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
+        CharactersManager.Instance.SetGoToCharacter(comCharacter.name);
     }
 
     public void SelectButton()
@@ -111,7 +112,7 @@ public class CharacterInfoManager : MonoBehaviour
     {
         yield return StartCoroutine(
             ServerUtils.SetSelectedCharacter(
-                CharactersManager.Instance.GoToCharacter,
+                CharactersManager.Instance.GetGoToCharacter(),
                 response =>
                 {
                     LobbyConnection.Instance.selectedCharacterName = response.selected_character;
