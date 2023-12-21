@@ -127,7 +127,7 @@ public class TitleScreenController : MonoBehaviour
                             CreateUser();
                             break;
                         case "CONNECTION_ERROR":
-                            ErrorHandler("Oops!", "No Server Avaible to Connect");
+                            ErrorHandler("Oops!", "No Server Available to Connect");
                             break;
                         default:
                             ErrorHandler("Oops!", error);
