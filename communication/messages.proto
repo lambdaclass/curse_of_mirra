@@ -209,7 +209,8 @@ message OldPlayer {
     map<uint64, OldEffectInfo> effects = 15;
     RelativePosition direction = 16;
     float body_size = 17;
-    uint64 available_burst_loads = 18;
+    repeated GameLoot inventory = 18;
+    uint64 available_burst_loads = 19;
 }
 
 message OldActionTracker {
@@ -586,7 +587,7 @@ message Config {
     - width_ The width of the playing area.
     - height: The length of the playing area.
     - map_modification: If present, contains the information for when the map modification mechanic is triggered
-    - loot_interval_ms: If present, interval in milliseconds for spawning loot crates
+    - loot_interval_ms: If present, interval in milliseconds for spawning items
 */
 message GameStateConfig {
     uint64 width = 1;
@@ -771,10 +772,18 @@ message UseSkill {
   float target_y = 5;
 }
 
+/*
+Represents the action of using an item from the inventory
+*/
+message UseInventory {
+    uint64 inventory_at = 1;
+}
+
 message GameAction {
     oneof action_type {
         Move move = 1;
         UseSkill use_skill = 2;
+        UseInventory use_inventory = 3;
     }
-    int64 timestamp = 3;
+    int64 timestamp = 4;
 }

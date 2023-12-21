@@ -38,6 +38,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
   - {fileID: 21300000, guid: 2d340d82e49a14bbf83d262c48718d35, type: 3}
   - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
   - {fileID: 21300000, guid: de6249676d3a64ff6bc3511b49a2da40, type: 3}
@@ -45,9 +46,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
   - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
   - {fileID: 21300000, guid: 32f96a4ccf0ee4e82ac7bb7bf988e5ef, type: 3}
+  - {fileID: 21300000, guid: fe47c5ad8dd9d4a54b9f274447e27717, type: 3}
   - {fileID: 21300000, guid: fe77c7adf01bc4b1990894e4594f4125, type: 3}
   - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
   m_PackedSpriteNamesToIndex:
+  - mirras_blessing
   - Players-icon
   - basic
   - Underline
@@ -55,6 +58,7 @@ SpriteAtlas:
   - kills
   - item
   - icon
+  - border-item
   - Settings
   - time
   m_RenderDataMap: {}
