@@ -28,11 +28,6 @@ public class UIModelManager : MonoBehaviour
         StartCoroutine(AnimateCharacter(modelClone));
     }
 
-    // public void SetupList(List<string> characters)
-    // {
-    //     enabledCharacters = characters;
-    // }
-
     public void RemoveCurrentModel()
     {
         if (playerModelContainer.transform.childCount > 0)
