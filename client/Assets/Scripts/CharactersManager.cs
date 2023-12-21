@@ -63,7 +63,7 @@ public class CharactersManager : MonoBehaviour
         return availableCharacterNames;
     }
 
-    public bool IsAvaibleCharacter(CoMCharacter character)
+    public bool IsAvailableCharacter(CoMCharacter character)
     {
         return this.AvailableCharacters.Contains(character);
     }
