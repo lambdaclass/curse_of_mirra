@@ -61,7 +61,6 @@ public static class ServerUtils
                     UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
                         webRequest.downloadHandler.text
                     );
-                    Debug.Log(webRequest.downloadHandler.text);
                     successCallback?.Invoke(response);
                 }
                 webRequest.Dispose();
