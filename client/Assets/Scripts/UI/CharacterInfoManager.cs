@@ -42,7 +42,6 @@ public class CharacterInfoManager : MonoBehaviour
         availableCharacters = CharactersManager.Instance.AvailableCharacters;
         string goToCharacter = CharactersManager.Instance.GetGoToCharacter();
 
-        print(goToCharacter);
 
         // Get index from selected character to show previous and next character
         characterIndex = availableCharacters.FindIndex(

@@ -86,7 +86,7 @@ public class TitleScreenController : MonoBehaviour
                         // If the character selected is currently not available
                         // Selects the first avaible character in the list and notice the user
                         Errors.Instance.HandleNetworkError(
-                            "Atention!",
+                            "Attention!",
                             response.selected_character
                                 + " is currently unavailable "
                                 + "\n"
@@ -127,7 +127,7 @@ public class TitleScreenController : MonoBehaviour
                             CreateUser();
                             break;
                         case "CONNECTION_ERROR":
-                            ErrorHandler("Oops!", "No Server Avaible to Connect");
+                            ErrorHandler("Oops!", "No Server Available to Connect");
                             break;
                         default:
                             ErrorHandler("Oops!", error);
