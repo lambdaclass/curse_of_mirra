@@ -1,61 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.EventSystems;
+using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
-public class CharacterListItem
-    : MonoBehaviour,
-        IPointerExitHandler,
-        IPointerEnterHandler,
-        IPointerUpHandler,
-        IPointerDownHandler
+public class CharacterListItem : MonoBehaviour
 {
-    public int listPosition;
-    private bool isInsideCard = false;
-    private bool isRealesed = false;
+    [SerializeField]
+    public TextMeshProUGUI characterName;
 
-    //Min difference of the touchStartPos and the current touch
-    private const float MIN_DIFFERENCE = 6.0f;
-    private Vector2 touchStartPos;
+    [SerializeField]
+    public Image characterImage,
+        characterIconState;
+
+    [SerializeField]
+    public GameObject soonLabel,
+        characterOpacity,
+        availableSoon;
+    public string characterNameString;
     public bool IsEnable = true;
 
-    public void SetCharacterInfoStart(PointerEventData eventData)
+    void Start()
     {
-        var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
-        var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (
-            isInsideCard
-            && touchXDifference < MIN_DIFFERENCE
-            && touchYDifference < MIN_DIFFERENCE
-            && IsEnable
-        )
-        {
-            this.GetComponent<MMLoadScene>().LoadScene();
-            CharacterInfoManager.selectedCharacterPosition = listPosition;
-        }
+        StartCoroutine(GoToCharacterInfo());
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    IEnumerator GoToCharacterInfo()
     {
-        isInsideCard = false;
-        isRealesed = false;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        isInsideCard = true;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        SetCharacterInfoStart(eventData);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        touchStartPos = eventData.position;
+        yield return new WaitUntil(
+            () => this.GetComponent<ButtonAnimationsMMTouchButton>().executeRelease && IsEnable
+        );
+        this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

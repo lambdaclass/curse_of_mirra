@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using CandyCoded.HapticFeedback;
+using MoreMountains.Feedbacks;
 
 public class CharacterFeedbacks : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class CharacterFeedbacks : MonoBehaviour
     [SerializeField]
     List<GameObject> feedbacksPrefabs;
 
-    [SerializeField] GameObject deathFeedback;
+    [SerializeField]
+    GameObject deathFeedback;
 
     [SerializeField]
     Color32 damageOverlayColor = new Color32(255, 255, 255, 255);
@@ -75,6 +77,16 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
+    public void DamageFeedback(float clientHealth, float playerHealth, ulong playerId)
+    {
+        if (playerHealth < clientHealth && playerId == SocketConnectionManager.Instance.playerId)
+        {
+            this.GetFeedback("DamageFeedback").GetComponent<MMF_Player>().PlayFeedbacks();
+            this.HapticFeedbackOnDamage();
+            this.ChangePlayerTextureOnDamage(clientHealth, playerHealth);
+        }
+    }
+
     public void ChangePlayerTextureOnDamage(float clientHealth, float playerHealth)
     {
         if (clientHealth != playerHealth)
@@ -90,12 +102,9 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void HapticFeedbackOnDamage(float clientHealth, float playerHealth, ulong playerId)
+    public void HapticFeedbackOnDamage()
     {
-        if (playerHealth < clientHealth && playerId == SocketConnectionManager.Instance.playerId)
-        {
-            HapticFeedback.HeavyFeedback();
-        }
+        HapticFeedback.HeavyFeedback();
     }
 
     public void ApplyZoneDamage()
