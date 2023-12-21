@@ -21,5 +21,4 @@ public class CoMCharacter : ScriptableObject
     public List<SkillInfo> skillsInfo;
     public SkillInfo skillBasicInfo;
     public GameObject UIModel;
-    public bool enabled;
 }
