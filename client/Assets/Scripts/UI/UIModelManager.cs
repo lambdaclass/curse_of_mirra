@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MoreMountains.TopDownEngine;
 
 public class UIModelManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UIModelManager : MonoBehaviour
 
     public void SetModel(string characterName)
     {
-        GameObject playerModel = CharactersManager.Instance.characterSriptableObjects
+        GameObject playerModel = CharactersManager.Instance.AvailableCharacters
             .Single(character => character.name == characterName)
             .UIModel;
         GameObject modelClone = Instantiate(

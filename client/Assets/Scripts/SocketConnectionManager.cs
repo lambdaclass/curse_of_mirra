@@ -148,7 +148,12 @@ public class SocketConnectionManager : MonoBehaviour
     private void ConnectToSession(string sessionId)
     {
         string url = makeWebsocketUrl(
-            "/play/" + sessionId + "/" + this.clientId + "/" + "delete-this"
+            "/play/"
+                + sessionId
+                + "/"
+                + this.clientId
+                + "/"
+                + LobbyConnection.Instance.selectedCharacterName
         );
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();

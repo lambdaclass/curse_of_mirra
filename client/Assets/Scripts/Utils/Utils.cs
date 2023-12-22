@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using Communication.Protobuf;
 
@@ -160,18 +162,5 @@ public class Utils
                 new GradientAlphaKey(1, 1)
             }
         };
-    }
-
-    public static List<CoMCharacter> GetOnlyAvailableCharacterInfo(
-        List<string> availableCharacterNames
-    )
-    {
-        // Filter List<CoMCharacter> based on available character names
-        List<CoMCharacter> availableCharacters =
-            CharactersManager.Instance.characterSriptableObjects
-                .Where(characters => availableCharacterNames.Contains(characters.name))
-                .ToList();
-
-        return availableCharacters;
     }
 }

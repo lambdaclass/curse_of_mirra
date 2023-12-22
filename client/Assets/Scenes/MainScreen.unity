@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &372673074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +186,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 276773506, guid: 2e58a51401b054dda958456ff0440f6c, type: 3}
+      propertyPath: lobbyConnectionPrefab
+      value: 
+      objectReference: {fileID: 8820850221440237674, guid: 77aebae5d60de4384a6923f228de8979,
+        type: 3}
     - target: {fileID: 690895737579864074, guid: 2e58a51401b054dda958456ff0440f6c,
         type: 3}
       propertyPath: m_AnchorMax.y
