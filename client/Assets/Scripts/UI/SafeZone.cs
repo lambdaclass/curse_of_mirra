@@ -8,62 +8,56 @@ using UnityEngine.VFX;
 public class SafeZone : MonoBehaviour
 {
     [SerializeField]
-    GameObject mesh;
+    GameObject smoke;
 
     [SerializeField]
-    public float div = 3.333f;
+    float smokeSize = 40f;
 
-    float previusRadius = 0.0f;
+    float previusRadius = Mathf.Infinity;
 
-    void Start()
-    {
-        mesh = Instantiate(mesh, Vector3.zero, Quaternion.identity);
-        StartCoroutine(SetupCollitions());
-    }
+    const float mapRadius = 50;
 
-    IEnumerator SetupCollitions()
-    {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count != 0);
-        List<SphereCollider> colliders = GameObject.FindObjectsOfType<SphereCollider>().ToList();
-        Utils
-            .GetAllCharacters()
-            .ForEach(character =>
-            {
-                colliders.ForEach(
-                    collider =>
-                        Physics.IgnoreCollision(
-                            collider,
-                            character.GetComponent<CharacterController>()
-                        )
-                );
-            });
-    }
-
-    public void ActivateParticleEffects(float radius, Vector3 center)
-    {
-        if (previusRadius != radius) //for call optimization
-        {
-            mesh.transform.position = new Vector3(center.x, 1f, center.z);
-            mesh.transform.localScale = new Vector3(radius, 10, radius);
-            previusRadius = radius;
-        }
-    }
-
-    private void Update()
+    void Update()
     {
         if (SocketConnectionManager.Instance.playableRadius != 0)
         {
-            float radius = Utils.transformBackendRadiusToFrontendRadius(
-                SocketConnectionManager.Instance.playableRadius
-            );
-
             Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
                 SocketConnectionManager.Instance.shrinkingCenter
             );
-
-            float radiusCorrected = radius + radius * .007f;
-
-            ActivateParticleEffects(radius / div, new Vector3(center.x, 1f, center.z));
+            float radius = Utils.transformBackendRadiusToFrontendRadius(
+                SocketConnectionManager.Instance.playableRadius
+            );
+            if ((radius < previusRadius) && (radius <= previusRadius - (smokeSize * 1.5)))
+            {
+                GenerateSmokeRing(radius, center);
+                previusRadius = radius;
+            }
         }
+    }
+
+    void GenerateSmokeRing(float radius, Vector3 center)
+    {
+        float perimeter = 2.0f * Mathf.PI * radius;
+        int totalSmokes = Mathf.RoundToInt(perimeter / smokeSize);
+
+        for (int i = 0; i < totalSmokes; i++)
+        {
+            float angle = i * (360 / totalSmokes + 1);
+
+            Vector3 pos = CalculatePositionInCircle(center, radius / 2, angle);
+            if (Mathf.Abs(pos.x) < mapRadius && Mathf.Abs(pos.z) < mapRadius)
+            {
+                Instantiate(smoke, pos, smoke.transform.rotation);
+            }
+        }
+    }
+
+    Vector3 CalculatePositionInCircle(Vector3 center, float radius, float angleDeg)
+    {
+        Vector3 pos;
+        pos.x = center.x + radius * Mathf.Sin(angleDeg * Mathf.Deg2Rad);
+        pos.y = 1f;
+        pos.z = center.z + radius * Mathf.Cos(angleDeg * Mathf.Deg2Rad);
+        return pos;
     }
 }
