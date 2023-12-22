@@ -25,7 +25,7 @@ public class PlayerNameHandler : MonoBehaviour
 
     public void SetPlayerName()
     {
-        this.playerName = playerNameInput.text.Trim().ToUpper();
+        this.playerName = playerNameInput.text.Trim();
         if (this.playerName == "")
         {
             this.errorMessage.SetActive(true);
@@ -47,7 +47,7 @@ public class PlayerNameHandler : MonoBehaviour
         if (PlayerPrefs.HasKey(PLAYER_NAME_KEY))
         {
             this.playerName = PlayerPrefs.GetString(PLAYER_NAME_KEY);
-            this.placeholder.text = this.playerName.ToUpper();
+            this.placeholder.text = this.playerName;
         }
         else
         {

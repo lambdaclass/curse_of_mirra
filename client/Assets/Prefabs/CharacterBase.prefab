@@ -63,6 +63,7 @@ MonoBehaviour:
   OrientationArrow: {fileID: 6582825352636674345}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
+  characterCard: {fileID: 3654173184674931120}
 --- !u!114 &1743729574858777773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +659,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
+--- !u!1 &3654173184674931120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1428990921056839056, guid: 1b5803238588347b78c88ecab08cedef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2405749641239282720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5802362377404487455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,

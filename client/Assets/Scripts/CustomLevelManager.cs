@@ -180,6 +180,7 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
+            // newPlayer.characterBase.PlayerName.GetComponent<DisplayPlayerName>().SetName(userName);
             if (SocketConnectionManager.Instance.playerId == playerID)
             {
                 //Add audioListener in player
@@ -356,7 +357,11 @@ public class CustomLevelManager : LevelManager
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0], skillsAnimationEvent);
+            skillBasic.SetSkill(
+                Communication.Protobuf.Action.BasicAttack,
+                skillInfoClone[0],
+                skillsAnimationEvent
+            );
             // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1], skillsAnimationEvent);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;

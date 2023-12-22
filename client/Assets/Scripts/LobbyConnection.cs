@@ -386,10 +386,11 @@ public class LobbyConnection : MonoBehaviour
                     this.isHost = this.playerId == this.hostId;
                     lobbyEvent.PlayersInfo
                         .ToList()
-                        .ForEach(
-                            playerInfo =>
-                                this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-                        );
+                        .ForEach(playerInfo =>
+                        {
+                            this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName;
+                            print(playerInfo);
+                        });
                     break;
 
                 case LobbyEventType.PreparingGame:
@@ -494,23 +495,13 @@ public class LobbyConnection : MonoBehaviour
         MaybeReconnect();
     }
 
-    public void GetSelectedCharacter(AsyncOperation operation)
+    public void SetupUser(AsyncOperation operation, UserCharacterResponse response)
     {
-        StartCoroutine(
-            ServerUtils.GetSelectedCharacter(
-                response =>
-                {
-                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
-                    if (operation != null)
-                    {
-                        operation.allowSceneActivation = true;
-                    }
-                },
-                error =>
-                {
-                    Errors.Instance.HandleNetworkError("Error", error);
-                }
-            )
-        );
+        LobbyConnection.Instance.username = response.username;
+        LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+        if (operation != null)
+        {
+            operation.allowSceneActivation = true;
+        }
     }
 }

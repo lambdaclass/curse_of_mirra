@@ -10,15 +10,17 @@ public class DisplayPlayerName : MonoBehaviour
 
     void Start()
     {
-        GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
-        // GetComponent<TextMeshPro>().text = LobbyConnection.Instance.playersIdName[
-        //     UInt64.Parse(character.PlayerID)
-        // ];
+        GetComponent<TextMeshPro>().text = LobbyConnection.Instance.username;
     }
 
     void Update()
     {
         bool isAlive = character.GetComponent<Health>().CurrentHealth > 0;
         this.gameObject.SetActive(isAlive);
+    }
+
+    public void SetName(string name)
+    {
+        GetComponent<TextMeshPro>().text = name;
     }
 }

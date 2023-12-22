@@ -111,12 +111,7 @@ public class TitleScreenController : MonoBehaviour
                     }
                     else
                     {
-                        if (asyncOperation != null)
-                        {
-                            LobbyConnection.Instance.selectedCharacterName =
-                                response.selected_character;
-                            asyncOperation.allowSceneActivation = true;
-                        }
+                        LobbyConnection.Instance.SetupUser(asyncOperation, response);
                     }
                 },
                 error =>
@@ -151,7 +146,7 @@ public class TitleScreenController : MonoBehaviour
             ServerUtils.CreateUser(
                 response =>
                 {
-                    LobbyConnection.Instance.GetSelectedCharacter(asyncOperation);
+                    LobbyConnection.Instance.SetupUser(asyncOperation, response);
                 },
                 error =>
                 {
