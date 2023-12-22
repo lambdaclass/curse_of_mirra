@@ -21,10 +21,17 @@ public class Utils
         SceneManager.LoadScene(levelName);
     }
 
-    public static Vector3 transformBackendPositionToFrontendPosition(OldPosition position)
+    public static Vector3 transformBackendOldPositionToFrontendPosition(OldPosition position)
     {
         var x = (long)position?.Y / 100f - 50.0f;
         var y = (-((long)position?.X)) / 100f + 50.0f;
+        return new Vector3(x, 1f, y);
+    }
+
+    public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
+    {
+        var x = (long)position?.x / 100f;
+        var y = (long)position?.y / 100f;
         return new Vector3(x, 1f, y);
     }
 
