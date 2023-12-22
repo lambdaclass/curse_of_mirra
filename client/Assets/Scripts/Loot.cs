@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
-using Communication.Protobuf;
+using Game;
 
 public class Loot : MonoBehaviour
 {
@@ -36,31 +36,31 @@ public class Loot : MonoBehaviour
         }
     }
 
-    private void MaybeAddLoot(LootPackage loot)
+    private void MaybeAddLoot(Item item)
     {
-        if (!ExistInLoots(loot.Id))
+        if (!ExistInLoots(item.id))
         {
-            var position = Utils.transformBackendPositionToFrontendPosition(loot.Position);
+            var position = Utils.transformBackendPositionToFrontendPosition(item.position);
             position.y = 0;
             LootItem LootItem = new LootItem();
             LootItem.lootObject = objectPooler.GetPooledGameObject();
             LootItem.lootObject.transform.position = position;
-            LootItem.lootObject.name = loot.Id.ToString();
+            LootItem.lootObject.name = item.id.ToString();
             LootItem.lootObject.transform.rotation = Quaternion.identity;
             LootItem.lootObject.SetActive(true);
-            LootItem.id = loot.Id;
-            LootItem.type = loot.LootType.ToString();
+            LootItem.id = item.id;
+            LootItem.type = convertItemNameToType(item.name);
             loots.Add(LootItem);
         }
     }
 
-    private void RemoveLoots(List<LootPackage> updatedLoots)
+    private void RemoveLoots(List<Item> updatedLoots)
     {
         loots
             .ToList()
             .ForEach(loot =>
             {
-                if (!updatedLoots.Exists(lootPackage => lootPackage.Id == loot.id))
+                if (!updatedLoots.Exists(lootPackage => lootPackage.id == loot.id))
                 {
                     RemoveLoot(loot.id);
                 }
@@ -116,8 +116,15 @@ public class Loot : MonoBehaviour
 
     public void UpdateLoots()
     {
-        List<LootPackage> updatedLoots = SocketConnectionManager.Instance.updatedLoots;
+        List<Item> updatedLoots = SocketConnectionManager.Instance.gameState.items;
         RemoveLoots(updatedLoots);
         updatedLoots.ForEach(MaybeAddLoot);
+    }
+
+    private string convertItemNameToType(string name) {
+        switch (name) {
+            case "loot_health": return "LootHealth";
+            default: throw new ArgumentException(String.Format("no type for `{0}`", name));
+        }
     }
 }

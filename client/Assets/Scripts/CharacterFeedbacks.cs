@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
@@ -62,6 +61,11 @@ public class CharacterFeedbacks : MonoBehaviour
     {
         GameObject feedback = feedbacksPrefabs.Find(el => el.name == name);
         return feedback;
+    }
+
+    public void ExecuteFeedback(GameObject feedback)
+    {
+        feedback.SetActive(true);
     }
 
     public List<GameObject> GetFeedbackList()
