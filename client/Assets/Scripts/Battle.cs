@@ -383,7 +383,7 @@ public class Battle : MonoBehaviour
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
-            Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
                 gameProjectiles[i].Position
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
@@ -549,7 +549,7 @@ public class Battle : MonoBehaviour
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
-        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
+        var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
             playerUpdate.Position
         );
 

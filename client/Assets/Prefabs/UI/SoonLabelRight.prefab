@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 169585038480401596}
   - component: {fileID: 7546634109641844485}
   m_Layer: 5
-  m_Name: SoonLabel
+  m_Name: SoonLabelRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

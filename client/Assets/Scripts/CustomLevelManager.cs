@@ -175,7 +175,7 @@ public class CustomLevelManager : LevelManager
             }
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                Utils.transformBackendPositionToFrontendPosition(gamePlayers[(int)i].Position),
+                Utils.transformBackendOldPositionToFrontendPosition(gamePlayers[(int)i].Position),
                 Quaternion.identity
             );
             newPlayer.name = "Player" + " " + (i + 1);

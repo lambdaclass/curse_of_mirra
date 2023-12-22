@@ -488,6 +488,7 @@ namespace Communication.Protobuf {
   #endregion
 
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class TransitionGameEvent : pb::IMessage<TransitionGameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -732,6 +733,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameEvent : pb::IMessage<GameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1070,6 +1072,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameStarted : pb::IMessage<GameStarted>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1271,6 +1274,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameFinished : pb::IMessage<GameFinished>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1495,6 +1499,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameState : pb::IMessage<GameState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1871,6 +1876,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Player : pb::IMessage<Player>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2543,6 +2549,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ActionTracker : pb::IMessage<ActionTracker>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2778,6 +2785,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3004,6 +3012,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillCooldown : pb::IMessage<SkillCooldown>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3230,6 +3239,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EffectInfo : pb::IMessage<EffectInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3456,6 +3466,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Item : pb::IMessage<Item>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3765,6 +3776,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Projectile : pb::IMessage<Projectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4185,6 +4197,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ZoneInfo : pb::IMessage<ZoneInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4420,6 +4433,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Position : pb::IMessage<Position>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4646,6 +4660,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class KillEvent : pb::IMessage<KillEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4917,6 +4932,7 @@ namespace Communication.Protobuf {
   ///- projectiles: projectile list, used on STATE_UPDATE
   ///- player_joined_id: ID of the player that joined the game
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldGameEvent : pb::IMessage<OldGameEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5371,7 +5387,7 @@ namespace Communication.Protobuf {
         }
         WinnerPlayer.MergeFrom(other.WinnerPlayer);
       }
-      selectedCharacters_.Add(other.selectedCharacters_);
+      selectedCharacters_.MergeFrom(other.selectedCharacters_);
       if (other.PlayerTimestamp != 0L) {
         PlayerTimestamp = other.PlayerTimestamp;
       }
@@ -5550,6 +5566,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerCharacter : pb::IMessage<PlayerCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5789,6 +5806,7 @@ namespace Communication.Protobuf {
   ///- character_name: Name of the player's character
   ///- effects: The effects that are active on the player
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldPlayer : pb::IMessage<OldPlayer>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6432,7 +6450,7 @@ namespace Communication.Protobuf {
       if (other.CharacterName.Length != 0) {
         CharacterName = other.CharacterName;
       }
-      effects_.Add(other.effects_);
+      effects_.MergeFrom(other.effects_);
       if (other.direction_ != null) {
         if (direction_ == null) {
           Direction = new global::Communication.Protobuf.RelativePosition();
@@ -6683,6 +6701,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldActionTracker : pb::IMessage<OldActionTracker>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6909,6 +6928,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldEffectInfo : pb::IMessage<OldEffectInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7144,6 +7164,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldKillEvent : pb::IMessage<OldKillEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7375,6 +7396,7 @@ namespace Communication.Protobuf {
   ///- x: X coordinate in the grid
   ///- y: Y coordinate in the grid
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldPosition : pb::IMessage<OldPosition>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7606,6 +7628,7 @@ namespace Communication.Protobuf {
   ///- x: X coordinate between -1 and 1
   ///- y: Y coordinate between -1 and 1
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class RelativePosition : pb::IMessage<RelativePosition>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7841,6 +7864,7 @@ namespace Communication.Protobuf {
   ///- target: player id to autoattack
   ///- timestamp: client's time at the moment they send the action
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ClientAction : pb::IMessage<ClientAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8328,6 +8352,7 @@ namespace Communication.Protobuf {
   ///- removed_player_info: Information of any player leaving the lobby, used on PLAYER_REMOVED
   ///- host_player_id: ID of the player considered host of the lobby, used on PLAYER_ADDED, PLAYER_REMOVED
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class LobbyEvent : pb::IMessage<LobbyEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8991,6 +9016,7 @@ namespace Communication.Protobuf {
   ///- player_id: Internal ID used by backend to identify the player/client
   ///- player_name: Name to use to identify the player/client
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlayerInformation : pb::IMessage<PlayerInformation>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9217,6 +9243,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class RunnerConfig : pb::IMessage<RunnerConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9776,6 +9803,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameConfig : pb::IMessage<GameConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10048,6 +10076,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class BoardSize : pb::IMessage<BoardSize>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10274,6 +10303,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterConfigItem : pb::IMessage<CharacterConfigItem>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10870,6 +10900,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterConfig : pb::IMessage<CharacterConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11048,6 +11079,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillsConfig : pb::IMessage<SkillsConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11226,6 +11258,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillConfigItem : pb::IMessage<SkillConfigItem>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12007,6 +12040,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ServerGameSettings : pb::IMessage<ServerGameSettings>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12308,6 +12342,7 @@ namespace Communication.Protobuf {
   ///- remaining_ticks: OldProjectile remaining lifetime
   ///- type: OldProjectile type depending on the attack
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OldProjectile : pb::IMessage<OldProjectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12969,6 +13004,7 @@ namespace Communication.Protobuf {
   ///- If you need to use remaining time in milliseconds, you can use only low field
   ///- because high field will be 0
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class MillisTime : pb::IMessage<MillisTime>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13201,6 +13237,7 @@ namespace Communication.Protobuf {
   ///- position: OldPosition of the loot
   ///- loot_type: Type of loot
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class LootPackage : pb::IMessage<LootPackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13473,6 +13510,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Config : pb::IMessage<Config>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13806,8 +13844,9 @@ namespace Communication.Protobuf {
   ///- width_ The width of the playing area.
   ///- height: The length of the playing area.
   ///- map_modification: If present, contains the information for when the map modification mechanic is triggered
-  ///- loot_interval_ms: If present, interval in milliseconds for spawning loot crates
+  ///- loot_interval_ms: If present, interval in milliseconds for spawning items
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameStateConfig : pb::IMessage<GameStateConfig>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14126,6 +14165,7 @@ namespace Communication.Protobuf {
   ///- outside_radius_effects: Effects given when a player is outside the playable area.
   ///- inside_radius_effects: Effects given when a player is inside the playable area.
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class MapModification : pb::IMessage<MapModification>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14495,6 +14535,7 @@ namespace Communication.Protobuf {
   ///- override: Given value is set as the attribute value
   ///- value: The value we are using for the changemessage Modification
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Modification : pb::IMessage<Modification>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14727,6 +14768,7 @@ namespace Communication.Protobuf {
   ///- size: radius size of the loot
   ///- effects: List of effects the loot will give out
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameLoot : pb::IMessage<GameLoot>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -14990,6 +15032,7 @@ namespace Communication.Protobuf {
   ///- `duration_ms`: Defines how long in milliseconds the projectile can exist
   ///- `max_distance`: Defines the maximum distance the projectile can travel
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameProjectile : pb::IMessage<GameProjectile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -15436,6 +15479,7 @@ namespace Communication.Protobuf {
   ///- base_health: Base health of the character.
   ///- skills: A map of integer (as string) to skills, where the integers represent the id and ordering of skills for calling them.
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameCharacter : pb::IMessage<GameCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -15713,7 +15757,7 @@ namespace Communication.Protobuf {
       if (other.BaseHealth != 0UL) {
         BaseHealth = other.BaseHealth;
       }
-      skills_.Add(other.skills_);
+      skills_.MergeFrom(other.skills_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -15806,6 +15850,7 @@ namespace Communication.Protobuf {
   ///- is_passive: Marks the skill as a passive skill, this means it can't be triggered. Instead it will trigger on player spawn, so only `GiveEffect` makes sense for it.
   ///- mechanics: Core mechanic of the skill (e.g hit, shoot, etc).
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameSkill : pb::IMessage<GameSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16114,6 +16159,7 @@ namespace Communication.Protobuf {
   /// duration_ms: How long it takes to move the player, 0 means instantly.
   /// max_range: Maximum distance allowed to move, if target is beyond this limit movement will be capped to this point.
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Mechanic : pb::IMessage<Mechanic>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16638,6 +16684,7 @@ namespace Communication.Protobuf {
   ///- player_attributes: Attributes changes that will be applied over the player having this effect
   ///- projectile_attributes: Attributes changes that will be applied over the projectiles of the player having this effect
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameEffect : pb::IMessage<GameEffect>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -16711,10 +16758,24 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string SimpleType {
-      get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType ? (string) effectType_ : ""; }
+      get { return HasSimpleType ? (string) effectType_ : ""; }
       set {
         effectType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
         effectTypeCase_ = EffectTypeOneofCase.SimpleType;
+      }
+    }
+    /// <summary>Gets whether the "simple_type" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasSimpleType {
+      get { return effectTypeCase_ == EffectTypeOneofCase.SimpleType; }
+    }
+    /// <summary> Clears the value of the oneof if it's currently set to "simple_type" </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearSimpleType() {
+      if (HasSimpleType) {
+        ClearEffectType();
       }
     }
 
@@ -16792,7 +16853,7 @@ namespace Communication.Protobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) hash ^= SimpleType.GetHashCode();
+      if (HasSimpleType) hash ^= SimpleType.GetHashCode();
       if (effectTypeCase_ == EffectTypeOneofCase.DurationType) hash ^= DurationType.GetHashCode();
       if (effectTypeCase_ == EffectTypeOneofCase.PeriodicType) hash ^= PeriodicType.GetHashCode();
       hash ^= (int) effectTypeCase_;
@@ -16818,7 +16879,7 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+      if (HasSimpleType) {
         output.WriteRawTag(18);
         output.WriteString(SimpleType);
       }
@@ -16844,7 +16905,7 @@ namespace Communication.Protobuf {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+      if (HasSimpleType) {
         output.WriteRawTag(18);
         output.WriteString(SimpleType);
       }
@@ -16869,7 +16930,7 @@ namespace Communication.Protobuf {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (effectTypeCase_ == EffectTypeOneofCase.SimpleType) {
+      if (HasSimpleType) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(SimpleType);
       }
       if (effectTypeCase_ == EffectTypeOneofCase.DurationType) {
@@ -17003,6 +17064,7 @@ namespace Communication.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static partial class Types {
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class Duration : pb::IMessage<Duration>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -17229,6 +17291,7 @@ namespace Communication.Protobuf {
 
       }
 
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class Periodic : pb::IMessage<Periodic>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -17538,6 +17601,7 @@ namespace Communication.Protobuf {
   ///
   ///Represents a move action
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Move : pb::IMessage<Move>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -17731,6 +17795,7 @@ namespace Communication.Protobuf {
   ///
   ///Represents the action of using a skill
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UseSkill : pb::IMessage<UseSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -18035,6 +18100,7 @@ namespace Communication.Protobuf {
   ///
   ///Represents the action of using an item from the inventory
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UseInventory : pb::IMessage<UseInventory>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -18224,6 +18290,7 @@ namespace Communication.Protobuf {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GameAction : pb::IMessage<GameAction>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
@@ -42,7 +43,7 @@ public class LobbyConnection : MonoBehaviour
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
     public ServerGameSettings reconnectServerSettings;
-
+    public string selectedCharacterName = "";
     private const string ongoingGameTitle = "You have a game in progress";
     private const string ongoingGameDescription = "Do you want to reconnect to the game?";
     private const string connectionTitle = "Error";
@@ -127,6 +128,7 @@ public class LobbyConnection : MonoBehaviour
             {
                 this.ws.Close();
             }
+
             ResetFields();
             return;
         }
@@ -487,5 +489,25 @@ public class LobbyConnection : MonoBehaviour
         this.serverName = SelectServerIP.GetServerName();
         PopulateLists();
         MaybeReconnect();
+    }
+
+    public void GetSelectedCharacter(AsyncOperation operation)
+    {
+        StartCoroutine(
+            ServerUtils.GetSelectedCharacter(
+                response =>
+                {
+                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                    if (operation != null)
+                    {
+                        operation.allowSceneActivation = true;
+                    }
+                },
+                error =>
+                {
+                    Errors.Instance.HandleNetworkError("Error", error);
+                }
+            )
+        );
     }
 }
