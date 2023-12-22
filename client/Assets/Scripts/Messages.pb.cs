@@ -85,9 +85,9 @@ namespace Communication.Protobuf {
             "CzILLk1pbGxpc1RpbWUSFgoOY2hhcmFjdGVyX25hbWUYDiABKAkSKAoHZWZm",
             "ZWN0cxgPIAMoCzIXLk9sZFBsYXllci5FZmZlY3RzRW50cnkSJAoJZGlyZWN0",
             "aW9uGBAgASgLMhEuUmVsYXRpdmVQb3NpdGlvbhIRCglib2R5X3NpemUYESAB",
-            "KAISHAoJaW52ZW50b3J5GBIgAygLMgkuR2FtZUxvb3QSQgoVYXZhaWxhYmxl",
-            "X2J1cnN0X2xvYWRzGBMgAygLMiMuT2xkUGxheWVyLkF2YWlsYWJsZUJ1cnN0",
-            "TG9hZHNFbnRyeRINCgVzcGVlZBgUIAEoBBo+CgxFZmZlY3RzRW50cnkSCwoD",
+            "KAISHAoJaW52ZW50b3J5GBIgAygLMgkuR2FtZUxvb3QSDQoFc3BlZWQYEyAB",
+            "KAQSQgoVYXZhaWxhYmxlX2J1cnN0X2xvYWRzGBQgAygLMiMuT2xkUGxheWVy",
+            "LkF2YWlsYWJsZUJ1cnN0TG9hZHNFbnRyeRo+CgxFZmZlY3RzRW50cnkSCwoD",
             "a2V5GAEgASgEEh0KBXZhbHVlGAIgASgLMg4uT2xkRWZmZWN0SW5mbzoCOAEa",
             "OgoYQXZhaWxhYmxlQnVyc3RMb2Fkc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2",
             "YWx1ZRgCIAEoBDoCOAEiTQoQT2xkQWN0aW9uVHJhY2tlchInCg1wbGF5ZXJf",
@@ -258,7 +258,7 @@ namespace Communication.Protobuf {
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.KillEvent), global::Communication.Protobuf.KillEvent.Parser, new[]{ "KilledByEntity", "KilledById", "Killed" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldGameEvent), global::Communication.Protobuf.OldGameEvent.Parser, new[]{ "Type", "Players", "Latency", "Projectiles", "PlayerJoinedId", "PlayerJoinedName", "WinnerPlayer", "SelectedCharacters", "PlayerTimestamp", "ServerTimestamp", "Killfeed", "PlayableRadius", "ShrinkingCenter", "Loots" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.PlayerCharacter), global::Communication.Protobuf.PlayerCharacter.Parser, new[]{ "PlayerId", "CharacterName" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldPlayer), global::Communication.Protobuf.OldPlayer.Parser, new[]{ "Id", "Health", "Position", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects", "Direction", "BodySize", "Inventory", "AvailableBurstLoads", "Speed" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldPlayer), global::Communication.Protobuf.OldPlayer.Parser, new[]{ "Id", "Health", "Position", "Status", "Action", "AoePosition", "KillCount", "DeathCount", "BasicSkillCooldownLeft", "Skill1CooldownLeft", "Skill2CooldownLeft", "Skill3CooldownLeft", "Skill4CooldownLeft", "CharacterName", "Effects", "Direction", "BodySize", "Inventory", "Speed", "AvailableBurstLoads" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldActionTracker), global::Communication.Protobuf.OldActionTracker.Parser, new[]{ "PlayerAction", "Duration" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldEffectInfo), global::Communication.Protobuf.OldEffectInfo.Parser, new[]{ "EndsAt", "CausedBy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Communication.Protobuf.OldKillEvent), global::Communication.Protobuf.OldKillEvent.Parser, new[]{ "KilledBy", "Killed" }, null, null, null, null),
@@ -5863,8 +5863,8 @@ namespace Communication.Protobuf {
       direction_ = other.direction_ != null ? other.direction_.Clone() : null;
       bodySize_ = other.bodySize_;
       inventory_ = other.inventory_.Clone();
-      availableBurstLoads_ = other.availableBurstLoads_.Clone();
       speed_ = other.speed_;
+      availableBurstLoads_ = other.availableBurstLoads_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -6087,19 +6087,8 @@ namespace Communication.Protobuf {
       get { return inventory_; }
     }
 
-    /// <summary>Field number for the "available_burst_loads" field.</summary>
-    public const int AvailableBurstLoadsFieldNumber = 19;
-    private static readonly pbc::MapField<string, ulong>.Codec _map_availableBurstLoads_codec
-        = new pbc::MapField<string, ulong>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt64(16, 0UL), 154);
-    private readonly pbc::MapField<string, ulong> availableBurstLoads_ = new pbc::MapField<string, ulong>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::MapField<string, ulong> AvailableBurstLoads {
-      get { return availableBurstLoads_; }
-    }
-
     /// <summary>Field number for the "speed" field.</summary>
-    public const int SpeedFieldNumber = 20;
+    public const int SpeedFieldNumber = 19;
     private ulong speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -6108,6 +6097,17 @@ namespace Communication.Protobuf {
       set {
         speed_ = value;
       }
+    }
+
+    /// <summary>Field number for the "available_burst_loads" field.</summary>
+    public const int AvailableBurstLoadsFieldNumber = 20;
+    private static readonly pbc::MapField<string, ulong>.Codec _map_availableBurstLoads_codec
+        = new pbc::MapField<string, ulong>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt64(16, 0UL), 162);
+    private readonly pbc::MapField<string, ulong> availableBurstLoads_ = new pbc::MapField<string, ulong>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::MapField<string, ulong> AvailableBurstLoads {
+      get { return availableBurstLoads_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6143,8 +6143,8 @@ namespace Communication.Protobuf {
       if (!object.Equals(Direction, other.Direction)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BodySize, other.BodySize)) return false;
       if(!inventory_.Equals(other.inventory_)) return false;
-      if (!AvailableBurstLoads.Equals(other.AvailableBurstLoads)) return false;
       if (Speed != other.Speed) return false;
+      if (!AvailableBurstLoads.Equals(other.AvailableBurstLoads)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -6170,8 +6170,8 @@ namespace Communication.Protobuf {
       if (direction_ != null) hash ^= Direction.GetHashCode();
       if (BodySize != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BodySize);
       hash ^= inventory_.GetHashCode();
-      hash ^= AvailableBurstLoads.GetHashCode();
       if (Speed != 0UL) hash ^= Speed.GetHashCode();
+      hash ^= AvailableBurstLoads.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -6253,11 +6253,11 @@ namespace Communication.Protobuf {
         output.WriteFloat(BodySize);
       }
       inventory_.WriteTo(output, _repeated_inventory_codec);
-      availableBurstLoads_.WriteTo(output, _map_availableBurstLoads_codec);
       if (Speed != 0UL) {
-        output.WriteRawTag(160, 1);
+        output.WriteRawTag(152, 1);
         output.WriteUInt64(Speed);
       }
+      availableBurstLoads_.WriteTo(output, _map_availableBurstLoads_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -6331,11 +6331,11 @@ namespace Communication.Protobuf {
         output.WriteFloat(BodySize);
       }
       inventory_.WriteTo(ref output, _repeated_inventory_codec);
-      availableBurstLoads_.WriteTo(ref output, _map_availableBurstLoads_codec);
       if (Speed != 0UL) {
-        output.WriteRawTag(160, 1);
+        output.WriteRawTag(152, 1);
         output.WriteUInt64(Speed);
       }
+      availableBurstLoads_.WriteTo(ref output, _map_availableBurstLoads_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -6394,10 +6394,10 @@ namespace Communication.Protobuf {
         size += 2 + 4;
       }
       size += inventory_.CalculateSize(_repeated_inventory_codec);
-      size += availableBurstLoads_.CalculateSize(_map_availableBurstLoads_codec);
       if (Speed != 0UL) {
         size += 2 + pb::CodedOutputStream.ComputeUInt64Size(Speed);
       }
+      size += availableBurstLoads_.CalculateSize(_map_availableBurstLoads_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -6482,10 +6482,10 @@ namespace Communication.Protobuf {
         BodySize = other.BodySize;
       }
       inventory_.Add(other.inventory_);
-      availableBurstLoads_.MergeFrom(other.availableBurstLoads_);
       if (other.Speed != 0UL) {
         Speed = other.Speed;
       }
+      availableBurstLoads_.MergeFrom(other.availableBurstLoads_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -6597,12 +6597,12 @@ namespace Communication.Protobuf {
             inventory_.AddEntriesFrom(input, _repeated_inventory_codec);
             break;
           }
-          case 154: {
-            availableBurstLoads_.AddEntriesFrom(input, _map_availableBurstLoads_codec);
+          case 152: {
+            Speed = input.ReadUInt64();
             break;
           }
-          case 160: {
-            Speed = input.ReadUInt64();
+          case 162: {
+            availableBurstLoads_.AddEntriesFrom(input, _map_availableBurstLoads_codec);
             break;
           }
         }
@@ -6716,12 +6716,12 @@ namespace Communication.Protobuf {
             inventory_.AddEntriesFrom(ref input, _repeated_inventory_codec);
             break;
           }
-          case 154: {
-            availableBurstLoads_.AddEntriesFrom(ref input, _map_availableBurstLoads_codec);
+          case 152: {
+            Speed = input.ReadUInt64();
             break;
           }
-          case 160: {
-            Speed = input.ReadUInt64();
+          case 162: {
+            availableBurstLoads_.AddEntriesFrom(ref input, _map_availableBurstLoads_codec);
             break;
           }
         }
