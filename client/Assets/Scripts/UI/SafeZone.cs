@@ -51,16 +51,19 @@ public class SafeZone : MonoBehaviour
 
     private void Update()
     {
-        float radius = Utils.transformBackendRadiusToFrontendRadius(
-            SocketConnectionManager.Instance.playableRadius
-        );
+        if (SocketConnectionManager.Instance.playableRadius != 0)
+        {
+            float radius = Utils.transformBackendRadiusToFrontendRadius(
+                SocketConnectionManager.Instance.playableRadius
+            );
 
-        Vector3 center = Utils.transformBackendPositionToFrontendPosition(
-            SocketConnectionManager.Instance.shrinkingCenter
-        );
+            Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
+                SocketConnectionManager.Instance.shrinkingCenter
+            );
 
-        float radiusCorrected = radius + radius * .007f;
+            float radiusCorrected = radius + radius * .007f;
 
-        ActivateParticleEffects(radius / div, new Vector3(center.x, 1f, center.z));
+            ActivateParticleEffects(radius / div, new Vector3(center.x, 1f, center.z));
+        }
     }
 }
