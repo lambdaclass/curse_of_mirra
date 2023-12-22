@@ -2,12 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using MoreMountains.Tools;
 using System.Linq;
+using System;
+using System.Text;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class CharacterInfoManager : MonoBehaviour
 {
     [SerializeField]
-    private UIModelManager modelManager;
+    private UIModelManager ModelManager;
 
     [Header("Character info")]
     [SerializeField]
@@ -28,76 +33,95 @@ public class CharacterInfoManager : MonoBehaviour
     ButtonAnimationsMMTouchButton leftButton,
         rightButton;
 
-    public static int characterIndex;
+    private int characterIndex;
 
     List<CoMCharacter> availableCharacters;
 
     void Start()
     {
-        availableCharacters = CharactersManager.Instance.availableCharacters;
+        availableCharacters = CharactersManager.Instance.AvailableCharacters;
+        string goToCharacter = CharactersManager.Instance.GetGoToCharacter();
 
-        CoMCharacter characterToShow = availableCharacters.Single(
-            comCharacter => comCharacter.name == CharactersManager.Instance.goToCharacterName
-        );
+
         // Get index from selected character to show previous and next character
         characterIndex = availableCharacters.FindIndex(
-            availableCharacter => availableCharacter.name == characterToShow.name
+            availableCharacter => availableCharacter.name == goToCharacter
         );
 
-        if (availableCharacters.Count() > 1)
-        {
-            rightButton.enabled = true;
-            leftButton.enabled = true;
-        }
-        else
-        {
-            rightButton.enabled = false;
-            leftButton.enabled = false;
-        }
+        CoMCharacter characterToShow = availableCharacters.Find(
+            character => character.name == goToCharacter
+        );
+
+        rightButton.enabled = (availableCharacters.Count() > 1);
+        leftButton.enabled = (availableCharacters.Count() > 1);
         SetCharacterInfo(characterToShow);
     }
 
     public void RightArrowFunction()
     {
-        if (characterIndex == availableCharacters.Count - 1)
-        {
-            characterIndex = 0;
-        }
-        else
-        {
-            characterIndex = characterIndex + 1;
-        }
         if (availableCharacters.Count() > 1)
         {
+            if (characterIndex == availableCharacters.Count() - 1)
+            {
+                characterIndex = 0;
+            }
+            else
+            {
+                characterIndex += 1;
+            }
             SetCharacterInfo(availableCharacters[characterIndex]);
         }
     }
 
     public void LeftArrowFunction()
     {
-        if (characterIndex == 0)
-        {
-            characterIndex = availableCharacters.Count - 1;
-        }
-        else
-        {
-            characterIndex = characterIndex - 1;
-        }
         if (availableCharacters.Count() > 1)
         {
+            if (characterIndex == 0)
+            {
+                characterIndex = availableCharacters.Count() - 1;
+            }
+            else
+            {
+                characterIndex -= 1;
+            }
             SetCharacterInfo(availableCharacters[characterIndex]);
         }
     }
 
     public void SetCharacterInfo(CoMCharacter comCharacter)
     {
-        modelManager.RemoveCurrentModel();
-        modelManager.SetModel(comCharacter.name);
+        ModelManager.RemoveCurrentModel();
+        ModelManager.SetModel(comCharacter.name);
         nameText.text = comCharacter.name;
         subTitle.text = comCharacter.description;
         classImage.sprite = comCharacter.classImage;
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
-        StartCoroutine(modelManager.GetComponentInChildren<RotateUIModel>().GetModel());
+        StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
+        CharactersManager.Instance.SetGoToCharacter(comCharacter.name);
+    }
+
+    public void SelectButton()
+    {
+        StartCoroutine(SetCharacter());
+    }
+
+    private IEnumerator SetCharacter()
+    {
+        yield return StartCoroutine(
+            ServerUtils.SetSelectedCharacter(
+                CharactersManager.Instance.GetGoToCharacter(),
+                response =>
+                {
+                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                },
+                error =>
+                {
+                    Errors.Instance.HandleNetworkError("Error", error);
+                }
+            )
+        );
+        this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 {
     public CoMCharacter comCharacter;
-    public TextMeshProUGUI name;
+    public new TextMeshProUGUI name;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
 

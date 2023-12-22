@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using Communication.Protobuf;
 
@@ -21,10 +23,17 @@ public class Utils
         SceneManager.LoadScene(levelName);
     }
 
-    public static Vector3 transformBackendPositionToFrontendPosition(OldPosition position)
+    public static Vector3 transformBackendOldPositionToFrontendPosition(OldPosition position)
     {
         var x = (long)position?.Y / 100f - 50.0f;
         var y = (-((long)position?.X)) / 100f + 50.0f;
+        return new Vector3(x, 1f, y);
+    }
+
+    public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
+    {
+        var x = (long)position?.x / 100f;
+        var y = (long)position?.y / 100f;
         return new Vector3(x, 1f, y);
     }
 
@@ -153,18 +162,5 @@ public class Utils
                 new GradientAlphaKey(1, 1)
             }
         };
-    }
-
-    public static List<CoMCharacter> GetOnlyAvailableCharacterInfo(
-        List<string> availableCharacterNames
-    )
-    {
-        // Filter List<CoMCharacter> based on available character names
-        List<CoMCharacter> availableCharacters =
-            CharactersManager.Instance.characterSriptableObjects
-                .Where(characters => availableCharacterNames.Contains(characters.name))
-                .ToList();
-
-        return availableCharacters;
     }
 }

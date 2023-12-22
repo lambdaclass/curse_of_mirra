@@ -1518,9 +1518,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 97a2a0c72cd2944178503164b49bc573, type: 2}
-  m_sharedMaterial: {fileID: 8209479233243502373, guid: 97a2a0c72cd2944178503164b49bc573,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2448,7 +2447,19 @@ MonoBehaviour:
       m_Calls: []
   ButtonReleased:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 576590200}
+        m_TargetAssemblyTypeName: CharacterInfoManager, CurseOfMyrra
+        m_MethodName: SelectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -2463,7 +2474,7 @@ MonoBehaviour:
   HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
   PressedOpacity: 1
   IdleOpacity: 1
-  DisabledOpacity: 1
+  DisabledOpacity: 0.5
   PressedFirstTimeDelay: 0
   ReleasedDelay: 0
   BufferDuration: 0
@@ -2904,10 +2915,10 @@ RectTransform:
   m_Father: {fileID: 6022409185718782281}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 103.869995}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1906279464892907978
 MonoBehaviour:
@@ -3348,7 +3359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab179447092404adba6901ab201212a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelManager: {fileID: 6622316602921967670}
+  ModelManager: {fileID: 6622316602921967670}
   nameText: {fileID: 5169547839653138468}
   classImage: {fileID: 6751343454037613080}
   subTitle: {fileID: 7697002149869885537}

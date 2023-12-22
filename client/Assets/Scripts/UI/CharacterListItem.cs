@@ -32,6 +32,7 @@ public class CharacterListItem : MonoBehaviour
         yield return new WaitUntil(
             () => this.GetComponent<ButtonAnimationsMMTouchButton>().executeRelease && IsEnable
         );
+        CharactersManager.Instance.GoToCharacter = characterNameString;
         this.GetComponent<MMLoadScene>().LoadScene();
     }
 }

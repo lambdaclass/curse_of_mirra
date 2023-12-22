@@ -46,11 +46,12 @@ public class SocketConnectionManager : MonoBehaviour
     public OldPosition shrinkingCenter;
 
     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
-    public List<LootPackage> updatedLoots = new List<LootPackage>();
 
     public bool cinematicDone;
 
     public bool connected = false;
+
+    public Game.GameState gameState;
 
     WebSocket ws;
 
@@ -147,7 +148,12 @@ public class SocketConnectionManager : MonoBehaviour
     private void ConnectToSession(string sessionId)
     {
         string url = makeWebsocketUrl(
-            "/play/" + sessionId + "/" + this.clientId + "/" + "delete-this"
+            "/play/"
+                + sessionId
+                + "/"
+                + this.clientId
+                + "/"
+                + LobbyConnection.Instance.selectedCharacterName
         );
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -167,6 +173,28 @@ public class SocketConnectionManager : MonoBehaviour
         try
         {
             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
+
+            // TODO: Fix missing NewGameEvent, current missing are
+            //      - PING_UPDATE
+            //      - PLAYER_JOINED
+            if (gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
+                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined) {
+                try {
+                    switch (gameEvent.NewGameEvent.EventCase) {
+                        case GameEvent.EventOneofCase.GameState:
+                            gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
+                            break;
+                        default:
+                            print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Debug.Log(gameEvent);
+                    Debug.Log(e);
+                    throw e;
+                }
+            }
+
             switch (gameEvent.OldGameEvent.Type)
             {
                 case GameEventType.StateUpdate:
@@ -178,7 +206,6 @@ public class SocketConnectionManager : MonoBehaviour
                     alivePlayers = gameEvent.OldGameEvent.Players
                         .ToList()
                         .FindAll(el => el.Health > 0);
-                    updatedLoots = gameEvent.OldGameEvent.Loots.ToList();
                     KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
                     break;
                 case GameEventType.PingUpdate:
