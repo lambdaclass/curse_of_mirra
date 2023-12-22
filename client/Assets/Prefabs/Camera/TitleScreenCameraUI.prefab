@@ -567,6 +567,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!1 &904415009785142596
 GameObject:
   m_ObjectHideFlags: 0

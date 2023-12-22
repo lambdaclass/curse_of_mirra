@@ -159,7 +159,8 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        OldPlayer playerUpdate = lastEvent.Players
+        OldPlayer playerUpdate = lastEvent
+            .Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
@@ -243,10 +244,10 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                        serverPlayerUpdate,
-                        gameEvent.PlayerTimestamp
-                    );
+                    SocketConnectionManager
+                        .Instance
+                        .clientPrediction
+                        .simulatePlayerState(serverPlayerUpdate, gameEvent.PlayerTimestamp);
                 }
 
                 if (interpolationGhost != null)
@@ -276,7 +277,7 @@ public class Battle : MonoBehaviour
                         )
                     )
                     {
-                         foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
+                        foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
                         {
                             if (PlayerMovementAuthorized(playerCharacter))
                             {
@@ -368,7 +369,7 @@ public class Battle : MonoBehaviour
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
-            Vector3 backToFrontPosition = Utils.transformBackendPositionToFrontendPosition(
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
                 gameProjectiles[i].Position
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
@@ -465,7 +466,8 @@ public class Battle : MonoBehaviour
         var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
-            .CharacterModel.GetComponent<Animator>();
+            .CharacterModel
+            .GetComponent<Animator>();
 
         characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
 
@@ -533,7 +535,7 @@ public class Battle : MonoBehaviour
         float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
-        var frontendPosition = Utils.transformBackendPositionToFrontendPosition(
+        var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
             playerUpdate.Position
         );
 
@@ -542,7 +544,8 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
-            .CharacterModel.GetComponent<Animator>();
+            .CharacterModel
+            .GetComponent<Animator>();
 
         bool walking = false;
 
@@ -565,19 +568,19 @@ public class Battle : MonoBehaviour
             walking =
                 playerUpdate.Id == SocketConnectionManager.Instance.playerId
                     ? InputsAreBeingUsed()
-                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                        playerUpdate.Id,
-                        (long)pastTime
-                    );
+                    : SocketConnectionManager
+                        .Instance
+                        .eventsBuffer
+                        .playerIsMoving(playerUpdate.Id, (long)pastTime);
         }
         else
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                    playerUpdate.Id,
-                    (long)pastTime
-                );
+                walking = SocketConnectionManager
+                    .Instance
+                    .eventsBuffer
+                    .playerIsMoving(playerUpdate.Id, (long)pastTime);
             }
         }
 
@@ -591,7 +594,7 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                 && playerUpdate
+                && playerUpdate
                     .Action
                     .Any(
                         actionTracker =>
@@ -671,7 +674,7 @@ public class Battle : MonoBehaviour
         playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         playerCharacter.characterBase.Hitbox.SetActive(false);
         levelManager.DestroySkillsClone(playerCharacter);
-        var characterBase = playerCharacter.GetComponentInChildren<CharacterBase>();
+        CharacterBase characterBase = playerCharacter.GetComponentInChildren<CharacterBase>();
         characterBase.OrientationIndicator.SetActive(false);
         characterBase.CharacterCard.SetActive(false);
         if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
@@ -707,8 +710,10 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
-            SocketConnectionManager.Instance.playerId.ToString();
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
+            .Instance
+            .playerId
+            .ToString();
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
@@ -755,7 +760,9 @@ public class Battle : MonoBehaviour
             );
             interpolationGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
                 .Instance
-                .gamePlayers[i].Id.ToString();
+                .gamePlayers[i]
+                .Id
+                .ToString();
             interpolationGhost.GetComponent<CustomCharacter>().name =
                 $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
 
@@ -838,8 +845,9 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
-        CharacterFeedbackManager feedbackManager =
-            character.characterBase.GetComponent<CharacterFeedbackManager>();
+        CharacterFeedbackManager feedbackManager = character
+            .characterBase
+            .GetComponent<CharacterFeedbackManager>();
 
         ManageFeedbacks(player, playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
@@ -863,21 +871,6 @@ public class Battle : MonoBehaviour
                 {
                     characterSpeed *= 4f;
                 }
-            }
-        }
-
-        if (
-            SocketConnectionManager.Instance.playerId == playerUpdate.Id
-            && playerUpdate.Status == OldStatus.Alive
-        )
-        {
-            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.OutOfArea))
-            {
-                CustomGUIManager.DisplayZoneDamageFeedback(true);
-            }
-            else
-            {
-                CustomGUIManager.DisplayZoneDamageFeedback(false);
             }
         }
 

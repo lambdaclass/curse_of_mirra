@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Text;
 
 public static class ServerUtils
 {
@@ -92,6 +93,44 @@ public static class ServerUtils
         }
     }
 
+    public static IEnumerator SetSelectedCharacter(
+        string characterName,
+        Action<UserCharacterResponse> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        string url = MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit");
+        string parametersJson = "{\"selected_character\": \"" + characterName + "\"}";
+        byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
+        {
+            // webRequest.certificateHandler = new AcceptAllCertificates();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (webRequest.downloadHandler.text.Contains("INEXISTENT_USER"))
+                    {
+                        errorCallback?.Invoke(webRequest.downloadHandler.text);
+                    }
+                    else
+                    {
+                        UserCharacterResponse response =
+                            JsonUtility.FromJson<UserCharacterResponse>(
+                                webRequest.downloadHandler.text
+                            );
+                        successCallback?.Invoke(response);
+                    }
+                    break;
+                default:
+                    errorCallback?.Invoke(webRequest.downloadHandler.error);
+                    break;
+            }
+        }
+    }
+
     public static IEnumerator CreateUser(
         Action<UserCharacterResponse> successCallback,
         Action<string> errorCallback
@@ -100,7 +139,7 @@ public static class ServerUtils
         string url = MakeHTTPUrl("/users-characters/new");
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("device_client_id", GetClientId()));
-        formData.Add(new MultipartFormDataSection("selected_character", "muflus"));
+        formData.Add(new MultipartFormDataSection("selected_character", "Muflus"));
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
         {
@@ -124,6 +163,54 @@ public static class ServerUtils
                 default:
                     errorCallback?.Invoke(webRequest.downloadHandler.error);
                     break;
+            }
+        }
+    }
+
+    public static IEnumerator GetUser(
+        Action<UserCharacterResponse> successCallback,
+        Action<string> errorCallback
+    )
+    {
+        string url = MakeHTTPUrl("/users-characters/" + GetClientId());
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                UserCharacterResponse response = JsonUtility.FromJson<UserCharacterResponse>(
+                    webRequest.downloadHandler.text
+                );
+                successCallback?.Invoke(response);
+                webRequest.Dispose();
+            }
+            else
+            {
+                string errorDescription;
+                switch (webRequest.result)
+                {
+                    case UnityWebRequest.Result.ProtocolError:
+                        errorDescription = "Something unexpected happened";
+                        errorCallback.Invoke(errorDescription);
+                        break;
+                    case UnityWebRequest.Result.ConnectionError:
+                        errorDescription = "Connection Error";
+                        errorCallback.Invoke(errorDescription);
+                        break;
+                    case UnityWebRequest.Result.DataProcessingError:
+                        errorDescription = "Data processing error.";
+                        errorCallback.Invoke(errorDescription);
+                        break;
+                    default:
+                        errorDescription = "Unhandled error.";
+                        errorCallback.Invoke(errorDescription);
+                        break;
+                }
+
+                errorCallback?.Invoke(errorDescription);
             }
         }
     }

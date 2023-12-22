@@ -10,7 +10,7 @@ namespace Game {
         private long serverTimestamp { get; }
         private List<Player> players { get; }
         private List<Projectile> projectiles { get; }
-        private List<Item> items { get; }
+        public List<Item> items { get; }
         private List<KillEvent> killfeed { get; }
 
         public GameState(Communication.Protobuf.GameState protobufGameState) {

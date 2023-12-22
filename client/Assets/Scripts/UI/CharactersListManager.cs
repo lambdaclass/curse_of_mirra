@@ -19,8 +19,7 @@ public class CharactersListManager : MonoBehaviour
 
     void GenerateList()
     {
-        List<CoMCharacter> availableCharacters = CharactersManager.Instance.availableCharacters;
-        CharactersManager.Instance.characterSriptableObjects.ForEach(
+        CharactersManager.Instance.AllCharacters.ForEach(
             (character) =>
             {
                 GameObject item = Instantiate(listItem, this.transform);
@@ -29,7 +28,7 @@ public class CharactersListManager : MonoBehaviour
                 instanceListItem.characterNameString = character.name;
 
                 // Characters enabled to select
-                if (availableCharacters.Contains(character))
+                if (CharactersManager.Instance.IsAvailableCharacter(character))
                 {
                     instanceListItem.soonLabel.SetActive(false);
                     instanceListItem.characterOpacity.SetActive(false);
