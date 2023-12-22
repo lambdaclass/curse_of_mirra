@@ -9,7 +9,7 @@ public class CustomCharacter : Character
     [Header("Character Base")]
     [SerializeField]
     public CharacterBase characterBase;
-    public List<OldActionTracker> currentActions = new List<OldActionTracker>();
+    public HashSet<OldActionTracker> currentActions = new HashSet<OldActionTracker>();
 
     protected override void Initialization()
     {
