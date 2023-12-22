@@ -1,0 +1,242 @@
+fileFormatVersion: 2
+guid: 2f4e6492f506bbb4a8aeba850e3bb52f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: //RootNode
+    100004: Head
+    100006: Jaw01
+    100008: Jaw02
+    100010: Jaw03
+    100012: L_feet
+    100014: L_Lowerleg01
+    100016: L_LowerLeg02
+    100018: L_Shoulder01
+    100020: L_Shoulder02
+    100022: L_Toe_Index01
+    100024: L_Toe_Index02
+    100026: L_Toe_Middle01
+    100028: L_Toe_Middle02
+    100030: L_Toe_Pinky01
+    100032: L_Toe_Pinky02
+    100034: L_UpperLeg
+    100036: Neck01
+    100038: Neck02
+    100040: NightMareDragon
+    100042: R_armHorn
+    100044: R_armHorn 1
+    100046: R_feet
+    100048: R_Hand
+    100050: R_Hand 1
+    100052: R_Index01
+    100054: R_Index01 1
+    100056: R_Index02
+    100058: R_Index02 1
+    100060: R_Index03
+    100062: R_Index03 1
+    100064: R_Middle01
+    100066: R_Middle01 1
+    100068: R_Middle02
+    100070: R_Middle02 1
+    100072: R_Middle03
+    100074: R_Middle03 1
+    100076: R_Pinky01
+    100078: R_Pinky01 1
+    100080: R_Pinky02
+    100082: R_Pinky02 1
+    100084: R_Pinky03
+    100086: R_Pinky03 1
+    100088: R_RowerArm
+    100090: R_RowerArm 1
+    100092: R_Rowerleg01
+    100094: R_RowerReg02
+    100096: R_Shoulder01
+    100098: R_Shoulder02
+    100100: R_Toe_Index01
+    100102: R_Toe_Index02
+    100104: R_Toe_Middle01
+    100106: R_Toe_Middle02
+    100108: R_Toe_Pinky01
+    100110: R_Toe_Pinky02
+    100112: R_UpperArm
+    100114: R_UpperArm1
+    100116: R_UpperReg
+    100118: R_Wrist
+    100120: R_Wrist 1
+    100122: Root
+    100124: Spine01
+    100126: Spine02
+    100128: Tail01
+    100130: Tail02
+    100132: Tail03
+    100134: Tail04
+    100136: Tongue01
+    100138: Tongue02
+    100140: Tongue03
+    100142: Tongue04
+    100144: UpperHead01
+    100146: UpperHead02
+    400000: Chest
+    400002: //RootNode
+    400004: Head
+    400006: Jaw01
+    400008: Jaw02
+    400010: Jaw03
+    400012: L_feet
+    400014: L_Lowerleg01
+    400016: L_LowerLeg02
+    400018: L_Shoulder01
+    400020: L_Shoulder02
+    400022: L_Toe_Index01
+    400024: L_Toe_Index02
+    400026: L_Toe_Middle01
+    400028: L_Toe_Middle02
+    400030: L_Toe_Pinky01
+    400032: L_Toe_Pinky02
+    400034: L_UpperLeg
+    400036: Neck01
+    400038: Neck02
+    400040: NightMareDragon
+    400042: R_armHorn
+    400044: R_armHorn 1
+    400046: R_feet
+    400048: R_Hand
+    400050: R_Hand 1
+    400052: R_Index01
+    400054: R_Index01 1
+    400056: R_Index02
+    400058: R_Index02 1
+    400060: R_Index03
+    400062: R_Index03 1
+    400064: R_Middle01
+    400066: R_Middle01 1
+    400068: R_Middle02
+    400070: R_Middle02 1
+    400072: R_Middle03
+    400074: R_Middle03 1
+    400076: R_Pinky01
+    400078: R_Pinky01 1
+    400080: R_Pinky02
+    400082: R_Pinky02 1
+    400084: R_Pinky03
+    400086: R_Pinky03 1
+    400088: R_RowerArm
+    400090: R_RowerArm 1
+    400092: R_Rowerleg01
+    400094: R_RowerReg02
+    400096: R_Shoulder01
+    400098: R_Shoulder02
+    400100: R_Toe_Index01
+    400102: R_Toe_Index02
+    400104: R_Toe_Middle01
+    400106: R_Toe_Middle02
+    400108: R_Toe_Pinky01
+    400110: R_Toe_Pinky02
+    400112: R_UpperArm
+    400114: R_UpperArm1
+    400116: R_UpperReg
+    400118: R_Wrist
+    400120: R_Wrist 1
+    400122: Root
+    400124: Spine01
+    400126: Spine02
+    400128: Tail01
+    400130: Tail02
+    400132: Tail03
+    400134: Tail04
+    400136: Tongue01
+    400138: Tongue02
+    400140: Tongue03
+    400142: Tongue04
+    400144: UpperHead01
+    400146: UpperHead02
+    4300000: NightMareDragon
+    9500000: //RootNode
+    13700000: NightMareDragon
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

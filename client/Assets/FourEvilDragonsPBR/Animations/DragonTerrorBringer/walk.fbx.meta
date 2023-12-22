@@ -1,0 +1,480 @@
+fileFormatVersion: 2
+guid: ac9b8cd5f91eeef44a25fce0f31885c1
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: DragonMesh
+    100004: Feet_L
+    100006: Feet_L 1
+    100008: Finger1_L
+    100010: Finger1_L 1
+    100012: Finger2_L
+    100014: Finger2_L 1
+    100016: Hand_L
+    100018: Hand_L 1
+    100020: Head
+    100022: Jaw1
+    100024: Jaw2
+    100026: Jaw3
+    100028: LowerArm_L
+    100030: LowerArm_L 1
+    100032: LowerLeg2_L
+    100034: LowerLeg2_L 1
+    100036: LowerLeg_L
+    100038: LowerLeg_L 1
+    100040: Neck1
+    100042: Neck2
+    100044: Neck3
+    100046: Neck4
+    100048: Root
+    100050: Spine1
+    100052: Spine2
+    100054: Tail1
+    100056: Tail2
+    100058: Tail3
+    100060: Tail4
+    100062: Tail5
+    100064: Toe1_L
+    100066: Toe1_L 1
+    100068: Toe2_L
+    100070: Toe2_L 1
+    100072: UpperArm_L
+    100074: UpperArm_L1
+    100076: UpperHead1
+    100078: UpperHead2
+    100080: UpperLeg_L
+    100082: UpperLeg_L1
+    100084: //RootNode
+    100086: Wing1_L
+    100088: Wing1_L1
+    100090: Wing2_L
+    100092: Wing2_L 1
+    100094: Wing3_L
+    100096: Wing3_L 1
+    100098: Wing4_L
+    100100: Wing4_L 1
+    100102: WingClaw1_L
+    100104: WingClaw1_L 1
+    100106: WingClaw2_L
+    100108: WingClaw2_L 1
+    100110: WingClaw3_L
+    100112: WingClaw3_L 1
+    100114: WingClaw4_L
+    100116: WingClaw4_L 1
+    100118: WingDetail10_L
+    100120: WingDetail10_L 1
+    100122: WingDetail11_L
+    100124: WingDetail11_L 1
+    100126: WingDetail12_L
+    100128: WingDetail12_L 1
+    100130: WingDetail13_L
+    100132: WingDetail13_L 1
+    100134: WingDetail1_L
+    100136: WingDetail1_L 1
+    100138: WingDetail2_L
+    100140: WingDetail2_L 1
+    100142: WingDetail3_L
+    100144: WingDetail3_L 1
+    100146: WingDetail4_L
+    100148: WingDetail4_L 1
+    100150: WingDetail5_L
+    100152: WingDetail5_L 1
+    100154: WingDetail6_L
+    100156: WingDetail6_L 1
+    100158: WingDetail7_L
+    100160: WingDetail7_L 1
+    100162: WingDetail8_L
+    100164: WingDetail8_L 1
+    100166: WingDetail9_L
+    100168: WingDetail9_L 1
+    400000: Chest
+    400002: DragonMesh
+    400004: Feet_L
+    400006: Feet_L 1
+    400008: Finger1_L
+    400010: Finger1_L 1
+    400012: Finger2_L
+    400014: Finger2_L 1
+    400016: Hand_L
+    400018: Hand_L 1
+    400020: Head
+    400022: Jaw1
+    400024: Jaw2
+    400026: Jaw3
+    400028: LowerArm_L
+    400030: LowerArm_L 1
+    400032: LowerLeg2_L
+    400034: LowerLeg2_L 1
+    400036: LowerLeg_L
+    400038: LowerLeg_L 1
+    400040: Neck1
+    400042: Neck2
+    400044: Neck3
+    400046: Neck4
+    400048: Root
+    400050: Spine1
+    400052: Spine2
+    400054: Tail1
+    400056: Tail2
+    400058: Tail3
+    400060: Tail4
+    400062: Tail5
+    400064: Toe1_L
+    400066: Toe1_L 1
+    400068: Toe2_L
+    400070: Toe2_L 1
+    400072: UpperArm_L
+    400074: UpperArm_L1
+    400076: UpperHead1
+    400078: UpperHead2
+    400080: UpperLeg_L
+    400082: UpperLeg_L1
+    400084: //RootNode
+    400086: Wing1_L
+    400088: Wing1_L1
+    400090: Wing2_L
+    400092: Wing2_L 1
+    400094: Wing3_L
+    400096: Wing3_L 1
+    400098: Wing4_L
+    400100: Wing4_L 1
+    400102: WingClaw1_L
+    400104: WingClaw1_L 1
+    400106: WingClaw2_L
+    400108: WingClaw2_L 1
+    400110: WingClaw3_L
+    400112: WingClaw3_L 1
+    400114: WingClaw4_L
+    400116: WingClaw4_L 1
+    400118: WingDetail10_L
+    400120: WingDetail10_L 1
+    400122: WingDetail11_L
+    400124: WingDetail11_L 1
+    400126: WingDetail12_L
+    400128: WingDetail12_L 1
+    400130: WingDetail13_L
+    400132: WingDetail13_L 1
+    400134: WingDetail1_L
+    400136: WingDetail1_L 1
+    400138: WingDetail2_L
+    400140: WingDetail2_L 1
+    400142: WingDetail3_L
+    400144: WingDetail3_L 1
+    400146: WingDetail4_L
+    400148: WingDetail4_L 1
+    400150: WingDetail5_L
+    400152: WingDetail5_L 1
+    400154: WingDetail6_L
+    400156: WingDetail6_L 1
+    400158: WingDetail7_L
+    400160: WingDetail7_L 1
+    400162: WingDetail8_L
+    400164: WingDetail8_L 1
+    400166: WingDetail9_L
+    400168: WingDetail9_L 1
+    4300000: DragonMesh
+    7400000: Walk
+    9500000: //RootNode
+    13700000: DragonMesh
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DragonMesh
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head/Jaw1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head/Jaw1/Jaw2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head/Jaw1/Jaw2/Jaw3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head/UpperHead1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck1/Neck2/Neck3/Neck4/Head/UpperHead1/UpperHead2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L/LowerArm_L/Hand_L/Finger1_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L/LowerArm_L/Hand_L/Finger1_L/Finger2_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L1/LowerArm_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L1/LowerArm_L 1/Hand_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L1/LowerArm_L 1/Hand_L 1/Finger1_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/UpperArm_L1/LowerArm_L 1/Hand_L 1/Finger1_L
+          1/Finger2_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail1_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail1_L/WingDetail2_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail1_L/WingDetail2_L/WingDetail3_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail1_L/WingDetail2_L/WingDetail3_L/WingDetail4_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail5_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail5_L/WingDetail6_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail5_L/WingDetail6_L/WingDetail7_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail5_L/WingDetail6_L/WingDetail7_L/WingDetail8_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail9_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail9_L/WingDetail10_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/Wing4_L/WingDetail9_L/WingDetail10_L/WingDetail11_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/WingClaw1_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/WingClaw1_L/WingClaw2_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/WingClaw3_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/Wing3_L/WingClaw3_L/WingClaw4_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/WingDetail12_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L/Wing2_L/WingDetail12_L/WingDetail13_L
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail1_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail1_L
+          1/WingDetail2_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail1_L
+          1/WingDetail2_L 1/WingDetail3_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail1_L
+          1/WingDetail2_L 1/WingDetail3_L 1/WingDetail4_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail5_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail5_L
+          1/WingDetail6_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail5_L
+          1/WingDetail6_L 1/WingDetail7_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail5_L
+          1/WingDetail6_L 1/WingDetail7_L 1/WingDetail8_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail9_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail9_L
+          1/WingDetail10_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/Wing4_L 1/WingDetail9_L
+          1/WingDetail10_L 1/WingDetail11_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/WingClaw1_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/WingClaw1_L 1/WingClaw2_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/WingClaw3_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/Wing3_L 1/WingClaw3_L 1/WingClaw4_L
+          1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/WingDetail12_L 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Wing1_L1/Wing2_L 1/WingDetail12_L 1/WingDetail13_L
+          1
+        weight: 1
+      - path: Root/Tail1
+        weight: 1
+      - path: Root/Tail1/Tail2
+        weight: 1
+      - path: Root/Tail1/Tail2/Tail3
+        weight: 1
+      - path: Root/Tail1/Tail2/Tail3/Tail4
+        weight: 1
+      - path: Root/Tail1/Tail2/Tail3/Tail4/Tail5
+        weight: 1
+      - path: Root/UpperLeg_L
+        weight: 1
+      - path: Root/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Root/UpperLeg_L/LowerLeg_L/LowerLeg2_L
+        weight: 1
+      - path: Root/UpperLeg_L/LowerLeg_L/LowerLeg2_L/Feet_L
+        weight: 1
+      - path: Root/UpperLeg_L/LowerLeg_L/LowerLeg2_L/Feet_L/Toe1_L
+        weight: 1
+      - path: Root/UpperLeg_L/LowerLeg_L/LowerLeg2_L/Feet_L/Toe1_L/Toe2_L
+        weight: 1
+      - path: Root/UpperLeg_L1
+        weight: 1
+      - path: Root/UpperLeg_L1/LowerLeg_L 1
+        weight: 1
+      - path: Root/UpperLeg_L1/LowerLeg_L 1/LowerLeg2_L 1
+        weight: 1
+      - path: Root/UpperLeg_L1/LowerLeg_L 1/LowerLeg2_L 1/Feet_L 1
+        weight: 1
+      - path: Root/UpperLeg_L1/LowerLeg_L 1/LowerLeg2_L 1/Feet_L 1/Toe1_L 1
+        weight: 1
+      - path: Root/UpperLeg_L1/LowerLeg_L 1/LowerLeg2_L 1/Feet_L 1/Toe1_L 1/Toe2_L
+          1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

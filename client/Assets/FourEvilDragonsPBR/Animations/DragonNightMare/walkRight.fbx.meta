@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 0d450e707f0b2d646b814fe61b117d4b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: Head
+    100004: Jaw01
+    100006: Jaw02
+    100008: Jaw03
+    100010: L_feet
+    100012: L_Lowerleg01
+    100014: L_LowerLeg02
+    100016: L_Shoulder01
+    100018: L_Shoulder02
+    100020: L_Toe_Index01
+    100022: L_Toe_Index02
+    100024: L_Toe_Middle01
+    100026: L_Toe_Middle02
+    100028: L_Toe_Pinky01
+    100030: L_Toe_Pinky02
+    100032: L_UpperLeg
+    100034: Neck01
+    100036: Neck02
+    100038: NightMareDragon
+    100040: R_armHorn
+    100042: R_armHorn 1
+    100044: R_feet
+    100046: R_Hand
+    100048: R_Hand 1
+    100050: R_Index01
+    100052: R_Index01 1
+    100054: R_Index02
+    100056: R_Index02 1
+    100058: R_Index03
+    100060: R_Index03 1
+    100062: R_Middle01
+    100064: R_Middle01 1
+    100066: R_Middle02
+    100068: R_Middle02 1
+    100070: R_Middle03
+    100072: R_Middle03 1
+    100074: R_Pinky01
+    100076: R_Pinky01 1
+    100078: R_Pinky02
+    100080: R_Pinky02 1
+    100082: R_Pinky03
+    100084: R_Pinky03 1
+    100086: R_RowerArm
+    100088: R_RowerArm 1
+    100090: R_Rowerleg01
+    100092: R_RowerReg02
+    100094: R_Shoulder01
+    100096: R_Shoulder02
+    100098: R_Toe_Index01
+    100100: R_Toe_Index02
+    100102: R_Toe_Middle01
+    100104: R_Toe_Middle02
+    100106: R_Toe_Pinky01
+    100108: R_Toe_Pinky02
+    100110: R_UpperArm
+    100112: R_UpperArm1
+    100114: R_UpperReg
+    100116: R_Wrist
+    100118: R_Wrist 1
+    100120: Root
+    100122: Spine01
+    100124: Spine02
+    100126: Tail01
+    100128: Tail02
+    100130: Tail03
+    100132: Tail04
+    100134: Tongue01
+    100136: Tongue02
+    100138: Tongue03
+    100140: Tongue04
+    100142: UpperHead01
+    100144: UpperHead02
+    100146: //RootNode
+    400000: Chest
+    400002: Head
+    400004: Jaw01
+    400006: Jaw02
+    400008: Jaw03
+    400010: L_feet
+    400012: L_Lowerleg01
+    400014: L_LowerLeg02
+    400016: L_Shoulder01
+    400018: L_Shoulder02
+    400020: L_Toe_Index01
+    400022: L_Toe_Index02
+    400024: L_Toe_Middle01
+    400026: L_Toe_Middle02
+    400028: L_Toe_Pinky01
+    400030: L_Toe_Pinky02
+    400032: L_UpperLeg
+    400034: Neck01
+    400036: Neck02
+    400038: NightMareDragon
+    400040: R_armHorn
+    400042: R_armHorn 1
+    400044: R_feet
+    400046: R_Hand
+    400048: R_Hand 1
+    400050: R_Index01
+    400052: R_Index01 1
+    400054: R_Index02
+    400056: R_Index02 1
+    400058: R_Index03
+    400060: R_Index03 1
+    400062: R_Middle01
+    400064: R_Middle01 1
+    400066: R_Middle02
+    400068: R_Middle02 1
+    400070: R_Middle03
+    400072: R_Middle03 1
+    400074: R_Pinky01
+    400076: R_Pinky01 1
+    400078: R_Pinky02
+    400080: R_Pinky02 1
+    400082: R_Pinky03
+    400084: R_Pinky03 1
+    400086: R_RowerArm
+    400088: R_RowerArm 1
+    400090: R_Rowerleg01
+    400092: R_RowerReg02
+    400094: R_Shoulder01
+    400096: R_Shoulder02
+    400098: R_Toe_Index01
+    400100: R_Toe_Index02
+    400102: R_Toe_Middle01
+    400104: R_Toe_Middle02
+    400106: R_Toe_Pinky01
+    400108: R_Toe_Pinky02
+    400110: R_UpperArm
+    400112: R_UpperArm1
+    400114: R_UpperReg
+    400116: R_Wrist
+    400118: R_Wrist 1
+    400120: Root
+    400122: Spine01
+    400124: Spine02
+    400126: Tail01
+    400128: Tail02
+    400130: Tail03
+    400132: Tail04
+    400134: Tongue01
+    400136: Tongue02
+    400138: Tongue03
+    400140: Tongue04
+    400142: UpperHead01
+    400144: UpperHead02
+    400146: //RootNode
+    4300000: NightMareDragon
+    7400000: walkRight
+    9500000: //RootNode
+    13700000: NightMareDragon
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: walkRight
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: NightMareDragon
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_UpperLeg
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Index01
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Index01/L_Toe_Index02
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Middle01
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Middle01/L_Toe_Middle02
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Pinky01
+        weight: 1
+      - path: Root/L_UpperLeg/L_Lowerleg01/L_LowerLeg02/L_feet/L_Toe_Pinky01/L_Toe_Pinky02
+        weight: 1
+      - path: Root/R_UpperReg
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Index01
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Index01/R_Toe_Index02
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Middle01
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Middle01/R_Toe_Middle02
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Pinky01
+        weight: 1
+      - path: Root/R_UpperReg/R_Rowerleg01/R_RowerReg02/R_feet/R_Toe_Pinky01/R_Toe_Pinky02
+        weight: 1
+      - path: Root/Spine01
+        weight: 1
+      - path: Root/Spine01/Spine02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/L_Shoulder01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/L_Shoulder01/L_Shoulder02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Jaw01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Jaw01/Jaw02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Jaw01/Jaw02/Jaw03
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Tongue01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Tongue01/Tongue02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Tongue01/Tongue02/Tongue03
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/Tongue01/Tongue02/Tongue03/Tongue04
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/UpperHead01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/Neck01/Neck02/Head/UpperHead01/UpperHead02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_Shoulder01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_Shoulder01/R_Shoulder02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_armHorn
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Index01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Index01/R_Index02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Index01/R_Index02/R_Index03
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Middle01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Middle01/R_Middle02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Middle01/R_Middle02/R_Middle03
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Pinky01
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Pinky01/R_Pinky02
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm/R_RowerArm/R_Wrist/R_Hand/R_Pinky01/R_Pinky02/R_Pinky03
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_armHorn 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Index01 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Index01 1/R_Index02 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Index01 1/R_Index02 1/R_Index03 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Middle01 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Middle01 1/R_Middle02 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Middle01 1/R_Middle02 1/R_Middle03 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Pinky01 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Pinky01 1/R_Pinky02 1
+        weight: 1
+      - path: Root/Spine01/Spine02/Chest/R_UpperArm1/R_RowerArm 1/R_Wrist 1/R_Hand
+          1/R_Pinky01 1/R_Pinky02 1/R_Pinky03 1
+        weight: 1
+      - path: Root/Tail01
+        weight: 1
+      - path: Root/Tail01/Tail02
+        weight: 1
+      - path: Root/Tail01/Tail02/Tail03
+        weight: 1
+      - path: Root/Tail01/Tail02/Tail03/Tail04
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,375 @@
+fileFormatVersion: 2
+guid: 1e32448c0eb5bdb45b3a576fb8011df0
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: DragonSoulEater
+    100004: //RootNode
+    100006: Eye_Left
+    100008: Eye_Right
+    100010: Feet_Left
+    100012: Feet_Right
+    100014: Hand_Left
+    100016: Hand_Right
+    100018: HandTip_Left
+    100020: HandTip_Right
+    100022: Head
+    100024: Jaw
+    100026: JawTip
+    100028: LowerArm_Left
+    100030: LowerArm_Right
+    100032: LowerLeg_Left
+    100034: LowerLeg_Right
+    100036: Neck
+    100038: NeckFat_Left
+    100040: NeckFat_Right
+    100042: ReverseLeg_Left
+    100044: ReverseLeg_Right
+    100046: Root_Pelvis
+    100048: Spine
+    100050: Tail01
+    100052: Tail02
+    100054: Tail03
+    100056: TailEnd
+    100058: Toe_Left
+    100060: Toe_Right
+    100062: UpperArm_Left
+    100064: UpperArm_Right
+    100066: UpperLeg_Left
+    100068: UpperLeg_Right
+    100070: UpperMouth
+    100072: ValleyFat
+    100074: Wing01_Left
+    100076: Wing01_Right
+    100078: Wing02_Left
+    100080: Wing02_Right
+    100082: Wing03_Left
+    100084: Wing03_Right
+    100086: WingHand_Left
+    100088: WingHand_Right
+    100090: WingIndex01_Left
+    100092: WingIndex01_Right
+    100094: WingIndex02_Left
+    100096: WingIndex02_Right
+    100098: WingIndex03_Left
+    100100: WingIndex03_Right
+    100102: WingMiddle01_Left
+    100104: WingMiddle01_Right
+    100106: WingMiddle02_Left
+    100108: WingMiddle02_Right
+    100110: WingMiddle03_Left
+    100112: WingMiddle03_Right
+    100114: WingPinky01_Left
+    100116: WingPinky01_Right
+    100118: WingPinky02_Left
+    100120: WingPinky02_Right
+    100122: WingPinky03_Left
+    100124: WingPinky03_Right
+    400000: Chest
+    400002: DragonSoulEater
+    400004: //RootNode
+    400006: Eye_Left
+    400008: Eye_Right
+    400010: Feet_Left
+    400012: Feet_Right
+    400014: Hand_Left
+    400016: Hand_Right
+    400018: HandTip_Left
+    400020: HandTip_Right
+    400022: Head
+    400024: Jaw
+    400026: JawTip
+    400028: LowerArm_Left
+    400030: LowerArm_Right
+    400032: LowerLeg_Left
+    400034: LowerLeg_Right
+    400036: Neck
+    400038: NeckFat_Left
+    400040: NeckFat_Right
+    400042: ReverseLeg_Left
+    400044: ReverseLeg_Right
+    400046: Root_Pelvis
+    400048: Spine
+    400050: Tail01
+    400052: Tail02
+    400054: Tail03
+    400056: TailEnd
+    400058: Toe_Left
+    400060: Toe_Right
+    400062: UpperArm_Left
+    400064: UpperArm_Right
+    400066: UpperLeg_Left
+    400068: UpperLeg_Right
+    400070: UpperMouth
+    400072: ValleyFat
+    400074: Wing01_Left
+    400076: Wing01_Right
+    400078: Wing02_Left
+    400080: Wing02_Right
+    400082: Wing03_Left
+    400084: Wing03_Right
+    400086: WingHand_Left
+    400088: WingHand_Right
+    400090: WingIndex01_Left
+    400092: WingIndex01_Right
+    400094: WingIndex02_Left
+    400096: WingIndex02_Right
+    400098: WingIndex03_Left
+    400100: WingIndex03_Right
+    400102: WingMiddle01_Left
+    400104: WingMiddle01_Right
+    400106: WingMiddle02_Left
+    400108: WingMiddle02_Right
+    400110: WingMiddle03_Left
+    400112: WingMiddle03_Right
+    400114: WingPinky01_Left
+    400116: WingPinky01_Right
+    400118: WingPinky02_Left
+    400120: WingPinky02_Right
+    400122: WingPinky03_Left
+    400124: WingPinky03_Right
+    4300000: DragonSoulEater
+    7400000: Tail Attack
+    9500000: //RootNode
+    13700000: DragonSoulEater
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Tail Attack
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DragonSoulEater
+        weight: 1
+      - path: Root_Pelvis
+        weight: 1
+      - path: Root_Pelvis/Spine
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head/Eye_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head/Eye_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head/Jaw
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head/Jaw/JawTip
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/Head/UpperMouth
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/NeckFat_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/Neck/NeckFat_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left/Hand_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left/Hand_Left/HandTip_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right/Hand_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right/Hand_Right/HandTip_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/ValleyFat
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left/WingIndex02_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left/WingIndex02_Left/WingIndex03_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left/WingMiddle02_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left/WingMiddle02_Left/WingMiddle03_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left/WingPinky02_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left/WingPinky02_Left/WingPinky03_Left
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right/WingIndex02_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right/WingIndex02_Right/WingIndex03_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right/WingMiddle02_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right/WingMiddle02_Right/WingMiddle03_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right/WingPinky02_Right
+        weight: 1
+      - path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right/WingPinky02_Right/WingPinky03_Right
+        weight: 1
+      - path: Root_Pelvis/Tail01
+        weight: 1
+      - path: Root_Pelvis/Tail01/Tail02
+        weight: 1
+      - path: Root_Pelvis/Tail01/Tail02/Tail03
+        weight: 1
+      - path: Root_Pelvis/Tail01/Tail02/Tail03/TailEnd
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Left
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left/Feet_Left
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left/Feet_Left/Toe_Left
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Right
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right/Feet_Right
+        weight: 1
+      - path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right/Feet_Right/Toe_Right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
