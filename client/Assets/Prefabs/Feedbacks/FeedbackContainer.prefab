@@ -586,11 +586,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UseItemEffect
       objectReference: {fileID: 0}
-    - target: {fileID: 4692905955090546937, guid: 59c5330b62ef44325b2960b13e6cd0cf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6700094255561954868, guid: 59c5330b62ef44325b2960b13e6cd0cf,
         type: 3}
       propertyPath: m_RootOrder
@@ -599,17 +594,17 @@ PrefabInstance:
     - target: {fileID: 6700094255561954868, guid: 59c5330b62ef44325b2960b13e6cd0cf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.07
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6700094255561954868, guid: 59c5330b62ef44325b2960b13e6cd0cf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.07
+      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6700094255561954868, guid: 59c5330b62ef44325b2960b13e6cd0cf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.12
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 6700094255561954868, guid: 59c5330b62ef44325b2960b13e6cd0cf,
         type: 3}
