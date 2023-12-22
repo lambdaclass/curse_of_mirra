@@ -2,8 +2,8 @@ namespace Game {
     using Communication.Protobuf;
 
     public class Position {
-        private float x { get; }
-        private float y { get; }
+        public float x { get; }
+        public float y { get; }
 
         public Position(float x, float y) {
             this.x = x;
@@ -12,7 +12,7 @@ namespace Game {
 
         public Position(Communication.Protobuf.Position protobufPosition) {
             this.x = protobufPosition.X;
-            this.y = protobufPosition.X;
+            this.y = protobufPosition.Y;
         }
     }
 }

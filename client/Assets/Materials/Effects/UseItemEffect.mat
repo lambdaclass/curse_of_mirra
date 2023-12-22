@@ -255,7 +255,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CustomColorMaskChannels: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FinalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FinalColor: {r: 1, g: 0.99064034, b: 0.5801887, a: 1}
     - _MainMaskChannelsMultiply: {r: 1, g: 0, b: 0, a: 0}
     - _MainTexChannels: {r: 1, g: 0, b: 0, a: 0}
     - _RampColorTint: {r: 1, g: 0.20784274, b: 0.20784274, a: 1}
