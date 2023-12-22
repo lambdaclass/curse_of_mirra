@@ -94,15 +94,15 @@ public class CustomLevelManager : LevelManager
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
         var player = Utils.GetPlayer(playerId);
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+        /* cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
             player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
             CAMERA_Y_OFFSET,
             player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-        );
+        ); */
 
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
-        StartCoroutine(CameraCinematic());
+        // StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -184,45 +184,45 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    IEnumerator CameraCinematic()
-    {
-        if (!SocketConnectionManager.Instance.cinematicDone)
-        {
-            float effectTime = Utils
-                .GetCharacter(1)
-                .characterBase.spawnFeedback.GetComponent<VisualEffect>()
-                .GetFloat("LifeTime");
-            //Start moving camera and remove loading sceen
-            InvokeRepeating("Substract", 1f, 0.1f);
-            yield return new WaitForSeconds(1.7f);
-            // Cancel camera movement and start zoom in
-            yield return new WaitForSeconds(2.1f);
-            CancelInvoke("Substract");
-            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-                });
-            yield return new WaitForSeconds(effectTime);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-                });
-            //Cancel camera zoom
-            yield return new WaitForSeconds(0.5f);
-            CancelInvoke("MoveYCamera");
-        }
-        else
-        {
-            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            yield return new WaitForSeconds(0.9f);
-        }
-    }
-
+    /*  IEnumerator CameraCinematic()
+     {
+         if (!SocketConnectionManager.Instance.cinematicDone)
+         {
+             float effectTime = Utils
+                 .GetCharacter(1)
+                 .characterBase.spawnFeedback.GetComponent<VisualEffect>()
+                 .GetFloat("LifeTime");
+             //Start moving camera and remove loading sceen
+             InvokeRepeating("Substract", 1f, 0.1f);
+             yield return new WaitForSeconds(1.7f);
+             // Cancel camera movement and start zoom in
+             yield return new WaitForSeconds(2.1f);
+             CancelInvoke("Substract");
+             InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+             Utils
+                 .GetAllCharacters()
+                 .ForEach(character =>
+                 {
+                     character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
+                 });
+             yield return new WaitForSeconds(effectTime);
+             Utils
+                 .GetAllCharacters()
+                 .ForEach(character =>
+                 {
+                     character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
+                 });
+             //Cancel camera zoom
+             yield return new WaitForSeconds(0.5f);
+             CancelInvoke("MoveYCamera");
+         }
+         else
+         {
+             cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+             yield return new WaitForSeconds(0.9f);
+         }
+     }
+  */
     int RoundUpByTen(int i)
     {
         return (int)(Math.Ceiling(i / 10.0d) * 10);
@@ -253,7 +253,6 @@ public class CustomLevelManager : LevelManager
             cameraOffset.y,
             cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
         );
-        ;
     }
 
     private void SetOrientationArrow(ulong playerID)

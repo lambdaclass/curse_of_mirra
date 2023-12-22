@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using MoreMountains.Tools;
-using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;

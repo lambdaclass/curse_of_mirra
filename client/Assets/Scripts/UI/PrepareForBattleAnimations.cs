@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
@@ -14,19 +15,26 @@ public class PrepareForBattleAnimations : MonoBehaviour
         playersTable,
         ray;
 
-    CinemachineFramingTransposer cameraFramingTransposer = null;
+    [SerializeField]
+    CinemachineVirtualCamera cinemachineVirtualCamera;
+    CinemachineFramingTransposer cameraFramingTransposer;
 
     void Start()
     {
+        cameraFramingTransposer =
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         StartCoroutine(CameraCinematic());
     }
 
     IEnumerator CameraCinematic()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        GeneratePlayersList();
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 0;
         playersContainer.GetComponent<CanvasGroup>().alpha = 1;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
         playersContainer.GetComponent<CanvasGroup>().alpha = 0;
         surviveContainer.GetComponent<CanvasGroup>().alpha = 1;
         yield return new WaitForSeconds(1f);
@@ -36,5 +44,13 @@ public class PrepareForBattleAnimations : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void GeneratePlayersList() { }
+    void GeneratePlayersList()
+    {
+        SocketConnectionManager.Instance.players.ForEach(
+            (player) =>
+            {
+                GameObject item = Instantiate(playerCard, playersTable.transform);
+            }
+        );
+    }
 }

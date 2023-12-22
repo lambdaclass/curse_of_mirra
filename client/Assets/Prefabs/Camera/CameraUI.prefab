@@ -5186,6 +5186,7 @@ MonoBehaviour:
     type: 3}
   playersTable: {fileID: 3510278773097065034}
   ray: {fileID: 4962636018834557900}
+  cinemachineVirtualCamera: {fileID: 114129316014370704}
 --- !u!114 &2737249194065271444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8417,7 +8418,6 @@ GameObject:
   - component: {fileID: 8776466181608049881}
   - component: {fileID: 1826831454525281756}
   - component: {fileID: 8935436296489028709}
-  - component: {fileID: 8458516858276726913}
   m_Layer: 5
   m_Name: PlayersTable
   m_TagString: Untagged
@@ -8483,18 +8483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!225 &8458516858276726913
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3510278773097065034}
-  m_Enabled: 1
-  m_Alpha: 0.5
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &3527618409465163625
 GameObject:
   m_ObjectHideFlags: 0
