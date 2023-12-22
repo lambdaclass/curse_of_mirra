@@ -159,8 +159,7 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        OldPlayer playerUpdate = lastEvent
-            .Players
+        OldPlayer playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
@@ -244,10 +243,10 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
-                    SocketConnectionManager
-                        .Instance
-                        .clientPrediction
-                        .simulatePlayerState(serverPlayerUpdate, gameEvent.PlayerTimestamp);
+                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
+                        serverPlayerUpdate,
+                        gameEvent.PlayerTimestamp
+                    );
                 }
 
                 if (interpolationGhost != null)
@@ -295,8 +294,7 @@ public class Battle : MonoBehaviour
                             }
                         }
 
-                        List<OldActionTracker> actionsToDelete = playerCharacter
-                            .currentActions
+                        List<OldActionTracker> actionsToDelete = playerCharacter.currentActions
                             .Except(serverPlayerUpdate.Action)
                             .ToList();
 
@@ -480,10 +478,10 @@ public class Battle : MonoBehaviour
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = playerUpdate.Speed / 100f;
+
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+            .CharacterModel.GetComponent<Animator>();
 
         ManageStateFeedbacks(player, playerUpdate, character);
 
@@ -560,8 +558,7 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+            .CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
 
@@ -584,19 +581,19 @@ public class Battle : MonoBehaviour
             walking =
                 playerUpdate.Id == SocketConnectionManager.Instance.playerId
                     ? InputsAreBeingUsed()
-                    : SocketConnectionManager
-                        .Instance
-                        .eventsBuffer
-                        .playerIsMoving(playerUpdate.Id, (long)pastTime);
+                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                        playerUpdate.Id,
+                        (long)pastTime
+                    );
         }
         else
         {
             if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
             {
-                walking = SocketConnectionManager
-                    .Instance
-                    .eventsBuffer
-                    .playerIsMoving(playerUpdate.Id, (long)pastTime);
+                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
+                    playerUpdate.Id,
+                    (long)pastTime
+                );
             }
         }
 
@@ -610,12 +607,9 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate
-                    .Action
-                    .Any(
-                        actionTracker =>
-                            actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
-                    )
+                && playerUpdate.Action.Any(
+                    actionTracker => actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
+                )
             )
             {
                 player.transform.position = frontendPosition;
@@ -692,8 +686,7 @@ public class Battle : MonoBehaviour
         levelManager.DestroySkillsClone(playerCharacter);
         playerCharacter
             .GetComponentInChildren<CharacterBase>()
-            .OrientationIndicator
-            .SetActive(false);
+            .OrientationIndicator.SetActive(false);
         if (SocketConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
         {
             CustomGUIManager.DisplayZoneDamageFeedback(false);
@@ -727,10 +720,8 @@ public class Battle : MonoBehaviour
     {
         GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
-            .Instance
-            .playerId
-            .ToString();
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
+            SocketConnectionManager.Instance.playerId.ToString();
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
             $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
@@ -777,9 +768,7 @@ public class Battle : MonoBehaviour
             );
             interpolationGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
                 .Instance
-                .gamePlayers[i]
-                .Id
-                .ToString();
+                .gamePlayers[i].Id.ToString();
             interpolationGhost.GetComponent<CustomCharacter>().name =
                 $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
 
@@ -861,9 +850,8 @@ public class Battle : MonoBehaviour
         CustomCharacter character
     )
     {
-        CharacterFeedbackManager feedbackManager = character
-            .characterBase
-            .GetComponent<CharacterFeedbackManager>();
+        CharacterFeedbackManager feedbackManager =
+            character.characterBase.GetComponent<CharacterFeedbackManager>();
 
         ManageFeedbacks(player, playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
