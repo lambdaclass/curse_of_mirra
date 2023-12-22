@@ -39,27 +39,55 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
+  - {fileID: 21300000, guid: da68f552af66c4e40bca75d39177b6a9, type: 3}
+  - {fileID: 21300000, guid: 19f9f182b767c47b6967032f2a58811d, type: 3}
+  - {fileID: 21300000, guid: fa27f582a1b7c4389afb4991a735007e, type: 3}
   - {fileID: 21300000, guid: 2d340d82e49a14bbf83d262c48718d35, type: 3}
   - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
+  - {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac, type: 3}
+  - {fileID: 21300000, guid: cecebc6322d064fc5af558ab0650d167, type: 3}
   - {fileID: 21300000, guid: de6249676d3a64ff6bc3511b49a2da40, type: 3}
   - {fileID: 21300000, guid: 99b14097a8e1e48ebb667ec381c0ca6a, type: 3}
   - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
+  - {fileID: 21300000, guid: 7a0a9289ff35a49cd9b7e850513df510, type: 3}
+  - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
+  - {fileID: 21300000, guid: 92b5c1ca697bd4961b1cb444205d5484, type: 3}
   - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
+  - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
   - {fileID: 21300000, guid: 32f96a4ccf0ee4e82ac7bb7bf988e5ef, type: 3}
+  - {fileID: 21300000, guid: 85620b7c23ae14481b2858d7c19d5367, type: 3}
+  - {fileID: 21300000, guid: 5858709d7e65547a790f82b5eab4cd22, type: 3}
   - {fileID: 21300000, guid: fe47c5ad8dd9d4a54b9f274447e27717, type: 3}
   - {fileID: 21300000, guid: fe77c7adf01bc4b1990894e4594f4125, type: 3}
+  - {fileID: 21300000, guid: ac8229bd02da44ef9a9ea325bdd91cf4, type: 3}
+  - {fileID: 21300000, guid: 790b13ddb1435423989fde5f5a321942, type: 3}
+  - {fileID: 21300000, guid: ceb9123e80ec44e79b6fd271bccb8a68, type: 3}
   - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
   m_PackedSpriteNamesToIndex:
   - mirras_blessing
+  - icon
+  - D_agna
+  - container
   - Players-icon
   - basic
+  - Uma
+  - H4ck
   - Underline
   - metrics-container
   - kills
+  - icon-logo
+  - background-gradient
+  - reference - screen 2
   - item
+  - container name player
   - icon
+  - ray
+  - container-player
   - border-item
   - Settings
+  - badge-you
+  - Muflus
+  - reference - screen 1
   - time
   m_RenderDataMap: {}
   m_Tag: BattleUI

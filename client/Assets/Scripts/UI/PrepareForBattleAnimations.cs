@@ -33,6 +33,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveContainer.GetComponent<CanvasGroup>().alpha = 0;
         GetComponent<CanvasGroup>().alpha = 0;
         battleScreen.GetComponent<CanvasGroup>().alpha = 1;
+        gameObject.SetActive(false);
     }
 
     void GeneratePlayersList() { }
