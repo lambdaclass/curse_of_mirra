@@ -280,8 +280,12 @@ public class Battle : MonoBehaviour
                     {
                         foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
                         {
-                            if (PlayerMovementAuthorized(playerCharacter))
+                            if (
+                                PlayerMovementAuthorized(playerCharacter)
+                                && !playerCharacter.currentActions.Contains(actionTracker)
+                            )
                             {
+                                playerCharacter.currentActions.Add(actionTracker);
                                 ExecuteSkillFeedback(
                                     currentPlayer,
                                     actionTracker.PlayerAction,
@@ -290,6 +294,17 @@ public class Battle : MonoBehaviour
                                 );
                             }
                         }
+
+                        List<OldActionTracker> actionsToDelete = playerCharacter
+                            .currentActions
+                            .Except(serverPlayerUpdate.Action)
+                            .ToList();
+
+                        foreach (OldActionTracker action in actionsToDelete)
+                        {
+                            playerCharacter.currentActions.Remove(action);
+                        }
+
                         buffer.setLastTimestampSeen(
                             SocketConnectionManager.Instance.gamePlayers[i].Id,
                             gameEvent.ServerTimestamp
@@ -321,31 +336,31 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case OldPlayerAction.Attacking:
-                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedback(skillDuration);
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().StartFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().StartFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.StartingSkill3:
-                currentPlayer.GetComponent<Skill3>().StartFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case OldPlayerAction.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedback(skillDuration);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
         }
@@ -464,13 +479,14 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(playerUpdate.Id) / 100f;
+        var characterSpeed = playerUpdate.Speed / 100f;
+
         Animator modelAnimator = player
             .GetComponent<CustomCharacter>()
             .CharacterModel
             .GetComponent<Animator>();
 
-        characterSpeed = ManageStateFeedbacks(player, playerUpdate, character, characterSpeed);
+        ManageStateFeedbacks(player, playerUpdate, character);
 
         if (!SocketConnectionManager.Instance.GameHasEnded())
         {
@@ -499,11 +515,11 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
-            // InputManager.CheckSkillCooldown(
-            //     UIControls.Skill1,
-            //     (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-            //     player.GetComponent<Skill1>().GetSkillInfo().showCooldown
-            // );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+            );
         }
     }
 
@@ -840,11 +856,10 @@ public class Battle : MonoBehaviour
         );
     }
 
-    private float ManageStateFeedbacks(
+    private void ManageStateFeedbacks(
         GameObject player,
         OldPlayer playerUpdate,
-        CustomCharacter character,
-        float characterSpeed
+        CustomCharacter character
     )
     {
         CharacterFeedbackManager feedbackManager = character
@@ -853,46 +868,6 @@ public class Battle : MonoBehaviour
 
         ManageFeedbacks(player, playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Scherzo))
-        {
-            characterSpeed *= 0.5f;
-        }
-
-        if (playerUpdate.CharacterName == "Muflus")
-        {
-            if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Raged))
-            {
-                characterSpeed *= playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping)
-                    ? 4f
-                    : 1.5f;
-            }
-            else
-            {
-                if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Leaping))
-                {
-                    characterSpeed *= 4f;
-                }
-            }
-        }
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Slowed))
-        {
-            characterSpeed *= 0.5f;
-        }
-        else if (
-            playerUpdate.CharacterName == "H4ck"
-            && playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.NeonCrashing)
-        )
-        {
-            characterSpeed *= 4f;
-        }
-
-        if (playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Paralyzed))
-        {
-            characterSpeed = 0f;
-        }
-        return characterSpeed;
     }
 
     private void ManageFeedbacks(GameObject player, OldPlayer playerUpdate)
