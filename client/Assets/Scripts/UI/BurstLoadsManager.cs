@@ -48,7 +48,6 @@ public class BurstLoadsManager : MonoBehaviour
     private void UpdateCooldown(OldPlayer player)
     {
         var currentCooldown = player.BasicSkillCooldownLeft.Low;
-        print("currentCooldown: " + currentCooldown);
         if (SkillCooldown <= currentCooldown) {
             SkillCooldown = currentCooldown;
         }
