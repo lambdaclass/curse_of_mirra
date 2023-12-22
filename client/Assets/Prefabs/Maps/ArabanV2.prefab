@@ -648,6 +648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8260821150174466731}
+  - component: {fileID: 2649357430693673209}
   m_Layer: 0
   m_Name: ArabanV2
   m_TagString: Untagged
@@ -679,6 +680,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2649357430693673209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8260821150174466730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8c6e0ae3c814249b5f6a188a77c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoke: {fileID: 3764171456772454381, guid: cbaf284a05e25488590cb411c9c8b77b, type: 3}
+  smokeSize: 4.5
 --- !u!1 &8634372638972262859
 GameObject:
   m_ObjectHideFlags: 0
