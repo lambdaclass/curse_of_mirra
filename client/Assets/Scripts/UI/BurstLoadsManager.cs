@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class BurstLoadsManager : MonoBehaviour
 {
+    private const string BASIC_SKILL_KEY = "1";
+
     [SerializeField]
     private List<MMProgressBar> Bursts;
     private float SkillCooldown = 0f;
@@ -23,12 +25,12 @@ public class BurstLoadsManager : MonoBehaviour
 
         UpdateCooldown(player);
 
-        int burstLoads = (int)player.AvailableBurstLoads;
+        int basicBurstLoads = (int)player.AvailableBurstLoads[BASIC_SKILL_KEY];
         for (int i = 0; i < Bursts.Count; i++)
         {
             Image foregroundImage = Bursts[i].ForegroundBar.GetComponent<Image>();
 
-            if (i <= burstLoads - 1)
+            if (i <= basicBurstLoads - 1)
             {
                 if (!foregroundImage.color.Equals(Utils.magenta)){
                     foregroundImage.color = Utils.magenta;
@@ -39,13 +41,14 @@ public class BurstLoadsManager : MonoBehaviour
                 foregroundImage.color = Utils.burstLoadsBarCharging;
             }
 
-            UpdateBurstsBar(i, burstLoads, player.BasicSkillCooldownLeft.Low);
+            UpdateBurstsBar(i, basicBurstLoads, player.BasicSkillCooldownLeft.Low);
         }
     }
 
     private void UpdateCooldown(OldPlayer player)
     {
         var currentCooldown = player.BasicSkillCooldownLeft.Low;
+        print("currentCooldown: " + currentCooldown);
         if (SkillCooldown <= currentCooldown) {
             SkillCooldown = currentCooldown;
         }
