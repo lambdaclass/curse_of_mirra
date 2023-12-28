@@ -63,7 +63,7 @@ public class Battle : MonoBehaviour
 
     private void SetupInitialState()
     {
-        useClientPrediction = true;
+        useClientPrediction = false;
         useInterpolation = true;
         accumulatedTime = 0;
         showClientPredictionGhost = false;
@@ -458,11 +458,11 @@ public class Battle : MonoBehaviour
 
     private void rotatePlayer(GameObject player, RelativePosition direction)
     {
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
-        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
-        characterOrientation.ForcedRotationDirection = movementDirection;
+        // CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
+        // characterOrientation.ForcedRotation = true;
+        // Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        // movementDirection.Normalize();
+        // characterOrientation.ForcedRotationDirection = movementDirection;
     }
 
     private void UpdatePlayer(GameObject player, OldPlayer playerUpdate, long pastTime)
@@ -663,23 +663,17 @@ public class Battle : MonoBehaviour
                 // if the player is in attacking state, movement rotation from movement should be ignored
                 RelativePosition direction = GetPlayerDirection(playerUpdate);
 
-                if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
-                {
-                    rotatePlayer(player, direction);
-                }
+                // if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
+                // {
+                //     rotatePlayer(player, direction);
+                // }
             }
             walking = true;
         }
 
-        RotateCharacterOrientation(player);
+        // RotateCharacterOrientation(player);
 
         modelAnimator.SetBool("Walking", walking);
-    }
-
-    private void RotateCharacterOrientation(GameObject player)
-    {
-        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
-            player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
     }
 
     public void SetPlayerDead(CustomCharacter playerCharacter)
