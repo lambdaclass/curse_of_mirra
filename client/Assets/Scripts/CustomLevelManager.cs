@@ -111,7 +111,7 @@ public class CustomLevelManager : LevelManager
         setCameraToPlayer(playerId);
         setPlayersColor();
 
-        SetPlayerHealthBar(playerId);
+        //SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
         StartCoroutine(CameraCinematic());
 
@@ -147,7 +147,7 @@ public class CustomLevelManager : LevelManager
 
         if (gamePlayer != null && gamePlayer.Health <= 0)
         {
-            SetCameraToAlivePlayer();
+            //SetCameraToAlivePlayer();
         }
     }
 
@@ -268,9 +268,7 @@ public class CustomLevelManager : LevelManager
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             // GameObject gamePlayer = Utils.GetPlayer(playerID);
-            MeshRenderer mesh = player
-                .CharacterModel
-                .transform
+            MeshRenderer mesh = player.CharacterModel.transform
                 .GetChild(0)
                 .GetComponent<MeshRenderer>();
 
@@ -397,18 +395,15 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        if (Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId) != null)
+        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+        if (KillFeedManager.instance.saveKillerId != 0)
         {
-            playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-            if (KillFeedManager.instance.saveKillerId != 0)
-            {
-                StartCoroutine(WaitToChangeCamera(playerToFollow));
-            }
-            else
-            {
-                playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-                setCameraToPlayer(playerToFollow.Id);
-            }
+            StartCoroutine(WaitToChangeCamera(playerToFollow));
+        }
+        else
+        {
+            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+            setCameraToPlayer(playerToFollow.Id);
         }
     }
 
