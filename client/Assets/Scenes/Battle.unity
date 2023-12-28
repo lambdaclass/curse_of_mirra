@@ -860,25 +860,7 @@ Camera:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2856279044554654232 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 456601720, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2856279044554654229}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2856279044554654233 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1956155438, guid: 9edcf7e494cf3e640b18cb7495fb179a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2856279044554654229}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &2856279044554654234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 540652120, guid: 9edcf7e494cf3e640b18cb7495fb179a,
+  m_CorrespondingSourceObject: {fileID: 4127692527124619850, guid: 9edcf7e494cf3e640b18cb7495fb179a,
     type: 3}
   m_PrefabInstance: {fileID: 2856279044554654229}
   m_PrefabAsset: {fileID: 0}
@@ -931,9 +913,14 @@ PrefabInstance:
       objectReference: {fileID: 2856279044554654231}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
+      propertyPath: cardList
+      value: 
+      objectReference: {fileID: 2856279044554654232}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
       propertyPath: roundText
       value: 
-      objectReference: {fileID: 2856279044554654233}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: UiControls
@@ -948,12 +935,12 @@ PrefabInstance:
         type: 3}
       propertyPath: roundSplash
       value: 
-      objectReference: {fileID: 2856279044554654234}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: battleScreen
       value: 
-      objectReference: {fileID: 2856279044554654232}
+      objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: loadinScreen
@@ -971,9 +958,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
+      propertyPath: cards.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
       propertyPath: backToLobbyButton
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: cards.Array.data[0]
+      value: 
+      objectReference: {fileID: 6566748085065201012, guid: 42347dd6d3f6a48219f04ec9e3706c1a,
+        type: 3}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: cards.Array.data[1]
+      value: 
+      objectReference: {fileID: 7825226250743405628, guid: 7e7e389896baa472eb602536fb65ea6e,
+        type: 3}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: cards.Array.data[2]
+      value: 
+      objectReference: {fileID: 7559355145593603829, guid: d2f1788cf7cb74560993151ab3f32b8e,
+        type: 3}
+    - target: {fileID: 8472880968645199034, guid: 62eb30154c76d4e0fb902ff01db61581,
+        type: 3}
+      propertyPath: cards.Array.data[3]
+      value: 
+      objectReference: {fileID: 1588013727358670436, guid: 13abbf707c7e34a8596b7515abb1a7f3,
+        type: 3}
     - target: {fileID: 8472880968890490899, guid: 62eb30154c76d4e0fb902ff01db61581,
         type: 3}
       propertyPath: joystickL
