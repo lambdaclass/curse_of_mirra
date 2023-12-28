@@ -93,7 +93,6 @@ public class CustomLevelManager : LevelManager
 
     private IEnumerator InitializeLevel()
     {
-        Debug.Log(checkPlayerHasJoined());
         yield return new WaitUntil(checkPlayerHasJoined);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         this.totalPlayers = (ulong)this.gamePlayers.Count();
@@ -237,13 +236,13 @@ public class CustomLevelManager : LevelManager
             {
                 GameObject gamePlayer = Utils.GetPlayer(playerId);
                 camera.transform.rotation = Quaternion.Euler(
-                    35.6f,
+                    36.5f,
                     (int.Parse(player.PlayerID) * -90f) + 90f,
                     0
                 );
                 camera.transform.position = gamePlayer.transform.position;
-                camera.transform.position -= camera.transform.forward * 23f;
-                camera.transform.position += camera.transform.up * 5f;
+                camera.transform.position -= camera.transform.forward * 28f;
+                camera.transform.position += camera.transform.up * 6.5f;
             }
         }
     }
