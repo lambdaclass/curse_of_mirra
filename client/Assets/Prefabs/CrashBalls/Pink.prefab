@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 90
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ee26fbe51f43449992d6d23ee9f6859, type: 2}
   m_sharedMaterial: {fileID: 6311288375018510837, guid: 2ee26fbe51f43449992d6d23ee9f6859,
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 2014847585720601372}
   - component: {fileID: 3150085532553458938}
   - component: {fileID: 2461462887410981387}
+  - component: {fileID: 8311240499165717003}
   m_Layer: 5
   m_Name: Pink
   m_TagString: Untagged
@@ -317,3 +318,15 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &8311240499165717003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7559355145593603829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c8fd981fab5247a3b79bd090bccf169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

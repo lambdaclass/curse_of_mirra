@@ -112,6 +112,12 @@ public class CustomLevelManager : LevelManager
     {
         OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
+        foreach (CardUpdate card in cardList.GetComponentsInChildren<CardUpdate>())
+        {
+            card.GetComponentInChildren<TextMeshProUGUI>().text = Utils
+                .GetGamePlayer(card.playerId)
+                .Health.ToString();
+        }
 
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -171,6 +177,7 @@ public class CustomLevelManager : LevelManager
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
             GameObject card = Instantiate(cards[(int)i], cardList.transform);
+            card.GetComponent<CardUpdate>().playerId = gamePlayers[(int)i].Id;
             card.GetComponentInChildren<TextMeshProUGUI>().text = gamePlayers[
                 (int)i
             ].Health.ToString();
@@ -375,15 +382,18 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-        if (KillFeedManager.instance.saveKillerId != 0)
+        if (Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId) != null)
         {
-            StartCoroutine(WaitToChangeCamera(playerToFollow));
-        }
-        else
-        {
-            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
+            playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+            if (KillFeedManager.instance.saveKillerId != 0)
+            {
+                StartCoroutine(WaitToChangeCamera(playerToFollow));
+            }
+            else
+            {
+                playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+                setCameraToPlayer(playerToFollow.Id);
+            }
         }
     }
 
