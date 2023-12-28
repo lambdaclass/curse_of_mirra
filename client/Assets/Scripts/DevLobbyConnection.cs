@@ -111,7 +111,6 @@ public class DevLobbyConnection : MonoBehaviour
         this.Init();
         LoadClientId();
         MaybeReconnect();
-        PopulateLists();
     }
 
     public void Init()
@@ -142,14 +141,6 @@ public class DevLobbyConnection : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-    }
-
-    private void PopulateLists()
-    {
-        this.lobbiesList = new List<string>();
-        this.gamesList = new List<string>();
-        StartCoroutine(GetLobbies());
-        StartCoroutine(GetGames());
     }
 
     private void LoadClientId()
@@ -193,7 +184,6 @@ public class DevLobbyConnection : MonoBehaviour
     {
         this.serverIp = SelectServerIP.GetServerIp();
         this.serverName = SelectServerIP.GetServerName();
-        PopulateLists();
         MaybeReconnect();
     }
 
@@ -406,7 +396,7 @@ public class DevLobbyConnection : MonoBehaviour
                         );
                     break;
 
-                 case LobbyEventType.PreparingGame:
+                case LobbyEventType.PreparingGame:
                     GameSession = lobbyEvent.GameId;
                     Debug.Log(lobbyEvent.GameConfig);
                     engineServerSettings = lobbyEvent.GameConfig;

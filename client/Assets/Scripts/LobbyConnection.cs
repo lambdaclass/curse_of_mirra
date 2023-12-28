@@ -114,7 +114,6 @@ public class LobbyConnection : MonoBehaviour
         this.Init();
         this.clientId = ServerUtils.GetClientId();
         MaybeReconnect();
-        PopulateLists();
     }
 
     public void Init()
@@ -165,14 +164,6 @@ public class LobbyConnection : MonoBehaviour
         {
             CancelInvoke("UpdateSimulatedCounter");
         }
-    }
-
-    private void PopulateLists()
-    {
-        this.lobbiesList = new List<string>();
-        this.gamesList = new List<string>();
-        StartCoroutine(GetLobbies());
-        StartCoroutine(GetGames());
     }
 
     private void MaybeReconnect()
@@ -487,7 +478,6 @@ public class LobbyConnection : MonoBehaviour
     {
         this.serverIp = SelectServerIP.GetServerIp();
         this.serverName = SelectServerIP.GetServerName();
-        PopulateLists();
         MaybeReconnect();
     }
 
