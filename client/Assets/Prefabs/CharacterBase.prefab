@@ -205,7 +205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6312626470633818251
 Transform:
   m_ObjectHideFlags: 0
@@ -777,6 +777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AimDirection
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676653489688202990, guid: c4b59d3833dc649ee871cb3eb5750e4b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6787156628499368461, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
