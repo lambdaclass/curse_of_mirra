@@ -19,9 +19,6 @@ public class TitleScreenController : MonoBehaviour
     MMTouchButton playNowButton;
 
     [SerializeField]
-    Image logoImage;
-
-    [SerializeField]
     PlayerNameHandler playerNameHandler;
 
     [SerializeField]
@@ -42,13 +39,9 @@ public class TitleScreenController : MonoBehaviour
     void Start()
     {
         avaibleCharactersNames = CharactersManager.Instance.GetAvailableCharactersNames();
-        StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
-        StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
-        StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
         if (PlayerPrefs.GetString("playerName") == "")
         {
             playerNamePopUp.SetActive(true);
-            StartCoroutine(FadeIn(playerNamePopUp.GetComponent<CanvasGroup>(), 1f, 1.2f));
         }
         if (this.asyncOperation == null)
         {
@@ -169,17 +162,6 @@ public class TitleScreenController : MonoBehaviour
                 }
             )
         );
-    }
-
-    IEnumerator FadeIn(CanvasGroup element, float time, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        for (float i = 0; i <= 1; i += Time.deltaTime / time)
-        {
-            element.alpha = i;
-            yield return null;
-        }
     }
 
     void SetLoadingScreen(bool isActive)

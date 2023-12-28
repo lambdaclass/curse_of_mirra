@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 395da18d353f748a3b1406058c646e2a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Aber Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 73d7f42eb99194f418da95b832a0fc8d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
