@@ -20,13 +20,7 @@ public class CustomLevelManager : LevelManager
     public GameObject quickMapPrefab;
 
     [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
     GameObject deathSplash;
-
-    [SerializeField]
-    Text roundText;
 
     private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
@@ -46,8 +40,6 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject loadingScreen;
 
-    [SerializeField]
-    GameObject battleScreen;
     Int32 CAMERA_OFFSET = 30;
     Int32 CAMERA_Y_OFFSET = 6;
     double xDigit = 0;
@@ -116,7 +108,6 @@ public class CustomLevelManager : LevelManager
         StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
-        endGameManager.SetDeathSplashCharacter();
     }
 
     void Update()
@@ -130,10 +121,7 @@ public class CustomLevelManager : LevelManager
         }
         if (GameHasEnded())
         {
-            // TODO: Redirect to EndGameScreen
-            //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
-            endGameManager.ShowCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -201,15 +189,12 @@ public class CustomLevelManager : LevelManager
         {
             float effectTime = Utils
                 .GetCharacter(1)
-                .characterBase
-                .spawnFeedback
-                .GetComponent<VisualEffect>()
+                .characterBase.spawnFeedback.GetComponent<VisualEffect>()
                 .GetFloat("LifeTime");
             //Start moving camera and remove loading sceen
             InvokeRepeating("Substract", 1f, 0.1f);
             yield return new WaitForSeconds(1.7f);
             loadingScreen.SetActive(false);
-            battleScreen.SetActive(true);
             // Cancel camera movement and start zoom in
             yield return new WaitForSeconds(2.1f);
             CancelInvoke("Substract");
@@ -278,8 +263,7 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow
-                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
@@ -317,14 +301,12 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo
-            .skillsInfo
-            .ForEach(skill =>
-            {
-                SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
-                skills.Add(skillClone);
-            });
+        characterInfo.skillsInfo.ForEach(skill =>
+        {
+            SkillInfo skillClone = Instantiate(skill);
+            skillClone.InitWithBackend();
+            skills.Add(skillClone);
+        });
 
         return skills;
     }
@@ -401,9 +383,7 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
+                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -413,18 +393,6 @@ public class CustomLevelManager : LevelManager
                 healthBarFront.color = Utils.healthBarRed;
             }
         }
-    }
-
-    private void ShowRoundTransition()
-    {
-        bool animate = true;
-
-        roundText.text =
-            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        animate = false;
-
-        roundSplash.SetActive(true);
-        roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
@@ -474,9 +442,8 @@ public class CustomLevelManager : LevelManager
     {
         return SocketConnectionManager.Instance.gamePlayers != null
             && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager
-                .Instance
-                .gamePlayers
-                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
+            && SocketConnectionManager.Instance.gamePlayers.Any(
+                (player) => player.Id == SocketConnectionManager.Instance.playerId
+            );
     }
 }
