@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1101031820361470295}
   - component: {fileID: 8375055575680345642}
   m_Layer: 0
-  m_Name: Line
+  m_Name: CrashBallLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
