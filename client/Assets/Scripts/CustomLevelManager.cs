@@ -56,11 +56,20 @@ public class CustomLevelManager : LevelManager
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
 
+    private Color32[] playerColors;
+
     protected override void Awake()
     {
         base.Awake();
         // this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         InitializeMap();
+        playerColors = new Color32[]
+        {
+            new Color32(0, 238, 255, 255),
+            new Color32(255, 221, 47, 255),
+            new Color32(255, 0, 106, 255),
+            new Color32(136, 255, 0, 255),
+        };
     }
 
     protected override void Start()
@@ -101,6 +110,7 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
+        setPlayersColor();
 
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
@@ -243,6 +253,25 @@ public class CustomLevelManager : LevelManager
                 camera.transform.position = gamePlayer.transform.position;
                 camera.transform.position -= camera.transform.forward * 28f;
                 camera.transform.position += camera.transform.up * 6.5f;
+            }
+        }
+    }
+
+    private void setPlayersColor()
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            // GameObject gamePlayer = Utils.GetPlayer(playerID);
+            MeshRenderer mesh = player
+                .CharacterModel
+                .transform
+                .GetChild(0)
+                .GetComponent<MeshRenderer>();
+
+            if (mesh != null && mesh.materials.Length >= 2)
+            {
+                mesh.materials[1].color = playerColors[UInt64.Parse(player.PlayerID) - 1];
+                mesh.materials[4].color = playerColors[UInt64.Parse(player.PlayerID) - 1];
             }
         }
     }
