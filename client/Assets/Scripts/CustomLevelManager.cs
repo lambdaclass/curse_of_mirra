@@ -7,6 +7,7 @@ using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +22,12 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     GameObject deathSplash;
+
+    [SerializeField]
+    GameObject cardList;
+
+    [SerializeField]
+    List<GameObject> cards;
 
     private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
@@ -114,6 +121,7 @@ public class CustomLevelManager : LevelManager
     {
         OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
+
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
             StartCoroutine(ShowDeathSplash(player));
@@ -179,6 +187,10 @@ public class CustomLevelManager : LevelManager
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
+            GameObject card = Instantiate(cards[(int)i], cardList.transform);
+            card.GetComponentInChildren<TextMeshProUGUI>().text = gamePlayers[
+                (int)i
+            ].Health.ToString();
         }
         this.PlayerPrefabs = (this.Players).ToArray();
     }

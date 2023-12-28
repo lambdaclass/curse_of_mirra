@@ -177,10 +177,15 @@ public class SocketConnectionManager : MonoBehaviour
             // TODO: Fix missing NewGameEvent, current missing are
             //      - PING_UPDATE
             //      - PLAYER_JOINED
-            if (gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
-                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined) {
-                try {
-                    switch (gameEvent.NewGameEvent.EventCase) {
+            if (
+                gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
+                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined
+            )
+            {
+                try
+                {
+                    switch (gameEvent.NewGameEvent.EventCase)
+                    {
                         case GameEvent.EventOneofCase.GameState:
                             gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
                             break;
@@ -188,7 +193,9 @@ public class SocketConnectionManager : MonoBehaviour
                             print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
                             break;
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Debug.Log(gameEvent);
                     Debug.Log(e);
                     throw e;
