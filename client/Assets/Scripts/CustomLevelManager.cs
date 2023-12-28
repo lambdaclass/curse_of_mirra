@@ -37,7 +37,7 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     public GameObject UiControls;
-    public CinemachineCameraController camera;
+    public Camera camera;
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -61,9 +61,6 @@ public class CustomLevelManager : LevelManager
         base.Awake();
         // this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
         InitializeMap();
-        cameraFramingTransposer = this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -96,6 +93,7 @@ public class CustomLevelManager : LevelManager
 
     private IEnumerator InitializeLevel()
     {
+        Debug.Log(checkPlayerHasJoined());
         yield return new WaitUntil(checkPlayerHasJoined);
         this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
         this.totalPlayers = (ulong)this.gamePlayers.Count();
@@ -104,12 +102,6 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
-        var player = Utils.GetPlayer(playerId);
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-            CAMERA_Y_OFFSET,
-            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-        );
 
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
@@ -180,14 +172,6 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
-            if (SocketConnectionManager.Instance.playerId == playerID)
-            {
-                //Add audioListener in player
-                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-                //Disable audioListener in camera
-                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-                    false;
-            }
 
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -197,46 +181,8 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-        if (!SocketConnectionManager.Instance.cinematicDone)
-        {
-            float effectTime = Utils
-                .GetCharacter(1)
-                .characterBase
-                .spawnFeedback
-                .GetComponent<VisualEffect>()
-                .GetFloat("LifeTime");
-            //Start moving camera and remove loading sceen
-            InvokeRepeating("Substract", 1f, 0.1f);
-            yield return new WaitForSeconds(1.7f);
-            loadingScreen.SetActive(false);
-            battleScreen.SetActive(true);
-            // Cancel camera movement and start zoom in
-            yield return new WaitForSeconds(2.1f);
-            CancelInvoke("Substract");
-            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-                });
-            yield return new WaitForSeconds(effectTime);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-                });
-            //Cancel camera zoom
-            yield return new WaitForSeconds(0.5f);
-            CancelInvoke("MoveYCamera");
-        }
-        else
-        {
-            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            yield return new WaitForSeconds(0.9f);
-            loadingScreen.SetActive(false);
-        }
+        yield return new WaitForSeconds(1f);
+        loadingScreen.SetActive(false);
     }
 
     int RoundUpByTen(int i)
@@ -289,8 +235,15 @@ public class CustomLevelManager : LevelManager
         {
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
-                this.camera.SetTarget(player);
-                this.camera.StartFollowing();
+                GameObject gamePlayer = Utils.GetPlayer(playerId);
+                camera.transform.rotation = Quaternion.Euler(
+                    35.6f,
+                    (int.Parse(player.PlayerID) * -90f) + 90f,
+                    0
+                );
+                camera.transform.position = gamePlayer.transform.position;
+                camera.transform.position -= camera.transform.forward * 23f;
+                camera.transform.position += camera.transform.up * 5f;
             }
         }
     }
