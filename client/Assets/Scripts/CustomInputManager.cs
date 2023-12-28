@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 public enum UIControls
 {
-    Skill1,
     SkillBasic
 }
 
@@ -34,22 +33,7 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton SkillBasic;
 
     [SerializeField]
-    CustomMMTouchButton Skill1;
-
-    [SerializeField]
     GameObject SkillBasicCooldownContainer;
-
-    [SerializeField]
-    GameObject Skill1CooldownContainer;
-
-    [SerializeField]
-    GameObject disarmObjectSkill1;
-
-    [SerializeField]
-    GameObject disarmObjectSkill2;
-
-    [SerializeField]
-    GameObject disarmObjectSkill3;
 
     [SerializeField]
     GameObject cancelButton;
@@ -78,13 +62,11 @@ public class CustomInputManager : InputManager
     {
         base.Start();
         mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
-        mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
         // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, GameObject>();
-        buttonsCooldown.Add(UIControls.Skill1, Skill1CooldownContainer);
         buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldownContainer);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
@@ -109,9 +91,6 @@ public class CustomInputManager : InputManager
             {
                 EnableButtons();
             }
-            disarmObjectSkill1.SetActive(isDisarmed);
-            disarmObjectSkill2.SetActive(isDisarmed);
-            disarmObjectSkill3.SetActive(isDisarmed);
             disarmed = isDisarmed;
         }
     }
@@ -120,10 +99,6 @@ public class CustomInputManager : InputManager
     {
         SkillBasic.SetInitialSprite(
             characterInfo.skillsInfo[0].skillSprite,
-            characterInfo.skillBackground
-        );
-        Skill1.SetInitialSprite(
-            characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
         );
         characterSkillColor = characterInfo.InputFeedbackColor;

@@ -257,12 +257,6 @@ public class CustomLevelManager : LevelManager
         //     : 0;
         skillsClone[0].angle = 45; // basicSkillInfoAngle;
         skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
-
-        // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
-        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
-        //     : 0;
-        skillsClone[1].angle = 45; // skill1InfoAngle;
-        skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
     }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
@@ -295,10 +289,8 @@ public class CustomLevelManager : LevelManager
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
             SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
             skillList.Add(skillBasic);
-            skillList.Add(skill1);
 
             CoMCharacter characterInfo = charactersInfo.Find(
                 el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
@@ -308,7 +300,6 @@ public class CustomLevelManager : LevelManager
             SetSkillAngles(skillInfoClone);
 
             skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
-            skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
 
             var skills = LobbyConnection.Instance.engineServerSettings.Skills;
 
@@ -332,11 +323,6 @@ public class CustomLevelManager : LevelManager
                     UIControls.SkillBasic,
                     skillInfoClone[0].inputType,
                     skillBasic
-                );
-                inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
-                    skillInfoClone[1].inputType,
-                    skill1
                 );
             }
 
