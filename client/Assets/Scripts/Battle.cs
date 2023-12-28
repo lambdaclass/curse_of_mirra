@@ -337,30 +337,6 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<SkillBasic>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
-            case OldPlayerAction.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case OldPlayerAction.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case OldPlayerAction.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case OldPlayerAction.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case OldPlayerAction.StartingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case OldPlayerAction.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
-                rotatePlayer(currentPlayer, direction);
-                break;
         }
     }
 
@@ -511,11 +487,6 @@ public class Battle : MonoBehaviour
                 UIControls.SkillBasic,
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
-            );
-            InputManager.CheckSkillCooldown(
-                UIControls.Skill1,
-                (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
         }
     }
