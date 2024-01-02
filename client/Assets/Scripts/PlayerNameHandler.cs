@@ -37,7 +37,6 @@ public class PlayerNameHandler : MonoBehaviour
         }
         this.errorMessage.SetActive(false);
         GetComponent<Image>().sprite = selectedButtonSprite;
-        print(this.playerName);
         PlayerPrefs.SetString(PLAYER_NAME_KEY, this.playerName);
     }
 
