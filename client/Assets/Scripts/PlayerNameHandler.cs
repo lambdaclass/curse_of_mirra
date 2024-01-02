@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,10 @@ public class PlayerNameHandler : MonoBehaviour
     [SerializeField]
     InputField placeholder;
 
-    private string playerName;
+    [SerializeField]
+    TextMeshProUGUI playerNameText;
+
+    public string playerName;
 
     public void SetPlayerName()
     {
@@ -33,8 +37,14 @@ public class PlayerNameHandler : MonoBehaviour
         }
         this.errorMessage.SetActive(false);
         GetComponent<Image>().sprite = selectedButtonSprite;
+        print(this.playerName);
         PlayerPrefs.SetString(PLAYER_NAME_KEY, this.playerName);
-        this.Hide();
+    }
+
+    public void UpdateUsername()
+    {
+        this.SetPlayerName();
+        this.UpdateUsername(GetPlayerName());
     }
 
     public string GetPlayerName()
@@ -65,8 +75,27 @@ public class PlayerNameHandler : MonoBehaviour
         }
     }
 
-    private void Hide()
+    public void Hide()
     {
         this.playerNameHandler.SetActive(false);
+    }
+
+    public void UpdateUsername(string newUsername)
+    {
+        StartCoroutine(
+            ServerUtils.SetUsername(
+                newUsername,
+                response =>
+                {
+                    LobbyConnection.Instance.username = response.username;
+                    this.Hide();
+                    this.playerNameText.text = response.username;
+                },
+                error =>
+                {
+                    Errors.Instance.HandleNetworkError("Error", error);
+                }
+            )
+        );
     }
 }

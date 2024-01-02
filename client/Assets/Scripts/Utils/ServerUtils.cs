@@ -195,9 +195,10 @@ public static class ServerUtils
         Action<string> errorCallback
     )
     {
-        string url = MakeHTTPUrl("/users-characters/" + GetClientId() + "/edit/");
+        string url = MakeHTTPUrl("/users-characters/" + GetClientId() + "/username/edit/");
         string parametersJson = "{\"username\": \"" + username + "\"}";
         byte[] byteArray = Encoding.UTF8.GetBytes(parametersJson);
+
         using (UnityWebRequest webRequest = UnityWebRequest.Put(url, byteArray))
         {
             webRequest.certificateHandler = new AcceptAllCertificates();

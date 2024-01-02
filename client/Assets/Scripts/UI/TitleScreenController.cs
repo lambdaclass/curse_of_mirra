@@ -166,21 +166,6 @@ public class TitleScreenController : MonoBehaviour
         );
     }
 
-    public void UpdateUsername(string newUsername)
-    {
-        ServerUtils.SetUsername(
-            newUsername,
-            response =>
-            {
-                print(response.username);
-            },
-            error =>
-            {
-                print(error);
-            }
-        );
-    }
-
     IEnumerator FadeIn(CanvasGroup element, float time, float delay)
     {
         yield return new WaitForSeconds(delay);
