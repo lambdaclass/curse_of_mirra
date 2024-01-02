@@ -163,33 +163,32 @@ public class CustomLevelManager : LevelManager
         for (ulong i = 0; i < totalPlayers; i++)
         {
             ulong playerID = gamePlayers[(int)i].Id;
+            string username = SocketConnectionManager.Instance.playersIdUsernames[playerID];
             prefab = GetCharacterPrefab(playerID);
             if (SocketConnectionManager.Instance.playerId == playerID)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
+                prefab
+                    .GetComponent<CustomCharacter>()
+                    .characterBase.gameObject.AddComponent<AudioListener>();
+                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
+                    false;
             }
             else
             {
                 prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
+
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
                 Utils.transformBackendOldPositionToFrontendPosition(gamePlayers[(int)i].Position),
                 Quaternion.identity
             );
+            CharacterBase newPlayerCharacterBase = newPlayer.characterBase;
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
-            // newPlayer.characterBase.PlayerName.GetComponent<DisplayPlayerName>().SetName(userName);
-            if (SocketConnectionManager.Instance.playerId == playerID)
-            {
-                //Add audioListener in player
-                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-                //Disable audioListener in camera
-                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-                    false;
-            }
-
+            newPlayerCharacterBase.PlayerName.GetComponent<DisplayPlayerName>().SetName(username);
             SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }

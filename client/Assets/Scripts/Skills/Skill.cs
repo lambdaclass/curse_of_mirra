@@ -168,13 +168,7 @@ public class Skill : CharacterAbility
         {
             string animation = skillId + "_start";
             ChangeCharacterState(animation);
-            StartCoroutine(
-                skillsAnimationEvent.TryEjectAnimation(
-                    this,
-                    animation,
-                    duration
-                )
-            );
+            StartCoroutine(skillsAnimationEvent.TryEjectAnimation(this, animation, duration));
         }
 
         if (skillInfo.startFeedbackVfx)
@@ -213,13 +207,7 @@ public class Skill : CharacterAbility
         if (skillInfo.hasModelAnimation == true)
         {
             ChangeCharacterState(skillId);
-            StartCoroutine(
-                skillsAnimationEvent.TryEjectAnimation(
-                    this,
-                    skillId,
-                    duration
-                )
-            );
+            StartCoroutine(skillsAnimationEvent.TryEjectAnimation(this, skillId, duration));
         }
 
         if (!skillInfo.sfxHasAbilityStop)
@@ -321,8 +309,8 @@ public class Skill : CharacterAbility
             Skill = serverSkill.ToString(),
             Angle = angle,
             AutoAim = autoAim,
-            TargetX = targetX,
-            TargetY = relativePosition.Y,
+            // TargetX = targetX,
+            // TargetY = relativePosition.Y,
         };
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };

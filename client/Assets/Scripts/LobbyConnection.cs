@@ -236,7 +236,7 @@ public class LobbyConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
+        // this.playersIdName = SocketConnectionManager.Instance.playersIdUsernames;
     }
 
     IEnumerator GetRequest(string uri)
@@ -412,7 +412,6 @@ public class LobbyConnection : MonoBehaviour
                     Debug.Log("Message received is: " + lobbyEvent.Type);
                     break;
             }
-            ;
         }
         catch (Exception e)
         {

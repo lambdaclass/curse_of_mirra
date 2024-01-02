@@ -33,7 +33,7 @@ public class SocketConnectionManager : MonoBehaviour
     public (OldPlayer, ulong) winnerPlayer = (null, 0);
 
     public List<OldPlayer> winners = new List<OldPlayer>();
-    public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
+    public MapField<ulong, string> playersIdUsernames = new MapField<ulong, string>();
 
     public ClientPrediction clientPrediction = new ClientPrediction();
 
@@ -88,7 +88,7 @@ public class SocketConnectionManager : MonoBehaviour
             this.serverHash = LobbyConnection.Instance.serverHash;
             this.clientId = LobbyConnection.Instance.clientId;
             this.reconnect = LobbyConnection.Instance.reconnect;
-            this.playersIdName = LobbyConnection.Instance.playersIdName;
+            // this.playersIdUsernames = LobbyConnection.Instance.playersIdName;
 
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
@@ -177,10 +177,15 @@ public class SocketConnectionManager : MonoBehaviour
             // TODO: Fix missing NewGameEvent, current missing are
             //      - PING_UPDATE
             //      - PLAYER_JOINED
-            if (gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
-                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined) {
-                try {
-                    switch (gameEvent.NewGameEvent.EventCase) {
+            if (
+                gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
+                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined
+            )
+            {
+                try
+                {
+                    switch (gameEvent.NewGameEvent.EventCase)
+                    {
                         case GameEvent.EventOneofCase.GameState:
                             gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
                             break;
@@ -188,7 +193,9 @@ public class SocketConnectionManager : MonoBehaviour
                             print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
                             break;
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Debug.Log(gameEvent);
                     Debug.Log(e);
                     throw e;
@@ -226,6 +233,7 @@ public class SocketConnectionManager : MonoBehaviour
                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
                     LobbyConnection.Instance.gameStarted = true;
+                    this.playersIdUsernames = gameEvent.OldGameEvent.Usernames;
                     break;
                 default:
                     print("Message received is: " + gameEvent.OldGameEvent.Type);

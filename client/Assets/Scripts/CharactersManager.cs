@@ -27,7 +27,7 @@ public class CharactersManager : MonoBehaviour
     }
 
     // The available names should come from backend
-    private List<string> availableCharacterNames = new List<string>() { "Muflus" };
+    private List<string> availableCharacterNames = new List<string>() { "Muflus", "Uma" };
 
     public string GoToCharacter;
 

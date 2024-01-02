@@ -8,11 +8,6 @@ public class DisplayPlayerName : MonoBehaviour
     [SerializeField]
     CustomCharacter character;
 
-    void Start()
-    {
-        GetComponent<TextMeshPro>().text = LobbyConnection.Instance.username;
-    }
-
     void Update()
     {
         bool isAlive = character.GetComponent<Health>().CurrentHealth > 0;
