@@ -298,4 +298,45 @@ public class Skill : CharacterAbility
     {
         return skillInfo.skillCircleRadius == -1;
     }
+
+    public void ExecuteSkillFeedback(
+        OldPlayerAction playerAction,
+        RelativePosition direction,
+        ulong skillDuration
+    )
+    {
+        CustomCharacter currentPlayer = this.GetComponent<CustomCharacter>();
+        // TODO: Refactor
+        switch (playerAction)
+        {
+            case OldPlayerAction.Attacking:
+                currentPlayer.GetComponent<SkillBasic>().ExecuteFeedbacks(skillDuration, false);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.StartingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.ExecutingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.StartingSkill2:
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.ExecutingSkill2:
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.StartingSkill3:
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.rotatePlayer(direction);
+                break;
+            case OldPlayerAction.ExecutingSkill3:
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
+                currentPlayer.rotatePlayer(direction);
+                break;
+        }
+    }
 }
