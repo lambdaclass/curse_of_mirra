@@ -26,20 +26,20 @@ public class KillFeedItem : MonoBehaviour
         {
             killerPlayer.text = "Zone";
             killerImage.sprite = killerIcon;
-            killedPlayer.text = "Player " + killed;
+            killedPlayer.text = killed;
             killedImage.sprite = killedIcon;
             return;
         }
         if (killed == LOOT_ID)
         {
             killerPlayer.text = "Loot";
-            killedPlayer.text = "Player " + killed;
+            killedPlayer.text = killed;
             killedImage.sprite = killedIcon;
             return;
         }
-        killerPlayer.text = "Player " + killer;
+        killerPlayer.text = killer;
         killerImage.sprite = killerIcon;
-        killedPlayer.text = "Player " + killed;
+        killedPlayer.text = killed;
         killedImage.sprite = killedIcon;
     }
 }
