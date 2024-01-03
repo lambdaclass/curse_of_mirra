@@ -12,15 +12,14 @@ using UnityEngine;
 public class GameServerConnectionManager : MonoBehaviour
 {
     public List<GameObject> players;
-
     public Dictionary<int, GameObject> projectiles = new Dictionary<int, GameObject>();
-    public static Dictionary<int, GameObject> projectilesStatic;
 
     [Tooltip("Session ID to connect to. If empty, a new session will be created")]
     public string sessionId = "";
 
     [Tooltip("IP to connect to. If empty, localhost will be used")]
     public string serverIp = "localhost";
+
     public static GameServerConnectionManager Instance;
     public List<OldPlayer> gamePlayers;
     public OldGameEvent gameEvent;
@@ -31,37 +30,21 @@ public class GameServerConnectionManager : MonoBehaviour
     public uint serverTickRate_ms;
     public string serverHash;
     public (OldPlayer, ulong) winnerPlayer = (null, 0);
-
     public List<OldPlayer> winners = new List<OldPlayer>();
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
-
     public ClientPrediction clientPrediction = new ClientPrediction();
-
     public List<OldGameEvent> gameEvents = new List<OldGameEvent>();
-
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
-
     public float playableRadius;
     public OldPosition shrinkingCenter;
-
     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
-
     public bool cinematicDone;
-
     public bool connected = false;
-
     public Game.GameState gameState;
-
-    WebSocket ws;
-
     private string clientId;
     private bool reconnect;
-
-    public class Session
-    {
-        public string sessionId { get; set; }
-    }
+    WebSocket ws;
 
     void Start()
     {
@@ -88,8 +71,6 @@ public class GameServerConnectionManager : MonoBehaviour
             this.clientId = ServerConnection.Instance.clientId;
             this.reconnect = ServerConnection.Instance.reconnect;
             this.playersIdName = ServerConnection.Instance.playersIdName;
-
-            projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
         }
     }

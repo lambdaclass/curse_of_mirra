@@ -11,9 +11,6 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
 
-    [SerializeField]
-    public CharacterSelectionList PlayersList;
-
     public Image artWork;
     public bool selected = false;
 
