@@ -14,13 +14,6 @@ public class LobbyManager : LevelSelector
 
     public static string LevelSelected;
 
-    public void Back()
-    {
-        ServerConnection.Instance.Init();
-        this.LevelName = MAIN_SCENE_NAME;
-        SceneManager.LoadScene(this.LevelName);
-    }
-
     private void Update()
     {
         if (
@@ -31,5 +24,34 @@ public class LobbyManager : LevelSelector
             ServerConnection.Instance.StartGame();
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
+    }
+
+    public void BackToLobbyFromGame()
+    {
+        Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
+        BackToLobbyAndCloseConnection();
+    }
+
+    public void BackToLobbyAndCloseConnection()
+    {
+        // Websocket connection is closed as part of Init() destroy;
+        GameServerConnectionManager.Instance.Init();
+        DestroySingletonInstances();
+        Back();
+    }
+
+    private void DestroySingletonInstances()
+    {
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+        }
+    }
+
+    public void Back()
+    {
+        ServerConnection.Instance.Init();
+        this.LevelName = MAIN_SCENE_NAME;
+        SceneManager.LoadScene(this.LevelName);
     }
 }
