@@ -102,11 +102,6 @@ public class ServerConnection : MonoBehaviour
         }
     }
 
-    public IEnumerator StartGame()
-    {
-        yield return new WaitForSeconds(1);
-    }
-
     public void JoinLobby()
     {
         // ValidateVersionHashes();

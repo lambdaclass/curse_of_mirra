@@ -21,7 +21,6 @@ public class LobbyManager : LevelSelector
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
-            ServerConnection.Instance.StartGame();
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
     }
