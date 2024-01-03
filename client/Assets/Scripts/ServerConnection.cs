@@ -48,62 +48,6 @@ public class ServerConnection : MonoBehaviour
         "Client and Server version hashes do not match.";
     WebSocket ws;
 
-    [Serializable]
-    public class Session
-    {
-        public string lobby_id;
-    }
-
-    [Serializable]
-    public class LobbiesResponse
-    {
-        public List<string> lobbies;
-        public string server_version;
-    }
-
-    [Serializable]
-    public class GamesResponse
-    {
-        public List<string> current_games;
-    }
-
-    [Serializable]
-    public class CurrentGameResponse
-    {
-        public bool ongoing_game;
-        public bool on_character_selection;
-        public int player_count;
-        public string server_hash;
-        public string current_game_id;
-        public ulong current_game_player_id;
-        public List<Player> players;
-        public Configs game_config;
-
-        [Serializable]
-        public class Player
-        {
-            public ulong id;
-            public string character_name;
-            public string player_name;
-        }
-
-        [Serializable]
-        public class Configs
-        {
-            public string runner_config;
-            public string character_config;
-            public string skills_config;
-        }
-    }
-
-    class AcceptAllCertificates : CertificateHandler
-    {
-        protected override bool ValidateCertificate(byte[] certificateData)
-        {
-            return true;
-        }
-    }
-
     private void Awake()
     {
         this.Init();
@@ -195,6 +139,14 @@ public class ServerConnection : MonoBehaviour
         this.playersIdName = GameServerConnectionManager.Instance.playersIdName;
     }
 
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
+
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -206,10 +158,8 @@ public class ServerConnection : MonoBehaviour
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.Success:
-                    Session session = JsonUtility.FromJson<Session>(
-                        webRequest.downloadHandler.text
-                    );
-                    ConnectToSession(session.lobby_id);
+                    string sessionId = webRequest.downloadHandler.text;
+                    ConnectToSession(sessionId);
                     break;
                 default:
                     Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
