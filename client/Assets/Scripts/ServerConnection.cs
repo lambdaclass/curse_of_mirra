@@ -11,17 +11,12 @@ using UnityEngine.Networking;
 
 public class ServerConnection : MonoBehaviour
 {
-    [Tooltip("IP to connect to. If empty, Brazil will be used")]
     public string serverName;
     public string serverIp;
-    public List<string> lobbiesList;
-    public List<string> gamesList;
     public static ServerConnection Instance;
     public string GameSession;
     public string LobbySession;
     public ulong playerId;
-    public bool isHost = false;
-    public ulong hostId;
     public int playerCount;
     public int simulatedPlayerCount;
     public int lobbyCapacity;
@@ -142,13 +137,11 @@ public class ServerConnection : MonoBehaviour
         this.playerId = 0;
         this.serverTickRate_ms = 0;
         this.serverHash = "";
-        this.hostId = 0;
         this.playerCount = 0;
         this.gameStarted = false;
         this.clientId = "";
         this.simulatedPlayerCount = 0;
         this.lobbyCapacity = 0;
-        this.isHost = false;
     }
 
     void Update()
@@ -250,8 +243,6 @@ public class ServerConnection : MonoBehaviour
                     break;
 
                 case LobbyEventType.PlayerAdded:
-                    this.hostId = lobbyEvent.HostPlayerId;
-                    this.isHost = this.playerId == this.hostId;
                     lobbyEvent
                         .PlayersInfo
                         .ToList()
