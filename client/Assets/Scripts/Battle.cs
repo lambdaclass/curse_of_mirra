@@ -425,8 +425,9 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
-        ManageStateFeedbacks(player, playerUpdate, character);
         //manage this in other place
+        ManageStateFeedbacks(player, playerUpdate, character);
+
         if (!SocketConnectionManager.Instance.GameHasEnded())
         {
             HandleMovement(character, playerUpdate, pastTime, characterSpeed);
@@ -436,7 +437,7 @@ public class Battle : MonoBehaviour
             modelAnimator.SetBool("Walking", false);
         }
 
-        HandlePlayerHealth(player, playerUpdate);
+        character.HandlePlayerHealth(playerUpdate);
 
         if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
         {
@@ -444,7 +445,6 @@ public class Battle : MonoBehaviour
                 - We divided the milliseconds time in two parts because
                 - rustler can't handle u128, so instead of developing those functions
                 - we decided to use 2 u64 fields to represent the time in milliseconds
-
                 - If you need to use complete time in milliseconds, you should use both
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
@@ -459,24 +459,6 @@ public class Battle : MonoBehaviour
                 (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
                 player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
-        }
-    }
-
-    //Move this to other
-    private void HandlePlayerHealth(GameObject player, OldPlayer playerUpdate)
-    {
-        Health healthComponent = player.GetComponent<Health>();
-        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-
-        characterFeedbacks.DamageFeedback(
-            healthComponent.CurrentHealth,
-            playerUpdate.Health,
-            playerUpdate.Id
-        );
-
-        if (playerUpdate.Health != healthComponent.CurrentHealth)
-        {
-            healthComponent.SetHealth(playerUpdate.Health);
         }
     }
 

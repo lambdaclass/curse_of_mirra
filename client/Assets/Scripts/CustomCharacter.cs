@@ -75,4 +75,21 @@ public class CustomCharacter : Character
             .ToList()
             .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
+
+    public void HandlePlayerHealth(OldPlayer playerUpdate)
+    {
+        Health healthComponent = this.GetComponent<Health>();
+        CharacterFeedbacks characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
+
+        characterFeedbacks.DamageFeedback(
+            healthComponent.CurrentHealth,
+            playerUpdate.Health,
+            playerUpdate.Id
+        );
+
+        if (playerUpdate.Health != healthComponent.CurrentHealth)
+        {
+            healthComponent.SetHealth(playerUpdate.Health);
+        }
+    }
 }
