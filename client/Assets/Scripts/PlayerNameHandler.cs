@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,13 +26,16 @@ public class PlayerNameHandler : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI playerNameText;
 
+    [SerializeField]
+    MoreMountains.Tools.MMTouchButton saveButton;
     public string playerName;
 
     public void SetPlayerName()
     {
         this.playerName = playerNameInput.text.Trim();
-        if (this.playerName == "")
+        if (String.IsNullOrEmpty(this.playerName))
         {
+            print("is empty");
             this.errorMessage.SetActive(true);
             return;
         }
@@ -76,7 +80,8 @@ public class PlayerNameHandler : MonoBehaviour
 
     public void Hide()
     {
-        this.gameObject.SetActive(false);
+        if (!String.IsNullOrEmpty(this.playerName))
+            this.gameObject.SetActive(false);
     }
 
     public void UpdateUsername(string newUsername)
