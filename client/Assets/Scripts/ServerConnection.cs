@@ -192,7 +192,7 @@ public class ServerConnection : MonoBehaviour
         this.serverHash = this.reconnectServerHash;
         this.playerCount = this.reconnectPlayerCount;
         this.gameStarted = true;
-        this.playersIdName = SocketConnectionManager.Instance.playersIdName;
+        this.playersIdName = GameServerConnectionManager.Instance.playersIdName;
     }
 
     IEnumerator GetRequest(string uri)

@@ -9,7 +9,7 @@ using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
 
-public class SocketConnectionManager : MonoBehaviour
+public class GameServerConnectionManager : MonoBehaviour
 {
     public List<GameObject> players;
 
@@ -21,7 +21,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     [Tooltip("IP to connect to. If empty, localhost will be used")]
     public string serverIp = "localhost";
-    public static SocketConnectionManager Instance;
+    public static GameServerConnectionManager Instance;
     public List<OldPlayer> gamePlayers;
     public OldGameEvent gameEvent;
     public List<OldProjectile> gameProjectiles;
@@ -63,14 +63,13 @@ public class SocketConnectionManager : MonoBehaviour
         public string sessionId { get; set; }
     }
 
-    // public void Awake()
-    // {
-    //     Init();
-    // }
+    void Start()
+    {
+        Init();
+    }
 
     public void Init()
     {
-        StartCoroutine(WaitForServerConnection());
         if (Instance != null)
         {
             if (this.ws != null)
@@ -92,24 +91,7 @@ public class SocketConnectionManager : MonoBehaviour
 
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
-
-            if (this.reconnect)
-            {
-                this.selectedCharacters = ServerConnection.Instance.reconnectPlayers;
-                this.allSelected = !ServerConnection.Instance.reconnectToCharacterSelection;
-                this.cinematicDone = true;
-            }
         }
-    }
-
-    private IEnumerator WaitForServerConnection()
-    {
-        yield return new WaitUntil(() => ServerConnection.Instance != null);
-    }
-
-    void Start()
-    {
-        Init();
     }
 
     void Update()
@@ -120,7 +102,6 @@ public class SocketConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-
         StartCoroutine(IsGameCreated());
     }
 
@@ -258,18 +239,6 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    public Dictionary<ulong, string> fromMapFieldToDictionary(MapField<ulong, string> dict)
-    {
-        Dictionary<ulong, string> result = new Dictionary<ulong, string>();
-
-        foreach (KeyValuePair<ulong, string> element in dict)
-        {
-            result.Add(element.Key, element.Value);
-        }
-
-        return result;
-    }
-
     public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
     {
         return playerList.Find(el => el.Id == id);
@@ -296,58 +265,9 @@ public class SocketConnectionManager : MonoBehaviour
         }
     }
 
-    private string makeUrl(string path)
-    {
-        var useProxy = ServerConnection.Instance.serverSettings.RunnerConfig.UseProxy;
-        int port;
-
-        if (useProxy == "true")
-        {
-            port = 5000;
-        }
-        else
-        {
-            port = 4000;
-        }
-
-        if (serverIp.Contains("localhost"))
-        {
-            return "http://" + serverIp + ":" + port + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "http://" + serverIp + ":" + port + path;
-        }
-        // Load test server
-        else if (serverIp.Contains("168.119.71.104"))
-        {
-            return "http://" + serverIp + ":" + port + path;
-        }
-        // Load test runner server
-        else if (serverIp.Contains("176.9.26.172"))
-        {
-            return "http://" + serverIp + ":" + port + path;
-        }
-        else
-        {
-            return "https://" + serverIp + path;
-        }
-    }
-
     private string makeWebsocketUrl(string path)
     {
-        // var useProxy = ServerConnection.Instance.serverSettings.RunnerConfig.UseProxy;
-
         int port = 4000;
-
-        // if (useProxy == "true")
-        // {
-        //     port = 5000;
-        // }
-        // else
-        // {
-        //     port = 4000;
-        // }
 
         if (serverIp.Contains("localhost"))
         {

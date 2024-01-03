@@ -26,7 +26,7 @@ public class KillFeedManager : MonoBehaviour
     public void Awake()
     {
         KillFeedManager.instance = this;
-        playerToTrack = SocketConnectionManager.Instance.playerId;
+        playerToTrack = GameServerConnectionManager.Instance.playerId;
     }
 
     public void putEvents(List<OldKillEvent> feedEvent)
@@ -74,7 +74,7 @@ public class KillFeedManager : MonoBehaviour
                 saveKillerId = killEvent.KilledBy;
                 playerToTrack = saveKillerId;
             }
-            if (killEvent.Killed == SocketConnectionManager.Instance.playerId)
+            if (killEvent.Killed == GameServerConnectionManager.Instance.playerId)
             {
                 myKillerId = killEvent.KilledBy;
             }

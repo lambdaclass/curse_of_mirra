@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,7 +42,7 @@ public class PreloadSceneInUnity : MonoBehaviour
 
     public void AllowSceneActivation()
     {
-        if (SocketConnectionManager.Instance.allSelected && this.asyncOperation != null)
+        if (GameServerConnectionManager.Instance.allSelected && this.asyncOperation != null)
         {
             this.asyncOperation.allowSceneActivation = true;
         }

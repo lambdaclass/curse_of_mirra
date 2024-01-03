@@ -53,7 +53,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (SocketConnectionManager.Instance.isConnectionOpen())
+        if (GameServerConnectionManager.Instance.isConnectionOpen())
         {
             if (IsActive())
             {

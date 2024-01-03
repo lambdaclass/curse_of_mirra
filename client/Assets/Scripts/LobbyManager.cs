@@ -14,31 +14,11 @@ public class LobbyManager : LevelSelector
 
     public static string LevelSelected;
 
-    public override void GoToLevel()
-    {
-        base.GoToLevel();
-        gameObject.GetComponent<MMTouchButton>().DisableButton();
-    }
-
-    public void GameStart()
-    {
-        this.LevelName = BATTLE_SCENE_NAME;
-        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
-    }
-
     public void Back()
     {
         ServerConnection.Instance.Init();
         this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
-    }
-
-    private void DestroySingletonInstances()
-    {
-        if (GameManager.Instance != null)
-        {
-            Destroy(GameManager.Instance.gameObject);
-        }
     }
 
     private void Update()

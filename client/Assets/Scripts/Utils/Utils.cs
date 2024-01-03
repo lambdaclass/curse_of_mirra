@@ -15,14 +15,6 @@ public class Utils
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
 
-    public static IEnumerator WaitForGameCreation(string levelName)
-    {
-        yield return new WaitUntil(
-            () => !string.IsNullOrEmpty(ServerConnection.Instance.GameSession)
-        );
-        SceneManager.LoadScene(levelName);
-    }
-
     public static Vector3 transformBackendOldPositionToFrontendPosition(OldPosition position)
     {
         var x = (long)position?.Y / 100f - 50.0f;
@@ -44,7 +36,7 @@ public class Utils
 
     public static GameObject GetPlayer(ulong id)
     {
-        return SocketConnectionManager
+        return GameServerConnectionManager
             .Instance
             .players
             .Find(el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString());
@@ -59,18 +51,18 @@ public class Utils
     {
         OldPlayer player = null;
         if (
-            SocketConnectionManager.Instance.gamePlayers != null
-            && SocketConnectionManager.Instance.gamePlayers.Count > 0
+            GameServerConnectionManager.Instance.gamePlayers != null
+            && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            player = SocketConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
+            player = GameServerConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
         }
         return player;
     }
 
     public static IEnumerable<OldPlayer> GetAlivePlayers()
     {
-        return SocketConnectionManager
+        return GameServerConnectionManager
             .Instance
             .gamePlayers
             .Where(player => player.Status == OldStatus.Alive);
@@ -92,7 +84,7 @@ public class Utils
         ulong aux_X = 0;
         ulong aux_Y = 0;
         OldPlayer nearest_player = null;
-        SocketConnectionManager
+        GameServerConnectionManager
             .Instance
             .gamePlayers
             .ForEach(player =>
@@ -116,7 +108,7 @@ public class Utils
                 }
             });
 
-        // return SocketConnectionManager.Instance.gamePlayers.Find(
+        // return GameServerConnectionManager.Instance.gamePlayers.Find(
         //     player => player;
         // );
         return nearest_player;

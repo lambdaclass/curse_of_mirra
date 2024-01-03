@@ -23,7 +23,7 @@ public class CharacterSelectionList : MonoBehaviour
 
     public void DisplayUpdates()
     {
-        Dictionary<ulong, string> selectedCharacters = SocketConnectionManager
+        Dictionary<ulong, string> selectedCharacters = GameServerConnectionManager
             .Instance
             .selectedCharacters;
 
