@@ -62,8 +62,8 @@ public class PlayerNameHandler : MonoBehaviour
         {
             this.placeholder.text = PLAYER_NAME_PLACEHOLDER;
         }
-        this.playerNameHandler.SetActive(true);
-        this.playerNameHandler.GetComponent<CanvasGroup>().alpha = 1;
+        this.gameObject.SetActive(true);
+        this.gameObject.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     public void ClearPlaceholder()
@@ -76,7 +76,7 @@ public class PlayerNameHandler : MonoBehaviour
 
     public void Hide()
     {
-        this.playerNameHandler.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     public void UpdateUsername(string newUsername)

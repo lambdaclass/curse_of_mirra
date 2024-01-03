@@ -2222,7 +2222,7 @@ MonoBehaviour:
   ButtonsCanvas: {fileID: 1153961457488821272}
   playNowButton: {fileID: 8171441584241114037}
   logoImage: {fileID: 5972543162918846898}
-  playerNameHandler: {fileID: 4914851193952802429}
+  playerNameHandler: {fileID: 0}
   changeNameButton: {fileID: 6391834393251454901}
   playerNamePopUp: {fileID: 7444856982252307575}
   loadingScreen: {fileID: 1744729843235979323}
@@ -3167,6 +3167,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: SetPlayerName
       objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5414171704774751421}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Hide
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerNameHandler, CurseOfMirra
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803002174885964360, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8016516308190133879, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3280,13 +3315,13 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8773671468591854149}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4914851193952802429 stripped
+--- !u!114 &5414171704774751421 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4465135041891247160, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+  m_CorrespondingSourceObject: {fileID: 3666308113351591672, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
     type: 3}
   m_PrefabInstance: {fileID: 8773671468591854149}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7444856982252307575}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 859a830459b884495aad1592043987eb, type: 3}

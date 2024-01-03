@@ -3269,7 +3269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelManager: {fileID: 9166025620740607941}
   playerName: {fileID: 3259949485301586300}
-  playerNameHandler: {fileID: 2780835896743416031}
 --- !u!1 &5393381855419559497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3991,7 +3990,7 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2780835896743416031}
+      - m_Target: {fileID: 2990826554259157535}
         m_TargetAssemblyTypeName: PlayerNameHandler, CurseOfMirra
         m_MethodName: Show
         m_Mode: 1
@@ -5300,6 +5299,11 @@ PrefabInstance:
       propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerNameHandler, CurseOfMirra
       objectReference: {fileID: 0}
+    - target: {fileID: 3666308113351591672, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+        type: 3}
+      propertyPath: playerNameText
+      value: 
+      objectReference: {fileID: 3259949485301586300}
     - target: {fileID: 4465135041891247160, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
         type: 3}
       propertyPath: playerNameText
@@ -5422,9 +5426,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf58d3fbf85e546b6a32585b19b8b1b1, type: 3}
---- !u!114 &2780835896743416031 stripped
+--- !u!114 &2990826554259157535 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4465135041891247160, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
+  m_CorrespondingSourceObject: {fileID: 3666308113351591672, guid: bf58d3fbf85e546b6a32585b19b8b1b1,
     type: 3}
   m_PrefabInstance: {fileID: 1972817612137592039}
   m_PrefabAsset: {fileID: 0}
