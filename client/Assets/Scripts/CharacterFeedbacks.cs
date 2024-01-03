@@ -159,7 +159,7 @@ public class CharacterFeedbacks : MonoBehaviour
         restoreBaseOverlayColor = true;
     }
 
-    public void SetActiveFeedback(GameObject player, string feedbackName, bool value)
+    public void SetActiveFeedback(string feedbackName, bool value)
     {
         SetActiveStateFeedback(feedbackName, value);
     }

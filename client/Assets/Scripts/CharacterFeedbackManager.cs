@@ -6,6 +6,16 @@ using Communication.Protobuf;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
+    private enum StateEffects
+    {
+        Slowed = PlayerEffect.Slowed,
+        Paralyzed = PlayerEffect.Paralyzed,
+        Poisoned = PlayerEffect.Poisoned,
+        OutOfArea = PlayerEffect.OutOfArea
+    }
+
+    private CustomCharacter character;
+
     private PlayerEffect GetEffect(int effectNumber)
     {
         PlayerEffect effectFound = PlayerEffect.None;
@@ -18,6 +28,11 @@ public class CharacterFeedbackManager : MonoBehaviour
         }
 
         return effectFound;
+    }
+
+    void Start()
+    {
+        character = this.GetComponentInParent<CustomCharacter>();
     }
 
     private bool PlayerShouldSeeEffectMark(OldPlayer playerUpdate, PlayerEffect effect)
@@ -62,6 +77,26 @@ public class CharacterFeedbackManager : MonoBehaviour
             else
             {
                 healthBarFront.color = Utils.healthBarRed;
+            }
+        }
+    }
+
+    public void ManageStateFeedbacks(OldPlayer playerUpdate, StateManagerUI stateManagerUI)
+    {
+        ManageFeedbacks(stateManagerUI, playerUpdate);
+        ToggleHealthBar(character.gameObject, playerUpdate);
+    }
+
+    private void ManageFeedbacks(StateManagerUI stateManagerUI, OldPlayer playerUpdate)
+    {
+        if (playerUpdate.Effects.Count > 0)
+        {
+            foreach (int effect in Enum.GetValues(typeof(StateEffects)))
+            {
+                string name = Enum.GetName(typeof(StateEffects), effect);
+                bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
+                stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
+                character.GetComponent<CharacterFeedbacks>().SetActiveFeedback(name, hasEffect);
             }
         }
     }

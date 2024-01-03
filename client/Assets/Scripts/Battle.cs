@@ -37,15 +37,6 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
 
-    // We do this to only have the state effects in the enum instead of all the effects
-    private enum StateEffects
-    {
-        Slowed = PlayerEffect.Slowed,
-        Paralyzed = PlayerEffect.Paralyzed,
-        Poisoned = PlayerEffect.Poisoned,
-        OutOfArea = PlayerEffect.OutOfArea
-    }
-
     void Start()
     {
         InitBlockingStates();
@@ -426,7 +417,9 @@ public class Battle : MonoBehaviour
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         //manage this in other place
-        ManageStateFeedbacks(player, playerUpdate, character);
+        character.characterBase
+            .GetComponent<CharacterFeedbackManager>()
+            .ManageStateFeedbacks(playerUpdate, CustomGUIManager.stateManagerUI);
 
         if (!SocketConnectionManager.Instance.GameHasEnded())
         {
@@ -741,31 +734,5 @@ public class Battle : MonoBehaviour
         return InterpolationGhosts.Find(
             g => g.GetComponent<CustomCharacter>().PlayerID == playerId
         );
-    }
-
-    //Move this?
-    private void ManageStateFeedbacks(
-        GameObject player,
-        OldPlayer playerUpdate,
-        CustomCharacter character
-    )
-    {
-        CharacterFeedbackManager feedbackManager =
-            character.characterBase.GetComponent<CharacterFeedbackManager>();
-
-        ManageFeedbacks(player, playerUpdate);
-        feedbackManager.ToggleHealthBar(player, playerUpdate);
-    }
-
-    //Move this?
-    private void ManageFeedbacks(GameObject player, OldPlayer playerUpdate)
-    {
-        foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-        {
-            string name = Enum.GetName(typeof(StateEffects), effect);
-            bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-            CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-            player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
-        }
     }
 }
