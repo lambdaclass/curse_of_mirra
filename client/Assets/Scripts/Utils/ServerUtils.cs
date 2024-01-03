@@ -72,7 +72,6 @@ public static class ServerUtils
             yield return webRequest.SendWebRequest();
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Not found");
                 if (webRequest.downloadHandler.text.Contains("NOT_FOUND"))
                 {
                     errorCallback?.Invoke("USER_NOT_FOUND");
