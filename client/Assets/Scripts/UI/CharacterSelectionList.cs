@@ -15,7 +15,7 @@ public class CharacterSelectionList : MonoBehaviour
 
     public void CreatePlayerItems()
     {
-        for (int i = 0; i < LobbyConnection.Instance.playerCount; i++)
+        for (int i = 0; i < ServerConnection.Instance.playerCount; i++)
         {
             CreatePlayerItem((ulong)i + 1);
         }
@@ -54,7 +54,7 @@ public class CharacterSelectionList : MonoBehaviour
         CharacterSelectionPlayerItem playerI =
             newPlayer.GetComponent<CharacterSelectionPlayerItem>();
         playerI.SetId(id);
-        playerI.SetPlayerName(LobbyConnection.Instance.playersIdName[id]);
+        playerI.SetPlayerName(ServerConnection.Instance.playersIdName[id]);
         playerI.SetCharacterName("Not Selected");
         playerI.SetPlayerItemText();
 

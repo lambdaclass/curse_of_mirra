@@ -26,19 +26,19 @@ public class MainManager : LevelSelector
 
     public IEnumerator WaitForLobbyCreation()
     {
-        LobbyConnection.Instance.JoinLobby();
+        ServerConnection.Instance.JoinLobby();
         yield return new WaitUntil(
             () =>
-                !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
-                && LobbyConnection.Instance.playerId != UInt64.MaxValue
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && ServerConnection.Instance.playerId != UInt64.MaxValue
         );
         SceneManager.LoadScene("Lobby");
     }
 
     public IEnumerator WaitForLobbyJoin(string idHash)
     {
-        LobbyConnection.Instance.ConnectToLobby(idHash);
-        yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
+        ServerConnection.Instance.ConnectToLobby(idHash);
+        yield return new WaitUntil(() => ServerConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Communication.Protobuf;
+using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -60,7 +60,7 @@ public class PlayerControls : MonoBehaviour
         // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
         // {
         // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.engineServerSettings.Characters;
+        var chars = ServerConnection.Instance.engineServerSettings.Characters;
 
         foreach (var character in chars)
         {

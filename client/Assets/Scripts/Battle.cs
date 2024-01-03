@@ -103,7 +103,7 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        if (ServerConnection.Instance.gameStarted && !sendMovementStarted)
         {
             sendMovementStarted = true;
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;

@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Communication.Protobuf;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using Communication.Protobuf;
 
 public class Utils
 {
@@ -18,7 +18,7 @@ public class Utils
     public static IEnumerator WaitForGameCreation(string levelName)
     {
         yield return new WaitUntil(
-            () => !string.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
+            () => !string.IsNullOrEmpty(ServerConnection.Instance.GameSession)
         );
         SceneManager.LoadScene(levelName);
     }
@@ -44,9 +44,10 @@ public class Utils
 
     public static GameObject GetPlayer(ulong id)
     {
-        return SocketConnectionManager.Instance.players.Find(
-            el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString()
-        );
+        return SocketConnectionManager
+            .Instance
+            .players
+            .Find(el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString());
     }
 
     public static CustomCharacter GetCharacter(ulong id)
@@ -69,9 +70,10 @@ public class Utils
 
     public static IEnumerable<OldPlayer> GetAlivePlayers()
     {
-        return SocketConnectionManager.Instance.gamePlayers.Where(
-            player => player.Status == OldStatus.Alive
-        );
+        return SocketConnectionManager
+            .Instance
+            .gamePlayers
+            .Where(player => player.Status == OldStatus.Alive);
     }
 
     public static List<CustomCharacter> GetAllCharacters()
@@ -90,26 +92,29 @@ public class Utils
         ulong aux_X = 0;
         ulong aux_Y = 0;
         OldPlayer nearest_player = null;
-        SocketConnectionManager.Instance.gamePlayers.ForEach(player =>
-        {
-            if (aux_Y == 0 && aux_Y == 0)
+        SocketConnectionManager
+            .Instance
+            .gamePlayers
+            .ForEach(player =>
             {
-                aux_X = toCompare.X - player.Position.X;
-                aux_Y = toCompare.Y - player.Position.Y;
-                nearest_player = player;
-            }
-            else
-            {
-                if (
-                    aux_X > (toCompare.X - player.Position.X)
-                    && aux_Y > (toCompare.Y - player.Position.Y)
-                )
+                if (aux_Y == 0 && aux_Y == 0)
                 {
                     aux_X = toCompare.X - player.Position.X;
+                    aux_Y = toCompare.Y - player.Position.Y;
                     nearest_player = player;
                 }
-            }
-        });
+                else
+                {
+                    if (
+                        aux_X > (toCompare.X - player.Position.X)
+                        && aux_Y > (toCompare.Y - player.Position.Y)
+                    )
+                    {
+                        aux_X = toCompare.X - player.Position.X;
+                        nearest_player = player;
+                    }
+                }
+            });
 
         // return SocketConnectionManager.Instance.gamePlayers.Find(
         //     player => player;

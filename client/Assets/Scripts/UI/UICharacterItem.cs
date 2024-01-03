@@ -1,8 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 {
@@ -40,7 +40,7 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public bool IsActive()
     {
-        var charactersList = LobbyConnection.Instance.serverSettings.CharacterConfig.Items;
+        var charactersList = ServerConnection.Instance.serverSettings.CharacterConfig.Items;
         foreach (var character in charactersList)
         {
             if (comCharacter.name == character.Name)
@@ -63,13 +63,14 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 name.text = comCharacter.name;
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
-                skillContainer.skillsList[(int)UIControls.SkillBasic].SetSkillDescription(
-                    comCharacter.skillsInfo[0]
-                );
-                skillContainer.skillsList[(int)UIControls.Skill1].SetSkillDescription(
-                    comCharacter.skillsInfo[1]
-                );
-                transform.parent
+                skillContainer
+                    .skillsList[(int)UIControls.SkillBasic]
+                    .SetSkillDescription(comCharacter.skillsInfo[0]);
+                skillContainer
+                    .skillsList[(int)UIControls.Skill1]
+                    .SetSkillDescription(comCharacter.skillsInfo[1]);
+                transform
+                    .parent
                     .GetComponent<CharacterSelectionUI>()
                     .DeselectCharacters(comCharacter.name);
                 transform.parent.GetComponent<CharacterSelectionUI>().selectedCharacterName =

@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator InitializeList()
     {
         yield return new WaitForSeconds(0.5f);
-        SetEmptyListIndicator(LobbyConnection.Instance.lobbiesList.Count == 0);
+        SetEmptyListIndicator(ServerConnection.Instance.lobbiesList.Count == 0);
         EmptyList();
         GenerateList();
     }
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
 
     void GenerateList()
     {
-        List<string> lobbiesList = LobbyConnection.Instance.lobbiesList;
+        List<string> lobbiesList = ServerConnection.Instance.lobbiesList;
         lobbiesList.Reverse();
         lobbiesList.ForEach(el =>
         {

@@ -59,7 +59,7 @@ public class CustomLevelManager : LevelManager
     protected override void Awake()
     {
         base.Awake();
-        // this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
+        // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -297,7 +297,7 @@ public class CustomLevelManager : LevelManager
 
     private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
-        // var skills = LobbyConnection.Instance.engineServerSettings.Skills;
+        // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
         // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
@@ -361,7 +361,7 @@ public class CustomLevelManager : LevelManager
             skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
             skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
 
-            var skills = LobbyConnection.Instance.engineServerSettings.Skills;
+            var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
             // foreach (var skill in skills)
             // {

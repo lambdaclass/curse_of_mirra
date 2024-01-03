@@ -14,8 +14,9 @@ public class LobbyPlayerList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var removed_keys = this.playerItems.Keys
-            .Except(LobbyConnection.Instance.playersIdName.Keys)
+        var removed_keys = this.playerItems
+            .Keys
+            .Except(ServerConnection.Instance.playersIdName.Keys)
             .ToList();
         foreach (ulong key in removed_keys)
         {
@@ -24,10 +25,10 @@ public class LobbyPlayerList : MonoBehaviour
 
         if (removed_keys.Count > 0)
         {
-            updatePlayerItem(LobbyConnection.Instance.hostId);
+            updatePlayerItem(ServerConnection.Instance.hostId);
         }
 
-        foreach (KeyValuePair<ulong, string> kvp in LobbyConnection.Instance.playersIdName)
+        foreach (KeyValuePair<ulong, string> kvp in ServerConnection.Instance.playersIdName)
         {
             if (!this.playerItems.ContainsKey(kvp.Key))
             {

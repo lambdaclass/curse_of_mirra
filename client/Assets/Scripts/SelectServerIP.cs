@@ -21,7 +21,7 @@ public class SelectServerIP : MonoBehaviour
     {
         serverIp = IP.text.Trim();
         serverNameString = serverName.text;
-        LobbyConnection.Instance.Refresh();
+        ServerConnection.Instance.RefreshServerInfo();
     }
 
     public static string GetServerIp()

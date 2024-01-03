@@ -22,36 +22,15 @@ public class LobbyManager : LevelSelector
 
     public void GameStart()
     {
-        // StartCoroutine(CreateGame());
         this.LevelName = BATTLE_SCENE_NAME;
         StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
     }
 
     public void Back()
     {
-        LobbyConnection.Instance.Init();
+        ServerConnection.Instance.Init();
         this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
-    }
-
-    public void BackToLobbyAndCloseConnection()
-    {
-        // Websocket connection is closed as part of Init() destroy;
-        SocketConnectionManager.Instance.Init();
-        DestroySingletonInstances();
-        Back();
-    }
-
-    public void BackToLobbyFromGame()
-    {
-        Destroy(GameObject.Find(LOBBIES_BACKGROUND_MUSIC));
-        BackToLobbyAndCloseConnection();
-    }
-
-    public void SelectMap(string mapName)
-    {
-        this.LevelName = mapName;
-        LevelSelected = mapName;
     }
 
     private void DestroySingletonInstances()
@@ -65,11 +44,11 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
+            !String.IsNullOrEmpty(ServerConnection.Instance.GameSession)
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
-            LobbyConnection.Instance.StartGame();
+            ServerConnection.Instance.StartGame();
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using Communication.Protobuf;
+using UnityEngine;
 
 public class KillFeedManager : MonoBehaviour
 {
@@ -53,8 +53,10 @@ public class KillFeedManager : MonoBehaviour
         }
         else
         {
-            CoMCharacter characterIcon =
-                KillFeedManager.instance.charactersScriptableObjects.Single(
+            CoMCharacter characterIcon = KillFeedManager
+                .instance
+                .charactersScriptableObjects
+                .Single(
                     characterSO =>
                         characterSO.name.Contains(Utils.GetCharacter(killerId).CharacterModel.name)
                 );
@@ -77,8 +79,8 @@ public class KillFeedManager : MonoBehaviour
                 myKillerId = killEvent.KilledBy;
             }
             // TODO: fix this when the player names are fixed in the server.
-            // string deathPlayerName = LobbyConnection.Instance.playersIdName[killEvent.Killed];
-            // string killerPlayerName = LobbyConnection.Instance.playersIdName[killEvent.KilledBy];
+            // string deathPlayerName = ServerConnection.Instance.playersIdName[killEvent.Killed];
+            // string killerPlayerName = ServerConnection.Instance.playersIdName[killEvent.KilledBy];
             string deathPlayerName = killEvent.Killed.ToString();
             string killerPlayerName = killEvent.KilledBy.ToString();
             Sprite killerIcon = GetUIIcon(killEvent.KilledBy);

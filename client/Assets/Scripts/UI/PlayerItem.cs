@@ -39,8 +39,8 @@ public class PlayerItem : MonoBehaviour
     {
         this.playerText.text = $"{name}";
 
-        this.hostText = LobbyConnection.Instance.hostId == id ? "HOST" : null;
-        this.youText = LobbyConnection.Instance.playerId == id ? "YOU" : null;
+        this.hostText = ServerConnection.Instance.hostId == id ? "HOST" : null;
+        this.youText = ServerConnection.Instance.playerId == id ? "YOU" : null;
         string separator = this.hostText != null && this.youText != null ? " / " : null;
 
         this.playerRollText.text = this.hostText + separator + this.youText;
@@ -48,7 +48,7 @@ public class PlayerItem : MonoBehaviour
 
     public void updateText()
     {
-        this.hostText = LobbyConnection.Instance.hostId == id ? "HOST" : null;
+        this.hostText = ServerConnection.Instance.hostId == id ? "HOST" : null;
         string separator = this.hostText != null && this.youText != null ? " / " : null;
 
         this.playerRollText.text = this.hostText + separator + this.youText;

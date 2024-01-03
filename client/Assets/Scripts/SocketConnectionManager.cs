@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Communication.Protobuf;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 using NativeWebSocket;
 using UnityEngine;
-using Communication.Protobuf;
 
 public class SocketConnectionManager : MonoBehaviour
 {
@@ -70,7 +70,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     public void Init()
     {
-        StartCoroutine(WaitForLobbyConnection());
+        StartCoroutine(WaitForServerConnection());
         if (Instance != null)
         {
             if (this.ws != null)
@@ -82,29 +82,29 @@ public class SocketConnectionManager : MonoBehaviour
         else
         {
             Instance = this;
-            this.sessionId = LobbyConnection.Instance.GameSession;
-            this.serverIp = LobbyConnection.Instance.serverIp;
-            this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-            this.serverHash = LobbyConnection.Instance.serverHash;
-            this.clientId = LobbyConnection.Instance.clientId;
-            this.reconnect = LobbyConnection.Instance.reconnect;
-            this.playersIdName = LobbyConnection.Instance.playersIdName;
+            this.sessionId = ServerConnection.Instance.GameSession;
+            this.serverIp = ServerConnection.Instance.serverIp;
+            this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
+            this.serverHash = ServerConnection.Instance.serverHash;
+            this.clientId = ServerConnection.Instance.clientId;
+            this.reconnect = ServerConnection.Instance.reconnect;
+            this.playersIdName = ServerConnection.Instance.playersIdName;
 
             projectilesStatic = this.projectiles;
             DontDestroyOnLoad(gameObject);
 
             if (this.reconnect)
             {
-                this.selectedCharacters = LobbyConnection.Instance.reconnectPlayers;
-                this.allSelected = !LobbyConnection.Instance.reconnectToCharacterSelection;
+                this.selectedCharacters = ServerConnection.Instance.reconnectPlayers;
+                this.allSelected = !ServerConnection.Instance.reconnectToCharacterSelection;
                 this.cinematicDone = true;
             }
         }
     }
 
-    private IEnumerator WaitForLobbyConnection()
+    private IEnumerator WaitForServerConnection()
     {
-        yield return new WaitUntil(() => LobbyConnection.Instance != null);
+        yield return new WaitUntil(() => ServerConnection.Instance != null);
     }
 
     void Start()
@@ -128,15 +128,15 @@ public class SocketConnectionManager : MonoBehaviour
     {
         yield return new WaitUntil(
             () =>
-                LobbyConnection.Instance.GameSession != ""
-                && LobbyConnection.Instance.GameSession != null
+                ServerConnection.Instance.GameSession != ""
+                && ServerConnection.Instance.GameSession != null
         );
-        this.sessionId = LobbyConnection.Instance.GameSession;
-        this.serverIp = LobbyConnection.Instance.serverIp;
-        this.serverTickRate_ms = LobbyConnection.Instance.serverTickRate_ms;
-        this.serverHash = LobbyConnection.Instance.serverHash;
-        this.clientId = LobbyConnection.Instance.clientId;
-        this.reconnect = LobbyConnection.Instance.reconnect;
+        this.sessionId = ServerConnection.Instance.GameSession;
+        this.serverIp = ServerConnection.Instance.serverIp;
+        this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
+        this.serverHash = ServerConnection.Instance.serverHash;
+        this.clientId = ServerConnection.Instance.clientId;
+        this.reconnect = ServerConnection.Instance.reconnect;
 
         if (!connected && this.sessionId != "")
         {
@@ -153,7 +153,7 @@ public class SocketConnectionManager : MonoBehaviour
                 + "/"
                 + this.clientId
                 + "/"
-                + LobbyConnection.Instance.selectedCharacterName
+                + ServerConnection.Instance.selectedCharacterName
         );
         print(url);
         Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -177,10 +177,15 @@ public class SocketConnectionManager : MonoBehaviour
             // TODO: Fix missing NewGameEvent, current missing are
             //      - PING_UPDATE
             //      - PLAYER_JOINED
-            if (gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
-                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined) {
-                try {
-                    switch (gameEvent.NewGameEvent.EventCase) {
+            if (
+                gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
+                && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined
+            )
+            {
+                try
+                {
+                    switch (gameEvent.NewGameEvent.EventCase)
+                    {
                         case GameEvent.EventOneofCase.GameState:
                             gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
                             break;
@@ -188,7 +193,9 @@ public class SocketConnectionManager : MonoBehaviour
                             print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
                             break;
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Debug.Log(gameEvent);
                     Debug.Log(e);
                     throw e;
@@ -203,7 +210,9 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(gameEvent.OldGameEvent);
                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-                    alivePlayers = gameEvent.OldGameEvent.Players
+                    alivePlayers = gameEvent
+                        .OldGameEvent
+                        .Players
                         .ToList()
                         .FindAll(el => el.Health > 0);
                     KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
@@ -225,7 +234,7 @@ public class SocketConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(gameEvent.OldGameEvent);
                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-                    LobbyConnection.Instance.gameStarted = true;
+                    ServerConnection.Instance.gameStarted = true;
                     break;
                 default:
                     print("Message received is: " + gameEvent.OldGameEvent.Type);
@@ -243,9 +252,9 @@ public class SocketConnectionManager : MonoBehaviour
         Debug.Log("closeCode:" + closeCode);
         if (closeCode != WebSocketCloseCode.Normal)
         {
-            LobbyConnection.Instance.errorConnection = true;
+            ServerConnection.Instance.errorConnection = true;
             this.Init();
-            LobbyConnection.Instance.Init();
+            ServerConnection.Instance.Init();
         }
     }
 
@@ -289,7 +298,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeUrl(string path)
     {
-        var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        var useProxy = ServerConnection.Instance.serverSettings.RunnerConfig.UseProxy;
         int port;
 
         if (useProxy == "true")
@@ -327,7 +336,7 @@ public class SocketConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        // var useProxy = LobbyConnection.Instance.serverSettings.RunnerConfig.UseProxy;
+        // var useProxy = ServerConnection.Instance.serverSettings.RunnerConfig.UseProxy;
 
         int port = 4000;
 
