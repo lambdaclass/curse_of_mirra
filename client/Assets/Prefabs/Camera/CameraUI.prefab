@@ -1652,7 +1652,7 @@ MonoBehaviour:
   SkillBasic: {fileID: 5773388603856226559}
   Skill1: {fileID: 2302692725905988441}
   SkillBasicCooldownContainer: {fileID: 6227269788242123955}
-  Skill1CooldownContainer: {fileID: 0}
+  Skill1CooldownContainer: {fileID: 2949602977003879530}
   disarmObjectSkill1: {fileID: 0}
   disarmObjectSkill2: {fileID: 0}
   disarmObjectSkill3: {fileID: 0}
@@ -3221,7 +3221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407cf8d82aea44420a754cb7c304d475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactable: 0
+  Interactable: 1
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls: []

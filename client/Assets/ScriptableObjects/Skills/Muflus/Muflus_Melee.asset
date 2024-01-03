@@ -21,10 +21,9 @@ MonoBehaviour:
   indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1.5
-  hasModelAnimation: 1
-  abilityStartSfx: {fileID: 8300000, guid: 12a3365ad519042ecb91d61ecf29fde6, type: 3}
-  sfxHasAbilityStop: 0
-  abilityStopSfx: {fileID: 0}
+  abilityStartSfx: {fileID: 0}
+  sfxHasAbilityStop: 1
+  abilityStopSfx: {fileID: 8300000, guid: 12a3365ad519042ecb91d61ecf29fde6, type: 3}
   startAnimationDuration: 0
   executeAnimationDuration: 1
   skillCircleRadius: 8
@@ -48,7 +47,3 @@ MonoBehaviour:
     duration: 1
     delay: 0.35
     instantiateVfxOnModel: 1
-  feedbackVfx: {fileID: 0}
-  instantiateVfxOnModel: 1
-  feedbackVfxDuration: 1
-  feedbackVfxDelay: 0.35

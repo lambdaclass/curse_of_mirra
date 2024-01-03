@@ -10,6 +10,7 @@ TagManager:
   - World
   - NoMask
   - Hitbox
+  - ZoneParticle
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - Camera2
   - Camera3
   - Camera4
-  - 
+  - ZoneParticle
   - 
   - 
   - 
