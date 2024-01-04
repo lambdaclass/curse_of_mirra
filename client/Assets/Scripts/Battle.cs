@@ -37,6 +37,8 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
 
+    CustomCharacter characterClientReference;
+
     void Start()
     {
         InitBlockingStates();
@@ -100,6 +102,13 @@ public class Battle : MonoBehaviour
             float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
+
+        if (characterClientReference == null && SocketConnectionManager.Instance.players.Count != 0)
+        {
+            characterClientReference = Utils
+                .GetPlayer(SocketConnectionManager.Instance.playerId)
+                .GetComponent<CustomCharacter>();
+        }
     }
 
     void UpdateBattleState()
@@ -148,16 +157,14 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
         OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
         OldPlayer playerUpdate = lastEvent.Players
             .ToList()
             .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
 
-        if (player)
+        if (characterClientReference)
         {
-            CustomCharacter character = player.GetComponent<CustomCharacter>();
-            if (PlayerMovementAuthorized(character))
+            if (PlayerMovementAuthorized(characterClientReference))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
@@ -416,7 +423,6 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
-        //manage this in other place
         character.characterBase
             .GetComponent<CharacterFeedbackManager>()
             .ManageStateFeedbacks(playerUpdate, CustomGUIManager.stateManagerUI);
@@ -610,12 +616,15 @@ public class Battle : MonoBehaviour
 
     private void SpawnClientPredictionGhost()
     {
-        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
-        clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+        clientPredictionGhost = Instantiate(
+            characterClientReference.gameObject,
+            characterClientReference.transform.position,
+            Quaternion.identity
+        );
         clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
-            SocketConnectionManager.Instance.playerId.ToString();
+            characterClientReference.PlayerID;
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
-            $"Client Prediction Ghost {SocketConnectionManager.Instance.playerId}";
+            $"Client Prediction Ghost {characterClientReference.PlayerID}";
         showClientPredictionGhost = true;
     }
 
