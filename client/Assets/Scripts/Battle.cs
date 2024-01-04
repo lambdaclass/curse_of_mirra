@@ -239,7 +239,11 @@ public class Battle : MonoBehaviour
                     // the last server update.
                     if (clientPredictionGhost != null)
                     {
-                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                        UpdatePlayer(
+                            clientPredictionGhost.GetComponent<CustomCharacter>(),
+                            serverPlayerUpdate,
+                            pastTime
+                        );
                     }
                     SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
                         serverPlayerUpdate,
@@ -249,7 +253,11 @@ public class Battle : MonoBehaviour
 
                 if (interpolationGhost != null)
                 {
-                    UpdatePlayer(interpolationGhost, buffer.lastEvent().Players[i], pastTime);
+                    UpdatePlayer(
+                        interpolationGhost.GetComponent<CustomCharacter>(),
+                        buffer.lastEvent().Players[i],
+                        pastTime
+                    );
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
@@ -259,7 +267,7 @@ public class Battle : MonoBehaviour
 
                 if (currentPlayer.activeSelf)
                 {
-                    UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(playerCharacter, serverPlayerUpdate, pastTime);
 
                     if (
                         !buffer.timestampAlreadySeen(
@@ -405,7 +413,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer(GameObject player, OldPlayer playerUpdate, long pastTime)
+    private void UpdatePlayer(CustomCharacter character, OldPlayer playerUpdate, long pastTime)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -418,7 +426,6 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
-        CustomCharacter character = player.GetComponent<CustomCharacter>();
         var characterSpeed = playerUpdate.Speed / 100f;
 
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
@@ -451,12 +458,12 @@ public class Battle : MonoBehaviour
             InputManager.CheckSkillCooldown(
                 UIControls.SkillBasic,
                 (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
-                player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
+                character.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+                character.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
         }
     }
