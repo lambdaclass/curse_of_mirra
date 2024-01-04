@@ -24,16 +24,13 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<OldPlayer> gamePlayers;
     public OldGameEvent gameEvent;
     public List<OldProjectile> gameProjectiles;
-    public Dictionary<ulong, string> selectedCharacters;
     public ulong playerId;
     public uint currentPing;
     public uint serverTickRate_ms;
     public string serverHash;
     public (OldPlayer, ulong) winnerPlayer = (null, 0);
-    public List<OldPlayer> winners = new List<OldPlayer>();
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public ClientPrediction clientPrediction = new ClientPrediction();
-    public List<OldGameEvent> gameEvents = new List<OldGameEvent>();
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
