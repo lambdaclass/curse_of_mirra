@@ -59,7 +59,7 @@ public class CustomLevelManager : LevelManager
     protected override void Awake()
     {
         base.Awake();
-        // this.totalPlayers = (ulong)LobbyConnection.Instance.playerCount;
+        // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
@@ -97,9 +97,9 @@ public class CustomLevelManager : LevelManager
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        this.gamePlayers = SocketConnectionManager.Instance.gamePlayers;
+        this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
         this.totalPlayers = (ulong)this.gamePlayers.Count();
-        playerId = SocketConnectionManager.Instance.playerId;
+        playerId = GameServerConnectionManager.Instance.playerId;
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
@@ -164,7 +164,7 @@ public class CustomLevelManager : LevelManager
         {
             ulong playerID = gamePlayers[(int)i].Id;
             prefab = GetCharacterPrefab(playerID);
-            if (SocketConnectionManager.Instance.playerId == playerID)
+            if (GameServerConnectionManager.Instance.playerId == playerID)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -180,7 +180,7 @@ public class CustomLevelManager : LevelManager
             );
             newPlayer.name = "Player" + " " + (i + 1);
             newPlayer.PlayerID = playerID.ToString();
-            if (SocketConnectionManager.Instance.playerId == playerID)
+            if (GameServerConnectionManager.Instance.playerId == playerID)
             {
                 //Add audioListener in player
                 newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
@@ -189,7 +189,7 @@ public class CustomLevelManager : LevelManager
                     false;
             }
 
-            SocketConnectionManager.Instance.players.Add(newPlayer.gameObject);
+            GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
@@ -197,7 +197,7 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-        if (!SocketConnectionManager.Instance.cinematicDone)
+        if (!GameServerConnectionManager.Instance.cinematicDone)
         {
             float effectTime = Utils
                 .GetCharacter(1)
@@ -297,7 +297,7 @@ public class CustomLevelManager : LevelManager
 
     private void SetSkillAngles(List<SkillInfo> skillsClone)
     {
-        // var skills = LobbyConnection.Instance.engineServerSettings.Skills;
+        // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
         // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
@@ -361,7 +361,7 @@ public class CustomLevelManager : LevelManager
             skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
             skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
 
-            var skills = LobbyConnection.Instance.engineServerSettings.Skills;
+            var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
             // foreach (var skill in skills)
             // {
@@ -420,7 +420,7 @@ public class CustomLevelManager : LevelManager
         bool animate = true;
 
         roundText.text =
-            "Player " + SocketConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
+            "Player " + GameServerConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
         animate = false;
 
         roundSplash.SetActive(true);
@@ -461,22 +461,22 @@ public class CustomLevelManager : LevelManager
 
     private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
     {
-        return SocketConnectionManager.Instance.GameHasEnded()
+        return GameServerConnectionManager.Instance.GameHasEnded()
             || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
     }
 
     private bool GameHasEnded()
     {
-        return SocketConnectionManager.Instance.GameHasEnded();
+        return GameServerConnectionManager.Instance.GameHasEnded();
     }
 
     private bool checkPlayerHasJoined()
     {
-        return SocketConnectionManager.Instance.gamePlayers != null
-            && SocketConnectionManager.Instance.playerId != null
-            && SocketConnectionManager
+        return GameServerConnectionManager.Instance.gamePlayers != null
+            && GameServerConnectionManager.Instance.playerId != null
+            && GameServerConnectionManager
                 .Instance
                 .gamePlayers
-                .Any((player) => player.Id == SocketConnectionManager.Instance.playerId);
+                .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
     }
 }

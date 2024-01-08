@@ -14,7 +14,7 @@ public class CustomCharacter : Character
     protected override void Initialization()
     {
         base.Initialization();
-        if (SocketConnectionManager.Instance.playerId.ToString() == this.PlayerID)
+        if (GameServerConnectionManager.Instance.playerId.ToString() == this.PlayerID)
         {
             this.characterBase.gameObject.AddComponent<AudioSource>();
         }

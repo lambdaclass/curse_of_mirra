@@ -19,13 +19,13 @@ public class SafeZone : MonoBehaviour
 
     void Update()
     {
-        if (SocketConnectionManager.Instance.playableRadius != 0)
+        if (GameServerConnectionManager.Instance.playableRadius != 0)
         {
             Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
-                SocketConnectionManager.Instance.shrinkingCenter
+                GameServerConnectionManager.Instance.shrinkingCenter
             );
             float radius = Utils.transformBackendRadiusToFrontendRadius(
-                SocketConnectionManager.Instance.playableRadius
+                GameServerConnectionManager.Instance.playableRadius
             );
             if ((radius < previusRadius) && (radius <= previusRadius - (smokeSize * 1.5)))
             {

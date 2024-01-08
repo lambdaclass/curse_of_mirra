@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Communication.Protobuf;
+using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class PlayerControls : MonoBehaviour
             Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
             GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
 
-            SocketConnectionManager.Instance.SendGameAction(gameAction);
+            GameServerConnectionManager.Instance.SendGameAction(gameAction);
 
             ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
             {
@@ -23,7 +23,7 @@ public class PlayerControls : MonoBehaviour
                 joystick_y_value = y,
                 timestamp = timestamp,
             };
-            SocketConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
         }
     }
 
@@ -57,10 +57,10 @@ public class PlayerControls : MonoBehaviour
     public static float getBackendCharacterSpeed(ulong playerId)
     {
         string charName = Utils.GetGamePlayer(playerId).CharacterName;
-        // if (SocketConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
+        // if (GameServerConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
         // {
-        // var charName = SocketConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = LobbyConnection.Instance.engineServerSettings.Characters;
+        // var charName = GameServerConnectionManager.Instance.selectedCharacters[playerId];
+        var chars = ServerConnection.Instance.engineServerSettings.Characters;
 
         foreach (var character in chars)
         {

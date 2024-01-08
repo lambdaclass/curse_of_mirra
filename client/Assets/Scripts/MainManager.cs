@@ -16,29 +16,17 @@ public class MainManager : LevelSelector
 
     public void JoinLobby()
     {
-        StartCoroutine(WaitForLobbyCreation());
+        StartCoroutine(WaitForLobbyJoin());
     }
 
-    public void ConnectToLobby(string idHash)
+    public IEnumerator WaitForLobbyJoin()
     {
-        StartCoroutine(WaitForLobbyJoin(idHash));
-    }
-
-    public IEnumerator WaitForLobbyCreation()
-    {
-        LobbyConnection.Instance.JoinLobby();
+        ServerConnection.Instance.JoinLobby();
         yield return new WaitUntil(
             () =>
-                !string.IsNullOrEmpty(LobbyConnection.Instance.LobbySession)
-                && LobbyConnection.Instance.playerId != UInt64.MaxValue
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && ServerConnection.Instance.playerId != UInt64.MaxValue
         );
-        SceneManager.LoadScene("Lobby");
-    }
-
-    public IEnumerator WaitForLobbyJoin(string idHash)
-    {
-        LobbyConnection.Instance.ConnectToLobby(idHash);
-        yield return new WaitUntil(() => LobbyConnection.Instance.playerId != UInt64.MaxValue);
         SceneManager.LoadScene("Lobby");
     }
 }

@@ -86,22 +86,22 @@ public class EventsBuffer
         // There are a few frames during which this is outdated and produces an error
         if (
             previousRenderedEvent.Players.Count
-            == SocketConnectionManager.Instance.gamePlayers.Count
+            == GameServerConnectionManager.Instance.gamePlayers.Count
         )
         {
-            count += (
-                previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
+            count += (previousRenderedEvent.Players.ToList().Find(p => p.Id == playerId))
+                .Action
+                .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
                 ? 1
                 : 0;
-            count += (
-                currentEventToRender.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
+            count += (currentEventToRender.Players.ToList().Find(p => p.Id == playerId))
+                .Action
+                .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
                 ? 1
                 : 0;
-            count += (
-                followingEventToRender.Players.ToList().Find(p => p.Id == playerId)
-            ).Action.Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
+            count += (followingEventToRender.Players.ToList().Find(p => p.Id == playerId))
+                .Action
+                .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
                 ? 1
                 : 0;
         }

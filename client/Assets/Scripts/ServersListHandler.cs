@@ -17,7 +17,7 @@ public class ServersListHandler : MonoBehaviour
     void Update()
     {
         if (
-            activeServerName.text != LobbyConnection.Instance.serverName
+            activeServerName.text != ServerConnection.Instance.serverName
             || activeServerName.text == ""
         )
         {
@@ -27,7 +27,7 @@ public class ServersListHandler : MonoBehaviour
 
     public void ChangeSelectedServerName()
     {
-        activeServerName.text = LobbyConnection.Instance.serverName;
+        activeServerName.text = ServerConnection.Instance.serverName;
     }
 
     public void ShowServerOptions()
