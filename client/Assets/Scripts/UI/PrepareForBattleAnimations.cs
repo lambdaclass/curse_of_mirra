@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using Cinemachine;
+using DG.Tweening;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class PrepareForBattleAnimations : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
     CinemachineVirtualCamera cinemachineVirtualCamera;
     CinemachineFramingTransposer cameraFramingTransposer;
 
+    Vector3 playerPosition = new Vector3(0, 0, 0);
+    Vector3 cameraGoToPosition = new Vector3(0, 25, -15);
+
     void Start()
     {
         cameraFramingTransposer =
@@ -28,13 +32,18 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator CameraCinematic()
     {
-        yield return new WaitForSeconds(2f);
+        cinemachineVirtualCamera.transform.DOMove(cameraGoToPosition + playerPosition, 3);
+        yield return new WaitForSeconds(3f);
+        cinemachineVirtualCamera.ForceCameraPosition(
+            cameraGoToPosition + playerPosition,
+            cinemachineVirtualCamera.transform.rotation
+        );
         yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        SetCameraToPlayer(SocketConnectionManager.Instance.playerId);
         GeneratePlayersList();
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 0;
         playersContainer.GetComponent<CanvasGroup>().alpha = 1;
         yield return new WaitForSeconds(5f);
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
         playersContainer.GetComponent<CanvasGroup>().alpha = 0;
         surviveContainer.GetComponent<CanvasGroup>().alpha = 1;
         yield return new WaitForSeconds(1f);
@@ -52,5 +61,21 @@ public class PrepareForBattleAnimations : MonoBehaviour
                 GameObject item = Instantiate(playerCard, playersTable.transform);
             }
         );
+    }
+
+    private void SetCameraToPlayer(ulong playerID)
+    {
+        foreach (CustomCharacter player in CustomLevelManager.Instance.PlayerPrefabs)
+        {
+            if (UInt64.Parse(player.PlayerID) == playerID)
+            {
+                cinemachineVirtualCamera
+                    .GetComponent<CinemachineCameraController>()
+                    .SetTarget(player);
+                cinemachineVirtualCamera
+                    .GetComponent<CinemachineCameraController>()
+                    .StartFollowing();
+            }
+        }
     }
 }
