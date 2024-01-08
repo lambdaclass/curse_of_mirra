@@ -44,6 +44,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fa27f582a1b7c4389afb4991a735007e, type: 3}
   - {fileID: 21300000, guid: 2d340d82e49a14bbf83d262c48718d35, type: 3}
   - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
+  - {fileID: 21300000, guid: c5ed79c2c6fca4f6a838eeca617b4989, type: 3}
   - {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac, type: 3}
   - {fileID: 21300000, guid: cecebc6322d064fc5af558ab0650d167, type: 3}
   - {fileID: 21300000, guid: de6249676d3a64ff6bc3511b49a2da40, type: 3}
@@ -70,6 +71,7 @@ SpriteAtlas:
   - container
   - Players-icon
   - basic
+  - Loading
   - Uma
   - H4ck
   - Underline

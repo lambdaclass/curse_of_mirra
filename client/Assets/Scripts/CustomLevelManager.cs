@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cinemachine;
 using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -10,7 +9,6 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -361,7 +359,6 @@ public class CustomLevelManager : LevelManager
     private bool checkPlayerHasJoined()
     {
         return SocketConnectionManager.Instance.gamePlayers != null
-            && SocketConnectionManager.Instance.playerId != null
             && SocketConnectionManager.Instance.gamePlayers.Any(
                 (player) => player.Id == SocketConnectionManager.Instance.playerId
             );
