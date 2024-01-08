@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class StateManagerUI : MonoBehaviour
 {
@@ -10,11 +10,11 @@ public class StateManagerUI : MonoBehaviour
 
     public void ToggleState(string name, ulong playerUpdateId, bool isActive)
     {
-        if (SocketConnectionManager.Instance.playerId == playerUpdateId)
+        if (GameServerConnectionManager.Instance.playerId == playerUpdateId)
         {
-
             GameObject state = GetState(name);
-            if(state) {
+            if (state)
+            {
                 state.SetActive(isActive);
             }
         }

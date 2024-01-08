@@ -38,19 +38,16 @@ public class PlayerItem : MonoBehaviour
     public void SetPlayerItemText(string name)
     {
         this.playerText.text = $"{name}";
+        this.youText = ServerConnection.Instance.playerId == id ? "YOU" : null;
+        string separator = this.youText != null ? " / " : null;
 
-        this.hostText = LobbyConnection.Instance.hostId == id ? "HOST" : null;
-        this.youText = LobbyConnection.Instance.playerId == id ? "YOU" : null;
-        string separator = this.hostText != null && this.youText != null ? " / " : null;
-
-        this.playerRollText.text = this.hostText + separator + this.youText;
+        this.playerRollText.text = this.youText;
     }
 
     public void updateText()
     {
-        this.hostText = LobbyConnection.Instance.hostId == id ? "HOST" : null;
-        string separator = this.hostText != null && this.youText != null ? " / " : null;
+        string separator = this.youText != null ? " / " : null;
 
-        this.playerRollText.text = this.hostText + separator + this.youText;
+        this.playerRollText.text = this.youText;
     }
 }

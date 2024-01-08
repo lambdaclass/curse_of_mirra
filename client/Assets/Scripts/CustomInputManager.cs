@@ -92,7 +92,7 @@ public class CustomInputManager : InputManager
 
     public void Setup()
     {
-        _player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        _player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         directionIndicator = _player.GetComponentInChildren<AimDirection>();
     }
 
@@ -381,7 +381,9 @@ public class CustomInputManager : InputManager
 
         Transform skillRange = _player
             .GetComponent<CustomCharacter>()
-            .characterBase.SkillRange.transform;
+            .characterBase
+            .SkillRange
+            .transform;
         skillRange.localScale = new Vector3(range * 2, skillRange.localScale.y, range * 2);
 
         if (skill.IsSelfTargeted())
@@ -400,7 +402,9 @@ public class CustomInputManager : InputManager
     {
         Transform skillRange = _player
             .GetComponent<CustomCharacter>()
-            .characterBase.SkillRange.transform;
+            .characterBase
+            .SkillRange
+            .transform;
         skillRange.localScale = new Vector3(0, skillRange.localScale.y, 0);
     }
 
@@ -408,7 +412,9 @@ public class CustomInputManager : InputManager
     {
         Material skillRangeMaterial = _player
             .GetComponent<CustomCharacter>()
-            .characterBase.SkillRange.GetComponentInChildren<MeshRenderer>()
+            .characterBase
+            .SkillRange
+            .GetComponentInChildren<MeshRenderer>()
             .material;
         skillRangeMaterial.SetColor("_Color", characterSkillColor);
 
@@ -460,13 +466,16 @@ public class CustomInputManager : InputManager
     {
         List<GameObject> inRangeTargets = new List<GameObject>();
 
-        SocketConnectionManager.Instance.players.ForEach(p =>
-        {
-            if (PlayerIsInSkillRange(p, skill))
+        GameServerConnectionManager
+            .Instance
+            .players
+            .ForEach(p =>
             {
-                inRangeTargets.Add(p);
-            }
-        });
+                if (PlayerIsInSkillRange(p, skill))
+                {
+                    inRangeTargets.Add(p);
+                }
+            });
         return inRangeTargets;
     }
 

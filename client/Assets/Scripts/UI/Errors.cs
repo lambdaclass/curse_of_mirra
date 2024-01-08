@@ -4,8 +4,8 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Errors : MonoBehaviour
@@ -59,11 +59,13 @@ public class Errors : MonoBehaviour
 
     public void Reconnect()
     {
+        // FIXME: Reimplemnt recconection
+
         // TODO: This is what LobbiesManager.Reconnect() does
         // whe should leave this here or instantiate that
-        LobbyConnection.Instance.Reconnect();
+        // ServerConnection.Instance.Reconnect();
         // TODO: it should go directly to the Battle if I want to go back to it
-        SceneManager.LoadScene("CharacterSelection");
+        // SceneManager.LoadScene("CharacterSelection");
         HideOngoingGameError();
     }
 

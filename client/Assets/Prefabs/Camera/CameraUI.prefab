@@ -18878,7 +18878,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5615193349104364396}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LobbyManager, CurseOfMirra
         m_MethodName: BackToLobbyFromGame
         m_Mode: 1
         m_Arguments:
@@ -27603,6 +27603,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathSplash
       objectReference: {fileID: 0}
+    - target: {fileID: 1595368770806346934, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5615193349104364396}
+    - target: {fileID: 1595368770806346934, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToLobbyFromGame
+      objectReference: {fileID: 0}
     - target: {fileID: 6523150462481497076, guid: f6bbb6a434dcc4881b347da86cd4a8d5,
         type: 3}
       propertyPath: m_Color.b
@@ -27623,7 +27633,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3820880597871610697, guid: f6bbb6a434dcc4881b347da86cd4a8d5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f6bbb6a434dcc4881b347da86cd4a8d5, type: 3}
 --- !u!224 &1413022483004132574 stripped
 RectTransform:

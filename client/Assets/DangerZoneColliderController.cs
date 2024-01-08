@@ -13,7 +13,7 @@ public class DangerZoneColliderController : MonoBehaviour
 
     IEnumerator SetupCollitions()
     {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count != 0);
+        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count != 0);
         Utils
             .GetAllCharacters()
             .ForEach(character =>

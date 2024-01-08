@@ -228,7 +228,7 @@ public class Skill : CharacterAbility
         };
 
         GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
-        SocketConnectionManager.Instance.SendGameAction(gameAction);
+        GameServerConnectionManager.Instance.SendGameAction(gameAction);
     }
 
     public virtual void StopAbilityStopFeedbacks()

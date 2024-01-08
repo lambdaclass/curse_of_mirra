@@ -20,7 +20,7 @@ public class InterpolationController : MonoBehaviour
     public void changeDeltaInterpolationTime()
     {
         interpolationText.text = ((long)deltaInterpolationSlider.value).ToString() + " ms";
-        SocketConnectionManager.Instance.eventsBuffer.deltaInterpolationTime = (long)
+        GameServerConnectionManager.Instance.eventsBuffer.deltaInterpolationTime = (long)
             deltaInterpolationSlider.value;
     }
 }

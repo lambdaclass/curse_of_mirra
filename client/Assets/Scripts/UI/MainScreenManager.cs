@@ -9,8 +9,10 @@ public class MainScreenManager : MonoBehaviour
 
     void Start()
     {
-        modelManager.SetModel(LobbyConnection.Instance.selectedCharacterName);
-        CharactersManager.Instance.SetGoToCharacter(LobbyConnection.Instance.selectedCharacterName);
+        modelManager.SetModel(ServerConnection.Instance.selectedCharacterName);
+        CharactersManager
+            .Instance
+            .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
         StartCoroutine(GoToCharacterInfo());
     }
 
