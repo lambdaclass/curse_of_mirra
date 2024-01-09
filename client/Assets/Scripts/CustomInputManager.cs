@@ -462,51 +462,51 @@ public class CustomInputManager : InputManager
         cancelButton.SetActive(value);
     }
 
-    private List<GameObject> GetTargetsInSkillRange(Skill skill)
-    {
-        List<GameObject> inRangeTargets = new List<GameObject>();
+    // private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    // {
+    //     List<GameObject> inRangeTargets = new List<GameObject>();
 
-        GameServerConnectionManager
-            .Instance
-            .players
-            .ForEach(p =>
-            {
-                if (PlayerIsInSkillRange(p, skill))
-                {
-                    inRangeTargets.Add(p);
-                }
-            });
-        return inRangeTargets;
-    }
+    //     GameServerConnectionManager
+    //         .Instance
+    //         .players
+    //         .ForEach(p =>
+    //         {
+    //             if (PlayerIsInSkillRange(p, skill))
+    //             {
+    //                 inRangeTargets.Add(p);
+    //             }
+    //         });
+    //     return inRangeTargets;
+    // }
 
-    private bool PlayerIsInSkillRange(GameObject player, Skill skill)
-    {
-        switch (skill.GetSkillName())
-        {
-            case "MULTISHOT":
-            case "YUGEN'S MARK":
-                return PlayerIsInSkillDirectionConeRange(player, skill);
-            case "DISARM":
-                return PlayerIsInSkillDirectionArrowRange(player, skill);
-            default:
-                return PlayerIsInSkillProximityRange(player, skill);
-        }
-    }
+    // private bool PlayerIsInSkillRange(GameObject player, Skill skill)
+    // {
+    //     switch (skill.GetSkillName())
+    //     {
+    //         case "MULTISHOT":
+    //         case "YUGEN'S MARK":
+    //             return PlayerIsInSkillDirectionConeRange(player, skill);
+    //         case "DISARM":
+    //             return PlayerIsInSkillDirectionArrowRange(player, skill);
+    //         default:
+    //             return PlayerIsInSkillProximityRange(player, skill);
+    //     }
+    // }
 
-    private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
-    }
+    // private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
+    // }
 
-    private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
-    }
+    // private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
+    // }
 
-    private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
-    }
+    // private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
+    // }
 
     private bool IsSamePlayer(GameObject player)
     {

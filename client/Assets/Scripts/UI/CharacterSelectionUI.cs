@@ -45,17 +45,17 @@ public class CharacterSelectionUI : MonoBehaviour
 
     public void SendCharacterSelection()
     {
-        PlayerCharacter characterSelected = new PlayerCharacter
-        {
-            PlayerId = (ulong)GameServerConnectionManager.Instance.playerId,
-            CharacterName = selectedCharacterName
-        };
-        ClientAction clientAction = new ClientAction
-        {
-            Action = Action.SelectCharacter,
-            PlayerCharacter = characterSelected
-        };
-        GameServerConnectionManager.Instance.SendAction(clientAction);
-        selectedPlayerCharacterName = characterSelected.CharacterName;
+        // PlayerCharacter characterSelected = new PlayerCharacter
+        // {
+        //     PlayerId = (ulong)GameServerConnectionManager.Instance.playerId,
+        //     CharacterName = selectedCharacterName
+        // };
+        // ClientAction clientAction = new ClientAction
+        // {
+        //     Action = Action.SelectCharacter,
+        //     PlayerCharacter = characterSelected
+        // };
+        // GameServerConnectionManager.Instance.SendAction(clientAction);
+        // selectedPlayerCharacterName = characterSelected.CharacterName;
     }
 }

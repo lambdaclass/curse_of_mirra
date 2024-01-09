@@ -46,26 +46,26 @@ public class SkillInfo : ScriptableObject
     public List<VfxStep> startVfxList;
     public List<VfxStep> vfxList;
 
-    public bool Equals(SkillConfigItem skillConfigItem)
-    {
-        return this.name.ToLower() == skillConfigItem.Name.ToLower();
-    }
+    // public bool Equals(SkillConfigItem skillConfigItem)
+    // {
+    //     return this.name.ToLower() == skillConfigItem.Name.ToLower();
+    // }
 
     public void InitWithBackend()
     {
-        if (ServerConnection.Instance != null)
-        {
-            foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
-            {
-                var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
-                if (regexName.ToLower() == skill.Name.ToLower())
-                {
-                    this.damage = 0;
-                    this.cooldown = skill.CooldownMs / 1000;
-                    this.skillRange = 0;
-                    this.skillCircleRadius = 10;
-                }
-            }
-        }
+        // if (ServerConnection.Instance != null)
+        // {
+        //     foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
+        //     {
+        //         var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
+        //         if (regexName.ToLower() == skill.Name.ToLower())
+        //         {
+        //             this.damage = 0;
+        //             this.cooldown = skill.CooldownMs / 1000;
+        //             this.skillRange = 0;
+        //             this.skillCircleRadius = 10;
+        //         }
+        //     }
+        // }
     }
 }

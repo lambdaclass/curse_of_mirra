@@ -37,14 +37,14 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
 
     public bool IsActive()
     {
-        var charactersList = ServerConnection.Instance.serverSettings.CharacterConfig.Items;
-        foreach (var character in charactersList)
-        {
-            if (comCharacter.name == character.Name)
-            {
-                return int.Parse(character.Active) == 1;
-            }
-        }
+        // var charactersList = ServerConnection.Instance.serverSettings.CharacterConfig.Items;
+        // foreach (var character in charactersList)
+        // {
+        //     if (comCharacter.name == character.Name)
+        //     {
+        //         return int.Parse(character.Active) == 1;
+        //     }
+        // }
         return false;
     }
 
