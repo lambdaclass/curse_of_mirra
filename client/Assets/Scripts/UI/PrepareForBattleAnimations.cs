@@ -55,7 +55,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
         GeneratePlayersList();
-        loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .5f);
+        loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(4f);
         StartCoroutine(PlayersAnimation());
@@ -69,8 +69,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator PrepareForBattleAnimation()
     {
-        prepareBattleContainer.GetComponent<CanvasGroup>().DOFade(1, .5f);
-        PulseAnimation(prepareCoin, originalCoinScale);
+        prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        StickerDisplayAnimation(prepareCoin, originalCoinScale);
         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         cinemachineVirtualCamera.transform.DOMove(
             player.transform.position + cameraOffsetPosition,
@@ -82,7 +82,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             cinemachineVirtualCamera.transform.rotation
         );
         SetCameraToPlayer(GameServerConnectionManager.Instance.playerId);
-        prepareBattleContainer.GetComponent<CanvasGroup>().DOFade(0, .5f);
+        prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     IEnumerator PlayersAnimation()
@@ -174,12 +174,15 @@ public class PrepareForBattleAnimations : MonoBehaviour
         }
     }
 
-    void PulseAnimation(GameObject objectToAnimate, float originalScale)
+    void StickerDisplayAnimation(GameObject objectToAnimate, float originalScale)
     {
-        objectToAnimate.transform
-            .DOScale(originalScale + .05f, 1f)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetEase(Ease.Linear);
+        Sequence stickerSequence = DOTween.Sequence();
+        stickerSequence
+            .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .5f))
+            .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .5f))
+            .Append(objectToAnimate.transform.DOScale(originalScale, .5f))
+            .PrependInterval(.2f)
+            .SetEase(Ease.InQuad);
     }
 
     void GeneratePlayersList()
