@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+message Direction {
+  float x = 1;
+  float y = 2;
+}
+
+message Position {
+  float x = 1;
+  float y = 2;
+}
+
+message Player {
+  uint64 id = 1;
+  float speed = 2;
+  Position position = 3;
+  float size = 4;
+  uint64 life = 5;
+}
+
+message GameState {
+  string game_id = 1;
+  map<uint64, Player> players = 2;
+}
