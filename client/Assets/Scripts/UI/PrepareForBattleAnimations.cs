@@ -44,7 +44,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator CameraCinematic()
     {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .5f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(4f);
@@ -61,7 +61,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         prepareBattleContainer.GetComponent<CanvasGroup>().DOFade(1, .5f);
         PulseAnimation(prepareCoin, originalCoinScale);
-        GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.playerId);
+        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         cinemachineVirtualCamera.transform.DOMove(
             player.transform.position + cameraOffsetPosition,
             4
@@ -71,7 +71,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             player.transform.position + cameraOffsetPosition,
             cinemachineVirtualCamera.transform.rotation
         );
-        SetCameraToPlayer(SocketConnectionManager.Instance.playerId);
+        SetCameraToPlayer(GameServerConnectionManager.Instance.playerId);
         prepareBattleContainer.GetComponent<CanvasGroup>().DOFade(0, .5f);
     }
 
@@ -129,23 +129,23 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void GeneratePlayersList()
     {
-        SocketConnectionManager.Instance.players.ForEach(
+        GameServerConnectionManager.Instance.players.ForEach(
             (player) =>
             {
-                if (SocketConnectionManager.Instance.players.IndexOf(player) < 5)
+                if (GameServerConnectionManager.Instance.players.IndexOf(player) < 5)
                 {
                     GameObject item = Instantiate(playerCard, playersTopTable.transform);
                     item.GetComponent<PlayerCardManager>().playerName.text = player.name;
-                    if (player == Utils.GetPlayer(SocketConnectionManager.Instance.playerId))
+                    if (player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId))
                     {
                         item.GetComponent<PlayerCardManager>().youTag.SetActive(true);
                     }
                 }
-                else if (SocketConnectionManager.Instance.players.IndexOf(player) >= 5)
+                else if (GameServerConnectionManager.Instance.players.IndexOf(player) >= 5)
                 {
                     GameObject item = Instantiate(playerCard, playersBottomTable.transform);
                     item.GetComponent<PlayerCardManager>().playerName.text = player.name;
-                    if (player == Utils.GetPlayer(SocketConnectionManager.Instance.playerId))
+                    if (player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId))
                     {
                         item.GetComponent<PlayerCardManager>().youTag.SetActive(true);
                     }
