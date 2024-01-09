@@ -178,10 +178,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
-            .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .5f))
-            .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .5f))
-            .Append(objectToAnimate.transform.DOScale(originalScale, .5f))
-            .PrependInterval(.2f)
+            .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .3f))
+            .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .3f))
+            .Append(objectToAnimate.transform.DOScale(originalScale, .3f))
+            .PrependInterval(.25f)
             .SetEase(Ease.InQuad);
     }
 
