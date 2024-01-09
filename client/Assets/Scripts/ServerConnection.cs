@@ -47,64 +47,64 @@ public class ServerConnection : MonoBehaviour
         "Client and Server version hashes do not match.";
     WebSocket ws;
 
-//     private void Awake()
-//     {
-//         this.Init();
-//         this.clientId = ServerUtils.GetClientId();
-//     }
+    private void Awake()
+    {
+        this.Init();
+        this.clientId = ServerUtils.GetClientId();
+    }
 
     public void Init()
     {
-//         this.serverIp = SelectServerIP.GetServerIp();
-//         this.serverName = SelectServerIP.GetServerName();
+        this.serverIp = SelectServerIP.GetServerIp();
+        this.serverName = SelectServerIP.GetServerName();
 
-//         if (Instance != null)
-//         {
-//             if (this.ws != null)
-//             {
-//                 this.ws.Close();
-//             }
+        if (Instance != null)
+        {
+            if (this.ws != null)
+            {
+                this.ws.Close();
+            }
 
-//             ResetFields();
-//             return;
-//         }
-//         Instance = this;
-//         this.playerId = UInt64.MaxValue;
-//         DontDestroyOnLoad(gameObject);
+            ResetFields();
+            return;
+        }
+        Instance = this;
+        this.playerId = UInt64.MaxValue;
+        DontDestroyOnLoad(gameObject);
     }
 
-//     private void ResetFields()
-//     {
-//         this.LobbySession = "";
-//         this.GameSession = "";
-//         this.playerId = 0;
-//         this.serverTickRate_ms = 0;
-//         this.serverHash = "";
-//         this.playerCount = 0;
-//         this.gameStarted = false;
-//         this.clientId = "";
-//         this.simulatedPlayerCount = 0;
-//         this.lobbyCapacity = 0;
-//     }
+    private void ResetFields()
+    {
+        this.LobbySession = "";
+        this.GameSession = "";
+        this.playerId = 0;
+        this.serverTickRate_ms = 0;
+        this.serverHash = "";
+        this.playerCount = 0;
+        this.gameStarted = false;
+        this.clientId = "";
+        this.simulatedPlayerCount = 0;
+        this.lobbyCapacity = 0;
+    }
 
-//     void Update()
-//     {
-// #if !UNITY_WEBGL || UNITY_EDITOR
-//         if (ws != null)
-//         {
-//             ws.DispatchMessageQueue();
-//         }
-// #endif
-//         if (this.gameStarted)
-//         {
-//             CancelInvoke("UpdateSimulatedCounter");
-//         }
-//     }
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (ws != null)
+        {
+            ws.DispatchMessageQueue();
+        }
+#endif
+        if (this.gameStarted)
+        {
+            CancelInvoke("UpdateSimulatedCounter");
+        }
+    }
 
     public void JoinLobby()
     {
         // ValidateVersionHashes();
-        // StartCoroutine(GetRequest(ServerUtils.MakeHTTPUrl("/join_lobby")));
+        ConnectToSession();
     }
 
 //     public void ConnectToLobby(string matchmaking_id)
@@ -133,137 +133,118 @@ public class ServerConnection : MonoBehaviour
 //         this.playersIdName = GameServerConnectionManager.Instance.playersIdName;
 //     }
 
-//     class AcceptAllCertificates : CertificateHandler
-//     {
-//         protected override bool ValidateCertificate(byte[] certificateData)
-//         {
-//             return true;
-//         }
-//     }
+    class AcceptAllCertificates : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
 
-//     IEnumerator GetRequest(string uri)
-//     {
-//         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-//         {
-//             webRequest.certificateHandler = new AcceptAllCertificates();
-//             webRequest.SetRequestHeader("Content-Type", "application/json");
+    private void ConnectToSession()
+    {
+        int hashCode = this.clientId.GetHashCode();
+        ulong id = (ulong) (hashCode > 0 ? hashCode : hashCode * - 1);
+        string url = makeWebsocketUrl("/play/" + id);
+        ws = new WebSocket(url);
+        ws.OnMessage += OnWebSocketMessage;
+        ws.OnClose += OnWebsocketClose;
+        ws.OnOpen += () =>
+        {
+            LobbySession = "sessionId";
+        };
+        ws.Connect();
+    }
 
-//             yield return webRequest.SendWebRequest();
-//             switch (webRequest.result)
-//             {
-//                 case UnityWebRequest.Result.Success:
-//                     string sessionId = webRequest.downloadHandler.text;
-//                     ConnectToSession(sessionId);
-//                     break;
-//                 default:
-//                     Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-//                     break;
-//             }
-//         }
-//     }
+    private void OnWebSocketMessage(byte[] data)
+    {
+        // try
+        // {
+        //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
+        //     switch (lobbyEvent.Type)
+        //     {
+        //         case LobbyEventType.Connected:
+        //             this.playerId = lobbyEvent.PlayerInfo.PlayerId;
+        //             break;
 
-//     private void ConnectToSession(string sessionId)
-//     {
-//         string url = makeWebsocketUrl("/matchmaking/?user_id=" + this.clientId);
-//         ws = new WebSocket(url);
-//         ws.OnMessage += OnWebSocketMessage;
-//         ws.OnClose += OnWebsocketClose;
-//         ws.OnOpen += () =>
-//         {
-//             LobbySession = sessionId;
-//         };
-//         ws.Connect();
-//     }
+        //         case LobbyEventType.PlayerAdded:
+        //             lobbyEvent
+        //                 .PlayersInfo
+        //                 .ToList()
+        //                 .ForEach(
+        //                     playerInfo =>
+        //                         this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
+        //                 );
+        //             break;
 
-//     private void OnWebSocketMessage(byte[] data)
-//     {
-//         try
-//         {
-//             LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
-//             switch (lobbyEvent.Type)
-//             {
-//                 case LobbyEventType.Connected:
-//                     this.playerId = lobbyEvent.PlayerInfo.PlayerId;
-//                     break;
+        //         case LobbyEventType.PreparingGame:
+        //             GameSession = lobbyEvent.GameId;
+        //             Debug.Log(lobbyEvent.GameConfig);
+        //             engineServerSettings = lobbyEvent.GameConfig;
+        //             // FIX THIS!!
+        //             serverTickRate_ms = 30;
+        //             serverHash = lobbyEvent.ServerHash;
+        //             break;
 
-//                 case LobbyEventType.PlayerAdded:
-//                     lobbyEvent
-//                         .PlayersInfo
-//                         .ToList()
-//                         .ForEach(
-//                             playerInfo =>
-//                                 this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-//                         );
-//                     break;
+        //         case LobbyEventType.NotifyPlayerAmount:
+        //             this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+        //             this.lobbyCapacity = (int)lobbyEvent.Capacity;
+        //             InvokeRepeating("UpdateSimulatedCounter", 0, 1);
+        //             break;
 
-//                 case LobbyEventType.PreparingGame:
-//                     GameSession = lobbyEvent.GameId;
-//                     Debug.Log(lobbyEvent.GameConfig);
-//                     engineServerSettings = lobbyEvent.GameConfig;
-//                     // FIX THIS!!
-//                     serverTickRate_ms = 30;
-//                     serverHash = lobbyEvent.ServerHash;
-//                     break;
+        //         default:
+        //             Debug.Log("Message received is: " + lobbyEvent.Type);
+        //             break;
+        //     }
+        //     ;
+        // }
+        // catch (Exception e)
+        // {
+        //     Debug.Log("InvalidProtocolBufferException: " + e);
+        // }
+    }
 
-//                 case LobbyEventType.NotifyPlayerAmount:
-//                     this.playerCount = (int)lobbyEvent.AmountOfPlayers;
-//                     this.lobbyCapacity = (int)lobbyEvent.Capacity;
-//                     InvokeRepeating("UpdateSimulatedCounter", 0, 1);
-//                     break;
+    private void UpdateSimulatedCounter()
+    {
+        var limit = this.lobbyCapacity - this.simulatedPlayerCount;
+        System.Random r = new System.Random();
+        var randomNumber = r.Next(0, Math.Min(3, limit));
+        this.simulatedPlayerCount = this.simulatedPlayerCount + randomNumber;
+    }
 
-//                 default:
-//                     Debug.Log("Message received is: " + lobbyEvent.Type);
-//                     break;
-//             }
-//             ;
-//         }
-//         catch (Exception e)
-//         {
-//             Debug.Log("InvalidProtocolBufferException: " + e);
-//         }
-//     }
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+        }
+    }
 
-//     private void UpdateSimulatedCounter()
-//     {
-//         var limit = this.lobbyCapacity - this.simulatedPlayerCount;
-//         System.Random r = new System.Random();
-//         var randomNumber = r.Next(0, Math.Min(3, limit));
-//         this.simulatedPlayerCount = this.simulatedPlayerCount + randomNumber;
-//     }
-
-//     private void OnWebsocketClose(WebSocketCloseCode closeCode)
-//     {
-//         if (closeCode != WebSocketCloseCode.Normal)
-//         {
-//             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-//         }
-//     }
-
-//     private string makeWebsocketUrl(string path)
-//     {
-//         if (serverIp.Contains("localhost"))
-//         {
-//             return "ws://" + serverIp + ":4000" + path;
-//         }
-//         else if (serverIp.Contains("10.150.20.186"))
-//         {
-//             return "ws://" + serverIp + ":4000" + path;
-//         }
-//         // Load test server
-//         else if (serverIp.Contains("168.119.71.104"))
-//         {
-//             return "ws://" + serverIp + ":4000" + path;
-//         }
-//         // Load test runner server
-//         else if (serverIp.Contains("176.9.26.172"))
-//         {
-//             return "ws://" + serverIp + ":4000" + path;
-//         }
-//         else
-//         {
-//             return "wss://" + serverIp + path;
-//         }
-//     }
+    private string makeWebsocketUrl(string path)
+    {
+        if (serverIp.Contains("localhost"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "ws://" + serverIp + ":4000" + path;
+        }
+        else
+        {
+            return "wss://" + serverIp + path;
+        }
+    }
 
     public void GetSelectedCharacter(AsyncOperation operation)
     {

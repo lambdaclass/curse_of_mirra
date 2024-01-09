@@ -49,7 +49,7 @@ public class LobbyManager : LevelSelector
 
     public void Back()
     {
-        ServerConnection.Instance.Init();
+        // ServerConnection.Instance.Init();
         this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
     }
