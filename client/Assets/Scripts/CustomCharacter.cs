@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 

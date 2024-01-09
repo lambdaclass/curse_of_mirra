@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Communication.Protobuf;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;

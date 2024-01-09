@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using UnityEngine;
 
 public class ClientPrediction

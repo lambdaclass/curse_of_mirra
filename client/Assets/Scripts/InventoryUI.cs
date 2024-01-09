@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Communication.Protobuf;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
