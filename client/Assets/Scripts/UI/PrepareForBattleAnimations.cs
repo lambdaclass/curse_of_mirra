@@ -29,9 +29,12 @@ public class PrepareForBattleAnimations : MonoBehaviour
     CinemachineVirtualCamera cinemachineVirtualCamera;
     CinemachineFramingTransposer cameraFramingTransposer;
 
-    Vector3 cameraOffsetPosition = new Vector3(0, 28f, -16);
+    Vector3 cameraOffsetPosition = new Vector3(0, 30f, -15);
 
+    const float PREPARE_FOR_BATTLE_DURATION = 2f;
+    const float CHARACTERS_DISPLAY_DURATION = 5f;
     const float TIME_UNTIL_GAME_STARTS = 5f;
+    const float SURVIVE_DURATION = 2f;
     float originalCountdownScale,
         originalCoinScale,
         originalCardScale,
@@ -57,11 +60,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
         GeneratePlayersList();
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(PrepareForBattleAnimation());
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
         StartCoroutine(PlayersAnimation());
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION);
         StartCoroutine(SurviveAnimation());
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(SURVIVE_DURATION);
         GetComponent<CanvasGroup>().DOFade(0, .5f);
         battleScreen.GetComponent<CanvasGroup>().DOFade(1, .5f);
         gameObject.SetActive(false);
@@ -74,9 +77,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         cinemachineVirtualCamera.transform.DOMove(
             player.transform.position + cameraOffsetPosition,
-            4
+            PREPARE_FOR_BATTLE_DURATION
         );
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
         cinemachineVirtualCamera.ForceCameraPosition(
             player.transform.position + cameraOffsetPosition,
             cinemachineVirtualCamera.transform.rotation
@@ -98,16 +101,16 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CardsDisplay(cardsTopTable, 1));
         StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
-        yield return new WaitForSeconds(TIME_UNTIL_GAME_STARTS);
-        playersContainer.GetComponent<CanvasGroup>().DOFade(0, .5f);
+        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION);
+        playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
     IEnumerator SurviveAnimation()
     {
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .25f);
-        surviveTextContainer.transform.DOScale(originalSurviveScale + .5f, .25f);
-        yield return new WaitForSeconds(2);
-        surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .25f);
+        surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .25f);
+        yield return new WaitForSeconds(SURVIVE_DURATION);
+        surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
     IEnumerator CardsDisplay(List<PlayerCardManager> playersCardList, int multiplier)
@@ -142,7 +145,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
                     .SetEase(Ease.Linear);
             }
         }
-        yield return new WaitForSeconds(TIME_UNTIL_GAME_STARTS - 1.5f);
+        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION - 1.5f);
         foreach (PlayerCardManager cardContainer in playersCardList)
         {
             originalCardYPosition = cardContainer.card.transform.position.y;
