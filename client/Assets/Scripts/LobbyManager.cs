@@ -17,10 +17,11 @@ public class LobbyManager : LevelSelector
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(ServerConnection.Instance.GameSession)
+            !String.IsNullOrEmpty(SessionParameters.GameId)
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
+            Debug.Log("Loading battle scene");
             SceneManager.LoadScene(BATTLE_SCENE_NAME);
         }
     }

@@ -145,6 +145,7 @@ public class ServerConnection : MonoBehaviour
     {
         int hashCode = this.clientId.GetHashCode();
         ulong id = (ulong) (hashCode > 0 ? hashCode : hashCode * - 1);
+        SessionParameters.PlayerId = id;
         string url = makeWebsocketUrl("/play/" + id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
@@ -161,7 +162,12 @@ public class ServerConnection : MonoBehaviour
         try
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
-            GameSession = gameState.GameId;
+            if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null) {
+                Debug.Log("no null " + gameState.GameId);
+                SessionParameters.GameId = gameState.GameId;
+                GameSession = gameState.GameId;
+                Debug.Log("SessionParameters.GameId -> " + SessionParameters.GameId);
+            }
         //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
         //     switch (lobbyEvent.Type)
         //     {

@@ -42,92 +42,79 @@ public class GameServerConnectionManager : MonoBehaviour
     private bool reconnect;
     WebSocket ws;
 
-//     void Start()
-//     {
-//         Init();
-//     }
+    void Start()
+    {
+        Init();
+
+    }
 
     public void Init()
     {
-//         if (Instance != null)
-//         {
-//             if (this.ws != null)
-//             {
-//                 this.ws.Close();
-//             }
-//             Destroy(gameObject);
-//         }
-//         else
-//         {
-//             Instance = this;
-//             this.sessionId = ServerConnection.Instance.GameSession;
-//             this.serverIp = ServerConnection.Instance.serverIp;
-//             this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
-//             this.serverHash = ServerConnection.Instance.serverHash;
-//             this.clientId = ServerConnection.Instance.clientId;
-//             this.reconnect = ServerConnection.Instance.reconnect;
-//             this.playersIdName = ServerConnection.Instance.playersIdName;
-//             DontDestroyOnLoad(gameObject);
-//         }
+        if (Instance != null)
+        {
+            if (this.ws != null)
+            {
+                this.ws.Close();
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            this.sessionId = ServerConnection.Instance.GameSession;
+            this.serverIp = ServerConnection.Instance.serverIp;
+            this.clientId = ServerConnection.Instance.clientId;
+            this.reconnect = ServerConnection.Instance.reconnect;
+            this.playersIdName = ServerConnection.Instance.playersIdName;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
-//     void Update()
-//     {
-// #if !UNITY_WEBGL || UNITY_EDITOR
-//         if (ws != null)
-//         {
-//             ws.DispatchMessageQueue();
-//         }
-// #endif
-//         StartCoroutine(IsGameCreated());
-//     }
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (ws != null)
+        {
+            ws.DispatchMessageQueue();
+        }
+#endif
+        StartCoroutine(IsGameCreated());
+    }
 
-//     private IEnumerator IsGameCreated()
-//     {
-//         yield return new WaitUntil(
-//             () =>
-//                 ServerConnection.Instance.GameSession != ""
-//                 && ServerConnection.Instance.GameSession != null
-//         );
-//         this.sessionId = ServerConnection.Instance.GameSession;
-//         this.serverIp = ServerConnection.Instance.serverIp;
-//         this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
-//         this.serverHash = ServerConnection.Instance.serverHash;
-//         this.clientId = ServerConnection.Instance.clientId;
-//         this.reconnect = ServerConnection.Instance.reconnect;
+    private IEnumerator IsGameCreated()
+    {
+        yield return new WaitUntil(() => !String.IsNullOrEmpty(SessionParameters.GameId));
 
-//         if (!connected && this.sessionId != "")
-//         {
-//             connected = true;
-//             ConnectToSession(this.sessionId);
-//         }
-//     }
+        // this.sessionId = ServerConnection.Instance.GameSession;
+        // this.serverIp = ServerConnection.Instance.serverIp;
+        // this.serverTickRate_ms = ServerConnection.Instance.serverTickRate_ms;
+        // this.serverHash = ServerConnection.Instance.serverHash;
+        // this.clientId = ServerConnection.Instance.clientId;
+        // this.reconnect = ServerConnection.Instance.reconnect;
 
-//     private void ConnectToSession(string sessionId)
-//     {
-//         string url = makeWebsocketUrl(
-//             "/play/"
-//                 + sessionId
-//                 + "/"
-//                 + this.clientId
-//                 + "/"
-//                 + ServerConnection.Instance.selectedCharacterName
-//         );
-//         print(url);
-//         Dictionary<string, string> headers = new Dictionary<string, string>();
-//         headers.Add("dark-worlds-client-hash", GitInfo.GetGitHash());
-//         ws = new WebSocket(url, headers);
-//         ws.OnMessage += OnWebSocketMessage;
-//         ws.OnClose += onWebsocketClose;
-//         ws.OnError += (e) =>
-//         {
-//             Debug.Log("Received error: " + e);
-//         };
-//         ws.Connect();
-//     }
+        if (!connected)
+        {
+            connected = true;
+            ConnectToSession(this.sessionId);
+        }
+    }
 
-//     private void OnWebSocketMessage(byte[] data)
-//     {
+    private void ConnectToSession(string sessionId)
+    {
+        string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId);
+        print(url);
+        ws = new WebSocket(url);
+        ws.OnMessage += OnWebSocketMessage;
+        // ws.OnClose += onWebsocketClose;
+        ws.OnError += (e) =>
+        {
+            Debug.Log("Received error: " + e);
+        };
+        ws.Connect();
+    }
+
+    private void OnWebSocketMessage(byte[] data)
+    {
 //         try
 //         {
 //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
@@ -203,7 +190,7 @@ public class GameServerConnectionManager : MonoBehaviour
 //         {
 //             Debug.Log("InvalidProtocolBufferException: " + e);
 //         }
-//     }
+    }
 
 //     private void onWebsocketClose(WebSocketCloseCode closeCode)
 //     {
@@ -242,33 +229,33 @@ public class GameServerConnectionManager : MonoBehaviour
 //         }
 //     }
 
-//     private string makeWebsocketUrl(string path)
-//     {
-//         int port = 4000;
+    private string makeWebsocketUrl(string path)
+    {
+        int port = 4000;
 
-//         if (serverIp.Contains("localhost"))
-//         {
-//             return "ws://" + serverIp + ":" + port + path;
-//         }
-//         else if (serverIp.Contains("10.150.20.186"))
-//         {
-//             return "ws://" + serverIp + ":" + port + path;
-//         }
-//         // Load test server
-//         else if (serverIp.Contains("168.119.71.104"))
-//         {
-//             return "ws://" + serverIp + ":" + port + path;
-//         }
-//         // Load test runner server
-//         else if (serverIp.Contains("176.9.26.172"))
-//         {
-//             return "ws://" + serverIp + ":" + port + path;
-//         }
-//         else
-//         {
-//             return "wss://" + serverIp + path;
-//         }
-//     }
+        if (serverIp.Contains("localhost"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        else if (serverIp.Contains("10.150.20.186"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test server
+        else if (serverIp.Contains("168.119.71.104"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        // Load test runner server
+        else if (serverIp.Contains("176.9.26.172"))
+        {
+            return "ws://" + serverIp + ":" + port + path;
+        }
+        else
+        {
+            return "wss://" + serverIp + path;
+        }
+    }
 
     public void closeConnection()
     {
