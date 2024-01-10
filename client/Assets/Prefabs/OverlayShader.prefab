@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8881652260837056422}
-  - component: {fileID: 8881652260837056409}
   m_Layer: 0
   m_Name: OverlayShader
   m_TagString: Untagged
@@ -32,20 +31,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8881652260837056409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8881652260837056423}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0cb2979601724a95a5b0bede032fa22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageShader: {fileID: -6465566751694194690, guid: 65b762670eb1b4985b173e753a58d807,
-    type: 3}
-  Healshader: {fileID: -6465566751694194690, guid: 409dac1dabc0447a291d4f462521ecfe,
-    type: 3}
-  objectToHighlight: {fileID: 0}

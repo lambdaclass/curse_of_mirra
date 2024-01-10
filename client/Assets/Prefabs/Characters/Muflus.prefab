@@ -2242,6 +2242,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 14afa8314de7b48428262ef815a43beb, type: 2}
+    - target: {fileID: 1627945854510198459, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1725853959130803222, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
@@ -2484,6 +2489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: CharacterLight
+      value: 
+      objectReference: {fileID: 7308518705457951472}
+    - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: FeedbackContainer
       value: 
       objectReference: {fileID: 8099696926947248431}
@@ -2597,6 +2607,21 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9011320557255542621, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1499977
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011320557255542621, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1332264
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011320557255542621, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.47000027
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2577351981740644171, guid: 9468612907e8942b49712f4e342b630c, type: 3}
     - {fileID: 4885603082876928551, guid: 9468612907e8942b49712f4e342b630c, type: 3}
@@ -2664,6 +2689,12 @@ GameObject:
 --- !u!4 &6982823353980641290 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7308518705457951472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1627945854510198459, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}

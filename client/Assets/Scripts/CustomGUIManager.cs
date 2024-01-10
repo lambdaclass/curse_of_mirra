@@ -1,6 +1,6 @@
-using MoreMountains.TopDownEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -34,7 +34,7 @@ public class CustomGUIManager : MonoBehaviour
 
     void Start()
     {
-        volume.profile.TryGet(out vignette);
+        // volume.profile.TryGet(out vignette);
     }
 
     void Update()
