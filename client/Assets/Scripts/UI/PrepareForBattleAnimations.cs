@@ -29,9 +29,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
     CinemachineVirtualCamera cinemachineVirtualCamera;
     CinemachineFramingTransposer cameraFramingTransposer;
 
-    Vector3 cameraOffsetPosition = new Vector3(0, 30f, -15);
+    Vector3 cameraOffsetPosition = new Vector3(0, 30f, -18);
 
-    const float PREPARE_FOR_BATTLE_DURATION = 2f;
+    const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 5f;
     const float TIME_UNTIL_GAME_STARTS = 5f;
     const float SURVIVE_DURATION = 2f;
@@ -60,7 +60,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         GeneratePlayersList();
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(PrepareForBattleAnimation());
-        yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
+        yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
         yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION);
         StartCoroutine(SurviveAnimation());
@@ -74,11 +74,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 1f;
         StickerDisplayAnimation(prepareCoin, originalCoinScale);
+        yield return new WaitForSeconds(1f);
         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        cinemachineVirtualCamera.transform.DOMove(
-            player.transform.position + cameraOffsetPosition,
-            PREPARE_FOR_BATTLE_DURATION
-        );
+        cinemachineVirtualCamera.transform
+            .DOMove(player.transform.position + cameraOffsetPosition, PREPARE_FOR_BATTLE_DURATION)
+            .SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
         cinemachineVirtualCamera.ForceCameraPosition(
             player.transform.position + cameraOffsetPosition,
@@ -184,7 +184,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .3f))
             .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .3f))
             .Append(objectToAnimate.transform.DOScale(originalScale, .3f))
-            .PrependInterval(.25f)
+            .PrependInterval(.2f)
             .SetEase(Ease.InQuad);
     }
 
