@@ -158,8 +158,10 @@ public class ServerConnection : MonoBehaviour
 
     private void OnWebSocketMessage(byte[] data)
     {
-        // try
-        // {
+        try
+        {
+            GameState gameState = GameState.Parser.ParseFrom(data);
+            GameSession = gameState.GameId;
         //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
         //     switch (lobbyEvent.Type)
         //     {
@@ -197,11 +199,11 @@ public class ServerConnection : MonoBehaviour
         //             break;
         //     }
         //     ;
-        // }
-        // catch (Exception e)
-        // {
-        //     Debug.Log("InvalidProtocolBufferException: " + e);
-        // }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("InvalidProtocolBufferException: " + e);
+        }
     }
 
     private void UpdateSimulatedCounter()
@@ -217,6 +219,9 @@ public class ServerConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
+        } else
+        {
+            Debug.Log("ServerConnection websocket closed normally");
         }
     }
 
