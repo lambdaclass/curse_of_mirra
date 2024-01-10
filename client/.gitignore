@@ -114,5 +114,4 @@ mono_crash*.blob
 ## This file is created at build time
 /Assets/Resources/GitHash*
 
-/Assets/ThirdParty/
-/Assets/ThirdParty.meta
+/Assets/ThirdParty/*
