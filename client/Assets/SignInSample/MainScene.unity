@@ -534,6 +534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusText: {fileID: 336024055}
   webClientId: 529212382177-hoe68k1qgi9tki3ejand6r15dg3p4a8g.apps.googleusercontent.com
+  webClientId2: 529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com
 --- !u!1 &696778452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,8 +1034,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 687686224}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSignOut
+        m_TargetAssemblyTypeName: SignInSample.SigninSampleScript, Assembly-CSharp
+        m_MethodName: OnSingOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

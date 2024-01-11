@@ -26,10 +26,7 @@ namespace SignInSample
     {
         public Text statusText;
 
-        public string webClientId =
-            "529212382177-hoe68k1qgi9tki3ejand6r15dg3p4a8g.apps.googleusercontent.com";
-
-        public string webClientId2 =
+        public string webClientIdGoogle =
             "529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com";
 
         private GoogleSignInConfiguration configuration;
@@ -40,12 +37,31 @@ namespace SignInSample
         {
             configuration = new GoogleSignInConfiguration
             {
-                WebClientId = webClientId2,
+                WebClientId = webClientIdGoogle,
                 RequestIdToken = true,
-                // ForceTokenRefresh = true,
                 RequestEmail = true,
                 RequestProfile = true
             };
+        }
+
+        void Start()
+        {
+            AddStatusText("Welcome " + PlayerPrefs.GetString("GoogleUserName"));
+            SignInWithCachedUser();
+        }
+
+        private void SignInWithCachedUser()
+        {
+            if (PlayerPrefs.GetString("GoogleUserId") != "")
+            {
+                GoogleSignIn.Configuration = configuration;
+                GoogleSignIn.DefaultInstance
+                    .SignInSilently()
+                    .ContinueWith(
+                        OnAuthenticationFinished,
+                        TaskScheduler.FromCurrentSynchronizationContext()
+                    );
+            }
         }
 
         public void OnSignIn()
@@ -56,13 +72,19 @@ namespace SignInSample
             AddStatusText("Calling SignIn");
 
             Task<GoogleSignInUser> user = GoogleSignIn.DefaultInstance.SignIn();
-            // print(user.Id);
-            // print(user.Result);
-            // print(user.Status);
             user.ContinueWith(
                 OnAuthenticationFinished,
                 TaskScheduler.FromCurrentSynchronizationContext()
             );
+        }
+
+        public void OnSingOut()
+        {
+            GoogleSignIn.DefaultInstance.SignOut();
+            AddStatusText("SingOut");
+            PlayerPrefs.SetString("GoogleUserName", "");
+            PlayerPrefs.SetString("GoogleUserId", "");
+            PlayerPrefs.SetString("GoogleIdToke", "");
         }
 
         internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -98,6 +120,12 @@ namespace SignInSample
                 print("IdtoKEN " + task.Result.IdToken);
                 print("USERiD " + task.Result.UserId);
                 print("AuthCode " + task.Result.AuthCode);
+                if (PlayerPrefs.GetString("GoogleUserId") == "")
+                {
+                    PlayerPrefs.SetString("GoogleUserName", task.Result.DisplayName);
+                    PlayerPrefs.SetString("GoogleUserId", task.Result.UserId);
+                    PlayerPrefs.SetString("GoogleIdToke", task.Result.IdToken);
+                }
             }
         }
 
