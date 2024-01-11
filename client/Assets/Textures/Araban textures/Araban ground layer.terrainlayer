@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1953259897 &8574412962073106934
+TerrainLayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Araban ground layer
+  m_DiffuseTexture: {fileID: 2800000, guid: 7b3204b76f452475489e107d19c3647a, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 137ff88c75a504f21813ca6e3133846f, type: 3}
+  m_MaskMapTexture: {fileID: 2800000, guid: 73b6a8b7bfcb7a94bb22d5416a94b85d, type: 3}
+  m_TileSize: {x: 9, y: 9}
+  m_TileOffset: {x: 0, y: 0}
+  m_Specular: {r: 0, g: 0, b: 0, a: 0}
+  m_Metallic: 0
+  m_Smoothness: 0
+  m_NormalScale: 1.2
+  m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+  m_DiffuseRemapMax: {x: 0.9811321, y: 0.9811321, z: 0.9811321, w: 1}
+  m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+  m_MaskMapRemapMax: {x: 0, y: 0, z: 1, w: 0}
