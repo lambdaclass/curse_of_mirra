@@ -15,108 +15,108 @@ public class CustomLevelManager : LevelManager
 {
     // private const float DEATH_FEEDBACK_DURATION = 1.5f;
     // bool paused = false;
-    // private GameObject mapPrefab;
-    // public GameObject quickMapPrefab;
+    private GameObject mapPrefab;
+    public GameObject quickMapPrefab;
 
-    // [SerializeField]
-    // GameObject roundSplash;
+    [SerializeField]
+    GameObject roundSplash;
 
-    // [SerializeField]
-    // GameObject deathSplash;
+    [SerializeField]
+    GameObject deathSplash;
 
-    // [SerializeField]
-    // Text roundText;
+    [SerializeField]
+    Text roundText;
 
     // private List<OldPlayer> gamePlayers;
-    // private ulong totalPlayers;
+    private ulong totalPlayers = 2;
     // private ulong playerId;
     // private GameObject prefab;
     // public Camera UiCamera;
     // public OldPlayer playerToFollow;
 
-    // [SerializeField]
-    // public GameObject UiControls;
+    [SerializeField]
+    public GameObject UiControls;
     // public CinemachineCameraController camera;
     // private ulong playerToFollowId;
-    // public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
-    // public List<GameObject> mapList = new List<GameObject>();
+    public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
+    public List<GameObject> mapList = new List<GameObject>();
 
     // //Camera cinematic variables
-    // [SerializeField]
-    // GameObject loadingScreen;
+    [SerializeField]
+    GameObject loadingScreen;
 
-    // [SerializeField]
-    // GameObject battleScreen;
+    [SerializeField]
+    GameObject battleScreen;
     // Int32 CAMERA_OFFSET = 30;
     // Int32 CAMERA_Y_OFFSET = 6;
     // double xDigit = 0;
     // double zDigit = 0;
-    // CinemachineFramingTransposer cameraFramingTransposer = null;
+    CinemachineFramingTransposer cameraFramingTransposer = null;
     // private bool deathSplashIsShown = false;
     // EndGameManager endGameManager;
 
-    // protected override void Awake()
-    // {
-    //     base.Awake();
-    //     // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
-    //     InitializeMap();
-    //     cameraFramingTransposer = this.camera
-    //         .GetComponent<CinemachineVirtualCamera>()
-    //         .GetCinemachineComponent<CinemachineFramingTransposer>();
-    // }
+    protected override void Awake()
+    {
+        base.Awake();
+        // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
+        InitializeMap();
+        // cameraFramingTransposer = this.GetComponent<Camera>()
+        //     .GetComponent<CinemachineVirtualCamera>()
+        //     .GetCinemachineComponent<CinemachineFramingTransposer>();
+    }
 
-    // protected override void Start()
-    // {
-    //     base.Start();
-    //     StartCoroutine(InitializeLevel());
-    // }
+    protected override void Start()
+    {
+        base.Start();
+        StartCoroutine(InitializeLevel());
+    }
 
-    // private void InitializeMap()
-    // {
-    //     if (LobbyManager.LevelSelected == null)
-    //     {
-    //         InitializeMapPrefab(quickMapPrefab);
-    //     }
-    //     else
-    //     {
-    //         mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
-    //         InitializeMapPrefab(mapPrefab);
-    //     }
-    // }
+    private void InitializeMap()
+    {
+        if (LobbyManager.LevelSelected == null)
+        {
+            InitializeMapPrefab(quickMapPrefab);
+        }
+        else
+        {
+            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
+            InitializeMapPrefab(mapPrefab);
+        }
+    }
 
-    // private void InitializeMapPrefab(GameObject mapPrefab)
-    // {
-    //     GameObject map = Instantiate(mapPrefab);
-    //     //Add gameobject to the scene root
-    //     map.transform.SetParent(
-    //         SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
-    //     );
-    // }
+    private void InitializeMapPrefab(GameObject mapPrefab)
+    {
+        GameObject map = Instantiate(mapPrefab);
+        //Add gameobject to the scene root
+        map.transform.SetParent(
+            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
+        );
+    }
 
-    // private IEnumerator InitializeLevel()
-    // {
-    //     yield return new WaitUntil(checkPlayerHasJoined);
-    //     this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
-    //     this.totalPlayers = (ulong)this.gamePlayers.Count();
-    //     playerId = GameServerConnectionManager.Instance.playerId;
-    //     playerToFollowId = playerId;
-    //     GeneratePlayers();
-    //     SetPlayersSkills(playerId);
-    //     setCameraToPlayer(playerId);
-    //     var player = Utils.GetPlayer(playerId);
-    //     cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-    //         player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-    //         CAMERA_Y_OFFSET,
-    //         player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-    //     );
+    private IEnumerator InitializeLevel()
+    {
+        yield return new WaitUntil(checkPlayerHasJoined);
+        // this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
+        // this.totalPlayers = (ulong)this.gamePlayers.Count();
+        // playerId = GameServerConnectionManager.Instance.playerId;
+        // playerToFollowId = playerId;
+        GeneratePlayers();
+        // SetPlayersSkills(playerId);
+        // setCameraToPlayer(playerId);
+        // var player = Utils.GetPlayer(playerId);
+        // cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+        //     player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
+        //     CAMERA_Y_OFFSET,
+        //     player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
+        // );
 
-    //     SetPlayerHealthBar(playerId);
-    //     SetOrientationArrow(playerId);
-    //     StartCoroutine(CameraCinematic());
+        // SetPlayerHealthBar(playerId);
+        // SetOrientationArrow(playerId);
+        StartCoroutine(CameraCinematic());
 
-    //     endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
-    //     endGameManager.SetDeathSplashCharacter();
-    // }
+        // endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
+        // endGameManager.SetDeathSplashCharacter();
+    }
 
     // void Update()
     // {
@@ -156,46 +156,46 @@ public class CustomLevelManager : LevelManager
     //     return prefab;
     // }
 
-    // private void GeneratePlayers()
-    // {
-    //     // prefab = prefab == null ? quickGamePrefab : prefab;
-    //     for (ulong i = 0; i < totalPlayers; i++)
-    //     {
-    //         ulong playerID = gamePlayers[(int)i].Id;
-    //         prefab = GetCharacterPrefab(playerID);
-    //         if (GameServerConnectionManager.Instance.playerId == playerID)
-    //         {
-    //             // Player1 is the ID to match with the client InputManager
-    //             prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
-    //         }
-    //         else
-    //         {
-    //             prefab.GetComponent<CustomCharacter>().PlayerID = "";
-    //         }
-    //         CustomCharacter newPlayer = Instantiate(
-    //             prefab.GetComponent<CustomCharacter>(),
-    //             Utils.transformBackendOldPositionToFrontendPosition(gamePlayers[(int)i].Position),
-    //             Quaternion.identity
-    //         );
-    //         newPlayer.name = "Player" + " " + (i + 1);
-    //         newPlayer.PlayerID = playerID.ToString();
-    //         if (GameServerConnectionManager.Instance.playerId == playerID)
-    //         {
-    //             //Add audioListener in player
-    //             newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-    //             //Disable audioListener in camera
-    //             this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-    //                 false;
-    //         }
+    private void GeneratePlayers()
+    {
+        // prefab = prefab == null ? quickGamePrefab : prefab;
+        for (ulong i = 0; i < totalPlayers; i++)
+        {
+            // ulong playerID = gamePlayers[(int)i].Id;
+            GameObject prefab = charactersInfo[0].prefab; //TODO: replace with proper fetching of prefab
+            // if (GameServerConnectionManager.Instance.playerId == playerID)
+            // {
+            //     // Player1 is the ID to match with the client InputManager
+                prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
+            // }
+            // else
+            // {
+            //     prefab.GetComponent<CustomCharacter>().PlayerID = "";
+            // }
+            CustomCharacter newPlayer = Instantiate(
+                prefab.GetComponent<CustomCharacter>(),
+                new Vector3(0.0f, 1.0f, 0.0f),
+                Quaternion.identity
+            );
+            // newPlayer.name = "Player" + " " + (i + 1);
+            // newPlayer.PlayerID = playerID.ToString();
+            // if (GameServerConnectionManager.Instance.playerId == playerID)
+            // {
+            //     //Add audioListener in player
+            //     newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
+            //     //Disable audioListener in camera
+            //     this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
+            //         false;
+            // }
 
-    //         GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
-    //         this.Players.Add(newPlayer);
-    //     }
-    //     this.PlayerPrefabs = (this.Players).ToArray();
-    // }
+            // GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
+            this.Players.Add(newPlayer);
+        }
+        this.PlayerPrefabs = (this.Players).ToArray();
+    }
 
-    // IEnumerator CameraCinematic()
-    // {
+    IEnumerator CameraCinematic()
+    {
     //     if (!GameServerConnectionManager.Instance.cinematicDone)
     //     {
     //         float effectTime = Utils
@@ -207,10 +207,10 @@ public class CustomLevelManager : LevelManager
     //         //Start moving camera and remove loading sceen
     //         InvokeRepeating("Substract", 1f, 0.1f);
     //         yield return new WaitForSeconds(1.7f);
-    //         loadingScreen.SetActive(false);
-    //         battleScreen.SetActive(true);
+            loadingScreen.SetActive(false);
+            battleScreen.SetActive(true);
     //         // Cancel camera movement and start zoom in
-    //         yield return new WaitForSeconds(2.1f);
+            yield return new WaitForSeconds(2.1f);
     //         CancelInvoke("Substract");
     //         InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
     //         Utils
@@ -236,7 +236,7 @@ public class CustomLevelManager : LevelManager
     //         yield return new WaitForSeconds(0.9f);
     //         loadingScreen.SetActive(false);
     //     }
-    // }
+    }
 
     // int RoundUpByTen(int i)
     // {
@@ -469,13 +469,14 @@ public class CustomLevelManager : LevelManager
     //     return GameServerConnectionManager.Instance.GameHasEnded();
     // }
 
-    // private bool checkPlayerHasJoined()
-    // {
-    //     return GameServerConnectionManager.Instance.gamePlayers != null
-    //         && GameServerConnectionManager.Instance.playerId != null
-    //         && GameServerConnectionManager
-    //             .Instance
-    //             .gamePlayers
-    //             .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
-    // }
+    private bool checkPlayerHasJoined()
+    {
+        // return GameServerConnectionManager.Instance.gamePlayers != null
+        //     && GameServerConnectionManager.Instance.playerId != null
+        //     && GameServerConnectionManager
+        //         .Instance
+        //         .gamePlayers
+        //         .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
+        return true;
+    }
 }

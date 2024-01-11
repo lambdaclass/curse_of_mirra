@@ -115,8 +115,9 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private void OnWebSocketMessage(byte[] data)
     {
-//         try
-//         {
+        try
+        {
+            GameState gameState = GameState.Parser.ParseFrom(data);
 //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
 //             // TODO: Fix missing NewGameEvent, current missing are
@@ -185,11 +186,11 @@ public class GameServerConnectionManager : MonoBehaviour
 //                     print("Message received is: " + gameEvent.OldGameEvent.Type);
 //                     break;
 //             }
-//         }
-//         catch (Exception e)
-//         {
-//             Debug.Log("InvalidProtocolBufferException: " + e);
-//         }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("InvalidProtocolBufferException: " + e);
+        }
     }
 
 //     private void onWebsocketClose(WebSocketCloseCode closeCode)
