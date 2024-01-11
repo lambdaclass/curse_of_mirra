@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using Coffee.UIEffects;
 using DG.Tweening;
 using MoreMountains.TopDownEngine;
 using TMPro;
@@ -73,8 +74,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
     IEnumerator PrepareForBattleAnimation()
     {
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 1f;
-        StickerDisplayAnimation(prepareCoin, originalCoinScale);
+        CoinDisplayAnimation(prepareCoin, originalCoinScale);
         yield return new WaitForSeconds(1f);
+        prepareCoin.GetComponent<UIShiny>().enabled = true;
+        prepareCoin.GetComponent<Animator>().enabled = true;
         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         cinemachineVirtualCamera.transform
             .DOMove(player.transform.position + cameraOffsetPosition, PREPARE_FOR_BATTLE_DURATION)
@@ -134,16 +137,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
                 .Append(cardContainer.card.transform.DOMoveY(originalCardYPosition, 0.25f))
                 .Insert(0, cardContainer.card.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
             yield return new WaitForSeconds(.15f);
-            if (
-                cardContainer.playerName.text
-                == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId).name
-            )
-            {
-                cardContainer.card.transform
-                    .DOScale(originalCardScale + 0.05f, 1f)
-                    .SetLoops(-1, LoopType.Yoyo)
-                    .SetEase(Ease.Linear);
-            }
         }
         yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION - 1.5f);
         foreach (PlayerCardManager cardContainer in playersCardList)
@@ -177,7 +170,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         }
     }
 
-    void StickerDisplayAnimation(GameObject objectToAnimate, float originalScale)
+    void CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
     {
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
