@@ -1,6 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 /// <summary>
 /// Add this class to a gameObject with a Text component and it'll feed it the PING number in real time.
@@ -36,7 +36,8 @@ public class PingCounter : MonoBehaviour
         if (_timeLeftToUpdate <= 0.0)
         {
             _timeLeftToUpdate = updateInterval;
-            _pingText.text = "PING " + SocketConnectionManager.Instance.currentPing.ToString() + " ms";
+            _pingText.text =
+                "PING " + GameServerConnectionManager.Instance.currentPing.ToString() + " ms";
         }
     }
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Communication.Protobuf;
 using MoreMountains.Tools;
 using UnityEngine;
-using Communication.Protobuf;
 
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
@@ -20,15 +20,12 @@ public class SkillInfo : ScriptableObject
     public UIIndicatorType indicatorType;
     public GameObject projectilePrefab;
     public float animationSpeedMultiplier;
-    public bool hasModelAnimation;
     public AudioClip abilityStartSfx;
 
     public bool sfxHasAbilityStop;
 
     [MMCondition("sfxHasAbilityStop", true)]
     public AudioClip abilityStopSfx;
-    public float startAnimationDuration;
-    public float executeAnimationDuration;
     public float skillCircleRadius;
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]
@@ -46,34 +43,9 @@ public class SkillInfo : ScriptableObject
     public Sprite skillSprite;
 
     [Header("Feedbacks")]
-    public GameObject startFeedbackVfx;
-    public float startFeedbackVfxDuration;
-    public float startFeedbackVfxDelay;
-
     [SerializeField]
+    public List<VfxStep> startVfxList;
     public List<VfxStep> vfxList;
-
-    [Header("Deprecated")]
-    public GameObject feedbackVfx;
-    public bool instantiateVfxOnModel;
-    public float feedbackVfxDuration;
-    public float feedbackVfxDelay;
-
-    [System.Serializable]
-    public class VfxStep
-    {
-        [SerializeField]
-        public GameObject vfx;
-
-        [SerializeField]
-        public float duration;
-
-        [SerializeField]
-        public float delay;
-
-        [SerializeField]
-        public bool instantiateVfxOnModel;
-    }
 
     public bool Equals(SkillConfigItem skillConfigItem)
     {
@@ -82,9 +54,9 @@ public class SkillInfo : ScriptableObject
 
     public void InitWithBackend()
     {
-        if (LobbyConnection.Instance != null)
+        if (ServerConnection.Instance != null)
         {
-            foreach (var skill in LobbyConnection.Instance.engineServerSettings.Skills)
+            foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
             {
                 var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
                 if (regexName.ToLower() == skill.Name.ToLower())
@@ -93,7 +65,6 @@ public class SkillInfo : ScriptableObject
                     this.cooldown = skill.CooldownMs / 1000;
                     this.skillRange = 0;
                     this.skillCircleRadius = 10;
-                    Debug.Log(skill.Mechanics);
                 }
             }
         }

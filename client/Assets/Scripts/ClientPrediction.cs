@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Communication.Protobuf;
+using UnityEngine;
 
 public class ClientPrediction
 {
@@ -32,8 +32,7 @@ public class ClientPrediction
 
     void simulatePlayerMovement(OldPlayer player)
     {
-        // TODO check this
-        var characterSpeed = PlayerControls.getBackendCharacterSpeed(player.Id);
+        var characterSpeed = player.Speed;
 
         pendingPlayerInputs.ForEach(input =>
         {

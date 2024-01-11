@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 public class ServerHealthCheck : InputTestFixture
 {
@@ -30,10 +30,11 @@ public class ServerHealthCheck : InputTestFixture
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("CharacterSelection"));
         yield return new WaitForSeconds(2f);
 
-        Assert.That(SocketConnectionManager.Instance.isConnectionOpen, Is.EqualTo(true));
+        Assert.That(GameServerConnectionManager.Instance.isConnectionOpen, Is.EqualTo(true));
     }
 
-    IEnumerator SetupLocalhostAsServer() {
+    IEnumerator SetupLocalhostAsServer()
+    {
         yield return TestingUtils.ForceClick("ServerNameContainer");
         yield return new WaitForSeconds(.1f);
         yield return TestingUtils.ForceClick("LocalHost");

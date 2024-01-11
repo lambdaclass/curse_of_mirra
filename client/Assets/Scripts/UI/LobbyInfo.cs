@@ -19,16 +19,16 @@ public class LobbyInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string id = LobbyConnection.Instance.LobbySession.ToString();
+        string id = ServerConnection.Instance.LobbySession.ToString();
         lobbyID.text = "# " + id.Substring(id.Length - 5);
 
-        // TODO bring from LobbyConnection map name
+        // TODO bring from ServerConnection map name
         mapName.text = "Araban";
     }
 
     // Update is called once per frame
     void Update()
     {
-        playersAmount.text = LobbyConnection.Instance.playerCount.ToString();
+        playersAmount.text = ServerConnection.Instance.playerCount.ToString();
     }
 }

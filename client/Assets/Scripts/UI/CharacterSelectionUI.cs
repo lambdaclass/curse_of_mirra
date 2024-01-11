@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Communication.Protobuf;
+using UnityEngine;
 
 public class CharacterSelectionUI : MonoBehaviour
 {
@@ -48,7 +48,7 @@ public class CharacterSelectionUI : MonoBehaviour
     {
         PlayerCharacter characterSelected = new PlayerCharacter
         {
-            PlayerId = (ulong)SocketConnectionManager.Instance.playerId,
+            PlayerId = (ulong)GameServerConnectionManager.Instance.playerId,
             CharacterName = selectedCharacterName
         };
         ClientAction clientAction = new ClientAction
@@ -56,7 +56,7 @@ public class CharacterSelectionUI : MonoBehaviour
             Action = Action.SelectCharacter,
             PlayerCharacter = characterSelected
         };
-        SocketConnectionManager.Instance.SendAction(clientAction);
+        GameServerConnectionManager.Instance.SendAction(clientAction);
         selectedPlayerCharacterName = characterSelected.CharacterName;
     }
 }
