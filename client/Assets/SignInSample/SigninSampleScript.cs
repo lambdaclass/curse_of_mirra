@@ -26,7 +26,11 @@ namespace SignInSample
     {
         public Text statusText;
 
-        public string webClientId = "<your client id here>";
+        public string webClientId =
+            "529212382177-hoe68k1qgi9tki3ejand6r15dg3p4a8g.apps.googleusercontent.com";
+
+        public string webClientId2 =
+            "529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com";
 
         private GoogleSignInConfiguration configuration;
 
@@ -36,8 +40,11 @@ namespace SignInSample
         {
             configuration = new GoogleSignInConfiguration
             {
-                WebClientId = webClientId,
-                RequestIdToken = true
+                WebClientId = webClientId2,
+                RequestIdToken = true,
+                // ForceTokenRefresh = true,
+                RequestEmail = true,
+                RequestProfile = true
             };
         }
 
@@ -47,25 +54,20 @@ namespace SignInSample
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
             AddStatusText("Calling SignIn");
-            print("Calling SignIn");
-            print(GoogleSignIn.Configuration.WebClientId);
-            GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
-        }
 
-        public void OnSignOut()
-        {
-            AddStatusText("Calling SignOut");
-            GoogleSignIn.DefaultInstance.SignOut();
-        }
-
-        public void OnDisconnect()
-        {
-            AddStatusText("Calling Disconnect");
-            GoogleSignIn.DefaultInstance.Disconnect();
+            Task<GoogleSignInUser> user = GoogleSignIn.DefaultInstance.SignIn();
+            // print(user.Id);
+            // print(user.Result);
+            // print(user.Status);
+            user.ContinueWith(
+                OnAuthenticationFinished,
+                TaskScheduler.FromCurrentSynchronizationContext()
+            );
         }
 
         internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
         {
+            print(task.Status);
             if (task.IsFaulted)
             {
                 using (
@@ -92,28 +94,11 @@ namespace SignInSample
             else
             {
                 AddStatusText("Welcome: " + task.Result.DisplayName + "!");
+                print(task.Result.Email);
+                print("IdtoKEN " + task.Result.IdToken);
+                print("USERiD " + task.Result.UserId);
+                print("AuthCode " + task.Result.AuthCode);
             }
-        }
-
-        public void OnSignInSilently()
-        {
-            GoogleSignIn.Configuration = configuration;
-            GoogleSignIn.Configuration.UseGameSignIn = false;
-            GoogleSignIn.Configuration.RequestIdToken = true;
-            AddStatusText("Calling SignIn Silently");
-
-            GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(OnAuthenticationFinished);
-        }
-
-        public void OnGamesSignIn()
-        {
-            GoogleSignIn.Configuration = configuration;
-            GoogleSignIn.Configuration.UseGameSignIn = true;
-            GoogleSignIn.Configuration.RequestIdToken = false;
-
-            AddStatusText("Calling Games SignIn");
-
-            GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
         }
 
         private List<string> messages = new List<string>();
