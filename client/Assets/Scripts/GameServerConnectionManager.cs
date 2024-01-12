@@ -101,7 +101,8 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId);
+        // string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId);
+        string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + 1);
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
@@ -219,16 +220,24 @@ public class GameServerConnectionManager : MonoBehaviour
 //         }
 //     }
 
-//     public void SendGameAction<T>(IMessage<T> action)
-//         where T : IMessage<T>
-//     {
-//         using (var stream = new MemoryStream())
-//         {
-//             action.WriteTo(stream);
-//             var msg = stream.ToArray();
-//             ws.Send(msg);
-//         }
-//     }
+    public void SendMove(float x, float y) {
+        Direction direction = new Direction { X = x, Y = y };
+        Move moveAction = new Move { Direction = direction };
+        GameAction gameAction = new GameAction { Move = moveAction };
+        SendGameAction(gameAction);
+    }
+
+    private void SendGameAction<T>(IMessage<T> action)
+        where T : IMessage<T>
+    {
+        using (var stream = new MemoryStream())
+        {
+            Debug.Log("SENDING ACTION");
+            action.WriteTo(stream);
+            var msg = stream.ToArray();
+            ws.Send(msg);
+        }
+    }
 
     private string makeWebsocketUrl(string path)
     {

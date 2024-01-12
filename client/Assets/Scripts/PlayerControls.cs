@@ -6,24 +6,18 @@ public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
-        // if (x != 0 || y != 0)
-        // {
-        //     var valuesToSend = new RelativePosition { X = x, Y = y };
-        //     var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        if (x != 0 || y != 0)
+        {
+            GameServerConnectionManager.Instance.SendMove(x, y);
 
-        //     Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
-        //     GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
-
-        //     GameServerConnectionManager.Instance.SendGameAction(gameAction);
-
-        //     ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-        //     {
-        //         joystick_x_value = x,
-        //         joystick_y_value = y,
-        //         timestamp = timestamp,
-        //     };
-        //     GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
-        // }
+            // ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            // {
+            //     joystick_x_value = x,
+            //     joystick_y_value = y,
+            //     timestamp = timestamp,
+            // };
+            // GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+        }
     }
 
     public (float, float) SendAction()

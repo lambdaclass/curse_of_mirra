@@ -28,7 +28,7 @@ public class CustomLevelManager : LevelManager
     Text roundText;
 
     // private List<OldPlayer> gamePlayers;
-    private ulong totalPlayers = 2;
+    private ulong totalPlayers = 1;
     // private ulong playerId;
     // private GameObject prefab;
     // public Camera UiCamera;
@@ -162,11 +162,11 @@ public class CustomLevelManager : LevelManager
         for (ulong i = 0; i < totalPlayers; i++)
         {
             // ulong playerID = gamePlayers[(int)i].Id;
-            GameObject prefab = charactersInfo[0].prefab; //TODO: replace with proper fetching of prefab
+            GameObject prefab = charactersInfo[1].prefab; //TODO: replace with proper fetching of prefab
             // if (GameServerConnectionManager.Instance.playerId == playerID)
             // {
             //     // Player1 is the ID to match with the client InputManager
-                prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
+                // prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
             // }
             // else
             // {
@@ -212,7 +212,7 @@ public class CustomLevelManager : LevelManager
     //         // Cancel camera movement and start zoom in
             yield return new WaitForSeconds(2.1f);
     //         CancelInvoke("Substract");
-    //         InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
     //         Utils
     //             .GetAllCharacters()
     //             .ForEach(character =>
@@ -227,8 +227,8 @@ public class CustomLevelManager : LevelManager
     //                 character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
     //             });
     //         //Cancel camera zoom
-    //         yield return new WaitForSeconds(0.5f);
-    //         CancelInvoke("MoveYCamera");
+            yield return new WaitForSeconds(0.5f);
+            CancelInvoke("MoveYCamera");
     //     }
     //     else
     //     {
@@ -243,16 +243,16 @@ public class CustomLevelManager : LevelManager
     //     return (int)(Math.Ceiling(i / 10.0d) * 10);
     // }
 
-    // void MoveYCamera()
-    // {
-    //     Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+    void MoveYCamera()
+    {
+        // Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
 
-    //     cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-    //         0,
-    //         cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
-    //         0
-    //     );
-    // }
+        // cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+        //     0,
+        //     cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
+        //     0
+        // );
+    }
 
     // void Substract()
     // {

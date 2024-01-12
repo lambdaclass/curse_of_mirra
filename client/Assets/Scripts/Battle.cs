@@ -90,8 +90,13 @@ public class Battle : MonoBehaviour
 //         GetComponent<ProjectileHandler>().CreateProjectilesPoolers(skillInfoSet);
 //     }
 
-//     void Update()
-//     {
+    void Update()
+    {
+        if (!sendMovementStarted)
+        {
+            sendMovementStarted = true;
+            InvokeRepeating("SendPlayerMovement", 0, 0.1f);
+        }
 //         if (
 //             GameServerConnectionManager.Instance.gamePlayers != null
 //             && GameServerConnectionManager.Instance.players.Count > 0
@@ -108,7 +113,7 @@ public class Battle : MonoBehaviour
 //             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
 //             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
 //         }
-//     }
+    }
 
 //     void UpdateBattleState()
 //     {
@@ -154,8 +159,9 @@ public class Battle : MonoBehaviour
 //         return true;
 //     }
 
-//     public void SendPlayerMovement()
-//     {
+    public void SendPlayerMovement()
+    {
+        GetComponent<PlayerControls>().SendAction();
 //         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
 //         OldGameEvent lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
 //         OldPlayer playerUpdate = lastEvent
@@ -183,7 +189,7 @@ public class Battle : MonoBehaviour
 //                 }
 //             }
 //         }
-//     }
+    }
 
 //     void UpdatePlayerActions()
 //     {
