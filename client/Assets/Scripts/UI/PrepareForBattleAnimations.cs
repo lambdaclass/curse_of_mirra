@@ -21,7 +21,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
         playerCard,
         playersTopTable,
         playersBottomTable,
-        prepareCoin;
+        prepareCoin,
+        surviveText,
+        smokeEffectBehind,
+        smokeEffectFront;
 
     [SerializeField]
     TextMeshProUGUI countDown;
@@ -36,7 +39,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 5f;
     const float TIME_UNTIL_GAME_STARTS = 5f;
-    const float SURVIVE_DURATION = 2f;
+    const float SURVIVE_DURATION = 4f;
     float originalCountdownScale,
         originalCoinScale,
         originalCardScale,
@@ -122,9 +125,13 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator SurviveAnimation()
     {
-        surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .25f);
-        surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .25f);
-        yield return new WaitForSeconds(SURVIVE_DURATION);
+        surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
+        smokeEffectBehind.SetActive(true);
+        surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .4f);
+        yield return new WaitForSeconds(1.75f);
+        surviveText.GetComponent<CanvasGroup>().DOFade(0, .2f);
+        smokeEffectBehind.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
         surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
