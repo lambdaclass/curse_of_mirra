@@ -1155,30 +1155,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8260821150174466731}
     m_Modifications:
-    - target: {fileID: 86686136580753948, guid: 026aa55e891e14fc391df2fe1cece077,
-        type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 86686136580753948, guid: 026aa55e891e14fc391df2fe1cece077,
-        type: 3}
-      propertyPath: m_BounceIntensity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 131411394629006594, guid: 026aa55e891e14fc391df2fe1cece077,
         type: 3}
       propertyPath: m_Name
       value: Lights
-      objectReference: {fileID: 0}
-    - target: {fileID: 131411394629006594, guid: 026aa55e891e14fc391df2fe1cece077,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 990693548822841631, guid: 026aa55e891e14fc391df2fe1cece077,
-        type: 3}
-      propertyPath: m_Name
-      value: FrontLight
       objectReference: {fileID: 0}
     - target: {fileID: 2616071612502774421, guid: 026aa55e891e14fc391df2fe1cece077,
         type: 3}
