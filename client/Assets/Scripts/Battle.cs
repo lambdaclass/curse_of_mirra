@@ -97,6 +97,8 @@ public class Battle : MonoBehaviour
             sendMovementStarted = true;
             InvokeRepeating("SendPlayerMovement", 0, 0.1f);
         }
+
+        MoveEntities();
 //         if (
 //             GameServerConnectionManager.Instance.gamePlayers != null
 //             && GameServerConnectionManager.Instance.players.Count > 0
@@ -113,6 +115,13 @@ public class Battle : MonoBehaviour
 //             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
 //             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
 //         }
+    }
+
+    private void MoveEntities()
+    {
+        // TODO: For now we hardcode to only move entity 1 which is the single spawned player entity
+        var entity = levelManager.PlayerPrefabs[0];
+        entity.transform.position = new Vector3(5f, 0f, 5f);
     }
 
 //     void UpdateBattleState()

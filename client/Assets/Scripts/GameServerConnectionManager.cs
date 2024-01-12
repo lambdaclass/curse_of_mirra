@@ -119,6 +119,7 @@ public class GameServerConnectionManager : MonoBehaviour
         try
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
+            Debug.Log("Decoded message event");
 //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
 //             // TODO: Fix missing NewGameEvent, current missing are
