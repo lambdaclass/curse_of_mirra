@@ -128,7 +128,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
         smokeEffectBehind.SetActive(true);
         surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .4f);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.75f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
         smokeEffectBehind.SetActive(false);
         yield return new WaitForSeconds(1.5f);
