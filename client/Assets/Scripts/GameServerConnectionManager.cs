@@ -20,6 +20,9 @@ public class GameServerConnectionManager : MonoBehaviour
     public string serverIp = "localhost";
 
     public static GameServerConnectionManager Instance;
+
+    // TODO this dictionary's keys should be ulong not int
+    public Dictionary<int, Position> playersIdPosition = new Dictionary<int, Position>();
 //     public List<OldPlayer> gamePlayers;
 //     public OldGameEvent gameEvent;
 //     public List<OldProjectile> gameProjectiles;
@@ -120,6 +123,12 @@ public class GameServerConnectionManager : MonoBehaviour
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
             Debug.Log("Decoded message event");
+            Debug.Log(gameState.Entities);
+
+            var position = gameState.Entities[1].Position;
+
+            this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
+
 //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
 //             // TODO: Fix missing NewGameEvent, current missing are

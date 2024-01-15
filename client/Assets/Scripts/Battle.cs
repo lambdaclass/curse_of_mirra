@@ -121,7 +121,8 @@ public class Battle : MonoBehaviour
     {
         // TODO: For now we hardcode to only move entity 1 which is the single spawned player entity
         var entity = levelManager.PlayerPrefabs[0];
-        entity.transform.position = new Vector3(5f, 0f, 5f);
+        var playerOnePosition = GameServerConnectionManager.Instance.playersIdPosition[1];
+        entity.transform.position = new Vector3(playerOnePosition.X, 0f, playerOnePosition.Y);
     }
 
 //     void UpdateBattleState()
