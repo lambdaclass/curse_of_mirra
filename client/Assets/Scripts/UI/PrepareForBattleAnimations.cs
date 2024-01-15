@@ -27,6 +27,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         smokeEffectFront;
 
     [SerializeField]
+    List<GameObject> loadingCharacters;
+
+    [SerializeField]
     TextMeshProUGUI countDown;
 
     [SerializeField]
@@ -45,6 +48,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         originalCardScale,
         originalSurviveScale,
         originalCardYPosition;
+    bool loadingComplete = false;
 
     void Start()
     {
@@ -64,7 +68,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator CameraCinematic()
     {
-        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
+        StartCoroutine(LoadingAnimation());
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.players.Count > 0 && loadingComplete
+        );
         player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         cinemachineVirtualCamera.ForceCameraPosition(
             CameraStartPosition(),
@@ -83,10 +90,20 @@ public class PrepareForBattleAnimations : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    IEnumerator LoadingAnimation()
+    {
+        foreach (GameObject character in loadingCharacters)
+        {
+            character.GetComponent<Animator>().Play("Animation", 0, 0.0f);
+            yield return new WaitForSeconds(.5f);
+        }
+        loadingComplete = true;
+    }
+
     IEnumerator PrepareForBattleAnimation()
     {
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 1f;
-        CoinDisplayAnimation(prepareCoin, originalCoinScale);
+        StartCoroutine(CoinDisplayAnimation(prepareCoin, originalCoinScale));
         yield return new WaitForSeconds(1f);
         prepareCoin.GetComponent<UIShiny>().enabled = true;
         prepareCoin.GetComponent<Animator>().enabled = true;
@@ -128,7 +145,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
         smokeEffectBehind.SetActive(true);
         surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .4f);
-        yield return new WaitForSeconds(1.75f);
+        yield return new WaitForSeconds(1.55f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
         smokeEffectBehind.SetActive(false);
         yield return new WaitForSeconds(1.5f);
@@ -213,7 +230,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         return playerPosition + cameraOffsetToCenterPosition;
     }
 
-    void CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
+    IEnumerator CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
     {
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
@@ -222,6 +239,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(objectToAnimate.transform.DOScale(originalScale, .3f))
             .PrependInterval(.2f)
             .SetEase(Ease.InQuad);
+        yield return new WaitForSeconds(1f);
+        objectToAnimate.GetComponent<Animator>().Play("Animation", 0, 0.0f);
     }
 
     void GeneratePlayersList()
