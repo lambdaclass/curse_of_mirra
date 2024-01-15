@@ -84,7 +84,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
-        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION - 0.5f);
+        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION - 0.25f);
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
@@ -102,7 +102,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         foreach (GameObject character in loadingCharacters)
         {
             character.GetComponent<Animator>().Play("Animation", 0, 0.0f);
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.1f);
         }
         loadingComplete = true;
     }
@@ -153,13 +153,13 @@ public class PrepareForBattleAnimations : MonoBehaviour
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
         smokeEffectBehind.SetActive(true);
         surviveTextContainer.transform.DOScale(originalSurviveScale + 1.5f, .4f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.3f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.3f);
         smokeEffectBehind.SetActive(false);
         surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .25f);
         GetComponent<CanvasGroup>().DOFade(0, .25f);
-        battleScreen.GetComponent<CanvasGroup>().DOFade(1, .5f);
+        battleScreen.GetComponent<CanvasGroup>().DOFade(1, .25f);
     }
 
     IEnumerator CardsDisplay(List<PlayerCardManager> playersCardList, int multiplier)
