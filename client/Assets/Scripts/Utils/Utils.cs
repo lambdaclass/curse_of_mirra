@@ -14,12 +14,12 @@ public class Utils
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
 
-    // public static Vector3 transformBackendOldPositionToFrontendPosition(OldPosition position)
-    // {
-    //     var x = (long)position?.Y / 100f - 50.0f;
-    //     var y = (-((long)position?.X)) / 100f + 50.0f;
-    //     return new Vector3(x, 1f, y);
-    // }
+    public static Vector3 transformBackendOldPositionToFrontendPosition(Position position)
+    {
+        var x = (long)position?.X / 100f;
+        var y = (long)position?.Y / 100f;
+        return new Vector3(x, 1f, y);
+    }
 
     // public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
     // {
@@ -35,6 +35,7 @@ public class Utils
 
     public static GameObject GetPlayer(ulong id)
     {
+        Debug.Log("GetPlayer??");
         return GameServerConnectionManager
             .Instance
             .players

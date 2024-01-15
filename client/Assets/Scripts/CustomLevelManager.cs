@@ -27,8 +27,9 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    // private List<OldPlayer> gamePlayers;
+    private List<Entity> gamePlayers;
     private ulong totalPlayers = 1;
+
     // private ulong playerId;
     // private GameObject prefab;
     // public Camera UiCamera;
@@ -36,6 +37,7 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     public GameObject UiControls;
+
     // public CinemachineCameraController camera;
     // private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
@@ -47,11 +49,13 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     GameObject battleScreen;
+
     // Int32 CAMERA_OFFSET = 30;
     // Int32 CAMERA_Y_OFFSET = 6;
     // double xDigit = 0;
     // double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
+
     // private bool deathSplashIsShown = false;
     // EndGameManager endGameManager;
 
@@ -96,7 +100,8 @@ public class CustomLevelManager : LevelManager
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        // this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
+        this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
+        Debug.Log("GamePlayers: " + this.gamePlayers.Count);
         // this.totalPlayers = (ulong)this.gamePlayers.Count();
         // playerId = GameServerConnectionManager.Instance.playerId;
         // playerToFollowId = playerId;
@@ -161,24 +166,24 @@ public class CustomLevelManager : LevelManager
         // prefab = prefab == null ? quickGamePrefab : prefab;
         for (ulong i = 0; i < totalPlayers; i++)
         {
-            // ulong playerID = gamePlayers[(int)i].Id;
+            ulong playerID = gamePlayers[(int)i].Id;
             GameObject prefab = charactersInfo[1].prefab; //TODO: replace with proper fetching of prefab
-            // if (GameServerConnectionManager.Instance.playerId == playerID)
-            // {
-            //     // Player1 is the ID to match with the client InputManager
-                // prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
-            // }
-            // else
-            // {
-            //     prefab.GetComponent<CustomCharacter>().PlayerID = "";
-            // }
+            if (GameServerConnectionManager.Instance.playerId == playerID)
+            {
+                // Player1 is the ID to match with the client InputManager
+                prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
+            }
+            else
+            {
+                prefab.GetComponent<CustomCharacter>().PlayerID = "";
+            }
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
                 new Vector3(0.0f, 1.0f, 0.0f),
                 Quaternion.identity
             );
-            // newPlayer.name = "Player" + " " + (i + 1);
-            // newPlayer.PlayerID = playerID.ToString();
+            newPlayer.name = "Player" + " " + (i + 1);
+            newPlayer.PlayerID = playerID.ToString();
             // if (GameServerConnectionManager.Instance.playerId == playerID)
             // {
             //     //Add audioListener in player
@@ -188,7 +193,7 @@ public class CustomLevelManager : LevelManager
             //         false;
             // }
 
-            // GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
+            GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
@@ -196,46 +201,46 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-    //     if (!GameServerConnectionManager.Instance.cinematicDone)
-    //     {
-    //         float effectTime = Utils
-    //             .GetCharacter(1)
-    //             .characterBase
-    //             .spawnFeedback
-    //             .GetComponent<VisualEffect>()
-    //             .GetFloat("LifeTime");
-    //         //Start moving camera and remove loading sceen
-    //         InvokeRepeating("Substract", 1f, 0.1f);
-    //         yield return new WaitForSeconds(1.7f);
-            loadingScreen.SetActive(false);
-            battleScreen.SetActive(true);
-    //         // Cancel camera movement and start zoom in
-            yield return new WaitForSeconds(2.1f);
-    //         CancelInvoke("Substract");
-            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-    //         Utils
-    //             .GetAllCharacters()
-    //             .ForEach(character =>
-    //             {
-    //                 character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-    //             });
-    //         yield return new WaitForSeconds(effectTime);
-    //         Utils
-    //             .GetAllCharacters()
-    //             .ForEach(character =>
-    //             {
-    //                 character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-    //             });
-    //         //Cancel camera zoom
-            yield return new WaitForSeconds(0.5f);
-            CancelInvoke("MoveYCamera");
-    //     }
-    //     else
-    //     {
-    //         cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-    //         yield return new WaitForSeconds(0.9f);
-    //         loadingScreen.SetActive(false);
-    //     }
+        //     if (!GameServerConnectionManager.Instance.cinematicDone)
+        //     {
+        //         float effectTime = Utils
+        //             .GetCharacter(1)
+        //             .characterBase
+        //             .spawnFeedback
+        //             .GetComponent<VisualEffect>()
+        //             .GetFloat("LifeTime");
+        //         //Start moving camera and remove loading sceen
+        //         InvokeRepeating("Substract", 1f, 0.1f);
+        //         yield return new WaitForSeconds(1.7f);
+        loadingScreen.SetActive(false);
+        battleScreen.SetActive(true);
+        //         // Cancel camera movement and start zoom in
+        yield return new WaitForSeconds(2.1f);
+        //         CancelInvoke("Substract");
+        InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+        //         Utils
+        //             .GetAllCharacters()
+        //             .ForEach(character =>
+        //             {
+        //                 character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
+        //             });
+        //         yield return new WaitForSeconds(effectTime);
+        //         Utils
+        //             .GetAllCharacters()
+        //             .ForEach(character =>
+        //             {
+        //                 character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
+        //             });
+        //         //Cancel camera zoom
+        yield return new WaitForSeconds(0.5f);
+        CancelInvoke("MoveYCamera");
+        //     }
+        //     else
+        //     {
+        //         cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+        //         yield return new WaitForSeconds(0.9f);
+        //         loadingScreen.SetActive(false);
+        //     }
     }
 
     // int RoundUpByTen(int i)
@@ -328,13 +333,13 @@ public class CustomLevelManager : LevelManager
     //     return skills;
     // }
 
-    // public void DestroySkillsClone(CustomCharacter player)
-    // {
-    //     player
-    //         .GetComponentsInChildren<Skill>()
-    //         .ToList()
-    //         .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
-    // }
+    public void DestroySkillsClone(CustomCharacter player)
+    {
+        player
+            .GetComponentsInChildren<Skill>()
+            .ToList()
+            .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
+    }
 
     // private void SetPlayersSkills(ulong clientPlayerId)
     // {
@@ -471,12 +476,11 @@ public class CustomLevelManager : LevelManager
 
     private bool checkPlayerHasJoined()
     {
-        // return GameServerConnectionManager.Instance.gamePlayers != null
-        //     && GameServerConnectionManager.Instance.playerId != null
-        //     && GameServerConnectionManager
-        //         .Instance
-        //         .gamePlayers
-        //         .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
-        return true;
+        return GameServerConnectionManager.Instance.gamePlayers != null
+            && GameServerConnectionManager.Instance.playerId != null
+            && GameServerConnectionManager
+                .Instance
+                .gamePlayers
+                .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
     }
 }
