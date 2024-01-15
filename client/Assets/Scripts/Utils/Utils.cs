@@ -35,7 +35,6 @@ public class Utils
 
     public static GameObject GetPlayer(ulong id)
     {
-        Debug.Log("GetPlayer??");
         return GameServerConnectionManager
             .Instance
             .players

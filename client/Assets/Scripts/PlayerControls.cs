@@ -46,23 +46,4 @@ public class PlayerControls : MonoBehaviour
         }
         return (x, y);
     }
-
-    public static float getBackendCharacterSpeed(ulong playerId)
-    {
-        // string charName = Utils.GetGamePlayer(playerId).CharacterName;
-        // // if (GameServerConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        // // {
-        // // var charName = GameServerConnectionManager.Instance.selectedCharacters[playerId];
-        // var chars = ServerConnection.Instance.engineServerSettings.Characters;
-
-        // foreach (var character in chars)
-        // {
-        //     if (charName.ToLower() == character.Name.ToLower())
-        //     {
-        //         return character.BaseSpeed;
-        //     }
-        // }
-        // }
-        return 0f;
-    }
 }

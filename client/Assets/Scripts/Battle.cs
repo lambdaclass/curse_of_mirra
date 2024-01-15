@@ -171,34 +171,34 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        GetComponent<PlayerControls>().SendAction();
-        //         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        //         OldGameEvent lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
-        //         OldPlayer playerUpdate = lastEvent
-        //             .Players
-        //             .ToList()
-        //             .Find(p => p.Id == GameServerConnectionManager.Instance.playerId);
+        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        GameState lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
+        Entity playerUpdate = lastEvent
+            .Players
+            .Values
+            .ToList()
+            .Find(p => p.Id == GameServerConnectionManager.Instance.playerId);
 
-        //         if (player)
-        //         {
-        //             CustomCharacter character = player.GetComponent<CustomCharacter>();
-        //             if (PlayerMovementAuthorized(character))
-        //             {
-        //                 var inputFromVirtualJoystick = joystickL is not null;
-        //                 if (
-        //                     inputFromVirtualJoystick
-        //                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        //                 )
-        //                 {
-        //                     GetComponent<PlayerControls>()
-        //                         .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
-        //                 }
-        //                 else
-        //                 {
-        //                     GetComponent<PlayerControls>().SendAction();
-        //                 }
-        //             }
-        //         }
+        if (player)
+        {
+            CustomCharacter character = player.GetComponent<CustomCharacter>();
+            if (PlayerMovementAuthorized(character))
+            {
+                var inputFromVirtualJoystick = joystickL is not null;
+                if (
+                    inputFromVirtualJoystick
+                    && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
+                )
+                {
+                    GetComponent<PlayerControls>()
+                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                }
+                else
+                {
+                    GetComponent<PlayerControls>().SendAction();
+                }
+            }
+        }
     }
 
     void UpdatePlayerActions()
@@ -247,8 +247,6 @@ public class Battle : MonoBehaviour
             {
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
-                Debug.Log(gameEvent.Players.Count);
-                Debug.Log(gameEvent.Players);
                 Entity serverPlayerUpdate = new Entity(gameEvent.Players[1]);
                 if (
                     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
@@ -481,7 +479,6 @@ public class Battle : MonoBehaviour
 
     private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
-        Debug.Log("UpdatePlayer!!");
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
         There are 50 ticks per second. A player's velocity is 50 * 0.3f

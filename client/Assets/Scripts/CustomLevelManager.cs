@@ -29,16 +29,17 @@ public class CustomLevelManager : LevelManager
 
     private List<Entity> gamePlayers;
     private ulong totalPlayers = 1;
+    private ulong playerId;
 
-    // private ulong playerId;
     // private GameObject prefab;
-    // public Camera UiCamera;
+    public Camera UiCamera;
+
     // public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
+    public CinemachineCameraController camera;
 
-    // public CinemachineCameraController camera;
     // private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -64,9 +65,9 @@ public class CustomLevelManager : LevelManager
         base.Awake();
         // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
-        // cameraFramingTransposer = this.GetComponent<Camera>()
-        //     .GetComponent<CinemachineVirtualCamera>()
-        //     .GetCinemachineComponent<CinemachineFramingTransposer>();
+        cameraFramingTransposer = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -101,13 +102,12 @@ public class CustomLevelManager : LevelManager
     {
         yield return new WaitUntil(checkPlayerHasJoined);
         this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
-        Debug.Log("GamePlayers: " + this.gamePlayers.Count);
         // this.totalPlayers = (ulong)this.gamePlayers.Count();
-        // playerId = GameServerConnectionManager.Instance.playerId;
+        playerId = GameServerConnectionManager.Instance.playerId;
         // playerToFollowId = playerId;
         GeneratePlayers();
-        // SetPlayersSkills(playerId);
-        // setCameraToPlayer(playerId);
+        SetPlayersSkills(playerId);
+        setCameraToPlayer(playerId);
         // var player = Utils.GetPlayer(playerId);
         // cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
         //     player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
@@ -287,17 +287,17 @@ public class CustomLevelManager : LevelManager
     //     }
     // }
 
-    // private void setCameraToPlayer(ulong playerID)
-    // {
-    //     foreach (CustomCharacter player in this.PlayerPrefabs)
-    //     {
-    //         if (UInt64.Parse(player.PlayerID) == playerID)
-    //         {
-    //             this.camera.SetTarget(player);
-    //             this.camera.StartFollowing();
-    //         }
-    //     }
-    // }
+    private void setCameraToPlayer(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            // if (UInt64.Parse(player.PlayerID) == playerID)
+            // {
+            this.camera.SetTarget(player);
+            this.camera.StartFollowing();
+            // }
+        }
+    }
 
     // private void SetSkillAngles(List<SkillInfo> skillsClone)
     // {
@@ -341,63 +341,63 @@ public class CustomLevelManager : LevelManager
             .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
 
-    // private void SetPlayersSkills(ulong clientPlayerId)
-    // {
-    //     CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
-    //     inputManager.Setup();
+    private void SetPlayersSkills(ulong clientPlayerId)
+    {
+        CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
+        inputManager.Setup();
 
-    //     List<Skill> skillList = new List<Skill>();
-    //     foreach (CustomCharacter player in this.PlayerPrefabs)
-    //     {
-    //         SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-    //         Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+        // List<Skill> skillList = new List<Skill>();
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            // SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
+            // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
-    //         skillList.Add(skillBasic);
-    //         skillList.Add(skill1);
+            // skillList.Add(skillBasic);
+            // skillList.Add(skill1);
 
-    //         CoMCharacter characterInfo = charactersInfo.Find(
-    //             el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
-    //         );
+            // CoMCharacter characterInfo = charactersInfo.Find(
+            //     el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
+            // );
 
-    //         List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
-    //         SetSkillAngles(skillInfoClone);
+            // List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            // SetSkillAngles(skillInfoClone);
 
-    //         skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
-    //         skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
+            // skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
+            // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
 
-    //         var skills = ServerConnection.Instance.engineServerSettings.Skills;
+            // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
-    //         // foreach (var skill in skills)
-    //         // {
-    //         //     for (int i = 0; i < skillList.Count; i++)
-    //         //     {
-    //         //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-    //         //         {
-    //         //             // 350 in the back is equal to 12 in the front
-    //         //             // So this is the calculation
-    //         //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
-    //         //         }
-    //         //     }
-    //         // }
+            // // foreach (var skill in skills)
+            // // {
+            // //     for (int i = 0; i < skillList.Count; i++)
+            // //     {
+            // //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
+            // //         {
+            // //             // 350 in the back is equal to 12 in the front
+            // //             // So this is the calculation
+            // //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
+            // //         }
+            // //     }
+            // // }
 
-    //         if (UInt64.Parse(player.PlayerID) == clientPlayerId)
-    //         {
-    //             inputManager.InitializeInputSprite(characterInfo);
-    //             inputManager.AssignSkillToInput(
-    //                 UIControls.SkillBasic,
-    //                 skillInfoClone[0].inputType,
-    //                 skillBasic
-    //             );
-    //             inputManager.AssignSkillToInput(
-    //                 UIControls.Skill1,
-    //                 skillInfoClone[1].inputType,
-    //                 skill1
-    //             );
-    //         }
+            // if (UInt64.Parse(player.PlayerID) == clientPlayerId)
+            // {
+            //     inputManager.InitializeInputSprite(characterInfo);
+            //     inputManager.AssignSkillToInput(
+            //         UIControls.SkillBasic,
+            //         skillInfoClone[0].inputType,
+            //         skillBasic
+            //     );
+            //     inputManager.AssignSkillToInput(
+            //         UIControls.Skill1,
+            //         skillInfoClone[1].inputType,
+            //         skill1
+            //     );
+            // }
 
-    //         StartCoroutine(inputManager.ShowInputs());
-    //     }
-    // }
+            StartCoroutine(inputManager.ShowInputs());
+        }
+    }
 
     // private void SetPlayerHealthBar(ulong playerId)
     // {

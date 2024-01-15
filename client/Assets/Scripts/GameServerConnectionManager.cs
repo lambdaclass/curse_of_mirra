@@ -132,8 +132,7 @@ public class GameServerConnectionManager : MonoBehaviour
             var position = gameState.Players[1].Position;
 
             this.gamePlayers = gameState.Players.Values.ToList();
-            this.playerId = 1;
-
+            this.playerId = gameState.Players[1].Id;
             this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
 
             //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
@@ -250,7 +249,6 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         using (var stream = new MemoryStream())
         {
-            Debug.Log("SENDING ACTION");
             action.WriteTo(stream);
             var msg = stream.ToArray();
             ws.Send(msg);
