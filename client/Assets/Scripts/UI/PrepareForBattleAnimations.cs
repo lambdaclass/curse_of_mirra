@@ -14,6 +14,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     [SerializeField]
     GameObject battleScreen,
         loadingScreen,
+        loadingIcon,
         prepareBattleContainer,
         playersContainer,
         surviveContainer,
@@ -42,7 +43,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 5f;
     const float TIME_UNTIL_GAME_STARTS = 5f;
-    const float SURVIVE_DURATION = 3f;
+    const float SURVIVE_DURATION = 1.95f;
     float originalCountdownScale,
         originalCoinScale,
         originalCardScale,
@@ -92,6 +93,12 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     IEnumerator LoadingAnimation()
     {
+        Sequence loadingSequence = DOTween.Sequence();
+        loadingSequence
+            .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -180), 0.5f))
+            .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -360), 0.5f))
+            .SetLoops(-1, LoopType.Restart)
+            .SetEase(Ease.InOutQuart);
         foreach (GameObject character in loadingCharacters)
         {
             character.GetComponent<Animator>().Play("Animation", 0, 0.0f);
@@ -144,11 +151,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
         smokeEffectBehind.SetActive(true);
-        surviveTextContainer.transform.DOScale(originalSurviveScale + 1f, .4f);
+        surviveTextContainer.transform.DOScale(originalSurviveScale + 1.25f, .4f);
         yield return new WaitForSeconds(1.55f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
         smokeEffectBehind.SetActive(false);
-        yield return new WaitForSeconds(1.5f);
         surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
