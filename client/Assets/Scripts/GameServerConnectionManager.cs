@@ -127,6 +127,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
             var position = gameState.Entities[1].Position;
 
+            this.playerId = gameState.Entities[1].Id;
             this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
 
 //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);

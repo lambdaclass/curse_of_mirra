@@ -29,14 +29,14 @@ public class CustomLevelManager : LevelManager
 
     // private List<OldPlayer> gamePlayers;
     private ulong totalPlayers = 1;
-    // private ulong playerId;
+    private ulong playerId;
     // private GameObject prefab;
     // public Camera UiCamera;
     // public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
-    // public CinemachineCameraController camera;
+    public CinemachineCameraController camera;
     // private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
@@ -60,9 +60,9 @@ public class CustomLevelManager : LevelManager
         base.Awake();
         // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
-        // cameraFramingTransposer = this.GetComponent<Camera>()
-        //     .GetComponent<CinemachineVirtualCamera>()
-        //     .GetCinemachineComponent<CinemachineFramingTransposer>();
+        cameraFramingTransposer = this.camera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -98,11 +98,11 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(checkPlayerHasJoined);
         // this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
         // this.totalPlayers = (ulong)this.gamePlayers.Count();
-        // playerId = GameServerConnectionManager.Instance.playerId;
+        playerId = GameServerConnectionManager.Instance.playerId;
         // playerToFollowId = playerId;
         GeneratePlayers();
         // SetPlayersSkills(playerId);
-        // setCameraToPlayer(playerId);
+        setCameraToPlayer(playerId);
         // var player = Utils.GetPlayer(playerId);
         // cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
         //     player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
@@ -282,17 +282,17 @@ public class CustomLevelManager : LevelManager
     //     }
     // }
 
-    // private void setCameraToPlayer(ulong playerID)
-    // {
-    //     foreach (CustomCharacter player in this.PlayerPrefabs)
-    //     {
-    //         if (UInt64.Parse(player.PlayerID) == playerID)
-    //         {
-    //             this.camera.SetTarget(player);
-    //             this.camera.StartFollowing();
-    //         }
-    //     }
-    // }
+    private void setCameraToPlayer(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            // if (UInt64.Parse(player.PlayerID) == playerID)
+            // {
+                this.camera.SetTarget(player);
+                this.camera.StartFollowing();
+            // }
+        }
+    }
 
     // private void SetSkillAngles(List<SkillInfo> skillsClone)
     // {
