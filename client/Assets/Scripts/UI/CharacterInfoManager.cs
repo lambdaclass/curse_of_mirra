@@ -1,10 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using MoreMountains.Tools;
-using System.Linq;
-using System.Collections;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -110,7 +110,7 @@ public class CharacterInfoManager : MonoBehaviour
                 CharactersManager.Instance.GetGoToCharacter(),
                 response =>
                 {
-                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                    ServerConnection.Instance.selectedCharacterName = response.selected_character;
                 },
                 error =>
                 {

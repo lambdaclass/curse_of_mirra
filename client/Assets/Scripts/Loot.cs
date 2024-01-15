@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game;
 using MoreMountains.Tools;
 using UnityEngine;
-using Game;
 
 public class Loot : MonoBehaviour
 {
@@ -116,15 +116,19 @@ public class Loot : MonoBehaviour
 
     public void UpdateLoots()
     {
-        List<Item> updatedLoots = SocketConnectionManager.Instance.gameState.items;
+        List<Item> updatedLoots = GameServerConnectionManager.Instance.gameState.items;
         RemoveLoots(updatedLoots);
         updatedLoots.ForEach(MaybeAddLoot);
     }
 
-    private string convertItemNameToType(string name) {
-        switch (name) {
-            case "loot_health": return "LootHealth";
-            default: throw new ArgumentException(String.Format("no type for `{0}`", name));
+    private string convertItemNameToType(string name)
+    {
+        switch (name)
+        {
+            case "loot_health":
+                return "LootHealth";
+            default:
+                throw new ArgumentException(String.Format("no type for `{0}`", name));
         }
     }
 }
