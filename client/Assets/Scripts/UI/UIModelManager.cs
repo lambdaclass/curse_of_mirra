@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class UIModelManager : MonoBehaviour
 {
@@ -11,10 +10,13 @@ public class UIModelManager : MonoBehaviour
     bool animate = false;
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
+    Coroutine characterAnimation;
 
     public void SetModel(string characterName)
     {
-        GameObject playerModel = CharactersManager.Instance.AvailableCharacters
+        GameObject playerModel = CharactersManager
+            .Instance
+            .AvailableCharacters
             .Single(character => character.name == characterName)
             .UIModel;
         GameObject modelClone = Instantiate(
@@ -25,13 +27,14 @@ public class UIModelManager : MonoBehaviour
         );
         animate = true;
         animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
-        StartCoroutine(AnimateCharacter(modelClone));
+        characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
     }
 
     public void RemoveCurrentModel()
     {
         if (playerModelContainer.transform.childCount > 0)
         {
+            StopCoroutine(characterAnimation);
             Destroy(playerModelContainer.transform.GetChild(0).gameObject);
         }
     }
