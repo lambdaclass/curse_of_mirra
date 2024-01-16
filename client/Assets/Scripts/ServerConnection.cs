@@ -69,7 +69,6 @@ public class ServerConnection : MonoBehaviour
             return;
         }
         Instance = this;
-        this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -146,6 +145,7 @@ public class ServerConnection : MonoBehaviour
         int hashCode = this.clientId.GetHashCode();
         ulong id = (ulong) (hashCode > 0 ? hashCode : hashCode * - 1);
         SessionParameters.PlayerId = id;
+        this.playerId = id;
         string url = makeWebsocketUrl("/play/" + id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
@@ -161,7 +161,8 @@ public class ServerConnection : MonoBehaviour
     {
         try
         {
-            GameState gameState = GameState.Parser.ParseFrom(data);
+            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+            GameState gameState = gameEvent.GameState;
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null) {
                 Debug.Log("no null " + gameState.GameId);
                 SessionParameters.GameId = gameState.GameId;

@@ -21,8 +21,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public static GameServerConnectionManager Instance;
 
-    // TODO this dictionary's keys should be ulong not int
-    public Dictionary<int, Position> playersIdPosition = new Dictionary<int, Position>();
+    public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
 
     public List<Entity> gamePlayers;
 
@@ -126,17 +125,29 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         try
         {
-            // This should be a backend config
+            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
+
+            switch (gameEvent.EventTypeCase)
+            {
+                case GameEvent.EventTypeOneofCase.GameState:
+                    GameState gameState = gameEvent.GameState;
+
+                    eventsBuffer.AddEvent(gameState);
+                    var position = gameState.Players[this.playerId].Position;
+                    this.gamePlayers = gameState.Players.Values.ToList();
+                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
+                    break;
+
+                case GameEvent.EventTypeOneofCase.PlayerId:
+                    PlayerJoined playerJoined = gameEvent.PlayerId;
+                    this.playerId = playerJoined.PlayerId;
+                    break;
+
+                default:
+                    Debug.Log("Unknown message");
+                    break;
+            }
             this.serverTickRate_ms = 30f;
-            GameState gameState = GameState.Parser.ParseFrom(data);
-
-            eventsBuffer.AddEvent(gameState);
-
-            var position = gameState.Players[1].Position;
-
-            this.gamePlayers = gameState.Players.Values.ToList();
-            this.playerId = gameState.Players[1].Id;
-            this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
 
             //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 

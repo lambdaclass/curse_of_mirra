@@ -27,8 +27,7 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    private List<Entity> gamePlayers;
-    private ulong totalPlayers = 1;
+    // private ulong totalPlayers = 1;
     private ulong playerId;
 
     // private GameObject prefab;
@@ -101,7 +100,6 @@ public class CustomLevelManager : LevelManager
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
         // this.totalPlayers = (ulong)this.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
         // playerToFollowId = playerId;
@@ -164,11 +162,10 @@ public class CustomLevelManager : LevelManager
     private void GeneratePlayers()
     {
         // prefab = prefab == null ? quickGamePrefab : prefab;
-        for (ulong i = 0; i < totalPlayers; i++)
+        foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
         {
-            ulong playerID = gamePlayers[(int)i].Id;
             GameObject prefab = charactersInfo[1].prefab; //TODO: replace with proper fetching of prefab
-            if (GameServerConnectionManager.Instance.playerId == playerID)
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -182,8 +179,8 @@ public class CustomLevelManager : LevelManager
                 new Vector3(0.0f, 1.0f, 0.0f),
                 Quaternion.identity
             );
-            newPlayer.name = "Player" + " " + (i + 1);
-            newPlayer.PlayerID = playerID.ToString();
+            newPlayer.name = "Player" + player.Id;
+            newPlayer.PlayerID = player.Id.ToString();
             // if (GameServerConnectionManager.Instance.playerId == playerID)
             // {
             //     //Add audioListener in player
