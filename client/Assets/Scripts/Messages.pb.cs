@@ -41,9 +41,10 @@ public static partial class MessagesReflection {
           "aW5mbyIYCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgEIi4KClByb2plY3RpbGUS",
           "DgoGZGFtYWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEIhkKCE9ic3RhY2xl",
           "Eg0KBWNvbG9yGAEgASgJIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEgASgLMgou",
-          "RGlyZWN0aW9uIhcKBkF0dGFjaxINCgVza2lsbBgBIAEoCSJNCgpHYW1lQWN0",
+          "RGlyZWN0aW9uIhcKBkF0dGFjaxINCgVza2lsbBgBIAEoCSJgCgpHYW1lQWN0",
           "aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcu",
-          "QXR0YWNrSABCDQoLYWN0aW9uX3R5cGViBnByb3RvMw=="));
+          "QXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlYgZw",
+          "cm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -56,7 +57,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Direction" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack" }, new[]{ "ActionType" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
         }));
   }
   #endregion
@@ -2628,6 +2629,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public GameAction(GameAction other) : this() {
+    timestamp_ = other.timestamp_;
     switch (other.ActionTypeCase) {
       case ActionTypeOneofCase.Move:
         Move = other.Move.Clone();
@@ -2670,6 +2672,18 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
   }
 
+  /// <summary>Field number for the "timestamp" field.</summary>
+  public const int TimestampFieldNumber = 3;
+  private long timestamp_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Timestamp {
+    get { return timestamp_; }
+    set {
+      timestamp_ = value;
+    }
+  }
+
   private object actionType_;
   /// <summary>Enum of possible cases for the "action_type" oneof.</summary>
   public enum ActionTypeOneofCase {
@@ -2708,6 +2722,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     }
     if (!object.Equals(Move, other.Move)) return false;
     if (!object.Equals(Attack, other.Attack)) return false;
+    if (Timestamp != other.Timestamp) return false;
     if (ActionTypeCase != other.ActionTypeCase) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -2718,6 +2733,7 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     int hash = 1;
     if (actionTypeCase_ == ActionTypeOneofCase.Move) hash ^= Move.GetHashCode();
     if (actionTypeCase_ == ActionTypeOneofCase.Attack) hash ^= Attack.GetHashCode();
+    if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
     hash ^= (int) actionTypeCase_;
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -2745,6 +2761,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(Attack);
     }
+    if (Timestamp != 0L) {
+      output.WriteRawTag(24);
+      output.WriteInt64(Timestamp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2763,6 +2783,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
       output.WriteRawTag(18);
       output.WriteMessage(Attack);
     }
+    if (Timestamp != 0L) {
+      output.WriteRawTag(24);
+      output.WriteInt64(Timestamp);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2779,6 +2803,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
     if (actionTypeCase_ == ActionTypeOneofCase.Attack) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Attack);
     }
+    if (Timestamp != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -2790,6 +2817,9 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
   public void MergeFrom(GameAction other) {
     if (other == null) {
       return;
+    }
+    if (other.Timestamp != 0L) {
+      Timestamp = other.Timestamp;
     }
     switch (other.ActionTypeCase) {
       case ActionTypeOneofCase.Move:
@@ -2839,6 +2869,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           Attack = subBuilder;
           break;
         }
+        case 24: {
+          Timestamp = input.ReadInt64();
+          break;
+        }
       }
     }
   #endif
@@ -2870,6 +2904,10 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
           }
           input.ReadMessage(subBuilder);
           Attack = subBuilder;
+          break;
+        }
+        case 24: {
+          Timestamp = input.ReadInt64();
           break;
         }
       }

@@ -21,6 +21,11 @@ public class EventsBuffer
         updatesBuffer.Add(newEvent);
     }
 
+    public int Count()
+    {
+        return updatesBuffer.Count;
+    }
+
     public GameState lastEvent()
     {
         int lastIndex = updatesBuffer.Count - 1;

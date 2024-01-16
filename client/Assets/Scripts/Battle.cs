@@ -92,12 +92,6 @@ public class Battle : MonoBehaviour
 
     void Update()
     {
-        if (!sendMovementStarted)
-        {
-            sendMovementStarted = true;
-            InvokeRepeating("SendPlayerMovement", 0, 0.1f);
-        }
-
         // MoveEntities();
         if (
             GameServerConnectionManager.Instance.gamePlayers != null
@@ -109,7 +103,7 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (ServerConnection.Instance.gameStarted && !sendMovementStarted)
+        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1 && !sendMovementStarted)
         {
             sendMovementStarted = true;
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
@@ -197,6 +191,15 @@ public class Battle : MonoBehaviour
                 {
                     GetComponent<PlayerControls>().SendAction();
                 }
+
+                if (
+                    !GetComponent<PlayerControls>().KeysPressed()
+                    && !GetComponent<PlayerControls>()
+                        .JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
+                )
+                {
+                    GetComponent<PlayerControls>().SendJoystickValues(0, 0);
+                }
             }
         }
     }
@@ -262,7 +265,11 @@ public class Battle : MonoBehaviour
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
-                        .simulatePlayerState(serverPlayerUpdate, gameEvent.PlayerTimestamp);
+                        .SimulatePlayerState(
+                            serverPlayerUpdate,
+                            gameEvent.PlayerTimestamp,
+                            gameEvent.ServerTimestamp
+                        );
                 }
 
                 if (interpolationGhost != null)
@@ -561,7 +568,7 @@ public class Battle : MonoBehaviour
     {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
-        float tickRate = 1000f / 30;
+        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
         var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
