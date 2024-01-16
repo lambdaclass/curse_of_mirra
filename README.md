@@ -79,7 +79,11 @@ git clone https://github.com/lambdaclass/curse_of_mirra
 ```
 
 - In Unity Hub, click on the add project button and select the `curse_of_mirra/client` folder.
-- Choose the correct editor version and download the [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). Include it in the `Assets/ThirdParty` folder after purchasing the license.
+- Choose the correct editor version.
+- Download the following libraries and include them in the `Assets/ThirdParty` folder:
+  - [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). You need to purchase the license to use it.
+  - [SineVFX](https://assetstore.unity.com/packages/vfx/particles/spells/top-down-effects-191455). You need to purchase the license to use it.
+  - [JMO Assets](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565). 
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
 ## Running the Backend

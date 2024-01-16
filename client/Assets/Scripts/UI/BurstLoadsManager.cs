@@ -12,16 +12,17 @@ public class BurstLoadsManager : MonoBehaviour
     private List<MMProgressBar> Bursts;
     private float SkillCooldown = 0f;
 
-    void Start() {
+    void Start()
+    {
         Bursts.ForEach(burst =>
         {
             burst.ForegroundBar.GetComponent<Image>().color = Utils.magenta;
-        });     
+        });
     }
 
     public void Update()
     {
-        var player = Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId);
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
         UpdateCooldown(player);
 
@@ -32,7 +33,8 @@ public class BurstLoadsManager : MonoBehaviour
 
             if (i <= basicBurstLoads - 1)
             {
-                if (!foregroundImage.color.Equals(Utils.magenta)){
+                if (!foregroundImage.color.Equals(Utils.magenta))
+                {
                     foregroundImage.color = Utils.magenta;
                 }
             }
@@ -48,7 +50,8 @@ public class BurstLoadsManager : MonoBehaviour
     private void UpdateCooldown(OldPlayer player)
     {
         var currentCooldown = player.BasicSkillCooldownLeft.Low;
-        if (SkillCooldown <= currentCooldown) {
+        if (SkillCooldown <= currentCooldown)
+        {
             SkillCooldown = currentCooldown;
         }
     }
@@ -58,10 +61,12 @@ public class BurstLoadsManager : MonoBehaviour
         if (currentIndex == burstLoads)
         {
             Bursts[currentIndex].UpdateBar01(1 - cooldownLeft / SkillCooldown);
-        } else if (currentIndex < burstLoads)
+        }
+        else if (currentIndex < burstLoads)
         {
             Bursts[currentIndex].UpdateBar01(1f);
-        } else
+        }
+        else
         {
             Bursts[currentIndex].UpdateBar01(0f);
         }

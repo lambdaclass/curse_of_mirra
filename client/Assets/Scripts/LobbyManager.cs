@@ -14,32 +14,15 @@ public class LobbyManager : LevelSelector
 
     public static string LevelSelected;
 
-    public override void GoToLevel()
+    private void Update()
     {
-        base.GoToLevel();
-        gameObject.GetComponent<MMTouchButton>().DisableButton();
-    }
-
-    public void GameStart()
-    {
-        // StartCoroutine(CreateGame());
-        this.LevelName = BATTLE_SCENE_NAME;
-        StartCoroutine(Utils.WaitForGameCreation(this.LevelName));
-    }
-
-    public void Back()
-    {
-        LobbyConnection.Instance.Init();
-        this.LevelName = MAIN_SCENE_NAME;
-        SceneManager.LoadScene(this.LevelName);
-    }
-
-    public void BackToLobbyAndCloseConnection()
-    {
-        // Websocket connection is closed as part of Init() destroy;
-        SocketConnectionManager.Instance.Init();
-        DestroySingletonInstances();
-        Back();
+        if (
+            !String.IsNullOrEmpty(ServerConnection.Instance.GameSession)
+            && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
+        )
+        {
+            SceneManager.LoadScene(BATTLE_SCENE_NAME);
+        }
     }
 
     public void BackToLobbyFromGame()
@@ -48,10 +31,12 @@ public class LobbyManager : LevelSelector
         BackToLobbyAndCloseConnection();
     }
 
-    public void SelectMap(string mapName)
+    public void BackToLobbyAndCloseConnection()
     {
-        this.LevelName = mapName;
-        LevelSelected = mapName;
+        // Websocket connection is closed as part of Init() destroy;
+        GameServerConnectionManager.Instance.Init();
+        DestroySingletonInstances();
+        Back();
     }
 
     private void DestroySingletonInstances()
@@ -62,15 +47,10 @@ public class LobbyManager : LevelSelector
         }
     }
 
-    private void Update()
+    public void Back()
     {
-        if (
-            !String.IsNullOrEmpty(LobbyConnection.Instance.GameSession)
-            && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
-        )
-        {
-            LobbyConnection.Instance.StartGame();
-            SceneManager.LoadScene(BATTLE_SCENE_NAME);
-        }
+        ServerConnection.Instance.Init();
+        this.LevelName = MAIN_SCENE_NAME;
+        SceneManager.LoadScene(this.LevelName);
     }
 }

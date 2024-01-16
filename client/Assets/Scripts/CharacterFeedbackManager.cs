@@ -1,8 +1,8 @@
-using UnityEngine;
 using System;
-using MoreMountains.Tools;
-using UnityEngine.UI;
 using Communication.Protobuf;
+using MoreMountains.Tools;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -23,8 +23,8 @@ public class CharacterFeedbackManager : MonoBehaviour
     private bool PlayerShouldSeeEffectMark(OldPlayer playerUpdate, PlayerEffect effect)
     {
         ulong attackerId = GetEffectCauser(playerUpdate, effect);
-        return playerUpdate.Id == SocketConnectionManager.Instance.playerId
-            || attackerId == SocketConnectionManager.Instance.playerId;
+        return playerUpdate.Id == GameServerConnectionManager.Instance.playerId
+            || attackerId == GameServerConnectionManager.Instance.playerId;
     }
 
     private ulong GetEffectCauser(OldPlayer playerUpdate, PlayerEffect effect)
@@ -42,7 +42,9 @@ public class CharacterFeedbackManager : MonoBehaviour
         var healthBarFront = player
             .GetComponent<CustomCharacter>()
             .GetComponent<MMHealthBar>()
-            .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+            .TargetProgressBar
+            .ForegroundBar
+            .GetComponent<Image>();
         if (
             playerUpdate.Effects.ContainsKey((ulong)PlayerEffect.Poisoned)
             && !healthBarFront.color.Equals(Utils.healthBarPoisoned)
@@ -55,7 +57,7 @@ public class CharacterFeedbackManager : MonoBehaviour
             && healthBarFront.color.Equals(Utils.healthBarPoisoned)
         )
         {
-            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
             {
                 healthBarFront.color = Utils.cyan;
             }

@@ -34,7 +34,7 @@ public class CharacterBase : MonoBehaviour
             MMSoundManagerSoundPlayEvent.Trigger(
                 spawnSfx,
                 MMSoundManager.MMSoundManagerTracks.Sfx,
-                Utils.GetPlayer(SocketConnectionManager.Instance.playerId).transform.position,
+                Utils.GetPlayer(GameServerConnectionManager.Instance.playerId).transform.position,
                 false,
                 SPAWN_SFX_VOLUME
             );

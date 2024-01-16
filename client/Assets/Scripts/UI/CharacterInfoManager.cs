@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using MoreMountains.Tools;
-using System.Linq;
 using System;
-using System.Text;
-using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MoreMountains.Tools;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class CharacterInfoManager : MonoBehaviour
 {
@@ -41,7 +41,6 @@ public class CharacterInfoManager : MonoBehaviour
     {
         availableCharacters = CharactersManager.Instance.AvailableCharacters;
         string goToCharacter = CharactersManager.Instance.GetGoToCharacter();
-
 
         // Get index from selected character to show previous and next character
         characterIndex = availableCharacters.FindIndex(
@@ -114,7 +113,7 @@ public class CharacterInfoManager : MonoBehaviour
                 CharactersManager.Instance.GetGoToCharacter(),
                 response =>
                 {
-                    LobbyConnection.Instance.selectedCharacterName = response.selected_character;
+                    ServerConnection.Instance.selectedCharacterName = response.selected_character;
                 },
                 error =>
                 {
