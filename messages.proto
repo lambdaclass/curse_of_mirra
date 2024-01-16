@@ -92,4 +92,5 @@ message GameAction {
     Move move = 1;
     Attack attack = 2;
   }
+  int64 timestamp = 3;
 }

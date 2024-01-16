@@ -6,18 +6,31 @@ public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
-        if (x != 0 || y != 0)
-        {
-            GameServerConnectionManager.Instance.SendMove(x, y);
+        (float lastXSent, float lastYSent) = GameServerConnectionManager
+            .Instance
+            .clientPrediction
+            .GetLastSentDirection();
 
-            // ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            // {
-            //     joystick_x_value = x,
-            //     joystick_y_value = y,
-            //     timestamp = timestamp,
-            // };
-            // GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+        long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        if (ShouldSendMovement(x, y, lastXSent, lastYSent))
+        {
+            GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = x,
+                joystick_y_value = y,
+                startMovementTimestamp = timestamp,
+                timestampId = timestamp
+            };
+            GameServerConnectionManager.Instance.clientPrediction.PutPlayerInput(playerInput);
         }
+    }
+
+    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
+    {
+        return (x != lastXSent || y != lastYSent);
     }
 
     public (float, float) SendAction()
@@ -40,10 +53,22 @@ public class PlayerControls : MonoBehaviour
         {
             y += -1f;
         }
-        if (x != 0 || y != 0)
-        {
-            SendJoystickValues(x, y);
-        }
+
+        SendJoystickValues(x, y);
+
         return (x, y);
+    }
+
+    public bool KeysPressed()
+    {
+        return Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S);
+    }
+
+    public bool JoytickUsed(float x, float y)
+    {
+        return x != 0 || y != 0;
     }
 }

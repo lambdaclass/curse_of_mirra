@@ -30,7 +30,7 @@ public class GameServerConnectionManager : MonoBehaviour
     //     public List<OldProjectile> gameProjectiles;
     public ulong playerId;
     public uint currentPing;
-    public uint serverTickRate_ms;
+    public float serverTickRate_ms;
     public string serverHash;
 
     //     public (OldPlayer, ulong) winnerPlayer = (null, 0);
@@ -125,6 +125,8 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         try
         {
+            // This should be a backend config
+            this.serverTickRate_ms = 30f;
             GameState gameState = GameState.Parser.ParseFrom(data);
 
             eventsBuffer.AddEvent(gameState);
@@ -236,11 +238,11 @@ public class GameServerConnectionManager : MonoBehaviour
     //         }
     //     }
 
-    public void SendMove(float x, float y)
+    public void SendMove(float x, float y, long timestamp)
     {
         Direction direction = new Direction { X = x, Y = y };
         Move moveAction = new Move { Direction = direction };
-        GameAction gameAction = new GameAction { Move = moveAction };
+        GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
 
