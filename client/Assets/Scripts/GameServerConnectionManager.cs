@@ -30,7 +30,7 @@ public class GameServerConnectionManager : MonoBehaviour
     //     public List<OldProjectile> gameProjectiles;
     public ulong playerId;
     public uint currentPing;
-    public uint serverTickRate_ms;
+    public float serverTickRate_ms;
     public string serverHash;
 
     //     public (OldPlayer, ulong) winnerPlayer = (null, 0);

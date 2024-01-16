@@ -71,7 +71,6 @@ public class ClientPrediction
 
     public void SimulatePlayerState(Entity player, long playerTimestamp, long serverTimestamp)
     {
-        Debug.Log("SimulatePlayerState " + playerTimestamp + " " + serverTimestamp);
         UpdateAcknowledgedAction(player, playerTimestamp, serverTimestamp);
         RemoveServerAcknowledgedInputs(player, playerTimestamp);
         SimulatePlayerMovement(player);
@@ -149,17 +148,9 @@ public class ClientPrediction
             player.Position = acknowledgedPosition;
         });
 
-        // TODO: fix this block of code
-        // var radius = 4900;
-        // Position center = new Position() { X = 5000, Y = 5000 };
-
-        // if (Distance_between_positions(player.Position, center) > radius)
-        // {
-        //     var angle = Angle_between_positions(center, player.Position);
-
-        //     player.Position.X = (ulong)(radius * Math.Cos(angle) + 5000);
-        //     player.Position.Y = (ulong)(radius * Math.Sin(angle) + 5000);
-        // }
+        /*
+         * Here we need to check if the player is colliding with the walls
+         */
     }
 
     double Distance_between_positions(Position position_1, Position position_2)

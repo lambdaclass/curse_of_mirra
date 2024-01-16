@@ -6,18 +6,14 @@ public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
-        bool moving = x != 0 || y != 0;
-
         (float lastXSent, float lastYSent) = GameServerConnectionManager
             .Instance
             .clientPrediction
             .GetLastSentDirection();
 
-        // Fix this
-        float difference = 6.0f;
         long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-        if (ShouldSendMovement(x, y, difference, lastXSent, lastYSent))
+        if (ShouldSendMovement(x, y, lastXSent, lastYSent))
         {
             GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
 
@@ -32,11 +28,9 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    bool ShouldSendMovement(float x, float y, float difference, float lastXSent, float lastYSent)
+    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
-        // Fix this
-        return true;
-        //return (x != lastXSent || y != lastYSent) && ((difference <= 0.01f) || difference > 5);
+        return (x != lastXSent || y != lastYSent);
     }
 
     public (float, float) SendAction()
@@ -59,10 +53,9 @@ public class PlayerControls : MonoBehaviour
         {
             y += -1f;
         }
-        if (x != 0 || y != 0)
-        {
-            SendJoystickValues(x, y);
-        }
+
+        SendJoystickValues(x, y);
+
         return (x, y);
     }
 
