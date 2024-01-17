@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: rig|Idle_001
+  m_Name: Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -174,7 +174,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Slingshot
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6643888575161106771}
@@ -184,11 +184,11 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f86d5144e88864cf3a257266e54b5d89, type: 2}
+  m_Motion: {fileID: 7400000, guid: 624c8aae0b4c84a6f945cd07a4530d83, type: 2}
   m_Tag: 
   m_SpeedParameter: SkillBasicSpeed
   m_MirrorParameter: 
@@ -320,7 +320,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0
+  m_TransitionDuration: 0.1
   m_TransitionOffset: 0
   m_ExitTime: 0.1
   m_HasExitTime: 0
@@ -388,7 +388,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   - m_Name: SkillBasicSpeed
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
@@ -470,7 +470,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 200ec2dea279a4f5e9fcbb4b918f5f0d, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3487c85613c644ed9b134ab6f439a5eb, type: 2}
   m_Tag: 
   m_SpeedParameter: WalkingSpeed
   m_MirrorParameter: 
