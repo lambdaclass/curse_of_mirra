@@ -108,8 +108,9 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private void ConnectToSession(string sessionId)
     {
-        // string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId);
-        string url = makeWebsocketUrl("/play/" + SessionParameters.GameId + "/" + 1);
+        string url = makeWebsocketUrl(
+            "/play/" + SessionParameters.GameId + "/" + SessionParameters.PlayerId
+        );
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
