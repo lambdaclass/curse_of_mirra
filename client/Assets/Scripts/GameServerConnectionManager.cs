@@ -125,28 +125,25 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         try
         {
-            // This should be a backend config
-            this.serverTickRate_ms = 30f;
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
 
-            switch (gameEvent.EventTypeCase)
+            switch (gameEvent.EventCase)
             {
-                case GameEvent.EventTypeOneofCase.GameState:
-                    GameState gameState = gameEvent.GameState;
+                case GameEvent.EventOneofCase.Joined:
+                    this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
+                    this.playerId = gameEvent.Joined.PlayerId;
+                    break;
+                case GameEvent.EventOneofCase.Update:
+                    GameState gameState = gameEvent.Update;
 
                     eventsBuffer.AddEvent(gameState);
+
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
                     break;
-
-                case GameEvent.EventTypeOneofCase.PlayerId:
-                    PlayerJoined playerJoined = gameEvent.PlayerId;
-                    this.playerId = playerJoined.PlayerId;
-                    break;
-
                 default:
-                    Debug.Log("Unknown message");
+                    print("Message received is: " + gameEvent.EventCase);
                     break;
             }
 
