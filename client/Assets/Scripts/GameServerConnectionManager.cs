@@ -125,6 +125,8 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         try
         {
+            // This should be a backend config
+            this.serverTickRate_ms = 30f;
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
 
             switch (gameEvent.EventTypeCase)
@@ -147,7 +149,6 @@ public class GameServerConnectionManager : MonoBehaviour
                     Debug.Log("Unknown message");
                     break;
             }
-            this.serverTickRate_ms = 30f;
 
             //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
