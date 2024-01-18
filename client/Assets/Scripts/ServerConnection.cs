@@ -69,7 +69,6 @@ public class ServerConnection : MonoBehaviour
             return;
         }
         Instance = this;
-        this.playerId = UInt64.MaxValue;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -146,6 +145,7 @@ public class ServerConnection : MonoBehaviour
         int hashCode = this.clientId.GetHashCode();
         ulong id = (ulong) (hashCode > 0 ? hashCode : hashCode * - 1);
         SessionParameters.PlayerId = id;
+        this.playerId = id;
         string url = makeWebsocketUrl("/play/" + id);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;

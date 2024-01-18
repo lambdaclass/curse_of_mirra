@@ -21,8 +21,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public static GameServerConnectionManager Instance;
 
-    // TODO this dictionary's keys should be ulong not int
-    public Dictionary<int, Position> playersIdPosition = new Dictionary<int, Position>();
+    public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
 
     public List<Entity> gamePlayers;
 
@@ -132,24 +131,21 @@ public class GameServerConnectionManager : MonoBehaviour
             {
                 case GameEvent.EventOneofCase.Joined:
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
+                    this.playerId = gameEvent.Joined.PlayerId;
                     break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
 
                     eventsBuffer.AddEvent(gameState);
 
-                    var position = gameState.Players[1].Position;
-
+                    var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
-                    this.playerId = gameState.Players[1].Id;
-                    this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
+                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
                     break;
             }
-
-
 
             //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
