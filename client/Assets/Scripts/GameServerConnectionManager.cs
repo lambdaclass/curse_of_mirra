@@ -126,17 +126,30 @@ public class GameServerConnectionManager : MonoBehaviour
     {
         try
         {
-            // This should be a backend config
-            this.serverTickRate_ms = 30f;
-            GameState gameState = GameState.Parser.ParseFrom(data);
+            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
 
-            eventsBuffer.AddEvent(gameState);
+            switch (gameEvent.EventCase)
+            {
+                case GameEvent.EventOneofCase.Joined:
+                    this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
+                    break;
+                case GameEvent.EventOneofCase.Update:
+                    GameState gameState = gameEvent.Update;
 
-            var position = gameState.Players[1].Position;
+                    eventsBuffer.AddEvent(gameState);
 
-            this.gamePlayers = gameState.Players.Values.ToList();
-            this.playerId = gameState.Players[1].Id;
-            this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
+                    var position = gameState.Players[1].Position;
+
+                    this.gamePlayers = gameState.Players.Values.ToList();
+                    this.playerId = gameState.Players[1].Id;
+                    this.playersIdPosition = new Dictionary<int, Position> { [1] = position };
+                    break;
+                default:
+                    print("Message received is: " + gameEvent.EventCase);
+                    break;
+            }
+
+
 
             //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
 
