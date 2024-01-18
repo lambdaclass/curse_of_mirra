@@ -162,7 +162,7 @@ public class ServerConnection : MonoBehaviour
         try
         {
             GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
-            GameState gameState = gameEvent.GameState;
+            GameState gameState = gameEvent.Update;
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null) {
                 Debug.Log("no null " + gameState.GameId);
                 SessionParameters.GameId = gameState.GameId;
