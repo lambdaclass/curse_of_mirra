@@ -161,8 +161,7 @@ public class ServerConnection : MonoBehaviour
     {
         try
         {
-            GameEvent gameEvent = GameEvent.Parser.ParseFrom(data);
-            GameState gameState = gameEvent.Update;
+            GameState gameState = GameState.Parser.ParseFrom(data);
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null) {
                 Debug.Log("no null " + gameState.GameId);
                 SessionParameters.GameId = gameState.GameId;
