@@ -17,6 +17,7 @@ public class Skill : CharacterAbility
 
     // [SerializeField]
     // protected Communication.Protobuf.Action serverSkill;
+    protected string serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -42,16 +43,16 @@ public class Skill : CharacterAbility
         }
     }
 
-    // public void SetSkill(Communication.Protobuf.Action serverSkill, SkillInfo skillInfo)
-    // {
-    //     this.serverSkill = serverSkill;
-    //     this.skillInfo = skillInfo;
-    //     this.AbilityStartSfx = skillInfo.abilityStartSfx;
-    //     if (skillInfo.sfxHasAbilityStop)
-    //     {
-    //         this.AbilityStopSfx = skillInfo.abilityStopSfx;
-    //     }
-    // }
+    public void SetSkill(string serverSkill, SkillInfo skillInfo)
+    {
+        this.serverSkill = serverSkill;
+        this.skillInfo = skillInfo;
+        this.AbilityStartSfx = skillInfo.abilityStartSfx;
+        if (skillInfo.sfxHasAbilityStop)
+        {
+            this.AbilityStopSfx = skillInfo.abilityStopSfx;
+        }
+    }
 
     public SkillInfo GetSkillInfo()
     {

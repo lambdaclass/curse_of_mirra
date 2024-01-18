@@ -318,20 +318,20 @@ public class CustomLevelManager : LevelManager
     //     skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
     // }
 
-    // private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
-    // {
-    //     List<SkillInfo> skills = new List<SkillInfo>();
-    //     characterInfo
-    //         .skillsInfo
-    //         .ForEach(skill =>
-    //         {
-    //             SkillInfo skillClone = Instantiate(skill);
-    //             skillClone.InitWithBackend();
-    //             skills.Add(skillClone);
-    //         });
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
+    {
+        List<SkillInfo> skills = new List<SkillInfo>();
+        characterInfo
+            .skillsInfo
+            .ForEach(skill =>
+            {
+                SkillInfo skillClone = Instantiate(skill);
+                skillClone.InitWithBackend();
+                skills.Add(skillClone);
+            });
 
-    //     return skills;
-    // }
+        return skills;
+    }
 
     public void DestroySkillsClone(CustomCharacter player)
     {
@@ -346,54 +346,39 @@ public class CustomLevelManager : LevelManager
         CustomInputManager inputManager = UiCamera.GetComponent<CustomInputManager>();
         inputManager.Setup();
 
-        // List<Skill> skillList = new List<Skill>();
+        List<Skill> skillList = new List<Skill>();
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            // SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
+            SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
 
-            // skillList.Add(skillBasic);
+            skillList.Add(skillBasic);
             // skillList.Add(skill1);
 
-            // CoMCharacter characterInfo = charactersInfo.Find(
-            //     el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
-            // );
+            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == "Muflus");
 
-            // List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);
 
-            // skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
+            skillBasic.SetSkill("basic", skillInfoClone[0]);
             // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
 
             // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
-            // // foreach (var skill in skills)
-            // // {
-            // //     for (int i = 0; i < skillList.Count; i++)
-            // //     {
-            // //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-            // //         {
-            // //             // 350 in the back is equal to 12 in the front
-            // //             // So this is the calculation
-            // //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
-            // //         }
-            // //     }
-            // // }
-
-            // if (UInt64.Parse(player.PlayerID) == clientPlayerId)
-            // {
-            //     inputManager.InitializeInputSprite(characterInfo);
-            //     inputManager.AssignSkillToInput(
-            //         UIControls.SkillBasic,
-            //         skillInfoClone[0].inputType,
-            //         skillBasic
-            //     );
-            //     inputManager.AssignSkillToInput(
-            //         UIControls.Skill1,
-            //         skillInfoClone[1].inputType,
-            //         skill1
-            //     );
-            // }
+            if (UInt64.Parse(player.PlayerID) == clientPlayerId)
+            {
+                inputManager.InitializeInputSprite(characterInfo);
+                inputManager.AssignSkillToInput(
+                    UIControls.SkillBasic,
+                    skillInfoClone[0].inputType,
+                    skillBasic
+                );
+                // inputManager.AssignSkillToInput(
+                //     UIControls.Skill1,
+                //     skillInfoClone[1].inputType,
+                //     skill1
+                // );
+            }
 
             StartCoroutine(inputManager.ShowInputs());
         }
