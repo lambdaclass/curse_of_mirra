@@ -575,10 +575,25 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -729784450964385893, guid: eb0b42ec27d5540bda1e308d84091389,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb0b42ec27d5540bda1e308d84091389,
         type: 3}
       propertyPath: m_Name
       value: H4ck
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211794484321469891, guid: eb0b42ec27d5540bda1e308d84091389,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329429738924513187, guid: eb0b42ec27d5540bda1e308d84091389,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0b42ec27d5540bda1e308d84091389, type: 3}
