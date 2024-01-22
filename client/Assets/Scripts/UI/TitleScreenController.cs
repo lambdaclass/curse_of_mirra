@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
-using MoreMountains.Tools;
-using System.Collections.Generic;
-using System.Linq;
-using System;
 
 public class TitleScreenController : MonoBehaviour
 {
@@ -62,7 +62,7 @@ public class TitleScreenController : MonoBehaviour
         asyncOperation.allowSceneActivation = false;
         while (
             !asyncOperation.isDone
-            && !String.IsNullOrEmpty(LobbyConnection.Instance.selectedCharacterName)
+            && !String.IsNullOrEmpty(ServerConnection.Instance.selectedCharacterName)
         )
         {
             yield return null;
@@ -85,20 +85,22 @@ public class TitleScreenController : MonoBehaviour
                     {
                         // If the character selected is currently not available
                         // Selects the first avaible character in the list and notice the user
-                        Errors.Instance.HandleNetworkError(
-                            "Attention!",
-                            response.selected_character
-                                + " is currently unavailable "
-                                + "\n"
-                                + avaibleCharactersNames[0]
-                                + " has been selected"
-                        );
+                        Errors
+                            .Instance
+                            .HandleNetworkError(
+                                "Attention!",
+                                response.selected_character
+                                    + " is currently unavailable "
+                                    + "\n"
+                                    + avaibleCharactersNames[0]
+                                    + " has been selected"
+                            );
                         StartCoroutine(
                             ServerUtils.SetSelectedCharacter(
                                 avaibleCharactersNames[0],
                                 response =>
                                 {
-                                    LobbyConnection.Instance.selectedCharacterName =
+                                    ServerConnection.Instance.selectedCharacterName =
                                         response.selected_character;
                                     asyncOperation.allowSceneActivation = true;
                                 },
@@ -113,7 +115,7 @@ public class TitleScreenController : MonoBehaviour
                     {
                         if (asyncOperation != null)
                         {
-                            LobbyConnection.Instance.selectedCharacterName =
+                            ServerConnection.Instance.selectedCharacterName =
                                 response.selected_character;
                             asyncOperation.allowSceneActivation = true;
                         }
@@ -151,7 +153,7 @@ public class TitleScreenController : MonoBehaviour
             ServerUtils.CreateUser(
                 response =>
                 {
-                    LobbyConnection.Instance.GetSelectedCharacter(asyncOperation);
+                    ServerConnection.Instance.GetSelectedCharacter(asyncOperation);
                 },
                 error =>
                 {
@@ -187,7 +189,8 @@ public class TitleScreenController : MonoBehaviour
         loadingScreen.SetActive(isActive);
         if (isActive)
         {
-            spinnerRotationTween = loadingSpinner.transform
+            spinnerRotationTween = loadingSpinner
+                .transform
                 .DORotate(new Vector3(0, 0, -360), .5f, RotateMode.Fast)
                 .SetLoops(-1, LoopType.Restart)
                 .SetRelative()

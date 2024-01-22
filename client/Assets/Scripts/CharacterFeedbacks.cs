@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
+using UnityEngine;
 
 public class CharacterFeedbacks : MonoBehaviour
 {
@@ -83,7 +83,10 @@ public class CharacterFeedbacks : MonoBehaviour
 
     public void DamageFeedback(float clientHealth, float playerHealth, ulong playerId)
     {
-        if (playerHealth < clientHealth && playerId == SocketConnectionManager.Instance.playerId)
+        if (
+            playerHealth < clientHealth
+            && playerId == GameServerConnectionManager.Instance.playerId
+        )
         {
             this.GetFeedback("DamageFeedback").GetComponent<MMF_Player>().PlayFeedbacks();
             this.HapticFeedbackOnDamage();

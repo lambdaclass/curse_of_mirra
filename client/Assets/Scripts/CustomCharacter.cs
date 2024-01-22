@@ -15,7 +15,7 @@ public class CustomCharacter : Character
     protected override void Initialization()
     {
         base.Initialization();
-        if (SocketConnectionManager.Instance.playerId.ToString() == this.PlayerID)
+        if (GameServerConnectionManager.Instance.playerId.ToString() == this.PlayerID)
         {
             this.characterBase.gameObject.AddComponent<AudioSource>();
         }
@@ -63,7 +63,7 @@ public class CustomCharacter : Character
         DestroySkillsClone();
         this.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(false);
         //Currently unused code
-        // if (SocketConnectionManager.Instance.playerId == ulong.Parse(this.PlayerID))
+        // if (GameServerConnectionManager.Instance.playerId == ulong.Parse(this.PlayerID))
         // {
         //     CustomGUIManager.DisplayZoneDamageFeedback(false);
         // }

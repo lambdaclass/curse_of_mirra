@@ -65,14 +65,14 @@ public class Battle : MonoBehaviour
 
     private IEnumerator InitializeProjectiles()
     {
-        yield return new WaitUntil(() => SocketConnectionManager.Instance.players.Count > 0);
+        yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count > 0);
         CreateProjectilesPoolers();
     }
 
     void CreateProjectilesPoolers()
     {
         skillInfoSet = new HashSet<SkillInfo>();
-        foreach (GameObject player in SocketConnectionManager.Instance.players)
+        foreach (GameObject player in GameServerConnectionManager.Instance.players)
         {
             skillInfoSet.UnionWith(
                 player
@@ -87,26 +87,29 @@ public class Battle : MonoBehaviour
     void Update()
     {
         if (
-            SocketConnectionManager.Instance.gamePlayers != null
-            && SocketConnectionManager.Instance.players.Count > 0
-            && SocketConnectionManager.Instance.gamePlayers.Count > 0
+            GameServerConnectionManager.Instance.gamePlayers != null
+            && GameServerConnectionManager.Instance.players.Count > 0
+            && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
             SetAccumulatedTime();
             UpdateBattleState();
         }
 
-        if (LobbyConnection.Instance.gameStarted && !sendMovementStarted)
+        if (ServerConnection.Instance.gameStarted && !sendMovementStarted)
         {
             sendMovementStarted = true;
-            float clientActionRate = SocketConnectionManager.Instance.serverTickRate_ms / 1000f;
+            float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
 
-        if (characterClientReference == null && SocketConnectionManager.Instance.players.Count != 0)
+        if (
+            characterClientReference == null
+            && GameServerConnectionManager.Instance.players.Count != 0
+        )
         {
             characterClientReference = Utils
-                .GetPlayer(SocketConnectionManager.Instance.playerId)
+                .GetPlayer(GameServerConnectionManager.Instance.playerId)
                 .GetComponent<CustomCharacter>();
         }
     }
@@ -157,10 +160,12 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        OldGameEvent lastEvent = SocketConnectionManager.Instance.eventsBuffer.lastEvent();
-        OldPlayer playerUpdate = lastEvent.Players
+        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        OldGameEvent lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
+        OldPlayer playerUpdate = lastEvent
+            .Players
             .ToList()
-            .Find(p => p.Id == SocketConnectionManager.Instance.playerId);
+            .Find(p => p.Id == GameServerConnectionManager.Instance.playerId);
 
         if (characterClientReference)
         {
@@ -188,7 +193,7 @@ public class Battle : MonoBehaviour
         long currentTime;
         long pastTime;
         GameObject interpolationGhost = null;
-        EventsBuffer buffer = SocketConnectionManager.Instance.eventsBuffer;
+        EventsBuffer buffer = GameServerConnectionManager.Instance.eventsBuffer;
         OldGameEvent gameEvent;
 
         currentTime = buffer.firstTimestamp + accumulatedTime;
@@ -199,20 +204,20 @@ public class Battle : MonoBehaviour
             buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
         }
 
-        for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+        for (int i = 0; i < GameServerConnectionManager.Instance.gamePlayers.Count; i++)
         {
             if (showInterpolationGhosts)
             {
                 interpolationGhost = FindGhostPlayer(
-                    SocketConnectionManager.Instance.gamePlayers[i].Id.ToString()
+                    GameServerConnectionManager.Instance.gamePlayers[i].Id.ToString()
                 );
             }
 
             if (
                 useInterpolation
                 && (
-                    SocketConnectionManager.Instance.playerId
-                        != SocketConnectionManager.Instance.gamePlayers[i].Id
+                    GameServerConnectionManager.Instance.playerId
+                        != GameServerConnectionManager.Instance.gamePlayers[i].Id
                     || !useClientPrediction
                 )
             )
@@ -225,13 +230,13 @@ public class Battle : MonoBehaviour
             }
 
             // There are a few frames during which this is outdated and produces an error
-            if (SocketConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
+            if (GameServerConnectionManager.Instance.gamePlayers.Count == gameEvent.Players.Count)
             {
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
                 OldPlayer serverPlayerUpdate = new OldPlayer(gameEvent.Players[i]);
                 if (
-                    serverPlayerUpdate.Id == (ulong)SocketConnectionManager.Instance.playerId
+                    serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
                     && useClientPrediction
                 )
                 {
@@ -245,10 +250,10 @@ public class Battle : MonoBehaviour
                             pastTime
                         );
                     }
-                    SocketConnectionManager.Instance.clientPrediction.simulatePlayerState(
-                        serverPlayerUpdate,
-                        gameEvent.PlayerTimestamp
-                    );
+                    GameServerConnectionManager
+                        .Instance
+                        .clientPrediction
+                        .simulatePlayerState(serverPlayerUpdate, gameEvent.PlayerTimestamp);
                 }
 
                 if (interpolationGhost != null)
@@ -271,7 +276,7 @@ public class Battle : MonoBehaviour
 
                     if (
                         !buffer.timestampAlreadySeen(
-                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            GameServerConnectionManager.Instance.gamePlayers[i].Id,
                             gameEvent.ServerTimestamp
                         )
                     )
@@ -305,7 +310,7 @@ public class Battle : MonoBehaviour
                         }
 
                         buffer.setLastTimestampSeen(
-                            SocketConnectionManager.Instance.gamePlayers[i].Id,
+                            GameServerConnectionManager.Instance.gamePlayers[i].Id,
                             gameEvent.ServerTimestamp
                         );
                     }
@@ -325,8 +330,8 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectileActions()
     {
-        Dictionary<int, GameObject> projectiles = SocketConnectionManager.Instance.projectiles;
-        List<Communication.Protobuf.OldProjectile> gameProjectiles = SocketConnectionManager
+        Dictionary<int, GameObject> projectiles = GameServerConnectionManager.Instance.projectiles;
+        List<Communication.Protobuf.OldProjectile> gameProjectiles = GameServerConnectionManager
             .Instance
             .gameProjectiles;
         ClearProjectiles(projectiles, gameProjectiles);
@@ -430,11 +435,12 @@ public class Battle : MonoBehaviour
 
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
-        character.characterBase
+        character
+            .characterBase
             .GetComponent<CharacterFeedbackManager>()
             .ManageStateFeedbacks(playerUpdate, CustomGUIManager.stateManagerUI);
 
-        if (!SocketConnectionManager.Instance.GameHasEnded())
+        if (!GameServerConnectionManager.Instance.GameHasEnded())
         {
             HandleMovement(character, playerUpdate, pastTime, characterSpeed);
         }
@@ -445,7 +451,7 @@ public class Battle : MonoBehaviour
 
         character.HandlePlayerHealth(playerUpdate);
 
-        if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+        if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
             /*
                 - We divided the milliseconds time in two parts because
@@ -477,7 +483,7 @@ public class Battle : MonoBehaviour
     {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
-        float tickRate = 1000f / SocketConnectionManager.Instance.serverTickRate_ms;
+        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
         float velocity = tickRate * characterSpeed;
 
         var frontendPosition = Utils.transformBackendOldPositionToFrontendPosition(
@@ -508,21 +514,21 @@ public class Battle : MonoBehaviour
         if (useClientPrediction)
         {
             walking =
-                playerUpdate.Id == SocketConnectionManager.Instance.playerId
+                playerUpdate.Id == GameServerConnectionManager.Instance.playerId
                     ? InputsAreBeingUsed()
-                    : SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                        playerUpdate.Id,
-                        (long)pastTime
-                    );
+                    : GameServerConnectionManager
+                        .Instance
+                        .eventsBuffer
+                        .playerIsMoving(playerUpdate.Id, (long)pastTime);
         }
         else
         {
-            if (playerUpdate.Id == SocketConnectionManager.Instance.playerId)
+            if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
             {
-                walking = SocketConnectionManager.Instance.eventsBuffer.playerIsMoving(
-                    playerUpdate.Id,
-                    (long)pastTime
-                );
+                walking = GameServerConnectionManager
+                    .Instance
+                    .eventsBuffer
+                    .playerIsMoving(playerUpdate.Id, (long)pastTime);
             }
         }
 
@@ -536,9 +542,12 @@ public class Battle : MonoBehaviour
             // FIXME: Remove harcoded validation once is fixed on the backend.
             if (
                 playerUpdate.CharacterName == "Muflus"
-                && playerUpdate.Action.Any(
-                    actionTracker => actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
-                )
+                && playerUpdate
+                    .Action
+                    .Any(
+                        actionTracker =>
+                            actionTracker.PlayerAction == OldPlayerAction.ExecutingSkill3
+                    )
             )
             {
                 player.transform.position = frontendPosition;
@@ -623,15 +632,14 @@ public class Battle : MonoBehaviour
 
     private void SpawnClientPredictionGhost()
     {
-        clientPredictionGhost = Instantiate(
-            characterClientReference.gameObject,
-            characterClientReference.transform.position,
-            Quaternion.identity
-        );
-        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID =
-            characterClientReference.PlayerID;
+        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
+            .Instance
+            .playerId
+            .ToString();
         clientPredictionGhost.GetComponent<CustomCharacter>().name =
-            $"Client Prediction Ghost {characterClientReference.PlayerID}";
+            $"Client Prediction Ghost {GameServerConnectionManager.Instance.playerId}";
         showClientPredictionGhost = true;
     }
 
@@ -665,20 +673,21 @@ public class Battle : MonoBehaviour
 
     private void SpawnInterpolationGhosts()
     {
-        for (int i = 0; i < SocketConnectionManager.Instance.gamePlayers.Count; i++)
+        for (int i = 0; i < GameServerConnectionManager.Instance.gamePlayers.Count; i++)
         {
-            GameObject player = Utils.GetPlayer(SocketConnectionManager.Instance.gamePlayers[i].Id);
+            GameObject player = Utils.GetPlayer(
+                GameServerConnectionManager.Instance.gamePlayers[i].Id
+            );
             GameObject interpolationGhost;
             interpolationGhost = Instantiate(
                 player,
                 player.transform.position,
                 Quaternion.identity
             );
-            interpolationGhost.GetComponent<CustomCharacter>().PlayerID = SocketConnectionManager
-                .Instance
-                .gamePlayers[i].Id.ToString();
+            interpolationGhost.GetComponent<CustomCharacter>().PlayerID =
+                GameServerConnectionManager.Instance.gamePlayers[i].Id.ToString();
             interpolationGhost.GetComponent<CustomCharacter>().name =
-                $"Interpolation Ghost #{SocketConnectionManager.Instance.gamePlayers[i].Id}";
+                $"Interpolation Ghost #{GameServerConnectionManager.Instance.gamePlayers[i].Id}";
 
             InterpolationGhosts.Add(interpolationGhost);
         }
@@ -712,7 +721,10 @@ public class Battle : MonoBehaviour
 
     public RelativePosition GetPlayerDirection(OldPlayer playerUpdate)
     {
-        if (SocketConnectionManager.Instance.playerId != playerUpdate.Id || !useClientPrediction)
+        if (
+            GameServerConnectionManager.Instance.playerId != playerUpdate.Id
+            || !useClientPrediction
+        )
         {
             return playerUpdate.Direction;
         }
