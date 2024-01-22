@@ -32,7 +32,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public float serverTickRate_ms;
     public string serverHash;
 
-    //     public (OldPlayer, ulong) winnerPlayer = (null, 0);
+    public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public ClientPrediction clientPrediction = new ClientPrediction();
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
@@ -133,6 +133,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     break;
+                case GameEvent.EventOneofCase.Ping:
+                    currentPing = (uint)gameEvent.Ping.Latency;
+                    break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
 
@@ -140,7 +143,16 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
-                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
+                    this.playersIdPosition = new Dictionary<ulong, Position>
+                    {
+                        [this.playerId] = position
+                    };
+                    break;
+                case GameEvent.EventOneofCase.Finished:
+                    Debug.Log("Finished!!");
+                    winnerPlayer.Item1 = gameEvent.Finished.Winner;
+                    winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
+                    this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
@@ -307,13 +319,11 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public bool GameHasEnded()
     {
-        // return winnerPlayer.Item1 != null;
-        return false;
+        return winnerPlayer.Item1 != null;
     }
 
     public bool PlayerIsWinner(ulong playerId)
     {
-        return false;
-        // return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
+        return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
     }
 }
