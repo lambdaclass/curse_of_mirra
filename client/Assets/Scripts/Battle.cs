@@ -220,12 +220,12 @@ public class Battle : MonoBehaviour
             buffer.firstTimestamp = buffer.lastEvent().ServerTimestamp;
         }
 
-        for (int i = 0; i < GameServerConnectionManager.Instance.gamePlayers.Count; i++)
+        foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
         {
             if (showInterpolationGhosts)
             {
                 interpolationGhost = FindGhostPlayer(
-                    GameServerConnectionManager.Instance.gamePlayers[i].Id.ToString()
+                    player.Id.ToString()
                 );
             }
 
@@ -233,7 +233,7 @@ public class Battle : MonoBehaviour
                 useInterpolation
                 && (
                     GameServerConnectionManager.Instance.playerId
-                        != GameServerConnectionManager.Instance.gamePlayers[i].Id
+                        != player.Id
                     || !useClientPrediction
                 )
             )
@@ -250,7 +250,7 @@ public class Battle : MonoBehaviour
             {
                 // This call to `new` here is extremely important for client prediction. If we don't make a copy,
                 // prediction will modify the player in place, which is not what we want.
-                Entity serverPlayerUpdate = new Entity(gameEvent.Players[1]);
+                Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
                 if (
                     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
                     && useClientPrediction
@@ -276,7 +276,7 @@ public class Battle : MonoBehaviour
                 {
                     UpdatePlayer(
                         interpolationGhost,
-                        buffer.lastEvent().Players[(ulong)i],
+                        buffer.lastEvent().Players[player.Id],
                         pastTime
                     );
                 }
@@ -292,7 +292,7 @@ public class Battle : MonoBehaviour
 
                     if (
                         !buffer.timestampAlreadySeen(
-                            GameServerConnectionManager.Instance.gamePlayers[i].Id,
+                            player.Id,
                             gameEvent.ServerTimestamp
                         )
                     )
@@ -325,7 +325,7 @@ public class Battle : MonoBehaviour
                         // }
 
                         buffer.setLastTimestampSeen(
-                            GameServerConnectionManager.Instance.gamePlayers[i].Id,
+                            player.Id,
                             gameEvent.ServerTimestamp
                         );
                     }
