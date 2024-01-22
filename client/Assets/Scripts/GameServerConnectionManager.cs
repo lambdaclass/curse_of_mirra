@@ -140,7 +140,10 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
-                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
+                    this.playersIdPosition = new Dictionary<ulong, Position>
+                    {
+                        [this.playerId] = position
+                    };
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
@@ -253,6 +256,13 @@ public class GameServerConnectionManager : MonoBehaviour
         Direction direction = new Direction { X = x, Y = y };
         Move moveAction = new Move { Direction = direction };
         GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
+    public void SendSkill(string skill, Direction direction, long timestamp)
+    {
+        Attack attackAction = new Attack { Skill = "2" };
+        GameAction gameAction = new GameAction { Attack = attackAction, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
 
