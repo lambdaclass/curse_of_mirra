@@ -93,21 +93,24 @@ public class EventsBuffer
             == GameServerConnectionManager.Instance.gamePlayers.Count
         )
         {
-            // count += (previousRenderedEvent.Players.Values.ToList()Find(p => p.Id == playerId))
-            //     .Action
-            //     .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
-            //     ? 1
-            //     : 0;
-            // count += (currentEventToRender.Players.Values.ToList()Find(p => p.Id == playerId))
-            //     .Action
-            //     .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
-            //     ? 1
-            //     : 0;
-            // count += (followingEventToRender.Players.Values.ToList()Find(p => p.Id == playerId))
-            //     .Action
-            //     .Any(actionTracker => actionTracker.PlayerAction == OldPlayerAction.Moving)
-            //     ? 1
-            //     : 0;
+            count += (previousRenderedEvent.Players.Values.ToList().Find(p => p.Id == playerId))
+                .Player
+                .CurrentActions
+                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
+                ? 1
+                : 0;
+            count += (currentEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
+                .Player
+                .CurrentActions
+                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
+                ? 1
+                : 0;
+            count += (followingEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
+                .Player
+                .CurrentActions
+                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
+                ? 1
+                : 0;
         }
 
         return count >= 1;

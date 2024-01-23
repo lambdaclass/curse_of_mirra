@@ -200,7 +200,7 @@ public class Skill : CharacterAbility
     private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        GameServerConnectionManager.Instance.SendSkill("2", direction, timestamp);
+        GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
     public virtual void StopAbilityStopFeedbacks()

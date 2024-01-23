@@ -61,10 +61,10 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 skillName.text = comCharacter.skillBasicInfo.name;
                 skillDescription.text = comCharacter.skillBasicInfo.description;
                 skillContainer
-                    .skillsList[(int)UIControls.SkillBasic]
+                    .skillsList[(int)UIControls.Skill1]
                     .SetSkillDescription(comCharacter.skillsInfo[0]);
                 skillContainer
-                    .skillsList[(int)UIControls.Skill1]
+                    .skillsList[(int)UIControls.Skill2]
                     .SetSkillDescription(comCharacter.skillsInfo[1]);
                 transform
                     .parent

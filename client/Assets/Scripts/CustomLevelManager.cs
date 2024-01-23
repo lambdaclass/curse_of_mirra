@@ -346,19 +346,19 @@ public class CustomLevelManager : LevelManager
         List<Skill> skillList = new List<Skill>();
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
-            // Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
 
-            skillList.Add(skillBasic);
-            // skillList.Add(skill1);
+            skillList.Add(skill1);
+            skillList.Add(skill2);
 
             CoMCharacter characterInfo = charactersInfo.Find(el => el.name == "Muflus");
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill("basic", skillInfoClone[0]);
-            // skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
+            skill1.SetSkill("1", skillInfoClone[0]);
+            skill2.SetSkill("2", skillInfoClone[1]);
 
             // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
@@ -366,15 +366,15 @@ public class CustomLevelManager : LevelManager
             {
                 inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(
-                    UIControls.SkillBasic,
+                    UIControls.Skill1,
                     skillInfoClone[0].inputType,
-                    skillBasic
+                    skill1
                 );
-                // inputManager.AssignSkillToInput(
-                //     UIControls.Skill1,
-                //     skillInfoClone[1].inputType,
-                //     skill1
-                // );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill2,
+                    skillInfoClone[1].inputType,
+                    skill2
+                );
             }
 
             StartCoroutine(inputManager.ShowInputs());

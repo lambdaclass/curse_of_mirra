@@ -261,7 +261,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendSkill(string skill, Direction direction, long timestamp)
     {
-        Attack attackAction = new Attack { Skill = "2" };
+        Attack attackAction = new Attack { Skill = skill };
         GameAction gameAction = new GameAction { Attack = attackAction, Timestamp = timestamp };
         SendGameAction(gameAction);
     }

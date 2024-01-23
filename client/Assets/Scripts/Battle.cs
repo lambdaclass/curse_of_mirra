@@ -224,16 +224,13 @@ public class Battle : MonoBehaviour
         {
             if (showInterpolationGhosts)
             {
-                interpolationGhost = FindGhostPlayer(
-                    player.Id.ToString()
-                );
+                interpolationGhost = FindGhostPlayer(player.Id.ToString());
             }
 
             if (
                 useInterpolation
                 && (
-                    GameServerConnectionManager.Instance.playerId
-                        != player.Id
+                    GameServerConnectionManager.Instance.playerId != player.Id
                     || !useClientPrediction
                 )
             )
@@ -290,44 +287,38 @@ public class Battle : MonoBehaviour
                 {
                     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
 
-                    if (
-                        !buffer.timestampAlreadySeen(
-                            player.Id,
-                            gameEvent.ServerTimestamp
-                        )
-                    )
+                    if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
                     {
-                        // foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
-                        // {
-                        //     if (
-                        //         PlayerMovementAuthorized(playerCharacter)
-                        //         && !playerCharacter.currentActions.Contains(actionTracker)
-                        //     )
-                        //     {
-                        //         playerCharacter.currentActions.Add(actionTracker);
-                        //         ExecuteSkillFeedback(
-                        //             currentPlayer,
-                        //             actionTracker.PlayerAction,
-                        //             serverPlayerUpdate.Direction,
-                        //             actionTracker.Duration
-                        //         );
-                        //     }
-                        // }
+                        foreach (
+                            PlayerAction playerAction in serverPlayerUpdate.Player.CurrentActions
+                        )
+                        {
+                            if (
+                                PlayerMovementAuthorized(playerCharacter)
+                                && !playerCharacter.currentActions.Contains(playerAction)
+                            )
+                            {
+                                playerCharacter.currentActions.Add(playerAction);
+                                ExecuteSkillFeedback(
+                                    currentPlayer,
+                                    playerAction.Action,
+                                    serverPlayerUpdate.Direction,
+                                    playerAction.Duration
+                                );
+                            }
+                        }
 
-                        // List<OldActionTracker> actionsToDelete = playerCharacter
-                        //     .currentActions
-                        //     .Except(serverPlayerUpdate.Action)
-                        //     .ToList();
+                        List<PlayerAction> actionsToDelete = playerCharacter
+                            .currentActions
+                            .Except(serverPlayerUpdate.Player.CurrentActions)
+                            .ToList();
 
-                        // foreach (OldActionTracker action in actionsToDelete)
-                        // {
-                        //     playerCharacter.currentActions.Remove(action);
-                        // }
+                        foreach (PlayerAction playerAction in actionsToDelete)
+                        {
+                            playerCharacter.currentActions.Remove(playerAction);
+                        }
 
-                        buffer.setLastTimestampSeen(
-                            player.Id,
-                            gameEvent.ServerTimestamp
-                        );
+                        buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
                 }
 
@@ -344,46 +335,37 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //     private void ExecuteSkillFeedback(
-    //         GameObject currentPlayer,
-    //         OldPlayerAction playerAction,
-    //         RelativePosition direction,
-    //         ulong skillDuration
-    //     )
-    //     {
-    //         // TODO: Refactor
-    //         switch (playerAction)
-    //         {
-    //             case OldPlayerAction.Attacking:
-    //                 currentPlayer.GetComponent<SkillBasic>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill1:
-    //                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill1:
-    //                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill2:
-    //                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill2:
-    //                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill3:
-    //                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill3:
-    //                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //         }
-    //     }
+    private void ExecuteSkillFeedback(
+        GameObject currentPlayer,
+        PlayerActionType playerAction,
+        Direction direction,
+        ulong skillDuration
+    )
+    {
+        // TODO: Refactor
+        switch (playerAction)
+        {
+            case PlayerActionType.StartingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.ExecutingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.StartingSkill2:
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.ExecutingSkill2:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
+            // rotatePlayer(currentPlayer, direction);
+            // break;
+        }
+    }
 
     //     void UpdateProjectileActions()
     //     {
@@ -530,16 +512,17 @@ public class Battle : MonoBehaviour
                 - because high field will be 0
             */
             InputManager.CheckSkillCooldown(
-                UIControls.SkillBasic,
+                UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 0f,
-                player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
             );
-            // InputManager.CheckSkillCooldown(
-            //     UIControls.Skill1,
-            //     (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-            //     player.GetComponent<Skill1>().GetSkillInfo().showCooldown
-            // );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                0f,
+                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+            );
         }
     }
 
