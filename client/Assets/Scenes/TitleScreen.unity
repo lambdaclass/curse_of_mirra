@@ -123,12 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &13268805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1744729843235979323, guid: d126b369faf0c43198f047c8765666f0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1365717056}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &78456880
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +156,6 @@ MonoBehaviour:
   signOutButton: {fileID: 691190831}
   signInButton: {fileID: 2105527259}
   webClientIdGoogle: 529212382177-822ukg0eeufi7pivtk1dpatqveqlqord.apps.googleusercontent.com
-  loadingSpinner: {fileID: 13268805}
   titleScreenController: {fileID: 2137523128}
 --- !u!4 &78456882
 Transform:
@@ -783,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 3981586368016215060, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}
       propertyPath: ButtonPressedFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSingOut
+      value: OnSignOut
       objectReference: {fileID: 0}
     - target: {fileID: 5393381855249456355, guid: d126b369faf0c43198f047c8765666f0,
         type: 3}

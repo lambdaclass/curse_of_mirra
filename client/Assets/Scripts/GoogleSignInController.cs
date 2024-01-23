@@ -111,14 +111,14 @@ public class GoogleSignInController : MonoBehaviour
             if (cancellationToken.IsCancellationRequested)
             {
                 titleScreenController.SetLoadingScreen(false);
-                GoogleSignIn.DefaultInstance.Disconnect();
+                OnSignOut();
                 Errors.Instance.HandleSignInError();
                 throw new TaskCanceledException();
             }
         }
     }
 
-    public void OnSingOut()
+    public void OnSignOut()
     {
         GoogleSignIn.DefaultInstance.SignOut();
         AddStatusText("SingOut");
