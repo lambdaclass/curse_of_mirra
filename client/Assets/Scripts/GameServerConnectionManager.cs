@@ -113,12 +113,29 @@ public class GameServerConnectionManager : MonoBehaviour
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        // ws.OnClose += onWebsocketClose;
+        ws.OnClose += OnWebsocketClose;
         ws.OnError += (e) =>
         {
             Debug.Log("Received error: " + e);
         };
+        ws.OnOpen += () =>
+        {
+            // Once the connection is established we reset so when we try to load the scenes again
+            // it waits to fetch it from the Lobby websocket and not reuse
+            SessionParameters.GameId = null;
+        };
         ws.Connect();
+    }
+
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            // TODO: Add some error handle for when websocket closes unexpectedly
+        } else
+        {
+            Debug.Log("Game websocket closed normally");
+        }
     }
 
     private void OnWebSocketMessage(byte[] data)
@@ -151,7 +168,7 @@ public class GameServerConnectionManager : MonoBehaviour
                 case GameEvent.EventOneofCase.Finished:
                     Debug.Log("Finished!!");
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
-                    winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
+                    // winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
                     this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     break;
                 default:
@@ -233,17 +250,6 @@ public class GameServerConnectionManager : MonoBehaviour
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
     }
-
-    //     private void onWebsocketClose(WebSocketCloseCode closeCode)
-    //     {
-    //         Debug.Log("closeCode:" + closeCode);
-    //         if (closeCode != WebSocketCloseCode.Normal)
-    //         {
-    //             ServerConnection.Instance.errorConnection = true;
-    //             this.Init();
-    //             ServerConnection.Instance.Init();
-    //         }
-    //     }
 
     //     public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
     //     {
