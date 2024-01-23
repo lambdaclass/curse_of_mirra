@@ -97,7 +97,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         foreach (Animator character in loadingCharacters)
         {
-            character.Play("Animation", 0, 0.0f);
+            AnimationCallback(character);
             yield return new WaitForSeconds(.1f);
         }
         loadingComplete = true;
@@ -235,23 +235,24 @@ public class PrepareForBattleAnimations : MonoBehaviour
         return playerPosition + cameraDistanceFromGround;
     }
 
-    void CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
+    void CoinDisplayAnimation(GameObject coin, float originalScale)
     {
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
-            .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .3f))
-            .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .3f))
-            .Append(objectToAnimate.transform.DOScale(originalScale, .3f))
+            .AppendInterval(.3f)
+            .Append(coin.GetComponent<CanvasGroup>().DOFade(1, .3f))
+            .Insert(0, coin.transform.DOScale(originalScale + .05f, .3f))
+            .Append(coin.transform.DOScale(originalScale, .3f))
             .SetEase(Ease.InQuad)
             .onComplete = () =>
         {
-            AnimationCallback(objectToAnimate);
+            AnimationCallback(coin.GetComponent<Animator>());
         };
     }
 
-    void AnimationCallback(GameObject objectToAnimate)
+    void AnimationCallback(Animator objectToAnimate)
     {
-        objectToAnimate.GetComponent<Animator>().Play("Animation", 0, 0.0f);
+        objectToAnimate.Play("Animation", 0, 0.0f);
     }
 
     void GeneratePlayersList()
