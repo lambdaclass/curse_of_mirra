@@ -148,6 +148,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &1811843984322243071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &8577531873832592328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1383,6 +1385,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &6510726468002396620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,6 +1704,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &2075489024309317983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,6 +1864,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!1 &5007597845196680524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,7 +2145,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: europe-testing.curseofmyrra.com
+  m_Text: europe-testing.curseofmirra.com
 --- !u!1 &7318593759018477511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2289,6 +2294,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &2903760435767347749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,7 +2600,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: brazil-testing.curseofmyrra.com
+  m_Text: brazil-testing.curseofmirra.com
 --- !u!1 &8206817802217038070
 GameObject:
   m_ObjectHideFlags: 0
