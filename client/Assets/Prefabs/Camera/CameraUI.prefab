@@ -868,7 +868,7 @@ MonoBehaviour:
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
-    m_BlendHint: 3
+    m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0.5
+  m_LookaheadTime: 0.2
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
   m_XDamping: 1
@@ -1464,8 +1464,8 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 30
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
+  m_DeadZoneWidth: 0.03
+  m_DeadZoneHeight: 0.03
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 1
   m_SoftZoneWidth: 2
@@ -5408,9 +5408,9 @@ MonoBehaviour:
   smokeEffectBehind: {fileID: 3559510225174257283}
   smokeEffectFront: {fileID: 2494257654694321674}
   loadingCharacters:
-  - {fileID: 6179849885535827867}
-  - {fileID: 7583208349803578864}
-  - {fileID: 3023525361961082954}
+  - {fileID: 169680514462961677}
+  - {fileID: 5365261135362229084}
+  - {fileID: 7833624399416384213}
   countDown: {fileID: 8354045121928496173}
   cinemachineVirtualCamera: {fileID: 114129316014370704}
 --- !u!225 &4615091370588803898

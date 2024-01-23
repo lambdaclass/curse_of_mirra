@@ -33,12 +33,6 @@ public class CustomLevelManager : LevelManager
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-
-    //Camera cinematic variables
-    Int32 CAMERA_OFFSET = 30;
-    Int32 CAMERA_Y_OFFSET = 6;
-    double xDigit = 0;
-    double zDigit = 0;
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
 
@@ -181,11 +175,12 @@ public class CustomLevelManager : LevelManager
         {
             player
                 .GetComponentInChildren<CharacterBase>()
-                .OrientationArrow.SetActive(UInt64.Parse(player.PlayerID) == playerID);
+                .OrientationArrow
+                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
         }
     }
 
-    private void setCameraToPlayer(ulong playerID)
+    private void SetCameraToPlayer(ulong playerID)
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
@@ -219,12 +214,14 @@ public class CustomLevelManager : LevelManager
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo.skillsInfo.ForEach(skill =>
-        {
-            SkillInfo skillClone = Instantiate(skill);
-            skillClone.InitWithBackend();
-            skills.Add(skillClone);
-        });
+        characterInfo
+            .skillsInfo
+            .ForEach(skill =>
+            {
+                SkillInfo skillClone = Instantiate(skill);
+                skillClone.InitWithBackend();
+                skills.Add(skillClone);
+            });
 
         return skills;
     }
@@ -301,7 +298,9 @@ public class CustomLevelManager : LevelManager
         {
             Image healthBarFront = player
                 .GetComponent<MMHealthBar>()
-                .TargetProgressBar.ForegroundBar.GetComponent<Image>();
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
                 healthBarFront.color = Utils.healthBarCyan;
@@ -334,14 +333,14 @@ public class CustomLevelManager : LevelManager
         else
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
+            SetCameraToPlayer(playerToFollow.Id);
         }
     }
 
     private IEnumerator WaitToChangeCamera(OldPlayer player)
     {
         yield return new WaitUntil(() => player != null);
-        setCameraToPlayer(playerToFollow.Id);
+        SetCameraToPlayer(playerToFollow.Id);
         KillFeedManager.instance.saveKillerId = 0;
     }
 
@@ -360,8 +359,9 @@ public class CustomLevelManager : LevelManager
     {
         return GameServerConnectionManager.Instance.gamePlayers != null
             && GameServerConnectionManager.Instance.playerId != null
-            && GameServerConnectionManager.Instance.gamePlayers.Any(
-                (player) => player.Id == GameServerConnectionManager.Instance.playerId
-            );
+            && GameServerConnectionManager
+                .Instance
+                .gamePlayers
+                .Any((player) => player.Id == GameServerConnectionManager.Instance.playerId);
     }
 }

@@ -29,16 +29,14 @@ public class PrepareForBattleAnimations : MonoBehaviour
         smokeEffectFront;
 
     [SerializeField]
-    List<GameObject> loadingCharacters;
+    List<Animator> loadingCharacters;
 
     [SerializeField]
     TextMeshProUGUI countDown;
 
     [SerializeField]
     CinemachineVirtualCamera cinemachineVirtualCamera;
-    CinemachineFramingTransposer cameraFramingTransposer;
-
-    Vector3 cameraOffsetToCenterPosition = new Vector3(0, 30f, -18);
+    Vector3 cameraDistanceFromGround = new Vector3(0, 30f, -18);
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
@@ -54,8 +52,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     void Start()
     {
-        cameraFramingTransposer =
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         originalCountdownScale = countDown.transform.localScale.x;
         originalCoinScale = prepareCoin.transform.localScale.x;
         originalCardScale = playerCard
@@ -99,9 +95,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuart);
         yield return new WaitForSeconds(.1f);
-        foreach (GameObject character in loadingCharacters)
+        foreach (Animator character in loadingCharacters)
         {
-            character.GetComponent<Animator>().Play("Animation", 0, 0.0f);
+            character.Play("Animation", 0, 0.0f);
             yield return new WaitForSeconds(.1f);
         }
         loadingComplete = true;
@@ -110,20 +106,20 @@ public class PrepareForBattleAnimations : MonoBehaviour
     IEnumerator PrepareForBattleAnimation()
     {
         prepareBattleContainer.GetComponent<CanvasGroup>().alpha = 1f;
-        StartCoroutine(CoinDisplayAnimation(prepareCoin, originalCoinScale));
+        CoinDisplayAnimation(prepareCoin, originalCoinScale);
         yield return new WaitForSeconds(1f);
         prepareCoin.GetComponent<UIShiny>().enabled = true;
         prepareCoin.GetComponent<Animator>().enabled = true;
         cinemachineVirtualCamera
             .transform
             .DOMove(
-                player.transform.position + cameraOffsetToCenterPosition,
+                player.transform.position + cameraDistanceFromGround,
                 PREPARE_FOR_BATTLE_DURATION
             )
             .SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
         cinemachineVirtualCamera.ForceCameraPosition(
-            player.transform.position + cameraOffsetToCenterPosition,
+            player.transform.position + cameraDistanceFromGround,
             cinemachineVirtualCamera.transform.rotation
         );
         SetCameraToPlayer(GameServerConnectionManager.Instance.playerId);
@@ -211,7 +207,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
-
             yield return new WaitForSeconds(1f);
         }
     }
@@ -237,19 +232,25 @@ public class PrepareForBattleAnimations : MonoBehaviour
             xPosition = player.transform.position.x + CAMERA_START_OFFSET;
         }
         Vector3 playerPosition = new Vector3(xPosition, player.transform.position.y, zPosition);
-        return playerPosition + cameraOffsetToCenterPosition;
+        return playerPosition + cameraDistanceFromGround;
     }
 
-    IEnumerator CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
+    void CoinDisplayAnimation(GameObject objectToAnimate, float originalScale)
     {
         Sequence stickerSequence = DOTween.Sequence();
         stickerSequence
             .Append(objectToAnimate.GetComponent<CanvasGroup>().DOFade(1, .3f))
             .Insert(0, objectToAnimate.transform.DOScale(originalScale + .05f, .3f))
             .Append(objectToAnimate.transform.DOScale(originalScale, .3f))
-            .PrependInterval(.2f)
-            .SetEase(Ease.InQuad);
-        yield return new WaitForSeconds(1f);
+            .SetEase(Ease.InQuad)
+            .onComplete = () =>
+        {
+            AnimationCallback(objectToAnimate);
+        };
+    }
+
+    void AnimationCallback(GameObject objectToAnimate)
+    {
         objectToAnimate.GetComponent<Animator>().Play("Animation", 0, 0.0f);
     }
 
@@ -261,45 +262,21 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .ForEach(
                 (player) =>
                 {
-                    if (GameServerConnectionManager.Instance.players.IndexOf(player) < 5)
-                    {
-                        GameObject item = Instantiate(playerCard, playersTopTable.transform);
-                        item.GetComponent<PlayerCardManager>().playerName.text = player.name;
-
-                        // prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
-                        foreach (
-                            CoMCharacter character in CharactersManager.Instance.AvailableCharacters
-                        )
-                        {
-                            if (
-                                character.name
-                                == player.GetComponent<CustomCharacter>().CharacterModel.name
-                            )
-                            {
-                                Sprite characterSprite = character.battleCharacterCard;
-                            }
-                        }
-
-                        if (
-                            player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)
-                        )
-                        {
-                            item.GetComponent<PlayerCardManager>().youTag.SetActive(true);
-                        }
-                    }
-                    else if (GameServerConnectionManager.Instance.players.IndexOf(player) >= 5)
-                    {
-                        GameObject item = Instantiate(playerCard, playersBottomTable.transform);
-                        item.GetComponent<PlayerCardManager>().playerName.text = player.name;
-                        if (
-                            player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)
-                        )
-                        {
-                            item.GetComponent<PlayerCardManager>().youTag.SetActive(true);
-                        }
-                    }
+                    var index = GameServerConnectionManager.Instance.players.IndexOf(player);
+                    GeneratePlayer(index, player);
                 }
             );
+    }
+
+    void GeneratePlayer(int index, GameObject player)
+    {
+        Transform pos = index < 5 ? playersTopTable.transform : playersBottomTable.transform;
+        PlayerCardManager item = Instantiate(playerCard, pos).GetComponent<PlayerCardManager>();
+        item.playerName.text = player.name;
+        if (player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId))
+        {
+            item.youTag.SetActive(true);
+        }
     }
 
     private void SetCameraToPlayer(ulong playerID)
