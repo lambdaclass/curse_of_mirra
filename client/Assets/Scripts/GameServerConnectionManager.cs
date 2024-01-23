@@ -140,7 +140,10 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
-                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
+                    this.playersIdPosition = new Dictionary<ulong, Position>
+                    {
+                        [this.playerId] = position
+                    };
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
@@ -269,7 +272,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-        int port = 4000;
+        int port = 5000;
 
         if (serverIp.Contains("localhost"))
         {
