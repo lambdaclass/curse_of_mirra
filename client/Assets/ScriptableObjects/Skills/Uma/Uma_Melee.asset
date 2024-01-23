@@ -23,12 +23,9 @@ MonoBehaviour:
   indicatorType: 3
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
-  hasModelAnimation: 1
   abilityStartSfx: {fileID: 8300000, guid: 8c36ebc1a097a47d5aef53dab8c288e6, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
-  startAnimationDuration: 0
-  executeAnimationDuration: 0.3
   skillCircleRadius: 0
   skillConeAngle: 0
   arrowWidth: 0
@@ -38,11 +35,9 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
-  startFeedbackVfxDelay: 0
-  vfxList: []
-  feedbackVfx: {fileID: 0}
-  instantiateVfxOnModel: 0
-  feedbackVfxDuration: 0
-  feedbackVfxDelay: 0
+  startVfxList: []
+  vfxList:
+  - vfx: {fileID: 1877957606375464611, guid: e3e117147d4a747abbf6dc939c0e1376, type: 3}
+    duration: 1
+    delay: 0.2
+    instantiateVfxOnModel: 1
