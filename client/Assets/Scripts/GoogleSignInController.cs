@@ -26,7 +26,9 @@ public class GoogleSignInController : MonoBehaviour
 
     Task<GoogleSignInUser> taskStatus;
 
-    // Can be set via the property inspector in the Editor.AA
+    [SerializeField]
+    TitleScreenController titleScreenController;
+
     void Awake()
     {
         configuration = new GoogleSignInConfiguration
@@ -59,63 +61,46 @@ public class GoogleSignInController : MonoBehaviour
         }
     }
 
-    public async void OnSignIn()
+    public async void OnSignInSimple()
     {
-        print(configuration);
-        print(GoogleSignIn.Configuration);
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
         AddStatusText("Calling SignIn");
 
-        TimeSpan timeout = new TimeSpan(0, 0, 30);
+        TimeSpan timeout = new TimeSpan(0, 0, 10);
+        TimeSpan loadingTimeout = new TimeSpan(0, 0, 2);
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
         var task = GoogleSignIn.DefaultInstance.SignIn();
 
-        //  Task cancellation method 1
-
         try
         {
-            await RunningTask(timeout, cancellationToken.Token, task);
+            await RunningTask(timeout, loadingTimeout, cancellationToken.Token, task);
         }
         catch (TaskCanceledException e)
         {
             print(e);
             cancellationToken.Cancel();
         }
-
-        //Cancelation method 2
-
-        // if (await Task.WhenAny(task, Task.Delay(timeout, cancellationToken.Token)) == task)
-        // {
-        //     print("Entro al task");
-        //     await task.ContinueWith(
-        //         OnAuthenticationFinished,
-        //         TaskScheduler.FromCurrentSynchronizationContext()
-        //     );
-        // }
-        // else
-        // {
-        //     token.ThrowIfCancellationRequested();
-        //     cancellationToken.Cancel();
-        //     print("Cancel request " + cancellationToken.IsCancellationRequested);
-        //     // print("Cancel");
-        //     print(task.Status);
-        //     print(cancellationToken.Token);
-        // }
     }
 
     public async Task RunningTask(
         TimeSpan timeout,
+        TimeSpan loadingTimeout,
         CancellationToken cancellationToken,
         Task<GoogleSignInUser> task
     )
     {
+        if (await Task.WhenAny(task, Task.Delay(loadingTimeout, cancellationToken)) != task)
+        {
+            titleScreenController.SetLoadingScreen(true);
+        }
         if (await Task.WhenAny(task, Task.Delay(timeout, cancellationToken)) == task)
         {
             print("Entro al task");
+            titleScreenController.SetLoadingScreen(false);
             await task.ContinueWith(
                 OnAuthenticationFinished,
                 TaskScheduler.FromCurrentSynchronizationContext()
@@ -125,22 +110,16 @@ public class GoogleSignInController : MonoBehaviour
         {
             if (cancellationToken.IsCancellationRequested)
             {
+                titleScreenController.SetLoadingScreen(false);
+                GoogleSignIn.DefaultInstance.Disconnect();
+                Errors.Instance.HandleSignInError();
                 throw new TaskCanceledException();
             }
-            // cancelat.ThrowIfCancellationRequested();
-            // cancellationToken.Cancel();
-            // print("Cancel request " + cancellationToken.IsCancellationRequested);
-            // // print("Cancel");
-            // print(task.Status);
-            // print(cancellationToken.Token);
         }
     }
 
     public void OnSingOut()
     {
-        // print(taskStatus.Status);
-        // if (taskStatus.Status == TaskStatus.RanToCompletion)
-        // {
         GoogleSignIn.DefaultInstance.SignOut();
         AddStatusText("SingOut");
         PlayerPrefs.SetString("GoogleUserName", "");
@@ -148,7 +127,6 @@ public class GoogleSignInController : MonoBehaviour
         PlayerPrefs.SetString("GoogleIdToke", "");
         signOutButton.SetActive(false);
         signInButton.SetActive(true);
-        // }
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)

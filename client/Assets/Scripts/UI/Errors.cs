@@ -17,6 +17,9 @@ public class Errors : MonoBehaviour
     public GameObject reconnectContainer;
 
     [SerializeField]
+    public GameObject signInContainer;
+
+    [SerializeField]
     public GameObject versionHashesContainer;
 
     [SerializeField]
@@ -72,6 +75,16 @@ public class Errors : MonoBehaviour
         reconnectContainer.SetActive(true);
         reconnectError.text = title;
         reconnectDescription.text = description;
+    }
+
+    public void HandleSignInError()
+    {
+        signInContainer.SetActive(true);
+    }
+
+    public void HideSignInError()
+    {
+        signInContainer.SetActive(false);
     }
 
     public void HideOngoingGameError()

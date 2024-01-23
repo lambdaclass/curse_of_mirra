@@ -182,7 +182,7 @@ public class TitleScreenController : MonoBehaviour
         }
     }
 
-    void SetLoadingScreen(bool isActive)
+    public void SetLoadingScreen(bool isActive)
     {
         loadingScreen.SetActive(isActive);
         if (isActive)
