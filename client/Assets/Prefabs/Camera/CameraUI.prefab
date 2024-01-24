@@ -6890,7 +6890,7 @@ GameObject:
   - component: {fileID: 4958801060738943240}
   - component: {fileID: 8161907203230684576}
   m_Layer: 5
-  m_Name: MatrixToggle
+  m_Name: HitboxesToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8465,7 +8465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Matrix mode
+  m_text: Toggle hitboxes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad7095a8160a94dc2a8c06bc9c4db145, type: 2}
   m_sharedMaterial: {fileID: -6215521632685670565, guid: ad7095a8160a94dc2a8c06bc9c4db145,
