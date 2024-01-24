@@ -132,7 +132,8 @@ public class GameServerConnectionManager : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             // TODO: Add some error handle for when websocket closes unexpectedly
-        } else
+        }
+        else
         {
             Debug.Log("Game websocket closed normally");
         }
@@ -166,9 +167,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     };
                     break;
                 case GameEvent.EventOneofCase.Finished:
-                    Debug.Log("Finished!!");
                     winnerPlayer.Item1 = gameEvent.Finished.Winner;
-                    // winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
+                    winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
                     this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     break;
                 default:

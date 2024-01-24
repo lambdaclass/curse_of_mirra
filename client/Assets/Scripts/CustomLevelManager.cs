@@ -13,8 +13,8 @@ using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
-    // private const float DEATH_FEEDBACK_DURATION = 1.5f;
-    // bool paused = false;
+    private const float DEATH_FEEDBACK_DURATION = 1.5f;
+    bool paused = false;
     private GameObject mapPrefab;
     public GameObject quickMapPrefab;
 
@@ -27,7 +27,7 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     Text roundText;
 
-    // private ulong totalPlayers = 1;
+    private ulong totalPlayers = 1;
     private ulong playerId;
 
     // private GameObject prefab;
@@ -39,7 +39,7 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    // private ulong playerToFollowId;
+    private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
 
@@ -50,14 +50,14 @@ public class CustomLevelManager : LevelManager
     [SerializeField]
     GameObject battleScreen;
 
-    // Int32 CAMERA_OFFSET = 30;
-    // Int32 CAMERA_Y_OFFSET = 6;
-    // double xDigit = 0;
-    // double zDigit = 0;
+    Int32 CAMERA_OFFSET = 30;
+    Int32 CAMERA_Y_OFFSET = 6;
+    double xDigit = 0;
+    double zDigit = 0;
     CinemachineFramingTransposer cameraFramingTransposer = null;
 
-    // private bool deathSplashIsShown = false;
-    // EndGameManager endGameManager;
+    private bool deathSplashIsShown = false;
+    EndGameManager endGameManager;
 
     protected override void Awake()
     {
@@ -100,55 +100,55 @@ public class CustomLevelManager : LevelManager
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        // this.totalPlayers = (ulong)this.gamePlayers.Count();
+        this.totalPlayers = (ulong)GameServerConnectionManager.Instance.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
-        // playerToFollowId = playerId;
+        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
         setCameraToPlayer(playerId);
-        // var player = Utils.GetPlayer(playerId);
-        // cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-        //     player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-        //     CAMERA_Y_OFFSET,
-        //     player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-        // );
+        var player = Utils.GetPlayer(playerId);
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
+            CAMERA_Y_OFFSET,
+            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
+        );
 
-        // SetPlayerHealthBar(playerId);
-        // SetOrientationArrow(playerId);
+        SetPlayerHealthBar(playerId);
+        SetOrientationArrow(playerId);
         StartCoroutine(CameraCinematic());
 
-        // endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
-        // endGameManager.SetDeathSplashCharacter();
+        endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
+        endGameManager.SetDeathSplashCharacter();
     }
 
-    // void Update()
-    // {
-    //     OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
-    //     GameObject player = Utils.GetPlayer(playerId);
-    //     if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
-    //     {
-    //         StartCoroutine(ShowDeathSplash(player));
-    //         deathSplashIsShown = true;
-    //     }
-    //     if (GameHasEnded())
-    //     {
-    //         // TODO: Redirect to EndGameScreen
-    //         //SceneManager.LoadScene("EndGame");
-    //         endGameManager.finalSplash.SetActive(true);
-    //         endGameManager.ShowCharacterAnimation();
-    //     }
+    void Update()
+    {
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
+        if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
+        {
+            StartCoroutine(ShowDeathSplash(player));
+            deathSplashIsShown = true;
+        }
+        if (GameHasEnded())
+        {
+            // TODO: Redirect to EndGameScreen
+            //SceneManager.LoadScene("EndGame");
+            endGameManager.finalSplash.SetActive(true);
+            endGameManager.ShowCharacterAnimation();
+        }
 
-    //     if (Input.GetKeyDown(KeyCode.Escape))
-    //     {
-    //         GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
-    //         paused = !paused;
-    //     }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIManager.Instance.SetPauseScreen(paused == false ? true : false);
+            paused = !paused;
+        }
 
-    //     if (gamePlayer != null && gamePlayer.Health <= 0)
-    //     {
-    //         SetCameraToAlivePlayer();
-    //     }
-    // }
+        // if (gamePlayer != null && gamePlayer.Player.Health <= 0)
+        // {
+        //     SetCameraToAlivePlayer();
+        // }
+    }
 
     // private GameObject GetCharacterPrefab(ulong playerId)
     // {
@@ -198,46 +198,46 @@ public class CustomLevelManager : LevelManager
 
     IEnumerator CameraCinematic()
     {
-        //     if (!GameServerConnectionManager.Instance.cinematicDone)
-        //     {
-        //         float effectTime = Utils
-        //             .GetCharacter(1)
-        //             .characterBase
-        //             .spawnFeedback
-        //             .GetComponent<VisualEffect>()
-        //             .GetFloat("LifeTime");
-        //         //Start moving camera and remove loading sceen
-        //         InvokeRepeating("Substract", 1f, 0.1f);
-        //         yield return new WaitForSeconds(1.7f);
-        loadingScreen.SetActive(false);
-        battleScreen.SetActive(true);
-        //         // Cancel camera movement and start zoom in
-        yield return new WaitForSeconds(2.1f);
-        //         CancelInvoke("Substract");
-        InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-        //         Utils
-        //             .GetAllCharacters()
-        //             .ForEach(character =>
-        //             {
-        //                 character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-        //             });
-        //         yield return new WaitForSeconds(effectTime);
-        //         Utils
-        //             .GetAllCharacters()
-        //             .ForEach(character =>
-        //             {
-        //                 character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-        //             });
-        //         //Cancel camera zoom
-        yield return new WaitForSeconds(0.5f);
-        CancelInvoke("MoveYCamera");
-        //     }
-        //     else
-        //     {
-        //         cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-        //         yield return new WaitForSeconds(0.9f);
-        //         loadingScreen.SetActive(false);
-        //     }
+        if (!GameServerConnectionManager.Instance.cinematicDone)
+        {
+            float effectTime = Utils
+                .GetCharacter(1)
+                .characterBase
+                .spawnFeedback
+                .GetComponent<VisualEffect>()
+                .GetFloat("LifeTime");
+            //Start moving camera and remove loading sceen
+            InvokeRepeating("Substract", 1f, 0.1f);
+            yield return new WaitForSeconds(1.7f);
+            loadingScreen.SetActive(false);
+            battleScreen.SetActive(true);
+            // Cancel camera movement and start zoom in
+            yield return new WaitForSeconds(2.1f);
+            CancelInvoke("Substract");
+            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
+                });
+            yield return new WaitForSeconds(effectTime);
+            Utils
+                .GetAllCharacters()
+                .ForEach(character =>
+                {
+                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
+                });
+            //Cancel camera zoom
+            yield return new WaitForSeconds(0.5f);
+            CancelInvoke("MoveYCamera");
+        }
+        else
+        {
+            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
+            yield return new WaitForSeconds(0.9f);
+            loadingScreen.SetActive(false);
+        }
     }
 
     // int RoundUpByTen(int i)
@@ -256,33 +256,33 @@ public class CustomLevelManager : LevelManager
         // );
     }
 
-    // void Substract()
-    // {
-    //     Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
+    void Substract()
+    {
+        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
 
-    //     var xIsPositive = Math.Round(cameraOffset.x) > 0;
-    //     var zIsPositive = Math.Round(cameraOffset.z) > 0;
-    //     var xValue = (xIsPositive ? -1 : 1);
-    //     var zValue = (zIsPositive ? -1 : 1);
+        var xIsPositive = Math.Round(cameraOffset.x) > 0;
+        var zIsPositive = Math.Round(cameraOffset.z) > 0;
+        var xValue = (xIsPositive ? -1 : 1);
+        var zValue = (zIsPositive ? -1 : 1);
 
-    //     cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-    //         cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
-    //         cameraOffset.y,
-    //         cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
-    //     );
-    //     ;
-    // }
+        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
+            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
+            cameraOffset.y,
+            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
+        );
+        ;
+    }
 
-    // private void SetOrientationArrow(ulong playerID)
-    // {
-    //     foreach (CustomCharacter player in this.PlayerPrefabs)
-    //     {
-    //         player
-    //             .GetComponentInChildren<CharacterBase>()
-    //             .OrientationArrow
-    //             .SetActive(UInt64.Parse(player.PlayerID) == playerID);
-    //     }
-    // }
+    private void SetOrientationArrow(ulong playerID)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            player
+                .GetComponentInChildren<CharacterBase>()
+                .OrientationArrow
+                .SetActive(UInt64.Parse(player.PlayerID) == playerID);
+        }
+    }
 
     private void setCameraToPlayer(ulong playerID)
     {
@@ -290,8 +290,8 @@ public class CustomLevelManager : LevelManager
         {
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
-            this.camera.SetTarget(player);
-            this.camera.StartFollowing();
+                this.camera.SetTarget(player);
+                this.camera.StartFollowing();
             }
         }
     }
@@ -396,25 +396,25 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    // private void SetPlayerHealthBar(ulong playerId)
-    // {
-    //     foreach (CustomCharacter player in this.PlayerPrefabs)
-    //     {
-    //         Image healthBarFront = player
-    //             .GetComponent<MMHealthBar>()
-    //             .TargetProgressBar
-    //             .ForegroundBar
-    //             .GetComponent<Image>();
-    //         if (UInt64.Parse(player.PlayerID) == playerId)
-    //         {
-    //             healthBarFront.color = Utils.healthBarCyan;
-    //         }
-    //         else
-    //         {
-    //             healthBarFront.color = Utils.healthBarRed;
-    //         }
-    //     }
-    // }
+    private void SetPlayerHealthBar(ulong playerId)
+    {
+        foreach (CustomCharacter player in this.PlayerPrefabs)
+        {
+            Image healthBarFront = player
+                .GetComponent<MMHealthBar>()
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
+            if (UInt64.Parse(player.PlayerID) == playerId)
+            {
+                healthBarFront.color = Utils.healthBarCyan;
+            }
+            else
+            {
+                healthBarFront.color = Utils.healthBarRed;
+            }
+        }
+    }
 
     // private void ShowRoundTransition()
     // {
@@ -428,16 +428,16 @@ public class CustomLevelManager : LevelManager
     //     roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     // }
 
-    // private IEnumerator ShowDeathSplash(GameObject player)
-    // {
-    //     MMFeedbacks deathFeedback = player
-    //         .GetComponent<CustomCharacter>()
-    //         .GetComponent<Health>()
-    //         .DeathMMFeedbacks;
-    //     yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
-    //     deathSplash.SetActive(true);
-    //     UiControls.SetActive(false);
-    // }
+    private IEnumerator ShowDeathSplash(GameObject player)
+    {
+        MMFeedbacks deathFeedback = player
+            .GetComponent<CustomCharacter>()
+            .GetComponent<Health>()
+            .DeathMMFeedbacks;
+        yield return new WaitForSeconds(DEATH_FEEDBACK_DURATION);
+        deathSplash.SetActive(true);
+        UiControls.SetActive(false);
+    }
 
     // private void SetCameraToAlivePlayer()
     // {
@@ -460,16 +460,16 @@ public class CustomLevelManager : LevelManager
     //     KillFeedManager.instance.saveKillerId = 0;
     // }
 
-    // private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
-    // {
-    //     return GameServerConnectionManager.Instance.GameHasEnded()
-    //         || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
-    // }
+    private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
+    {
+        return GameServerConnectionManager.Instance.GameHasEnded()
+            || gamePlayer != null && (gamePlayer.Player.Health == 0);
+    }
 
-    // private bool GameHasEnded()
-    // {
-    //     return GameServerConnectionManager.Instance.GameHasEnded();
-    // }
+    private bool GameHasEnded()
+    {
+        return GameServerConnectionManager.Instance.GameHasEnded();
+    }
 
     private bool checkPlayerHasJoined()
     {

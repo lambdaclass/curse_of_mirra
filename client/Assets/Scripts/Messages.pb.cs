@@ -49,18 +49,19 @@ public static partial class MessagesReflection {
           "aXRoGAkgAygEEg0KBXNwZWVkGAogASgCEh0KCWRpcmVjdGlvbhgLIAEoCzIK",
           "LkRpcmVjdGlvbhIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpwcm9q",
           "ZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4gASgL",
-          "MgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJACgZQbGF5ZXISDgoG",
-          "aGVhbHRoGAEgASgEEiYKD2N1cnJlbnRfYWN0aW9ucxgCIAMoCzINLlBsYXll",
-          "ckFjdGlvbiIuCgpQcm9qZWN0aWxlEg4KBmRhbWFnZRgBIAEoBBIQCghvd25l",
-          "cl9pZBgCIAEoBCIZCghPYnN0YWNsZRINCgVjb2xvchgBIAEoCSJDCgxQbGF5",
-          "ZXJBY3Rpb24SIQoGYWN0aW9uGAEgASgOMhEuUGxheWVyQWN0aW9uVHlwZRIQ",
-          "CghkdXJhdGlvbhgCIAEoBCIlCgRNb3ZlEh0KCWRpcmVjdGlvbhgBIAEoCzIK",
-          "LkRpcmVjdGlvbiIXCgZBdHRhY2sSDQoFc2tpbGwYASABKAkiYAoKR2FtZUFj",
-          "dGlvbhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEoCzIH",
-          "LkF0dGFja0gAEhEKCXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSp4",
-          "ChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklORxAAEhQKEFNUQVJUSU5HX1NL",
-          "SUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8yEAISFQoRRVhFQ1VUSU5HX1NL",
-          "SUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExfMhAEYgZwcm90bzM="));
+          "MgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJUCgZQbGF5ZXISDgoG",
+          "aGVhbHRoGAEgASgEEhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVudF9h",
+          "Y3Rpb25zGAMgAygLMg0uUGxheWVyQWN0aW9uIi4KClByb2plY3RpbGUSDgoG",
+          "ZGFtYWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEIhkKCE9ic3RhY2xlEg0K",
+          "BWNvbG9yGAEgASgJIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4y",
+          "ES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUS",
+          "HQoJZGlyZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIhcKBkF0dGFjaxINCgVz",
+          "a2lsbBgBIAEoCSJgCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3Zl",
+          "SAASGQoGYXR0YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMg",
+          "ASgDQg0KC2FjdGlvbl90eXBlKngKEFBsYXllckFjdGlvblR5cGUSCgoGTU9W",
+          "SU5HEAASFAoQU1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxM",
+          "XzIQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lM",
+          "TF8yEARiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -75,7 +76,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "IsColliding", "CollidesWith", "Speed", "Direction", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "CurrentActions" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration" }, null, null, null, null),
@@ -1114,7 +1115,7 @@ public sealed partial class GameFinished : pb::IMessage<GameFinished>
       }
       Winner.MergeFrom(other.Winner);
     }
-    players_.MergeFrom(other.players_);
+    players_.Add(other.players_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -2454,8 +2455,8 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (other.GameId.Length != 0) {
       GameId = other.GameId;
     }
-    players_.MergeFrom(other.players_);
-    projectiles_.MergeFrom(other.projectiles_);
+    players_.Add(other.players_);
+    projectiles_.Add(other.projectiles_);
     if (other.PlayerTimestamp != 0L) {
       PlayerTimestamp = other.PlayerTimestamp;
     }
@@ -3331,6 +3332,7 @@ public sealed partial class Player : pb::IMessage<Player>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public Player(Player other) : this() {
     health_ = other.health_;
+    killCount_ = other.killCount_;
     currentActions_ = other.currentActions_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -3353,10 +3355,22 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
+  /// <summary>Field number for the "kill_count" field.</summary>
+  public const int KillCountFieldNumber = 2;
+  private ulong killCount_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong KillCount {
+    get { return killCount_; }
+    set {
+      killCount_ = value;
+    }
+  }
+
   /// <summary>Field number for the "current_actions" field.</summary>
-  public const int CurrentActionsFieldNumber = 2;
+  public const int CurrentActionsFieldNumber = 3;
   private static readonly pb::FieldCodec<global::PlayerAction> _repeated_currentActions_codec
-      = pb::FieldCodec.ForMessage(18, global::PlayerAction.Parser);
+      = pb::FieldCodec.ForMessage(26, global::PlayerAction.Parser);
   private readonly pbc::RepeatedField<global::PlayerAction> currentActions_ = new pbc::RepeatedField<global::PlayerAction>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3380,6 +3394,7 @@ public sealed partial class Player : pb::IMessage<Player>
       return true;
     }
     if (Health != other.Health) return false;
+    if (KillCount != other.KillCount) return false;
     if(!currentActions_.Equals(other.currentActions_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -3389,6 +3404,7 @@ public sealed partial class Player : pb::IMessage<Player>
   public override int GetHashCode() {
     int hash = 1;
     if (Health != 0UL) hash ^= Health.GetHashCode();
+    if (KillCount != 0UL) hash ^= KillCount.GetHashCode();
     hash ^= currentActions_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -3412,6 +3428,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(8);
       output.WriteUInt64(Health);
     }
+    if (KillCount != 0UL) {
+      output.WriteRawTag(16);
+      output.WriteUInt64(KillCount);
+    }
     currentActions_.WriteTo(output, _repeated_currentActions_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -3427,6 +3447,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(8);
       output.WriteUInt64(Health);
     }
+    if (KillCount != 0UL) {
+      output.WriteRawTag(16);
+      output.WriteUInt64(KillCount);
+    }
     currentActions_.WriteTo(ref output, _repeated_currentActions_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -3440,6 +3464,9 @@ public sealed partial class Player : pb::IMessage<Player>
     int size = 0;
     if (Health != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Health);
+    }
+    if (KillCount != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(KillCount);
     }
     size += currentActions_.CalculateSize(_repeated_currentActions_codec);
     if (_unknownFields != null) {
@@ -3456,6 +3483,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.Health != 0UL) {
       Health = other.Health;
+    }
+    if (other.KillCount != 0UL) {
+      KillCount = other.KillCount;
     }
     currentActions_.Add(other.currentActions_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -3477,7 +3507,11 @@ public sealed partial class Player : pb::IMessage<Player>
           Health = input.ReadUInt64();
           break;
         }
-        case 18: {
+        case 16: {
+          KillCount = input.ReadUInt64();
+          break;
+        }
+        case 26: {
           currentActions_.AddEntriesFrom(input, _repeated_currentActions_codec);
           break;
         }
@@ -3500,7 +3534,11 @@ public sealed partial class Player : pb::IMessage<Player>
           Health = input.ReadUInt64();
           break;
         }
-        case 18: {
+        case 16: {
+          KillCount = input.ReadUInt64();
+          break;
+        }
+        case 26: {
           currentActions_.AddEntriesFrom(ref input, _repeated_currentActions_codec);
           break;
         }
