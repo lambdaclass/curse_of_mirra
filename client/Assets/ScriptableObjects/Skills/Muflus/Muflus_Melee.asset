@@ -15,7 +15,7 @@ MonoBehaviour:
   name: BASH
   description: Targets an arc in front of you, dealing damage.
   inputType: 2
-  skillSetType: 1
+  skillSetType: 0
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 2
@@ -24,8 +24,6 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 0}
   sfxHasAbilityStop: 1
   abilityStopSfx: {fileID: 8300000, guid: 12a3365ad519042ecb91d61ecf29fde6, type: 3}
-  startAnimationDuration: 0
-  executeAnimationDuration: 1
   skillCircleRadius: 8
   skillConeAngle: 0
   arrowWidth: 3
@@ -35,9 +33,7 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
-  startFeedbackVfxDelay: 0
+  startVfxList: []
   vfxList:
   - vfx: {fileID: 2701273495037961085, guid: 9086438c602644ffd9be0f34ce5b9599, type: 3}
     duration: 1

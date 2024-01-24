@@ -8,14 +8,14 @@ public class CustomCharacter : Character
     [Header("Character Base")]
     [SerializeField]
     public CharacterBase characterBase;
-    // public HashSet<OldActionTracker> currentActions = new HashSet<OldActionTracker>();
+    public HashSet<PlayerAction> currentActions = new HashSet<PlayerAction>();
 
-    // protected override void Initialization()
-    // {
-    //     base.Initialization();
-    //     if (GameServerConnectionManager.Instance.playerId.ToString() == this.PlayerID)
-    //     {
-    //         this.characterBase.gameObject.AddComponent<AudioSource>();
-    //     }
-    // }
+    protected override void Initialization()
+    {
+        base.Initialization();
+        if (GameServerConnectionManager.Instance.playerId.ToString() == this.PlayerID)
+        {
+            this.characterBase.gameObject.AddComponent<AudioSource>();
+        }
+    }
 }
