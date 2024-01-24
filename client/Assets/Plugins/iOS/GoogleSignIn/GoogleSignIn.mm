@@ -18,9 +18,6 @@
 #import <GoogleSignIn/GIDGoogleUser.h>
 #import <GoogleSignIn/GIDProfileData.h>
 #import <GoogleSignIn/GIDSignIn.h>
-#import <UnityAppController.h>
-
-#import "UnityInterface.h"
 
 #import <memory>
 
@@ -61,19 +58,6 @@ std::unique_ptr<SignInResult> currentResult_;
 NSRecursiveLock *resultLock = [NSRecursiveLock alloc];
 
 @implementation GoogleSignInHandler
-
-GIDConfiguration* signInConfiguration = nil;
-NSString* loginHint = nil;
-NSMutableArray* additionalScopes = nil;
-
-+ (GoogleSignInHandler *)sharedInstance {
-  static dispatch_once_t once;
-  static GoogleSignInHandler *sharedInstance;
-  dispatch_once(&once, ^{
-    sharedInstance = [self alloc];
-  });
-  return sharedInstance;
-}
 
 /**
  * Overload the presenting of the UI so we can pause the Unity player.
@@ -159,7 +143,6 @@ NSMutableArray* additionalScopes = nil;
  * The parameters are intended to be primative, easy to marshall.
  */
 extern "C" {
-
 /**
  * This method does nothing in the iOS implementation.  It is here
  * to make the API uniform between Android and iOS.
@@ -182,29 +165,33 @@ bool GoogleSignIn_Configure(void *unused, bool useGameSignIn,
                             bool requestIdToken, bool hidePopups,
                             const char **additionalScopes, int scopeCount,
                             const char *accountName) {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *clientId = [dict objectForKey:@"CLIENT_ID"];
-    GIDConfiguration* config = [[GIDConfiguration alloc] initWithClientID:clientId];
-    if (webClientId) {
-      config = [[GIDConfiguration alloc] initWithClientID:clientId serverClientID:[NSString stringWithUTF8String:webClientId]];
-    }
-    [GoogleSignInHandler sharedInstance]->signInConfiguration = config;
+  if (webClientId) {
+    [GIDSignIn sharedInstance].serverClientID =
+        [NSString stringWithUTF8String:webClientId];
+  }
 
-    int scopeSize = scopeCount;
-    if (scopeSize) {
-        NSMutableArray *tmpary = [[NSMutableArray alloc] initWithCapacity:scopeSize];
-        for (int i = 0; i < scopeCount; i++) {
-            [tmpary addObject:[NSString stringWithUTF8String:additionalScopes[i]]];
-        }
-        [GoogleSignInHandler sharedInstance]->additionalScopes = tmpary;
+  [GIDSignIn sharedInstance].shouldFetchBasicProfile = true;
+
+  int scopeSize = scopeCount;
+
+  if (scopeSize) {
+    NSMutableArray *tmpary =
+        [[NSMutableArray alloc] initWithCapacity:scopeSize];
+    for (int i = 0; i < scopeCount; i++) {
+      [tmpary addObject:[NSString stringWithUTF8String:additionalScopes[i]]];
     }
 
-    if (accountName) {
-      [GoogleSignInHandler sharedInstance]->loginHint = [NSString stringWithUTF8String:accountName];
-    }
+    [GIDSignIn sharedInstance].scopes = tmpary;
+  }
 
-    return !useGameSignIn;
+  if (accountName) {
+    [GIDSignIn sharedInstance].loginHint =
+        [NSString stringWithUTF8String:accountName];
+  }
+
+  [GIDSignIn sharedInstance].presentingViewController = UnityGetGLViewController();
+
+  return !useGameSignIn;
 }
 
 /**
@@ -238,12 +225,7 @@ static SignInResult *startSignIn() {
 void *GoogleSignIn_SignIn() {
   SignInResult *result = startSignIn();
   if (!result) {
-    [[GIDSignIn sharedInstance] signInWithConfiguration:[GoogleSignInHandler sharedInstance]->signInConfiguration
-                               presentingViewController:UnityGetGLViewController()
-                                                   hint:[GoogleSignInHandler sharedInstance]->loginHint
-                                               callback:^(GIDGoogleUser *user, NSError *error) {
-        [[GoogleSignInHandler sharedInstance] signIn:[GIDSignIn sharedInstance] didSignInForUser:user withError:error];
-    }];
+    [[GIDSignIn sharedInstance] signIn];
     result = currentResult_.get();
   }
   return result;
@@ -256,9 +238,7 @@ void *GoogleSignIn_SignIn() {
 void *GoogleSignIn_SignInSilently() {
   SignInResult *result = startSignIn();
   if (!result) {
-    [[GIDSignIn sharedInstance] restorePreviousSignInWithCallback:^(GIDGoogleUser *user, NSError *error) {
-        [[GoogleSignInHandler sharedInstance] signIn:[GIDSignIn sharedInstance] didSignInForUser:user withError:error];
-    }];
+    [[GIDSignIn sharedInstance] restorePreviousSignIn];
     result = currentResult_.get();
   }
   return result;
@@ -271,9 +251,7 @@ void GoogleSignIn_Signout() {
 
 void GoogleSignIn_Disconnect() {
   GIDSignIn *signIn = [GIDSignIn sharedInstance];
-  [signIn disconnectWithCallback:^(NSError *error) {
-      [[GoogleSignInHandler sharedInstance] signIn:[GIDSignIn sharedInstance] didDisconnectWithUser:nil withError:error];
-  }];
+  [signIn disconnect];
 }
 
 bool GoogleSignIn_Pending(SignInResult *result) {
