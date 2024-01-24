@@ -286,12 +286,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
         {
             if (UInt64.Parse(player.PlayerID) == playerID)
             {
-                cinemachineVirtualCamera
-                    .GetComponent<CinemachineCameraController>()
-                    .SetTarget(player);
-                cinemachineVirtualCamera
-                    .GetComponent<CinemachineCameraController>()
-                    .StartFollowing();
+                CinemachineCameraController cinemachineController =
+                    cinemachineVirtualCamera.GetComponent<CinemachineCameraController>();
+                cinemachineController.SetTarget(player);
+                cinemachineController.StartFollowing();
             }
         }
     }
