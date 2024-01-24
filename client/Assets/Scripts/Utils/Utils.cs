@@ -41,42 +41,42 @@ public class Utils
             .Find(el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString());
     }
 
-    // public static CustomCharacter GetCharacter(ulong id)
-    // {
-    //     return GetPlayer(id).GetComponent<CustomCharacter>();
-    // }
+    public static CustomCharacter GetCharacter(ulong id)
+    {
+        return GetPlayer(id).GetComponent<CustomCharacter>();
+    }
 
-    // public static OldPlayer GetGamePlayer(ulong id)
-    // {
-    //     OldPlayer player = null;
-    //     if (
-    //         GameServerConnectionManager.Instance.gamePlayers != null
-    //         && GameServerConnectionManager.Instance.gamePlayers.Count > 0
-    //     )
-    //     {
-    //         player = GameServerConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
-    //     }
-    //     return player;
-    // }
+    public static Entity GetGamePlayer(ulong id)
+    {
+        Entity player = null;
+        if (
+            GameServerConnectionManager.Instance.gamePlayers != null
+            && GameServerConnectionManager.Instance.gamePlayers.Count > 0
+        )
+        {
+            player = GameServerConnectionManager.Instance?.gamePlayers.Find(el => el.Id == id);
+        }
+        return player;
+    }
 
-    // public static IEnumerable<OldPlayer> GetAlivePlayers()
-    // {
-    //     return GameServerConnectionManager
-    //         .Instance
-    //         .gamePlayers
-    //         .Where(player => player.Status == OldStatus.Alive);
-    // }
+    public static IEnumerable<Entity> GetAlivePlayers()
+    {
+        return GameServerConnectionManager
+            .Instance
+            .gamePlayers
+            .Where(player => player.Player.Health > 0);
+    }
 
-    // public static List<CustomCharacter> GetAllCharacters()
-    // {
-    //     List<CustomCharacter> result = new List<CustomCharacter>();
-    //     Utils
-    //         .GetAlivePlayers()
-    //         .ToList()
-    //         .ForEach(player => result.Add(Utils.GetCharacter(player.Id)));
+    public static List<CustomCharacter> GetAllCharacters()
+    {
+        List<CustomCharacter> result = new List<CustomCharacter>();
+        Utils
+            .GetAlivePlayers()
+            .ToList()
+            .ForEach(player => result.Add(Utils.GetCharacter(player.Id)));
 
-    //     return result;
-    // }
+        return result;
+    }
 
     // public static OldPlayer GetNearestPlayer(OldPosition toCompare)
     // {
