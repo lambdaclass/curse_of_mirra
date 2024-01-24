@@ -288,11 +288,11 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            // if (UInt64.Parse(player.PlayerID) == playerID)
-            // {
+            if (UInt64.Parse(player.PlayerID) == playerID)
+            {
             this.camera.SetTarget(player);
             this.camera.StartFollowing();
-            // }
+            }
         }
     }
 
