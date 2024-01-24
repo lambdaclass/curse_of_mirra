@@ -133,6 +133,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     break;
+                case GameEvent.EventOneofCase.Ping:
+                    currentPing = (uint)gameEvent.Ping.Latency;
+                    break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
 
@@ -140,7 +143,10 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
-                    this.playersIdPosition = new Dictionary<ulong, Position> { [this.playerId] = position };
+                    this.playersIdPosition = new Dictionary<ulong, Position>
+                    {
+                        [this.playerId] = position
+                    };
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
