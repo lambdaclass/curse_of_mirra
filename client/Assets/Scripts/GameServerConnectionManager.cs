@@ -303,7 +303,7 @@ public class GameServerConnectionManager : MonoBehaviour
         }
         else
         {
-            return "wss://" + serverIp + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
     }
 
