@@ -253,7 +253,7 @@ public class ServerConnection : MonoBehaviour
         }
         else
         {
-            return "wss://" + serverIp + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
     }
 

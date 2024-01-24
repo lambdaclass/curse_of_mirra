@@ -32,7 +32,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public float serverTickRate_ms;
     public string serverHash;
 
-    //     public (OldPlayer, ulong) winnerPlayer = (null, 0);
+    public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public ClientPrediction clientPrediction = new ClientPrediction();
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
@@ -113,12 +113,30 @@ public class GameServerConnectionManager : MonoBehaviour
         print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
-        // ws.OnClose += onWebsocketClose;
+        ws.OnClose += OnWebsocketClose;
         ws.OnError += (e) =>
         {
             Debug.Log("Received error: " + e);
         };
+        ws.OnOpen += () =>
+        {
+            // Once the connection is established we reset so when we try to load the scenes again
+            // it waits to fetch it from the Lobby websocket and not reuse
+            SessionParameters.GameId = null;
+        };
         ws.Connect();
+    }
+
+    private void OnWebsocketClose(WebSocketCloseCode closeCode)
+    {
+        if (closeCode != WebSocketCloseCode.Normal)
+        {
+            // TODO: Add some error handle for when websocket closes unexpectedly
+        }
+        else
+        {
+            Debug.Log("Game websocket closed normally");
+        }
     }
 
     private void OnWebSocketMessage(byte[] data)
@@ -133,6 +151,9 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
                     break;
+                case GameEvent.EventOneofCase.Ping:
+                    currentPing = (uint)gameEvent.Ping.Latency;
+                    break;
                 case GameEvent.EventOneofCase.Update:
                     GameState gameState = gameEvent.Update;
 
@@ -144,6 +165,11 @@ public class GameServerConnectionManager : MonoBehaviour
                     {
                         [this.playerId] = position
                     };
+                    break;
+                case GameEvent.EventOneofCase.Finished:
+                    winnerPlayer.Item1 = gameEvent.Finished.Winner;
+                    winnerPlayer.Item2 = gameEvent.Finished.Winner.Player.KillCount;
+                    this.gamePlayers = gameEvent.Finished.Players.Values.ToList();
                     break;
                 default:
                     print("Message received is: " + gameEvent.EventCase);
@@ -225,17 +251,6 @@ public class GameServerConnectionManager : MonoBehaviour
         }
     }
 
-    //     private void onWebsocketClose(WebSocketCloseCode closeCode)
-    //     {
-    //         Debug.Log("closeCode:" + closeCode);
-    //         if (closeCode != WebSocketCloseCode.Normal)
-    //         {
-    //             ServerConnection.Instance.errorConnection = true;
-    //             this.Init();
-    //             ServerConnection.Instance.Init();
-    //         }
-    //     }
-
     //     public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
     //     {
     //         return playerList.Find(el => el.Id == id);
@@ -301,7 +316,7 @@ public class GameServerConnectionManager : MonoBehaviour
         }
         else
         {
-            return "wss://" + serverIp + path;
+            return "ws://" + serverIp + ":4000" + path;
         }
     }
 
@@ -317,13 +332,11 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public bool GameHasEnded()
     {
-        // return winnerPlayer.Item1 != null;
-        return false;
+        return winnerPlayer.Item1 != null;
     }
 
     public bool PlayerIsWinner(ulong playerId)
     {
-        return false;
-        // return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
+        return GameHasEnded() && winnerPlayer.Item1.Id == playerId;
     }
 }
