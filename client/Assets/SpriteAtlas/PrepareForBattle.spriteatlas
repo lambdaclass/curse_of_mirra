@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BattleUI
+  m_Name: PrepareForBattle
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -32,7 +32,7 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: e268fd3cd8ea145be90bf8d19485f787, type: 3}
+    - {fileID: 102900000, guid: 1c007613d500049118626424b6ab301a, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -92,5 +92,5 @@ SpriteAtlas:
   - CurseOfMirra-H4ck
   - time
   m_RenderDataMap: {}
-  m_Tag: BattleUI
+  m_Tag: PrepareForBattle
   m_IsVariant: 0
