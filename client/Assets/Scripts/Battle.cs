@@ -882,4 +882,9 @@ public class Battle : MonoBehaviour
             player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         }
     }
+
+    public GameObject GetMapGrid()
+    {
+        return levelManager.GetMapInstance().GetComponent<MapGrid>().mapGrid;
+    }
 }

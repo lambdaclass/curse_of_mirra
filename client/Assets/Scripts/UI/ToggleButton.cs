@@ -1,7 +1,7 @@
+using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using MoreMountains.Tools;
 
 public class ToggleButton : MonoBehaviour
 {
@@ -118,6 +118,20 @@ public class ToggleButton : MonoBehaviour
         {
             ToggleOn();
             metricsComponent.SetActive(true);
+        }
+    }
+
+    public void ToggleGrid()
+    {
+        if (battle.GetMapGrid().activeSelf)
+        {
+            ToggleOff();
+            battle.GetMapGrid().SetActive(false);
+        }
+        else
+        {
+            ToggleOn();
+            battle.GetMapGrid().SetActive(true);
         }
     }
 
