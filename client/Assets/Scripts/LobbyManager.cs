@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : LevelSelector
 {
-    private const string BATTLE_SCENE_NAME = "Battle";
+    private const string BATTLE_SCENE_NAME = "Araban";
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";

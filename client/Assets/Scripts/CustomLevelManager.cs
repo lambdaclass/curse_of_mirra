@@ -17,7 +17,6 @@ public class CustomLevelManager : LevelManager
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
-    public GameObject quickMapPrefab;
 
     [SerializeField]
     GameObject roundSplash;
@@ -60,7 +59,7 @@ public class CustomLevelManager : LevelManager
     {
         base.Awake();
         // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
-        InitializeMap();
+        // InitializeMap();
         cameraFramingTransposer = this.camera
             .GetComponent<CinemachineVirtualCamera>()
             .GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -70,28 +69,6 @@ public class CustomLevelManager : LevelManager
     {
         base.Start();
         StartCoroutine(InitializeLevel());
-    }
-
-    private void InitializeMap()
-    {
-        if (LobbyManager.LevelSelected == null)
-        {
-            InitializeMapPrefab(quickMapPrefab);
-        }
-        else
-        {
-            mapPrefab = mapList.Find(map => map.name == LobbyManager.LevelSelected);
-            InitializeMapPrefab(mapPrefab);
-        }
-    }
-
-    private void InitializeMapPrefab(GameObject mapPrefab)
-    {
-        GameObject map = Instantiate(mapPrefab);
-        //Add gameobject to the scene root
-        map.transform.SetParent(
-            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
-        );
     }
 
     private IEnumerator InitializeLevel()
