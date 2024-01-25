@@ -262,10 +262,9 @@ public class Battle : MonoBehaviour
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
-                        .SimulatePlayerState(
+                        .simulatePlayerState(
                             serverPlayerUpdate,
-                            gameEvent.PlayerTimestamp,
-                            gameEvent.ServerTimestamp
+                            gameEvent.PlayerTimestamps[player.Id]
                         );
                 }
 
@@ -665,55 +664,55 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
-    //     public void ToggleClientPrediction()
-    //     {
-    //         useClientPrediction = !useClientPrediction;
-    //         if (!useClientPrediction)
-    //         {
-    //             TurnOffClientPredictionGhost();
-    //         }
-    //     }
+    // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
+    public void ToggleClientPrediction()
+    {
+        useClientPrediction = !useClientPrediction;
+        if (!useClientPrediction)
+        {
+            TurnOffClientPredictionGhost();
+        }
+    }
 
-    //     public void ToggleClientPredictionGhost()
-    //     {
-    //         showClientPredictionGhost = !showClientPredictionGhost;
-    //         if (showClientPredictionGhost && clientPredictionGhost == null)
-    //         {
-    //             SpawnClientPredictionGhost();
-    //         }
-    //         else
-    //         {
-    //             TurnOffClientPredictionGhost();
-    //         }
-    //     }
+    public void ToggleClientPredictionGhost()
+    {
+        showClientPredictionGhost = !showClientPredictionGhost;
+        if (showClientPredictionGhost && clientPredictionGhost == null)
+        {
+            SpawnClientPredictionGhost();
+        }
+        else
+        {
+            TurnOffClientPredictionGhost();
+        }
+    }
 
-    //     private void SpawnClientPredictionGhost()
-    //     {
-    //         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-    //         clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
-    //         clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
-    //             .Instance
-    //             .playerId
-    //             .ToString();
-    //         clientPredictionGhost.GetComponent<CustomCharacter>().name =
-    //             $"Client Prediction Ghost {GameServerConnectionManager.Instance.playerId}";
-    //         showClientPredictionGhost = true;
-    //     }
+    private void SpawnClientPredictionGhost()
+    {
+        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        clientPredictionGhost = Instantiate(player, player.transform.position, Quaternion.identity);
+        clientPredictionGhost.GetComponent<CustomCharacter>().PlayerID = GameServerConnectionManager
+            .Instance
+            .playerId
+            .ToString();
+        clientPredictionGhost.GetComponent<CustomCharacter>().name =
+            $"Client Prediction Ghost {GameServerConnectionManager.Instance.playerId}";
+        showClientPredictionGhost = true;
+    }
 
-    //     private void TurnOffClientPredictionGhost()
-    //     {
-    //         if (!showClientPredictionGhost && clientPredictionGhost != null)
-    //         {
-    //             clientPredictionGhost
-    //                 .GetComponent<CustomCharacter>()
-    //                 .GetComponent<Health>()
-    //                 .SetHealth(0);
-    //             clientPredictionGhost.SetActive(false);
-    //             Destroy(clientPredictionGhost);
-    //             clientPredictionGhost = null;
-    //         }
-    //     }
+    private void TurnOffClientPredictionGhost()
+    {
+        if (!showClientPredictionGhost && clientPredictionGhost != null)
+        {
+            clientPredictionGhost
+                .GetComponent<CustomCharacter>()
+                .GetComponent<Health>()
+                .SetHealth(0);
+            clientPredictionGhost.SetActive(false);
+            Destroy(clientPredictionGhost);
+            clientPredictionGhost = null;
+        }
+    }
 
     //     // ENTITY INTERPOLATION UTILITY FUNCTIONS, WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     //     public void ToggleInterpolationGhosts()

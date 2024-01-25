@@ -35,35 +35,37 @@ public static partial class MessagesReflection {
           "ZxgCIAEoCzIOLkNvbmZpZ3VyYXRpb24iQwoNQ29uZmlndXJhdGlvbhIZCgRn",
           "YW1lGAEgASgLMgsuQ29uZmlnR2FtZRIXCgNtYXAYAiABKAsyCi5Db25maWdN",
           "YXAiIgoKQ29uZmlnR2FtZRIUCgx0aWNrX3JhdGVfbXMYASABKAIiGwoJQ29u",
-          "ZmlnTWFwEg4KBnJhZGl1cxgBIAEoAiKiAgoJR2FtZVN0YXRlEg8KB2dhbWVf",
+          "ZmlnTWFwEg4KBnJhZGl1cxgBIAEoAiL+AgoJR2FtZVN0YXRlEg8KB2dhbWVf",
           "aWQYASABKAkSKAoHcGxheWVycxgCIAMoCzIXLkdhbWVTdGF0ZS5QbGF5ZXJz",
           "RW50cnkSMAoLcHJvamVjdGlsZXMYAyADKAsyGy5HYW1lU3RhdGUuUHJvamVj",
-          "dGlsZXNFbnRyeRIYChBwbGF5ZXJfdGltZXN0YW1wGAQgASgDEhgKEHNlcnZl",
-          "cl90aW1lc3RhbXAYBSABKAMaNwoMUGxheWVyc0VudHJ5EgsKA2tleRgBIAEo",
-          "BBIWCgV2YWx1ZRgCIAEoCzIHLkVudGl0eToCOAEaOwoQUHJvamVjdGlsZXNF",
-          "bnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRpdHk6AjgB",
-          "ItQCCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0ZWdvcnkYAiABKAkSDQoF",
-          "c2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghwb3NpdGlvbhgFIAEoCzIJ",
-          "LlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2ZXJ0aWNlcxgHIAMoCzIJ",
-          "LlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCADKAQSDQoFc3BlZWQYCSAB",
-          "KAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0aW9uEhEKCWlzX21vdmlu",
-          "ZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpwcm9qZWN0",
-          "aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4gASgLMgku",
-          "T2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJUCgZQbGF5ZXISDgoGaGVh",
-          "bHRoGAEgASgEEhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVudF9hY3Rp",
-          "b25zGAMgAygLMg0uUGxheWVyQWN0aW9uIlEKClByb2plY3RpbGUSDgoGZGFt",
-          "YWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEEiEKBnN0YXR1cxgDIAEoDjIR",
-          "LlByb2plY3RpbGVTdGF0dXMiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAki",
-          "QwoMUGxheWVyQWN0aW9uEiEKBmFjdGlvbhgBIAEoDjIRLlBsYXllckFjdGlv",
-          "blR5cGUSEAoIZHVyYXRpb24YAiABKAQiJQoETW92ZRIdCglkaXJlY3Rpb24Y",
-          "ASABKAsyCi5EaXJlY3Rpb24iFwoGQXR0YWNrEg0KBXNraWxsGAEgASgJImAK",
-          "CkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZhdHRhY2sY",
-          "AiABKAsyBy5BdHRhY2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9u",
-          "X3R5cGUqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBM",
-          "T0RFRBABKngKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RB",
-          "UlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVD",
-          "VVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEARiBnByb3Rv",
-          "Mw=="));
+          "dGlsZXNFbnRyeRI7ChFwbGF5ZXJfdGltZXN0YW1wcxgEIAMoCzIgLkdhbWVT",
+          "dGF0ZS5QbGF5ZXJUaW1lc3RhbXBzRW50cnkSGAoQc2VydmVyX3RpbWVzdGFt",
+          "cBgFIAEoAxo3CgxQbGF5ZXJzRW50cnkSCwoDa2V5GAEgASgEEhYKBXZhbHVl",
+          "GAIgASgLMgcuRW50aXR5OgI4ARo7ChBQcm9qZWN0aWxlc0VudHJ5EgsKA2tl",
+          "eRgBIAEoBBIWCgV2YWx1ZRgCIAEoCzIHLkVudGl0eToCOAEaNwoVUGxheWVy",
+          "VGltZXN0YW1wc0VudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoAzoC",
+          "OAEi1AIKBkVudGl0eRIKCgJpZBgBIAEoBBIQCghjYXRlZ29yeRgCIAEoCRIN",
+          "CgVzaGFwZRgDIAEoCRIMCgRuYW1lGAQgASgJEhsKCHBvc2l0aW9uGAUgASgL",
+          "MgkuUG9zaXRpb24SDgoGcmFkaXVzGAYgASgCEhsKCHZlcnRpY2VzGAcgAygL",
+          "MgkuUG9zaXRpb24SFQoNY29sbGlkZXNfd2l0aBgIIAMoBBINCgVzcGVlZBgJ",
+          "IAEoAhIdCglkaXJlY3Rpb24YCiABKAsyCi5EaXJlY3Rpb24SEQoJaXNfbW92",
+          "aW5nGAsgASgIEhkKBnBsYXllchgMIAEoCzIHLlBsYXllckgAEiEKCnByb2pl",
+          "Y3RpbGUYDSABKAsyCy5Qcm9qZWN0aWxlSAASHQoIb2JzdGFjbGUYDiABKAsy",
+          "CS5PYnN0YWNsZUgAQhAKDmFkaXRpb25hbF9pbmZvIlQKBlBsYXllchIOCgZo",
+          "ZWFsdGgYASABKAQSEgoKa2lsbF9jb3VudBgCIAEoBBImCg9jdXJyZW50X2Fj",
+          "dGlvbnMYAyADKAsyDS5QbGF5ZXJBY3Rpb24iUQoKUHJvamVjdGlsZRIOCgZk",
+          "YW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQSIQoGc3RhdHVzGAMgASgO",
+          "MhEuUHJvamVjdGlsZVN0YXR1cyIZCghPYnN0YWNsZRINCgVjb2xvchgBIAEo",
+          "CSJDCgxQbGF5ZXJBY3Rpb24SIQoGYWN0aW9uGAEgASgOMhEuUGxheWVyQWN0",
+          "aW9uVHlwZRIQCghkdXJhdGlvbhgCIAEoBCIlCgRNb3ZlEh0KCWRpcmVjdGlv",
+          "bhgBIAEoCzIKLkRpcmVjdGlvbiIXCgZBdHRhY2sSDQoFc2tpbGwYASABKAki",
+          "YAoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgAEhkKBmF0dGFj",
+          "axgCIAEoCzIHLkF0dGFja0gAEhEKCXRpbWVzdGFtcBgDIAEoA0INCgthY3Rp",
+          "b25fdHlwZSosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVY",
+          "UExPREVEEAEqeAoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIUChBT",
+          "VEFSVElOR19TS0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUKEUVY",
+          "RUNVVElOR19TS0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBGIGcHJv",
+          "dG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -76,7 +78,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Configuration), global::Configuration.Parser, new[]{ "Game", "Map" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigGame), global::ConfigGame.Parser, new[]{ "TickRateMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
@@ -2269,7 +2271,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     gameId_ = other.gameId_;
     players_ = other.players_.Clone();
     projectiles_ = other.projectiles_.Clone();
-    playerTimestamp_ = other.playerTimestamp_;
+    playerTimestamps_ = other.playerTimestamps_.Clone();
     serverTimestamp_ = other.serverTimestamp_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -2314,16 +2316,15 @@ public sealed partial class GameState : pb::IMessage<GameState>
     get { return projectiles_; }
   }
 
-  /// <summary>Field number for the "player_timestamp" field.</summary>
-  public const int PlayerTimestampFieldNumber = 4;
-  private long playerTimestamp_;
+  /// <summary>Field number for the "player_timestamps" field.</summary>
+  public const int PlayerTimestampsFieldNumber = 4;
+  private static readonly pbc::MapField<ulong, long>.Codec _map_playerTimestamps_codec
+      = new pbc::MapField<ulong, long>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForInt64(16, 0L), 34);
+  private readonly pbc::MapField<ulong, long> playerTimestamps_ = new pbc::MapField<ulong, long>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public long PlayerTimestamp {
-    get { return playerTimestamp_; }
-    set {
-      playerTimestamp_ = value;
-    }
+  public pbc::MapField<ulong, long> PlayerTimestamps {
+    get { return playerTimestamps_; }
   }
 
   /// <summary>Field number for the "server_timestamp" field.</summary>
@@ -2356,7 +2357,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (GameId != other.GameId) return false;
     if (!Players.Equals(other.Players)) return false;
     if (!Projectiles.Equals(other.Projectiles)) return false;
-    if (PlayerTimestamp != other.PlayerTimestamp) return false;
+    if (!PlayerTimestamps.Equals(other.PlayerTimestamps)) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -2368,7 +2369,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (GameId.Length != 0) hash ^= GameId.GetHashCode();
     hash ^= Players.GetHashCode();
     hash ^= Projectiles.GetHashCode();
-    if (PlayerTimestamp != 0L) hash ^= PlayerTimestamp.GetHashCode();
+    hash ^= PlayerTimestamps.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -2394,10 +2395,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.WriteTo(output, _map_players_codec);
     projectiles_.WriteTo(output, _map_projectiles_codec);
-    if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(32);
-      output.WriteInt64(PlayerTimestamp);
-    }
+    playerTimestamps_.WriteTo(output, _map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
       output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
@@ -2418,10 +2416,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.WriteTo(ref output, _map_players_codec);
     projectiles_.WriteTo(ref output, _map_projectiles_codec);
-    if (PlayerTimestamp != 0L) {
-      output.WriteRawTag(32);
-      output.WriteInt64(PlayerTimestamp);
-    }
+    playerTimestamps_.WriteTo(ref output, _map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
       output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
@@ -2441,9 +2436,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     size += players_.CalculateSize(_map_players_codec);
     size += projectiles_.CalculateSize(_map_projectiles_codec);
-    if (PlayerTimestamp != 0L) {
-      size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerTimestamp);
-    }
+    size += playerTimestamps_.CalculateSize(_map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
     }
@@ -2464,9 +2457,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.Add(other.players_);
     projectiles_.Add(other.projectiles_);
-    if (other.PlayerTimestamp != 0L) {
-      PlayerTimestamp = other.PlayerTimestamp;
-    }
+    playerTimestamps_.Add(other.playerTimestamps_);
     if (other.ServerTimestamp != 0L) {
       ServerTimestamp = other.ServerTimestamp;
     }
@@ -2497,8 +2488,8 @@ public sealed partial class GameState : pb::IMessage<GameState>
           projectiles_.AddEntriesFrom(input, _map_projectiles_codec);
           break;
         }
-        case 32: {
-          PlayerTimestamp = input.ReadInt64();
+        case 34: {
+          playerTimestamps_.AddEntriesFrom(input, _map_playerTimestamps_codec);
           break;
         }
         case 40: {
@@ -2532,8 +2523,8 @@ public sealed partial class GameState : pb::IMessage<GameState>
           projectiles_.AddEntriesFrom(ref input, _map_projectiles_codec);
           break;
         }
-        case 32: {
-          PlayerTimestamp = input.ReadInt64();
+        case 34: {
+          playerTimestamps_.AddEntriesFrom(ref input, _map_playerTimestamps_codec);
           break;
         }
         case 40: {

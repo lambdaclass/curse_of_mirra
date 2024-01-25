@@ -8,152 +8,51 @@ public class ClientPrediction
     {
         public float joystick_x_value;
         public float joystick_y_value;
-        public long startMovementTimestamp;
-        public long endMovementTimestamp;
-        public long timestampId;
-    }
-
-    public struct AcknowledgeInputs
-    {
-        public long timestampId;
-        public long lastTimestamp;
-        public Position playerPosition;
+        public long timestamp;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public AcknowledgeInputs acknowledgedPlayerInput = new AcknowledgeInputs()
+    public void putPlayerInput(PlayerInput PlayerInput)
     {
-        timestampId = 0,
-        playerPosition = new Position() { X = 0, Y = 0 }
-    };
-
-    static float lastXSent = 0;
-    static float lastYSent = 0;
-
-    public void PutPlayerInput(PlayerInput PlayerInput)
-    {
-        PlayerInput lastPlayerInput;
-        if (pendingPlayerInputs.Count > 0)
-        {
-            lastPlayerInput = pendingPlayerInputs[pendingPlayerInputs.Count - 1];
-            lastPlayerInput.endMovementTimestamp = PlayerInput.startMovementTimestamp;
-            pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
-        }
-
         pendingPlayerInputs.Add(PlayerInput);
-        SetLastSentDirection(PlayerInput.joystick_x_value, PlayerInput.joystick_y_value);
     }
 
-    public void StopMovement(long timestamp)
+    public void simulatePlayerState(Entity player, long timestamp)
     {
-        PlayerInput playerInput = new PlayerInput
-        {
-            joystick_x_value = 0,
-            joystick_y_value = 0,
-            startMovementTimestamp = timestamp,
-            endMovementTimestamp = 0,
-            timestampId = timestamp
-        };
-        PutPlayerInput(playerInput);
+        removeServerAcknowledgedInputs(player, timestamp);
+        simulatePlayerMovement(player);
     }
 
-    public void SetLastSentDirection(float x, float y)
+    void removeServerAcknowledgedInputs(Entity player, long timestamp)
     {
-        lastXSent = x;
-        lastYSent = y;
+        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
     }
 
-    public (float, float) GetLastSentDirection()
+    void simulatePlayerMovement(Entity player)
     {
-        return (lastXSent, lastYSent);
-    }
-
-    public void SimulatePlayerState(Entity player, long playerTimestamp, long serverTimestamp)
-    {
-        UpdateAcknowledgedAction(player, playerTimestamp, serverTimestamp);
-        RemoveServerAcknowledgedInputs(player, playerTimestamp);
-        SimulatePlayerMovement(player);
-    }
-
-    void UpdateAcknowledgedAction(Entity player, long playerTimestamp, long serverTimestamp)
-    {
-        for (int i = 0; i < pendingPlayerInputs.Count; i++)
-        {
-            PlayerInput input = pendingPlayerInputs[i];
-            if (
-                input.startMovementTimestamp == playerTimestamp
-                && playerTimestamp != acknowledgedPlayerInput.timestampId
-            )
-            {
-                acknowledgedPlayerInput.timestampId = playerTimestamp;
-                acknowledgedPlayerInput.playerPosition = player.Position;
-            }
-            if (playerTimestamp == acknowledgedPlayerInput.timestampId)
-            {
-                acknowledgedPlayerInput.playerPosition = player.Position;
-                input.startMovementTimestamp +=
-                    serverTimestamp - acknowledgedPlayerInput.lastTimestamp;
-                pendingPlayerInputs[i] = input;
-            }
-            acknowledgedPlayerInput.lastTimestamp = serverTimestamp;
-        }
-    }
-
-    void RemoveServerAcknowledgedInputs(Entity player, long playerTimestamp)
-    {
-        pendingPlayerInputs.RemoveAll(
-            (input) =>
-                input.endMovementTimestamp != 0
-                && input.timestampId < acknowledgedPlayerInput.timestampId
-        );
-    }
-
-    void SimulatePlayerMovement(Entity player)
-    {
-        var tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
-        var characterSpeed = player.Speed / 100f;
-        Position acknowledgedPosition = acknowledgedPlayerInput.playerPosition;
-        if (acknowledgedPlayerInput.timestampId == 0)
-        {
-            acknowledgedPosition = player.Position;
-        }
-
-        long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        var characterSpeed = player.Speed;
 
         pendingPlayerInputs.ForEach(input =>
         {
-            Vector2 movementDirection = new Vector2(
-                -input.joystick_y_value,
-                input.joystick_x_value
-            );
+            Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
 
             movementDirection.Normalize();
+            Vector2 movementVector = movementDirection * characterSpeed;
 
-            long endTimestamp =
-                (input.endMovementTimestamp == 0) ? now : input.endMovementTimestamp;
-            float ticks = (endTimestamp - input.startMovementTimestamp) / tickRate;
-
-            Vector2 movementVector = movementDirection * characterSpeed * ticks;
+            var newPositionX = player.Position.X + movementVector.x;
+            var newPositionY = player.Position.Y + movementVector.y;
 
             Position newPlayerPosition = new Position();
-
-            float newPositionX = acknowledgedPosition.X + movementVector.x;
-            float newPositionY = acknowledgedPosition.Y + movementVector.y;
 
             newPlayerPosition.X = newPositionX;
             newPlayerPosition.Y = newPositionY;
 
-            acknowledgedPosition = newPlayerPosition;
-            player.Position = acknowledgedPosition;
+            player.Position = newPlayerPosition;
         });
-
-        /*
-         * Here we need to check if the player is colliding with the walls
-         */
     }
 
-    double Distance_between_positions(Position position_1, Position position_2)
+    double distance_between_positions(Position position_1, Position position_2)
     {
         double p1_x = position_1.X;
         double p1_y = position_1.Y;
@@ -165,7 +64,7 @@ public class ClientPrediction
         return Math.Sqrt(distance_squared);
     }
 
-    double Angle_between_positions(Position center, Position target)
+    double angle_between_positions(Position center, Position target)
     {
         double p1_x = center.X;
         double p1_y = center.Y;
