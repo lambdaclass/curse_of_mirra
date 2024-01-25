@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eb0b42ec27d5540bda1e308d84091389
+guid: eac369ecb6b734ecf9d3623fbdcea643
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,12 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Default_Material
-    second: {fileID: 2100000, guid: a07129f8cec9345f99a9d7479c916a73, type: 2}
+    second: {fileID: 2100000, guid: 0004981cdbc34438dbd6750036329e10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jacket
+    second: {fileID: 2100000, guid: 0004981cdbc34438dbd6750036329e10, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: SM_Rat_h4ck_V01_h4ck
-    second: {fileID: 2100000, guid: a07129f8cec9345f99a9d7479c916a73, type: 2}
+    second: {fileID: 2100000, guid: 0004981cdbc34438dbd6750036329e10, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
