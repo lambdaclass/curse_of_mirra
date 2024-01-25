@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Google;
-using System.Threading.Tasks;
-using TMPro;
-using System;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using Google;
+using TMPro;
+using UnityEngine;
 
 public class GoogleSignInController : MonoBehaviour
 {
@@ -51,7 +51,8 @@ public class GoogleSignInController : MonoBehaviour
         if (PlayerPrefs.GetString("GoogleUserId") != "")
         {
             GoogleSignIn.Configuration = configuration;
-            GoogleSignIn.DefaultInstance
+            GoogleSignIn
+                .DefaultInstance
                 .SignInSilently()
                 .ContinueWith(
                     OnAuthenticationFinished,
@@ -68,8 +69,8 @@ public class GoogleSignInController : MonoBehaviour
         GoogleSignIn.Configuration.RequestIdToken = true;
         AddStatusText("Calling SignIn");
 
-        TimeSpan timeout = new TimeSpan(0, 0, 10);
-        TimeSpan loadingTimeout = new TimeSpan(0, 0, 2);
+        TimeSpan timeout = new TimeSpan(0, 0, 50);
+        TimeSpan loadingTimeout = new TimeSpan(0, 0, 30);
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
@@ -136,8 +137,9 @@ public class GoogleSignInController : MonoBehaviour
         {
             case TaskStatus.Faulted:
                 using (
-                    IEnumerator<System.Exception> enumerator =
-                        task.Exception.InnerExceptions.GetEnumerator()
+                    IEnumerator<System.Exception> enumerator = task.Exception
+                        .InnerExceptions
+                        .GetEnumerator()
                 )
                 {
                     if (enumerator.MoveNext())

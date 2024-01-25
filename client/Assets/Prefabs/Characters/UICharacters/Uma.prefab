@@ -114,7 +114,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Uma Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 764376569268193567, guid: 0e958de8386ab47d39286ae8abebffdd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0e958de8386ab47d39286ae8abebffdd, type: 3}
 --- !u!4 &2281017890227590281 stripped
 Transform:
