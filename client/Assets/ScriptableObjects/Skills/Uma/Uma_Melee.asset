@@ -37,13 +37,13 @@ MonoBehaviour:
   skillSprite: {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
   startVfxList: []
   vfxList:
-  - vfx: {fileID: 1877957606375464611, guid: e3e117147d4a747abbf6dc939c0e1376, type: 3}
+  - vfx: {fileID: 1877957606375464611, guid: 17c794c1707c24bdaa081cc8c1629eb7, type: 3}
     duration: 1
-    delay: 0.5
+    delay: 0.2
     instantiateVfxOnModel: 1
   - vfx: {fileID: 1877957606375464611, guid: e3e117147d4a747abbf6dc939c0e1376, type: 3}
     duration: 1
-    delay: 0.2
+    delay: 0.4
     instantiateVfxOnModel: 1
   - vfx: {fileID: 1877957606375464611, guid: 17c794c1707c24bdaa081cc8c1629eb7, type: 3}
     duration: 1
@@ -51,5 +51,5 @@ MonoBehaviour:
     instantiateVfxOnModel: 1
   - vfx: {fileID: 1877957606375464611, guid: e3e117147d4a747abbf6dc939c0e1376, type: 3}
     duration: 1
-    delay: 0.8
+    delay: 0.9
     instantiateVfxOnModel: 1
