@@ -122,7 +122,7 @@ public class Battle : MonoBehaviour
     void UpdateBattleState()
     {
         UpdatePlayerActions();
-        // UpdateProjectileActions();
+        UpdateProjectileActions();
         // loot.UpdateLoots();
     }
 
@@ -288,32 +288,34 @@ public class Battle : MonoBehaviour
 
                     if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
                     {
-                        // foreach (OldActionTracker actionTracker in serverPlayerUpdate.Action)
-                        // {
-                        //     if (
-                        //         PlayerMovementAuthorized(playerCharacter)
-                        //         && !playerCharacter.currentActions.Contains(actionTracker)
-                        //     )
-                        //     {
-                        //         playerCharacter.currentActions.Add(actionTracker);
-                        //         ExecuteSkillFeedback(
-                        //             currentPlayer,
-                        //             actionTracker.PlayerAction,
-                        //             serverPlayerUpdate.Direction,
-                        //             actionTracker.Duration
-                        //         );
-                        //     }
-                        // }
+                        foreach (
+                            PlayerAction playerAction in serverPlayerUpdate.Player.CurrentActions
+                        )
+                        {
+                            if (
+                                PlayerMovementAuthorized(playerCharacter)
+                                && !playerCharacter.currentActions.Contains(playerAction)
+                            )
+                            {
+                                playerCharacter.currentActions.Add(playerAction);
+                                ExecuteSkillFeedback(
+                                    currentPlayer,
+                                    playerAction.Action,
+                                    serverPlayerUpdate.Direction,
+                                    playerAction.Duration
+                                );
+                            }
+                        }
 
-                        // List<OldActionTracker> actionsToDelete = playerCharacter
-                        //     .currentActions
-                        //     .Except(serverPlayerUpdate.Action)
-                        //     .ToList();
+                        List<PlayerAction> actionsToDelete = playerCharacter
+                            .currentActions
+                            .Except(serverPlayerUpdate.Player.CurrentActions)
+                            .ToList();
 
-                        // foreach (OldActionTracker action in actionsToDelete)
-                        // {
-                        //     playerCharacter.currentActions.Remove(action);
-                        // }
+                        foreach (PlayerAction playerAction in actionsToDelete)
+                        {
+                            playerCharacter.currentActions.Remove(playerAction);
+                        }
 
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
@@ -332,136 +334,117 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //     private void ExecuteSkillFeedback(
-    //         GameObject currentPlayer,
-    //         OldPlayerAction playerAction,
-    //         RelativePosition direction,
-    //         ulong skillDuration
-    //     )
-    //     {
-    //         // TODO: Refactor
-    //         switch (playerAction)
-    //         {
-    //             case OldPlayerAction.Attacking:
-    //                 currentPlayer.GetComponent<SkillBasic>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill1:
-    //                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill1:
-    //                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill2:
-    //                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill2:
-    //                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.StartingSkill3:
-    //                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //             case OldPlayerAction.ExecutingSkill3:
-    //                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
-    //                 rotatePlayer(currentPlayer, direction);
-    //                 break;
-    //         }
-    //     }
+    private void ExecuteSkillFeedback(
+        GameObject currentPlayer,
+        PlayerActionType playerAction,
+        Direction direction,
+        ulong skillDuration
+    )
+    {
+        // TODO: Refactor
+        switch (playerAction)
+        {
+            case PlayerActionType.StartingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.ExecutingSkill1:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.StartingSkill2:
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.ExecutingSkill2:
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
+            // rotatePlayer(currentPlayer, direction);
+            // break;
+        }
+    }
 
-    //     void UpdateProjectileActions()
-    //     {
-    //         Dictionary<int, GameObject> projectiles = GameServerConnectionManager.Instance.projectiles;
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles = GameServerConnectionManager
-    //             .Instance
-    //             .gameProjectiles;
-    //         ClearProjectiles(projectiles, gameProjectiles);
-    //         ProcessProjectilesCollision(projectiles, gameProjectiles);
-    //         UpdateProjectiles(projectiles, gameProjectiles);
-    //     }
+    void UpdateProjectileActions()
+    {
+        Dictionary<int, GameObject> projectiles = GameServerConnectionManager.Instance.projectiles;
+        List<Entity> gameProjectiles = GameServerConnectionManager.Instance.gameProjectiles;
+        ClearProjectiles(projectiles, gameProjectiles);
+        ProcessProjectilesCollision(projectiles, gameProjectiles);
+        UpdateProjectiles(projectiles, gameProjectiles);
+    }
 
-    //     void UpdateProjectiles(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         GameObject projectile;
-    //         for (int i = 0; i < gameProjectiles.Count; i++)
-    //         {
-    //             Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
-    //                 gameProjectiles[i].Position
-    //             );
-    //             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
-    //             {
-    //                 projectile
-    //                     .GetComponent<SkillProjectile>()
-    //                     .UpdatePosition(
-    //                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
-    //                     );
-    //             }
-    //             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
-    //             {
-    //                 float angle = Vector3.SignedAngle(
-    //                     new Vector3(1f, 0, 0),
-    //                     new Vector3(
-    //                         (long)(gameProjectiles[i].Direction.Y * 100),
-    //                         0f,
-    //                         -(long)(gameProjectiles[i].Direction.X * 100)
-    //                     ),
-    //                     Vector3.up
-    //                 );
-    //                 GameObject projectileFromSkill = skillInfoSet
-    //                     .Where(el => el.name == gameProjectiles[i].SkillName)
-    //                     .First()
-    //                     .projectilePrefab;
-    //                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-    //                     .InstanceProjectile(
-    //                         projectileFromSkill,
-    //                         angle,
-    //                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
-    //                     );
+    void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
+    {
+        GameObject projectile;
+        for (int i = 0; i < gameProjectiles.Count; i++)
+        {
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                gameProjectiles[i].Position
+            );
+            if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
+            {
+                projectile
+                    .GetComponent<SkillProjectile>()
+                    .UpdatePosition(
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
+            }
+            else //if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            {
+                float angle = Vector3.SignedAngle(
+                    new Vector3(1f, 0, 0),
+                    new Vector3(
+                        (long)(gameProjectiles[i].Direction.Y * 100),
+                        0f,
+                        -(long)(gameProjectiles[i].Direction.X * 100)
+                    ),
+                    Vector3.up
+                );
+                GameObject projectileFromSkill = skillInfoSet
+                    .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
+                    .First()
+                    .projectilePrefab;
+                GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                    .InstanceProjectile(
+                        projectileFromSkill,
+                        angle,
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
 
-    //                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
-    //             }
-    //         }
-    //     }
+                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
+            }
+        }
+    }
 
-    //     void ClearProjectiles(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         foreach (int projectileId in projectiles.Keys.ToList())
-    //         {
-    //             if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
-    //             {
-    //                 projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
-    //                 projectiles.Remove(projectileId);
-    //             }
-    //         }
-    //     }
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
+    {
+        foreach (int projectileId in projectiles.Keys.ToList())
+        {
+            if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
+            {
+                projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
+                projectiles.Remove(projectileId);
+            }
+        }
+    }
 
-    //     void ProcessProjectilesCollision(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         foreach (var pr in projectiles.ToList())
-    //         {
-    //             Communication.Protobuf.OldProjectile gameProjectile = gameProjectiles.Find(
-    //                 x => (int)x.Id == pr.Key
-    //             );
-    //             if (gameProjectile.Status == ProjectileStatus.Exploded)
-    //             {
-    //                 pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
-    //                 projectiles.Remove(pr.Key);
-    //             }
-    //         }
-    //     }
+    void ProcessProjectilesCollision(
+        Dictionary<int, GameObject> projectiles,
+        List<Entity> gameProjectiles
+    )
+    {
+        foreach (var pr in projectiles.ToList())
+        {
+            Entity gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            if (gameProjectile.Projectile.Status == ProjectileStatus.Exploded)
+            {
+                pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
+                projectiles.Remove(pr.Key);
+            }
+        }
+    }
 
     private void rotatePlayer(GameObject player, Direction direction)
     {
@@ -517,16 +500,18 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            // InputManager.CheckSkillCooldown(
-            //     UIControls.SkillBasic,
-            //     (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
-            //     player.GetComponent<SkillBasic>().GetSkillInfo().showCooldown
-            // );
-            // InputManager.CheckSkillCooldown(
-            //     UIControls.Skill1,
-            //     (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-            //     player.GetComponent<Skill1>().GetSkillInfo().showCooldown
-            // );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill1,
+                // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
+                0f,
+                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill2,
+                // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                0f,
+                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+            );
         }
     }
 
