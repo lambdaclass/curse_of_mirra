@@ -29,6 +29,9 @@ public class GoogleSignInController : MonoBehaviour
     [SerializeField]
     TitleScreenController titleScreenController;
 
+    int timeoutToCancelInSeconds = 50;
+    int timeoutToShowLoadingInSeconds = 5;
+
     void Awake()
     {
         configuration = new GoogleSignInConfiguration
@@ -69,8 +72,8 @@ public class GoogleSignInController : MonoBehaviour
         GoogleSignIn.Configuration.RequestIdToken = true;
         AddStatusText("Calling SignIn");
 
-        TimeSpan timeout = new TimeSpan(0, 0, 50);
-        TimeSpan loadingTimeout = new TimeSpan(0, 0, 30);
+        TimeSpan timeout = new TimeSpan(0, 0, timeoutToCancelInSeconds);
+        TimeSpan loadingTimeout = new TimeSpan(0, 0, timeoutToShowLoadingInSeconds);
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         CancellationToken token = cancellationToken.Token;
         cancellationToken.CancelAfter(timeout);
