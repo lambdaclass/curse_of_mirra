@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cinemachine;
 using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -10,7 +9,6 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
@@ -20,13 +18,7 @@ public class CustomLevelManager : LevelManager
     public GameObject quickMapPrefab;
 
     [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
     GameObject deathSplash;
-
-    [SerializeField]
-    Text roundText;
 
     private List<OldPlayer> gamePlayers;
     private ulong totalPlayers;
@@ -41,18 +33,6 @@ public class CustomLevelManager : LevelManager
     private ulong playerToFollowId;
     public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-
-    //Camera cinematic variables
-    [SerializeField]
-    GameObject loadingScreen;
-
-    [SerializeField]
-    GameObject battleScreen;
-    Int32 CAMERA_OFFSET = 30;
-    Int32 CAMERA_Y_OFFSET = 6;
-    double xDigit = 0;
-    double zDigit = 0;
-    CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
 
@@ -61,9 +41,6 @@ public class CustomLevelManager : LevelManager
         base.Awake();
         // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
-        cameraFramingTransposer = this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -103,17 +80,9 @@ public class CustomLevelManager : LevelManager
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        setCameraToPlayer(playerId);
         var player = Utils.GetPlayer(playerId);
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-            CAMERA_Y_OFFSET,
-            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-        );
-
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
-        StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -195,81 +164,9 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    IEnumerator CameraCinematic()
-    {
-        if (!GameServerConnectionManager.Instance.cinematicDone)
-        {
-            float effectTime = Utils
-                .GetCharacter(1)
-                .characterBase
-                .spawnFeedback
-                .GetComponent<VisualEffect>()
-                .GetFloat("LifeTime");
-            //Start moving camera and remove loading sceen
-            InvokeRepeating("Substract", 1f, 0.1f);
-            yield return new WaitForSeconds(1.7f);
-            loadingScreen.SetActive(false);
-            battleScreen.SetActive(true);
-            // Cancel camera movement and start zoom in
-            yield return new WaitForSeconds(2.1f);
-            CancelInvoke("Substract");
-            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-                });
-            yield return new WaitForSeconds(effectTime);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-                });
-            //Cancel camera zoom
-            yield return new WaitForSeconds(0.5f);
-            CancelInvoke("MoveYCamera");
-        }
-        else
-        {
-            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            yield return new WaitForSeconds(0.9f);
-            loadingScreen.SetActive(false);
-        }
-    }
-
     int RoundUpByTen(int i)
     {
         return (int)(Math.Ceiling(i / 10.0d) * 10);
-    }
-
-    void MoveYCamera()
-    {
-        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
-
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            0,
-            cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
-            0
-        );
-    }
-
-    void Substract()
-    {
-        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
-
-        var xIsPositive = Math.Round(cameraOffset.x) > 0;
-        var zIsPositive = Math.Round(cameraOffset.z) > 0;
-        var xValue = (xIsPositive ? -1 : 1);
-        var zValue = (zIsPositive ? -1 : 1);
-
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
-            cameraOffset.y,
-            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
-        );
-        ;
     }
 
     private void SetOrientationArrow(ulong playerID)
@@ -283,7 +180,7 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void setCameraToPlayer(ulong playerID)
+    private void SetCameraToPlayer(ulong playerID)
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
@@ -415,18 +312,6 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void ShowRoundTransition()
-    {
-        bool animate = true;
-
-        roundText.text =
-            "Player " + GameServerConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        animate = false;
-
-        roundSplash.SetActive(true);
-        roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
-    }
-
     private IEnumerator ShowDeathSplash(GameObject player)
     {
         MMFeedbacks deathFeedback = player
@@ -448,14 +333,14 @@ public class CustomLevelManager : LevelManager
         else
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
+            SetCameraToPlayer(playerToFollow.Id);
         }
     }
 
     private IEnumerator WaitToChangeCamera(OldPlayer player)
     {
         yield return new WaitUntil(() => player != null);
-        setCameraToPlayer(playerToFollow.Id);
+        SetCameraToPlayer(playerToFollow.Id);
         KillFeedManager.instance.saveKillerId = 0;
     }
 

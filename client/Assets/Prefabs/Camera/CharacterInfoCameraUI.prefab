@@ -622,7 +622,7 @@ MonoBehaviour:
   IdleAnimationParameterName: Idle
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
-  MouseMode: 0
+  MouseMode: 1
   isBackButton: 0
   executeRelease: 0
 --- !u!1 &1345791317
@@ -1198,7 +1198,7 @@ MonoBehaviour:
   IdleAnimationParameterName: Idle
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
-  MouseMode: 0
+  MouseMode: 1
   isBackButton: 0
   executeRelease: 0
 --- !u!1 &1892104622
