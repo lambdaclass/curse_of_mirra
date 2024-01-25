@@ -122,7 +122,7 @@ public class Battle : MonoBehaviour
     void UpdateBattleState()
     {
         UpdatePlayerActions();
-        // UpdateProjectileActions();
+        UpdateProjectileActions();
         // loot.UpdateLoots();
     }
 
@@ -367,95 +367,85 @@ public class Battle : MonoBehaviour
         }
     }
 
-    //     void UpdateProjectileActions()
-    //     {
-    //         Dictionary<int, GameObject> projectiles = GameServerConnectionManager.Instance.projectiles;
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles = GameServerConnectionManager
-    //             .Instance
-    //             .gameProjectiles;
-    //         ClearProjectiles(projectiles, gameProjectiles);
-    //         ProcessProjectilesCollision(projectiles, gameProjectiles);
-    //         UpdateProjectiles(projectiles, gameProjectiles);
-    //     }
+    void UpdateProjectileActions()
+    {
+        Dictionary<int, GameObject> projectiles = GameServerConnectionManager.Instance.projectiles;
+        List<Entity> gameProjectiles = GameServerConnectionManager.Instance.gameProjectiles;
+        ClearProjectiles(projectiles, gameProjectiles);
+        ProcessProjectilesCollision(projectiles, gameProjectiles);
+        UpdateProjectiles(projectiles, gameProjectiles);
+    }
 
-    //     void UpdateProjectiles(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         GameObject projectile;
-    //         for (int i = 0; i < gameProjectiles.Count; i++)
-    //         {
-    //             Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
-    //                 gameProjectiles[i].Position
-    //             );
-    //             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
-    //             {
-    //                 projectile
-    //                     .GetComponent<SkillProjectile>()
-    //                     .UpdatePosition(
-    //                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
-    //                     );
-    //             }
-    //             else if (gameProjectiles[i].Status == ProjectileStatus.Active)
-    //             {
-    //                 float angle = Vector3.SignedAngle(
-    //                     new Vector3(1f, 0, 0),
-    //                     new Vector3(
-    //                         (long)(gameProjectiles[i].Direction.Y * 100),
-    //                         0f,
-    //                         -(long)(gameProjectiles[i].Direction.X * 100)
-    //                     ),
-    //                     Vector3.up
-    //                 );
-    //                 GameObject projectileFromSkill = skillInfoSet
-    //                     .Where(el => el.name == gameProjectiles[i].SkillName)
-    //                     .First()
-    //                     .projectilePrefab;
-    //                 GameObject skillProjectile = GetComponent<ProjectileHandler>()
-    //                     .InstanceProjectile(
-    //                         projectileFromSkill,
-    //                         angle,
-    //                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
-    //                     );
+    void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
+    {
+        GameObject projectile;
+        for (int i = 0; i < gameProjectiles.Count; i++)
+        {
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                gameProjectiles[i].Position
+            );
+            if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
+            {
+                projectile
+                    .GetComponent<SkillProjectile>()
+                    .UpdatePosition(
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
+            }
+            else //if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            {
+                float angle = Vector3.SignedAngle(
+                    new Vector3(1f, 0, 0),
+                    new Vector3(
+                        (long)(gameProjectiles[i].Direction.Y * 100),
+                        0f,
+                        -(long)(gameProjectiles[i].Direction.X * 100)
+                    ),
+                    Vector3.up
+                );
+                GameObject projectileFromSkill = skillInfoSet
+                    .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
+                    .First()
+                    .projectilePrefab;
+                GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                    .InstanceProjectile(
+                        projectileFromSkill,
+                        angle,
+                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                    );
 
-    //                 projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
-    //             }
-    //         }
-    //     }
+                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
+            }
+        }
+    }
 
-    //     void ClearProjectiles(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         foreach (int projectileId in projectiles.Keys.ToList())
-    //         {
-    //             if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
-    //             {
-    //                 projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
-    //                 projectiles.Remove(projectileId);
-    //             }
-    //         }
-    //     }
+    void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
+    {
+        foreach (int projectileId in projectiles.Keys.ToList())
+        {
+            if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
+            {
+                projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
+                projectiles.Remove(projectileId);
+            }
+        }
+    }
 
-    //     void ProcessProjectilesCollision(
-    //         Dictionary<int, GameObject> projectiles,
-    //         List<Communication.Protobuf.OldProjectile> gameProjectiles
-    //     )
-    //     {
-    //         foreach (var pr in projectiles.ToList())
-    //         {
-    //             Communication.Protobuf.OldProjectile gameProjectile = gameProjectiles.Find(
-    //                 x => (int)x.Id == pr.Key
-    //             );
-    //             if (gameProjectile.Status == ProjectileStatus.Exploded)
-    //             {
-    //                 pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
-    //                 projectiles.Remove(pr.Key);
-    //             }
-    //         }
-    //     }
+    void ProcessProjectilesCollision(
+        Dictionary<int, GameObject> projectiles,
+        List<Entity> gameProjectiles
+    )
+    {
+        foreach (var pr in projectiles.ToList())
+        {
+            Entity gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
+            if (gameProjectile.Projectile.Status == ProjectileStatus.Exploded)
+            {
+                pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
+                projectiles.Remove(pr.Key);
+            }
+        }
+    }
 
     private void rotatePlayer(GameObject player, Direction direction)
     {

@@ -42,29 +42,31 @@ public static partial class MessagesReflection {
           "cl90aW1lc3RhbXAYBSABKAMaNwoMUGxheWVyc0VudHJ5EgsKA2tleRgBIAEo",
           "BBIWCgV2YWx1ZRgCIAEoCzIHLkVudGl0eToCOAEaOwoQUHJvamVjdGlsZXNF",
           "bnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRpdHk6AjgB",
-          "ItcCCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0ZWdvcnkYAiABKAkSDQoF",
+          "ItQCCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0ZWdvcnkYAiABKAkSDQoF",
           "c2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghwb3NpdGlvbhgFIAEoCzIJ",
           "LlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2ZXJ0aWNlcxgHIAMoCzIJ",
-          "LlBvc2l0aW9uEhQKDGlzX2NvbGxpZGluZxgIIAEoCBIVCg1jb2xsaWRlc193",
-          "aXRoGAkgAygEEg0KBXNwZWVkGAogASgCEh0KCWRpcmVjdGlvbhgLIAEoCzIK",
-          "LkRpcmVjdGlvbhIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpwcm9q",
-          "ZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4gASgL",
-          "MgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJUCgZQbGF5ZXISDgoG",
-          "aGVhbHRoGAEgASgEEhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVudF9h",
-          "Y3Rpb25zGAMgAygLMg0uUGxheWVyQWN0aW9uIi4KClByb2plY3RpbGUSDgoG",
-          "ZGFtYWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEIhkKCE9ic3RhY2xlEg0K",
-          "BWNvbG9yGAEgASgJIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4y",
-          "ES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUS",
-          "HQoJZGlyZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIhcKBkF0dGFjaxINCgVz",
-          "a2lsbBgBIAEoCSJgCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3Zl",
-          "SAASGQoGYXR0YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMg",
-          "ASgDQg0KC2FjdGlvbl90eXBlKngKEFBsYXllckFjdGlvblR5cGUSCgoGTU9W",
-          "SU5HEAASFAoQU1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxM",
-          "XzIQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lM",
-          "TF8yEARiBnByb3RvMw=="));
+          "LlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCADKAQSDQoFc3BlZWQYCSAB",
+          "KAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0aW9uEhEKCWlzX21vdmlu",
+          "ZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpwcm9qZWN0",
+          "aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4gASgLMgku",
+          "T2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJUCgZQbGF5ZXISDgoGaGVh",
+          "bHRoGAEgASgEEhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVudF9hY3Rp",
+          "b25zGAMgAygLMg0uUGxheWVyQWN0aW9uIlEKClByb2plY3RpbGUSDgoGZGFt",
+          "YWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEEiEKBnN0YXR1cxgDIAEoDjIR",
+          "LlByb2plY3RpbGVTdGF0dXMiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAki",
+          "QwoMUGxheWVyQWN0aW9uEiEKBmFjdGlvbhgBIAEoDjIRLlBsYXllckFjdGlv",
+          "blR5cGUSEAoIZHVyYXRpb24YAiABKAQiJQoETW92ZRIdCglkaXJlY3Rpb24Y",
+          "ASABKAsyCi5EaXJlY3Rpb24iFwoGQXR0YWNrEg0KBXNraWxsGAEgASgJImAK",
+          "CkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZhdHRhY2sY",
+          "AiABKAsyBy5BdHRhY2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9u",
+          "X3R5cGUqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBM",
+          "T0RFRBABKngKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RB",
+          "UlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVD",
+          "VVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEARiBnByb3Rv",
+          "Mw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Direction), global::Direction.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Joined", "Update", "Finished", "Ping" }, new[]{ "Event" }, null, null, null),
@@ -75,9 +77,9 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigGame), global::ConfigGame.Parser, new[]{ "TickRateMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamp", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "IsColliding", "CollidesWith", "Speed", "Direction", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Direction" }, null, null, null, null),
@@ -89,6 +91,11 @@ public static partial class MessagesReflection {
 
 }
 #region Enums
+public enum ProjectileStatus {
+  [pbr::OriginalName("ACTIVE")] Active = 0,
+  [pbr::OriginalName("EXPLODED")] Exploded = 1,
+}
+
 public enum PlayerActionType {
   [pbr::OriginalName("MOVING")] Moving = 0,
   [pbr::OriginalName("STARTING_SKILL_1")] StartingSkill1 = 1,
@@ -2550,9 +2557,10 @@ public sealed partial class GameState : pb::IMessage<GameState>
 /// position: position of the entity (polyogns and lines don't have a position)
 /// radius: radius of the entity (only circles have a radius)
 /// vertices: vertices of the entity (only polygons and lines have vertices)
-/// is_colliding: whether the entity is colliding with another entity
+/// collides_with: entities that the entity is colliding with
 /// speed: speed of the entity
 /// direction: direction of the entity if it is moving
+/// is_moving: true if the entity is moving
 /// </summary>
 public sealed partial class Entity : pb::IMessage<Entity>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2595,10 +2603,10 @@ public sealed partial class Entity : pb::IMessage<Entity>
     position_ = other.position_ != null ? other.position_.Clone() : null;
     radius_ = other.radius_;
     vertices_ = other.vertices_.Clone();
-    isColliding_ = other.isColliding_;
     collidesWith_ = other.collidesWith_.Clone();
     speed_ = other.speed_;
     direction_ = other.direction_ != null ? other.direction_.Clone() : null;
+    isMoving_ = other.isMoving_;
     switch (other.AditionalInfoCase) {
       case AditionalInfoOneofCase.Player:
         Player = other.Player.Clone();
@@ -2703,22 +2711,10 @@ public sealed partial class Entity : pb::IMessage<Entity>
     get { return vertices_; }
   }
 
-  /// <summary>Field number for the "is_colliding" field.</summary>
-  public const int IsCollidingFieldNumber = 8;
-  private bool isColliding_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool IsColliding {
-    get { return isColliding_; }
-    set {
-      isColliding_ = value;
-    }
-  }
-
   /// <summary>Field number for the "collides_with" field.</summary>
-  public const int CollidesWithFieldNumber = 9;
+  public const int CollidesWithFieldNumber = 8;
   private static readonly pb::FieldCodec<ulong> _repeated_collidesWith_codec
-      = pb::FieldCodec.ForUInt64(74);
+      = pb::FieldCodec.ForUInt64(66);
   private readonly pbc::RepeatedField<ulong> collidesWith_ = new pbc::RepeatedField<ulong>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2727,7 +2723,7 @@ public sealed partial class Entity : pb::IMessage<Entity>
   }
 
   /// <summary>Field number for the "speed" field.</summary>
-  public const int SpeedFieldNumber = 10;
+  public const int SpeedFieldNumber = 9;
   private float speed_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2739,7 +2735,7 @@ public sealed partial class Entity : pb::IMessage<Entity>
   }
 
   /// <summary>Field number for the "direction" field.</summary>
-  public const int DirectionFieldNumber = 11;
+  public const int DirectionFieldNumber = 10;
   private global::Direction direction_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2747,6 +2743,18 @@ public sealed partial class Entity : pb::IMessage<Entity>
     get { return direction_; }
     set {
       direction_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "is_moving" field.</summary>
+  public const int IsMovingFieldNumber = 11;
+  private bool isMoving_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool IsMoving {
+    get { return isMoving_; }
+    set {
+      isMoving_ = value;
     }
   }
 
@@ -2830,10 +2838,10 @@ public sealed partial class Entity : pb::IMessage<Entity>
     if (!object.Equals(Position, other.Position)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
     if(!vertices_.Equals(other.vertices_)) return false;
-    if (IsColliding != other.IsColliding) return false;
     if(!collidesWith_.Equals(other.collidesWith_)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
     if (!object.Equals(Direction, other.Direction)) return false;
+    if (IsMoving != other.IsMoving) return false;
     if (!object.Equals(Player, other.Player)) return false;
     if (!object.Equals(Projectile, other.Projectile)) return false;
     if (!object.Equals(Obstacle, other.Obstacle)) return false;
@@ -2852,10 +2860,10 @@ public sealed partial class Entity : pb::IMessage<Entity>
     if (position_ != null) hash ^= Position.GetHashCode();
     if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
     hash ^= vertices_.GetHashCode();
-    if (IsColliding != false) hash ^= IsColliding.GetHashCode();
     hash ^= collidesWith_.GetHashCode();
     if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
     if (direction_ != null) hash ^= Direction.GetHashCode();
+    if (IsMoving != false) hash ^= IsMoving.GetHashCode();
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Player) hash ^= Player.GetHashCode();
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Projectile) hash ^= Projectile.GetHashCode();
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Obstacle) hash ^= Obstacle.GetHashCode();
@@ -2903,18 +2911,18 @@ public sealed partial class Entity : pb::IMessage<Entity>
       output.WriteFloat(Radius);
     }
     vertices_.WriteTo(output, _repeated_vertices_codec);
-    if (IsColliding != false) {
-      output.WriteRawTag(64);
-      output.WriteBool(IsColliding);
-    }
     collidesWith_.WriteTo(output, _repeated_collidesWith_codec);
     if (Speed != 0F) {
-      output.WriteRawTag(85);
+      output.WriteRawTag(77);
       output.WriteFloat(Speed);
     }
     if (direction_ != null) {
-      output.WriteRawTag(90);
+      output.WriteRawTag(82);
       output.WriteMessage(Direction);
+    }
+    if (IsMoving != false) {
+      output.WriteRawTag(88);
+      output.WriteBool(IsMoving);
     }
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Player) {
       output.WriteRawTag(98);
@@ -2963,18 +2971,18 @@ public sealed partial class Entity : pb::IMessage<Entity>
       output.WriteFloat(Radius);
     }
     vertices_.WriteTo(ref output, _repeated_vertices_codec);
-    if (IsColliding != false) {
-      output.WriteRawTag(64);
-      output.WriteBool(IsColliding);
-    }
     collidesWith_.WriteTo(ref output, _repeated_collidesWith_codec);
     if (Speed != 0F) {
-      output.WriteRawTag(85);
+      output.WriteRawTag(77);
       output.WriteFloat(Speed);
     }
     if (direction_ != null) {
-      output.WriteRawTag(90);
+      output.WriteRawTag(82);
       output.WriteMessage(Direction);
+    }
+    if (IsMoving != false) {
+      output.WriteRawTag(88);
+      output.WriteBool(IsMoving);
     }
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Player) {
       output.WriteRawTag(98);
@@ -3017,15 +3025,15 @@ public sealed partial class Entity : pb::IMessage<Entity>
       size += 1 + 4;
     }
     size += vertices_.CalculateSize(_repeated_vertices_codec);
-    if (IsColliding != false) {
-      size += 1 + 1;
-    }
     size += collidesWith_.CalculateSize(_repeated_collidesWith_codec);
     if (Speed != 0F) {
       size += 1 + 4;
     }
     if (direction_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Direction);
+    }
+    if (IsMoving != false) {
+      size += 1 + 1;
     }
     if (aditionalInfoCase_ == AditionalInfoOneofCase.Player) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Player);
@@ -3070,9 +3078,6 @@ public sealed partial class Entity : pb::IMessage<Entity>
       Radius = other.Radius;
     }
     vertices_.Add(other.vertices_);
-    if (other.IsColliding != false) {
-      IsColliding = other.IsColliding;
-    }
     collidesWith_.Add(other.collidesWith_);
     if (other.Speed != 0F) {
       Speed = other.Speed;
@@ -3082,6 +3087,9 @@ public sealed partial class Entity : pb::IMessage<Entity>
         Direction = new global::Direction();
       }
       Direction.MergeFrom(other.Direction);
+    }
+    if (other.IsMoving != false) {
+      IsMoving = other.IsMoving;
     }
     switch (other.AditionalInfoCase) {
       case AditionalInfoOneofCase.Player:
@@ -3150,24 +3158,24 @@ public sealed partial class Entity : pb::IMessage<Entity>
           vertices_.AddEntriesFrom(input, _repeated_vertices_codec);
           break;
         }
+        case 66:
         case 64: {
-          IsColliding = input.ReadBool();
-          break;
-        }
-        case 74:
-        case 72: {
           collidesWith_.AddEntriesFrom(input, _repeated_collidesWith_codec);
           break;
         }
-        case 85: {
+        case 77: {
           Speed = input.ReadFloat();
           break;
         }
-        case 90: {
+        case 82: {
           if (direction_ == null) {
             Direction = new global::Direction();
           }
           input.ReadMessage(Direction);
+          break;
+        }
+        case 88: {
+          IsMoving = input.ReadBool();
           break;
         }
         case 98: {
@@ -3243,24 +3251,24 @@ public sealed partial class Entity : pb::IMessage<Entity>
           vertices_.AddEntriesFrom(ref input, _repeated_vertices_codec);
           break;
         }
+        case 66:
         case 64: {
-          IsColliding = input.ReadBool();
-          break;
-        }
-        case 74:
-        case 72: {
           collidesWith_.AddEntriesFrom(ref input, _repeated_collidesWith_codec);
           break;
         }
-        case 85: {
+        case 77: {
           Speed = input.ReadFloat();
           break;
         }
-        case 90: {
+        case 82: {
           if (direction_ == null) {
             Direction = new global::Direction();
           }
           input.ReadMessage(Direction);
+          break;
+        }
+        case 88: {
+          IsMoving = input.ReadBool();
           break;
         }
         case 98: {
@@ -3585,6 +3593,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
   public Projectile(Projectile other) : this() {
     damage_ = other.damage_;
     ownerId_ = other.ownerId_;
+    status_ = other.status_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3618,6 +3627,18 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
   }
 
+  /// <summary>Field number for the "status" field.</summary>
+  public const int StatusFieldNumber = 3;
+  private global::ProjectileStatus status_ = global::ProjectileStatus.Active;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ProjectileStatus Status {
+    get { return status_; }
+    set {
+      status_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -3635,6 +3656,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (Damage != other.Damage) return false;
     if (OwnerId != other.OwnerId) return false;
+    if (Status != other.Status) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -3644,6 +3666,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     int hash = 1;
     if (Damage != 0UL) hash ^= Damage.GetHashCode();
     if (OwnerId != 0UL) hash ^= OwnerId.GetHashCode();
+    if (Status != global::ProjectileStatus.Active) hash ^= Status.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -3670,6 +3693,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(16);
       output.WriteUInt64(OwnerId);
     }
+    if (Status != global::ProjectileStatus.Active) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) Status);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3688,6 +3715,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(16);
       output.WriteUInt64(OwnerId);
     }
+    if (Status != global::ProjectileStatus.Active) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) Status);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -3703,6 +3734,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (OwnerId != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(OwnerId);
+    }
+    if (Status != global::ProjectileStatus.Active) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -3721,6 +3755,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (other.OwnerId != 0UL) {
       OwnerId = other.OwnerId;
+    }
+    if (other.Status != global::ProjectileStatus.Active) {
+      Status = other.Status;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -3745,6 +3782,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           OwnerId = input.ReadUInt64();
           break;
         }
+        case 24: {
+          Status = (global::ProjectileStatus) input.ReadEnum();
+          break;
+        }
       }
     }
   #endif
@@ -3766,6 +3807,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 16: {
           OwnerId = input.ReadUInt64();
+          break;
+        }
+        case 24: {
+          Status = (global::ProjectileStatus) input.ReadEnum();
           break;
         }
       }
