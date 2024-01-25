@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4785282202651685519}
   - component: {fileID: 8521586392972253864}
   m_Layer: 0
-  m_Name: vfxgraph_Avenge
+  m_Name: vfxgraph_Avenge 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877957606375464611}
-  m_LocalRotation: {x: -0, y: 0, z: -0.9961947, w: -0.08715578}
+  m_LocalRotation: {x: 0, y: 0, z: 0.08715578, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -190}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 10}
 --- !u!2083052967 &4785282202651685519
 VisualEffect:
   m_ObjectHideFlags: 0
