@@ -1,7 +1,7 @@
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Linq;
 
 public class EndGameManager : MonoBehaviour
 {
@@ -40,10 +40,11 @@ public class EndGameManager : MonoBehaviour
 
     public void SetDeathSplashCharacter()
     {
-        player = Utils.GetCharacter(SocketConnectionManager.Instance.playerId);
-        CoMCharacter character = KillFeedManager.instance.charactersScriptableObjects.Single(
-            characterSO => characterSO.name.Contains(player.CharacterModel.name)
-        );
+        player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
+        CoMCharacter character = KillFeedManager
+            .instance
+            .charactersScriptableObjects
+            .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
         if (character)
         {
             GameObject characterModel = character.UIModel;
@@ -60,9 +61,9 @@ public class EndGameManager : MonoBehaviour
 
     private int GetRanking()
     {
-        bool isWinner = SocketConnectionManager.Instance.PlayerIsWinner(
-            SocketConnectionManager.Instance.playerId
-        );
+        bool isWinner = GameServerConnectionManager
+            .Instance
+            .PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
 
         // FIXME This is a temporal for the cases where the winner dies simultaneously
         // FIXME with other/s player/s
@@ -86,9 +87,9 @@ public class EndGameManager : MonoBehaviour
         // Defeated By
         if (
             player
-            && SocketConnectionManager.Instance.PlayerIsWinner(
-                SocketConnectionManager.Instance.playerId
-            )
+            && GameServerConnectionManager
+                .Instance
+                .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
         )
         {
             defeatedByContainer.SetActive(false);
@@ -105,7 +106,7 @@ public class EndGameManager : MonoBehaviour
 
     private ulong GetKillCount()
     {
-        var playerId = SocketConnectionManager.Instance.playerId;
+        var playerId = GameServerConnectionManager.Instance.playerId;
         var gamePlayer = Utils.GetGamePlayer(playerId);
         return gamePlayer.KillCount;
     }
@@ -124,15 +125,20 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            CoMCharacter killerCharacter =
-                KillFeedManager.instance.charactersScriptableObjects.Single(
+            CoMCharacter killerCharacter = KillFeedManager
+                .instance
+                .charactersScriptableObjects
+                .Single(
                     characterSO =>
-                        characterSO.name.Contains(
-                            Utils
-                                .GetPlayer(KillFeedManager.instance.myKillerId)
-                                .GetComponent<CustomCharacter>()
-                                .CharacterModel.name
-                        )
+                        characterSO
+                            .name
+                            .Contains(
+                                Utils
+                                    .GetPlayer(KillFeedManager.instance.myKillerId)
+                                    .GetComponent<CustomCharacter>()
+                                    .CharacterModel
+                                    .name
+                            )
                 );
             return killerCharacter.UIIcon;
         }
@@ -149,9 +155,9 @@ public class EndGameManager : MonoBehaviour
         if (player)
         {
             if (
-                SocketConnectionManager.Instance.PlayerIsWinner(
-                    SocketConnectionManager.Instance.playerId
-                )
+                GameServerConnectionManager
+                    .Instance
+                    .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
             )
             {
                 modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);

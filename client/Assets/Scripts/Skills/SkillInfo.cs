@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Communication.Protobuf;
 using MoreMountains.Tools;
 using UnityEngine;
-using Communication.Protobuf;
 
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
@@ -54,9 +54,9 @@ public class SkillInfo : ScriptableObject
 
     public void InitWithBackend()
     {
-        if (LobbyConnection.Instance != null)
+        if (ServerConnection.Instance != null)
         {
-            foreach (var skill in LobbyConnection.Instance.engineServerSettings.Skills)
+            foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
             {
                 var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
                 if (regexName.ToLower() == skill.Name.ToLower())

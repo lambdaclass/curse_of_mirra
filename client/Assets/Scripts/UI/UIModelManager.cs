@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class UIModelManager : MonoBehaviour
 {
@@ -11,10 +10,13 @@ public class UIModelManager : MonoBehaviour
     bool animate = false;
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
+    Coroutine characterAnimation;
 
     public void SetModel(string characterName)
     {
-        GameObject playerModel = CharactersManager.Instance.AvailableCharacters
+        GameObject playerModel = CharactersManager
+            .Instance
+            .AvailableCharacters
             .Single(character => character.name == characterName)
             .UIModel;
         GameObject modelClone = Instantiate(
@@ -25,13 +27,14 @@ public class UIModelManager : MonoBehaviour
         );
         animate = true;
         animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
-        StartCoroutine(AnimateCharacter(modelClone));
+        characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
     }
 
     public void RemoveCurrentModel()
     {
         if (playerModelContainer.transform.childCount > 0)
         {
+            StopCoroutine(characterAnimation);
             Destroy(playerModelContainer.transform.GetChild(0).gameObject);
         }
     }
@@ -39,17 +42,22 @@ public class UIModelManager : MonoBehaviour
     float AnimationClipTime(Animator modelClone)
     {
         List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
-        return clips.Single(clip => clip.name == "Victory").length;
+        return modelClone.name.Contains("Uma")
+            ? clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2
+            : clips.Single(clip => clip.name == "Victory").length;
     }
 
     IEnumerator AnimateCharacter(GameObject modelClone)
     {
+        // Fix this: With the characterSelection PR we can add a string in the ComCharacter to
+        // select which animations should be played
+        string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
         while (animate)
         {
             yield return new WaitForSeconds(1f);
-            modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
+            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, true);
             yield return new WaitForSeconds(animationClipDuration);
-            modelClone.GetComponentInChildren<Animator>().SetBool("Victory", false);
+            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, false);
             yield return new WaitForSeconds(ANIMATION_INTERVAL);
         }
     }

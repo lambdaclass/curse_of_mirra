@@ -1,9 +1,9 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 using System.Collections;
 using Communication.Protobuf;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -50,7 +50,8 @@ public class InventoryUI : MonoBehaviour
                 inventoryImage.GetComponent<CanvasGroup>().DOFade(1, BASE_DURATION - 0.2f)
             )
             .Append(
-                inventoryImage.transform
+                inventoryImage
+                    .transform
                     .DOScale(
                         imageInitialScale + scaleVariationForPulseAnimation,
                         BASE_DURATION + 0.5f
@@ -91,7 +92,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        player = Utils.GetGamePlayer(SocketConnectionManager.Instance.playerId);
+        player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
         if (PlayerPickedUpItem(player))
         {
             activeItem = player.Inventory[0];
@@ -140,7 +141,7 @@ public class InventoryUI : MonoBehaviour
                 UseInventory = useInventoryAction,
                 Timestamp = timestamp
             };
-            SocketConnectionManager.Instance.SendGameAction(gameAction);
+            GameServerConnectionManager.Instance.SendGameAction(gameAction);
         }
         if (activeItem != null && inventoryImage.sprite != null)
         {

@@ -58,7 +58,7 @@ public class CharacterSelectionPlayerItem : MonoBehaviour
         {
             this.hostLabel.SetActive(true);
         }
-        if (LobbyConnection.Instance.playerId == id)
+        if (ServerConnection.Instance.playerId == id)
         {
             this.background.color = new Color32(255, 255, 255, 255);
             this.background.sprite = playerBackground;
