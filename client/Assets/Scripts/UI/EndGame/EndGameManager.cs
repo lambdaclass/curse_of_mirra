@@ -40,16 +40,18 @@ public class EndGameManager : MonoBehaviour
 
     public void SetDeathSplashCharacter()
     {
-        // player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
-        // CoMCharacter character = KillFeedManager
-        //     .instance
-        //     .charactersScriptableObjects
-        //     .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
-        // if (character)
-        // {
-        //     GameObject characterModel = character.UIModel;
-        //     modelClone = Instantiate(characterModel, characterModelContainer.transform);
-        // }
+        player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
+
+        CoMCharacter character = CharactersManager
+            .Instance
+            .AllCharacters
+            .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
+
+        if (character)
+        {
+            GameObject characterModel = character.UIModel;
+            modelClone = Instantiate(characterModel, characterModelContainer.transform);
+        }
     }
 
     void ShowRankingDisplay()
@@ -61,29 +63,33 @@ public class EndGameManager : MonoBehaviour
 
     private int GetRanking()
     {
-        // bool isWinner = GameServerConnectionManager
-        //     .Instance
-        //     .PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
+        bool isWinner = GameServerConnectionManager
+            .Instance
+            .PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
 
-        // // FIXME This is a temporal for the cases where the winner dies simultaneously
-        // // FIXME with other/s player/s
-        // if (isWinner)
-        // {
-        //     return WINNER_POS;
-        // }
-        // if (Utils.GetAlivePlayers().Count() == 0)
-        // {
-        //     return SECOND_PLACE_POS;
-        // }
-        // return Utils.GetAlivePlayers().Count() + 1;
-        return WINNER_POS;
+        // FIXME This is a temporal for the cases where the winner dies simultaneously
+        // FIXME with other/s player/s
+        if (isWinner)
+        {
+            return WINNER_POS;
+        }
+        if (Utils.GetAlivePlayers().Count() == 0)
+        {
+            return SECOND_PLACE_POS;
+        }
+        return Utils.GetAlivePlayers().Count() + 1;
     }
 
     void ShowMatchInfo()
     {
         // Kill count
-        var killCount = GetKillCount();
-        amountOfKillsText.text = killCount.ToString();
+
+        //We should use this but for now we will use a placeholder
+        // var killCount = GetKillCount();
+        // amountOfKillsText.text = killCount.ToString();
+
+        // placeholder
+        amountOfKillsText.text = "-";
 
         // Defeated By
         if (
@@ -99,7 +105,7 @@ public class EndGameManager : MonoBehaviour
         {
             //defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
-            defeaterImage.sprite = GetDefeaterSprite();
+            // defeaterImage.sprite = GetDefeaterSprite();
             // Defeated By Name
             //defeaterCharacterName.text = GetDefeaterCharacterName();
         }
