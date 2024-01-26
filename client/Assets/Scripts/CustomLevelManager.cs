@@ -31,7 +31,6 @@ public class CustomLevelManager : LevelManager
     public CinemachineCameraController camera;
 
     private ulong playerToFollowId;
-    public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
@@ -130,7 +129,12 @@ public class CustomLevelManager : LevelManager
         // prefab = prefab == null ? quickGamePrefab : prefab;
         foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
         {
-            GameObject prefab = charactersInfo[1].prefab; //TODO: replace with proper fetching of prefab
+            GameObject prefab = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .FirstOrDefault() // Get muflus
+                .prefab;
+
             if (GameServerConnectionManager.Instance.playerId == player.Id)
             {
                 // Player1 is the ID to match with the client InputManager
@@ -246,7 +250,10 @@ public class CustomLevelManager : LevelManager
             skillList.Add(skill1);
             skillList.Add(skill2);
 
-            CoMCharacter characterInfo = charactersInfo.Find(el => el.name == "Muflus");
+            CoMCharacter characterInfo = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .Find(el => el.name == "Muflus");
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);
@@ -341,7 +348,6 @@ public class CustomLevelManager : LevelManager
     private bool checkPlayerHasJoined()
     {
         return GameServerConnectionManager.Instance.gamePlayers != null
-            && GameServerConnectionManager.Instance.playerId != null
             && GameServerConnectionManager
                 .Instance
                 .gamePlayers
