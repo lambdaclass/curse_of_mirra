@@ -78,41 +78,6 @@ public class Utils
         return result;
     }
 
-    // public static OldPlayer GetNearestPlayer(OldPosition toCompare)
-    // {
-    //     ulong aux_X = 0;
-    //     ulong aux_Y = 0;
-    //     OldPlayer nearest_player = null;
-    //     GameServerConnectionManager
-    //         .Instance
-    //         .gamePlayers
-    //         .ForEach(player =>
-    //         {
-    //             if (aux_Y == 0 && aux_Y == 0)
-    //             {
-    //                 aux_X = toCompare.X - player.Position.X;
-    //                 aux_Y = toCompare.Y - player.Position.Y;
-    //                 nearest_player = player;
-    //             }
-    //             else
-    //             {
-    //                 if (
-    //                     aux_X > (toCompare.X - player.Position.X)
-    //                     && aux_Y > (toCompare.Y - player.Position.Y)
-    //                 )
-    //                 {
-    //                     aux_X = toCompare.X - player.Position.X;
-    //                     nearest_player = player;
-    //                 }
-    //             }
-    //         });
-
-    //     // return GameServerConnectionManager.Instance.gamePlayers.Find(
-    //     //     player => player;
-    //     // );
-    //     return nearest_player;
-    // }
-
     public static MMSimpleObjectPooler SimpleObjectPooler(
         string name,
         Transform parentTransform,
