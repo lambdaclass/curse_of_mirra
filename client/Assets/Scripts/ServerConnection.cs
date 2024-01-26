@@ -22,6 +22,7 @@ public class ServerConnection : MonoBehaviour
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
     public uint serverTickRate_ms;
     public string serverHash;
+
     // public ServerGameSettings serverSettings;
     // public Config engineServerSettings;
     public bool gameStarted = false;
@@ -36,6 +37,7 @@ public class ServerConnection : MonoBehaviour
     public string reconnectGameId;
     public ulong reconnectPlayerId;
     public Dictionary<ulong, string> reconnectPlayers;
+
     // public ServerGameSettings reconnectServerSettings;
     public string selectedCharacterName = "";
     private const string ongoingGameTitle = "You have a game in progress";
@@ -106,12 +108,12 @@ public class ServerConnection : MonoBehaviour
         ConnectToSession();
     }
 
-//     public void ConnectToLobby(string matchmaking_id)
-//     {
-//         // ValidateVersionHashes();
-//         ConnectToSession(matchmaking_id);
-//         LobbySession = matchmaking_id;
-//     }
+    //     public void ConnectToLobby(string matchmaking_id)
+    //     {
+    //         // ValidateVersionHashes();
+    //         ConnectToSession(matchmaking_id);
+    //         LobbySession = matchmaking_id;
+    //     }
 
     public void RefreshServerInfo()
     {
@@ -119,18 +121,18 @@ public class ServerConnection : MonoBehaviour
         this.serverName = SelectServerIP.GetServerName();
     }
 
-//     public void Reconnect()
-//     {
-//         this.reconnect = true;
-//         this.GameSession = this.reconnectGameId;
-//         this.playerId = this.reconnectPlayerId;
-//         this.serverSettings = this.reconnectServerSettings;
-//         this.serverTickRate_ms = (uint)this.serverSettings.RunnerConfig.ServerTickrateMs;
-//         this.serverHash = this.reconnectServerHash;
-//         this.playerCount = this.reconnectPlayerCount;
-//         this.gameStarted = true;
-//         this.playersIdName = GameServerConnectionManager.Instance.playersIdName;
-//     }
+    //     public void Reconnect()
+    //     {
+    //         this.reconnect = true;
+    //         this.GameSession = this.reconnectGameId;
+    //         this.playerId = this.reconnectPlayerId;
+    //         this.serverSettings = this.reconnectServerSettings;
+    //         this.serverTickRate_ms = (uint)this.serverSettings.RunnerConfig.ServerTickrateMs;
+    //         this.serverHash = this.reconnectServerHash;
+    //         this.playerCount = this.reconnectPlayerCount;
+    //         this.gameStarted = true;
+    //         this.playersIdName = GameServerConnectionManager.Instance.playersIdName;
+    //     }
 
     class AcceptAllCertificates : CertificateHandler
     {
@@ -143,7 +145,7 @@ public class ServerConnection : MonoBehaviour
     private void ConnectToSession()
     {
         int hashCode = this.clientId.GetHashCode();
-        ulong id = (ulong) (hashCode > 0 ? hashCode : hashCode * - 1);
+        ulong id = (ulong)(hashCode > 0 ? hashCode : hashCode * -1);
         SessionParameters.PlayerId = id;
         this.playerId = id;
         string url = makeWebsocketUrl("/play/" + id);
@@ -162,49 +164,50 @@ public class ServerConnection : MonoBehaviour
         try
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
-            if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null) {
+            if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
+            {
                 Debug.Log("no null " + gameState.GameId);
                 SessionParameters.GameId = gameState.GameId;
                 GameSession = gameState.GameId;
                 Debug.Log("SessionParameters.GameId -> " + SessionParameters.GameId);
             }
-        //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
-        //     switch (lobbyEvent.Type)
-        //     {
-        //         case LobbyEventType.Connected:
-        //             this.playerId = lobbyEvent.PlayerInfo.PlayerId;
-        //             break;
+            //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
+            //     switch (lobbyEvent.Type)
+            //     {
+            //         case LobbyEventType.Connected:
+            //             this.playerId = lobbyEvent.PlayerInfo.PlayerId;
+            //             break;
 
-        //         case LobbyEventType.PlayerAdded:
-        //             lobbyEvent
-        //                 .PlayersInfo
-        //                 .ToList()
-        //                 .ForEach(
-        //                     playerInfo =>
-        //                         this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-        //                 );
-        //             break;
+            //         case LobbyEventType.PlayerAdded:
+            //             lobbyEvent
+            //                 .PlayersInfo
+            //                 .ToList()
+            //                 .ForEach(
+            //                     playerInfo =>
+            //                         this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
+            //                 );
+            //             break;
 
-        //         case LobbyEventType.PreparingGame:
-        //             GameSession = lobbyEvent.GameId;
-        //             Debug.Log(lobbyEvent.GameConfig);
-        //             engineServerSettings = lobbyEvent.GameConfig;
-        //             // FIX THIS!!
-        //             serverTickRate_ms = 30;
-        //             serverHash = lobbyEvent.ServerHash;
-        //             break;
+            //         case LobbyEventType.PreparingGame:
+            //             GameSession = lobbyEvent.GameId;
+            //             Debug.Log(lobbyEvent.GameConfig);
+            //             engineServerSettings = lobbyEvent.GameConfig;
+            //             // FIX THIS!!
+            //             serverTickRate_ms = 30;
+            //             serverHash = lobbyEvent.ServerHash;
+            //             break;
 
-        //         case LobbyEventType.NotifyPlayerAmount:
-        //             this.playerCount = (int)lobbyEvent.AmountOfPlayers;
-        //             this.lobbyCapacity = (int)lobbyEvent.Capacity;
-        //             InvokeRepeating("UpdateSimulatedCounter", 0, 1);
-        //             break;
+            //         case LobbyEventType.NotifyPlayerAmount:
+            //             this.playerCount = (int)lobbyEvent.AmountOfPlayers;
+            //             this.lobbyCapacity = (int)lobbyEvent.Capacity;
+            //             InvokeRepeating("UpdateSimulatedCounter", 0, 1);
+            //             break;
 
-        //         default:
-        //             Debug.Log("Message received is: " + lobbyEvent.Type);
-        //             break;
-        //     }
-        //     ;
+            //         default:
+            //             Debug.Log("Message received is: " + lobbyEvent.Type);
+            //             break;
+            //     }
+            //     ;
         }
         catch (Exception e)
         {
@@ -225,7 +228,8 @@ public class ServerConnection : MonoBehaviour
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
-        } else
+        }
+        else
         {
             Debug.Log("ServerConnection websocket closed normally");
         }
@@ -253,7 +257,7 @@ public class ServerConnection : MonoBehaviour
         }
         else
         {
-            return "ws://" + serverIp + ":4000" + path;
+            return "wss://" + serverIp + path;
         }
     }
 
