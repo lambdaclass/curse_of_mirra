@@ -18,10 +18,6 @@ public class CustomLevelManager : LevelManager
 
     [SerializeField]
     GameObject deathSplash;
-
-    [SerializeField]
-    Text roundText;
-
     private ulong totalPlayers = 1;
     private ulong playerId;
 
