@@ -14,6 +14,7 @@ public class CustomLevelManager : LevelManager
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
+    private GameObject mapInstance;
     public GameObject quickMapPrefab;
 
     [SerializeField]
@@ -68,11 +69,16 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeMapPrefab(GameObject mapPrefab)
     {
-        GameObject map = Instantiate(mapPrefab);
+        mapInstance = Instantiate(mapPrefab);
         //Add gameobject to the scene root
-        map.transform.SetParent(
-            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
-        );
+        mapInstance
+            .transform
+            .SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+    }
+
+    public GameObject GetMapInstance()
+    {
+        return mapInstance;
     }
 
     private IEnumerator InitializeLevel()
