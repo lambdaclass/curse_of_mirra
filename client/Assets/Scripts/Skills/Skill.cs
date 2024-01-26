@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -16,8 +15,9 @@ public class Skill : CharacterAbility
     [SerializeField]
     public string skillId;
 
-    [SerializeField]
-    protected Communication.Protobuf.Action serverSkill;
+    // [SerializeField]
+    // protected Communication.Protobuf.Action serverSkill;
+    protected string serverSkill;
 
     [SerializeField]
     protected bool blocksMovementOnExecute = true;
@@ -43,7 +43,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void SetSkill(Communication.Protobuf.Action serverSkill, SkillInfo skillInfo)
+    public void SetSkill(string serverSkill, SkillInfo skillInfo)
     {
         this.serverSkill = serverSkill;
         this.skillInfo = skillInfo;
@@ -66,36 +66,32 @@ public class Skill : CharacterAbility
 
     public void TryExecuteSkill()
     {
-        if (AbilityAuthorized)
-        {
-            Vector3 direction = this.GetComponent<Character>()
-                .GetComponent<CharacterOrientation3D>()
-                .ForcedRotationDirection;
-            RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
-            feedbackRotatePosition = new Vector2(direction.x, direction.z);
-            ExecuteSkill(relativePosition);
-        }
+        // if (AbilityAuthorized)
+        // {
+        //     Vector3 direction = this.GetComponent<Character>()
+        //         .GetComponent<CharacterOrientation3D>()
+        //         .ForcedRotationDirection;
+        //     RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
+        //     feedbackRotatePosition = new Vector2(direction.x, direction.z);
+        //     ExecuteSkill(relativePosition);
+        // }
     }
 
     public void TryExecuteSkill(Vector2 position)
     {
         if (AbilityAuthorized)
         {
-            RelativePosition relativePosition = new RelativePosition
-            {
-                X = position.x,
-                Y = position.y
-            };
+            Direction direction = new Direction { X = position.x, Y = position.y };
             feedbackRotatePosition = new Vector2(position.x, position.y);
-            ExecuteSkill(relativePosition);
+            ExecuteSkill(direction);
         }
     }
 
-    private void ExecuteSkill(RelativePosition relativePosition)
+    private void ExecuteSkill(Direction direction)
     {
         if (AbilityAuthorized)
         {
-            SendActionToBackend(relativePosition);
+            SendActionToBackend(direction);
         }
     }
 
@@ -201,34 +197,10 @@ public class Skill : CharacterAbility
         _animator.SetBool(animation, true);
     }
 
-    private void SendActionToBackend(RelativePosition relativePosition)
+    private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-        float angle = 0f;
-        bool autoAim = true;
-        float amount = 0f;
-        if (relativePosition.X != 0 || relativePosition.Y != 0)
-        {
-            angle = Mathf.Atan2(relativePosition.Y, relativePosition.X) * Mathf.Rad2Deg;
-            autoAim = false;
-            amount = (float)
-                Math.Sqrt(
-                    Math.Pow((double)relativePosition.X, 2)
-                        + Math.Pow((double)relativePosition.Y, 2)
-                );
-        }
-
-        UseSkill useSkillAction = new UseSkill
-        {
-            Skill = serverSkill.ToString(),
-            Angle = angle,
-            AutoAim = autoAim,
-            Amount = amount,
-        };
-
-        GameAction gameAction = new GameAction { UseSkill = useSkillAction, Timestamp = timestamp };
-        GameServerConnectionManager.Instance.SendGameAction(gameAction);
+        GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
     public virtual void StopAbilityStopFeedbacks()

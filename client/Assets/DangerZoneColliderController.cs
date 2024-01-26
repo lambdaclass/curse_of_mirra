@@ -14,15 +14,15 @@ public class DangerZoneColliderController : MonoBehaviour
     IEnumerator SetupCollitions()
     {
         yield return new WaitUntil(() => GameServerConnectionManager.Instance.players.Count != 0);
-        Utils
-            .GetAllCharacters()
-            .ForEach(character =>
-            {
-                Physics.IgnoreCollision(
-                    this.GetComponent<MeshCollider>(),
-                    character.GetComponent<CharacterController>()
-                );
-            });
+        // Utils
+        //     .GetAllCharacters()
+        //     .ForEach(character =>
+        //     {
+        //         Physics.IgnoreCollision(
+        //             this.GetComponent<MeshCollider>(),
+        //             character.GetComponent<CharacterController>()
+        //         );
+        //     });
     }
 
     private void OnTriggerExit(Collider other)

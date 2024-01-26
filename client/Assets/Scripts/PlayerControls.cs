@@ -1,30 +1,31 @@
 using System;
 using System.Collections.Generic;
-using Communication.Protobuf;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
     public void SendJoystickValues(float x, float y)
     {
-        if (x != 0 || y != 0)
+        // if (x != 0 || y != 0)
+        // {
+        var valuesToSend = new Direction { X = x, Y = y };
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
+
+        ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
         {
-            var valuesToSend = new RelativePosition { X = x, Y = y };
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            joystick_x_value = x,
+            joystick_y_value = y,
+            timestamp = timestamp,
+        };
+        GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+        // }
+    }
 
-            Move moveAction = new Move { Angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg };
-            GameAction gameAction = new GameAction { Move = moveAction, Timestamp = timestamp };
-
-            GameServerConnectionManager.Instance.SendGameAction(gameAction);
-
-            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
-            {
-                joystick_x_value = x,
-                joystick_y_value = y,
-                timestamp = timestamp,
-            };
-            GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
-        }
+    bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
+    {
+        return (x != lastXSent || y != lastYSent);
     }
 
     public (float, float) SendAction()
@@ -47,29 +48,22 @@ public class PlayerControls : MonoBehaviour
         {
             y += -1f;
         }
-        if (x != 0 || y != 0)
-        {
-            SendJoystickValues(x, y);
-        }
+
+        SendJoystickValues(x, y);
+
         return (x, y);
     }
 
-    public static float getBackendCharacterSpeed(ulong playerId)
+    public bool KeysPressed()
     {
-        string charName = Utils.GetGamePlayer(playerId).CharacterName;
-        // if (GameServerConnectionManager.Instance.selectedCharacters.ContainsKey(playerId))
-        // {
-        // var charName = GameServerConnectionManager.Instance.selectedCharacters[playerId];
-        var chars = ServerConnection.Instance.engineServerSettings.Characters;
+        return Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D)
+            || Input.GetKey(KeyCode.S);
+    }
 
-        foreach (var character in chars)
-        {
-            if (charName.ToLower() == character.Name.ToLower())
-            {
-                return character.BaseSpeed;
-            }
-        }
-        // }
-        return 0f;
+    public bool JoytickUsed(float x, float y)
+    {
+        return x != 0 || y != 0;
     }
 }

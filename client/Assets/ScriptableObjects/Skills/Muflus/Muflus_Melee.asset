@@ -15,7 +15,7 @@ MonoBehaviour:
   name: BASH
   description: Targets an arc in front of you, dealing damage.
   inputType: 2
-  skillSetType: 1
+  skillSetType: 0
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 2
