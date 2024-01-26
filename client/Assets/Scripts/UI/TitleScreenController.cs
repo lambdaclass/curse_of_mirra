@@ -72,7 +72,9 @@ public class TitleScreenController : MonoBehaviour
     public void ChangeToMainscreen()
     {
         SetLoadingScreen(true);
-        SelectCharacterAndMaybeCreateUser();
+        // SelectCharacterAndMaybeCreateUser();
+        ServerConnection.Instance.selectedCharacterName = "Muflus";
+        asyncOperation.allowSceneActivation = true;
     }
 
     public void SelectCharacterAndMaybeCreateUser()

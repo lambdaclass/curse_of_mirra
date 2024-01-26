@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MatrixMode : MonoBehaviour
+public class HitBoxesHandler : MonoBehaviour
 {
     [SerializeField]
     bool isActive;
     private bool cameraDefault = true;
-    GameObject grid;
     private Camera mainCamera;
     private GameObject mainCameraCM;
     private Vector3 defaultCameraRotation;
@@ -15,7 +12,6 @@ public class MatrixMode : MonoBehaviour
 
     void Start()
     {
-        grid = GameObject.Find("Grid");
         mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
         mainCameraCM = GameObject.Find("CM vcam1");
         defaultCameraRotation = mainCamera.transform.rotation.eulerAngles;
@@ -24,11 +20,6 @@ public class MatrixMode : MonoBehaviour
     public void ToggleMatrixMode()
     {
         isActive = !isActive;
-
-        if (grid)
-        {
-            grid.transform.GetChild(0).gameObject.SetActive(isActive);
-        }
 
         GameObject[] hitboxes = GameObject.FindGameObjectsWithTag("Hitbox");
         foreach (GameObject hitbox in hitboxes)

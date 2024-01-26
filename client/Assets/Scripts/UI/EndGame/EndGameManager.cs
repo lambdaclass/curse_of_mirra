@@ -41,10 +41,12 @@ public class EndGameManager : MonoBehaviour
     public void SetDeathSplashCharacter()
     {
         player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
-        CoMCharacter character = KillFeedManager
-            .instance
-            .charactersScriptableObjects
+
+        CoMCharacter character = CharactersManager
+            .Instance
+            .AllCharacters
             .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
+
         if (character)
         {
             GameObject characterModel = character.UIModel;
@@ -81,8 +83,13 @@ public class EndGameManager : MonoBehaviour
     void ShowMatchInfo()
     {
         // Kill count
-        var killCount = GetKillCount();
-        amountOfKillsText.text = killCount.ToString();
+
+        //We should use this but for now we will use a placeholder
+        // var killCount = GetKillCount();
+        // amountOfKillsText.text = killCount.ToString();
+
+        // placeholder
+        amountOfKillsText.text = "-";
 
         // Defeated By
         if (
@@ -98,7 +105,7 @@ public class EndGameManager : MonoBehaviour
         {
             //defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
-            defeaterImage.sprite = GetDefeaterSprite();
+            // defeaterImage.sprite = GetDefeaterSprite();
             // Defeated By Name
             //defeaterCharacterName.text = GetDefeaterCharacterName();
         }
@@ -106,9 +113,10 @@ public class EndGameManager : MonoBehaviour
 
     private ulong GetKillCount()
     {
-        var playerId = GameServerConnectionManager.Instance.playerId;
-        var gamePlayer = Utils.GetGamePlayer(playerId);
-        return gamePlayer.KillCount;
+        // var playerId = GameServerConnectionManager.Instance.playerId;
+        // var gamePlayer = Utils.GetGamePlayer(playerId);
+        // return gamePlayer.KillCount;
+        return 77;
     }
 
     private string GetDefeaterPlayerName()
