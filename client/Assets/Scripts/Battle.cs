@@ -423,7 +423,7 @@ public class Battle : MonoBehaviour
                 }
                 else
                 {
-                    print("There is no projectile matching");
+                    print("The projectile name does not match the projectile prefab assign to the scriptable object of the skill");
                 }
             }
         }
