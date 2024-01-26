@@ -407,6 +407,8 @@ public class Battle : MonoBehaviour
                     .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
                     .FirstOrDefault();
 
+                print(info);
+
                 if (info != null)
                 {
                     GameObject projectileFromSkill = info?.projectilePrefab;
@@ -418,6 +420,10 @@ public class Battle : MonoBehaviour
                             new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                         );
                     projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
+                }
+                else
+                {
+                    print("There is no projectile matching");
                 }
             }
         }
