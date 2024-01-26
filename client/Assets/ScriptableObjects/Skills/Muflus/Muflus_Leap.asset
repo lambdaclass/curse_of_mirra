@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Jump to a location, dealing damages and slowing enemies near area
     upon arrival.
   inputType: 1
-  skillSetType: 0
+  skillSetType: 1
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
@@ -26,8 +26,6 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: d6127450469e94ebfbebf276ba9bddf0, type: 3}
   sfxHasAbilityStop: 1
   abilityStopSfx: {fileID: 8300000, guid: 3b3dceb250df747c2a8c64e3f6c8bdb2, type: 3}
-  startAnimationDuration: 0
-  executeAnimationDuration: 0.1
   skillCircleRadius: 5.69
   skillConeAngle: 0
   arrowWidth: 0
@@ -37,9 +35,6 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
-  startFeedbackVfx: {fileID: 0}
-  startFeedbackVfxDuration: 0
-  startFeedbackVfxDelay: 0
   startVfxList:
   - vfx: {fileID: 141433446842962269, guid: edcffe5afe9084c22b9c50a8f8c0bc28, type: 3}
     duration: 1
