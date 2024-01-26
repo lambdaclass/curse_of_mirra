@@ -106,6 +106,7 @@ public class ServerConnection : MonoBehaviour
     {
         // ValidateVersionHashes();
         ConnectToSession();
+        InvokeRepeating("UpdateSimulatedCounter", 0, 1);
     }
 
     //     public void ConnectToLobby(string matchmaking_id)
