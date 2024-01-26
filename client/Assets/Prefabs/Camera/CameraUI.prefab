@@ -1337,10 +1337,10 @@ MonoBehaviour:
   SmoothMovement: 1
   Threshold: {x: 0.1, y: 0.4}
   RotateInputBasedOnCameraDirection: 0
-  SkillBasic: {fileID: 5773388603856226559}
-  Skill1: {fileID: 2302692725905988441}
-  SkillBasicCooldownContainer: {fileID: 6227269788242123955}
-  Skill1CooldownContainer: {fileID: 2949602977003879530}
+  Skill1: {fileID: 5773388603856226559}
+  Skill2: {fileID: 2302692725905988441}
+  Skill1CooldownContainer: {fileID: 6227269788242123955}
+  Skill2CooldownContainer: {fileID: 2949602977003879530}
   disarmObjectSkill1: {fileID: 0}
   disarmObjectSkill2: {fileID: 0}
   disarmObjectSkill3: {fileID: 0}
@@ -19643,10 +19643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2d460b1908c4350bf1bade6d2b88d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryContainer: {fileID: 82559397778531339}
-  sparkleEffect: {fileID: 6125871501080257070}
-  myrrasBlessing: {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
-  inventoryImage: {fileID: 158492541652231486}
 --- !u!1 &4507692683308350084
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+/*
+ * Shared structs
+ */
+
+/*
+ * Direction is a vector with a magnitude of 1
+ */
+message Direction {
+  float x = 1;
+  float y = 2;
+}
+
+/*
+ * Position of an entity in the arena
+ */
+message Position {
+  float x = 1;
+  float y = 2;
+}
+
+message GameEvent {
+  oneof event {
+    GameJoined joined = 1;
+    GameState update = 2;
+    GameFinished finished = 3;
+    PingUpdate ping = 4;
+  }
+}
+
+message GameFinished {
+  Entity winner = 1;
+  map<uint64, Entity> players = 2;
+}
+
+message PingUpdate {
+  uint64 latency = 1;
+}
+
+message GameJoined {
+  uint64 player_id = 1;
+  Configuration config = 2;
+}
+
+message Configuration {
+  ConfigGame game = 1;
+  ConfigMap map = 2;
+}
+
+message ConfigGame {
+  float tick_rate_ms = 1;
+}
+
+message ConfigMap {
+  float radius = 1;
+}
+
+
+/*
+ * Game State
+ */
+message GameState {
+  string game_id = 1;
+  map<uint64, Entity> players = 2;
+  map<uint64, Entity> projectiles = 3;
+  map<uint64, int64> player_timestamps = 4;
+  int64 server_timestamp = 5;
+}
+
+/*
+ * Info about an entity
+ * id: unique identifier
+ * category: player, projectile, obstacle.
+ * shape: circle, point, line, polygon, point.
+ * name: unique name of the entity
+ * position: position of the entity (polyogns and lines don't have a position)
+ * radius: radius of the entity (only circles have a radius)
+ * vertices: vertices of the entity (only polygons and lines have vertices)
+ * collides_with: entities that the entity is colliding with
+ * speed: speed of the entity
+ * direction: direction of the entity if it is moving
+ * is_moving: true if the entity is moving
+ */
+message Entity {
+  uint64 id = 1;
+  string category = 2;
+  string shape = 3;
+  string name = 4;
+  Position position = 5;
+  float radius = 6;
+  repeated Position vertices = 7;
+  repeated uint64 collides_with = 8;
+  float speed = 9;
+  Direction direction = 10;
+  bool is_moving = 11;
+  oneof aditional_info {
+    Player player = 12;
+    Projectile projectile = 13;
+    Obstacle obstacle = 14;
+  }
+}
+
+message Player {
+  uint64 health = 1;
+  uint64 kill_count = 2;
+  repeated PlayerAction current_actions = 3;
+}
+
+message Projectile {
+  uint64 damage = 1;
+  uint64 owner_id = 2;
+  ProjectileStatus status = 3;
+}
+
+enum ProjectileStatus {
+  ACTIVE = 0;
+  EXPLODED = 1;
+}
+
+message Obstacle {
+  string color = 1;
+}
+
+message PlayerAction {
+    PlayerActionType action = 1;
+    uint64 duration = 2;
+}
+
+enum PlayerActionType {
+    MOVING = 0;
+    STARTING_SKILL_1 = 1;
+    STARTING_SKILL_2 = 2;  
+    EXECUTING_SKILL_1 = 3;
+    EXECUTING_SKILL_2 = 4;
+}
+
+/*
+ * Player Actions
+ */
+message Move {
+  Direction direction = 1;
+}
+
+message Attack {
+  string skill = 1;
+}
+
+message GameAction {
+  oneof action_type {
+    Move move = 1;
+    Attack attack = 2;
+  }
+  int64 timestamp = 3;
+}

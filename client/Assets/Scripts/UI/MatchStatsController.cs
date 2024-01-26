@@ -33,19 +33,19 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        alivePlayers.text = GameServerConnectionManager.Instance.alivePlayers.Count().ToString();
-        killCount.text = Utils
-            .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
-            ?.KillCount
-            .ToString();
+        // alivePlayers.text = GameServerConnectionManager.Instance.alivePlayers.Count().ToString();
+        // killCount.text = Utils
+        //     .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
+        //     ?.KillCount
+        //     .ToString();
 
-        time += Time.deltaTime;
+        // time += Time.deltaTime;
 
-        if (time >= period && seconds > 0)
-        {
-            time = time - period;
-            seconds--;
-            zoneTimer.text = seconds.ToString();
-        }
+        // if (time >= period && seconds > 0)
+        // {
+        //     time = time - period;
+        //     seconds--;
+        //     zoneTimer.text = seconds.ToString();
+        // }
     }
 }

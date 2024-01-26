@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public enum UIControls
 {
     Skill1,
-    SkillBasic
+    Skill2
 }
 
 public enum UIIndicatorType
@@ -31,16 +31,16 @@ public enum UIType
 public class CustomInputManager : InputManager
 {
     [SerializeField]
-    CustomMMTouchButton SkillBasic;
-
-    [SerializeField]
     CustomMMTouchButton Skill1;
 
     [SerializeField]
-    GameObject SkillBasicCooldownContainer;
+    CustomMMTouchButton Skill2;
 
     [SerializeField]
     GameObject Skill1CooldownContainer;
+
+    [SerializeField]
+    GameObject Skill2CooldownContainer;
 
     [SerializeField]
     GameObject disarmObjectSkill1;
@@ -79,13 +79,13 @@ public class CustomInputManager : InputManager
         base.Start();
         mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
-        mobileButtons.Add(UIControls.SkillBasic, SkillBasic);
+        mobileButtons.Add(UIControls.Skill2, Skill2);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
         // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, GameObject>();
         buttonsCooldown.Add(UIControls.Skill1, Skill1CooldownContainer);
-        buttonsCooldown.Add(UIControls.SkillBasic, SkillBasicCooldownContainer);
+        buttonsCooldown.Add(UIControls.Skill2, Skill2CooldownContainer);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
     }
@@ -96,33 +96,13 @@ public class CustomInputManager : InputManager
         directionIndicator = _player.GetComponentInChildren<AimDirection>();
     }
 
-    public void ActivateDisarmEffect(bool isDisarmed)
-    {
-        if (disarmed != isDisarmed)
-        {
-            if (isDisarmed)
-            {
-                DisableButtons();
-                SkillBasic.GetComponent<CustomMMTouchButton>().Interactable = true;
-            }
-            else
-            {
-                EnableButtons();
-            }
-            disarmObjectSkill1.SetActive(isDisarmed);
-            disarmObjectSkill2.SetActive(isDisarmed);
-            disarmObjectSkill3.SetActive(isDisarmed);
-            disarmed = isDisarmed;
-        }
-    }
-
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        SkillBasic.SetInitialSprite(
+        Skill1.SetInitialSprite(
             characterInfo.skillsInfo[0].skillSprite,
             characterInfo.skillBackground
         );
-        Skill1.SetInitialSprite(
+        Skill2.SetInitialSprite(
             characterInfo.skillsInfo[1].skillSprite,
             characterInfo.skillBackground
         );
@@ -462,51 +442,51 @@ public class CustomInputManager : InputManager
         cancelButton.SetActive(value);
     }
 
-    private List<GameObject> GetTargetsInSkillRange(Skill skill)
-    {
-        List<GameObject> inRangeTargets = new List<GameObject>();
+    // private List<GameObject> GetTargetsInSkillRange(Skill skill)
+    // {
+    //     List<GameObject> inRangeTargets = new List<GameObject>();
 
-        GameServerConnectionManager
-            .Instance
-            .players
-            .ForEach(p =>
-            {
-                if (PlayerIsInSkillRange(p, skill))
-                {
-                    inRangeTargets.Add(p);
-                }
-            });
-        return inRangeTargets;
-    }
+    //     GameServerConnectionManager
+    //         .Instance
+    //         .players
+    //         .ForEach(p =>
+    //         {
+    //             if (PlayerIsInSkillRange(p, skill))
+    //             {
+    //                 inRangeTargets.Add(p);
+    //             }
+    //         });
+    //     return inRangeTargets;
+    // }
 
-    private bool PlayerIsInSkillRange(GameObject player, Skill skill)
-    {
-        switch (skill.GetSkillName())
-        {
-            case "MULTISHOT":
-            case "YUGEN'S MARK":
-                return PlayerIsInSkillDirectionConeRange(player, skill);
-            case "DISARM":
-                return PlayerIsInSkillDirectionArrowRange(player, skill);
-            default:
-                return PlayerIsInSkillProximityRange(player, skill);
-        }
-    }
+    // private bool PlayerIsInSkillRange(GameObject player, Skill skill)
+    // {
+    //     switch (skill.GetSkillName())
+    //     {
+    //         case "MULTISHOT":
+    //         case "YUGEN'S MARK":
+    //             return PlayerIsInSkillDirectionConeRange(player, skill);
+    //         case "DISARM":
+    //             return PlayerIsInSkillDirectionArrowRange(player, skill);
+    //         default:
+    //             return PlayerIsInSkillProximityRange(player, skill);
+    //     }
+    // }
 
-    private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
-    }
+    // private bool PlayerIsInSkillProximityRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInProximityRange(player);
+    // }
 
-    private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
-    }
+    // private bool PlayerIsInSkillDirectionConeRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInsideCone(player);
+    // }
 
-    private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
-    {
-        return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
-    }
+    // private bool PlayerIsInSkillDirectionArrowRange(GameObject player, Skill skill)
+    // {
+    //     return !IsSamePlayer(player) && directionIndicator.IsInArrowLine(player);
+    // }
 
     private bool IsSamePlayer(GameObject player)
     {

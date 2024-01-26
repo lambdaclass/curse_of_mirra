@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Communication.Protobuf;
 using Google.Protobuf.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -15,30 +14,31 @@ public class Utils
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
 
-    public static Vector3 transformBackendOldPositionToFrontendPosition(OldPosition position)
+    public static Vector3 transformBackendOldPositionToFrontendPosition(Position position)
     {
-        var x = (long)position?.Y / 100f - 50.0f;
-        var y = (-((long)position?.X)) / 100f + 50.0f;
-        return new Vector3(x, 0f, y);
+        var x = (long)position?.X / 100f;
+        var y = (long)position?.Y / 100f;
+        return new Vector3(x, 1f, y);
     }
 
-    public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
-    {
-        var x = (long)position?.x / 100f;
-        var y = (long)position?.y / 100f;
-        return new Vector3(x, 0f, y);
-    }
+    // public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
+    // {
+    //     var x = (long)position?.x / 100f;
+    //     var y = (long)position?.y / 100f;
+    //     return new Vector3(x, 1f, y);
+    // }
 
-    public static float transformBackendRadiusToFrontendRadius(float radius)
-    {
-        return radius * 100f / 5000;
-    }
+    // public static float transformBackendRadiusToFrontendRadius(float radius)
+    // {
+    //     return radius * 100f / 5000;
+    // }
 
     public static GameObject GetPlayer(ulong id)
     {
-        return GameServerConnectionManager.Instance.players.Find(
-            el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString()
-        );
+        return GameServerConnectionManager
+            .Instance
+            .players
+            .Find(el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString());
     }
 
     public static CustomCharacter GetCharacter(ulong id)
@@ -46,9 +46,9 @@ public class Utils
         return GetPlayer(id).GetComponent<CustomCharacter>();
     }
 
-    public static OldPlayer GetGamePlayer(ulong id)
+    public static Entity GetGamePlayer(ulong id)
     {
-        OldPlayer player = null;
+        Entity player = null;
         if (
             GameServerConnectionManager.Instance.gamePlayers != null
             && GameServerConnectionManager.Instance.gamePlayers.Count > 0
@@ -59,11 +59,12 @@ public class Utils
         return player;
     }
 
-    public static IEnumerable<OldPlayer> GetAlivePlayers()
+    public static IEnumerable<Entity> GetAlivePlayers()
     {
-        return GameServerConnectionManager.Instance.gamePlayers.Where(
-            player => player.Status == OldStatus.Alive
-        );
+        return GameServerConnectionManager
+            .Instance
+            .gamePlayers
+            .Where(player => player.Player.Health > 0);
     }
 
     public static List<CustomCharacter> GetAllCharacters()
@@ -75,38 +76,6 @@ public class Utils
             .ForEach(player => result.Add(Utils.GetCharacter(player.Id)));
 
         return result;
-    }
-
-    public static OldPlayer GetNearestPlayer(OldPosition toCompare)
-    {
-        ulong aux_X = 0;
-        ulong aux_Y = 0;
-        OldPlayer nearest_player = null;
-        GameServerConnectionManager.Instance.gamePlayers.ForEach(player =>
-        {
-            if (aux_Y == 0 && aux_Y == 0)
-            {
-                aux_X = toCompare.X - player.Position.X;
-                aux_Y = toCompare.Y - player.Position.Y;
-                nearest_player = player;
-            }
-            else
-            {
-                if (
-                    aux_X > (toCompare.X - player.Position.X)
-                    && aux_Y > (toCompare.Y - player.Position.Y)
-                )
-                {
-                    aux_X = toCompare.X - player.Position.X;
-                    nearest_player = player;
-                }
-            }
-        });
-
-        // return GameServerConnectionManager.Instance.gamePlayers.Find(
-        //     player => player;
-        // );
-        return nearest_player;
     }
 
     public static MMSimpleObjectPooler SimpleObjectPooler(
@@ -129,15 +98,15 @@ public class Utils
         return objectPooler;
     }
 
-    public static List<T> ToList<T>(RepeatedField<T> repeatedField)
-    {
-        var list = new List<T>();
-        foreach (var item in repeatedField)
-        {
-            list.Add(item);
-        }
-        return list;
-    }
+    // public static List<T> ToList<T>(RepeatedField<T> repeatedField)
+    // {
+    //     var list = new List<T>();
+    //     foreach (var item in repeatedField)
+    //     {
+    //         list.Add(item);
+    //     }
+    //     return list;
+    // }
 
     public static Gradient GetHealthBarGradient(Color color)
     {
