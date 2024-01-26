@@ -402,18 +402,23 @@ public class Battle : MonoBehaviour
                     ),
                     Vector3.up
                 );
-                GameObject projectileFromSkill = skillInfoSet
-                    .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
-                    .First()
-                    .projectilePrefab;
-                GameObject skillProjectile = GetComponent<ProjectileHandler>()
-                    .InstanceProjectile(
-                        projectileFromSkill,
-                        angle,
-                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
-                    );
 
-                projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
+                SkillInfo info = skillInfoSet
+                    .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
+                    .FirstOrDefault();
+
+                if (info != null)
+                {
+                    GameObject projectileFromSkill = info?.projectilePrefab;
+
+                    GameObject skillProjectile = GetComponent<ProjectileHandler>()
+                        .InstanceProjectile(
+                            projectileFromSkill,
+                            angle,
+                            new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                        );
+                    projectiles.Add((int)gameProjectiles[i].Id, skillProjectile);
+                }
             }
         }
     }
