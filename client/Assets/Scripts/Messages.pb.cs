@@ -43,33 +43,34 @@ public static partial class MessagesReflection {
           "YXJhY3Rlci5Ta2lsbHNFbnRyeRo7CgtTa2lsbHNFbnRyeRILCgNrZXkYASAB",
           "KAkSGwoFdmFsdWUYAiABKAsyDC5Db25maWdTa2lsbDoCOAEiTwoLQ29uZmln",
           "U2tpbGwSDAoEbmFtZRgBIAEoCRITCgtjb29sZG93bl9tcxgCIAEoBBIdChVl",
-          "eGVjdXRpb25fZHVyYXRpb25fbXMYAyABKAQi/gIKCUdhbWVTdGF0ZRIPCgdn",
+          "eGVjdXRpb25fZHVyYXRpb25fbXMYAyABKAQikwMKCUdhbWVTdGF0ZRIPCgdn",
           "YW1lX2lkGAEgASgJEigKB3BsYXllcnMYAiADKAsyFy5HYW1lU3RhdGUuUGxh",
           "eWVyc0VudHJ5EjAKC3Byb2plY3RpbGVzGAMgAygLMhsuR2FtZVN0YXRlLlBy",
           "b2plY3RpbGVzRW50cnkSOwoRcGxheWVyX3RpbWVzdGFtcHMYBCADKAsyIC5H",
           "YW1lU3RhdGUuUGxheWVyVGltZXN0YW1wc0VudHJ5EhgKEHNlcnZlcl90aW1l",
-          "c3RhbXAYBSABKAMaNwoMUGxheWVyc0VudHJ5EgsKA2tleRgBIAEoBBIWCgV2",
-          "YWx1ZRgCIAEoCzIHLkVudGl0eToCOAEaOwoQUHJvamVjdGlsZXNFbnRyeRIL",
-          "CgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRpdHk6AjgBGjcKFVBs",
-          "YXllclRpbWVzdGFtcHNFbnRyeRILCgNrZXkYASABKAQSDQoFdmFsdWUYAiAB",
-          "KAM6AjgBItQCCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0ZWdvcnkYAiAB",
-          "KAkSDQoFc2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghwb3NpdGlvbhgF",
-          "IAEoCzIJLlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2ZXJ0aWNlcxgH",
-          "IAMoCzIJLlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCADKAQSDQoFc3Bl",
-          "ZWQYCSABKAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0aW9uEhEKCWlz",
-          "X21vdmluZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpw",
-          "cm9qZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4g",
-          "ASgLMgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyJUCgZQbGF5ZXIS",
-          "DgoGaGVhbHRoGAEgASgEEhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVu",
-          "dF9hY3Rpb25zGAMgAygLMg0uUGxheWVyQWN0aW9uIlEKClByb2plY3RpbGUS",
-          "DgoGZGFtYWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEEiEKBnN0YXR1cxgD",
-          "IAEoDjIRLlByb2plY3RpbGVTdGF0dXMiGQoIT2JzdGFjbGUSDQoFY29sb3IY",
-          "ASABKAkiQwoMUGxheWVyQWN0aW9uEiEKBmFjdGlvbhgBIAEoDjIRLlBsYXll",
-          "ckFjdGlvblR5cGUSEAoIZHVyYXRpb24YAiABKAQiJQoETW92ZRIdCglkaXJl",
-          "Y3Rpb24YASABKAsyCi5EaXJlY3Rpb24iFwoGQXR0YWNrEg0KBXNraWxsGAEg",
-          "ASgJImAKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZh",
-          "dHRhY2sYAiABKAsyBy5BdHRhY2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoL",
-          "YWN0aW9uX3R5cGUqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIM",
+          "c3RhbXAYBSABKAMSEwoEem9uZRgGIAEoCzIFLlpvbmUaNwoMUGxheWVyc0Vu",
+          "dHJ5EgsKA2tleRgBIAEoBBIWCgV2YWx1ZRgCIAEoCzIHLkVudGl0eToCOAEa",
+          "OwoQUHJvamVjdGlsZXNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiAB",
+          "KAsyBy5FbnRpdHk6AjgBGjcKFVBsYXllclRpbWVzdGFtcHNFbnRyeRILCgNr",
+          "ZXkYASABKAQSDQoFdmFsdWUYAiABKAM6AjgBItQCCgZFbnRpdHkSCgoCaWQY",
+          "ASABKAQSEAoIY2F0ZWdvcnkYAiABKAkSDQoFc2hhcGUYAyABKAkSDAoEbmFt",
+          "ZRgEIAEoCRIbCghwb3NpdGlvbhgFIAEoCzIJLlBvc2l0aW9uEg4KBnJhZGl1",
+          "cxgGIAEoAhIbCgh2ZXJ0aWNlcxgHIAMoCzIJLlBvc2l0aW9uEhUKDWNvbGxp",
+          "ZGVzX3dpdGgYCCADKAQSDQoFc3BlZWQYCSABKAISHQoJZGlyZWN0aW9uGAog",
+          "ASgLMgouRGlyZWN0aW9uEhEKCWlzX21vdmluZxgLIAEoCBIZCgZwbGF5ZXIY",
+          "DCABKAsyBy5QbGF5ZXJIABIhCgpwcm9qZWN0aWxlGA0gASgLMgsuUHJvamVj",
+          "dGlsZUgAEh0KCG9ic3RhY2xlGA4gASgLMgkuT2JzdGFjbGVIAEIQCg5hZGl0",
+          "aW9uYWxfaW5mbyJUCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgEEhIKCmtpbGxf",
+          "Y291bnQYAiABKAQSJgoPY3VycmVudF9hY3Rpb25zGAMgAygLMg0uUGxheWVy",
+          "QWN0aW9uIlEKClByb2plY3RpbGUSDgoGZGFtYWdlGAEgASgEEhAKCG93bmVy",
+          "X2lkGAIgASgEEiEKBnN0YXR1cxgDIAEoDjIRLlByb2plY3RpbGVTdGF0dXMi",
+          "GQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiQwoMUGxheWVyQWN0aW9uEiEK",
+          "BmFjdGlvbhgBIAEoDjIRLlBsYXllckFjdGlvblR5cGUSEAoIZHVyYXRpb24Y",
+          "AiABKAQiJQoETW92ZRIdCglkaXJlY3Rpb24YASABKAsyCi5EaXJlY3Rpb24i",
+          "FwoGQXR0YWNrEg0KBXNraWxsGAEgASgJImAKCkdhbWVBY3Rpb24SFQoEbW92",
+          "ZRgBIAEoCzIFLk1vdmVIABIZCgZhdHRhY2sYAiABKAsyBy5BdHRhY2tIABIR",
+          "Cgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUiFgoEWm9uZRIOCgZy",
+          "YWRpdXMYASABKAIqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIM",
           "CghFWFBMT0RFRBABKngKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAAS",
           "FAoQU1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIV",
           "ChFFWEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEARi",
@@ -88,7 +89,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigCharacter), global::ConfigCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "BaseHealth", "MaxInventorySize", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
@@ -96,7 +97,8 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Move), global::Move.Parser, new[]{ "Direction" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "Timestamp" }, new[]{ "ActionType" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius" }, null, null, null, null)
         }));
   }
   #endregion
@@ -2972,6 +2974,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     projectiles_ = other.projectiles_.Clone();
     playerTimestamps_ = other.playerTimestamps_.Clone();
     serverTimestamp_ = other.serverTimestamp_;
+    zone_ = other.zone_ != null ? other.zone_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3038,6 +3041,18 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
   }
 
+  /// <summary>Field number for the "zone" field.</summary>
+  public const int ZoneFieldNumber = 6;
+  private global::Zone zone_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::Zone Zone {
+    get { return zone_; }
+    set {
+      zone_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -3058,6 +3073,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (!Projectiles.Equals(other.Projectiles)) return false;
     if (!PlayerTimestamps.Equals(other.PlayerTimestamps)) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
+    if (!object.Equals(Zone, other.Zone)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -3070,6 +3086,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     hash ^= Projectiles.GetHashCode();
     hash ^= PlayerTimestamps.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
+    if (zone_ != null) hash ^= Zone.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -3099,6 +3116,10 @@ public sealed partial class GameState : pb::IMessage<GameState>
       output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
     }
+    if (zone_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(Zone);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3120,6 +3141,10 @@ public sealed partial class GameState : pb::IMessage<GameState>
       output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
     }
+    if (zone_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(Zone);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -3138,6 +3163,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
     size += playerTimestamps_.CalculateSize(_map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
+    }
+    if (zone_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Zone);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -3159,6 +3187,12 @@ public sealed partial class GameState : pb::IMessage<GameState>
     playerTimestamps_.MergeFrom(other.playerTimestamps_);
     if (other.ServerTimestamp != 0L) {
       ServerTimestamp = other.ServerTimestamp;
+    }
+    if (other.zone_ != null) {
+      if (zone_ == null) {
+        Zone = new global::Zone();
+      }
+      Zone.MergeFrom(other.Zone);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -3195,6 +3229,13 @@ public sealed partial class GameState : pb::IMessage<GameState>
           ServerTimestamp = input.ReadInt64();
           break;
         }
+        case 50: {
+          if (zone_ == null) {
+            Zone = new global::Zone();
+          }
+          input.ReadMessage(Zone);
+          break;
+        }
       }
     }
   #endif
@@ -3228,6 +3269,13 @@ public sealed partial class GameState : pb::IMessage<GameState>
         }
         case 40: {
           ServerTimestamp = input.ReadInt64();
+          break;
+        }
+        case 50: {
+          if (zone_ == null) {
+            Zone = new global::Zone();
+          }
+          input.ReadMessage(Zone);
           break;
         }
       }
@@ -5629,6 +5677,195 @@ public sealed partial class GameAction : pb::IMessage<GameAction>
         }
         case 24: {
           Timestamp = input.ReadInt64();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+public sealed partial class Zone : pb::IMessage<Zone>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<Zone> _parser = new pb::MessageParser<Zone>(() => new Zone());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<Zone> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[20]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Zone() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Zone(Zone other) : this() {
+    radius_ = other.radius_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Zone Clone() {
+    return new Zone(this);
+  }
+
+  /// <summary>Field number for the "radius" field.</summary>
+  public const int RadiusFieldNumber = 1;
+  private float radius_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float Radius {
+    get { return radius_; }
+    set {
+      radius_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as Zone);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(Zone other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Radius != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Radius);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Radius != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Radius);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Radius != 0F) {
+      size += 1 + 4;
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(Zone other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Radius != 0F) {
+      Radius = other.Radius;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 13: {
+          Radius = input.ReadFloat();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 13: {
+          Radius = input.ReadFloat();
           break;
         }
       }
