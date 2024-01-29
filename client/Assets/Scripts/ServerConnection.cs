@@ -165,6 +165,7 @@ public class ServerConnection : MonoBehaviour
         try
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
+            this.lobbyCapacity = 2;
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
             {
                 Debug.Log("no null " + gameState.GameId);
