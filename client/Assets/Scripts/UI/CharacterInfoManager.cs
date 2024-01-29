@@ -103,7 +103,12 @@ public class CharacterInfoManager : MonoBehaviour
 
     public void SelectButton()
     {
-        StartCoroutine(SetCharacter());
+        ServerConnection.Instance.selectedCharacterName = CharactersManager
+            .Instance
+            .GetGoToCharacter();
+        this.GetComponent<MMLoadScene>().LoadScene();
+        // CharactersManager.Instance.SetGoToCharacter()
+        // StartCoroutine(SetCharacter());
     }
 
     private IEnumerator SetCharacter()
