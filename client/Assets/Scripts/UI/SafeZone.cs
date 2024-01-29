@@ -19,20 +19,21 @@ public class SafeZone : MonoBehaviour
 
     void Update()
     {
-        // if (GameServerConnectionManager.Instance.playableRadius != 0)
-        // {
-        //     Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
-        //         GameServerConnectionManager.Instance.shrinkingCenter
-        //     );
-        //     float radius = Utils.transformBackendRadiusToFrontendRadius(
-        //         GameServerConnectionManager.Instance.playableRadius
-        //     );
-        //     if ((radius < previusRadius) && (radius <= previusRadius - (smokeSize * 1.5)))
-        //     {
-        //         GenerateSmokeRing(radius, center);
-        //         previusRadius = radius;
-        //     }
-        // }
+        float radius = GameServerConnectionManager.Instance.playableRadius;
+        if (radius != 0)
+        {
+            // Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
+            //     GameServerConnectionManager.Instance.shrinkingCenter
+            // );
+            // float radius = Utils.transformBackendRadiusToFrontendRadius(
+            //     GameServerConnectionManager.Instance.playableRadius
+            // );
+            if ((radius < previusRadius) && (radius <= previusRadius - (smokeSize * 1.5)))
+            {
+                GenerateSmokeRing(radius, new Vector3(0f, 1f, 0f));
+                previusRadius = radius;
+            }
+        }
     }
 
     void GenerateSmokeRing(float radius, Vector3 center)
