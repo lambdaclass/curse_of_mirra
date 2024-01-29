@@ -138,7 +138,7 @@ public class CustomLevelManager : LevelManager
             GameObject prefab = CharactersManager
                 .Instance
                 .AvailableCharacters
-                .FirstOrDefault() // Get muflus
+                .Find(el => el.name == CharactersManager.Instance.GoToCharacter)
                 .prefab;
 
             if (GameServerConnectionManager.Instance.playerId == player.Id)
@@ -259,7 +259,7 @@ public class CustomLevelManager : LevelManager
             CoMCharacter characterInfo = CharactersManager
                 .Instance
                 .AvailableCharacters
-                .Find(el => el.name == "Muflus");
+                .Find(el => el.name == CharactersManager.Instance.GoToCharacter);
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);

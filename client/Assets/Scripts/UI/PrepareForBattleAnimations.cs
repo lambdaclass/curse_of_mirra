@@ -278,6 +278,16 @@ public class PrepareForBattleAnimations : MonoBehaviour
         {
             item.youTag.SetActive(true);
         }
+        Sprite characterIcon = CharactersManager
+            .Instance
+            .AvailableCharacters
+            .Where(
+                character =>
+                    character.name == player.GetComponent<CustomCharacter>().CharacterModel.name
+            )
+            .Single()
+            .battleCharacterCard;
+        item.character.sprite = characterIcon;
     }
 
     private void SetCameraToPlayer(ulong playerID)
