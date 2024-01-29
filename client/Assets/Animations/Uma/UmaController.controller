@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: Skill Basic
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SkillBasic
+    m_ConditionEvent: Skill1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Walking
@@ -40,7 +40,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: SkillBasic
+    m_ConditionEvent: Skill1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -142311841833040591}
@@ -97,7 +97,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Skill1
+    m_ConditionEvent: Skill2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5451418714279628634}
@@ -137,7 +137,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 5d18df2459bf34046ab281d3533467ea, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: Skill1Speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -155,25 +155,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: SkillBasic
+    m_Controller: {fileID: 0}
+  - m_Name: Skill2
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Skill1
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Skill1Speed
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -196,7 +196,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SkillBasic
+    m_ConditionEvent: Skill1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Walking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6005831638048217647}
@@ -224,10 +227,10 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: SkillBasic
+    m_ConditionEvent: Skill1
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Skill1
+    m_ConditionEvent: Skill2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6005831638048217647}
@@ -276,11 +279,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: SkillBasic
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Walking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Skill1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5451418714279628634}
@@ -308,7 +311,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: Skill1
+    m_ConditionEvent: Skill2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4113718895064592122}
@@ -338,10 +341,10 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5451418714279628634}
-    m_Position: {x: 560, y: 240, z: 0}
+    m_Position: {x: 330, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -142311841833040591}
-    m_Position: {x: 320, y: 360, z: 0}
+    m_Position: {x: 630, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4113718895064592122}
     m_Position: {x: 20, y: 240, z: 0}
@@ -373,7 +376,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
@@ -424,7 +427,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: Skill1
+    m_ConditionEvent: Skill2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4113718895064592122}
@@ -452,7 +455,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Walking
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Skill1
+    m_ConditionEvent: Skill2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6005831638048217647}

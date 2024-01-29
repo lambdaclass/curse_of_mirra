@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: Uma_Elnars_Mark
+  m_Name: Uma_Veil
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: VEIL OF RADIANCE
   description: Release a magic nova in a 360 angle that damages and blinds opponents,
     allowing Uma to become invisible for 3 seconds.
-  inputType: 0
-  skillSetType: 0
+  inputType: 2
+  skillSetType: 1
   angle: 0
   executeOnQuickTap: 0
-  indicatorType: 3
+  indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: 9a360727426c249448b3339abfba97bc, type: 3}
@@ -33,7 +33,7 @@ MonoBehaviour:
   damage: 0
   cooldown: 0
   skillRange: 0
-  skillSprite: {fileID: 21300000, guid: 5ee2cd14562484dfebdf4df6264eb48a, type: 3}
+  skillSprite: {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
   startVfxList: []
   vfxList:
   - vfx: {fileID: 1903001141079450169, guid: 630df9fb1edde4841955a83a6367904c, type: 3}
