@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,6 +28,7 @@ public class CharactersManager : MonoBehaviour
     private List<string> availableCharacterNames = new List<string>()
     {
         "Muflus",
+        "H4ck",
         "Uma",
         "Valtimer"
     };
