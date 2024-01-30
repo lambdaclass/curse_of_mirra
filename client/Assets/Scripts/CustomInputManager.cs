@@ -37,22 +37,16 @@ public class CustomInputManager : InputManager
     CustomMMTouchButton Skill2;
 
     [SerializeField]
+    CustomMMTouchButton Skill3;
+
+    [SerializeField]
     GameObject Skill1CooldownContainer;
 
     [SerializeField]
     GameObject Skill2CooldownContainer;
 
     [SerializeField]
-    GameObject disarmObjectSkill1;
-
-    [SerializeField]
-    GameObject disarmObjectSkill2;
-
-    [SerializeField]
-    GameObject disarmObjectSkill3;
-
-    [SerializeField]
-    GameObject cancelButton;
+    GameObject Skill3CooldownContainer;
 
     [SerializeField]
     GameObject UIControlsWrapper;
@@ -435,11 +429,6 @@ public class CustomInputManager : InputManager
         {
             SetSkillRangeCancelable();
         }
-    }
-
-    public void ToggleCanceled(bool value)
-    {
-        cancelButton.SetActive(value);
     }
 
     // private List<GameObject> GetTargetsInSkillRange(Skill skill)
