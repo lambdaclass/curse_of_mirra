@@ -5406,7 +5406,7 @@ MonoBehaviour:
   prepareCoin: {fileID: 5769132581105517621}
   surviveText: {fileID: 4707298941903163517}
   smokeEffectBehind: {fileID: 3559510225174257283}
-  smokeEffectFront: {fileID: 0}
+  smokeEffectFront: {fileID: 3539763238743800420}
   loadingCharacters:
   - {fileID: 169680514462961677}
   - {fileID: 5365261135362229084}

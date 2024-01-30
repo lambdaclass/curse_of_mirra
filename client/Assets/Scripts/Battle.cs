@@ -404,7 +404,7 @@ public class Battle : MonoBehaviour
                 );
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.name == "BASH") // gameProjectiles[i].SkillName
+                    .Where(el => el.name == "SLINGSHOT") // gameProjectiles[i].SkillName
                     .FirstOrDefault();
 
                 print(info);

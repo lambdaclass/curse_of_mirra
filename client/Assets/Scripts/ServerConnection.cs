@@ -106,6 +106,7 @@ public class ServerConnection : MonoBehaviour
     {
         // ValidateVersionHashes();
         ConnectToSession();
+        InvokeRepeating("UpdateSimulatedCounter", 0, 1);
     }
 
     //     public void ConnectToLobby(string matchmaking_id)
@@ -164,6 +165,7 @@ public class ServerConnection : MonoBehaviour
         try
         {
             GameState gameState = GameState.Parser.ParseFrom(data);
+            this.lobbyCapacity = 2;
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
             {
                 Debug.Log("no null " + gameState.GameId);
