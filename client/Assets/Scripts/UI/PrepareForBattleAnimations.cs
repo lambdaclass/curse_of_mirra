@@ -274,10 +274,21 @@ public class PrepareForBattleAnimations : MonoBehaviour
         Transform pos = index < 5 ? playersTopTable.transform : playersBottomTable.transform;
         PlayerCardManager item = Instantiate(playerCard, pos).GetComponent<PlayerCardManager>();
         item.playerName.text = player.name;
+
         if (player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId))
         {
             item.youTag.SetActive(true);
         }
+        Sprite characterIcon = CharactersManager
+            .Instance
+            .AvailableCharacters
+            .Where(
+                character =>
+                    character.name == player.GetComponent<CustomCharacter>().CharacterModel.name
+            )
+            .Single()
+            .battleCharacterCard;
+        item.character.sprite = characterIcon;
     }
 
     private void SetCameraToPlayer(ulong playerID)
