@@ -69,6 +69,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
+  - {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
   - {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
   - {fileID: 21300000, guid: eb5aa5ea1ad074b5594f381e67b1891a, type: 3}
   - {fileID: 21300000, guid: cef44c4b042354653a817698c61f17a4, type: 3}
@@ -116,6 +117,7 @@ SpriteAtlas:
   - Muflus-Leap BL
   - 1
   - toggle_off
+  - h4ck
   - Uma-FinalVengeance  BL
   - background-item
   - reference 1
@@ -125,12 +127,12 @@ SpriteAtlas:
   - 1-item
   - sidebar
   - dev
-  - skill drag
+  - skillJoystick
   - Muflus-Bash BL
   - joystick
   - 2-item
   - H4CK-DenialofService BL
-  - skill drag 1
+  - skillKnob
   m_RenderDataMap: {}
   m_Tag: InGameUI
   m_IsVariant: 0

@@ -1,10 +1,16 @@
-using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using MoreMountains.Tools;
+using UnityEngine;
 
 public class SkillProjectile : MonoBehaviour
 {
     [SerializeField]
     public ProjectileInfo projectileInfo;
+
+    [SerializeField]
+    GameObject projectileElement;
 
     public void UpdatePosition(Vector3 position)
     {
@@ -24,6 +30,20 @@ public class SkillProjectile : MonoBehaviour
 
     public void Remove()
     {
+        if (projectileElement)
+        {
+            projectileElement.SetActive(false);
+        }
+        StartCoroutine(RestoreToPool());
+    }
+
+    private IEnumerator RestoreToPool()
+    {
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
+        if (projectileElement)
+        {
+            projectileElement.SetActive(true);
+        }
     }
 }
