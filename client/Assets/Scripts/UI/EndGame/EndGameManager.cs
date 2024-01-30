@@ -105,7 +105,7 @@ public class EndGameManager : MonoBehaviour
         {
             //defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
-            // defeaterImage.sprite = GetDefeaterSprite();
+            defeaterImage.sprite = GetDefeaterSprite();
             // Defeated By Name
             //defeaterCharacterName.text = GetDefeaterCharacterName();
         }
@@ -133,9 +133,9 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            CoMCharacter killerCharacter = KillFeedManager
-                .instance
-                .charactersScriptableObjects
+            CoMCharacter killerCharacter = CharactersManager
+                .Instance
+                .AvailableCharacters
                 .Single(
                     characterSO =>
                         characterSO

@@ -357,7 +357,7 @@ public class Battle : MonoBehaviour
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
             // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
@@ -423,7 +423,9 @@ public class Battle : MonoBehaviour
                 }
                 else
                 {
-                    print("The projectile name does not match the projectile prefab assign to the scriptable object of the skill");
+                    print(
+                        "The projectile name does not match the projectile prefab assign to the scriptable object of the skill"
+                    );
                 }
             }
         }
