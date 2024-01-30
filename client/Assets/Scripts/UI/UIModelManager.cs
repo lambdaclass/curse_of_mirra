@@ -26,6 +26,7 @@ public class UIModelManager : MonoBehaviour
             playerModelContainer.transform
         );
         animate = true;
+        print(AnimationClipTime(modelClone.GetComponentInChildren<Animator>()));
         animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
         characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
     }
