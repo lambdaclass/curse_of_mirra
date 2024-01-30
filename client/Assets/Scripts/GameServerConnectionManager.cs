@@ -159,6 +159,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     eventsBuffer.AddEvent(gameState);
 
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
+                    this.playableRadius = gameState.Zone.Radius;
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
