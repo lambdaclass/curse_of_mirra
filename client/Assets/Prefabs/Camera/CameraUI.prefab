@@ -29774,7 +29774,6 @@ GameObject:
   - component: {fileID: 5885858678639878115}
   - component: {fileID: 3212989936961571412}
   - component: {fileID: 3773112650399325529}
-  - component: {fileID: 8416402912647708095}
   - component: {fileID: 3024323683221754542}
   m_Layer: 5
   m_Name: ExitButton
@@ -29854,20 +29853,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8416402912647708095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7090229497108600577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c29756d7127346488dfe477be32e28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 21300000, guid: af4b0e28fd9e04baaa4d6b123dffab75, type: 3}
-  selectedButton: {fileID: 21300000, guid: 122ba202a51764dfcb12fc730ded9515, type: 3}
 --- !u!114 &3024323683221754542
 MonoBehaviour:
   m_ObjectHideFlags: 0
