@@ -45,10 +45,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
   - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
-  - {fileID: 21300000, guid: 51a4e782d4bf640e18377234f72c835e, type: 3}
-  - {fileID: 21300000, guid: f23c52c2b7780480bb1d988b3d64da46, type: 3}
+  - {fileID: 21300000, guid: 7445be924b23041e78c89083e3f64e76, type: 3}
   - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
-  - {fileID: 21300000, guid: be632de27908d44a3b232e8abfeff93b, type: 3}
   - {fileID: 21300000, guid: 3a8c49535c5fe49459499996f29cb35a, type: 3}
   - {fileID: 21300000, guid: 49f2c383d583549f885bbbf793eb85fd, type: 3}
   - {fileID: 21300000, guid: 92ed3db3cc92b46e79b1ee00aede3f01, type: 3}
@@ -71,8 +69,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
   - {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
+  - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: eb5aa5ea1ad074b5594f381e67b1891a, type: 3}
-  - {fileID: 21300000, guid: cef44c4b042354653a817698c61f17a4, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
@@ -94,9 +92,7 @@ SpriteAtlas:
   - icon 1
   - toggle_on
   - joystick-direction
-  - setting_button_selected
   - 2
-  - setting-button
   - 5-item
   - knob
   - D_agna - Pizzicato BL
@@ -119,8 +115,8 @@ SpriteAtlas:
   - toggle_off
   - h4ck
   - Uma-FinalVengeance  BL
+  - slider-handle
   - background-item
-  - reference 1
   - icon 2
   - setings
   - icon 3
