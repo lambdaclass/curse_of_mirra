@@ -56,7 +56,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 009b66b51fd3e4733b4ac2174cd7c268, type: 3}
   - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
   - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
-  - {fileID: 21300000, guid: 113e5588799564bc8be8045f3031af35, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
@@ -80,7 +79,6 @@ SpriteAtlas:
   - healthbar_border
   - setting_tab_selected
   - underline
-  - reference
   - 1
   - toggle_off
   - h4ck
