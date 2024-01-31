@@ -149,7 +149,8 @@ public class ServerConnection : MonoBehaviour
         ulong id = (ulong)(hashCode > 0 ? hashCode : hashCode * -1);
         SessionParameters.PlayerId = id;
         this.playerId = id;
-        string url = makeWebsocketUrl("/play/" + id);
+        string character_name = CharactersManager.Instance.GoToCharacter.ToLower();
+        string url = makeWebsocketUrl("/join/" + id + "/" + character_name);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
