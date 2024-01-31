@@ -119,8 +119,10 @@ public enum PlayerActionType {
   [pbr::OriginalName("MOVING")] Moving = 0,
   [pbr::OriginalName("STARTING_SKILL_1")] StartingSkill1 = 1,
   [pbr::OriginalName("STARTING_SKILL_2")] StartingSkill2 = 2,
-  [pbr::OriginalName("EXECUTING_SKILL_1")] ExecutingSkill1 = 3,
-  [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 4,
+  [pbr::OriginalName("STARTING_SKILL_3")] StartingSkill3 = 3,
+  [pbr::OriginalName("EXECUTING_SKILL_1")] ExecutingSkill1 = 4,
+  [pbr::OriginalName("EXECUTING_SKILL_2")] ExecutingSkill2 = 5,
+  [pbr::OriginalName("EXECUTING_SKILL_3")] ExecutingSkill3 = 6,
 }
 
 #endregion

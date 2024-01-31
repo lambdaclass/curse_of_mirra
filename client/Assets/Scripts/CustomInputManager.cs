@@ -5,11 +5,13 @@ using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public enum UIControls
 {
     Skill1,
-    Skill2
+    Skill2,
+    Skill3
 }
 
 public enum UIIndicatorType
@@ -30,6 +32,15 @@ public enum UIType
 
 public class CustomInputManager : InputManager
 {
+    [SerializeField]
+    SetSpriteToSkillInput Skill1Icon;
+
+    [SerializeField]
+    SetSpriteToSkillInput Skill2Icon;
+
+    [SerializeField]
+    SetSpriteToSkillInput Skill3Icon;
+
     [SerializeField]
     CustomMMTouchButton Skill1;
 
@@ -74,12 +85,14 @@ public class CustomInputManager : InputManager
         mobileButtons = new Dictionary<UIControls, CustomMMTouchButton>();
         mobileButtons.Add(UIControls.Skill1, Skill1);
         mobileButtons.Add(UIControls.Skill2, Skill2);
+        mobileButtons.Add(UIControls.Skill3, Skill3);
 
         // TODO: this could be refactored implementing a button parent linking button and cooldown text
         // or extending CustomMMTouchButton and linking its cooldown text
         buttonsCooldown = new Dictionary<UIControls, GameObject>();
         buttonsCooldown.Add(UIControls.Skill1, Skill1CooldownContainer);
         buttonsCooldown.Add(UIControls.Skill2, Skill2CooldownContainer);
+        buttonsCooldown.Add(UIControls.Skill3, Skill3CooldownContainer);
 
         UIControlsWrapper.GetComponent<CanvasGroup>().alpha = 0;
     }
@@ -92,14 +105,9 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        Skill1.SetInitialSprite(
-            characterInfo.skillsInfo[0].skillSprite,
-            characterInfo.skillBackground
-        );
-        Skill2.SetInitialSprite(
-            characterInfo.skillsInfo[1].skillSprite,
-            characterInfo.skillBackground
-        );
+        Skill1Icon.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite);
+        Skill2Icon.SetInitialSprite(characterInfo.skillsInfo[1].skillSprite);
+        Skill3Icon.SetInitialSprite(characterInfo.skillsInfo[2].skillSprite);
         characterSkillColor = characterInfo.InputFeedbackColor;
     }
 
