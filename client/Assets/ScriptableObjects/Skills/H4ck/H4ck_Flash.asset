@@ -33,6 +33,6 @@ MonoBehaviour:
   damage: 0
   cooldown: 0
   skillRange: 0
-  skillSprite: {fileID: 21300000, guid: daf86c1bf02ee4d75bdc9fa8cc394bab, type: 3}
+  skillSprite: {fileID: 21300000, guid: 1dd764fa6cb0249a5a0bb2a0db6be558, type: 3}
   startVfxList: []
   vfxList: []

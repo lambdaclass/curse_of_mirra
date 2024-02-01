@@ -50,23 +50,31 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 92ed3db3cc92b46e79b1ee00aede3f01, type: 3}
-  - {fileID: 21300000, guid: 5ee2cd14562484dfebdf4df6264eb48a, type: 3}
-  - {fileID: 21300000, guid: 8dc1619544e3649cbae4eb260f1897a3, type: 3}
-  - {fileID: 21300000, guid: d1a5f236163cd4c32aa227329b30638d, type: 3}
-  - {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
-  - {fileID: 21300000, guid: a579b60a446fa43448b02bf366e5e462, type: 3}
-  - {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
-  - {fileID: 21300000, guid: 3cadd70fd27d646eaaca88ad113bb11a, type: 3}
+  - {fileID: 21300000, guid: 0fca49825e1f347f29042363be61b315, type: 3}
+  - {fileID: 21300000, guid: 1b65421389cb84cf8b2eaa42fc2808b0, type: 3}
+  - {fileID: 21300000, guid: 165e2e85b1bd54f2389f3b424e20bbb1, type: 3}
+  - {fileID: 21300000, guid: e59a4666303954f40bf55b8fd65ac769, type: 3}
+  - {fileID: 21300000, guid: f54c09f7baa3149839ace94bfcb384b7, type: 3}
+  - {fileID: 21300000, guid: 213bee9a3731b4b8d905d426f077f5a3, type: 3}
+  - {fileID: 21300000, guid: 1dd764fa6cb0249a5a0bb2a0db6be558, type: 3}
+  - {fileID: 21300000, guid: daf86c1bf02ee4d75bdc9fa8cc394bab, type: 3}
+  - {fileID: 21300000, guid: f02ebf6c6f0964ea69bc8d217abe97fd, type: 3}
+  - {fileID: 21300000, guid: 0844234eb4f4a49388233ca8bcf05316, type: 3}
+  - {fileID: 21300000, guid: 78b1417f715ef43feb76006d3002e0c8, type: 3}
+  - {fileID: 21300000, guid: 4f36c5ef9696e46ee8b67b161bcea987, type: 3}
   m_PackedSpriteNamesToIndex:
-  - D_agna - Pizzicato BL
-  - Uma-ElnarsMark BL 1
-  - D_agna - Orchestra BL
-  - H4CK-Slingshot BL
-  - Muflus-Leap BL
-  - Uma-FinalVengeance  BL
-  - Muflus-Bash BL
-  - H4CK-DenialofService BL
+  - Muflus - Rampage
+  - Uma - Veil of Radiance
+  - Valtimer - Singularity
+  - Valtimer - Antimatter
+  - Muflus - Crush
+  - Valtimer - Warp
+  - H4ck - Flash
+  - H4ck - Denial of Serviece
+  - Muflus - Leap
+  - Uma - Avenge
+  - H4ck - Slingshot
+  - Uma - Sneak
   m_RenderDataMap: {}
   m_Tag: SkillsUI
   m_IsVariant: 0
