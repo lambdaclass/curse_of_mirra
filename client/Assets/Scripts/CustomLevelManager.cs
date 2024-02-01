@@ -138,7 +138,7 @@ public class CustomLevelManager : LevelManager
             GameObject prefab = CharactersManager
                 .Instance
                 .AvailableCharacters
-                .Find(el => el.name == CharactersManager.Instance.GoToCharacter)
+                .Find(el => el.name.ToLower() == player.Player.CharacterName)
                 .prefab;
 
             if (GameServerConnectionManager.Instance.playerId == player.Id)

@@ -107,7 +107,7 @@ public class EndGameManager : MonoBehaviour
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
             // Defeated By Name
-            //defeaterCharacterName.text = GetDefeaterCharacterName();
+            // defeaterCharacterName.text = GetDefeaterCharacterName();
         }
     }
 
@@ -154,8 +154,13 @@ public class EndGameManager : MonoBehaviour
 
     private string GetDefeaterCharacterName()
     {
-        // TODO: get defeater character name
-        return "-";
+        string characterName = Utils
+            .GetGamePlayer(KillFeedManager.instance.myKillerId)
+            .Player
+            .CharacterName;
+        characterName[0].ToString().ToUpper();
+
+        return characterName;
     }
 
     public void ShowCharacterAnimation()
