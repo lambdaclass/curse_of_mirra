@@ -53,6 +53,9 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
             case UIControls.Skill2:
                 skillSetTypeName = "Skill2";
                 break;
+            case UIControls.Skill3:
+                skillSetTypeName = "Skill3";
+                break;
         }
 
         return skillSetTypeName;

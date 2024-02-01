@@ -32,35 +32,62 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 57af50b84b8b94ff4a5d546de3d3f0ae, type: 3}
+    - {fileID: 102900000, guid: 53324d01144aa4cbaa917672f35c976e, type: 3}
+    - {fileID: 102900000, guid: 3eb91073e7abd4ee89716ac8bd44f111, type: 3}
+    - {fileID: 102900000, guid: c1bcbbf7e31a7485f83227210a9b74ad, type: 3}
+    - {fileID: 102900000, guid: 5effd8490589240e3bbad8566470b70b, type: 3}
+    - {fileID: 102900000, guid: 6545209b0db61400fb4e8aa30b296c72, type: 3}
+    - {fileID: 102900000, guid: 82d20931720ea4232a65434518238c6a, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: b86c0fd1f68564d2ab777fbbb2cd2743, type: 3}
-  - {fileID: 21300000, guid: 2d340d82e49a14bbf83d262c48718d35, type: 3}
-  - {fileID: 21300000, guid: db6604c28f6654cc8a9d499eb016fedd, type: 3}
-  - {fileID: 21300000, guid: de6249676d3a64ff6bc3511b49a2da40, type: 3}
-  - {fileID: 21300000, guid: 99b14097a8e1e48ebb667ec381c0ca6a, type: 3}
-  - {fileID: 21300000, guid: 47a69d19b6bd3411dbe084cfbb7cec19, type: 3}
-  - {fileID: 21300000, guid: f654400b4adab418cab9ecd8fe1e9693, type: 3}
-  - {fileID: 21300000, guid: 32f96a4ccf0ee4e82ac7bb7bf988e5ef, type: 3}
-  - {fileID: 21300000, guid: fe47c5ad8dd9d4a54b9f274447e27717, type: 3}
-  - {fileID: 21300000, guid: fe77c7adf01bc4b1990894e4594f4125, type: 3}
-  - {fileID: 21300000, guid: 18aefdcf1a99b40f9b4f1b82648dabff, type: 3}
+  - {fileID: 21300000, guid: 36e7e03074043410198227140f9037f2, type: 3}
+  - {fileID: 21300000, guid: 41e07560bd98147d4af35b42349e9655, type: 3}
+  - {fileID: 21300000, guid: 3694aa60b97fe444b91afbc6b5d25c68, type: 3}
+  - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
+  - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
+  - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
+  - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
+  - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
+  - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
+  - {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}
+  - {fileID: 21300000, guid: 009b66b51fd3e4733b4ac2174cd7c268, type: 3}
+  - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
+  - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
+  - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
+  - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
+  - {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
+  - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
+  - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
+  - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
+  - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
+  - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
+  - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
   m_PackedSpriteNamesToIndex:
-  - mirras_blessing
-  - Players-icon
-  - basic
-  - Underline
-  - metrics-container
-  - kills
-  - item
-  - icon
-  - border-item
-  - Settings
-  - time
+  - container
+  - setting_firstTab_selected
+  - code
+  - 1
+  - icon 1
+  - toggle_on
+  - 2
+  - muflus
+  - settings_bg
+  - zone
+  - healthbar_border
+  - setting_tab_selected
+  - underline
+  - 1
+  - toggle_off
+  - h4ck
+  - slider-handle
+  - icon 2
+  - setings
+  - icon 3
+  - sidebar
+  - dev
   m_RenderDataMap: {}
   m_Tag: InGameUI
   m_IsVariant: 0

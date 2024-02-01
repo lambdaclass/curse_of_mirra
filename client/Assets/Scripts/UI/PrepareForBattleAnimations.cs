@@ -100,6 +100,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             AnimationCallback(character);
             yield return new WaitForSeconds(.1f);
         }
+        yield return new WaitForSeconds(1f);
         loadingComplete = true;
     }
 

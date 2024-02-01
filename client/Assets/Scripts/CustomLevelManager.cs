@@ -252,9 +252,11 @@ public class CustomLevelManager : LevelManager
         {
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
             skillList.Add(skill1);
             skillList.Add(skill2);
+            skillList.Add(skill3);
 
             CoMCharacter characterInfo = CharactersManager
                 .Instance
@@ -266,6 +268,7 @@ public class CustomLevelManager : LevelManager
 
             skill1.SetSkill("1", skillInfoClone[0]);
             skill2.SetSkill("2", skillInfoClone[1]);
+            skill3.SetSkill("3", skillInfoClone[2]);
 
             // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
@@ -281,6 +284,11 @@ public class CustomLevelManager : LevelManager
                     UIControls.Skill2,
                     skillInfoClone[1].inputType,
                     skill2
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill3,
+                    skillInfoClone[2].inputType,
+                    skill3
                 );
             }
 

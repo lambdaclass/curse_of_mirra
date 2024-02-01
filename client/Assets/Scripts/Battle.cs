@@ -360,6 +360,16 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
+            /*
+            case PlayerActionType.StartingSkill3:
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            case PlayerActionType.ExecutingSkill3:
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
+                rotatePlayer(currentPlayer, direction);
+                break;
+            */
             // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
             // rotatePlayer(currentPlayer, direction);
             // break;
@@ -406,8 +416,6 @@ public class Battle : MonoBehaviour
                 SkillInfo info = skillInfoSet
                     .Where(el => el.name == "SLINGSHOT") // gameProjectiles[i].SkillName
                     .FirstOrDefault();
-
-                print(info);
 
                 if (info != null)
                 {
@@ -524,6 +532,12 @@ public class Battle : MonoBehaviour
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
                 0f,
                 player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+            );
+            InputManager.CheckSkillCooldown(
+                UIControls.Skill3,
+                // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
+                0f,
+                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
             );
         }
     }
