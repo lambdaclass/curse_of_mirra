@@ -42,16 +42,14 @@ public class UIModelManager : MonoBehaviour
     float AnimationClipTime(Animator modelClone)
     {
         List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
-        return modelClone.name.Contains("Uma")
-            ? clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2
-            : clips.Single(clip => clip.name == "Victory").length;
+        return clips.Single(clip => clip.name == "Victory").length;
     }
 
     IEnumerator AnimateCharacter(GameObject modelClone)
     {
         // Fix this: With the characterSelection PR we can add a string in the ComCharacter to
         // select which animations should be played
-        string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
+        string animationName = "Victory";
         while (animate)
         {
             yield return new WaitForSeconds(1f);
