@@ -28,7 +28,7 @@ public class EndGameManager : MonoBehaviour
 
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
-    private const string ZONE_ID = "9999";
+    private const string ZONE_ID = "0";
     CustomCharacter player;
     GameObject modelClone;
 
