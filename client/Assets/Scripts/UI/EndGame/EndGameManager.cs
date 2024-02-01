@@ -17,12 +17,6 @@ public class EndGameManager : MonoBehaviour
     GameObject defeatedByContainer,
         characterModelContainer;
 
-    // Data to be added from front and back
-
-    [SerializeField]
-    TextMeshProUGUI defeaterPlayerName,
-        defeaterCharacterName;
-
     [SerializeField]
     Image defeaterImage;
 
@@ -106,8 +100,6 @@ public class EndGameManager : MonoBehaviour
             //defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
-            // Defeated By Name
-            // defeaterCharacterName.text = GetDefeaterCharacterName();
         }
     }
 
@@ -117,12 +109,6 @@ public class EndGameManager : MonoBehaviour
         // var gamePlayer = Utils.GetGamePlayer(playerId);
         // return gamePlayer.KillCount;
         return 77;
-    }
-
-    private string GetDefeaterPlayerName()
-    {
-        // TODO: get Defeater player name
-        return "-";
     }
 
     private Sprite GetDefeaterSprite()
@@ -150,17 +136,6 @@ public class EndGameManager : MonoBehaviour
                 );
             return killerCharacter.UIIcon;
         }
-    }
-
-    private string GetDefeaterCharacterName()
-    {
-        string characterName = Utils
-            .GetGamePlayer(KillFeedManager.instance.myKillerId)
-            .Player
-            .CharacterName;
-        characterName[0].ToString().ToUpper();
-
-        return characterName;
     }
 
     public void ShowCharacterAnimation()
