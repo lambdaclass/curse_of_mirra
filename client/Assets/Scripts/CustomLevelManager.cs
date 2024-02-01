@@ -266,9 +266,9 @@ public class CustomLevelManager : LevelManager
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);
 
-            skill1.SetSkill("2", skillInfoClone[0]);
-            skill2.SetSkill("1", skillInfoClone[1]);
-            skill3.SetSkill("0", skillInfoClone[2]);
+            skill1.SetSkill("1", skillInfoClone[0]);
+            skill2.SetSkill("2", skillInfoClone[1]);
+            skill3.SetSkill("3", skillInfoClone[2]);
 
             // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 

@@ -360,6 +360,7 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
+            /*
             case PlayerActionType.StartingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
@@ -368,6 +369,7 @@ public class Battle : MonoBehaviour
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false);
                 rotatePlayer(currentPlayer, direction);
                 break;
+            */
             // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
             // rotatePlayer(currentPlayer, direction);
             // break;
