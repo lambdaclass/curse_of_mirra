@@ -249,7 +249,7 @@ public class ServerConnection : MonoBehaviour
             return "ws://" + serverIp + ":4000" + path;
         }
         // Load test server
-        else if (serverIp.Contains("168.119.71.104"))
+        else if (serverIp.Contains("109.104.155.188"))
         {
             return "ws://" + serverIp + ":4000" + path;
         }
