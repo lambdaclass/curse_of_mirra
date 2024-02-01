@@ -60,26 +60,25 @@ public static partial class MessagesReflection {
           "DQoFc3BlZWQYCSABKAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0aW9u",
           "EhEKCWlzX21vdmluZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJI",
           "ABIhCgpwcm9qZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3Rh",
-          "Y2xlGA4gASgLMgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyKBAgoG",
+          "Y2xlGA4gASgLMgkuT2JzdGFjbGVIAEIQCg5hZGl0aW9uYWxfaW5mbyK6AQoG",
           "UGxheWVyEg4KBmhlYWx0aBgBIAEoBBISCgpraWxsX2NvdW50GAIgASgEEiYK",
           "D2N1cnJlbnRfYWN0aW9ucxgDIAMoCzINLlBsYXllckFjdGlvbhIZChFhdmFp",
           "bGFibGVfc3RhbWluYRgEIAEoBBITCgttYXhfc3RhbWluYRgFIAEoBBIYChBz",
           "dGFtaW5hX2ludGVydmFsGAYgASgEEhoKEnJlY2hhcmdpbmdfc3RhbWluYRgH",
-          "IAEoCBIgChhuYXR1cmFsX2hlYWxpbmdfaW50ZXJ2YWwYCCABKAQSIwobbGFz",
-          "dF9uYXR1cmFsX2hlYWxpbmdfdXBkYXRlGAkgASgEIlEKClByb2plY3RpbGUS",
-          "DgoGZGFtYWdlGAEgASgEEhAKCG93bmVyX2lkGAIgASgEEiEKBnN0YXR1cxgD",
-          "IAEoDjIRLlByb2plY3RpbGVTdGF0dXMiGQoIT2JzdGFjbGUSDQoFY29sb3IY",
-          "ASABKAkiQwoMUGxheWVyQWN0aW9uEiEKBmFjdGlvbhgBIAEoDjIRLlBsYXll",
-          "ckFjdGlvblR5cGUSEAoIZHVyYXRpb24YAiABKAQiJQoETW92ZRIdCglkaXJl",
-          "Y3Rpb24YASABKAsyCi5EaXJlY3Rpb24iFwoGQXR0YWNrEg0KBXNraWxsGAEg",
-          "ASgJImAKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZh",
-          "dHRhY2sYAiABKAsyBy5BdHRhY2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoL",
-          "YWN0aW9uX3R5cGUiFgoEWm9uZRIOCgZyYWRpdXMYASABKAIiMQoJS2lsbEVu",
-          "dHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1faWQYAiABKAQqLAoQ",
-          "UHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKngK",
-          "EFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RBUlRJTkdfU0tJ",
-          "TExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVDVVRJTkdfU0tJ",
-          "TExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEARiBnByb3RvMw=="));
+          "IAEoCCJRCgpQcm9qZWN0aWxlEg4KBmRhbWFnZRgBIAEoBBIQCghvd25lcl9p",
+          "ZBgCIAEoBBIhCgZzdGF0dXMYAyABKA4yES5Qcm9qZWN0aWxlU3RhdHVzIhkK",
+          "CE9ic3RhY2xlEg0KBWNvbG9yGAEgASgJIkMKDFBsYXllckFjdGlvbhIhCgZh",
+          "Y3Rpb24YASABKA4yES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIg",
+          "ASgEIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIhcK",
+          "BkF0dGFjaxINCgVza2lsbBgBIAEoCSJgCgpHYW1lQWN0aW9uEhUKBG1vdmUY",
+          "ASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJ",
+          "dGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlIhYKBFpvbmUSDgoGcmFk",
+          "aXVzGAEgASgCIjEKCUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASABKAQSEQoJ",
+          "dmljdGltX2lkGAIgASgEKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZF",
+          "EAASDAoIRVhQTE9ERUQQASp4ChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklO",
+          "RxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8y",
+          "EAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MhAEYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -96,7 +95,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "NaturalHealingInterval", "LastNaturalHealingUpdate" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration" }, null, null, null, null),
@@ -4116,8 +4115,6 @@ public sealed partial class Player : pb::IMessage<Player>
     maxStamina_ = other.maxStamina_;
     staminaInterval_ = other.staminaInterval_;
     rechargingStamina_ = other.rechargingStamina_;
-    naturalHealingInterval_ = other.naturalHealingInterval_;
-    lastNaturalHealingUpdate_ = other.lastNaturalHealingUpdate_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -4210,30 +4207,6 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
-  /// <summary>Field number for the "natural_healing_interval" field.</summary>
-  public const int NaturalHealingIntervalFieldNumber = 8;
-  private ulong naturalHealingInterval_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong NaturalHealingInterval {
-    get { return naturalHealingInterval_; }
-    set {
-      naturalHealingInterval_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "last_natural_healing_update" field.</summary>
-  public const int LastNaturalHealingUpdateFieldNumber = 9;
-  private ulong lastNaturalHealingUpdate_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public ulong LastNaturalHealingUpdate {
-    get { return lastNaturalHealingUpdate_; }
-    set {
-      lastNaturalHealingUpdate_ = value;
-    }
-  }
-
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -4256,8 +4229,6 @@ public sealed partial class Player : pb::IMessage<Player>
     if (MaxStamina != other.MaxStamina) return false;
     if (StaminaInterval != other.StaminaInterval) return false;
     if (RechargingStamina != other.RechargingStamina) return false;
-    if (NaturalHealingInterval != other.NaturalHealingInterval) return false;
-    if (LastNaturalHealingUpdate != other.LastNaturalHealingUpdate) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -4272,8 +4243,6 @@ public sealed partial class Player : pb::IMessage<Player>
     if (MaxStamina != 0UL) hash ^= MaxStamina.GetHashCode();
     if (StaminaInterval != 0UL) hash ^= StaminaInterval.GetHashCode();
     if (RechargingStamina != false) hash ^= RechargingStamina.GetHashCode();
-    if (NaturalHealingInterval != 0UL) hash ^= NaturalHealingInterval.GetHashCode();
-    if (LastNaturalHealingUpdate != 0UL) hash ^= LastNaturalHealingUpdate.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -4317,14 +4286,6 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(56);
       output.WriteBool(RechargingStamina);
     }
-    if (NaturalHealingInterval != 0UL) {
-      output.WriteRawTag(64);
-      output.WriteUInt64(NaturalHealingInterval);
-    }
-    if (LastNaturalHealingUpdate != 0UL) {
-      output.WriteRawTag(72);
-      output.WriteUInt64(LastNaturalHealingUpdate);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -4360,14 +4321,6 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(56);
       output.WriteBool(RechargingStamina);
     }
-    if (NaturalHealingInterval != 0UL) {
-      output.WriteRawTag(64);
-      output.WriteUInt64(NaturalHealingInterval);
-    }
-    if (LastNaturalHealingUpdate != 0UL) {
-      output.WriteRawTag(72);
-      output.WriteUInt64(LastNaturalHealingUpdate);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -4396,12 +4349,6 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (RechargingStamina != false) {
       size += 1 + 1;
-    }
-    if (NaturalHealingInterval != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(NaturalHealingInterval);
-    }
-    if (LastNaturalHealingUpdate != 0UL) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(LastNaturalHealingUpdate);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -4433,12 +4380,6 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.RechargingStamina != false) {
       RechargingStamina = other.RechargingStamina;
-    }
-    if (other.NaturalHealingInterval != 0UL) {
-      NaturalHealingInterval = other.NaturalHealingInterval;
-    }
-    if (other.LastNaturalHealingUpdate != 0UL) {
-      LastNaturalHealingUpdate = other.LastNaturalHealingUpdate;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -4483,14 +4424,6 @@ public sealed partial class Player : pb::IMessage<Player>
           RechargingStamina = input.ReadBool();
           break;
         }
-        case 64: {
-          NaturalHealingInterval = input.ReadUInt64();
-          break;
-        }
-        case 72: {
-          LastNaturalHealingUpdate = input.ReadUInt64();
-          break;
-        }
       }
     }
   #endif
@@ -4532,14 +4465,6 @@ public sealed partial class Player : pb::IMessage<Player>
         }
         case 56: {
           RechargingStamina = input.ReadBool();
-          break;
-        }
-        case 64: {
-          NaturalHealingInterval = input.ReadUInt64();
-          break;
-        }
-        case 72: {
-          LastNaturalHealingUpdate = input.ReadUInt64();
           break;
         }
       }
