@@ -69,23 +69,23 @@ SpriteAtlas:
   - container
   - setting_firstTab_selected
   - code
-  - Underline
-  - players
+  - 1
+  - icon 1
   - toggle_on
-  - icon
+  - 2
   - muflus
   - settings_bg
   - zone
   - healthbar_border
   - setting_tab_selected
   - underline
-  - container
+  - 1
   - toggle_off
   - h4ck
   - slider-handle
-  - timer
+  - icon 2
   - setings
-  - kills
+  - icon 3
   - sidebar
   - dev
   m_RenderDataMap: {}
