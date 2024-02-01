@@ -1337,9 +1337,9 @@ MonoBehaviour:
   SmoothMovement: 1
   Threshold: {x: 0.1, y: 0.4}
   RotateInputBasedOnCameraDirection: 0
-  Skill1Icon: {fileID: 2078315173863930056}
-  Skill2Icon: {fileID: 7189383615297511324}
-  Skill3Icon: {fileID: 4531024149677679001}
+  Skill1Icon: {fileID: 8140019856021196889}
+  Skill2Icon: {fileID: 1226249942091356645}
+  Skill3Icon: {fileID: 6932232377489204652}
   Skill1: {fileID: 2423497316933749118}
   Skill2: {fileID: 2302692725905988441}
   Skill3: {fileID: 5773388603856226559}
@@ -4847,7 +4847,6 @@ GameObject:
   - component: {fileID: 4682663129105859468}
   - component: {fileID: 1226249942091356645}
   - component: {fileID: 7864762095280910783}
-  - component: {fileID: 7189383615297511324}
   m_Layer: 0
   m_Name: Icon2
   m_TagString: Untagged
@@ -4926,18 +4925,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &7189383615297511324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614364568613617586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2923bc70ec040afbb2602ba2894cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1624691643536643429
 GameObject:
   m_ObjectHideFlags: 0
@@ -29973,7 +29960,6 @@ GameObject:
   - component: {fileID: 805783996031733045}
   - component: {fileID: 6932232377489204652}
   - component: {fileID: 1632216716572407984}
-  - component: {fileID: 4531024149677679001}
   m_Layer: 0
   m_Name: Icon3
   m_TagString: Untagged
@@ -30052,18 +30038,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &4531024149677679001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7167843229552392908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2923bc70ec040afbb2602ba2894cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7174538330120393725
 GameObject:
   m_ObjectHideFlags: 0
@@ -30440,7 +30414,6 @@ GameObject:
   - component: {fileID: 6419341912272694489}
   - component: {fileID: 8140019856021196889}
   - component: {fileID: 509220432518976982}
-  - component: {fileID: 2078315173863930056}
   m_Layer: 0
   m_Name: Icon1
   m_TagString: Untagged
@@ -30519,18 +30492,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &2078315173863930056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7236696536394779565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2923bc70ec040afbb2602ba2894cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7258637281867917970
 GameObject:
   m_ObjectHideFlags: 0

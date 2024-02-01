@@ -33,13 +33,13 @@ public enum UIType
 public class CustomInputManager : InputManager
 {
     [SerializeField]
-    SetSpriteToSkillInput Skill1Icon;
+    Image Skill1Icon;
 
     [SerializeField]
-    SetSpriteToSkillInput Skill2Icon;
+    Image Skill2Icon;
 
     [SerializeField]
-    SetSpriteToSkillInput Skill3Icon;
+    Image Skill3Icon;
 
     [SerializeField]
     CustomMMTouchButton Skill1;
@@ -105,9 +105,9 @@ public class CustomInputManager : InputManager
 
     public void InitializeInputSprite(CoMCharacter characterInfo)
     {
-        Skill1Icon.SetInitialSprite(characterInfo.skillsInfo[0].skillSprite);
-        Skill2Icon.SetInitialSprite(characterInfo.skillsInfo[1].skillSprite);
-        Skill3Icon.SetInitialSprite(characterInfo.skillsInfo[2].skillSprite);
+        Skill1Icon.sprite = characterInfo.skillsInfo[0].skillSprite;
+        Skill2Icon.sprite = characterInfo.skillsInfo[1].skillSprite;
+        Skill3Icon.sprite = characterInfo.skillsInfo[2].skillSprite;
         characterSkillColor = characterInfo.InputFeedbackColor;
     }
 
