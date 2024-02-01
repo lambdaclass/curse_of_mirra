@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: H4ck_Basic
+  m_Name: Valtimer_Antimatter
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: SLINGSHOT
+  name: ANTIMATTER
   description: High speed ranged attack, can bounce off walls, like a pinball machine.
   inputType: 2
-  skillSetType: 1
+  skillSetType: 0
   angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
@@ -33,6 +33,6 @@ MonoBehaviour:
   damage: 0
   cooldown: 0
   skillRange: 0
-  skillSprite: {fileID: 21300000, guid: d1a5f236163cd4c32aa227329b30638d, type: 3}
+  skillSprite: {fileID: 21300000, guid: e59a4666303954f40bf55b8fd65ac769, type: 3}
   startVfxList: []
   vfxList: []

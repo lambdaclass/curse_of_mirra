@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: H4ck_Denial
+  m_Name: H4ck_Flash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: DENIAL OF SERVICE
+  name: FLASH
   description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
     H4ck has a lotofupgrades under his sleave.
   inputType: 0
-  skillSetType: 1
+  skillSetType: 2
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 3

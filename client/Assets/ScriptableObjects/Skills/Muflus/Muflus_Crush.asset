@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa431e235fe84c1b89716712b674a78, type: 3}
-  m_Name: Muflus_Melee
+  m_Name: Muflus_Crush
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
-  name: BASH
+  name: CRUSH
   description: Targets an arc in front of you, dealing damage.
   inputType: 2
   skillSetType: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   damage: 0
   cooldown: 0
   skillRange: 0
-  skillSprite: {fileID: 21300000, guid: 70cd9dbe4851048839bee74eb932d0f4, type: 3}
+  skillSprite: {fileID: 21300000, guid: f54c09f7baa3149839ace94bfcb384b7, type: 3}
   startVfxList: []
   vfxList:
   - vfx: {fileID: 2701273495037961085, guid: 9086438c602644ffd9be0f34ce5b9599, type: 3}
