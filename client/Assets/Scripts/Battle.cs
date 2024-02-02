@@ -341,24 +341,25 @@ public class Battle : MonoBehaviour
         ulong skillDuration
     )
     {
+        CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerActionType.StartingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
+                character.rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false);
-                rotatePlayer(currentPlayer, direction);
+                character.rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.StartingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
+                character.rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-                rotatePlayer(currentPlayer, direction);
+                character.rotatePlayer(currentPlayer, direction);
                 break;
             /*
             case PlayerActionType.StartingSkill3:
@@ -467,15 +468,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void rotatePlayer(GameObject player, Direction direction)
-    {
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
-        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
-        characterOrientation.ForcedRotationDirection = movementDirection;
-    }
-
     private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
         /*
@@ -578,10 +570,9 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
+
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
 
@@ -656,7 +647,7 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                rotatePlayer(player, direction);
+                character.rotatePlayer(player, direction);
             }
             walking = true;
         }

@@ -18,4 +18,13 @@ public class CustomCharacter : Character
             this.characterBase.gameObject.AddComponent<AudioSource>();
         }
     }
+
+    public void rotatePlayer(GameObject player, Direction direction)
+    {
+        CharacterOrientation3D characterOrientation = this.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        movementDirection.Normalize();
+        characterOrientation.ForcedRotationDirection = movementDirection;
+    }
 }
