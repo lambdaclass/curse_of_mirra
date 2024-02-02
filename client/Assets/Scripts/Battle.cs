@@ -166,12 +166,6 @@ public class Battle : MonoBehaviour
     public void SendPlayerMovement()
     {
         GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        GameState lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
-        Entity playerUpdate = lastEvent
-            .Players
-            .Values
-            .ToList()
-            .Find(p => p.Id == GameServerConnectionManager.Instance.playerId);
 
         if (player)
         {
