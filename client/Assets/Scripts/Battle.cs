@@ -35,6 +35,7 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     private CustomLevelManager levelManager;
+    private PlayerControls playerControls;
 
     //     // We do this to only have the state effects in the enum instead of all the effects
     //     private enum StateEffects
@@ -52,6 +53,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
+        playerControls = GetComponent<PlayerControls>();
     }
 
     private void InitBlockingStates()
@@ -178,21 +180,19 @@ public class Battle : MonoBehaviour
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
                 {
-                    GetComponent<PlayerControls>()
-                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
                 else
                 {
-                    GetComponent<PlayerControls>().SendAction();
+                    playerControls.SendAction();
                 }
 
                 if (
-                    !GetComponent<PlayerControls>().KeysPressed()
-                    && !GetComponent<PlayerControls>()
-                        .JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
+                    !playerControls.KeysPressed()
+                    && !playerControls.JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
                 )
                 {
-                    GetComponent<PlayerControls>().SendJoystickValues(0, 0);
+                    playerControls.SendJoystickValues(0, 0);
                 }
             }
         }
