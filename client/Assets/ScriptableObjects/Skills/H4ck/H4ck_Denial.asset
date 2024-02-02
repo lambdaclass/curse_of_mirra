@@ -15,7 +15,7 @@ MonoBehaviour:
   name: DENIAL OF SERVICE
   description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
     H4ck has a lotofupgrades under his sleave.
-  inputType: 0
+  inputType: 2
   skillSetType: 1
   angle: 0
   executeOnQuickTap: 0
