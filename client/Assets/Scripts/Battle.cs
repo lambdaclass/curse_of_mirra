@@ -858,19 +858,8 @@ public class Battle : MonoBehaviour
             .characterBase
             .GetComponent<CharacterFeedbackManager>();
 
-        ManageFeedbacks(player, playerUpdate);
+        feedbackManager.ManageFeedbacks(player, playerUpdate);
         feedbackManager.ToggleHealthBar(player, playerUpdate);
-    }
-
-    private void ManageFeedbacks(GameObject player, Entity playerUpdate)
-    {
-        // foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-        // {
-        //     string name = Enum.GetName(typeof(StateEffects), effect);
-        //     bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-        //     CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-        //     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
-        // }
     }
 
     public GameObject GetMapGrid()
