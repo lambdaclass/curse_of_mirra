@@ -94,11 +94,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         CustomCharacter character
     )
     {
-        CharacterFeedbackManager feedbackManager = character
-            .characterBase
-            .GetComponent<CharacterFeedbackManager>();
-
-        feedbackManager.ManageFeedbacks(player, playerUpdate);
-        feedbackManager.ToggleHealthBar(player, playerUpdate);
+        this.ManageFeedbacks(player, playerUpdate);
+        this.ToggleHealthBar(player, playerUpdate);
     }
 }
