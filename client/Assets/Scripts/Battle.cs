@@ -167,11 +167,12 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        CustomCharacter character = Utils.GetCharacter(
+            GameServerConnectionManager.Instance.playerId
+        );
 
-        if (player)
+        if (character)
         {
-            CustomCharacter character = player.GetComponent<CustomCharacter>();
             if (PlayerMovementAuthorized(character))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
