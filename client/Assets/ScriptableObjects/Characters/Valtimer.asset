@@ -15,21 +15,21 @@ MonoBehaviour:
   name: Valtimer
   description: 
   characterSprite: {fileID: 21300000, guid: 23e924275674f4363b5d872484ae4826, type: 3}
-  disabledCharacterSprite: {fileID: 21300000, guid: af4328f0817a143fea5bad37599b9e2c,
-    type: 3}
+  characterIcon: {fileID: 0}
   artWork: {fileID: 21300000, guid: dfa1c4ce28a1d4135b631eb1eba33018, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 657b179b25e5447fb93a7832cec990b1, type: 3}
   blockArtwork: {fileID: 21300000, guid: 7cbbd800f2b02497a91084c47728e2a8, type: 3}
   characterPlayer: {fileID: 0}
   classImage: {fileID: 0}
+  UIIcon: {fileID: 0}
   prefab: {fileID: 0}
-  skillBackground: {fileID: 21300000, guid: ee16a25e959584c8a8b286c6bad1713f, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
     rgba: 0
   skillsInfo:
-  - {fileID: 0}
-  - {fileID: 0}
-  skillBasicInfo: {fileID: 0}
+  - {fileID: 11400000, guid: 632e1304990c6458cafc07af84eef168, type: 2}
+  - {fileID: 11400000, guid: 4da8a1136adc447a1b9140095e867b78, type: 2}
+  - {fileID: 11400000, guid: fa93533898b5d419e8c8979602820b39, type: 2}
+  skillBasicInfo: {fileID: 11400000, guid: 632e1304990c6458cafc07af84eef168, type: 2}
   UIModel: {fileID: 0}
-  enabled: 0
+  battleCharacterCard: {fileID: 0}
