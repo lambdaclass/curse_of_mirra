@@ -323,7 +323,7 @@ public class Battle : MonoBehaviour
 
                 if (serverPlayerUpdate.Player.Health <= 0)
                 {
-                    SetPlayerDead(playerCharacter);
+                    playerCharacter.SetPlayerDead();
                 }
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
@@ -661,25 +661,6 @@ public class Battle : MonoBehaviour
     {
         player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
             player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
-    }
-
-    public void SetPlayerDead(CustomCharacter playerCharacter)
-    {
-        CharacterFeedbacks playerFeedback = playerCharacter.GetComponent<CharacterFeedbacks>();
-        playerFeedback.PlayDeathFeedback();
-        playerFeedback.ClearAllFeedbacks(playerCharacter.gameObject);
-        playerCharacter.CharacterModel.SetActive(false);
-        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        playerCharacter.characterBase.Hitbox.SetActive(false);
-        levelManager.DestroySkillsClone(playerCharacter);
-        playerCharacter
-            .GetComponentInChildren<CharacterBase>()
-            .OrientationIndicator
-            .SetActive(false);
-        if (GameServerConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
-        {
-            CustomGUIManager.DisplayZoneDamageFeedback(false);
-        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH

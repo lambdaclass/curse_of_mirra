@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -26,5 +27,29 @@ public class CustomCharacter : Character
         Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
         movementDirection.Normalize();
         characterOrientation.ForcedRotationDirection = movementDirection;
+    }
+
+    public void SetPlayerDead()
+    {
+        CharacterFeedbacks playerFeedback = this.GetComponent<CharacterFeedbacks>();
+        playerFeedback.PlayDeathFeedback();
+        playerFeedback.ClearAllFeedbacks(this.gameObject);
+        this.CharacterModel.SetActive(false);
+        this.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+        this.characterBase.Hitbox.SetActive(false);
+        DestroySkillsClone();
+        this.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(false);
+        //Currently unused code
+        // if (GameServerConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
+        // {
+        //     CustomGUIManager.DisplayZoneDamageFeedback(false);
+        // }
+    }
+
+    private void DestroySkillsClone()
+    {
+        GetComponentsInChildren<Skill>()
+            .ToList()
+            .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
 }
