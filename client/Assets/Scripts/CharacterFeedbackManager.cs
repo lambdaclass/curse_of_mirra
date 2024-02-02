@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
+    // We do this to only have the state effects in the enum instead of all the effects
+    // private enum StateEffects
+    // {
+    //     Slowed = PlayerEffect.Slowed,
+    //     Paralyzed = PlayerEffect.Paralyzed,
+    //     Poisoned = PlayerEffect.Poisoned,
+    //     OutOfArea = PlayerEffect.OutOfArea
+    // }
+
     //     private PlayerEffect GetEffect(int effectNumber)
     //     {
     //         PlayerEffect effectFound = PlayerEffect.None;
@@ -77,5 +86,19 @@ public class CharacterFeedbackManager : MonoBehaviour
         //     CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
         //     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
         // }
+    }
+
+    public void ManageStateFeedbacks(
+        GameObject player,
+        Entity playerUpdate,
+        CustomCharacter character
+    )
+    {
+        CharacterFeedbackManager feedbackManager = character
+            .characterBase
+            .GetComponent<CharacterFeedbackManager>();
+
+        feedbackManager.ManageFeedbacks(player, playerUpdate);
+        feedbackManager.ToggleHealthBar(player, playerUpdate);
     }
 }
