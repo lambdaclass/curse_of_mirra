@@ -10,9 +10,6 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     private UIModelManager ModelManager;
 
-    [SerializeField]
-    private RotateUIModel rotateUIModel;
-
     [Header("Character info")]
     [SerializeField]
     TextMeshProUGUI nameText;
@@ -57,7 +54,6 @@ public class CharacterInfoManager : MonoBehaviour
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
         skillDescriptions[2].SetSkillDescription(comCharacter.skillsInfo[2]);
-        StartCoroutine(rotateUIModel.GetModel());
         CharactersManager.Instance.SetGoToCharacter(comCharacter.name);
     }
 
