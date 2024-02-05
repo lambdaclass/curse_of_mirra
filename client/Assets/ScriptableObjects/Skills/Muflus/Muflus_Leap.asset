@@ -20,8 +20,7 @@ MonoBehaviour:
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
-  projectilePrefab: {fileID: 6460634427512080952, guid: 2f2ba68c80131418cba01525f24232e9,
-    type: 3}
+  projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: d6127450469e94ebfbebf276ba9bddf0, type: 3}
   sfxHasAbilityStop: 1
