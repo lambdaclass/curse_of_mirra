@@ -95,7 +95,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void ExecuteFeedbacks(ulong duration, bool isStart)
+    public void ExecuteFeedbacks(ulong duration, bool isStart, bool blockMovement)
     {
         ClearAnimator();
 
@@ -117,7 +117,7 @@ public class Skill : CharacterAbility
         }
 
         // State & animation
-        ChangeCharacterState(animation);
+        ChangeCharacterState(animation, blockMovement);
         StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
 
         // Visual effects
@@ -191,9 +191,13 @@ public class Skill : CharacterAbility
         }
     }
 
-    private void ChangeCharacterState(string animation)
+    private void ChangeCharacterState(string animation, bool blockingMovement)
     {
-        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
+        CharacterStates.MovementStates currentState = blockingMovement
+            ? CharacterStates.MovementStates.Attacking
+            : CharacterStates.MovementStates.Dashing;
+
+        _movement.ChangeState(currentState);
         _animator.SetBool(animation, true);
     }
 
