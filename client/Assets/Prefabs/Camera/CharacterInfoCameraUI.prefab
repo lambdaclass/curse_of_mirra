@@ -3016,6 +3016,7 @@ GameObject:
   - component: {fileID: 7026306946470050193}
   - component: {fileID: 5024816539918638574}
   - component: {fileID: 576590200}
+  - component: {fileID: 5506061747113233480}
   m_Layer: 0
   m_Name: CharacterInfoCameraUI
   m_TagString: Untagged
@@ -3153,6 +3154,20 @@ MonoBehaviour:
   - {fileID: 1713799051}
   - {fileID: 2141335950}
   - {fileID: 1052032666216441268}
+--- !u!114 &5506061747113233480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7026306946470050194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: MainScreen
+  LoadingSceneMode: 0
 --- !u!1 &7336816151191729454
 GameObject:
   m_ObjectHideFlags: 0
