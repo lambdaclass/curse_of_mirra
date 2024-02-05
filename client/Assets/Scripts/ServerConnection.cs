@@ -240,7 +240,7 @@ public class ServerConnection : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
-         int port = 4000;
+        int port = 4000;
 
         if (serverIp.Contains("localhost"))
         {
@@ -250,6 +250,7 @@ public class ServerConnection : MonoBehaviour
         {
             return "wss://" + serverIp + path;
         }
+    }
 
     public void GetSelectedCharacter(AsyncOperation operation)
     {
