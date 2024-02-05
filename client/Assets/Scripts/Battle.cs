@@ -500,7 +500,7 @@ public class Battle : MonoBehaviour
             modelAnimator.SetBool("Walking", false);
         }
 
-        HandlePlayerHealth(player, playerUpdate);
+        character.HandlePlayerHealth(playerUpdate);
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
@@ -534,22 +534,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void HandlePlayerHealth(GameObject player, Entity playerUpdate)
-    {
-        Health healthComponent = player.GetComponent<Health>();
-        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-
-        characterFeedbacks.DamageFeedback(
-            healthComponent.CurrentHealth,
-            playerUpdate.Player.Health,
-            playerUpdate.Id
-        );
-
-        if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
-        {
-            healthComponent.SetHealth(playerUpdate.Player.Health);
-        }
-    }
 
     private void HandleMovement(
         GameObject player,

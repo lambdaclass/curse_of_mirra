@@ -58,4 +58,21 @@ public class CustomCharacter : Character
         this.characterBase.OrientationIndicator.transform.rotation =
             this.CharacterModel.transform.rotation;
     }
+
+   public void HandlePlayerHealth(Entity playerUpdate)
+    {
+        Health healthComponent = this.GetComponent<Health>();
+        CharacterFeedbacks characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
+
+        characterFeedbacks.DamageFeedback(
+            healthComponent.CurrentHealth,
+            playerUpdate.Player.Health,
+            playerUpdate.Id
+        );
+
+        if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
+        {
+            healthComponent.SetHealth(playerUpdate.Player.Health);
+        }
+    }
 }
