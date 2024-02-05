@@ -117,16 +117,7 @@ public class Skill : CharacterAbility
         }
 
         // State & animation
-        if (blockMovement)
-        {
-            ChangeCharacterState(animation);
-            print("block");
-        }
-        else
-        {
-            ChangeCharacterStateToDash(animation);
-            print("not blocked");
-        }
+        ChangeCharacterState(animation, blockMovement);
         StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
 
         // Visual effects
@@ -200,17 +191,14 @@ public class Skill : CharacterAbility
         }
     }
 
-    private void ChangeCharacterState(string animation)
+    private void ChangeCharacterState(string animation, bool blockingMovement)
     {
-        _movement.ChangeState(CharacterStates.MovementStates.Attacking);
-        _animator.SetBool(animation, true);
-    }
+        CharacterStates.MovementStates currentState = blockingMovement
+            ? CharacterStates.MovementStates.Attacking
+            : CharacterStates.MovementStates.Dashing;
 
-    private void ChangeCharacterStateToDash(string animation)
-    {
-        _movement.ChangeState(CharacterStates.MovementStates.Dashing);
+        _movement.ChangeState(currentState);
         _animator.SetBool(animation, true);
-        print(animation);
     }
 
     private void SendActionToBackend(Direction direction)
