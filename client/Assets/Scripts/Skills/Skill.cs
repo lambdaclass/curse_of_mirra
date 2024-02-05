@@ -120,12 +120,10 @@ public class Skill : CharacterAbility
         if (blockMovement)
         {
             ChangeCharacterState(animation);
-            print("block");
         }
         else
         {
             ChangeCharacterStateToDash(animation);
-            print("not blocked");
         }
         StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
 
