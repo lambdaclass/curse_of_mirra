@@ -52,4 +52,10 @@ public class CustomCharacter : Character
             .ToList()
             .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
+
+   public void RotateCharacterOrientation()
+    {
+        this.characterBase.OrientationIndicator.transform.rotation =
+            this.CharacterModel.transform.rotation;
+    }
 }

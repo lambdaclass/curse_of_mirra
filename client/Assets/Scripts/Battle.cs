@@ -652,16 +652,12 @@ public class Battle : MonoBehaviour
             walking = true;
         }
 
-        RotateCharacterOrientation(player);
+       character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
     }
 
-    private void RotateCharacterOrientation(GameObject player)
-    {
-        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
-            player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
-    }
+
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleClientPrediction()
