@@ -171,7 +171,8 @@ public class Battle : MonoBehaviour
             GameServerConnectionManager.Instance.playerId
         );
 
-        if (character)
+        bool isPlayerAlive = Utils.GetGamePlayer(Convert.ToUInt64(character.PlayerID)).Player.Health > 0;
+        if (character && isPlayerAlive)
         {
             if (PlayerMovementAuthorized(character))
             {
