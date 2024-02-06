@@ -36,6 +36,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
     private PlayerControls playerControls;
+    private CustomCharacter myClientCharacter;
 
     //     // We do this to only have the state effects in the enum instead of all the effects
     //     private enum StateEffects
@@ -109,6 +110,7 @@ public class Battle : MonoBehaviour
         {
             sendMovementStarted = true;
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
+            myClientCharacter = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
     }
@@ -167,14 +169,12 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        CustomCharacter character = Utils.GetCharacter(
-            GameServerConnectionManager.Instance.playerId
-        );
+        Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        bool isPlayerAlive = Utils.GetGamePlayer(Convert.ToUInt64(character.PlayerID)).Player.Health > 0;
-        if (character && isPlayerAlive)
+        bool isPlayerAlive = entity.Player.Health > 0;
+        if (myClientCharacter && isPlayerAlive)
         {
-            if (PlayerMovementAuthorized(character))
+            if (PlayerMovementAuthorized(myClientCharacter))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
