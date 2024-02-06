@@ -8,47 +8,83 @@ public class ClientPrediction
     {
         public float joystick_x_value;
         public float joystick_y_value;
-        public long timestamp;
+        public long timestampId;
+        public long startTimestamp;
+        public long endTimestamp;
+    }
+
+    public struct AcknowledgedInput
+    {
+        public long timestampId;
+        public Position position;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
+    public AcknowledgedInput lastAcknowledgedInput = new AcknowledgedInput
+    {
+        timestampId = 0,
+        position = new Position { X = 0, Y = 0 }
+    };
+
     public void putPlayerInput(PlayerInput PlayerInput)
     {
+        // finalize last pending input
+        PlayerInput lastPlayerInput;
+        if (pendingPlayerInputs.Count > 0)
+        {
+            lastPlayerInput = pendingPlayerInputs[pendingPlayerInputs.Count - 1];
+            lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
+            pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
+        }
+        // add the new one
         pendingPlayerInputs.Add(PlayerInput);
     }
 
     public void simulatePlayerState(Entity player, long timestamp)
     {
+        if (lastAcknowledgedInput.timestampId < timestamp)
+        {
+            lastAcknowledgedInput.timestampId = timestamp;
+            lastAcknowledgedInput.position = player.Position;
+        }
         removeServerAcknowledgedInputs(player, timestamp);
         simulatePlayerMovement(player);
     }
 
     void removeServerAcknowledgedInputs(Entity player, long timestamp)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.timestamp <= timestamp);
+        pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestamp);
     }
 
     void simulatePlayerMovement(Entity player)
     {
+        var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
+
+        Position initialPosition = player.Position;
+        if (lastAcknowledgedInput.timestampId != 0)
+        {
+            initialPosition = lastAcknowledgedInput.position;
+        }
 
         pendingPlayerInputs.ForEach(input =>
         {
+            long endTimestamp = (input.endTimestamp == 0) ? now : input.endTimestamp;
+            float ticks = (float)Math.Floor((endTimestamp - input.startTimestamp) / 30f);
+
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
 
             movementDirection.Normalize();
-            Vector2 movementVector = movementDirection * characterSpeed;
+            Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
-            var newPositionX = player.Position.X + movementVector.x;
-            var newPositionY = player.Position.Y + movementVector.y;
-
-            Position newPlayerPosition = new Position();
-
-            newPlayerPosition.X = newPositionX;
-            newPlayerPosition.Y = newPositionY;
-
-            player.Position = newPlayerPosition;
+            Position newPlayerPosition = new Position
+            {
+                X = initialPosition.X + (float)(movementVector.x * characterSpeed),
+                Y = initialPosition.Y + (float)(movementVector.y * characterSpeed)
+            };
+            initialPosition = newPlayerPosition;
+            player.Position = initialPosition;
         });
     }
 
