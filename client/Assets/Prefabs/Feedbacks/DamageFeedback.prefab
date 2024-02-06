@@ -490,7 +490,7 @@ MonoBehaviour:
         DebugActive: 0
         FadeType: 1
         ID: 0
-        Duration: 1
+        Duration: 0.7
         Curve:
           MMTweenDefinitionType: 1
           MMTweenCurve: 4
