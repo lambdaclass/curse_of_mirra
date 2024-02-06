@@ -182,19 +182,16 @@ public class Battle : MonoBehaviour
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
                 {
+                    // Using joysticks
                     playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
-                else
+                else if(playerControls.KeysPressed())
                 {
+                    // Using keyboard
                     playerControls.SendAction();
-                }
-
-                if (
-                    !playerControls.KeysPressed()
-                    && !playerControls.JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
-                )
-                {
-                    playerControls.SendJoystickValues(0, 0);
+                } else {
+                    // Not pressing anything
+                    playerControls.SendJoystickValues(0, 0);  
                 }
             }
         }
