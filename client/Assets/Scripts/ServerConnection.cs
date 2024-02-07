@@ -240,23 +240,11 @@ public class ServerConnection : MonoBehaviour
 
     private string makeWebsocketUrl(string path)
     {
+        int port = 4000;
+
         if (serverIp.Contains("localhost"))
         {
-            return "ws://" + serverIp + ":4000" + path;
-        }
-        else if (serverIp.Contains("10.150.20.186"))
-        {
-            return "ws://" + serverIp + ":4000" + path;
-        }
-        // Load test server
-        else if (serverIp.Contains("109.104.155.188"))
-        {
-            return "ws://" + serverIp + ":4000" + path;
-        }
-        // Load test runner server
-        else if (serverIp.Contains("176.9.26.172"))
-        {
-            return "ws://" + serverIp + ":4000" + path;
+            return "ws://" + serverIp + ":" + port + path;
         }
         else
         {
