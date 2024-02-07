@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class CharacterFeedbacks : MonoBehaviour
@@ -19,6 +20,8 @@ public class CharacterFeedbacks : MonoBehaviour
 
     [SerializeField]
     GameObject deathFeedback;
+
+    [SerializeField] MMProgressBar healthBar;
 
     [SerializeField]
     Color32 damageOverlayColor = new Color32(255, 255, 255, 255);
@@ -91,6 +94,7 @@ public class CharacterFeedbacks : MonoBehaviour
             this.GetFeedback("DamageFeedback").GetComponent<MMF_Player>().PlayFeedbacks();
             this.HapticFeedbackOnDamage();
             this.ChangePlayerTextureOnDamage(clientHealth, playerHealth);
+            this.healthBar.BumpOnDecrease = true;
         }
     }
 

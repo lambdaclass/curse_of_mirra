@@ -489,6 +489,7 @@ MonoBehaviour:
   - {fileID: 604736327119138052}
   - {fileID: 8938270116862053746}
   deathFeedback: {fileID: 179007033852684844}
+  healthBar: {fileID: 8711474442059621043}
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
