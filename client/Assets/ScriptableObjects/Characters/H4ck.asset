@@ -21,7 +21,7 @@ MonoBehaviour:
   blockArtwork: {fileID: 21300000, guid: 3c95af6d197c24f9b96a8f18c682fe2a, type: 3}
   characterPlayer: {fileID: 21300000, guid: 098ac98f6bcc748c4934dd37e6405584, type: 3}
   classImage: {fileID: 21300000, guid: dc888704882fc40ecb09fbe9cebe61aa, type: 3}
-  UIIcon: {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
+  UIIcon: {fileID: 21300000, guid: 131b69f1990da47ef9696423773bb153, type: 3}
   prefab: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
