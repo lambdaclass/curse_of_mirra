@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Uma_Veil
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: VEIL OF RADIANCE
-  description: "Performs the ultimate revenge: assassinate any target that has all
-    three Marks. If the target has been anointed with the three marks it\u2019s ready
-    to be sacrificed to the feathered serpent."
+  description: Blind her enemies with her lamp
   inputType: 2
   skillSetType: 1
   angle: 0

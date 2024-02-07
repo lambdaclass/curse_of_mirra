@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Uma_Sneak
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SNEAK
-  description: "Performs the ultimate revenge: assassinate any target that has all
-    three Marks. If the target has been anointed with the three marks it\u2019s ready
-    to be sacrificed to the feathered serpent."
+  description: Dash stealthy revenge
   inputType: 2
   skillSetType: 2
   angle: 0
