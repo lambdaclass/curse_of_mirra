@@ -35,6 +35,8 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     private CustomLevelManager levelManager;
+    private PlayerControls playerControls;
+    private CustomCharacter myClientCharacter = null;
 
     //     // We do this to only have the state effects in the enum instead of all the effects
     //     private enum StateEffects
@@ -52,6 +54,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
+        playerControls = GetComponent<PlayerControls>();
     }
 
     private void InitBlockingStates()
@@ -165,18 +168,16 @@ public class Battle : MonoBehaviour
 
     public void SendPlayerMovement()
     {
-        GameObject player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
-        GameState lastEvent = GameServerConnectionManager.Instance.eventsBuffer.lastEvent();
-        Entity playerUpdate = lastEvent
-            .Players
-            .Values
-            .ToList()
-            .Find(p => p.Id == GameServerConnectionManager.Instance.playerId);
+        Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if (player)
+        if(myClientCharacter == null){
+            myClientCharacter = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
+        }
+
+        bool isPlayerAlive = entity.Player.Health > 0;
+        if (myClientCharacter && isPlayerAlive)
         {
-            CustomCharacter character = player.GetComponent<CustomCharacter>();
-            if (PlayerMovementAuthorized(character))
+            if (PlayerMovementAuthorized(myClientCharacter))
             {
                 var inputFromVirtualJoystick = joystickL is not null;
                 if (
@@ -184,21 +185,16 @@ public class Battle : MonoBehaviour
                     && (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
                 )
                 {
-                    GetComponent<PlayerControls>()
-                        .SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    // Using joysticks
+                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
-                else
+                else if(playerControls.KeysPressed())
                 {
-                    GetComponent<PlayerControls>().SendAction();
-                }
-
-                if (
-                    !GetComponent<PlayerControls>().KeysPressed()
-                    && !GetComponent<PlayerControls>()
-                        .JoytickUsed(joystickL.RawValue.x, joystickL.RawValue.y)
-                )
-                {
-                    GetComponent<PlayerControls>().SendJoystickValues(0, 0);
+                    // Using keyboard
+                    playerControls.SendAction();
+                } else {
+                    // Not pressing anything
+                    playerControls.SendJoystickValues(0, 0);  
                 }
             }
         }
