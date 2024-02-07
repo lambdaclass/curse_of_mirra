@@ -16,11 +16,11 @@ MonoBehaviour:
   description: "Performs the ultimate revenge: assassinate any target that has all
     three Marks. If the target has been anointed with the three marks it\u2019s ready
     to be sacrificed to the feathered serpent."
-  inputType: 0
+  inputType: 2
   skillSetType: 2
   angle: 0
   executeOnQuickTap: 0
-  indicatorType: 3
+  indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: 8c36ebc1a097a47d5aef53dab8c288e6, type: 3}
