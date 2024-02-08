@@ -1,12 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class CharacterInfoManager : MonoBehaviour
@@ -28,11 +24,6 @@ public class CharacterInfoManager : MonoBehaviour
     [SerializeField]
     List<SkillDescription> skillDescriptions;
 
-    [Header("Arrows")]
-    [SerializeField]
-    ButtonAnimationsMMTouchButton leftButton,
-        rightButton;
-
     private int characterIndex;
 
     List<CoMCharacter> availableCharacters;
@@ -50,42 +41,7 @@ public class CharacterInfoManager : MonoBehaviour
         CoMCharacter characterToShow = availableCharacters.Find(
             character => character.name == goToCharacter
         );
-
-        rightButton.enabled = (availableCharacters.Count() > 1);
-        leftButton.enabled = (availableCharacters.Count() > 1);
         SetCharacterInfo(characterToShow);
-    }
-
-    public void RightArrowFunction()
-    {
-        if (availableCharacters.Count() > 1)
-        {
-            if (characterIndex == availableCharacters.Count() - 1)
-            {
-                characterIndex = 0;
-            }
-            else
-            {
-                characterIndex += 1;
-            }
-            SetCharacterInfo(availableCharacters[characterIndex]);
-        }
-    }
-
-    public void LeftArrowFunction()
-    {
-        if (availableCharacters.Count() > 1)
-        {
-            if (characterIndex == 0)
-            {
-                characterIndex = availableCharacters.Count() - 1;
-            }
-            else
-            {
-                characterIndex -= 1;
-            }
-            SetCharacterInfo(availableCharacters[characterIndex]);
-        }
     }
 
     public void SetCharacterInfo(CoMCharacter comCharacter)
@@ -97,13 +53,18 @@ public class CharacterInfoManager : MonoBehaviour
         classImage.sprite = comCharacter.classImage;
         skillDescriptions[0].SetSkillDescription(comCharacter.skillsInfo[0]);
         skillDescriptions[1].SetSkillDescription(comCharacter.skillsInfo[1]);
-        StartCoroutine(ModelManager.GetComponentInChildren<RotateUIModel>().GetModel());
+        skillDescriptions[2].SetSkillDescription(comCharacter.skillsInfo[2]);
         CharactersManager.Instance.SetGoToCharacter(comCharacter.name);
     }
 
     public void SelectButton()
     {
-        StartCoroutine(SetCharacter());
+        ServerConnection.Instance.selectedCharacterName = CharactersManager
+            .Instance
+            .GetGoToCharacter();
+        this.GetComponent<MMLoadScene>().LoadScene();
+        // CharactersManager.Instance.SetGoToCharacter()
+        // StartCoroutine(SetCharacter());
     }
 
     private IEnumerator SetCharacter()

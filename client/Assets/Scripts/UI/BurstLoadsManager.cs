@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Communication.Protobuf;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,26 +15,24 @@ public class BurstLoadsManager : MonoBehaviour
     {
         Bursts.ForEach(burst =>
         {
-            burst.ForegroundBar.GetComponent<Image>().color = Utils.magenta;
+            burst.ForegroundBar.GetComponent<Image>().color = Utils.healthBarCyan;
         });
     }
 
     public void Update()
     {
-        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Player;
 
-        UpdateCooldown(player);
-
-        int basicBurstLoads = (int)player.AvailableBurstLoads[BASIC_SKILL_KEY];
+        int basicBurstLoads = (int)player.AvailableStamina;
         for (int i = 0; i < Bursts.Count; i++)
         {
             Image foregroundImage = Bursts[i].ForegroundBar.GetComponent<Image>();
 
-            if (i <= basicBurstLoads - 1)
+            if (i <= (basicBurstLoads - 1))
             {
-                if (!foregroundImage.color.Equals(Utils.magenta))
+                if (!foregroundImage.color.Equals(Utils.healthBarCyan))
                 {
-                    foregroundImage.color = Utils.magenta;
+                    foregroundImage.color = Utils.healthBarCyan;
                 }
             }
             else
@@ -43,13 +40,13 @@ public class BurstLoadsManager : MonoBehaviour
                 foregroundImage.color = Utils.burstLoadsBarCharging;
             }
 
-            UpdateBurstsBar(i, basicBurstLoads, player.BasicSkillCooldownLeft.Low);
+            UpdateBurstsBar(i, basicBurstLoads, player.StaminaInterval);
         }
     }
 
-    private void UpdateCooldown(OldPlayer player)
+    private void UpdateCooldown(Entity entity)
     {
-        var currentCooldown = player.BasicSkillCooldownLeft.Low;
+        var currentCooldown = entity.Player.StaminaInterval;
         if (SkillCooldown <= currentCooldown)
         {
             SkillCooldown = currentCooldown;

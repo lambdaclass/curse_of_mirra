@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f2f2fb406b4542f5aa6c5e72eac3026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d198e053a79244a40a22f23a8f59d248, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -124,6 +124,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -148,6 +160,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &1811843984322243071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f2f2fb406b4542f5aa6c5e72eac3026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d198e053a79244a40a22f23a8f59d248, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -286,6 +299,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -310,6 +335,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &8577531873832592328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +511,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425859684698969952}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000799, y: 1.0000799, z: 1.0000799}
   m_ConstrainProportionsScale: 0
@@ -821,7 +847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a2048ed4ecb144150bb811392cc09895, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9d8617b091c24bbeb4594737a0dbd34, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1306,7 +1332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f2f2fb406b4542f5aa6c5e72eac3026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d198e053a79244a40a22f23a8f59d248, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1359,6 +1385,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -1383,6 +1421,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &6510726468002396620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,7 +1502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26ee1f977b39840eb925f4d1656c03d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1624,7 +1663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f2f2fb406b4542f5aa6c5e72eac3026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d198e053a79244a40a22f23a8f59d248, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1677,6 +1716,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -1701,6 +1752,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &2075489024309317983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1824,10 +1876,10 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ServersListHandler, Assembly-CSharp
-        m_MethodName: HideServerOptions
-        m_Mode: 1
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1860,6 +1912,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!1 &5007597845196680524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,7 +2193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: europe-testing.curseofmyrra.com
+  m_Text: europe-testing.curseofmirra.com
 --- !u!1 &7318593759018477511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,7 +2265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f2f2fb406b4542f5aa6c5e72eac3026, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d198e053a79244a40a22f23a8f59d248, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2265,6 +2318,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 425859684698969952}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -2289,6 +2354,7 @@ MonoBehaviour:
   PressedAnimationParameterName: Pressed
   MouseMode: 1
   isBackButton: 0
+  executeRelease: 0
 --- !u!114 &2903760435767347749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2505,7 +2571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26ee1f977b39840eb925f4d1656c03d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2594,7 +2660,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: brazil-testing.curseofmyrra.com
+  m_Text: brazil-testing.curseofmirra.com
 --- !u!1 &8206817802217038070
 GameObject:
   m_ObjectHideFlags: 0

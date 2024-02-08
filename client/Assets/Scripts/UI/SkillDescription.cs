@@ -9,7 +9,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     Sprite skillSprite;
 
     [SerializeField]
-    public Image skillBorder;
+    public CanvasGroup skillBorder;
 
     [SerializeField]
     SkillsDetailHandler skillsDetailHandler;
@@ -47,11 +47,14 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
         string skillSetTypeName = "";
         switch (skillData.skillSetType)
         {
-            case UIControls.SkillBasic:
-                skillSetTypeName = "Basic";
-                break;
             case UIControls.Skill1:
-                skillSetTypeName = "Super";
+                skillSetTypeName = "Skill1";
+                break;
+            case UIControls.Skill2:
+                skillSetTypeName = "Skill2";
+                break;
+            case UIControls.Skill3:
+                skillSetTypeName = "Skill3";
                 break;
         }
 

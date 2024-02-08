@@ -25,7 +25,7 @@ public class MainManager : LevelSelector
         yield return new WaitUntil(
             () =>
                 !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
-                && ServerConnection.Instance.playerId != UInt64.MaxValue
+                // && ServerConnection.Instance.playerId != UInt64.MaxValue
         );
         SceneManager.LoadScene("Lobby");
     }

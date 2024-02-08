@@ -2,57 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cinemachine;
-using Communication.Protobuf;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.VFX;
 
 public class CustomLevelManager : LevelManager
 {
     private const float DEATH_FEEDBACK_DURATION = 1.5f;
     bool paused = false;
     private GameObject mapPrefab;
+    private GameObject mapInstance;
     public GameObject quickMapPrefab;
 
     [SerializeField]
-    GameObject roundSplash;
-
-    [SerializeField]
     GameObject deathSplash;
-
-    [SerializeField]
-    Text roundText;
-
-    private List<OldPlayer> gamePlayers;
-    private ulong totalPlayers;
+    private ulong totalPlayers = 1;
     private ulong playerId;
-    private GameObject prefab;
+
+    // private GameObject prefab;
     public Camera UiCamera;
-    public OldPlayer playerToFollow;
+
+    // public OldPlayer playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
+
     private ulong playerToFollowId;
-    public List<CoMCharacter> charactersInfo = new List<CoMCharacter>();
     public List<GameObject> mapList = new List<GameObject>();
-
-    //Camera cinematic variables
-    [SerializeField]
-    GameObject loadingScreen;
-
-    [SerializeField]
-    GameObject battleScreen;
-    Int32 CAMERA_OFFSET = 30;
-    Int32 CAMERA_Y_OFFSET = 6;
-    double xDigit = 0;
-    double zDigit = 0;
-    CinemachineFramingTransposer cameraFramingTransposer = null;
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
 
@@ -61,9 +41,6 @@ public class CustomLevelManager : LevelManager
         base.Awake();
         // this.totalPlayers = (ulong)ServerConnection.Instance.playerCount;
         InitializeMap();
-        cameraFramingTransposer = this.camera
-            .GetComponent<CinemachineVirtualCamera>()
-            .GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     protected override void Start()
@@ -87,33 +64,29 @@ public class CustomLevelManager : LevelManager
 
     private void InitializeMapPrefab(GameObject mapPrefab)
     {
-        GameObject map = Instantiate(mapPrefab);
+        mapInstance = Instantiate(mapPrefab);
         //Add gameobject to the scene root
-        map.transform.SetParent(
-            SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent
-        );
+        mapInstance
+            .transform
+            .SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.parent);
+    }
+
+    public GameObject GetMapInstance()
+    {
+        return mapInstance;
     }
 
     private IEnumerator InitializeLevel()
     {
         yield return new WaitUntil(checkPlayerHasJoined);
-        this.gamePlayers = GameServerConnectionManager.Instance.gamePlayers;
-        this.totalPlayers = (ulong)this.gamePlayers.Count();
+        this.totalPlayers = (ulong)GameServerConnectionManager.Instance.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        setCameraToPlayer(playerId);
         var player = Utils.GetPlayer(playerId);
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            player.transform.position.x > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET,
-            CAMERA_Y_OFFSET,
-            player.transform.position.z > 0 ? -CAMERA_OFFSET : CAMERA_OFFSET
-        );
-
         SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
-        StartCoroutine(CameraCinematic());
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -121,7 +94,7 @@ public class CustomLevelManager : LevelManager
 
     void Update()
     {
-        OldPlayer gamePlayer = Utils.GetGamePlayer(playerId);
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
         GameObject player = Utils.GetPlayer(playerId);
         if (GameHasEndedOrPlayerHasDied(gamePlayer) && !deathSplashIsShown)
         {
@@ -142,29 +115,33 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if (gamePlayer != null && gamePlayer.Health <= 0)
-        {
-            SetCameraToAlivePlayer();
-        }
+        // if (gamePlayer != null && gamePlayer.Player.Health <= 0)
+        // {
+        //     SetCameraToAlivePlayer();
+        // }
     }
 
-    private GameObject GetCharacterPrefab(ulong playerId)
-    {
-        GameObject prefab = null;
+    // private GameObject GetCharacterPrefab(ulong playerId)
+    // {
+    //     GameObject prefab = null;
 
-        OldPlayer player = Utils.GetGamePlayer(playerId);
-        prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
-        return prefab;
-    }
+    //     OldPlayer player = Utils.GetGamePlayer(playerId);
+    //     prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
+    //     return prefab;
+    // }
 
     private void GeneratePlayers()
     {
         // prefab = prefab == null ? quickGamePrefab : prefab;
-        for (ulong i = 0; i < totalPlayers; i++)
+        foreach (Entity player in GameServerConnectionManager.Instance.gamePlayers)
         {
-            ulong playerID = gamePlayers[(int)i].Id;
-            prefab = GetCharacterPrefab(playerID);
-            if (GameServerConnectionManager.Instance.playerId == playerID)
+            GameObject prefab = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .Find(el => el.name.ToLower() == player.Player.CharacterName)
+                .prefab;
+
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
             {
                 // Player1 is the ID to match with the client InputManager
                 prefab.GetComponent<CustomCharacter>().PlayerID = "Player1";
@@ -175,20 +152,22 @@ public class CustomLevelManager : LevelManager
             }
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                Utils.transformBackendOldPositionToFrontendPosition(gamePlayers[(int)i].Position),
+                new Vector3(0.0f, 1.0f, 0.0f),
                 Quaternion.identity
             );
-            newPlayer.name = "Player" + " " + (i + 1);
-            newPlayer.PlayerID = playerID.ToString();
-            if (GameServerConnectionManager.Instance.playerId == playerID)
-            {
-                //Add audioListener in player
-                newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-                //Disable audioListener in camera
-                this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-                    false;
+            newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
+            newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
+            newPlayer.name = "Player" + player.Id;
+            newPlayer.PlayerID = player.Id.ToString();
+            // if (GameServerConnectionManager.Instance.playerId == playerID)
+            // {
+            //     //Add audioListener in player
+            //     newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
+            //     //Disable audioListener in camera
+            //     this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
+            //         false;
                 Instantiate(newPlayer.characterBase.BurstLoadsBar, newPlayer.characterBase.CharacterCard.transform);
-            }
+            // }
 
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
@@ -196,81 +175,9 @@ public class CustomLevelManager : LevelManager
         this.PlayerPrefabs = (this.Players).ToArray();
     }
 
-    IEnumerator CameraCinematic()
-    {
-        if (!GameServerConnectionManager.Instance.cinematicDone)
-        {
-            float effectTime = Utils
-                .GetCharacter(1)
-                .characterBase
-                .spawnFeedback
-                .GetComponent<VisualEffect>()
-                .GetFloat("LifeTime");
-            //Start moving camera and remove loading sceen
-            InvokeRepeating("Substract", 1f, 0.1f);
-            yield return new WaitForSeconds(1.7f);
-            loadingScreen.SetActive(false);
-            battleScreen.SetActive(true);
-            // Cancel camera movement and start zoom in
-            yield return new WaitForSeconds(2.1f);
-            CancelInvoke("Substract");
-            InvokeRepeating("MoveYCamera", 0.3f, 0.1f);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(true, character.PlayerID);
-                });
-            yield return new WaitForSeconds(effectTime);
-            Utils
-                .GetAllCharacters()
-                .ForEach(character =>
-                {
-                    character.characterBase.ToggleSpawnFeedback(false, character.PlayerID);
-                });
-            //Cancel camera zoom
-            yield return new WaitForSeconds(0.5f);
-            CancelInvoke("MoveYCamera");
-        }
-        else
-        {
-            cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            yield return new WaitForSeconds(0.9f);
-            loadingScreen.SetActive(false);
-        }
-    }
-
     int RoundUpByTen(int i)
     {
         return (int)(Math.Ceiling(i / 10.0d) * 10);
-    }
-
-    void MoveYCamera()
-    {
-        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
-
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            0,
-            cameraOffset.y != 0 ? cameraOffset.y - 3 : 0,
-            0
-        );
-    }
-
-    void Substract()
-    {
-        Vector3 cameraOffset = cameraFramingTransposer.m_TrackedObjectOffset;
-
-        var xIsPositive = Math.Round(cameraOffset.x) > 0;
-        var zIsPositive = Math.Round(cameraOffset.z) > 0;
-        var xValue = (xIsPositive ? -1 : 1);
-        var zValue = (zIsPositive ? -1 : 1);
-
-        cameraFramingTransposer.m_TrackedObjectOffset = new Vector3(
-            cameraOffset.x + (float)(cameraOffset.x != 0 ? xValue : 0),
-            cameraOffset.y,
-            cameraOffset.z + (float)(cameraOffset.z != 0 ? zValue : 0)
-        );
-        ;
     }
 
     private void SetOrientationArrow(ulong playerID)
@@ -284,7 +191,7 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void setCameraToPlayer(ulong playerID)
+    private void SetCameraToPlayer(ulong playerID)
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
@@ -296,24 +203,24 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetSkillAngles(List<SkillInfo> skillsClone)
-    {
-        // var skills = ServerConnection.Instance.engineServerSettings.Skills;
+    // private void SetSkillAngles(List<SkillInfo> skillsClone)
+    // {
+    //     // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
-        // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
+    //     // List<SkillConfigItem> jsonSkills = Utils.ToList(skills);
 
-        // float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
-        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Mecha.Angle)
-        //     : 0;
-        skillsClone[0].angle = 45; // basicSkillInfoAngle;
-        skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
+    //     // float basicSkillInfoAngle = jsonSkills.Exists(skill => skillsClone[0].Equals(skill))
+    //     //     ? float.Parse(jsonSkills.Find(skill => skillsClone[0].Equals(skill)).Mecha.Angle)
+    //     //     : 0;
+    //     skillsClone[0].angle = 45; // basicSkillInfoAngle;
+    //     skillsClone[0].skillConeAngle = 45; // basicSkillInfoAngle;
 
-        // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
-        //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
-        //     : 0;
-        skillsClone[1].angle = 45; // skill1InfoAngle;
-        skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
-    }
+    //     // float skill1InfoAngle = jsonSkills.Exists(skill => skillsClone[1].Equals(skill))
+    //     //     ? float.Parse(jsonSkills.Find(skill => skillsClone[1].Equals(skill)).Angle)
+    //     //     : 0;
+    //     skillsClone[1].angle = 45; // skill1InfoAngle;
+    //     skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
+    // }
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
     {
@@ -346,49 +253,45 @@ public class CustomLevelManager : LevelManager
         List<Skill> skillList = new List<Skill>();
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            SkillBasic skillBasic = player.gameObject.AddComponent<SkillBasic>();
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
+            Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
-            skillList.Add(skillBasic);
             skillList.Add(skill1);
+            skillList.Add(skill2);
+            skillList.Add(skill3);
 
-            CoMCharacter characterInfo = charactersInfo.Find(
-                el => el.name == Utils.GetGamePlayer(UInt64.Parse(player.PlayerID)).CharacterName
-            );
+            CoMCharacter characterInfo = CharactersManager
+                .Instance
+                .AvailableCharacters
+                .Find(el => el.name == CharactersManager.Instance.GoToCharacter);
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
-            SetSkillAngles(skillInfoClone);
+            // SetSkillAngles(skillInfoClone);
 
-            skillBasic.SetSkill(Communication.Protobuf.Action.BasicAttack, skillInfoClone[0]);
-            skill1.SetSkill(Communication.Protobuf.Action.Skill1, skillInfoClone[1]);
+            skill1.SetSkill("1", skillInfoClone[0]);
+            skill2.SetSkill("2", skillInfoClone[1]);
+            skill3.SetSkill("3", skillInfoClone[2]);
 
-            var skills = ServerConnection.Instance.engineServerSettings.Skills;
-
-            // foreach (var skill in skills)
-            // {
-            //     for (int i = 0; i < skillList.Count; i++)
-            //     {
-            //         if (skill.Name.ToLower() == skillList[i].GetSkillName().ToLower())
-            //         {
-            //             // 350 in the back is equal to 12 in the front
-            //             // So this is the calculation
-            //             skillList[i].SetSkillAreaRadius(float.Parse(skill.SkillRange) / 100);
-            //         }
-            //     }
-            // }
+            // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
             if (UInt64.Parse(player.PlayerID) == clientPlayerId)
             {
                 inputManager.InitializeInputSprite(characterInfo);
                 inputManager.AssignSkillToInput(
-                    UIControls.SkillBasic,
+                    UIControls.Skill1,
                     skillInfoClone[0].inputType,
-                    skillBasic
+                    skill1
                 );
                 inputManager.AssignSkillToInput(
-                    UIControls.Skill1,
+                    UIControls.Skill2,
                     skillInfoClone[1].inputType,
-                    skill1
+                    skill2
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill3,
+                    skillInfoClone[2].inputType,
+                    skill3
                 );
             }
 
@@ -407,25 +310,13 @@ public class CustomLevelManager : LevelManager
                 .GetComponent<Image>();
             if (UInt64.Parse(player.PlayerID) == playerId)
             {
-                healthBarFront.color = Utils.cyan;
+                healthBarFront.color = Utils.healthBarCyan;
             }
             else
             {
-                healthBarFront.color = Utils.magenta;
+                healthBarFront.color = Utils.healthBarRed;
             }
         }
-    }
-
-    private void ShowRoundTransition()
-    {
-        bool animate = true;
-
-        roundText.text =
-            "Player " + GameServerConnectionManager.Instance.winnerPlayer.Item1.Id + " Wins!";
-        animate = false;
-
-        roundSplash.SetActive(true);
-        roundSplash.GetComponent<Animator>().SetBool("NewRound", animate);
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
@@ -439,31 +330,31 @@ public class CustomLevelManager : LevelManager
         UiControls.SetActive(false);
     }
 
-    private void SetCameraToAlivePlayer()
-    {
-        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-        if (KillFeedManager.instance.saveKillerId != 0)
-        {
-            StartCoroutine(WaitToChangeCamera(playerToFollow));
-        }
-        else
-        {
-            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-            setCameraToPlayer(playerToFollow.Id);
-        }
-    }
+    // private void SetCameraToAlivePlayer()
+    // {
+    //     playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+    //     if (KillFeedManager.instance.saveKillerId != 0)
+    //     {
+    //         StartCoroutine(WaitToChangeCamera(playerToFollow));
+    //     }
+    //     else
+    //     {
+    //         playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+    //         setCameraToPlayer(playerToFollow.Id);
+    //     }
+    // }
 
-    private IEnumerator WaitToChangeCamera(OldPlayer player)
-    {
-        yield return new WaitUntil(() => player != null);
-        setCameraToPlayer(playerToFollow.Id);
-        KillFeedManager.instance.saveKillerId = 0;
-    }
+    // private IEnumerator WaitToChangeCamera(OldPlayer player)
+    // {
+    //     yield return new WaitUntil(() => player != null);
+    //     setCameraToPlayer(playerToFollow.Id);
+    //     KillFeedManager.instance.saveKillerId = 0;
+    // }
 
-    private bool GameHasEndedOrPlayerHasDied(OldPlayer gamePlayer)
+    private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
     {
         return GameServerConnectionManager.Instance.GameHasEnded()
-            || gamePlayer != null && (gamePlayer.Status == OldStatus.Dead);
+            || gamePlayer != null && (gamePlayer.Player.Health == 0);
     }
 
     private bool GameHasEnded()
@@ -474,7 +365,6 @@ public class CustomLevelManager : LevelManager
     private bool checkPlayerHasJoined()
     {
         return GameServerConnectionManager.Instance.gamePlayers != null
-            && GameServerConnectionManager.Instance.playerId != null
             && GameServerConnectionManager
                 .Instance
                 .gamePlayers

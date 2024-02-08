@@ -16,9 +16,9 @@ public class CoMCharacter : ScriptableObject
     public Sprite classImage;
     public Sprite UIIcon;
     public GameObject prefab;
-    public Sprite skillBackground;
     public Color32 InputFeedbackColor;
     public List<SkillInfo> skillsInfo;
     public SkillInfo skillBasicInfo;
     public GameObject UIModel;
+    public Sprite battleCharacterCard;
 }

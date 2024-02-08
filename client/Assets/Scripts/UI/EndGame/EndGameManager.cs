@@ -17,18 +17,12 @@ public class EndGameManager : MonoBehaviour
     GameObject defeatedByContainer,
         characterModelContainer;
 
-    // Data to be added from front and back
-
-    [SerializeField]
-    TextMeshProUGUI defeaterPlayerName,
-        defeaterCharacterName;
-
     [SerializeField]
     Image defeaterImage;
 
     private const int WINNER_POS = 1;
     private const int SECOND_PLACE_POS = 2;
-    private const string ZONE_ID = "9999";
+    private const string ZONE_ID = "0";
     CustomCharacter player;
     GameObject modelClone;
 
@@ -41,10 +35,12 @@ public class EndGameManager : MonoBehaviour
     public void SetDeathSplashCharacter()
     {
         player = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
-        CoMCharacter character = KillFeedManager
-            .instance
-            .charactersScriptableObjects
+
+        CoMCharacter character = CharactersManager
+            .Instance
+            .AllCharacters
             .Single(characterSO => characterSO.name.Contains(player.CharacterModel.name));
+
         if (character)
         {
             GameObject characterModel = character.UIModel;
@@ -81,8 +77,13 @@ public class EndGameManager : MonoBehaviour
     void ShowMatchInfo()
     {
         // Kill count
-        var killCount = GetKillCount();
-        amountOfKillsText.text = killCount.ToString();
+
+        //We should use this but for now we will use a placeholder
+        // var killCount = GetKillCount();
+        // amountOfKillsText.text = killCount.ToString();
+
+        // placeholder
+        amountOfKillsText.text = "-";
 
         // Defeated By
         if (
@@ -99,22 +100,15 @@ public class EndGameManager : MonoBehaviour
             //defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
-            // Defeated By Name
-            //defeaterCharacterName.text = GetDefeaterCharacterName();
         }
     }
 
     private ulong GetKillCount()
     {
-        var playerId = GameServerConnectionManager.Instance.playerId;
-        var gamePlayer = Utils.GetGamePlayer(playerId);
-        return gamePlayer.KillCount;
-    }
-
-    private string GetDefeaterPlayerName()
-    {
-        // TODO: get Defeater player name
-        return "-";
+        // var playerId = GameServerConnectionManager.Instance.playerId;
+        // var gamePlayer = Utils.GetGamePlayer(playerId);
+        // return gamePlayer.KillCount;
+        return 77;
     }
 
     private Sprite GetDefeaterSprite()
@@ -125,9 +119,9 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            CoMCharacter killerCharacter = KillFeedManager
-                .instance
-                .charactersScriptableObjects
+            CoMCharacter killerCharacter = CharactersManager
+                .Instance
+                .AvailableCharacters
                 .Single(
                     characterSO =>
                         characterSO
@@ -142,12 +136,6 @@ public class EndGameManager : MonoBehaviour
                 );
             return killerCharacter.UIIcon;
         }
-    }
-
-    private string GetDefeaterCharacterName()
-    {
-        // TODO: get defeater character name
-        return "-";
     }
 
     public void ShowCharacterAnimation()

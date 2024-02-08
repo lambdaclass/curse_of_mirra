@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Communication.Protobuf;
 using UnityEngine;
 
 public class KillFeedManager : MonoBehaviour
@@ -15,7 +14,7 @@ public class KillFeedManager : MonoBehaviour
     public Sprite zoneIcon;
 
     public static KillFeedManager instance;
-    private Queue<OldKillEvent> feedEvents = new Queue<OldKillEvent>();
+    private Queue<KillEntry> feedEvents = new Queue<KillEntry>();
 
     public ulong saveKillerId;
     public ulong myKillerId;
@@ -29,9 +28,9 @@ public class KillFeedManager : MonoBehaviour
         playerToTrack = GameServerConnectionManager.Instance.playerId;
     }
 
-    public void putEvents(List<OldKillEvent> feedEvent)
+    public void putEvents(List<KillEntry> newFeedEvent)
     {
-        feedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
+        newFeedEvent.ForEach((killEvent) => feedEvents.Enqueue(killEvent));
     }
 
     public ulong GetKiller(ulong deathPlayerId)
@@ -39,8 +38,8 @@ public class KillFeedManager : MonoBehaviour
         ulong killerId = 0;
         for (int i = 0; i < feedEvents.Count; i++)
         {
-            if (feedEvents.ElementAt(i).Killed == deathPlayerId)
-                killerId = feedEvents.ElementAt(i).KilledBy;
+            if (feedEvents.ElementAt(i).VictimId == deathPlayerId)
+                killerId = feedEvents.ElementAt(i).KillerId;
         }
         return killerId;
     }
@@ -66,25 +65,26 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        OldKillEvent killEvent;
+        KillEntry killEvent;
         while (feedEvents.TryDequeue(out killEvent))
         {
-            if (playerToTrack == killEvent.Killed)
+            Debug.Log("new kill event" + killEvent);
+            if (playerToTrack == killEvent.VictimId)
             {
-                saveKillerId = killEvent.KilledBy;
+                saveKillerId = killEvent.KillerId;
                 playerToTrack = saveKillerId;
             }
-            if (killEvent.Killed == GameServerConnectionManager.Instance.playerId)
+            if (killEvent.VictimId == GameServerConnectionManager.Instance.playerId)
             {
-                myKillerId = killEvent.KilledBy;
+                myKillerId = killEvent.KillerId;
             }
             // TODO: fix this when the player names are fixed in the server.
-            // string deathPlayerName = ServerConnection.Instance.playersIdName[killEvent.Killed];
-            // string killerPlayerName = ServerConnection.Instance.playersIdName[killEvent.KilledBy];
-            string deathPlayerName = killEvent.Killed.ToString();
-            string killerPlayerName = killEvent.KilledBy.ToString();
-            Sprite killerIcon = GetUIIcon(killEvent.KilledBy);
-            Sprite killedIcon = GetUIIcon(killEvent.Killed);
+            // string deathPlayerName = ServerConnection.Instance.playersIdName[killEvent.VictimId];
+            // string killerPlayerName = ServerConnection.Instance.playersIdName[killEvent.KillerId];
+            string deathPlayerName = killEvent.VictimId.ToString();
+            string killerPlayerName = killEvent.KillerId.ToString();
+            Sprite killerIcon = GetUIIcon(killEvent.KillerId);
+            Sprite killedIcon = GetUIIcon(killEvent.VictimId);
 
             killFeedItem.SetPlayerData(killerPlayerName, killerIcon, deathPlayerName, killedIcon);
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
