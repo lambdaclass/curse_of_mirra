@@ -34856,7 +34856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673d5fc2283ed4d34856820843595f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileInfo: {fileID: 11400000, guid: afbd83abb1a83488e9d2d2b8fd728aec, type: 2}
+  projectileInfo: {fileID: 11400000, guid: fee8e78cd779d45c6a32f48dd3e9c91e, type: 2}
   projectileElement: {fileID: 6909292754525633119}
 --- !u!1 &5388517804901358754
 GameObject:
