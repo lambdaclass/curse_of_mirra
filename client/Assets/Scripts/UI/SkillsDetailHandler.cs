@@ -1,17 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class SkillsDetailHandler : MonoBehaviour
 {
     public TextMeshProUGUI skillSetType;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
-    public Sprite selectedBorder;
-    public Sprite notSelectedBorder;
     public List<SkillDescription> skillsList;
     public List<Image> bordersList;
 
@@ -38,7 +35,7 @@ public class SkillsDetailHandler : MonoBehaviour
         string setSkillDescription
     )
     {
-        skillSetType.text = setSkillType + ": ";
+        skillSetType.text = setSkillType;
         skillName.text = setSkillName;
         skillDescription.text = setSkillDescription;
     }
@@ -47,10 +44,8 @@ public class SkillsDetailHandler : MonoBehaviour
     {
         skillsList.ForEach(el =>
         {
-            el.GetComponent<SkillDescription>().skillBorder.sprite = notSelectedBorder;
-            el.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).SetEase(Ease.InQuad);
+            el.GetComponent<SkillDescription>().skillBorder.DOFade(0, 0);
         });
-        selectedSkill.skillBorder.sprite = selectedBorder;
-        selectedSkill.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).SetEase(Ease.OutQuad);
+        selectedSkill.skillBorder.DOFade(1, 0);
     }
 }

@@ -66,6 +66,9 @@ public class UICharacterItem : MonoBehaviour, IPointerDownHandler
                 skillContainer
                     .skillsList[(int)UIControls.Skill2]
                     .SetSkillDescription(comCharacter.skillsInfo[1]);
+                skillContainer
+                    .skillsList[(int)UIControls.Skill3]
+                    .SetSkillDescription(comCharacter.skillsInfo[2]);
                 transform
                     .parent
                     .GetComponent<CharacterSelectionUI>()

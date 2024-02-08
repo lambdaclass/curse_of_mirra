@@ -20,8 +20,7 @@ MonoBehaviour:
   angle: 0
   executeOnQuickTap: 0
   indicatorType: 1
-  projectilePrefab: {fileID: 6460634427512080952, guid: 2f2ba68c80131418cba01525f24232e9,
-    type: 3}
+  projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: d6127450469e94ebfbebf276ba9bddf0, type: 3}
   sfxHasAbilityStop: 1
@@ -34,7 +33,7 @@ MonoBehaviour:
   damage: 0
   cooldown: 0
   skillRange: 0
-  skillSprite: {fileID: 21300000, guid: 24775ea848890434096099b3ea5475ab, type: 3}
+  skillSprite: {fileID: 21300000, guid: f02ebf6c6f0964ea69bc8d217abe97fd, type: 3}
   startVfxList:
   - vfx: {fileID: 141433446842962269, guid: edcffe5afe9084c22b9c50a8f8c0bc28, type: 3}
     duration: 1

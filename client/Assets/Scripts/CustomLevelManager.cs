@@ -138,7 +138,7 @@ public class CustomLevelManager : LevelManager
             GameObject prefab = CharactersManager
                 .Instance
                 .AvailableCharacters
-                .Find(el => el.name == CharactersManager.Instance.GoToCharacter)
+                .Find(el => el.name.ToLower() == player.Player.CharacterName)
                 .prefab;
 
             if (GameServerConnectionManager.Instance.playerId == player.Id)
@@ -155,6 +155,8 @@ public class CustomLevelManager : LevelManager
                 new Vector3(0.0f, 1.0f, 0.0f),
                 Quaternion.identity
             );
+            newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
+            newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
             // if (GameServerConnectionManager.Instance.playerId == playerID)
@@ -252,9 +254,11 @@ public class CustomLevelManager : LevelManager
         {
             Skill1 skill1 = player.gameObject.AddComponent<Skill1>();
             Skill2 skill2 = player.gameObject.AddComponent<Skill2>();
+            Skill3 skill3 = player.gameObject.AddComponent<Skill3>();
 
             skillList.Add(skill1);
             skillList.Add(skill2);
+            skillList.Add(skill3);
 
             CoMCharacter characterInfo = CharactersManager
                 .Instance
@@ -266,6 +270,7 @@ public class CustomLevelManager : LevelManager
 
             skill1.SetSkill("1", skillInfoClone[0]);
             skill2.SetSkill("2", skillInfoClone[1]);
+            skill3.SetSkill("3", skillInfoClone[2]);
 
             // var skills = ServerConnection.Instance.engineServerSettings.Skills;
 
@@ -281,6 +286,11 @@ public class CustomLevelManager : LevelManager
                     UIControls.Skill2,
                     skillInfoClone[1].inputType,
                     skill2
+                );
+                inputManager.AssignSkillToInput(
+                    UIControls.Skill3,
+                    skillInfoClone[2].inputType,
+                    skill3
                 );
             }
 

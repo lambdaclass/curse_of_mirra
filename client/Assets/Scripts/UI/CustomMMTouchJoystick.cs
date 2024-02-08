@@ -1,9 +1,9 @@
+using CandyCoded.HapticFeedback;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using CandyCoded.HapticFeedback;
 
 public class CustomMMTouchJoystick : MMTouchJoystick
 {
@@ -68,9 +68,12 @@ public class CustomMMTouchJoystick : MMTouchJoystick
         // What makes this responsive is taking into account the canvas scaling
         float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
 
-        float knobBackgroundRadius = gameObject.transform.parent
+        float knobBackgroundRadius = gameObject
+            .transform
+            .parent
             .GetComponent<RectTransform>()
-            .rect.width;
+            .rect
+            .width;
         float knobRadius = GetComponent<RectTransform>().rect.width;
         MaxRange = (knobBackgroundRadius - knobRadius) * scaleCanvas;
         base.RefreshMaxRangeDistance();
