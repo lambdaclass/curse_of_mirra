@@ -10,6 +10,7 @@ public class AimDirection : MonoBehaviour
 
     [SerializeField]
     public GameObject cone;
+    public SectorController cone_controller;
 
     [SerializeField]
     public GameObject arrow;
@@ -75,6 +76,8 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
+        cone_controller.SetSectorDegree(fov);
+
         float coneIndicatorAngle = 0;
         angleIncrease = fov / rayCount;
         Mesh mesh = new Mesh();
@@ -183,6 +186,7 @@ public class AimDirection : MonoBehaviour
         switch (indicatorType)
         {
             case UIIndicatorType.Cone:
+                cone_controller.gameObject.SetActive(true);
                 cone.SetActive(true);
                 break;
             case UIIndicatorType.Arrow:
@@ -200,6 +204,7 @@ public class AimDirection : MonoBehaviour
         switch (activeIndicator)
         {
             case UIIndicatorType.Cone:
+                cone_controller.gameObject.SetActive(false);
                 cone.SetActive(false);
                 break;
             case UIIndicatorType.Arrow:
