@@ -2885,7 +2885,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eeb6d903a779d41cbb593541335dd662, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f150ca95e8424c86accd5aba48b0479, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3146,7 +3146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModelManager: {fileID: 6622316602921967670}
-  rotateUIModel: {fileID: 8404165054812709626}
   nameText: {fileID: 5169547839653138468}
   classImage: {fileID: 5668147510337598438}
   subTitle: {fileID: 7697002149869885537}
