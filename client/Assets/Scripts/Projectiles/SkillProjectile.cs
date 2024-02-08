@@ -46,4 +46,12 @@ public class SkillProjectile : MonoBehaviour
             projectileElement.SetActive(true);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer != 6)//Projectile Obstacle layer
+            return;
+
+        ProcessCollision();
+    }
 }
