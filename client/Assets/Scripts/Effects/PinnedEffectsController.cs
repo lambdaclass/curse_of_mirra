@@ -4,54 +4,58 @@ using UnityEngine;
 
 public class PinnedEffectsController : MonoBehaviour
 {
-  [SerializeField] private List<PlacementHolderEffectPair> placeholder_effect_pairs = null;
+    [SerializeField]
+    private List<PlacementHolderEffectPair> placeholder_effect_pairs = null;
 
-  private List<GameObject> spawned_objects = new List<GameObject>();
+    private List<GameObject> spawned_objects = new List<GameObject>();
 
-  private void Start()
-  {
-      play(FindObjectOfType<PinnedEffectsManager>()); // needs better workaround, TODO: pass PinnedEffectsManager from CustomCharacter or so
-  }
+    private void Start()
+    {
+        Play(FindObjectOfType<PinnedEffectsManager>()); // needs better workaround, TODO: pass PinnedEffectsManager from CustomCharacter or so
+    }
 
-  private void OnDestroy()
-  {
-      clearEffects();
-  }
+    private void OnDestroy()
+    {
+        ClearEffects();
+    }
 
-  public void play(PinnedEffectsManager manager)
-  {
-      clearEffects();
+    public void Play(PinnedEffectsManager manager)
+    {
+        ClearEffects();
 
-      if (manager == null)
-          return;
+        if (manager == null)
+            return;
 
-      GameObject spawned_object = null;
+        GameObject spawned_object = null;
 
-      foreach(PlacementHolderEffectPair pair in placeholder_effect_pairs)
-      {
-          Transform spawn_transform = manager.getTransformByPlaceholder(pair.placement_holder);
-          if(spawn_transform == null)
-              continue;
+        foreach (PlacementHolderEffectPair pair in placeholder_effect_pairs)
+        {
+            Transform spawn_transform = manager.GetTransformByPlaceholder(pair.placement_holder);
+            if (spawn_transform == null)
+                continue;
 
-          spawned_object = Instantiate(pair.effect, spawn_transform);
+            spawned_object = Instantiate(pair.effect, spawn_transform);
 
-          spawned_objects.Add(spawned_object);
-      }
-  }
+            spawned_objects.Add(spawned_object);
+        }
+    }
 
-  public void clearEffects()
-  {
-      foreach(GameObject effect in spawned_objects)
-          Destroy(effect);
+    public void ClearEffects()
+    {
+        foreach (GameObject effect in spawned_objects)
+            Destroy(effect);
 
-      spawned_objects.Clear();
-  }
+        spawned_objects.Clear();
+    }
 }
 
 [Serializable]
 public class PlacementHolderEffectPair
 {
-    ///Used to spawn GameObject effect into transform geted by PinnedEffectsManager.getTransformByPlaceholder(placement_holder)
-    [SerializeField] public PlacementHolder placement_holder = null;
-    [SerializeField] public GameObject effect = null;
+    ///Used to spawn GameObject effect into transform geted by PinnedEffectsManager.GetTransformByPlaceholder(placement_holder)
+    [SerializeField]
+    public PlacementHolder placement_holder = null;
+
+    [SerializeField]
+    public GameObject effect = null;
 }

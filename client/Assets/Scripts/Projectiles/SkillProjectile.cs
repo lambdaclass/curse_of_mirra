@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
 using UnityEngine;
 
 public class SkillProjectile : MonoBehaviour
@@ -49,7 +46,7 @@ public class SkillProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer != 6)//Projectile Obstacle layer
+        if (collision.collider.gameObject.layer != 6) //Projectile Obstacle layer
             return;
 
         ProcessCollision();

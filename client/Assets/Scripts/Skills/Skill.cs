@@ -205,7 +205,6 @@ public class Skill : CharacterAbility
     {
         _movement.ChangeState(CharacterStates.MovementStates.Dashing);
         _animator.SetBool(animation, true);
-        print(animation);
     }
 
     private void SendActionToBackend(Direction direction)
