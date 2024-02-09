@@ -1,12 +1,11 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BurstLoadsManager : MonoBehaviour
 {
-    private const string BASIC_SKILL_KEY = "1";
-
     [SerializeField]
     private List<MMProgressBar> Bursts;
     private float SkillCooldown = 0f;
@@ -15,46 +14,35 @@ public class BurstLoadsManager : MonoBehaviour
     {
         Bursts.ForEach(burst =>
         {
-            burst.ForegroundBar.GetComponent<Image>().color = Utils.healthBarCyan;
+            burst.DelayedBarIncreasing.GetComponent<Image>().color = Utils.healthBarCyan;
         });
     }
 
     public void Update()
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Player;
-
-        int basicBurstLoads = (int)player.AvailableStamina;
-        for (int i = 0; i < Bursts.Count; i++)
+        int avaibleStamina = (int)player.AvailableStamina;
+        if(avaibleStamina <= (int)player.MaxStamina)
         {
-            Image foregroundImage = Bursts[i].ForegroundBar.GetComponent<Image>();
-
-            if (i <= (basicBurstLoads - 1))
+            for (int currentLoad = 0; currentLoad < Bursts.Count; currentLoad++)
             {
-                if (!foregroundImage.color.Equals(Utils.healthBarCyan))
-                {
-                    foregroundImage.color = Utils.healthBarCyan;
-                }
+                UpdateBurstsBar(currentLoad, avaibleStamina, player.StaminaInterval);
             }
-            else
-            {
-                foregroundImage.color = Utils.burstLoadsBarCharging;
-            }
-
-            UpdateBurstsBar(i, basicBurstLoads, player.StaminaInterval);
         }
     }
 
-    private void UpdateCooldown(Entity entity)
-    {
-        var currentCooldown = entity.Player.StaminaInterval;
-        if (SkillCooldown <= currentCooldown)
-        {
-            SkillCooldown = currentCooldown;
-        }
+    public void FinalBarColor(MMProgressBar currentBar){
+        currentBar.DelayedBarIncreasing.GetComponent<Image>().color = Utils.healthBarCyan;
     }
+
+    public void IncreasingBarColor(MMProgressBar currentBar){
+        currentBar.DelayedBarIncreasing.GetComponent<Image>().color = Utils.burstLoadsBarCharging;
+    }
+
 
     private void UpdateBurstsBar(int currentIndex, int burstLoads, ulong cooldownLeft)
     {
+
         if (currentIndex == burstLoads)
         {
             Bursts[currentIndex].UpdateBar01(1 - cooldownLeft / SkillCooldown);
@@ -62,10 +50,6 @@ public class BurstLoadsManager : MonoBehaviour
         else if (currentIndex < burstLoads)
         {
             Bursts[currentIndex].UpdateBar01(1f);
-        }
-        else
-        {
-            Bursts[currentIndex].UpdateBar01(0f);
         }
     }
 }
