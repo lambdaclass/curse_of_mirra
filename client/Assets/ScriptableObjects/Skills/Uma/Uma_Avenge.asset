@@ -26,7 +26,7 @@ MonoBehaviour:
   abilityStopSfx: {fileID: 0}
   skillCircleRadius: 4.5
   skillConeAngle: 0
-  arrowWidth: 0
+  arrowWidth: 1
   skillAreaRadius: 0
   showCooldown: 0
   damage: 0
