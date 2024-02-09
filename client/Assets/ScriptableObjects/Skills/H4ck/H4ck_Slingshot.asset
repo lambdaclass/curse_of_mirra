@@ -19,7 +19,7 @@ MonoBehaviour:
   angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
-  projectilePrefab: {fileID: 5269552939558784490, guid: 5a391f03d38094aabaa75c9b904eb6e8,
+  projectilePrefab: {fileID: 5269552939558784490, guid: c1400fa72cd014188910cd6cd96b2df9,
     type: 3}
   animationSpeedMultiplier: 4
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
