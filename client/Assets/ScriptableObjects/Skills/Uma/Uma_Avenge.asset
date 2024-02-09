@@ -13,15 +13,12 @@ MonoBehaviour:
   m_Name: Uma_Avenge
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: AVENGE
-  description: "Melee attack that deals high damage and inflicts a Mark on the enemy
-    for a short period which slows them down slightly. Marks of same type don\u2019t
-    stack, but they reset the duration. Taints her enemy preparing it for the kill.
-    The first mark is named before her husband. "
-  inputType: 0
+  description: Melee attack that deals high damage.
+  inputType: 2
   skillSetType: 0
   angle: 0
   executeOnQuickTap: 0
-  indicatorType: 3
+  indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: 9a360727426c249448b3339abfba97bc, type: 3}
