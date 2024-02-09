@@ -27,7 +27,7 @@ MonoBehaviour:
   abilityStopSfx: {fileID: 8300000, guid: 3b3dceb250df747c2a8c64e3f6c8bdb2, type: 3}
   skillCircleRadius: 5
   skillConeAngle: 0
-  arrowWidth: 3
+  arrowWidth: 2
   skillAreaRadius: 4
   showCooldown: 1
   damage: 0
