@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:client/Assets/Scripts/UI/BurstLoadsManager.cs.meta
 guid: 99a5824c9d15446748739bbe5b7ddd3e
+========
+guid: a225dab35c71442838351d076c5d1509
+>>>>>>>> main:client/Assets/Scripts/UI/PlayerCardManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
