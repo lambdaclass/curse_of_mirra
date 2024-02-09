@@ -83,7 +83,6 @@ public class CharacterFeedbacks : MonoBehaviour
         }
         if (clientHealth < playerHealth)
         {
-            healFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
             if (healFeedback.GetComponentInChildren<VisualEffect>() != null)
             {
                 healFeedback.GetComponentInChildren<VisualEffect>().Play();
