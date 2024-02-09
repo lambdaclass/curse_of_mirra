@@ -25,7 +25,7 @@ MonoBehaviour:
   prefab: {fileID: 1787465996332106805, guid: 6751985a991154bbbbe6c7071528f3d3, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
-    rgba: 4278227711
+    rgba: 4278212607
   skillsInfo:
   - {fileID: 11400000, guid: b85740503d2ad400bb28c59054d8d089, type: 2}
   - {fileID: 11400000, guid: 542e844de648b45dd8b52a23be8a3877, type: 2}

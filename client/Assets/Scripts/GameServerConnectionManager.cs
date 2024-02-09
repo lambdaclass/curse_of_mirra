@@ -51,6 +51,7 @@ public class GameServerConnectionManager : MonoBehaviour
     void Start()
     {
         Init();
+        StartCoroutine(IsGameCreated());
     }
 
     public void Init()
@@ -83,7 +84,6 @@ public class GameServerConnectionManager : MonoBehaviour
             ws.DispatchMessageQueue();
         }
 #endif
-        StartCoroutine(IsGameCreated());
     }
 
     private IEnumerator IsGameCreated()

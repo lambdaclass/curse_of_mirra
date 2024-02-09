@@ -488,6 +488,7 @@ MonoBehaviour:
   deathFeedback: {fileID: 179007033852684844}
   damageFeedback: {fileID: 8938270116862053746}
   healFeedback: {fileID: 604736327119138052}
+  healthBar: {fileID: 8711474442059621043}
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -547,7 +548,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2c75644781daa4f89b2db0bb683cc47e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c75644781daa4f89b2db0bb683cc47e,
         type: 3}
