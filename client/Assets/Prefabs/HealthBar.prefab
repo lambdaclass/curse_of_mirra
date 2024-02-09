@@ -249,10 +249,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  BumpScaleOnChange: 1
+  BumpScaleOnChange: 0
   BumpOnIncrease: 0
   BumpOnDecrease: 0
-  BumpDuration: 0.2
+  BumpDuration: 0.8
   ChangeColorWhenBumping: 1
   StoreBarColorOnPlay: 1
   BumpColor: {r: 1, g: 1, b: 1, a: 1}
@@ -260,23 +260,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.3
-      value: 1.05
-      inSlope: 0
-      outSlope: 0
+      time: 0.0859406
+      value: 1.485065
+      inSlope: -0.5750396
+      outSlope: -0.5750396
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      outWeight: 0.38022822
     - serializedVersion: 3
       time: 1
       value: 1
@@ -351,10 +342,10 @@ MonoBehaviour:
   TestBumpButton: 0
   Plus10PercentButton: 0
   Minus10PercentButton: 0
-  BarProgress: 0
-  BarTarget: 0
-  DelayedBarIncreasingProgress: 0
-  DelayedBarDecreasingProgress: 0
+  BarProgress: 0.52
+  BarTarget: 0.52
+  DelayedBarIncreasingProgress: 0.52
+  DelayedBarDecreasingProgress: 0.53
 --- !u!1 &1000011386624708
 GameObject:
   m_ObjectHideFlags: 0
