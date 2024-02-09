@@ -778,11 +778,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AimDirection
       objectReference: {fileID: 0}
-    - target: {fileID: 5049902903842525679, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6787156628499368461, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
       propertyPath: m_RootOrder
@@ -836,11 +831,6 @@ PrefabInstance:
     - target: {fileID: 6787156628499368461, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8635060132314923156, guid: c4b59d3833dc649ee871cb3eb5750e4b,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

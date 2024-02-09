@@ -78,9 +78,9 @@ Material:
     - _StepColor: 1.81
     - _StepEdge: 1.22
     m_Colors:
-    - _GlowColor: {r: 0.22574759, g: 0.8396226, b: 0.7710131, a: 1}
+    - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _TintColor: {r: 0, g: 0.38679248, b: 0.38679248, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor2: {r: 1.1953906, g: 4.7815623, b: 3.9093297, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1623175962965247427

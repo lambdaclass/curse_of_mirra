@@ -17,7 +17,7 @@ MonoBehaviour:
   inputType: 2
   skillSetType: 0
   angle: 0
-  executeOnQuickTap: 0
+  executeOnQuickTap: 1
   indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1.5

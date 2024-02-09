@@ -258,7 +258,10 @@ public class AimDirection : MonoBehaviour
                 arrowHead.GetComponent<Renderer>().material.SetColor("_TintColor", color);
                 break;
             case UIIndicatorType.Area:
-                area.GetComponent<Renderer>().material.color = color;
+                area.GetComponent<Renderer>().material.SetColor("_GlowColor", color);
+                area.GetComponent<Renderer>().material.SetColor("_TintColor", color);
+                surface.GetComponent<Renderer>().material.SetColor("_GlowColor", color);
+                surface.GetComponent<Renderer>().material.SetColor("_TintColor", color);
                 break;
         }
     }
