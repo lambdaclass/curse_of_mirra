@@ -37,6 +37,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera cinemachineVirtualCamera;
     Vector3 cameraDistanceFromGround = new Vector3(0, 30f, -18);
+    Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
@@ -71,11 +72,15 @@ public class PrepareForBattleAnimations : MonoBehaviour
             () => GameServerConnectionManager.Instance.players.Count > 0 && loadingComplete
         );
         player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+        Position playerBackEndPosition = Utils
+            .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
+            .Position;
+        playerPosition = Utils.transformBackendOldPositionToFrontendPosition(playerBackEndPosition);
+        GeneratePlayersList();
         cinemachineVirtualCamera.ForceCameraPosition(
             CameraStartPosition(),
             cinemachineVirtualCamera.transform.rotation
         );
-        GeneratePlayersList();
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
@@ -113,14 +118,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
         prepareCoin.GetComponent<Animator>().enabled = true;
         cinemachineVirtualCamera
             .transform
-            .DOMove(
-                player.transform.position + cameraDistanceFromGround,
-                PREPARE_FOR_BATTLE_DURATION
-            )
+            .DOMove(playerPosition + cameraDistanceFromGround, PREPARE_FOR_BATTLE_DURATION)
             .SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION);
         cinemachineVirtualCamera.ForceCameraPosition(
-            player.transform.position + cameraDistanceFromGround,
+            playerPosition + cameraDistanceFromGround,
             cinemachineVirtualCamera.transform.rotation
         );
         SetCameraToPlayer(GameServerConnectionManager.Instance.playerId);
@@ -216,24 +218,24 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         float xPosition;
         float zPosition;
-        if (player.transform.position.z > 0)
+        if (playerPosition.z > 0)
         {
-            zPosition = player.transform.position.z - CAMERA_START_OFFSET;
+            zPosition = playerPosition.z - CAMERA_START_OFFSET;
         }
         else
         {
-            zPosition = player.transform.position.z + CAMERA_START_OFFSET;
+            zPosition = playerPosition.z + CAMERA_START_OFFSET;
         }
-        if (player.transform.position.x > 0)
+        if (playerPosition.x > 0)
         {
-            xPosition = player.transform.position.x - CAMERA_START_OFFSET;
+            xPosition = playerPosition.x - CAMERA_START_OFFSET;
         }
         else
         {
-            xPosition = player.transform.position.x + CAMERA_START_OFFSET;
+            xPosition = playerPosition.x + CAMERA_START_OFFSET;
         }
-        Vector3 playerPosition = new Vector3(xPosition, player.transform.position.y, zPosition);
-        return playerPosition + cameraDistanceFromGround;
+        Vector3 adjustedPlayerOffset = new Vector3(xPosition, playerPosition.y, zPosition);
+        return adjustedPlayerOffset + cameraDistanceFromGround;
     }
 
     void CoinDisplayAnimation(GameObject coin, float originalScale)
