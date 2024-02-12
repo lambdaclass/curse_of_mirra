@@ -71,7 +71,9 @@ public class ClientPrediction
         pendingPlayerInputs.ForEach(input =>
         {
             long endTimestamp = (input.endTimestamp == 0) ? now : input.endTimestamp;
-            float ticks = (float)Math.Floor((endTimestamp - input.startTimestamp) / 30f);
+            // TODO: remove magic numbers
+            float tickRate = (input.endTimestamp == 0) ? 31f : 30f;
+            float ticks = (float)Math.Floor((endTimestamp - input.startTimestamp) / tickRate);
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
 
@@ -80,8 +82,8 @@ public class ClientPrediction
 
             Position newPlayerPosition = new Position
             {
-                X = initialPosition.X + (float)(movementVector.x * characterSpeed),
-                Y = initialPosition.Y + (float)(movementVector.y * characterSpeed)
+                X = initialPosition.X + (float)(movementVector.x),
+                Y = initialPosition.Y + (float)(movementVector.y)
             };
             initialPosition = newPlayerPosition;
             player.Position = initialPosition;
