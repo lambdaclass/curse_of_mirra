@@ -11,23 +11,13 @@ public class ClientPrediction
         public long timestampId;
         public long startTimestamp;
         public long endTimestamp;
-    }
-
-    public struct AcknowledgedInput
-    {
-        public long timestampId;
         public Position position;
+        public long serverTimestamp;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public AcknowledgedInput lastAcknowledgedInput = new AcknowledgedInput
-    {
-        timestampId = 0,
-        position = new Position { X = 0, Y = 0 }
-    };
-
-    public void putPlayerInput(PlayerInput PlayerInput)
+    public void PutPlayerInput(PlayerInput PlayerInput)
     {
         // finalize last pending input
         PlayerInput lastPlayerInput;
@@ -41,39 +31,52 @@ public class ClientPrediction
         pendingPlayerInputs.Add(PlayerInput);
     }
 
-    public void simulatePlayerState(Entity player, long timestamp)
+    public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
     {
-        if (lastAcknowledgedInput.timestampId < timestamp)
+        UpdateLastAcknowledgedInput(player, timestampId, serverTimestamp);
+        RemoveServerAcknowledgedInputs(timestampId);
+        SimulatePlayerMovement(player);
+    }
+
+    void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
+    {
+        for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
-            lastAcknowledgedInput.timestampId = timestamp;
-            lastAcknowledgedInput.position = player.Position;
+            PlayerInput input = pendingPlayerInputs[i];
+            if (input.timestampId == timestampId)
+            {
+                if (input.serverTimestamp != 0)
+                {
+                    input.startTimestamp += serverTimestamp - input.serverTimestamp;
+                }
+                input.position = player.Position;
+                input.serverTimestamp = serverTimestamp;
+                pendingPlayerInputs[i] = input;
+            }
         }
-        removeServerAcknowledgedInputs(player, timestamp);
-        simulatePlayerMovement(player);
     }
 
-    void removeServerAcknowledgedInputs(Entity player, long timestamp)
+    void RemoveServerAcknowledgedInputs(long timestampId)
     {
-        pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestamp);
+        pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
     }
 
-    void simulatePlayerMovement(Entity player)
+    void SimulatePlayerMovement(Entity player)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
+        float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
         Position initialPosition = player.Position;
-        if (lastAcknowledgedInput.timestampId != 0)
+        if (pendingPlayerInputs.Count > 0)
         {
-            initialPosition = lastAcknowledgedInput.position;
+            initialPosition = pendingPlayerInputs[0].position;
         }
 
         pendingPlayerInputs.ForEach(input =>
         {
             long endTimestamp = (input.endTimestamp == 0) ? now : input.endTimestamp;
-            // TODO: remove magic numbers
-            float tickRate = (input.endTimestamp == 0) ? 31f : 30f;
-            float ticks = (float)Math.Floor((endTimestamp - input.startTimestamp) / tickRate);
+            float ticks = (endTimestamp - input.startTimestamp) / tickRate;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
 

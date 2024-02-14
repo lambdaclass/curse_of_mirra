@@ -23,8 +23,9 @@ public class PlayerControls : MonoBehaviour
                 timestampId = timestamp,
                 startTimestamp = timestamp,
                 endTimestamp = 0,
+                position = new Position { X = 0, Y = 0 }
             };
-            GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
+            GameServerConnectionManager.Instance.clientPrediction.PutPlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
         }

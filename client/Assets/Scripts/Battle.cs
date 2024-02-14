@@ -261,9 +261,10 @@ public class Battle : MonoBehaviour
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
-                        .simulatePlayerState(
+                        .SimulatePlayerState(
                             serverPlayerUpdate,
-                            gameEvent.PlayerTimestamps[player.Id]
+                            gameEvent.PlayerTimestamps[player.Id],
+                            gameEvent.ServerTimestamp
                         );
                 }
 
