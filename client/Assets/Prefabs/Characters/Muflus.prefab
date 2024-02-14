@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &396570284941086228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8410051266074264502}
+  m_Layer: 0
+  m_Name: PlaceHolder_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8410051266074264502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396570284941086228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.3, y: 3.3, z: 3.3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 2516552699787638440}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1787465996332106805
 GameObject:
   m_ObjectHideFlags: 0
@@ -18,6 +49,7 @@ GameObject:
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 3975715648245094208}
   - component: {fileID: 3422967682702619958}
+  - component: {fileID: 3767757779326437768}
   m_Layer: 10
   m_Name: Muflus
   m_TagString: Player
@@ -509,6 +541,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useItemEffect: {fileID: 5740382608016110833}
+--- !u!114 &3767757779326437768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735b7d114b344f946bae02a701c5ef53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeholder_transform_pairs:
+  - placement_holder: {fileID: 11400000, guid: d260661848b81c248b1a609e40e39b11, type: 2}
+    look_up_transform: {fileID: 8410051266074264502}
+  - placement_holder: {fileID: 11400000, guid: e9e6a59c5c19313498368e33987939e4, type: 2}
+    look_up_transform: {fileID: 9089439972076665668}
+--- !u!1 &4035131063984225864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9089439972076665668}
+  m_Layer: 0
+  m_Name: PlaceHolder_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9089439972076665668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4035131063984225864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.00436, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2553426874508913527}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2694892166158291267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,6 +681,12 @@ PrefabInstance:
 --- !u!4 &2516552699787638440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c75644781daa4f89b2db0bb683cc47e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2694892166158291267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2553426874508913527 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 435079032423529012, guid: 2c75644781daa4f89b2db0bb683cc47e,
     type: 3}
   m_PrefabInstance: {fileID: 2694892166158291267}
   m_PrefabAsset: {fileID: 0}
