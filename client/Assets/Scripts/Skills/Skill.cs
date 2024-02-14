@@ -201,6 +201,12 @@ public class Skill : CharacterAbility
         _animator.SetBool(animation, true);
     }
 
+    private void ChangeCharacterStateToDash(string animation)
+    {
+        _movement.ChangeState(CharacterStates.MovementStates.Dashing);
+        _animator.SetBool(animation, true);
+    }
+
     private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
