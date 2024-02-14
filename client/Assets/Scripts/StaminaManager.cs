@@ -23,8 +23,10 @@ public class StaminaManager : MonoBehaviour
         staminaFillImage.ForEach(el => {
             int index = staminaFillImage.IndexOf(el);
             if(availableStamina == 0){
+                // el.color = Utils.burstLoadsBarCharging;
                 el.gameObject.SetActive(false);
             } else {
+                // el.color = Utils.healthBarCyan;
               el.gameObject.SetActive(index < (int)availableStamina);
             }
         });
