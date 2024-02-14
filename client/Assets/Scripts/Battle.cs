@@ -170,7 +170,8 @@ public class Battle : MonoBehaviour
     {
         Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if(myClientCharacter == null){
+        if (myClientCharacter == null)
+        {
             myClientCharacter = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
         }
 
@@ -188,13 +189,15 @@ public class Battle : MonoBehaviour
                     // Using joysticks
                     playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
                 }
-                else if(playerControls.KeysPressed())
+                else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
                     playerControls.SendAction();
-                } else {
+                }
+                else
+                {
                     // Not pressing anything
-                    playerControls.SendJoystickValues(0, 0);  
+                    playerControls.SendJoystickValues(0, 0);
                 }
             }
         }
@@ -402,6 +405,7 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
 
+                // Issue #1417
                 SkillInfo info = skillInfoSet
                     .Where(el => el.name == "SLINGSHOT") // gameProjectiles[i].SkillName
                     .FirstOrDefault();

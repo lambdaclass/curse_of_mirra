@@ -15,17 +15,17 @@ MonoBehaviour:
   name: H4ck
   description: The Humanoid rat
   characterSprite: {fileID: 21300000, guid: 60d1e5cac373c4ac3895554f7a8f090d, type: 3}
-  characterIcon: {fileID: 21300000, guid: d733a67725d5d47c5bc73099d6c350fb, type: 3}
+  characterIcon: {fileID: 21300000, guid: 535c380988be045b3b416d320c3a231c, type: 3}
   artWork: {fileID: 21300000, guid: a440347521185447ea28aa7a1c9fc6c1, type: 3}
   selectedArtwork: {fileID: 21300000, guid: d5cf4c8f212e24ea8aa07ccdcd285ec7, type: 3}
   blockArtwork: {fileID: 21300000, guid: 3c95af6d197c24f9b96a8f18c682fe2a, type: 3}
   characterPlayer: {fileID: 21300000, guid: 098ac98f6bcc748c4934dd37e6405584, type: 3}
   classImage: {fileID: 21300000, guid: dc888704882fc40ecb09fbe9cebe61aa, type: 3}
-  UIIcon: {fileID: 21300000, guid: 5a332ce9699174264914c8b42a99cfe5, type: 3}
+  UIIcon: {fileID: 21300000, guid: 131b69f1990da47ef9696423773bb153, type: 3}
   prefab: {fileID: 1787465996332106805, guid: 7bf5e7183a6b3444b8111ea4d639b854, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
-    rgba: 4294920189
+    rgba: 4294920114
   skillsInfo:
   - {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
   - {fileID: 11400000, guid: 275be5c874b674ef3b672edf201b0b5b, type: 2}
