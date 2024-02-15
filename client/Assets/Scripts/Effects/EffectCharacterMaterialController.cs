@@ -10,7 +10,7 @@ public class EffectCharacterMaterialController : MonoBehaviour
 
     private void Start()
     {
-        character_material_manager = FindObjectOfType<CharacterMaterialManager>();
+        character_material_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<CharacterMaterialManager>();
         StartCoroutine(switchMaterialForTime());
     }
 
@@ -21,8 +21,7 @@ public class EffectCharacterMaterialController : MonoBehaviour
 
     public void init()
     {
-        // needs better workaround, TODO: pass CharacterMaterialManager from CustomCharacter or so
-        character_material_manager.setMaterial(character_material);
+        character_material_manager?.setMaterial(character_material);
     }
 
     public void deinit()

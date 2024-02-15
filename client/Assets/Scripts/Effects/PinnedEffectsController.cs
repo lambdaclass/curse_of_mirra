@@ -8,10 +8,12 @@ public class PinnedEffectsController : MonoBehaviour
     private List<PlacementHolderEffectPair> placeholder_effect_pairs = null;
 
     private List<GameObject> spawned_objects = new List<GameObject>();
+    private PinnedEffectsManager pinned_effects_manager = null;
 
     private void Start()
     {
-        Play(FindObjectOfType<PinnedEffectsManager>()); // needs better workaround, TODO: pass PinnedEffectsManager from CustomCharacter or so
+        pinned_effects_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<PinnedEffectsManager>();
+        Play(pinned_effects_manager);
     }
 
     private void OnDestroy()
