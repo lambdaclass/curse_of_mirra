@@ -44,9 +44,12 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 36e7e03074043410198227140f9037f2, type: 3}
+  - {fileID: 21300000, guid: 2070c1608220c4a008e9a11ceae561bf, type: 3}
   - {fileID: 21300000, guid: 41e07560bd98147d4af35b42349e9655, type: 3}
   - {fileID: 21300000, guid: 3694aa60b97fe444b91afbc6b5d25c68, type: 3}
+  - {fileID: 21300000, guid: 1d3bb1e08f2544f7aa14ca5d55b765ca, type: 3}
   - {fileID: 21300000, guid: 789e5811ba2c14730a2807050b00ee58, type: 3}
+  - {fileID: 21300000, guid: a0abe881b6574496483c8a51162b59aa, type: 3}
   - {fileID: 21300000, guid: 131b69f1990da47ef9696423773bb153, type: 3}
   - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
@@ -55,22 +58,32 @@ SpriteAtlas:
   - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
   - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
   - {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}
+  - {fileID: 21300000, guid: 01b638657ba514ed7b79b5688911f0e6, type: 3}
   - {fileID: 21300000, guid: 009b66b51fd3e4733b4ac2174cd7c268, type: 3}
+  - {fileID: 21300000, guid: 17b46bf5b7626473f95d3052cafe47aa, type: 3}
+  - {fileID: 21300000, guid: ba889c16c72b54dd6b0b7ad4e506e0b0, type: 3}
   - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
   - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
+  - {fileID: 21300000, guid: b39b96c83fb57472e803e1104f579ffe, type: 3}
+  - {fileID: 21300000, guid: 048a99c8823ef415b9dea619283c80b3, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
+  - {fileID: 21300000, guid: 89265f0c0bebf41889a81e6fbe91575a, type: 3}
+  - {fileID: 21300000, guid: 05249e3d9ae974b83a6452e7dbc699a4, type: 3}
   - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
   - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
   m_PackedSpriteNamesToIndex:
   - container
+  - 3
   - setting_firstTab_selected
   - code
+  - 1-1
   - Uma
+  - 2
   - Hack
   - Underline
   - players
@@ -79,15 +92,22 @@ SpriteAtlas:
   - muflus
   - settings_bg
   - zone
+  - 3-3
   - healthbar_border
+  - guide15
+  - guide14
   - setting_tab_selected
   - underline
+  - 2-2
+  - 1
   - container
   - toggle_off
   - slider-handle
   - timer
   - setings
   - kills
+  - stamina
+  - direction new
   - sidebar
   - dev
   m_RenderDataMap: {}
