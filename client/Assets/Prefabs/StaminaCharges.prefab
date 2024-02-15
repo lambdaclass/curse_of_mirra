@@ -468,7 +468,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8563174794001401240}
-  - component: {fileID: 2158577572511539479}
   - component: {fileID: 2964130064261950093}
   m_Layer: 0
   m_Name: StaminaCharges
@@ -500,27 +499,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.49, y: 1}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &2158577572511539479
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125614112250762218}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!114 &2964130064261950093
 MonoBehaviour:
   m_ObjectHideFlags: 0
