@@ -4,6 +4,7 @@ using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CharacterFeedbacks : MonoBehaviour
 {
@@ -16,10 +17,9 @@ public class CharacterFeedbacks : MonoBehaviour
     List<GameObject> feedbacksStatesPrefabs;
 
     [SerializeField]
-    List<GameObject> feedbacksPrefabs;
-
-    [SerializeField]
-    GameObject deathFeedback;
+    GameObject deathFeedback,
+        damageFeedback,
+        healFeedback;
 
     [SerializeField] MMProgressBar healthBar;
 
@@ -60,20 +60,9 @@ public class CharacterFeedbacks : MonoBehaviour
         return feedbacksStatesPrefabs;
     }
 
-    public GameObject GetFeedback(string name)
-    {
-        GameObject feedback = feedbacksPrefabs.Find(el => el.name == name);
-        return feedback;
-    }
-
     public void ExecuteFeedback(GameObject feedback)
     {
         feedback.SetActive(true);
-    }
-
-    public List<GameObject> GetFeedbackList()
-    {
-        return feedbacksPrefabs;
     }
 
     public void PlayDeathFeedback()
@@ -91,10 +80,18 @@ public class CharacterFeedbacks : MonoBehaviour
             && playerId == GameServerConnectionManager.Instance.playerId
         )
         {
-            this.GetFeedback("DamageFeedback").GetComponent<MMF_Player>().PlayFeedbacks();
-            this.HapticFeedbackOnDamage();
+            damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
+            this.HapticFeedbackOnHealthChange(true);
             this.ChangePlayerTextureOnDamage(clientHealth, playerHealth);
             this.healthBar.BumpOnDecrease = true;
+        }
+        if (clientHealth < playerHealth)
+        {
+            if (healFeedback.GetComponentInChildren<VisualEffect>() != null)
+            {
+                healFeedback.GetComponentInChildren<VisualEffect>().Play();
+            }
+            this.HapticFeedbackOnHealthChange(false);
         }
     }
 
@@ -113,9 +110,16 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void HapticFeedbackOnDamage()
+    public void HapticFeedbackOnHealthChange(bool damage)
     {
-        HapticFeedback.HeavyFeedback();
+        if (damage)
+        {
+            HapticFeedback.HeavyFeedback();
+        }
+        else
+        {
+            HapticFeedback.LightFeedback();
+        }
     }
 
     public void ApplyZoneDamage()
