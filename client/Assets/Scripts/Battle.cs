@@ -347,23 +347,23 @@ public class Battle : MonoBehaviour
         {
             case PlayerActionType.StartingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, true);
-                character.rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false, true);
-                character.rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.StartingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, true);
-                character.rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false, true);
-                character.rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false, false);
-                character.rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
             // rotatePlayer(currentPlayer, direction);
@@ -625,7 +625,7 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                character.rotatePlayer(player, direction);
+                character.RotatePlayer(player, direction);
             }
             walking = true;
         }
