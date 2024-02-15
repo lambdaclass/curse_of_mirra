@@ -17,7 +17,7 @@ public class ClientPrediction
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public void PutPlayerInput(PlayerInput PlayerInput)
+    public void EnqueuePlayerInput(PlayerInput PlayerInput)
     {
         // finalize last pending input
         PlayerInput lastPlayerInput;
@@ -67,10 +67,10 @@ public class ClientPrediction
         var characterSpeed = player.Speed;
         float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-        Position initialPosition = player.Position;
+        Position currentPosition = player.Position;
         if (pendingPlayerInputs.Count > 0)
         {
-            initialPosition = pendingPlayerInputs[0].position;
+            currentPosition = pendingPlayerInputs[0].position;
         }
 
         pendingPlayerInputs.ForEach(input =>
@@ -83,14 +83,13 @@ public class ClientPrediction
             movementDirection.Normalize();
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
-            Position newPlayerPosition = new Position
+            currentPosition = new Position
             {
-                X = initialPosition.X + (float)(movementVector.x),
-                Y = initialPosition.Y + (float)(movementVector.y)
+                X = currentPosition.X + (float)(movementVector.x),
+                Y = currentPosition.Y + (float)(movementVector.y)
             };
-            initialPosition = newPlayerPosition;
-            player.Position = initialPosition;
         });
+        player.Position = currentPosition;
     }
 
     double distance_between_positions(Position position_1, Position position_2)

@@ -25,7 +25,7 @@ public class PlayerControls : MonoBehaviour
                 endTimestamp = 0,
                 position = new Position { X = 0, Y = 0 }
             };
-            GameServerConnectionManager.Instance.clientPrediction.PutPlayerInput(playerInput);
+            GameServerConnectionManager.Instance.clientPrediction.EnqueuePlayerInput(playerInput);
             lastXSent = x;
             lastYSent = y;
         }
