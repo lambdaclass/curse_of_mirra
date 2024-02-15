@@ -77,24 +77,12 @@ public class CharacterFeedbackManager : MonoBehaviour
         healthBarFront.color = Utils.healthBarRed;
     }
 
-    public void ManageFeedbacks(GameObject player, Entity playerUpdate)
-    {
-        // foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-        // {
-        //     string name = Enum.GetName(typeof(StateEffects), effect);
-        //     bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-        //     CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-        //     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
-        // }
-    }
-
     public void ManageStateFeedbacks(
         GameObject player,
         Entity playerUpdate,
         CustomCharacter character
     )
     {
-        this.ManageFeedbacks(player, playerUpdate);
         this.ToggleHealthBar(player, playerUpdate);
     }
 }
