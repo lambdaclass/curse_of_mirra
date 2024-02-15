@@ -159,16 +159,6 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            // if (GameServerConnectionManager.Instance.playerId == playerID)
-            // {
-            //     //Add audioListener in player
-            //     newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-            //     //Disable audioListener in camera
-            //     this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-            //         false;
-                Instantiate(newPlayer.characterBase.BurstLoadsBar, newPlayer.characterBase.CharacterCard.transform);
-            // }
-
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
