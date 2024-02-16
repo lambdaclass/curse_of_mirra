@@ -83,36 +83,33 @@ public class ClientPrediction
             movementDirection.Normalize();
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
 
-            currentPosition = new Position
-            {
-                X = currentPosition.X + (float)(movementVector.x),
-                Y = currentPosition.Y + (float)(movementVector.y)
-            };
+            float positionX = currentPosition.X + (float)(movementVector.x);
+            float positionY = currentPosition.Y + (float)(movementVector.y);
+
+            Vector3 newPosition = new Vector3(positionX, 0, positionY);
+
+            newPosition = ClampIfOutOfMap(newPosition);
+
+            currentPosition = new Position { X = newPosition.x, Y = newPosition.z };
         });
+
         player.Position = currentPosition;
     }
 
-    double distance_between_positions(Position position_1, Position position_2)
+    private Vector3 ClampIfOutOfMap(Vector3 newPosition)
     {
-        double p1_x = position_1.X;
-        double p1_y = position_1.Y;
-        double p2_x = position_2.X;
-        double p2_y = position_2.Y;
+        float mapRadius = 4800; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
 
-        double distance_squared = Math.Pow(p1_x - p2_x, 2) + Math.Pow(p1_y - p2_y, 2);
+        Vector3 mapCenterPosition = new Vector3(0, 0, 0);
+        float playerDistanceFromMapCenter = Vector3.Distance(newPosition, mapCenterPosition);
 
-        return Math.Sqrt(distance_squared);
-    }
+        if (playerDistanceFromMapCenter > mapRadius)
+        {
+            Vector3 fromOriginToObject = newPosition - mapCenterPosition;
+            fromOriginToObject *= mapRadius / playerDistanceFromMapCenter;
+            newPosition = mapCenterPosition + fromOriginToObject;
+        }
 
-    double angle_between_positions(Position center, Position target)
-    {
-        double p1_x = center.X;
-        double p1_y = center.Y;
-        double p2_x = target.X;
-        double p2_y = target.Y;
-
-        var x_diff = p2_x - p1_x;
-        var y_diff = p2_y - p1_y;
-        return Math.Atan2(y_diff, x_diff);
+        return newPosition;
     }
 }
