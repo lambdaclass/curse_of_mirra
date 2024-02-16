@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.Client.BaseCommands;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -17,7 +18,6 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     CustomGUIManager CustomGUIManager;
-
     public bool showClientPredictionGhost;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -36,6 +36,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
     private PlayerControls playerControls;
+    private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
     //     // We do this to only have the state effects in the enum instead of all the effects
@@ -55,6 +56,7 @@ public class Battle : MonoBehaviour
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
+        powerUpsManager = GetComponent<PowerUpsManager>();
     }
 
     private void InitBlockingStates()
@@ -112,6 +114,7 @@ public class Battle : MonoBehaviour
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
+
     }
 
     // private void MoveEntities()
@@ -127,6 +130,8 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
+       powerUpsManager.UpdatePowerUps();
+    
     }
 
     private void SetAccumulatedTime()
@@ -377,6 +382,8 @@ public class Battle : MonoBehaviour
         ProcessProjectilesCollision(projectiles, gameProjectiles);
         UpdateProjectiles(projectiles, gameProjectiles);
     }
+
+ 
 
     void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
