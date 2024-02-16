@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402337, g: 0.49316758, b: 0.5722343, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402206, g: 0.4931656, b: 0.5722312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10075,6 +10075,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1038870616}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &531205859 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5834226147007296763, guid: ed2f9d09eb48e4bfea96370afd8336ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1038870616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &641114226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15273,6 +15279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1_vfx: {fileID: 695258524620621366, guid: ef9e760d3a8966f4793c4995dadde0f0,
     type: 3}
+  skill1_vfx_root: {fileID: 531205859}
   skill2_vfx: {fileID: 8937093405017515387, guid: 28e88f4ccef6c8c4d99d368b7a702270,
     type: 3}
   skill2_vfx_root: {fileID: 457675811}

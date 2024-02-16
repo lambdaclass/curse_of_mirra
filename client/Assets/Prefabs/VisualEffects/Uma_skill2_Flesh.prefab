@@ -260,18 +260,18 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 1.5294118, g: 1.2, b: 0.36862746, a: 0}
-          key1: {r: 0.689596, g: 0.7169812, b: 0.09807763, a: 1}
-          key2: {r: 1.5676355, g: 1.2703254, b: 0.37839478, a: 1}
-          key3: {r: 0, g: 0, b: 0, a: 0}
+          key0: {r: 0.18919739, g: 1.3784382, b: 2.0631526, a: 0}
+          key1: {r: 0.0360376, g: 2.0181055, b: 2.2343311, a: 1}
+          key2: {r: 0.08235294, g: 0.5568628, b: 0.7490196, a: 1}
+          key3: {r: 0.19493036, g: 1.3339522, b: 1.7967491, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
           key6: {r: 0, g: 0, b: 0, a: 0}
           key7: {r: 0, g: 0, b: 0, a: 0}
-          ctime0: 0
+          ctime0: 193
           ctime1: 6746
           ctime2: 65535
-          ctime3: 0
+          ctime3: 65535
           ctime4: 0
           ctime5: 0
           ctime6: 0
@@ -291,9 +291,9 @@ VisualEffect:
         m_Overridden: 1
       - m_Value:
           serializedVersion: 2
-          key0: {r: 2.041885, g: 1.7981781, b: 1.2617309, a: 0}
-          key1: {r: 0.7294118, g: 0.7490196, b: 0.3647059, a: 1}
-          key2: {r: 1.9349605, g: 1.7181902, b: 1.0678792, a: 1}
+          key0: {r: 0.5808319, g: 1.6338024, b: 2.1602871, a: 0}
+          key1: {r: 0.32156864, g: 1.2862746, b: 1.8352941, a: 1}
+          key2: {r: 0.17140158, g: 1.1307793, b: 1.7303398, a: 1}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
@@ -319,6 +319,68 @@ VisualEffect:
           m_NumColorKeys: 3
           m_NumAlphaKeys: 4
         m_Name: RadialSplashGradient
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 3.7079175, g: 8.033821, b: 9.849155, a: 0}
+          key1: {r: 0.23424439, g: 2.1532464, b: 2.0541432, a: 1}
+          key2: {r: 0.01783196, g: 0.4101351, b: 1.1174694, a: 1}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 1542
+          ctime1: 9638
+          ctime2: 65535
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 3084
+          atime2: 42791
+          atime3: 65535
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 3
+          m_NumAlphaKeys: 4
+        m_Name: LightFogMainGradient
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 1, g: 0.7743711, b: 0.4198113, a: 0}
+          key1: {r: 0.4442012, g: 0.5294118, b: 0.098039225, a: 1}
+          key2: {r: 1, g: 0.80255556, b: 0.1745283, a: 1}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 60138
+          ctime2: 65535
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 3084
+          atime2: 42791
+          atime3: 65535
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 3
+          m_NumAlphaKeys: 4
+        m_Name: LightFogSupportGradient
         m_Overridden: 1
     m_NamedObject:
       m_Array: []

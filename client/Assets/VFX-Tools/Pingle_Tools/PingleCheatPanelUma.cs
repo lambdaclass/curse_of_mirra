@@ -7,6 +7,7 @@ using UnityEngine;
 public class PingleCheatPanelUma : MonoBehaviour
 {
     public GameObject skill1_vfx = null;
+    public Transform skill1_vfx_root = null;
 
     public GameObject skill2_vfx = null;
     public Transform skill2_vfx_root = null;
@@ -71,7 +72,7 @@ public class PingleCheatPanelUma : MonoBehaviour
         clearPool();
         character_instance.CharacterAnimator.SetTrigger("Skill1");
         GameObject cached_vfx = null;
-        cached_vfx = Instantiate(skill1_vfx, character_instance.transform);
+        cached_vfx = Instantiate(skill1_vfx, skill1_vfx_root);
         pool.Add( cached_vfx );
     }
 
