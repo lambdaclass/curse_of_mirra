@@ -12,16 +12,16 @@ public class PowerUpsManager : MonoBehaviour
         GameServerConnectionManager.Instance.gamePowerUps.ForEach(powerupEntity => {
             PowerUp powerUp = powerupEntity.PowerUp;
 
-            if(powerUp.Status == PowerUpstatus.Available && !availablePowerUps.Keys.Contains(powerUp.OwnerId)){
+            if(powerUp.Status == PowerUpstatus.Available && !availablePowerUps.Keys.Contains(powerupEntity.Id)){
                 Vector3 pos = Utils.transformBackendOldPositionToFrontendPosition(powerupEntity.Position);
                 GameObject powerupGameObject = Instantiate(powerUpItem, pos, Quaternion.identity);
                 powerupGameObject.transform.localScale.Set(0.7f,0.7f,0.7f);
-                availablePowerUps.Add(powerUp.OwnerId, powerupGameObject);
+                availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
             } 
 
-            if(powerUp.Status == PowerUpstatus.Taken && availablePowerUps.Keys.Contains(powerUp.OwnerId)){
-                Destroy(availablePowerUps[powerUp.OwnerId]);
-                availablePowerUps.Remove(powerUp.OwnerId);
+            if(powerUp.Status == PowerUpstatus.Taken && availablePowerUps.Keys.Contains(powerupEntity.Id)){
+                Destroy(availablePowerUps[powerupEntity.Id]);
+                availablePowerUps.Remove(powerupEntity.Id);
             }
         });
     }
