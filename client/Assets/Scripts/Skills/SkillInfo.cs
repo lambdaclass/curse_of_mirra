@@ -58,7 +58,7 @@ public class SkillInfo : ScriptableObject
         this.damage = 0;
         this.cooldown = 0f;
         this.skillRange = 0;
-        this.skillCircleRadius = 5;
+        this.skillCircleRadius = 10;
         // if (ServerConnection.Instance != null)
         // {
         //     foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
