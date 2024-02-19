@@ -7,21 +7,14 @@ using UnityEngine.UI;
 public class StaminaManager : MonoBehaviour
 {
     [SerializeField] private List<Image> staminaFillImage;
-
-    private ulong maxStamina;    
     private Player player;
-    private float staminaInterval;
-
     private Vector3 initialScale;
     private Vector3 initialparentScale;
-    private bool animated = false;
 
     void Start(){
           player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Player;
-          maxStamina = player.MaxStamina;
           initialScale = staminaFillImage[0].transform.localScale;
           initialparentScale = staminaFillImage[0].transform.parent.localScale;
-          staminaInterval = player.StaminaInterval;
     }
    
     void Update(){
