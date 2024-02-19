@@ -9,7 +9,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
     Sprite skillSprite;
 
     [SerializeField]
-    public Image skillBorder;
+    public CanvasGroup skillBorder;
 
     [SerializeField]
     SkillsDetailHandler skillsDetailHandler;

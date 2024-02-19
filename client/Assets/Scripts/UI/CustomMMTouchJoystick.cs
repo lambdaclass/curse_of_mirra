@@ -14,7 +14,6 @@ public class CustomMMTouchJoystick : MMTouchJoystick
     const float CANCEL_AREA_VALUE = 0.15f;
     bool dragged = false;
     bool cancelable = false;
-    float frameCounter;
     private CustomInputManager inputManager;
 
     public override void Initialize()
