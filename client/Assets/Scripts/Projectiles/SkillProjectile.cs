@@ -20,15 +20,14 @@ public class SkillProjectile : MonoBehaviour
 
     public void ProcessCollision()
     {
+        this.isTrailEnabled = true;
         gameObject.SetActive(false);
         GameObject feedback = Instantiate(
             projectileInfo.projectileFeedback,
             transform.position,
             Quaternion.identity
         );
-        isTrailEnabled = true;
         var trailInstance = this.transform.Find(this.name + " Trail");
-        print("trail "  + isTrailEnabled);
         Destroy(trailInstance?.gameObject);
         Destroy(feedback, 1f);
     }
