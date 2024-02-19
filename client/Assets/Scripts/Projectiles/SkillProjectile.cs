@@ -11,6 +11,8 @@ public class SkillProjectile : MonoBehaviour
 
     [SerializeField] public GameObject trail;
 
+    public bool isTrailEnabled = true;
+
     public void UpdatePosition(Vector3 position)
     {
         transform.position = position;
@@ -24,8 +26,9 @@ public class SkillProjectile : MonoBehaviour
             transform.position,
             Quaternion.identity
         );
-        var trailInstance = this.transform.Find(this.name + " Trail");
-        Destroy(trailInstance.gameObject);
+        isTrailEnabled = true;
+        print("trail "  + isTrailEnabled);
+        Destroy(trailInstance?.gameObject);
         Destroy(feedback, 1f);
     }
 

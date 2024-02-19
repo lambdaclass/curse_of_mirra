@@ -30,9 +30,13 @@ public class ProjectileHandler : MonoBehaviour
         );
         GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
         pooledGameObject.transform.position = initialPosition;
+        // Trail
         var trailobj = pooledGameObject.GetComponent<SkillProjectile>().trail;
-        var trailInstance = Instantiate(trailobj, pooledGameObject.transform);
-        trailInstance.name = pooledGameObject.name + " Trail";
+        if(pooledGameObject.GetComponent<SkillProjectile>().isTrailEnabled){
+            var trailInstance = Instantiate(trailobj, pooledGameObject.transform);
+            trailInstance.name = pooledGameObject.name + " Trail";
+            pooledGameObject.GetComponent<SkillProjectile>().isTrailEnabled = false;
+        }
         pooledGameObject.transform.rotation = Quaternion.Euler(0, direction, 0);
         pooledGameObject.SetActive(true);
 
