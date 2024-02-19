@@ -15,11 +15,11 @@ MonoBehaviour:
   name: SINGULARITY
   description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
     H4ck has a lotofupgrades under his sleave.
-  inputType: 0
+  inputType: 2
   skillSetType: 1
   angle: 0
   executeOnQuickTap: 0
-  indicatorType: 3
+  indicatorType: 0
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 3
   abilityStartSfx: {fileID: 8300000, guid: 0f1ef727548bc4e8ba90f73e18aa2c44, type: 3}
