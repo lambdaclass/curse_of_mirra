@@ -27,6 +27,7 @@ public class SkillProjectile : MonoBehaviour
             Quaternion.identity
         );
         isTrailEnabled = true;
+        var trailInstance = this.transform.Find(this.name + " Trail");
         print("trail "  + isTrailEnabled);
         Destroy(trailInstance?.gameObject);
         Destroy(feedback, 1f);
