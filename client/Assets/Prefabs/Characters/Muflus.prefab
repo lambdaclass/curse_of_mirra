@@ -485,10 +485,10 @@ MonoBehaviour:
   - {fileID: 6880168384479574166}
   - {fileID: 6362123941699143047}
   - {fileID: 1633531900575384653}
-  feedbacksPrefabs:
-  - {fileID: 604736327119138052}
-  - {fileID: 8938270116862053746}
   deathFeedback: {fileID: 179007033852684844}
+  damageFeedback: {fileID: 8938270116862053746}
+  healFeedback: {fileID: 604736327119138052}
+  healthBar: {fileID: 8711474442059621043}
   damageOverlayColor:
     serializedVersion: 2
     rgba: 4294967295
