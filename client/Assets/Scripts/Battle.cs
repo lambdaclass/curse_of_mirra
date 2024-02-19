@@ -38,15 +38,6 @@ public class Battle : MonoBehaviour
     private PlayerControls playerControls;
     private CustomCharacter myClientCharacter = null;
 
-    //     // We do this to only have the state effects in the enum instead of all the effects
-    //     private enum StateEffects
-    //     {
-    //         Slowed = PlayerEffect.Slowed,
-    //         Paralyzed = PlayerEffect.Paralyzed,
-    //         Poisoned = PlayerEffect.Poisoned,
-    //         OutOfArea = PlayerEffect.OutOfArea
-    //     }
-
     void Start()
     {
         InitBlockingStates();
@@ -485,6 +476,9 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
+        CharacterFeedbackManager feedbackManager = character
+            .characterBase
+            .GetComponent<CharacterFeedbackManager>();
         var characterSpeed = playerUpdate.Speed / 100f;
 
         Animator modelAnimator = player
@@ -492,7 +486,7 @@ public class Battle : MonoBehaviour
             .CharacterModel
             .GetComponent<Animator>();
 
-        ManageStateFeedbacks(player, playerUpdate, character);
+        feedbackManager.ManageStateFeedbacks(player, playerUpdate, character);
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {
@@ -841,31 +835,6 @@ public class Battle : MonoBehaviour
         return InterpolationGhosts.Find(
             g => g.GetComponent<CustomCharacter>().PlayerID == playerId
         );
-    }
-
-    private void ManageStateFeedbacks(
-        GameObject player,
-        Entity playerUpdate,
-        CustomCharacter character
-    )
-    {
-        CharacterFeedbackManager feedbackManager = character
-            .characterBase
-            .GetComponent<CharacterFeedbackManager>();
-
-        ManageFeedbacks(player, playerUpdate);
-        feedbackManager.ToggleHealthBar(player, playerUpdate);
-    }
-
-    private void ManageFeedbacks(GameObject player, Entity playerUpdate)
-    {
-        // foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-        // {
-        //     string name = Enum.GetName(typeof(StateEffects), effect);
-        //     bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-        //     CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-        //     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
-        // }
     }
 
     public GameObject GetMapGrid()
