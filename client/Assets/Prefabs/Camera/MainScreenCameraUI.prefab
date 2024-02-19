@@ -1063,8 +1063,8 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1562038806745949882}
-        m_TargetAssemblyTypeName: ToggleAudio, Assembly-CSharp
+      - m_Target: {fileID: 1405549652}
+        m_TargetAssemblyTypeName: ToggleAudio, CurseOfMirra
         m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
@@ -1767,7 +1767,6 @@ GameObject:
   - component: {fileID: 4572785027253411462}
   - component: {fileID: 5459182989345262923}
   - component: {fileID: 6664737757137803085}
-  - component: {fileID: 1562038806745949882}
   m_Layer: 5
   m_Name: Mute
   m_TagString: Untagged
@@ -1834,22 +1833,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1562038806745949882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264810858514468310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mutedSprite: {fileID: 21300000, guid: 73cc32154b67b4890866a29291b7138a, type: 3}
-  unmutedSprite: {fileID: 21300000, guid: e48bb4f8f438847cf8634b6a5a0003b8, type: 3}
-  volumeSlider: {fileID: 0}
-  channel: 1
 --- !u!1 &4457283744149958112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2020,7 @@ GameObject:
   - component: {fileID: 2219144108616870023}
   - component: {fileID: 1956736400960485554}
   - component: {fileID: 8055067381839497560}
+  - component: {fileID: 1405549652}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -2102,6 +2086,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1405549652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4713408179010987104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutedSprite: {fileID: 21300000, guid: 73cc32154b67b4890866a29291b7138a, type: 3}
+  unmutedSprite: {fileID: 21300000, guid: e48bb4f8f438847cf8634b6a5a0003b8, type: 3}
+  volumeSlider: {fileID: 0}
+  channel: 1
 --- !u!1 &4716254436289524867
 GameObject:
   m_ObjectHideFlags: 0

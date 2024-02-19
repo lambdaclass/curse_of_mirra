@@ -29,7 +29,7 @@ public class ToggleAudio : MonoBehaviour
 
     void Start()
     {
-        muteButtonImage = GetComponentInChildren<Image>();
+        muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
