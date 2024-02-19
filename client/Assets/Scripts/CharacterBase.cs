@@ -16,7 +16,8 @@ public class CharacterBase : MonoBehaviour
         OrientationIndicator,
         OrientationArrow,
         CharacterCard,
-        BurstLoadsBar;
+        CanvasHolder,
+        StaminaCharges;
 
     [SerializeField]
     public AudioClip spawnSfx;

@@ -155,6 +155,10 @@ public class CustomLevelManager : LevelManager
                 new Vector3(0.0f, 1.0f, 0.0f),
                 Quaternion.identity
             );
+
+            if(GameServerConnectionManager.Instance.playerId == player.Id){
+                Instantiate(newPlayer.characterBase.StaminaCharges,newPlayer.characterBase.CanvasHolder.transform);
+            }
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
