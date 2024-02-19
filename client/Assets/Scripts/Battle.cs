@@ -343,29 +343,18 @@ public class Battle : MonoBehaviour
         // TODO: Refactor
         switch (playerAction)
         {
-            case PlayerActionType.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerActionType.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, true);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false, true);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false, false);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
                 rotatePlayer(currentPlayer, direction);
                 break;
-            // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-            // rotatePlayer(currentPlayer, direction);
-            // break;
         }
     }
 

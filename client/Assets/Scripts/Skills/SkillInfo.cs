@@ -45,6 +45,7 @@ public class SkillInfo : ScriptableObject
     [SerializeField]
     public List<VfxStep> startVfxList;
     public List<VfxStep> vfxList;
+    public List<AnimationStep> animationList;
 
     // public bool Equals(SkillConfigItem skillConfigItem)
     // {
