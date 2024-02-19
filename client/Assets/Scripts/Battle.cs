@@ -314,7 +314,7 @@ public class Battle : MonoBehaviour
 
                 if (serverPlayerUpdate.Player.Health <= 0)
                 {
-                    SetPlayerDead(playerCharacter);
+                    playerCharacter.SetPlayerDead();
                 }
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
@@ -332,28 +332,29 @@ public class Battle : MonoBehaviour
         ulong skillDuration
     )
     {
+        CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerActionType.StartingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.StartingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false, false);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
             // rotatePlayer(currentPlayer, direction);
@@ -453,15 +454,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void rotatePlayer(GameObject player, Direction direction)
-    {
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
-        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
-        characterOrientation.ForcedRotationDirection = movementDirection;
-    }
-
     private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
         /*
@@ -497,7 +489,7 @@ public class Battle : MonoBehaviour
             modelAnimator.SetBool("Walking", false);
         }
 
-        HandlePlayerHealth(player, playerUpdate);
+        character.HandlePlayerHealth(playerUpdate);
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
@@ -531,22 +523,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void HandlePlayerHealth(GameObject player, Entity playerUpdate)
-    {
-        Health healthComponent = player.GetComponent<Health>();
-        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-
-        characterFeedbacks.DamageFeedback(
-            healthComponent.CurrentHealth,
-            playerUpdate.Player.Health,
-            playerUpdate.Id
-        );
-
-        if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
-        {
-            healthComponent.SetHealth(playerUpdate.Player.Health);
-        }
-    }
 
     private void HandleMovement(
         GameObject player,
@@ -567,10 +543,9 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
+
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
 
@@ -645,40 +620,17 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                rotatePlayer(player, direction);
+                character.RotatePlayer(player, direction);
             }
             walking = true;
         }
 
-        RotateCharacterOrientation(player);
+       character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
     }
 
-    private void RotateCharacterOrientation(GameObject player)
-    {
-        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
-            player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
-    }
 
-    public void SetPlayerDead(CustomCharacter playerCharacter)
-    {
-        CharacterFeedbacks playerFeedback = playerCharacter.GetComponent<CharacterFeedbacks>();
-        playerFeedback.PlayDeathFeedback();
-        playerFeedback.ClearAllFeedbacks(playerCharacter.gameObject);
-        playerCharacter.CharacterModel.SetActive(false);
-        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        playerCharacter.characterBase.Hitbox.SetActive(false);
-        levelManager.DestroySkillsClone(playerCharacter);
-        playerCharacter
-            .GetComponentInChildren<CharacterBase>()
-            .OrientationIndicator
-            .SetActive(false);
-        if (GameServerConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
-        {
-            CustomGUIManager.DisplayZoneDamageFeedback(false);
-        }
-    }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleClientPrediction()
