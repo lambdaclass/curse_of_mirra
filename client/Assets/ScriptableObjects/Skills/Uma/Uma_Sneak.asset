@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Uma_Sneak
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SNEAK
-  description: Dash stealthy revenge
+  description: 'Uma performs a quick dash becoming invisible. '
   inputType: 2
   skillSetType: 2
   angle: 0

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Muflus_Crush
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: CRUSH
-  description: Targets an arc in front of you, dealing damage.
+  description: Leaps to a target, stomping the ground and dealing damage to nearby
+    targets
   inputType: 2
   skillSetType: 0
   angle: 0
