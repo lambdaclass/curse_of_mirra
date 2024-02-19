@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Uma_Avenge
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: AVENGE
-  description: Melee attack, three consecutive knife stabs
+  description: Melee attack, three consecutive knife stabs.
   inputType: 2
   skillSetType: 0
   angle: 0
