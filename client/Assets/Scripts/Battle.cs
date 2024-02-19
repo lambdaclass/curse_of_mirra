@@ -249,7 +249,7 @@ public class Battle : MonoBehaviour
                 Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
                 if (
                     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
-                    && useClientPrediction
+                    && useClientPrediction && serverPlayerUpdate.Player.Health > 0
                 )
                 {
                     // Move the ghost BEFORE client prediction kicks in, so it only moves up until
@@ -261,9 +261,10 @@ public class Battle : MonoBehaviour
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
-                        .simulatePlayerState(
+                        .SimulatePlayerState(
                             serverPlayerUpdate,
-                            gameEvent.PlayerTimestamps[player.Id]
+                            gameEvent.PlayerTimestamps[player.Id],
+                            gameEvent.ServerTimestamp
                         );
                 }
 
