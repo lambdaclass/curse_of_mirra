@@ -386,7 +386,7 @@ public class Battle : MonoBehaviour
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
-            else //if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            else if (gameProjectiles[i].Projectile.Status == ProjectileStatus.Active)
             {
                 float angle = Vector3.SignedAngle(
                     new Vector3(1f, 0, 0),
