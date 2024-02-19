@@ -39,11 +39,6 @@ public class CustomCharacter : Character
         this.characterBase.Hitbox.SetActive(false);
         DestroySkillsClone();
         this.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(false);
-        //Currently unused code
-        // if (GameServerConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
-        // {
-        //     CustomGUIManager.DisplayZoneDamageFeedback(false);
-        // }
     }
 
     private void DestroySkillsClone()
