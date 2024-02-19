@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: H4ck_Flash
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: FLASH
-  description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
-    H4ck has a lotofupgrades under his sleave.
+  description: Perform a dash that deals damage to enemies in its path.
   inputType: 2
   skillSetType: 2
   angle: 0
