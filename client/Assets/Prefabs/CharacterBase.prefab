@@ -137,7 +137,8 @@ MonoBehaviour:
   OrientationIndicator: {fileID: 7732992783268524443}
   OrientationArrow: {fileID: 2580593108361767617}
   CharacterCard: {fileID: 3654173184674931120}
-  BurstLoadsBar: {fileID: 1000010797750574, guid: e0c1cbd2e65a043d9941f720b99e8ddb,
+  CanvasHolder: {fileID: 6615036954960681955}
+  StaminaCharges: {fileID: 8125614112250762218, guid: 8f2f9408ea9e84936a5116318b303a3c,
     type: 3}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
@@ -939,6 +940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StaminaCharges
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125614112250762218, guid: 8f2f9408ea9e84936a5116318b303a3c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8563174794001401240, guid: 8f2f9408ea9e84936a5116318b303a3c,
         type: 3}
