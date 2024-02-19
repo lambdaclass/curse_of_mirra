@@ -30,6 +30,9 @@ public class ProjectileHandler : MonoBehaviour
         );
         GameObject pooledGameObject = projectileFromPooler.GetPooledGameObject();
         pooledGameObject.transform.position = initialPosition;
+        var trailobj = pooledGameObject.GetComponent<SkillProjectile>().trail;
+        var trailInstance = Instantiate(trailobj, pooledGameObject.transform);
+        trailInstance.name = pooledGameObject.name + " Trail";
         pooledGameObject.transform.rotation = Quaternion.Euler(0, direction, 0);
         pooledGameObject.SetActive(true);
 
