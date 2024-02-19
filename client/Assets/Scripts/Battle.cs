@@ -339,15 +339,15 @@ public class Battle : MonoBehaviour
         {
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-                rotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
         }
     }
