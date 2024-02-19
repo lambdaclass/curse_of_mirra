@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: H4ck_Denial
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: DENIAL OF SERVICE
-  description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
-    H4ck has a lotofupgrades under his sleave.
+  description: "Throws 15 projectiles \u201Cmachine-gun\u201D style, in a cone with
+    randomized direction."
   inputType: 2
   skillSetType: 1
   angle: 0
