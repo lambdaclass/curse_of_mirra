@@ -258,7 +258,7 @@ public class CustomLevelManager : LevelManager
             CoMCharacter characterInfo = CharactersManager
                 .Instance
                 .AvailableCharacters
-                .Find(el => el.name == CharactersManager.Instance.GoToCharacter);
+                .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
             // SetSkillAngles(skillInfoClone);
