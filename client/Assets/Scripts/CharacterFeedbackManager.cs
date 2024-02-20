@@ -19,7 +19,8 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     void Awake()
     {
-        initialMaterial = skinnedMeshRenderer.material;
+        skinnedMeshRenderer = null;
+        initialMaterial = skinnedMeshRenderer?.material;
     }
        public void ManageStateFeedbacks(
         Entity playerUpdate,
