@@ -9,6 +9,10 @@ public class SkillProjectile : MonoBehaviour
     [SerializeField]
     GameObject projectileElement;
 
+    [SerializeField] public GameObject trail;
+
+    public bool isTrailEnabled = true;
+
     public void UpdatePosition(Vector3 position)
     {
         transform.position = position;
@@ -16,12 +20,15 @@ public class SkillProjectile : MonoBehaviour
 
     public void ProcessCollision()
     {
+        this.isTrailEnabled = true;
         gameObject.SetActive(false);
         GameObject feedback = Instantiate(
             projectileInfo.projectileFeedback,
             transform.position,
             Quaternion.identity
         );
+        var trailInstance = this.transform.Find(this.name + " Trail");
+        Destroy(trailInstance?.gameObject);
         Destroy(feedback, 1f);
     }
 
@@ -42,13 +49,5 @@ public class SkillProjectile : MonoBehaviour
         {
             projectileElement.SetActive(true);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.gameObject.layer != 6) //Projectile Obstacle layer
-            return;
-
-        ProcessCollision();
     }
 }

@@ -169,48 +169,9 @@ public class ServerConnection : MonoBehaviour
             this.lobbyCapacity = 2;
             if (!String.IsNullOrEmpty(gameState.GameId) && SessionParameters.GameId == null)
             {
-                Debug.Log("no null " + gameState.GameId);
                 SessionParameters.GameId = gameState.GameId;
                 GameSession = gameState.GameId;
-                Debug.Log("SessionParameters.GameId -> " + SessionParameters.GameId);
             }
-            //     LobbyEvent lobbyEvent = LobbyEvent.Parser.ParseFrom(data);
-            //     switch (lobbyEvent.Type)
-            //     {
-            //         case LobbyEventType.Connected:
-            //             this.playerId = lobbyEvent.PlayerInfo.PlayerId;
-            //             break;
-
-            //         case LobbyEventType.PlayerAdded:
-            //             lobbyEvent
-            //                 .PlayersInfo
-            //                 .ToList()
-            //                 .ForEach(
-            //                     playerInfo =>
-            //                         this.playersIdName[playerInfo.PlayerId] = playerInfo.PlayerName
-            //                 );
-            //             break;
-
-            //         case LobbyEventType.PreparingGame:
-            //             GameSession = lobbyEvent.GameId;
-            //             Debug.Log(lobbyEvent.GameConfig);
-            //             engineServerSettings = lobbyEvent.GameConfig;
-            //             // FIX THIS!!
-            //             serverTickRate_ms = 30;
-            //             serverHash = lobbyEvent.ServerHash;
-            //             break;
-
-            //         case LobbyEventType.NotifyPlayerAmount:
-            //             this.playerCount = (int)lobbyEvent.AmountOfPlayers;
-            //             this.lobbyCapacity = (int)lobbyEvent.Capacity;
-            //             InvokeRepeating("UpdateSimulatedCounter", 0, 1);
-            //             break;
-
-            //         default:
-            //             Debug.Log("Message received is: " + lobbyEvent.Type);
-            //             break;
-            //     }
-            //     ;
         }
         catch (Exception e)
         {

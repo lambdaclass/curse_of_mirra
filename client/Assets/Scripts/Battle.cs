@@ -17,7 +17,6 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     CustomGUIManager CustomGUIManager;
-
     public bool showClientPredictionGhost;
     public bool showInterpolationGhosts;
     public List<GameObject> InterpolationGhosts = new List<GameObject>();
@@ -36,6 +35,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private CustomLevelManager levelManager;
     private PlayerControls playerControls;
+    private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
     void Start()
@@ -46,6 +46,7 @@ public class Battle : MonoBehaviour
         loot = GetComponent<Loot>();
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
+        powerUpsManager = GetComponent<PowerUpsManager>();
     }
 
     private void InitBlockingStates()
@@ -118,6 +119,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
+       powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
@@ -376,7 +378,7 @@ public class Battle : MonoBehaviour
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
-            else //if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            else if (gameProjectiles[i].Projectile.Status == ProjectileStatus.Active)
             {
                 float angle = Vector3.SignedAngle(
                     new Vector3(1f, 0, 0),

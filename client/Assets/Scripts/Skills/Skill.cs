@@ -109,7 +109,6 @@ public class Skill : CharacterAbility
         if (skillInfo.animationList.Count > 0)
         {
             List<AnimationStep> animationList = new List<AnimationStep>(skillInfo.animationList);
-            Debug.Log("Starting animations chain: " + duration / 1000f);
             StartCoroutine(ExecuteChainedAnimation(animationList, (duration / 1000f)));
         }
         StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
@@ -162,7 +161,6 @@ public class Skill : CharacterAbility
         string animationStepId = skillId + "_s" + animationStep;
 
         string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
-        Debug.Log("-- Executing: " + animationStepId + " - " + animationDuration);
 
         SetAnimation(previousAnimationStepId, false);
         SetAnimation(animationStepId, true);
