@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -16,6 +17,58 @@ public class CustomCharacter : Character
         if (GameServerConnectionManager.Instance.playerId.ToString() == this.PlayerID)
         {
             this.characterBase.gameObject.AddComponent<AudioSource>();
+        }
+    }
+
+    public void RotatePlayer(GameObject player, Direction direction)
+    {
+        CharacterOrientation3D characterOrientation = this.GetComponent<CharacterOrientation3D>();
+        characterOrientation.ForcedRotation = true;
+        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
+        movementDirection.Normalize();
+        characterOrientation.ForcedRotationDirection = movementDirection;
+    }
+
+    public void SetPlayerDead()
+    {
+        CharacterFeedbacks playerFeedback = this.GetComponent<CharacterFeedbacks>();
+        playerFeedback.PlayDeathFeedback();
+        playerFeedback.ClearAllFeedbacks(this.gameObject);
+        this.CharacterModel.SetActive(false);
+        this.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+        this.characterBase.Hitbox.SetActive(false);
+        DestroySkillsClone();
+        this.characterBase.OrientationIndicator.SetActive(false);
+        this.characterBase.CharacterCard.SetActive(false);
+    }
+
+    private void DestroySkillsClone()
+    {
+        GetComponentsInChildren<Skill>()
+            .ToList()
+            .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
+    }
+
+   public void RotateCharacterOrientation()
+    {
+        this.characterBase.OrientationIndicator.transform.rotation =
+            this.CharacterModel.transform.rotation;
+    }
+
+   public void HandlePlayerHealth(Entity playerUpdate)
+    {
+        Health healthComponent = this.GetComponent<Health>();
+        CharacterFeedbacks characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
+
+        characterFeedbacks.DamageFeedback(
+            healthComponent.CurrentHealth,
+            playerUpdate.Player.Health,
+            playerUpdate.Id
+        );
+
+        if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
+        {
+            healthComponent.SetHealth(playerUpdate.Player.Health);
         }
     }
 }

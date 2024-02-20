@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: H4ck_Slingshot
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SLINGSHOT
-  description: High speed ranged attack, can bounce off walls, like a pinball machine.
+  description: "Throws three slingshots in a cone. It\u2019s possible that more than
+    one will hit the same target."
   inputType: 2
   skillSetType: 0
   angle: 45
