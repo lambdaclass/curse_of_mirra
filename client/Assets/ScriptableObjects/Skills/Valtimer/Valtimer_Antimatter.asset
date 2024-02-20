@@ -19,7 +19,7 @@ MonoBehaviour:
   angle: 45
   executeOnQuickTap: 1
   indicatorType: 0
-  projectilePrefab: {fileID: 5269552939558784490, guid: 5a391f03d38094aabaa75c9b904eb6e8,
+  projectilePrefab: {fileID: 4688357669528238486, guid: a16caed76454c314792694be1ab6b4dc,
     type: 3}
   animationSpeedMultiplier: 4
   abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
@@ -35,4 +35,8 @@ MonoBehaviour:
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: e59a4666303954f40bf55b8fd65ac769, type: 3}
   startVfxList: []
-  vfxList: []
+  vfxList:
+  - vfx: {fileID: 5020121509897920601, guid: aeea652475ff4564cbd57dc3f655dab4, type: 3}
+    duration: 1
+    delay: 0.8
+    instantiateVfxOnModel: 1
