@@ -58,7 +58,7 @@ Material:
     - _CastShadows: 1
     - _Color_Ramp_Erode: 0
     - _Color_Ramp_Power: 1
-    - _Cull: 1
+    - _Cull: 2
     - _DISTORTION_TEXTURE_CHANNEL: 0
     - _Distortion: 0.02
     - _DstBlend: 10
