@@ -13,11 +13,12 @@ public class Utils
     public static readonly Color healthBarCyan = new Color32(34, 142, 239, 255);
     public static readonly Color healthBarRed = new Color32(219, 0, 134, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
+    public static readonly Color burstLoadsBarCharging = new Color32(110, 110, 110, 255);
 
     public static Vector3 transformBackendOldPositionToFrontendPosition(Position position)
     {
-        var x = (long)position?.X / 100f;
-        var y = (long)position?.Y / 100f;
+        var x = (float)position?.X / 100f;
+        var y = (float)position?.Y / 100f;
         return new Vector3(x, 1f, y);
     }
 

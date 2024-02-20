@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Muflus_Crush
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: CRUSH
-  description: Targets an arc in front of you, dealing damage.
+  description: Smashes his massive weapon against the ground, dealing damage in a
+    circular area of impact.
   inputType: 2
   skillSetType: 0
   angle: 0
@@ -37,5 +38,5 @@ MonoBehaviour:
   vfxList:
   - vfx: {fileID: 2701273495037961085, guid: 9086438c602644ffd9be0f34ce5b9599, type: 3}
     duration: 1
-    delay: 0.34
+    delay: 0
     instantiateVfxOnModel: 1

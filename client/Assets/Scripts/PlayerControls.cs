@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    float lastXSent;
+    float lastYSent;
+
     public void SendJoystickValues(float x, float y)
     {
-        // if (x != 0 || y != 0)
-        // {
-        var valuesToSend = new Direction { X = x, Y = y };
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-        GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
-
-        ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+        if (ShouldSendMovement(x, y, lastXSent, lastYSent))
         {
-            joystick_x_value = x,
-            joystick_y_value = y,
-            timestamp = timestamp,
-        };
-        GameServerConnectionManager.Instance.clientPrediction.putPlayerInput(playerInput);
-        // }
+            var valuesToSend = new Direction { X = x, Y = y };
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            GameServerConnectionManager.Instance.SendMove(x, y, timestamp);
+
+            ClientPrediction.PlayerInput playerInput = new ClientPrediction.PlayerInput
+            {
+                joystick_x_value = x,
+                joystick_y_value = y,
+                timestampId = timestamp,
+                startTimestamp = timestamp,
+                endTimestamp = 0,
+                position = new Position { X = 0, Y = 0 }
+            };
+            GameServerConnectionManager.Instance.clientPrediction.EnqueuePlayerInput(playerInput);
+            lastXSent = x;
+            lastYSent = y;
+        }
     }
 
     bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
+        // Here we can add a validaion to check if
+        // the movement is significant enough to be sent to the server
         return (x != lastXSent || y != lastYSent);
     }
 

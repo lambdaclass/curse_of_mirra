@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Uma_Veil
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: VEIL OF RADIANCE
-  description: Blind her enemies with her lamp
+  description: "Channels her lamp becoming invisible, emits 360\xB0 magic nova that
+    damages and blinds opponents."
   inputType: 2
   skillSetType: 1
   angle: 0
@@ -34,4 +35,8 @@ MonoBehaviour:
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 1b65421389cb84cf8b2eaa42fc2808b0, type: 3}
   startVfxList: []
-  vfxList: []
+  vfxList:
+  - vfx: {fileID: 7096130188477378498, guid: 1b0acc3ce1538554e9b68d31470cbb8e, type: 3}
+    duration: 2.5
+    delay: 0.3
+    instantiateVfxOnModel: 0
