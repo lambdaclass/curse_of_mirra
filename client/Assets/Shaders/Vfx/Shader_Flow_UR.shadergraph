@@ -98,9 +98,6 @@
         },
         {
             "m_Id": "855afc986444440eb0452fb2c7527782"
-        },
-        {
-            "m_Id": "d221e4e2123a47b2adbe863f38523ab4"
         }
     ],
     "m_Keywords": [
@@ -666,9 +663,6 @@
         },
         {
             "m_Id": "99e609d709d04b5184e8d484c3c871f3"
-        },
-        {
-            "m_Id": "98fa9f223f164aa78113368cfe3a4550"
         }
     ],
     "m_GroupDatas": [
@@ -2531,20 +2525,6 @@
                     "m_Id": "9221c10928a542c09e079955dc23aded"
                 },
                 "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "98fa9f223f164aa78113368cfe3a4550"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "c47d50e076254e729cc5a5133356412c"
-                },
-                "m_SlotId": 0
             }
         },
         {
@@ -4715,21 +4695,6 @@
         "z": 0.0,
         "w": 0.0
     },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "0bac40dc08564af999adda14bc152318",
-    "m_Id": 0,
-    "m_DisplayName": "Alpha Clip",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
     "m_Labels": []
 }
 
@@ -7367,11 +7332,7 @@
     "m_Type": "UnityEditor.ShaderGraph.CategoryData",
     "m_ObjectId": "2bafbb7a3bb7437985396ac941e1d1cf",
     "m_Name": "",
-    "m_ChildObjectList": [
-        {
-            "m_Id": "d221e4e2123a47b2adbe863f38523ab4"
-        }
-    ]
+    "m_ChildObjectList": []
 }
 
 {
@@ -16742,41 +16703,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
-    "m_ObjectId": "98fa9f223f164aa78113368cfe3a4550",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Property",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 1336.10595703125,
-            "y": 473.345947265625,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "0bac40dc08564af999adda14bc152318"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_Property": {
-        "m_Id": "d221e4e2123a47b2adbe863f38523ab4"
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "9960a7d3c95d4ef687b7b0ce0c47004b",
     "m_Title": "Skew UV",
@@ -20938,33 +20864,6 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
-    }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "d221e4e2123a47b2adbe863f38523ab4",
-    "m_Guid": {
-        "m_GuidSerialized": "fc50ddc3-a77f-42f2-a63c-1ac966624d2b"
-    },
-    "m_Name": "Alpha Clip",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Alpha Clip",
-    "m_DefaultReferenceName": "_Alpha_Clip",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.10000000149011612,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
     }
 }
 
