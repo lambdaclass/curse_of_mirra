@@ -43,7 +43,7 @@ MonoBehaviour:
       duration: 2
       delay: 0
       instantiateVfxOnModel: 0
-  - durationPercent: 0.4
+  - durationPercent: 0.5
     triggersVfx: 0
     vfxStep:
       vfx: {fileID: 0}
