@@ -272,7 +272,6 @@ public class Battle : MonoBehaviour
                 }
 
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
-
                 // TODO: try to optimize GetComponent calls
                 CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
 
