@@ -85,7 +85,6 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         var player = Utils.GetPlayer(playerId);
-        SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
@@ -159,6 +158,7 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
+            SetPlayerHealthBar(GameServerConnectionManager.Instance.playerId == player.Id, newPlayer);
             // if (GameServerConnectionManager.Instance.playerId == playerID)
             // {
             //     //Add audioListener in player
@@ -298,24 +298,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(ulong playerId)
+    private void SetPlayerHealthBar(bool isClientId ,Character character)
     {
-        foreach (CustomCharacter player in this.PlayerPrefabs)
-        {
-            Image healthBarFront = player
+            Image healthBarFront = character
                 .GetComponent<MMHealthBar>()
                 .TargetProgressBar
                 .ForegroundBar
                 .GetComponent<Image>();
-            if (UInt64.Parse(player.PlayerID) == playerId)
-            {
-                healthBarFront.color = Utils.healthBarCyan;
-            }
-            else
-            {
-                healthBarFront.color = Utils.healthBarRed;
-            }
-        }
+           
+                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarCyan;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
