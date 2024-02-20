@@ -9,20 +9,28 @@ public class PingleCheatPanelValtimer : MonoBehaviour
   public Transform spawn_point = null;
 
   public GameObject skill1_vfx = null;
+  public GameObject skill1_vfx_init = null;
   public float skill1_init_delay = 0.3f;
   public float projectile_speed = 4.0f;
   public float spawn_pivot_height = 1.2f;
 
   public GameObject skill2_vfx_self = null;
+  public GameObject skill2_vfx_left_hand = null;
+  public GameObject skill2_vfx_right_hand = null;
   public GameObject skill2_vfx_void = null;
+  public GameObject same_hero = null;
+  public float draging_speed = 3.0f;
   public float skill2_init_delay = 0.3f;
   public float skill2_void_delay = 0.3f;
   public Transform void_root = null;
+  public Transform left_hand_root = null;
+  public Transform right_hand_root = null;
 
   public GameObject skill3_vfx_self = null;
   public GameObject skill3_vfx_portal = null;
   public Transform portal_root = null;
   public float skill3_init_delay = 0.3f;
+  public float skill3_teleport_vfx_delay = 0.3f;
   public float skill3_teleport_delay = 0.3f;
 
   private Character character_instance = null;
@@ -44,6 +52,7 @@ public class PingleCheatPanelValtimer : MonoBehaviour
       waiter = new WaitForSeconds( 0.1f );
       character_instance = FindObjectOfType<Character>();
       resetAnims();
+      clearPool();
       stopAllCoroutines();
       character_instance.transform.position = spawn_point.position;
   }
@@ -128,9 +137,17 @@ public class PingleCheatPanelValtimer : MonoBehaviour
   {
       character_instance.CharacterAnimator.SetTrigger("Skill1");
 
+      GameObject cached_vfx = null;
+
+      if(skill1_vfx_init != null)
+      {
+          cached_vfx = Instantiate(skill1_vfx_init, character_instance.transform.position, character_instance.transform.rotation);
+          pool.Add( cached_vfx );
+      }
+      
+
       yield return new WaitForSeconds(skill1_init_delay);
 
-      GameObject cached_vfx = null;
       Vector3 new_pos = Vector3.zero;
 
       new_pos = character_instance.transform.position;
@@ -159,6 +176,13 @@ public class PingleCheatPanelValtimer : MonoBehaviour
   {
       character_instance.CharacterAnimator.SetTrigger("Skill2");
 
+      GameObject spawned_hero = Instantiate(same_hero, void_root.transform.position, void_root.transform.rotation);
+      Vector3 new_hero_pos = void_root.transform.position;
+      pool.Add( spawned_hero );
+      new_hero_pos.x += 5;
+      spawned_hero.transform.position = new_hero_pos;
+      
+
       yield return new WaitForSeconds(skill2_init_delay);
 
       GameObject cached_vfx = null;
@@ -170,6 +194,18 @@ public class PingleCheatPanelValtimer : MonoBehaviour
           pool.Add( cached_vfx );
       }
 
+      if(skill2_vfx_left_hand != null)
+      {
+          cached_vfx = Instantiate(skill2_vfx_left_hand, left_hand_root);
+          pool.Add( cached_vfx );
+      }
+
+      if(skill2_vfx_right_hand != null)
+      {
+          cached_vfx = Instantiate(skill2_vfx_right_hand, right_hand_root);
+          pool.Add( cached_vfx );
+      }
+
       yield return new WaitForSeconds(skill2_void_delay);
 
       if(skill2_vfx_void != null)
@@ -177,9 +213,20 @@ public class PingleCheatPanelValtimer : MonoBehaviour
           cached_vfx = Instantiate(skill2_vfx_void, void_root.transform.position, void_root.transform.rotation);
           pool.Add( cached_vfx );
       }
+      yield return new WaitForSeconds(0.3f);
 
-      yield return new WaitForSeconds(1.0f);
+      while( spawned_hero.transform.position.x > void_root.transform.position.x )
+      {
+          new_hero_pos = spawned_hero.transform.position;
+          new_hero_pos.x -= Time.deltaTime * draging_speed;
+          spawned_hero.transform.position = new_hero_pos;
+          yield return null;
+
+      }
+
       resetAnims();
+      yield return new WaitForSeconds(3.0f);
+      Destroy(spawned_hero);
   }
 
   private void activateSkill3()
@@ -205,6 +252,7 @@ public class PingleCheatPanelValtimer : MonoBehaviour
           pool.Add( spawned_vfx );
       }
 
+      yield return new WaitForSeconds(skill3_teleport_vfx_delay);
       if (skill3_vfx_self != null)
       {
           spawned_vfx = Instantiate(skill3_vfx_portal, portal_root.position, portal_root.rotation);
