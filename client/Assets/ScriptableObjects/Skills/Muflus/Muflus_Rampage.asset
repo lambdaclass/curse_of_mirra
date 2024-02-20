@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Muflus_Rampage
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: RAMPAGE
-  description: Jump to a location, dealing damages and slowing enemies near area
-    upon arrival.
+  description: Muflus dashes in a rolling-boulder fashion, dealing damage to enemies
+    in its path.
   inputType: 2
   skillSetType: 2
   angle: 0

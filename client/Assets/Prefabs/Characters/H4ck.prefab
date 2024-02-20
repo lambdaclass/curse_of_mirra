@@ -516,10 +516,9 @@ MonoBehaviour:
   - {fileID: 220605700603955422}
   - {fileID: 305740109525267919}
   - {fileID: 5395175593027007493}
-  feedbacksPrefabs:
-  - {fileID: 6057499254784400716}
-  - {fileID: 2341843589675793722}
   deathFeedback: {fileID: 6777652408794094180}
+  damageFeedback: {fileID: 2341843589675793722}
+  healFeedback: {fileID: 6057499254784400716}
   healthBar: {fileID: 2635068537373217531}
   damageOverlayColor:
     serializedVersion: 2

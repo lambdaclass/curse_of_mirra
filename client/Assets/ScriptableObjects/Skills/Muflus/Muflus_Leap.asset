@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Muflus_Leap
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: LEAP
-  description: Jump to a location, dealing damages and slowing enemies near area
-    upon arrival.
+  description: Leaps to a target, stomping the ground dealing damage to nearby targets
+    and leaving a slowing field.
   inputType: 1
   skillSetType: 1
   angle: 0
@@ -40,11 +40,11 @@ MonoBehaviour:
     delay: 0
     instantiateVfxOnModel: 0
   vfxList:
-  - vfx: {fileID: 8886168713142207525, guid: 4952c4739b8852c4d84ecfd4ec1ed89e, type: 3}
+  - vfx: {fileID: 2604107869485590911, guid: 4afd120e30aa54857841b760d3dbda32, type: 3}
     duration: 1
-    delay: 0
-    instantiateVfxOnModel: 0
-  - vfx: {fileID: 8886168713142207525, guid: eeb98e2ecdff49e4783051d2af45806b, type: 3}
-    duration: 2
-    delay: 0.95
-    instantiateVfxOnModel: 0
+    delay: 0.1
+    instantiateVfxOnModel: 1
+  animationList:
+  - durationPercent: 0.3
+  - durationPercent: 0.4
+  - durationPercent: 0.3
