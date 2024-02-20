@@ -33,10 +33,8 @@ public class StaminaManager : MonoBehaviour
     private void StaminaAnimation(int index, Image element, ulong availableStamina){
         Vector3 scale = index <(int)availableStamina ? initialScale : Vector3.zero;
         Vector3 parentScale = index < (int)availableStamina ? initialparentScale + new Vector3(0.1f, 0.1f, 0.1f) : initialparentScale;
-        float interval = scale == Vector3.zero ? 0.1f : 0.3f;
-        element.transform.parent.DOScale(parentScale,interval).onComplete = () => {
-            element.transform.DOScale(scale,interval);
-        };
+        float interval = scale == Vector3.zero ? 0.09f : 0.09f;
+        element.transform.DOScale(scale,interval);
     }
     
 }
