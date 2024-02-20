@@ -167,6 +167,18 @@ public class Skill : CharacterAbility
         SetAnimation(previousAnimationStepId, false);
         SetAnimation(animationStepId, true);
 
+        if (nextAnimation.triggersVfx)
+        {
+            StartCoroutine(
+                ExecuteFeedbackVfx(
+                    nextAnimation.vfxStep.vfx,
+                    nextAnimation.vfxStep.duration,
+                    nextAnimation.vfxStep.delay,
+                    nextAnimation.vfxStep.instantiateVfxOnModel
+                )
+            );
+        }
+
         yield return new WaitForSeconds(animationDuration);
 
         if (pendingAnimations.Count > 0)
