@@ -38,5 +38,5 @@ MonoBehaviour:
   vfxList:
   - vfx: {fileID: 2701273495037961085, guid: 9086438c602644ffd9be0f34ce5b9599, type: 3}
     duration: 1
-    delay: 0.34
+    delay: 0
     instantiateVfxOnModel: 1

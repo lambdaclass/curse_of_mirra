@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1005158257021410175}
   - component: {fileID: 2612038481310216445}
+  - component: {fileID: 5866056992554921741}
   m_Layer: 0
   m_Name: PingleManager
   m_TagString: Untagged
@@ -39,7 +40,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4923268485394771702}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76edb9e957d983d4695e55a83e7bf60f, type: 3}
   m_Name: 
@@ -52,3 +53,38 @@ MonoBehaviour:
   skill3_speed: 50
   spawn_point: {fileID: 0}
   dash_vfx: {fileID: 0}
+--- !u!114 &5866056992554921741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923268485394771702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1c7831c805f9b43a1e61233301fdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill3_duration: 80
+  skill3_speed: 7
+  spawn_point: {fileID: 0}
+  dash_vfx: {fileID: 0}
+  skill1_vfx: {fileID: 0}
+  skill2_vfx_init: {fileID: 0}
+  skill2_vfx_trail: {fileID: 0}
+  skill2_vfx_trail_root: {fileID: 0}
+  skill2_vfx_final: {fileID: 0}
+  fly_duration: 1
+  fly_distance: 10
+  fly_x_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fly_y_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

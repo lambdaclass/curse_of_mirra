@@ -8,10 +8,12 @@ public class PinnedEffectsController : MonoBehaviour
     private List<PlacementHolderEffectPair> placeholder_effect_pairs = null;
 
     private List<GameObject> spawned_objects = new List<GameObject>();
+    private PinnedEffectsManager pinned_effects_manager = null;
 
     private void Start()
     {
-        Play(FindObjectOfType<PinnedEffectsManager>()); // needs better workaround, TODO: pass PinnedEffectsManager from CustomCharacter or so
+        pinned_effects_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<PinnedEffectsManager>();
+        Play(pinned_effects_manager);
     }
 
     private void OnDestroy()
@@ -34,11 +36,15 @@ public class PinnedEffectsController : MonoBehaviour
             if (spawn_transform == null)
                 continue;
 
-            spawned_object = Instantiate(pair.effect, spawn_transform);
+          if (pair.spawn_as_child)
+              spawned_object = Instantiate(pair.effect, spawn_transform);
+          else
+              spawned_object = Instantiate(pair.effect, spawn_transform.position, spawn_transform.rotation);
 
-            spawned_objects.Add(spawned_object);
-        }
-    }
+          spawned_object.transform.localScale = spawn_transform.localScale;
+          spawned_objects.Add(spawned_object);
+      }
+  }
 
     public void ClearEffects()
     {
@@ -52,10 +58,8 @@ public class PinnedEffectsController : MonoBehaviour
 [Serializable]
 public class PlacementHolderEffectPair
 {
-    ///Used to spawn GameObject effect into transform geted by PinnedEffectsManager.GetTransformByPlaceholder(placement_holder)
-    [SerializeField]
-    public PlacementHolder placement_holder = null;
-
-    [SerializeField]
-    public GameObject effect = null;
+    ///Used to spawn GameObject effect into transform geted by PinnedEffectsManager.getTransformByPlaceholder(placement_holder)
+    [SerializeField] public PlacementHolder placement_holder = null;
+    [SerializeField] public GameObject effect = null;
+    [SerializeField] public bool spawn_as_child = true;
 }
