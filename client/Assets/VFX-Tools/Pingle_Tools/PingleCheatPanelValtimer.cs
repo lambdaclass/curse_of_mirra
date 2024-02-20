@@ -18,6 +18,8 @@ public class PingleCheatPanelValtimer : MonoBehaviour
   public GameObject skill2_vfx_left_hand = null;
   public GameObject skill2_vfx_right_hand = null;
   public GameObject skill2_vfx_void = null;
+  public GameObject same_hero = null;
+  public float draging_speed = 3.0f;
   public float skill2_init_delay = 0.3f;
   public float skill2_void_delay = 0.3f;
   public Transform void_root = null;
@@ -174,6 +176,13 @@ public class PingleCheatPanelValtimer : MonoBehaviour
   {
       character_instance.CharacterAnimator.SetTrigger("Skill2");
 
+      GameObject spawned_hero = Instantiate(same_hero, void_root.transform.position, void_root.transform.rotation);
+      Vector3 new_hero_pos = void_root.transform.position;
+      pool.Add( spawned_hero );
+      new_hero_pos.x += 5;
+      spawned_hero.transform.position = new_hero_pos;
+      
+
       yield return new WaitForSeconds(skill2_init_delay);
 
       GameObject cached_vfx = null;
@@ -204,9 +213,20 @@ public class PingleCheatPanelValtimer : MonoBehaviour
           cached_vfx = Instantiate(skill2_vfx_void, void_root.transform.position, void_root.transform.rotation);
           pool.Add( cached_vfx );
       }
+      yield return new WaitForSeconds(0.3f);
 
-      yield return new WaitForSeconds(1.0f);
+      while( spawned_hero.transform.position.x > void_root.transform.position.x )
+      {
+          new_hero_pos = spawned_hero.transform.position;
+          new_hero_pos.x -= Time.deltaTime * draging_speed;
+          spawned_hero.transform.position = new_hero_pos;
+          yield return null;
+
+      }
+
       resetAnims();
+      yield return new WaitForSeconds(3.0f);
+      Destroy(spawned_hero);
   }
 
   private void activateSkill3()
