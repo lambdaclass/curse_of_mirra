@@ -95,33 +95,27 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void ExecuteFeedbacks(ulong duration, bool isStart, bool blockMovement)
+    public void ExecuteFeedbacks(ulong duration, bool blockMovement)
     {
         ClearAnimator();
 
         // Setup
-        string animation;
-        List<VfxStep> vfxList = new List<VfxStep>();
         AudioClip sfxClip;
-        if (isStart)
-        {
-            animation = $"{skillId}_start";
-            vfxList = skillInfo.startVfxList;
-            sfxClip = skillInfo.abilityStartSfx ? skillInfo.abilityStartSfx : null;
-        }
-        else
-        {
-            animation = skillId;
-            vfxList = skillInfo.vfxList;
-            sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
-        }
+
+        sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
 
         // State & animation
-        ChangeCharacterState(animation, blockMovement);
-        StartCoroutine(AutoEndSkillAnimation(animation, duration / 1000f));
+        ChangeCharacterState(skillId, blockMovement);
+        if (skillInfo.animationList.Count > 0)
+        {
+            List<AnimationStep> animationList = new List<AnimationStep>(skillInfo.animationList);
+            Debug.Log("Starting animations chain: " + duration / 1000f);
+            StartCoroutine(ExecuteChainedAnimation(animationList, (duration / 1000f)));
+        }
+        StartCoroutine(AutoEndSkillAnimation(skillId, duration / 1000f));
 
         // Visual effects
-        foreach (var vfxStep in vfxList)
+        foreach (var vfxStep in skillInfo.vfxList)
         {
             StartCoroutine(
                 ExecuteFeedbackVfx(
@@ -152,6 +146,39 @@ public class Skill : CharacterAbility
     {
         _movement.ChangeState(CharacterStates.MovementStates.Idle);
         _animator.SetBool(animationId, false);
+    }
+
+    IEnumerator ExecuteChainedAnimation(
+        List<AnimationStep> pendingAnimations,
+        float totalDuration,
+        float previousAnimationStep = 0
+    )
+    {
+        AnimationStep nextAnimation = pendingAnimations[0];
+        pendingAnimations.RemoveAt(0);
+
+        float animationDuration = nextAnimation.durationPercent * totalDuration;
+        float animationStep = previousAnimationStep + 1;
+        string animationStepId = skillId + "_s" + animationStep;
+
+        string previousAnimationStepId = skillId + "_s" + previousAnimationStep;
+        Debug.Log("-- Executing: " + animationStepId + " - " + animationDuration);
+
+        SetAnimation(previousAnimationStepId, false);
+        SetAnimation(animationStepId, true);
+
+        yield return new WaitForSeconds(animationDuration);
+
+        if (pendingAnimations.Count > 0)
+        {
+            StartCoroutine(
+                ExecuteChainedAnimation(pendingAnimations, totalDuration, animationStep)
+            );
+        }
+        else
+        {
+            SetAnimation(animationStepId, false);
+        }
     }
 
     IEnumerator ExecuteFeedbackVfx(
@@ -189,6 +216,11 @@ public class Skill : CharacterAbility
             _animator.SetBool(skillName, false);
             _animator.SetBool(skillName + "_start", false);
         }
+    }
+
+    private void SetAnimation(string animationId, bool value)
+    {
+        _animator.SetBool(animationId, value);
     }
 
     private void ChangeCharacterState(string animation, bool blockingMovement)

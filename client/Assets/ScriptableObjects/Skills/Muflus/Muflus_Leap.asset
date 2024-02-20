@@ -44,3 +44,7 @@ MonoBehaviour:
     duration: 1
     delay: 0.1
     instantiateVfxOnModel: 1
+  animationList:
+  - durationPercent: 0.3
+  - durationPercent: 0.4
+  - durationPercent: 0.3

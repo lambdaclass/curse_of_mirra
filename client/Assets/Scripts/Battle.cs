@@ -240,7 +240,8 @@ public class Battle : MonoBehaviour
                 Entity serverPlayerUpdate = new Entity(gameEvent.Players[player.Id]);
                 if (
                     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
-                    && useClientPrediction && serverPlayerUpdate.Player.Health > 0
+                    && useClientPrediction
+                    && serverPlayerUpdate.Player.Health > 0
                 )
                 {
                     // Move the ghost BEFORE client prediction kicks in, so it only moves up until
@@ -336,29 +337,18 @@ public class Battle : MonoBehaviour
         // TODO: Refactor
         switch (playerAction)
         {
-            case PlayerActionType.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, true);
-                character.RotatePlayer(currentPlayer, direction);
-                break;
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false, true);
-                character.RotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerActionType.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, true);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
                 character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false, true);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
                 character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false, false);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
                 character.RotatePlayer(currentPlayer, direction);
                 break;
-            // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-            // rotatePlayer(currentPlayer, direction);
-            // break;
         }
     }
 
@@ -387,7 +377,7 @@ public class Battle : MonoBehaviour
                         new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
                     );
             }
-            else //if (gameProjectiles[i].Status == ProjectileStatus.Active)
+            else if (gameProjectiles[i].Projectile.Status == ProjectileStatus.Active)
             {
                 float angle = Vector3.SignedAngle(
                     new Vector3(1f, 0, 0),
@@ -523,7 +513,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-
     private void HandleMovement(
         GameObject player,
         Entity playerUpdate,
@@ -625,12 +614,10 @@ public class Battle : MonoBehaviour
             walking = true;
         }
 
-       character.RotateCharacterOrientation();
+        character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
     }
-
-
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
     public void ToggleClientPrediction()
