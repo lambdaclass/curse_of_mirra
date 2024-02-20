@@ -281,7 +281,11 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public void SendSkill(string skill, Direction direction, long timestamp)
     {
-        Attack attackAction = new Attack { Skill = skill };
+        // TODO: This function should receive they type of aiming the skill is using and assign it to a different
+        //      field in AttackParameters based on it. For now we hardcode to `target` field and also always hardcode if null
+        Direction target = direction == null ? new Direction { X = 0.0f, Y = 0.0f } : direction;
+        AttackParameters parameters = new AttackParameters { Target = target };
+        Attack attackAction = new Attack { Skill = skill, Parameters = parameters };
         GameAction gameAction = new GameAction { Attack = attackAction, Timestamp = timestamp };
         SendGameAction(gameAction);
     }

@@ -38,15 +38,6 @@ public class Battle : MonoBehaviour
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
-    //     // We do this to only have the state effects in the enum instead of all the effects
-    //     private enum StateEffects
-    //     {
-    //         Slowed = PlayerEffect.Slowed,
-    //         Paralyzed = PlayerEffect.Paralyzed,
-    //         Poisoned = PlayerEffect.Poisoned,
-    //         OutOfArea = PlayerEffect.OutOfArea
-    //     }
-
     void Start()
     {
         InitBlockingStates();
@@ -252,6 +243,7 @@ public class Battle : MonoBehaviour
                 if (
                     serverPlayerUpdate.Id == (ulong)GameServerConnectionManager.Instance.playerId
                     && useClientPrediction
+                    && serverPlayerUpdate.Player.Health > 0
                 )
                 {
                     // Move the ghost BEFORE client prediction kicks in, so it only moves up until
@@ -263,9 +255,10 @@ public class Battle : MonoBehaviour
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
-                        .simulatePlayerState(
+                        .SimulatePlayerState(
                             serverPlayerUpdate,
-                            gameEvent.PlayerTimestamps[player.Id]
+                            gameEvent.PlayerTimestamps[player.Id],
+                            gameEvent.ServerTimestamp
                         );
                 }
 
@@ -324,7 +317,7 @@ public class Battle : MonoBehaviour
 
                 if (serverPlayerUpdate.Player.Health <= 0)
                 {
-                    SetPlayerDead(playerCharacter);
+                    playerCharacter.SetPlayerDead();
                 }
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
@@ -342,32 +335,22 @@ public class Battle : MonoBehaviour
         ulong skillDuration
     )
     {
+        CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
         // TODO: Refactor
         switch (playerAction)
         {
-            case PlayerActionType.StartingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, false, true);
-                rotatePlayer(currentPlayer, direction);
-                break;
-            case PlayerActionType.StartingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, true);
-                rotatePlayer(currentPlayer, direction);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false, true);
-                rotatePlayer(currentPlayer, direction);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, false, false);
-                rotatePlayer(currentPlayer, direction);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                character.RotatePlayer(currentPlayer, direction);
                 break;
-            // currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, false);
-            // rotatePlayer(currentPlayer, direction);
-            // break;
         }
     }
 
@@ -463,15 +446,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void rotatePlayer(GameObject player, Direction direction)
-    {
-        CharacterOrientation3D characterOrientation = player.GetComponent<CharacterOrientation3D>();
-        characterOrientation.ForcedRotation = true;
-        Vector3 movementDirection = new Vector3(direction.X, 0f, direction.Y);
-        movementDirection.Normalize();
-        characterOrientation.ForcedRotationDirection = movementDirection;
-    }
-
     private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
     {
         /*
@@ -486,6 +460,9 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CustomCharacter character = player.GetComponent<CustomCharacter>();
+        CharacterFeedbackManager feedbackManager = character
+            .characterBase
+            .GetComponent<CharacterFeedbackManager>();
         var characterSpeed = playerUpdate.Speed / 100f;
 
         Animator modelAnimator = player
@@ -493,7 +470,7 @@ public class Battle : MonoBehaviour
             .CharacterModel
             .GetComponent<Animator>();
 
-        ManageStateFeedbacks(player, playerUpdate, character);
+        feedbackManager.ManageStateFeedbacks(player, playerUpdate, character);
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {
@@ -504,7 +481,7 @@ public class Battle : MonoBehaviour
             modelAnimator.SetBool("Walking", false);
         }
 
-        HandlePlayerHealth(player, playerUpdate);
+        character.HandlePlayerHealth(playerUpdate);
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
@@ -538,23 +515,6 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void HandlePlayerHealth(GameObject player, Entity playerUpdate)
-    {
-        Health healthComponent = player.GetComponent<Health>();
-        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-
-        characterFeedbacks.DamageFeedback(
-            healthComponent.CurrentHealth,
-            playerUpdate.Player.Health,
-            playerUpdate.Id
-        );
-
-        if (playerUpdate.Player.Health != healthComponent.CurrentHealth)
-        {
-            healthComponent.SetHealth(playerUpdate.Player.Health);
-        }
-    }
-
     private void HandleMovement(
         GameObject player,
         Entity playerUpdate,
@@ -574,10 +534,9 @@ public class Battle : MonoBehaviour
         float xChange = frontendPosition.x - player.transform.position.x;
         float yChange = frontendPosition.z - player.transform.position.z;
 
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+        CustomCharacter character = player.GetComponent<CustomCharacter>();
+
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         bool walking = false;
 
@@ -652,39 +611,14 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                rotatePlayer(player, direction);
+                character.RotatePlayer(player, direction);
             }
             walking = true;
         }
 
-        RotateCharacterOrientation(player);
+        character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
-    }
-
-    private void RotateCharacterOrientation(GameObject player)
-    {
-        player.GetComponentInChildren<CharacterBase>().OrientationIndicator.transform.rotation =
-            player.GetComponent<CustomCharacter>().CharacterModel.transform.rotation;
-    }
-
-    public void SetPlayerDead(CustomCharacter playerCharacter)
-    {
-        CharacterFeedbacks playerFeedback = playerCharacter.GetComponent<CharacterFeedbacks>();
-        playerFeedback.PlayDeathFeedback();
-        playerFeedback.ClearAllFeedbacks(playerCharacter.gameObject);
-        playerCharacter.CharacterModel.SetActive(false);
-        playerCharacter.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
-        playerCharacter.characterBase.Hitbox.SetActive(false);
-        levelManager.DestroySkillsClone(playerCharacter);
-        playerCharacter
-            .GetComponentInChildren<CharacterBase>()
-            .OrientationIndicator
-            .SetActive(false);
-        if (GameServerConnectionManager.Instance.playerId == ulong.Parse(playerCharacter.PlayerID))
-        {
-            CustomGUIManager.DisplayZoneDamageFeedback(false);
-        }
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -842,31 +776,6 @@ public class Battle : MonoBehaviour
         return InterpolationGhosts.Find(
             g => g.GetComponent<CustomCharacter>().PlayerID == playerId
         );
-    }
-
-    private void ManageStateFeedbacks(
-        GameObject player,
-        Entity playerUpdate,
-        CustomCharacter character
-    )
-    {
-        CharacterFeedbackManager feedbackManager = character
-            .characterBase
-            .GetComponent<CharacterFeedbackManager>();
-
-        ManageFeedbacks(player, playerUpdate);
-        feedbackManager.ToggleHealthBar(player, playerUpdate);
-    }
-
-    private void ManageFeedbacks(GameObject player, Entity playerUpdate)
-    {
-        // foreach (int effect in Enum.GetValues(typeof(StateEffects)))
-        // {
-        //     string name = Enum.GetName(typeof(StateEffects), effect);
-        //     bool hasEffect = playerUpdate.Effects.ContainsKey((ulong)effect);
-        //     CustomGUIManager.stateManagerUI.ToggleState(name, playerUpdate.Id, hasEffect);
-        //     player.GetComponent<CharacterFeedbacks>().SetActiveFeedback(player, name, hasEffect);
-        // }
     }
 
     public GameObject GetMapGrid()
