@@ -113,7 +113,6 @@ public class Battle : MonoBehaviour
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
             InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
         }
-
     }
 
     // private void MoveEntities()
@@ -130,7 +129,6 @@ public class Battle : MonoBehaviour
         UpdateProjectileActions();
         // loot.UpdateLoots();
        powerUpsManager.UpdatePowerUps();
-    
     }
 
     private void SetAccumulatedTime()
@@ -381,8 +379,6 @@ public class Battle : MonoBehaviour
         ProcessProjectilesCollision(projectiles, gameProjectiles);
         UpdateProjectiles(projectiles, gameProjectiles);
     }
-
- 
 
     void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
