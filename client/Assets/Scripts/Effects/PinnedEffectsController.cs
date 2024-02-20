@@ -12,13 +12,18 @@ public class PinnedEffectsController : MonoBehaviour
 
     private void Start()
     {
-        pinned_effects_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<PinnedEffectsManager>();
+        // pinned_effects_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<PinnedEffectsManager>();
+        // Play(pinned_effects_manager);
         Play(pinned_effects_manager);
     }
 
     private void OnDestroy()
     {
         ClearEffects();
+    }
+
+    public void Setup(PinnedEffectsManager manager){
+        this.pinned_effects_manager = manager;
     }
 
     public void Play(PinnedEffectsManager manager)
