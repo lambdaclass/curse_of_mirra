@@ -65,30 +65,31 @@ public static partial class MessagesReflection {
           "Y3Rpb24YCiABKAsyCi5EaXJlY3Rpb24SEQoJaXNfbW92aW5nGAsgASgIEhkK",
           "BnBsYXllchgMIAEoCzIHLlBsYXllckgAEiEKCnByb2plY3RpbGUYDSABKAsy",
           "Cy5Qcm9qZWN0aWxlSAASHQoIb2JzdGFjbGUYDiABKAsyCS5PYnN0YWNsZUgA",
-          "QhAKDmFkaXRpb25hbF9pbmZvIrICCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgE",
+          "QhAKDmFkaXRpb25hbF9pbmZvIsUCCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgE",
           "EhIKCmtpbGxfY291bnQYAiABKAQSJgoPY3VycmVudF9hY3Rpb25zGAMgAygL",
           "Mg0uUGxheWVyQWN0aW9uEhkKEWF2YWlsYWJsZV9zdGFtaW5hGAQgASgEEhMK",
           "C21heF9zdGFtaW5hGAUgASgEEhgKEHN0YW1pbmFfaW50ZXJ2YWwYBiABKAQS",
           "GgoScmVjaGFyZ2luZ19zdGFtaW5hGAcgASgIEhYKDmNoYXJhY3Rlcl9uYW1l",
-          "GAggASgJEiUKB2VmZmVjdHMYCSADKAsyFC5QbGF5ZXIuRWZmZWN0c0VudHJ5",
-          "GjcKDEVmZmVjdHNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsy",
-          "By5FZmZlY3Q6AjgBIisKBkVmZmVjdBIMCgRuYW1lGAEgASgJEhMKC2R1cmF0",
-          "aW9uX21zGAIgASgNIlEKClByb2plY3RpbGUSDgoGZGFtYWdlGAEgASgEEhAK",
-          "CG93bmVyX2lkGAIgASgEEiEKBnN0YXR1cxgDIAEoDjIRLlByb2plY3RpbGVT",
-          "dGF0dXMiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiQwoMUGxheWVyQWN0",
-          "aW9uEiEKBmFjdGlvbhgBIAEoDjIRLlBsYXllckFjdGlvblR5cGUSEAoIZHVy",
-          "YXRpb24YAiABKAQiJQoETW92ZRIdCglkaXJlY3Rpb24YASABKAsyCi5EaXJl",
-          "Y3Rpb24iPgoGQXR0YWNrEg0KBXNraWxsGAEgASgJEiUKCnBhcmFtZXRlcnMY",
-          "AiABKAsyES5BdHRhY2tQYXJhbWV0ZXJzIi4KEEF0dGFja1BhcmFtZXRlcnMS",
-          "GgoGdGFyZ2V0GAEgASgLMgouRGlyZWN0aW9uImAKCkdhbWVBY3Rpb24SFQoE",
-          "bW92ZRgBIAEoCzIFLk1vdmVIABIZCgZhdHRhY2sYAiABKAsyBy5BdHRhY2tI",
-          "ABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUiFgoEWm9uZRIO",
-          "CgZyYWRpdXMYASABKAIiMQoJS2lsbEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEo",
-          "BBIRCgl2aWN0aW1faWQYAiABKAQqLAoQUHJvamVjdGlsZVN0YXR1cxIKCgZB",
-          "Q1RJVkUQABIMCghFWFBMT0RFRBABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoK",
-          "Bk1PVklORxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19T",
-          "S0lMTF8yEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdf",
-          "U0tJTExfMhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
+          "GAggASgJEhEKCXBvd2VyX3VwcxgJIAEoBBIlCgdlZmZlY3RzGAogAygLMhQu",
+          "UGxheWVyLkVmZmVjdHNFbnRyeRo3CgxFZmZlY3RzRW50cnkSCwoDa2V5GAEg",
+          "ASgEEhYKBXZhbHVlGAIgASgLMgcuRWZmZWN0OgI4ASIrCgZFZmZlY3QSDAoE",
+          "bmFtZRgBIAEoCRITCgtkdXJhdGlvbl9tcxgCIAEoDSJRCgpQcm9qZWN0aWxl",
+          "Eg4KBmRhbWFnZRgBIAEoBBIQCghvd25lcl9pZBgCIAEoBBIhCgZzdGF0dXMY",
+          "AyABKA4yES5Qcm9qZWN0aWxlU3RhdHVzIhkKCE9ic3RhY2xlEg0KBWNvbG9y",
+          "GAEgASgJIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5",
+          "ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGly",
+          "ZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgB",
+          "IAEoCRIlCgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIu",
+          "ChBBdHRhY2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlv",
+          "biJgCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0",
+          "YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2Fj",
+          "dGlvbl90eXBlIhYKBFpvbmUSDgoGcmFkaXVzGAEgASgCIjEKCUtpbGxFbnRy",
+          "eRIRCglraWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIgASgEKiwKEFBy",
+          "b2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASqPAQoQ",
+          "UGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIUChBTVEFSVElOR19TS0lM",
+          "TF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUKEUVYRUNVVElOR19TS0lM",
+          "TF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIVChFFWEVDVVRJTkdfU0tJ",
+          "TExfMxAFYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -105,7 +106,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle" }, new[]{ "AditionalInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Effect), global::Effect.Parser, new[]{ "Name", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
@@ -4195,6 +4196,7 @@ public sealed partial class Player : pb::IMessage<Player>
     staminaInterval_ = other.staminaInterval_;
     rechargingStamina_ = other.rechargingStamina_;
     characterName_ = other.characterName_;
+    powerUps_ = other.powerUps_;
     effects_ = other.effects_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -4300,10 +4302,22 @@ public sealed partial class Player : pb::IMessage<Player>
     }
   }
 
+  /// <summary>Field number for the "power_ups" field.</summary>
+  public const int PowerUpsFieldNumber = 9;
+  private ulong powerUps_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public ulong PowerUps {
+    get { return powerUps_; }
+    set {
+      powerUps_ = value;
+    }
+  }
+
   /// <summary>Field number for the "effects" field.</summary>
-  public const int EffectsFieldNumber = 9;
+  public const int EffectsFieldNumber = 10;
   private static readonly pbc::MapField<ulong, global::Effect>.Codec _map_effects_codec
-      = new pbc::MapField<ulong, global::Effect>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Effect.Parser), 74);
+      = new pbc::MapField<ulong, global::Effect>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Effect.Parser), 82);
   private readonly pbc::MapField<ulong, global::Effect> effects_ = new pbc::MapField<ulong, global::Effect>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4334,6 +4348,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (StaminaInterval != other.StaminaInterval) return false;
     if (RechargingStamina != other.RechargingStamina) return false;
     if (CharacterName != other.CharacterName) return false;
+    if (PowerUps != other.PowerUps) return false;
     if (!Effects.Equals(other.Effects)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -4350,6 +4365,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (StaminaInterval != 0UL) hash ^= StaminaInterval.GetHashCode();
     if (RechargingStamina != false) hash ^= RechargingStamina.GetHashCode();
     if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
+    if (PowerUps != 0UL) hash ^= PowerUps.GetHashCode();
     hash ^= Effects.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -4398,6 +4414,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(66);
       output.WriteString(CharacterName);
     }
+    if (PowerUps != 0UL) {
+      output.WriteRawTag(72);
+      output.WriteUInt64(PowerUps);
+    }
     effects_.WriteTo(output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -4438,6 +4458,10 @@ public sealed partial class Player : pb::IMessage<Player>
       output.WriteRawTag(66);
       output.WriteString(CharacterName);
     }
+    if (PowerUps != 0UL) {
+      output.WriteRawTag(72);
+      output.WriteUInt64(PowerUps);
+    }
     effects_.WriteTo(ref output, _map_effects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -4470,6 +4494,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (CharacterName.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
+    }
+    if (PowerUps != 0UL) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PowerUps);
     }
     size += effects_.CalculateSize(_map_effects_codec);
     if (_unknownFields != null) {
@@ -4505,6 +4532,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     if (other.CharacterName.Length != 0) {
       CharacterName = other.CharacterName;
+    }
+    if (other.PowerUps != 0UL) {
+      PowerUps = other.PowerUps;
     }
     effects_.MergeFrom(other.effects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -4554,7 +4584,11 @@ public sealed partial class Player : pb::IMessage<Player>
           CharacterName = input.ReadString();
           break;
         }
-        case 74: {
+        case 72: {
+          PowerUps = input.ReadUInt64();
+          break;
+        }
+        case 82: {
           effects_.AddEntriesFrom(input, _map_effects_codec);
           break;
         }
@@ -4605,7 +4639,11 @@ public sealed partial class Player : pb::IMessage<Player>
           CharacterName = input.ReadString();
           break;
         }
-        case 74: {
+        case 72: {
+          PowerUps = input.ReadUInt64();
+          break;
+        }
+        case 82: {
           effects_.AddEntriesFrom(ref input, _map_effects_codec);
           break;
         }

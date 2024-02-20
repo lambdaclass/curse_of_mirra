@@ -131,7 +131,8 @@ message Player {
   uint64 stamina_interval = 6;
   bool recharging_stamina = 7;
   string character_name = 8;
-  map<uint64, Effect> effects = 9;
+  uint64 power_ups = 9;
+  map<uint64, Effect> effects = 10;
 }
 
 message Effect {
