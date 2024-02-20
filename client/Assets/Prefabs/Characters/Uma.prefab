@@ -695,6 +695,11 @@ PrefabInstance:
       objectReference: {fileID: 5921681149281208453}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: isUma
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 1704022157346314458}
@@ -742,7 +747,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerName
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7219090858631132377}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name
@@ -819,6 +824,12 @@ GameObject:
 --- !u!1 &6730391181738101473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7219090858631132377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6636529372725061182, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 4050685148264616679}
   m_PrefabAsset: {fileID: 0}

@@ -8,8 +8,11 @@ using UnityEngine.UI;
 public class CharacterFeedbackManager : MonoBehaviour
 {
 
+    public bool isUma;
+    [MMCondition("isUma", true)]
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
 
+    [MMCondition("isUma", true)]
     [SerializeField] Material transparentMaterial;
 
     private Material initialMaterial;
@@ -23,14 +26,17 @@ public class CharacterFeedbackManager : MonoBehaviour
         CustomCharacter character
     )
     {
-        if(playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible")){
-            HandleInvisible(playerUpdate.Id, character);
-        } else {
-            skinnedMeshRenderer.material = initialMaterial;
-            var characterCard = character.characterBase.GetComponentInChildren<UIFollowCamera>();
-            characterCard.GetComponent<CanvasGroup>().alpha = 1;
-            characterCard.GetComponentInChildren<MeshRenderer>().enabled = true;
+        if(skinnedMeshRenderer != null && transparentMaterial != null){
+            if(playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible")){
+                HandleInvisible(playerUpdate.Id, character);
+            } else {
+                skinnedMeshRenderer.material = initialMaterial;
+                var canvasHolder = character.characterBase.CanvasHolder;
+                canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
+                character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = true;
+            }
         }
+        
     }
     
 
@@ -41,9 +47,16 @@ public class CharacterFeedbackManager : MonoBehaviour
         Color color = skinnedMeshRenderer.material.color;
         skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
         if(!isClient){
-            var characterCard = character.characterBase.GetComponentInChildren<UIFollowCamera>();
-            characterCard.GetComponent<CanvasGroup>().alpha = 0;
-            characterCard.GetComponentInChildren<MeshRenderer>().enabled = false;
+            var canvasHolder = character.characterBase.CanvasHolder;
+            canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
+            character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = false;
         }
     }
+
+    // Will use this later when delay is implemented and improve code
+    private void HandleCharacterCard(CustomCharacter character, bool visible){
+        var canvasHolder = character.characterBase.CanvasHolder;
+        canvasHolder.GetComponent<CanvasGroup>().alpha = visible ? 1 : 0;
+        character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = visible;
+    }   
 }
