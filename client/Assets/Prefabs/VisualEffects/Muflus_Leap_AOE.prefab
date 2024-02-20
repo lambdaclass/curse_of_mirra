@@ -50,10 +50,10 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0.7
         m_Name: EffectRadius
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0.7
         m_Name: EffectHeight
         m_Overridden: 1
     m_Vector2f:
