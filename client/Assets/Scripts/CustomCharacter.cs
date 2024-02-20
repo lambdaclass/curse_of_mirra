@@ -38,7 +38,8 @@ public class CustomCharacter : Character
         this.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         this.characterBase.Hitbox.SetActive(false);
         DestroySkillsClone();
-        this.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(false);
+        this.characterBase.OrientationIndicator.SetActive(false);
+        this.characterBase.CharacterCard.SetActive(false);
     }
 
     private void DestroySkillsClone()

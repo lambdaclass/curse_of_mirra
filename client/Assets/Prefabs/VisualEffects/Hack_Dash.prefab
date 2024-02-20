@@ -15255,15 +15255,19 @@ MonoBehaviour:
   - placement_holder: {fileID: 11400000, guid: c3d8b02cff323a54a9a2cedc16c77a72, type: 2}
     effect: {fileID: 6541413364609946126, guid: c0efded4863521745a61fe4983432e3b,
       type: 3}
+    spawn_as_child: 1
   - placement_holder: {fileID: 11400000, guid: 10543b473ea9b2f4984c225203b92870, type: 2}
     effect: {fileID: 6541413364609946126, guid: c0efded4863521745a61fe4983432e3b,
       type: 3}
+    spawn_as_child: 1
   - placement_holder: {fileID: 11400000, guid: 32de2014f22f14f42b74ea7c53ace704, type: 2}
     effect: {fileID: 6541413364609946126, guid: fe6b9e135161b2c47a9a7dfa963c4fcf,
       type: 3}
+    spawn_as_child: 1
   - placement_holder: {fileID: 11400000, guid: 251d01fcef767c2488315c20d26e53de, type: 2}
     effect: {fileID: 6541413364609946126, guid: fe6b9e135161b2c47a9a7dfa963c4fcf,
       type: 3}
+    spawn_as_child: 1
 --- !u!1 &7514234833987758769
 GameObject:
   m_ObjectHideFlags: 0

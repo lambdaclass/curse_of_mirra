@@ -43,7 +43,6 @@ public class SkillInfo : ScriptableObject
 
     [Header("Feedbacks")]
     [SerializeField]
-    public List<VfxStep> startVfxList;
     public List<VfxStep> vfxList;
     public List<AnimationStep> animationList;
 
