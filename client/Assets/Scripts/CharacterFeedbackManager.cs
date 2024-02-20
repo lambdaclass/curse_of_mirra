@@ -9,7 +9,6 @@ public class CharacterFeedbackManager : MonoBehaviour
 {
 
     public bool isUma;
-    [MMCondition("isUma", true)]
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
 
     [MMCondition("isUma", true)]
@@ -19,7 +18,6 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     void Awake()
     {
-        skinnedMeshRenderer = null;
         initialMaterial = skinnedMeshRenderer?.material;
     }
        public void ManageStateFeedbacks(
