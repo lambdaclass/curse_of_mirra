@@ -180,96 +180,12 @@ public class GameServerConnectionManager : MonoBehaviour
                     print("Message received is: " + gameEvent.EventCase);
                     break;
             }
-
-            //             TransitionGameEvent gameEvent = TransitionGameEvent.Parser.ParseFrom(data);
-
-            //             // TODO: Fix missing NewGameEvent, current missing are
-            //             //      - PING_UPDATE
-            //             //      - PLAYER_JOINED
-            //             if (
-            //                 gameEvent.OldGameEvent.Type != GameEventType.PingUpdate
-            //                 && gameEvent.OldGameEvent.Type != GameEventType.PlayerJoined
-            //             )
-            //             {
-            //                 try
-            //                 {
-            //                     switch (gameEvent.NewGameEvent.EventCase)
-            //                     {
-            //                         case GameEvent.EventOneofCase.GameState:
-            //                             gameState = new Game.GameState(gameEvent.NewGameEvent.GameState);
-            //                             break;
-            //                         default:
-            //                             print("Unexpected message: " + gameEvent.NewGameEvent.EventCase);
-            //                             break;
-            //                     }
-            //                 }
-            //                 catch (Exception e)
-            //                 {
-            //                     Debug.Log(gameEvent);
-            //                     Debug.Log(e);
-            //                     throw e;
-            //                 }
-            //             }
-
-            //             switch (gameEvent.OldGameEvent.Type)
-            //             {
-            //                 case GameEventType.StateUpdate:
-            //                     this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
-            //                     this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
-            //                     eventsBuffer.AddEvent(gameEvent.OldGameEvent);
-            //                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-            //                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-            //                     alivePlayers = gameEvent
-            //                         .OldGameEvent
-            //                         .Players
-            //                         .ToList()
-            //                         .FindAll(el => el.Health > 0);
-            //                     KillFeedManager.instance.putEvents(gameEvent.OldGameEvent.Killfeed.ToList());
-            //                     break;
-            //                 case GameEventType.PingUpdate:
-            //                     currentPing = (uint)gameEvent.OldGameEvent.Latency;
-            //                     break;
-            //                 case GameEventType.GameFinished:
-            //                     winnerPlayer.Item1 = gameEvent.OldGameEvent.WinnerPlayer;
-            //                     winnerPlayer.Item2 = gameEvent.OldGameEvent.WinnerPlayer.KillCount;
-            //                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-            //                     break;
-            //                 case GameEventType.PlayerJoined:
-            //                     this.playerId = gameEvent.OldGameEvent.PlayerJoinedId;
-            //                     break;
-            //                 case GameEventType.GameStarted:
-            //                     this.playableRadius = gameEvent.OldGameEvent.PlayableRadius;
-            //                     this.shrinkingCenter = gameEvent.OldGameEvent.ShrinkingCenter;
-            //                     eventsBuffer.AddEvent(gameEvent.OldGameEvent);
-            //                     this.gamePlayers = gameEvent.OldGameEvent.Players.ToList();
-            //                     this.gameProjectiles = gameEvent.OldGameEvent.Projectiles.ToList();
-            //                     ServerConnection.Instance.gameStarted = true;
-            //                     break;
-            //                 default:
-            //                     print("Message received is: " + gameEvent.OldGameEvent.Type);
-            //                     break;
-            //             }
         }
         catch (Exception e)
         {
             Debug.Log("InvalidProtocolBufferException: " + e);
         }
     }
-
-    //     public static OldPlayer GetPlayer(ulong id, List<OldPlayer> playerList)
-    //     {
-    //         return playerList.Find(el => el.Id == id);
-    //     }
-
-    //     public void SendAction(ClientAction action)
-    //     {
-    //         using (var stream = new MemoryStream())
-    //         {
-    //             action.WriteTo(stream);
-    //             var msg = stream.ToArray();
-    //             ws.Send(msg);
-    //         }
-    //     }
 
     public void SendMove(float x, float y, long timestamp)
     {

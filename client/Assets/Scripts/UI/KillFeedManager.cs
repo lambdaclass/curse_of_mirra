@@ -68,7 +68,6 @@ public class KillFeedManager : MonoBehaviour
         KillEntry killEvent;
         while (feedEvents.TryDequeue(out killEvent))
         {
-            Debug.Log("new kill event" + killEvent);
             if (playerToTrack == killEvent.VictimId)
             {
                 saveKillerId = killEvent.KillerId;
