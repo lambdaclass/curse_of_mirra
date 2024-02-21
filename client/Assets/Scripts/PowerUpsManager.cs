@@ -13,13 +13,13 @@ public class PowerUpsManager : MonoBehaviour
     GameObject powerUpPickedVfx;
 
     [SerializeField]
-    float spawnAnimationDuration = .3f;
+    float spawnAnimationDuration = .4f;
 
     [SerializeField]
-    float baseAltitude = 1.2f;
+    float baseAltitude = 1.1f;
 
     [SerializeField]
-    float maxAltitudeDifference = 1.5f;
+    float maxAltitudeDifference = 2.5f;
 
     public void UpdatePowerUps()
     {
@@ -35,20 +35,7 @@ public class PowerUpsManager : MonoBehaviour
                     && !availablePowerUps.Keys.Contains(powerupEntity.Id)
                 )
                 {
-                    Vector3 powerUpPosition = Utils.transformBackendOldPositionToFrontendPosition(
-                        powerupEntity.Position
-                    );
-                    Vector3 previusOwnerPosition = Utils
-                        .GetPlayer(powerUp.OwnerId)
-                        .transform
-                        .position;
-                    GameObject powerupGameObject = Instantiate(
-                        powerUpItem,
-                        previusOwnerPosition,
-                        Quaternion.identity
-                    );
-                    StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
-                    availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
+                    CreateNewPowerUp(powerupEntity, powerUp);
                 }
 
                 if (
@@ -56,12 +43,32 @@ public class PowerUpsManager : MonoBehaviour
                     && availablePowerUps.Keys.Contains(powerupEntity.Id)
                 )
                 {
-                    GameObject powerUpObject = availablePowerUps[powerupEntity.Id];
-                    PlayPickUpFeedbacks(powerUpObject);
-                    Destroy(powerUpObject);
-                    availablePowerUps.Remove(powerupEntity.Id);
+                    RemovePowerUp(powerupEntity, powerUp);
                 }
             });
+    }
+
+    private void CreateNewPowerUp(Entity powerupEntity, PowerUp powerUp)
+    {
+        Vector3 powerUpPosition = Utils.transformBackendOldPositionToFrontendPosition(
+            powerupEntity.Position
+        );
+        Vector3 previusOwnerPosition = Utils.GetPlayer(powerUp.OwnerId).transform.position;
+        GameObject powerupGameObject = Instantiate(
+            powerUpItem,
+            previusOwnerPosition,
+            Quaternion.identity
+        );
+        StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
+        availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
+    }
+
+    private void RemovePowerUp(Entity powerupEntity, PowerUp powerUp)
+    {
+        GameObject powerUpObject = availablePowerUps[powerupEntity.Id];
+        PlayPickUpFeedbacks(powerUpObject);
+        Destroy(powerUpObject);
+        availablePowerUps.Remove(powerupEntity.Id);
     }
 
     private void PlayPickUpFeedbacks(GameObject powerUp)

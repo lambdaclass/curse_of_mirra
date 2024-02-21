@@ -117,6 +117,6 @@ MonoBehaviour:
   powerUpItem: {fileID: 123589743302129095, guid: 62ea518512e0e421aa87019f6701ff26,
     type: 3}
   powerUpPickedVfx: {fileID: 0}
-  spawnAnimationDuration: 0.5
+  spawnAnimationDuration: 0.4
   baseAltitude: 1.1
-  maxAltitudeDifference: 2.2
+  maxAltitudeDifference: 2.5
