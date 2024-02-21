@@ -119,7 +119,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
-       powerUpsManager.UpdatePowerUps();
+        powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
@@ -542,8 +542,11 @@ public class Battle : MonoBehaviour
         if (useClientPrediction)
         {
             walking =
-                playerUpdate.Id == GameServerConnectionManager.Instance.playerId
-                    ? InputsAreBeingUsed()
+                (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+                    ? (
+                        InputsAreBeingUsed()
+                        && GameServerConnectionManager.Instance.clientPrediction.enabled
+                    )
                     : GameServerConnectionManager
                         .Instance
                         .eventsBuffer
@@ -562,7 +565,8 @@ public class Battle : MonoBehaviour
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
-        if (movementChange.magnitude > 0f)
+        // This magnitude allow us to not reconciliate the player's position if the change is too small
+        if (movementChange.magnitude > 0.5f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
@@ -612,7 +616,6 @@ public class Battle : MonoBehaviour
             {
                 character.RotatePlayer(player, direction);
             }
-            walking = true;
         }
 
         character.RotateCharacterOrientation();

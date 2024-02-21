@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    float lastXSent;
-    float lastYSent;
-
     public void SendJoystickValues(float x, float y)
     {
-        if (ShouldSendMovement(x, y, lastXSent, lastYSent))
+        if (
+            ShouldSendMovement(
+                x,
+                y,
+                GameServerConnectionManager.Instance.clientPrediction.lastXSent,
+                GameServerConnectionManager.Instance.clientPrediction.lastYSent
+            )
+        )
         {
             var valuesToSend = new Direction { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -26,8 +30,6 @@ public class PlayerControls : MonoBehaviour
                 position = new Position { X = 0, Y = 0 }
             };
             GameServerConnectionManager.Instance.clientPrediction.EnqueuePlayerInput(playerInput);
-            lastXSent = x;
-            lastYSent = y;
         }
     }
 
@@ -35,7 +37,8 @@ public class PlayerControls : MonoBehaviour
     {
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
-        return (x != lastXSent || y != lastYSent);
+        return (x != lastXSent || y != lastYSent)
+            && GameServerConnectionManager.Instance.clientPrediction.enabled;
     }
 
     public (float, float) SendAction()

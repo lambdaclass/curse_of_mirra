@@ -17,8 +17,17 @@ public class ClientPrediction
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
+    public float lastXSent;
+    public float lastYSent;
+
+    public bool enabled = true;
+
     public void EnqueuePlayerInput(PlayerInput PlayerInput)
     {
+        if (!enabled)
+        {
+            return;
+        }
         // finalize last pending input
         PlayerInput lastPlayerInput;
         if (pendingPlayerInputs.Count > 0)
@@ -29,6 +38,25 @@ public class ClientPrediction
         }
         // add the new one
         pendingPlayerInputs.Add(PlayerInput);
+        lastXSent = PlayerInput.joystick_x_value;
+        lastYSent = PlayerInput.joystick_y_value;
+    }
+
+    public void StopMovement()
+    {
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        PlayerInput playerInput = new PlayerInput
+        {
+            joystick_x_value = 0,
+            joystick_y_value = 0,
+            timestampId = timestamp,
+            startTimestamp = timestamp,
+            endTimestamp = 0,
+            position = new Position { X = 0, Y = 0 }
+        };
+
+        EnqueuePlayerInput(playerInput);
+        enabled = false;
     }
 
     public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
@@ -68,6 +96,7 @@ public class ClientPrediction
         float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
         Position currentPosition = player.Position;
+        Direction currentDirection = player.Direction;
         if (pendingPlayerInputs.Count > 0)
         {
             currentPosition = pendingPlayerInputs[0].position;
@@ -79,6 +108,15 @@ public class ClientPrediction
             float ticks = (endTimestamp - input.startTimestamp) / tickRate;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
+
+            if (movementDirection.x != 0 || movementDirection.y != 0)
+            {
+                currentDirection = new Direction
+                {
+                    X = movementDirection.x,
+                    Y = movementDirection.y
+                };
+            }
 
             movementDirection.Normalize();
             Vector2 movementVector = movementDirection * characterSpeed * ticks;
@@ -94,6 +132,7 @@ public class ClientPrediction
         });
 
         player.Position = currentPosition;
+        player.Direction = currentDirection;
     }
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)
