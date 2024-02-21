@@ -39,8 +39,6 @@ public class CustomCharacter : Character
         this.characterBase.Hitbox.SetActive(false);
         DestroySkillsClone();
         this.characterBase.CanvasHolder.SetActive(false);
-        // this.characterBase.OrientationIndicator.SetActive(false);
-        // this.characterBase.CharacterCard.SetActive(false);
     }
 
     private void DestroySkillsClone()
