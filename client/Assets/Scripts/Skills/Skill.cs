@@ -89,7 +89,9 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(Direction direction)
     {
-        if (AbilityAuthorized)
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+
+        if (AbilityAuthorized && player.Player.AvailableStamina > 0)
         {
             SendActionToBackend(direction);
         }
