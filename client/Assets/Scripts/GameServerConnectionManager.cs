@@ -39,6 +39,8 @@ public class GameServerConnectionManager : MonoBehaviour
     public bool allSelected = false;
     public float playableRadius;
 
+    public bool zoneEnabled = false;
+
     //     public OldPosition shrinkingCenter;
     //     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
     public bool cinematicDone;
@@ -161,6 +163,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
+                    this.zoneEnabled = gameState.Zone.Enabled;
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
