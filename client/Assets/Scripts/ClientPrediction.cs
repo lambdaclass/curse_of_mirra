@@ -17,8 +17,8 @@ public class ClientPrediction
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
-    public float lastXSent;
-    public float lastYSent;
+    public float lastXSent = 0;
+    public float lastYSent = 0;
 
     public bool enabled = true;
 
