@@ -12,8 +12,6 @@ public class PinnedEffectsController : MonoBehaviour
 
     private void Start()
     {
-        // pinned_effects_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<PinnedEffectsManager>();
-        // Play(pinned_effects_manager);
         Play(pinned_effects_manager);
     }
 
