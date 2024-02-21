@@ -16,6 +16,9 @@ public class CharacterBase : MonoBehaviour
         spawnFeedback,
         OrientationIndicator,
         OrientationArrow,
+        CharacterCard,
+        CanvasHolder,
+        StaminaCharges,
         powerUps;
 
     [SerializeField]
