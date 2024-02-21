@@ -209,6 +209,15 @@ public class GameServerConnectionManager : MonoBehaviour
         SendGameAction(gameAction);
     }
 
+    public void SendUseItem(long timestamp)
+    {
+        // TODO: Hardcode this to 0 because for now we don't have a configurable inventory
+        //      Once that is a reality we should receive as part of the parameters
+        UseItem useItem = new UseItem { Item = 0 };
+        GameAction gameAction = new GameAction { UseItem = useItem, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
     private void SendGameAction<T>(IMessage<T> action)
         where T : IMessage<T>
     {
