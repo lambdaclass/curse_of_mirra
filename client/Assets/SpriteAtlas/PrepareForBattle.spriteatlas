@@ -48,6 +48,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 31f5d1c8ecfd64044b2c0e700c09af7d, type: 3}
   - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
   - {fileID: 21300000, guid: f8c3865a96b604b81aad5959769c5e6e, type: 3}
+  - {fileID: 21300000, guid: 5586b18ae24a141908cfff9023776fce, type: 3}
   - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
   - {fileID: 21300000, guid: 5858709d7e65547a790f82b5eab4cd22, type: 3}
   - {fileID: 21300000, guid: ac8229bd02da44ef9a9ea325bdd91cf4, type: 3}
@@ -64,6 +65,7 @@ SpriteAtlas:
   - fade
   - background-gradient
   - CurseOfMirra-Muflus
+  - Valtimer
   - container name player
   - container-player
   - badge-you
