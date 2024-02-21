@@ -84,14 +84,15 @@ public static partial class MessagesReflection {
           "CzIRLkF0dGFja1BhcmFtZXRlcnMiLgoQQXR0YWNrUGFyYW1ldGVycxIaCgZ0",
           "YXJnZXQYASABKAsyCi5EaXJlY3Rpb24iYAoKR2FtZUFjdGlvbhIVCgRtb3Zl",
           "GAEgASgLMgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEoCzIHLkF0dGFja0gAEhEK",
-          "CXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSIWCgRab25lEg4KBnJh",
-          "ZGl1cxgBIAEoAiIxCglLaWxsRW50cnkSEQoJa2lsbGVyX2lkGAEgASgEEhEK",
-          "CXZpY3RpbV9pZBgCIAEoBCosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElW",
-          "RRAAEgwKCEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFC",
-          "TEUQABIJCgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklO",
-          "RxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8y",
-          "EAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExf",
-          "MhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
+          "CXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSInCgRab25lEg4KBnJh",
+          "ZGl1cxgBIAEoAhIPCgdlbmFibGVkGAIgASgIIjEKCUtpbGxFbnRyeRIRCglr",
+          "aWxsZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIgASgEKiwKEFByb2plY3Rp",
+          "bGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9ERUQQASopCg1Qb3dlclVw",
+          "c3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkKBVRBS0VOEAEqjwEKEFBsYXllckFj",
+          "dGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RBUlRJTkdfU0tJTExfMRABEhQK",
+          "EFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEhUK",
+          "EUVYRUNVVElOR19TS0lMTF8yEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBWIG",
+          "cHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -117,7 +118,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill", "Parameters" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AttackParameters), global::AttackParameters.Parser, new[]{ "Target" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEntry), global::KillEntry.Parser, new[]{ "KillerId", "VictimId" }, null, null, null, null)
         }));
   }
@@ -6656,6 +6657,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public Zone(Zone other) : this() {
     radius_ = other.radius_;
+    enabled_ = other.enabled_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -6677,6 +6679,18 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
   }
 
+  /// <summary>Field number for the "enabled" field.</summary>
+  public const int EnabledFieldNumber = 2;
+  private bool enabled_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Enabled {
+    get { return enabled_; }
+    set {
+      enabled_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -6693,6 +6707,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
       return true;
     }
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
+    if (Enabled != other.Enabled) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -6701,6 +6716,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
   public override int GetHashCode() {
     int hash = 1;
     if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
+    if (Enabled != false) hash ^= Enabled.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -6723,6 +6739,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
       output.WriteRawTag(13);
       output.WriteFloat(Radius);
     }
+    if (Enabled != false) {
+      output.WriteRawTag(16);
+      output.WriteBool(Enabled);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -6737,6 +6757,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
       output.WriteRawTag(13);
       output.WriteFloat(Radius);
     }
+    if (Enabled != false) {
+      output.WriteRawTag(16);
+      output.WriteBool(Enabled);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -6749,6 +6773,9 @@ public sealed partial class Zone : pb::IMessage<Zone>
     int size = 0;
     if (Radius != 0F) {
       size += 1 + 4;
+    }
+    if (Enabled != false) {
+      size += 1 + 1;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -6764,6 +6791,9 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
     if (other.Radius != 0F) {
       Radius = other.Radius;
+    }
+    if (other.Enabled != false) {
+      Enabled = other.Enabled;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -6784,6 +6814,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
           Radius = input.ReadFloat();
           break;
         }
+        case 16: {
+          Enabled = input.ReadBool();
+          break;
+        }
       }
     }
   #endif
@@ -6801,6 +6835,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
           break;
         case 13: {
           Radius = input.ReadFloat();
+          break;
+        }
+        case 16: {
+          Enabled = input.ReadBool();
           break;
         }
       }
