@@ -66,15 +66,11 @@ public class Skill : CharacterAbility
 
     public void TryExecuteSkill()
     {
-        // if (AbilityAuthorized)
-        // {
-        //     Vector3 direction = this.GetComponent<Character>()
-        //         .GetComponent<CharacterOrientation3D>()
-        //         .ForcedRotationDirection;
-        //     RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
-        //     feedbackRotatePosition = new Vector2(direction.x, direction.z);
-        //     ExecuteSkill(relativePosition);
-        // }
+        if (AbilityAuthorized)
+        {
+            Direction direction = new Direction { X = 0, Y = 0 };
+            ExecuteSkill(direction);
+        }
     }
 
     public void TryExecuteSkill(Vector2 position)
