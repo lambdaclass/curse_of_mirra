@@ -204,7 +204,9 @@ public class Skill : CharacterAbility
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
-            vfxInstance.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+            vfxInstance
+                .GetComponent<PinnedEffectsController>()
+                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
         else
         {
@@ -214,7 +216,9 @@ public class Skill : CharacterAbility
                 _model.transform.position.z
             );
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
-            vfxInstance.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+            vfxInstance
+                .GetComponent<PinnedEffectsController>()
+                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
 
         Destroy(vfxInstance, duration);
@@ -313,11 +317,6 @@ public class Skill : CharacterAbility
     public String GetSkillName()
     {
         return skillInfo.name;
-    }
-
-    public bool ExecutesOnQuickTap()
-    {
-        return skillInfo.executeOnQuickTap;
     }
 
     public bool IsSelfTargeted()
