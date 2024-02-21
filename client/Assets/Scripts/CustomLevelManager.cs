@@ -149,14 +149,21 @@ public class CustomLevelManager : LevelManager
             {
                 prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                player.Position
+            );
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                new Vector3(0.0f, 1.0f, 0.0f),
+                new Vector3(backToFrontPosition.x, 1.0f, backToFrontPosition.z),
                 Quaternion.identity
             );
 
-            if(GameServerConnectionManager.Instance.playerId == player.Id){
-                Instantiate(newPlayer.characterBase.StaminaCharges,newPlayer.characterBase.CanvasHolder.transform);
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
+            {
+                Instantiate(
+                    newPlayer.characterBase.StaminaCharges,
+                    newPlayer.characterBase.CanvasHolder.transform
+                );
             }
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
