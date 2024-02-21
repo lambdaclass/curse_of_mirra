@@ -46,14 +46,9 @@ public class PlayerControls : MonoBehaviour
         bool movedFromStatic = (lastXSent == 0 && lastYSent == 0 && (x != 0 || y != 0));
         bool stoppedMoving = (x == 0 && y == 0 && (lastXSent != 0 || lastYSent != 0));
         bool changedDirection = (angleBetweenDirections > movementThreshold);
-        bool clientPredictionEnabled = GameServerConnectionManager
-            .Instance
-            .clientPrediction
-            .enabled;
-
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
-        return (movedFromStatic || stoppedMoving || changedDirection) && clientPredictionEnabled;
+        return (movedFromStatic || stoppedMoving || changedDirection);
     }
 
     public (float, float) SendAction()

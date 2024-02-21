@@ -20,14 +20,8 @@ public class ClientPrediction
     public float lastXSent = 0;
     public float lastYSent = 0;
 
-    public bool enabled = true;
-
     public void EnqueuePlayerInput(PlayerInput PlayerInput)
     {
-        if (!enabled)
-        {
-            return;
-        }
         // finalize last pending input
         PlayerInput lastPlayerInput;
         if (pendingPlayerInputs.Count > 0)
@@ -56,7 +50,6 @@ public class ClientPrediction
         };
 
         EnqueuePlayerInput(playerInput);
-        enabled = false;
     }
 
     public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)

@@ -51,8 +51,9 @@ public class Battle : MonoBehaviour
 
     private void InitBlockingStates()
     {
-        BlockingMovementStates = new CharacterStates.MovementStates[1];
+        BlockingMovementStates = new CharacterStates.MovementStates[2];
         BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
+        BlockingMovementStates[1] = CharacterStates.MovementStates.Pushing;
     }
 
     private void SetupInitialState()
@@ -286,8 +287,11 @@ public class Battle : MonoBehaviour
                         )
                         {
                             if (
-                                PlayerMovementAuthorized(playerCharacter)
-                                && !playerCharacter.currentActions.Contains(playerAction)
+                                (
+                                    playerCharacter.MovementState.CurrentState
+                                        == CharacterStates.MovementStates.Pushing
+                                    || PlayerMovementAuthorized(playerCharacter)
+                                ) && !playerCharacter.currentActions.Contains(playerAction)
                             )
                             {
                                 playerCharacter.currentActions.Add(playerAction);
@@ -543,10 +547,7 @@ public class Battle : MonoBehaviour
         {
             walking =
                 (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
-                    ? (
-                        InputsAreBeingUsed()
-                        && GameServerConnectionManager.Instance.clientPrediction.enabled
-                    )
+                    ? (InputsAreBeingUsed())
                     : GameServerConnectionManager
                         .Instance
                         .eventsBuffer

@@ -141,7 +141,6 @@ public class Skill : CharacterAbility
     {
         yield return new WaitForSeconds(duration);
         EndSkillAnimation(skillAnimationId);
-        GameServerConnectionManager.Instance.clientPrediction.enabled = true;
     }
 
     public void EndSkillAnimation(string animationId)
@@ -261,6 +260,9 @@ public class Skill : CharacterAbility
     private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        _movement.ChangeState(CharacterStates.MovementStates.Pushing);
+
         GameServerConnectionManager.Instance.clientPrediction.StopMovement();
         GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
