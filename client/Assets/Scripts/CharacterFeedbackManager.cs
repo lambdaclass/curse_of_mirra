@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class CharacterFeedbackManager : MonoBehaviour
 {
 
-    public bool isUma;
+    public bool hasTransparentMaterial;
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
 
-    [MMCondition("isUma", true)]
+    [MMCondition("hasTransparentMaterial", true)]
     [SerializeField] Material transparentMaterial;
 
     private Material initialMaterial;
