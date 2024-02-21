@@ -354,7 +354,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 282a7077202c3465e876e5faa35f9e8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22cde250dfad84efda7d6a38b1a4145a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -456,8 +456,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItem: {fileID: 2192738142746803912, guid: 344c4239ebd4449dcb6f3ee963df11a7,
     type: 3}
-  unavailableSprite: {fileID: 21300000, guid: 0a959e9e42e8b40f7bffd5b97c2029d3, type: 3}
-  unavailableIcon: {fileID: 21300000, guid: d733a67725d5d47c5bc73099d6c350fb, type: 3}
+  unavailableSprite: {fileID: 21300000, guid: bcb90251838394c2fa991d72df462a3c, type: 3}
+  unavailableIcon: {fileID: 21300000, guid: 87f2e9f46a96642ec84162cdd452f847, type: 3}
 --- !u!225 &7835735610173490935
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -933,6 +933,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3367542280007669429, guid: 08d85fb6e581841fbaeb7425f43827f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5166cd265ecd84100bd88172785deed0,
+        type: 3}
     - target: {fileID: 4418635168122682563, guid: 08d85fb6e581841fbaeb7425f43827f2,
         type: 3}
       propertyPath: m_Pivot.x
