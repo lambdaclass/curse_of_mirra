@@ -88,12 +88,13 @@ message GameState {
   map<uint64, uint64> damage_taken = 8;
   map<uint64, uint64> damage_done = 9;
   map<uint64, Entity> power_ups = 10;
+  map<uint64, Entity> items = 11;
 }
 
 /*
  * Info about an entity
  * id: unique identifier
- * category: player, projectile, obstacle.
+ * category: player, projectile, obstacle, item.
  * shape: circle, point, line, polygon, point.
  * name: unique name of the entity
  * position: position of the entity (polyogns and lines don't have a position)
@@ -121,6 +122,7 @@ message Entity {
     Projectile projectile = 13;
     Obstacle obstacle = 14;
     PowerUp power_up = 15;
+    Item item = 16;
   }
 }
 
@@ -134,6 +136,17 @@ message Player {
   bool recharging_stamina = 7;
   string character_name = 8;
   uint64 power_ups = 9;
+  map<uint64, Effect> effects = 10;
+  Item inventory = 11;
+}
+
+message Effect {
+  string name = 1;
+  uint32 duration_ms = 2;
+}
+
+message Item {
+  string name = 2;
 }
 
 message Projectile {
@@ -191,10 +204,15 @@ message AttackParameters {
   Direction target = 1;
 }
 
+message UseItem {
+  uint64 item = 1;
+}
+
 message GameAction {
   oneof action_type {
     Move move = 1;
     Attack attack = 2;
+    UseItem use_item = 4;
   }
   int64 timestamp = 3;
 }
