@@ -18,8 +18,7 @@ MonoBehaviour:
   inputType: 2
   skillSetType: 1
   angle: 0
-  executeOnQuickTap: 0
-  indicatorType: 2
+  indicatorType: 0
   hasProjectile: 1
   projectilePrefab: {fileID: 5269552939558784490, guid: 64e26cf3287d24acca520873be768293,
     type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
   skillCircleRadius: -1
-  skillConeAngle: 0
+  skillConeAngle: 80
   arrowWidth: 1
   skillAreaRadius: 0
   showCooldown: 1

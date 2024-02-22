@@ -15,9 +15,6 @@ public class SkillInfo : ScriptableObject
 
     public UIControls skillSetType;
     public float angle;
-
-    [MMEnumCondition("inputType", (int)UIType.Direction)]
-    public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
 
     public bool hasProjectile;
