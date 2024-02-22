@@ -394,7 +394,7 @@ public class Battle : MonoBehaviour
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner ) // gameProjectiles[i].SkillName
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
                     .FirstOrDefault();
 
                 if (info != null)
