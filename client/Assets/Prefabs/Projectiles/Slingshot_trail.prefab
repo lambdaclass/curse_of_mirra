@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 576116122152415760}
   - component: {fileID: 2985223216959630436}
   m_Layer: 0
-  m_Name: Trail_Core
+  m_Name: Slingshot_trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

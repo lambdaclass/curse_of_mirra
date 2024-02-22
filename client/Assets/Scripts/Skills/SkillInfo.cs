@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -7,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
 {
+    public ulong ownerId;
     public new string name;
     public string description;
     public UIType inputType;
@@ -17,7 +19,14 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("inputType", (int)UIType.Direction)]
     public bool executeOnQuickTap;
     public UIIndicatorType indicatorType;
+
+    public bool hasProjectile;
+
+    [MMCondition("hasProjectile", true)] 
     public GameObject projectilePrefab;
+
+    [MMCondition("hasProjectile", true)]
+    public string skillKey;
     public float animationSpeedMultiplier;
     public AudioClip abilityStartSfx;
 
@@ -51,13 +60,14 @@ public class SkillInfo : ScriptableObject
     //     return this.name.ToLower() == skillConfigItem.Name.ToLower();
     // }
 
-    public void InitWithBackend()
+    public void InitWithBackend(string id)
     {
         // Issue #1419
         this.damage = 0;
         this.cooldown = 0f;
         this.skillRange = 0;
         this.skillCircleRadius = 10;
+        this.ownerId = Convert.ToUInt64(id);
         // if (ServerConnection.Instance != null)
         // {
         //     foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)

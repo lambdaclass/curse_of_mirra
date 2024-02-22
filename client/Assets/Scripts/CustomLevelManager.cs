@@ -223,7 +223,7 @@ public class CustomLevelManager : LevelManager
     //     skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
     // }
 
-    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo, string id)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
         characterInfo
@@ -231,7 +231,7 @@ public class CustomLevelManager : LevelManager
             .ForEach(skill =>
             {
                 SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
+                skillClone.InitWithBackend(id);
                 skills.Add(skillClone);
             });
 
@@ -267,7 +267,7 @@ public class CustomLevelManager : LevelManager
                 .AvailableCharacters
                 .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
 
-            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo, player.PlayerID);
             // SetSkillAngles(skillInfoClone);
 
             skill1.SetSkill("1", skillInfoClone[0]);
