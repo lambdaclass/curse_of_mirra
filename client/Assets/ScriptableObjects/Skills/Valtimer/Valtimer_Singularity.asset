@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Valtimer_Singularity
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: SINGULARITY
-  description: 8 seconds buff - all slingshots now pierce. Increases attacking speed.
-    H4ck has a lotofupgrades under his sleave.
+  description: Create a black hole in a specific location for 5 seconds which attracts
+    enemy players and deals damage.
   inputType: 2
   skillSetType: 1
   angle: 0
-  executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 3
@@ -34,5 +33,5 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 165e2e85b1bd54f2389f3b424e20bbb1, type: 3}
-  startVfxList: []
   vfxList: []
+  animationList: []

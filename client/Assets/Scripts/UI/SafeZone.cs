@@ -22,8 +22,9 @@ public class SafeZone : MonoBehaviour
     {
         // We have a difference of x100 between the backend and frontend values
         float radius = GameServerConnectionManager.Instance.playableRadius / 100;
+        bool zoneEnabled = GameServerConnectionManager.Instance.zoneEnabled;
 
-        if (radius != 0)
+        if (radius != 0 && zoneEnabled)
         {
             // Vector3 center = Utils.transformBackendOldPositionToFrontendPosition(
             //     GameServerConnectionManager.Instance.shrinkingCenter
