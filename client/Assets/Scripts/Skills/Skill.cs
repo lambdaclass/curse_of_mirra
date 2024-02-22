@@ -85,7 +85,9 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(Direction direction)
     {
-        if (AbilityAuthorized)
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+
+        if (AbilityAuthorized && player.Player.AvailableStamina > 0)
         {
             SendActionToBackend(direction);
         }
@@ -254,6 +256,10 @@ public class Skill : CharacterAbility
     private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        _movement.ChangeState(CharacterStates.MovementStates.Pushing);
+
+        GameServerConnectionManager.Instance.clientPrediction.StopMovement();
         GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
