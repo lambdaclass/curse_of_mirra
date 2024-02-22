@@ -66,15 +66,11 @@ public class Skill : CharacterAbility
 
     public void TryExecuteSkill()
     {
-        // if (AbilityAuthorized)
-        // {
-        //     Vector3 direction = this.GetComponent<Character>()
-        //         .GetComponent<CharacterOrientation3D>()
-        //         .ForcedRotationDirection;
-        //     RelativePosition relativePosition = new RelativePosition { X = 0, Y = 0 };
-        //     feedbackRotatePosition = new Vector2(direction.x, direction.z);
-        //     ExecuteSkill(relativePosition);
-        // }
+        if (AbilityAuthorized)
+        {
+            Direction direction = new Direction { X = 0, Y = 0 };
+            ExecuteSkill(direction);
+        }
     }
 
     public void TryExecuteSkill(Vector2 position)
@@ -89,7 +85,9 @@ public class Skill : CharacterAbility
 
     private void ExecuteSkill(Direction direction)
     {
-        if (AbilityAuthorized)
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+
+        if (AbilityAuthorized && player.Player.AvailableStamina > 0)
         {
             SendActionToBackend(direction);
         }
@@ -204,7 +202,9 @@ public class Skill : CharacterAbility
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
-            vfxInstance.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+            vfxInstance
+                .GetComponent<PinnedEffectsController>()
+                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
         else
         {
@@ -214,7 +214,9 @@ public class Skill : CharacterAbility
                 _model.transform.position.z
             );
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
-            vfxInstance.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+            vfxInstance
+                .GetComponent<PinnedEffectsController>()
+                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
 
         Destroy(vfxInstance, duration);
@@ -254,6 +256,10 @@ public class Skill : CharacterAbility
     private void SendActionToBackend(Direction direction)
     {
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        _movement.ChangeState(CharacterStates.MovementStates.Pushing);
+
+        GameServerConnectionManager.Instance.clientPrediction.StopMovement();
         GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
@@ -313,11 +319,6 @@ public class Skill : CharacterAbility
     public String GetSkillName()
     {
         return skillInfo.name;
-    }
-
-    public bool ExecutesOnQuickTap()
-    {
-        return skillInfo.executeOnQuickTap;
     }
 
     public bool IsSelfTargeted()
