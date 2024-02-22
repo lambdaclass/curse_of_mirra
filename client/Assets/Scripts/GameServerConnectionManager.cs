@@ -167,7 +167,6 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
                     this.gameCountdown = (float)gameState.Countdown;
-                    print(gameStatus);
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();

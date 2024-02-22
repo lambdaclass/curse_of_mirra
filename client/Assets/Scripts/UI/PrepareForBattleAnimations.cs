@@ -40,12 +40,11 @@ public class PrepareForBattleAnimations : MonoBehaviour
     Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
-    const float PREPARE_FOR_BATTLE_DURATION = 3f;
-    const float CHARACTERS_DISPLAY_DURATION = 5f;
-    float TIME_UNTIL_GAME_STARTS = 5f;
+    const float PREPARE_FOR_BATTLE_DURATION = 2f;
+    const float CHARACTERS_DISPLAY_DURATION = 3f;
+    float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.65f;
 
-    bool isCountdownOver = false;
     float originalCountdownScale,
         originalCoinScale,
         originalCardScale,
@@ -144,9 +143,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .ToList();
         cardsBottomTable.Reverse();
         StartCoroutine(CardsDisplay(cardsTopTable, 1));
+        StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
         yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
-        StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
@@ -210,8 +209,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-            TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000) - 1;
-
+            TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000);
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
