@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Skill Info", menuName = "CoM Skill")]
 public class SkillInfo : ScriptableObject
 {
-    public ulong ownerId;
+    [NonSerialized] public ulong ownerId;
     public new string name;
     public string description;
     public UIType inputType;
