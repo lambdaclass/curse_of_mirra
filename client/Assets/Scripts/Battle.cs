@@ -471,7 +471,7 @@ public class Battle : MonoBehaviour
             .CharacterModel
             .GetComponent<Animator>();
 
-        feedbackManager.ManageStateFeedbacks(player, playerUpdate, character);
+        feedbackManager.ManageStateFeedbacks(playerUpdate, character);
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {

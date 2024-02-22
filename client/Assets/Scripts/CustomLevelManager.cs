@@ -85,7 +85,6 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         var player = Utils.GetPlayer(playerId);
-        SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
@@ -150,19 +149,27 @@ public class CustomLevelManager : LevelManager
             {
                 prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                player.Position
+            );
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                new Vector3(0.0f, 1.0f, 0.0f),
+                new Vector3(backToFrontPosition.x, 1.0f, backToFrontPosition.z),
                 Quaternion.identity
             );
 
-            if(GameServerConnectionManager.Instance.playerId == player.Id){
-                Instantiate(newPlayer.characterBase.StaminaCharges,newPlayer.characterBase.CanvasHolder.transform);
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
+            {
+                Instantiate(
+                    newPlayer.characterBase.StaminaCharges,
+                    newPlayer.characterBase.CanvasHolder.transform
+                );
             }
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
+            SetPlayerHealthBar(GameServerConnectionManager.Instance.playerId == player.Id, newPlayer);
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
@@ -293,24 +300,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(ulong playerId)
+    private void SetPlayerHealthBar(bool isClientId ,Character character)
     {
-        foreach (CustomCharacter player in this.PlayerPrefabs)
-        {
-            Image healthBarFront = player
+            Image healthBarFront = character
                 .GetComponent<MMHealthBar>()
                 .TargetProgressBar
                 .ForegroundBar
                 .GetComponent<Image>();
-            if (UInt64.Parse(player.PlayerID) == playerId)
-            {
-                healthBarFront.color = Utils.healthBarCyan;
-            }
-            else
-            {
-                healthBarFront.color = Utils.healthBarRed;
-            }
-        }
+           
+                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarCyan;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)

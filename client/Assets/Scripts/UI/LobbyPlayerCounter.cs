@@ -1,33 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbyPlayerCounter : MonoBehaviour
 {
-    protected TMP_Text _totalLobbyPlayersText;
+    [SerializeField] GameObject loadingIcon;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.GetComponent<TMP_Text>() == null)
-        {
-            Debug.LogWarning("PlayerCounter requires a GUIText component.");
-            return;
-        }
-        _totalLobbyPlayersText = gameObject.GetComponent<TMP_Text>();
+        LoadingAnimation();
     }
 
-    // Update is called once per frame
-    void Update()
+  void LoadingAnimation()
     {
-        var playerAmount = Math.Max(
-            ServerConnection.Instance.playerCount,
-            ServerConnection.Instance.simulatedPlayerCount
-        );
-        _totalLobbyPlayersText.text =
-            playerAmount.ToString() + " / " + ServerConnection.Instance.lobbyCapacity.ToString();
+        Sequence loadingSequence = DOTween.Sequence();
+        loadingSequence
+            .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -180), 0.5f))
+            .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -360), 0.5f))
+            .SetLoops(-1, LoopType.Restart)
+            .SetEase(Ease.InOutQuart); 
     }
+  
 }

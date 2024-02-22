@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:client/Assets/Scripts/UI/PlayerCardManager.cs.meta
 guid: a225dab35c71442838351d076c5d1509
-========
-guid: 44f0fb5fd344c4eec9642263edfa1c00
->>>>>>>> main:client/Assets/Scripts/UI/PrepareForBattleAnimations.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
