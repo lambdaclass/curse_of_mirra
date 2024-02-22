@@ -403,9 +403,11 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
 
-                // Issue #1417
+                string projectileKey = gameProjectiles[i].Projectile.SkillKey;
+                ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
+
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.name == "SLINGSHOT") // gameProjectiles[i].SkillName
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
                     .FirstOrDefault();
 
                 if (info != null)
