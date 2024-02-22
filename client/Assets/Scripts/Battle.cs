@@ -31,6 +31,7 @@ public class Battle : MonoBehaviour
     private Loot loot;
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
+    private long lastMovementUpdate;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -47,12 +48,14 @@ public class Battle : MonoBehaviour
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
+        lastMovementUpdate = 0;
     }
 
     private void InitBlockingStates()
     {
-        BlockingMovementStates = new CharacterStates.MovementStates[1];
+        BlockingMovementStates = new CharacterStates.MovementStates[2];
         BlockingMovementStates[0] = CharacterStates.MovementStates.Attacking;
+        BlockingMovementStates[1] = CharacterStates.MovementStates.Pushing;
     }
 
     private void SetupInitialState()
@@ -98,11 +101,16 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1 && !sendMovementStarted)
+        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1)
         {
-            sendMovementStarted = true;
-            float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
-            InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
+            long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
+
+            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            {
+                SendPlayerMovement();
+                lastMovementUpdate = nowMiliseconds;
+            }
         }
     }
 
@@ -119,7 +127,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
-       powerUpsManager.UpdatePowerUps();
+        powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
@@ -286,8 +294,11 @@ public class Battle : MonoBehaviour
                         )
                         {
                             if (
-                                PlayerMovementAuthorized(playerCharacter)
-                                && !playerCharacter.currentActions.Contains(playerAction)
+                                (
+                                    playerCharacter.MovementState.CurrentState
+                                        == CharacterStates.MovementStates.Pushing
+                                    || PlayerMovementAuthorized(playerCharacter)
+                                ) && !playerCharacter.currentActions.Contains(playerAction)
                             )
                             {
                                 playerCharacter.currentActions.Add(playerAction);
@@ -313,6 +324,8 @@ public class Battle : MonoBehaviour
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
                 }
+
+                playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
 
                 if (serverPlayerUpdate.Player.Health <= 0)
                 {
@@ -364,6 +377,7 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
+        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
@@ -372,10 +386,19 @@ public class Battle : MonoBehaviour
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
+                float velocity = tickRate * gameProjectiles[i].Speed / 100f;
+                Vector3 movementDirection = new Vector3(
+                    gameProjectiles[i].Direction.X,
+                    0f,
+                    gameProjectiles[i].Direction.Y
+                );
+                movementDirection.Normalize();
+                Vector3 newProjectilePosition =
+                    projectile.transform.position + movementDirection * velocity * Time.deltaTime;
                 projectile
                     .GetComponent<SkillProjectile>()
                     .UpdatePosition(
-                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                        new Vector3(newProjectilePosition[0], 3f, newProjectilePosition[2])
                     );
             }
             else if (gameProjectiles[i].Projectile.Status == ProjectileStatus.Active)
@@ -390,9 +413,11 @@ public class Battle : MonoBehaviour
                     Vector3.up
                 );
 
-                // Issue #1417
+                string projectileKey = gameProjectiles[i].Projectile.SkillKey;
+                ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
+
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.name == "SLINGSHOT") // gameProjectiles[i].SkillName
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
                     .FirstOrDefault();
 
                 if (info != null)
@@ -542,8 +567,8 @@ public class Battle : MonoBehaviour
         if (useClientPrediction)
         {
             walking =
-                playerUpdate.Id == GameServerConnectionManager.Instance.playerId
-                    ? InputsAreBeingUsed()
+                (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
+                    ? (InputsAreBeingUsed())
                     : GameServerConnectionManager
                         .Instance
                         .eventsBuffer
@@ -562,7 +587,8 @@ public class Battle : MonoBehaviour
 
         Vector2 movementChange = new Vector2(xChange, yChange);
 
-        if (movementChange.magnitude > 0f)
+        // This magnitude allow us to not reconciliate the player's position if the change is too small
+        if (movementChange.magnitude > 0.5f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
@@ -612,7 +638,6 @@ public class Battle : MonoBehaviour
             {
                 character.RotatePlayer(player, direction);
             }
-            walking = true;
         }
 
         character.RotateCharacterOrientation();

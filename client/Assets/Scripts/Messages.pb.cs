@@ -76,25 +76,26 @@ public static partial class MessagesReflection {
           "IAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZmZWN0cxgKIAMoCzIULlBs",
           "YXllci5FZmZlY3RzRW50cnkaNwoMRWZmZWN0c0VudHJ5EgsKA2tleRgBIAEo",
           "BBIWCgV2YWx1ZRgCIAEoCzIHLkVmZmVjdDoCOAEiKwoGRWZmZWN0EgwKBG5h",
-          "bWUYASABKAkSEwoLZHVyYXRpb25fbXMYAiABKA0iUQoKUHJvamVjdGlsZRIO",
+          "bWUYASABKAkSEwoLZHVyYXRpb25fbXMYAiABKA0iZAoKUHJvamVjdGlsZRIO",
           "CgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQSIQoGc3RhdHVzGAMg",
-          "ASgOMhEuUHJvamVjdGlsZVN0YXR1cyIZCghPYnN0YWNsZRINCgVjb2xvchgB",
-          "IAEoCSI7CgdQb3dlclVwEhAKCG93bmVyX2lkGAEgASgEEh4KBnN0YXR1cxgC",
-          "IAEoDjIOLlBvd2VyVXBzdGF0dXMiQwoMUGxheWVyQWN0aW9uEiEKBmFjdGlv",
-          "bhgBIAEoDjIRLlBsYXllckFjdGlvblR5cGUSEAoIZHVyYXRpb24YAiABKAQi",
-          "JQoETW92ZRIdCglkaXJlY3Rpb24YASABKAsyCi5EaXJlY3Rpb24iPgoGQXR0",
-          "YWNrEg0KBXNraWxsGAEgASgJEiUKCnBhcmFtZXRlcnMYAiABKAsyES5BdHRh",
-          "Y2tQYXJhbWV0ZXJzIi4KEEF0dGFja1BhcmFtZXRlcnMSGgoGdGFyZ2V0GAEg",
-          "ASgLMgouRGlyZWN0aW9uImAKCkdhbWVBY3Rpb24SFQoEbW92ZRgBIAEoCzIF",
-          "Lk1vdmVIABIZCgZhdHRhY2sYAiABKAsyBy5BdHRhY2tIABIRCgl0aW1lc3Rh",
-          "bXAYAyABKANCDQoLYWN0aW9uX3R5cGUiJwoEWm9uZRIOCgZyYWRpdXMYASAB",
-          "KAISDwoHZW5hYmxlZBgCIAEoCCIxCglLaWxsRW50cnkSEQoJa2lsbGVyX2lk",
-          "GAEgASgEEhEKCXZpY3RpbV9pZBgCIAEoBCosChBQcm9qZWN0aWxlU3RhdHVz",
-          "EgoKBkFDVElWRRAAEgwKCEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxIN",
-          "CglBVkFJTEFCTEUQABIJCgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBl",
-          "EgoKBk1PVklORxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElO",
-          "R19TS0lMTF8yEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJ",
-          "TkdfU0tJTExfMhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
+          "ASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglza2lsbF9rZXkYBCABKAkiGQoI",
+          "T2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoHUG93ZXJVcBIQCghvd25lcl9p",
+          "ZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Qb3dlclVwc3RhdHVzIkMKDFBs",
+          "YXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5ZXJBY3Rpb25UeXBl",
+          "EhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEgASgL",
+          "MgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgBIAEoCRIlCgpwYXJh",
+          "bWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIuChBBdHRhY2tQYXJh",
+          "bWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlvbiJgCgpHYW1lQWN0",
+          "aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcu",
+          "QXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBlIicK",
+          "BFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgiMQoJS2ls",
+          "bEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1faWQYAiABKAQq",
+          "LAoQUHJvamVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBAB",
+          "KikKDVBvd2VyVXBzdGF0dXMSDQoJQVZBSUxBQkxFEAASCQoFVEFLRU4QASqP",
+          "AQoQUGxheWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIUChBTVEFSVElOR19T",
+          "S0lMTF8xEAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUKEUVYRUNVVElOR19T",
+          "S0lMTF8xEAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIVChFFWEVDVVRJTkdf",
+          "U0tJTExfMxAFYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -113,7 +114,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Effect), global::Effect.Parser, new[]{ "Name", "DurationMs" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status", "SkillKey" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Obstacle), global::Obstacle.Parser, new[]{ "Color" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PowerUp), global::PowerUp.Parser, new[]{ "OwnerId", "Status" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerAction), global::PlayerAction.Parser, new[]{ "Action", "Duration" }, null, null, null, null),
@@ -5009,6 +5010,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     damage_ = other.damage_;
     ownerId_ = other.ownerId_;
     status_ = other.status_;
+    skillKey_ = other.skillKey_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -5054,6 +5056,18 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
   }
 
+  /// <summary>Field number for the "skill_key" field.</summary>
+  public const int SkillKeyFieldNumber = 4;
+  private string skillKey_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string SkillKey {
+    get { return skillKey_; }
+    set {
+      skillKey_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -5072,6 +5086,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Damage != other.Damage) return false;
     if (OwnerId != other.OwnerId) return false;
     if (Status != other.Status) return false;
+    if (SkillKey != other.SkillKey) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5082,6 +5097,7 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     if (Damage != 0UL) hash ^= Damage.GetHashCode();
     if (OwnerId != 0UL) hash ^= OwnerId.GetHashCode();
     if (Status != global::ProjectileStatus.Active) hash ^= Status.GetHashCode();
+    if (SkillKey.Length != 0) hash ^= SkillKey.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5112,6 +5128,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(24);
       output.WriteEnum((int) Status);
     }
+    if (SkillKey.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(SkillKey);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -5134,6 +5154,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
       output.WriteRawTag(24);
       output.WriteEnum((int) Status);
     }
+    if (SkillKey.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(SkillKey);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -5152,6 +5176,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (Status != global::ProjectileStatus.Active) {
       size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+    }
+    if (SkillKey.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(SkillKey);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -5173,6 +5200,9 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
     }
     if (other.Status != global::ProjectileStatus.Active) {
       Status = other.Status;
+    }
+    if (other.SkillKey.Length != 0) {
+      SkillKey = other.SkillKey;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -5201,6 +5231,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
           Status = (global::ProjectileStatus) input.ReadEnum();
           break;
         }
+        case 34: {
+          SkillKey = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -5226,6 +5260,10 @@ public sealed partial class Projectile : pb::IMessage<Projectile>
         }
         case 24: {
           Status = (global::ProjectileStatus) input.ReadEnum();
+          break;
+        }
+        case 34: {
+          SkillKey = input.ReadString();
           break;
         }
       }
