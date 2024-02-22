@@ -31,6 +31,7 @@ public class Battle : MonoBehaviour
     private Loot loot;
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
+    private long lastMovementUpdate;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -47,6 +48,7 @@ public class Battle : MonoBehaviour
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
+        lastMovementUpdate = 0;
     }
 
     private void InitBlockingStates()
@@ -99,11 +101,16 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1 && !sendMovementStarted)
+        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1)
         {
-            sendMovementStarted = true;
-            float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
-            InvokeRepeating("SendPlayerMovement", 0, clientActionRate);
+            long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
+
+            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            {
+                SendPlayerMovement();
+                lastMovementUpdate = nowMiliseconds;
+            }
         }
     }
 
