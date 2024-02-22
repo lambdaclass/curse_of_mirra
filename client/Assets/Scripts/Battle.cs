@@ -119,7 +119,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
-       powerUpsManager.UpdatePowerUps();
+        powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
@@ -313,6 +313,8 @@ public class Battle : MonoBehaviour
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
                 }
+
+                playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
 
                 if (serverPlayerUpdate.Player.Health <= 0)
                 {
