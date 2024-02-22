@@ -31,6 +31,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public float serverTickRate_ms;
     public string serverHash;
     public GameStatus gameStatus;
+    public float gameCountdown;
 
     public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
@@ -165,6 +166,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
+                    this.gameCountdown = (float)gameState.Countdown;
+                    print(gameStatus);
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
