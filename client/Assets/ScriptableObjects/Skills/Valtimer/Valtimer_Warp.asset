@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Valtimer_Warp
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: WRAP
-  description: Teleport-like dash, opening a black hole and then warping to it
+  description: Teleport-like dash, opening a black hole and then warping to it.
   inputType: 2
   skillSetType: 2
   angle: 0
-  executeOnQuickTap: 0
   indicatorType: 0
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 3

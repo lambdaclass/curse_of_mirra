@@ -140,6 +140,7 @@ MonoBehaviour:
   CanvasHolder: {fileID: 6615036954960681955}
   StaminaCharges: {fileID: 8125614112250762218, guid: 8f2f9408ea9e84936a5116318b303a3c,
     type: 3}
+  powerUps: {fileID: 6157877879879126604}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
 --- !u!114 &1743729574858777773
@@ -154,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c27519de357b4dae962d7fcc6dc3470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTransparentMaterial: 0
   skinnedMeshRenderer: {fileID: 0}
   transparentMaterial: {fileID: 0}
 --- !u!1 &6615036954960681955
@@ -265,7 +267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.099999905}
+  m_AnchoredPosition: {x: 0, y: 0.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5085971671319026984
@@ -683,6 +685,12 @@ CanvasRenderer:
 --- !u!224 &5802362377404487455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2405749641239282720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6157877879879126604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8365398663005538924, guid: 1b5803238588347b78c88ecab08cedef,
     type: 3}
   m_PrefabInstance: {fileID: 2405749641239282720}
   m_PrefabAsset: {fileID: 0}

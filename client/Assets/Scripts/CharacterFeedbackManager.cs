@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -32,7 +33,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                 skinnedMeshRenderer.material = initialMaterial;
                 var canvasHolder = character.characterBase.CanvasHolder;
                 canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
-                character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = true;
+                SetMeshes(true, character);
             }
         }
         
@@ -48,7 +49,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         if(!isClient){
             var canvasHolder = character.characterBase.CanvasHolder;
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
-            character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = false;
+            SetMeshes(false, character);
         }
     }
 
@@ -58,4 +59,9 @@ public class CharacterFeedbackManager : MonoBehaviour
         canvasHolder.GetComponent<CanvasGroup>().alpha = visible ? 1 : 0;
         character.characterBase.PlayerName.GetComponent<MeshRenderer>().enabled = visible;
     }   
+
+    private void SetMeshes(bool isActive, CustomCharacter character){
+        List<MeshRenderer> meshes = character.characterBase.CharacterCard.GetComponentsInChildren<MeshRenderer>().ToList();
+        meshes.ForEach(mesh => mesh.enabled = isActive);
+    }
 }

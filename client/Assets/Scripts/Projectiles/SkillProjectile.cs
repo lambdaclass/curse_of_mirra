@@ -20,7 +20,7 @@ public class SkillProjectile : MonoBehaviour
 
     public void ProcessCollision()
     {
-        this.isTrailEnabled = true;
+        this.isTrailEnabled = trail != null;
         gameObject.SetActive(false);
         GameObject feedback = Instantiate(
             projectileInfo.projectileFeedback,

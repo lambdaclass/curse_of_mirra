@@ -52,6 +52,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ccd4c24b2cc3147699c9bf72106b0455,
         type: 2}
+    - target: {fileID: 2695741578161640832, guid: 5167513a201f64406a626d8650f6623c,
+        type: 3}
+      propertyPath: powerUpPickedVfx
+      value: 
+      objectReference: {fileID: 8771972552311404799, guid: b357929b194c045c19930ff3cff951f4,
+        type: 3}
     - target: {fileID: 7090107403194157409, guid: 5167513a201f64406a626d8650f6623c,
         type: 3}
       propertyPath: levelManager
