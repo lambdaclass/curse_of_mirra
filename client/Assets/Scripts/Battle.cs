@@ -119,7 +119,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
-       powerUpsManager.UpdatePowerUps();
+        powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
@@ -364,6 +364,7 @@ public class Battle : MonoBehaviour
 
     void UpdateProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
+        float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
         GameObject projectile;
         for (int i = 0; i < gameProjectiles.Count; i++)
         {
@@ -372,10 +373,19 @@ public class Battle : MonoBehaviour
             );
             if (projectiles.TryGetValue((int)gameProjectiles[i].Id, out projectile))
             {
+                float velocity = tickRate * gameProjectiles[i].Speed / 100f;
+                Vector3 movementDirection = new Vector3(
+                    gameProjectiles[i].Direction.X,
+                    0f,
+                    gameProjectiles[i].Direction.Y
+                );
+                movementDirection.Normalize();
+                Vector3 newProjectilePosition =
+                    projectile.transform.position + movementDirection * velocity * Time.deltaTime;
                 projectile
                     .GetComponent<SkillProjectile>()
                     .UpdatePosition(
-                        new Vector3(backToFrontPosition[0], 3f, backToFrontPosition[2])
+                        new Vector3(newProjectilePosition[0], 3f, newProjectilePosition[2])
                     );
             }
             else if (gameProjectiles[i].Projectile.Status == ProjectileStatus.Active)
