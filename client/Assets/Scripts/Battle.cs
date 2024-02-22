@@ -98,7 +98,11 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1 && !sendMovementStarted)
+        if (
+            GameServerConnectionManager.Instance.eventsBuffer.Count() > 1
+            && !sendMovementStarted
+            && GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        )
         {
             sendMovementStarted = true;
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms / 1000f;
@@ -119,7 +123,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         // loot.UpdateLoots();
-       powerUpsManager.UpdatePowerUps();
+        powerUpsManager.UpdatePowerUps();
     }
 
     private void SetAccumulatedTime()
