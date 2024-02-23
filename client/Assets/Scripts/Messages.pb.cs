@@ -41,63 +41,64 @@ public static partial class MessagesReflection {
           "YXNlX3NpemUYBCABKAISEwoLYmFzZV9oZWFsdGgYBSABKAQSGgoSbWF4X2lu",
           "dmVudG9yeV9zaXplGAYgASgEEiwKBnNraWxscxgHIAMoCzIcLkNvbmZpZ0No",
           "YXJhY3Rlci5Ta2lsbHNFbnRyeRo7CgtTa2lsbHNFbnRyeRILCgNrZXkYASAB",
-          "KAkSGwoFdmFsdWUYAiABKAsyDC5Db25maWdTa2lsbDoCOAEiTwoLQ29uZmln",
-          "U2tpbGwSDAoEbmFtZRgBIAEoCRITCgtjb29sZG93bl9tcxgCIAEoBBIdChVl",
-          "eGVjdXRpb25fZHVyYXRpb25fbXMYAyABKAQikwYKCUdhbWVTdGF0ZRIPCgdn",
-          "YW1lX2lkGAEgASgJEigKB3BsYXllcnMYAiADKAsyFy5HYW1lU3RhdGUuUGxh",
-          "eWVyc0VudHJ5EjAKC3Byb2plY3RpbGVzGAMgAygLMhsuR2FtZVN0YXRlLlBy",
-          "b2plY3RpbGVzRW50cnkSOwoRcGxheWVyX3RpbWVzdGFtcHMYBCADKAsyIC5H",
-          "YW1lU3RhdGUuUGxheWVyVGltZXN0YW1wc0VudHJ5EhgKEHNlcnZlcl90aW1l",
-          "c3RhbXAYBSABKAMSEwoEem9uZRgGIAEoCzIFLlpvbmUSHAoIa2lsbGZlZWQY",
-          "ByADKAsyCi5LaWxsRW50cnkSMQoMZGFtYWdlX3Rha2VuGAggAygLMhsuR2Ft",
-          "ZVN0YXRlLkRhbWFnZVRha2VuRW50cnkSLwoLZGFtYWdlX2RvbmUYCSADKAsy",
-          "Gi5HYW1lU3RhdGUuRGFtYWdlRG9uZUVudHJ5EisKCXBvd2VyX3VwcxgKIAMo",
-          "CzIYLkdhbWVTdGF0ZS5Qb3dlclVwc0VudHJ5EhsKBnN0YXR1cxgLIAEoDjIL",
-          "LkdhbWVTdGF0dXMSEQoJY291bnRkb3duGAwgASgDGjcKDFBsYXllcnNFbnRy",
-          "eRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRpdHk6AjgBGjsK",
-          "EFByb2plY3RpbGVzRW50cnkSCwoDa2V5GAEgASgEEhYKBXZhbHVlGAIgASgL",
-          "MgcuRW50aXR5OgI4ARo3ChVQbGF5ZXJUaW1lc3RhbXBzRW50cnkSCwoDa2V5",
-          "GAEgASgEEg0KBXZhbHVlGAIgASgDOgI4ARoyChBEYW1hZ2VUYWtlbkVudHJ5",
-          "EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEaMQoPRGFtYWdlRG9u",
-          "ZUVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEaOAoNUG93",
-          "ZXJVcHNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRp",
-          "dHk6AjgBIvICCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0ZWdvcnkYAiAB",
-          "KAkSDQoFc2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghwb3NpdGlvbhgF",
-          "IAEoCzIJLlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2ZXJ0aWNlcxgH",
-          "IAMoCzIJLlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCADKAQSDQoFc3Bl",
-          "ZWQYCSABKAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0aW9uEhEKCWlz",
-          "X21vdmluZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5ZXJIABIhCgpw",
-          "cm9qZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9ic3RhY2xlGA4g",
-          "ASgLMgkuT2JzdGFjbGVIABIcCghwb3dlcl91cBgPIAEoCzIILlBvd2VyVXBI",
-          "AEIQCg5hZGl0aW9uYWxfaW5mbyLFAgoGUGxheWVyEg4KBmhlYWx0aBgBIAEo",
-          "BBISCgpraWxsX2NvdW50GAIgASgEEiYKD2N1cnJlbnRfYWN0aW9ucxgDIAMo",
-          "CzINLlBsYXllckFjdGlvbhIZChFhdmFpbGFibGVfc3RhbWluYRgEIAEoBBIT",
-          "CgttYXhfc3RhbWluYRgFIAEoBBIYChBzdGFtaW5hX2ludGVydmFsGAYgASgE",
-          "EhoKEnJlY2hhcmdpbmdfc3RhbWluYRgHIAEoCBIWCg5jaGFyYWN0ZXJfbmFt",
-          "ZRgIIAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZmZWN0cxgKIAMoCzIU",
-          "LlBsYXllci5FZmZlY3RzRW50cnkaNwoMRWZmZWN0c0VudHJ5EgsKA2tleRgB",
-          "IAEoBBIWCgV2YWx1ZRgCIAEoCzIHLkVmZmVjdDoCOAEiKwoGRWZmZWN0EgwK",
-          "BG5hbWUYASABKAkSEwoLZHVyYXRpb25fbXMYAiABKA0iZAoKUHJvamVjdGls",
-          "ZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQSIQoGc3RhdHVz",
-          "GAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglza2lsbF9rZXkYBCABKAki",
-          "GQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoHUG93ZXJVcBIQCghvd25l",
-          "cl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Qb3dlclVwc3RhdHVzIkMK",
-          "DFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5ZXJBY3Rpb25U",
-          "eXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEg",
-          "ASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgBIAEoCRIlCgpw",
-          "YXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIuChBBdHRhY2tQ",
-          "YXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlvbiJgCgpHYW1l",
-          "QWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgL",
-          "MgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2FjdGlvbl90eXBl",
-          "IicKBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQYAiABKAgiMQoJ",
-          "S2lsbEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1faWQYAiAB",
-          "KAQqMwoKR2FtZVN0YXR1cxINCglQUkVQQVJJTkcQABILCgdSVU5OSU5HEAES",
-          "CQoFRU5ERUQQAiosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwK",
-          "CEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFCTEUQABIJ",
-          "CgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklORxAAEhQK",
-          "EFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8yEAISFQoR",
-          "RVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExfMhAEEhUK",
-          "EUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
+          "KAkSGwoFdmFsdWUYAiABKAsyDC5Db25maWdTa2lsbDoCOAEihAEKC0NvbmZp",
+          "Z1NraWxsEgwKBG5hbWUYASABKAkSEwoLY29vbGRvd25fbXMYAiABKAQSHQoV",
+          "ZXhlY3V0aW9uX2R1cmF0aW9uX21zGAMgASgEEhkKEXRhcmdldHRpbmdfcmFk",
+          "aXVzGAQgASgCEhgKEHRhcmdldHRpbmdfYW5nbGUYBSABKAIikwYKCUdhbWVT",
+          "dGF0ZRIPCgdnYW1lX2lkGAEgASgJEigKB3BsYXllcnMYAiADKAsyFy5HYW1l",
+          "U3RhdGUuUGxheWVyc0VudHJ5EjAKC3Byb2plY3RpbGVzGAMgAygLMhsuR2Ft",
+          "ZVN0YXRlLlByb2plY3RpbGVzRW50cnkSOwoRcGxheWVyX3RpbWVzdGFtcHMY",
+          "BCADKAsyIC5HYW1lU3RhdGUuUGxheWVyVGltZXN0YW1wc0VudHJ5EhgKEHNl",
+          "cnZlcl90aW1lc3RhbXAYBSABKAMSEwoEem9uZRgGIAEoCzIFLlpvbmUSHAoI",
+          "a2lsbGZlZWQYByADKAsyCi5LaWxsRW50cnkSMQoMZGFtYWdlX3Rha2VuGAgg",
+          "AygLMhsuR2FtZVN0YXRlLkRhbWFnZVRha2VuRW50cnkSLwoLZGFtYWdlX2Rv",
+          "bmUYCSADKAsyGi5HYW1lU3RhdGUuRGFtYWdlRG9uZUVudHJ5EisKCXBvd2Vy",
+          "X3VwcxgKIAMoCzIYLkdhbWVTdGF0ZS5Qb3dlclVwc0VudHJ5EhsKBnN0YXR1",
+          "cxgLIAEoDjILLkdhbWVTdGF0dXMSEQoJY291bnRkb3duGAwgASgDGjcKDFBs",
+          "YXllcnNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRp",
+          "dHk6AjgBGjsKEFByb2plY3RpbGVzRW50cnkSCwoDa2V5GAEgASgEEhYKBXZh",
+          "bHVlGAIgASgLMgcuRW50aXR5OgI4ARo3ChVQbGF5ZXJUaW1lc3RhbXBzRW50",
+          "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgDOgI4ARoyChBEYW1hZ2VU",
+          "YWtlbkVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEaMQoP",
+          "RGFtYWdlRG9uZUVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoC",
+          "OAEaOAoNUG93ZXJVcHNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiAB",
+          "KAsyBy5FbnRpdHk6AjgBIvICCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0",
+          "ZWdvcnkYAiABKAkSDQoFc2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghw",
+          "b3NpdGlvbhgFIAEoCzIJLlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2",
+          "ZXJ0aWNlcxgHIAMoCzIJLlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCAD",
+          "KAQSDQoFc3BlZWQYCSABKAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0",
+          "aW9uEhEKCWlzX21vdmluZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5",
+          "ZXJIABIhCgpwcm9qZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9i",
+          "c3RhY2xlGA4gASgLMgkuT2JzdGFjbGVIABIcCghwb3dlcl91cBgPIAEoCzII",
+          "LlBvd2VyVXBIAEIQCg5hZGl0aW9uYWxfaW5mbyLFAgoGUGxheWVyEg4KBmhl",
+          "YWx0aBgBIAEoBBISCgpraWxsX2NvdW50GAIgASgEEiYKD2N1cnJlbnRfYWN0",
+          "aW9ucxgDIAMoCzINLlBsYXllckFjdGlvbhIZChFhdmFpbGFibGVfc3RhbWlu",
+          "YRgEIAEoBBITCgttYXhfc3RhbWluYRgFIAEoBBIYChBzdGFtaW5hX2ludGVy",
+          "dmFsGAYgASgEEhoKEnJlY2hhcmdpbmdfc3RhbWluYRgHIAEoCBIWCg5jaGFy",
+          "YWN0ZXJfbmFtZRgIIAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZmZWN0",
+          "cxgKIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaNwoMRWZmZWN0c0VudHJ5",
+          "EgsKA2tleRgBIAEoBBIWCgV2YWx1ZRgCIAEoCzIHLkVmZmVjdDoCOAEiKwoG",
+          "RWZmZWN0EgwKBG5hbWUYASABKAkSEwoLZHVyYXRpb25fbXMYAiABKA0iZAoK",
+          "UHJvamVjdGlsZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQS",
+          "IQoGc3RhdHVzGAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglza2lsbF9r",
+          "ZXkYBCABKAkiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoHUG93ZXJV",
+          "cBIQCghvd25lcl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Qb3dlclVw",
+          "c3RhdHVzIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5",
+          "ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGly",
+          "ZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgB",
+          "IAEoCRIlCgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIu",
+          "ChBBdHRhY2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlv",
+          "biJgCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0",
+          "YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2Fj",
+          "dGlvbl90eXBlIicKBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQY",
+          "AiABKAgiMQoJS2lsbEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0",
+          "aW1faWQYAiABKAQqMwoKR2FtZVN0YXR1cxINCglQUkVQQVJJTkcQABILCgdS",
+          "VU5OSU5HEAESCQoFRU5ERUQQAiosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFD",
+          "VElWRRAAEgwKCEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJ",
+          "TEFCTEUQABIJCgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1P",
+          "VklORxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lM",
+          "TF8yEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJ",
+          "TExfMhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -111,7 +112,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigGame), global::ConfigGame.Parser, new[]{ "TickRateMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigCharacter), global::ConfigCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "BaseHealth", "MaxInventorySize", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs", "TargettingRadius", "TargettingAngle" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Status", "Countdown" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
@@ -2755,6 +2756,8 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     name_ = other.name_;
     cooldownMs_ = other.cooldownMs_;
     executionDurationMs_ = other.executionDurationMs_;
+    targettingRadius_ = other.targettingRadius_;
+    targettingAngle_ = other.targettingAngle_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -2800,6 +2803,30 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     }
   }
 
+  /// <summary>Field number for the "targetting_radius" field.</summary>
+  public const int TargettingRadiusFieldNumber = 4;
+  private float targettingRadius_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float TargettingRadius {
+    get { return targettingRadius_; }
+    set {
+      targettingRadius_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "targetting_angle" field.</summary>
+  public const int TargettingAngleFieldNumber = 5;
+  private float targettingAngle_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float TargettingAngle {
+    get { return targettingAngle_; }
+    set {
+      targettingAngle_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -2818,6 +2845,8 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     if (Name != other.Name) return false;
     if (CooldownMs != other.CooldownMs) return false;
     if (ExecutionDurationMs != other.ExecutionDurationMs) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(TargettingRadius, other.TargettingRadius)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(TargettingAngle, other.TargettingAngle)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2828,6 +2857,8 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (CooldownMs != 0UL) hash ^= CooldownMs.GetHashCode();
     if (ExecutionDurationMs != 0UL) hash ^= ExecutionDurationMs.GetHashCode();
+    if (TargettingRadius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(TargettingRadius);
+    if (TargettingAngle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(TargettingAngle);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2858,6 +2889,14 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
       output.WriteRawTag(24);
       output.WriteUInt64(ExecutionDurationMs);
     }
+    if (TargettingRadius != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(TargettingRadius);
+    }
+    if (TargettingAngle != 0F) {
+      output.WriteRawTag(45);
+      output.WriteFloat(TargettingAngle);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2880,6 +2919,14 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
       output.WriteRawTag(24);
       output.WriteUInt64(ExecutionDurationMs);
     }
+    if (TargettingRadius != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(TargettingRadius);
+    }
+    if (TargettingAngle != 0F) {
+      output.WriteRawTag(45);
+      output.WriteFloat(TargettingAngle);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2898,6 +2945,12 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     }
     if (ExecutionDurationMs != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExecutionDurationMs);
+    }
+    if (TargettingRadius != 0F) {
+      size += 1 + 4;
+    }
+    if (TargettingAngle != 0F) {
+      size += 1 + 4;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2919,6 +2972,12 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
     }
     if (other.ExecutionDurationMs != 0UL) {
       ExecutionDurationMs = other.ExecutionDurationMs;
+    }
+    if (other.TargettingRadius != 0F) {
+      TargettingRadius = other.TargettingRadius;
+    }
+    if (other.TargettingAngle != 0F) {
+      TargettingAngle = other.TargettingAngle;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2947,6 +3006,14 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
           ExecutionDurationMs = input.ReadUInt64();
           break;
         }
+        case 37: {
+          TargettingRadius = input.ReadFloat();
+          break;
+        }
+        case 45: {
+          TargettingAngle = input.ReadFloat();
+          break;
+        }
       }
     }
   #endif
@@ -2972,6 +3039,14 @@ public sealed partial class ConfigSkill : pb::IMessage<ConfigSkill>
         }
         case 24: {
           ExecutionDurationMs = input.ReadUInt64();
+          break;
+        }
+        case 37: {
+          TargettingRadius = input.ReadFloat();
+          break;
+        }
+        case 45: {
+          TargettingAngle = input.ReadFloat();
           break;
         }
       }

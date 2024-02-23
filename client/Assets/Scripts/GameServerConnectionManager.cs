@@ -39,11 +39,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
-
     public bool zoneEnabled = false;
-
-    //     public OldPosition shrinkingCenter;
-    //     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
     public bool cinematicDone;
     public bool connected = false;
 
