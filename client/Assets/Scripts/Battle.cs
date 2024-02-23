@@ -126,7 +126,7 @@ public class Battle : MonoBehaviour
     {
         UpdatePlayerActions();
         UpdateProjectileActions();
-        // loot.UpdateLoots();
+        loot.UpdateLoots();
         powerUpsManager.UpdatePowerUps();
     }
 
@@ -417,7 +417,7 @@ public class Battle : MonoBehaviour
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
                 if (info != null)

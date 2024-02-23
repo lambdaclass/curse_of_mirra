@@ -27,6 +27,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
+    public List<Entity> gameLoots;
     public ulong playerId;
     public uint currentPing;
     public float serverTickRate_ms;
@@ -169,6 +170,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
+                    this.gameLoots = gameState.Items.Values.ToList();
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position
