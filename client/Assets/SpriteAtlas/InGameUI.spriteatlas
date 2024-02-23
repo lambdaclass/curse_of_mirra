@@ -52,20 +52,25 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
   - {fileID: 21300000, guid: 77e42d722086f443b9f0a004431a46a1, type: 3}
   - {fileID: 21300000, guid: 7a457ad213602408fa9c8b626b1e509b, type: 3}
+  - {fileID: 21300000, guid: e802e653be6f545aa96092866ab8f767, type: 3}
+  - {fileID: 21300000, guid: fa509bc31c25c45bd8e8a7c322f4e8ed, type: 3}
   - {fileID: 21300000, guid: df64a9447a18b4291b85eb515c74ebd2, type: 3}
   - {fileID: 21300000, guid: d72ff864afdb848fe8bc6f20a0679065, type: 3}
   - {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}
-  - {fileID: 21300000, guid: 009b66b51fd3e4733b4ac2174cd7c268, type: 3}
   - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
   - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
+  - {fileID: 21300000, guid: 1d7052b9cf5b7473fa30b8dc3223f09d, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
+  - {fileID: 21300000, guid: 58c5b2ba7289848799e486a6d866171a, type: 3}
   - {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
   - {fileID: 21300000, guid: 19ab588b5db054bfbad31e56c4ea1440, type: 3}
   - {fileID: 21300000, guid: 0d5da8ab1670f437e8d9d1bda2b88792, type: 3}
+  - {fileID: 21300000, guid: 0c73ab9c47b36493b8966b0a813f41f6, type: 3}
   - {fileID: 21300000, guid: 098120dd7167e4221b9f8510402e20fa, type: 3}
   - {fileID: 21300000, guid: 04ae07dd9905f49c0b70082fc6f75dcd, type: 3}
+  - {fileID: 21300000, guid: 53f2807e7277b4fad80fcfbfd6adbc15, type: 3}
   m_PackedSpriteNamesToIndex:
   - container
   - setting_firstTab_selected
@@ -76,20 +81,25 @@ SpriteAtlas:
   - players
   - toggle_on
   - icon
+  - 0
+  - stamina
   - muflus
   - settings_bg
   - zone
-  - healthbar_border
   - setting_tab_selected
   - underline
   - container
   - toggle_off
+  - direction final
   - slider-handle
+  - 1
   - timer
   - setings
   - kills
+  - background(2)
   - sidebar
   - dev
+  - stamina-empty
   m_RenderDataMap: {}
   m_Tag: InGameUI
   m_IsVariant: 0

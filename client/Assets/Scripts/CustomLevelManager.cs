@@ -85,7 +85,6 @@ public class CustomLevelManager : LevelManager
         GeneratePlayers();
         SetPlayersSkills(playerId);
         var player = Utils.GetPlayer(playerId);
-        SetPlayerHealthBar(playerId);
         SetOrientationArrow(playerId);
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
@@ -150,24 +149,27 @@ public class CustomLevelManager : LevelManager
             {
                 prefab.GetComponent<CustomCharacter>().PlayerID = "";
             }
+            Vector3 backToFrontPosition = Utils.transformBackendOldPositionToFrontendPosition(
+                player.Position
+            );
             CustomCharacter newPlayer = Instantiate(
                 prefab.GetComponent<CustomCharacter>(),
-                new Vector3(0.0f, 1.0f, 0.0f),
+                new Vector3(backToFrontPosition.x, 1.0f, backToFrontPosition.z),
                 Quaternion.identity
             );
+
+            if (GameServerConnectionManager.Instance.playerId == player.Id)
+            {
+                Instantiate(
+                    newPlayer.characterBase.StaminaCharges,
+                    newPlayer.characterBase.CanvasHolder.transform
+                );
+            }
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            // if (GameServerConnectionManager.Instance.playerId == playerID)
-            // {
-            //     //Add audioListener in player
-            //     newPlayer.characterBase.gameObject.AddComponent<AudioListener>();
-            //     //Disable audioListener in camera
-            //     this.camera.transform.parent.GetComponentInChildren<AudioListener>().enabled =
-            //         false;
-            // }
-
+            SetPlayerHealthBar(GameServerConnectionManager.Instance.playerId == player.Id, newPlayer);
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
         }
@@ -221,7 +223,7 @@ public class CustomLevelManager : LevelManager
     //     skillsClone[1].skillConeAngle = 45; // skill1InfoAngle;
     // }
 
-    private List<SkillInfo> InitSkills(CoMCharacter characterInfo)
+    private List<SkillInfo> InitSkills(CoMCharacter characterInfo, string id)
     {
         List<SkillInfo> skills = new List<SkillInfo>();
         characterInfo
@@ -229,7 +231,7 @@ public class CustomLevelManager : LevelManager
             .ForEach(skill =>
             {
                 SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend();
+                skillClone.InitWithBackend(id);
                 skills.Add(skillClone);
             });
 
@@ -265,7 +267,7 @@ public class CustomLevelManager : LevelManager
                 .AvailableCharacters
                 .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
 
-            List<SkillInfo> skillInfoClone = InitSkills(characterInfo);
+            List<SkillInfo> skillInfoClone = InitSkills(characterInfo, player.PlayerID);
             // SetSkillAngles(skillInfoClone);
 
             skill1.SetSkill("1", skillInfoClone[0]);
@@ -298,24 +300,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(ulong playerId)
+    private void SetPlayerHealthBar(bool isClientId ,Character character)
     {
-        foreach (CustomCharacter player in this.PlayerPrefabs)
-        {
-            Image healthBarFront = player
+            Image healthBarFront = character
                 .GetComponent<MMHealthBar>()
                 .TargetProgressBar
                 .ForegroundBar
                 .GetComponent<Image>();
-            if (UInt64.Parse(player.PlayerID) == playerId)
-            {
-                healthBarFront.color = Utils.healthBarCyan;
-            }
-            else
-            {
-                healthBarFront.color = Utils.healthBarRed;
-            }
-        }
+           
+                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarGreen;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -14,7 +15,11 @@ public class CharacterBase : MonoBehaviour
         SkillRange,
         spawnFeedback,
         OrientationIndicator,
-        OrientationArrow;
+        OrientationArrow,
+        CharacterCard,
+        CanvasHolder,
+        StaminaCharges,
+        powerUps;
 
     [SerializeField]
     public AudioClip spawnSfx;
@@ -37,5 +42,11 @@ public class CharacterBase : MonoBehaviour
                 SPAWN_SFX_VOLUME
             );
         }
+    }
+
+    public void SetPowerUpCount(ulong count)
+    {
+        powerUps.SetActive(count > 0);
+        powerUps.GetComponentInChildren<TMP_Text>().text = count.ToString();
     }
 }

@@ -38,7 +38,7 @@ public class CustomCharacter : Character
         this.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         this.characterBase.Hitbox.SetActive(false);
         DestroySkillsClone();
-        this.GetComponentInChildren<CharacterBase>().OrientationIndicator.SetActive(false);
+        this.characterBase.CanvasHolder.SetActive(false);
     }
 
     private void DestroySkillsClone()
@@ -48,13 +48,14 @@ public class CustomCharacter : Character
             .ForEach(skillInfo => Destroy(skillInfo.GetSkillInfo()));
     }
 
-   public void RotateCharacterOrientation()
+    public void RotateCharacterOrientation()
     {
-        this.characterBase.OrientationIndicator.transform.rotation =
-            this.CharacterModel.transform.rotation;
+        this.characterBase.OrientationIndicator.transform.rotation = this.CharacterModel
+            .transform
+            .rotation;
     }
 
-   public void HandlePlayerHealth(Entity playerUpdate)
+    public void HandlePlayerHealth(Entity playerUpdate)
     {
         Health healthComponent = this.GetComponent<Health>();
         CharacterFeedbacks characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
@@ -69,5 +70,10 @@ public class CustomCharacter : Character
         {
             healthComponent.SetHealth(playerUpdate.Player.Health);
         }
+    }
+
+    public void UpdatePowerUpsCount(ulong powerUpCount)
+    {
+        this.characterBase.SetPowerUpCount(powerUpCount);
     }
 }

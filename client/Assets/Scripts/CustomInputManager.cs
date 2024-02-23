@@ -267,18 +267,6 @@ public class CustomInputManager : InputManager
 
         directionIndicator.SetConeIndicator();
 
-        if (joystick.skill.ExecutesOnQuickTap())
-        {
-            CharacterOrientation3D characterOrientation =
-                _player.GetComponent<CharacterOrientation3D>();
-            directionIndicator.Rotate(
-                characterOrientation.ForcedRotationDirection.x,
-                characterOrientation.ForcedRotationDirection.z,
-                joystick.skill
-            );
-            directionIndicator.ActivateIndicator(joystick.skill.GetIndicatorType());
-        }
-
         activeJoystick = joystick;
     }
 
