@@ -48,13 +48,8 @@ public class MatchStatsController : MonoBehaviour
             .KillCount
             .ToString();
 
-        // time += Time.deltaTime;
+        var time = GameServerConnectionManager.Instance.zoneShrinkTime / 1000;
 
-        // if (time >= period && seconds > 0)
-        // {
-        //     time = time - period;
-        //     seconds--;
-        //     zoneTimer.text = seconds.ToString();
-        // }
+        zoneTimer.text = time.ToString();
     }
 }
