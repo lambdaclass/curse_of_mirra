@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    private const string MYRRAS_BLESSING = "loot_health";
-
     // This is the base duration
     // The animations use this as a base for all the animation durations
     // If the goal is to change an entire animation duration, this is the value to change
@@ -21,6 +19,8 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField]
     public Sprite myrrasBlessing;
+    public Sprite goldenClock;
+    public Sprite magicBoots;
 
     [SerializeField]
     Image inventoryImage;
@@ -110,10 +110,15 @@ public class InventoryUI : MonoBehaviour
 
     private Sprite GetInventoryItemSprite()
     {
+        // TODO: Change to List
         switch (activeItem.Name)
         {
-            case MYRRAS_BLESSING:
+            case "mirra_blessing":
                 return myrrasBlessing;
+            case "golden_clock":
+                return goldenClock;
+            case "magic_boots":
+                return magicBoots;
             default:
                 return null;
         }
