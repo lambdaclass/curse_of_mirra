@@ -33,11 +33,20 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // alivePlayers.text = GameServerConnectionManager.Instance.alivePlayers.Count().ToString();
-        // killCount.text = Utils
-        //     .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
-        //     ?.KillCount
-        //     .ToString();
+        if (GameServerConnectionManager.Instance.gamePlayers != null)
+        {
+            alivePlayers.text = GameServerConnectionManager
+                .Instance
+                .gamePlayers
+                .Sum(playerEntity => Convert.ToInt32(playerEntity.Player.Health > 0))
+                .ToString();
+        }
+
+        killCount.text = Utils
+            .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
+            ?.Player
+            .KillCount
+            .ToString();
 
         // time += Time.deltaTime;
 
