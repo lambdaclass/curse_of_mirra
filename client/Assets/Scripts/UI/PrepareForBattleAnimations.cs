@@ -40,8 +40,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
     Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
-    const float PREPARE_FOR_BATTLE_DURATION = 3f;
-    const float CHARACTERS_DISPLAY_DURATION = 4f;
+    const float PREPARE_FOR_BATTLE_DURATION = 4f;
+    const float CHARACTERS_DISPLAY_DURATION = 5f;
     float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.65f;
 
@@ -86,6 +86,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         loadingScreen.GetComponent<CanvasGroup>().DOFade(0, .1f);
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
+        print("pASO " + PREPARE_FOR_BATTLE_DURATION);
         StartCoroutine(PlayersAnimation());
         yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
         StartCoroutine(SurviveAnimation());
@@ -209,7 +210,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-            TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000);
+            TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000) + 1;
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
