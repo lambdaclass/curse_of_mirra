@@ -77,13 +77,10 @@ public class EndGameManager : MonoBehaviour
     void ShowMatchInfo()
     {
         // Kill count
-
-        //We should use this but for now we will use a placeholder
-        // var killCount = GetKillCount();
-        // amountOfKillsText.text = killCount.ToString();
-
-        // placeholder
-        amountOfKillsText.text = "-";
+        amountOfKillsText.text = Utils
+            .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
+            ?.Player.KillCount
+            .ToString();
 
         // Defeated By
         if (
