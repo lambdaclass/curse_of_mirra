@@ -353,15 +353,15 @@ public class Battle : MonoBehaviour
         {
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
         }
     }
@@ -585,9 +585,6 @@ public class Battle : MonoBehaviour
             }
         }
 
-        Direction direction = GetPlayerDirection(playerUpdate);
-        character.RotatePlayer(player, direction);
-
         Vector2 movementChange = new Vector2(xChange, yChange);
 
         // This magnitude allow us to not reconciliate the player's position if the change is too small
@@ -635,11 +632,11 @@ public class Battle : MonoBehaviour
 
             // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
             // if the player is in attacking state, movement rotation from movement should be ignored
-            direction = GetPlayerDirection(playerUpdate);
+            Direction direction = GetPlayerDirection(playerUpdate);
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                character.RotatePlayer(player, direction);
+                character.RotatePlayer(direction);
             }
         }
 
