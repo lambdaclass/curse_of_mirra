@@ -417,7 +417,7 @@ public class Battle : MonoBehaviour
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
                 if (info != null)
@@ -585,6 +585,9 @@ public class Battle : MonoBehaviour
             }
         }
 
+        Direction direction = GetPlayerDirection(playerUpdate);
+        character.RotatePlayer(player, direction);
+
         Vector2 movementChange = new Vector2(xChange, yChange);
 
         // This magnitude allow us to not reconciliate the player's position if the change is too small
@@ -632,7 +635,7 @@ public class Battle : MonoBehaviour
 
             // FIXME: This is a temporary solution to solve unwanted player rotation until we handle movement blocking on backend
             // if the player is in attacking state, movement rotation from movement should be ignored
-            Direction direction = GetPlayerDirection(playerUpdate);
+            direction = GetPlayerDirection(playerUpdate);
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
