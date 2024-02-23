@@ -100,7 +100,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 1.42
         m_Name: EffectRadius
         m_Overridden: 1
       - m_Value: 2.33
@@ -127,17 +127,48 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0, g: 0, b: 0, a: 1}
-          key1: {r: 0.12444468, g: 0.3773585, b: 0.005339969, a: 1}
-          key2: {r: 0.10309973, g: 0.16037738, b: 0, a: 0}
+          key0: {r: 0, g: 0.14141609, b: 0.33962262, a: 0}
+          key1: {r: 0, g: 0.8584906, b: 0.66771483, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0.8}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
           key6: {r: 0, g: 0, b: 0, a: 0}
           key7: {r: 0, g: 0, b: 0, a: 0}
           ctime0: 0
-          ctime1: 7903
-          ctime2: 54934
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 6554
+          atime2: 52428
+          atime3: 65535
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 4
+        m_Name: PulseGradient
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 0, g: 0.6603774, b: 0.5931872, a: 1}
+          key1: {r: 0.013633489, g: 0.528956, b: 0.61369586, a: 1}
+          key2: {r: 0.027634388, g: 0.045218244, b: 0.21698111, a: 0}
+          key3: {r: 0.027634388, g: 0.045218244, b: 0.21698111, a: 0}
+          key4: {r: 0.027634388, g: 0.045218244, b: 0.21698111, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 964
+          ctime1: 18311
+          ctime2: 65535
           ctime3: 65535
           ctime4: 65535
           ctime5: 0
@@ -145,16 +176,47 @@ VisualEffect:
           ctime7: 0
           atime0: 0
           atime1: 65535
-          atime2: 65535
-          atime3: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 3
+          m_NumAlphaKeys: 2
+        m_Name: PicktogramSupportGradient
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 0, g: 0.9716981, b: 0.84089255, a: 0}
+          key1: {r: 0.15566039, g: 1, b: 0.8161599, a: 1}
+          key2: {r: 0.0072089583, g: 0.48025677, b: 0.509434, a: 0}
+          key3: {r: 0, g: 0.43529412, b: 0.3807489, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 8288
+          ctime2: 45875
+          ctime3: 65535
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 7903
+          atime2: 57825
+          atime3: 57825
           atime4: 0
           atime5: 0
           atime6: 0
           atime7: 0
           m_Mode: 0
           m_NumColorKeys: 4
-          m_NumAlphaKeys: 2
-        m_Name: PulseGradient
+          m_NumAlphaKeys: 3
+        m_Name: PicktogramMainGradient
         m_Overridden: 1
     m_NamedObject:
       m_Array: []
