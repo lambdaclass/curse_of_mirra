@@ -38,39 +38,41 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 1bbf992014dde43e4befb7e7862d697a, type: 3}
   - {fileID: 21300000, guid: c7d94a50e55ca40c4a5c1af048d97f0a, type: 3}
-  - {fileID: 21300000, guid: da68f552af66c4e40bca75d39177b6a9, type: 3}
-  - {fileID: 21300000, guid: 19f9f182b767c47b6967032f2a58811d, type: 3}
-  - {fileID: 21300000, guid: fa27f582a1b7c4389afb4991a735007e, type: 3}
-  - {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac, type: 3}
-  - {fileID: 21300000, guid: cecebc6322d064fc5af558ab0650d167, type: 3}
+  - {fileID: 21300000, guid: 59af33213ed5b415eb3a10d777590d05, type: 3}
+  - {fileID: 21300000, guid: 826e5e13973874f1eb69c654581f9fc6, type: 3}
+  - {fileID: 21300000, guid: 3eb3b8d50c6bf496bbb4f9e2ba0509ae, type: 3}
   - {fileID: 21300000, guid: 56a6de87ac01343649411377c504d93e, type: 3}
+  - {fileID: 21300000, guid: 3e77a2489aeb54ea097d1b72319941cc, type: 3}
+  - {fileID: 21300000, guid: 47d963482512d4625b5e6a08b0d2f7ba, type: 3}
+  - {fileID: 21300000, guid: 0295f34893a1b4063a6ac390767d2f78, type: 3}
+  - {fileID: 21300000, guid: c41fe3787d41548aa88b9750b11603f0, type: 3}
+  - {fileID: 21300000, guid: d6fb4388bb0a0427481a7083feee3555, type: 3}
   - {fileID: 21300000, guid: 31f5d1c8ecfd64044b2c0e700c09af7d, type: 3}
   - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
   - {fileID: 21300000, guid: f8c3865a96b604b81aad5959769c5e6e, type: 3}
-  - {fileID: 21300000, guid: 5586b18ae24a141908cfff9023776fce, type: 3}
   - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
-  - {fileID: 21300000, guid: 5858709d7e65547a790f82b5eab4cd22, type: 3}
-  - {fileID: 21300000, guid: ac8229bd02da44ef9a9ea325bdd91cf4, type: 3}
-  - {fileID: 21300000, guid: 790b13ddb1435423989fde5f5a321942, type: 3}
   - {fileID: 21300000, guid: 2723ab2f058bf468988f0c089ec4ea5b, type: 3}
+  - {fileID: 21300000, guid: 498869cf1827d4a62b6499ddc5e9d535, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Valtimer(3)
   - CurseOfMirra-Uma
-  - icon
-  - D_agna
-  - container
-  - Uma
-  - H4ck
+  - badge-you
+  - CoM
+  - Uma(1)
   - CurseOfMirra-Background
+  - 1(1)
+  - Muflus(2)
+  - 1(2)
+  - container-player
+  - H4ck(1)
   - fade
   - background-gradient
   - CurseOfMirra-Muflus
-  - Valtimer
   - container name player
-  - container-player
-  - badge-you
-  - Muflus
   - CurseOfMirra-H4ck
+  - container name player 1
   m_RenderDataMap: {}
   m_Tag: PrepareForBattle
   m_IsVariant: 0
