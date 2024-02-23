@@ -24,13 +24,14 @@ public class GameServerConnectionManager : MonoBehaviour
     public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
 
     public List<Entity> gamePlayers;
-
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
     public ulong playerId;
     public uint currentPing;
     public float serverTickRate_ms;
     public string serverHash;
+    public GameStatus gameStatus;
+    public float gameCountdown;
 
     public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
@@ -160,6 +161,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneEnabled = gameState.Zone.Enabled;
+                    this.gameStatus = gameState.Status;
+                    this.gameCountdown = (float)gameState.Countdown;
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
