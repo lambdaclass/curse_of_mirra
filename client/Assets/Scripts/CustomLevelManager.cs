@@ -308,7 +308,7 @@ public class CustomLevelManager : LevelManager
                 .ForegroundBar
                 .GetComponent<Image>();
            
-                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarGreen;
+                healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
