@@ -21,6 +21,7 @@ public static partial class MessagesReflection
     }
     private static pbr::FileDescriptor descriptor;
 
+<<<<<<< HEAD
     static MessagesReflection()
     {
         byte[] descriptorData = global::System.Convert.FromBase64String(
@@ -108,6 +109,91 @@ public static partial class MessagesReflection
         descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
             new pbr::FileDescriptor[] { },
             new pbr::GeneratedClrTypeInfo(new[] { typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
+=======
+  static MessagesReflection() {
+    byte[] descriptorData = global::System.Convert.FromBase64String(
+        string.Concat(
+          "Cg5tZXNzYWdlcy5wcm90byIhCglEaXJlY3Rpb24SCQoBeBgBIAEoAhIJCgF5",
+          "GAIgASgCIiAKCFBvc2l0aW9uEgkKAXgYASABKAISCQoBeRgCIAEoAiKRAQoJ",
+          "R2FtZUV2ZW50Eh0KBmpvaW5lZBgBIAEoCzILLkdhbWVKb2luZWRIABIcCgZ1",
+          "cGRhdGUYAiABKAsyCi5HYW1lU3RhdGVIABIhCghmaW5pc2hlZBgDIAEoCzIN",
+          "LkdhbWVGaW5pc2hlZEgAEhsKBHBpbmcYBCABKAsyCy5QaW5nVXBkYXRlSABC",
+          "BwoFZXZlbnQijQEKDEdhbWVGaW5pc2hlZBIXCgZ3aW5uZXIYASABKAsyBy5F",
+          "bnRpdHkSKwoHcGxheWVycxgCIAMoCzIaLkdhbWVGaW5pc2hlZC5QbGF5ZXJz",
+          "RW50cnkaNwoMUGxheWVyc0VudHJ5EgsKA2tleRgBIAEoBBIWCgV2YWx1ZRgC",
+          "IAEoCzIHLkVudGl0eToCOAEiHQoKUGluZ1VwZGF0ZRIPCgdsYXRlbmN5GAEg",
+          "ASgEIj8KCkdhbWVKb2luZWQSEQoJcGxheWVyX2lkGAEgASgEEh4KBmNvbmZp",
+          "ZxgCIAEoCzIOLkNvbmZpZ3VyYXRpb24iaQoNQ29uZmlndXJhdGlvbhIZCgRn",
+          "YW1lGAEgASgLMgsuQ29uZmlnR2FtZRIXCgNtYXAYAiABKAsyCi5Db25maWdN",
+          "YXASJAoKY2hhcmFjdGVycxgDIAMoCzIQLkNvbmZpZ0NoYXJhY3RlciIiCgpD",
+          "b25maWdHYW1lEhQKDHRpY2tfcmF0ZV9tcxgBIAEoAiIbCglDb25maWdNYXAS",
+          "DgoGcmFkaXVzGAEgASgCIvIBCg9Db25maWdDaGFyYWN0ZXISDAoEbmFtZRgB",
+          "IAEoCRIOCgZhY3RpdmUYAiABKAgSEgoKYmFzZV9zcGVlZBgDIAEoAhIRCgli",
+          "YXNlX3NpemUYBCABKAISEwoLYmFzZV9oZWFsdGgYBSABKAQSGgoSbWF4X2lu",
+          "dmVudG9yeV9zaXplGAYgASgEEiwKBnNraWxscxgHIAMoCzIcLkNvbmZpZ0No",
+          "YXJhY3Rlci5Ta2lsbHNFbnRyeRo7CgtTa2lsbHNFbnRyeRILCgNrZXkYASAB",
+          "KAkSGwoFdmFsdWUYAiABKAsyDC5Db25maWdTa2lsbDoCOAEihAEKC0NvbmZp",
+          "Z1NraWxsEgwKBG5hbWUYASABKAkSEwoLY29vbGRvd25fbXMYAiABKAQSHQoV",
+          "ZXhlY3V0aW9uX2R1cmF0aW9uX21zGAMgASgEEhkKEXRhcmdldHRpbmdfcmFk",
+          "aXVzGAQgASgCEhgKEHRhcmdldHRpbmdfYW5nbGUYBSABKAIikwYKCUdhbWVT",
+          "dGF0ZRIPCgdnYW1lX2lkGAEgASgJEigKB3BsYXllcnMYAiADKAsyFy5HYW1l",
+          "U3RhdGUuUGxheWVyc0VudHJ5EjAKC3Byb2plY3RpbGVzGAMgAygLMhsuR2Ft",
+          "ZVN0YXRlLlByb2plY3RpbGVzRW50cnkSOwoRcGxheWVyX3RpbWVzdGFtcHMY",
+          "BCADKAsyIC5HYW1lU3RhdGUuUGxheWVyVGltZXN0YW1wc0VudHJ5EhgKEHNl",
+          "cnZlcl90aW1lc3RhbXAYBSABKAMSEwoEem9uZRgGIAEoCzIFLlpvbmUSHAoI",
+          "a2lsbGZlZWQYByADKAsyCi5LaWxsRW50cnkSMQoMZGFtYWdlX3Rha2VuGAgg",
+          "AygLMhsuR2FtZVN0YXRlLkRhbWFnZVRha2VuRW50cnkSLwoLZGFtYWdlX2Rv",
+          "bmUYCSADKAsyGi5HYW1lU3RhdGUuRGFtYWdlRG9uZUVudHJ5EisKCXBvd2Vy",
+          "X3VwcxgKIAMoCzIYLkdhbWVTdGF0ZS5Qb3dlclVwc0VudHJ5EhsKBnN0YXR1",
+          "cxgLIAEoDjILLkdhbWVTdGF0dXMSEQoJY291bnRkb3duGAwgASgDGjcKDFBs",
+          "YXllcnNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiABKAsyBy5FbnRp",
+          "dHk6AjgBGjsKEFByb2plY3RpbGVzRW50cnkSCwoDa2V5GAEgASgEEhYKBXZh",
+          "bHVlGAIgASgLMgcuRW50aXR5OgI4ARo3ChVQbGF5ZXJUaW1lc3RhbXBzRW50",
+          "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgDOgI4ARoyChBEYW1hZ2VU",
+          "YWtlbkVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEaMQoP",
+          "RGFtYWdlRG9uZUVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoC",
+          "OAEaOAoNUG93ZXJVcHNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiAB",
+          "KAsyBy5FbnRpdHk6AjgBIvICCgZFbnRpdHkSCgoCaWQYASABKAQSEAoIY2F0",
+          "ZWdvcnkYAiABKAkSDQoFc2hhcGUYAyABKAkSDAoEbmFtZRgEIAEoCRIbCghw",
+          "b3NpdGlvbhgFIAEoCzIJLlBvc2l0aW9uEg4KBnJhZGl1cxgGIAEoAhIbCgh2",
+          "ZXJ0aWNlcxgHIAMoCzIJLlBvc2l0aW9uEhUKDWNvbGxpZGVzX3dpdGgYCCAD",
+          "KAQSDQoFc3BlZWQYCSABKAISHQoJZGlyZWN0aW9uGAogASgLMgouRGlyZWN0",
+          "aW9uEhEKCWlzX21vdmluZxgLIAEoCBIZCgZwbGF5ZXIYDCABKAsyBy5QbGF5",
+          "ZXJIABIhCgpwcm9qZWN0aWxlGA0gASgLMgsuUHJvamVjdGlsZUgAEh0KCG9i",
+          "c3RhY2xlGA4gASgLMgkuT2JzdGFjbGVIABIcCghwb3dlcl91cBgPIAEoCzII",
+          "LlBvd2VyVXBIAEIQCg5hZGl0aW9uYWxfaW5mbyLFAgoGUGxheWVyEg4KBmhl",
+          "YWx0aBgBIAEoBBISCgpraWxsX2NvdW50GAIgASgEEiYKD2N1cnJlbnRfYWN0",
+          "aW9ucxgDIAMoCzINLlBsYXllckFjdGlvbhIZChFhdmFpbGFibGVfc3RhbWlu",
+          "YRgEIAEoBBITCgttYXhfc3RhbWluYRgFIAEoBBIYChBzdGFtaW5hX2ludGVy",
+          "dmFsGAYgASgEEhoKEnJlY2hhcmdpbmdfc3RhbWluYRgHIAEoCBIWCg5jaGFy",
+          "YWN0ZXJfbmFtZRgIIAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZmZWN0",
+          "cxgKIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkaNwoMRWZmZWN0c0VudHJ5",
+          "EgsKA2tleRgBIAEoBBIWCgV2YWx1ZRgCIAEoCzIHLkVmZmVjdDoCOAEiKwoG",
+          "RWZmZWN0EgwKBG5hbWUYASABKAkSEwoLZHVyYXRpb25fbXMYAiABKA0iZAoK",
+          "UHJvamVjdGlsZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQS",
+          "IQoGc3RhdHVzGAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglza2lsbF9r",
+          "ZXkYBCABKAkiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoHUG93ZXJV",
+          "cBIQCghvd25lcl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Qb3dlclVw",
+          "c3RhdHVzIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5",
+          "ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGly",
+          "ZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgB",
+          "IAEoCRIlCgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIu",
+          "ChBBdHRhY2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlv",
+          "biJgCgpHYW1lQWN0aW9uEhUKBG1vdmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0",
+          "YWNrGAIgASgLMgcuQXR0YWNrSAASEQoJdGltZXN0YW1wGAMgASgDQg0KC2Fj",
+          "dGlvbl90eXBlIicKBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8KB2VuYWJsZWQY",
+          "AiABKAgiMQoJS2lsbEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0",
+          "aW1faWQYAiABKAQqMwoKR2FtZVN0YXR1cxINCglQUkVQQVJJTkcQABILCgdS",
+          "VU5OSU5HEAESCQoFRU5ERUQQAiosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFD",
+          "VElWRRAAEgwKCEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJ",
+          "TEFCTEUQABIJCgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1P",
+          "VklORxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lM",
+          "TF8yEAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJ",
+          "TExfMhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
+    descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
+        new pbr::FileDescriptor[] { },
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
+>>>>>>> main
           new pbr::GeneratedClrTypeInfo(typeof(global::Direction), global::Direction.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Position), global::Position.Parser, new[]{ "X", "Y" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameEvent), global::GameEvent.Parser, new[]{ "Joined", "Update", "Finished", "Ping" }, new[]{ "Event" }, null, null, null),
@@ -119,9 +205,15 @@ public static partial class MessagesReflection
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigCharacter), global::ConfigCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "BaseHealth", "MaxInventorySize", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs", "TargettingRadius", "TargettingAngle" }, null, null, null, null),
+<<<<<<< HEAD
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Items" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp", "Item" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects", "Inventory" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+=======
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Status", "Countdown" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp" }, new[]{ "AditionalInfo" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+>>>>>>> main
           new pbr::GeneratedClrTypeInfo(typeof(global::Effect), global::Effect.Parser, new[]{ "Name", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Item), global::Item.Parser, new[]{ "Name" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status", "SkillKey" }, null, null, null, null),
@@ -141,10 +233,22 @@ public static partial class MessagesReflection
 
 }
 #region Enums
+<<<<<<< HEAD
 public enum ProjectileStatus
 {
     [pbr::OriginalName("ACTIVE")] Active = 0,
     [pbr::OriginalName("EXPLODED")] Exploded = 1,
+=======
+public enum GameStatus {
+  [pbr::OriginalName("PREPARING")] Preparing = 0,
+  [pbr::OriginalName("RUNNING")] Running = 1,
+  [pbr::OriginalName("ENDED")] Ended = 2,
+}
+
+public enum ProjectileStatus {
+  [pbr::OriginalName("ACTIVE")] Active = 0,
+  [pbr::OriginalName("EXPLODED")] Exploded = 1,
+>>>>>>> main
 }
 
 public enum PowerUpstatus
@@ -3515,11 +3619,67 @@ public sealed partial class GameState : pb::IMessage<GameState>
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<GameState> Parser { get { return _parser; } }
 
+<<<<<<< HEAD
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor
     {
         get { return global::MessagesReflection.Descriptor.MessageTypes[11]; }
+=======
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessagesReflection.Descriptor.MessageTypes[11]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameState() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameState(GameState other) : this() {
+    gameId_ = other.gameId_;
+    players_ = other.players_.Clone();
+    projectiles_ = other.projectiles_.Clone();
+    playerTimestamps_ = other.playerTimestamps_.Clone();
+    serverTimestamp_ = other.serverTimestamp_;
+    zone_ = other.zone_ != null ? other.zone_.Clone() : null;
+    killfeed_ = other.killfeed_.Clone();
+    damageTaken_ = other.damageTaken_.Clone();
+    damageDone_ = other.damageDone_.Clone();
+    powerUps_ = other.powerUps_.Clone();
+    status_ = other.status_;
+    countdown_ = other.countdown_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public GameState Clone() {
+    return new GameState(this);
+  }
+
+  /// <summary>Field number for the "game_id" field.</summary>
+  public const int GameIdFieldNumber = 1;
+  private string gameId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string GameId {
+    get { return gameId_; }
+    set {
+      gameId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+>>>>>>> main
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3538,6 +3698,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
 
     partial void OnConstruction();
 
+<<<<<<< HEAD
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GameState(GameState other) : this()
@@ -3554,6 +3715,76 @@ public sealed partial class GameState : pb::IMessage<GameState>
         powerUps_ = other.powerUps_.Clone();
         items_ = other.items_.Clone();
         _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+=======
+  /// <summary>Field number for the "damage_taken" field.</summary>
+  public const int DamageTakenFieldNumber = 8;
+  private static readonly pbc::MapField<ulong, ulong>.Codec _map_damageTaken_codec
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 66);
+  private readonly pbc::MapField<ulong, ulong> damageTaken_ = new pbc::MapField<ulong, ulong>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<ulong, ulong> DamageTaken {
+    get { return damageTaken_; }
+  }
+
+  /// <summary>Field number for the "damage_done" field.</summary>
+  public const int DamageDoneFieldNumber = 9;
+  private static readonly pbc::MapField<ulong, ulong>.Codec _map_damageDone_codec
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 74);
+  private readonly pbc::MapField<ulong, ulong> damageDone_ = new pbc::MapField<ulong, ulong>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<ulong, ulong> DamageDone {
+    get { return damageDone_; }
+  }
+
+  /// <summary>Field number for the "power_ups" field.</summary>
+  public const int PowerUpsFieldNumber = 10;
+  private static readonly pbc::MapField<ulong, global::Entity>.Codec _map_powerUps_codec
+      = new pbc::MapField<ulong, global::Entity>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Entity.Parser), 82);
+  private readonly pbc::MapField<ulong, global::Entity> powerUps_ = new pbc::MapField<ulong, global::Entity>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<ulong, global::Entity> PowerUps {
+    get { return powerUps_; }
+  }
+
+  /// <summary>Field number for the "status" field.</summary>
+  public const int StatusFieldNumber = 11;
+  private global::GameStatus status_ = global::GameStatus.Preparing;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::GameStatus Status {
+    get { return status_; }
+    set {
+      status_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "countdown" field.</summary>
+  public const int CountdownFieldNumber = 12;
+  private long countdown_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public long Countdown {
+    get { return countdown_; }
+    set {
+      countdown_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as GameState);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(GameState other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+>>>>>>> main
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3562,6 +3793,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     {
         return new GameState(this);
     }
+<<<<<<< HEAD
 
     /// <summary>Field number for the "game_id" field.</summary>
     public const int GameIdFieldNumber = 1;
@@ -3575,6 +3807,41 @@ public sealed partial class GameState : pb::IMessage<GameState>
         {
             gameId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
         }
+=======
+    if (GameId != other.GameId) return false;
+    if (!Players.Equals(other.Players)) return false;
+    if (!Projectiles.Equals(other.Projectiles)) return false;
+    if (!PlayerTimestamps.Equals(other.PlayerTimestamps)) return false;
+    if (ServerTimestamp != other.ServerTimestamp) return false;
+    if (!object.Equals(Zone, other.Zone)) return false;
+    if(!killfeed_.Equals(other.killfeed_)) return false;
+    if (!DamageTaken.Equals(other.DamageTaken)) return false;
+    if (!DamageDone.Equals(other.DamageDone)) return false;
+    if (!PowerUps.Equals(other.PowerUps)) return false;
+    if (Status != other.Status) return false;
+    if (Countdown != other.Countdown) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (GameId.Length != 0) hash ^= GameId.GetHashCode();
+    hash ^= Players.GetHashCode();
+    hash ^= Projectiles.GetHashCode();
+    hash ^= PlayerTimestamps.GetHashCode();
+    if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
+    if (zone_ != null) hash ^= Zone.GetHashCode();
+    hash ^= killfeed_.GetHashCode();
+    hash ^= DamageTaken.GetHashCode();
+    hash ^= DamageDone.GetHashCode();
+    hash ^= PowerUps.GetHashCode();
+    if (Status != global::GameStatus.Preparing) hash ^= Status.GetHashCode();
+    if (Countdown != 0L) hash ^= Countdown.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+>>>>>>> main
     }
 
     /// <summary>Field number for the "players" field.</summary>
@@ -3790,7 +4057,18 @@ public sealed partial class GameState : pb::IMessage<GameState>
     damageTaken_.WriteTo(output, _map_damageTaken_codec);
     damageDone_.WriteTo(output, _map_damageDone_codec);
     powerUps_.WriteTo(output, _map_powerUps_codec);
+<<<<<<< HEAD
     items_.WriteTo(output, _map_items_codec);
+=======
+    if (Status != global::GameStatus.Preparing) {
+      output.WriteRawTag(88);
+      output.WriteEnum((int) Status);
+    }
+    if (Countdown != 0L) {
+      output.WriteRawTag(96);
+      output.WriteInt64(Countdown);
+    }
+>>>>>>> main
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3830,7 +4108,38 @@ public sealed partial class GameState : pb::IMessage<GameState>
             _unknownFields.WriteTo(ref output);
         }
     }
+<<<<<<< HEAD
 #endif
+=======
+    players_.WriteTo(ref output, _map_players_codec);
+    projectiles_.WriteTo(ref output, _map_projectiles_codec);
+    playerTimestamps_.WriteTo(ref output, _map_playerTimestamps_codec);
+    if (ServerTimestamp != 0L) {
+      output.WriteRawTag(40);
+      output.WriteInt64(ServerTimestamp);
+    }
+    if (zone_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(Zone);
+    }
+    killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
+    damageTaken_.WriteTo(ref output, _map_damageTaken_codec);
+    damageDone_.WriteTo(ref output, _map_damageDone_codec);
+    powerUps_.WriteTo(ref output, _map_powerUps_codec);
+    if (Status != global::GameStatus.Preparing) {
+      output.WriteRawTag(88);
+      output.WriteEnum((int) Status);
+    }
+    if (Countdown != 0L) {
+      output.WriteRawTag(96);
+      output.WriteInt64(Countdown);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+>>>>>>> main
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3863,6 +4172,33 @@ public sealed partial class GameState : pb::IMessage<GameState>
         }
         return size;
     }
+<<<<<<< HEAD
+=======
+    size += players_.CalculateSize(_map_players_codec);
+    size += projectiles_.CalculateSize(_map_projectiles_codec);
+    size += playerTimestamps_.CalculateSize(_map_playerTimestamps_codec);
+    if (ServerTimestamp != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
+    }
+    if (zone_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Zone);
+    }
+    size += killfeed_.CalculateSize(_repeated_killfeed_codec);
+    size += damageTaken_.CalculateSize(_map_damageTaken_codec);
+    size += damageDone_.CalculateSize(_map_damageDone_codec);
+    size += powerUps_.CalculateSize(_map_powerUps_codec);
+    if (Status != global::GameStatus.Preparing) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+    }
+    if (Countdown != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Countdown);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+>>>>>>> main
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3898,6 +4234,36 @@ public sealed partial class GameState : pb::IMessage<GameState>
         items_.MergeFrom(other.items_);
         _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
+<<<<<<< HEAD
+=======
+    if (other.GameId.Length != 0) {
+      GameId = other.GameId;
+    }
+    players_.MergeFrom(other.players_);
+    projectiles_.MergeFrom(other.projectiles_);
+    playerTimestamps_.MergeFrom(other.playerTimestamps_);
+    if (other.ServerTimestamp != 0L) {
+      ServerTimestamp = other.ServerTimestamp;
+    }
+    if (other.zone_ != null) {
+      if (zone_ == null) {
+        Zone = new global::Zone();
+      }
+      Zone.MergeFrom(other.Zone);
+    }
+    killfeed_.Add(other.killfeed_);
+    damageTaken_.MergeFrom(other.damageTaken_);
+    damageDone_.MergeFrom(other.damageDone_);
+    powerUps_.MergeFrom(other.powerUps_);
+    if (other.Status != global::GameStatus.Preparing) {
+      Status = other.Status;
+    }
+    if (other.Countdown != 0L) {
+      Countdown = other.Countdown;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+>>>>>>> main
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3955,8 +4321,17 @@ public sealed partial class GameState : pb::IMessage<GameState>
           powerUps_.AddEntriesFrom(input, _map_powerUps_codec);
           break;
         }
+<<<<<<< HEAD
         case 90: {
           items_.AddEntriesFrom(input, _map_items_codec);
+=======
+        case 88: {
+          Status = (global::GameStatus) input.ReadEnum();
+          break;
+        }
+        case 96: {
+          Countdown = input.ReadInt64();
+>>>>>>> main
           break;
         }
       }
@@ -4038,6 +4413,57 @@ public sealed partial class GameState : pb::IMessage<GameState>
                     }
             }
         }
+<<<<<<< HEAD
+=======
+        case 18: {
+          players_.AddEntriesFrom(ref input, _map_players_codec);
+          break;
+        }
+        case 26: {
+          projectiles_.AddEntriesFrom(ref input, _map_projectiles_codec);
+          break;
+        }
+        case 34: {
+          playerTimestamps_.AddEntriesFrom(ref input, _map_playerTimestamps_codec);
+          break;
+        }
+        case 40: {
+          ServerTimestamp = input.ReadInt64();
+          break;
+        }
+        case 50: {
+          if (zone_ == null) {
+            Zone = new global::Zone();
+          }
+          input.ReadMessage(Zone);
+          break;
+        }
+        case 58: {
+          killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
+          break;
+        }
+        case 66: {
+          damageTaken_.AddEntriesFrom(ref input, _map_damageTaken_codec);
+          break;
+        }
+        case 74: {
+          damageDone_.AddEntriesFrom(ref input, _map_damageDone_codec);
+          break;
+        }
+        case 82: {
+          powerUps_.AddEntriesFrom(ref input, _map_powerUps_codec);
+          break;
+        }
+        case 88: {
+          Status = (global::GameStatus) input.ReadEnum();
+          break;
+        }
+        case 96: {
+          Countdown = input.ReadInt64();
+          break;
+        }
+      }
+>>>>>>> main
     }
 #endif
 
