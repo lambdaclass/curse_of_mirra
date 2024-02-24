@@ -520,6 +520,7 @@ MonoBehaviour:
   deathFeedback: {fileID: 179007033852684844}
   damageFeedback: {fileID: 8938270116862053746}
   healFeedback: {fileID: 604736327119138052}
+  hitFeedback: {fileID: 1367427822217931816}
   healthBar: {fileID: 8711474442059621043}
   damageOverlayColor:
     serializedVersion: 2
@@ -734,6 +735,16 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 426235763660890386}
+    - target: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: BumpScaleAnimationCurve.m_Curve.Array.data[0].time
+      value: 0.0059616566
+      objectReference: {fileID: 0}
+    - target: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: BumpScaleAnimationCurve.m_Curve.Array.data[0].value
+      value: 1.2608294
+      objectReference: {fileID: 0}
     - target: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1187,6 +1198,12 @@ GameObject:
 --- !u!1 &604736327119138052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8907776290301276495, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1367427822217931816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6989770723404361827, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
