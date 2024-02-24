@@ -47,6 +47,8 @@ public class GameServerConnectionManager : MonoBehaviour
     private bool reconnect;
     WebSocket ws;
 
+    public Configuration config;
+
     void Start()
     {
         Init();
@@ -148,6 +150,7 @@ public class GameServerConnectionManager : MonoBehaviour
                 case GameEvent.EventOneofCase.Joined:
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
+                    this.config = gameEvent.Joined.Config;
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;
