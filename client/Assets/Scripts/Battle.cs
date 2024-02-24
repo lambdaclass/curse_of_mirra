@@ -101,7 +101,11 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1)
+        if (
+            GameServerConnectionManager.Instance.eventsBuffer.Count() > 1
+            && !sendMovementStarted
+            && GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        )
         {
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
