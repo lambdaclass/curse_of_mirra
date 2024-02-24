@@ -310,13 +310,13 @@ public class CustomLevelManager : LevelManager
 
     private void SetPlayerHealthBar(bool isClientId, Character character)
     {
-        Image healthBarFront = character
-            .GetComponent<MMHealthBar>()
-            .TargetProgressBar
-            .ForegroundBar
-            .GetComponent<Image>();
-
-        healthBarFront.color = isClientId ? Utils.healthBarRed : Utils.healthBarGreen;
+            Image healthBarFront = character
+                .GetComponent<MMHealthBar>()
+                .TargetProgressBar
+                .ForegroundBar
+                .GetComponent<Image>();
+           
+                healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
