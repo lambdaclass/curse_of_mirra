@@ -169,9 +169,14 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            SetPlayerHealthBar(GameServerConnectionManager.Instance.playerId == player.Id, newPlayer);
+            SetPlayerHealthBar(
+                GameServerConnectionManager.Instance.playerId == player.Id,
+                newPlayer
+            );
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
+
+            newPlayer.RotatePlayer(player.Direction);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
     }
@@ -300,15 +305,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(bool isClientId ,Character character)
+    private void SetPlayerHealthBar(bool isClientId, Character character)
     {
-            Image healthBarFront = character
-                .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
-           
-                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarGreen;
+        Image healthBarFront = character
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar
+            .ForegroundBar
+            .GetComponent<Image>();
+
+        healthBarFront.color = isClientId ? Utils.healthBarRed : Utils.healthBarGreen;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
