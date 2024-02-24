@@ -101,7 +101,11 @@ public class Battle : MonoBehaviour
             UpdateBattleState();
         }
 
-        if (GameServerConnectionManager.Instance.eventsBuffer.Count() > 1)
+        if (
+            GameServerConnectionManager.Instance.eventsBuffer.Count() > 1
+            && !sendMovementStarted
+            && GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        )
         {
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
@@ -353,15 +357,15 @@ public class Battle : MonoBehaviour
         {
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
         }
     }
@@ -417,7 +421,7 @@ public class Battle : MonoBehaviour
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
                 SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner )
+                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner)
                     .FirstOrDefault();
 
                 if (info != null)
@@ -636,7 +640,7 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                character.RotatePlayer(player, direction);
+                character.RotatePlayer(direction);
             }
         }
 

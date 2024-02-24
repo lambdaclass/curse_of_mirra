@@ -20,7 +20,7 @@ public class CustomCharacter : Character
         }
     }
 
-    public void RotatePlayer(GameObject player, Direction direction)
+    public void RotatePlayer(Direction direction)
     {
         CharacterOrientation3D characterOrientation = this.GetComponent<CharacterOrientation3D>();
         characterOrientation.ForcedRotation = true;

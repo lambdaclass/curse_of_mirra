@@ -15,11 +15,12 @@ public class SkillInfo : ScriptableObject
 
     public UIControls skillSetType;
     public float angle;
+    public ulong staminaCost;
     public UIIndicatorType indicatorType;
 
     public bool hasProjectile;
 
-    [MMCondition("hasProjectile", true)] 
+    [MMCondition("hasProjectile", true)]
     public GameObject projectilePrefab;
 
     [MMCondition("hasProjectile", true)]
@@ -57,27 +58,14 @@ public class SkillInfo : ScriptableObject
     //     return this.name.ToLower() == skillConfigItem.Name.ToLower();
     // }
 
-    public void InitWithBackend(string id)
+    public void InitWithBackend(ConfigSkill configSkill, string id)
     {
         // Issue #1419
         this.damage = 0;
-        this.cooldown = 0f;
+        this.cooldown = configSkill.CooldownMs / 1000;
         this.skillRange = 0;
         this.skillCircleRadius = 10;
         this.ownerId = Convert.ToUInt64(id);
-        // if (ServerConnection.Instance != null)
-        // {
-        //     foreach (var skill in ServerConnection.Instance.engineServerSettings.Skills)
-        //     {
-        //         var regexName = Regex.Replace(this.name, "[^0-9A-Za-z _-]", "");
-        //         if (regexName.ToLower() == skill.Name.ToLower())
-        //         {
-        //             this.damage = 0;
-        //             this.cooldown = skill.CooldownMs / 1000;
-        //             this.skillRange = 0;
-        //             this.skillCircleRadius = 10;
-        //         }
-        //     }
-        // }
+        this.staminaCost = configSkill.StaminaCost;
     }
 }
