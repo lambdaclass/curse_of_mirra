@@ -169,9 +169,14 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            SetPlayerHealthBar(GameServerConnectionManager.Instance.playerId == player.Id, newPlayer);
+            SetPlayerHealthBar(
+                GameServerConnectionManager.Instance.playerId == player.Id,
+                newPlayer
+            );
             GameServerConnectionManager.Instance.players.Add(newPlayer.gameObject);
             this.Players.Add(newPlayer);
+
+            newPlayer.RotatePlayer(player.Direction);
         }
         this.PlayerPrefabs = (this.Players).ToArray();
     }
@@ -225,15 +230,16 @@ public class CustomLevelManager : LevelManager
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo, string id)
     {
+        ConfigCharacter configCharacter = GameServerConnectionManager.Instance.config.Characters.ToList().Find(character => character.Name == characterInfo.name.ToLower());
         List<SkillInfo> skills = new List<SkillInfo>();
-        characterInfo
-            .skillsInfo
-            .ForEach(skill =>
-            {
-                SkillInfo skillClone = Instantiate(skill);
-                skillClone.InitWithBackend(id);
-                skills.Add(skillClone);
-            });
+        List<ConfigSkill> configSkills = configCharacter.Skills.Values.ToList();
+        for (int index = 0; index < characterInfo.skillsInfo.Count; index++)
+        {
+            SkillInfo skillClone = Instantiate(characterInfo.skillsInfo[index]);
+            skillClone.InitWithBackend(configSkills[index], id);
+            skills.Add(skillClone);
+
+        }
 
         return skills;
     }
@@ -266,6 +272,8 @@ public class CustomLevelManager : LevelManager
                 .Instance
                 .AvailableCharacters
                 .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
+
+
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo, player.PlayerID);
             // SetSkillAngles(skillInfoClone);
@@ -300,15 +308,15 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    private void SetPlayerHealthBar(bool isClientId ,Character character)
+    private void SetPlayerHealthBar(bool isClientId, Character character)
     {
-            Image healthBarFront = character
-                .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
-           
-                healthBarFront.color = isClientId ? Utils.healthBarRed :  Utils.healthBarGreen;
+        Image healthBarFront = character
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar
+            .ForegroundBar
+            .GetComponent<Image>();
+
+        healthBarFront.color = isClientId ? Utils.healthBarRed : Utils.healthBarGreen;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)
