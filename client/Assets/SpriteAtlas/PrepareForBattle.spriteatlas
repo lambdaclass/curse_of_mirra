@@ -62,9 +62,9 @@ SpriteAtlas:
   - CoM
   - Uma(1)
   - CurseOfMirra-Background
-  - 1(1)
+  - coin
   - Muflus(2)
-  - 1(2)
+  - match-starts-container
   - container-player
   - H4ck(1)
   - fade
