@@ -519,6 +519,7 @@ MonoBehaviour:
   deathFeedback: {fileID: 6777652408794094180}
   damageFeedback: {fileID: 2341843589675793722}
   healFeedback: {fileID: 6057499254784400716}
+  hitFeedback: {fileID: 5660724968042978400}
   healthBar: {fileID: 2635068537373217531}
   damageOverlayColor:
     serializedVersion: 2
@@ -1047,6 +1048,12 @@ Transform:
 --- !u!1 &5395175593027007493 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5660724968042978400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6989770723404361827, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}

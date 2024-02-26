@@ -11,6 +11,8 @@ public class CustomCharacter : Character
     public CharacterBase characterBase;
     public HashSet<PlayerAction> currentActions = new HashSet<PlayerAction>();
 
+    CharacterFeedbacks characterFeedbacks;
+
     protected override void Initialization()
     {
         base.Initialization();
@@ -18,6 +20,7 @@ public class CustomCharacter : Character
         {
             this.characterBase.gameObject.AddComponent<AudioSource>();
         }
+        characterFeedbacks = this.GetComponent<CharacterFeedbacks>();
     }
 
     public void RotatePlayer(Direction direction)
@@ -31,9 +34,8 @@ public class CustomCharacter : Character
 
     public void SetPlayerDead()
     {
-        CharacterFeedbacks playerFeedback = this.GetComponent<CharacterFeedbacks>();
-        playerFeedback.PlayDeathFeedback();
-        playerFeedback.ClearAllFeedbacks(this.gameObject);
+        characterFeedbacks.PlayDeathFeedback();
+        characterFeedbacks.ClearAllFeedbacks(this.gameObject);
         this.CharacterModel.SetActive(false);
         this.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
         this.characterBase.Hitbox.SetActive(false);
@@ -75,5 +77,10 @@ public class CustomCharacter : Character
     public void UpdatePowerUpsCount(ulong powerUpCount)
     {
         this.characterBase.SetPowerUpCount(powerUpCount);
+    }
+
+    public void HandleHit(float damage)
+    {
+        characterFeedbacks.PlayHitFeedback();
     }
 }
