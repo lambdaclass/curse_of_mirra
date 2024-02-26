@@ -54,12 +54,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _Alpha_Clip: 0.1
     - _Blend: 0
     - _CastShadows: 1
     - _Color_Ramp_Erode: 0.7
     - _Color_Ramp_Power: 1
     - _Cull: 2
     - _DISTORTION_TEXTURE_CHANNEL: 0
+    - _Displasement_Amount: 0
     - _Distortion: 0.03
     - _DstBlend: 10
     - _ERODE_TEXTURE_CHANNEL: 1
@@ -97,11 +99,12 @@ Material:
     - _Color_Base: {r: 0.4071897, g: 0, b: 0.6980392, a: 0}
     - _Color_Emission: {r: 0.9019608, g: 0.10522877, b: 0, a: 0}
     - _Distortion_UV_Controls: {r: 0.5, g: 0.5, b: -0.2, a: -0.1}
-    - _Erode_Texture_UV_Controls: {r: 0.5, g: 0.5, b: -0.4, a: 0}
+    - _Erode_Texture_UV_Controls: {r: 0.5, g: 0.5, b: -0.8, a: 0}
     - _Main_Texture_Smothstep: {r: 0.3, g: 1, b: 0, a: 0}
     - _Main_Texture_UV_Controls: {r: 1, g: 1, b: -0.7, a: -0.1}
     - _Sphere_Mask_Controls: {r: 1.7, g: 0.8, b: 0.5, a: 0}
     - _UV_Pollar_Center_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _UV_Stretch: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3342527826827399583
 MonoBehaviour:
