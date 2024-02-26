@@ -255,7 +255,7 @@ MonoBehaviour:
   BumpOnDecrease: 0
   BumpDuration: 0.3
   ChangeColorWhenBumping: 1
-  StoreBarColorOnPlay: 1
+  StoreBarColorOnPlay: 0
   BumpColor: {r: 1, g: 1, b: 1, a: 1}
   BumpScaleAnimationCurve:
     serializedVersion: 2
