@@ -66,7 +66,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CameraCinematic());
     }
 
-
     IEnumerator CameraCinematic()
     {
         StartCoroutine(LoadingAnimation());
@@ -87,7 +86,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
-        yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
@@ -105,7 +106,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
         foreach (Animator character in loadingCharacters)
         {
             AnimationCallback(character);
-            yield return new WaitForSeconds(.1f);
         }
         yield return new WaitForSeconds(1f);
         loadingComplete = true;
@@ -145,7 +145,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CardsDisplay(cardsTopTable, 1));
         StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
-        yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
