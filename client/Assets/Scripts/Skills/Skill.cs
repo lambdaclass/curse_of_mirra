@@ -87,7 +87,7 @@ public class Skill : CharacterAbility
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if (AbilityAuthorized && player.Player.AvailableStamina > 0)
+        if (AbilityAuthorized && player.Player.AvailableStamina >= this.skillInfo.staminaCost)
         {
             SendActionToBackend(direction);
         }
