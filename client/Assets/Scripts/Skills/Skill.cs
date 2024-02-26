@@ -25,6 +25,8 @@ public class Skill : CharacterAbility
     [SerializeField]
     protected SkillInfo skillInfo;
 
+    private List<ulong> usedPools = new List<ulong>();
+
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
 
@@ -119,7 +121,8 @@ public class Skill : CharacterAbility
                     vfxStep.vfx,
                     vfxStep.duration,
                     vfxStep.delay,
-                    vfxStep.instantiateVfxOnModel
+                    vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool
                 )
             );
         }
@@ -170,7 +173,8 @@ public class Skill : CharacterAbility
                     nextAnimation.vfxStep.vfx,
                     nextAnimation.vfxStep.duration,
                     nextAnimation.vfxStep.delay,
-                    nextAnimation.vfxStep.instantiateVfxOnModel
+                    nextAnimation.vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool
                 )
             );
         }
@@ -193,12 +197,15 @@ public class Skill : CharacterAbility
         GameObject vfx,
         float duration,
         float delay,
-        bool instantiateVfxOnModel
+        bool instantiateVfxOnModel,
+        bool skillPool
     )
     {
         yield return new WaitForSeconds(delay);
 
         GameObject vfxInstance;
+        Vector3 poolPos = Vector3.zero;
+
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
@@ -213,7 +220,21 @@ public class Skill : CharacterAbility
                 vfx.transform.position.y,
                 _model.transform.position.z
             );
-            vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
+
+            if(skillPool){
+                
+                usedPools.ForEach(p => print(p));
+
+                GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
+                    if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
+                        poolPos =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
+                        print("intantiaing pool in " + pool.Id);
+                        print("position " + pool.Position);
+                    }
+                });
+
+            }
+            vfxInstance = Instantiate(vfx, skillPool ? poolPos : vfxPosition, vfx.transform.rotation);
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
@@ -221,6 +242,7 @@ public class Skill : CharacterAbility
 
         Destroy(vfxInstance, duration);
     }
+ 
 
     private void ClearAnimator()
     {

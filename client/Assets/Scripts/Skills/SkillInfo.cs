@@ -17,8 +17,8 @@ public class SkillInfo : ScriptableObject
     public float angle;
     public ulong staminaCost;
     public UIIndicatorType indicatorType;
-
     public bool hasProjectile;
+    public bool hasSkillPool;
 
     [MMCondition("hasProjectile", true)]
     public GameObject projectilePrefab;

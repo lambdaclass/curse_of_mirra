@@ -9821,6 +9821,8 @@ MonoBehaviour:
   projectileInfo: {fileID: 11400000, guid: 2d76ad506ce94df4586d3b8ebd9c1705, type: 2}
   projectileElement: {fileID: 2775624661060570538}
   trailRenderer: {fileID: 2134725692421730995}
+  trail: {fileID: 0}
+  isTrailEnabled: 1
 --- !u!1 &5440804299231959585
 GameObject:
   m_ObjectHideFlags: 0
