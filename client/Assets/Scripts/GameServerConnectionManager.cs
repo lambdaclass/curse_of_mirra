@@ -24,7 +24,6 @@ public class GameServerConnectionManager : MonoBehaviour
     public Dictionary<ulong, Position> playersIdPosition = new Dictionary<ulong, Position>();
 
     public List<Entity> gamePlayers;
-
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
     public List<Entity> gamePools;
@@ -32,6 +31,8 @@ public class GameServerConnectionManager : MonoBehaviour
     public uint currentPing;
     public float serverTickRate_ms;
     public string serverHash;
+    public GameStatus gameStatus;
+    public float gameCountdown;
 
     public (Entity, ulong) winnerPlayer = (null, 0);
     public Dictionary<ulong, string> playersIdName = new Dictionary<ulong, string>();
@@ -39,11 +40,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
-
     public bool zoneEnabled = false;
-
-    //     public OldPosition shrinkingCenter;
-    //     public List<OldPlayer> alivePlayers = new List<OldPlayer>();
     public bool cinematicDone;
     public bool connected = false;
 
@@ -51,6 +48,8 @@ public class GameServerConnectionManager : MonoBehaviour
     private string clientId;
     private bool reconnect;
     WebSocket ws;
+
+    public Configuration config;
 
     void Start()
     {
@@ -153,6 +152,7 @@ public class GameServerConnectionManager : MonoBehaviour
                 case GameEvent.EventOneofCase.Joined:
                     this.serverTickRate_ms = gameEvent.Joined.Config.Game.TickRateMs;
                     this.playerId = gameEvent.Joined.PlayerId;
+                    this.config = gameEvent.Joined.Config;
                     break;
                 case GameEvent.EventOneofCase.Ping:
                     currentPing = (uint)gameEvent.Ping.Latency;
@@ -165,6 +165,8 @@ public class GameServerConnectionManager : MonoBehaviour
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
                     this.zoneEnabled = gameState.Zone.Enabled;
+                    this.gameStatus = gameState.Status;
+                    this.gameCountdown = (float)gameState.Countdown;
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();

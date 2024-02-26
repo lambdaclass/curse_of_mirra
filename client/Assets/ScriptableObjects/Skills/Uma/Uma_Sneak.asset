@@ -17,7 +17,6 @@ MonoBehaviour:
   inputType: 2
   skillSetType: 2
   angle: 0
-  executeOnQuickTap: 0
   indicatorType: 2
   projectilePrefab: {fileID: 0}
   animationSpeedMultiplier: 1
@@ -33,9 +32,9 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 4f36c5ef9696e46ee8b67b161bcea987, type: 3}
-  startVfxList: []
   vfxList:
   - vfx: {fileID: 1371067997947001578, guid: 31cd86e2ec9638145a9cf5f4567e213d, type: 3}
     duration: 1
     delay: 0.15
     instantiateVfxOnModel: 0
+  animationList: []

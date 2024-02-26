@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: DAgna
   description: The street mucisian
-  characterSprite: {fileID: 21300000, guid: e3bf32d073ab84094a2b9c3c6ad71047, type: 3}
+  characterSprite: {fileID: 0}
   characterIcon: {fileID: 21300000, guid: d733a67725d5d47c5bc73099d6c350fb, type: 3}
   artWork: {fileID: 21300000, guid: 45d37ec53220e4aed924e7ae7a04305b, type: 3}
   selectedArtwork: {fileID: 21300000, guid: 5c156d61c2fbe4c02b104a69fe0700c8, type: 3}
@@ -23,7 +23,6 @@ MonoBehaviour:
   classImage: {fileID: 21300000, guid: 76867ffa4814a494da8c906dfbae14de, type: 3}
   UIIcon: {fileID: 0}
   prefab: {fileID: 1787465996332106805, guid: d42c2ccf3b0554aa59188f4d8ef4a4b3, type: 3}
-  skillBackground: {fileID: 21300000, guid: ee16a25e959584c8a8b286c6bad1713f, type: 3}
   InputFeedbackColor:
     serializedVersion: 2
     rgba: 0

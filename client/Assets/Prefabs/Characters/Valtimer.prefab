@@ -595,8 +595,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Valtimer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 62e3d5f1a7f114e60a63ebbda7089b7d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62e3d5f1a7f114e60a63ebbda7089b7d, type: 3}
+--- !u!137 &3319177465525743243 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1517127223158993313, guid: 62e3d5f1a7f114e60a63ebbda7089b7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4259839524807630634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4025255631410619003 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 62e3d5f1a7f114e60a63ebbda7089b7d,
@@ -737,6 +748,11 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: skinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 3319177465525743243}
     - target: {fileID: 1824325337625087515, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.x

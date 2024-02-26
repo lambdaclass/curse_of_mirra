@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    float lastXSent;
-    float lastYSent;
-
     public void SendJoystickValues(float x, float y)
     {
-        if (ShouldSendMovement(x, y, lastXSent, lastYSent))
+        if (
+            ShouldSendMovement(
+                x,
+                y,
+                GameServerConnectionManager.Instance.clientPrediction.lastXSent,
+                GameServerConnectionManager.Instance.clientPrediction.lastYSent
+            )
+        )
         {
             var valuesToSend = new Direction { X = x, Y = y };
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -26,16 +30,25 @@ public class PlayerControls : MonoBehaviour
                 position = new Position { X = 0, Y = 0 }
             };
             GameServerConnectionManager.Instance.clientPrediction.EnqueuePlayerInput(playerInput);
-            lastXSent = x;
-            lastYSent = y;
         }
     }
 
     bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
+        float movementThreshold = 20f;
+        //Fetch the first GameObject's position
+        Vector2 currentDirection = new Vector2(x, y);
+        //Fetch the second GameObject's position
+        Vector2 lastDirection = new Vector2(lastXSent, lastYSent);
+        //Find the angle for the two Vectors
+        float angleBetweenDirections = Vector2.Angle(currentDirection, lastDirection);
+
+        bool movedFromStatic = (lastXSent == 0 && lastYSent == 0 && (x != 0 || y != 0));
+        bool stoppedMoving = (x == 0 && y == 0 && (lastXSent != 0 || lastYSent != 0));
+        bool changedDirection = (angleBetweenDirections > movementThreshold);
         // Here we can add a validaion to check if
         // the movement is significant enough to be sent to the server
-        return (x != lastXSent || y != lastYSent);
+        return (movedFromStatic || stoppedMoving || changedDirection);
     }
 
     public (float, float) SendAction()

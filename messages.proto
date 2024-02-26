@@ -71,6 +71,9 @@ message ConfigSkill {
   string name = 1;
   uint64 cooldown_ms = 2;
   uint64 execution_duration_ms = 3;
+  float targetting_radius = 4;
+  float targetting_angle = 5;
+  uint64 stamina_cost = 6;
 }
 
 
@@ -88,7 +91,15 @@ message GameState {
   map<uint64, uint64> damage_taken = 8;
   map<uint64, uint64> damage_done = 9;
   map<uint64, Entity> power_ups = 10;
-  map<uint64, Entity> pools = 11;
+  GameStatus status = 11;
+  int64 countdown = 12;
+  map<uint64, Entity> pools = 13;
+}
+
+enum GameStatus {
+  PREPARING = 0;
+  RUNNING = 1;
+  ENDED = 2;
 }
 
 /*
@@ -136,12 +147,19 @@ message Player {
   bool recharging_stamina = 7;
   string character_name = 8;
   uint64 power_ups = 9;
+  map<uint64, Effect> effects = 10;
+}
+
+message Effect {
+  string name = 1;
+  uint32 duration_ms = 2;
 }
 
 message Projectile {
   uint64 damage = 1;
   uint64 owner_id = 2;
   ProjectileStatus status = 3;
+  string skill_key = 4;
 }
 
 enum ProjectileStatus {
