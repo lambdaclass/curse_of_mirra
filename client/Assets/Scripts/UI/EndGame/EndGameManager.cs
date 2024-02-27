@@ -140,25 +140,28 @@ public class EndGameManager : MonoBehaviour
 
     public void ShowCharacterAnimation()
     {
-        if (player)
-        {
-            if (
-                GameServerConnectionManager
-                    .Instance
-                    .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
-            )
-            {
-                modelAnimator.SetBool("Victory", true);
-            }
-            else
-            {
-                 // Current workaround for muflus animation. Refactor have to be done in ticket #1516
-                if(modelClone.name.ToLower().Contains("muflus")){
-                    modelAnimator.Play("Defeat");   
-                } else {
-                    modelAnimator.SetBool("Defeat", true);
-                }
-            }
+        if(player){
+            bool isWinner = GameServerConnectionManager.Instance.PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
+            string animationName = isWinner ? "Victory" : "Defeat";
+            if(modelAnimator.parameterCount > 0){
+                bool hasAnimationParameter = AnimationHasParameter(animationName);
+                HandleAnimation(animationName, hasAnimationParameter);
+            }   
+        }
+    }
+
+    private bool AnimationHasParameter(string parameterName){
+        AnimatorControllerParameter param = modelAnimator.parameters.ToList()
+            .Find(p => p.name == parameterName);
+
+        return param != null;
+    }
+
+    public void HandleAnimation(string animationName, bool hasAnimationParameter){
+        if(hasAnimationParameter){
+            modelAnimator.SetBool(animationName, true);
+        } else {
+            modelAnimator.Play(animationName);
         }
     }
 }
