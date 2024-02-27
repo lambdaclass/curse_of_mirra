@@ -35,7 +35,7 @@ public class PlayerControls : MonoBehaviour
 
     bool ShouldSendMovement(float x, float y, float lastXSent, float lastYSent)
     {
-        float movementThreshold = 20f;
+        float movementThreshold = 10f;
         //Fetch the first GameObject's position
         Vector2 currentDirection = new Vector2(x, y);
         //Fetch the second GameObject's position
