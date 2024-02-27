@@ -3125,6 +3125,7 @@ GameObject:
   - component: {fileID: 920400100593532859}
   - component: {fileID: 1831022209087450950}
   - component: {fileID: 6862445859131950045}
+  - component: {fileID: 7296961048156937817}
   m_Layer: 5
   m_Name: MuteButton
   m_TagString: Untagged
@@ -3202,6 +3203,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &7296961048156937817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691258395411296183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutedSprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
+  unmutedSprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
+  volumeSlider: {fileID: 2932018670355871320}
+  channel: 1
 --- !u!1 &742667306863361531
 GameObject:
   m_ObjectHideFlags: 0
@@ -7382,7 +7399,6 @@ GameObject:
   - component: {fileID: 8126181391240423187}
   - component: {fileID: 5445357623931296963}
   - component: {fileID: 1580269002494981696}
-  - component: {fileID: 5595917080632166175}
   m_Layer: 5
   m_Name: MuttonButton
   m_TagString: Untagged
@@ -7439,8 +7455,8 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5595917080632166175}
-        m_TargetAssemblyTypeName: ToggleAudio, Assembly-CSharp
+      - m_Target: {fileID: 7296961048156937817}
+        m_TargetAssemblyTypeName: ToggleAudio, CurseOfMirra
         m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
@@ -7477,22 +7493,6 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
---- !u!114 &5595917080632166175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2586441743059435858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mutedSprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
-  unmutedSprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
-  volumeSlider: {fileID: 2932018670355871320}
-  channel: 1
 --- !u!1 &2646634665810970175
 GameObject:
   m_ObjectHideFlags: 0
@@ -23669,7 +23669,6 @@ GameObject:
   - component: {fileID: 5214428547151930568}
   - component: {fileID: 290159903786867551}
   - component: {fileID: 847227700388336462}
-  - component: {fileID: 9180493187618949305}
   m_Layer: 5
   m_Name: MuttonButton
   m_TagString: Untagged
@@ -23726,8 +23725,8 @@ MonoBehaviour:
   ButtonPressedFirstTime:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9180493187618949305}
-        m_TargetAssemblyTypeName: ToggleAudio, Assembly-CSharp
+      - m_Target: {fileID: 4997486826541774194}
+        m_TargetAssemblyTypeName: ToggleAudio, CurseOfMirra
         m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
@@ -23764,22 +23763,6 @@ MonoBehaviour:
   DisabledAnimationParameterName: Disabled
   PressedAnimationParameterName: Pressed
   MouseMode: 1
---- !u!114 &9180493187618949305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6032465555808589207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mutedSprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
-  unmutedSprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
-  volumeSlider: {fileID: 7843568085551627513}
-  channel: 0
 --- !u!1 &6125871501080257070
 GameObject:
   m_ObjectHideFlags: 0
@@ -36286,6 +36269,7 @@ GameObject:
   - component: {fileID: 3393186754778621293}
   - component: {fileID: 4261052831434058369}
   - component: {fileID: 8495934857461306593}
+  - component: {fileID: 4997486826541774194}
   m_Layer: 5
   m_Name: MuteButton
   m_TagString: Untagged
@@ -36363,6 +36347,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4997486826541774194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675991231078431142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutedSprite: {fileID: 21300000, guid: 4fdedeada12450943898e7cb3b4b305c, type: 3}
+  unmutedSprite: {fileID: 21300000, guid: 21d9f3ee932343240bec2d4eb6f34968, type: 3}
+  volumeSlider: {fileID: 7843568085551627513}
+  channel: 0
 --- !u!1 &7737918000834382744
 GameObject:
   m_ObjectHideFlags: 0
