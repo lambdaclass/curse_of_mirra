@@ -25,11 +25,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         playersBottomTable,
         prepareCoin,
         surviveText,
-        smokeEffectBehind,
-        smokeEffectFront;
-
-    [SerializeField]
-    List<Animator> loadingCharacters;
+        smokeEffectBehind;
 
     [SerializeField]
     TextMeshProUGUI countDown;
@@ -47,7 +43,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
 
     float originalCountdownScale,
         originalCoinScale,
-        originalCardScale,
         originalSurviveScale,
         originalCardYPosition;
     bool loadingComplete = false;
@@ -56,16 +51,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         originalCountdownScale = countDown.transform.localScale.x;
         originalCoinScale = prepareCoin.transform.localScale.x;
-        originalCardScale = playerCard
-            .GetComponent<PlayerCardManager>()
-            .card
-            .transform
-            .localScale
-            .x;
         originalSurviveScale = surviveTextContainer.transform.localScale.x;
         StartCoroutine(CameraCinematic());
     }
-
 
     IEnumerator CameraCinematic()
     {
@@ -87,7 +75,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
-        yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
@@ -101,13 +91,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -360), 0.5f))
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuart);
-        yield return new WaitForSeconds(.1f);
-        foreach (Animator character in loadingCharacters)
-        {
-            AnimationCallback(character);
-            yield return new WaitForSeconds(.1f);
-        }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         loadingComplete = true;
     }
 
@@ -145,7 +129,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CardsDisplay(cardsTopTable, 1));
         StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
-        yield return new WaitUntil(() => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 

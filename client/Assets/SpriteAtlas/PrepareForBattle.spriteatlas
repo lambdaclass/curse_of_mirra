@@ -38,39 +38,33 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: c7d94a50e55ca40c4a5c1af048d97f0a, type: 3}
   - {fileID: 21300000, guid: da68f552af66c4e40bca75d39177b6a9, type: 3}
   - {fileID: 21300000, guid: 19f9f182b767c47b6967032f2a58811d, type: 3}
   - {fileID: 21300000, guid: fa27f582a1b7c4389afb4991a735007e, type: 3}
   - {fileID: 21300000, guid: e2fcf543ad8b547ec96e8284774749ac, type: 3}
   - {fileID: 21300000, guid: cecebc6322d064fc5af558ab0650d167, type: 3}
-  - {fileID: 21300000, guid: 56a6de87ac01343649411377c504d93e, type: 3}
   - {fileID: 21300000, guid: 31f5d1c8ecfd64044b2c0e700c09af7d, type: 3}
   - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
-  - {fileID: 21300000, guid: f8c3865a96b604b81aad5959769c5e6e, type: 3}
   - {fileID: 21300000, guid: 5586b18ae24a141908cfff9023776fce, type: 3}
   - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
+  - {fileID: 21300000, guid: f61b97fb9158940edb0c78867c4588b6, type: 3}
   - {fileID: 21300000, guid: 5858709d7e65547a790f82b5eab4cd22, type: 3}
   - {fileID: 21300000, guid: ac8229bd02da44ef9a9ea325bdd91cf4, type: 3}
   - {fileID: 21300000, guid: 790b13ddb1435423989fde5f5a321942, type: 3}
-  - {fileID: 21300000, guid: 2723ab2f058bf468988f0c089ec4ea5b, type: 3}
   m_PackedSpriteNamesToIndex:
-  - CurseOfMirra-Uma
   - icon
   - D_agna
   - container
   - Uma
   - H4ck
-  - CurseOfMirra-Background
   - fade
   - background-gradient
-  - CurseOfMirra-Muflus
   - Valtimer
   - container name player
+  - Loading
   - container-player
   - badge-you
   - Muflus
-  - CurseOfMirra-H4ck
   m_RenderDataMap: {}
   m_Tag: PrepareForBattle
   m_IsVariant: 0
