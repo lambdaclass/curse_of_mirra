@@ -6,6 +6,12 @@ using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.VFX;
 
+public enum HapticFeedbackType
+{
+    Light,
+    Heavy
+}
+
 public class CharacterFeedbacks : MonoBehaviour
 {
     [Header("Setup")]
@@ -19,21 +25,30 @@ public class CharacterFeedbacks : MonoBehaviour
     [SerializeField]
     GameObject deathFeedback,
         damageFeedback,
-        healFeedback;
-
-    [SerializeField] MMProgressBar healthBar;
-
-    [SerializeField]
-    Color32 damageOverlayColor = new Color32(255, 255, 255, 255);
+        healFeedback,
+        hitFeedback;
 
     [SerializeField]
-    Color32 healOverlayColor = new Color32(68, 173, 68, 255);
+    MMProgressBar healthBar;
 
-    Color32 baseOverlayColor = new Color32(0, 0, 0, 0);
+    [SerializeField]
+    Color32 damageOverlayColor;
+
+    [SerializeField]
+    Color32 healOverlayColor;
+
+    Color32 baseOverlayColor;
     Color32 currentOverlayColor;
     float overlayTime = 0;
     float overlayDuration = 1f;
     bool restoreBaseOverlayColor = true;
+
+    void Start()
+    {
+        damageOverlayColor = new Color32(255, 0, 0, 255);
+        baseOverlayColor = new Color32(255, 255, 255, 255);
+        healOverlayColor = new Color32(68, 173, 68, 255);
+    }
 
     void Update()
     {
@@ -44,6 +59,7 @@ public class CharacterFeedbacks : MonoBehaviour
                 overlayTime += (Time.deltaTime / overlayDuration);
             }
             Color32 nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
+
             ChangeModelsOverlayColor(currentOverlayColor);
             currentOverlayColor = nextColor;
         }
@@ -73,25 +89,28 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void DamageFeedback(float clientHealth, float playerHealth, ulong playerId)
+    public void DamageFeedback(float clientHealth, float serverPlayerHealth, ulong playerId)
     {
-        if (
-            playerHealth < clientHealth
-            && playerId == GameServerConnectionManager.Instance.playerId
-        )
+        if (serverPlayerHealth < clientHealth)
         {
-            damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-            this.HapticFeedbackOnHealthChange(true);
-            this.ChangePlayerTextureOnDamage(clientHealth, playerHealth);
+            if (playerId == GameServerConnectionManager.Instance.playerId)
+            {
+                damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
+                TriggerHapticFeedback(HapticFeedbackType.Heavy);
+            }
+            this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
             this.healthBar.BumpOnDecrease = true;
         }
-        if (clientHealth < playerHealth)
+        if (clientHealth < serverPlayerHealth)
         {
             if (healFeedback.GetComponentInChildren<VisualEffect>() != null)
             {
                 healFeedback.GetComponentInChildren<VisualEffect>().Play();
             }
-            this.HapticFeedbackOnHealthChange(false);
+            if (playerId == GameServerConnectionManager.Instance.playerId)
+            {
+                TriggerHapticFeedback(HapticFeedbackType.Light);
+            }
         }
     }
 
@@ -110,15 +129,16 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void HapticFeedbackOnHealthChange(bool damage)
+    public void TriggerHapticFeedback(HapticFeedbackType hapticType)
     {
-        if (damage)
+        switch (hapticType)
         {
-            HapticFeedback.HeavyFeedback();
-        }
-        else
-        {
-            HapticFeedback.LightFeedback();
+            case HapticFeedbackType.Heavy:
+                HapticFeedback.HeavyFeedback();
+                break;
+            case HapticFeedbackType.Light:
+                HapticFeedback.LightFeedback();
+                break;
         }
     }
 
@@ -142,24 +162,15 @@ public class CharacterFeedbacks : MonoBehaviour
         StartCoroutine(RemoveModelFeedback());
     }
 
-    public void ChangeModelsOverlayColor(Color color)
+    public void ChangeModelsOverlayColor(Color32 color)
     {
         SkinnedMeshRenderer[] skinnedMeshFilter =
             characterModel.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (var meshFilter in skinnedMeshFilter)
         {
-            Material material = meshFilter.GetComponent<Renderer>().material;
-            material.SetColor("_Overlay_Color", color);
-        }
-        if (weaponModel)
-        {
-            Renderer[] meshes = weaponModel.GetComponentsInChildren<Renderer>();
-            foreach (var mesh in meshes)
+            foreach (var material in meshFilter.materials)
             {
-                foreach (var material in mesh.materials)
-                {
-                    material.SetColor("_Overlay_Color", color);
-                }
+                material.color = color;
             }
         }
     }
@@ -178,5 +189,10 @@ public class CharacterFeedbacks : MonoBehaviour
     public void ClearAllFeedbacks(GameObject player)
     {
         GetFeedbackStateList().ForEach(el => el.SetActive(false));
+    }
+
+    public void PlayHitFeedback()
+    {
+        hitFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
     }
 }

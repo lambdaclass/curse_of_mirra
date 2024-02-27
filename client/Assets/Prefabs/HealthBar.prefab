@@ -253,16 +253,16 @@ MonoBehaviour:
   BumpScaleOnChange: 0
   BumpOnIncrease: 0
   BumpOnDecrease: 0
-  BumpDuration: 0.8
+  BumpDuration: 0.3
   ChangeColorWhenBumping: 1
-  StoreBarColorOnPlay: 1
+  StoreBarColorOnPlay: 0
   BumpColor: {r: 1, g: 1, b: 1, a: 1}
   BumpScaleAnimationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0859406
-      value: 1.485065
+      time: 0.07832265
+      value: 1.3077388
       inSlope: -0.5750396
       outSlope: -0.5750396
       tangentMode: 0
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 0.3857727, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

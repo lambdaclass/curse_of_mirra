@@ -25,11 +25,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         playersBottomTable,
         prepareCoin,
         surviveText,
-        smokeEffectBehind,
-        smokeEffectFront;
-
-    [SerializeField]
-    List<Animator> loadingCharacters;
+        smokeEffectBehind;
 
     [SerializeField]
     TextMeshProUGUI countDown;
@@ -40,13 +36,13 @@ public class PrepareForBattleAnimations : MonoBehaviour
     Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
-    const float PREPARE_FOR_BATTLE_DURATION = 3f;
+    const float PREPARE_FOR_BATTLE_DURATION = 4f;
     const float CHARACTERS_DISPLAY_DURATION = 5f;
-    const float TIME_UNTIL_GAME_STARTS = 5f;
+    float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.65f;
+
     float originalCountdownScale,
         originalCoinScale,
-        originalCardScale,
         originalSurviveScale,
         originalCardYPosition;
     bool loadingComplete = false;
@@ -55,12 +51,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         originalCountdownScale = countDown.transform.localScale.x;
         originalCoinScale = prepareCoin.transform.localScale.x;
-        originalCardScale = playerCard
-            .GetComponent<PlayerCardManager>()
-            .card
-            .transform
-            .localScale
-            .x;
         originalSurviveScale = surviveTextContainer.transform.localScale.x;
         StartCoroutine(CameraCinematic());
     }
@@ -85,7 +75,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(PrepareForBattleAnimation());
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
-        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION - 0.25f);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
@@ -99,13 +91,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(loadingIcon.transform.DORotate(new Vector3(0, 0, -360), 0.5f))
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuart);
-        yield return new WaitForSeconds(.1f);
-        foreach (Animator character in loadingCharacters)
-        {
-            AnimationCallback(character);
-            yield return new WaitForSeconds(.1f);
-        }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         loadingComplete = true;
     }
 
@@ -143,7 +129,9 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CardsDisplay(cardsTopTable, 1));
         StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
-        yield return new WaitForSeconds(CHARACTERS_DISPLAY_DURATION);
+        yield return new WaitUntil(
+            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+        );
         playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
 
@@ -207,6 +195,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
+        TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000) + 1;
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
