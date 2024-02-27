@@ -30,6 +30,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
     public ulong playerId;
     public uint currentPing;
+
     public float serverTickRate_ms;
     public string serverHash;
     public GameStatus gameStatus;
@@ -41,6 +42,8 @@ public class GameServerConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
+    public int zoneShrinkTime;
+
     public bool zoneEnabled = false;
     public bool cinematicDone;
     public bool connected = false;
@@ -165,6 +168,7 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
+                    this.zoneShrinkTime = gameState.Zone.ZoneShrinkTime;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
                     this.gameCountdown = (float)gameState.Countdown;

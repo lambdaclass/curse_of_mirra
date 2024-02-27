@@ -93,16 +93,17 @@ public static partial class MessagesReflection {
           "cnMYAiABKAsyES5BdHRhY2tQYXJhbWV0ZXJzIi4KEEF0dGFja1BhcmFtZXRl",
           "cnMSGgoGdGFyZ2V0GAEgASgLMgouRGlyZWN0aW9uImAKCkdhbWVBY3Rpb24S",
           "FQoEbW92ZRgBIAEoCzIFLk1vdmVIABIZCgZhdHRhY2sYAiABKAsyBy5BdHRh",
-          "Y2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUiJwoEWm9u",
-          "ZRIOCgZyYWRpdXMYASABKAISDwoHZW5hYmxlZBgCIAEoCCIxCglLaWxsRW50",
-          "cnkSEQoJa2lsbGVyX2lkGAEgASgEEhEKCXZpY3RpbV9pZBgCIAEoBCozCgpH",
-          "YW1lU3RhdHVzEg0KCVBSRVBBUklORxAAEgsKB1JVTk5JTkcQARIJCgVFTkRF",
-          "RBACKiwKEFByb2plY3RpbGVTdGF0dXMSCgoGQUNUSVZFEAASDAoIRVhQTE9E",
-          "RUQQASopCg1Qb3dlclVwc3RhdHVzEg0KCUFWQUlMQUJMRRAAEgkKBVRBS0VO",
-          "EAEqjwEKEFBsYXllckFjdGlvblR5cGUSCgoGTU9WSU5HEAASFAoQU1RBUlRJ",
-          "TkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NLSUxMXzIQAhIVChFFWEVDVVRJ",
-          "TkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19TS0lMTF8yEAQSFQoRRVhFQ1VU",
-          "SU5HX1NLSUxMXzMQBWIGcHJvdG8z"));
+          "Y2tIABIRCgl0aW1lc3RhbXAYAyABKANCDQoLYWN0aW9uX3R5cGUiQQoEWm9u",
+          "ZRIOCgZyYWRpdXMYASABKAISDwoHZW5hYmxlZBgCIAEoCBIYChB6b25lX3No",
+          "cmlua190aW1lGAMgASgFIjEKCUtpbGxFbnRyeRIRCglraWxsZXJfaWQYASAB",
+          "KAQSEQoJdmljdGltX2lkGAIgASgEKjMKCkdhbWVTdGF0dXMSDQoJUFJFUEFS",
+          "SU5HEAASCwoHUlVOTklORxABEgkKBUVOREVEEAIqLAoQUHJvamVjdGlsZVN0",
+          "YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKikKDVBvd2VyVXBzdGF0",
+          "dXMSDQoJQVZBSUxBQkxFEAASCQoFVEFLRU4QASqPAQoQUGxheWVyQWN0aW9u",
+          "VHlwZRIKCgZNT1ZJTkcQABIUChBTVEFSVElOR19TS0lMTF8xEAESFAoQU1RB",
+          "UlRJTkdfU0tJTExfMhACEhUKEUVYRUNVVElOR19TS0lMTF8xEAMSFQoRRVhF",
+          "Q1VUSU5HX1NLSUxMXzIQBBIVChFFWEVDVVRJTkdfU0tJTExfMxAFYgZwcm90",
+          "bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -130,7 +131,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Attack), global::Attack.Parser, new[]{ "Skill", "Parameters" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AttackParameters), global::AttackParameters.Parser, new[]{ "Target" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameAction), global::GameAction.Parser, new[]{ "Move", "Attack", "Timestamp" }, new[]{ "ActionType" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Zone), global::Zone.Parser, new[]{ "Radius", "Enabled", "ZoneShrinkTime" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::KillEntry), global::KillEntry.Parser, new[]{ "KillerId", "VictimId" }, null, null, null, null)
         }));
   }
@@ -7383,6 +7384,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
   public Zone(Zone other) : this() {
     radius_ = other.radius_;
     enabled_ = other.enabled_;
+    zoneShrinkTime_ = other.zoneShrinkTime_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -7416,6 +7418,18 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
   }
 
+  /// <summary>Field number for the "zone_shrink_time" field.</summary>
+  public const int ZoneShrinkTimeFieldNumber = 3;
+  private int zoneShrinkTime_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int ZoneShrinkTime {
+    get { return zoneShrinkTime_; }
+    set {
+      zoneShrinkTime_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -7433,6 +7447,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
     if (Enabled != other.Enabled) return false;
+    if (ZoneShrinkTime != other.ZoneShrinkTime) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -7442,6 +7457,7 @@ public sealed partial class Zone : pb::IMessage<Zone>
     int hash = 1;
     if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
     if (Enabled != false) hash ^= Enabled.GetHashCode();
+    if (ZoneShrinkTime != 0) hash ^= ZoneShrinkTime.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -7468,6 +7484,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
       output.WriteRawTag(16);
       output.WriteBool(Enabled);
     }
+    if (ZoneShrinkTime != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(ZoneShrinkTime);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -7486,6 +7506,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
       output.WriteRawTag(16);
       output.WriteBool(Enabled);
     }
+    if (ZoneShrinkTime != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(ZoneShrinkTime);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -7501,6 +7525,9 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
     if (Enabled != false) {
       size += 1 + 1;
+    }
+    if (ZoneShrinkTime != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(ZoneShrinkTime);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -7519,6 +7546,9 @@ public sealed partial class Zone : pb::IMessage<Zone>
     }
     if (other.Enabled != false) {
       Enabled = other.Enabled;
+    }
+    if (other.ZoneShrinkTime != 0) {
+      ZoneShrinkTime = other.ZoneShrinkTime;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -7543,6 +7573,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
           Enabled = input.ReadBool();
           break;
         }
+        case 24: {
+          ZoneShrinkTime = input.ReadInt32();
+          break;
+        }
       }
     }
   #endif
@@ -7564,6 +7598,10 @@ public sealed partial class Zone : pb::IMessage<Zone>
         }
         case 16: {
           Enabled = input.ReadBool();
+          break;
+        }
+        case 24: {
+          ZoneShrinkTime = input.ReadInt32();
           break;
         }
       }
