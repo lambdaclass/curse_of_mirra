@@ -26,6 +26,8 @@ public class EndGameManager : MonoBehaviour
     CustomCharacter player;
     GameObject modelClone;
 
+    Animator modelAnimator;
+
     void OnEnable()
     {
         ShowRankingDisplay();
@@ -45,6 +47,7 @@ public class EndGameManager : MonoBehaviour
         {
             GameObject characterModel = character.UIModel;
             modelClone = Instantiate(characterModel, characterModelContainer.transform);
+            modelAnimator = modelClone.GetComponentInChildren<Animator>();
         }
     }
 
@@ -145,11 +148,16 @@ public class EndGameManager : MonoBehaviour
                     .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
             )
             {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
+                modelAnimator.SetBool("Victory", true);
             }
             else
             {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Defeat", true);
+                 // Current workaround for muflus animation. Refactor have to be done in ticket #1516
+                if(modelClone.name.ToLower().Contains("muflus")){
+                    modelAnimator.Play("Defeat");   
+                } else {
+                    modelAnimator.SetBool("Defeat", true);
+                }
             }
         }
     }
