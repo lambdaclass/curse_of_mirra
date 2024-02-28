@@ -5,6 +5,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.VFX;
 using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
@@ -205,6 +206,7 @@ public class Skill : CharacterAbility
 
         GameObject vfxInstance;
         Vector3 poolPos = Vector3.zero;
+        float radius = 0;
 
         if (instantiateVfxOnModel)
         {
@@ -228,13 +230,18 @@ public class Skill : CharacterAbility
                 GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
                     if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
                         poolPos =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
-                        print("intantiaing pool in " + pool.Id);
-                        print("position " + pool.Position);
+                        radius = pool.Radius / 1000;
                     }
                 });
 
             }
             vfxInstance = Instantiate(vfx, skillPool ? poolPos : vfxPosition, vfx.transform.rotation);
+            // Work a better solution
+            if(skillPool){
+                if(vfxInstance.transform.childCount > 0){
+                    vfxInstance.GetComponentInChildren<VisualEffect>().SetFloat("EffectRadius", radius);
+                }
+            }
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
