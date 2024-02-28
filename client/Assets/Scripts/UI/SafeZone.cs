@@ -18,6 +18,7 @@ public class SafeZone : MonoBehaviour
 
     const float mapRadius = 50;
     Vector3 center = new Vector3(0, 1, 0);
+    float currentRadius = 0;
 
     void Update()
     {
@@ -26,9 +27,10 @@ public class SafeZone : MonoBehaviour
         bool zoneEnabled = GameServerConnectionManager.Instance.zoneEnabled;
         damageFog.enabled = zoneEnabled;
 
-        if (radius != 0 && zoneEnabled)
+        if (radius != 0 && zoneEnabled && (int)currentRadius != radius)
         {
             damageFog.SetFloat(DAMAGE_ZONE_PROPERTY, 1 - (radius / mapRadius));
+            currentRadius = radius;
         }
     }
 
