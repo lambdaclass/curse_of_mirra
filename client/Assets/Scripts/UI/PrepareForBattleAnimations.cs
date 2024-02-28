@@ -24,8 +24,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         playersTopTable,
         playersBottomTable,
         prepareCoin,
-        surviveText,
-        smokeEffectBehind;
+        surviveText;
 
     [SerializeField]
     TextMeshProUGUI countDown;
@@ -138,12 +137,10 @@ public class PrepareForBattleAnimations : MonoBehaviour
     IEnumerator SurviveAnimation()
     {
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
-        smokeEffectBehind.SetActive(true);
         surviveTextContainer.transform.DOScale(originalSurviveScale + 1.5f, .4f);
         yield return new WaitForSeconds(1.3f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
         yield return new WaitForSeconds(.3f);
-        smokeEffectBehind.SetActive(false);
         surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .25f);
         GetComponent<CanvasGroup>().DOFade(0, .25f);
         battleScreen.GetComponent<CanvasGroup>().DOFade(1, .25f);

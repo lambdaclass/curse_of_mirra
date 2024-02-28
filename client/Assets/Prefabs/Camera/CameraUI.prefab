@@ -1751,7 +1751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9123393008415500373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1761,7 +1761,7 @@ RectTransform:
   m_GameObject: {fileID: 80749578850922491}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6911447, y: 0.6911447, z: 0.6911447}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7442518337301163166}
@@ -5876,7 +5876,6 @@ MonoBehaviour:
   playersBottomTable: {fileID: 1796390706201602963}
   prepareCoin: {fileID: 5769132581105517621}
   surviveText: {fileID: 4707298941903163517}
-  smokeEffectBehind: {fileID: 3559510225174257283}
   countDown: {fileID: 8354045121928496173}
   cinemachineVirtualCamera: {fileID: 114129316014370704}
 --- !u!225 &4615091370588803898
@@ -8366,7 +8365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7768122133472710469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8376,7 +8375,7 @@ RectTransform:
   m_GameObject: {fileID: 3056413433569517697}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6911447, y: 0.6911447, z: 0.6911447}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4410802374239376205}
@@ -14235,7 +14234,7 @@ ParticleSystemRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3539763238743800420}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -19062,7 +19061,7 @@ ParticleSystemRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3559510225174257283}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
