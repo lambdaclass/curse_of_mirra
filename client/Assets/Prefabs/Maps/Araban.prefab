@@ -1378,6 +1378,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sand_Storm
       objectReference: {fileID: 0}
+    - target: {fileID: 1234868798560893433, guid: eb6b6d8464e6831489a3ac9eec922a70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6462990829318045684, guid: eb6b6d8464e6831489a3ac9eec922a70,
         type: 3}
       propertyPath: m_RootOrder
@@ -1432,6 +1437,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921121816203016272, guid: eb6b6d8464e6831489a3ac9eec922a70,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929112996522019493, guid: eb6b6d8464e6831489a3ac9eec922a70,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929112996522019493, guid: eb6b6d8464e6831489a3ac9eec922a70,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Name
+      value: ParticlesRate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929112996522019493, guid: eb6b6d8464e6831489a3ac9eec922a70,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb6b6d8464e6831489a3ac9eec922a70, type: 3}
@@ -1507,6 +1532,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DamageZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274735336802223674, guid: 3d673af9e2f2e38439b8313532d0001c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274735336802223684, guid: 3d673af9e2f2e38439b8313532d0001c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d673af9e2f2e38439b8313532d0001c, type: 3}
