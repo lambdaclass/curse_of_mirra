@@ -85,10 +85,10 @@ VisualEffect:
       - m_Value: 0
         m_Name: DamageZonePercent
         m_Overridden: 1
-      - m_Value: 50
+      - m_Value: 30
         m_Name: BasicSpawnRate
         m_Overridden: 1
-      - m_Value: 111
+      - m_Value: 60
         m_Name: AdditionalSpawnRate
         m_Overridden: 1
     m_Vector2f:
