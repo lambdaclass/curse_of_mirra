@@ -170,7 +170,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.zoneShrinkTime = gameState.Zone.ZoneShrinkTime;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
-                    this.gameCountdown = (float)gameState.Countdown;
+                    this.gameCountdown = (float)gameState.StartGameTimestamp - gameState.ServerTimestamp;
 
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
