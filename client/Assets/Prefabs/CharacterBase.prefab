@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2682950895344503891}
   - component: {fileID: 8790554508866863196}
   - component: {fileID: 2664940261528478740}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Orientator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1377340570206829633}
   - component: {fileID: 6284103280827666314}
   - component: {fileID: 1743729574858777773}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: CharacterBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 8173465752018876278}
   - component: {fileID: 7700158324449265958}
   - component: {fileID: 5535320627302818549}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: CanvasHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4861600391620598459}
   - component: {fileID: 5085971671319026984}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: OrientationIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

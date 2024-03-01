@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7308723003955542593}
   - component: {fileID: 2863616589487620225}
   - component: {fileID: 5754809696113213169}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Fill Stamina 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 79755414717119550}
   - component: {fileID: 5867108155140409948}
   - component: {fileID: 7642295035784800999}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Fill Stamina 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 1094073829173155169}
   - component: {fileID: 4950394529710162305}
   - component: {fileID: 4294573196067237231}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Stamina3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 5169390739512801972}
   - component: {fileID: 1264891647764918612}
   - component: {fileID: 6867229475502675876}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Stamina2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 5539191568022653863}
   - component: {fileID: 5145983503463320817}
   - component: {fileID: 6743273946512125365}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Fill Stamina 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 4095522184466235866}
   - component: {fileID: 5534929111570447281}
   - component: {fileID: 5333299199419601594}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: Stamina1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8563174794001401240}
   - component: {fileID: 2964130064261950093}
-  m_Layer: 7
+  m_Layer: 24
   m_Name: StaminaCharges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,4 +564,4 @@ MonoBehaviour:
   - {fileID: 5867108155140409948}
   - {fileID: 5145983503463320817}
   - {fileID: 2863616589487620225}
-  shake: 0
+  playingFeedback: 0
