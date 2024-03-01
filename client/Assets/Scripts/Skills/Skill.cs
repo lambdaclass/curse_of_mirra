@@ -25,7 +25,6 @@ public class Skill : CharacterAbility
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
 
-    GameObject canvasHolder;
     StaminaManager staminaManager;
 
     protected override void Start()
@@ -41,7 +40,7 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
-        canvasHolder = Utils
+        GameObject canvasHolder = Utils
             .GetCharacter(GameServerConnectionManager.Instance.playerId)
             .characterBase
             .CanvasHolder;
@@ -74,8 +73,8 @@ public class Skill : CharacterAbility
         if (AbilityAuthorized)
         {
             Direction direction = new Direction { X = 0, Y = 0 };
-            CheckAvailableStamina();
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -85,8 +84,8 @@ public class Skill : CharacterAbility
         {
             Direction direction = new Direction { X = position.x, Y = position.y };
             feedbackRotatePosition = new Vector2(position.x, position.y);
-            CheckAvailableStamina();
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -103,7 +102,10 @@ public class Skill : CharacterAbility
     void CheckAvailableStamina()
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
-        if (player.Player.AvailableStamina < skillInfo.staminaCost && !staminaManager.shake)
+        if (
+            player.Player.AvailableStamina < skillInfo.staminaCost
+            && !staminaManager.playingFeedback
+        )
         {
             staminaManager.UnavailableStaminaFeedback();
         }

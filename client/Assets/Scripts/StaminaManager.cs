@@ -10,7 +10,7 @@ public class StaminaManager : MonoBehaviour
         staminaFillImage;
     private Player player;
     private Vector3 initialScale;
-    public bool shake = false;
+    public bool playingFeedback = false;
 
     void Start()
     {
@@ -45,8 +45,8 @@ public class StaminaManager : MonoBehaviour
 
     public void UnavailableStaminaFeedback()
     {
-        shake = true;
-        if (shake)
+        playingFeedback = true;
+        if (playingFeedback)
         {
             foreach (Image staminaImage in staminaContainerImages)
             {
@@ -69,7 +69,7 @@ public class StaminaManager : MonoBehaviour
             );
             ShakeSequence.OnComplete(() =>
             {
-                shake = false;
+                playingFeedback = false;
             });
         }
     }
