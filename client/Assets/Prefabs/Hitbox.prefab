@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 506244918869636381}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hitbox
   m_TagString: Hitbox
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4267464509048176532}
   - component: {fileID: 907140837952466993}
   - component: {fileID: 3130626816695911675}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ArrowPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5936082863813509140}
   - component: {fileID: 2246689485714411586}
   - component: {fileID: 5794120047626104820}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ArrowPlaneArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
