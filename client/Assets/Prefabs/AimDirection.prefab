@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6787156628499368461}
   - component: {fileID: 6738943573842909003}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: AimDirection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 6395700585140466295}
   - component: {fileID: 2574016039783710474}
   - component: {fileID: 8207894888625631606}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3897031586263953030}
   - component: {fileID: 124642845061701923}
   - component: {fileID: 2764688213454001641}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: AimIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
