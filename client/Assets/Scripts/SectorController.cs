@@ -21,10 +21,11 @@ public class SectorController : MonoBehaviour
     private int cached_degree = 0;
     private float offset = 2.5f;
 
-    public void SetSectorDegree(float degree) => SetSectorDegree((int)degree);
+    public void SetSectorDegree(float degree, float range) => SetSectorDegree((int)degree, range);
 
-    public void SetSectorDegree(int degree)
+    public void SetSectorDegree(int degree,float range)
     {
+        this.transform.localScale = new Vector3(range, range, range);
         int sectors_count = degree / MIN_DEGREE_STEP;
 
         if (cached_degree == sectors_count * MIN_DEGREE_STEP)

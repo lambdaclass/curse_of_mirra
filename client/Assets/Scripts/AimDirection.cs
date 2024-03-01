@@ -34,6 +34,7 @@ public class AimDirection : MonoBehaviour
     public float viewDistance = 50f;
     public int rayCount = 50;
     public float angleIncrease;
+    public float radius;
 
     public void InitIndicator(Skill skill, Color32 color)
     {
@@ -41,6 +42,7 @@ public class AimDirection : MonoBehaviour
         viewDistance = skill.GetSkillRadius();
         skillAngle = skill.GetAngle();
         fov = skill.GetIndicatorAngle();
+        radius = skill.GetSkillRadius();
         activeIndicator = skill.GetIndicatorType();
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
@@ -77,7 +79,7 @@ public class AimDirection : MonoBehaviour
 
     public void SetConeIndicator()
     {
-        cone_controller.SetSectorDegree(fov);
+        cone_controller.SetSectorDegree(fov, radius);
 
         float coneIndicatorAngle = 0;
         angleIncrease = fov / rayCount;

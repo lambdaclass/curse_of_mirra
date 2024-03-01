@@ -60,11 +60,15 @@ public class SkillInfo : ScriptableObject
 
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {
+        var range = configSkill.TargettingAngle != 0 ? (configSkill.TargettingRadius / 100) / 2 : configSkill.TargettingRadius / 100;
+        Debug.Log(configSkill.Name);
+        Debug.Log(range);
         // Issue #1419
         this.damage = 0;
         this.cooldown = configSkill.CooldownMs / 1000;
-        this.skillRange = 0;
-        this.skillCircleRadius = 10;
+        this.skillCircleRadius = range;
+        this.angle = configSkill.TargettingAngle;
+        this.skillConeAngle = configSkill.TargettingAngle;
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = configSkill.StaminaCost;
     }
