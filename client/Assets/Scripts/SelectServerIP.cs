@@ -31,6 +31,6 @@ public class SelectServerIP : MonoBehaviour
 
     public static string GetServerName()
     {
-        return string.IsNullOrEmpty(serverNameString) ? "US (west)" : serverNameString;
+        return string.IsNullOrEmpty(serverNameString) ? "US (WEST)" : serverNameString;
     }
 }
