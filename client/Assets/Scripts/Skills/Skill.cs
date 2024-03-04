@@ -40,11 +40,12 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
-        GameObject canvasHolder = Utils
+
+        staminaManager = Utils
             .GetCharacter(GameServerConnectionManager.Instance.playerId)
             .characterBase
-            .CanvasHolder;
-        staminaManager = canvasHolder.GetComponentInChildren<StaminaManager>();
+            .StaminaCharges
+            .GetComponent<StaminaManager>();
     }
 
     public void SetSkill(string serverSkill, SkillInfo skillInfo)

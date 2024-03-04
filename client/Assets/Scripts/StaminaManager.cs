@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -8,19 +9,32 @@ public class StaminaManager : MonoBehaviour
     [SerializeField]
     private List<Image> staminaContainerImages,
         staminaFillImage;
+
+    [SerializeField]
+    CustomCharacter character;
     private Player player;
     private Vector3 initialScale;
     public bool playingFeedback = false;
+    ulong clientPlayer;
 
     void Start()
     {
-        player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Player;
+        clientPlayer = GameServerConnectionManager.Instance.playerId;
+        player = Utils.GetGamePlayer(clientPlayer).Player;
+        if (UInt64.Parse(character.PlayerID) == clientPlayer)
+        {
+            foreach (Image stamina in staminaContainerImages)
+            {
+                stamina.gameObject.SetActive(true);
+            }
+        }
+
         initialScale = staminaFillImage[0].transform.localScale;
     }
 
     void Update()
     {
-        player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Player;
+        player = Utils.GetGamePlayer(clientPlayer).Player;
         ulong availableStamina = player.AvailableStamina;
         staminaFillImage.ForEach(staminaCharge =>
         {
