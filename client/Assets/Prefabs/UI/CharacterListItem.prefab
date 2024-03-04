@@ -81,7 +81,19 @@ MonoBehaviour:
       m_Calls: []
   ButtonReleased:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1840111733565828972}
+        m_TargetAssemblyTypeName: CharacterListItem, CurseOfMirra
+        m_MethodName: GoToCharacterInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -507,7 +519,7 @@ GameObject:
   - component: {fileID: 6773932781361417602}
   - component: {fileID: 3714948033715268713}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Comtainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

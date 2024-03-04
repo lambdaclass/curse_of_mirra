@@ -13,16 +13,10 @@ public class MainScreenManager : MonoBehaviour
         CharactersManager
             .Instance
             .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
-        StartCoroutine(GoToCharacterInfo());
     }
 
-    IEnumerator GoToCharacterInfo()
+    public void GoToCharacterInfo()
     {
-        yield return new WaitUntil(
-            () =>
-                modelManager.GetComponentInChildren<ButtonAnimationsMMTouchButton>().executeRelease
-                == true
-        );
         modelManager.GetComponentInChildren<MMLoadScene>().LoadScene();
     }
 }
