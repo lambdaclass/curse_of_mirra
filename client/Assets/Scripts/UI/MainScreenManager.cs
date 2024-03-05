@@ -9,14 +9,8 @@ public class MainScreenManager : MonoBehaviour
 
     void Start()
     {
-        modelManager.SetModel(ServerConnection.Instance.selectedCharacterName);
-        CharactersManager
-            .Instance
-            .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
-    }
-
-    public void GoToCharacterInfo()
-    {
-        modelManager.GetComponentInChildren<MMLoadScene>().LoadScene();
+        string characterSelectedName = ServerConnection.Instance.selectedCharacterName;
+        modelManager.SetModel(characterSelectedName);
+        GetComponent<GoToCharacterInfo>().characterNameString = characterSelectedName;
     }
 }
