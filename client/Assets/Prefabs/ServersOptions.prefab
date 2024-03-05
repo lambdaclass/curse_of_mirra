@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 4051644919357942909}
+  IP: {fileID: 569503291951164151}
   serverName: {fileID: 5690564450626468402}
 --- !u!1 &103087406830891457
 GameObject:
@@ -1079,7 +1079,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6510726468002396620}
-        m_TargetAssemblyTypeName: SelectServerIP, Assembly-CSharp
+        m_TargetAssemblyTypeName: SelectServerIP, CurseOfMirra
         m_MethodName: SetServerIp
         m_Mode: 1
         m_Arguments:
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 645574248612363803}
+  IP: {fileID: 1925575024702721535}
   serverName: {fileID: 5068624927725478729}
 --- !u!1 &3298301262273105424
 GameObject:
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 3947199606246539717}
+  IP: {fileID: 6832810301181515300}
   serverName: {fileID: 4258319663881038376}
 --- !u!1 &3903721961584970353
 GameObject:
@@ -2068,7 +2068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7643ed2a634eec8f60a3be5d86efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: {fileID: 4919495925534139307}
+  IP: {fileID: 7860339578528433443}
   serverName: {fileID: 6170709500917714641}
 --- !u!1 &7354997945137672901
 GameObject:
