@@ -4247,26 +4247,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServerContainer
       objectReference: {fileID: 0}
-    - target: {fileID: 8142840688901557613, guid: d20161024d9af4dce81c996672ecb9fb,
-        type: 3}
-      propertyPath: m_Padding.m_Top
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142840688901557613, guid: d20161024d9af4dce81c996672ecb9fb,
-        type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142840688901557613, guid: d20161024d9af4dce81c996672ecb9fb,
-        type: 3}
-      propertyPath: m_Padding.m_Right
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142840688901557613, guid: d20161024d9af4dce81c996672ecb9fb,
-        type: 3}
-      propertyPath: m_Padding.m_Bottom
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8915980401917180453, guid: d20161024d9af4dce81c996672ecb9fb,
         type: 3}
       propertyPath: serverOptions

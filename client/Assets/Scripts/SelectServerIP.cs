@@ -15,7 +15,8 @@ public class SelectServerIP : MonoBehaviour
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerIp = "denver.curseofmirra.com";
+    private const string _defaultServerName = "BRAZIL";
+    private const string _defaultServerIp = "brazil-testing.curseofmirra.com";
 
     public void SetServerIp()
     {
@@ -31,6 +32,6 @@ public class SelectServerIP : MonoBehaviour
 
     public static string GetServerName()
     {
-        return string.IsNullOrEmpty(serverNameString) ? "US (WEST)" : serverNameString;
+        return string.IsNullOrEmpty(serverNameString) ? _defaultServerName : serverNameString;
     }
 }
