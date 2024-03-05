@@ -21,12 +21,20 @@ public class SelectServerIP : MonoBehaviour
     public void SetServerIp()
     {
         serverIp = IP.text.Trim();
-        serverNameString = serverName.text;
+        if (serverName.text.ToUpper() == "SET CUSTOM")
+        {
+            serverNameString = "CUSTOM";
+        }
+        else
+        {
+            serverNameString = serverName.text;
+        }
         ServerConnection.Instance.RefreshServerInfo();
     }
 
     public static string GetServerIp()
     {
+        print(serverIp);
         return string.IsNullOrEmpty(serverIp) ? _defaultServerIp : serverIp;
     }
 
