@@ -29,9 +29,16 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
 
     //Min difference of the touchStartPos and the current touch
     private const float MIN_DIFFERENCE = 10.0f;
+
     private Vector2 touchStartPos;
     private bool isInsideCard = false;
     public bool executeRelease = false;
+
+    [Header("List Element Bool")]
+    [Tooltip(
+        "The listElement bool is true when applied to list elements. This adds a logic to distinguish between a scroll and a selection of the element"
+    )]
+    public bool listElement = false;
 
     void Start()
     {
@@ -62,6 +69,10 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             base.OnPointerUp(eventData);
         }
+        else
+        {
+            CurrentState = ButtonStates.Off;
+        }
         if (isBackButton)
         {
             transform.DOPause();
@@ -79,7 +90,18 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         // not by position difference
         var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
         var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (isInsideCard && touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
+        if (isInsideCard && listElement)
+        {
+            if (touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
+            {
+                return executeRelease = true;
+            }
+            else
+            {
+                return executeRelease = false;
+            }
+        }
+        else if (isInsideCard && !listElement)
         {
             return executeRelease = true;
         }

@@ -120,6 +120,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
+  listElement: 1
 --- !u!114 &703506002697159412
 MonoBehaviour:
   m_ObjectHideFlags: 0
