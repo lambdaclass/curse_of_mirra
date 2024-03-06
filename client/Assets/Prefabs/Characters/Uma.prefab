@@ -784,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 2968017931226343289, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 1
+      value: Souls
       objectReference: {fileID: 0}
     - target: {fileID: 3617200173245764361, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
@@ -1183,7 +1183,7 @@ PrefabInstance:
     - target: {fileID: 8559183905587967325, guid: 31b4688d702114456ac839d2f36fa861,
         type: 3}
       propertyPath: m_Name
-      value: GameObject
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b4688d702114456ac839d2f36fa861, type: 3}
@@ -1267,7 +1267,7 @@ PrefabInstance:
     - target: {fileID: 8941300850621513570, guid: bb4cba58f5388417ea87992971209ca9,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 2
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4cba58f5388417ea87992971209ca9, type: 3}
