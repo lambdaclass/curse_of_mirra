@@ -84,8 +84,11 @@ public class CustomLevelManager : LevelManager
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        var player = Utils.GetPlayer(playerId);
         SetOrientationArrow(playerId);
+
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
+        player.GetComponent<Health>().CurrentHealth = gamePlayer.Player.Health;
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
