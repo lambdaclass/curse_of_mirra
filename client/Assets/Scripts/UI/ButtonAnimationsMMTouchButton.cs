@@ -1,8 +1,8 @@
+using System;
+using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.EventSystems;
-using System;
 
 public class ButtonAnimationsMMTouchButton : MMTouchButton
 {
@@ -28,10 +28,17 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
     Vector3 finalScale;
 
     //Min difference of the touchStartPos and the current touch
-    private const float MIN_DIFFERENCE = 6.0f;
+    private const float MIN_DIFFERENCE = 10.0f;
+
     private Vector2 touchStartPos;
     private bool isInsideCard = false;
     public bool executeRelease = false;
+
+    [Header("List Element Bool")]
+    [Tooltip(
+        "The listElement bool is true when applied to list elements. This adds a logic to distinguish between a scroll and a selection of the element"
+    )]
+    public bool listElement = false;
 
     void Start()
     {
@@ -58,7 +65,14 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        base.OnPointerUp(eventData);
+        if (CheckReleasePosition(eventData))
+        {
+            base.OnPointerUp(eventData);
+        }
+        else
+        {
+            CurrentState = ButtonStates.Off;
+        }
         if (isBackButton)
         {
             transform.DOPause();
@@ -67,27 +81,30 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             transform.DOScale(initialScale, duration);
         }
-
-        CheckReleasePosition(eventData);
     }
 
-    public void CheckReleasePosition(PointerEventData eventData)
+    public bool CheckReleasePosition(PointerEventData eventData)
     {
+        // Issue #1542
+        // This should check if the release of the pointer was inside or outside the container
+        // not by position difference
         var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
         var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (isInsideCard && touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
+        if (isInsideCard && listElement)
         {
-            executeRelease = true;
+            executeRelease = touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE;
         }
         else
         {
-            executeRelease = false;
+            executeRelease = isInsideCard && !listElement;
         }
+        return executeRelease;
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
+        transform.DOScale(initialScale, duration).SetEase(Ease.OutQuad);
         isInsideCard = false;
     }
 

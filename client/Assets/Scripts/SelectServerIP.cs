@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SelectServerIP : MonoBehaviour
 {
     [SerializeField]
-    Text IP;
+    GameObject IP;
 
     [SerializeField]
     TextMeshProUGUI serverName;
@@ -15,12 +15,27 @@ public class SelectServerIP : MonoBehaviour
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerIp = "denver.curseofmirra.com";
+    private const string _defaultServerName = "BRAZIL";
+    private const string _defaultServerIp = "brazil-testing.curseofmirra.com";
 
     public void SetServerIp()
     {
-        serverIp = IP.text.Trim();
-        serverNameString = serverName.text;
+        if (IP.GetComponent<Text>() != null)
+        {
+            serverIp = IP.GetComponent<Text>().text.Trim();
+        }
+        else if (IP.GetComponent<InputField>() != null)
+        {
+            serverIp = IP.GetComponent<InputField>().text.Trim();
+        }
+        if (serverName.text.ToUpper() == "SET CUSTOM")
+        {
+            serverNameString = "CUSTOM";
+        }
+        else
+        {
+            serverNameString = serverName.text;
+        }
         ServerConnection.Instance.RefreshServerInfo();
     }
 
@@ -31,6 +46,6 @@ public class SelectServerIP : MonoBehaviour
 
     public static string GetServerName()
     {
-        return string.IsNullOrEmpty(serverNameString) ? "US (west)" : serverNameString;
+        return string.IsNullOrEmpty(serverNameString) ? _defaultServerName : serverNameString;
     }
 }
