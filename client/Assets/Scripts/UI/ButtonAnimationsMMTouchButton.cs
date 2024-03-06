@@ -92,23 +92,13 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
         if (isInsideCard && listElement)
         {
-            if (touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE)
-            {
-                return executeRelease = true;
-            }
-            else
-            {
-                return executeRelease = false;
-            }
-        }
-        else if (isInsideCard && !listElement)
-        {
-            return executeRelease = true;
+            executeRelease = touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE;
         }
         else
         {
-            return executeRelease = false;
+            executeRelease = isInsideCard && !listElement;
         }
+        return executeRelease;
     }
 
     public override void OnPointerExit(PointerEventData eventData)

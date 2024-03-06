@@ -6,11 +6,17 @@ public class MainScreenManager : MonoBehaviour
 {
     [SerializeField]
     UIModelManager modelManager;
+    string sceneName = "CharacterInfo";
+    string characterNameToGo;
 
     void Start()
     {
-        string characterSelectedName = ServerConnection.Instance.selectedCharacterName;
-        modelManager.SetModel(characterSelectedName);
-        GetComponent<GoToCharacterInfo>().characterNameString = characterSelectedName;
+        characterNameToGo = ServerConnection.Instance.selectedCharacterName;
+        modelManager.SetModel(characterNameToGo);
+    }
+
+    public void GoToCharacteInfo()
+    {
+        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
     }
 }

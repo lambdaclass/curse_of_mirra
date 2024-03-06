@@ -28,8 +28,7 @@ public class CharactersListManager : MonoBehaviour
                     GameObject item = Instantiate(listItem, this.transform);
                     CharacterListItem instanceListItem = item.GetComponent<CharacterListItem>();
                     // Assign the character's name to be link to character info
-                    instanceListItem.GetComponent<GoToCharacterInfo>().characterNameString =
-                        character.name;
+                    instanceListItem.characterNameToGo = character.name;
 
                     // Characters enabled to select
                     if (CharactersManager.Instance.IsAvailableCharacter(character))
