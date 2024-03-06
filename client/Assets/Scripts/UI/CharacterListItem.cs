@@ -1,8 +1,7 @@
-using UnityEngine;
-using MoreMountains.Tools;
+using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class CharacterListItem : MonoBehaviour
 {
@@ -17,20 +16,12 @@ public class CharacterListItem : MonoBehaviour
     public GameObject soonLabel,
         characterOpacity,
         availableSoon;
-    public string characterNameString;
     public bool IsEnable = true;
+    string sceneName = "CharacterInfo";
+    public string characterNameToGo;
 
-    void Start()
+    public void GoToCharacteInfo()
     {
-        StartCoroutine(GoToCharacterInfo());
-    }
-
-    IEnumerator GoToCharacterInfo()
-    {
-        yield return new WaitUntil(
-            () => this.GetComponent<ButtonAnimationsMMTouchButton>().executeRelease && IsEnable
-        );
-        CharactersManager.Instance.GoToCharacter = characterNameString;
-        this.GetComponent<MMLoadScene>().LoadScene();
+        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
     }
 }

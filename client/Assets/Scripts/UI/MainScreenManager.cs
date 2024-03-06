@@ -6,23 +6,17 @@ public class MainScreenManager : MonoBehaviour
 {
     [SerializeField]
     UIModelManager modelManager;
+    string sceneName = "CharacterInfo";
+    string characterNameToGo;
 
     void Start()
     {
-        modelManager.SetModel(ServerConnection.Instance.selectedCharacterName);
-        CharactersManager
-            .Instance
-            .SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
-        StartCoroutine(GoToCharacterInfo());
+        characterNameToGo = ServerConnection.Instance.selectedCharacterName;
+        modelManager.SetModel(characterNameToGo);
     }
 
-    IEnumerator GoToCharacterInfo()
+    public void GoToCharacteInfo()
     {
-        yield return new WaitUntil(
-            () =>
-                modelManager.GetComponentInChildren<ButtonAnimationsMMTouchButton>().executeRelease
-                == true
-        );
-        modelManager.GetComponentInChildren<MMLoadScene>().LoadScene();
+        Utils.GoToCharacterInfo(characterNameToGo, sceneName);
     }
 }
