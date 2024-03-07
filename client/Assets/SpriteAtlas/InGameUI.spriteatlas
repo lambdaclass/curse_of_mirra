@@ -47,6 +47,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 41e07560bd98147d4af35b42349e9655, type: 3}
   - {fileID: 21300000, guid: 3694aa60b97fe444b91afbc6b5d25c68, type: 3}
   - {fileID: 21300000, guid: 789e5811ba2c14730a2807050b00ee58, type: 3}
+  - {fileID: 21300000, guid: 1ed4f781217ee4d7ba2c7578db4c0fb1, type: 3}
   - {fileID: 21300000, guid: 131b69f1990da47ef9696423773bb153, type: 3}
   - {fileID: 21300000, guid: e4a23452b0a894b228ffc65f8f4b2c33, type: 3}
   - {fileID: 21300000, guid: b133ce62e7f374246899951a0f032e35, type: 3}
@@ -76,6 +77,7 @@ SpriteAtlas:
   - setting_firstTab_selected
   - code
   - Uma
+  - glow
   - Hack
   - Underline
   - players

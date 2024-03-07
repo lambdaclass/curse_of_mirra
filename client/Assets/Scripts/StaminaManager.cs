@@ -8,7 +8,8 @@ public class StaminaManager : MonoBehaviour
 {
     [SerializeField]
     private List<Image> staminaContainerImages,
-        staminaFillImage;
+        staminaFillImage,
+        glowEffects;
 
     [SerializeField]
     CustomCharacter character;
@@ -26,6 +27,10 @@ public class StaminaManager : MonoBehaviour
             foreach (Image stamina in staminaContainerImages)
             {
                 stamina.gameObject.SetActive(true);
+            }
+            foreach (Image glowImage in glowEffects)
+            {
+                glowImage.color = new Color32(255, 0, 0, 255);
             }
         }
 
@@ -59,32 +64,40 @@ public class StaminaManager : MonoBehaviour
 
     public void UnavailableStaminaFeedback()
     {
-        playingFeedback = true;
-        if (playingFeedback)
+        Sequence ShakeSequence = DOTween.Sequence();
+        ShakeSequence.Append(
+            transform.DOShakePosition(
+                .5f,
+                new Vector3(0, .1f, 0),
+                10,
+                0,
+                false,
+                true,
+                ShakeRandomnessMode.Harmonic
+            )
+        );
+        ShakeSequence.OnStart(() =>
         {
+            playingFeedback = true;
             foreach (Image staminaImage in staminaContainerImages)
             {
                 Sequence emptyFeedbackSequence = DOTween.Sequence();
                 emptyFeedbackSequence
-                    .Append(staminaImage.DOColor(Color.red, .1f))
-                    .Append(staminaImage.DOColor(Color.white, .1f));
+                    .Append(staminaImage.DOColor(Color.red, .4f))
+                    .Append(staminaImage.DOColor(Color.white, .4f));
             }
-            Sequence ShakeSequence = DOTween.Sequence();
-            ShakeSequence.Append(
-                transform.DOShakePosition(
-                    .5f,
-                    new Vector3(0, .5f, 0),
-                    10,
-                    0,
-                    false,
-                    true,
-                    ShakeRandomnessMode.Harmonic
-                )
-            );
-            ShakeSequence.OnComplete(() =>
+            foreach (Image glowImage in glowEffects)
             {
-                playingFeedback = false;
-            });
-        }
+                Sequence emptyFeedbackSequence = DOTween.Sequence();
+                emptyFeedbackSequence
+                    .Insert(0, glowImage.GetComponent<CanvasGroup>().DOFade(1, 0.1f))
+                    .AppendInterval(.2f)
+                    .Append(glowImage.GetComponent<CanvasGroup>().DOFade(0, 0.1f));
+            }
+        });
+        ShakeSequence.OnComplete(() =>
+        {
+            playingFeedback = false;
+        });
     }
 }
