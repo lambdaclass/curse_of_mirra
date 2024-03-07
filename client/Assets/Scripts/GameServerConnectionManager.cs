@@ -47,8 +47,6 @@ public class GameServerConnectionManager : MonoBehaviour
     public bool zoneEnabled = false;
     public bool cinematicDone;
     public bool connected = false;
-
-    //     public Game.GameState gameState;
     private string clientId;
     private bool reconnect;
     WebSocket ws;
