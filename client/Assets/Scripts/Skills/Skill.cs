@@ -241,7 +241,7 @@ public class Skill : CharacterAbility
          GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
             if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
                 vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
-                diameter = Utils.TransformBackenRadiusToClientRadius(pool.Radius) * 2;
+                diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;
             }
         });
 
@@ -306,7 +306,7 @@ public class Skill : CharacterAbility
     public float GetSkillRadius()
     {
         float radius;
-        switch (skillInfo.skillCircleRadius)
+        switch (skillInfo.skillCircleRange)
         {
             case 0:
                 radius = MAX_RANGE;
@@ -315,7 +315,7 @@ public class Skill : CharacterAbility
                 radius = INNER_RANGE;
                 break;
             default:
-                radius = skillInfo.skillCircleRadius;
+                radius = skillInfo.skillCircleRange;
                 break;
         }
         return radius;
@@ -323,12 +323,16 @@ public class Skill : CharacterAbility
 
     public void SetSkillRadius(float radius)
     {
-        skillInfo.skillCircleRadius = radius;
+        skillInfo.skillCircleRange = radius;
     }
 
     public void SetSkillAreaRadius(float radius)
     {
         skillInfo.skillAreaRadius = radius;
+    }
+
+    public float GetSkillAreaRadius(){
+        return skillInfo.skillAreaRadius;
     }
 
     public float GetIndicatorAngle()
@@ -353,6 +357,6 @@ public class Skill : CharacterAbility
 
     public bool IsSelfTargeted()
     {
-        return skillInfo.skillCircleRadius == -1;
+        return skillInfo.skillCircleRange == -1;
     }
 }

@@ -32,7 +32,7 @@ public class SkillInfo : ScriptableObject
 
     [MMCondition("sfxHasAbilityStop", true)]
     public AudioClip abilityStopSfx;
-    public float skillCircleRadius;
+    public float skillCircleRange;
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Cone)]
     public float skillConeAngle;
@@ -64,7 +64,8 @@ public class SkillInfo : ScriptableObject
         this.damage = 0;
         this.cooldown = configSkill.CooldownMs / 1000;
         this.skillRange = 0;
-        this.skillCircleRadius = configSkill.TargettingRadius / 100;
+        this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
+        this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = configSkill.StaminaCost;
     }

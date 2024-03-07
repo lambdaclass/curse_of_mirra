@@ -45,6 +45,10 @@ public class AimDirection : MonoBehaviour
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
+        float circleArea = skill.GetSkillAreaRadius();
+
+        this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
+
         SetColor(color);
 
         if (skill.GetIndicatorType() == UIIndicatorType.Arrow)
