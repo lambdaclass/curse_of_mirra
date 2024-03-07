@@ -22,6 +22,10 @@ public class Utils
         return new Vector3(x, 1f, y);
     }
 
+    public static float TransformBackenRadiusToClientRadius(float radius){
+        return radius / 100f;
+    }
+
     // public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
     // {
     //     var x = (long)position?.x / 100f;

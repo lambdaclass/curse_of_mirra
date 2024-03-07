@@ -338,7 +338,7 @@ public class Battle : MonoBehaviour
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
-                float hitboxSize = serverPlayerUpdate.Radius / 50f;
+                float hitboxSize = Utils.TransformBackenRadiusToClientRadius(serverPlayerUpdate.Radius) * 2;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
         }

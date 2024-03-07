@@ -199,14 +199,12 @@ public class Skill : CharacterAbility
         float duration,
         float delay,
         bool instantiateVfxOnModel,
-        bool skillPool
+        bool hasSkillPool
     )
     {
         yield return new WaitForSeconds(delay);
 
         GameObject vfxInstance;
-        Vector3 poolPos = Vector3.zero;
-        float radius = 0;
 
         if (instantiateVfxOnModel)
         {
@@ -223,25 +221,11 @@ public class Skill : CharacterAbility
                 _model.transform.position.z
             );
 
-            if(skillPool){
-                
-                usedPools.ForEach(p => print(p));
-
-                GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
-                    if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
-                        poolPos =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
-                        radius = pool.Radius / 1000;
-                    }
-                });
-
+            if(hasSkillPool){
+               vfxPosition = SetPoolDiameterAndPosition(vfx);
             }
-            vfxInstance = Instantiate(vfx, skillPool ? poolPos : vfxPosition, vfx.transform.rotation);
-            // Work a better solution
-            if(skillPool){
-                if(vfxInstance.transform.childCount > 0){
-                    vfxInstance.GetComponentInChildren<VisualEffect>().SetFloat("EffectRadius", radius);
-                }
-            }
+            vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
+           
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
@@ -250,6 +234,23 @@ public class Skill : CharacterAbility
         Destroy(vfxInstance, duration);
     }
  
+
+    private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
+        float diameter = 0;
+        Vector3 vfxPosition = Vector3.zero;
+         GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
+            if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
+                vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
+                diameter = Utils.TransformBackenRadiusToClientRadius(pool.Radius) * 2;
+            }
+        });
+
+        if(vfx.transform.childCount > 0){
+            vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
+        }
+
+        return vfxPosition;
+    }
 
     private void ClearAnimator()
     {

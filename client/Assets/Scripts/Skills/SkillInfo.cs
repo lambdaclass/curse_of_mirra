@@ -64,7 +64,7 @@ public class SkillInfo : ScriptableObject
         this.damage = 0;
         this.cooldown = configSkill.CooldownMs / 1000;
         this.skillRange = 0;
-        this.skillCircleRadius = 10;
+        this.skillCircleRadius = configSkill.TargettingRadius / 100;
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = configSkill.StaminaCost;
     }
