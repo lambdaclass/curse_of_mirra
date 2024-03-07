@@ -269,7 +269,7 @@ public class Battle : MonoBehaviour
                         .clientPrediction
                         .SimulatePlayerState(
                             serverPlayerUpdate,
-                            gameEvent.PlayerTimestamps[player.Id],
+                            gameEvent.PlayerMovementTimestamps[player.Id],
                             gameEvent.ServerTimestamp
                         );
                 }
