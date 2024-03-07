@@ -11,12 +11,12 @@ public class ClientPrediction
         public long timestampId;
         public long startTimestamp;
         public long endTimestamp;
-        public Position position;
         public long serverTimestamp;
     }
 
     public List<PlayerInput> pendingPlayerInputs = new List<PlayerInput>();
 
+    public Position startingPosition;
     public float lastXSent = 0;
     public float lastYSent = 0;
 
@@ -46,7 +46,6 @@ public class ClientPrediction
             timestampId = timestamp,
             startTimestamp = timestamp,
             endTimestamp = 0,
-            position = new Position { X = 0, Y = 0 }
         };
 
         EnqueuePlayerInput(playerInput);
@@ -70,7 +69,7 @@ public class ClientPrediction
                 {
                     input.startTimestamp += serverTimestamp - input.serverTimestamp;
                 }
-                input.position = player.Position;
+                startingPosition = player.Position;
                 input.serverTimestamp = serverTimestamp;
                 pendingPlayerInputs[i] = input;
             }
@@ -88,12 +87,8 @@ public class ClientPrediction
         var characterSpeed = player.Speed;
         float tickRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-        Position currentPosition = player.Position;
+        Position currentPosition = startingPosition;
         Direction currentDirection = player.Direction;
-        if (pendingPlayerInputs.Count > 0)
-        {
-            currentPosition = pendingPlayerInputs[0].position;
-        }
 
         pendingPlayerInputs.ForEach(input =>
         {

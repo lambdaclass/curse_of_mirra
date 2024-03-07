@@ -33,5 +33,13 @@ MonoBehaviour:
   cooldown: 0
   skillRange: 0
   skillSprite: {fileID: 21300000, guid: 165e2e85b1bd54f2389f3b424e20bbb1, type: 3}
-  vfxList: []
+  vfxList:
+  - vfx: {fileID: 7408538769109093279, guid: 9b3089641f7b7aa49afe1ba4dcaeadef, type: 3}
+    duration: 1.8
+    delay: 0.3
+    instantiateVfxOnModel: 0
+  - vfx: {fileID: 6888337135511328701, guid: c5b9cf6f7da90a048bf82339301b5f38, type: 3}
+    duration: 5
+    delay: 0.6
+    instantiateVfxOnModel: 0
   animationList: []

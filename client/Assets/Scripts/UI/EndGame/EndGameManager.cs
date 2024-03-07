@@ -26,6 +26,8 @@ public class EndGameManager : MonoBehaviour
     CustomCharacter player;
     GameObject modelClone;
 
+    Animator modelAnimator;
+
     void OnEnable()
     {
         ShowRankingDisplay();
@@ -45,6 +47,7 @@ public class EndGameManager : MonoBehaviour
         {
             GameObject characterModel = character.UIModel;
             modelClone = Instantiate(characterModel, characterModelContainer.transform);
+            modelAnimator = modelClone.GetComponentInChildren<Animator>();
         }
     }
 
@@ -137,20 +140,28 @@ public class EndGameManager : MonoBehaviour
 
     public void ShowCharacterAnimation()
     {
-        if (player)
-        {
-            if (
-                GameServerConnectionManager
-                    .Instance
-                    .PlayerIsWinner(GameServerConnectionManager.Instance.playerId)
-            )
-            {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Victory", true);
-            }
-            else
-            {
-                modelClone.GetComponentInChildren<Animator>().SetBool("Defeat", true);
-            }
+        if(player){
+            bool isWinner = GameServerConnectionManager.Instance.PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
+            string animationName = isWinner ? "Victory" : "Defeat";
+            if(modelAnimator.parameterCount > 0){
+                bool hasAnimationParameter = AnimationHasParameter(animationName);
+                HandleAnimation(animationName, hasAnimationParameter);
+            }   
+        }
+    }
+
+    private bool AnimationHasParameter(string parameterName){
+        AnimatorControllerParameter param = modelAnimator.parameters.ToList()
+            .Find(p => p.name == parameterName);
+
+        return param != null;
+    }
+
+    public void HandleAnimation(string animationName, bool hasAnimationParameter){
+        if(hasAnimationParameter){
+            modelAnimator.SetBool(animationName, true);
+        } else {
+            modelAnimator.Play(animationName);
         }
     }
 }

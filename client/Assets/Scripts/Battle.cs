@@ -357,15 +357,15 @@ public class Battle : MonoBehaviour
         {
             case PlayerActionType.ExecutingSkill1:
                 currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
                 currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
                 currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
-                character.RotatePlayer(currentPlayer, direction);
+                character.RotatePlayer(direction);
                 break;
         }
     }
@@ -493,10 +493,7 @@ public class Battle : MonoBehaviour
             .GetComponent<CharacterFeedbackManager>();
         var characterSpeed = playerUpdate.Speed / 100f;
 
-        Animator modelAnimator = player
-            .GetComponent<CustomCharacter>()
-            .CharacterModel
-            .GetComponent<Animator>();
+        Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
 
@@ -513,6 +510,12 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
+            if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
+            {
+                character.HandleHit(
+                    GameServerConnectionManager.Instance.damageDone[playerUpdate.Id]
+                );
+            }
             /*
                 - We divided the milliseconds time in two parts because
                 - rustler can't handle u128, so instead of developing those functions
@@ -640,7 +643,7 @@ public class Battle : MonoBehaviour
 
             if (PlayerMovementAuthorized(player.GetComponent<CustomCharacter>()))
             {
-                character.RotatePlayer(player, direction);
+                character.RotatePlayer(direction);
             }
         }
 

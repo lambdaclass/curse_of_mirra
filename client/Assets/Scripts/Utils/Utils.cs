@@ -10,8 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class Utils
 {
-    public static readonly Color healthBarGreen = new Color32(0, 157, 0, 255);
-    public static readonly Color healthBarRed = new Color32(212, 13, 18, 255);
+    public static readonly Color healthBarGreen = new Color32(8, 233, 9, 255);
+    public static readonly Color healthBarRed = new Color32(255, 26, 0, 255);
     public static readonly Color healthBarPoisoned = new Color32(66, 168, 0, 255);
     public static readonly Color burstLoadsBarCharging = new Color32(110, 110, 110, 255);
 
@@ -124,5 +124,11 @@ public class Utils
                 new GradientAlphaKey(1, 1)
             }
         };
+    }
+
+    public static void GoToCharacterInfo(string characterName, string sceneName)
+    {
+        CharactersManager.Instance.SetGoToCharacter(characterName);
+        SceneManager.LoadScene(sceneName);
     }
 }
