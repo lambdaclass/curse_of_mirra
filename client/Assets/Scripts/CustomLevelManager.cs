@@ -170,6 +170,7 @@ public class CustomLevelManager : LevelManager
                 GameServerConnectionManager.Instance.clientPrediction.startingPosition =
                     player.Position;
             }
+            newPlayer.CharacterHealth.CurrentHealth = player.Player.Health;
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
