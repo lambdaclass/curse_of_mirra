@@ -45,70 +45,66 @@ public static partial class MessagesReflection {
           "Z1NraWxsEgwKBG5hbWUYASABKAkSEwoLY29vbGRvd25fbXMYAiABKAQSHQoV",
           "ZXhlY3V0aW9uX2R1cmF0aW9uX21zGAMgASgEEhkKEXRhcmdldHRpbmdfcmFk",
           "aXVzGAQgASgCEhgKEHRhcmdldHRpbmdfYW5nbGUYBSABKAISFAoMc3RhbWlu",
-          "YV9jb3N0GAYgASgEIpUICglHYW1lU3RhdGUSDwoHZ2FtZV9pZBgBIAEoCRIo",
+          "YV9jb3N0GAYgASgEIvAGCglHYW1lU3RhdGUSDwoHZ2FtZV9pZBgBIAEoCRIo",
           "CgdwbGF5ZXJzGAIgAygLMhcuR2FtZVN0YXRlLlBsYXllcnNFbnRyeRIwCgtw",
           "cm9qZWN0aWxlcxgDIAMoCzIbLkdhbWVTdGF0ZS5Qcm9qZWN0aWxlc0VudHJ5",
-          "EkwKGnBsYXllcl9tb3ZlbWVudF90aW1lc3RhbXBzGAQgAygLMiguR2FtZVN0",
-          "YXRlLlBsYXllck1vdmVtZW50VGltZXN0YW1wc0VudHJ5EkoKGXBsYXllcl9h",
-          "Y3Rpb25zX3RpbWVzdGFtcHMYBSADKAsyJy5HYW1lU3RhdGUuUGxheWVyQWN0",
-          "aW9uc1RpbWVzdGFtcHNFbnRyeRIYChBzZXJ2ZXJfdGltZXN0YW1wGAYgASgD",
-          "EhMKBHpvbmUYByABKAsyBS5ab25lEhwKCGtpbGxmZWVkGAggAygLMgouS2ls",
-          "bEVudHJ5EjEKDGRhbWFnZV90YWtlbhgJIAMoCzIbLkdhbWVTdGF0ZS5EYW1h",
-          "Z2VUYWtlbkVudHJ5Ei8KC2RhbWFnZV9kb25lGAogAygLMhouR2FtZVN0YXRl",
-          "LkRhbWFnZURvbmVFbnRyeRIrCglwb3dlcl91cHMYCyADKAsyGC5HYW1lU3Rh",
-          "dGUuUG93ZXJVcHNFbnRyeRIbCgZzdGF0dXMYDCABKA4yCy5HYW1lU3RhdHVz",
-          "EhEKCWNvdW50ZG93bhgNIAEoAxIkCgVpdGVtcxgOIAMoCzIVLkdhbWVTdGF0",
-          "ZS5JdGVtc0VudHJ5GjcKDFBsYXllcnNFbnRyeRILCgNrZXkYASABKAQSFgoF",
-          "dmFsdWUYAiABKAsyBy5FbnRpdHk6AjgBGjsKEFByb2plY3RpbGVzRW50cnkS",
-          "CwoDa2V5GAEgASgEEhYKBXZhbHVlGAIgASgLMgcuRW50aXR5OgI4ARo/Ch1Q",
-          "bGF5ZXJNb3ZlbWVudFRpbWVzdGFtcHNFbnRyeRILCgNrZXkYASABKAQSDQoF",
-          "dmFsdWUYAiABKAM6AjgBGj4KHFBsYXllckFjdGlvbnNUaW1lc3RhbXBzRW50",
-          "cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgDOgI4ARoyChBEYW1hZ2VU",
-          "YWtlbkVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoCOAEaMQoP",
-          "RGFtYWdlRG9uZUVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1ZRgCIAEoBDoC",
-          "OAEaOAoNUG93ZXJVcHNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFsdWUYAiAB",
-          "KAsyBy5FbnRpdHk6AjgBGjUKCkl0ZW1zRW50cnkSCwoDa2V5GAEgASgEEhYK",
-          "BXZhbHVlGAIgASgLMgcuRW50aXR5OgI4ASKJAwoGRW50aXR5EgoKAmlkGAEg",
-          "ASgEEhAKCGNhdGVnb3J5GAIgASgJEg0KBXNoYXBlGAMgASgJEgwKBG5hbWUY",
-          "BCABKAkSGwoIcG9zaXRpb24YBSABKAsyCS5Qb3NpdGlvbhIOCgZyYWRpdXMY",
-          "BiABKAISGwoIdmVydGljZXMYByADKAsyCS5Qb3NpdGlvbhIVCg1jb2xsaWRl",
-          "c193aXRoGAggAygEEg0KBXNwZWVkGAkgASgCEh0KCWRpcmVjdGlvbhgKIAEo",
-          "CzIKLkRpcmVjdGlvbhIRCglpc19tb3ZpbmcYCyABKAgSGQoGcGxheWVyGAwg",
-          "ASgLMgcuUGxheWVySAASIQoKcHJvamVjdGlsZRgNIAEoCzILLlByb2plY3Rp",
-          "bGVIABIdCghvYnN0YWNsZRgOIAEoCzIJLk9ic3RhY2xlSAASHAoIcG93ZXJf",
-          "dXAYDyABKAsyCC5Qb3dlclVwSAASFQoEaXRlbRgQIAEoCzIFLkl0ZW1IAEIQ",
-          "Cg5hZGl0aW9uYWxfaW5mbyLfAgoGUGxheWVyEg4KBmhlYWx0aBgBIAEoBBIS",
-          "CgpraWxsX2NvdW50GAIgASgEEiYKD2N1cnJlbnRfYWN0aW9ucxgDIAMoCzIN",
-          "LlBsYXllckFjdGlvbhIZChFhdmFpbGFibGVfc3RhbWluYRgEIAEoBBITCgtt",
-          "YXhfc3RhbWluYRgFIAEoBBIYChBzdGFtaW5hX2ludGVydmFsGAYgASgEEhoK",
-          "EnJlY2hhcmdpbmdfc3RhbWluYRgHIAEoCBIWCg5jaGFyYWN0ZXJfbmFtZRgI",
-          "IAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZmZWN0cxgKIAMoCzIULlBs",
-          "YXllci5FZmZlY3RzRW50cnkSGAoJaW52ZW50b3J5GAsgASgLMgUuSXRlbRo3",
-          "CgxFZmZlY3RzRW50cnkSCwoDa2V5GAEgASgEEhYKBXZhbHVlGAIgASgLMgcu",
-          "RWZmZWN0OgI4ASIrCgZFZmZlY3QSDAoEbmFtZRgBIAEoCRITCgtkdXJhdGlv",
-          "bl9tcxgCIAEoDSIUCgRJdGVtEgwKBG5hbWUYAiABKAkiZAoKUHJvamVjdGls",
-          "ZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQYAiABKAQSIQoGc3RhdHVz",
-          "GAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglza2lsbF9rZXkYBCABKAki",
-          "GQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoHUG93ZXJVcBIQCghvd25l",
-          "cl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Qb3dlclVwc3RhdHVzIkMK",
-          "DFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4yES5QbGF5ZXJBY3Rpb25U",
-          "eXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEg",
-          "ASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgBIAEoCRIlCgpw",
-          "YXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIuChBBdHRhY2tQ",
-          "YXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlvbiIXCgdVc2VJ",
-          "dGVtEgwKBGl0ZW0YASABKAQifgoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgL",
-          "MgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEoCzIHLkF0dGFja0gAEhwKCHVzZV9p",
-          "dGVtGAQgASgLMgguVXNlSXRlbUgAEhEKCXRpbWVzdGFtcBgDIAEoA0INCgth",
-          "Y3Rpb25fdHlwZSJBCgRab25lEg4KBnJhZGl1cxgBIAEoAhIPCgdlbmFibGVk",
-          "GAIgASgIEhgKEHpvbmVfc2hyaW5rX3RpbWUYAyABKAUiMQoJS2lsbEVudHJ5",
-          "EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1faWQYAiABKAQqMwoKR2Ft",
-          "ZVN0YXR1cxINCglQUkVQQVJJTkcQABILCgdSVU5OSU5HEAESCQoFRU5ERUQQ",
-          "AiosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElWRRAAEgwKCEVYUExPREVE",
-          "EAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFCTEUQABIJCgVUQUtFThAB",
-          "Ko8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklORxAAEhQKEFNUQVJUSU5H",
-          "X1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8yEAISFQoRRVhFQ1VUSU5H",
-          "X1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExfMhAEEhUKEUVYRUNVVElO",
-          "R19TS0lMTF8zEAViBnByb3RvMw=="));
+          "EjsKEXBsYXllcl90aW1lc3RhbXBzGAQgAygLMiAuR2FtZVN0YXRlLlBsYXll",
+          "clRpbWVzdGFtcHNFbnRyeRIYChBzZXJ2ZXJfdGltZXN0YW1wGAUgASgDEhMK",
+          "BHpvbmUYBiABKAsyBS5ab25lEhwKCGtpbGxmZWVkGAcgAygLMgouS2lsbEVu",
+          "dHJ5EjEKDGRhbWFnZV90YWtlbhgIIAMoCzIbLkdhbWVTdGF0ZS5EYW1hZ2VU",
+          "YWtlbkVudHJ5Ei8KC2RhbWFnZV9kb25lGAkgAygLMhouR2FtZVN0YXRlLkRh",
+          "bWFnZURvbmVFbnRyeRIrCglwb3dlcl91cHMYCiADKAsyGC5HYW1lU3RhdGUu",
+          "UG93ZXJVcHNFbnRyeRIbCgZzdGF0dXMYCyABKA4yCy5HYW1lU3RhdHVzEhEK",
+          "CWNvdW50ZG93bhgMIAEoAxIkCgVpdGVtcxgNIAMoCzIVLkdhbWVTdGF0ZS5J",
+          "dGVtc0VudHJ5GjcKDFBsYXllcnNFbnRyeRILCgNrZXkYASABKAQSFgoFdmFs",
+          "dWUYAiABKAsyBy5FbnRpdHk6AjgBGjsKEFByb2plY3RpbGVzRW50cnkSCwoD",
+          "a2V5GAEgASgEEhYKBXZhbHVlGAIgASgLMgcuRW50aXR5OgI4ARo3ChVQbGF5",
+          "ZXJUaW1lc3RhbXBzRW50cnkSCwoDa2V5GAEgASgEEg0KBXZhbHVlGAIgASgD",
+          "OgI4ARoyChBEYW1hZ2VUYWtlbkVudHJ5EgsKA2tleRgBIAEoBBINCgV2YWx1",
+          "ZRgCIAEoBDoCOAEaMQoPRGFtYWdlRG9uZUVudHJ5EgsKA2tleRgBIAEoBBIN",
+          "CgV2YWx1ZRgCIAEoBDoCOAEaOAoNUG93ZXJVcHNFbnRyeRILCgNrZXkYASAB",
+          "KAQSFgoFdmFsdWUYAiABKAsyBy5FbnRpdHk6AjgBGjUKCkl0ZW1zRW50cnkS",
+          "CwoDa2V5GAEgASgEEhYKBXZhbHVlGAIgASgLMgcuRW50aXR5OgI4ASKJAwoG",
+          "RW50aXR5EgoKAmlkGAEgASgEEhAKCGNhdGVnb3J5GAIgASgJEg0KBXNoYXBl",
+          "GAMgASgJEgwKBG5hbWUYBCABKAkSGwoIcG9zaXRpb24YBSABKAsyCS5Qb3Np",
+          "dGlvbhIOCgZyYWRpdXMYBiABKAISGwoIdmVydGljZXMYByADKAsyCS5Qb3Np",
+          "dGlvbhIVCg1jb2xsaWRlc193aXRoGAggAygEEg0KBXNwZWVkGAkgASgCEh0K",
+          "CWRpcmVjdGlvbhgKIAEoCzIKLkRpcmVjdGlvbhIRCglpc19tb3ZpbmcYCyAB",
+          "KAgSGQoGcGxheWVyGAwgASgLMgcuUGxheWVySAASIQoKcHJvamVjdGlsZRgN",
+          "IAEoCzILLlByb2plY3RpbGVIABIdCghvYnN0YWNsZRgOIAEoCzIJLk9ic3Rh",
+          "Y2xlSAASHAoIcG93ZXJfdXAYDyABKAsyCC5Qb3dlclVwSAASFQoEaXRlbRgQ",
+          "IAEoCzIFLkl0ZW1IAEIQCg5hZGl0aW9uYWxfaW5mbyLfAgoGUGxheWVyEg4K",
+          "BmhlYWx0aBgBIAEoBBISCgpraWxsX2NvdW50GAIgASgEEiYKD2N1cnJlbnRf",
+          "YWN0aW9ucxgDIAMoCzINLlBsYXllckFjdGlvbhIZChFhdmFpbGFibGVfc3Rh",
+          "bWluYRgEIAEoBBITCgttYXhfc3RhbWluYRgFIAEoBBIYChBzdGFtaW5hX2lu",
+          "dGVydmFsGAYgASgEEhoKEnJlY2hhcmdpbmdfc3RhbWluYRgHIAEoCBIWCg5j",
+          "aGFyYWN0ZXJfbmFtZRgIIAEoCRIRCglwb3dlcl91cHMYCSABKAQSJQoHZWZm",
+          "ZWN0cxgKIAMoCzIULlBsYXllci5FZmZlY3RzRW50cnkSGAoJaW52ZW50b3J5",
+          "GAsgASgLMgUuSXRlbRo3CgxFZmZlY3RzRW50cnkSCwoDa2V5GAEgASgEEhYK",
+          "BXZhbHVlGAIgASgLMgcuRWZmZWN0OgI4ASIrCgZFZmZlY3QSDAoEbmFtZRgB",
+          "IAEoCRITCgtkdXJhdGlvbl9tcxgCIAEoDSIUCgRJdGVtEgwKBG5hbWUYAiAB",
+          "KAkiZAoKUHJvamVjdGlsZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQY",
+          "AiABKAQSIQoGc3RhdHVzGAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglz",
+          "a2lsbF9rZXkYBCABKAkiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoH",
+          "UG93ZXJVcBIQCghvd25lcl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Q",
+          "b3dlclVwc3RhdHVzIkMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24YASABKA4y",
+          "ES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEIiUKBE1vdmUS",
+          "HQoJZGlyZWN0aW9uGAEgASgLMgouRGlyZWN0aW9uIj4KBkF0dGFjaxINCgVz",
+          "a2lsbBgBIAEoCRIlCgpwYXJhbWV0ZXJzGAIgASgLMhEuQXR0YWNrUGFyYW1l",
+          "dGVycyIuChBBdHRhY2tQYXJhbWV0ZXJzEhoKBnRhcmdldBgBIAEoCzIKLkRp",
+          "cmVjdGlvbiIXCgdVc2VJdGVtEgwKBGl0ZW0YASABKAQifgoKR2FtZUFjdGlv",
+          "bhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgAEhkKBmF0dGFjaxgCIAEoCzIHLkF0",
+          "dGFja0gAEhwKCHVzZV9pdGVtGAQgASgLMgguVXNlSXRlbUgAEhEKCXRpbWVz",
+          "dGFtcBgDIAEoA0INCgthY3Rpb25fdHlwZSJBCgRab25lEg4KBnJhZGl1cxgB",
+          "IAEoAhIPCgdlbmFibGVkGAIgASgIEhgKEHpvbmVfc2hyaW5rX3RpbWUYAyAB",
+          "KAUiMQoJS2lsbEVudHJ5EhEKCWtpbGxlcl9pZBgBIAEoBBIRCgl2aWN0aW1f",
+          "aWQYAiABKAQqMwoKR2FtZVN0YXR1cxINCglQUkVQQVJJTkcQABILCgdSVU5O",
+          "SU5HEAESCQoFRU5ERUQQAiosChBQcm9qZWN0aWxlU3RhdHVzEgoKBkFDVElW",
+          "RRAAEgwKCEVYUExPREVEEAEqKQoNUG93ZXJVcHN0YXR1cxINCglBVkFJTEFC",
+          "TEUQABIJCgVUQUtFThABKo8BChBQbGF5ZXJBY3Rpb25UeXBlEgoKBk1PVklO",
+          "RxAAEhQKEFNUQVJUSU5HX1NLSUxMXzEQARIUChBTVEFSVElOR19TS0lMTF8y",
+          "EAISFQoRRVhFQ1VUSU5HX1NLSUxMXzEQAxIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MhAEEhUKEUVYRUNVVElOR19TS0lMTF8zEAViBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -123,7 +119,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigMap), global::ConfigMap.Parser, new[]{ "Radius" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigCharacter), global::ConfigCharacter.Parser, new[]{ "Name", "Active", "BaseSpeed", "BaseSize", "BaseHealth", "MaxInventorySize", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs", "TargettingRadius", "TargettingAngle", "StaminaCost" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerMovementTimestamps", "PlayerActionsTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Status", "Countdown", "Items" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Status", "Countdown", "Items" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp", "Item" }, new[]{ "AditionalInfo" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects", "Inventory" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Effect), global::Effect.Parser, new[]{ "Name", "DurationMs" }, null, null, null, null),
@@ -3147,8 +3143,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     gameId_ = other.gameId_;
     players_ = other.players_.Clone();
     projectiles_ = other.projectiles_.Clone();
-    playerMovementTimestamps_ = other.playerMovementTimestamps_.Clone();
-    playerActionsTimestamps_ = other.playerActionsTimestamps_.Clone();
+    playerTimestamps_ = other.playerTimestamps_.Clone();
     serverTimestamp_ = other.serverTimestamp_;
     zone_ = other.zone_ != null ? other.zone_.Clone() : null;
     killfeed_ = other.killfeed_.Clone();
@@ -3201,30 +3196,19 @@ public sealed partial class GameState : pb::IMessage<GameState>
     get { return projectiles_; }
   }
 
-  /// <summary>Field number for the "player_movement_timestamps" field.</summary>
-  public const int PlayerMovementTimestampsFieldNumber = 4;
-  private static readonly pbc::MapField<ulong, long>.Codec _map_playerMovementTimestamps_codec
+  /// <summary>Field number for the "player_timestamps" field.</summary>
+  public const int PlayerTimestampsFieldNumber = 4;
+  private static readonly pbc::MapField<ulong, long>.Codec _map_playerTimestamps_codec
       = new pbc::MapField<ulong, long>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForInt64(16, 0L), 34);
-  private readonly pbc::MapField<ulong, long> playerMovementTimestamps_ = new pbc::MapField<ulong, long>();
+  private readonly pbc::MapField<ulong, long> playerTimestamps_ = new pbc::MapField<ulong, long>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::MapField<ulong, long> PlayerMovementTimestamps {
-    get { return playerMovementTimestamps_; }
-  }
-
-  /// <summary>Field number for the "player_actions_timestamps" field.</summary>
-  public const int PlayerActionsTimestampsFieldNumber = 5;
-  private static readonly pbc::MapField<ulong, long>.Codec _map_playerActionsTimestamps_codec
-      = new pbc::MapField<ulong, long>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForInt64(16, 0L), 42);
-  private readonly pbc::MapField<ulong, long> playerActionsTimestamps_ = new pbc::MapField<ulong, long>();
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::MapField<ulong, long> PlayerActionsTimestamps {
-    get { return playerActionsTimestamps_; }
+  public pbc::MapField<ulong, long> PlayerTimestamps {
+    get { return playerTimestamps_; }
   }
 
   /// <summary>Field number for the "server_timestamp" field.</summary>
-  public const int ServerTimestampFieldNumber = 6;
+  public const int ServerTimestampFieldNumber = 5;
   private long serverTimestamp_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3236,7 +3220,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "zone" field.</summary>
-  public const int ZoneFieldNumber = 7;
+  public const int ZoneFieldNumber = 6;
   private global::Zone zone_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3248,9 +3232,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "killfeed" field.</summary>
-  public const int KillfeedFieldNumber = 8;
+  public const int KillfeedFieldNumber = 7;
   private static readonly pb::FieldCodec<global::KillEntry> _repeated_killfeed_codec
-      = pb::FieldCodec.ForMessage(66, global::KillEntry.Parser);
+      = pb::FieldCodec.ForMessage(58, global::KillEntry.Parser);
   private readonly pbc::RepeatedField<global::KillEntry> killfeed_ = new pbc::RepeatedField<global::KillEntry>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3259,9 +3243,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "damage_taken" field.</summary>
-  public const int DamageTakenFieldNumber = 9;
+  public const int DamageTakenFieldNumber = 8;
   private static readonly pbc::MapField<ulong, ulong>.Codec _map_damageTaken_codec
-      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 74);
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 66);
   private readonly pbc::MapField<ulong, ulong> damageTaken_ = new pbc::MapField<ulong, ulong>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3270,9 +3254,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "damage_done" field.</summary>
-  public const int DamageDoneFieldNumber = 10;
+  public const int DamageDoneFieldNumber = 9;
   private static readonly pbc::MapField<ulong, ulong>.Codec _map_damageDone_codec
-      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 82);
+      = new pbc::MapField<ulong, ulong>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForUInt64(16, 0UL), 74);
   private readonly pbc::MapField<ulong, ulong> damageDone_ = new pbc::MapField<ulong, ulong>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3281,9 +3265,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "power_ups" field.</summary>
-  public const int PowerUpsFieldNumber = 11;
+  public const int PowerUpsFieldNumber = 10;
   private static readonly pbc::MapField<ulong, global::Entity>.Codec _map_powerUps_codec
-      = new pbc::MapField<ulong, global::Entity>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Entity.Parser), 90);
+      = new pbc::MapField<ulong, global::Entity>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Entity.Parser), 82);
   private readonly pbc::MapField<ulong, global::Entity> powerUps_ = new pbc::MapField<ulong, global::Entity>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3292,7 +3276,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "status" field.</summary>
-  public const int StatusFieldNumber = 12;
+  public const int StatusFieldNumber = 11;
   private global::GameStatus status_ = global::GameStatus.Preparing;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3304,7 +3288,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "countdown" field.</summary>
-  public const int CountdownFieldNumber = 13;
+  public const int CountdownFieldNumber = 12;
   private long countdown_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3316,9 +3300,9 @@ public sealed partial class GameState : pb::IMessage<GameState>
   }
 
   /// <summary>Field number for the "items" field.</summary>
-  public const int ItemsFieldNumber = 14;
+  public const int ItemsFieldNumber = 13;
   private static readonly pbc::MapField<ulong, global::Entity>.Codec _map_items_codec
-      = new pbc::MapField<ulong, global::Entity>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Entity.Parser), 114);
+      = new pbc::MapField<ulong, global::Entity>.Codec(pb::FieldCodec.ForUInt64(8, 0UL), pb::FieldCodec.ForMessage(18, global::Entity.Parser), 106);
   private readonly pbc::MapField<ulong, global::Entity> items_ = new pbc::MapField<ulong, global::Entity>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3344,8 +3328,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (GameId != other.GameId) return false;
     if (!Players.Equals(other.Players)) return false;
     if (!Projectiles.Equals(other.Projectiles)) return false;
-    if (!PlayerMovementTimestamps.Equals(other.PlayerMovementTimestamps)) return false;
-    if (!PlayerActionsTimestamps.Equals(other.PlayerActionsTimestamps)) return false;
+    if (!PlayerTimestamps.Equals(other.PlayerTimestamps)) return false;
     if (ServerTimestamp != other.ServerTimestamp) return false;
     if (!object.Equals(Zone, other.Zone)) return false;
     if(!killfeed_.Equals(other.killfeed_)) return false;
@@ -3365,8 +3348,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     if (GameId.Length != 0) hash ^= GameId.GetHashCode();
     hash ^= Players.GetHashCode();
     hash ^= Projectiles.GetHashCode();
-    hash ^= PlayerMovementTimestamps.GetHashCode();
-    hash ^= PlayerActionsTimestamps.GetHashCode();
+    hash ^= PlayerTimestamps.GetHashCode();
     if (ServerTimestamp != 0L) hash ^= ServerTimestamp.GetHashCode();
     if (zone_ != null) hash ^= Zone.GetHashCode();
     hash ^= killfeed_.GetHashCode();
@@ -3400,14 +3382,13 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.WriteTo(output, _map_players_codec);
     projectiles_.WriteTo(output, _map_projectiles_codec);
-    playerMovementTimestamps_.WriteTo(output, _map_playerMovementTimestamps_codec);
-    playerActionsTimestamps_.WriteTo(output, _map_playerActionsTimestamps_codec);
+    playerTimestamps_.WriteTo(output, _map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(48);
+      output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
     }
     if (zone_ != null) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(50);
       output.WriteMessage(Zone);
     }
     killfeed_.WriteTo(output, _repeated_killfeed_codec);
@@ -3415,11 +3396,11 @@ public sealed partial class GameState : pb::IMessage<GameState>
     damageDone_.WriteTo(output, _map_damageDone_codec);
     powerUps_.WriteTo(output, _map_powerUps_codec);
     if (Status != global::GameStatus.Preparing) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(88);
       output.WriteEnum((int) Status);
     }
     if (Countdown != 0L) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(96);
       output.WriteInt64(Countdown);
     }
     items_.WriteTo(output, _map_items_codec);
@@ -3439,14 +3420,13 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.WriteTo(ref output, _map_players_codec);
     projectiles_.WriteTo(ref output, _map_projectiles_codec);
-    playerMovementTimestamps_.WriteTo(ref output, _map_playerMovementTimestamps_codec);
-    playerActionsTimestamps_.WriteTo(ref output, _map_playerActionsTimestamps_codec);
+    playerTimestamps_.WriteTo(ref output, _map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
-      output.WriteRawTag(48);
+      output.WriteRawTag(40);
       output.WriteInt64(ServerTimestamp);
     }
     if (zone_ != null) {
-      output.WriteRawTag(58);
+      output.WriteRawTag(50);
       output.WriteMessage(Zone);
     }
     killfeed_.WriteTo(ref output, _repeated_killfeed_codec);
@@ -3454,11 +3434,11 @@ public sealed partial class GameState : pb::IMessage<GameState>
     damageDone_.WriteTo(ref output, _map_damageDone_codec);
     powerUps_.WriteTo(ref output, _map_powerUps_codec);
     if (Status != global::GameStatus.Preparing) {
-      output.WriteRawTag(96);
+      output.WriteRawTag(88);
       output.WriteEnum((int) Status);
     }
     if (Countdown != 0L) {
-      output.WriteRawTag(104);
+      output.WriteRawTag(96);
       output.WriteInt64(Countdown);
     }
     items_.WriteTo(ref output, _map_items_codec);
@@ -3477,8 +3457,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     size += players_.CalculateSize(_map_players_codec);
     size += projectiles_.CalculateSize(_map_projectiles_codec);
-    size += playerMovementTimestamps_.CalculateSize(_map_playerMovementTimestamps_codec);
-    size += playerActionsTimestamps_.CalculateSize(_map_playerActionsTimestamps_codec);
+    size += playerTimestamps_.CalculateSize(_map_playerTimestamps_codec);
     if (ServerTimestamp != 0L) {
       size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTimestamp);
     }
@@ -3513,8 +3492,7 @@ public sealed partial class GameState : pb::IMessage<GameState>
     }
     players_.MergeFrom(other.players_);
     projectiles_.MergeFrom(other.projectiles_);
-    playerMovementTimestamps_.MergeFrom(other.playerMovementTimestamps_);
-    playerActionsTimestamps_.MergeFrom(other.playerActionsTimestamps_);
+    playerTimestamps_.MergeFrom(other.playerTimestamps_);
     if (other.ServerTimestamp != 0L) {
       ServerTimestamp = other.ServerTimestamp;
     }
@@ -3563,49 +3541,45 @@ public sealed partial class GameState : pb::IMessage<GameState>
           break;
         }
         case 34: {
-          playerMovementTimestamps_.AddEntriesFrom(input, _map_playerMovementTimestamps_codec);
+          playerTimestamps_.AddEntriesFrom(input, _map_playerTimestamps_codec);
           break;
         }
-        case 42: {
-          playerActionsTimestamps_.AddEntriesFrom(input, _map_playerActionsTimestamps_codec);
-          break;
-        }
-        case 48: {
+        case 40: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 58: {
+        case 50: {
           if (zone_ == null) {
             Zone = new global::Zone();
           }
           input.ReadMessage(Zone);
           break;
         }
-        case 66: {
+        case 58: {
           killfeed_.AddEntriesFrom(input, _repeated_killfeed_codec);
           break;
         }
-        case 74: {
+        case 66: {
           damageTaken_.AddEntriesFrom(input, _map_damageTaken_codec);
           break;
         }
-        case 82: {
+        case 74: {
           damageDone_.AddEntriesFrom(input, _map_damageDone_codec);
           break;
         }
-        case 90: {
+        case 82: {
           powerUps_.AddEntriesFrom(input, _map_powerUps_codec);
           break;
         }
-        case 96: {
+        case 88: {
           Status = (global::GameStatus) input.ReadEnum();
           break;
         }
-        case 104: {
+        case 96: {
           Countdown = input.ReadInt64();
           break;
         }
-        case 114: {
+        case 106: {
           items_.AddEntriesFrom(input, _map_items_codec);
           break;
         }
@@ -3637,49 +3611,45 @@ public sealed partial class GameState : pb::IMessage<GameState>
           break;
         }
         case 34: {
-          playerMovementTimestamps_.AddEntriesFrom(ref input, _map_playerMovementTimestamps_codec);
+          playerTimestamps_.AddEntriesFrom(ref input, _map_playerTimestamps_codec);
           break;
         }
-        case 42: {
-          playerActionsTimestamps_.AddEntriesFrom(ref input, _map_playerActionsTimestamps_codec);
-          break;
-        }
-        case 48: {
+        case 40: {
           ServerTimestamp = input.ReadInt64();
           break;
         }
-        case 58: {
+        case 50: {
           if (zone_ == null) {
             Zone = new global::Zone();
           }
           input.ReadMessage(Zone);
           break;
         }
-        case 66: {
+        case 58: {
           killfeed_.AddEntriesFrom(ref input, _repeated_killfeed_codec);
           break;
         }
-        case 74: {
+        case 66: {
           damageTaken_.AddEntriesFrom(ref input, _map_damageTaken_codec);
           break;
         }
-        case 82: {
+        case 74: {
           damageDone_.AddEntriesFrom(ref input, _map_damageDone_codec);
           break;
         }
-        case 90: {
+        case 82: {
           powerUps_.AddEntriesFrom(ref input, _map_powerUps_codec);
           break;
         }
-        case 96: {
+        case 88: {
           Status = (global::GameStatus) input.ReadEnum();
           break;
         }
-        case 104: {
+        case 96: {
           Countdown = input.ReadInt64();
           break;
         }
-        case 114: {
+        case 106: {
           items_.AddEntriesFrom(ref input, _map_items_codec);
           break;
         }
