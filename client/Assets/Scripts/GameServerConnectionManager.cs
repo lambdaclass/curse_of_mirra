@@ -41,7 +41,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
-    public int zoneShrinkTime;
+    public long zoneShrinkTime;
 
     public bool zoneEnabled = false;
     public bool cinematicDone;
@@ -167,7 +167,8 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
-                    this.zoneShrinkTime = gameState.Zone.ZoneShrinkTime;
+                    this.zoneShrinkTime =
+                        gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
                     this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
