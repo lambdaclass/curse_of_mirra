@@ -784,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 2968017931226343289, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 1
+      value: Souls
       objectReference: {fileID: 0}
     - target: {fileID: 3617200173245764361, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
@@ -858,6 +858,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 326c732659bfb4308bbfe4bd54c6a89e, type: 3}
+--- !u!1 &375655941904911084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2968017931226343289, guid: 326c732659bfb4308bbfe4bd54c6a89e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3172255440079531413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4050685148264616679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -937,6 +943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: vfxList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 5700785624977269805}
@@ -945,6 +956,21 @@ PrefabInstance:
       propertyPath: transparentMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6f2531488c923483b93fa188150e3d7a, type: 2}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1936987303643252845}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[1]
+      value: 
+      objectReference: {fileID: 375655941904911084}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[2]
+      value: 
+      objectReference: {fileID: 834093306710050702}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: hasTransparentMaterial
@@ -1183,10 +1209,16 @@ PrefabInstance:
     - target: {fileID: 8559183905587967325, guid: 31b4688d702114456ac839d2f36fa861,
         type: 3}
       propertyPath: m_Name
-      value: GameObject
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b4688d702114456ac839d2f36fa861, type: 3}
+--- !u!1 &1936987303643252845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8559183905587967325, guid: 31b4688d702114456ac839d2f36fa861,
+    type: 3}
+  m_PrefabInstance: {fileID: 7794002356468104496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8612759015934048492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1267,7 +1299,13 @@ PrefabInstance:
     - target: {fileID: 8941300850621513570, guid: bb4cba58f5388417ea87992971209ca9,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 2
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4cba58f5388417ea87992971209ca9, type: 3}
+--- !u!1 &834093306710050702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8941300850621513570, guid: bb4cba58f5388417ea87992971209ca9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8612759015934048492}
+  m_PrefabAsset: {fileID: 0}
