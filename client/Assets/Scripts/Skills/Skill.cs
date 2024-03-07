@@ -303,27 +303,27 @@ public class Skill : CharacterAbility
         return this.skillInfo.angle;
     }
 
-    public float GetSkillRadius()
+    public float GetSkillRange()
     {
-        float radius;
+        float range;
         switch (skillInfo.skillCircleRange)
         {
             case 0:
-                radius = MAX_RANGE;
+                range = MAX_RANGE;
                 break;
             case -1:
-                radius = INNER_RANGE;
+                range = INNER_RANGE;
                 break;
             default:
-                radius = skillInfo.skillCircleRange;
+                range = skillInfo.skillCircleRange;
                 break;
         }
-        return radius;
+        return range;
     }
 
-    public void SetSkillRadius(float radius)
+    public void SetSkillRange(float range)
     {
-        skillInfo.skillCircleRange = radius;
+        skillInfo.skillCircleRange = range;
     }
 
     public void SetSkillAreaRadius(float radius)

@@ -38,7 +38,7 @@ public class AimDirection : MonoBehaviour
     public void InitIndicator(Skill skill, Color32 color)
     {
         // TODO: Add the spread area (angle) depending of the skill.json
-        viewDistance = skill.GetSkillRadius();
+        viewDistance = skill.GetSkillRange();
         skillAngle = skill.GetAngle();
         fov = skill.GetIndicatorAngle();
         activeIndicator = skill.GetIndicatorType();
@@ -55,7 +55,7 @@ public class AimDirection : MonoBehaviour
         {
             float scaleX = skill.GetArroWidth();
             float scaleY = 1;
-            float scaleZ = skill.GetSkillRadius();
+            float scaleZ = skill.GetSkillRange();
             arrow.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
             arrow.transform.localPosition = new Vector3(0, -scaleY / 2, -0.5f);
         }
