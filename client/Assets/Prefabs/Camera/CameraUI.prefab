@@ -20504,6 +20504,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2d460b1908c4350bf1bade6d2b88d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryContainer: {fileID: 82559397778531339}
+  sparkleEffect: {fileID: 6125871501080257070}
+  myrrasBlessing: {fileID: 21300000, guid: 15a391ce6dff4475291e63535fe9d897, type: 3}
+  goldenClock: {fileID: 21300000, guid: 8216d114089c24acd97341b8372e3772, type: 3}
+  magicBoots: {fileID: 21300000, guid: 318b77bccbd88431e84cee3aa43be682, type: 3}
+  inventoryImage: {fileID: 158492541652231486}
 --- !u!1 &4507692683308350084
 GameObject:
   m_ObjectHideFlags: 0
