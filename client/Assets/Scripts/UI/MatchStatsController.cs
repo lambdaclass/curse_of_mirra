@@ -4,6 +4,7 @@ using System.Timers;
 using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MatchStatsController : MonoBehaviour
 {
@@ -15,11 +16,20 @@ public class MatchStatsController : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI killCount;
+
+    [SerializeField] Image zoneTimerImage;
+
+    [SerializeField]
+    Sprite shrinkingSprite;
+
+    [SerializeField]
+    Sprite waitingSprite;
     public float period = 1f;
 
     public float time = 0f;
 
     ulong seconds = 0;
+    bool isShrinking = false;
 
     void Awake()
     {
@@ -33,6 +43,11 @@ public class MatchStatsController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(isShrinking != GameServerConnectionManager.Instance.shrinking){
+            zoneTimerImage.sprite = isShrinking ? shrinkingSprite : waitingSprite;
+            isShrinking = GameServerConnectionManager.Instance.shrinking;
+        }
+
         if (GameServerConnectionManager.Instance.gamePlayers != null)
         {
             alivePlayers.text = GameServerConnectionManager

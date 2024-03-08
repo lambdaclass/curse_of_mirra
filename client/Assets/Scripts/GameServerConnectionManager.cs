@@ -49,6 +49,8 @@ public class GameServerConnectionManager : MonoBehaviour
     public bool connected = false;
     private string clientId;
     private bool reconnect;
+
+    public bool shrinking;
     WebSocket ws;
 
     public Configuration config;
@@ -177,6 +179,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
                     this.gameLoots = gameState.Items.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
+                    this.shrinking = gameState.Zone.Shrinking;
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position
