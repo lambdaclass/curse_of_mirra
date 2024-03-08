@@ -17,6 +17,8 @@ public class CharacterFeedbackManager : MonoBehaviour
     [SerializeField]
     Material transparentMaterial;
 
+    [SerializeField]
+    List<GameObject> vfxList;
     private Material initialMaterial;
 
     void Awake()
@@ -38,6 +40,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                 var canvasHolder = character.characterBase.CanvasHolder;
                 canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
                 SetMeshes(true, character);
+                vfxList.ForEach(el => el.SetActive(true));
             }
         }
     }
@@ -54,6 +57,7 @@ public class CharacterFeedbackManager : MonoBehaviour
             var canvasHolder = character.characterBase.CanvasHolder;
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
             SetMeshes(false, character);
+            vfxList.ForEach(el => el.SetActive(false));
         }
     }
 

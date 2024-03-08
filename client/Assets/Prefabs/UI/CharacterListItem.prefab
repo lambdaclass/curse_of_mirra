@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3824852254299653743}
   - component: {fileID: 4587373118796966721}
   - component: {fileID: 609478325760209221}
-  - component: {fileID: 703506002697159412}
   - component: {fileID: 1840111733565828972}
   m_Layer: 5
   m_Name: CharacterListItem
@@ -81,7 +80,19 @@ MonoBehaviour:
       m_Calls: []
   ButtonReleased:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1840111733565828972}
+        m_TargetAssemblyTypeName: CharacterListItem, CurseOfMirra
+        m_MethodName: GoToCharacteInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -107,20 +118,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
---- !u!114 &703506002697159412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2192738142746803912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: CharacterInfo
-  LoadingSceneMode: 0
+  listElement: 1
 --- !u!114 &1840111733565828972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,8 +137,8 @@ MonoBehaviour:
   soonLabel: {fileID: 1554839937139454845}
   characterOpacity: {fileID: 7097982947535036925}
   availableSoon: {fileID: 8177347045165458742}
-  characterNameString: 
   IsEnable: 1
+  characterNameToGo: 
 --- !u!1 &2231415005938754795
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +505,7 @@ GameObject:
   - component: {fileID: 6773932781361417602}
   - component: {fileID: 3714948033715268713}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Comtainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
