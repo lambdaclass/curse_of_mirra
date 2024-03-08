@@ -60,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: afe27ab68106c410daff1344be11a63c, type: 3}
   - {fileID: 21300000, guid: d5672d38fc9404bfbb60a99a8cbcf1b7, type: 3}
   - {fileID: 21300000, guid: 9e72e2f87cf144d319f745a802ec3c41, type: 3}
+  - {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
   - {fileID: 21300000, guid: dc480059705a34887912b8aa9e5db7c5, type: 3}
   - {fileID: 21300000, guid: 1d7052b9cf5b7473fa30b8dc3223f09d, type: 3}
   - {fileID: 21300000, guid: 8598d97aa78864f24b5635cabc949f81, type: 3}
@@ -89,6 +90,7 @@ SpriteAtlas:
   - setting_tab_selected
   - underline
   - container
+  - zone-icon
   - toggle_off
   - direction final
   - slider-handle
