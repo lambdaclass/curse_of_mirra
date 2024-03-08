@@ -22,16 +22,11 @@ public class StaminaManager : MonoBehaviour
     {
         clientPlayer = GameServerConnectionManager.Instance.playerId;
         player = Utils.GetGamePlayer(clientPlayer).Player;
-        if (UInt64.Parse(character.PlayerID) == clientPlayer)
+        string characterID = Utils.GetPlayer(clientPlayer).GetComponent<CustomCharacter>().PlayerID;
+
+        foreach (Image glowImage in glowEffects)
         {
-            foreach (Image stamina in staminaContainerImages)
-            {
-                stamina.gameObject.SetActive(true);
-            }
-            foreach (Image glowImage in glowEffects)
-            {
-                glowImage.color = new Color32(255, 0, 0, 255);
-            }
+            glowImage.color = new Color32(255, 0, 0, 255);
         }
 
         initialScale = staminaFillImage[0].transform.localScale;

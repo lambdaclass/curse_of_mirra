@@ -44,8 +44,8 @@ public class Skill : CharacterAbility
         staminaManager = Utils
             .GetCharacter(GameServerConnectionManager.Instance.playerId)
             .characterBase
-            .StaminaCharges
-            .GetComponent<StaminaManager>();
+            .CharacterCard
+            .GetComponentInChildren<StaminaManager>();
     }
 
     public void SetSkill(string serverSkill, SkillInfo skillInfo)

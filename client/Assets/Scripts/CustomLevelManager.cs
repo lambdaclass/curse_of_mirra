@@ -160,6 +160,10 @@ public class CustomLevelManager : LevelManager
 
             if (GameServerConnectionManager.Instance.playerId == player.Id)
             {
+                Instantiate(
+                    newPlayer.characterBase.StaminaCharges,
+                    newPlayer.characterBase.CharacterCard.transform
+                );
                 GameServerConnectionManager.Instance.clientPrediction.startingPosition =
                     player.Position;
             }

@@ -138,7 +138,8 @@ MonoBehaviour:
   OrientationArrow: {fileID: 2580593108361767617}
   CharacterCard: {fileID: 3654173184674931120}
   CanvasHolder: {fileID: 6615036954960681955}
-  StaminaCharges: {fileID: 4008715562331907060}
+  StaminaCharges: {fileID: 8125614112250762218, guid: 8f2f9408ea9e84936a5116318b303a3c,
+    type: 3}
   powerUps: {fileID: 6157877879879126604}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
@@ -710,12 +711,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3654173184674931120}
   m_CullTransparentMesh: 1
---- !u!1 &4008715562331907060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1640191101669795796, guid: 1b5803238588347b78c88ecab08cedef,
-    type: 3}
-  m_PrefabInstance: {fileID: 2405749641239282720}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5802362377404487455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,
