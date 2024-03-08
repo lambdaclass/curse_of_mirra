@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     // If the goal is to change an entire animation duration, this is the value to change
     const float BASE_DURATION = 0.5f;
     private Entity playerEntity;
+    private CharacterInventory characterInventory;
     private Item activeItem;
 
     [SerializeField]
@@ -78,7 +79,7 @@ public class InventoryUI : MonoBehaviour
             )
             .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
         yield return new WaitForSeconds(0.1f);
-        PlayerFeedback(playerEntity, true);
+        PlayerFeedback(true);
 
         yield return new WaitForSeconds(BASE_DURATION);
         sparkleEffect.SetActive(false);
@@ -86,11 +87,16 @@ public class InventoryUI : MonoBehaviour
         inventoryImage.sprite = null;
 
         yield return new WaitForSeconds(1f);
-        PlayerFeedback(playerEntity, false);
+        PlayerFeedback(false);
     }
 
     private void Update()
     {
+         if(GameServerConnectionManager.Instance.players.Count > 0 && characterInventory == null){
+            characterInventory = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId)
+             .GetComponent<CharacterInventory>();
+        }
+       
         playerEntity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
         if (PlayerHasItem(playerEntity))
         {
@@ -147,9 +153,8 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    void PlayerFeedback(Entity player, bool state)
+    void PlayerFeedback(bool state)
     {
-        GameObject playerToExecuteFeedback = Utils.GetPlayer(player.Id);
-        playerToExecuteFeedback.GetComponent<CharacterInventory>().ExecuteFeedback(state);
+        characterInventory.ExecuteFeedback(state);
     }
 }
