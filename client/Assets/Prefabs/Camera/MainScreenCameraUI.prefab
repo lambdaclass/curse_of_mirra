@@ -407,7 +407,6 @@ GameObject:
   - component: {fileID: 5647521067912201283}
   - component: {fileID: 1232415750450572825}
   - component: {fileID: 4123819999969611371}
-  - component: {fileID: 1757797705818277481}
   - component: {fileID: 967939955189868085}
   - component: {fileID: 4156739351716426206}
   m_Layer: 5
@@ -497,7 +496,19 @@ MonoBehaviour:
       m_Calls: []
   ButtonReleased:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 276773506}
+        m_TargetAssemblyTypeName: MainScreenManager, CurseOfMirra
+        m_MethodName: GoToCharacteInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonPressed:
     m_PersistentCalls:
       m_Calls: []
@@ -523,20 +534,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
---- !u!114 &1757797705818277481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356442723301461241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9251a9f35d2c384a9e26195e0c63ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: CharacterInfo
-  LoadingSceneMode: 0
+  listElement: 0
 --- !u!114 &967939955189868085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1098,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
+  listElement: 0
 --- !u!114 &632561453189610782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,6 +1485,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
+  listElement: 0
 --- !u!114 &6559736042878745407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1955,6 +1955,7 @@ MonoBehaviour:
   MouseMode: 1
   isBackButton: 0
   executeRelease: 0
+  listElement: 0
 --- !u!222 &9063476113355210580
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -130,7 +130,7 @@ public class Battle : MonoBehaviour
     {
         UpdatePlayerActions();
         UpdateProjectileActions();
-        // loot.UpdateLoots();
+        loot.UpdateLoots();
         powerUpsManager.UpdatePowerUps();
     }
 

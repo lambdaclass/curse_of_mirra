@@ -130,4 +130,10 @@ public class Utils
             }
         };
     }
+
+    public static void GoToCharacterInfo(string characterName, string sceneName)
+    {
+        CharactersManager.Instance.SetGoToCharacter(characterName);
+        SceneManager.LoadScene(sceneName);
+    }
 }

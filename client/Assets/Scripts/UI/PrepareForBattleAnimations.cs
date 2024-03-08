@@ -192,7 +192,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-        TIME_UNTIL_GAME_STARTS = (GameServerConnectionManager.Instance.gameCountdown / 1000) + 1;
+        TIME_UNTIL_GAME_STARTS =
+            (int)(GameServerConnectionManager.Instance.gameCountdown / 1000) + 1;
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();

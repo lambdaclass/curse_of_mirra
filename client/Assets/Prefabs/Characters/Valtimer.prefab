@@ -1111,6 +1111,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7944525655694613139, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 426235763660890386}
     - target: {fileID: 8248100963495747579, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.y

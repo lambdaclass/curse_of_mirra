@@ -27,6 +27,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
     public List<Entity> gamePools;
+    public List<Entity> gameLoots;
     public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
     public ulong playerId;
     public uint currentPing;
@@ -42,15 +43,15 @@ public class GameServerConnectionManager : MonoBehaviour
     public EventsBuffer eventsBuffer = new EventsBuffer { deltaInterpolationTime = 100 };
     public bool allSelected = false;
     public float playableRadius;
-    public int zoneShrinkTime;
+    public long zoneShrinkTime;
 
     public bool zoneEnabled = false;
     public bool cinematicDone;
     public bool connected = false;
-
-    //     public Game.GameState gameState;
     private string clientId;
     private bool reconnect;
+
+    public bool shrinking;
     WebSocket ws;
 
     public Configuration config;
@@ -168,17 +169,19 @@ public class GameServerConnectionManager : MonoBehaviour
 
                     KillFeedManager.instance.putEvents(gameState.Killfeed.ToList());
                     this.playableRadius = gameState.Zone.Radius;
-                    this.zoneShrinkTime = gameState.Zone.ZoneShrinkTime;
+                    this.zoneShrinkTime =
+                        gameState.Zone.NextZoneChangeTimestamp - gameState.ServerTimestamp;
                     this.zoneEnabled = gameState.Zone.Enabled;
                     this.gameStatus = gameState.Status;
-                    this.gameCountdown = (float)gameState.Countdown;
-
+                    this.gameCountdown = gameState.StartGameTimestamp - gameState.ServerTimestamp;
                     var position = gameState.Players[this.playerId].Position;
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
                     this.gamePools = gameState.Pools.Values.ToList();
+                    this.gameLoots = gameState.Items.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
+                    this.shrinking = gameState.Zone.Shrinking;
                     this.playersIdPosition = new Dictionary<ulong, Position>
                     {
                         [this.playerId] = position
@@ -216,6 +219,15 @@ public class GameServerConnectionManager : MonoBehaviour
         AttackParameters parameters = new AttackParameters { Target = target };
         Attack attackAction = new Attack { Skill = skill, Parameters = parameters };
         GameAction gameAction = new GameAction { Attack = attackAction, Timestamp = timestamp };
+        SendGameAction(gameAction);
+    }
+
+    public void SendUseItem(long timestamp)
+    {
+        // TODO: Hardcode this to 0 because for now we don't have a configurable inventory
+        //      Once that is a reality we should receive as part of the parameters
+        UseItem useItem = new UseItem { Item = 0 };
+        GameAction gameAction = new GameAction { UseItem = useItem, Timestamp = timestamp };
         SendGameAction(gameAction);
     }
 
