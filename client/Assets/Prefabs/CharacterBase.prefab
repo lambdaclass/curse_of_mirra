@@ -554,6 +554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCard
       objectReference: {fileID: 0}
+    - target: {fileID: 2630530166730011964, guid: 1b5803238588347b78c88ecab08cedef,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,
         type: 3}
       propertyPath: m_Pivot.x
@@ -659,7 +664,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6283273754690193740, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
+    - {fileID: 6275522562409476376, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b5803238588347b78c88ecab08cedef, type: 3}
 --- !u!1 &3654173184674931120 stripped
 GameObject:
@@ -667,6 +674,14 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2405749641239282720}
   m_PrefabAsset: {fileID: 0}
+--- !u!222 &4158467413915071302
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3654173184674931120}
+  m_CullTransparentMesh: 1
 --- !u!224 &5802362377404487455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8206914607531316031}
   - component: {fileID: 4738216627854206166}
-  - component: {fileID: 4158467413915071302}
   m_Layer: 0
   m_Name: CharacterCard
   m_TagString: Untagged
@@ -53,14 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7355f8fe4cc1946648c0d46d02dbb3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!222 &4158467413915071302
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428990921056839056}
-  m_CullTransparentMesh: 1
 --- !u!1001 &3163859004789280162
 PrefabInstance:
   m_ObjectHideFlags: 0
