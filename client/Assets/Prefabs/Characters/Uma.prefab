@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7103204407795864495}
   - component: {fileID: 8249421845886103102}
   - component: {fileID: 5890349635706643595}
+  - component: {fileID: 4034950205771012}
   m_Layer: 10
   m_Name: Uma
   m_TagString: Player
@@ -528,6 +529,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 5700785624977269805}
+--- !u!114 &4034950205771012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787465996332106805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157912053db2b43298617967c15eddb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useItemEffect: {fileID: 316852949892086365}
 --- !u!1 &6056526534736745925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1037,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
+--- !u!1 &316852949892086365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4346920019462547642, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &756841720054674263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3654173184674931120, guid: 9468612907e8942b49712f4e342b630c,
