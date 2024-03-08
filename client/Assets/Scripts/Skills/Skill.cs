@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
 {
@@ -28,6 +25,8 @@ public class Skill : CharacterAbility
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
 
+    StaminaManager staminaManager;
+
     protected override void Start()
     {
         base.Start();
@@ -41,6 +40,12 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
+
+        staminaManager = Utils
+            .GetCharacter(GameServerConnectionManager.Instance.playerId)
+            .characterBase
+            .CharacterCard
+            .GetComponentInChildren<StaminaManager>();
     }
 
     public void SetSkill(string serverSkill, SkillInfo skillInfo)
@@ -70,6 +75,7 @@ public class Skill : CharacterAbility
         {
             Direction direction = new Direction { X = 0, Y = 0 };
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -80,6 +86,7 @@ public class Skill : CharacterAbility
             Direction direction = new Direction { X = position.x, Y = position.y };
             feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -87,9 +94,21 @@ public class Skill : CharacterAbility
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if (AbilityAuthorized && player.Player.AvailableStamina >= this.skillInfo.staminaCost)
+        if (AbilityAuthorized && player.Player.AvailableStamina >= skillInfo.staminaCost)
         {
             SendActionToBackend(direction);
+        }
+    }
+
+    void CheckAvailableStamina()
+    {
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+        if (
+            player.Player.AvailableStamina < skillInfo.staminaCost
+            && !staminaManager.playingFeedback
+        )
+        {
+            staminaManager.UnavailableStaminaFeedback();
         }
     }
 

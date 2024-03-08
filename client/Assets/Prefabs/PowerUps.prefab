@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7532905112430061776}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PowerUps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 2202432717747513465}
   - component: {fileID: 110337315952864537}
   - component: {fileID: 5257089240443073153}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PowerUpIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 7372080326581831557}
   - component: {fileID: 6801753508709228941}
   - component: {fileID: 2690385114274865769}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PowerUpCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}

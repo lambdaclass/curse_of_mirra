@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2445171733257327780}
   - component: {fileID: 2445171733257327786}
   - component: {fileID: 2445171733257327781}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 5degree_sector_border_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 431544031841102448}
   - component: {fileID: 6269750010586548929}
   - component: {fileID: 2042008111552600846}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 5degree_sector_border_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8034528553866079081}
   - component: {fileID: 8034528553866079086}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SectorOutliner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1753387737924428899}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: InverseRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

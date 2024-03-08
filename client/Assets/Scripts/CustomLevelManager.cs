@@ -165,7 +165,7 @@ public class CustomLevelManager : LevelManager
             {
                 Instantiate(
                     newPlayer.characterBase.StaminaCharges,
-                    newPlayer.characterBase.CanvasHolder.transform
+                    newPlayer.characterBase.CharacterCard.transform
                 );
                 GameServerConnectionManager.Instance.clientPrediction.startingPosition =
                     player.Position;
