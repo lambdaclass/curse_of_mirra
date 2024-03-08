@@ -68,7 +68,7 @@ public class StaminaManager : MonoBehaviour
         ShakeSequence.Append(
             transform.DOShakePosition(
                 .5f,
-                new Vector3(0, .1f, 0),
+                new Vector3(0.1f, 0, 0),
                 10,
                 0,
                 false,
