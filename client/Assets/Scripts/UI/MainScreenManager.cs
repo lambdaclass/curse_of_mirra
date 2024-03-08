@@ -11,6 +11,7 @@ public class MainScreenManager : MonoBehaviour
 
     void Start()
     {
+        CharactersManager.Instance.SetGoToCharacter(ServerConnection.Instance.selectedCharacterName);
         characterNameToGo = ServerConnection.Instance.selectedCharacterName;
         modelManager.SetModel(characterNameToGo);
     }
