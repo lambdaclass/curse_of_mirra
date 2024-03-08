@@ -1,4 +1,5 @@
 using MoreMountains.Tools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,11 @@ public class ToggleAudio : MonoBehaviour
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channel;
 
+    [SerializeField]
+    TextMeshProUGUI textSoundState;
+    string offState = "OFF";
+    string onState = "ON";
+
     void Start()
     {
         muteButtonImage = GetComponent<Image>();
@@ -34,7 +40,14 @@ public class ToggleAudio : MonoBehaviour
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
         unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
         soundManager.SetVolumeSfx(SFX_VOLUME);
-        muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
+        if (IsMuted(channel))
+        {
+            UpdateMutedUIState();
+        }
+        else
+        {
+            UpdateUnmutedUIState();
+        }
     }
 
     void Update()
@@ -60,13 +73,41 @@ public class ToggleAudio : MonoBehaviour
         if (IsMuted(channel))
         {
             PlaySound();
-            muteButtonImage.overrideSprite = unmutedSprite;
+            UpdateUnmutedUIState();
         }
         else
         {
             SilenceSound();
+            UpdateMutedUIState();
+        }
+    }
+
+    private void UpdateUnmutedUIState()
+    {
+        if (unmutedSprite != null)
+        {
+            muteButtonImage.enabled = true;
+            muteButtonImage.overrideSprite = unmutedSprite;
+        }
+        else if (unmutedSprite == null)
+        {
+            muteButtonImage.enabled = false;
+        }
+        textSoundState.text = onState;
+    }
+
+    private void UpdateMutedUIState()
+    {
+        if (mutedSprite != null)
+        {
+            muteButtonImage.enabled = true;
             muteButtonImage.overrideSprite = mutedSprite;
         }
+        else
+        {
+            muteButtonImage.enabled = false;
+        }
+        textSoundState.text = offState;
     }
 
     private void SilenceSound()
