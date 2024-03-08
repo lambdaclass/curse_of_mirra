@@ -49,24 +49,22 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d6fb4388bb0a0427481a7083feee3555, type: 3}
   - {fileID: 21300000, guid: 31f5d1c8ecfd64044b2c0e700c09af7d, type: 3}
   - {fileID: 21300000, guid: 823ed63ac257f45ea95ff2ed33c677b3, type: 3}
-  - {fileID: 21300000, guid: 0e115e4be163f4cda8ad7b318ca82f72, type: 3}
   - {fileID: 21300000, guid: f61b97fb9158940edb0c78867c4588b6, type: 3}
   - {fileID: 21300000, guid: 498869cf1827d4a62b6499ddc5e9d535, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Valtimer(3)
+  - ValtimerCardImage
   - badge-you
   - CoM
-  - Uma(1)
+  - UmaCardImage
   - coin
-  - Muflus(2)
+  - MuflusCardImage
   - match-starts-container
   - container-player
-  - H4ck(1)
+  - H4ckCardImage
   - fade
   - background-gradient
-  - container name player
   - Loading
-  - container name player 1
+  - container name player
   m_RenderDataMap: {}
   m_Tag: PrepareForBattle
   m_IsVariant: 0

@@ -767,6 +767,16 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 426235763660890386}
+    - target: {fileID: 292451508345753354, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292451508345753354, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 801619787089428216, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: BumpScaleAnimationCurve.m_Curve.Array.data[0].time
@@ -942,6 +952,16 @@ PrefabInstance:
       propertyPath: objectToHighlight
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2696799116326430130, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696799116326430130, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3148153780940593612, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_IsActive
@@ -950,6 +970,16 @@ PrefabInstance:
     - target: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753853157942056578, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753853157942056578, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879871556091030218, guid: 9468612907e8942b49712f4e342b630c,
@@ -1127,6 +1157,16 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7005538451064138200, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 426235763660890386}
+    - target: {fileID: 7944525655694613139, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 426235763660890386}
     - target: {fileID: 8248100963495747579, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.y

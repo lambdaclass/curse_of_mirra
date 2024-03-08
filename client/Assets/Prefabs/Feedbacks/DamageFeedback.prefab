@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1427908502938560624}
   - component: {fileID: 1438067562074111280}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: DamageFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}

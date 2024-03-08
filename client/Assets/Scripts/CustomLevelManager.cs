@@ -84,8 +84,11 @@ public class CustomLevelManager : LevelManager
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        var player = Utils.GetPlayer(playerId);
         SetOrientationArrow(playerId);
+
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
+        player.GetComponent<Health>().CurrentHealth = gamePlayer.Player.Health;
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -162,11 +165,12 @@ public class CustomLevelManager : LevelManager
             {
                 Instantiate(
                     newPlayer.characterBase.StaminaCharges,
-                    newPlayer.characterBase.CanvasHolder.transform
+                    newPlayer.characterBase.CharacterCard.transform
                 );
                 GameServerConnectionManager.Instance.clientPrediction.startingPosition =
                     player.Position;
             }
+            newPlayer.CharacterHealth.CurrentHealth = player.Player.Health;
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
