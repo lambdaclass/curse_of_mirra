@@ -18,7 +18,7 @@ public class VolumeController : MonoBehaviour
     void Awake()
     {
         soundManager = MMSoundManager.Instance;
-        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
+        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 0.2f);
     }
 
     void Start()
