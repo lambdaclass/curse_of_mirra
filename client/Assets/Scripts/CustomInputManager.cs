@@ -202,7 +202,7 @@ public class CustomInputManager : InputManager
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
     {
         //Multiply vector values according to the scale of the animation (in this case 12)
-        float multiplier = joystick.skill.GetSkillRadius();
+        float multiplier = joystick.skill.GetSkillRange();
         directionIndicator.area.transform.localPosition = new Vector3(
             aoePosition.x * multiplier,
             aoePosition.y * multiplier,
@@ -347,7 +347,7 @@ public class CustomInputManager : InputManager
     // TODO: Reactor: avoid fetching player and SkillRange on every use
     public void ShowSkillRange(Skill skill)
     {
-        float range = skill.GetSkillRadius();
+        float range = skill.GetSkillRange();
 
         Transform skillRange = _player
             .GetComponent<CustomCharacter>()

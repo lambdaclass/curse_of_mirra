@@ -26,6 +26,7 @@ public class GameServerConnectionManager : MonoBehaviour
     public List<Entity> gamePlayers;
     public List<Entity> gameProjectiles;
     public List<Entity> gamePowerUps;
+    public List<Entity> gamePools;
     public List<Entity> gameLoots;
     public Dictionary<ulong, ulong> damageDone = new Dictionary<ulong, ulong>();
     public ulong playerId;
@@ -177,6 +178,7 @@ public class GameServerConnectionManager : MonoBehaviour
                     this.gamePlayers = gameState.Players.Values.ToList();
                     this.gameProjectiles = gameState.Projectiles.Values.ToList();
                     this.gamePowerUps = gameState.PowerUps.Values.ToList();
+                    this.gamePools = gameState.Pools.Values.ToList();
                     this.gameLoots = gameState.Items.Values.ToList();
                     this.damageDone = gameState.DamageDone.ToDictionary(x => x.Key, x => x.Value);
                     this.shrinking = gameState.Zone.Shrinking;
