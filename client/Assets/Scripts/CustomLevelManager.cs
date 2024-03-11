@@ -84,8 +84,11 @@ public class CustomLevelManager : LevelManager
         playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
-        var player = Utils.GetPlayer(playerId);
         SetOrientationArrow(playerId);
+
+        Entity gamePlayer = Utils.GetGamePlayer(playerId);
+        GameObject player = Utils.GetPlayer(playerId);
+        player.GetComponent<Health>().CurrentHealth = gamePlayer.Player.Health;
 
         endGameManager = deathSplash.GetComponentInChildren<EndGameManager>();
         endGameManager.SetDeathSplashCharacter();
@@ -162,9 +165,12 @@ public class CustomLevelManager : LevelManager
             {
                 Instantiate(
                     newPlayer.characterBase.StaminaCharges,
-                    newPlayer.characterBase.CanvasHolder.transform
+                    newPlayer.characterBase.CharacterCard.transform
                 );
+                GameServerConnectionManager.Instance.clientPrediction.startingPosition =
+                    player.Position;
             }
+            newPlayer.CharacterHealth.CurrentHealth = player.Player.Health;
             newPlayer.CharacterHealth.InitialHealth = player.Player.Health;
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
@@ -230,7 +236,12 @@ public class CustomLevelManager : LevelManager
 
     private List<SkillInfo> InitSkills(CoMCharacter characterInfo, string id)
     {
-        ConfigCharacter configCharacter = GameServerConnectionManager.Instance.config.Characters.ToList().Find(character => character.Name == characterInfo.name.ToLower());
+        ConfigCharacter configCharacter = GameServerConnectionManager
+            .Instance
+            .config
+            .Characters
+            .ToList()
+            .Find(character => character.Name == characterInfo.name.ToLower());
         List<SkillInfo> skills = new List<SkillInfo>();
         List<ConfigSkill> configSkills = configCharacter.Skills.Values.ToList();
         for (int index = 0; index < characterInfo.skillsInfo.Count; index++)
@@ -238,7 +249,6 @@ public class CustomLevelManager : LevelManager
             SkillInfo skillClone = Instantiate(characterInfo.skillsInfo[index]);
             skillClone.InitWithBackend(configSkills[index], id);
             skills.Add(skillClone);
-
         }
 
         return skills;
@@ -272,8 +282,6 @@ public class CustomLevelManager : LevelManager
                 .Instance
                 .AvailableCharacters
                 .Find(el => el.name.ToLower() == player.CharacterModel.name.ToLower());
-
-
 
             List<SkillInfo> skillInfoClone = InitSkills(characterInfo, player.PlayerID);
             // SetSkillAngles(skillInfoClone);
@@ -310,13 +318,13 @@ public class CustomLevelManager : LevelManager
 
     private void SetPlayerHealthBar(bool isClientId, Character character)
     {
-            Image healthBarFront = character
-                .GetComponent<MMHealthBar>()
-                .TargetProgressBar
-                .ForegroundBar
-                .GetComponent<Image>();
-           
-                healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
+        Image healthBarFront = character
+            .GetComponent<MMHealthBar>()
+            .TargetProgressBar
+            .ForegroundBar
+            .GetComponent<Image>();
+
+        healthBarFront.color = isClientId ? Utils.healthBarGreen : Utils.healthBarRed;
     }
 
     private IEnumerator ShowDeathSplash(GameObject player)

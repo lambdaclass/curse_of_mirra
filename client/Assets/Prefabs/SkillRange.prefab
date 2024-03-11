@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5449516806302885538}
   - component: {fileID: 3404867471729547236}
   - component: {fileID: 7859490951503353613}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SkillRangePlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419613310121612150}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SkillRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
