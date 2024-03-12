@@ -10,7 +10,7 @@ public class DisplayPlayerName : MonoBehaviour
 
     void Start()
     {
-        GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
+        // GetComponent<TextMeshPro>().text = "Player " + character.PlayerID;
         // GetComponent<TextMeshPro>().text = ServerConnection.Instance.playersIdName[
         //     UInt64.Parse(character.PlayerID)
         // ];
