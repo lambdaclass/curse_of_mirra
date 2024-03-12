@@ -49,10 +49,6 @@ public class PlayerNameHandler : MonoBehaviour
             this.playerName = PlayerPrefs.GetString(PLAYER_NAME_KEY);
             this.placeholder.text = this.playerName.ToUpper();
         }
-        else
-        {
-            this.placeholder.text = PLAYER_NAME_PLACEHOLDER;
-        }
         this.playerNameHandler.SetActive(true);
         this.playerNameHandler.GetComponent<CanvasGroup>().alpha = 1;
     }
