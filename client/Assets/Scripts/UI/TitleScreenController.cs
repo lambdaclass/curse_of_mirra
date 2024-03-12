@@ -45,7 +45,6 @@ public class TitleScreenController : MonoBehaviour
         StartCoroutine(FadeIn(logoImage.GetComponent<CanvasGroup>(), 1f, .1f));
         StartCoroutine(FadeIn(ButtonsCanvas, .3f, 1.2f));
         StartCoroutine(FadeIn(changeNameButton, 1f, 1.2f));
-        PlayerPrefs.SetString("playerName","");
         if (PlayerPrefs.GetString("playerName") == "")
         {
             playerNamePopUp.SetActive(true);
