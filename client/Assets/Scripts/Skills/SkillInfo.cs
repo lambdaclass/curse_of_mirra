@@ -42,7 +42,6 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
     public float damage;
-    public float skillRange;
     public Sprite skillSprite;
 
     [Header("Feedbacks")]
@@ -54,7 +53,6 @@ public class SkillInfo : ScriptableObject
     {
         // Issue #1419
         this.damage = configSkill.TargettingDamage;
-        this.skillRange = 0;
         this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
         this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.angle = configSkill.TargettingAngle;
