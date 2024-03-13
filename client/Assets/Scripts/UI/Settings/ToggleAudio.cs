@@ -35,7 +35,6 @@ public class ToggleAudio : MonoBehaviour
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
-        soundManager.SetVolumeMusic(unmutedVolume);
         soundManager.SetVolumeSfx(SFX_VOLUME);
         muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
     }
