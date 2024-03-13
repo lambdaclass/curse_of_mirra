@@ -20,7 +20,7 @@ public class ToggleAudio : MonoBehaviour
     private Image muteButtonImage;
 
     private float SFX_VOLUME = 2f;
-    private float MASTER_VOLUME = 0.2f;
+    private float MASTER_VOLUME = 0.5f;
     private float MUSIC_VOLUME = 0.5f;
 
     //The engines defines this value as 0 (muted)
