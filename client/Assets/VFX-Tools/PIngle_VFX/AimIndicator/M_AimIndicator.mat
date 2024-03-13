@@ -23,7 +23,8 @@ Material:
   m_Name: M_AimIndicator
   m_Shader: {fileID: -6465566751694194690, guid: 2a38922fd0ec81648871edbcdb9e9a8f,
     type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _DEBUG_SPLIT_TEX
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -34,6 +35,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DebugMainTexture_B:
+        m_Texture: {fileID: 2800000, guid: 759e1ac345350984e998f9a5c44be7d2, type: 3}
+        m_Scale: {x: 3, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DebugMainTexture_G:
+        m_Texture: {fileID: 2800000, guid: cfceead2ca06eed42ad8b4236b60ea8b, type: 3}
+        m_Scale: {x: 3, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DebugMainTexture_R:
+        m_Texture: {fileID: 2800000, guid: f308f2bf85014784698ba11333414c60, type: 3}
+        m_Scale: {x: 3, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: 664e09358774b9a499531b1daec31a58, type: 3}
         m_Scale: {x: 3, y: 1}
@@ -71,7 +84,7 @@ Material:
     - _Alpha_power: 4.17
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _DEBUG_SPLIT_TEX: 0
+    - _DEBUG_SPLIT_TEX: 1
     - _NoisePower: 1.64
     - _QueueControl: 0
     - _QueueOffset: 1
