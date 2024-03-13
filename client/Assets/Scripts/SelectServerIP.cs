@@ -15,8 +15,13 @@ public class SelectServerIP : MonoBehaviour
     public static string serverNameString;
 
     // TODO: This should be a config file
-    private const string _defaultServerName = "BRAZIL";
-    private const string _defaultServerIp = "brazil-testing.curseofmirra.com";
+    #if UNITY_EDITOR
+        private const string _defaultServerName = "LOCALHOST";
+        private const string _defaultServerIp = "localhost";
+    #else
+        private const string _defaultServerName = "BRAZIL";
+        private const string _defaultServerIp = "brazil-testing.curseofmirra.com";
+    #endif
 
     public void SetServerIp()
     {
