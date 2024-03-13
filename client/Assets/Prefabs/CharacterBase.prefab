@@ -158,6 +158,7 @@ MonoBehaviour:
   hasTransparentMaterial: 0
   skinnedMeshRenderer: {fileID: 0}
   transparentMaterial: {fileID: 0}
+  vfxList: []
 --- !u!1 &6615036954960681955
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +564,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCard
       objectReference: {fileID: 0}
+    - target: {fileID: 1761940776348975530, guid: 1b5803238588347b78c88ecab08cedef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     - target: {fileID: 2630530166730011964, guid: 1b5803238588347b78c88ecab08cedef,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -578,6 +585,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3381994798140645274, guid: 1b5803238588347b78c88ecab08cedef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
+    - target: {fileID: 6187320949098880126, guid: 1b5803238588347b78c88ecab08cedef,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     - target: {fileID: 6961409230651134626, guid: 1b5803238588347b78c88ecab08cedef,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -588,6 +607,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7152048311052386894, guid: 1b5803238588347b78c88ecab08cedef,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     - target: {fileID: 8206914607531316031, guid: 1b5803238588347b78c88ecab08cedef,
         type: 3}
       propertyPath: m_Pivot.x
@@ -833,6 +858,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1377340570206829633}
     m_Modifications:
+    - target: {fileID: 2189662386086204884, guid: c4b59d3833dc649ee871cb3eb5750e4b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3676653489688202990, guid: c4b59d3833dc649ee871cb3eb5750e4b,
         type: 3}
       propertyPath: m_Name
