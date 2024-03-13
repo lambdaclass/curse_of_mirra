@@ -27,7 +27,6 @@ public class SkillInfo : ScriptableObject
     public string skillKey;
     public float animationSpeedMultiplier;
     public AudioClip abilityStartSfx;
-
     public bool sfxHasAbilityStop;
 
     [MMCondition("sfxHasAbilityStop", true)]
@@ -51,11 +50,6 @@ public class SkillInfo : ScriptableObject
     public List<VfxStep> vfxList;
     public List<AnimationStep> animationList;
 
-    // public bool Equals(SkillConfigItem skillConfigItem)
-    // {
-    //     return this.name.ToLower() == skillConfigItem.Name.ToLower();
-    // }
-
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {
         // Issue #1419
@@ -63,6 +57,7 @@ public class SkillInfo : ScriptableObject
         this.skillRange = 0;
         this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
         this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
+        this.angle = configSkill.TargettingAngle;
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = configSkill.StaminaCost;
     }
