@@ -11,7 +11,8 @@ public class EndGameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rankingText,
         rankingTextShadow,
-        amountOfKillsText;
+        amountOfKillsText,
+        defeaterPlayerName;
 
     [SerializeField]
     GameObject defeatedByContainer,
@@ -97,7 +98,7 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            //defeaterPlayerName.text = GetDefeaterPlayerName();
+            defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
         }
@@ -136,6 +137,10 @@ public class EndGameManager : MonoBehaviour
                 );
             return killerCharacter.UIIcon;
         }
+    }
+
+    private string GetDefeaterPlayerName(){
+        return Utils.GetGamePlayer(KillFeedManager.instance.myKillerId).Name;
     }
 
     public void ShowCharacterAnimation()
