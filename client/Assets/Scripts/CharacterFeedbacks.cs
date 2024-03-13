@@ -26,7 +26,9 @@ public class CharacterFeedbacks : MonoBehaviour
     GameObject deathFeedback,
         damageFeedback,
         healFeedback,
-        hitFeedback;
+        hitFeedback,
+        pickUpFeedback,
+        useItemFeedback;
 
     [SerializeField]
     MMProgressBar healthBar;
@@ -42,6 +44,7 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayTime = 0;
     float overlayDuration = 1f;
     bool restoreBaseOverlayColor = true;
+    public bool didPickUp = false;
 
     void Start()
     {
@@ -87,6 +90,20 @@ public class CharacterFeedbacks : MonoBehaviour
         {
             deathFeedback.SetActive(true);
         }
+    }
+
+    public void ExecuteUseItemFeedback(bool state)
+    {
+        useItemFeedback.SetActive(state);
+    }
+
+    public void HandlePickUpItemFeedback(bool state)
+    {
+        if (state)
+        {
+            didPickUp = true;
+        }
+        pickUpFeedback.SetActive(state);
     }
 
     public void DamageFeedback(float clientHealth, float serverPlayerHealth, ulong playerId)
