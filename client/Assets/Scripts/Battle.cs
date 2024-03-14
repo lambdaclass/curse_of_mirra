@@ -779,40 +779,7 @@ public class Battle : MonoBehaviour
 
     public Direction GetPlayerDirection(Entity playerUpdate)
     {
-        if (
-            GameServerConnectionManager.Instance.playerId != playerUpdate.Id
-            || !useClientPrediction
-        )
-        {
-            return playerUpdate.Direction;
-        }
-
-        var inputFromVirtualJoystick = joystickL is not null;
-
-        var direction = playerUpdate.Direction;
-        if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        {
-            direction = new Direction { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
-        }
-        else if (
-            Input.GetKey(KeyCode.W)
-            || Input.GetKey(KeyCode.A)
-            || Input.GetKey(KeyCode.D)
-            || Input.GetKey(KeyCode.S)
-        )
-        {
-            direction = new Direction { X = 0, Y = 0 };
-            if (Input.GetKey(KeyCode.W))
-                direction.Y = 1;
-            if (Input.GetKey(KeyCode.A))
-                direction.X = -1;
-            if (Input.GetKey(KeyCode.D))
-                direction.X = 1;
-            if (Input.GetKey(KeyCode.S))
-                direction.Y = -1;
-        }
-
-        return direction;
+        return playerUpdate.Direction;
     }
 
     private GameObject FindGhostPlayer(string playerId)
