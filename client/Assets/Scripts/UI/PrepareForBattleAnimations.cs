@@ -249,23 +249,24 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         GameServerConnectionManager
             .Instance
-            .players
+            .gamePlayers
             .ForEach(
                 (player) =>
                 {
-                    var index = GameServerConnectionManager.Instance.players.IndexOf(player);
+                    var index = GameServerConnectionManager.Instance.gamePlayers.IndexOf(player);
                     GeneratePlayer(index, player);
                 }
             );
     }
 
-    void GeneratePlayer(int index, GameObject player)
+    void GeneratePlayer(int index, Entity player)
     {
+        string characterName = Utils.GetCharacter(player.Id).CharacterModel.name;
         Transform pos = index < 5 ? playersTopTable.transform : playersBottomTable.transform;
         PlayerCardManager item = Instantiate(playerCard, pos).GetComponent<PlayerCardManager>();
-        item.playerName.text = player.name;
+        item.playerName.text = player.Name;
 
-        if (player == Utils.GetPlayer(GameServerConnectionManager.Instance.playerId))
+        if (player.Id == GameServerConnectionManager.Instance.playerId)
         {
             item.youTag.SetActive(true);
         }
@@ -274,7 +275,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .AvailableCharacters
             .Where(
                 character =>
-                    character.name == player.GetComponent<CustomCharacter>().CharacterModel.name
+                    character.name == characterName
             )
             .Single()
             .battleCharacterCard;
