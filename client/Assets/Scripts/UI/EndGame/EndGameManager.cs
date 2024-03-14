@@ -98,7 +98,7 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            defeaterPlayerName.text = GetDefeaterPlayerName();
+            // defeaterPlayerName.text = GetDefeaterPlayerName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
         }
