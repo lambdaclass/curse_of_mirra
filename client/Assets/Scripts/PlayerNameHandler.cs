@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +24,16 @@ public class PlayerNameHandler : MonoBehaviour
 
     private string playerName;
 
+    const string NAME_LENGHT_MESSAGE = "Player Name should contain more than 3 characters.";
+
+    const string EMPTY_NAME_MESSAGE = "Player name cannot be empty.";
+
     public void SetPlayerName()
     {
         this.playerName = playerNameInput.text.Trim();
-        if (this.playerName == "")
+        if (this.playerName == "" || this.playerName.Length <= 3)
         {
+            HandleErrorMessage();
             this.errorMessage.SetActive(true);
             return;
         }
@@ -35,6 +41,18 @@ public class PlayerNameHandler : MonoBehaviour
         GetComponent<Image>().sprite = selectedButtonSprite;
         PlayerPrefs.SetString(PLAYER_NAME_KEY, this.playerName);
         this.Hide();
+    }
+
+    private void HandleErrorMessage(){
+        TextMeshProUGUI textMesh = this.errorMessage.GetComponent<TextMeshProUGUI>();
+        if(this.playerName.Length <= 3){
+            textMesh.text = NAME_LENGHT_MESSAGE;
+        } 
+
+        if(this.playerName == ""){
+            textMesh.text = EMPTY_NAME_MESSAGE;
+        }
+
     }
 
     public string GetPlayerName()
