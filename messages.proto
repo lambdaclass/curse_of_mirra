@@ -152,6 +152,7 @@ message Player {
   uint64 power_ups = 9;
   map<uint64, Effect> effects = 10;
   Item inventory = 11;
+  map<string, uint64> cooldowns = 12;
 }
 
 message Effect {
@@ -192,7 +193,6 @@ enum  PowerUpstatus {
 message Pool {
   uint64 owner_id = 1;
 }
-
 
 message PlayerAction {
     PlayerActionType action = 1;
