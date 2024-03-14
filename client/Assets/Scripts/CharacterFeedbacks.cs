@@ -103,7 +103,7 @@ public class CharacterFeedbacks : MonoBehaviour
         }
         if (clientHealth < serverPlayerHealth)
         {
-            healFeedback.GetComponentInChildren<VisualEffect>()?.Play();
+            healFeedback.GetComponent<ParticleSystem>().Play();
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 TriggerHapticFeedback(HapticFeedbackType.Light);
