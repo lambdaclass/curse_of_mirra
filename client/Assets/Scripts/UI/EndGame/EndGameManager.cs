@@ -98,7 +98,7 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            // defeaterPlayerName.text = GetDefeaterPlayerName();
+            MaybeShowDefeaterName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
         }
@@ -110,6 +110,14 @@ public class EndGameManager : MonoBehaviour
         // var gamePlayer = Utils.GetGamePlayer(playerId);
         // return gamePlayer.KillCount;
         return 77;
+    }
+
+    void MaybeShowDefeaterName(){
+        if(KillFeedManager.instance.myKillerId.ToString() == ZONE_ID){
+            defeaterPlayerName.gameObject.SetActive(false);
+        } else {
+            defeaterPlayerName.text = GetDefeaterPlayerName();
+        }
     }
 
     private Sprite GetDefeaterSprite()
