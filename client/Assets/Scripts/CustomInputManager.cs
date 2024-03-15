@@ -318,17 +318,13 @@ public class CustomInputManager : InputManager
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
         if (showCooldown)
         {
-            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+            if ( cooldown > 0f)
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);
-                if (cooldown < 1f && cooldown > 0f)
+                if (cooldown > 0f)
                 {
                     cooldownText.text = String.Format("{0:0.0}", cooldown);
-                }
-                else
-                {
-                    cooldownText.text = ((ulong)cooldown + 1).ToString();
                 }
             }
             else
