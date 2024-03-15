@@ -34,7 +34,7 @@ public class ToggleAudio : MonoBehaviour
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
-        unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
+        SetUnmutedVolume();
         soundManager.SetVolumeSfx(SFX_VOLUME);
         muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
     }
@@ -57,6 +57,12 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
+    public void SetUnmutedVolume(){
+        float currentMusicVolume= soundManager.GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music,false);
+        float musicVolume = currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME; 
+        unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+    }
+
     public void Toggle()
     {
         if (IsMuted(channel))
@@ -73,7 +79,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void SilenceSound()
     {
-        unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
+        SetUnmutedVolume();
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
