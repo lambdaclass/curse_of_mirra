@@ -109,7 +109,7 @@ public class Skill : CharacterAbility
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
         if (
             player.Player.AvailableStamina < skillInfo.staminaCost
-            && !staminaManager.playingFeedback
+            && !staminaManager.playingFeedback && !skillInfo.useCooldown
         )
         {
             staminaManager.UnavailableStaminaFeedback();

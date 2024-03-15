@@ -311,12 +311,12 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         GameObject cooldownContainer = buttonsCooldown[control];
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
-        if (showCooldown)
+        if (useCooldown)
         {
             if ( cooldown > 0f)
             {
