@@ -322,9 +322,6 @@ public class CustomInputManager : InputManager
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);
-                
-                print(cooldown);
-
                 cooldownText.text = ((ulong)cooldown + 1).ToString();
             }
             else
