@@ -525,7 +525,6 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
@@ -535,13 +534,13 @@ public class Battle : MonoBehaviour
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0.0f,
+                0f,
                 player.GetComponent<Skill2>().GetSkillInfo().showCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0.0f,
+                0f,
                 player.GetComponent<Skill3>().GetSkillInfo().showCooldown
             );
         }
