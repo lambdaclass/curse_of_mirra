@@ -32,6 +32,7 @@ public class Battle : MonoBehaviour
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
     private long lastMovementUpdate;
+    private long lastForcedMovementUpdate;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -49,6 +50,7 @@ public class Battle : MonoBehaviour
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
         lastMovementUpdate = 0;
+        lastForcedMovementUpdate = 0;
     }
 
     private void InitBlockingStates()
@@ -110,7 +112,13 @@ public class Battle : MonoBehaviour
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            long forcedMovementMessageInterval = 500;
+            if ((nowMiliseconds - lastForcedMovementUpdate) >= forcedMovementMessageInterval)
+            {
+                SendPlayerMovement(true);
+                lastForcedMovementUpdate = nowMiliseconds;
+            }
+            else if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
@@ -171,7 +179,7 @@ public class Battle : MonoBehaviour
         return true;
     }
 
-    public void SendPlayerMovement()
+    public void SendPlayerMovement(bool forceSend = false)
     {
         Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
@@ -192,17 +200,21 @@ public class Battle : MonoBehaviour
                 )
                 {
                     // Using joysticks
-                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    playerControls.SendJoystickValues(
+                        joystickL.RawValue.x,
+                        joystickL.RawValue.y,
+                        forceSend
+                    );
                 }
                 else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
-                    playerControls.SendAction();
+                    playerControls.SendAction(forceSend);
                 }
                 else
                 {
                     // Not pressing anything
-                    playerControls.SendJoystickValues(0, 0);
+                    playerControls.SendJoystickValues(0, 0, forceSend);
                 }
             }
         }
@@ -338,7 +350,8 @@ public class Battle : MonoBehaviour
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
-                float hitboxSize = Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
+                float hitboxSize =
+                    Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
         }
@@ -600,7 +613,7 @@ public class Battle : MonoBehaviour
         Vector2 movementChange = new Vector2(xChange, yChange);
 
         // This magnitude allow us to not reconciliate the player's position if the change is too small
-        if (movementChange.magnitude > 0.5f)
+        if (movementChange.magnitude > 0.2f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
@@ -771,40 +784,7 @@ public class Battle : MonoBehaviour
 
     public Direction GetPlayerDirection(Entity playerUpdate)
     {
-        if (
-            GameServerConnectionManager.Instance.playerId != playerUpdate.Id
-            || !useClientPrediction
-        )
-        {
-            return playerUpdate.Direction;
-        }
-
-        var inputFromVirtualJoystick = joystickL is not null;
-
-        var direction = playerUpdate.Direction;
-        if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        {
-            direction = new Direction { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
-        }
-        else if (
-            Input.GetKey(KeyCode.W)
-            || Input.GetKey(KeyCode.A)
-            || Input.GetKey(KeyCode.D)
-            || Input.GetKey(KeyCode.S)
-        )
-        {
-            direction = new Direction { X = 0, Y = 0 };
-            if (Input.GetKey(KeyCode.W))
-                direction.Y = 1;
-            if (Input.GetKey(KeyCode.A))
-                direction.X = -1;
-            if (Input.GetKey(KeyCode.D))
-                direction.X = 1;
-            if (Input.GetKey(KeyCode.S))
-                direction.Y = -1;
-        }
-
-        return direction;
+        return playerUpdate.Direction;
     }
 
     private GameObject FindGhostPlayer(string playerId)
