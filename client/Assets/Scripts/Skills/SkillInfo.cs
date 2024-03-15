@@ -27,6 +27,7 @@ public class SkillInfo : ScriptableObject
     public string skillKey;
     public float animationSpeedMultiplier;
     public AudioClip abilityStartSfx;
+
     public bool sfxHasAbilityStop;
 
     [MMCondition("sfxHasAbilityStop", true)]
@@ -41,7 +42,9 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
+    public bool showCooldown;
     public float damage;
+    public float skillRange;
     public Sprite skillSprite;
 
     [Header("Feedbacks")]
@@ -51,11 +54,10 @@ public class SkillInfo : ScriptableObject
 
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {
-        // Issue #1419
+        this.skillRange = 0;
         this.damage = configSkill.TargettingDamage;
         this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
         this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
-        this.angle = configSkill.TargettingAngle;
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = configSkill.StaminaCost;
     }
