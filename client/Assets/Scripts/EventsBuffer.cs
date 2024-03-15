@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 public class EventsBuffer
 {
@@ -34,10 +33,17 @@ public class EventsBuffer
 
     public GameState getNextEventToRender(long pastTime)
     {
-        GameState nextGameEvent = updatesBuffer
-            .Where(ge => ge.ServerTimestamp > pastTime)
-            .OrderBy(ge => ge.ServerTimestamp)
-            .FirstOrDefault();
+        GameState nextGameEvent = null;
+        foreach (GameState update in updatesBuffer)
+        {
+            if (update.ServerTimestamp > pastTime)
+            {
+                if (nextGameEvent == null || update.ServerTimestamp < nextGameEvent.ServerTimestamp)
+                {
+                    nextGameEvent = update;
+                }
+            }
+        }
 
         if (nextGameEvent == null)
         {
@@ -93,24 +99,50 @@ public class EventsBuffer
             == GameServerConnectionManager.Instance.gamePlayers.Count
         )
         {
-            count += (previousRenderedEvent.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
-            count += (currentEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
-            count += (followingEventToRender.Players.Values.ToList().Find(p => p.Id == playerId))
-                .Player
-                .CurrentActions
-                .Any(currentAction => currentAction.Action == PlayerActionType.Moving)
-                ? 1
-                : 0;
+            var playerValues = ConvertToList(previousRenderedEvent.Players.Values);
+            foreach (Entity playerValue in playerValues)
+            {
+                if (playerValue.Id == playerId)
+                {
+                    foreach (var currentAction in playerValue.Player.CurrentActions)
+                    {
+                        if (currentAction.Action == PlayerActionType.Moving)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            playerValues = ConvertToList(currentEventToRender.Players.Values);
+            foreach (Entity playerValue in playerValues)
+            {
+                if (playerValue.Id == playerId)
+                {
+                    foreach (var currentAction in playerValue.Player.CurrentActions)
+                    {
+                        if (currentAction.Action == PlayerActionType.Moving)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            playerValues = ConvertToList(followingEventToRender.Players.Values);
+            foreach (Entity playerValue in playerValues)
+            {
+                if (playerValue.Id == playerId)
+                {
+                    foreach (var currentAction in playerValue.Player.CurrentActions)
+                    {
+                        if (currentAction.Action == PlayerActionType.Moving)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
         return count >= 1;
@@ -128,5 +160,10 @@ public class EventsBuffer
             return false;
         }
         return lastTimestampsSeen[playerId] == serverTimestamp;
+    }
+
+    private List<Entity> ConvertToList(ICollection<Entity> collection)
+    {
+        return new List<Entity>(collection);
     }
 }
