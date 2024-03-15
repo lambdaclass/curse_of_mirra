@@ -30,7 +30,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     {
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
-            if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
+            if (hasEffect(playerUpdate.Player.Effects.Values, "invisible"))
             {
                 HandleInvisible(playerUpdate.Id, character);
             }
@@ -77,5 +77,17 @@ public class CharacterFeedbackManager : MonoBehaviour
             .GetComponentsInChildren<MeshRenderer>()
             .ToList();
         meshes.ForEach(mesh => mesh.enabled = isActive);
+    }
+
+    private bool hasEffect(ICollection<Effect> effects, string effectName)
+    {
+        foreach (var effect in effects)
+        {
+            if (effect.Name == effectName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
