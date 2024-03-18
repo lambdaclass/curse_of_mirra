@@ -540,7 +540,7 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            
+
             float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
             float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
 
@@ -573,6 +573,13 @@ public class Battle : MonoBehaviour
         float characterSpeed
     )
     {
+        print(pastTime + "aber past time");
+        EventsBuffer buffer = GameServerConnectionManager.Instance.eventsBuffer;
+        long currentTime = buffer.firstTimestamp + accumulatedTime;
+        long lastEventTimestamps = buffer.lastEvent().ServerTimestamp;
+        print((currentTime - lastEventTimestamps) + "aber elapsed");
+
+
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
         // it'll be changed.
         float tickRate = 1000f / GameServerConnectionManager.Instance.serverTickRate_ms;
