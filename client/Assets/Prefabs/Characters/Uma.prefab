@@ -490,6 +490,8 @@ MonoBehaviour:
   damageFeedback: {fileID: 4019254676187120606}
   healFeedback: {fileID: 4875194947177718696}
   hitFeedback: {fileID: 6428408938373472900}
+  pickUpFeedback: {fileID: 2700303382107108355}
+  useItemFeedback: {fileID: 316852949892086365}
   healthBar: {fileID: 3686478168088177695}
   damageOverlayColor:
     serializedVersion: 2
@@ -497,6 +499,7 @@ MonoBehaviour:
   healOverlayColor:
     serializedVersion: 2
     rgba: 4282690884
+  didPickUp: 0
 --- !u!114 &8249421845886103102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,7 +787,7 @@ PrefabInstance:
     - target: {fileID: 2968017931226343289, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 1
+      value: Souls
       objectReference: {fileID: 0}
     - target: {fileID: 3617200173245764361, guid: 326c732659bfb4308bbfe4bd54c6a89e,
         type: 3}
@@ -858,6 +861,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 326c732659bfb4308bbfe4bd54c6a89e, type: 3}
+--- !u!1 &375655941904911084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2968017931226343289, guid: 326c732659bfb4308bbfe4bd54c6a89e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3172255440079531413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4050685148264616679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -870,6 +879,12 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 5921681149281208453}
+    - target: {fileID: 1120748509645183930, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     - target: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_RootOrder
@@ -937,6 +952,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
+      propertyPath: vfxList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 5700785624977269805}
@@ -945,6 +965,21 @@ PrefabInstance:
       propertyPath: transparentMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6f2531488c923483b93fa188150e3d7a, type: 2}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1936987303643252845}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[1]
+      value: 
+      objectReference: {fileID: 375655941904911084}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[2]
+      value: 
+      objectReference: {fileID: 834093306710050702}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: hasTransparentMaterial
@@ -975,6 +1010,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5.1500015
       objectReference: {fileID: 0}
+    - target: {fileID: 4112168267233740170, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
+    - target: {fileID: 4765897501085697646, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     - target: {fileID: 5694839354157769067, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -995,8 +1042,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterBase
       objectReference: {fileID: 0}
+    - target: {fileID: 7944525655694613139, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 5921681149281208453}
+    - target: {fileID: 8412503181057611870, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 109596721387173020, guid: 9c582c2a18d474af0bdf1dc9882cb5f2,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9468612907e8942b49712f4e342b630c, type: 3}
+--- !u!1 &316852949892086365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4346920019462547642, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &756841720054674263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3654173184674931120, guid: 9468612907e8942b49712f4e342b630c,
@@ -1024,6 +1088,12 @@ GameObject:
 --- !u!1 &1492691713028552250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3207116650956399837, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4050685148264616679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2700303382107108355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2112059791940839140, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 4050685148264616679}
   m_PrefabAsset: {fileID: 0}
@@ -1183,10 +1253,16 @@ PrefabInstance:
     - target: {fileID: 8559183905587967325, guid: 31b4688d702114456ac839d2f36fa861,
         type: 3}
       propertyPath: m_Name
-      value: GameObject
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b4688d702114456ac839d2f36fa861, type: 3}
+--- !u!1 &1936987303643252845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8559183905587967325, guid: 31b4688d702114456ac839d2f36fa861,
+    type: 3}
+  m_PrefabInstance: {fileID: 7794002356468104496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8612759015934048492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1267,7 +1343,13 @@ PrefabInstance:
     - target: {fileID: 8941300850621513570, guid: bb4cba58f5388417ea87992971209ca9,
         type: 3}
       propertyPath: m_Name
-      value: GameObject 2
+      value: Souls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4cba58f5388417ea87992971209ca9, type: 3}
+--- !u!1 &834093306710050702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8941300850621513570, guid: bb4cba58f5388417ea87992971209ca9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8612759015934048492}
+  m_PrefabAsset: {fileID: 0}

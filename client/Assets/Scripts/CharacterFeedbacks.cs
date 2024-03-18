@@ -26,7 +26,9 @@ public class CharacterFeedbacks : MonoBehaviour
     GameObject deathFeedback,
         damageFeedback,
         healFeedback,
-        hitFeedback;
+        hitFeedback,
+        pickUpFeedback,
+        useItemFeedback;
 
     [SerializeField]
     MMProgressBar healthBar;
@@ -42,6 +44,13 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayTime = 0;
     float overlayDuration = 1f;
     bool restoreBaseOverlayColor = true;
+    private bool didPickUp = false;
+
+    // didPickUp value should ideally come from backend
+    public bool DidPickUp()
+    {
+        return didPickUp;
+    }
 
     void Start()
     {
@@ -89,6 +98,17 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
+    public void ExecuteUseItemFeedback(bool state)
+    {
+        useItemFeedback.SetActive(state);
+    }
+
+    public void ExecutePickUpItemFeedback(bool state)
+    {
+        didPickUp = state;
+        pickUpFeedback.SetActive(state);
+    }
+
     public void DamageFeedback(float clientHealth, float serverPlayerHealth, ulong playerId)
     {
         if (serverPlayerHealth < clientHealth)
@@ -103,10 +123,7 @@ public class CharacterFeedbacks : MonoBehaviour
         }
         if (clientHealth < serverPlayerHealth)
         {
-            if (healFeedback.GetComponentInChildren<VisualEffect>() != null)
-            {
-                healFeedback.GetComponentInChildren<VisualEffect>().Play();
-            }
+            healFeedback.GetComponentInChildren<VisualEffect>()?.Play();
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 TriggerHapticFeedback(HapticFeedbackType.Light);

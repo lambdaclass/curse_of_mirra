@@ -873,7 +873,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 47.204346, y: -31.612305}
-  m_SizeDelta: {x: 497.2078, y: 120.62}
+  m_SizeDelta: {x: 0, y: 120.62}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1317681930673138310
 CanvasRenderer:
@@ -928,6 +928,9 @@ MonoBehaviour:
   alivePlayers: {fileID: 3915647305396783701}
   zoneTimer: {fileID: 3915647305273683726}
   killCount: {fileID: 3915647304755733921}
+  zoneTimerImage: {fileID: 6201220941371136500}
+  shrinkingSprite: {fileID: 21300000, guid: be74397bea6cf445f94a4906f318baad, type: 3}
+  waitingSprite: {fileID: 21300000, guid: 25c6ba19deae14da8a58d506552bf1fe, type: 3}
   period: 1
   time: 0
 --- !u!114 &2266293449285226797

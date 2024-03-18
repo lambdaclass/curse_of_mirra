@@ -22,6 +22,11 @@ public class Utils
         return new Vector3(x, 1f, y);
     }
 
+    // Used to transform units like radius and range.
+    public static float TransformBackenUnitToClientUnit(float unit){
+        return unit / 100f;
+    }
+
     // public static Vector3 transformBackendPositionToFrontendPosition(Game.Position position)
     // {
     //     var x = (long)position?.x / 100f;

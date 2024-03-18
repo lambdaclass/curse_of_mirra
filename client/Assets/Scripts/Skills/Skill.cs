@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.VFX;
 using static MoreMountains.Tools.MMSoundManager;
 
 public class Skill : CharacterAbility
@@ -25,8 +24,12 @@ public class Skill : CharacterAbility
     [SerializeField]
     protected SkillInfo skillInfo;
 
+    private List<ulong> usedPools = new List<ulong>();
+
     // feedbackRotatePosition used to track the position to look at when executing the animation feedback
     private Vector2 feedbackRotatePosition;
+
+    StaminaManager staminaManager;
 
     protected override void Start()
     {
@@ -41,6 +44,12 @@ public class Skill : CharacterAbility
         {
             _animator.SetFloat(skillId + "Speed", skillInfo.animationSpeedMultiplier);
         }
+
+        staminaManager = Utils
+            .GetCharacter(GameServerConnectionManager.Instance.playerId)
+            .characterBase
+            .CharacterCard
+            .GetComponentInChildren<StaminaManager>();
     }
 
     public void SetSkill(string serverSkill, SkillInfo skillInfo)
@@ -70,6 +79,7 @@ public class Skill : CharacterAbility
         {
             Direction direction = new Direction { X = 0, Y = 0 };
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -80,6 +90,7 @@ public class Skill : CharacterAbility
             Direction direction = new Direction { X = position.x, Y = position.y };
             feedbackRotatePosition = new Vector2(position.x, position.y);
             ExecuteSkill(direction);
+            CheckAvailableStamina();
         }
     }
 
@@ -87,9 +98,21 @@ public class Skill : CharacterAbility
     {
         var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
-        if (AbilityAuthorized && player.Player.AvailableStamina >= this.skillInfo.staminaCost)
+        if (AbilityAuthorized && player.Player.AvailableStamina >= skillInfo.staminaCost)
         {
             SendActionToBackend(direction);
+        }
+    }
+
+    void CheckAvailableStamina()
+    {
+        var player = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
+        if (
+            player.Player.AvailableStamina < skillInfo.staminaCost
+            && !staminaManager.playingFeedback && !skillInfo.useCooldown
+        )
+        {
+            staminaManager.UnavailableStaminaFeedback();
         }
     }
 
@@ -119,7 +142,8 @@ public class Skill : CharacterAbility
                     vfxStep.vfx,
                     vfxStep.duration,
                     vfxStep.delay,
-                    vfxStep.instantiateVfxOnModel
+                    vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool
                 )
             );
         }
@@ -170,7 +194,8 @@ public class Skill : CharacterAbility
                     nextAnimation.vfxStep.vfx,
                     nextAnimation.vfxStep.duration,
                     nextAnimation.vfxStep.delay,
-                    nextAnimation.vfxStep.instantiateVfxOnModel
+                    nextAnimation.vfxStep.instantiateVfxOnModel,
+                    this.skillInfo.hasSkillPool
                 )
             );
         }
@@ -193,12 +218,14 @@ public class Skill : CharacterAbility
         GameObject vfx,
         float duration,
         float delay,
-        bool instantiateVfxOnModel
+        bool instantiateVfxOnModel,
+        bool hasSkillPool
     )
     {
         yield return new WaitForSeconds(delay);
 
         GameObject vfxInstance;
+
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
@@ -213,13 +240,36 @@ public class Skill : CharacterAbility
                 vfx.transform.position.y,
                 _model.transform.position.z
             );
+
+            if(hasSkillPool){
+               vfxPosition = SetPoolDiameterAndPosition(vfx);
+            }
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
+           
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
 
         Destroy(vfxInstance, duration);
+    }
+ 
+
+    private Vector3 SetPoolDiameterAndPosition(GameObject vfx){
+        float diameter = 0;
+        Vector3 vfxPosition = Vector3.zero;
+         GameServerConnectionManager.Instance.gamePools.ForEach(pool => {
+            if(pool.Pool.OwnerId == skillInfo.ownerId && !usedPools.Contains(pool.Id)){
+                vfxPosition =  Utils.transformBackendOldPositionToFrontendPosition(pool.Position);
+                diameter = Utils.TransformBackenUnitToClientUnit(pool.Radius) * 2;
+            }
+        });
+
+        if(vfx.transform.childCount > 0){
+            vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
+        }
+
+        return vfxPosition;
     }
 
     private void ClearAnimator()
@@ -273,32 +323,36 @@ public class Skill : CharacterAbility
         return this.skillInfo.angle;
     }
 
-    public float GetSkillRadius()
+    public float GetSkillRange()
     {
-        float radius;
-        switch (skillInfo.skillCircleRadius)
+        float range;
+        switch (skillInfo.skillCircleRange)
         {
             case 0:
-                radius = MAX_RANGE;
+                range = MAX_RANGE;
                 break;
             case -1:
-                radius = INNER_RANGE;
+                range = INNER_RANGE;
                 break;
             default:
-                radius = skillInfo.skillCircleRadius;
+                range = skillInfo.skillCircleRange;
                 break;
         }
-        return radius;
+        return range;
     }
 
-    public void SetSkillRadius(float radius)
+    public void SetSkillRange(float range)
     {
-        skillInfo.skillCircleRadius = radius;
+        skillInfo.skillCircleRange = range;
     }
 
     public void SetSkillAreaRadius(float radius)
     {
         skillInfo.skillAreaRadius = radius;
+    }
+
+    public float GetSkillAreaRadius(){
+        return skillInfo.skillAreaRadius;
     }
 
     public float GetIndicatorAngle()
@@ -323,6 +377,6 @@ public class Skill : CharacterAbility
 
     public bool IsSelfTargeted()
     {
-        return skillInfo.skillCircleRadius == -1;
+        return skillInfo.skillCircleRange == -1;
     }
 }

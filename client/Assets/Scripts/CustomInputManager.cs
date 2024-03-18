@@ -202,7 +202,7 @@ public class CustomInputManager : InputManager
     public void AimAoeSkill(Vector2 aoePosition, CustomMMTouchJoystick joystick)
     {
         //Multiply vector values according to the scale of the animation (in this case 12)
-        float multiplier = joystick.skill.GetSkillRadius();
+        float multiplier = joystick.skill.GetSkillRange();
         directionIndicator.area.transform.localPosition = new Vector3(
             aoePosition.x * multiplier,
             aoePosition.y * multiplier,
@@ -311,25 +311,18 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         GameObject cooldownContainer = buttonsCooldown[control];
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
-        if (showCooldown)
+        if (useCooldown)
         {
-            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+            if ( cooldown > 0f)
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);
-                if (cooldown < 1f && cooldown > 0f)
-                {
-                    cooldownText.text = String.Format("{0:0.0}", cooldown);
-                }
-                else
-                {
-                    cooldownText.text = ((ulong)cooldown + 1).ToString();
-                }
+                cooldownText.text = ((ulong)cooldown + 1).ToString();
             }
             else
             {
@@ -347,7 +340,7 @@ public class CustomInputManager : InputManager
     // TODO: Reactor: avoid fetching player and SkillRange on every use
     public void ShowSkillRange(Skill skill)
     {
-        float range = skill.GetSkillRadius();
+        float range = skill.GetSkillRange();
 
         Transform skillRange = _player
             .GetComponent<CustomCharacter>()

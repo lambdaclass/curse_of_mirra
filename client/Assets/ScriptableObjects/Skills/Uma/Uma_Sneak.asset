@@ -17,17 +17,21 @@ MonoBehaviour:
   inputType: 2
   skillSetType: 2
   angle: 0
+  staminaCost: 0
   indicatorType: 2
+  hasProjectile: 0
+  hasSkillPool: 0
   projectilePrefab: {fileID: 0}
+  skillKey: 
   animationSpeedMultiplier: 1
   abilityStartSfx: {fileID: 8300000, guid: 8c36ebc1a097a47d5aef53dab8c288e6, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
-  skillCircleRadius: 0
+  skillCircleRange: 0
   skillConeAngle: 0
   arrowWidth: 1
   skillAreaRadius: 0
-  showCooldown: 1
+  useCooldown: 1
   damage: 0
   cooldown: 0
   skillRange: 0
