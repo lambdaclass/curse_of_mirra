@@ -58,9 +58,13 @@ public class ToggleAudio : MonoBehaviour
     }
 
     public void SetUnmutedVolume(){
-        float currentMusicVolume= soundManager.GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music,false);
-        float musicVolume = currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME; 
-        unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+        if(!IsMuted(channel)){
+            float currentMusicVolume = soundManager.GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music, false);
+            float musicVolume = currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME; 
+            unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+        } else {
+            unmutedVolume = volumeSlider? volumeSlider.value : MUSIC_VOLUME;
+        }
     }
 
     public void Toggle()
@@ -94,6 +98,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void PlaySound()
     {
+        print("Unmuted msic in " + unmutedVolume);
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
