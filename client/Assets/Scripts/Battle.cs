@@ -315,10 +315,24 @@ public class Battle : MonoBehaviour
                             }
                         }
 
-                        List<PlayerAction> actionsToDelete = playerCharacter
-                            .currentActions
-                            .Except(serverPlayerUpdate.Player.CurrentActions)
-                            .ToList();
+                        List<PlayerAction> actionsToDelete = new List<PlayerAction>();
+
+                        foreach (var action in playerCharacter.currentActions)
+                        {
+                            bool isException = false;
+                            foreach (var serverAction in serverPlayerUpdate.Player.CurrentActions)
+                            {
+                                if (action.Equals(serverAction))
+                                {
+                                    isException = true;
+                                    break;
+                                }
+                            }
+                            if (!isException)
+                            {
+                                actionsToDelete.Add(action);
+                            }
+                        }
 
                         foreach (PlayerAction playerAction in actionsToDelete)
                         {
@@ -338,7 +352,8 @@ public class Battle : MonoBehaviour
 
                 Transform hitbox = playerCharacter.characterBase.Hitbox.transform;
 
-                float hitboxSize = Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
+                float hitboxSize =
+                    Utils.TransformBackenUnitToClientUnit(serverPlayerUpdate.Radius) * 2;
                 hitbox.localScale = new Vector3(hitboxSize, hitbox.localScale.y, hitboxSize);
             }
         }
@@ -420,9 +435,15 @@ public class Battle : MonoBehaviour
                 string projectileKey = gameProjectiles[i].Projectile.SkillKey;
                 ulong skillOwner = gameProjectiles[i].Projectile.OwnerId;
 
-                SkillInfo info = skillInfoSet
-                    .Where(el => el.skillKey == projectileKey && el.ownerId == skillOwner)
-                    .FirstOrDefault();
+                SkillInfo info = null;
+                foreach (SkillInfo skillInfo in skillInfoSet)
+                {
+                    if (skillInfo.skillKey == projectileKey && skillInfo.ownerId == skillOwner)
+                    {
+                        info = skillInfo;
+                        break;
+                    }
+                }
 
                 if (info != null)
                 {
@@ -448,9 +469,20 @@ public class Battle : MonoBehaviour
 
     void ClearProjectiles(Dictionary<int, GameObject> projectiles, List<Entity> gameProjectiles)
     {
-        foreach (int projectileId in projectiles.Keys.ToList())
+        List<int> projectilesList = new List<int>(projectiles.Keys);
+
+        foreach (int projectileId in projectilesList)
         {
-            if (!gameProjectiles.Exists(x => (int)x.Id == projectileId))
+            bool shouldClear = true;
+            foreach (var gameProjectile in gameProjectiles)
+            {
+                if ((int)gameProjectile.Id == projectileId)
+                {
+                    shouldClear = false;
+                    break;
+                }
+            }
+            if (shouldClear)
             {
                 projectiles[projectileId].GetComponent<SkillProjectile>().Remove();
                 projectiles.Remove(projectileId);
@@ -463,14 +495,24 @@ public class Battle : MonoBehaviour
         List<Entity> gameProjectiles
     )
     {
-        foreach (var pr in projectiles.ToList())
+        List<int> projectilesToRemove = new List<int>();
+
+        foreach (var pr in projectiles)
         {
             Entity gameProjectile = gameProjectiles.Find(x => (int)x.Id == pr.Key);
-            if (gameProjectile.Projectile.Status == ProjectileStatus.Exploded)
+            if (
+                gameProjectile != null
+                && gameProjectile.Projectile.Status == ProjectileStatus.Exploded
+            )
             {
                 pr.Value.GetComponent<SkillProjectile>().ProcessCollision();
-                projectiles.Remove(pr.Key);
+                projectilesToRemove.Add(pr.Key);
             }
+        }
+
+        foreach (int keyToRemove in projectilesToRemove)
+        {
+            projectiles.Remove(keyToRemove);
         }
     }
 
