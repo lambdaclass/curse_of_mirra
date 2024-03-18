@@ -488,15 +488,6 @@ public class Battle : MonoBehaviour
         frames, but that's fine).
         */
         CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
-        if (playerUpdate.Player.Inventory != null && characterFeedbacks.didPickUp == false)
-        {
-            characterFeedbacks.HandlePickUpItemFeedback(true);
-        }
-        else if (playerUpdate.Player.Inventory == null && characterFeedbacks.didPickUp == true)
-        {
-            characterFeedbacks.HandlePickUpItemFeedback(false);
-        }
-
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         CharacterFeedbackManager feedbackManager = character
             .characterBase
@@ -506,6 +497,7 @@ public class Battle : MonoBehaviour
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
+        feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {

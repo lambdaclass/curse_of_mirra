@@ -157,6 +157,5 @@ public class InventoryUI : MonoBehaviour
     void HandlePlayerUseItemFeedback(bool state)
     {
         characterFeedbacks.ExecuteUseItemFeedback(state);
-        characterFeedbacks.didPickUp = false;
     }
 }

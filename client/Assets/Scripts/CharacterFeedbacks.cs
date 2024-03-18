@@ -44,7 +44,13 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayTime = 0;
     float overlayDuration = 1f;
     bool restoreBaseOverlayColor = true;
-    public bool didPickUp = false;
+    private bool didPickUp = false;
+
+    // didPickUp value should ideally come from backend
+    public bool DidPickUp()
+    {
+        return didPickUp;
+    }
 
     void Start()
     {
@@ -97,12 +103,9 @@ public class CharacterFeedbacks : MonoBehaviour
         useItemFeedback.SetActive(state);
     }
 
-    public void HandlePickUpItemFeedback(bool state)
+    public void ExecutePickUpItemFeedback(bool state)
     {
-        if (state)
-        {
-            didPickUp = true;
-        }
+        didPickUp = state;
         pickUpFeedback.SetActive(state);
     }
 
