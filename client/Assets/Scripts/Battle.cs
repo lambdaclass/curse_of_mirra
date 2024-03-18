@@ -538,23 +538,28 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
+            
+            float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
+            float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
+
+
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 0f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+                player.GetComponent<Skill1>().GetSkillInfo().useCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0f,
-                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+                skill2Cooldown,
+                player.GetComponent<Skill2>().GetSkillInfo().useCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0f,
-                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
+                skill3Cooldown,
+                player.GetComponent<Skill3>().GetSkillInfo().useCooldown
             );
         }
     }
