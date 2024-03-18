@@ -500,6 +500,7 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
+        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         CharacterFeedbackManager feedbackManager = character
             .characterBase
@@ -509,6 +510,7 @@ public class Battle : MonoBehaviour
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
+        feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {
