@@ -311,25 +311,18 @@ public class CustomInputManager : InputManager
         );
     }
 
-    public void CheckSkillCooldown(UIControls control, float cooldown, bool showCooldown)
+    public void CheckSkillCooldown(UIControls control, float cooldown, bool useCooldown)
     {
         CustomMMTouchButton button = mobileButtons[control];
         GameObject cooldownContainer = buttonsCooldown[control];
         TMP_Text cooldownText = cooldownContainer.GetComponentInChildren<TMP_Text>();
-        if (showCooldown)
+        if (useCooldown)
         {
-            if ((cooldown < 1f && cooldown > 0f) || cooldown > 0f)
+            if ( cooldown > 0f)
             {
                 button.DisableButton();
                 cooldownContainer.SetActive(true);
-                if (cooldown < 1f && cooldown > 0f)
-                {
-                    cooldownText.text = String.Format("{0:0.0}", cooldown);
-                }
-                else
-                {
-                    cooldownText.text = ((ulong)cooldown + 1).ToString();
-                }
+                cooldownText.text = ((ulong)cooldown + 1).ToString();
             }
             else
             {
