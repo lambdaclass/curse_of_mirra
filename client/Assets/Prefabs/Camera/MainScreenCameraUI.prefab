@@ -950,8 +950,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
-  characterModel: 0
-  modelRotation: {fileID: 0}
 --- !u!114 &632561453189610782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,8 +1337,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
-  characterModel: 0
-  modelRotation: {fileID: 0}
 --- !u!114 &6559736042878745407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1956,8 +1952,6 @@ MonoBehaviour:
   isBackButton: 0
   executeRelease: 0
   listElement: 0
-  characterModel: 0
-  modelRotation: {fileID: 0}
 --- !u!222 &9063476113355210580
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4561,11 +4555,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ModelCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 7357497833601309290, guid: 6c457fe685aa84cc0a2e46e37a36d1ff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 8363865776471556847, guid: 6c457fe685aa84cc0a2e46e37a36d1ff,
         type: 3}
