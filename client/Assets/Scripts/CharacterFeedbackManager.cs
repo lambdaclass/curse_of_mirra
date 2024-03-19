@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -82,5 +79,17 @@ public class CharacterFeedbackManager : MonoBehaviour
             .GetComponentsInChildren<MeshRenderer>()
             .ToList();
         meshes.ForEach(mesh => mesh.enabled = isActive);
+    }
+
+    public void HandlePickUpItemFeedback(Entity playerUpdate, CharacterFeedbacks characterFeedbacks)
+    {
+        if (playerUpdate.Player.Inventory != null && !characterFeedbacks.DidPickUp())
+        {
+            characterFeedbacks.ExecutePickUpItemFeedback(true);
+        }
+        else if (playerUpdate.Player.Inventory == null && characterFeedbacks.DidPickUp())
+        {
+            characterFeedbacks.ExecutePickUpItemFeedback(false);
+        }
     }
 }
