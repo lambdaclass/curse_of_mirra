@@ -339,8 +339,9 @@ public class CustomLevelManager : LevelManager
 
     private void SetCameraToAlivePlayer()
     {
-        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-        if (KillFeedManager.instance.saveKillerId != 0)
+        ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
+        playerToFollow = Utils.GetGamePlayer(saveKillerId);
+        if (saveKillerId != 0)
         {
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
@@ -355,7 +356,7 @@ public class CustomLevelManager : LevelManager
     {
         yield return new WaitUntil(() => player != null);
         SetCameraToPlayer(playerToFollow.Id);
-        KillFeedManager.instance.saveKillerId = 0;
+        KillFeedManager.instance.SetSaveKillderId(0);
     }
 
     private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)

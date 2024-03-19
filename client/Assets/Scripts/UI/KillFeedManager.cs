@@ -16,10 +16,10 @@ public class KillFeedManager : MonoBehaviour
     public static KillFeedManager instance;
     private Queue<KillEntry> feedEvents = new Queue<KillEntry>();
 
-    public ulong saveKillerId;
-    public ulong myKillerId;
+    private ulong saveKillerId;
+    private ulong myKillerId;
 
-    public ulong playerToTrack;
+    private ulong playerToTrack;
     private const string ZONE_ID = "9999";
 
     public void Awake()
@@ -93,5 +93,17 @@ public class KillFeedManager : MonoBehaviour
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
+    }
+
+    public ulong GetSaveKillderId(){
+        return this.saveKillerId;
+    }
+
+    public void SetSaveKillderId(ulong newSaveKillderId){
+        this.saveKillerId = newSaveKillderId;
+    }
+
+    public ulong GetMyKillerId(){
+        return this.myKillerId;
     }
 }
