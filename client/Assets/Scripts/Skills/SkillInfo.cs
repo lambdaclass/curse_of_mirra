@@ -42,7 +42,7 @@ public class SkillInfo : ScriptableObject
 
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
-    public bool showCooldown;
+    public bool useCooldown;
     public float skillRange;
     public Sprite skillSprite;
 
@@ -57,6 +57,6 @@ public class SkillInfo : ScriptableObject
         this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
         this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.ownerId = Convert.ToUInt64(id);
-        this.staminaCost = configSkill.StaminaCost;
+        this.staminaCost = useCooldown ? 0 : configSkill.StaminaCost;
     }
 }

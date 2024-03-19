@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
     // If the goal is to change an entire animation duration, this is the value to change
     const float BASE_DURATION = 0.5f;
     private Entity playerEntity;
-    private CharacterInventory characterInventory;
+    private CharacterFeedbacks characterFeedbacks;
     private Item activeItem;
 
     [SerializeField]
@@ -79,7 +79,7 @@ public class InventoryUI : MonoBehaviour
             )
             .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
         yield return new WaitForSeconds(0.1f);
-        PlayerFeedback(true);
+        HandlePlayerUseItemFeedback(true);
 
         yield return new WaitForSeconds(BASE_DURATION);
         sparkleEffect.SetActive(false);
@@ -87,16 +87,17 @@ public class InventoryUI : MonoBehaviour
         inventoryImage.sprite = null;
 
         yield return new WaitForSeconds(1f);
-        PlayerFeedback(false);
+        HandlePlayerUseItemFeedback(false);
     }
 
     private void Update()
     {
-         if(GameServerConnectionManager.Instance.players.Count > 0 && characterInventory == null){
-            characterInventory = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId)
-             .GetComponent<CharacterInventory>();
+        if (GameServerConnectionManager.Instance.players.Count > 0 && characterFeedbacks == null)
+        {
+            characterFeedbacks = Utils
+                .GetCharacter(GameServerConnectionManager.Instance.playerId)
+                .GetComponent<CharacterFeedbacks>();
         }
-       
         playerEntity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
         if (PlayerHasItem(playerEntity))
         {
@@ -153,8 +154,8 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    void PlayerFeedback(bool state)
+    void HandlePlayerUseItemFeedback(bool state)
     {
-        characterInventory.ExecuteFeedback(state);
+        characterFeedbacks.ExecuteUseItemFeedback(state);
     }
 }
