@@ -32,7 +32,6 @@ public class CustomLevelManager : LevelManager
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    private ulong playerToFollowId;
     public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
@@ -82,7 +81,6 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(checkPlayerHasJoined);
         this.totalPlayers = (ulong)GameServerConnectionManager.Instance.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
-        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
         SetOrientationArrow(playerId);
@@ -346,7 +344,7 @@ public class CustomLevelManager : LevelManager
         {
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        else
+       else if(Utils.GetAlivePlayers().Count() > 0)
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);
