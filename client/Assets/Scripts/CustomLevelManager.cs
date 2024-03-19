@@ -121,14 +121,6 @@ public class CustomLevelManager : LevelManager
         }
     }
 
-    // private GameObject GetCharacterPrefab(ulong playerId)
-    // {
-    //     GameObject prefab = null;
-
-    //     OldPlayer player = Utils.GetGamePlayer(playerId);
-    //     prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
-    //     return prefab;
-    // }
 
     private void GeneratePlayers()
     {
@@ -206,7 +198,7 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            if (UInt64.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID)
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
