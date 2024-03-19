@@ -39,6 +39,7 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         "The listElement bool is true when applied to list elements. This adds a logic to distinguish between a scroll and a selection of the element"
     )]
     public bool listElement = false;
+    public bool characterModel = false;
 
     void Start()
     {
@@ -49,15 +50,18 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        if (isBackButton)
+        if (!characterModel)
         {
-            transform
-                .DOScale(initialScale - new Vector3(0.1f, 0.1f, 0.1f), duration)
-                .SetEase(Ease.OutQuad);
-        }
-        else
-        {
-            transform.DOScale(finalScale, duration).SetEase(Ease.OutQuad);
+            if (isBackButton)
+            {
+                transform
+                    .DOScale(initialScale - new Vector3(0.1f, 0.1f, 0.1f), duration)
+                    .SetEase(Ease.OutQuad);
+            }
+            else
+            {
+                transform.DOScale(finalScale, duration).SetEase(Ease.OutQuad);
+            }
         }
 
         touchStartPos = eventData.position;
@@ -73,13 +77,16 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         {
             CurrentState = ButtonStates.Off;
         }
-        if (isBackButton)
+        if (!characterModel)
         {
-            transform.DOPause();
-        }
-        else
-        {
-            transform.DOScale(initialScale, duration);
+            if (isBackButton)
+            {
+                transform.DOPause();
+            }
+            else
+            {
+                transform.DOScale(initialScale, duration);
+            }
         }
     }
 
@@ -90,13 +97,13 @@ public class ButtonAnimationsMMTouchButton : MMTouchButton
         // not by position difference
         var touchXDifference = Math.Abs(eventData.position.x - touchStartPos.x);
         var touchYDifference = Math.Abs(eventData.position.y - touchStartPos.y);
-        if (isInsideCard && listElement)
+        if (isInsideCard && (characterModel || listElement))
         {
             executeRelease = touchXDifference < MIN_DIFFERENCE && touchYDifference < MIN_DIFFERENCE;
         }
         else
         {
-            executeRelease = isInsideCard && !listElement;
+            executeRelease = isInsideCard && !(characterModel || listElement);
         }
         return executeRelease;
     }
