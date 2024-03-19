@@ -26,7 +26,7 @@ public class CustomLevelManager : LevelManager
     // private GameObject prefab;
     public Camera UiCamera;
 
-    // public OldPlayer playerToFollow;
+    public Entity playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
@@ -118,10 +118,9 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        // if (gamePlayer != null && gamePlayer.Player.Health <= 0)
-        // {
-        //     SetCameraToAlivePlayer();
-        // }
+        if(gamePlayer != null && gamePlayer.Player.Health <= 0){
+            SetCameraToAlivePlayer();
+        }
     }
 
     // private GameObject GetCharacterPrefab(ulong playerId)
@@ -340,26 +339,26 @@ public class CustomLevelManager : LevelManager
         UiControls.SetActive(false);
     }
 
-    // private void SetCameraToAlivePlayer()
-    // {
-    //     playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-    //     if (KillFeedManager.instance.saveKillerId != 0)
-    //     {
-    //         StartCoroutine(WaitToChangeCamera(playerToFollow));
-    //     }
-    //     else
-    //     {
-    //         playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-    //         setCameraToPlayer(playerToFollow.Id);
-    //     }
-    // }
+    private void SetCameraToAlivePlayer()
+    {
+        playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
+        if (KillFeedManager.instance.saveKillerId != 0)
+        {
+            StartCoroutine(WaitToChangeCamera(playerToFollow));
+        }
+        else
+        {
+            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+            SetCameraToPlayer(playerToFollow.Id);
+        }
+    }
 
-    // private IEnumerator WaitToChangeCamera(OldPlayer player)
-    // {
-    //     yield return new WaitUntil(() => player != null);
-    //     setCameraToPlayer(playerToFollow.Id);
-    //     KillFeedManager.instance.saveKillerId = 0;
-    // }
+    private IEnumerator WaitToChangeCamera(Entity player)
+    {
+        yield return new WaitUntil(() => player != null);
+        SetCameraToPlayer(playerToFollow.Id);
+        KillFeedManager.instance.saveKillerId = 0;
+    }
 
     private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
     {
