@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class RotateUIModel : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField]
-    float rotationSpeed = 1f;
+    float rotationSpeed = .5f;
 
     [SerializeField]
     GameObject modelContainer;
