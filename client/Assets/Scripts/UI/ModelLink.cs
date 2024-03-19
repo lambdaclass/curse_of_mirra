@@ -29,6 +29,10 @@ public class ModelLink : MMTouchButton, IDragHandler
         {
             base.OnPointerUp(eventData);
         }
+        else
+        {
+            CurrentState = ButtonStates.Off;
+        }
         uiModelRotator.OnPointerUp(eventData);
     }
 
