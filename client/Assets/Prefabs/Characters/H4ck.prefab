@@ -49,7 +49,6 @@ GameObject:
   - component: {fileID: 2784822964762187919}
   - component: {fileID: 4843124559102202972}
   - component: {fileID: 8294157164023158901}
-  - component: {fileID: 5544074750576289124}
   m_Layer: 10
   m_Name: H4ck
   m_TagString: Player
@@ -519,8 +518,10 @@ MonoBehaviour:
   - {fileID: 5395175593027007493}
   deathFeedback: {fileID: 6777652408794094180}
   damageFeedback: {fileID: 2341843589675793722}
-  healFeedback: {fileID: 7792701691446131362}
+  healFeedback: {fileID: 3246147742046918539}
   hitFeedback: {fileID: 5660724968042978400}
+  pickUpFeedback: {fileID: 3657418904232725223}
+  useItemFeedback: {fileID: 1431322896781444281}
   healthBar: {fileID: 2635068537373217531}
   damageOverlayColor:
     serializedVersion: 2
@@ -549,19 +550,6 @@ MonoBehaviour:
     look_up_transform: {fileID: 2873168856256294886}
   - placement_holder: {fileID: 11400000, guid: 251d01fcef767c2488315c20d26e53de, type: 2}
     look_up_transform: {fileID: 2660389712035447796}
---- !u!114 &5544074750576289124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787465996332106805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 157912053db2b43298617967c15eddb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useItemEffect: {fileID: 1431322896781444281}
 --- !u!1 &2594551953669663593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1086,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3246147742046918539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 180964227005512584, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3657418904232725223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2112059791940839140, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426755726173006851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4364836716465000514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377340570206829633, guid: 9468612907e8942b49712f4e342b630c,
@@ -1119,12 +1119,6 @@ GameObject:
 --- !u!1 &6777652408794094180 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8178896298581030503, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3426755726173006851}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7792701691446131362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4876119440034928289, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 3426755726173006851}
   m_PrefabAsset: {fileID: 0}
