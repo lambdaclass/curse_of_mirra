@@ -500,7 +500,6 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4282690884
   hasTransparentMaterials: 1
-  didPickUp: 0
 --- !u!114 &8249421845886103102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,11 +1032,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5.754
       objectReference: {fileID: 0}
-    - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: PlayerName
-      value: 
-      objectReference: {fileID: 7219090858631132377}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name
@@ -1143,12 +1137,6 @@ GameObject:
 --- !u!1 &6730391181738101473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7300840430632474630, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 4050685148264616679}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7219090858631132377 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6636529372725061182, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 4050685148264616679}
   m_PrefabAsset: {fileID: 0}
