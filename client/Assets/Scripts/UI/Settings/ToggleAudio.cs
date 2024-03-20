@@ -19,7 +19,9 @@ public class ToggleAudio : MonoBehaviour
 
     private Image muteButtonImage;
 
-    private ulong SFX_VOLUME = 3;
+    private float SFX_VOLUME = 2f;
+    private float MASTER_VOLUME = 0.7f;
+    private float MUSIC_VOLUME = 0.5f;
 
     //The engines defines this value as 0 (muted)
     private float MUTED_VOLUME = 0.0001f;
@@ -31,8 +33,8 @@ public class ToggleAudio : MonoBehaviour
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
-        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, 1);
-        unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
+        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
+        SetUnmutedVolume();
         soundManager.SetVolumeSfx(SFX_VOLUME);
         muteButtonImage.overrideSprite = IsMuted(channel) ? mutedSprite : unmutedSprite;
     }
@@ -55,6 +57,16 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
+    public void SetUnmutedVolume(){
+        if(!IsMuted(channel)){
+            float currentMusicVolume = soundManager.GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music, false);
+            float musicVolume = currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME; 
+            unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+        } else {
+            unmutedVolume = volumeSlider? volumeSlider.value : MUSIC_VOLUME;
+        }
+    }
+
     public void Toggle()
     {
         if (IsMuted(channel))
@@ -71,7 +83,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void SilenceSound()
     {
-        unmutedVolume = volumeSlider ? volumeSlider.value : 1f;
+        SetUnmutedVolume();
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
@@ -86,6 +98,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void PlaySound()
     {
+        print("Unmuted msic in " + unmutedVolume);
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
