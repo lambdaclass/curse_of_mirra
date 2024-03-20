@@ -1153,6 +1153,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6084709084056749450, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 6215745088891147141, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1183,6 +1188,21 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 426235763660890386}
+    - target: {fileID: 7896499657434286610, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896499657434286610, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896499657434286610, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 7944525655694613139, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: character
