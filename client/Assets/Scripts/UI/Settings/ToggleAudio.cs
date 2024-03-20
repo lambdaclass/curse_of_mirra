@@ -33,7 +33,7 @@ public class ToggleAudio : MonoBehaviour
     string offState = "OFF";
     string onState = "ON";
 
-    void Start()
+    void Awake()
     {
         muteButtonImage = GetComponent<Image>();
         soundManager = MMSoundManager.Instance;
