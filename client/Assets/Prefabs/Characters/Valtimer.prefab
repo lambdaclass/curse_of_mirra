@@ -529,7 +529,6 @@ MonoBehaviour:
   healOverlayColor:
     serializedVersion: 2
     rgba: 4281637428
-  didPickUp: 0
 --- !u!114 &3848229883583172591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,7 +1096,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerName
       value: 
-      objectReference: {fileID: 3450605476117559925}
+      objectReference: {fileID: 1349970238086434162}
     - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: FeedbackContainer
@@ -1240,6 +1239,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1349970238086434162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7009498691505869113, guid: 9468612907e8942b49712f4e342b630c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8357189057863228491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1367427822217931816 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6989770723404361827, guid: 9468612907e8942b49712f4e342b630c,
@@ -1264,12 +1269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b32352ba4b34ff688fd08f29fbcc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3450605476117559925 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6636529372725061182, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8357189057863228491}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5740382608016110833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4346920019462547642, guid: 9468612907e8942b49712f4e342b630c,
