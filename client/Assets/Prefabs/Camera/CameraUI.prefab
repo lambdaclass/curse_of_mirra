@@ -1161,7 +1161,7 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5235795962707484629}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -38760,6 +38760,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecb74564ab3ec44ae9e88e1ddfc812b6, type: 3}
+--- !u!1 &5235795962707484629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6609046497607784751, guid: ecb74564ab3ec44ae9e88e1ddfc812b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1373954634659989242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5437296495113412164 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6369334723233126590, guid: ecb74564ab3ec44ae9e88e1ddfc812b6,

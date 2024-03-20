@@ -20,6 +20,12 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     CustomLogs customLogs;
 
+    void Awake()
+    {
+        ToggleClientPrediction();
+        print(battle.useClientPrediction);
+    }
+
     void Start()
     {
         if (GetComponent<MMTouchButton>())
@@ -35,6 +41,7 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleClientPrediction()
     {
+        print(battle.useClientPrediction);
         if (battle.useClientPrediction)
         {
             ToggleOn();
@@ -149,11 +156,13 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleOn()
     {
+        GetComponent<Image>().enabled = selectedButton != null;
         GetComponent<Image>().sprite = selectedButton;
     }
 
     public void ToggleOff()
     {
+        GetComponent<Image>().enabled = notSelectedButton != null;
         GetComponent<Image>().sprite = notSelectedButton;
     }
 }
