@@ -200,7 +200,6 @@ public class CustomLevelManager : LevelManager
         {
             if (UInt64.Parse(player.PlayerID) == playerID && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID)
             {
-                print("Setting camera to player " + player.PlayerID);
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
             }
@@ -333,26 +332,24 @@ public class CustomLevelManager : LevelManager
     private void SetCameraToAlivePlayer()
     {
         ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
-        ulong playerToTrack = KillFeedManager.instance.GetPlayerToTrack();
-        playerToFollow = Utils.GetGamePlayer(saveKillerId);
-        print(saveKillerId);
-        print(KillFeedManager.instance.GetPlayerToTrack());
+        ulong currentTrackedPlayer = KillFeedManager.instance.GetcurrentTrackedPlayer();
+
         if (saveKillerId != 0)
         {
+            playerToFollow = Utils.GetGamePlayer(saveKillerId); 
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        else if(Utils.GetAlivePlayers().Count() > 0 && saveKillerId == playerToTrack)
+        else if(Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);
+            KillFeedManager.instance.SetcurrentTrackedPlayer(playerToFollow.Id);
         }
     }
 
     private IEnumerator WaitToChangeCamera(Entity player)
     {
         yield return new WaitUntil(() => player != null);
-        print("Waiting to change camera " + player.Id);
-        print("save killer " + KillFeedManager.instance.GetSaveKillderId());
         SetCameraToPlayer(player.Id);
         KillFeedManager.instance.SetSaveKillderId(0);
     }

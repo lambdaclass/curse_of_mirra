@@ -19,8 +19,9 @@ public class KillFeedManager : MonoBehaviour
     private ulong saveKillerId;
     private ulong myKillerId;
 
-    private ulong playerToTrack;
-    private const string ZONE_ID = "9999";
+    private ulong currentTrackedPlayer;
+    private bool currentTrackedPlayerIsSet = false;
+    private const ulong ZONE_ID = 0;
 
     void Awake()
     {
@@ -45,7 +46,7 @@ public class KillFeedManager : MonoBehaviour
 
     Sprite GetUIIcon(ulong killerId)
     {
-        if (killerId.ToString() == ZONE_ID)
+        if (killerId == ZONE_ID)
         {
             return zoneIcon;
         }
@@ -64,20 +65,18 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        if(GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && playerToTrack == 0){
-            playerToTrack = GameServerConnectionManager.Instance.playerId;
+        if(GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && currentTrackedPlayerIsSet == false){
+            currentTrackedPlayer = GameServerConnectionManager.Instance.playerId;
+            currentTrackedPlayerIsSet = true;
         }
 
         KillEntry killEvent = null;
         while (feedEvents.TryDequeue(out killEvent))
         {
-            print(playerToTrack);
-            print(killEvent.VictimId);
-            if (playerToTrack == killEvent.VictimId)
+            if (currentTrackedPlayer == killEvent.VictimId)
             {
                 saveKillerId = killEvent.KillerId;
-                playerToTrack = saveKillerId;
-                print("Entro al killamanager " + saveKillerId);
+                currentTrackedPlayer = saveKillerId;
             }
 
             if (killEvent.VictimId == GameServerConnectionManager.Instance.playerId)
@@ -101,8 +100,8 @@ public class KillFeedManager : MonoBehaviour
             Destroy(item, 3.0f);
         }
 
-        if(Utils.GetGamePlayer(playerToTrack)?.Player.Health <= 0 && killEvent == null){
-            playerToTrack = saveKillerId;
+        if(Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null){
+            currentTrackedPlayer = ZONE_ID;
         }
     }
 
@@ -118,7 +117,11 @@ public class KillFeedManager : MonoBehaviour
         return this.myKillerId;
     }
 
-    public ulong GetPlayerToTrack(){
-        return this.playerToTrack;
+    public ulong GetcurrentTrackedPlayer(){
+        return this.currentTrackedPlayer;
+    }
+
+    public void SetcurrentTrackedPlayer(ulong newcurrentTrackedPlayer){
+        this.currentTrackedPlayer = newcurrentTrackedPlayer;
     }
 }
