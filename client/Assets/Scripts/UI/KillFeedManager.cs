@@ -80,8 +80,12 @@ public class KillFeedManager : MonoBehaviour
             // TODO: fix this when the player names are fixed in the server.
             // string deathPlayerName = ServerConnection.Instance.playersIdName[killEvent.VictimId];
             // string killerPlayerName = ServerConnection.Instance.playersIdName[killEvent.KillerId];
-            string deathPlayerName = killEvent.VictimId.ToString();
-            string killerPlayerName = killEvent.KillerId.ToString();
+            ulong deathPlayerId = killEvent.VictimId;
+            ulong killerPlayerId = killEvent.KillerId;
+
+            string deathPlayerName = Utils.GetGamePlayer(deathPlayerId).Name;
+            string killerPlayerName = Utils.GetGamePlayer(killerPlayerId).Name;
+
             Sprite killerIcon = GetUIIcon(killEvent.KillerId);
             Sprite killedIcon = GetUIIcon(killEvent.VictimId);
 

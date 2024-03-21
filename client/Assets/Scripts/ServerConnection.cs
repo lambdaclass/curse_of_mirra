@@ -150,7 +150,9 @@ public class ServerConnection : MonoBehaviour
         SessionParameters.PlayerId = id;
         this.playerId = id;
         string character_name = CharactersManager.Instance.GoToCharacter.ToLower();
-        string url = makeWebsocketUrl("/join/" + id + "/" + character_name);
+        string player_name = PlayerPrefs.GetString("playerName");
+        string url = makeWebsocketUrl("/join/" + id + "/" + character_name + "/" + player_name);
+        print(url);
         ws = new WebSocket(url);
         ws.OnMessage += OnWebSocketMessage;
         ws.OnClose += OnWebsocketClose;
