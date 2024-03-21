@@ -39,6 +39,7 @@ public class Battle : MonoBehaviour
     private PlayerControls playerControls;
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
+    private const float teleportThreshold = 7;
 
     void Start()
     {
@@ -274,7 +275,7 @@ public class Battle : MonoBehaviour
                     // the last server update.
                     if (clientPredictionGhost != null)
                     {
-                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
+                        UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime, false);
                     }
                     GameServerConnectionManager
                         .Instance
@@ -291,7 +292,8 @@ public class Battle : MonoBehaviour
                     UpdatePlayer(
                         interpolationGhost,
                         buffer.lastEvent().Players[player.Id],
-                        pastTime
+                        pastTime,
+                        false
                     );
                 }
 
@@ -301,7 +303,7 @@ public class Battle : MonoBehaviour
 
                 if (currentPlayer.activeSelf)
                 {
-                    UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
+                    UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime, true);
 
                     if (!buffer.timestampAlreadySeen(player.Id, gameEvent.ServerTimestamp))
                     {
@@ -487,7 +489,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime)
+    private void UpdatePlayer(GameObject player, Entity playerUpdate, long pastTime, bool isPlayer)
     {
         /*
         Player has a speed of 3 tiles per tick. A tile in unity is 0.3f a distance of 0.3f.
@@ -514,7 +516,7 @@ public class Battle : MonoBehaviour
 
         if (!GameServerConnectionManager.Instance.GameHasEnded())
         {
-            HandleMovement(player, playerUpdate, pastTime, characterSpeed);
+            HandleMovement(player, playerUpdate, pastTime, characterSpeed, isPlayer);
         }
         else
         {
@@ -570,7 +572,8 @@ public class Battle : MonoBehaviour
         GameObject player,
         Entity playerUpdate,
         long pastTime,
-        float characterSpeed
+        float characterSpeed,
+        bool isPlayer
     )
     {
         // This is tickRate * characterSpeed. Once we decouple tickRate from speed on the backend
@@ -665,6 +668,14 @@ public class Battle : MonoBehaviour
             {
                 character.RotatePlayer(direction);
             }
+        }
+
+        float changeTotal = Math.Abs(xChange) + Math.Abs(yChange);
+
+        if (changeTotal > teleportThreshold && isPlayer) {
+            GameServerConnectionManager
+            .Instance.clientPrediction.pendingPlayerInputs = new List<ClientPrediction.PlayerInput>();
+            player.transform.position = frontendPosition;
         }
 
         character.RotateCharacterOrientation();
