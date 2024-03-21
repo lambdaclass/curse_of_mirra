@@ -332,7 +332,7 @@ public class CustomLevelManager : LevelManager
     private void SetCameraToAlivePlayer()
     {
         ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
-        ulong currentTrackedPlayer = KillFeedManager.instance.GetcurrentTrackedPlayer();
+        ulong currentTrackedPlayer = KillFeedManager.instance.GetCurrentTrackedPlayer();
 
         if (saveKillerId != 0)
         {
@@ -343,7 +343,7 @@ public class CustomLevelManager : LevelManager
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);
-            KillFeedManager.instance.SetcurrentTrackedPlayer(playerToFollow.Id);
+            KillFeedManager.instance.SetCurrentTrackedPlayer(playerToFollow.Id);
         }
     }
 

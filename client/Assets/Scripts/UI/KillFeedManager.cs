@@ -117,11 +117,11 @@ public class KillFeedManager : MonoBehaviour
         return this.myKillerId;
     }
 
-    public ulong GetcurrentTrackedPlayer(){
+    public ulong GetCurrentTrackedPlayer(){
         return this.currentTrackedPlayer;
     }
 
-    public void SetcurrentTrackedPlayer(ulong newcurrentTrackedPlayer){
-        this.currentTrackedPlayer = newcurrentTrackedPlayer;
+    public void SetCurrentTrackedPlayer(ulong newCurrentTrackedPlayer){
+        this.currentTrackedPlayer = newCurrentTrackedPlayer;
     }
 }
