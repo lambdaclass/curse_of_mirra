@@ -352,6 +352,7 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(() => player != null);
         SetCameraToPlayer(player.Id);
         KillFeedManager.instance.SetSaveKillderId(0);
+        KillFeedManager.instance.SetCurrentTrackedPlayer(player.Id);
     }
 
     private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
