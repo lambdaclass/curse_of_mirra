@@ -22,10 +22,9 @@ public class KillFeedManager : MonoBehaviour
     private ulong playerToTrack;
     private const string ZONE_ID = "9999";
 
-    public void Awake()
+    void Awake()
     {
         KillFeedManager.instance = this;
-        playerToTrack = GameServerConnectionManager.Instance.playerId;
     }
 
     public void putEvents(List<KillEntry> newFeedEvent)
@@ -65,14 +64,22 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        KillEntry killEvent;
+        if(GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && playerToTrack == 0){
+            playerToTrack = GameServerConnectionManager.Instance.playerId;
+        }
+
+        KillEntry killEvent = null;
         while (feedEvents.TryDequeue(out killEvent))
         {
+            print(playerToTrack);
+            print(killEvent.VictimId);
             if (playerToTrack == killEvent.VictimId)
             {
                 saveKillerId = killEvent.KillerId;
                 playerToTrack = saveKillerId;
+                print("Entro al killamanager " + saveKillerId);
             }
+
             if (killEvent.VictimId == GameServerConnectionManager.Instance.playerId)
             {
                 myKillerId = killEvent.KillerId;
@@ -93,6 +100,10 @@ public class KillFeedManager : MonoBehaviour
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
+
+        if(Utils.GetGamePlayer(playerToTrack)?.Player.Health <= 0 && killEvent == null){
+            playerToTrack = saveKillerId;
+        }
     }
 
     public ulong GetSaveKillderId(){
@@ -105,5 +116,9 @@ public class KillFeedManager : MonoBehaviour
 
     public ulong GetMyKillerId(){
         return this.myKillerId;
+    }
+
+    public ulong GetPlayerToTrack(){
+        return this.playerToTrack;
     }
 }
