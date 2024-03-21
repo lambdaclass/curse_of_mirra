@@ -1156,7 +1156,7 @@ PrefabInstance:
     - target: {fileID: 6084709084056749450, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: ShapeModule.radius.value
-      value: 0.65
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6215745088891147141, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -1201,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 7896499657434286610, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.17
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 7944525655694613139, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
