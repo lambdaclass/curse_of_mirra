@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class ToggleAudio : MonoBehaviour
 {
     [SerializeField]
+    UISoundManager uiSoundManager;
+
+    [SerializeField]
     public Sprite mutedSprite;
 
     [SerializeField]
@@ -16,16 +19,7 @@ public class ToggleAudio : MonoBehaviour
 
     private float unmutedVolume;
 
-    private MMSoundManager soundManager;
-
     private Image muteButtonImage;
-
-    private float SFX_VOLUME = 2f;
-    private float MASTER_VOLUME = 0.7f;
-    private float MUSIC_VOLUME = 0.5f;
-
-    //The engines defines this value as 0 (muted)
-    private float MUTED_VOLUME = 0.0001f;
 
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channel;
@@ -38,10 +32,7 @@ public class ToggleAudio : MonoBehaviour
     void Awake()
     {
         muteButtonImage = GetComponent<Image>();
-        soundManager = MMSoundManager.Instance;
-        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         SetUnmutedVolume();
-        soundManager.SetVolumeSfx(SFX_VOLUME);
         if (IsMuted(channel))
         {
             UpdateMutedUIState();
@@ -57,7 +48,7 @@ public class ToggleAudio : MonoBehaviour
         if (
             volumeSlider
             && (IsMuted(channel) && unmutedVolume != volumeSlider.value)
-            && volumeSlider.value > MUTED_VOLUME
+            && volumeSlider.value > uiSoundManager.mutedVolume
         )
         {
             unmutedVolume = volumeSlider.value;
@@ -66,17 +57,26 @@ public class ToggleAudio : MonoBehaviour
         if (volumeSlider)
         {
             muteButtonImage.overrideSprite =
-                volumeSlider.value == MUTED_VOLUME ? mutedSprite : unmutedSprite;
+                volumeSlider.value == uiSoundManager.mutedVolume ? mutedSprite : unmutedSprite;
         }
     }
 
-    public void SetUnmutedVolume(){
-        if(!IsMuted(channel)){
-            float currentMusicVolume = soundManager.GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music, false);
-            float musicVolume = currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME; 
+    public void SetUnmutedVolume()
+    {
+        if (!IsMuted(channel))
+        {
+            float currentMusicVolume = uiSoundManager
+                .soundManager
+                .GetTrackVolume(MMSoundManager.MMSoundManagerTracks.Music, false);
+            float musicVolume =
+                currentMusicVolume != uiSoundManager.musicVolume
+                    ? currentMusicVolume
+                    : uiSoundManager.musicVolume;
             unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
-        } else {
-            unmutedVolume = volumeSlider? volumeSlider.value : MUSIC_VOLUME;
+        }
+        else
+        {
+            unmutedVolume = volumeSlider ? volumeSlider.value : uiSoundManager.musicVolume;
         }
     }
 
@@ -128,29 +128,28 @@ public class ToggleAudio : MonoBehaviour
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
-                soundManager.MuteMusic();
+                uiSoundManager.soundManager.MuteMusic();
                 break;
             case MMSoundManager.MMSoundManagerTracks.Sfx:
-                soundManager.MuteSfx();
+                uiSoundManager.soundManager.MuteSfx();
                 break;
         }
-        soundManager.PauseTrack(channel);
+        uiSoundManager.soundManager.PauseTrack(channel);
     }
 
     private void PlaySound()
     {
-        print("Unmuted msic in " + unmutedVolume);
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
-                soundManager.UnmuteMusic();
+                uiSoundManager.soundManager.UnmuteMusic();
                 break;
             case MMSoundManager.MMSoundManagerTracks.Sfx:
-                soundManager.UnmuteSfx();
+                uiSoundManager.soundManager.UnmuteSfx();
                 break;
         }
         SetVolume(unmutedVolume);
-        soundManager.PlayTrack(channel);
+        uiSoundManager.soundManager.PlayTrack(channel);
     }
 
     private void SetVolume(float newVolume)
@@ -158,10 +157,10 @@ public class ToggleAudio : MonoBehaviour
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
-                soundManager.SetVolumeMusic(newVolume);
+                uiSoundManager.soundManager.SetVolumeMusic(newVolume);
                 break;
             case MMSoundManager.MMSoundManagerTracks.Sfx:
-                soundManager.SetVolumeSfx(newVolume);
+                uiSoundManager.soundManager.SetVolumeSfx(newVolume);
                 break;
         }
     }
@@ -169,7 +168,8 @@ public class ToggleAudio : MonoBehaviour
     private bool IsMuted(MMSoundManager.MMSoundManagerTracks track)
     {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
-        return !soundManager.IsMuted(track)
-            || soundManager.GetTrackVolume(track, false) <= MUTED_VOLUME;
+        return !uiSoundManager.soundManager.IsMuted(track)
+            || uiSoundManager.soundManager.GetTrackVolume(track, false)
+                <= uiSoundManager.mutedVolume;
     }
 }

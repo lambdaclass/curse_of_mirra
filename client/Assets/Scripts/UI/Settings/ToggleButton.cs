@@ -41,7 +41,6 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleClientPrediction()
     {
-        print(battle.useClientPrediction);
         if (battle.useClientPrediction)
         {
             ToggleOn();
