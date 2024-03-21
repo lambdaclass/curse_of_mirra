@@ -176,7 +176,7 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            newPlayer.characterBase.PlayerName.GetComponent<TextMeshPro>().text = player.Name;
+            newPlayer.characterBase.PlayerName.GetComponent<TextMeshProUGUI>().text = player.Name;
             SetPlayerHealthBar(
                 GameServerConnectionManager.Instance.playerId == player.Id,
                 newPlayer
