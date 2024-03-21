@@ -499,6 +499,7 @@ MonoBehaviour:
   healOverlayColor:
     serializedVersion: 2
     rgba: 4282690884
+  hasTransparentMaterials: 1
 --- !u!114 &8249421845886103102
 MonoBehaviour:
   m_ObjectHideFlags: 0

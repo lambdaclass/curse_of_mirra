@@ -34,15 +34,15 @@ public class CharacterFeedbacks : MonoBehaviour
     MMProgressBar healthBar;
 
     [SerializeField]
-    Color32 damageOverlayColor;
+    Color damageOverlayColor;
 
     [SerializeField]
-    Color32 healOverlayColor;
+    Color healOverlayColor;
 
-    Color32 baseOverlayColor;
-    Color32 currentOverlayColor;
+    Color baseOverlayColor;
+    Color currentOverlayColor;
     float overlayTime = 0;
-    float overlayDuration = 1f;
+    float overlayDuration = 5f;
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
 
@@ -54,9 +54,9 @@ public class CharacterFeedbacks : MonoBehaviour
 
     void Start()
     {
-        damageOverlayColor = new Color32(255, 0, 0, 255);
-        baseOverlayColor = new Color32(255, 255, 255, 255);
-        healOverlayColor = new Color32(68, 173, 68, 255);
+        damageOverlayColor = new Color(255, 0, 0, 1);
+        baseOverlayColor = new Color(255, 255, 255, 1);
+        healOverlayColor = new Color(68, 173, 68, 1);
     }
 
     void Update()
@@ -74,6 +74,12 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
+    public void SetColorOverlayAlpha(float currentAlpha)
+    {
+        damageOverlayColor.a = currentAlpha;
+        currentOverlayColor.a = currentAlpha;
+        baseOverlayColor.a = currentAlpha;
+    }
     public void SetActiveStateFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksStatesPrefabs.Find(el => el.name == name);
