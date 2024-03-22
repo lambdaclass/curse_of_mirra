@@ -61,12 +61,15 @@ public class ToggleAudio : MonoBehaviour
         )
         {
             unmutedVolume = volumeSlider.value;
+            UpdateUnmutedUIState();
         }
 
         if (volumeSlider)
         {
-            muteButtonImage.overrideSprite =
-                volumeSlider.value == MUTED_VOLUME ? mutedSprite : unmutedSprite;
+            if (volumeSlider.value == MUTED_VOLUME)
+            {
+                UpdateMutedUIState();
+            }
         }
     }
 
@@ -114,7 +117,6 @@ public class ToggleAudio : MonoBehaviour
                 soundManager.MuteSfx();
                 break;
         }
-        soundManager.PauseTrack(channel);
     }
 
     private void PlaySound()
@@ -129,7 +131,6 @@ public class ToggleAudio : MonoBehaviour
                 break;
         }
         SetVolume(unmutedVolume);
-        soundManager.PlayTrack(channel);
     }
 
     private void SetVolume(float newVolume)
@@ -159,7 +160,7 @@ public class ToggleAudio : MonoBehaviour
             muteButtonImage.enabled = true;
             muteButtonImage.overrideSprite = unmutedSprite;
         }
-        else if (unmutedSprite == null)
+        else
         {
             muteButtonImage.enabled = false;
         }
