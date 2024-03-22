@@ -63,13 +63,9 @@ public class ToggleAudio : MonoBehaviour
             unmutedVolume = volumeSlider.value;
             UpdateUnmutedUIState();
         }
-
-        if (volumeSlider)
+        if (volumeSlider.value == 0)
         {
-            if (volumeSlider.value == MUTED_VOLUME)
-            {
-                UpdateMutedUIState();
-            }
+            UpdateMutedUIState();
         }
     }
 
@@ -155,29 +151,15 @@ public class ToggleAudio : MonoBehaviour
 
     private void UpdateUnmutedUIState()
     {
-        if (unmutedSprite != null)
-        {
-            muteButtonImage.enabled = true;
-            muteButtonImage.overrideSprite = unmutedSprite;
-        }
-        else
-        {
-            muteButtonImage.enabled = false;
-        }
+        muteButtonImage.enabled = unmutedSprite != null;
+        muteButtonImage.overrideSprite = unmutedSprite;
         textSoundState.text = onState;
     }
 
     private void UpdateMutedUIState()
     {
-        if (mutedSprite != null)
-        {
-            muteButtonImage.enabled = true;
-            muteButtonImage.overrideSprite = mutedSprite;
-        }
-        else
-        {
-            muteButtonImage.enabled = false;
-        }
+        muteButtonImage.enabled = mutedSprite != null;
+        muteButtonImage.overrideSprite = mutedSprite;
         textSoundState.text = offState;
     }
 }

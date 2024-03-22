@@ -22,8 +22,18 @@ public class ToggleButton : MonoBehaviour
 
     void Awake()
     {
-        ToggleClientPrediction();
-        print(battle.useClientPrediction);
+        if (battle != null)
+        {
+            ToggleClientPrediction();
+            ToggleClientPredictionGhost();
+            ToggleInterpolationGhosts();
+            SetGridSettings();
+        }
+        if (customLogs != null)
+        {
+            ToggleAllLogs();
+            ToggleCustomLogs();
+        }
     }
 
     void Start()
@@ -138,6 +148,18 @@ public class ToggleButton : MonoBehaviour
         {
             ToggleOn();
             battle.GetMapGrid().SetActive(true);
+        }
+    }
+
+    public void SetGridSettings()
+    {
+        if (battle.GetMapGrid().activeSelf)
+        {
+            ToggleOn();
+        }
+        else
+        {
+            ToggleOff();
         }
     }
 
