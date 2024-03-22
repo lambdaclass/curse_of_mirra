@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillInfo
   name: WRAP
   description: Teleport-like dash, opening a black hole and then warping to it.
-  inputType: 2
+  inputType: 1
   skillSetType: 2
+  isTeleport: 1
   angle: 0
   staminaCost: 0
-  indicatorType: 2
+  indicatorType: 1
   hasProjectile: 0
   hasSkillPool: 0
   projectilePrefab: {fileID: 0}
@@ -40,8 +41,10 @@ MonoBehaviour:
     duration: 2
     delay: 0
     instantiateVfxOnModel: 0
+    createInDiffPos: 0
   - vfx: {fileID: 6888337135511328701, guid: 8304582cda4a3b443acf5eed8deaa160, type: 3}
     duration: 2
     delay: 0.3
     instantiateVfxOnModel: 0
+    createInDiffPos: 1
   animationList: []

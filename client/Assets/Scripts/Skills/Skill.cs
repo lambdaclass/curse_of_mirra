@@ -143,6 +143,7 @@ public class Skill : CharacterAbility
                     vfxStep.duration,
                     vfxStep.delay,
                     vfxStep.instantiateVfxOnModel,
+                    vfxStep.createInDiffPos,
                     this.skillInfo.hasSkillPool
                 )
             );
@@ -195,6 +196,7 @@ public class Skill : CharacterAbility
                     nextAnimation.vfxStep.duration,
                     nextAnimation.vfxStep.delay,
                     nextAnimation.vfxStep.instantiateVfxOnModel,
+                    nextAnimation.vfxStep.createInDiffPos,
                     this.skillInfo.hasSkillPool
                 )
             );
@@ -219,6 +221,7 @@ public class Skill : CharacterAbility
         float duration,
         float delay,
         bool instantiateVfxOnModel,
+        bool createOnDiffPos,
         bool hasSkillPool
     )
     {
@@ -244,6 +247,11 @@ public class Skill : CharacterAbility
             if(hasSkillPool){
                vfxPosition = SetPoolDiameterAndPosition(vfx);
             }
+
+            if(createOnDiffPos){
+                print("Yes");
+            }
+
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
            
             vfxInstance

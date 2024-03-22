@@ -321,7 +321,7 @@ public class Battle : MonoBehaviour
                                 ExecuteSkillFeedback(
                                     currentPlayer,
                                     playerAction.Action,
-                                    serverPlayerUpdate.Direction,
+                                    serverPlayerUpdate,
                                     playerAction.Duration
                                 );
                             }
@@ -360,11 +360,12 @@ public class Battle : MonoBehaviour
     private void ExecuteSkillFeedback(
         GameObject currentPlayer,
         PlayerActionType playerAction,
-        Direction direction,
+        Entity entity,
         ulong skillDuration
     )
     {
         CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
+        Direction direction = entity.Direction;
         // TODO: Refactor
         switch (playerAction)
         {
@@ -670,6 +671,7 @@ public class Battle : MonoBehaviour
         character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
+
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH

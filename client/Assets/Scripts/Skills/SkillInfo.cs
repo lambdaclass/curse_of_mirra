@@ -14,6 +14,8 @@ public class SkillInfo : ScriptableObject
     public UIType inputType;
 
     public UIControls skillSetType;
+    [MMEnumCondition("skillSetType", (int)UIControls.Skill3)]
+    public bool isTeleport;
     public float angle;
     public ulong staminaCost;
     public UIIndicatorType indicatorType;
