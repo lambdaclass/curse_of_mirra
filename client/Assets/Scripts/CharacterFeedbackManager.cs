@@ -29,7 +29,9 @@ public class CharacterFeedbackManager : MonoBehaviour
         {
             if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
             {
-                HandleInvisible(playerUpdate.Id, character);
+                if(skinnedMeshRenderer.material.color.a == 1){
+                    HandleInvisible(playerUpdate.Id, character);
+                }
             }
             else
             {
@@ -38,6 +40,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                 canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
                 SetMeshes(true, character);
                 vfxList.ForEach(el => el.SetActive(true));
+                character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
             }
         }
     }
@@ -49,6 +52,8 @@ public class CharacterFeedbackManager : MonoBehaviour
         skinnedMeshRenderer.material = transparentMaterial;
         Color color = skinnedMeshRenderer.material.color;
         skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
+        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
+
         if (!isClient)
         {
             var canvasHolder = character.characterBase.CanvasHolder;
