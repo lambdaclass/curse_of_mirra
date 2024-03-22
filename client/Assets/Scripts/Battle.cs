@@ -99,6 +99,7 @@ public class Battle : MonoBehaviour
             && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
+            myClientCharacter = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
             SetAccumulatedTime();
             UpdateBattleState();
         }
@@ -160,7 +161,7 @@ public class Battle : MonoBehaviour
             {
                 if (BlockingMovementStates[i] == (character.MovementState.CurrentState))
                 {
-                    return false;
+                   return false;
                 }
             }
         }
@@ -276,7 +277,8 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
-                    GameServerConnectionManager
+
+                    serverPlayerUpdate = GameServerConnectionManager
                         .Instance
                         .clientPrediction
                         .SimulatePlayerState(

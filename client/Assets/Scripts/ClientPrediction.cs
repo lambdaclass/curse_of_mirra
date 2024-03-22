@@ -51,11 +51,11 @@ public class ClientPrediction
         EnqueuePlayerInput(playerInput);
     }
 
-    public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
+    public Entity SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
     {
         UpdateLastAcknowledgedInput(player, timestampId, serverTimestamp);
         RemoveServerAcknowledgedInputs(timestampId);
-        SimulatePlayerMovement(player);
+        return SimulatePlayerMovement(player);
     }
 
     void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
@@ -81,7 +81,7 @@ public class ClientPrediction
         pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
     }
 
-    void SimulatePlayerMovement(Entity player)
+   Entity  SimulatePlayerMovement(Entity player)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
@@ -96,7 +96,7 @@ public class ClientPrediction
             float ticks = (endTimestamp - input.startTimestamp) / tickRate;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
-
+            
             if (movementDirection.x != 0 || movementDirection.y != 0)
             {
                 currentDirection = new Direction
@@ -119,8 +119,7 @@ public class ClientPrediction
             currentPosition = new Position { X = newPosition.x, Y = newPosition.z };
         });
 
-        player.Position = currentPosition;
-        player.Direction = currentDirection;
+        return player;
     }
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)
