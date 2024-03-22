@@ -16,16 +16,16 @@ public class KillFeedManager : MonoBehaviour
     public static KillFeedManager instance;
     private Queue<KillEntry> feedEvents = new Queue<KillEntry>();
 
-    public ulong saveKillerId;
-    public ulong myKillerId;
+    private ulong saveKillerId;
+    private ulong myKillerId;
 
-    public ulong playerToTrack;
-    private const string ZONE_ID = "9999";
+    private ulong currentTrackedPlayer;
+    private bool currentTrackedPlayerIsSet = false;
+    private const ulong ZONE_ID = 0;
 
-    public void Awake()
+    void Awake()
     {
         KillFeedManager.instance = this;
-        playerToTrack = GameServerConnectionManager.Instance.playerId;
     }
 
     public void putEvents(List<KillEntry> newFeedEvent)
@@ -46,7 +46,7 @@ public class KillFeedManager : MonoBehaviour
 
     Sprite GetUIIcon(ulong killerId)
     {
-        if (killerId.ToString() == ZONE_ID)
+        if (killerId == ZONE_ID)
         {
             return zoneIcon;
         }
@@ -65,14 +65,20 @@ public class KillFeedManager : MonoBehaviour
 
     public void Update()
     {
-        KillEntry killEvent;
+        if(GameServerConnectionManager.Instance.gamePlayers?.Count() > 0 && currentTrackedPlayerIsSet == false){
+            currentTrackedPlayer = GameServerConnectionManager.Instance.playerId;
+            currentTrackedPlayerIsSet = true;
+        }
+
+        KillEntry killEvent = null;
         while (feedEvents.TryDequeue(out killEvent))
         {
-            if (playerToTrack == killEvent.VictimId)
+            if (currentTrackedPlayer == killEvent.VictimId)
             {
                 saveKillerId = killEvent.KillerId;
-                playerToTrack = saveKillerId;
+                currentTrackedPlayer = saveKillerId;
             }
+
             if (killEvent.VictimId == GameServerConnectionManager.Instance.playerId)
             {
                 myKillerId = killEvent.KillerId;
@@ -80,8 +86,12 @@ public class KillFeedManager : MonoBehaviour
             // TODO: fix this when the player names are fixed in the server.
             // string deathPlayerName = ServerConnection.Instance.playersIdName[killEvent.VictimId];
             // string killerPlayerName = ServerConnection.Instance.playersIdName[killEvent.KillerId];
-            string deathPlayerName = killEvent.VictimId.ToString();
-            string killerPlayerName = killEvent.KillerId.ToString();
+            ulong deathPlayerId = killEvent.VictimId;
+            ulong killerPlayerId = killEvent.KillerId;
+
+            string deathPlayerName = Utils.GetGamePlayer(deathPlayerId).Name;
+            string killerPlayerName = Utils.GetGamePlayer(killerPlayerId).Name;
+
             Sprite killerIcon = GetUIIcon(killEvent.KillerId);
             Sprite killedIcon = GetUIIcon(killEvent.VictimId);
 
@@ -89,5 +99,29 @@ public class KillFeedManager : MonoBehaviour
             GameObject item = Instantiate(killFeedItem.gameObject, transform);
             Destroy(item, 3.0f);
         }
+
+        if(Utils.GetGamePlayer(currentTrackedPlayer)?.Player.Health <= 0 && killEvent == null){
+            currentTrackedPlayer = ZONE_ID;
+        }
+    }
+
+    public ulong GetSaveKillderId(){
+        return this.saveKillerId;
+    }
+
+    public void SetSaveKillderId(ulong newSaveKillderId){
+        this.saveKillerId = newSaveKillderId;
+    }
+
+    public ulong GetMyKillerId(){
+        return this.myKillerId;
+    }
+
+    public ulong GetCurrentTrackedPlayer(){
+        return this.currentTrackedPlayer;
+    }
+
+    public void SetCurrentTrackedPlayer(ulong newCurrentTrackedPlayer){
+        this.currentTrackedPlayer = newCurrentTrackedPlayer;
     }
 }

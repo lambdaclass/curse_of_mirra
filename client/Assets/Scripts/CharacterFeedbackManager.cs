@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -32,7 +29,10 @@ public class CharacterFeedbackManager : MonoBehaviour
         {
             if (hasEffect(playerUpdate.Player.Effects.Values, "invisible"))
             {
-                HandleInvisible(playerUpdate.Id, character);
+                if (skinnedMeshRenderer.material.color.a == 1)
+                {
+                    HandleInvisible(playerUpdate.Id, character);
+                }
             }
             else
             {
@@ -41,6 +41,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                 canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
                 SetMeshes(true, character);
                 vfxList.ForEach(el => el.SetActive(true));
+                character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
             }
         }
     }
@@ -52,6 +53,8 @@ public class CharacterFeedbackManager : MonoBehaviour
         skinnedMeshRenderer.material = transparentMaterial;
         Color color = skinnedMeshRenderer.material.color;
         skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
+        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
+
         if (!isClient)
         {
             var canvasHolder = character.characterBase.CanvasHolder;
@@ -89,5 +92,17 @@ public class CharacterFeedbackManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void HandlePickUpItemFeedback(Entity playerUpdate, CharacterFeedbacks characterFeedbacks)
+    {
+        if (playerUpdate.Player.Inventory != null && !characterFeedbacks.DidPickUp())
+        {
+            characterFeedbacks.ExecutePickUpItemFeedback(true);
+        }
+        else if (playerUpdate.Player.Inventory == null && characterFeedbacks.DidPickUp())
+        {
+            characterFeedbacks.ExecutePickUpItemFeedback(false);
+        }
     }
 }

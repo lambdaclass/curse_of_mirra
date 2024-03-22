@@ -11,7 +11,8 @@ public class EndGameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rankingText,
         rankingTextShadow,
-        amountOfKillsText;
+        amountOfKillsText,
+        defeaterPlayerName;
 
     [SerializeField]
     GameObject defeatedByContainer,
@@ -97,7 +98,7 @@ public class EndGameManager : MonoBehaviour
         }
         else
         {
-            //defeaterPlayerName.text = GetDefeaterPlayerName();
+            MaybeShowDefeaterName();
             // Defeated By Image
             defeaterImage.sprite = GetDefeaterSprite();
         }
@@ -111,9 +112,17 @@ public class EndGameManager : MonoBehaviour
         return 77;
     }
 
+    void MaybeShowDefeaterName(){
+        if(KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID){
+            defeaterPlayerName.gameObject.SetActive(false);
+        } else {
+            defeaterPlayerName.text = GetDefeaterPlayerName();
+        }
+    }
+
     private Sprite GetDefeaterSprite()
     {
-        if (KillFeedManager.instance.myKillerId.ToString() == ZONE_ID)
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
         {
             return KillFeedManager.instance.zoneIcon;
         }
@@ -128,7 +137,7 @@ public class EndGameManager : MonoBehaviour
                             .name
                             .Contains(
                                 Utils
-                                    .GetPlayer(KillFeedManager.instance.myKillerId)
+                                    .GetPlayer(KillFeedManager.instance.GetMyKillerId())
                                     .GetComponent<CustomCharacter>()
                                     .CharacterModel
                                     .name
@@ -136,6 +145,10 @@ public class EndGameManager : MonoBehaviour
                 );
             return killerCharacter.UIIcon;
         }
+    }
+
+    private string GetDefeaterPlayerName(){
+        return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
     }
 
     public void ShowCharacterAnimation()

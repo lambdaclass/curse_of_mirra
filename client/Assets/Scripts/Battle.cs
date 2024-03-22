@@ -32,6 +32,7 @@ public class Battle : MonoBehaviour
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
     private long lastMovementUpdate;
+    private long lastForcedMovementUpdate;
 
     [SerializeField]
     private CustomLevelManager levelManager;
@@ -49,6 +50,7 @@ public class Battle : MonoBehaviour
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
         lastMovementUpdate = 0;
+        lastForcedMovementUpdate = 0;
     }
 
     private void InitBlockingStates()
@@ -110,7 +112,13 @@ public class Battle : MonoBehaviour
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            long forcedMovementMessageInterval = 500;
+            if ((nowMiliseconds - lastForcedMovementUpdate) >= forcedMovementMessageInterval)
+            {
+                SendPlayerMovement(true);
+                lastForcedMovementUpdate = nowMiliseconds;
+            }
+            else if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
@@ -144,7 +152,7 @@ public class Battle : MonoBehaviour
         accumulatedTime = (currentTimestamp - firstTimestamp);
     }
 
-    public bool PlayerMovementAuthorized(Character character)
+    public bool PlayerMovementAuthorized(CustomCharacter character)
     {
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
@@ -171,7 +179,7 @@ public class Battle : MonoBehaviour
         return true;
     }
 
-    public void SendPlayerMovement()
+    public void SendPlayerMovement(bool forceSend = false)
     {
         Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
@@ -192,17 +200,21 @@ public class Battle : MonoBehaviour
                 )
                 {
                     // Using joysticks
-                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    playerControls.SendJoystickValues(
+                        joystickL.RawValue.x,
+                        joystickL.RawValue.y,
+                        forceSend
+                    );
                 }
                 else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
-                    playerControls.SendAction();
+                    playerControls.SendAction(forceSend);
                 }
                 else
                 {
                     // Not pressing anything
-                    playerControls.SendJoystickValues(0, 0);
+                    playerControls.SendJoystickValues(0, 0, forceSend);
                 }
             }
         }
@@ -286,7 +298,7 @@ public class Battle : MonoBehaviour
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
                 // TODO: try to optimize GetComponent calls
                 CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-
+                
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
@@ -529,6 +541,7 @@ public class Battle : MonoBehaviour
         is the direction of deltaX, which we can calculate (assumming we haven't lost socket
         frames, but that's fine).
         */
+        CharacterFeedbacks characterFeedbacks = player.GetComponent<CharacterFeedbacks>();
         CustomCharacter character = player.GetComponent<CustomCharacter>();
         CharacterFeedbackManager feedbackManager = character
             .characterBase
@@ -538,8 +551,9 @@ public class Battle : MonoBehaviour
         Animator modelAnimator = character.CharacterModel.GetComponent<Animator>();
 
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
+        feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
 
-        if (!GameServerConnectionManager.Instance.GameHasEnded())
+        if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
         {
             HandleMovement(player, playerUpdate, pastTime, characterSpeed);
         }
@@ -567,23 +581,28 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
+            
+            float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
+            float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
+
+
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
                 0f,
-                player.GetComponent<Skill1>().GetSkillInfo().showCooldown
+                player.GetComponent<Skill1>().GetSkillInfo().useCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill2,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0f,
-                player.GetComponent<Skill2>().GetSkillInfo().showCooldown
+                skill2Cooldown,
+                player.GetComponent<Skill2>().GetSkillInfo().useCooldown
             );
             InputManager.CheckSkillCooldown(
                 UIControls.Skill3,
                 // (float)playerUpdate.Skill1CooldownLeft.Low / 1000f,
-                0f,
-                player.GetComponent<Skill3>().GetSkillInfo().showCooldown
+                skill3Cooldown,
+                player.GetComponent<Skill3>().GetSkillInfo().useCooldown
             );
         }
     }
@@ -637,7 +656,7 @@ public class Battle : MonoBehaviour
         Vector2 movementChange = new Vector2(xChange, yChange);
 
         // This magnitude allow us to not reconciliate the player's position if the change is too small
-        if (movementChange.magnitude > 0.5f)
+        if (movementChange.magnitude > 0.2f)
         {
             Vector3 movementDirection = new Vector3(xChange, 0f, yChange);
             movementDirection.Normalize();
@@ -808,40 +827,7 @@ public class Battle : MonoBehaviour
 
     public Direction GetPlayerDirection(Entity playerUpdate)
     {
-        if (
-            GameServerConnectionManager.Instance.playerId != playerUpdate.Id
-            || !useClientPrediction
-        )
-        {
-            return playerUpdate.Direction;
-        }
-
-        var inputFromVirtualJoystick = joystickL is not null;
-
-        var direction = playerUpdate.Direction;
-        if (joystickL.RawValue.x != 0 || joystickL.RawValue.y != 0)
-        {
-            direction = new Direction { X = joystickL.RawValue.x, Y = joystickL.RawValue.y };
-        }
-        else if (
-            Input.GetKey(KeyCode.W)
-            || Input.GetKey(KeyCode.A)
-            || Input.GetKey(KeyCode.D)
-            || Input.GetKey(KeyCode.S)
-        )
-        {
-            direction = new Direction { X = 0, Y = 0 };
-            if (Input.GetKey(KeyCode.W))
-                direction.Y = 1;
-            if (Input.GetKey(KeyCode.A))
-                direction.X = -1;
-            if (Input.GetKey(KeyCode.D))
-                direction.X = 1;
-            if (Input.GetKey(KeyCode.S))
-                direction.Y = -1;
-        }
-
-        return direction;
+        return playerUpdate.Direction;
     }
 
     private GameObject FindGhostPlayer(string playerId)
