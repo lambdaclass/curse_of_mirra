@@ -20,21 +20,9 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     CustomLogs customLogs;
 
-    void Awake()
-    {
-        if (battle != null)
-        {
-            ToggleClientPrediction();
-            ToggleClientPredictionGhost();
-            ToggleInterpolationGhosts();
-            SetGridSettings();
-        }
-        if (customLogs != null)
-        {
-            ToggleAllLogs();
-            ToggleCustomLogs();
-        }
-    }
+    // This is a quick fix until a refactor on this is done
+    [Tooltip("Check this if the toogle is the client prediction toggle")]
+    public bool clientPrediction;
 
     void Start()
     {
@@ -46,6 +34,24 @@ public class ToggleButton : MonoBehaviour
         {
             transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
                 false;
+        }
+        if (customLogs != null)
+        {
+            ToggleAllLogs();
+            ToggleCustomLogs();
+        }
+        if (battle != null)
+        {
+            if (clientPrediction)
+            {
+                ToggleClientPrediction();
+            }
+            else
+            {
+                ToggleClientPredictionGhost();
+                ToggleInterpolationGhosts();
+                SetGridSettings();
+            }
         }
     }
 

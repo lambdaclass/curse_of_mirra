@@ -107,6 +107,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &45407396264817785
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +629,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &185356649984314035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,6 +2099,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &1198452659989888709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2204,6 +2207,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &1228709624257423453
 GameObject:
   m_ObjectHideFlags: 0
@@ -5864,6 +5868,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &4874916497684572192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7994,7 +7999,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6426139179520544276}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &1672410921419533081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8015,7 +8020,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8054,6 +8059,7 @@ MonoBehaviour:
   state: {fileID: 1888387392519925202}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 1
 --- !u!1 &6438506284298550403
 GameObject:
   m_ObjectHideFlags: 0
@@ -10996,6 +11002,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!114 &2752146524213773310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11416,6 +11423,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &9142845390500824065
 GameObject:
   m_ObjectHideFlags: 0
@@ -11626,6 +11634,7 @@ MonoBehaviour:
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
+  clientPrediction: 0
 --- !u!1 &9167762309616203604
 GameObject:
   m_ObjectHideFlags: 0
