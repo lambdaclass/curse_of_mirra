@@ -89,11 +89,11 @@ git clone https://github.com/lambdaclass/curse_of_mirra
 
 ## Local Testing
 
-For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure you have the required dependencies installed and run:
+For local testing, use the [mirra backend](https://github.com/lambdaclass/mirra_backend). Ensure you have the required dependencies installed and run:
 
 ```bash
-git clone https://github.com/lambdaclass/game_backend
-make start
+git clone https://github.com/lambdaclass/mirra_backend
+devenv up
 ```
 
 Remember to set ```localhost``` as the server in the client.
