@@ -169,5 +169,7 @@ public class ToggleAudio : MonoBehaviour
     {
         muteButtonImage.enabled = isUnMuted;
         textSoundState.text = isUnMuted ? onState : offState;
+        int alpha = isUnMuted ? 255 : 100;
+        textSoundState.color = new Color32(255, 255, 255, (byte)alpha);
     }
 }

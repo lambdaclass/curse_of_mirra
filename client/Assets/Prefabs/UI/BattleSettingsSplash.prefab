@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 256406155319127568}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &149350777773517357
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 6074990335289241018}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &506969870684080065
@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &609798799554564503
@@ -2109,7 +2109,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1189995326060311443
@@ -2229,7 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 4438123299652061408}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 9081243200524280454}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -3267,12 +3267,12 @@ RectTransform:
   - {fileID: 6131450682851152090}
   - {fileID: 5294647083106362039}
   - {fileID: 917132040628841719}
-  m_Father: {fileID: 1376184728911703301}
-  m_RootOrder: 3
+  m_Father: {fileID: 831682673196260431}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 555, y: -963}
+  m_AnchoredPosition: {x: 555, y: -1238}
   m_SizeDelta: {x: 1010, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8520687707911298942
@@ -3818,14 +3818,13 @@ RectTransform:
   - {fileID: 3932881134373278147}
   - {fileID: 6648075950979333039}
   - {fileID: 3378986548835291598}
-  - {fileID: 1136986678426420487}
   m_Father: {fileID: 3544476534271316707}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1100}
+  m_SizeDelta: {x: 0, y: 850}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5653971105720647003
 MonoBehaviour:
@@ -5173,7 +5172,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3826506987033575475
@@ -6305,7 +6304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 1354357938401524763}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -7290,7 +7289,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5478380402655590217
@@ -7910,7 +7909,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5988578348224784569
@@ -8427,7 +8426,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6426139179520544276
@@ -8533,7 +8532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 1888387392519925202}
+  textState: {fileID: 1888387392519925202}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 1
@@ -8571,13 +8570,14 @@ RectTransform:
   - {fileID: 4383707116279015870}
   - {fileID: 7659980198154839466}
   - {fileID: 1097758397441882882}
+  - {fileID: 1136986678426420487}
   m_Father: {fileID: 4838805657588678326}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1115}
+  m_SizeDelta: {x: 0, y: 1350}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5019898458862444636
 MonoBehaviour:
@@ -9153,7 +9153,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6700877562289121094
@@ -11612,7 +11612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 3704626258064183382}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -11829,7 +11829,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &9056113354206205892
@@ -12033,7 +12033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 7696112322192611172}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -12244,7 +12244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
-  state: {fileID: 0}
+  textState: {fileID: 4736788439782380975}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
@@ -12518,6 +12518,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}

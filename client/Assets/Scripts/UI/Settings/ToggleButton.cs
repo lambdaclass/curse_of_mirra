@@ -9,7 +9,7 @@ public class ToggleButton : MonoBehaviour
     public Sprite onSprite;
 
     [SerializeField]
-    TextMeshProUGUI state;
+    TextMeshProUGUI textState;
 
     [SerializeField]
     Battle battle;
@@ -68,18 +68,18 @@ public class ToggleButton : MonoBehaviour
         if (battle.useClientPrediction)
         {
             ToggleUIState(true);
-            if (state != null)
+            if (textState != null)
             {
-                state.text = "On";
+                textState.text = "On";
             }
         }
         else
         {
             ToggleUIState(false);
 
-            if (state != null)
+            if (textState != null)
             {
-                state.text = "Off";
+                textState.text = "Off";
             }
         }
     }
@@ -196,8 +196,10 @@ public class ToggleButton : MonoBehaviour
         }
     }
 
-    private void ToggleUIState(bool state)
+    private void ToggleUIState(bool isOn)
     {
-        GetComponent<Image>().enabled = state;
+        GetComponent<Image>().enabled = isOn;
+        int alpha = isOn ? 255 : 100;
+        textState.color = new Color32(255, 255, 255, (byte)alpha);
     }
 }
