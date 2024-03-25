@@ -15,6 +15,9 @@ public class VolumeController : MonoBehaviour
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channelToUse;
 
+    //The engines defines this value as 0 (muted)
+    private const float MUTED_VOLUME = 0.0001f;
+
     void Awake()
     {
         soundManager = MMSoundManager.Instance;
@@ -25,7 +28,23 @@ public class VolumeController : MonoBehaviour
     {
         volumeSlider = GetComponent<Slider>();
         unmutedVolume = volumeSlider.value;
-        uiValue.text = uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
+        uiValue.text = UIVolumeValue(volumeSlider.value);
+    }
+
+    string UIVolumeValue(float value)
+    {
+        if (value <= MUTED_VOLUME && value < 0.01)
+        {
+            return "0";
+        }
+        else if (value > MUTED_VOLUME && value < 0.01)
+        {
+            return "1";
+        }
+        else
+        {
+            return Mathf.CeilToInt(value * 100).ToString();
+        }
     }
 
     private void MuteChannel()
@@ -52,7 +71,7 @@ public class VolumeController : MonoBehaviour
             channelToUse,
             volumeSlider.value
         );
-        uiValue.text = Mathf.FloorToInt(volumeSlider.value * 100).ToString();
+        uiValue.text = UIVolumeValue(volumeSlider.value);
     }
 
     private void Update()

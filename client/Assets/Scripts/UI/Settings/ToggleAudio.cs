@@ -51,18 +51,16 @@ public class ToggleAudio : MonoBehaviour
 
     void Update()
     {
-        if (
-            volumeSlider
-            && (IsMuted(channel) && unmutedVolume != volumeSlider.value)
-            && volumeSlider.value > MUTED_VOLUME
-        )
+        if (volumeSlider)
         {
-            unmutedVolume = volumeSlider.value;
-            ToggleUIState(true);
-        }
-        if (volumeSlider.value == MUTED_VOLUME)
-        {
-            ToggleUIState(false);
+            if (volumeSlider.value == MUTED_VOLUME)
+            {
+                ToggleUIState(false);
+            }
+            if (volumeSlider.value > MUTED_VOLUME)
+            {
+                ToggleUIState(true);
+            }
         }
     }
 
@@ -89,13 +87,13 @@ public class ToggleAudio : MonoBehaviour
             case MMSoundManager.MMSoundManagerTracks.Sfx:
                 if (!IsMuted(channel))
                 {
-                    float currentMusicVolume = soundManager.GetTrackVolume(
+                    float currentSFXVolume = soundManager.GetTrackVolume(
                         MMSoundManager.MMSoundManagerTracks.Sfx,
                         false
                     );
-                    float musicVolume =
-                        currentMusicVolume != SFX_VOLUME ? currentMusicVolume : SFX_VOLUME;
-                    unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+                    float sfxVolume =
+                        currentSFXVolume != SFX_VOLUME ? currentSFXVolume : SFX_VOLUME;
+                    unmutedVolume = volumeSlider ? volumeSlider.value : sfxVolume;
                 }
                 else
                 {
