@@ -87,7 +87,7 @@ git clone https://github.com/lambdaclass/curse_of_mirra
   - [Top-Down Dungeons](https://assetstore.unity.com/packages/3d/environments/dungeons/top-down-dungeons-7853).
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
-## Running the Backend
+## Local Testing
 
 For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure you have the required dependencies installed and run:
 
@@ -95,7 +95,8 @@ For local testing, use the [game backend](https://github.com/lambdaclass/game_ba
 git clone https://github.com/lambdaclass/game_backend
 make start
 ```
-Remember to set ```localhost``` as the server.
+
+Remember to set ```localhost``` as the server in the client.
 
 ## Documentation
 
