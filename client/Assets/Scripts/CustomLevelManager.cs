@@ -26,13 +26,12 @@ public class CustomLevelManager : LevelManager
     // private GameObject prefab;
     public Camera UiCamera;
 
-    // public OldPlayer playerToFollow;
+    public Entity playerToFollow;
 
     [SerializeField]
     public GameObject UiControls;
     public CinemachineCameraController camera;
 
-    private ulong playerToFollowId;
     public List<GameObject> mapList = new List<GameObject>();
     private bool deathSplashIsShown = false;
     EndGameManager endGameManager;
@@ -82,7 +81,6 @@ public class CustomLevelManager : LevelManager
         yield return new WaitUntil(checkPlayerHasJoined);
         this.totalPlayers = (ulong)GameServerConnectionManager.Instance.gamePlayers.Count();
         playerId = GameServerConnectionManager.Instance.playerId;
-        playerToFollowId = playerId;
         GeneratePlayers();
         SetPlayersSkills(playerId);
         SetOrientationArrow(playerId);
@@ -118,20 +116,11 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        // if (gamePlayer != null && gamePlayer.Player.Health <= 0)
-        // {
-        //     SetCameraToAlivePlayer();
-        // }
+        if(gamePlayer != null && gamePlayer.Player.Health <= 0){
+            SetCameraToAlivePlayer();
+        }
     }
 
-    // private GameObject GetCharacterPrefab(ulong playerId)
-    // {
-    //     GameObject prefab = null;
-
-    //     OldPlayer player = Utils.GetGamePlayer(playerId);
-    //     prefab = charactersInfo.Find(el => el.name == player.CharacterName).prefab;
-    //     return prefab;
-    // }
 
     private void GeneratePlayers()
     {
@@ -176,7 +165,7 @@ public class CustomLevelManager : LevelManager
             newPlayer.CharacterHealth.MaximumHealth = player.Player.Health;
             newPlayer.name = "Player" + player.Id;
             newPlayer.PlayerID = player.Id.ToString();
-            newPlayer.characterBase.PlayerName.GetComponent<TextMeshPro>().text = player.Name;
+            newPlayer.characterBase.PlayerName.GetComponent<TextMeshProUGUI>().text = player.Name;
             SetPlayerHealthBar(
                 GameServerConnectionManager.Instance.playerId == player.Id,
                 newPlayer
@@ -209,7 +198,7 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            if (UInt64.Parse(player.PlayerID) == playerID)
+            if (UInt64.Parse(player.PlayerID) == playerID && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID)
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -340,26 +329,31 @@ public class CustomLevelManager : LevelManager
         UiControls.SetActive(false);
     }
 
-    // private void SetCameraToAlivePlayer()
-    // {
-    //     playerToFollow = Utils.GetGamePlayer(KillFeedManager.instance.saveKillerId);
-    //     if (KillFeedManager.instance.saveKillerId != 0)
-    //     {
-    //         StartCoroutine(WaitToChangeCamera(playerToFollow));
-    //     }
-    //     else
-    //     {
-    //         playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
-    //         setCameraToPlayer(playerToFollow.Id);
-    //     }
-    // }
+    private void SetCameraToAlivePlayer()
+    {
+        ulong saveKillerId = KillFeedManager.instance.GetSaveKillderId();
+        ulong currentTrackedPlayer = KillFeedManager.instance.GetCurrentTrackedPlayer();
 
-    // private IEnumerator WaitToChangeCamera(OldPlayer player)
-    // {
-    //     yield return new WaitUntil(() => player != null);
-    //     setCameraToPlayer(playerToFollow.Id);
-    //     KillFeedManager.instance.saveKillerId = 0;
-    // }
+        if (saveKillerId != 0)
+        {
+            playerToFollow = Utils.GetGamePlayer(saveKillerId); 
+            StartCoroutine(WaitToChangeCamera(playerToFollow));
+        }
+        else if(Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
+        {
+            playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
+            SetCameraToPlayer(playerToFollow.Id);
+            KillFeedManager.instance.SetCurrentTrackedPlayer(playerToFollow.Id);
+        }
+    }
+
+    private IEnumerator WaitToChangeCamera(Entity player)
+    {
+        yield return new WaitUntil(() => player != null);
+        SetCameraToPlayer(player.Id);
+        KillFeedManager.instance.SetSaveKillderId(0);
+        KillFeedManager.instance.SetCurrentTrackedPlayer(player.Id);
+    }
 
     private bool GameHasEndedOrPlayerHasDied(Entity gamePlayer)
     {

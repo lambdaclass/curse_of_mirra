@@ -35,10 +35,12 @@ public class PrepareForBattleAnimations : MonoBehaviour
     Vector3 playerPosition;
     GameObject player;
     const float CAMERA_START_OFFSET = 30f;
-    const float PREPARE_FOR_BATTLE_DURATION = 4f;
-    const float CHARACTERS_DISPLAY_DURATION = 5f;
+    const float PREPARE_FOR_BATTLE_DURATION = 3f;
+    const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
     const float SURVIVE_DURATION = 1.65f;
+
+    bool countdownDone = false;
 
     float originalCountdownScale,
         originalCoinScale,
@@ -60,7 +62,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         yield return new WaitUntil(
             () => GameServerConnectionManager.Instance.players.Count > 0 && loadingComplete
         );
-        player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
+                player = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId);
         Position playerBackEndPosition = Utils
             .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
             .Position;
@@ -75,7 +77,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         yield return new WaitForSeconds(PREPARE_FOR_BATTLE_DURATION + 1f);
         StartCoroutine(PlayersAnimation());
         yield return new WaitUntil(
-            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+            () => countdownDone
         );
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
@@ -129,7 +131,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(CardsDisplay(cardsBottomTable, -1));
         StartCoroutine(Countdown());
         yield return new WaitUntil(
-            () => GameServerConnectionManager.Instance.gameStatus == GameStatus.Running
+            () => countdownDone
         );
         playersContainer.GetComponent<CanvasGroup>().DOFade(0, .1f);
     }
@@ -138,7 +140,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     {
         surviveContainer.GetComponent<CanvasGroup>().DOFade(1, .1f);
         surviveTextContainer.transform.DOScale(originalSurviveScale + 1.5f, .4f);
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(.6f);
         surviveText.GetComponent<CanvasGroup>().DOFade(0, .1f);
         yield return new WaitForSeconds(.3f);
         surviveContainer.GetComponent<CanvasGroup>().DOFade(0, .25f);
@@ -192,13 +194,14 @@ public class PrepareForBattleAnimations : MonoBehaviour
             .Append(countDown.transform.DOScale(originalCountdownScale + 0.2f, .5f))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
-        TIME_UNTIL_GAME_STARTS =
-            (int)(GameServerConnectionManager.Instance.gameCountdown / 1000) + 1;
+                    TIME_UNTIL_GAME_STARTS =
+            (int)(GameServerConnectionManager.Instance.gameCountdown / 1000) - 1;
         for (int i = 0; i < TIME_UNTIL_GAME_STARTS; i++)
         {
             countDown.text = (TIME_UNTIL_GAME_STARTS - i).ToString();
             yield return new WaitForSeconds(1f);
         }
+        countdownDone = true;
     }
 
     Vector3 CameraStartPosition()
