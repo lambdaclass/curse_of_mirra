@@ -84,7 +84,7 @@ git clone https://github.com/lambdaclass/curse_of_mirra
   - [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). You need to purchase the license to use it.
   - [SineVFX](https://assetstore.unity.com/packages/vfx/particles/spells/top-down-effects-191455). You need to purchase the license to use it.
   - [JMO Assets](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565).
-  - [Top-Down Dungeons](https://assetstore.unity.com/packages/3d/environments/dungeons/top-down-dungeons-7853)
+  - [Top-Down Dungeons](https://assetstore.unity.com/packages/3d/environments/dungeons/top-down-dungeons-7853).
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
 ## Running the Backend
