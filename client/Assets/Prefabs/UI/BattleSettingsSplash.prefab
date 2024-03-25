@@ -102,12 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &45407396264817785
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,12 +624,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &185356649984314035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutedSprite: {fileID: 0}
   unmutedSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   volumeSlider: {fileID: 7274158448758824965}
   channel: 1
@@ -1325,7 +1324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ac3aa546aff42e398804186c50e47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutedSprite: {fileID: 0}
   unmutedSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   volumeSlider: {fileID: 4208594137170057467}
   channel: 0
@@ -2230,12 +2228,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &1198452659989888709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,12 +2336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &1228709624257423453
 GameObject:
   m_ObjectHideFlags: 0
@@ -6306,12 +6304,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &4874916497684572192
 GameObject:
   m_ObjectHideFlags: 0
@@ -8534,12 +8532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 1888387392519925202}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 1
+  console: 0
 --- !u!1 &6438506284298550403
 GameObject:
   m_ObjectHideFlags: 0
@@ -11613,12 +11611,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!114 &2752146524213773310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12034,12 +12032,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 1
 --- !u!1 &9142845390500824065
 GameObject:
   m_ObjectHideFlags: 0
@@ -12245,12 +12243,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091bc9bc35fc24109b4c94afbc781b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notSelectedButton: {fileID: 0}
-  selectedButton: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
+  onSprite: {fileID: 21300000, guid: 673841568080e4be0a86a6fc3e5ee4c3, type: 3}
   state: {fileID: 0}
   battle: {fileID: 0}
   customLogs: {fileID: 0}
   clientPrediction: 0
+  console: 0
 --- !u!1 &9167762309616203604
 GameObject:
   m_ObjectHideFlags: 0

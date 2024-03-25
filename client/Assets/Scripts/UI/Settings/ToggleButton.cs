@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public class ToggleButton : MonoBehaviour
 {
     [SerializeField]
-    Sprite notSelectedButton;
-
-    [SerializeField]
-    Sprite selectedButton;
+    public Sprite onSprite;
 
     [SerializeField]
     TextMeshProUGUI state;
@@ -24,6 +21,10 @@ public class ToggleButton : MonoBehaviour
     [Tooltip("Check this if the toogle is the client prediction toggle")]
     public bool clientPrediction;
 
+    // This is a quick fix until a refactor on this is done
+    [Tooltip("Check this if the toogle is the console toggle")]
+    public bool console;
+
     void Start()
     {
         if (GetComponent<MMTouchButton>())
@@ -35,10 +36,17 @@ public class ToggleButton : MonoBehaviour
             transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
                 false;
         }
+        GetComponent<Image>().sprite = onSprite;
         if (customLogs != null)
         {
-            ToggleAllLogs();
-            ToggleCustomLogs();
+            if (console)
+            {
+                ToggleAllLogs();
+            }
+            else
+            {
+                ToggleCustomLogs();
+            }
         }
         if (battle != null)
         {
@@ -59,7 +67,7 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.useClientPrediction)
         {
-            ToggleOn();
+            ToggleUIState(true);
             if (state != null)
             {
                 state.text = "On";
@@ -67,7 +75,7 @@ public class ToggleButton : MonoBehaviour
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
 
             if (state != null)
             {
@@ -80,11 +88,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.showClientPredictionGhost)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
@@ -92,11 +100,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.showInterpolationGhosts)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
@@ -104,11 +112,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (customLogs.debugPrint)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
@@ -116,11 +124,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (CustomLogs.allowCustomDebug)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
@@ -128,11 +136,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (value)
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
         else
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
     }
 
@@ -140,12 +148,12 @@ public class ToggleButton : MonoBehaviour
     {
         if (metricsComponent.activeSelf)
         {
-            ToggleOff();
+            ToggleUIState(false);
             metricsComponent.SetActive(false);
         }
         else
         {
-            ToggleOn();
+            ToggleUIState(true);
             metricsComponent.SetActive(true);
         }
     }
@@ -154,12 +162,12 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.GetMapGrid().activeSelf)
         {
-            ToggleOff();
+            ToggleUIState(false);
             battle.GetMapGrid().SetActive(false);
         }
         else
         {
-            ToggleOn();
+            ToggleUIState(true);
             battle.GetMapGrid().SetActive(true);
         }
     }
@@ -168,11 +176,11 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.GetMapGrid().activeSelf)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
@@ -180,23 +188,16 @@ public class ToggleButton : MonoBehaviour
     {
         if (value)
         {
-            ToggleOn();
+            ToggleUIState(true);
         }
         else
         {
-            ToggleOff();
+            ToggleUIState(false);
         }
     }
 
-    public void ToggleOn()
+    private void ToggleUIState(bool state)
     {
-        GetComponent<Image>().enabled = selectedButton != null;
-        GetComponent<Image>().sprite = selectedButton;
-    }
-
-    public void ToggleOff()
-    {
-        GetComponent<Image>().enabled = notSelectedButton != null;
-        GetComponent<Image>().sprite = notSelectedButton;
+        GetComponent<Image>().enabled = state;
     }
 }

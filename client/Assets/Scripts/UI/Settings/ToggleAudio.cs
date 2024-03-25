@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class ToggleAudio : MonoBehaviour
 {
     [SerializeField]
-    public Sprite mutedSprite;
-
-    [SerializeField]
     public Sprite unmutedSprite;
 
     [SerializeField]
@@ -38,17 +35,18 @@ public class ToggleAudio : MonoBehaviour
     void Start()
     {
         muteButtonImage = GetComponent<Image>();
+        muteButtonImage.sprite = unmutedSprite;
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         SetUnmutedVolume();
         soundManager.SetVolumeSfx(SFX_VOLUME);
         if (IsMuted(channel))
         {
-            UpdateMutedUIState();
+            ToggleUIState(false);
         }
         else
         {
-            UpdateUnmutedUIState();
+            ToggleUIState(true);
         }
     }
 
@@ -61,11 +59,11 @@ public class ToggleAudio : MonoBehaviour
         )
         {
             unmutedVolume = volumeSlider.value;
-            UpdateUnmutedUIState();
+            ToggleUIState(true);
         }
-        if (volumeSlider.value == 0)
+        if (volumeSlider.value == MUTED_VOLUME)
         {
-            UpdateMutedUIState();
+            ToggleUIState(false);
         }
     }
 
@@ -92,12 +90,12 @@ public class ToggleAudio : MonoBehaviour
         if (IsMuted(channel))
         {
             PlaySound();
-            UpdateUnmutedUIState();
+            ToggleUIState(true);
         }
         else
         {
             SilenceSound();
-            UpdateMutedUIState();
+            ToggleUIState(false);
         }
     }
 
@@ -149,17 +147,9 @@ public class ToggleAudio : MonoBehaviour
             || soundManager.GetTrackVolume(track, false) <= MUTED_VOLUME;
     }
 
-    private void UpdateUnmutedUIState()
+    private void ToggleUIState(bool isUnMuted)
     {
-        muteButtonImage.enabled = unmutedSprite != null;
-        muteButtonImage.overrideSprite = unmutedSprite;
-        textSoundState.text = onState;
-    }
-
-    private void UpdateMutedUIState()
-    {
-        muteButtonImage.enabled = mutedSprite != null;
-        muteButtonImage.overrideSprite = mutedSprite;
-        textSoundState.text = offState;
+        muteButtonImage.enabled = isUnMuted;
+        textSoundState.text = isUnMuted ? onState : offState;
     }
 }
