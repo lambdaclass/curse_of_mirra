@@ -38,8 +38,7 @@ public class ToggleAudio : MonoBehaviour
         muteButtonImage.sprite = unmutedSprite;
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
-        SetUnmutedVolume();
-        soundManager.SetVolumeSfx(SFX_VOLUME);
+        SetUnmutedVolume(channel);
         if (IsMuted(channel))
         {
             ToggleUIState(false);
@@ -67,21 +66,42 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
-    public void SetUnmutedVolume()
+    public void SetUnmutedVolume(MMSoundManager.MMSoundManagerTracks channel)
     {
-        if (!IsMuted(channel))
+        switch (channel)
         {
-            float currentMusicVolume = soundManager.GetTrackVolume(
-                MMSoundManager.MMSoundManagerTracks.Music,
-                false
-            );
-            float musicVolume =
-                currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME;
-            unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
-        }
-        else
-        {
-            unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
+            case MMSoundManager.MMSoundManagerTracks.Music:
+                if (!IsMuted(channel))
+                {
+                    float currentMusicVolume = soundManager.GetTrackVolume(
+                        MMSoundManager.MMSoundManagerTracks.Music,
+                        false
+                    );
+                    float musicVolume =
+                        currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME;
+                    unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+                }
+                else
+                {
+                    unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
+                }
+                break;
+            case MMSoundManager.MMSoundManagerTracks.Sfx:
+                if (!IsMuted(channel))
+                {
+                    float currentMusicVolume = soundManager.GetTrackVolume(
+                        MMSoundManager.MMSoundManagerTracks.Sfx,
+                        false
+                    );
+                    float musicVolume =
+                        currentMusicVolume != SFX_VOLUME ? currentMusicVolume : SFX_VOLUME;
+                    unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
+                }
+                else
+                {
+                    unmutedVolume = volumeSlider ? volumeSlider.value : SFX_VOLUME;
+                }
+                break;
         }
     }
 
@@ -101,7 +121,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void SilenceSound()
     {
-        SetUnmutedVolume();
+        SetUnmutedVolume(channel);
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
