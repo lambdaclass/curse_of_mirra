@@ -18,5 +18,5 @@ public class VfxStep
     public bool instantiateVfxOnModel;
 
     [SerializeField]
-    public bool createInDiffPos;
+    public bool hasDestination;
 }

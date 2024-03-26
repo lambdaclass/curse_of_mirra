@@ -28,10 +28,10 @@ MonoBehaviour:
   abilityStartSfx: {fileID: 8300000, guid: 0f1ef727548bc4e8ba90f73e18aa2c44, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
-  skillCircleRange: 0
+  skillCircleRange: 3
   skillConeAngle: 0
   arrowWidth: 1
-  skillAreaRadius: 0
+  skillAreaRadius: 30
   useCooldown: 1
   damage: 0
   skillRange: 0
@@ -41,10 +41,27 @@ MonoBehaviour:
     duration: 2
     delay: 0
     instantiateVfxOnModel: 0
-    createInDiffPos: 0
+    hasDestination: 0
   - vfx: {fileID: 6888337135511328701, guid: 8304582cda4a3b443acf5eed8deaa160, type: 3}
     duration: 2
-    delay: 0.3
+    delay: 0
     instantiateVfxOnModel: 0
-    createInDiffPos: 1
-  animationList: []
+    hasDestination: 1
+  animationList:
+  - durationPercent: 1
+    triggersVfx: 0
+    vfxStep:
+      vfx: {fileID: 0}
+      duration: 0
+      delay: 0
+      instantiateVfxOnModel: 0
+      hasDestination: 0
+  - durationPercent: 0.5
+    triggersVfx: 0
+    vfxStep:
+      vfx: {fileID: 0}
+      duration: 0
+      delay: 0
+      instantiateVfxOnModel: 0
+      hasDestination: 0
+  delay: 0

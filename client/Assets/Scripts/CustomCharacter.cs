@@ -11,6 +11,19 @@ public class CustomCharacter : Character
     public CharacterBase characterBase;
     public HashSet<PlayerAction> currentActions = new HashSet<PlayerAction>();
 
+    private bool isTeleporing = false;
+
+    public bool IsTeleporing {
+        get { return isTeleporing; }
+        set { isTeleporing = value; }
+    }
+    private Position teleportingDestination;
+    
+    public Position TeleportingDestination {
+        get { return teleportingDestination; }
+        set { teleportingDestination = value; }
+    }
+    
     CharacterFeedbacks characterFeedbacks;
 
     protected override void Initialization()
@@ -82,5 +95,24 @@ public class CustomCharacter : Character
     public void HandleHit(float damage)
     {
         characterFeedbacks.PlayHitFeedback();
+    }
+
+    public void HandleTeleport(Position serverPosition)
+    {
+        if(
+            this.IsTeleporing && 
+            this.TeleportingDestination.X == serverPosition.X && 
+            this.TeleportingDestination.Y == serverPosition.Y
+        )
+        {
+            this.IsTeleporing = false;
+            this.transform.position =
+                new Vector3
+                (
+                    serverPosition.X / 100, 
+                    this.transform.position.y,
+                    serverPosition.Y / 100
+                );
+        }
     }
 }

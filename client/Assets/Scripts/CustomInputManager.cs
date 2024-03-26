@@ -210,7 +210,6 @@ public class CustomInputManager : InputManager
         );
         activeJoystickStatus = canceled;
 
-        print(directionIndicator.transform.position);
     }
 
     public void ExecuteAoeSkill(Vector2 aoePosition, Skill skill)

@@ -116,7 +116,7 @@ public class Skill : CharacterAbility
         }
     }
 
-    public void ExecuteFeedbacks(ulong duration, bool blockMovement)
+    public void ExecuteFeedbacks(ulong duration, bool blockMovement, Position destination)
     {
         ClearAnimator();
 
@@ -143,8 +143,9 @@ public class Skill : CharacterAbility
                     vfxStep.duration,
                     vfxStep.delay,
                     vfxStep.instantiateVfxOnModel,
-                    vfxStep.createInDiffPos,
-                    this.skillInfo.hasSkillPool
+                    this.skillInfo.hasSkillPool,
+                    vfxStep.hasDestination,
+                    destination
                 )
             );
         }
@@ -196,14 +197,13 @@ public class Skill : CharacterAbility
                     nextAnimation.vfxStep.duration,
                     nextAnimation.vfxStep.delay,
                     nextAnimation.vfxStep.instantiateVfxOnModel,
-                    nextAnimation.vfxStep.createInDiffPos,
                     this.skillInfo.hasSkillPool
                 )
             );
         }
 
         yield return new WaitForSeconds(animationDuration);
-
+        
         if (pendingAnimations.Count > 0)
         {
             StartCoroutine(
@@ -221,8 +221,9 @@ public class Skill : CharacterAbility
         float duration,
         float delay,
         bool instantiateVfxOnModel,
-        bool createOnDiffPos,
-        bool hasSkillPool
+        bool hasSkillPool,
+        bool hasDestination = false,
+        Position destinationPosition = null
     )
     {
         yield return new WaitForSeconds(delay);
@@ -244,12 +245,12 @@ public class Skill : CharacterAbility
                 _model.transform.position.z
             );
 
-            if(hasSkillPool){
-               vfxPosition = SetPoolDiameterAndPosition(vfx);
+            if(destinationPosition != null && hasDestination){
+                vfxPosition = new Vector3(destinationPosition.X / 100, vfx.transform.position.y, destinationPosition.Y / 100);
             }
 
-            if(createOnDiffPos){
-                print("Yes");
+            if(hasSkillPool){
+               vfxPosition = SetPoolDiameterAndPosition(vfx);
             }
 
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);

@@ -322,8 +322,15 @@ public class Battle : MonoBehaviour
                                     currentPlayer,
                                     playerAction.Action,
                                     serverPlayerUpdate,
-                                    playerAction.Duration
+                                    playerAction.Duration,
+                                    playerAction.Destination
                                 );
+                            }
+
+                            if(playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+                            {
+                                playerCharacter.IsTeleporing = true;
+                                playerCharacter.TeleportingDestination = playerAction.Destination;
                             }
                         }
 
@@ -339,6 +346,8 @@ public class Battle : MonoBehaviour
 
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
+
+                    playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
                 }
 
                 playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
@@ -361,7 +370,8 @@ public class Battle : MonoBehaviour
         GameObject currentPlayer,
         PlayerActionType playerAction,
         Entity entity,
-        ulong skillDuration
+        ulong skillDuration,
+        Position destination
     )
     {
         CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
@@ -370,15 +380,15 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
         }
@@ -544,6 +554,7 @@ public class Battle : MonoBehaviour
             
             float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
             float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
+
 
 
             InputManager.CheckSkillCooldown(
