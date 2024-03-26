@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,26 +9,12 @@ public class LobbyManager : LevelSelector
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
-    bool loadScene = false;
 
     public static string LevelSelected;
 
     void Start()
     {
         StartCoroutine(WaitForLobbyJoin());
-    }
-
-    private void Update()
-    {
-        if (
-            !string.IsNullOrEmpty(SessionParameters.GameId)
-            && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
-            && loadScene
-        )
-        {
-            Debug.Log("Loading battle scene");
-            SceneManager.LoadScene(BATTLE_SCENE_NAME);
-        }
     }
 
     public void BackToLobbyFromGame()
@@ -64,11 +48,13 @@ public class LobbyManager : LevelSelector
 
     public IEnumerator WaitForLobbyJoin()
     {
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
         ServerConnection.Instance.JoinLobby();
         yield return new WaitUntil(
-            () => !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+            () =>
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && !string.IsNullOrEmpty(SessionParameters.GameId)
         );
-        loadScene = true;
-        Debug.Log("Load battle scene");
+        SceneManager.LoadScene(BATTLE_SCENE_NAME);
     }
 }
