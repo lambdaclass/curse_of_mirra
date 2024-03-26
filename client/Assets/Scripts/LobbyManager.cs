@@ -14,10 +14,15 @@ public class LobbyManager : LevelSelector
 
     public static string LevelSelected;
 
+    void Start()
+    {
+        StartCoroutine(WaitForLobbyJoin());
+    }
+
     private void Update()
     {
         if (
-            !String.IsNullOrEmpty(SessionParameters.GameId)
+            !string.IsNullOrEmpty(SessionParameters.GameId)
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
         )
         {
@@ -53,5 +58,14 @@ public class LobbyManager : LevelSelector
         // ServerConnection.Instance.Init();
         this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
+    }
+
+    public IEnumerator WaitForLobbyJoin()
+    {
+        ServerConnection.Instance.JoinLobby();
+        yield return new WaitUntil(
+            () => !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+        );
+        Debug.Log("Loading battle scene");
     }
 }
