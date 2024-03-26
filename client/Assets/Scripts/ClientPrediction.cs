@@ -81,7 +81,7 @@ public class ClientPrediction
         pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
     }
 
-   Entity  SimulatePlayerMovement(Entity player)
+   Entity SimulatePlayerMovement(Entity player)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;

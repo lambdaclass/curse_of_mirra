@@ -99,7 +99,6 @@ public class Battle : MonoBehaviour
             && GameServerConnectionManager.Instance.gamePlayers.Count > 0
         )
         {
-            myClientCharacter = Utils.GetCharacter(GameServerConnectionManager.Instance.playerId);
             SetAccumulatedTime();
             UpdateBattleState();
         }
