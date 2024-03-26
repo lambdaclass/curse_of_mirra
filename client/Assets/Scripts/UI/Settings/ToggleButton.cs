@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class ToggleButton : MonoBehaviour
 {
     [SerializeField]
-    public Sprite onSprite;
-
-    [SerializeField]
     TextMeshProUGUI textState;
 
     [SerializeField]
@@ -36,7 +33,6 @@ public class ToggleButton : MonoBehaviour
             transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
                 false;
         }
-        GetComponent<Image>().sprite = onSprite;
         if (customLogs != null)
         {
             if (console)

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class ToggleAudio : MonoBehaviour
 {
     [SerializeField]
-    public Sprite unmutedSprite;
-
-    [SerializeField]
     private Slider volumeSlider;
 
     private float unmutedVolume;
@@ -35,7 +32,6 @@ public class ToggleAudio : MonoBehaviour
     void Start()
     {
         muteButtonImage = GetComponent<Image>();
-        muteButtonImage.sprite = unmutedSprite;
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         SetUnmutedVolume(channel);
@@ -64,41 +60,29 @@ public class ToggleAudio : MonoBehaviour
         }
     }
 
+    private void ControlChannelTrack(MMSoundManager.MMSoundManagerTracks track, float baseVolume)
+    {
+        if (!IsMuted(channel))
+        {
+            float currentTrackVolume = soundManager.GetTrackVolume(track, false);
+            float trackVolume = currentTrackVolume != baseVolume ? currentTrackVolume : baseVolume;
+            unmutedVolume = volumeSlider ? volumeSlider.value : trackVolume;
+        }
+        else
+        {
+            unmutedVolume = volumeSlider ? volumeSlider.value : baseVolume;
+        }
+    }
+
     public void SetUnmutedVolume(MMSoundManager.MMSoundManagerTracks channel)
     {
         switch (channel)
         {
             case MMSoundManager.MMSoundManagerTracks.Music:
-                if (!IsMuted(channel))
-                {
-                    float currentMusicVolume = soundManager.GetTrackVolume(
-                        MMSoundManager.MMSoundManagerTracks.Music,
-                        false
-                    );
-                    float musicVolume =
-                        currentMusicVolume != MUSIC_VOLUME ? currentMusicVolume : MUSIC_VOLUME;
-                    unmutedVolume = volumeSlider ? volumeSlider.value : musicVolume;
-                }
-                else
-                {
-                    unmutedVolume = volumeSlider ? volumeSlider.value : MUSIC_VOLUME;
-                }
+                ControlChannelTrack(channel, MUSIC_VOLUME);
                 break;
             case MMSoundManager.MMSoundManagerTracks.Sfx:
-                if (!IsMuted(channel))
-                {
-                    float currentSFXVolume = soundManager.GetTrackVolume(
-                        MMSoundManager.MMSoundManagerTracks.Sfx,
-                        false
-                    );
-                    float sfxVolume =
-                        currentSFXVolume != SFX_VOLUME ? currentSFXVolume : SFX_VOLUME;
-                    unmutedVolume = volumeSlider ? volumeSlider.value : sfxVolume;
-                }
-                else
-                {
-                    unmutedVolume = volumeSlider ? volumeSlider.value : SFX_VOLUME;
-                }
+                ControlChannelTrack(channel, SFX_VOLUME);
                 break;
         }
     }
