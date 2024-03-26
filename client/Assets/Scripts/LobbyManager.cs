@@ -11,6 +11,7 @@ public class LobbyManager : LevelSelector
     private const string LOBBY_SCENE_NAME = "Lobby";
     private const string MAIN_SCENE_NAME = "MainScreen";
     private const string LOBBIES_BACKGROUND_MUSIC = "LobbiesBackgroundMusic";
+    bool loadScene = false;
 
     public static string LevelSelected;
 
@@ -24,6 +25,7 @@ public class LobbyManager : LevelSelector
         if (
             !string.IsNullOrEmpty(SessionParameters.GameId)
             && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
+            && loadScene
         )
         {
             Debug.Log("Loading battle scene");
@@ -66,6 +68,7 @@ public class LobbyManager : LevelSelector
         yield return new WaitUntil(
             () => !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
         );
-        Debug.Log("Loading battle scene");
+        loadScene = true;
+        Debug.Log("Load battle scene");
     }
 }
