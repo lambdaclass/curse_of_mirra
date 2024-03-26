@@ -160,7 +160,7 @@ public class Battle : MonoBehaviour
             {
                 if (BlockingMovementStates[i] == (character.MovementState.CurrentState))
                 {
-                    return false;
+                   return false;
                 }
             }
         }
@@ -276,7 +276,8 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
-                    GameServerConnectionManager
+
+                    serverPlayerUpdate = GameServerConnectionManager
                         .Instance
                         .clientPrediction
                         .SimulatePlayerState(
