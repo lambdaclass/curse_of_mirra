@@ -11,11 +11,11 @@ public class CustomCharacter : Character
     public CharacterBase characterBase;
     public HashSet<PlayerAction> currentActions = new HashSet<PlayerAction>();
 
-    private bool isTeleporing = false;
+    private bool isTeleporting = false;
 
-    public bool IsTeleporing {
-        get { return isTeleporing; }
-        set { isTeleporing = value; }
+    public bool IsTeleporting {
+        get { return isTeleporting; }
+        set { isTeleporting = value; }
     }
     private Position teleportingDestination;
     
@@ -100,12 +100,12 @@ public class CustomCharacter : Character
     public void HandleTeleport(Position serverPosition)
     {
         if(
-            this.IsTeleporing && 
+            this.IsTeleporting && 
             this.TeleportingDestination.X == serverPosition.X && 
             this.TeleportingDestination.Y == serverPosition.Y
         )
         {
-            this.IsTeleporing = false;
+            this.IsTeleporting = false;
             this.transform.position =
                 new Vector3
                 (

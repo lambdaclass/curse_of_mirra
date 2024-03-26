@@ -329,7 +329,7 @@ public class Battle : MonoBehaviour
 
                             if(playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
                             {
-                                playerCharacter.IsTeleporing = true;
+                                playerCharacter.IsTeleporting = true;
                                 playerCharacter.TeleportingDestination = playerAction.Destination;
                             }
                         }
