@@ -10,12 +10,9 @@ public class VolumeController : MonoBehaviour
     TextMeshProUGUI uiValue;
     private MMSoundManager soundManager;
     private Slider volumeSlider;
-    private float unmutedVolume;
 
     [SerializeField]
     private MMSoundManager.MMSoundManagerTracks channelToUse;
-
-    private const float MASTER_VOLUME = 0.2f;
 
     //The engines defines this value as 0 (muted)
     private const float MUTED_VOLUME = 0.0001f;
@@ -23,14 +20,12 @@ public class VolumeController : MonoBehaviour
     void Awake()
     {
         soundManager = MMSoundManager.Instance;
-        soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
     }
 
     void Start()
     {
         volumeSlider = GetComponent<Slider>();
         volumeSlider.value = soundManager.GetTrackVolume(channelToUse, false);
-        unmutedVolume = volumeSlider.value;
         uiValue.text = UIVolumeValue(volumeSlider.value);
     }
 
