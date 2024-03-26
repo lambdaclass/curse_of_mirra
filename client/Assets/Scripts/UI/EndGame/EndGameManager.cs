@@ -113,7 +113,7 @@ public class EndGameManager : MonoBehaviour
     }
 
     void MaybeShowDefeaterName(){
-        if(KillFeedManager.instance.myKillerId.ToString() == ZONE_ID){
+        if(KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID){
             defeaterPlayerName.gameObject.SetActive(false);
         } else {
             defeaterPlayerName.text = GetDefeaterPlayerName();
@@ -122,7 +122,7 @@ public class EndGameManager : MonoBehaviour
 
     private Sprite GetDefeaterSprite()
     {
-        if (KillFeedManager.instance.myKillerId.ToString() == ZONE_ID)
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
         {
             return KillFeedManager.instance.zoneIcon;
         }
@@ -137,7 +137,7 @@ public class EndGameManager : MonoBehaviour
                             .name
                             .Contains(
                                 Utils
-                                    .GetPlayer(KillFeedManager.instance.myKillerId)
+                                    .GetPlayer(KillFeedManager.instance.GetMyKillerId())
                                     .GetComponent<CustomCharacter>()
                                     .CharacterModel
                                     .name
@@ -148,7 +148,7 @@ public class EndGameManager : MonoBehaviour
     }
 
     private string GetDefeaterPlayerName(){
-        return Utils.GetGamePlayer(KillFeedManager.instance.myKillerId).Name;
+        return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
     }
 
     public void ShowCharacterAnimation()
