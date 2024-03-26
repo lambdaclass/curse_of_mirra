@@ -595,39 +595,15 @@ MonoBehaviour:
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7817650833111905834}
-        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
-        m_MethodName: set_alpha
-        m_Mode: 4
+      - m_Target: {fileID: 144432580933152648}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 7817650833111905834}
-        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 7817650833111905834}
-        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
-        m_MethodName: set_blocksRaycasts
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
@@ -5023,15 +4999,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d8abe0073ab843309bf5097fb8fae47, type: 3}
---- !u!224 &3449348429389073590 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3637355536223594246, guid: 1d8abe0073ab843309bf5097fb8fae47,
+--- !u!1 &144432580933152648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2280465333714322488, guid: 1d8abe0073ab843309bf5097fb8fae47,
     type: 3}
   m_PrefabInstance: {fileID: 2136104294051605424}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &7817650833111905834 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 8203614081589583258, guid: 1d8abe0073ab843309bf5097fb8fae47,
+--- !u!224 &3449348429389073590 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3637355536223594246, guid: 1d8abe0073ab843309bf5097fb8fae47,
     type: 3}
   m_PrefabInstance: {fileID: 2136104294051605424}
   m_PrefabAsset: {fileID: 0}
