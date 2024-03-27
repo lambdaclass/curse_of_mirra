@@ -16,4 +16,7 @@ public class VfxStep
 
     [SerializeField]
     public bool instantiateVfxOnModel;
+
+    [SerializeField]
+    public bool hasDestination;
 }
