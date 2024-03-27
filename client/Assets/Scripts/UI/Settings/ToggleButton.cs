@@ -63,7 +63,6 @@ public class ToggleButton : MonoBehaviour
     {
         if (battle.useClientPrediction)
         {
-            ToggleUIState(true);
             if (textState != null)
             {
                 textState.text = "On";
@@ -71,125 +70,59 @@ public class ToggleButton : MonoBehaviour
         }
         else
         {
-            ToggleUIState(false);
-
             if (textState != null)
             {
                 textState.text = "Off";
             }
         }
+        ToggleUIState(battle.useClientPrediction);
     }
 
     public void ToggleClientPredictionGhost()
     {
-        if (battle.showClientPredictionGhost)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(battle.showClientPredictionGhost);
     }
 
     public void ToggleInterpolationGhosts()
     {
-        if (battle.showInterpolationGhosts)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(battle.showInterpolationGhosts);
     }
 
     public void ToggleAllLogs()
     {
-        if (customLogs.debugPrint)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(customLogs.debugPrint);
     }
 
     public void ToggleCustomLogs()
     {
-        if (CustomLogs.allowCustomDebug)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(CustomLogs.allowCustomDebug);
     }
 
     public void ToggleCamera(bool value)
     {
-        if (value)
-        {
-            ToggleUIState(false);
-        }
-        else
-        {
-            ToggleUIState(true);
-        }
+        ToggleUIState(!value);
     }
 
     public void ToggleMetrics(GameObject metricsComponent)
     {
-        if (metricsComponent.activeSelf)
-        {
-            ToggleUIState(false);
-            metricsComponent.SetActive(false);
-        }
-        else
-        {
-            ToggleUIState(true);
-            metricsComponent.SetActive(true);
-        }
+        ToggleUIState(!metricsComponent.activeSelf);
+        metricsComponent.SetActive(!metricsComponent.activeSelf);
     }
 
     public void ToggleGrid()
     {
-        if (battle.GetMapGrid().activeSelf)
-        {
-            ToggleUIState(false);
-            battle.GetMapGrid().SetActive(false);
-        }
-        else
-        {
-            ToggleUIState(true);
-            battle.GetMapGrid().SetActive(true);
-        }
+        ToggleUIState(!battle.GetMapGrid().activeSelf);
+        battle.GetMapGrid().SetActive(!battle.GetMapGrid().activeSelf);
     }
 
     public void SetGridSettings()
     {
-        if (battle.GetMapGrid().activeSelf)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(battle.GetMapGrid().activeSelf);
     }
 
     public void ToggleWithSiblingComponentBool(bool value)
     {
-        if (value)
-        {
-            ToggleUIState(true);
-        }
-        else
-        {
-            ToggleUIState(false);
-        }
+        ToggleUIState(value);
     }
 
     private void ToggleUIState(bool isOn)

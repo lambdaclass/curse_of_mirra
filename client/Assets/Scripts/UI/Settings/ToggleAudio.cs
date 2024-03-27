@@ -57,7 +57,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void ControlChannelTrack(MMSoundManager.MMSoundManagerTracks track, float baseVolume)
     {
-        if (!IsMuted(channel))
+        if (isMuted)
         {
             float currentTrackVolume = soundManager.GetTrackVolume(track, false);
             float trackVolume = currentTrackVolume != baseVolume ? currentTrackVolume : baseVolume;
@@ -84,13 +84,13 @@ public class ToggleAudio : MonoBehaviour
 
     public void Toggle()
     {
-        if (IsMuted(channel))
+        if (isMuted)
         {
-            PlaySound();
+            SilenceSound();
         }
         else
         {
-            SilenceSound();
+            PlaySound();
         }
         ToggleUIState(isMuted);
     }
