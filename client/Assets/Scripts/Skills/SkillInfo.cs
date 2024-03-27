@@ -43,8 +43,6 @@ public class SkillInfo : ScriptableObject
     [MMEnumCondition("indicatorType", (int)UIIndicatorType.Area)]
     public float skillAreaRadius;
     public bool useCooldown;
-    public float damage;
-    public float skillRange;
     public Sprite skillSprite;
 
     [Header("Feedbacks")]
@@ -52,16 +50,8 @@ public class SkillInfo : ScriptableObject
     public List<VfxStep> vfxList;
     public List<AnimationStep> animationList;
 
-    // public bool Equals(SkillConfigItem skillConfigItem)
-    // {
-    //     return this.name.ToLower() == skillConfigItem.Name.ToLower();
-    // }
-
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {
-        // Issue #1419
-        this.damage = 0;
-        this.skillRange = 0;
         this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
         this.skillAreaRadius = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.ownerId = Convert.ToUInt64(id);
