@@ -44,14 +44,8 @@ public class ToggleAudio : MonoBehaviour
     {
         if (volumeSlider)
         {
-            if (volumeSlider.value == MUTED_VOLUME)
-            {
-                ToggleUIState(false);
-            }
-            if (volumeSlider.value > MUTED_VOLUME)
-            {
-                ToggleUIState(true);
-            }
+            bool unmuted = volumeSlider.value > MUTED_VOLUME;
+            ToggleUIState(unmuted);
         }
     }
 

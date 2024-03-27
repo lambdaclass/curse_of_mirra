@@ -61,7 +61,8 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleClientPrediction()
     {
-        if (battle.useClientPrediction)
+        bool useClientPrediction = battle.useClientPrediction;
+        if (useClientPrediction)
         {
             if (textState != null)
             {
@@ -75,7 +76,7 @@ public class ToggleButton : MonoBehaviour
                 textState.text = "Off";
             }
         }
-        ToggleUIState(battle.useClientPrediction);
+        ToggleUIState(useClientPrediction);
     }
 
     public void ToggleClientPredictionGhost()
@@ -105,8 +106,9 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleMetrics(GameObject metricsComponent)
     {
-        ToggleUIState(!metricsComponent.activeSelf);
-        metricsComponent.SetActive(!metricsComponent.activeSelf);
+        bool metricsState = !metricsComponent.activeSelf;
+        ToggleUIState(metricsState);
+        metricsComponent.SetActive(metricsState);
     }
 
     public void ToggleGrid()
