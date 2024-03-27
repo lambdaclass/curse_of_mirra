@@ -9,9 +9,6 @@ public class AimDirection : MonoBehaviour
 
     [SerializeField]
     Color32 characterFeedbackColor = new Color32(255, 255, 255, 255);
-
-    [SerializeField]
-    public GameObject cone;
     public SectorController cone_controller;
 
     [SerializeField]
@@ -82,62 +79,6 @@ public class AimDirection : MonoBehaviour
     public void SetConeIndicator()
     {
         cone_controller.SetSectorDegree(fov);
-
-        float coneIndicatorAngle = 0;
-        angleIncrease = fov / rayCount;
-        Mesh mesh = new Mesh();
-        Vector3 origin = Vector3.zero;
-
-        Vector3[] vertices = new Vector3[rayCount + 1 + 1];
-        Vector2[] uv = new Vector2[vertices.Length];
-        int[] triangles = new int[rayCount * 3];
-
-        vertices[0] = origin;
-        int vertexIndex = 1;
-        int trianglesIndex = 0;
-
-        for (int i = 0; i < rayCount; i++)
-        {
-            Vector3 vertex = origin + GetVectorFromAngle(coneIndicatorAngle) * viewDistance;
-            vertices[vertexIndex] = vertex;
-
-            if (i > 0)
-            {
-                triangles[trianglesIndex + 0] = 0;
-                triangles[trianglesIndex + 1] = vertexIndex - 1;
-                triangles[trianglesIndex + 2] = vertexIndex;
-                trianglesIndex += 3;
-            }
-            vertexIndex++;
-            coneIndicatorAngle -= angleIncrease;
-        }
-
-        triangles[0] = 0;
-        triangles[1] = 1;
-        triangles[2] = 2;
-
-        mesh.vertices = vertices;
-        mesh.uv = uv;
-        mesh.triangles = triangles;
-        cone.GetComponent<MeshFilter>().mesh = mesh;
-    }
-
-    private Vector3 GetBisectorDirection()
-    {
-        Mesh coneMesh = cone.GetComponent<MeshFilter>().mesh;
-        Vector3[] coneVertices = coneMesh.vertices;
-
-        // Calculate the vertices of the triangle
-        Vector3 vertexA = cone.transform.TransformPoint(coneVertices[0]);
-        Vector3 vertexB = cone.transform.TransformPoint(coneVertices[1]);
-        Vector3 vertexC = cone.transform.TransformPoint(coneVertices[coneVertices.Length - 2]); // That is the last vertex
-
-        // Calculate the sides of the triangle
-        Vector3 sideAB = vertexB - vertexA;
-        Vector3 sideAC = vertexC - vertexA;
-
-        // return the bisector direction of the triangle's vertex angle
-        return (sideAB.normalized + sideAC.normalized).normalized;
     }
 
     public bool IsInProximityRange(GameObject player)
@@ -154,15 +95,6 @@ public class AimDirection : MonoBehaviour
         float playersAngle = Vector3.Angle(attackDirection, targetDirection);
 
         return distance <= viewDistance && playersAngle <= skillAngle / 2;
-    }
-
-    public bool IsInsideCone(GameObject player)
-    {
-        Vector3 bisectorDirection = GetBisectorDirection();
-        Vector3 playerDirection = player.transform.position - cone.transform.position;
-        playerDirection = new Vector3(playerDirection.x, 0f, playerDirection.z);
-        float playerBisectorAngle = Vector3.Angle(playerDirection, bisectorDirection);
-        return playerBisectorAngle <= fov / 2;
     }
 
     public bool IsInArrowLine(GameObject player)
@@ -192,7 +124,6 @@ public class AimDirection : MonoBehaviour
         {
             case UIIndicatorType.Cone:
                 cone_controller.gameObject.SetActive(true);
-                cone.SetActive(true);
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(true);
@@ -210,7 +141,6 @@ public class AimDirection : MonoBehaviour
         {
             case UIIndicatorType.Cone:
                 cone_controller.gameObject.SetActive(false);
-                cone.SetActive(false);
                 break;
             case UIIndicatorType.Arrow:
                 arrow.SetActive(false);
@@ -253,7 +183,6 @@ public class AimDirection : MonoBehaviour
                     renderer.material.SetColor("_AlphaColor", color);
                     renderer.material.SetColor("_TintColor", color);
                 }
-                cone.GetComponent<Renderer>().material.SetColor("_TopColor", color);
                 break;
             case UIIndicatorType.Arrow:
                 arrow.GetComponent<Renderer>().material.SetColor("_AlphaColor", color);
