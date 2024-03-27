@@ -28,6 +28,7 @@ public class ToggleAudio : MonoBehaviour
     TextMeshProUGUI textSoundState;
     string offState = "OFF";
     string onState = "ON";
+    bool isMuted;
 
     void Start()
     {
@@ -35,14 +36,8 @@ public class ToggleAudio : MonoBehaviour
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         SetUnmutedVolume(channel);
-        if (IsMuted(channel))
-        {
-            ToggleUIState(false);
-        }
-        else
-        {
-            ToggleUIState(true);
-        }
+        isMuted = !IsMuted(channel);
+        ToggleUIState(isMuted);
     }
 
     void Update()
@@ -92,13 +87,12 @@ public class ToggleAudio : MonoBehaviour
         if (IsMuted(channel))
         {
             PlaySound();
-            ToggleUIState(true);
         }
         else
         {
             SilenceSound();
-            ToggleUIState(false);
         }
+        ToggleUIState(isMuted);
     }
 
     private void SilenceSound()
@@ -146,7 +140,7 @@ public class ToggleAudio : MonoBehaviour
     {
         // This may seem wrong, but it's not. The IsMuted() method does exactly the opposite of what its name suggests.
         return !soundManager.IsMuted(track)
-            || soundManager.GetTrackVolume(track, false) <= MUTED_VOLUME;
+            && soundManager.GetTrackVolume(track, false) <= MUTED_VOLUME;
     }
 
     private void ToggleUIState(bool isUnMuted)
