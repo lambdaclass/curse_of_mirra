@@ -25,7 +25,6 @@ public class VolumeController : MonoBehaviour
     void Start()
     {
         volumeSlider = GetComponent<Slider>();
-        volumeSlider.value = soundManager.GetTrackVolume(channelToUse, false);
         uiValue.text = UIVolumeValue(volumeSlider.value);
     }
 
