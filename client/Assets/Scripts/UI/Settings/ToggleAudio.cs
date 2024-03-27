@@ -28,7 +28,6 @@ public class ToggleAudio : MonoBehaviour
     TextMeshProUGUI textSoundState;
     string offState = "OFF";
     string onState = "ON";
-    bool isMuted;
 
     void Start()
     {
@@ -36,8 +35,7 @@ public class ToggleAudio : MonoBehaviour
         soundManager = MMSoundManager.Instance;
         soundManager.SetTrackVolume(MMSoundManager.MMSoundManagerTracks.Master, MASTER_VOLUME);
         SetUnmutedVolume(channel);
-        isMuted = !IsMuted(channel);
-        ToggleUIState(isMuted);
+        ToggleUIState(!IsMuted(channel));
     }
 
     void Update()
@@ -51,7 +49,7 @@ public class ToggleAudio : MonoBehaviour
 
     private void ControlChannelTrack(MMSoundManager.MMSoundManagerTracks track, float baseVolume)
     {
-        if (isMuted)
+        if (!IsMuted(channel))
         {
             float currentTrackVolume = soundManager.GetTrackVolume(track, false);
             float trackVolume = currentTrackVolume != baseVolume ? currentTrackVolume : baseVolume;
@@ -78,6 +76,7 @@ public class ToggleAudio : MonoBehaviour
 
     public void Toggle()
     {
+        bool isMuted = !IsMuted(channel);
         if (isMuted)
         {
             SilenceSound();
