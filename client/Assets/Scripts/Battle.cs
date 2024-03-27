@@ -673,8 +673,8 @@ public class Battle : MonoBehaviour
         float changeTotal = Math.Abs(xChange) + Math.Abs(yChange);
 
         if (changeTotal > teleportThreshold && isPlayer) {
-            GameServerConnectionManager
-            .Instance.clientPrediction.pendingPlayerInputs = new List<ClientPrediction.PlayerInput>();
+            // GameServerConnectionManager
+            // .Instance.clientPrediction.pendingPlayerInputs = new List<ClientPrediction.PlayerInput>();
             player.transform.position = frontendPosition;
         }
 
