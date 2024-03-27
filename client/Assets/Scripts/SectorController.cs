@@ -25,7 +25,7 @@ public class SectorController : MonoBehaviour
 
     public void SetSectorDegree(int degree)
     {
-        int sectors_count = degree / MIN_DEGREE_STEP;
+        int sectors_count = (degree / 2) / MIN_DEGREE_STEP;
 
         if (cached_degree == sectors_count * MIN_DEGREE_STEP)
             return;

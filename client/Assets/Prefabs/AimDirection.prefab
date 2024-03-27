@@ -51,7 +51,6 @@ MonoBehaviour:
   characterFeedbackColor:
     serializedVersion: 2
     rgba: 4294967295
-  cone: {fileID: 0}
   cone_controller: {fileID: 1524731232011915113}
   arrow: {fileID: 7775817237656453225}
   arrowHead: {fileID: 1639291327062909330}
@@ -390,6 +389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8034528553866079081, guid: 69cb44f4d2e121748978c125cb5190c2,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034528553866079081, guid: 69cb44f4d2e121748978c125cb5190c2,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -437,6 +441,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034528553866079081, guid: 69cb44f4d2e121748978c125cb5190c2,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69cb44f4d2e121748978c125cb5190c2, type: 3}
