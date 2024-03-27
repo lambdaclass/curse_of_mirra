@@ -111,8 +111,9 @@ public class ToggleButton : MonoBehaviour
 
     public void ToggleGrid()
     {
-        ToggleUIState(!battle.GetMapGrid().activeSelf);
-        battle.GetMapGrid().SetActive(!battle.GetMapGrid().activeSelf);
+        bool gridState = !battle.GetMapGrid().activeSelf;
+        ToggleUIState(gridState);
+        battle.GetMapGrid().SetActive(gridState);
     }
 
     public void SetGridSettings()
