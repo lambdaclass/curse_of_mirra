@@ -45,7 +45,9 @@ public class AimDirection : MonoBehaviour
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
-        float circleArea = skill.GetSkillAreaRadius();
+        float hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+
+        float circleArea = skill.GetSkillInfo().usesHitboxAsArea ? hitbox : skill.GetSkillAreaRadius();
 
         this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
 
