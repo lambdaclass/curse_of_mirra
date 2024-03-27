@@ -523,12 +523,8 @@ MonoBehaviour:
   pickUpFeedback: {fileID: 7977344006553926319}
   useItemFeedback: {fileID: 5740382608016110833}
   healthBar: {fileID: 8711474442059621043}
-  damageOverlayColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  healOverlayColor:
-    serializedVersion: 2
-    rgba: 4281637428
+  damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
+  healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3767757779326437768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +877,16 @@ PrefabInstance:
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 5343094618450135610}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: transparentMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ca50b9f373b2c45239da2eaf5a26b46a, type: 2}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: hasTransparentMaterial
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1824325337625087515, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1163,11 +1169,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.871
       objectReference: {fileID: 0}
-    - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: FeedbackContainer
-      value: 
-      objectReference: {fileID: 8099696926947248431}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name
@@ -1382,12 +1383,6 @@ Transform:
 --- !u!1 &7977344006553926319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2112059791940839140, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8357189057863228491}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8099696926947248431 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
     type: 3}
   m_PrefabInstance: {fileID: 8357189057863228491}
   m_PrefabAsset: {fileID: 0}

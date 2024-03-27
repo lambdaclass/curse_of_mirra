@@ -523,12 +523,8 @@ MonoBehaviour:
   pickUpFeedback: {fileID: 3657418904232725223}
   useItemFeedback: {fileID: 1431322896781444281}
   healthBar: {fileID: 2635068537373217531}
-  damageOverlayColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  healOverlayColor:
-    serializedVersion: 2
-    rgba: 4282690884
+  damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
+  healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8294157164023158901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,6 +875,16 @@ PrefabInstance:
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 8792650610077742823}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: transparentMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 87c5caef32374469db9efb0b5bad949a, type: 2}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: hasTransparentMaterial
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2042137297313984016, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -1011,11 +1017,6 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.4
       objectReference: {fileID: 0}
-    - target: {fileID: 6284103280827666314, guid: 9468612907e8942b49712f4e342b630c,
-        type: 3}
-      propertyPath: FeedbackContainer
-      value: 
-      objectReference: {fileID: 3175913458632259943}
     - target: {fileID: 6426377142093029336, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: m_Name
@@ -1125,12 +1126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a42a23ce4f9ed24abde69beacbef2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3175913458632259943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 260457105922430308, guid: 9468612907e8942b49712f4e342b630c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3426755726173006851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3246147742046918539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 180964227005512584, guid: 9468612907e8942b49712f4e342b630c,
