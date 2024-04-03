@@ -19,11 +19,13 @@ public class UIModelManager : MonoBehaviour
 
     public void SetModel(string characterName)
     {
-        GameObject playerModel = CharactersManager
+        CoMCharacter character = CharactersManager
             .Instance
             .AvailableCharacters
-            .Single(character => character.name == characterName)
-            .UIModel;
+            .Single(character => character.name == characterName);
+
+        GameObject playerModel = character.UIModel;
+        if(characterShadow != null) characterShadow.localScale = character.shadowScaleValues;
         GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;
         modelAnimator = modelClone.GetComponentInChildren<Animator>();
@@ -31,30 +33,6 @@ public class UIModelManager : MonoBehaviour
         {
             animationClipDuration = AnimationClipTime(modelAnimator);
             characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
-        }
-        if (characterShadow != null)
-        {
-            SetCharacterShadow(characterName);
-        }
-    }
-
-    public void SetCharacterShadow(string characterName)
-    {
-        if (characterName == "H4ck")
-        {
-            characterShadow.localScale = new Vector3(.9f, 1, 1);
-        }
-        else if (characterName == "Muflus")
-        {
-            characterShadow.localScale = new Vector3(1.5f, 1.1f, 1);
-        }
-        else if (characterName == "Uma")
-        {
-            characterShadow.localScale = new Vector3(1, 1.1f, 1);
-        }
-        else
-        {
-            characterShadow.localScale = new Vector3(1, 1, 1);
         }
     }
 
