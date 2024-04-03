@@ -83,7 +83,6 @@ public class PrepareForBattleAnimations : MonoBehaviour
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
         battleScreen.GetComponent<CanvasGroup>().blocksRaycasts = true;
-        print("NOw");
     }
 
     IEnumerator LoadingAnimation()
