@@ -83,19 +83,9 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    private bool AnimationHasParameter(string parameterName)
-    {
-        AnimatorControllerParameter param = modelAnimator
-            .parameters
-            .ToList()
-            .Find(p => p.name == parameterName);
-
-        return param != null;
-    }
-
     public void HandleAnimation(string animationName)
     {
-        bool hasAnimationParameter = AnimationHasParameter(animationName);
+        bool hasAnimationParameter = modelAnimator.parameters.ToList().Find(anim => anim.name == animationName) != null;
         if (hasAnimationParameter)
         {
             modelAnimator.SetBool(animationName, true);
