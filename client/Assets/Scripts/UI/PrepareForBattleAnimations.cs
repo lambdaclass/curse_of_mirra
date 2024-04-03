@@ -38,7 +38,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
-    const float SURVIVE_DURATION = 1.65f;
+    const float SURVIVE_DURATION = 1f;
 
     bool countdownDone = false;
 
