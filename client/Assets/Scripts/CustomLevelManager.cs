@@ -107,7 +107,7 @@ public class CustomLevelManager : LevelManager
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
-            endGameManager.modelManager.ShowCharacterAnimation();
+            endGameManager.modelManager.ShowEndGameCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -90,7 +90,7 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    public void ShowCharacterAnimation()
+    public void ShowEndGameCharacterAnimation()
     {
         if (Utils.GetCharacter(GameServerConnectionManager.Instance.playerId))
         {
@@ -100,8 +100,7 @@ public class UIModelManager : MonoBehaviour
             string animationName = isWinner ? "Victory" : "Defeat";
             if (modelAnimator.parameterCount > 0)
             {
-                bool hasAnimationParameter = AnimationHasParameter(animationName);
-                HandleAnimation(animationName, hasAnimationParameter);
+                HandleAnimation(animationName);
             }
         }
     }
@@ -116,8 +115,9 @@ public class UIModelManager : MonoBehaviour
         return param != null;
     }
 
-    public void HandleAnimation(string animationName, bool hasAnimationParameter)
+    public void HandleAnimation(string animationName)
     {
+        bool hasAnimationParameter = AnimationHasParameter(animationName);
         if (hasAnimationParameter)
         {
             modelAnimator.SetBool(animationName, true);
