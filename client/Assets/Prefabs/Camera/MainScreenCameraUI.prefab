@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModelContainer: {fileID: 6175540780499295772}
+  characterShadow: {fileID: 0}
 --- !u!1 &2414937526592749047
 GameObject:
   m_ObjectHideFlags: 0

@@ -107,7 +107,7 @@ public class CustomLevelManager : LevelManager
             // TODO: Redirect to EndGameScreen
             //SceneManager.LoadScene("EndGame");
             endGameManager.finalSplash.SetActive(true);
-            endGameManager.ShowCharacterAnimation();
+            endGameManager.modelManager.ShowCharacterAnimation();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -116,11 +116,11 @@ public class CustomLevelManager : LevelManager
             paused = !paused;
         }
 
-        if(gamePlayer != null && gamePlayer.Player.Health <= 0){
+        if (gamePlayer != null && gamePlayer.Player.Health <= 0)
+        {
             SetCameraToAlivePlayer();
         }
     }
-
 
     private void GeneratePlayers()
     {
@@ -198,7 +198,10 @@ public class CustomLevelManager : LevelManager
     {
         foreach (CustomCharacter player in this.PlayerPrefabs)
         {
-            if (UInt64.Parse(player.PlayerID) == playerID && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID)
+            if (
+                UInt64.Parse(player.PlayerID) == playerID
+                && UInt64.Parse(this.camera.TargetCharacter.PlayerID) != playerID
+            )
             {
                 this.camera.SetTarget(player);
                 this.camera.StartFollowing();
@@ -336,10 +339,10 @@ public class CustomLevelManager : LevelManager
 
         if (saveKillerId != 0)
         {
-            playerToFollow = Utils.GetGamePlayer(saveKillerId); 
+            playerToFollow = Utils.GetGamePlayer(saveKillerId);
             StartCoroutine(WaitToChangeCamera(playerToFollow));
         }
-        else if(Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
+        else if (Utils.GetAlivePlayers().Count() > 0 && saveKillerId == currentTrackedPlayer)
         {
             playerToFollow = Utils.GetAlivePlayers().ElementAt(0);
             SetCameraToPlayer(playerToFollow.Id);
