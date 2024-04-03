@@ -83,7 +83,8 @@ public class EndGameManager : MonoBehaviour
         // Kill count
         amountOfKillsText.text = Utils
             .GetGamePlayer(GameServerConnectionManager.Instance.playerId)
-            ?.Player.KillCount
+            ?.Player
+            .KillCount
             .ToString();
 
         // Defeated By
@@ -112,10 +113,14 @@ public class EndGameManager : MonoBehaviour
         return 77;
     }
 
-    void MaybeShowDefeaterName(){
-        if(KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID){
+    void MaybeShowDefeaterName()
+    {
+        if (KillFeedManager.instance.GetMyKillerId().ToString() == ZONE_ID)
+        {
             defeaterPlayerName.gameObject.SetActive(false);
-        } else {
+        }
+        else
+        {
             defeaterPlayerName.text = GetDefeaterPlayerName();
         }
     }
@@ -147,33 +152,45 @@ public class EndGameManager : MonoBehaviour
         }
     }
 
-    private string GetDefeaterPlayerName(){
+    private string GetDefeaterPlayerName()
+    {
         return Utils.GetGamePlayer(KillFeedManager.instance.GetMyKillerId()).Name;
     }
 
     public void ShowCharacterAnimation()
     {
-        if(player){
-            bool isWinner = GameServerConnectionManager.Instance.PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
+        if (player)
+        {
+            bool isWinner = GameServerConnectionManager
+                .Instance
+                .PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
             string animationName = isWinner ? "Victory" : "Defeat";
-            if(modelAnimator.parameterCount > 0){
+            if (modelAnimator.parameterCount > 0)
+            {
                 bool hasAnimationParameter = AnimationHasParameter(animationName);
                 HandleAnimation(animationName, hasAnimationParameter);
-            }   
+            }
         }
     }
 
-    private bool AnimationHasParameter(string parameterName){
-        AnimatorControllerParameter param = modelAnimator.parameters.ToList()
+    private bool AnimationHasParameter(string parameterName)
+    {
+        AnimatorControllerParameter param = modelAnimator
+            .parameters
+            .ToList()
             .Find(p => p.name == parameterName);
 
         return param != null;
     }
 
-    public void HandleAnimation(string animationName, bool hasAnimationParameter){
-        if(hasAnimationParameter){
+    public void HandleAnimation(string animationName, bool hasAnimationParameter)
+    {
+        if (hasAnimationParameter)
+        {
             modelAnimator.SetBool(animationName, true);
-        } else {
+        }
+        else
+        {
             modelAnimator.Play(animationName);
         }
     }
