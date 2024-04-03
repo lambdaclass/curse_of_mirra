@@ -119,6 +119,10 @@ public class ClientPrediction
             currentPosition = new Position { X = newPosition.x, Y = newPosition.z };
         });
 
+        if(currentPosition.X != player.Position.X && currentPosition.Y != player.Position.Y){
+            player.Position = currentPosition;
+            player.Direction = currentDirection;
+        }
         return player;
     }
 
