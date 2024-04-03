@@ -38,7 +38,7 @@ public class PrepareForBattleAnimations : MonoBehaviour
     const float PREPARE_FOR_BATTLE_DURATION = 3f;
     const float CHARACTERS_DISPLAY_DURATION = 4f;
     float TIME_UNTIL_GAME_STARTS = 0f;
-    const float SURVIVE_DURATION = 1f;
+    const float SURVIVE_DURATION = 1.2f;
 
     bool countdownDone = false;
 
@@ -82,6 +82,8 @@ public class PrepareForBattleAnimations : MonoBehaviour
         StartCoroutine(SurviveAnimation());
         yield return new WaitForSeconds(SURVIVE_DURATION);
         gameObject.SetActive(false);
+        battleScreen.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        print("NOw");
     }
 
     IEnumerator LoadingAnimation()
