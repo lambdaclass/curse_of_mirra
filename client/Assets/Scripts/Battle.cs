@@ -152,7 +152,7 @@ public class Battle : MonoBehaviour
         accumulatedTime = (currentTimestamp - firstTimestamp);
     }
 
-    public bool PlayerMovementAuthorized(Character character)
+    public bool PlayerMovementAuthorized(CustomCharacter character)
     {
         if ((BlockingMovementStates != null) && (BlockingMovementStates.Length > 0))
         {
@@ -299,7 +299,7 @@ public class Battle : MonoBehaviour
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
                 // TODO: try to optimize GetComponent calls
                 CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-
+                
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
@@ -513,7 +513,7 @@ public class Battle : MonoBehaviour
         feedbackManager.ManageStateFeedbacks(playerUpdate, character);
         feedbackManager.HandlePickUpItemFeedback(playerUpdate, characterFeedbacks);
 
-        if (!GameServerConnectionManager.Instance.GameHasEnded())
+        if (!GameServerConnectionManager.Instance.GameHasEnded() && playerUpdate.Player.Health > 0)
         {
             HandleMovement(player, playerUpdate, pastTime, characterSpeed);
         }

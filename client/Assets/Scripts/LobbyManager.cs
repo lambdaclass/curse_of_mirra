@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,16 +12,9 @@ public class LobbyManager : LevelSelector
 
     public static string LevelSelected;
 
-    private void Update()
+    void Start()
     {
-        if (
-            !String.IsNullOrEmpty(SessionParameters.GameId)
-            && SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME
-        )
-        {
-            Debug.Log("Loading battle scene");
-            SceneManager.LoadScene(BATTLE_SCENE_NAME);
-        }
+        StartCoroutine(WaitForLobbyJoin());
     }
 
     public void BackToLobbyFromGame()
@@ -53,5 +44,17 @@ public class LobbyManager : LevelSelector
         // ServerConnection.Instance.Init();
         this.LevelName = MAIN_SCENE_NAME;
         SceneManager.LoadScene(this.LevelName);
+    }
+
+    public IEnumerator WaitForLobbyJoin()
+    {
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == LOBBY_SCENE_NAME);
+        ServerConnection.Instance.JoinLobby();
+        yield return new WaitUntil(
+            () =>
+                !string.IsNullOrEmpty(ServerConnection.Instance.LobbySession)
+                && !string.IsNullOrEmpty(SessionParameters.GameId)
+        );
+        SceneManager.LoadScene(BATTLE_SCENE_NAME);
     }
 }
