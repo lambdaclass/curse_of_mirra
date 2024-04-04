@@ -1898,7 +1898,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: europe-testing.curseofmirra.com
+  m_Text: arena-europe-testing.curseofmirra.com
 --- !u!1 &7318593759018477511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,7 +2370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: brazil-testing.curseofmirra.com
+  m_Text: arena-brazil-testing.curseofmirra.com
 --- !u!1 &8206817802217038070
 GameObject:
   m_ObjectHideFlags: 0

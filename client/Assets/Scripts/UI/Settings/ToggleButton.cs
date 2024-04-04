@@ -6,19 +6,21 @@ using UnityEngine.UI;
 public class ToggleButton : MonoBehaviour
 {
     [SerializeField]
-    Sprite notSelectedButton;
-
-    [SerializeField]
-    Sprite selectedButton;
-
-    [SerializeField]
-    TextMeshProUGUI state;
+    TextMeshProUGUI textState;
 
     [SerializeField]
     Battle battle;
 
     [SerializeField]
     CustomLogs customLogs;
+
+    // This is a quick fix until a refactor on this is done
+    [Tooltip("Check this if the toogle is the client prediction toggle")]
+    public bool clientPrediction;
+
+    // This is a quick fix until a refactor on this is done
+    [Tooltip("Check this if the toogle is the console toggle")]
+    public bool console;
 
     void Start()
     {
@@ -31,129 +33,105 @@ public class ToggleButton : MonoBehaviour
             transform.parent.GetComponent<MMTouchButton>().ReturnToInitialSpriteAutomatically =
                 false;
         }
+        if (customLogs != null)
+        {
+            if (console)
+            {
+                ToggleAllLogs();
+            }
+            else
+            {
+                ToggleCustomLogs();
+            }
+        }
+        if (battle != null)
+        {
+            if (clientPrediction)
+            {
+                ToggleClientPrediction();
+            }
+            else
+            {
+                ToggleClientPredictionGhost();
+                ToggleInterpolationGhosts();
+                SetGridSettings();
+            }
+        }
     }
 
     public void ToggleClientPrediction()
     {
-        if (battle.useClientPrediction)
+        bool useClientPrediction = battle.useClientPrediction;
+        if (useClientPrediction)
         {
-            ToggleOn();
-            state.text = "On";
+            if (textState != null)
+            {
+                textState.text = "On";
+            }
         }
         else
         {
-            ToggleOff();
-            state.text = "Off";
+            if (textState != null)
+            {
+                textState.text = "Off";
+            }
         }
+        ToggleUIState(useClientPrediction);
     }
 
     public void ToggleClientPredictionGhost()
     {
-        if (battle.showClientPredictionGhost)
-        {
-            ToggleOn();
-        }
-        else
-        {
-            ToggleOff();
-        }
+        ToggleUIState(battle.showClientPredictionGhost);
     }
 
     public void ToggleInterpolationGhosts()
     {
-        if (battle.showInterpolationGhosts)
-        {
-            ToggleOn();
-        }
-        else
-        {
-            ToggleOff();
-        }
+        ToggleUIState(battle.showInterpolationGhosts);
     }
 
     public void ToggleAllLogs()
     {
-        if (customLogs.debugPrint)
-        {
-            ToggleOn();
-        }
-        else
-        {
-            ToggleOff();
-        }
+        ToggleUIState(customLogs.debugPrint);
     }
 
     public void ToggleCustomLogs()
     {
-        if (CustomLogs.allowCustomDebug)
-        {
-            ToggleOn();
-        }
-        else
-        {
-            ToggleOff();
-        }
+        ToggleUIState(CustomLogs.allowCustomDebug);
     }
 
     public void ToggleCamera(bool value)
     {
-        if (value)
-        {
-            ToggleOff();
-        }
-        else
-        {
-            ToggleOn();
-        }
+        ToggleUIState(!value);
     }
 
     public void ToggleMetrics(GameObject metricsComponent)
     {
-        if (metricsComponent.activeSelf)
-        {
-            ToggleOff();
-            metricsComponent.SetActive(false);
-        }
-        else
-        {
-            ToggleOn();
-            metricsComponent.SetActive(true);
-        }
+        bool metricsState = !metricsComponent.activeSelf;
+        ToggleUIState(metricsState);
+        metricsComponent.SetActive(metricsState);
     }
 
     public void ToggleGrid()
     {
-        if (battle.GetMapGrid().activeSelf)
-        {
-            ToggleOff();
-            battle.GetMapGrid().SetActive(false);
-        }
-        else
-        {
-            ToggleOn();
-            battle.GetMapGrid().SetActive(true);
-        }
+        bool gridState = !battle.GetMapGrid().activeSelf;
+        ToggleUIState(gridState);
+        battle.GetMapGrid().SetActive(gridState);
+    }
+
+    public void SetGridSettings()
+    {
+        ToggleUIState(battle.GetMapGrid().activeSelf);
     }
 
     public void ToggleWithSiblingComponentBool(bool value)
     {
-        if (value)
-        {
-            ToggleOn();
-        }
-        else
-        {
-            ToggleOff();
-        }
+        ToggleUIState(value);
     }
 
-    public void ToggleOn()
+    private void ToggleUIState(bool isOn)
     {
-        GetComponent<Image>().sprite = selectedButton;
-    }
-
-    public void ToggleOff()
-    {
-        GetComponent<Image>().sprite = notSelectedButton;
+        GetComponent<Image>().enabled = isOn;
+        int alpha = isOn ? 255 : 100;
+        textState.color = new Color32(255, 255, 255, (byte)alpha);
     }
 }
