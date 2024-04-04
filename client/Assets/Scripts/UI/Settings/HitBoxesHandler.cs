@@ -10,17 +10,23 @@ public class HitBoxesHandler : MonoBehaviour
     private Vector3 defaultCameraRotation;
     private Vector3 topView = new Vector3(90, 0, 0);
 
-    void Start()
+    void Awake()
     {
         mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
         mainCameraCM = GameObject.Find("CM vcam1");
         defaultCameraRotation = mainCamera.transform.rotation.eulerAngles;
+        SetMatrixModeSettings();
+        SetCameraSettings();
     }
 
     public void ToggleMatrixMode()
     {
         isActive = !isActive;
+        SetMatrixModeSettings();
+    }
 
+    void SetMatrixModeSettings()
+    {
         GameObject[] hitboxes = GameObject.FindGameObjectsWithTag("Hitbox");
         foreach (GameObject hitbox in hitboxes)
         {
@@ -32,6 +38,11 @@ public class HitBoxesHandler : MonoBehaviour
     public void ToggleCamera()
     {
         cameraDefault = !cameraDefault;
+        SetCameraSettings();
+    }
+
+    void SetCameraSettings()
+    {
         if (cameraDefault)
         {
             mainCameraCM.transform.rotation = Quaternion.Euler(defaultCameraRotation);
