@@ -19,7 +19,7 @@ public class SelectServerIP : MonoBehaviour
         private const string _defaultServerIp = "localhost";
     #else
         private const string _defaultServerName = "BRAZIL";
-        private const string _defaultServerIp = "brazil-testing.curseofmirra.com";
+        private const string _defaultServerIp = "arena-brazil-testing.curseofmirra.com";
     #endif
 
     public void SetServerIp()
