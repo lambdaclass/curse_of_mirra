@@ -277,7 +277,7 @@ public class Battle : MonoBehaviour
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
 
-                    serverPlayerUpdate = GameServerConnectionManager
+                    GameServerConnectionManager
                         .Instance
                         .clientPrediction
                         .SimulatePlayerState(
