@@ -73,7 +73,8 @@ public class TitleScreenController : MonoBehaviour
     {
         SetLoadingScreen(true);
         // SelectCharacterAndMaybeCreateUser();
-        ServerConnection.Instance.selectedCharacterName = "Muflus";
+        string selectedCharacterName = PlayerPrefs.GetString("selectedCharacterName");
+        ServerConnection.Instance.selectedCharacterName = String.IsNullOrEmpty(selectedCharacterName) ? "Mulfus" : selectedCharacterName;
         asyncOperation.allowSceneActivation = true;
     }
 
