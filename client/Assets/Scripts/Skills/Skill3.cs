@@ -6,5 +6,4 @@ public class Skill3 : Skill
         base.Initialization();
         skillId = "Skill3";
     }
-
 }
