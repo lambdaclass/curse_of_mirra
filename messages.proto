@@ -75,7 +75,7 @@ message ConfigSkill {
   float targetting_angle = 5;
   float targetting_range = 6;
   uint64 stamina_cost = 7;
-  }
+}
 
 
 /*
@@ -97,6 +97,7 @@ message GameState {
   map<uint64, Entity> items = 13;
   map<uint64, Entity> obstacles = 14;
   map<uint64, Entity> pools = 15;
+  map<uint64, Entity> bushes = 16;
 }
 
 enum GameStatus {
@@ -138,6 +139,7 @@ message Entity {
     PowerUp power_up = 15;
     Item item = 16;
     Pool pool = 17;
+    Bush bush = 18;
   }
 }
 
@@ -154,6 +156,7 @@ message Player {
   map<uint64, Effect> effects = 10;
   Item inventory = 11;
   map<string, uint64> cooldowns = 12;
+  repeated uint64 visible_players = 13;
 }
 
 message Effect {
@@ -195,6 +198,8 @@ message Pool {
   uint64 owner_id = 1;
 }
 
+message Bush {
+}
 
 message PlayerAction {
     PlayerActionType action = 1;
