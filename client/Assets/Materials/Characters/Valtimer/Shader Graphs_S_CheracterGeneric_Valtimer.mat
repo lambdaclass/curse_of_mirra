@@ -43,12 +43,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissioveNoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissiveTexture:
-        m_Texture: {fileID: 2800000, guid: 16ed0e770f2ab467fb92e51c5ce389c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: bde602d34913442e6a816ce217877c21, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 90d290390a2f2431395f319720034781, type: 3}
+        m_Texture: {fileID: 2800000, guid: fdd4ac14b62fe4533b152a56ef15d086, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -56,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetalicTexture:
-        m_Texture: {fileID: 2800000, guid: 0e96d8015614b491cb7d199d036b31c1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 501a4f248dc1145c7b0b15a2c9b71bd4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -64,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 2800000, guid: d75a674ffd1714342986164781bc5cbb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 96147a29277d245e18009e9db7361c00, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -106,6 +110,7 @@ Material:
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0.474
     - _TexWorldScale: 1
+    - _USEEMISIVEANIMATION: 0
     - _USEFRESNEL: 1
     - _UVBase: 2.68
     - _UVDetail: 1.719
@@ -115,6 +120,7 @@ Material:
     - _BaseColorMap_TO: {r: 1, g: 1, b: 0, a: 0}
     - _DetailMap_TO: {r: 1, g: 1, b: 0, a: 0}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissiveNoiseSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 2.3461432, g: 2.2934256, b: 0.25453445, a: 0}
     - _FresnelColorPulse: {r: 0.7254902, g: 0.58431375, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}

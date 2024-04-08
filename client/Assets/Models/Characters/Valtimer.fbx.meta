@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62e3d5f1a7f114e60a63ebbda7089b7d
+guid: 03ddd2bbc2b6e4760a0cbfaa0a1162db
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Valtimer_Rig_Final_SM_Valtimer_Valtimer_txt
-    second: {fileID: 2100000, guid: c29bb9774ea314657a657b0cbba08b89, type: 2}
+      name: Valtimer
+    second: {fileID: 2100000, guid: 8b7e7b3d29879e24b9366e61bbb99312, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
