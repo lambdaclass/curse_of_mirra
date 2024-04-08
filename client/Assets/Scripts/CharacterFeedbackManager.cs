@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
@@ -29,7 +30,8 @@ public class CharacterFeedbackManager : MonoBehaviour
         {
             if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
             {
-                if(skinnedMeshRenderer.material.color.a == 1){
+                if (skinnedMeshRenderer.material.color.a == 1)
+                {
                     HandleInvisible(playerUpdate.Id, character);
                 }
             }
@@ -91,5 +93,32 @@ public class CharacterFeedbackManager : MonoBehaviour
         {
             characterFeedbacks.ExecutePickUpItemFeedback(false);
         }
+    }
+
+    public void ManageInvisibleFeedbacks(Entity playerUpdate, List<GameObject> players)
+    {
+        List<ulong> visiblePlayers = playerUpdate.Player.VisiblePlayers.ToList();
+        foreach (GameObject player in players)
+        {
+            CustomCharacter character = player.GetComponent<CustomCharacter>();
+            if (
+                !visiblePlayers.Contains(Convert.ToUInt64(character.PlayerID))
+                && playerUpdate.Id != Convert.ToUInt64(character.PlayerID)
+            )
+            {
+                ShowPlayerOnScreen(character, false);
+            }
+            else
+            {
+                ShowPlayerOnScreen(character, true);
+            }
+        }
+    }
+
+    private void ShowPlayerOnScreen(CustomCharacter playerCharacter, bool show)
+    {
+        playerCharacter.characterBase.Hitbox.SetActive(show);
+        playerCharacter.characterBase.PlayerName.SetActive(show);
+        playerCharacter.CharacterHealth.UpdateHealthBar(show);
     }
 }

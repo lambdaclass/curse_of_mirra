@@ -298,7 +298,7 @@ public class Battle : MonoBehaviour
                 GameObject currentPlayer = Utils.GetPlayer(serverPlayerUpdate.Id);
                 // TODO: try to optimize GetComponent calls
                 CustomCharacter playerCharacter = currentPlayer.GetComponent<CustomCharacter>();
-                
+
                 if (currentPlayer.activeSelf)
                 {
                     UpdatePlayer(currentPlayer, serverPlayerUpdate, pastTime);
@@ -525,6 +525,10 @@ public class Battle : MonoBehaviour
 
         if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId)
         {
+            feedbackManager.ManageInvisibleFeedbacks(
+                playerUpdate,
+                GameServerConnectionManager.Instance.players
+            );
             if (GameServerConnectionManager.Instance.damageDone.ContainsKey(playerUpdate.Id))
             {
                 character.HandleHit(
@@ -540,10 +544,13 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            
-            float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
-            float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
 
+            float skill2Cooldown =
+                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value
+                / 1000.0f;
+            float skill3Cooldown =
+                playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value
+                / 1000.0f;
 
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
