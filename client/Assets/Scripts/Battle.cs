@@ -160,7 +160,7 @@ public class Battle : MonoBehaviour
             {
                 if (BlockingMovementStates[i] == (character.MovementState.CurrentState))
                 {
-                    return false;
+                   return false;
                 }
             }
         }
@@ -276,6 +276,7 @@ public class Battle : MonoBehaviour
                     {
                         UpdatePlayer(clientPredictionGhost, serverPlayerUpdate, pastTime);
                     }
+
                     GameServerConnectionManager
                         .Instance
                         .clientPrediction
@@ -321,9 +322,16 @@ public class Battle : MonoBehaviour
                                 ExecuteSkillFeedback(
                                     currentPlayer,
                                     playerAction.Action,
-                                    serverPlayerUpdate.Direction,
-                                    playerAction.Duration
+                                    serverPlayerUpdate,
+                                    playerAction.Duration,
+                                    playerAction.Destination
                                 );
+                            }
+
+                            if(playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+                            {
+                                playerCharacter.IsTeleporting = true;
+                                playerCharacter.TeleportingDestination = playerAction.Destination;
                             }
                         }
 
@@ -339,6 +347,8 @@ public class Battle : MonoBehaviour
 
                         buffer.setLastTimestampSeen(player.Id, gameEvent.ServerTimestamp);
                     }
+
+                    playerCharacter.HandleTeleport(serverPlayerUpdate.Position);
                 }
 
                 playerCharacter.UpdatePowerUpsCount(serverPlayerUpdate.Player.PowerUps);
@@ -360,24 +370,26 @@ public class Battle : MonoBehaviour
     private void ExecuteSkillFeedback(
         GameObject currentPlayer,
         PlayerActionType playerAction,
-        Direction direction,
-        ulong skillDuration
+        Entity entity,
+        ulong skillDuration,
+        Position destination
     )
     {
         CustomCharacter character = currentPlayer.GetComponent<CustomCharacter>();
+        Direction direction = entity.Direction;
         // TODO: Refactor
         switch (playerAction)
         {
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true);
+                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
         }
@@ -552,6 +564,7 @@ public class Battle : MonoBehaviour
                 playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value
                 / 1000.0f;
 
+
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
@@ -677,6 +690,7 @@ public class Battle : MonoBehaviour
         character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
+
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
