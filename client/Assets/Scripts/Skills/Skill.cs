@@ -270,7 +270,7 @@ public class Skill : CharacterAbility
                vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
             } else {
                 // Placeholder, we should have the same implementation for the vfx as above
-                vfx.transform.localScale = new Vector3(diameter/5, diameter/5, diameter/5); 
+                vfx.transform.localScale = new Vector3(diameter/10, diameter/10, diameter/10); 
             }
 
         }
