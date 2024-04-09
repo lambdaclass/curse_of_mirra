@@ -13,6 +13,7 @@ public class MainScreenManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI currentPlayerName;
+    
     string sceneName = "CharacterInfo";
     string characterNameToGo;
 
