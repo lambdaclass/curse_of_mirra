@@ -207,13 +207,6 @@ public class ServerConnection : MonoBehaviour
         else
         {
             Debug.Log("ServerConnection websocket closed normally");
-
-            // If `GameSession` is not set then it means no game was launched and thus
-            // we can just go back to the main menu
-            if (String.IsNullOrEmpty(GameSession))
-            {
-                SceneManager.LoadScene("MainScreen");
-            }
         }
     }
 

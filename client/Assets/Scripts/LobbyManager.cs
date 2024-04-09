@@ -57,4 +57,11 @@ public class LobbyManager : LevelSelector
         );
         SceneManager.LoadScene(BATTLE_SCENE_NAME);
     }
+
+    public void LeaveLobby(){
+        ServerConnection.Instance.LeaveLobby();
+        if(System.String.IsNullOrEmpty(ServerConnection.Instance.GameSession)){
+            SceneManager.LoadScene("MainScreen");
+        }
+    }
 }

@@ -159,10 +159,15 @@ MonoBehaviour:
   currentPing: 0
   serverTickRate_ms: 0
   serverHash: 
+  gameStatus: 0
+  gameCountdown: 0
   allSelected: 0
   playableRadius: 0
+  zoneShrinkTime: 0
+  zoneEnabled: 0
   cinematicDone: 0
   connected: 0
+  shrinking: 0
 --- !u!4 &1042142745
 Transform:
   m_ObjectHideFlags: 0
@@ -291,6 +296,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LobbyCameraUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5906778235761794147, guid: d0ac014e27cb54c89add86b45c7421ef,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1580772512}
+    - target: {fileID: 5906778235761794147, guid: d0ac014e27cb54c89add86b45c7421ef,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeaveLobby
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0ac014e27cb54c89add86b45c7421ef, type: 3}
