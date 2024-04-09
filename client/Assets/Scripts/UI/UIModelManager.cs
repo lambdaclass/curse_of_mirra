@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIModelManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject playerModelContainer;
+    GameObject playerModelContainer,
+        rawImage;
 
     [SerializeField]
     Transform characterShadow;
@@ -17,6 +18,14 @@ public class UIModelManager : MonoBehaviour
     Coroutine characterAnimation;
     Animator modelAnimator;
 
+    void Start()
+    {
+        if (rawImage)
+        {
+            rawImage.transform.localScale = ResponsiveModel();
+        }
+    }
+
     public void SetModel(string characterName)
     {
         CoMCharacter character = CharactersManager
@@ -25,7 +34,8 @@ public class UIModelManager : MonoBehaviour
             .Single(character => character.name == characterName);
 
         GameObject playerModel = character.UIModel;
-        if(characterShadow != null) characterShadow.localScale = character.shadowScaleValues;
+        if (characterShadow != null)
+            characterShadow.localScale = character.shadowScaleValues;
         GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;
         modelAnimator = modelClone.GetComponentInChildren<Animator>();
@@ -85,7 +95,10 @@ public class UIModelManager : MonoBehaviour
 
     public void HandleAnimation(string animationName)
     {
-        bool hasAnimationParameter = modelAnimator.parameters.ToList().Any(anim => anim.name == animationName);
+        bool hasAnimationParameter = modelAnimator
+            .parameters
+            .ToList()
+            .Any(anim => anim.name == animationName);
         if (hasAnimationParameter)
         {
             modelAnimator.SetBool(animationName, true);
@@ -94,5 +107,18 @@ public class UIModelManager : MonoBehaviour
         {
             modelAnimator.Play(animationName);
         }
+    }
+
+    Vector3 ResponsiveModel()
+    {
+        // What makes this responsive is taking into account the canvas scaling
+        float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
+        Vector3 rawImageInitialScale = rawImage.transform.localScale;
+        Vector3 responsiveScale = new Vector3(
+            rawImageInitialScale.x - scaleCanvas,
+            rawImageInitialScale.y - scaleCanvas,
+            rawImageInitialScale.z - scaleCanvas
+        );
+        return responsiveScale;
     }
 }

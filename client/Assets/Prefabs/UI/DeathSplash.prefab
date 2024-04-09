@@ -1023,6 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModelContainer: {fileID: 4531841665618275015}
+  rawImage: {fileID: 3577355395028791854}
   characterShadow: {fileID: 3891095335562064887}
 --- !u!1 &3319636553781748059
 GameObject:
@@ -1422,7 +1423,7 @@ RectTransform:
   m_GameObject: {fileID: 3577355395028791854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.71, y: 0.71, z: 0.71}
+  m_LocalScale: {x: 2.1, y: 2.1, z: 2.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9101835049740324959}
@@ -1430,8 +1431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 38}
-  m_SizeDelta: {x: 1900, y: 1400}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2000, y: 1500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5985301129980669585
 CanvasRenderer:
