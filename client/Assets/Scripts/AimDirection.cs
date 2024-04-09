@@ -31,6 +31,11 @@ public class AimDirection : MonoBehaviour
     public float viewDistance = 50f;
     public int rayCount = 50;
     public float angleIncrease;
+    private float hitbox;
+    void Awake(){
+
+        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+    }
 
     public void InitIndicator(Skill skill, Color32 color)
     {
@@ -42,7 +47,8 @@ public class AimDirection : MonoBehaviour
         characterFeedbackColor = color;
         initialPosition = transform.localPosition;
 
-        float circleArea = skill.GetSkillAreaRadius();
+
+        float circleArea = skill.GetSkillInfo().usesHitboxAsArea ? hitbox : skill.GetSkillAreaRadius();
 
         this.area.transform.localScale = new Vector3(circleArea, 0, circleArea);
 
