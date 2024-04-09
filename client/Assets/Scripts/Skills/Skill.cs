@@ -275,7 +275,13 @@ public class Skill : CharacterAbility
         });
 
         if(vfx.transform.childCount > 0){
-            vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
+            if(vfx.GetComponentInChildren<VisualEffect>()){
+               vfx.GetComponentInChildren<VisualEffect>().SetFloat("EffectDiameter", diameter);
+            } else {
+                // Placeholder, we should have the same implementation for the vfx as above
+                vfx.transform.localScale = new Vector3(diameter/10, diameter/10, diameter/10); 
+            }
+
         }
 
         return vfxPosition;
