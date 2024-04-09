@@ -28,6 +28,12 @@ public class PinnedEffectsController : MonoBehaviour
     {
         ClearEffects();
 
+#if VFX_DEBUG
+        //For test cases only. Delete before merge!
+        if (manager == null)
+            manager = GetComponentInParent<PinnedEffectsManager>();
+#endif
+
         if (manager == null)
             return;
 
