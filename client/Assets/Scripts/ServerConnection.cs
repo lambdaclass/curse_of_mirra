@@ -7,6 +7,7 @@ using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class ServerConnection : MonoBehaviour
 {
@@ -105,6 +106,7 @@ public class ServerConnection : MonoBehaviour
     public void JoinLobby()
     {
         // ValidateVersionHashes();
+        ResetFields();
         ConnectToSession();
         InvokeRepeating("UpdateSimulatedCounter", 0, 1);
     }
@@ -115,6 +117,11 @@ public class ServerConnection : MonoBehaviour
     //         ConnectToSession(matchmaking_id);
     //         LobbySession = matchmaking_id;
     //     }
+
+    public void LeaveLobby()
+    {
+        ws.SendText("leave_lobby");
+    }
 
     public void RefreshServerInfo()
     {
@@ -191,6 +198,8 @@ public class ServerConnection : MonoBehaviour
 
     private void OnWebsocketClose(WebSocketCloseCode closeCode)
     {
+        CancelInvoke("UpdateSimulatedCounter");
+
         if (closeCode != WebSocketCloseCode.Normal)
         {
             Errors.Instance.HandleNetworkError(connectionTitle, connectionDescription);
@@ -198,6 +207,13 @@ public class ServerConnection : MonoBehaviour
         else
         {
             Debug.Log("ServerConnection websocket closed normally");
+
+            // If `GameSession` is not set then it means no game was launched and thus
+            // we can just go back to the main menu
+            if (String.IsNullOrEmpty(GameSession))
+            {
+                SceneManager.LoadScene("MainScreen");
+            }
         }
     }
 
