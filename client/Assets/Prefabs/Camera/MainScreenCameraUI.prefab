@@ -1713,7 +1713,7 @@ GameObject:
   - component: {fileID: 990851521}
   - component: {fileID: 990851520}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CurrentPlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1737,7 +1737,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 89.3}
+  m_SizeDelta: {x: 0, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &990851521
 CanvasRenderer:
@@ -1767,8 +1767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In order to change the player's name you need to click on the button bellow.
-    It will display the name selector.
+  m_text: 'Current name: Guest'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c29bd5fad2a3454b88e38781b2bf065, type: 2}
   m_sharedMaterial: {fileID: -8425151701689930610, guid: 9c29bd5fad2a3454b88e38781b2bf065,
@@ -5474,6 +5473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelManager: {fileID: 7536444204656691234}
   playerName: {fileID: 3259949485301586300}
+  currentPlayerName: {fileID: 990851520}
 --- !u!1 &5393381855419559497
 GameObject:
   m_ObjectHideFlags: 0
