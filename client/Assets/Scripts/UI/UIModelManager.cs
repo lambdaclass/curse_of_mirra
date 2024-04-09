@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIModelManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject playerModelContainer,
-        rawImage;
+    GameObject playerModelContainer;
+    public bool responsiveRawImage;
 
+    [MMCondition("responsiveRawImage", true)]
+    [SerializeField]
+    GameObject rawImage;
+
+    public bool hasCharacterShadow;
+
+    [MMCondition("hasCharacterShadow", true)]
     [SerializeField]
     Transform characterShadow;
     bool animate = false;
@@ -20,7 +28,7 @@ public class UIModelManager : MonoBehaviour
 
     void Start()
     {
-        if (rawImage)
+        if (responsiveRawImage)
         {
             rawImage.transform.localScale = ResponsiveModel();
         }
@@ -34,7 +42,7 @@ public class UIModelManager : MonoBehaviour
             .Single(character => character.name == characterName);
 
         GameObject playerModel = character.UIModel;
-        if (characterShadow != null)
+        if (hasCharacterShadow)
             characterShadow.localScale = character.shadowScaleValues;
         GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;

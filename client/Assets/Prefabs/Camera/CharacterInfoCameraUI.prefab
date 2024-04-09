@@ -1665,6 +1665,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModelContainer: {fileID: 5555014344781973701}
+  responsiveRawImage: 0
+  rawImage: {fileID: 0}
+  hasCharacterShadow: 1
   characterShadow: {fileID: 1290644239772541293}
 --- !u!1 &1177290041688610676
 GameObject:
