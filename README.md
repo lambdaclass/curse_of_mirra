@@ -83,20 +83,20 @@ git clone https://github.com/lambdaclass/curse_of_mirra
 - Download the following libraries and include them in the `Assets/ThirdParty` folder:
   - [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636) by [More Mountains](https://moremountains.com). You need to purchase the license to use it.
   - [SineVFX](https://assetstore.unity.com/packages/vfx/particles/spells/top-down-effects-191455). You need to purchase the license to use it.
-  - [JMO Assets](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565). 
+  - [JMO Assets](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565).
+  - [Top-Down Dungeons](https://assetstore.unity.com/packages/3d/environments/dungeons/top-down-dungeons-7853).
 - To test the game, select the scene in `Assets/Scenes/TitleScreen` and run it by clicking the play button.
 
-## Running the Backend
+## Local Testing
 
-For local testing, use the [game backend](https://github.com/lambdaclass/game_backend). Ensure Docker is running and execute:
+For local testing, use the [mirra backend](https://github.com/lambdaclass/mirra_backend). Ensure you have the required dependencies installed and run:
 
 ```bash
-git clone https://github.com/lambdaclass/game_backend
-make db
-make setup
-make start
+git clone https://github.com/lambdaclass/mirra_backend
+devenv up
 ```
-Remember to set ```localhost``` as the server.
+
+Remember to set ```localhost``` as the server in the client.
 
 ## Documentation
 
