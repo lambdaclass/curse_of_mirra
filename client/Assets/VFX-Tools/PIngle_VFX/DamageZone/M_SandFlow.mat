@@ -68,7 +68,7 @@ Material:
     - _AlphaPower: 1.2
     - _EdgeNoiseIntensity: 6
     - _EdgePower: 50
-    - _Progress: 0.12083329
+    - _Progress: 0.5375
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SkewUV: 0.4
