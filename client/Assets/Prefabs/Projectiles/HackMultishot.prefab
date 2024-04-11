@@ -15030,7 +15030,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileInfo: {fileID: 11400000, guid: e3bb47ddbb21e4eb1867979ade7a9d01, type: 2}
   projectileElement: {fileID: 6670668704897285037}
-  trailRenderer: {fileID: 0}
   trail: {fileID: 3012811428108994762, guid: 248632c7ddad04a378b2ee224dac472b, type: 3}
   isTrailEnabled: 1
 --- !u!1 &6670668704897285037
