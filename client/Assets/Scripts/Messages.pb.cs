@@ -82,7 +82,7 @@ public static partial class MessagesReflection {
           "bGUYDiABKAsyCS5PYnN0YWNsZUgAEhwKCHBvd2VyX3VwGA8gASgLMgguUG93",
           "ZXJVcEgAEhUKBGl0ZW0YECABKAsyBS5JdGVtSAASFQoEcG9vbBgRIAEoCzIF",
           "LlBvb2xIABIVCgRidXNoGBIgASgLMgUuQnVzaEgAQhAKDmFkaXRpb25hbF9p",
-          "bmZvItUDCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgEEhIKCmtpbGxfY291bnQY",
+          "bmZvIuYDCgZQbGF5ZXISDgoGaGVhbHRoGAEgASgEEhIKCmtpbGxfY291bnQY",
           "AiABKAQSJgoPY3VycmVudF9hY3Rpb25zGAMgAygLMg0uUGxheWVyQWN0aW9u",
           "EhkKEWF2YWlsYWJsZV9zdGFtaW5hGAQgASgEEhMKC21heF9zdGFtaW5hGAUg",
           "ASgEEhgKEHN0YW1pbmFfaW50ZXJ2YWwYBiABKAQSGgoScmVjaGFyZ2luZ19z",
@@ -90,34 +90,35 @@ public static partial class MessagesReflection {
           "X3VwcxgJIAEoBBIlCgdlZmZlY3RzGAogAygLMhQuUGxheWVyLkVmZmVjdHNF",
           "bnRyeRIYCglpbnZlbnRvcnkYCyABKAsyBS5JdGVtEikKCWNvb2xkb3ducxgM",
           "IAMoCzIWLlBsYXllci5Db29sZG93bnNFbnRyeRIXCg92aXNpYmxlX3BsYXll",
-          "cnMYDSADKAQaNwoMRWZmZWN0c0VudHJ5EgsKA2tleRgBIAEoBBIWCgV2YWx1",
-          "ZRgCIAEoCzIHLkVmZmVjdDoCOAEaMAoOQ29vbGRvd25zRW50cnkSCwoDa2V5",
-          "GAEgASgJEg0KBXZhbHVlGAIgASgEOgI4ASIrCgZFZmZlY3QSDAoEbmFtZRgB",
-          "IAEoCRITCgtkdXJhdGlvbl9tcxgCIAEoDSIUCgRJdGVtEgwKBG5hbWUYAiAB",
-          "KAkiZAoKUHJvamVjdGlsZRIOCgZkYW1hZ2UYASABKAQSEAoIb3duZXJfaWQY",
-          "AiABKAQSIQoGc3RhdHVzGAMgASgOMhEuUHJvamVjdGlsZVN0YXR1cxIRCglz",
-          "a2lsbF9rZXkYBCABKAkiGQoIT2JzdGFjbGUSDQoFY29sb3IYASABKAkiOwoH",
-          "UG93ZXJVcBIQCghvd25lcl9pZBgBIAEoBBIeCgZzdGF0dXMYAiABKA4yDi5Q",
-          "b3dlclVwc3RhdHVzIhgKBFBvb2wSEAoIb3duZXJfaWQYASABKAQiBgoEQnVz",
-          "aCJjCgxQbGF5ZXJBY3Rpb24SIQoGYWN0aW9uGAEgASgOMhEuUGxheWVyQWN0",
-          "aW9uVHlwZRIQCghkdXJhdGlvbhgCIAEoBBIeCgtkZXN0aW5hdGlvbhgDIAEo",
-          "CzIJLlBvc2l0aW9uIiUKBE1vdmUSHQoJZGlyZWN0aW9uGAEgASgLMgouRGly",
-          "ZWN0aW9uIj4KBkF0dGFjaxINCgVza2lsbBgBIAEoCRIlCgpwYXJhbWV0ZXJz",
-          "GAIgASgLMhEuQXR0YWNrUGFyYW1ldGVycyIuChBBdHRhY2tQYXJhbWV0ZXJz",
-          "EhoKBnRhcmdldBgBIAEoCzIKLkRpcmVjdGlvbiIXCgdVc2VJdGVtEgwKBGl0",
-          "ZW0YASABKAQifgoKR2FtZUFjdGlvbhIVCgRtb3ZlGAEgASgLMgUuTW92ZUgA",
-          "EhkKBmF0dGFjaxgCIAEoCzIHLkF0dGFja0gAEhwKCHVzZV9pdGVtGAQgASgL",
-          "MgguVXNlSXRlbUgAEhEKCXRpbWVzdGFtcBgDIAEoA0INCgthY3Rpb25fdHlw",
-          "ZSJeCgRab25lEg4KBnJhZGl1cxgBIAEoAhIPCgdlbmFibGVkGAIgASgIEiIK",
-          "Gm5leHRfem9uZV9jaGFuZ2VfdGltZXN0YW1wGAMgASgDEhEKCXNocmlua2lu",
-          "ZxgEIAEoCCIxCglLaWxsRW50cnkSEQoJa2lsbGVyX2lkGAEgASgEEhEKCXZp",
-          "Y3RpbV9pZBgCIAEoBCozCgpHYW1lU3RhdHVzEg0KCVBSRVBBUklORxAAEgsK",
-          "B1JVTk5JTkcQARIJCgVFTkRFRBACKiwKEFByb2plY3RpbGVTdGF0dXMSCgoG",
-          "QUNUSVZFEAASDAoIRVhQTE9ERUQQASopCg1Qb3dlclVwc3RhdHVzEg0KCUFW",
-          "QUlMQUJMRRAAEgkKBVRBS0VOEAEqjwEKEFBsYXllckFjdGlvblR5cGUSCgoG",
-          "TU9WSU5HEAASFAoQU1RBUlRJTkdfU0tJTExfMRABEhQKEFNUQVJUSU5HX1NL",
-          "SUxMXzIQAhIVChFFWEVDVVRJTkdfU0tJTExfMRADEhUKEUVYRUNVVElOR19T",
-          "S0lMTF8yEAQSFQoRRVhFQ1VUSU5HX1NLSUxMXzMQBWIGcHJvdG8z"));
+          "cnMYDSADKAQSDwoHb25fYnVzaBgOIAEoCBo3CgxFZmZlY3RzRW50cnkSCwoD",
+          "a2V5GAEgASgEEhYKBXZhbHVlGAIgASgLMgcuRWZmZWN0OgI4ARowCg5Db29s",
+          "ZG93bnNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAQ6AjgBIisK",
+          "BkVmZmVjdBIMCgRuYW1lGAEgASgJEhMKC2R1cmF0aW9uX21zGAIgASgNIhQK",
+          "BEl0ZW0SDAoEbmFtZRgCIAEoCSJkCgpQcm9qZWN0aWxlEg4KBmRhbWFnZRgB",
+          "IAEoBBIQCghvd25lcl9pZBgCIAEoBBIhCgZzdGF0dXMYAyABKA4yES5Qcm9q",
+          "ZWN0aWxlU3RhdHVzEhEKCXNraWxsX2tleRgEIAEoCSIZCghPYnN0YWNsZRIN",
+          "CgVjb2xvchgBIAEoCSI7CgdQb3dlclVwEhAKCG93bmVyX2lkGAEgASgEEh4K",
+          "BnN0YXR1cxgCIAEoDjIOLlBvd2VyVXBzdGF0dXMiGAoEUG9vbBIQCghvd25l",
+          "cl9pZBgBIAEoBCIGCgRCdXNoImMKDFBsYXllckFjdGlvbhIhCgZhY3Rpb24Y",
+          "ASABKA4yES5QbGF5ZXJBY3Rpb25UeXBlEhAKCGR1cmF0aW9uGAIgASgEEh4K",
+          "C2Rlc3RpbmF0aW9uGAMgASgLMgkuUG9zaXRpb24iJQoETW92ZRIdCglkaXJl",
+          "Y3Rpb24YASABKAsyCi5EaXJlY3Rpb24iPgoGQXR0YWNrEg0KBXNraWxsGAEg",
+          "ASgJEiUKCnBhcmFtZXRlcnMYAiABKAsyES5BdHRhY2tQYXJhbWV0ZXJzIi4K",
+          "EEF0dGFja1BhcmFtZXRlcnMSGgoGdGFyZ2V0GAEgASgLMgouRGlyZWN0aW9u",
+          "IhcKB1VzZUl0ZW0SDAoEaXRlbRgBIAEoBCJ+CgpHYW1lQWN0aW9uEhUKBG1v",
+          "dmUYASABKAsyBS5Nb3ZlSAASGQoGYXR0YWNrGAIgASgLMgcuQXR0YWNrSAAS",
+          "HAoIdXNlX2l0ZW0YBCABKAsyCC5Vc2VJdGVtSAASEQoJdGltZXN0YW1wGAMg",
+          "ASgDQg0KC2FjdGlvbl90eXBlIl4KBFpvbmUSDgoGcmFkaXVzGAEgASgCEg8K",
+          "B2VuYWJsZWQYAiABKAgSIgoabmV4dF96b25lX2NoYW5nZV90aW1lc3RhbXAY",
+          "AyABKAMSEQoJc2hyaW5raW5nGAQgASgIIjEKCUtpbGxFbnRyeRIRCglraWxs",
+          "ZXJfaWQYASABKAQSEQoJdmljdGltX2lkGAIgASgEKjMKCkdhbWVTdGF0dXMS",
+          "DQoJUFJFUEFSSU5HEAASCwoHUlVOTklORxABEgkKBUVOREVEEAIqLAoQUHJv",
+          "amVjdGlsZVN0YXR1cxIKCgZBQ1RJVkUQABIMCghFWFBMT0RFRBABKikKDVBv",
+          "d2VyVXBzdGF0dXMSDQoJQVZBSUxBQkxFEAASCQoFVEFLRU4QASqPAQoQUGxh",
+          "eWVyQWN0aW9uVHlwZRIKCgZNT1ZJTkcQABIUChBTVEFSVElOR19TS0lMTF8x",
+          "EAESFAoQU1RBUlRJTkdfU0tJTExfMhACEhUKEUVYRUNVVElOR19TS0lMTF8x",
+          "EAMSFQoRRVhFQ1VUSU5HX1NLSUxMXzIQBBIVChFFWEVDVVRJTkdfU0tJTExf",
+          "MxAFYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameStatus), typeof(global::ProjectileStatus), typeof(global::PowerUpstatus), typeof(global::PlayerActionType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -134,7 +135,7 @@ public static partial class MessagesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ConfigSkill), global::ConfigSkill.Parser, new[]{ "Name", "CooldownMs", "ExecutionDurationMs", "TargettingRadius", "TargettingAngle", "TargettingRange", "StaminaCost" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GameState), global::GameState.Parser, new[]{ "GameId", "Players", "Projectiles", "PlayerTimestamps", "ServerTimestamp", "Zone", "Killfeed", "DamageTaken", "DamageDone", "PowerUps", "Status", "StartGameTimestamp", "Items", "Obstacles", "Pools", "Bushes" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, null, null, null, null, null, null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Entity), global::Entity.Parser, new[]{ "Id", "Category", "Shape", "Name", "Position", "Radius", "Vertices", "CollidesWith", "Speed", "Direction", "IsMoving", "Player", "Projectile", "Obstacle", "PowerUp", "Item", "Pool", "Bush" }, new[]{ "AditionalInfo" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects", "Inventory", "Cooldowns", "VisiblePlayers" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Health", "KillCount", "CurrentActions", "AvailableStamina", "MaxStamina", "StaminaInterval", "RechargingStamina", "CharacterName", "PowerUps", "Effects", "Inventory", "Cooldowns", "VisiblePlayers", "OnBush" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Effect), global::Effect.Parser, new[]{ "Name", "DurationMs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Item), global::Item.Parser, new[]{ "Name" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Projectile), global::Projectile.Parser, new[]{ "Damage", "OwnerId", "Status", "SkillKey" }, null, null, null, null),
@@ -4809,6 +4810,7 @@ public sealed partial class Player : pb::IMessage<Player>
     inventory_ = other.inventory_ != null ? other.inventory_.Clone() : null;
     cooldowns_ = other.cooldowns_.Clone();
     visiblePlayers_ = other.visiblePlayers_.Clone();
+    onBush_ = other.onBush_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -4970,6 +4972,18 @@ public sealed partial class Player : pb::IMessage<Player>
     get { return visiblePlayers_; }
   }
 
+  /// <summary>Field number for the "on_bush" field.</summary>
+  public const int OnBushFieldNumber = 14;
+  private bool onBush_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool OnBush {
+    get { return onBush_; }
+    set {
+      onBush_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -4998,6 +5012,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (!object.Equals(Inventory, other.Inventory)) return false;
     if (!Cooldowns.Equals(other.Cooldowns)) return false;
     if(!visiblePlayers_.Equals(other.visiblePlayers_)) return false;
+    if (OnBush != other.OnBush) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -5018,6 +5033,7 @@ public sealed partial class Player : pb::IMessage<Player>
     if (inventory_ != null) hash ^= Inventory.GetHashCode();
     hash ^= Cooldowns.GetHashCode();
     hash ^= visiblePlayers_.GetHashCode();
+    if (OnBush != false) hash ^= OnBush.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -5076,6 +5092,10 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     cooldowns_.WriteTo(output, _map_cooldowns_codec);
     visiblePlayers_.WriteTo(output, _repeated_visiblePlayers_codec);
+    if (OnBush != false) {
+      output.WriteRawTag(112);
+      output.WriteBool(OnBush);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -5126,6 +5146,10 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     cooldowns_.WriteTo(ref output, _map_cooldowns_codec);
     visiblePlayers_.WriteTo(ref output, _repeated_visiblePlayers_codec);
+    if (OnBush != false) {
+      output.WriteRawTag(112);
+      output.WriteBool(OnBush);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -5167,6 +5191,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     size += cooldowns_.CalculateSize(_map_cooldowns_codec);
     size += visiblePlayers_.CalculateSize(_repeated_visiblePlayers_codec);
+    if (OnBush != false) {
+      size += 1 + 1;
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -5213,6 +5240,9 @@ public sealed partial class Player : pb::IMessage<Player>
     }
     cooldowns_.MergeFrom(other.cooldowns_);
     visiblePlayers_.Add(other.visiblePlayers_);
+    if (other.OnBush != false) {
+      OnBush = other.OnBush;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -5284,6 +5314,10 @@ public sealed partial class Player : pb::IMessage<Player>
           visiblePlayers_.AddEntriesFrom(input, _repeated_visiblePlayers_codec);
           break;
         }
+        case 112: {
+          OnBush = input.ReadBool();
+          break;
+        }
       }
     }
   #endif
@@ -5353,6 +5387,10 @@ public sealed partial class Player : pb::IMessage<Player>
         case 106:
         case 104: {
           visiblePlayers_.AddEntriesFrom(ref input, _repeated_visiblePlayers_codec);
+          break;
+        }
+        case 112: {
+          OnBush = input.ReadBool();
           break;
         }
       }
