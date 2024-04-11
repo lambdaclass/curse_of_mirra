@@ -82,8 +82,14 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.3
+      - m_Value: 0.1
         m_Name: Delay
+        m_Overridden: 1
+      - m_Value: 0.2
+        m_Name: Sweep Duration
+        m_Overridden: 1
+      - m_Value: 0.15
+        m_Name: Delay Impact
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
