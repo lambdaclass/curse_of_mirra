@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class EventsBuffer
 {
@@ -31,27 +33,30 @@ public class EventsBuffer
         return updatesBuffer[lastIndex];
     }
 
-    public GameState getNextEventToRender(long pastTime)
+    public Tuple<GameState, int> getNextEventToRender(long pastTime)
     {
         GameState nextGameEvent = null;
-        foreach (GameState update in updatesBuffer)
+        int nextGameEventIndex = 0;
+        for (int i = 0; i < updatesBuffer.Count; i++)
         {
+            GameState update = updatesBuffer[i];
             if (update.ServerTimestamp > pastTime)
             {
                 if (nextGameEvent == null || update.ServerTimestamp < nextGameEvent.ServerTimestamp)
                 {
                     nextGameEvent = update;
+                    nextGameEventIndex = i;
                 }
             }
         }
 
         if (nextGameEvent == null)
         {
-            return this.lastEvent();
+            return new Tuple<GameState, int>(this.lastEvent(), updatesBuffer.Count - 1);
         }
         else
         {
-            return nextGameEvent;
+            return new Tuple<GameState, int>(nextGameEvent, nextGameEventIndex);
         }
     }
 
@@ -67,8 +72,8 @@ public class EventsBuffer
     public bool playerIsMoving(ulong playerId, long pastTime)
     {
         var count = 0;
-        GameState currentEventToRender = this.getNextEventToRender(pastTime);
-        var index = updatesBuffer.IndexOf(currentEventToRender);
+        Tuple<GameState, int> currentEventToRender = this.getNextEventToRender(pastTime);
+        var index = currentEventToRender.Item2;
         int previousIndex;
         int nextIndex;
 
@@ -99,49 +104,20 @@ public class EventsBuffer
             == GameServerConnectionManager.Instance.gamePlayers.Count
         )
         {
-            var playerValues = ConvertToList(previousRenderedEvent.Players.Values);
-            foreach (Entity playerValue in playerValues)
+            Entity serverPlayerUpdate = new Entity(previousRenderedEvent.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
             {
-                if (playerValue.Id == playerId)
-                {
-                    foreach (var currentAction in playerValue.Player.CurrentActions)
-                    {
-                        if (currentAction.Action == PlayerActionType.Moving)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
-
-            playerValues = ConvertToList(currentEventToRender.Players.Values);
-            foreach (Entity playerValue in playerValues)
+            serverPlayerUpdate = new Entity(currentEventToRender.Item1.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
             {
-                if (playerValue.Id == playerId)
-                {
-                    foreach (var currentAction in playerValue.Player.CurrentActions)
-                    {
-                        if (currentAction.Action == PlayerActionType.Moving)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
-
-            playerValues = ConvertToList(followingEventToRender.Players.Values);
-            foreach (Entity playerValue in playerValues)
+            serverPlayerUpdate = new Entity(followingEventToRender.Players[playerId]);
+            if (serverPlayerUpdate.IsMoving)
             {
-                if (playerValue.Id == playerId)
-                {
-                    foreach (var currentAction in playerValue.Player.CurrentActions)
-                    {
-                        if (currentAction.Action == PlayerActionType.Moving)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
         }
 

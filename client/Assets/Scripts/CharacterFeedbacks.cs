@@ -55,7 +55,7 @@ public class CharacterFeedbacks : MonoBehaviour
     void Start()
     {
         damageOverlayColor = new Color(255, 0, 0, 1);
-        baseOverlayColor = new Color(255, 255, 255, 1);
+        baseOverlayColor = new Color(1, 1, 1, 1);
         healOverlayColor = new Color(68, 173, 68, 1);
     }
 
@@ -80,6 +80,7 @@ public class CharacterFeedbacks : MonoBehaviour
         currentOverlayColor.a = currentAlpha;
         baseOverlayColor.a = currentAlpha;
     }
+
     public void SetActiveStateFeedback(string name, bool active)
     {
         GameObject feedbackToActivate = feedbacksStatesPrefabs.Find(el => el.name == name);
