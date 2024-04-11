@@ -117,7 +117,7 @@ public class CharacterFeedbacks : MonoBehaviour
           switch (name)
         {
             case "mirra_blessing":
-                return new KeyValuePair<float,GameObject>(1,myrrasBlessingVFX);
+                return new KeyValuePair<float,GameObject>(5,myrrasBlessingVFX);
             case "magic_boots":
                 return new KeyValuePair<float,GameObject>(10,magicBootsVFX);
             case "golden_clock":
