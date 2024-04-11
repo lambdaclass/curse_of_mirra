@@ -4,6 +4,7 @@ using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.VFX;
 
 public enum HapticFeedbackType
@@ -129,13 +130,15 @@ public class CharacterFeedbacks : MonoBehaviour
 
     public void ExecuteUseItemFeedback(bool state, string name)
     {
-        var obj = SelectGO(name);
-        if(obj.Value != null && state == true){
-           var vfx = Instantiate(obj.Value, transform);
-           vfx.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
-           StartCoroutine(this.GetComponent<CharacterMaterialManager>()
-            .ResetFresnelTobBase(obj.Key, vfx,  vfx.GetComponent<PinnedEffectsController>()));
-        }
+        if(state == true){
+            var obj = SelectGO(name);
+            if(obj.Value != null){
+                var vfx = Instantiate(obj.Value, transform);
+                vfx.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+                StartCoroutine(this.GetComponent<CharacterMaterialManager>()
+                    .ResetFresnelTobBase(obj.Key, vfx,  vfx.GetComponent<PinnedEffectsController>()));
+            }
+           }
     }
 
     public void ExecutePickUpItemFeedback(bool state)
