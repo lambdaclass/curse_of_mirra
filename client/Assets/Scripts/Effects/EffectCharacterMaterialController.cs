@@ -12,15 +12,16 @@ public class EffectCharacterMaterialController : MonoBehaviour
 
     private void Start()
     {
-
-        character_material_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<CharacterMaterialManager>();
-
-
+        // print(character_material_manager);
         switch(controller_type)
         {
-        case EffectMaterialControllerType.MATERIAL    : StartCoroutine(switchMaterialForTime()); break;
-        case EffectMaterialControllerType.PROPERTIES  : StartCoroutine(applyPropertiesForTime()); break;
+            case EffectMaterialControllerType.MATERIAL    : StartCoroutine(switchMaterialForTime()); break;
+            case EffectMaterialControllerType.PROPERTIES  : StartCoroutine(applyPropertiesForTime()); break;
         }
+    }
+
+    public void Setup(CharacterMaterialManager materialManager){
+        character_material_manager = materialManager;
     }
 
     private void OnDestroy()

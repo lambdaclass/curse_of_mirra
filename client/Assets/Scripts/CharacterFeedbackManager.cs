@@ -35,12 +35,16 @@ public class CharacterFeedbackManager : MonoBehaviour
             }
             else
             {
-                skinnedMeshRenderer.material = initialMaterial;
-                var canvasHolder = character.characterBase.CanvasHolder;
-                canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
-                SetMeshes(true, character);
-                vfxList.ForEach(el => el.SetActive(true));
-                character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                if(skinnedMeshRenderer.sharedMaterial.HasProperty("_ISTRANSPARENT")){
+                    if( skinnedMeshRenderer.sharedMaterial.GetInt("_ISTRANSPARENT") == 1){
+                       skinnedMeshRenderer.material = initialMaterial;
+                        var canvasHolder = character.characterBase.CanvasHolder;
+                        canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
+                        SetMeshes(true, character);
+                        vfxList.ForEach(el => el.SetActive(true));
+                        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                    }
+                }
             }
         }
     }
@@ -50,8 +54,9 @@ public class CharacterFeedbackManager : MonoBehaviour
         bool isClient = GameServerConnectionManager.Instance.playerId == id;
         float alpha = isClient ? 0.5f : 0;
         skinnedMeshRenderer.material = transparentMaterial;
-        Color color = skinnedMeshRenderer.material.color;
-        skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
+        skinnedMeshRenderer.sharedMaterial.SetFloat("_AlphaValue", alpha);
+        // Color color = skinnedMeshRenderer.material.color;
+        // skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
 
         if (!isClient)

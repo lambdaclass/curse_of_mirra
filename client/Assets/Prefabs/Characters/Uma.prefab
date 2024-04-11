@@ -535,8 +535,6 @@ MonoBehaviour:
   renderers:
   - {fileID: 5700785624977269805}
   holder: {fileID: 11400000, guid: 237a49ef543f64e49a8dbb07adffb439, type: 2}
-  baseFresnel: {r: 0, g: 0, b: 0, a: 0}
-  baseFresnelPulse: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4709576517955958230
 GameObject:
   m_ObjectHideFlags: 0
@@ -3716,7 +3714,7 @@ PrefabInstance:
         type: 3}
       propertyPath: transparentMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 6f2531488c923483b93fa188150e3d7a, type: 2}
+      objectReference: {fileID: 2100000, guid: e3d2651ea902a413faa863aca40bf127, type: 2}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: vfxList.Array.data[0]
