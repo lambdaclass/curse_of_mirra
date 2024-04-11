@@ -6,12 +6,17 @@ using UnityEngine;
 public class CharacterMaterialManager : MonoBehaviour
 {
     [SerializeField] private Renderer[] renderers = null;
+    [SerializeField] private MaterialSettingsHolder holder = null;
 
     private List<RendererMaterialPair> renderer_material_pairs = new List<RendererMaterialPair>();
+    public Color baseFresnel;
+    public Color baseFresnelPulse;
 
     private void Start()
     {
         init();
+        baseFresnel = renderers[0].sharedMaterial.GetColor("_FresnelColor");
+        baseFresnelPulse = renderers[0].sharedMaterial.GetColor("_FresnelColorPulse");
     }
 
     private void OnDestroy()
@@ -50,6 +55,55 @@ public class CharacterMaterialManager : MonoBehaviour
             renderer_material_pairs.Add(new RendererMaterialPair(renderer, renderer.sharedMaterial));
             renderer.sharedMaterial = renderer_material_pairs.FirstOrDefault(x => x.renderer == renderer)?.material;
         }
+    }
+
+    public IEnumerator applyEffectByKey(MaterialSettingsKey key)
+    {
+        resetMaterial();
+        MaterialSettingsBlock block = holder.getBlockByKey(key);
+
+        foreach(Renderer renderer in renderers)
+            block.applyToMaterial(renderer.sharedMaterial);
+
+        float curent_duration = 0.0f;
+        while (curent_duration <= block.apply_duration)
+        {
+            foreach(Renderer renderer in renderers)
+                renderer.material.SetFloat(block.controll_property, curent_duration / block.apply_duration);
+
+            curent_duration += Time.deltaTime;
+            yield return null;
+        }
+
+        foreach(Renderer renderer in renderers)
+            renderer.material.SetFloat(block.controll_property, 1.0f);
+    }
+
+    public IEnumerator deapplyEffectByKey(MaterialSettingsKey key)
+    {
+        resetMaterial();
+        MaterialSettingsBlock block = holder.getBlockByKey(key);
+
+        float curent_duration = 0.0f;
+        while (curent_duration <= block.apply_duration)
+        {
+            foreach(Renderer renderer in renderers)
+                renderer.material.SetFloat(block.controll_property, 1.0f - curent_duration / block.apply_duration);
+
+            curent_duration += Time.deltaTime;
+            yield return null;
+        }
+
+        foreach(Renderer renderer in renderers)
+            renderer.material.SetFloat(block.controll_property, 0.0f);
+    }
+
+    public IEnumerator ResetFresnelTobBase(float time, GameObject vfxInstance,  PinnedEffectsController controller){
+        yield return new WaitForSeconds(time);
+        this.renderers[0].sharedMaterial.SetColor("_FresnelColor", baseFresnel);
+        this.renderers[0].sharedMaterial.SetColor("_FresnelColorPulse", baseFresnelPulse);
+        controller?.ClearEffects();
+        Destroy(vfxInstance);
     }
 }
 

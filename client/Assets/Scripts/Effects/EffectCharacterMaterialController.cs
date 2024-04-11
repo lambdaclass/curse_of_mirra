@@ -4,14 +4,23 @@ using UnityEngine;
 public class EffectCharacterMaterialController : MonoBehaviour
 {
     [SerializeField] private Material character_material = null;
+    [SerializeField] private MaterialSettingsKey material_settings_key = null;
     [SerializeField] private float duration = 1.0f;
+    [SerializeField] private EffectMaterialControllerType controller_type = EffectMaterialControllerType.MATERIAL;
 
     private CharacterMaterialManager character_material_manager = null;
 
     private void Start()
     {
+
         character_material_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<CharacterMaterialManager>();
-        StartCoroutine(switchMaterialForTime());
+
+
+        switch(controller_type)
+        {
+        case EffectMaterialControllerType.MATERIAL    : StartCoroutine(switchMaterialForTime()); break;
+        case EffectMaterialControllerType.PROPERTIES  : StartCoroutine(applyPropertiesForTime()); break;
+        }
     }
 
     private void OnDestroy()
@@ -35,4 +44,18 @@ public class EffectCharacterMaterialController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         deinit();
     }
+
+    private IEnumerator applyPropertiesForTime()
+    {
+        yield return character_material_manager?.applyEffectByKey(material_settings_key);
+        yield return new WaitForSeconds(duration);
+        yield return character_material_manager?.deapplyEffectByKey(material_settings_key);
+    }
+}
+
+public enum EffectMaterialControllerType
+{
+  NONE = 0,
+  MATERIAL = 1,
+  PROPERTIES = 2
 }
