@@ -68,19 +68,19 @@ Material:
     - _AlphaPower: 1.2
     - _EdgeNoiseIntensity: 6
     - _EdgePower: 50
-    - _Progress: 0.5375
+    - _Progress: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SkewUV: 0.4
     - _SupportNoiseMin: 0.08
-    - _SupportNoiseMultiplier: 3.94
+    - _SupportNoiseMultiplier: 4
     - _VertexOffestSpeed: 0.48
     - _VertexOffsetDensity: 16.04
     - _VertexOffsetMultiplier: 0.1
     m_Colors:
-    - _MainColor: {r: 1.0283097, g: 0.457687, b: 0.07132784, a: 0}
+    - _MainColor: {r: 0.103773594, g: 0.04647353, b: 0.006363478, a: 0}
     - _MainNoiseSpeed: {r: 0.01, g: -0.07, b: 0, a: 0}
-    - _SupportColor: {r: 0.8490566, g: 0.26549852, b: 0.108134575, a: 0}
+    - _SupportColor: {r: 0.38679248, g: 0.19836774, b: 0.14778392, a: 0}
     - _SupportNoiseSpeed: {r: -0.02, g: -0.03, b: 0, a: 0}
     - _VertexOffsetDiraction: {r: 0.01, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
