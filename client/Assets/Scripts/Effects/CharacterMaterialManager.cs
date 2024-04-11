@@ -9,10 +9,14 @@ public class CharacterMaterialManager : MonoBehaviour
     [SerializeField] private MaterialSettingsHolder holder = null;
 
     private List<RendererMaterialPair> renderer_material_pairs = new List<RendererMaterialPair>();
+    public Color baseFresnel;
+    public Color baseFresnelPulse;
 
     private void Start()
     {
         init();
+        baseFresnel = renderers[0].sharedMaterial.GetColor("_FresnelColor");
+        baseFresnelPulse = renderers[0].sharedMaterial.GetColor("_FresnelColorPulse");
     }
 
     private void OnDestroy()
@@ -92,6 +96,14 @@ public class CharacterMaterialManager : MonoBehaviour
 
         foreach(Renderer renderer in renderers)
             renderer.material.SetFloat(block.controll_property, 0.0f);
+    }
+
+    public IEnumerator ResetFresnelTobBase(float time, GameObject vfxInstance,  PinnedEffectsController controller){
+        yield return new WaitForSeconds(time);
+        this.renderers[0].sharedMaterial.SetColor("_FresnelColor", baseFresnel);
+        this.renderers[0].sharedMaterial.SetColor("_FresnelColorPulse", baseFresnelPulse);
+        controller?.ClearEffects();
+        Destroy(vfxInstance);
     }
 }
 

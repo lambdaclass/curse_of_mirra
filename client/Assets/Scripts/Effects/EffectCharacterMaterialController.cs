@@ -12,12 +12,9 @@ public class EffectCharacterMaterialController : MonoBehaviour
 
     private void Start()
     {
-#if VFX_DEBUG
-            //For test cases only. Delete before merge!
-            character_material_manager = GetComponentInParent<CharacterMaterialManager>();
-#else
-            character_material_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<CharacterMaterialManager>();
-#endif
+
+        character_material_manager = Utils.GetPlayer(GameServerConnectionManager.Instance.playerId)?.GetComponent<CharacterMaterialManager>();
+
 
         switch(controller_type)
         {

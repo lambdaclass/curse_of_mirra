@@ -30,6 +30,13 @@ public class CharacterFeedbacks : MonoBehaviour
         pickUpFeedback,
         useItemFeedback;
 
+
+    [SerializeField] 
+        GameObject
+            goldenClockVFX,
+            magicBootsVFX,
+            myrrasBlessingVFX;
+
     [SerializeField]
     MMProgressBar healthBar;
 
@@ -45,6 +52,8 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayDuration = 5f;
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
+
+
 
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
@@ -103,10 +112,30 @@ public class CharacterFeedbacks : MonoBehaviour
             deathFeedback.SetActive(true);
         }
     }
+    
+    private KeyValuePair<float,GameObject> SelectGO(string name){
+          switch (name)
+        {
+            case "mirra_blessing":
+                return new KeyValuePair<float,GameObject>(1,myrrasBlessingVFX);
+            case "magic_boots":
+                return new KeyValuePair<float,GameObject>(10,magicBootsVFX);
+            case "golden_clock":
+                return new KeyValuePair<float,GameObject>(7,goldenClockVFX);
+            default:
+                return new KeyValuePair<float,GameObject>(0,null);
+        }
+    }
 
-    public void ExecuteUseItemFeedback(bool state)
+    public void ExecuteUseItemFeedback(bool state, string name)
     {
-        useItemFeedback.SetActive(state);
+        var obj = SelectGO(name);
+        if(obj.Value != null && state == true){
+           var vfx = Instantiate(obj.Value, transform);
+           vfx.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
+           StartCoroutine(this.GetComponent<CharacterMaterialManager>()
+            .ResetFresnelTobBase(obj.Key, vfx,  vfx.GetComponent<PinnedEffectsController>()));
+        }
     }
 
     public void ExecutePickUpItemFeedback(bool state)

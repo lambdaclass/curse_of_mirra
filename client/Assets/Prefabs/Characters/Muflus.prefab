@@ -523,6 +523,12 @@ MonoBehaviour:
   hitFeedback: {fileID: 1367427822217931816}
   pickUpFeedback: {fileID: 7977344006553926319}
   useItemFeedback: {fileID: 5740382608016110833}
+  goldenClockVFX: {fileID: 6709297362787411783, guid: 5ddb53561bbd4f94f90d22fd3e276d26,
+    type: 3}
+  magicBootsVFX: {fileID: 2536553958498854149, guid: 49287dd8c3a9e7b45862fa7a7056e308,
+    type: 3}
+  myrrasBlessingVFX: {fileID: 5796624995586497347, guid: ed64eeaf76997fc4891dd40c05a751a3,
+    type: 3}
   healthBar: {fileID: 8711474442059621043}
   damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
   healOverlayColor: {r: 0, g: 0, b: 0, a: 0}

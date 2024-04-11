@@ -554,6 +554,12 @@ MonoBehaviour:
   hitFeedback: {fileID: 5660724968042978400}
   pickUpFeedback: {fileID: 3657418904232725223}
   useItemFeedback: {fileID: 1431322896781444281}
+  goldenClockVFX: {fileID: 6709297362787411783, guid: 5ddb53561bbd4f94f90d22fd3e276d26,
+    type: 3}
+  magicBootsVFX: {fileID: 2536553958498854149, guid: 49287dd8c3a9e7b45862fa7a7056e308,
+    type: 3}
+  myrrasBlessingVFX: {fileID: 5796624995586497347, guid: ed64eeaf76997fc4891dd40c05a751a3,
+    type: 3}
   healthBar: {fileID: 2635068537373217531}
   damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
   healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
@@ -638,6 +644,8 @@ MonoBehaviour:
   - {fileID: 2941587101881853184}
   - {fileID: 4040457954014359962}
   holder: {fileID: 11400000, guid: 237a49ef543f64e49a8dbb07adffb439, type: 2}
+  baseFresnel: {r: 0, g: 0, b: 0, a: 0}
+  baseFresnelPulse: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2594551953669663593
 GameObject:
   m_ObjectHideFlags: 0
