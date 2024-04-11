@@ -62,6 +62,8 @@ public class CharacterInfoManager : MonoBehaviour
         ServerConnection.Instance.selectedCharacterName = CharactersManager
             .Instance
             .GetGoToCharacter();
+
+        PlayerPrefs.SetString("selectedCharacterName",  ServerConnection.Instance.selectedCharacterName);
         this.GetComponent<MMLoadScene>().LoadScene();
         // CharactersManager.Instance.SetGoToCharacter()
         // StartCoroutine(SetCharacter());
