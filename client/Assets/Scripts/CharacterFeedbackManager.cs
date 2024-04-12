@@ -27,7 +27,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     {
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
-            if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
+            if (playerUpdate.Player.Effects.Any(effect => effect.Name == "invisible"))
             {
                 if(skinnedMeshRenderer.material.color.a == 1){
                     HandleInvisible(playerUpdate.Id, character);
