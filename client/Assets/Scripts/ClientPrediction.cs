@@ -125,7 +125,7 @@ public class ClientPrediction
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)
     {
-        float mapRadius = 4800; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
+        float mapRadius = 5280; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
 
         Vector3 mapCenterPosition = new Vector3(0, 0, 0);
         float playerDistanceFromMapCenter = Vector3.Distance(newPosition, mapCenterPosition);
