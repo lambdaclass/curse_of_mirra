@@ -20,6 +20,8 @@ public class ClientPrediction
     public float lastXSent = 0;
     public float lastYSent = 0;
 
+    public long cleanedQueueTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
     public void EnqueuePlayerInput(PlayerInput PlayerInput)
     {
         // finalize last pending input

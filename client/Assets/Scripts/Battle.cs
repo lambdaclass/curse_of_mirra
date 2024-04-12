@@ -40,6 +40,8 @@ public class Battle : MonoBehaviour
     private PowerUpsManager powerUpsManager;
     private CustomCharacter myClientCharacter = null;
 
+    private const long cleanClientPredictionThreshold = 10000;
+
     void Start()
     {
         InitBlockingStates();
@@ -678,6 +680,34 @@ public class Battle : MonoBehaviour
             {
                 character.RotatePlayer(direction);
             }
+        }
+
+        long diff = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - GameServerConnectionManager.Instance.clientPrediction.cleanedQueueTimestamp;
+
+        // Debug.Log(diff);
+
+        if (playerUpdate.Id == GameServerConnectionManager.Instance.playerId && diff > cleanClientPredictionThreshold) {
+            // Uncomment this to clean the client prediction queue
+            // GameServerConnectionManager.Instance.clientPrediction.pendingPlayerInputs = new List<ClientPrediction.PlayerInput>();
+
+            Debug.Log(GameServerConnectionManager.Instance.clientPrediction.cleanedQueueTimestamp);
+            GameServerConnectionManager.Instance.clientPrediction.cleanedQueueTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            Debug.Log(GameServerConnectionManager.Instance.clientPrediction.startingPosition);
+            Debug.Log(player.transform.position);
+            Debug.Log(Utils.transformBackendOldPositionToFrontendPosition(GameServerConnectionManager.Instance.clientPrediction.startingPosition));
+
+            // Last position ackknowledged from the server
+            var backendPos = GameServerConnectionManager.Instance.clientPrediction.startingPosition;
+
+            var x = (float)backendPos?.X / 100f;
+            var y = (float)backendPos?.Y / 100f;
+            
+            Vector3 newPos = new Vector3(x, player.transform.position.y, y);
+
+            Debug.Log(newPos);
+
+            player.transform.position = newPos;
         }
 
         character.RotateCharacterOrientation();
