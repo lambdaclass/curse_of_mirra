@@ -23,7 +23,8 @@ public class Utils
     }
 
     // Used to transform units like radius and range.
-    public static float TransformBackenUnitToClientUnit(float unit){
+    public static float TransformBackenUnitToClientUnit(float unit)
+    {
         return unit / 100f;
     }
 
@@ -45,6 +46,14 @@ public class Utils
             .Instance
             .players
             .Find(el => el.GetComponent<CustomCharacter>().PlayerID == id.ToString());
+    }
+
+    public static Entity GetCrate(ulong id)
+    {
+        return GameServerConnectionManager
+            .Instance
+            .gameCrates
+            .Find(crate => crate.Id == id);
     }
 
     public static CustomCharacter GetCharacter(ulong id)
