@@ -84,7 +84,6 @@ public class ServerConnection : MonoBehaviour
         this.serverHash = "";
         this.playerCount = 0;
         this.gameStarted = false;
-        this.clientId = "";
         this.simulatedPlayerCount = 0;
         this.lobbyCapacity = 0;
     }
