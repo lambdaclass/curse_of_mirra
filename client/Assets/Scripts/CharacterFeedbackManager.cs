@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                         SetMeshes(true, character);
                         vfxList.ForEach(el => el.SetActive(true));
                         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                        skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.On;
                     }
                 }
             }
@@ -55,8 +57,6 @@ public class CharacterFeedbackManager : MonoBehaviour
         float alpha = isClient ? 0.5f : 0;
         skinnedMeshRenderer.material = transparentMaterial;
         skinnedMeshRenderer.sharedMaterial.SetFloat("_AlphaValue", alpha);
-        // Color color = skinnedMeshRenderer.material.color;
-        // skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
 
         if (!isClient)
@@ -65,6 +65,7 @@ public class CharacterFeedbackManager : MonoBehaviour
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
             SetMeshes(false, character);
             vfxList.ForEach(el => el.SetActive(false));
+            skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
         }
     }
 
@@ -83,7 +84,6 @@ public class CharacterFeedbackManager : MonoBehaviour
             .CharacterCard
             .GetComponentsInChildren<MeshRenderer>()
             .ToList();
-        meshes.ForEach(mesh => mesh.enabled = isActive);
     }
 
     public void HandlePickUpItemFeedback(Entity playerUpdate, CharacterFeedbacks characterFeedbacks)
