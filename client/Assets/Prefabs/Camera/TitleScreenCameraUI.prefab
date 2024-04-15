@@ -2118,8 +2118,7 @@ MonoBehaviour:
   logoImage: {fileID: 5972543162918846898}
   playerNameHandler: {fileID: 3855226733270593250}
   changeNameButton: {fileID: 6391834393251454901}
-  playerNamePopUp: {fileID: 774246632825028049, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
-    type: 3}
+  playerNamePopUp: {fileID: 3855226732262484018}
   loadingScreen: {fileID: 1744729843235979323}
   loadingSpinner: {fileID: 4935968348015675279}
 --- !u!1 &8413032971949822041
@@ -2854,6 +2853,12 @@ PrefabInstance:
 --- !u!224 &3855226732262484017 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 774246632825028050, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
+    type: 3}
+  m_PrefabInstance: {fileID: 4557125487092798947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3855226732262484018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 774246632825028049, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
     type: 3}
   m_PrefabInstance: {fileID: 4557125487092798947}
   m_PrefabAsset: {fileID: 0}
