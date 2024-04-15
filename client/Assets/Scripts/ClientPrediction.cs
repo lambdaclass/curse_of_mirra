@@ -33,9 +33,6 @@ public class ClientPrediction
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
         if(didFirstMovement){
-            Debug.Log(PlayerInput.joystick_x_value);
-            Debug.Log(PlayerInput.joystick_y_value);
-
             pendingPlayerInputs.Add(PlayerInput);
             lastXSent = PlayerInput.joystick_x_value;
             lastYSent = PlayerInput.joystick_y_value;
@@ -86,12 +83,9 @@ public class ClientPrediction
 
     void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
     {
-        Debug.Log(pendingPlayerInputs.Count);
+        startingPosition = player.Position;
         for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
-            Debug.Log(pendingPlayerInputs[i].joystick_x_value);
-            Debug.Log(pendingPlayerInputs[i].joystick_y_value);
-
             PlayerInput input = pendingPlayerInputs[i];
             if (input.timestampId == timestampId)
             {
@@ -99,7 +93,6 @@ public class ClientPrediction
                 {
                     input.startTimestamp += serverTimestamp - input.serverTimestamp;
                 }
-                startingPosition = player.Position;
                 input.serverTimestamp = serverTimestamp;
                 pendingPlayerInputs[i] = input;
             }
