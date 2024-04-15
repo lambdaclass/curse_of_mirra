@@ -2848,6 +2848,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 774246632825028051, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 774246632893283074, guid: 4538e3b7a6b2341eb85e05d6acbf8e85,
+        type: 3}
+      propertyPath: ButtonReleased.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetPlayerName
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4538e3b7a6b2341eb85e05d6acbf8e85, type: 3}
 --- !u!224 &3855226732262484017 stripped
