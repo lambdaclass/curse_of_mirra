@@ -206,6 +206,9 @@ public class Battle : MonoBehaviour
                 {
                     // Using keyboard
                     playerControls.SendAction();
+                    GameServerConnectionManager
+                    .Instance
+                    .clientPrediction.didFirstMovement = true;
                 }
                 else
                 {
