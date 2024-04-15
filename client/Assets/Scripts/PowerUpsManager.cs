@@ -53,14 +53,29 @@ public class PowerUpsManager : MonoBehaviour
         Vector3 powerUpPosition = Utils.transformBackendOldPositionToFrontendPosition(
             powerupEntity.Position
         );
-        Vector3 previusOwnerPosition = Utils.GetPlayer(powerUp.OwnerId).transform.position;
-        GameObject powerupGameObject = Instantiate(
+
+        if (Utils.GetPlayer(powerUp.OwnerId) != null)
+        {
+            Vector3 previusOwnerPosition = Utils.GetPlayer(powerUp.OwnerId).transform.position;
+            GameObject powerupGameObject = Instantiate(
             powerUpItem,
             previusOwnerPosition,
             Quaternion.identity
         );
-        StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
-        availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
+            StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
+            availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
+        }
+        if (Utils.GetCrate(powerUp.OwnerId) != null)
+        {
+            Vector3 previusOwnerPosition = Utils.transformBackendOldPositionToFrontendPosition(Utils.GetCrate(powerUp.OwnerId).Position);
+            GameObject powerupGameObject = Instantiate(
+                powerUpItem,
+                previusOwnerPosition,
+                Quaternion.identity
+            );
+            StartCoroutine(AnimatePowerUpPosition(powerupGameObject, powerUpPosition));
+            availablePowerUps.Add(powerupEntity.Id, powerupGameObject);
+        }
     }
 
     private void RemovePowerUp(Entity powerupEntity, PowerUp powerUp)

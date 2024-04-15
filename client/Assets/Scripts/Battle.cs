@@ -29,6 +29,7 @@ public class Battle : MonoBehaviour
     public long firstTimestamp;
 
     private Loot loot;
+    private DestroyableCrate crate;
     private bool playerMaterialColorChanged;
     private bool sendMovementStarted = false;
     private long lastMovementUpdate;
@@ -46,6 +47,7 @@ public class Battle : MonoBehaviour
         SetupInitialState();
         StartCoroutine(InitializeProjectiles());
         loot = GetComponent<Loot>();
+        crate = GetComponent<DestroyableCrate>();
         playerMaterialColorChanged = false;
         playerControls = GetComponent<PlayerControls>();
         powerUpsManager = GetComponent<PowerUpsManager>();
@@ -139,6 +141,7 @@ public class Battle : MonoBehaviour
         UpdatePlayerActions();
         UpdateProjectileActions();
         loot.UpdateLoots();
+        crate.UpdateCrates();
         powerUpsManager.UpdatePowerUps();
     }
 
@@ -552,7 +555,7 @@ public class Battle : MonoBehaviour
                 - If you need to use remaining time in milliseconds, you can use only low field
                 - because high field will be 0
             */
-            
+
             float skill2Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "2").Value / 1000.0f;
             float skill3Cooldown = playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value / 1000.0f;
 
