@@ -31,8 +31,7 @@ public class VFXGraphPrewarmer : MonoBehaviour
             Destroy( cached_game_object );
         }
         camera.enabled = false;
-
-        Debug.Log($"VFX Graph prewarming took {Time.time - start_time}s");
+        Destroy(this.gameObject);
     }
 
     IEnumerator waitForFrames( int frame_count )
