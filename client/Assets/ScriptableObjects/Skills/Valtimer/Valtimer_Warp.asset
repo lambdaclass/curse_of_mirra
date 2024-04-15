@@ -62,3 +62,4 @@ MonoBehaviour:
       delay: 0
       instantiateVfxOnModel: 0
       hasDestination: 0
+  isMovementSkill: 1

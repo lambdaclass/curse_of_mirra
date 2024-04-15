@@ -50,6 +50,7 @@ public class SkillInfo : ScriptableObject
     [SerializeField]
     public List<VfxStep> vfxList;
     public List<AnimationStep> animationList;
+    public bool isMovementSkill;
 
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {

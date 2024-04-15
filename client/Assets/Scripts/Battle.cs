@@ -112,13 +112,7 @@ public class Battle : MonoBehaviour
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-            long forcedMovementMessageInterval = 500;
-            if ((nowMiliseconds - lastForcedMovementUpdate) >= forcedMovementMessageInterval)
-            {
-                SendPlayerMovement(true);
-                lastForcedMovementUpdate = nowMiliseconds;
-            }
-            else if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+           if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
@@ -179,7 +173,7 @@ public class Battle : MonoBehaviour
         return true;
     }
 
-    public void SendPlayerMovement(bool forceSend = false)
+    public void SendPlayerMovement()
     {
         Entity entity = Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId);
 
@@ -202,19 +196,21 @@ public class Battle : MonoBehaviour
                     // Using joysticks
                     playerControls.SendJoystickValues(
                         joystickL.RawValue.x,
-                        joystickL.RawValue.y,
-                        forceSend
+                        joystickL.RawValue.y
                     );
+                    GameServerConnectionManager
+                    .Instance
+                    .clientPrediction.didFirstMovement = true;
                 }
                 else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
-                    playerControls.SendAction(forceSend);
+                    playerControls.SendAction();
                 }
                 else
                 {
                     // Not pressing anything
-                    playerControls.SendJoystickValues(0, 0, forceSend);
+                    playerControls.SendJoystickValues(0, 0);
                 }
             }
         }

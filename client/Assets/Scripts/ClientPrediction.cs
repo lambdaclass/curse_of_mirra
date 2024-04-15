@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClientPrediction
 {
+
+    public bool didFirstMovement = false;
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -30,10 +32,15 @@ public class ClientPrediction
             lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
+        if(didFirstMovement){
+            Debug.Log(PlayerInput.joystick_x_value);
+            Debug.Log(PlayerInput.joystick_y_value);
+
+            pendingPlayerInputs.Add(PlayerInput);
+            lastXSent = PlayerInput.joystick_x_value;
+            lastYSent = PlayerInput.joystick_y_value;
+        }
         // add the new one
-        pendingPlayerInputs.Add(PlayerInput);
-        lastXSent = PlayerInput.joystick_x_value;
-        lastYSent = PlayerInput.joystick_y_value;
     }
 
     public void StopMovement()
@@ -48,8 +55,27 @@ public class ClientPrediction
             endTimestamp = 0,
         };
 
+        this.didFirstMovement = true;
         EnqueuePlayerInput(playerInput);
     }
+
+    public void SendSkillMovement(float x, float y, long timestampAux)
+    {
+        // var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        PlayerInput playerInput = new PlayerInput
+        {
+            joystick_x_value = x,
+            joystick_y_value = y,
+            timestampId = timestampAux,
+            startTimestamp = timestampAux,
+            endTimestamp = 0,
+        };
+
+        this.didFirstMovement = true;
+        EnqueuePlayerInput(playerInput);
+    }
+
+
 
     public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
     {
@@ -60,8 +86,12 @@ public class ClientPrediction
 
     void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
     {
+        Debug.Log(pendingPlayerInputs.Count);
         for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
+            Debug.Log(pendingPlayerInputs[i].joystick_x_value);
+            Debug.Log(pendingPlayerInputs[i].joystick_y_value);
+
             PlayerInput input = pendingPlayerInputs[i];
             if (input.timestampId == timestampId)
             {
@@ -119,10 +149,8 @@ public class ClientPrediction
             currentPosition = new Position { X = newPosition.x, Y = newPosition.z };
         });
 
-        if(currentPosition.X != player.Position.X && currentPosition.Y != player.Position.Y){
-            player.Position = currentPosition;
-            player.Direction = currentDirection;
-        }
+        player.Position = currentPosition;
+        player.Direction = currentDirection;
     }
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)

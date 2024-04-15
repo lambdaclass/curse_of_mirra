@@ -325,6 +325,9 @@ public class Skill : CharacterAbility
         _movement.ChangeState(CharacterStates.MovementStates.Pushing);
 
         GameServerConnectionManager.Instance.clientPrediction.StopMovement();
+        if(this.skillInfo.isMovementSkill){
+            GameServerConnectionManager.Instance.clientPrediction.SendSkillMovement(direction.X, direction.Y, timestamp);
+        }
         GameServerConnectionManager.Instance.SendSkill(serverSkill, direction, timestamp);
     }
 
