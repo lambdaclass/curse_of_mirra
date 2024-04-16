@@ -75,7 +75,7 @@ message ConfigSkill {
   float targetting_angle = 5;
   float targetting_range = 6;
   uint64 stamina_cost = 7;
-  }
+}
 
 
 /*
@@ -151,7 +151,7 @@ message Player {
   bool recharging_stamina = 7;
   string character_name = 8;
   uint64 power_ups = 9;
-  map<uint64, Effect> effects = 10;
+  repeated Effect effects = 10;
   Item inventory = 11;
   map<string, uint64> cooldowns = 12;
 }
@@ -194,7 +194,6 @@ enum  PowerUpstatus {
 message Pool {
   uint64 owner_id = 1;
 }
-
 
 message PlayerAction {
     PlayerActionType action = 1;
