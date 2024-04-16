@@ -10,6 +10,10 @@ public class MainScreenManager : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI playerName;
+
+    [SerializeField]
+    TextMeshProUGUI currentPlayerName;
+    
     string sceneName = "CharacterInfo";
     string characterNameToGo;
 
@@ -21,6 +25,7 @@ public class MainScreenManager : MonoBehaviour
         characterNameToGo = ServerConnection.Instance.selectedCharacterName;
         modelManager.SetModel(characterNameToGo);
         playerName.text = PlayerPrefs.GetString("playerName");
+        currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName");
     }
 
     public void GoToCharacteInfo()

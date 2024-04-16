@@ -9820,7 +9820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileInfo: {fileID: 11400000, guid: 2d76ad506ce94df4586d3b8ebd9c1705, type: 2}
   projectileElement: {fileID: 2775624661060570538}
-  trailRenderer: {fileID: 2134725692421730995}
   trail: {fileID: 755081095622180596, guid: b8405f61330584c37b044c97b5a9c748, type: 3}
   isTrailEnabled: 1
 --- !u!1 &6402173562397493826
@@ -19625,12 +19624,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8405f61330584c37b044c97b5a9c748, type: 3}
---- !u!96 &2134725692421730995 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
-    type: 3}
-  m_PrefabInstance: {fileID: 4754403656308073685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6165937611657679030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1471207553598501987, guid: b8405f61330584c37b044c97b5a9c748,

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerNameHandler : MonoBehaviour
 {
@@ -53,6 +54,15 @@ public class PlayerNameHandler : MonoBehaviour
             textMesh.text = EMPTY_NAME_MESSAGE;
         }
 
+    }
+
+    public void ChangePlayersName()
+    {
+        SetPlayerName();
+        if (!this.errorMessage.activeSelf) 
+        {
+            SceneManager.LoadScene("MainScreen");
+        }
     }
 
     public string GetPlayerName()
