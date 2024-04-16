@@ -19,7 +19,7 @@ public class SafeZone : MonoBehaviour
     IEnumerator ShowDangerZone(){
         yield return new WaitForSeconds(1f);
         float currentValue  = dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier");
-        if(currentValue == 0.65f) yield break;
+        if(currentValue == 0.70f) yield break;
         currentValue += 0.05f;
         dangerZone.sharedMaterial.SetFloat("_AlphaMultiplier", Mathf.Round(currentValue * 100) / 100f);
     }
@@ -31,7 +31,7 @@ public class SafeZone : MonoBehaviour
         float radius = GameServerConnectionManager.Instance.playableRadius / 100;
         bool isZoneEnabled = GameServerConnectionManager.Instance.zoneEnabled;
 
-        if (isZoneEnabled && dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier") != 0.65f)
+        if (isZoneEnabled && dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier") != 0.70f)
         {
             StartCoroutine(ShowDangerZone());
         }

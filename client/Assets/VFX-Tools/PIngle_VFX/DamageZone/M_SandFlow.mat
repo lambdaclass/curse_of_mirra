@@ -64,11 +64,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0.65
-    - _AlphaPower: 1.2
+    - _AlphaMultiplier: 0.7
+    - _AlphaPower: 0.7
     - _EdgeNoiseIntensity: 6
-    - _EdgePower: 50
-    - _Progress: 0
+    - _EdgePower: 159
+    - _Progress: 0.36875
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SkewUV: 0.4
@@ -78,9 +78,9 @@ Material:
     - _VertexOffsetDensity: 16.04
     - _VertexOffsetMultiplier: 0.1
     m_Colors:
-    - _MainColor: {r: 0.103773594, g: 0.04647353, b: 0.006363478, a: 0}
+    - _MainColor: {r: 0.101960786, g: 0.034272697, b: 0.015686274, a: 0}
     - _MainNoiseSpeed: {r: 0.01, g: -0.07, b: 0, a: 0}
-    - _SupportColor: {r: 0.38679248, g: 0.19836774, b: 0.14778392, a: 0}
+    - _SupportColor: {r: 0, g: 0, b: 0, a: 0}
     - _SupportNoiseSpeed: {r: -0.02, g: -0.03, b: 0, a: 0}
     - _VertexOffsetDiraction: {r: 0.01, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
