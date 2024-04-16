@@ -33,11 +33,11 @@ public class ClientPrediction
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
         if(didFirstMovement){
+            // add the new input to the list
             pendingPlayerInputs.Add(PlayerInput);
             lastXSent = PlayerInput.joystick_x_value;
             lastYSent = PlayerInput.joystick_y_value;
         }
-        // add the new one
     }
 
     public void StopMovement()
@@ -55,24 +55,6 @@ public class ClientPrediction
         this.didFirstMovement = true;
         EnqueuePlayerInput(playerInput);
     }
-
-    public void SendSkillMovement(float x, float y, long timestampAux)
-    {
-        // var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        PlayerInput playerInput = new PlayerInput
-        {
-            joystick_x_value = x,
-            joystick_y_value = y,
-            timestampId = timestampAux,
-            startTimestamp = timestampAux,
-            endTimestamp = 0,
-        };
-
-        this.didFirstMovement = true;
-        EnqueuePlayerInput(playerInput);
-    }
-
-
 
     public void SimulatePlayerState(Entity player, long timestampId, long serverTimestamp)
     {
