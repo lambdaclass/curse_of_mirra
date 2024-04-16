@@ -233,9 +233,6 @@ public class Skill : CharacterAbility
         if (instantiateVfxOnModel)
         {
             vfxInstance = Instantiate(vfx, _model.transform);
-            vfxInstance
-                .GetComponent<PinnedEffectsController>()
-                ?.Setup(this.GetComponent<PinnedEffectsManager>());
         }
         else
         {
@@ -254,11 +251,13 @@ public class Skill : CharacterAbility
             }
 
             vfxInstance = Instantiate(vfx, vfxPosition, vfx.transform.rotation);
-           
+        }
             vfxInstance
                 .GetComponent<PinnedEffectsController>()
                 ?.Setup(this.GetComponent<PinnedEffectsManager>());
-        }
+            
+            vfxInstance.GetComponent<EffectCharacterMaterialController>()
+                ?.Setup(this.GetComponent<CharacterMaterialManager>());
 
         Destroy(vfxInstance, duration);
     }
