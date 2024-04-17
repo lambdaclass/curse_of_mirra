@@ -3703,7 +3703,7 @@ PrefabInstance:
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: vfxList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -3730,6 +3730,11 @@ PrefabInstance:
       propertyPath: vfxList.Array.data[2]
       value: 
       objectReference: {fileID: 834093306710050702}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[3]
+      value: 
+      objectReference: {fileID: 4709576517955958230}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: hasTransparentMaterial
