@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClientPrediction
 {
+
+    public bool didFirstMovement = false;
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -30,10 +32,12 @@ public class ClientPrediction
             lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
-        // add the new one
-        pendingPlayerInputs.Add(PlayerInput);
-        lastXSent = PlayerInput.joystick_x_value;
-        lastYSent = PlayerInput.joystick_y_value;
+        if(didFirstMovement){
+            // add the new input to the list
+            pendingPlayerInputs.Add(PlayerInput);
+            lastXSent = PlayerInput.joystick_x_value;
+            lastYSent = PlayerInput.joystick_y_value;
+        }
     }
 
     public void StopMovement()
@@ -48,6 +52,7 @@ public class ClientPrediction
             endTimestamp = 0,
         };
 
+        this.didFirstMovement = true;
         EnqueuePlayerInput(playerInput);
     }
 
@@ -60,6 +65,7 @@ public class ClientPrediction
 
     void UpdateLastAcknowledgedInput(Entity player, long timestampId, long serverTimestamp)
     {
+        startingPosition = player.Position;
         for (int i = 0; i < pendingPlayerInputs.Count; i++)
         {
             PlayerInput input = pendingPlayerInputs[i];
@@ -69,7 +75,6 @@ public class ClientPrediction
                 {
                     input.startTimestamp += serverTimestamp - input.serverTimestamp;
                 }
-                startingPosition = player.Position;
                 input.serverTimestamp = serverTimestamp;
                 pendingPlayerInputs[i] = input;
             }
@@ -81,7 +86,7 @@ public class ClientPrediction
         pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
     }
 
-    void SimulatePlayerMovement(Entity player)
+   void SimulatePlayerMovement(Entity player)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
@@ -96,7 +101,7 @@ public class ClientPrediction
             float ticks = (endTimestamp - input.startTimestamp) / tickRate;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
-
+            
             if (movementDirection.x != 0 || movementDirection.y != 0)
             {
                 currentDirection = new Direction

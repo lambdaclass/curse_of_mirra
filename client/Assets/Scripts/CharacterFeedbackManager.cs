@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CharacterFeedbackManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     {
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
-            if (playerUpdate.Player.Effects.Values.Any(effect => effect.Name == "invisible"))
+            if (playerUpdate.Player.Effects.Any(effect => effect.Name == "invisible"))
             {
                 if(skinnedMeshRenderer.material.color.a == 1){
                     HandleInvisible(playerUpdate.Id, character);
@@ -35,12 +36,17 @@ public class CharacterFeedbackManager : MonoBehaviour
             }
             else
             {
-                skinnedMeshRenderer.material = initialMaterial;
-                var canvasHolder = character.characterBase.CanvasHolder;
-                canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
-                SetMeshes(true, character);
-                vfxList.ForEach(el => el.SetActive(true));
-                character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                if(skinnedMeshRenderer.sharedMaterial.HasProperty("_ISTRANSPARENT")){
+                    if( skinnedMeshRenderer.sharedMaterial.GetInt("_ISTRANSPARENT") == 1){
+                       skinnedMeshRenderer.material = initialMaterial;
+                        var canvasHolder = character.characterBase.CanvasHolder;
+                        canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
+                        SetMeshes(true, character);
+                        vfxList.ForEach(el => el.SetActive(true));
+                        character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
+                        skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.On;
+                    }
+                }
             }
         }
     }
@@ -50,8 +56,7 @@ public class CharacterFeedbackManager : MonoBehaviour
         bool isClient = GameServerConnectionManager.Instance.playerId == id;
         float alpha = isClient ? 0.5f : 0;
         skinnedMeshRenderer.material = transparentMaterial;
-        Color color = skinnedMeshRenderer.material.color;
-        skinnedMeshRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
+        skinnedMeshRenderer.sharedMaterial.SetFloat("_AlphaValue", alpha);
         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(alpha);
 
         if (!isClient)
@@ -60,6 +65,7 @@ public class CharacterFeedbackManager : MonoBehaviour
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
             SetMeshes(false, character);
             vfxList.ForEach(el => el.SetActive(false));
+            skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
         }
     }
 
@@ -78,7 +84,6 @@ public class CharacterFeedbackManager : MonoBehaviour
             .CharacterCard
             .GetComponentsInChildren<MeshRenderer>()
             .ToList();
-        meshes.ForEach(mesh => mesh.enabled = isActive);
     }
 
     public void HandlePickUpItemFeedback(Entity playerUpdate, CharacterFeedbacks characterFeedbacks)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public void SendJoystickValues(float x, float y, bool forceSend = false)
+    public void SendJoystickValues(float x, float y)
     {
         if (
             ShouldSendMovement(
@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
                 y,
                 GameServerConnectionManager.Instance.clientPrediction.lastXSent,
                 GameServerConnectionManager.Instance.clientPrediction.lastYSent
-            ) || forceSend
+            ) 
         )
         {
             var valuesToSend = new Direction { X = x, Y = y };
@@ -71,7 +71,7 @@ public class PlayerControls : MonoBehaviour
             y += -1f;
         }
 
-        SendJoystickValues(x, y, forceSend);
+        SendJoystickValues(x, y);
 
         return (x, y);
     }

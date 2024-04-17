@@ -32,6 +32,8 @@ public class InventoryUI : MonoBehaviour
     Sequence pickSequenceAnimation,
         useSequenceAnimation;
 
+    string currentItem;
+
     private void Start()
     {
         imageInitialScale = inventoryImage.gameObject.transform.localScale;
@@ -102,6 +104,7 @@ public class InventoryUI : MonoBehaviour
         if (PlayerHasItem(playerEntity))
         {
             activeItem = playerEntity.Player.Inventory;
+            currentItem = activeItem.Name;
         }
         else
         {
@@ -156,6 +159,8 @@ public class InventoryUI : MonoBehaviour
 
     void HandlePlayerUseItemFeedback(bool state)
     {
-        characterFeedbacks.ExecuteUseItemFeedback(state);
+        // string itemName = activeItem.Name;
+        characterFeedbacks.ExecuteUseItemFeedback(state, currentItem);
+        currentItem = null;
     }
 }
