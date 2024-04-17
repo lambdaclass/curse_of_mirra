@@ -114,31 +114,18 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
     
-    private KeyValuePair<float,GameObject> SelectGO(string name){
+    public KeyValuePair<float,GameObject> SelectGO(string name){
           switch (name)
         {
-            case "mirra_blessing":
+            case "mirra_blessing_effect":
                 return new KeyValuePair<float,GameObject>(5,myrrasBlessingVFX);
-            case "magic_boots":
+            case "magic_boots_effect":
                 return new KeyValuePair<float,GameObject>(10,magicBootsVFX);
-            case "golden_clock":
+            case "golden_clock_effect":
                 return new KeyValuePair<float,GameObject>(7,goldenClockVFX);
             default:
                 return new KeyValuePair<float,GameObject>(0,null);
         }
-    }
-
-    public void ExecuteUseItemFeedback(bool state, string name)
-    {
-        if(state == true){
-            var obj = SelectGO(name);
-            if(obj.Value != null){
-                var vfx = Instantiate(obj.Value, transform);
-                vfx.GetComponent<PinnedEffectsController>()?.Setup(this.GetComponent<PinnedEffectsManager>());
-                StartCoroutine(this.GetComponent<CharacterMaterialManager>()
-                    .ResetFresnelTobBase(obj.Key, vfx,  vfx.GetComponent<PinnedEffectsController>()));
-            }
-           }
     }
 
     public void ExecutePickUpItemFeedback(bool state)

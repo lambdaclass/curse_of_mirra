@@ -9,6 +9,9 @@ public class CharacterFeedbackManager : MonoBehaviour
     public bool hasTransparentMaterial;
 
     [SerializeField]
+    GameObject feedbacksContainer;
+
+    [SerializeField]
     SkinnedMeshRenderer skinnedMeshRenderer;
 
     [MMCondition("hasTransparentMaterial", true)]
@@ -19,6 +22,7 @@ public class CharacterFeedbackManager : MonoBehaviour
     List<GameObject> vfxList;
     private Material initialMaterial;
 
+    private Dictionary<int, GameObject> InstantiateItems = new Dictionary<int, GameObject>();
     void Awake()
     {
         initialMaterial = skinnedMeshRenderer?.material;
@@ -26,6 +30,21 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void ManageStateFeedbacks(Entity playerUpdate, CustomCharacter character)
     {
+        CharacterFeedbacks feedback = character.GetComponent<CharacterFeedbacks>(); // maybe cache this?
+        for(int i = 0; i < playerUpdate.Player.Effects.Count; i++){
+            var effect = playerUpdate.Player.Effects[i];
+            var name = effect.Name;
+            var obj = feedback.SelectGO(name);
+            if(!InstantiateItems.ContainsKey(i) && obj.Value != null){
+                var vfx = Instantiate(obj.Value, feedbacksContainer.transform);
+                vfx.name = name + "ID " + i;
+                InstantiateItems.Add(i,vfx);
+                vfx.GetComponent<PinnedEffectsController>()?.Setup(character.GetComponent<PinnedEffectsManager>());
+                StartCoroutine(character.GetComponent<CharacterMaterialManager>()
+                    .ResetFresnelTobBase(effect.DurationMs/1000, vfx,  vfx.GetComponent<PinnedEffectsController>(), InstantiateItems, i));
+            }
+        };
+        
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
             if (playerUpdate.Player.Effects.Any(effect => effect.Name == "invisible"))
@@ -43,6 +62,7 @@ public class CharacterFeedbackManager : MonoBehaviour
                         canvasHolder.GetComponent<CanvasGroup>().alpha = 1;
                         SetMeshes(true, character);
                         vfxList.ForEach(el => el.SetActive(true));
+                        feedbacksContainer.SetActive(true);
                         character.GetComponent<CharacterFeedbacks>().SetColorOverlayAlpha(1);
                         skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.On;
                     }
@@ -65,6 +85,7 @@ public class CharacterFeedbackManager : MonoBehaviour
             canvasHolder.GetComponent<CanvasGroup>().alpha = 0;
             SetMeshes(false, character);
             vfxList.ForEach(el => el.SetActive(false));
+            feedbacksContainer.SetActive(false);
             skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
         }
     }
