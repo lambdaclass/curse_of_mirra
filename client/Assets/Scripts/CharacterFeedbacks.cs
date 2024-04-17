@@ -4,6 +4,7 @@ using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.VFX;
 
 public enum HapticFeedbackType
@@ -31,6 +32,11 @@ public class CharacterFeedbacks : MonoBehaviour
         useItemFeedback;
 
     [SerializeField]
+    GameObject goldenClockVFX,
+        magicBootsVFX,
+        myrrasBlessingVFX;
+
+    [SerializeField]
     MMProgressBar healthBar;
 
     [SerializeField]
@@ -55,7 +61,8 @@ public class CharacterFeedbacks : MonoBehaviour
     void Start()
     {
         damageOverlayColor = new Color(255, 0, 0, 1);
-        baseOverlayColor = new Color(1, 1, 1, 1);
+        currentOverlayColor = new Color(255, 255, 255, 1);
+        baseOverlayColor = new Color(255, 255, 255, 1);
         healOverlayColor = new Color(68, 173, 68, 1);
     }
 
@@ -67,7 +74,7 @@ public class CharacterFeedbacks : MonoBehaviour
             {
                 overlayTime += (Time.deltaTime / overlayDuration);
             }
-            Color32 nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
+            Color nextColor = Color.Lerp(currentOverlayColor, baseOverlayColor, overlayTime);
 
             ChangeModelsOverlayColor(currentOverlayColor);
             currentOverlayColor = nextColor;
@@ -105,9 +112,41 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
 
-    public void ExecuteUseItemFeedback(bool state)
+    private KeyValuePair<float, GameObject> SelectGO(string name)
     {
-        useItemFeedback.SetActive(state);
+        switch (name)
+        {
+            case "mirra_blessing":
+                return new KeyValuePair<float, GameObject>(5, myrrasBlessingVFX);
+            case "magic_boots":
+                return new KeyValuePair<float, GameObject>(10, magicBootsVFX);
+            case "golden_clock":
+                return new KeyValuePair<float, GameObject>(7, goldenClockVFX);
+            default:
+                return new KeyValuePair<float, GameObject>(0, null);
+        }
+    }
+
+    public void ExecuteUseItemFeedback(bool state, string name)
+    {
+        if (state == true)
+        {
+            var obj = SelectGO(name);
+            if (obj.Value != null)
+            {
+                var vfx = Instantiate(obj.Value, transform);
+                vfx.GetComponent<PinnedEffectsController>()
+                    ?.Setup(this.GetComponent<PinnedEffectsManager>());
+                StartCoroutine(
+                    this.GetComponent<CharacterMaterialManager>()
+                        .ResetFresnelTobBase(
+                            obj.Key,
+                            vfx,
+                            vfx.GetComponent<PinnedEffectsController>()
+                        )
+                );
+            }
+        }
     }
 
     public void ExecutePickUpItemFeedback(bool state)
@@ -172,7 +211,7 @@ public class CharacterFeedbacks : MonoBehaviour
         currentOverlayColor = damageOverlayColor;
     }
 
-    private void ApplyColorFeedback(Color32 color)
+    private void ApplyColorFeedback(Color color)
     {
         ChangeModelsOverlayColor(color);
         currentOverlayColor = color;
@@ -186,7 +225,7 @@ public class CharacterFeedbacks : MonoBehaviour
         StartCoroutine(RemoveModelFeedback());
     }
 
-    public void ChangeModelsOverlayColor(Color32 color)
+    public void ChangeModelsOverlayColor(Color color)
     {
         SkinnedMeshRenderer[] skinnedMeshFilter =
             characterModel.GetComponentsInChildren<SkinnedMeshRenderer>();

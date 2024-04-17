@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846f78ba938a3e341b3955e931da6fe0, type: 3}
+  m_Name: MirrasBlessing_MaterialSettingsBlock
+  m_EditorClassIdentifier: 
+  key: {fileID: 11400000, guid: 4a244a89f208ecf4ebb9cf80ee7ab4c4, type: 2}
+  apply_duration: 0.3
+  controll_property: _FresnelEffectAmount
+  float_values:
+  - name: _FresnelValue
+    value: 3
+  - name: _FresnelPower
+    value: 10
+  color_values:
+  - name: _FresnelColor
+    value: {r: 2.594569, g: 0, b: 4.867145, a: 0}
+  - name: _FresnelColorPulse
+    value: {r: 0.6156863, g: 0.0627451, b: 0.87058824, a: 0}

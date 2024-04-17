@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Uma_Transparent_Shader_mat
+  m_Shader: {fileID: -6465566751694194690, guid: 936cca85891904cdeac45472418c0829,
+    type: 3}
+  m_ValidKeywords:
+  - _ISTRANSPARENT
+  - _USEFRESNEL
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseColorMap:
+        m_Texture: {fileID: 2800000, guid: 6d627a179a82f467d885b165e653bdba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissioveNoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveTexture:
+        m_Texture: {fileID: 2800000, guid: f186d14ba5f91492ea613490af0dc1b4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 7365d22618f8848229a5941bb10c9422, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 2800000, guid: 5d6b08f4517ab456dbe13ddafe5f52a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetalicTexture:
+        m_Texture: {fileID: 2800000, guid: 83028312bd23b4790a1cbefedeed5d66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 40e15bba0ab9743149609b5e2c447a53, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: bba58683a13b7474bab0592e1d832272, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AORemapMax: 0.675
+    - _AORemapMin: 0.57
+    - _AlphaCutoff: -41.33
+    - _AmbientOcclusion: 0.8
+    - _DetailAlbedoScale: 0.988
+    - _DetailNormalScale: 0.965
+    - _DetailSmoothnessScale: 1
+    - _EmissivePower: 1
+    - _EnableDetail: 0
+    - _FresnelEffectAmount: 0
+    - _FresnelPower: 6
+    - _FresnelValue: 3
+    - _ISTRANSPARENT: 1
+    - _LinkDetailsWithBase: 1
+    - _MetalicChannelID: 2.79
+    - _Metallic: 0.585
+    - _NormalOffset: -0.25
+    - _NormalPower: 1
+    - _NormalScale: 1
+    - _NormalStrength: 3
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Smoothness: 0.3
+    - _SmoothnessRemapMax: 1
+    - _SmoothnessRemapMin: 0.474
+    - _TexWorldScale: 1
+    - _USEEMISIVEANIMATION: 0
+    - _USEFRESNEL: 1
+    - _UVBase: 2.68
+    - _UVDetail: 1.719
+    - _WorldMapping: 0
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
+    - _BaseColorMap_TO: {r: 1, g: 1, b: 0, a: 0}
+    - _DetailMap_TO: {r: 1, g: 1, b: 0, a: 0}
+    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissiveNoiseSpeed: {r: 1, g: 1, b: 0, a: 0}
+    - _FresnelColor: {r: 2.3461432, g: 2.2934256, b: 0.25453445, a: 0}
+    - _FresnelColorPulse: {r: 0.7254902, g: 0.58431375, b: 0, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &9037246715564121689
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
