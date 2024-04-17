@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ClientPrediction
 {
-
     public bool didFirstMovement = false;
+
     public struct PlayerInput
     {
         public float joystick_x_value;
@@ -32,7 +32,8 @@ public class ClientPrediction
             lastPlayerInput.endTimestamp = PlayerInput.startTimestamp;
             pendingPlayerInputs[pendingPlayerInputs.Count - 1] = lastPlayerInput;
         }
-        if(didFirstMovement){
+        if (didFirstMovement)
+        {
             // add the new input to the list
             pendingPlayerInputs.Add(PlayerInput);
             lastXSent = PlayerInput.joystick_x_value;
@@ -86,7 +87,7 @@ public class ClientPrediction
         pendingPlayerInputs.RemoveAll((input) => input.timestampId < timestampId);
     }
 
-   void SimulatePlayerMovement(Entity player)
+    void SimulatePlayerMovement(Entity player)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var characterSpeed = player.Speed;
@@ -101,7 +102,7 @@ public class ClientPrediction
             float ticks = (endTimestamp - input.startTimestamp) / tickRate;
 
             Vector2 movementDirection = new Vector2(input.joystick_x_value, input.joystick_y_value);
-            
+
             if (movementDirection.x != 0 || movementDirection.y != 0)
             {
                 currentDirection = new Direction
@@ -130,7 +131,7 @@ public class ClientPrediction
 
     private Vector3 ClampIfOutOfMap(Vector3 newPosition)
     {
-        float mapRadius = 5760; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
+        float mapRadius = 5520; // FIXME: This value should be fetched from the backend. Will be fixed in PR#270 (backend)
 
         Vector3 mapCenterPosition = new Vector3(0, 0, 0);
         float playerDistanceFromMapCenter = Vector3.Distance(newPosition, mapCenterPosition);
