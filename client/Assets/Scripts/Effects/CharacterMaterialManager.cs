@@ -93,8 +93,8 @@ public class CharacterMaterialManager : MonoBehaviour
             renderer.material.SetFloat(block.controll_property, 0.0f);
     }
 
-    public IEnumerator ResetFresnelTobBase(float time, GameObject vfxInstance,  
-        PinnedEffectsController controller, Dictionary<int,GameObject> effects, int key){
+    public IEnumerator ResetEffects(float time, GameObject vfxInstance,  
+         PinnedEffectsController controller, Dictionary<int,GameObject> effects, int key){
         yield return new WaitForSeconds(time);
         this.renderers[0].sharedMaterial.SetFloat("_FresnelEffectAmount",  0);
         controller?.ClearEffects();

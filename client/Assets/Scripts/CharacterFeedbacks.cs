@@ -114,17 +114,17 @@ public class CharacterFeedbacks : MonoBehaviour
         }
     }
     
-    public KeyValuePair<float,GameObject> SelectGO(string name){
+    public GameObject SelectGO(string name){
           switch (name)
         {
             case "mirra_blessing_effect":
-                return new KeyValuePair<float,GameObject>(5,myrrasBlessingVFX);
+                return myrrasBlessingVFX;
             case "magic_boots_effect":
-                return new KeyValuePair<float,GameObject>(10,magicBootsVFX);
+                return magicBootsVFX;
             case "golden_clock_effect":
-                return new KeyValuePair<float,GameObject>(7,goldenClockVFX);
+                return goldenClockVFX;
             default:
-                return new KeyValuePair<float,GameObject>(0,null);
+                return null; 
         }
     }
 

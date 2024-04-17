@@ -30,20 +30,26 @@ public class CharacterFeedbackManager : MonoBehaviour
 
     public void ManageStateFeedbacks(Entity playerUpdate, CustomCharacter character)
     {
-        CharacterFeedbacks feedback = character.GetComponent<CharacterFeedbacks>(); // maybe cache this?
-        for(int i = 0; i < playerUpdate.Player.Effects.Count; i++){
-            var effect = playerUpdate.Player.Effects[i];
-            var name = effect.Name;
-            var obj = feedback.SelectGO(name);
-            if(!InstantiateItems.ContainsKey(i) && obj.Value != null){
-                var vfx = Instantiate(obj.Value, feedbacksContainer.transform);
-                vfx.name = name + "ID " + i;
-                InstantiateItems.Add(i,vfx);
-                vfx.GetComponent<PinnedEffectsController>()?.Setup(character.GetComponent<PinnedEffectsManager>());
-                StartCoroutine(character.GetComponent<CharacterMaterialManager>()
-                    .ResetFresnelTobBase(effect.DurationMs/1000, vfx,  vfx.GetComponent<PinnedEffectsController>(), InstantiateItems, i));
-            }
-        };
+        if(playerUpdate.Player.Effects.Count > 0){
+            CharacterFeedbacks feedback = character.GetComponent<CharacterFeedbacks>(); // maybe cache this? We can optimize this later.
+            for(int i = 0; i < playerUpdate.Player.Effects.Count; i++){
+                var effect = playerUpdate.Player.Effects[i];
+                var name = effect.Name;
+                var duration = effect.DurationMs/1000;
+                var item = feedback.SelectGO(name);
+                if(!InstantiateItems.ContainsKey(i) && item != null){
+                    var vfx = Instantiate(item, feedbacksContainer.transform);
+                    vfx.name = name + "ID " + i;
+                    InstantiateItems.Add(i, vfx);
+
+                    vfx.GetComponent<PinnedEffectsController>()?.Setup(character.GetComponent<PinnedEffectsManager>());
+                    StartCoroutine(character.GetComponent<CharacterMaterialManager>()
+                        .ResetEffects(duration , vfx,  vfx.GetComponent<PinnedEffectsController>(), InstantiateItems, i));
+                }
+            };
+        }
+
+        // Refacor this to a single metho to handle effects.
         
         if (skinnedMeshRenderer != null && transparentMaterial != null)
         {
