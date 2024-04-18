@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1293914674971876046}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1, y: 1.1, z: 2.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1570087335628751083}
   m_RootOrder: 0
@@ -4924,8 +4924,8 @@ Transform:
   m_GameObject: {fileID: 2775624661060570538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1570087335628751083}
   - {fileID: 8411354237190988577}
@@ -14679,8 +14679,8 @@ Transform:
   m_GameObject: {fileID: 6765157383062026187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.1}
-  m_LocalScale: {x: 1, y: 1, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1, y: 1.1, z: 2.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2984321680282275738}
   m_Father: {fileID: 9035590453473124176}
@@ -19621,6 +19621,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: 1.8347182
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: -0.76935804
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: 1.8347182
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0.14164305
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: -0.76935804
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654940755162682982, guid: b8405f61330584c37b044c97b5a9c748,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outWeight
+      value: 0.10818715
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8405f61330584c37b044c97b5a9c748, type: 3}

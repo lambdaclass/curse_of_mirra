@@ -82,6 +82,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ba8cabf9e156422c908495e30aca8ce, type: 2}
   - {fileID: 11400000, guid: 1d794a6d1ea684021a3342f238fab245, type: 2}
   - {fileID: 11400000, guid: 819290ac4d9da42f1b6db11f8ca17307, type: 2}
-  - {fileID: 11400000, guid: 49f1e22bf30394970a6da77c66930595, type: 2}
   - {fileID: 11400000, guid: f48a9f0777b734303be200c1501bcb73, type: 2}
   zoneIcon: {fileID: 21300000, guid: 66144cf4e79df431d8177b93860e941c, type: 3}

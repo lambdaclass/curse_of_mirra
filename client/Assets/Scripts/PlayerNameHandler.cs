@@ -23,6 +23,12 @@ public class PlayerNameHandler : MonoBehaviour
     [SerializeField]
     InputField placeholder;
 
+    [SerializeField]
+    TextMeshProUGUI topLeftPlayerName;
+
+    [SerializeField]
+    TextMeshProUGUI currentPlayerName;
+
     private string playerName;
 
     const string NAME_LENGHT_MESSAGE = "Player Name should contain more than 3 characters.";
@@ -61,7 +67,9 @@ public class PlayerNameHandler : MonoBehaviour
         SetPlayerName();
         if (!this.errorMessage.activeSelf) 
         {
-            SceneManager.LoadScene("MainScreen");
+            topLeftPlayerName.text = PlayerPrefs.GetString("playerName");  
+            currentPlayerName.text = "Current name: " + PlayerPrefs.GetString("playerName"); 
+            Hide();
         }
     }
 
