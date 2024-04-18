@@ -53,10 +53,6 @@ public class CharacterFeedbacks : MonoBehaviour
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
 
-    Dictionary<ulong, ulong> damageAlreadyDone = new Dictionary<ulong, ulong>();
-
-
-
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
     {
