@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Profiling;
-using UnityEngine.VFX;
 
 public enum HapticFeedbackType
 {
@@ -54,6 +53,8 @@ public class CharacterFeedbacks : MonoBehaviour
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
 
+    Dictionary<ulong, ulong> damageAlreadyDone = new Dictionary<ulong, ulong>();
+
 
 
     // didPickUp value should ideally come from backend
@@ -82,7 +83,24 @@ public class CharacterFeedbacks : MonoBehaviour
             ChangeModelsOverlayColor(currentOverlayColor);
             currentOverlayColor = nextColor;
         }
+
+        PlayHapticDamageFeedback();
     }
+
+    private void PlayHapticDamageFeedback(){
+        Dictionary<ulong,ulong> damageDone = GameServerConnectionManager.Instance.damageDone;
+        foreach (var damage in damageDone){
+            if(damage.Key == GameServerConnectionManager.Instance.playerId){
+                HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage.Value);
+                TriggerHapticFeedback(hapticFeedbackType);
+            }
+        }
+    }
+
+    private HapticFeedbackType GetHapticTypeByDamage(ulong damage) => damage switch{
+        < 70 => HapticFeedbackType.Light,
+        >= 70 => HapticFeedbackType.Heavy,
+    };
 
     public void SetColorOverlayAlpha(float currentAlpha)
     {
@@ -141,7 +159,7 @@ public class CharacterFeedbacks : MonoBehaviour
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-                TriggerHapticFeedback(HapticFeedbackType.Heavy);
+                TriggerHapticFeedback(HapticFeedbackType.Light);
             }
             this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
             this.healthBar.BumpOnDecrease = true;
