@@ -20,5 +20,6 @@ public class CoMCharacter : ScriptableObject
     public List<SkillInfo> skillsInfo;
     public SkillInfo skillBasicInfo;
     public GameObject UIModel;
+    public Vector3 shadowScaleValues;
     public Sprite battleCharacterCard;
 }

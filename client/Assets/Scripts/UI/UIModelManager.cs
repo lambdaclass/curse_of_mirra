@@ -1,33 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIModelManager : MonoBehaviour
 {
     [SerializeField]
     GameObject playerModelContainer;
+    public bool responsiveRawImage;
+
+    [MMCondition("responsiveRawImage", true)]
+    [SerializeField]
+    GameObject rawImage;
+
+    public bool hasCharacterShadow;
+
+    [MMCondition("hasCharacterShadow", true)]
+    [SerializeField]
+    Transform characterShadow;
     bool animate = false;
     const float ANIMATION_INTERVAL = 20f;
     float animationClipDuration;
     Coroutine characterAnimation;
+    Animator modelAnimator;
+
+    void Start()
+    {
+        if (responsiveRawImage)
+        {
+            rawImage.transform.localScale = ResponsiveModel();
+        }
+    }
 
     public void SetModel(string characterName)
     {
-        GameObject playerModel = CharactersManager
+        CoMCharacter character = CharactersManager
             .Instance
             .AvailableCharacters
-            .Single(character => character.name == characterName)
-            .UIModel;
-        GameObject modelClone = Instantiate(
-            playerModel,
-            playerModelContainer.transform.position,
-            playerModel.transform.rotation,
-            playerModelContainer.transform
-        );
+            .Single(character => character.name == characterName);
+
+        GameObject playerModel = character.UIModel;
+        if (hasCharacterShadow)
+            characterShadow.localScale = character.shadowScaleValues;
+        GameObject modelClone = Instantiate(playerModel, playerModelContainer.transform);
         animate = true;
-        animationClipDuration = AnimationClipTime(modelClone.GetComponentInChildren<Animator>());
-        characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
+        modelAnimator = modelClone.GetComponentInChildren<Animator>();
+        if (SceneManager.GetActiveScene().name != "Battle")
+        {
+            animationClipDuration = AnimationClipTime(modelAnimator);
+            characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
+        }
     }
 
     public void RemoveCurrentModel()
@@ -60,5 +84,49 @@ public class UIModelManager : MonoBehaviour
             modelClone.GetComponentInChildren<Animator>().SetBool(animationName, false);
             yield return new WaitForSeconds(ANIMATION_INTERVAL);
         }
+    }
+
+    public void ShowEndGameCharacterAnimation()
+    {
+        if (Utils.GetCharacter(GameServerConnectionManager.Instance.playerId))
+        {
+            bool isWinner = GameServerConnectionManager
+                .Instance
+                .PlayerIsWinner(GameServerConnectionManager.Instance.playerId);
+            string animationName = isWinner ? "Victory" : "Defeat";
+            if (modelAnimator.parameterCount > 0)
+            {
+                HandleAnimation(animationName);
+            }
+        }
+    }
+
+    public void HandleAnimation(string animationName)
+    {
+        bool hasAnimationParameter = modelAnimator
+            .parameters
+            .ToList()
+            .Any(anim => anim.name == animationName);
+        if (hasAnimationParameter)
+        {
+            modelAnimator.SetBool(animationName, true);
+        }
+        else
+        {
+            modelAnimator.Play(animationName);
+        }
+    }
+
+    Vector3 ResponsiveModel()
+    {
+        // What makes this responsive is taking into account the canvas scaling
+        float scaleCanvas = GetComponentInParent<Canvas>().transform.localScale.x;
+        Vector3 rawImageInitialScale = rawImage.transform.localScale;
+        Vector3 responsiveScale = new Vector3(
+            rawImageInitialScale.x - scaleCanvas,
+            rawImageInitialScale.y - scaleCanvas,
+            rawImageInitialScale.z - scaleCanvas
+        );
+        return responsiveScale;
     }
 }
