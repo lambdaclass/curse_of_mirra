@@ -81,7 +81,6 @@ public class InventoryUI : MonoBehaviour
             )
             .Append(inventoryImage.transform.DOScale(imageInitialScale, 0));
         yield return new WaitForSeconds(0.1f);
-        HandlePlayerUseItemFeedback(true);
 
         yield return new WaitForSeconds(BASE_DURATION);
         sparkleEffect.SetActive(false);
@@ -89,7 +88,6 @@ public class InventoryUI : MonoBehaviour
         inventoryImage.sprite = null;
 
         yield return new WaitForSeconds(1f);
-        HandlePlayerUseItemFeedback(false);
     }
 
     private void Update()
@@ -155,12 +153,5 @@ public class InventoryUI : MonoBehaviour
         {
             useItemAnimation = StartCoroutine(AnimateUseItem(pickItemAnimation));
         }
-    }
-
-    void HandlePlayerUseItemFeedback(bool state)
-    {
-        // string itemName = activeItem.Name;
-        characterFeedbacks.ExecuteUseItemFeedback(state, currentItem);
-        currentItem = null;
     }
 }
