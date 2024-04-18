@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402337, g: 0.49316758, b: 0.5722343, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402206, g: 0.4931656, b: 0.5722312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,6 +201,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PingleManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5866056992554921741, guid: 909fe292d4df88f40ae747068bdac1f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909fe292d4df88f40ae747068bdac1f9, type: 3}
 --- !u!1 &203844586
@@ -220,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &203844587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,3 +641,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf5e7183a6b3444b8111ea4d639b854, type: 3}
+--- !u!1 &2066692645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4923268485394771702, guid: 909fe292d4df88f40ae747068bdac1f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 95046005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2066692649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066692645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76edb9e957d983d4695e55a83e7bf60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1_vfx: {fileID: 5269552939558784490, guid: c1400fa72cd014188910cd6cd96b2df9,
+    type: 3}
+  skill2_vfx: {fileID: 3130931354078819328, guid: f3ee610f4d6c84efe9b3ab44b40ae057,
+    type: 3}
+  projectile_speed: 10
+  spawn_pivot_height: 1.2
+  skill3_duration: 50
+  skill3_speed: 30
+  spawn_point: {fileID: 1330430299}
+  dash_vfx: {fileID: 5874514398963917427, guid: 41f068eeafa39494387cc12a55059719,
+    type: 3}
