@@ -492,14 +492,15 @@ MonoBehaviour:
   hitFeedback: {fileID: 6428408938373472900}
   pickUpFeedback: {fileID: 2700303382107108355}
   useItemFeedback: {fileID: 316852949892086365}
+  goldenClockVFX: {fileID: 6709297362787411783, guid: 5ddb53561bbd4f94f90d22fd3e276d26,
+    type: 3}
+  magicBootsVFX: {fileID: 2536553958498854149, guid: 49287dd8c3a9e7b45862fa7a7056e308,
+    type: 3}
+  myrrasBlessingVFX: {fileID: 5796624995586497347, guid: ed64eeaf76997fc4891dd40c05a751a3,
+    type: 3}
   healthBar: {fileID: 3686478168088177695}
-  damageOverlayColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  healOverlayColor:
-    serializedVersion: 2
-    rgba: 4282690884
-  hasTransparentMaterials: 1
+  damageOverlayColor: {r: 0, g: 0, b: 0, a: 0}
+  healOverlayColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8249421845886103102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +518,8 @@ MonoBehaviour:
     look_up_transform: {fileID: 1296600015075452005}
   - placement_holder: {fileID: 11400000, guid: 4bc83153f5ef7f74e8bf853a4ed9564e, type: 2}
     look_up_transform: {fileID: 2411937737493944737}
+  - placement_holder: {fileID: 11400000, guid: 63a32f724320ba94381cfd0e32039ae8, type: 2}
+    look_up_transform: {fileID: 8154270404246524892}
 --- !u!114 &5890349635706643595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +534,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 5700785624977269805}
+  holder: {fileID: 11400000, guid: 237a49ef543f64e49a8dbb07adffb439, type: 2}
+--- !u!1 &4709576517955958230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8154270404246524892}
+  m_Layer: 0
+  m_Name: Placeholder_Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8154270404246524892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709576517955958230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 598961745872259084}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6056526534736745925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1437,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0.00005615968
       objectReference: {fileID: 0}
+    - target: {fileID: -4550874608163451958, guid: a55c98142baf942e686933101f5fe3f4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c096663acafc0824e89b205cc431521c, type: 2}
     - target: {fileID: -4285251059038872221, guid: a55c98142baf942e686933101f5fe3f4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3663,7 +3703,7 @@ PrefabInstance:
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: vfxList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
@@ -3674,7 +3714,7 @@ PrefabInstance:
         type: 3}
       propertyPath: transparentMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 6f2531488c923483b93fa188150e3d7a, type: 2}
+      objectReference: {fileID: 2100000, guid: e3d2651ea902a413faa863aca40bf127, type: 2}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: vfxList.Array.data[0]
@@ -3690,6 +3730,11 @@ PrefabInstance:
       propertyPath: vfxList.Array.data[2]
       value: 
       objectReference: {fileID: 834093306710050702}
+    - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
+        type: 3}
+      propertyPath: vfxList.Array.data[3]
+      value: 
+      objectReference: {fileID: 4709576517955958230}
     - target: {fileID: 1743729574858777773, guid: 9468612907e8942b49712f4e342b630c,
         type: 3}
       propertyPath: hasTransparentMaterial

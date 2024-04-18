@@ -4,6 +4,7 @@ using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.VFX;
 
 public enum HapticFeedbackType
@@ -30,6 +31,13 @@ public class CharacterFeedbacks : MonoBehaviour
         pickUpFeedback,
         useItemFeedback;
 
+
+    [SerializeField] 
+        GameObject
+            goldenClockVFX,
+            magicBootsVFX,
+            myrrasBlessingVFX;
+
     [SerializeField]
     MMProgressBar healthBar;
 
@@ -45,6 +53,8 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayDuration = 5f;
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
+
+
 
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
@@ -103,10 +113,19 @@ public class CharacterFeedbacks : MonoBehaviour
             deathFeedback.SetActive(true);
         }
     }
-
-    public void ExecuteUseItemFeedback(bool state)
-    {
-        useItemFeedback.SetActive(state);
+    
+    public GameObject SelectGO(string name){
+          switch (name)
+        {
+            case "mirra_blessing_effect":
+                return myrrasBlessingVFX;
+            case "magic_boots_effect":
+                return magicBootsVFX;
+            case "golden_clock_effect":
+                return goldenClockVFX;
+            default:
+                return null; 
+        }
     }
 
     public void ExecutePickUpItemFeedback(bool state)

@@ -9,9 +9,6 @@ public class SkillProjectile : MonoBehaviour
     [SerializeField]
     GameObject projectileElement;
 
-    [SerializeField]
-    TrailRenderer trailRenderer;
-
     private IEnumerator removeTrailSoftCor = null;
     private bool isUpdatingPosition = true;
 
