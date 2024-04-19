@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ToggleButton : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI textState;
+    public TextMeshProUGUI textState;
 
     [SerializeField]
     Battle battle;
@@ -133,5 +133,6 @@ public class ToggleButton : MonoBehaviour
         GetComponent<Image>().enabled = isOn;
         int alpha = isOn ? 255 : 100;
         textState.color = new Color32(255, 255, 255, (byte)alpha);
+        print("should review: " + isOn);
     }
 }
