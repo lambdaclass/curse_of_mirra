@@ -16,14 +16,17 @@ public class SafeZone : MonoBehaviour
         dangerZone.sharedMaterial.SetFloat("_AlphaMultiplier", 0f);
     }
 
-    IEnumerator ShowDangerZone(){
+    IEnumerator ShowDangerZone()
+    {
         yield return new WaitForSeconds(1f);
-        float currentValue  = dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier");
-        if(currentValue == 0.70f) yield break;
+        float currentValue = dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier");
+        if (currentValue == 0.70f)
+            yield break;
         currentValue += 0.05f;
-        dangerZone.sharedMaterial.SetFloat("_AlphaMultiplier", Mathf.Round(currentValue * 100) / 100f);
+        dangerZone
+            .sharedMaterial
+            .SetFloat("_AlphaMultiplier", Mathf.Round(currentValue * 100) / 100f);
     }
-
 
     void Update()
     {
@@ -36,13 +39,13 @@ public class SafeZone : MonoBehaviour
             StartCoroutine(ShowDangerZone());
         }
         // The vfx goes to 0 to 1.
-        // The raidus from the backen goes from 0.48 to 0
+        // The raidus from the backen goes from 0.552 to 0
 
         double finalVfxValue = 1;
-        double initialPlayableRadius = 0.48;
-        float currentRadius = radius/100;
+        double initialPlayableRadius = 0.552;
+        float currentRadius = radius / 100;
         double value = finalVfxValue + (currentRadius) * (-finalVfxValue) / (initialPlayableRadius);
 
-        dangerZone.sharedMaterial.SetFloat("_Progress", (float)value) ;
+        dangerZone.sharedMaterial.SetFloat("_Progress", (float)value);
     }
 }
