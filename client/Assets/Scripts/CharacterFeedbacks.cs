@@ -52,6 +52,7 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayDuration = 5f;
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
+    private ulong playerID;
 
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
@@ -61,6 +62,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     void Start()
     {
+        playerID = GameServerConnectionManager.Instance.playerId;
         damageOverlayColor = new Color(255, 0, 0, 1);
         baseOverlayColor = new Color(255, 255, 255, 1);
         healOverlayColor = new Color(68, 173, 68, 1);
@@ -84,12 +86,11 @@ public class CharacterFeedbacks : MonoBehaviour
     }
 
     private void PlayHapticDamageFeedback(){
+        ulong damage; 
         Dictionary<ulong,ulong> damageDone = GameServerConnectionManager.Instance.damageDone;
-        foreach (var damage in damageDone){
-            if(damage.Key == GameServerConnectionManager.Instance.playerId){
-                HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage.Value);
-                TriggerHapticFeedback(hapticFeedbackType);
-            }
+        if(damageDone.TryGetValue(playerID, out damage)) {
+            HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage);
+            TriggerHapticFeedback(hapticFeedbackType);
         }
     }
 
@@ -155,7 +156,8 @@ public class CharacterFeedbacks : MonoBehaviour
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-                TriggerHapticFeedback(HapticFeedbackType.Light);
+                HapticFeedbackType feedbackType = GetHapticTypeByDamage((ulong)(clientHealth - serverPlayerHealth));
+                TriggerHapticFeedback(feedbackType);
             }
             this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
             this.healthBar.BumpOnDecrease = true;
