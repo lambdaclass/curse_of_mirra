@@ -23,8 +23,7 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         defaultCameraRotation = mainCamera.transform.rotation.eulerAngles;
-        variableCameraDistance = mainCameraCM.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
-        initialCameraDistance = variableCameraDistance;
+        initialCameraDistance = mainCameraCM.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
         SetDefaultSettings();
     }
 
@@ -50,7 +49,7 @@ public class CameraManager : MonoBehaviour
     public void SetCamera(Vector3 cameraRotation, float cameraDistance, bool orthographic)
     {
         mainCameraCM.transform.rotation = Quaternion.Euler(cameraRotation);
-        variableCameraDistance = cameraDistance;
+        mainCameraCM.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = cameraDistance;
         mainCamera.orthographic = orthographic;
     }
 
