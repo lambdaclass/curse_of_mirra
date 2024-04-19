@@ -28,24 +28,24 @@ public class CameraManager : MonoBehaviour
         SetDefaultSettings();
     }
 
+    public void SetDefaultSettings()
+    {
+        SetCamera(defaultCameraRotation, initialCameraDistance, false);
+        UpdateUIState(cameraToggles[0]);
+    }
     public void SetZoomInPerspective(){
         SetCamera(defaultCameraRotation, initialCameraDistance - 10, false);
-        UpdateUIState(cameraToggles[0]);
+        UpdateUIState(cameraToggles[1]);
     }
     public void SetZoomOutPerspective(){
         SetCamera(defaultCameraRotation, initialCameraDistance + 10, false);
-        UpdateUIState(cameraToggles[1]);
+        UpdateUIState(cameraToggles[2]);
     }
 
     public void SetSentinelSettings()
     {
         SetCamera(topView, initialCameraDistance, true);       
-        UpdateUIState(cameraToggles[2]); 
-    }
-    public void SetDefaultSettings()
-    {
-        SetCamera(defaultCameraRotation, initialCameraDistance, false);
-        UpdateUIState(cameraToggles[3]);
+        UpdateUIState(cameraToggles[3]); 
     }
     public void SetCamera(Vector3 cameraRotation, float cameraDistance, bool orthographic)
     {
@@ -58,10 +58,9 @@ public class CameraManager : MonoBehaviour
     {
         foreach(GameObject cameraToggle in cameraToggles){
             bool isOn = (cameraToggle == toggle);
-            print(toggle.name + toggle.GetComponent<Image>().enabled);
-            toggle.GetComponent<Image>().enabled = isOn;
+            cameraToggle.GetComponent<Image>().enabled = isOn;
             int alpha = isOn ? 255 : 100;
-            toggle.GetComponent<ToggleLabelHandler>().toggleLabel.color = new Color32(255, 255, 255, (byte)alpha);
+            cameraToggle.GetComponent<ToggleLabelHandler>().toggleLabel.color = new Color32(255, 255, 255, (byte)alpha);
         }
     }
 }
