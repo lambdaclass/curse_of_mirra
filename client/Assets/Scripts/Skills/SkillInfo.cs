@@ -53,7 +53,8 @@ public class SkillInfo : ScriptableObject
 
     public void InitWithBackend(ConfigSkill configSkill, string id)
     {
-        this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange);
+        this.skillCircleRange = Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRange) == 0 
+            ? this.skillCircleRange  : configSkill.TargettingRange;
         this.skillAreaRadius =  Utils.TransformBackenUnitToClientUnit(configSkill.TargettingRadius);
         this.ownerId = Convert.ToUInt64(id);
         this.staminaCost = useCooldown ? 0 : configSkill.StaminaCost;
