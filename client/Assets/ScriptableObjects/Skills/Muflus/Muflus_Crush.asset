@@ -18,25 +18,27 @@ MonoBehaviour:
   inputType: 2
   skillSetType: 0
   angle: 0
-  executeOnQuickTap: 1
+  staminaCost: 0
   indicatorType: 2
+  hasProjectile: 0
+  hasSkillPool: 0
   projectilePrefab: {fileID: 0}
+  skillKey: 
   animationSpeedMultiplier: 1.5
-  abilityStartSfx: {fileID: 0}
+  abilityStartSfx: {fileID: 8300000, guid: e10edc4cd8e91460f9d7885af8f5f1a7, type: 3}
   sfxHasAbilityStop: 1
-  abilityStopSfx: {fileID: 8300000, guid: 12a3365ad519042ecb91d61ecf29fde6, type: 3}
-  skillCircleRadius: 8
+  abilityStopSfx: {fileID: 0}
+  skillCircleRange: 0
   skillConeAngle: 0
   arrowWidth: 2
   skillAreaRadius: 4.5
-  showCooldown: 0
-  damage: 0
-  cooldown: 0
-  skillRange: 0
+  usesHitboxAsArea: 0
+  useCooldown: 0
   skillSprite: {fileID: 21300000, guid: f54c09f7baa3149839ace94bfcb384b7, type: 3}
-  startVfxList: []
   vfxList:
   - vfx: {fileID: 2701273495037961085, guid: 9086438c602644ffd9be0f34ce5b9599, type: 3}
     duration: 1
     delay: 0
     instantiateVfxOnModel: 1
+    hasDestination: 0
+  animationList: []
