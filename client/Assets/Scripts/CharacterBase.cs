@@ -25,7 +25,7 @@ public class CharacterBase : MonoBehaviour
     public AudioClip spawnSfx;
 
     [SerializeField]
-    Sound3DManager sound3DManager;
+    public Sound3DManager sound3DManager;
 
     const float SPAWN_SFX_VOLUME = 0.01f;
 

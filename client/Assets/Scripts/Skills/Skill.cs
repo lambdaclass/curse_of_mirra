@@ -123,7 +123,7 @@ public class Skill : CharacterAbility
         // Setup
         AudioClip sfxClip;
 
-        sfxClip = skillInfo.sfxHasAbilityStop ? skillInfo.abilityStopSfx : null;
+        sfxClip = skillInfo.abilityStartSfx;
 
         // State & animation
         ChangeCharacterState(skillId, blockMovement);
@@ -153,7 +153,7 @@ public class Skill : CharacterAbility
         // Sound effects
         if (sfxClip)
         {
-            Sound3DManager sound3DManager = GetComponentInChildren<Sound3DManager>();
+            Sound3DManager sound3DManager = this.GetComponent<CustomCharacter>().characterBase.sound3DManager;
             sound3DManager.SetSfxSound(sfxClip);
             sound3DManager.PlaySfxSound();
         }
