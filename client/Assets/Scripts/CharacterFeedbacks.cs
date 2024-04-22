@@ -60,10 +60,10 @@ public class CharacterFeedbacks : MonoBehaviour
 
     void Start()
     {
-        damageOverlayColor = new Color(255, 0, 0, 1);
-        currentOverlayColor = new Color(255, 255, 255, 1);
-        baseOverlayColor = new Color(255, 255, 255, 1);
-        healOverlayColor = new Color(68, 173, 68, 1);
+        damageOverlayColor = new Color(1, 0, 0, 1);
+        currentOverlayColor = new Color(1, 1, 1, 1);
+        baseOverlayColor = new Color(1, 1, 1, 1);
+        healOverlayColor = new Color(0.4f, .8f, .4f, 1);
     }
 
     void Update()
@@ -212,6 +212,7 @@ public class CharacterFeedbacks : MonoBehaviour
             foreach (var material in meshFilter.materials)
             {
                 material.color = color;
+                material.SetColor("_TintColor", color);
             }
         }
     }
