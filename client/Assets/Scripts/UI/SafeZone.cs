@@ -31,7 +31,7 @@ public class SafeZone : MonoBehaviour
     void Update()
     {
         // We have a difference of x100 between the backend and frontend values
-        float radius = GameServerConnectionManager.Instance.playableRadius / 100;
+        float radius = GameServerConnectionManager.Instance.playableRadius / 150;
         bool isZoneEnabled = GameServerConnectionManager.Instance.zoneEnabled;
 
         if (isZoneEnabled && dangerZone.sharedMaterial.GetFloat("_AlphaMultiplier") != 0.70f)
@@ -43,7 +43,7 @@ public class SafeZone : MonoBehaviour
 
         double finalVfxValue = 1;
         double initialPlayableRadius = 0.552;
-        float currentRadius = radius / 100;
+        float currentRadius = radius / 150;
         double value = finalVfxValue + (currentRadius) * (-finalVfxValue) / (initialPlayableRadius);
 
         dangerZone.sharedMaterial.SetFloat("_Progress", (float)value);

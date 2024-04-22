@@ -37,7 +37,7 @@ public class AimDirection : MonoBehaviour
     private float hitbox;
     void Awake(){
 
-        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 100) * 2;
+        hitbox = (Utils.GetGamePlayer(GameServerConnectionManager.Instance.playerId).Radius / 150) * 2;
     }
 
     public void InitIndicator(Skill skill, Color32 color)
