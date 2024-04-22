@@ -44,6 +44,9 @@ public class DestroyableCrate : MonoBehaviour
             LootItem.crateObject.transform.position = position;
             LootItem.crateObject.SetActive(true);
             LootItem.id = item.Id;
+            LootItem.crateObject.GetComponent<Health>().CurrentHealth = item.Crate.Health;
+            LootItem.crateObject.GetComponent<Health>().InitialHealth = item.Crate.Health;
+            LootItem.crateObject.GetComponent<Health>().MaximumHealth = item.Crate.Health;
             crates.Add(LootItem);
         }
     }
@@ -56,12 +59,7 @@ public class DestroyableCrate : MonoBehaviour
             {
                 if (!updatedCrates.Exists(updateCrate => updateCrate.Id == crate.id))
                 {
-                    print("remover");
                     RemoveCrate(crate.id);
-                }
-                else
-                {
-                    print("existe crate");
                 }
             });
     }
@@ -99,7 +97,6 @@ public class DestroyableCrate : MonoBehaviour
             Health healthComponent = crate.crateObject.GetComponent<Health>();
             if (updatedCrate.Crate.Health != healthComponent.CurrentHealth)
             {
-                print("cambiar vida");
                 healthComponent.SetHealth(updatedCrate.Crate.Health);
             }
         });
