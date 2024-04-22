@@ -27,6 +27,7 @@ public class Battle : MonoBehaviour
     public CharacterStates.CharacterConditions[] BlockingConditionStates;
     public long accumulatedTime;
     public long firstTimestamp;
+    public GameObject mapGrid;
 
     private Loot loot;
     private bool playerMaterialColorChanged;
@@ -150,7 +151,7 @@ public class Battle : MonoBehaviour
             long nowMiliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             float clientActionRate = GameServerConnectionManager.Instance.serverTickRate_ms;
 
-           if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
+            if ((nowMiliseconds - lastMovementUpdate) >= clientActionRate)
             {
                 SendPlayerMovement();
                 lastMovementUpdate = nowMiliseconds;
@@ -192,7 +193,7 @@ public class Battle : MonoBehaviour
             {
                 if (BlockingMovementStates[i] == (character.MovementState.CurrentState))
                 {
-                   return false;
+                    return false;
                 }
             }
         }
@@ -232,21 +233,14 @@ public class Battle : MonoBehaviour
                 )
                 {
                     // Using joysticks
-                    playerControls.SendJoystickValues(
-                        joystickL.RawValue.x,
-                        joystickL.RawValue.y
-                    );
-                    GameServerConnectionManager
-                    .Instance
-                    .clientPrediction.didFirstMovement = true;
+                    playerControls.SendJoystickValues(joystickL.RawValue.x, joystickL.RawValue.y);
+                    GameServerConnectionManager.Instance.clientPrediction.didFirstMovement = true;
                 }
                 else if (playerControls.KeysPressed())
                 {
                     // Using keyboard
                     playerControls.SendAction();
-                    GameServerConnectionManager
-                    .Instance
-                    .clientPrediction.didFirstMovement = true;
+                    GameServerConnectionManager.Instance.clientPrediction.didFirstMovement = true;
                 }
                 else
                 {
@@ -367,7 +361,7 @@ public class Battle : MonoBehaviour
                                 );
                             }
 
-                            if(playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
+                            if (playerAction.Destination != null) // Maybe add playerAction key to differentiate ?
                             {
                                 playerCharacter.IsTeleporting = true;
                                 playerCharacter.TeleportingDestination = playerAction.Destination;
@@ -420,15 +414,21 @@ public class Battle : MonoBehaviour
         switch (playerAction)
         {
             case PlayerActionType.ExecutingSkill1:
-                currentPlayer.GetComponent<Skill1>().ExecuteFeedbacks(skillDuration, true, destination);
+                currentPlayer
+                    .GetComponent<Skill1>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill2:
-                currentPlayer.GetComponent<Skill2>().ExecuteFeedbacks(skillDuration, true, destination);
+                currentPlayer
+                    .GetComponent<Skill2>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
             case PlayerActionType.ExecutingSkill3:
-                currentPlayer.GetComponent<Skill3>().ExecuteFeedbacks(skillDuration, true, destination);
+                currentPlayer
+                    .GetComponent<Skill3>()
+                    .ExecuteFeedbacks(skillDuration, true, destination);
                 character.RotatePlayer(direction);
                 break;
         }
@@ -602,7 +602,6 @@ public class Battle : MonoBehaviour
                 playerUpdate.Player.Cooldowns.FirstOrDefault(cooldown => cooldown.Key == "3").Value
                 / 1000.0f;
 
-
             InputManager.CheckSkillCooldown(
                 UIControls.Skill1,
                 // (float)playerUpdate.BasicSkillCooldownLeft.Low / 1000f,
@@ -728,7 +727,6 @@ public class Battle : MonoBehaviour
         character.RotateCharacterOrientation();
 
         modelAnimator.SetBool("Walking", walking);
-
     }
 
     // CLIENT PREDICTION UTILITY FUNCTIONS , WE USE THEM IN THE MMTOUCHBUTTONS OF THE PAUSE SPLASH
@@ -857,6 +855,6 @@ public class Battle : MonoBehaviour
 
     public GameObject GetMapGrid()
     {
-        return levelManager.GetMapInstance().GetComponent<MapGrid>().mapGrid;
+        return mapGrid;
     }
 }
