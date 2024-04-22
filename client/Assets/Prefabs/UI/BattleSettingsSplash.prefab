@@ -1221,7 +1221,6 @@ GameObject:
   - component: {fileID: 539854198932283234}
   - component: {fileID: 8195185869557193788}
   - component: {fileID: 3981354617922269931}
-  - component: {fileID: 2341115660939986903}
   m_Layer: 5
   m_Name: OnSpriteStateCam2
   m_TagString: Untagged
@@ -1299,19 +1298,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2341115660939986903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450646719790173779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc754dca213048d8b8e1423fd90efd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleLabel: {fileID: 7340361559566092365}
 --- !u!1 &471825586522601642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1448,6 @@ GameObject:
   - component: {fileID: 7931606163107531689}
   - component: {fileID: 7115396109114067535}
   - component: {fileID: 1501935635146243120}
-  - component: {fileID: 2641392227509005289}
   m_Layer: 5
   m_Name: OnSpriteCam1
   m_TagString: Untagged
@@ -1540,19 +1525,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2641392227509005289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497776859398454232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc754dca213048d8b8e1423fd90efd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleLabel: {fileID: 944580635574731371}
 --- !u!1 &506969870684080065
 GameObject:
   m_ObjectHideFlags: 0
@@ -7102,7 +7074,6 @@ GameObject:
   - component: {fileID: 3026418155726787093}
   - component: {fileID: 1499008262833520821}
   - component: {fileID: 8881828022412513536}
-  - component: {fileID: 6071160558576561468}
   m_Layer: 5
   m_Name: OnSpriteStateCam4
   m_TagString: Untagged
@@ -7180,19 +7151,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6071160558576561468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385381055536463065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc754dca213048d8b8e1423fd90efd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleLabel: {fileID: 3119393950782796124}
 --- !u!1 &4420586098193228038
 GameObject:
   m_ObjectHideFlags: 0
@@ -7735,7 +7693,6 @@ GameObject:
   - component: {fileID: 5943035951071826757}
   - component: {fileID: 1983461814898375881}
   - component: {fileID: 2002052214531954406}
-  - component: {fileID: 5819552982189274312}
   m_Layer: 5
   m_Name: OnSpriteStateCam3
   m_TagString: Untagged
@@ -7813,19 +7770,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5819552982189274312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4770055195845314886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc754dca213048d8b8e1423fd90efd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleLabel: {fileID: 1244694558636502239}
 --- !u!1 &4874916497684572192
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,10 +10630,15 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   mainCameraCM: {fileID: 0}
   cameraToggles:
-  - {fileID: 497776859398454232}
-  - {fileID: 450646719790173779}
-  - {fileID: 4770055195845314886}
-  - {fileID: 4385381055536463065}
+  - {fileID: 7115396109114067535}
+  - {fileID: 8195185869557193788}
+  - {fileID: 1983461814898375881}
+  - {fileID: 1499008262833520821}
+  cameraTextHolders:
+  - {fileID: 944580635574731371}
+  - {fileID: 7340361559566092365}
+  - {fileID: 1244694558636502239}
+  - {fileID: 3119393950782796124}
 --- !u!1 &6700877562289121094
 GameObject:
   m_ObjectHideFlags: 0

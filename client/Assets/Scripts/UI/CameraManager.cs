@@ -11,55 +11,60 @@ public class CameraManager : MonoBehaviour
     Camera mainCamera;
 
     [SerializeField] 
-    GameObject mainCameraCM;
+    CinemachineVirtualCamera mainCameraCM;
 
     [SerializeField]
-    List<GameObject> cameraToggles;
+    Image[] cameraToggles = new Image[4];
+
+    [SerializeField]
+    TextMeshProUGUI[] cameraTextHolders = new TextMeshProUGUI[4];
 
     private Vector3 defaultCameraRotation;
     private Vector3 topView = new Vector3(90, 0, 0);
     private float initialCameraDistance, variableCameraDistance;
+    CinemachineFramingTransposer cinemachineFramingTransposer;
     
     void Awake()
-    {
+    {        
         defaultCameraRotation = mainCamera.transform.rotation.eulerAngles;
-        initialCameraDistance = mainCameraCM.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
+        cinemachineFramingTransposer = mainCameraCM.GetCinemachineComponent<CinemachineFramingTransposer>();
+        initialCameraDistance = cinemachineFramingTransposer.m_CameraDistance;
         SetDefaultSettings();
     }
 
     public void SetDefaultSettings()
     {
         SetCamera(defaultCameraRotation, initialCameraDistance, false);
-        UpdateUIState(cameraToggles[0]);
+        UpdateUIState(0);
     }
     public void SetZoomInPerspective(){
         SetCamera(defaultCameraRotation, initialCameraDistance - 10, false);
-        UpdateUIState(cameraToggles[1]);
+        UpdateUIState(1);
     }
     public void SetZoomOutPerspective(){
         SetCamera(defaultCameraRotation, initialCameraDistance + 10, false);
-        UpdateUIState(cameraToggles[2]);
+        UpdateUIState(2);
     }
 
     public void SetSentinelSettings()
     {
         SetCamera(topView, initialCameraDistance, true);       
-        UpdateUIState(cameraToggles[3]); 
+        UpdateUIState(3); 
     }
-    public void SetCamera(Vector3 cameraRotation, float cameraDistance, bool orthographic)
+    public void SetCamera(Vector3 cameraRotation, float cameraDistance, bool isOrthographic)
     {
         mainCameraCM.transform.rotation = Quaternion.Euler(cameraRotation);
-        mainCameraCM.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = cameraDistance;
-        mainCamera.orthographic = orthographic;
+        cinemachineFramingTransposer.m_CameraDistance = cameraDistance;
+        mainCamera.orthographic = isOrthographic;
     }
 
-    private void UpdateUIState(GameObject toggle)
+    private void UpdateUIState(int index)
     {
-        foreach(GameObject cameraToggle in cameraToggles){
-            bool isOn = (cameraToggle == toggle);
-            cameraToggle.GetComponent<Image>().enabled = isOn;
+        for(int i = 0; i < cameraToggles.Length; i++){
+            bool isOn = (i == index);
             int alpha = isOn ? 255 : 100;
-            cameraToggle.GetComponent<ToggleLabelHandler>().toggleLabel.color = new Color32(255, 255, 255, (byte)alpha);
+            cameraToggles[i].enabled = isOn;
+            cameraTextHolders[i].color = new Color32(255, 255, 255, (byte)alpha);
         }
     }
 }

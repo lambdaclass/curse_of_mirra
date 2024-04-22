@@ -29863,7 +29863,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mainCameraCM
       value: 
-      objectReference: {fileID: 1272036331211942}
+      objectReference: {fileID: 114129316014370704}
     - target: {fileID: 4034920775869595653, guid: ecb74564ab3ec44ae9e88e1ddfc812b6,
         type: 3}
       propertyPath: m_AnchorMax.y
