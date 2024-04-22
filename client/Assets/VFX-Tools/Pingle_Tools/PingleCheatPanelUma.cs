@@ -103,13 +103,13 @@ public class PingleCheatPanelUma : MonoBehaviour
         pool.Add( cached_vfx );
 
         yield return new WaitForSeconds(0.1f);
-        character_renderer.enabled = false;
+        //character_renderer.enabled = false;
 
         yield return new WaitForSeconds(1.2f);
         character_instance.CharacterAnimator.ResetTrigger("Skill2");
         yield return new WaitForSeconds(1.2f);
 
-        character_renderer.enabled = true;
+        //character_renderer.enabled = true;
         clearPool();
     }
 
