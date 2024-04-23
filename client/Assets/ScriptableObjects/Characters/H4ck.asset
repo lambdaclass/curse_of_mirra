@@ -31,7 +31,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 275be5c874b674ef3b672edf201b0b5b, type: 2}
   - {fileID: 11400000, guid: ba386648f8c5949e0bc90d8519e6aba5, type: 2}
   skillBasicInfo: {fileID: 11400000, guid: 6d06c6705e5cb4116b80e03e1d88f3d2, type: 2}
-  UIModel: {fileID: 1787465996332106805, guid: 119618c276daa4dc7802bd2928cc20cd, type: 3}
+  UIModel: {fileID: 2866215690245578517, guid: 1c506696649ef4723ac79b7c13579c28, type: 3}
   shadowScaleValues: {x: 0.9, y: 1, z: 1}
   battleCharacterCard: {fileID: 21300000, guid: d6fb4388bb0a0427481a7083feee3555,
     type: 3}
