@@ -86,12 +86,11 @@ public class CharacterFeedbacks : MonoBehaviour
     }
 
     private void PlayHapticDamageFeedback(){
-        ulong damage; 
-        Dictionary<ulong,ulong> damageDone = GameServerConnectionManager.Instance.damageDone;
-        if(damageDone.TryGetValue(playerID, out damage)) {
+        ulong damage;
+        if(GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage)) {
             HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage);
             TriggerHapticFeedback(hapticFeedbackType);
-        }
+        };
     }
 
     private HapticFeedbackType GetHapticTypeByDamage(ulong damage) => damage switch{
