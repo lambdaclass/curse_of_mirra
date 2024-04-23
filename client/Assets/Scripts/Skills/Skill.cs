@@ -243,7 +243,7 @@ public class Skill : CharacterAbility
             );
 
             if(destinationPosition != null && hasDestination){
-                vfxPosition = new Vector3(destinationPosition.X / 150, vfx.transform.position.y, destinationPosition.Y / 150);
+                vfxPosition = new Vector3(destinationPosition.X / 115, vfx.transform.position.y, destinationPosition.Y / 115);
             }
 
             if(hasSkillPool){

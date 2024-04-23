@@ -109,9 +109,9 @@ public class CustomCharacter : Character
             this.transform.position =
                 new Vector3
                 (
-                    serverPosition.X / 150, 
+                    serverPosition.X / 115, 
                     this.transform.position.y,
-                    serverPosition.Y / 150
+                    serverPosition.Y / 115
                 );
         }
     }
