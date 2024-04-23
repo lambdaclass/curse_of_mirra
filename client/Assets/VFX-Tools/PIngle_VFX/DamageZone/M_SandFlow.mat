@@ -64,11 +64,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaMultiplier: 0
+    - _AlphaMultiplier: 0.7
     - _AlphaPower: 0.7
     - _EdgeNoiseIntensity: 6
     - _EdgePower: 159
-    - _Progress: 0.1304348
+    - _Progress: 0.36413047
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SkewUV: 0.4
