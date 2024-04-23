@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ToggleButton : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI textState;
+    public TextMeshProUGUI textState;
 
     [SerializeField]
     Battle battle;
