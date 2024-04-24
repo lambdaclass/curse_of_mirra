@@ -7,7 +7,9 @@ using UnityEngine;
 public class PingleCheatPanelHack : MonoBehaviour
 {
   public GameObject skill1_vfx = null;
+  public GameObject skill2_vfx_init = null;
   public GameObject skill2_vfx = null;
+  public float skill2_vfx_dis = 10.0f;
   public float projectile_speed = 4.0f;
   public float spawn_pivot_height = 1.2f;
   public int skill3_duration = 80;
@@ -31,6 +33,7 @@ public class PingleCheatPanelHack : MonoBehaviour
       hack_instance = FindObjectOfType<Character>();
       resetAnims();
       clearPool();
+      clearPool();
       hack_instance.transform.position = spawn_point.position;
   }
 
@@ -50,12 +53,20 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       if (GUI.Button(new Rect( 200, 100, 80, 80 ), "Skill_1"))
           activateSkill1();
+          activateSkill1();
 
       if (GUI.Button(new Rect( 300, 100, 80, 80 ), "Skill_2"))
           activateSkill2();
 
       if (GUI.Button(new Rect( 400, 100, 80, 80 ), "Skill_3"))
           activateSkill3();
+  }
+
+  private void activateSkill1()
+  {
+      resetAnims();
+      clearPool();
+      StartCoroutine(skill1());
   }
 
   private void activateSkill1()
@@ -74,7 +85,9 @@ public class PingleCheatPanelHack : MonoBehaviour
 
 
   private IEnumerator skill1()
+  private IEnumerator skill1()
   {
+      hack_instance.CharacterAnimator.SetTrigger("Skill1");
       hack_instance.CharacterAnimator.SetTrigger("Skill1");
 
       yield return new WaitForSeconds( 0.2f );
@@ -84,16 +97,19 @@ public class PingleCheatPanelHack : MonoBehaviour
       Quaternion look_dir = Quaternion.Euler(0.0f, 90.0f,0.0f);
 
       for ( int i = 0; i < 1; i++ )
+      for ( int i = 0; i < 1; i++ )
       {
           new_pos = hack_instance.transform.position;
           new_pos.y += spawn_pivot_height;
           new_pos.x += 2.0f;
+          cached_vfx = Instantiate( skill1_vfx, new_pos, look_dir );
           cached_vfx = Instantiate( skill1_vfx, new_pos, look_dir );
 
           pool.Add( cached_vfx );
           yield return waiter;
       }
 
+      hack_instance.CharacterAnimator.ResetTrigger("Skill1");
       hack_instance.CharacterAnimator.ResetTrigger("Skill1");
       yield return new WaitForSeconds(3.2f);
       clearPool();
@@ -108,10 +124,17 @@ public class PingleCheatPanelHack : MonoBehaviour
       GameObject cached_vfx = null;
       Vector3 new_pos = Vector3.zero;
       new_pos = hack_instance.transform.position;
-      new_pos.x += 7.0f;
+      cached_vfx = Instantiate( skill2_vfx_init, new_pos, Quaternion.identity );
+
+      yield return new WaitForSeconds( 0.3f );
+
+      new_pos = hack_instance.transform.position;
+      new_pos.x += skill2_vfx_dis;
       new_pos.y += 0.3f;
 
       cached_vfx = Instantiate( skill2_vfx, new_pos, Quaternion.identity );
+
+      yield return new WaitForSeconds( 0.4f );
 
       hack_instance.CharacterAnimator.ResetTrigger("Skill2");
   }
@@ -153,6 +176,7 @@ public class PingleCheatPanelHack : MonoBehaviour
 
       hack_instance.CharacterAnimator.SetTrigger("Skill3");
 
+      yield return new WaitForSeconds(0.5f);
       yield return new WaitForSeconds(0.5f);
       Vector3 new_pos = hack_instance.transform.position;
 
