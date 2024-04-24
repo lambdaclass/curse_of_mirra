@@ -86,4 +86,8 @@ public class CharacterInfoManager : MonoBehaviour
         );
         this.GetComponent<MMLoadScene>().LoadScene();
     }
+
+    public void PlaySkillAnimation(string parameterName){
+        StartCoroutine(modelManager.AnimateCharacterSkill(parameterName.ToUpper()));
+    }
 }

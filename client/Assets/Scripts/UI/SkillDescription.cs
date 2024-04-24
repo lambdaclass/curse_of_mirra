@@ -40,6 +40,7 @@ public class SkillDescription : MonoBehaviour, IPointerDownHandler
         string skillSetType = GetSkillSetType();
         skillsDetailHandler.SetSkillDetaill(skillSetType, skillData.name, skillData.description);
         skillsDetailHandler.ResetSelectSkill(this);
+        skillsDetailHandler.characterInfoManager.PlaySkillAnimation(skillSetType);
     }
 
     private string GetSkillSetType()

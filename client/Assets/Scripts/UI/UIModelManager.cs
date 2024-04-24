@@ -49,8 +49,8 @@ public class UIModelManager : MonoBehaviour
         modelAnimator = modelClone.GetComponentInChildren<Animator>();
         if (SceneManager.GetActiveScene().name != "Battle")
         {
-            animationClipDuration = AnimationClipTime(modelAnimator);
-            characterAnimation = StartCoroutine(AnimateCharacter(modelClone));
+            animationClipDuration = AnimationClipTime(modelAnimator, "Victory");
+            characterAnimation = StartCoroutine(AnimateCharacter("Victory"));
         }
     }
 
@@ -63,27 +63,50 @@ public class UIModelManager : MonoBehaviour
         }
     }
 
-    float AnimationClipTime(Animator modelClone)
+    float AnimationClipTime(Animator modelClone, string parameterName)
     {
         List<AnimationClip> clips = modelClone.runtimeAnimatorController.animationClips.ToList();
-        return modelClone.name.Contains("Uma")
-            ? clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2
-            : clips.Single(clip => clip.name == "Victory").length;
+        float animationClipTime = 0;     
+    
+        if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
+            animationClipTime =  clips.Single(clip => clip.name == "GR_VeilOfRadiance").length / 2;
+        } else {
+            print(parameterName);
+            animationClipTime =  clips.Single(clip => clip.name.ToLower() == parameterName.ToLower()).length;
+        }
+       
+        return animationClipTime;
     }
 
-    IEnumerator AnimateCharacter(GameObject modelClone)
+    public IEnumerator AnimateCharacter(string parameterName)
     {
         // Fix this: With the characterSelection PR we can add a string in the ComCharacter to
         // select which animations should be played
-        string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
+        // string animationName = modelClone.name.Contains("Uma") ? "Radiance" : "Victory";
+        GameObject modelClone = modelAnimator.transform.parent.gameObject;
+
+
+        if(modelClone.name.Contains("Uma") && parameterName == "Victory"){
+            parameterName = "Radiance";
+        }
+
         while (animate)
         {
+            print("Executing " + parameterName);
             yield return new WaitForSeconds(1f);
-            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, true);
+            modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, true);
             yield return new WaitForSeconds(animationClipDuration);
-            modelClone.GetComponentInChildren<Animator>().SetBool(animationName, false);
-            yield return new WaitForSeconds(ANIMATION_INTERVAL);
+            modelClone.GetComponentInChildren<Animator>().SetBool(parameterName, false);
+            yield return new WaitForSeconds(parameterName == "Victory" ?  ANIMATION_INTERVAL : 0);
         }
+    }
+
+    public IEnumerator AnimateCharacterSkill(string parameterName)
+    {
+        float animationDuration = AnimationClipTime(modelAnimator, parameterName);
+        modelAnimator.SetBool(parameterName, true);
+        yield return new WaitForSeconds(animationDuration);
+        modelAnimator.SetBool(parameterName, false);
     }
 
     public void ShowEndGameCharacterAnimation()

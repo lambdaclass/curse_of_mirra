@@ -125,6 +125,7 @@ MonoBehaviour:
   skillDescription: {fileID: 227444003}
   skillsList: []
   bordersList: []
+  characterInfoManager: {fileID: 576590200}
 --- !u!114 &6121490704517079073
 MonoBehaviour:
   m_ObjectHideFlags: 0
