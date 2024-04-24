@@ -1,6 +1,5 @@
 fileFormatVersion: 2
-guid: 03ddd2bbc2b6e4760a0cbfaa0a1162db
-guid: 03ddd2bbc2b6e4760a0cbfaa0a1162db
+guid: 229af38c1b5d84986b523df36e2b7502
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Valtimer
-    second: {fileID: 2100000, guid: 8b7e7b3d29879e24b9366e61bbb99312, type: 2}
+      name: pasted__Valtimer
+    second: {fileID: 2100000, guid: 036e5c7ccc3fc4b2cbcb2fff5e210956, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -75,7 +74,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
