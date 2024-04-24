@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8d160ac2d2ed14d9286a23947bd9043c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d160ac2d2ed14d9286a23947bd9043c,
         type: 3}
@@ -273,6 +273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinionA_AllAnim_CenterofWorld
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47f66dbb9f14b43b2958acfca23e91d4, type: 3}
 --- !u!1 &399773850 stripped
@@ -380,6 +385,102 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &970553856
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.139
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.367
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.388
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000013925133
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000976026
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000035747882
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 135.713
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+        type: 3}
+      propertyPath: m_Name
+      value: MinionA_AllAnim_CenterofWorld (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 47f66dbb9f14b43b2958acfca23e91d4, type: 3}
+--- !u!1 &970553857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 47f66dbb9f14b43b2958acfca23e91d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 970553856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &970553858
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970553857}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ad70cea4439447878e8cd8bb7dd830b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &988969686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1189511762083442588, guid: 9edcf7e494cf3e640b18cb7495fb179a,
@@ -404,6 +505,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26d8b5a4a0ac49a6b4edc2ac2d8b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1898337767
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.598
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27379176
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.4101454
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98495597
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.015668364
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.17159641
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.013073118
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -27.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_Name
+      value: MinionB_AllAnim_CenterofWorld (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 48434ee4f53d9457abf1c01e5f9910d3, type: 3}
+--- !u!1 &1898337768 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1898337767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1898337769
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898337768}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 83bc9e31d0f3c4c799516a829d7137ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1952052658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -470,6 +667,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MinionB_AllAnim_CenterofWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 48434ee4f53d9457abf1c01e5f9910d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48434ee4f53d9457abf1c01e5f9910d3, type: 3}
