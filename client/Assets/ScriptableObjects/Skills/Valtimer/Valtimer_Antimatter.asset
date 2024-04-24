@@ -26,7 +26,7 @@ MonoBehaviour:
     type: 3}
   skillKey: 1
   animationSpeedMultiplier: 4
-  abilityStartSfx: {fileID: 8300000, guid: 78f6b0c75348944ff8108d0fcec7c81d, type: 3}
+  abilityStartSfx: {fileID: 8300000, guid: 5ef6382c58908436eb8e97b1bb2dab7c, type: 3}
   sfxHasAbilityStop: 0
   abilityStopSfx: {fileID: 0}
   skillCircleRange: 12
