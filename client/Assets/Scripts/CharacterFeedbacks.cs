@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CandyCoded.HapticFeedback;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Profiling;
-using UnityEngine.VFX;
 
 public enum HapticFeedbackType
 {
@@ -51,6 +50,7 @@ public class CharacterFeedbacks : MonoBehaviour
     float overlayDuration = 5f;
     bool restoreBaseOverlayColor = true;
     private bool didPickUp = false;
+    private ulong playerID;
 
     // didPickUp value should ideally come from backend
     public bool DidPickUp()
@@ -60,6 +60,7 @@ public class CharacterFeedbacks : MonoBehaviour
 
     void Start()
     {
+        playerID = GameServerConnectionManager.Instance.playerId;
         damageOverlayColor = new Color(1, 0, 0, 1);
         currentOverlayColor = new Color(1, 1, 1, 1);
         baseOverlayColor = new Color(1, 1, 1, 1);
@@ -79,7 +80,27 @@ public class CharacterFeedbacks : MonoBehaviour
             ChangeModelsOverlayColor(currentOverlayColor);
             currentOverlayColor = nextColor;
         }
+
+        PlayHapticDamageFeedback();
     }
+
+    private void PlayHapticDamageFeedback()
+    {
+        ulong damage;
+        if (GameServerConnectionManager.Instance.damageDone.TryGetValue(playerID, out damage))
+        {
+            HapticFeedbackType hapticFeedbackType = GetHapticTypeByDamage(damage);
+            TriggerHapticFeedback(hapticFeedbackType);
+        }
+        ;
+    }
+
+    private HapticFeedbackType GetHapticTypeByDamage(ulong damage) =>
+        damage switch
+        {
+            < 70 => HapticFeedbackType.Light,
+            >= 70 => HapticFeedbackType.Heavy,
+        };
 
     public void SetColorOverlayAlpha(float currentAlpha)
     {
@@ -140,7 +161,10 @@ public class CharacterFeedbacks : MonoBehaviour
             if (playerId == GameServerConnectionManager.Instance.playerId)
             {
                 damageFeedback.GetComponent<MMF_Player>().PlayFeedbacks();
-                TriggerHapticFeedback(HapticFeedbackType.Heavy);
+                HapticFeedbackType feedbackType = GetHapticTypeByDamage(
+                    (ulong)(clientHealth - serverPlayerHealth)
+                );
+                TriggerHapticFeedback(feedbackType);
             }
             this.ChangePlayerTextureOnDamage(clientHealth, serverPlayerHealth);
             this.healthBar.BumpOnDecrease = true;
