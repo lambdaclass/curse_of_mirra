@@ -143,6 +143,7 @@ MonoBehaviour:
   StaminaCharges: {fileID: 8125614112250762218, guid: 8f2f9408ea9e84936a5116318b303a3c,
     type: 3}
   powerUps: {fileID: 6157877879879126604}
+  characterShadow: {fileID: 8313198474741920727}
   spawnSfx: {fileID: 8300000, guid: 58ab9b9883d694a42bb691eb2dd99d25, type: 3}
   sound3DManager: {fileID: 44719680363781297}
 --- !u!114 &1743729574858777773
